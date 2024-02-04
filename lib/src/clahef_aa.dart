@@ -25,9 +25,9 @@
       COMPLEX      PIV, ALPHA;
       // ..
       // .. External Functions ..
-      //- bool         LSAME;
+      //- bool         lsame;
       //- int          ICAMAX, ILAENV;
-      // EXTERNAL LSAME, ILAENV, ICAMAX
+      // EXTERNAL lsame, ILAENV, ICAMAX
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACGV, CGEMV, CSCAL, CAXPY, CCOPY, CSWAP, CLASET, XERBLA
@@ -44,7 +44,7 @@
 
       K1 = (2-J1)+1;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // .....................................................
          // Factorize A as U**T*D*U using the upper triangle of A

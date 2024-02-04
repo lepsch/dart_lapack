@@ -39,9 +39,9 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH, DSECND;
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- REAL               SLAMCH;
-      // EXTERNAL DLAMCH, DSECND, LSAME, LSAMEN, SLAMCH
+      // EXTERNAL DLAMCH, DSECND, lsame, LSAMEN, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, ZDRVAB, ZDRVAC, ZERRAB, ZERRAC, ILAVER
@@ -195,7 +195,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'Zomplex precision' ) ) {
+      if ( !lsame( C1, 'Zomplex precision' ) ) {
             WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {

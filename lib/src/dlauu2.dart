@@ -24,9 +24,9 @@
       double             AII;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT;
-      // EXTERNAL LSAME, DDOT
+      // EXTERNAL lsame, DDOT
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DSCAL, XERBLA
@@ -39,8 +39,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

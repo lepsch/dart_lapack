@@ -29,10 +29,10 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SLAMCH, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SLAMCH, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGELQT, CGEQRT, CGEMLQT, CGEMQRT, CLASCL, CLASET, CTRTRS, XERBLA
@@ -47,7 +47,7 @@
       INFO = 0;
       MN = min( M, N );
       LQUERY = ( LWORK == -1 );
-      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'C' ) ) ) {
+      if ( !( lsame( TRANS, 'N' ) || lsame( TRANS, 'C' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;
@@ -68,7 +68,7 @@
       if ( INFO == 0 || INFO == -10 ) {
 
          TPSD = true;
-         if( LSAME( TRANS, 'N' ) ) TPSD = false;
+         if( lsame( TRANS, 'N' ) ) TPSD = false;
 
          NB = ILAENV( 1, 'CGELST', ' ', M, N, -1, -1 );
 

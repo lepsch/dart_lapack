@@ -27,9 +27,9 @@
       // EXTERNAL SAXPY, SLARFG, SSYMV, SSYR2, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT;
-      // EXTERNAL LSAME, SDOT
+      // EXTERNAL lsame, SDOT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -39,8 +39,8 @@
       // Test the input parameters
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

@@ -20,8 +20,8 @@
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
 
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -33,11 +33,11 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      CONVERT = LSAME( WAY, 'C' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      CONVERT = lsame( WAY, 'C' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !CONVERT && !LSAME( WAY, 'R' ) ) {
+      } else if ( !CONVERT && !lsame( WAY, 'R' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

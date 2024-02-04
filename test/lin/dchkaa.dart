@@ -40,9 +40,9 @@
       double          , DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- double             DLAMCH, DSECND;
-      // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND
+      // EXTERNAL lsame, LSAMEN, DLAMCH, DSECND
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, DCHKEQ, DCHKGB, DCHKGE, DCHKGT, DCHKLQ, DCHKORHR_COL, DCHKPB, DCHKPO, DCHKPS, DCHKPP, DCHKPT, DCHKQ3, DCHKQP3RK, DCHKQL, DCHKQR, DCHKRQ, DCHKSP, DCHKSY, DCHKSY_ROOK, DCHKSY_RK, DCHKSY_AA, DCHKTB, DCHKTP, DCHKTR, DCHKTZ, DDRVGB, DDRVGE, DDRVGT, DDRVLS, DDRVPB, DDRVPO, DDRVPP, DDRVPT, DDRVSP, DDRVSY, DDRVSY_ROOK, DDRVSY_RK, DDRVSY_AA, ILAVER, DCHKLQTP, DCHKQRT, DCHKQRTP, DCHKLQT,DCHKTSQR
@@ -303,7 +303,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'double;
+      if ( !lsame( C1, 'double;
          ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 

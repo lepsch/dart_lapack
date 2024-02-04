@@ -40,9 +40,9 @@
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- REAL               SECOND, SLAMCH;
-      // EXTERNAL LSAME, LSAMEN, SECOND, SLAMCH
+      // EXTERNAL lsame, LSAMEN, SECOND, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, CCHKEQ, CCHKGB, CCHKGE, CCHKGT, CCHKHE, CCHKHE_ROOK, CCHKHE_RK, CCHKHE_AA, CCHKHP, CCHKLQ, CCHKUNHR_COL, CCHKPB, CCHKPO, CCHKPS, CCHKPP, CCHKPT, CCHKQ3, CCHKQP3RK, CCHKQL, CCHKQR, CCHKRQ, CCHKSP, CCHKSY, CCHKSY_ROOK, CCHKSY_RK, CCHKSY_AA, CCHKTB, CCHKTP, CCHKTR, CCHKTZ, CDRVGB, CDRVGE, CDRVGT, CDRVHE, CDRVHE_ROOK, CDRVHE_RK, CDRVHE_AA, CDRVHP, CDRVLS, CDRVPB, CDRVPO, CDRVPP, CDRVPT, CDRVSP, CDRVSY, CDRVSY_ROOK, CDRVSY_RK, CDRVSY_AA, ILAVER, CCHKQRT, CCHKQRTP
@@ -299,7 +299,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'Complex precision' ) ) {
+      if ( !lsame( C1, 'Complex precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {

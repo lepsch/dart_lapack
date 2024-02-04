@@ -45,8 +45,8 @@
       // from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
-      bool               LSAME;
-      // EXTERNAL LSAME
+      bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // ..
@@ -60,12 +60,12 @@
 
       // Test the input arguments
 
-      LSVEC = LSAME( JOBU, 'U' ) || LSAME( JOBU, 'F' );
-      UCTOL = LSAME( JOBU, 'C' );
-      RSVEC = LSAME( JOBV, 'V' ) || LSAME( JOBV, 'J' );
-      APPLV = LSAME( JOBV, 'A' );
-      UPPER = LSAME( JOBA, 'U' );
-      LOWER = LSAME( JOBA, 'L' );
+      LSVEC = lsame( JOBU, 'U' ) || lsame( JOBU, 'F' );
+      UCTOL = lsame( JOBU, 'C' );
+      RSVEC = lsame( JOBV, 'V' ) || lsame( JOBV, 'J' );
+      APPLV = lsame( JOBV, 'A' );
+      UPPER = lsame( JOBA, 'U' );
+      LOWER = lsame( JOBA, 'L' );
 
       MINMN = min( M, N );
       if ( MINMN == 0 ) {
@@ -77,11 +77,11 @@
       }
 
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 );
-      if ( !( UPPER || LOWER || LSAME( JOBA, 'G' ) ) ) {
+      if ( !( UPPER || LOWER || lsame( JOBA, 'G' ) ) ) {
          INFO = -1;
-      } else if ( !( LSVEC || UCTOL || LSAME( JOBU, 'N' ) ) ) {
+      } else if ( !( LSVEC || UCTOL || lsame( JOBU, 'N' ) ) ) {
          INFO = -2;
-      } else if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

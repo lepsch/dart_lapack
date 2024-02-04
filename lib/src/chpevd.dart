@@ -28,9 +28,9 @@
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHP, SLAMCH, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, CLANHP, SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL lsame, CLANHP, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHPTRD, CSSCAL, CSTEDC, CUPMTR, SSCAL, SSTERF, XERBLA
@@ -42,13 +42,13 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
+      WANTZ = lsame( JOBZ, 'V' );
       LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( lsame( UPLO, 'L' ) || lsame( UPLO, 'U' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

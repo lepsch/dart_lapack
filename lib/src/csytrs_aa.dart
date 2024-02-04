@@ -25,9 +25,9 @@
       int                K, KP, LWKOPT;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACPY, CGTSV, CSWAP, CTRSM, XERBLA
@@ -38,9 +38,9 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

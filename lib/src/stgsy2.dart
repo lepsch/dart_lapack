@@ -34,8 +34,8 @@
       REAL               RHS( LDZ ), Z( LDZ, LDZ );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGEMM, SGEMV, SGER, SGESC2, SGETC2, SSCAL, SLASET, SLATDF, XERBLA
@@ -49,8 +49,8 @@
 
       INFO = 0;
       IERR = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
          INFO = -1;
       } else if ( NOTRAN ) {
          if ( ( IJOB < 0 ) || ( IJOB > 2 ) ) {

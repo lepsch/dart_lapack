@@ -28,10 +28,10 @@
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, ZLANSY;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANSY
+      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL, ZHETRD, ZSTEMR, ZSTEIN, ZSWAP, ZUNMTR
@@ -45,11 +45,11 @@
 
       IEEEOK = ILAENV( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 );
 
-      LOWER = LSAME( UPLO, 'L' );
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      LOWER = lsame( UPLO, 'L' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       LQUERY = ( ( LWORK == -1 ) || ( LRWORK == -1 ) || ( LIWORK == -1 ) );
 
@@ -64,11 +64,11 @@
       }
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;
-      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || lsame( UPLO, 'U' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

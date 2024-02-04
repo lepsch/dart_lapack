@@ -38,9 +38,9 @@
       double             ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, DLAMCH
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARTG, DLAS2, DLASQ1, DLASR, DLASV2, DROT, DSCAL, DSWAP, XERBLA
@@ -53,8 +53,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      LOWER = LSAME( UPLO, 'L' );
-      if ( !LSAME( UPLO, 'U' ) && !LOWER ) {
+      LOWER = lsame( UPLO, 'L' );
+      if ( !lsame( UPLO, 'U' ) && !LOWER ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

@@ -30,25 +30,25 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      INITQ = LSAME( VECT, 'V' );
-      WANTQ = INITQ || LSAME( VECT, 'U' );
-      UPPER = LSAME( UPLO, 'U' );
+      INITQ = lsame( VECT, 'V' );
+      WANTQ = INITQ || lsame( VECT, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       KD1 = KD + 1;
       KDM1 = KD - 1;
       INCX = LDAB - 1;
       IQEND = 1;
 
       INFO = 0;
-      if ( !WANTQ && !LSAME( VECT, 'N' ) ) {
+      if ( !WANTQ && !lsame( VECT, 'N' ) ) {
          INFO = -1;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

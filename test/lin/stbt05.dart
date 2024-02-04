@@ -24,10 +24,10 @@
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -45,9 +45,9 @@
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      UPPER = LSAME( UPLO, 'U' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      UNIT = LSAME( DIAG, 'U' );
+      UPPER = lsame( UPLO, 'U' );
+      NOTRAN = lsame( TRANS, 'N' );
+      UNIT = lsame( DIAG, 'U' );
       NZ = min( KD, N-1 ) + 1;
 
       // Test 1:  Compute the maximum of

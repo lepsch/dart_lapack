@@ -31,10 +31,10 @@
       // ..
       // .. External Functions ..
 
-      bool               LSAME;
+      bool               lsame;
       int                ICAMAX;
       REAL               SLAMCH, SLAPY2;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH, SLAPY2
+      // EXTERNAL lsame, ICAMAX, SLAMCH, SLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, CSSCAL, CHER, CSWAP
@@ -53,8 +53,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

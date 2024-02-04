@@ -20,9 +20,9 @@
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL DORMLQ, DORMQR, XERBLA
@@ -35,9 +35,9 @@
       // Test the input arguments
 
       INFO = 0;
-      APPLYQ = LSAME( VECT, 'Q' );
-      LEFT = LSAME( SIDE, 'L' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      APPLYQ = lsame( VECT, 'Q' );
+      LEFT = lsame( SIDE, 'L' );
+      NOTRAN = lsame( TRANS, 'N' );
       LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q or P and NW is the minimum dimension of WORK
@@ -49,11 +49,11 @@
          NQ = N;
          NW = max( 1, M );
       }
-      if ( !APPLYQ && !LSAME( VECT, 'P' ) ) {
+      if ( !APPLYQ && !lsame( VECT, 'P' ) ) {
          INFO = -1;
-      } else if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      } else if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -2;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

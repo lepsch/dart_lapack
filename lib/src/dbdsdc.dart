@@ -27,10 +27,10 @@
       double             CS, EPS, ORGNRM, P, R, SN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DLARTG, DLASCL, DLASD0, DLASDA, DLASDQ, DLASET, DLASR, DSWAP, XERBLA
@@ -45,13 +45,13 @@
       INFO = 0;
 
       IUPLO = 0;
-      if( LSAME( UPLO, 'U' ) ) IUPLO = 1;
-      IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
-      if ( LSAME( COMPQ, 'N' ) ) {
+      if( lsame( UPLO, 'U' ) ) IUPLO = 1;
+      IF( lsame( UPLO, 'L' ) ) IUPLO = 2;
+      if ( lsame( COMPQ, 'N' ) ) {
          ICOMPQ = 0;
-      } else if ( LSAME( COMPQ, 'P' ) ) {
+      } else if ( lsame( COMPQ, 'P' ) ) {
          ICOMPQ = 1;
-      } else if ( LSAME( COMPQ, 'I' ) ) {
+      } else if ( lsame( COMPQ, 'I' ) ) {
          ICOMPQ = 2;
       } else {
          ICOMPQ = -1;

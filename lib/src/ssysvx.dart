@@ -26,10 +26,10 @@
       REAL               ANORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH, SLANSY, SROUNDUP_LWORK;
-      // EXTERNAL ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, lsame, SLAMCH, SLANSY, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLACPY, SSYCON, SSYRFS, SSYTRF, SSYTRS, XERBLA
@@ -42,12 +42,12 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
+      NOFACT = lsame( FACT, 'N' );
       LQUERY = ( LWORK == -1 );
       LWKMIN = max( 1, 3*N );
-      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

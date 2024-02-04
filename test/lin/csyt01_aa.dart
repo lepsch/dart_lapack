@@ -28,9 +28,9 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, CLANSY;
-      // EXTERNAL LSAME, SLAMCH, CLANSY
+      // EXTERNAL lsame, SLAMCH, CLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASET, CLAVSY
@@ -57,7 +57,7 @@
       claset('Full', N, N, CZERO, CZERO, C, LDC );
       clacpy('F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 );
       if ( N > 1 ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             clacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 );
             clacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 );
          } else {
@@ -67,7 +67,7 @@
 
          // Call CTRMM to form the product U' * D (or L * D ).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             ctrmm('Left', UPLO, 'Transpose', 'Unit', N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC );
          } else {
             ctrmm('Left', UPLO, 'No transpose', 'Unit', N-1, N, CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC );
@@ -75,7 +75,7 @@
 
          // Call CTRMM again to multiply by U (or L ).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             ctrmm('Right', UPLO, 'No transpose', 'Unit', N, N-1, CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC );
          } else {
             ctrmm('Right', UPLO, 'Transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC );
@@ -96,7 +96,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
                C[I, J] = C( I, J ) - A( I, J );

@@ -24,8 +24,8 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG
@@ -49,7 +49,7 @@
       }
 
       if ( ALPHA == ONE ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Compute B := B + A*X, where E is the superdiagonal of A.
 
@@ -79,7 +79,7 @@
             } // 80
          }
       } else if ( ALPHA == -ONE ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Compute B := B - A*X, where E is the superdiagonal of A.
 

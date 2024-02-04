@@ -28,9 +28,9 @@
       double             DSCALE, DSUM, SCALE2, SCALOC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLASET, DSCAL, DTGSY2, XERBLA
@@ -43,10 +43,10 @@
       // Decode and test input parameters
 
       INFO = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
       LQUERY = ( LWORK == -1 );
 
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
          INFO = -1;
       } else if ( NOTRAN ) {
          if ( ( IJOB < 0 ) || ( IJOB > 4 ) ) {

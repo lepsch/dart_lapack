@@ -26,9 +26,9 @@
       // EXTERNAL DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT;
-      // EXTERNAL LSAME, DDOT
+      // EXTERNAL lsame, DDOT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
@@ -39,7 +39,7 @@
 
       if (N <= 0) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Reduce last NB columns of upper triangle
 

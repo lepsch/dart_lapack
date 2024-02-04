@@ -32,10 +32,10 @@
       // INTRINSIC MIN, MAX
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV2STAGE;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
@@ -43,7 +43,7 @@
       // and test the input parameters
 
       INFO   = 0;
-      UPPER  = LSAME( UPLO, 'U' );
+      UPPER  = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
       if ( N <= KD+1 ) {
          LWMIN = 1;
@@ -51,7 +51,7 @@
          LWMIN = ILAENV2STAGE( 4, 'SSYTRD_SY2SB', '', N, KD, -1, -1 );
       }
 
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

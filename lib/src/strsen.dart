@@ -30,9 +30,9 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLACN2, SLACPY, STREXC, STRSYL, XERBLA
@@ -44,16 +44,16 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' );
-      WANTS = LSAME( JOB, 'E' ) || WANTBH;
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
-      WANTQ = LSAME( COMPQ, 'V' );
+      WANTBH = lsame( JOB, 'B' );
+      WANTS = lsame( JOB, 'E' ) || WANTBH;
+      WANTSP = lsame( JOB, 'V' ) || WANTBH;
+      WANTQ = lsame( COMPQ, 'V' );
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
+      if ( !lsame( JOB, 'N' ) && !WANTS && !WANTSP ) {
          INFO = -1;
-      } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
+      } else if ( !lsame( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
@@ -92,10 +92,10 @@
          if (  WANTSP ) {
             LWMIN = max( 1, 2*NN );
             LIWMIN = max( 1, NN );
-         } else if ( LSAME( JOB, 'N' ) ) {
+         } else if ( lsame( JOB, 'N' ) ) {
             LWMIN = max( 1, N );
             LIWMIN = 1;
-         } else if ( LSAME( JOB, 'E' ) ) {
+         } else if ( lsame( JOB, 'E' ) ) {
             LWMIN = max( 1, NN );
             LIWMIN = 1;
          }

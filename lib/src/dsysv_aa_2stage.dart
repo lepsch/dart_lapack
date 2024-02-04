@@ -22,8 +22,8 @@
       int                LWKMIN, LWKOPT;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSYTRF_AA_2STAGE, DSYTRS_AA_2STAGE, XERBLA
@@ -36,11 +36,11 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       WQUERY = ( LWORK == -1 );
       TQUERY = ( LTB == -1 );
       LWKMIN = max( 1, N );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

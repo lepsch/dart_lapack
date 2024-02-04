@@ -35,8 +35,8 @@
       //- double             DZNRM2;
       //- Complex         ZDOTC;
       //- int                idamax;
-      //- bool               LSAME;
-      // EXTERNAL idamax, LSAME, ZDOTC, DZNRM2
+      //- bool               lsame;
+      // EXTERNAL idamax, lsame, ZDOTC, DZNRM2
       // ..
       // .. External Subroutines ..
       // .. from BLAS
@@ -48,9 +48,9 @@
 
       // Test the input parameters.
 
-      APPLV = LSAME( JOBV, 'A' );
-      RSVEC = LSAME( JOBV, 'V' );
-      if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      APPLV = lsame( JOBV, 'A' );
+      RSVEC = lsame( JOBV, 'V' );
+      if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;
@@ -98,7 +98,7 @@
 
       // .. Initialize the right singular vector matrix ..
 
-      // RSVEC = LSAME( JOBV, 'Y' )
+      // RSVEC = lsame( JOBV, 'Y' )
 
       EMPTSW = N1*( N-N1 );
       NOTROT = 0;

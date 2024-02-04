@@ -39,9 +39,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DGET06, ZLANHP;
-      // EXTERNAL LSAME, DGET06, ZLANHP
+      // EXTERNAL lsame, DGET06, ZLANHP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, ZCOPY, ZERRVX, ZGET04, ZLACPY, ZLAIPD, ZLAQHP, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZPPEQU, ZPPSV, ZPPSVX, ZPPT01, ZPPT02, ZPPT05, ZPPTRF, ZPPTRI
@@ -184,15 +184,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by ZPPSVX (FACT = 'N' reuses
@@ -349,7 +349,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            zget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

@@ -19,10 +19,10 @@
       int                I1, I2, IINFO, LWKOPT, MI, NI, NB, NQ, NW;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SORMQL, SORMQR, XERBLA
@@ -35,8 +35,8 @@
       // Test the input arguments
 
       INFO = 0;
-      LEFT = LSAME( SIDE, 'L' );
-      UPPER = LSAME( UPLO, 'U' );
+      LEFT = lsame( SIDE, 'L' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
@@ -48,11 +48,11 @@
          NQ = N;
          NW = max( 1, M );
       }
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
-      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

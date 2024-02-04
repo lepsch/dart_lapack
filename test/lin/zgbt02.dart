@@ -28,9 +28,9 @@
       Complex         ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               DISNAN, LSAME;
+      //- bool               DISNAN, lsame;
       //- double             DLAMCH, DZASUM;
-      // EXTERNAL DISNAN, DLAMCH, DZASUM, LSAME
+      // EXTERNAL DISNAN, DLAMCH, DZASUM, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGBMV
@@ -57,7 +57,7 @@
 
       EPS = DLAMCH( 'Epsilon' );
       ANORM = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
 
          // Find norm1(A).
 
@@ -93,7 +93,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
       } else {
          N1 = M;

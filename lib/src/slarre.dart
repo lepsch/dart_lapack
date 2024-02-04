@@ -32,9 +32,9 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL                        SLAMCH;
-      // EXTERNAL SLAMCH, LSAME
+      // EXTERNAL SLAMCH, lsame
 
       // ..
       // .. External Subroutines ..
@@ -59,11 +59,11 @@
 
       // Decode RANGE
 
-      if ( LSAME( RANGE, 'A' ) ) {
+      if ( lsame( RANGE, 'A' ) ) {
          IRANGE = ALLRNG;
-      } else if ( LSAME( RANGE, 'V' ) ) {
+      } else if ( lsame( RANGE, 'V' ) ) {
          IRANGE = VALRNG;
-      } else if ( LSAME( RANGE, 'I' ) ) {
+      } else if ( lsame( RANGE, 'I' ) ) {
          IRANGE = INDRNG;
       }
 

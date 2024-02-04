@@ -23,8 +23,8 @@
       int                I, IINFO, J, LWKOPT, MN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DORGLQ, DORGQR, XERBLA
@@ -37,10 +37,10 @@
       // Test the input arguments
 
       INFO = 0;
-      WANTQ = LSAME( VECT, 'Q' );
+      WANTQ = lsame( VECT, 'Q' );
       MN = min( M, N );
       LQUERY = ( LWORK == -1 );
-      if ( !WANTQ && !LSAME( VECT, 'P' ) ) {
+      if ( !WANTQ && !lsame( VECT, 'P' ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

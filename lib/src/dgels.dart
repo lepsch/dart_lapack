@@ -27,10 +27,10 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGELQF, DGEQRF, DLASCL, DLASET, DORMLQ, DORMQR, DTRTRS, XERBLA
@@ -45,7 +45,7 @@
       INFO = 0;
       MN = min( M, N );
       LQUERY = ( LWORK == -1 );
-      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
+      if ( !( lsame( TRANS, 'N' ) || lsame( TRANS, 'T' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;
@@ -66,7 +66,7 @@
       if ( INFO == 0 || INFO == -10 ) {
 
          TPSD = true;
-         if( LSAME( TRANS, 'N' ) ) TPSD = false;
+         if( lsame( TRANS, 'N' ) ) TPSD = false;
 
          if ( M >= N ) {
             NB = ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 );

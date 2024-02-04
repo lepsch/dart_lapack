@@ -38,9 +38,9 @@
       REAL               ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARTG, SLAS2, SLASQ1, SLASR, SLASV2, SROT, SSCAL, SSWAP, XERBLA
@@ -53,8 +53,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      LOWER = LSAME( UPLO, 'L' );
-      if ( !LSAME( UPLO, 'U' ) && !LOWER ) {
+      LOWER = lsame( UPLO, 'L' );
+      if ( !lsame( UPLO, 'U' ) && !LOWER ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

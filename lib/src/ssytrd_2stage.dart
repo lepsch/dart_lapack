@@ -25,17 +25,17 @@
       // EXTERNAL XERBLA, SSYTRD_SY2SB, SSYTRD_SB2ST
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV2STAGE;
-      // EXTERNAL LSAME, ILAENV2STAGE
+      // EXTERNAL lsame, ILAENV2STAGE
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
       INFO   = 0;
-      WANTQ  = LSAME( VECT, 'V' );
-      UPPER  = LSAME( UPLO, 'U' );
+      WANTQ  = lsame( VECT, 'V' );
+      UPPER  = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 ) || ( LHOUS2 == -1 );
 
       // Determine the block size, the workspace size and the hous size.
@@ -50,9 +50,9 @@
          LWMIN = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', VECT, N, KD, IB, -1 );
       }
 
-      if ( !LSAME( VECT, 'N' ) ) {
+      if ( !lsame( VECT, 'N' ) ) {
          INFO = -1;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

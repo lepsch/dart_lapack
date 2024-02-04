@@ -23,12 +23,12 @@
       // EXTERNAL DAXPY, DCOPY, DGEMV, DGER
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
 
          // Form  H * C
 

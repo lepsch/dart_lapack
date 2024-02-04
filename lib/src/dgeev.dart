@@ -33,10 +33,10 @@
       // EXTERNAL DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax, ILAENV;
       //- double             DLAMCH, DLANGE, DLAPY2, DNRM2;
-      // EXTERNAL LSAME, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
+      // EXTERNAL lsame, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -47,11 +47,11 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      WANTVL = LSAME( JOBVL, 'V' );
-      WANTVR = LSAME( JOBVR, 'V' );
-      if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
+      WANTVL = lsame( JOBVL, 'V' );
+      WANTVR = lsame( JOBVR, 'V' );
+      if ( ( !WANTVL ) && ( !lsame( JOBVL, 'N' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !lsame( JOBVR, 'N' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

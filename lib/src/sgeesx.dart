@@ -37,10 +37,10 @@
       // EXTERNAL SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -50,17 +50,17 @@
       // Test the input arguments
 
       INFO = 0;
-      WANTVS = LSAME( JOBVS, 'V' );
-      WANTST = LSAME( SORT, 'S' );
-      WANTSN = LSAME( SENSE, 'N' );
-      WANTSE = LSAME( SENSE, 'E' );
-      WANTSV = LSAME( SENSE, 'V' );
-      WANTSB = LSAME( SENSE, 'B' );
+      WANTVS = lsame( JOBVS, 'V' );
+      WANTST = lsame( SORT, 'S' );
+      WANTSN = lsame( SENSE, 'N' );
+      WANTSE = lsame( SENSE, 'E' );
+      WANTSV = lsame( SENSE, 'V' );
+      WANTSB = lsame( SENSE, 'B' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      if ( ( !WANTVS ) && ( !LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( !WANTVS ) && ( !lsame( JOBVS, 'N' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !lsame( SORT, 'N' ) ) ) {
          INFO = -2;
       } else if ( !( WANTSN || WANTSE || WANTSV || WANTSB ) || ( !WANTST && !WANTSN ) ) {
          INFO = -4;

@@ -27,10 +27,10 @@
       COMPLEX            ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH
+      // EXTERNAL lsame, ICAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
@@ -54,7 +54,7 @@
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
 
       // Test 1:  Compute the maximum of
          // norm(X - XACT) / ( norm(X) * FERR )

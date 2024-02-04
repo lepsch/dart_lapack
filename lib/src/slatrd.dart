@@ -26,9 +26,9 @@
       // EXTERNAL SAXPY, SGEMV, SLARFG, SSCAL, SSYMV
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT;
-      // EXTERNAL LSAME, SDOT
+      // EXTERNAL lsame, SDOT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
@@ -39,7 +39,7 @@
 
       if (N <= 0) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Reduce last NB columns of upper triangle
 

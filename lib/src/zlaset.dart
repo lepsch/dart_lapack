@@ -19,15 +19,15 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Set the diagonal to BETA and the strictly upper triangular
          // part of the array to ALPHA.
@@ -41,7 +41,7 @@
             A[I, I] = BETA;
          } // 30
 
-      } else if ( LSAME( UPLO, 'L' ) ) {
+      } else if ( lsame( UPLO, 'L' ) ) {
 
          // Set the diagonal to BETA and the strictly lower triangular
          // part of the array to ALPHA.

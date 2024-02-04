@@ -24,10 +24,10 @@
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, idamax, DLAMCH
+      // EXTERNAL lsame, idamax, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -45,7 +45,7 @@
       EPS = DLAMCH( 'Epsilon' );
       UNFL = DLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
       NZ = min( KL+KU+2, N+1 );
 
       // Test 1:  Compute the maximum of

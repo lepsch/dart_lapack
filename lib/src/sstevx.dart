@@ -27,9 +27,9 @@
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANST;
-      // EXTERNAL LSAME, SLAMCH, SLANST
+      // EXTERNAL lsame, SLAMCH, SLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SSCAL, SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, XERBLA
@@ -41,13 +41,13 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;

@@ -19,8 +19,8 @@
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLATSQR, DGEQRT, XERBLA

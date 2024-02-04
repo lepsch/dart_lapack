@@ -27,9 +27,9 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANHE, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, CLANHE, SLAMCH
+      // EXTERNAL lsame, CLANGE, CLANHE, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHEMM
@@ -62,7 +62,7 @@
       // Expand AINV into a full matrix and call CHEMM to multiply
       // AINV on the left by A.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
                AINV[J, I] = CONJG( AINV( I, J ) );

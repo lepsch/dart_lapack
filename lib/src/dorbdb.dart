@@ -31,8 +31,8 @@
       // ..
       // .. External Functions ..
       //- double             DNRM2;
-      //- bool               LSAME;
-      // EXTERNAL DNRM2, LSAME
+      //- bool               lsame;
+      // EXTERNAL DNRM2, lsame
       // ..
       // .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, SIN
@@ -42,8 +42,8 @@
       // Test input arguments
 
       INFO = 0;
-      COLMAJOR = !LSAME( TRANS, 'T' );
-      if ( !LSAME( SIGNS, 'O' ) ) {
+      COLMAJOR = !lsame( TRANS, 'T' );
+      if ( !lsame( SIGNS, 'O' ) ) {
          Z1 = REALONE;
          Z2 = REALONE;
          Z3 = REALONE;

@@ -27,10 +27,10 @@
       Complex         TMP, ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANSY;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, DLAMCH, ZLANSY, ZDOTC
+      // EXTERNAL lsame, DLAMCH, ZLANSY, ZDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZHERK, ZLASET
@@ -53,7 +53,7 @@
       if (M <= 0 || N <= 0) return;
 
       EPS = DLAMCH( 'Precision' );
-      if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;
       } else {

@@ -39,9 +39,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DGET06, ZLANSP;
-      // EXTERNAL LSAME, DGET06, ZLANSP
+      // EXTERNAL lsame, DGET06, ZLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZCOPY, ZERRSY, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZLATSP, ZPPT05, ZSPCON, ZSPRFS, ZSPT01, ZSPT02, ZSPT03, ZSPTRF, ZSPTRI, ZSPTRS
@@ -104,7 +104,7 @@
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 150
                UPLO = UPLOS( IUPLO );
-               if ( LSAME( UPLO, 'U' ) ) {
+               if ( lsame( UPLO, 'U' ) ) {
                   PACKIT = 'C';
                } else {
                   PACKIT = 'R';

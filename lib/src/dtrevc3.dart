@@ -28,10 +28,10 @@
       double             BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax, ILAENV;
       //- double             DDOT, DLAMCH;
-      // EXTERNAL LSAME, idamax, ILAENV, DDOT, DLAMCH
+      // EXTERNAL lsame, idamax, ILAENV, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA, DGEMM, DLASET, DLACPY
@@ -47,13 +47,13 @@
 
       // Decode and test the input parameters
 
-      BOTHV  = LSAME( SIDE, 'B' );
-      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV;
-      LEFTV  = LSAME( SIDE, 'L' ) || BOTHV;
+      BOTHV  = lsame( SIDE, 'B' );
+      RIGHTV = lsame( SIDE, 'R' ) || BOTHV;
+      LEFTV  = lsame( SIDE, 'L' ) || BOTHV;
 
-      ALLV  = LSAME( HOWMNY, 'A' );
-      OVER  = LSAME( HOWMNY, 'B' );
-      SOMEV = LSAME( HOWMNY, 'S' );
+      ALLV  = lsame( HOWMNY, 'A' );
+      OVER  = lsame( HOWMNY, 'B' );
+      SOMEV = lsame( HOWMNY, 'S' );
 
       INFO = 0;
       NB = ILAENV( 1, 'DTREVC', SIDE // HOWMNY, N, -1, -1, -1 );

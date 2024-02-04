@@ -34,9 +34,9 @@
       // EXTERNAL CBBCSD, CCOPY, CLACPY, CLAPMR, CLAPMT, CUNBDB1, CUNBDB2, CUNBDB3, CUNBDB4, CUNGLQ, CUNGQR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN
@@ -46,9 +46,9 @@
       // Test input arguments
 
       INFO = 0;
-      WANTU1 = LSAME( JOBU1, 'Y' );
-      WANTU2 = LSAME( JOBU2, 'Y' );
-      WANTV1T = LSAME( JOBV1T, 'Y' );
+      WANTU1 = lsame( JOBU1, 'Y' );
+      WANTU2 = lsame( JOBU2, 'Y' );
+      WANTV1T = lsame( JOBV1T, 'Y' );
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 );
 
       if ( M < 0 ) {

@@ -27,10 +27,10 @@
       REAL               PIV;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SCOPY, SLACPY, SLASET, SGBTRF, SGEMM,  SGETRF, SSYGST, SSWAP, STRSM
@@ -43,10 +43,10 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       WQUERY = ( LWORK == -1 );
       TQUERY = ( LTB == -1 );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

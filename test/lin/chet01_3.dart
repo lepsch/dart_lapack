@@ -28,9 +28,9 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHE, SLAMCH;
-      // EXTERNAL LSAME, CLANHE, SLAMCH
+      // EXTERNAL lsame, CLANHE, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASET, CLAVHE_ROOK, CSYCONVF_ROOK
@@ -80,7 +80,7 @@
 
       // 5) Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J - 1; I++) {
                C[I, J] = C( I, J ) - A( I, J );

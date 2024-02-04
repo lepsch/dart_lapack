@@ -26,9 +26,9 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, DLAMCH, DLANGE
+      // EXTERNAL lsame, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLASCL, XERBLA
@@ -40,10 +40,10 @@
 
       DQRT17 = ZERO;
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          NROWS = M;
          NCOLS = N;
-      } else if ( LSAME( TRANS, 'T' ) ) {
+      } else if ( lsame( TRANS, 'T' ) ) {
          NROWS = N;
          NCOLS = M;
       } else {

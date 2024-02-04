@@ -38,10 +38,10 @@
       REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE;
       //- COMPLEX            CLARND;
-      // EXTERNAL LSAME, CLANGE, CLARND
+      // EXTERNAL lsame, CLANGE, CLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
@@ -62,13 +62,13 @@
 
       // Decode DIST
 
-      if ( LSAME( DIST, 'U' ) ) {
+      if ( lsame( DIST, 'U' ) ) {
          IDIST = 1;
-      } else if ( LSAME( DIST, 'S' ) ) {
+      } else if ( lsame( DIST, 'S' ) ) {
          IDIST = 2;
-      } else if ( LSAME( DIST, 'N' ) ) {
+      } else if ( lsame( DIST, 'N' ) ) {
          IDIST = 3;
-      } else if ( LSAME( DIST, 'D' ) ) {
+      } else if ( lsame( DIST, 'D' ) ) {
          IDIST = 4;
       } else {
          IDIST = -1;
@@ -76,9 +76,9 @@
 
       // Decode RSIGN
 
-      if ( LSAME( RSIGN, 'T' ) ) {
+      if ( lsame( RSIGN, 'T' ) ) {
          IRSIGN = 1;
-      } else if ( LSAME( RSIGN, 'F' ) ) {
+      } else if ( lsame( RSIGN, 'F' ) ) {
          IRSIGN = 0;
       } else {
          IRSIGN = -1;
@@ -86,9 +86,9 @@
 
       // Decode UPPER
 
-      if ( LSAME( UPPER, 'T' ) ) {
+      if ( lsame( UPPER, 'T' ) ) {
          IUPPER = 1;
-      } else if ( LSAME( UPPER, 'F' ) ) {
+      } else if ( lsame( UPPER, 'F' ) ) {
          IUPPER = 0;
       } else {
          IUPPER = -1;
@@ -96,9 +96,9 @@
 
       // Decode SIM
 
-      if ( LSAME( SIM, 'T' ) ) {
+      if ( lsame( SIM, 'T' ) ) {
          ISIM = 1;
-      } else if ( LSAME( SIM, 'F' ) ) {
+      } else if ( lsame( SIM, 'F' ) ) {
          ISIM = 0;
       } else {
          ISIM = -1;

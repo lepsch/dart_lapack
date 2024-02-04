@@ -26,8 +26,8 @@
       int     I,INFO,IX,IY,J,JX,JY,KPLUS1,KX,KY,L;
       // ..
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -39,7 +39,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
+      if ( !lsame(UPLO,'U') && !lsame(UPLO,'L')) {
           INFO = 1;
       } else if (N < 0) {
           INFO = 2;
@@ -106,7 +106,7 @@
           }
       }
       if (ALPHA == ZERO) return;
-      if (LSAME(UPLO,'U')) {
+      if (lsame(UPLO,'U')) {
 
          // Form  y  when upper triangle of A is stored.
 

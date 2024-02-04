@@ -24,9 +24,9 @@
       double             ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT, DLAMCH, DLANSP;
-      // EXTERNAL LSAME, DDOT, DLAMCH, DLANSP
+      // EXTERNAL lsame, DDOT, DLAMCH, DLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSPR, DTPMV
@@ -54,7 +54,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1;
          for (K = N; K >= 1; K--) { // 10
 

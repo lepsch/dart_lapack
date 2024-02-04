@@ -27,8 +27,8 @@
       int                I, J, LWKOPT;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEQP3, DGEQR2, DGERQ2, DLACPY, DLAPMT, DLASET, DORG2R, DORM2R, DORMR2, XERBLA
@@ -40,9 +40,9 @@
 
       // Test the input parameters
 
-      WANTU = LSAME( JOBU, 'U' );
-      WANTV = LSAME( JOBV, 'V' );
-      WANTQ = LSAME( JOBQ, 'Q' );
+      WANTU = lsame( JOBU, 'U' );
+      WANTV = lsame( JOBV, 'V' );
+      WANTQ = lsame( JOBQ, 'Q' );
       FORWRD = true;
       LQUERY = ( LWORK == -1 );
       LWKOPT = 1;
@@ -50,11 +50,11 @@
       // Test the input arguments
 
       INFO = 0;
-      if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
+      if ( !( WANTU || lsame( JOBU, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( WANTV || lsame( JOBV, 'N' ) ) ) {
          INFO = -2;
-      } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( !( WANTQ || lsame( JOBQ, 'N' ) ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

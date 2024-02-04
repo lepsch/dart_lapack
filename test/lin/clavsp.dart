@@ -25,8 +25,8 @@
       COMPLEX            D11, D12, D21, D22, T1, T2;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CGERU, CSCAL, CSWAP, XERBLA
@@ -39,11 +39,11 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) ) {
          INFO = -2;
-      } else if ( !LSAME( DIAG, 'U' ) && !LSAME( DIAG, 'N' ) ) {
+      } else if ( !lsame( DIAG, 'U' ) && !lsame( DIAG, 'N' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
@@ -59,18 +59,18 @@
 
       if (N == 0) return;
 
-      NOUNIT = LSAME( DIAG, 'N' );
+      NOUNIT = lsame( DIAG, 'N' );
 // ------------------------------------------
 
       // Compute  B := A * B  (No transpose)
 
 // ------------------------------------------
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
 
          // Compute  B := U*B
          // where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
          // Loop forward applying the transformations.
 
@@ -236,7 +236,7 @@
          // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
          // and   U^T = inv(U^T(1))*P(1)* ... *inv(U^T(m))*P(m)
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Loop backward applying the transformations.
 

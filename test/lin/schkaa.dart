@@ -40,9 +40,9 @@
       REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- REAL               SECOND, SLAMCH;
-      // EXTERNAL LSAME, LSAMEN, SECOND, SLAMCH
+      // EXTERNAL lsame, LSAMEN, SECOND, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, SCHKEQ, SCHKGB, SCHKGE, SCHKGT, SCHKLQ, SCHKORHR_COL, SCHKPB, SCHKPO, SCHKPS, SCHKPP, SCHKPT, SCHKQ3, SCHKQP3RK, SCHKQL, SCHKQR, SCHKRQ, SCHKSP, SCHKSY, SCHKSY_ROOK, SCHKSY_RK, SCHKSY_AA, SCHKTB, SCHKTP, SCHKTR, SCHKTZ, SDRVGB, SDRVGE, SDRVGT, SDRVLS, SDRVPB, SDRVPO, SDRVPP, SDRVPT, SDRVSP, SDRVSY, SDRVSY_ROOK, SDRVSY_RK, SDRVSY_AA, ILAVER, SCHKLQTP, SCHKQRT, SCHKQRTP, SCHKLQT, SCHKTSQR
@@ -302,7 +302,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'Single precision' ) ) {
+      if ( !lsame( C1, 'Single precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {

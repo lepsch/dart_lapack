@@ -30,10 +30,10 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH, SLANTP;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH, SLANTP
+      // EXTERNAL lsame, ISAMAX, SLAMCH, SLANTP
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLACN2, SLATPS, SRSCL, XERBLA
@@ -46,15 +46,15 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
-      NOUNIT = LSAME( DIAG, 'N' );
+      UPPER = lsame( UPLO, 'U' );
+      ONENRM = NORM == '1' || lsame( NORM, 'O' );
+      NOUNIT = lsame( DIAG, 'N' );
 
-      if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
+      if ( !ONENRM && !lsame( NORM, 'I' ) ) {
          INFO = -1;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
-      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

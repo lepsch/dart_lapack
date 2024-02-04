@@ -29,9 +29,9 @@
       REAL               BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ), SUMP( 2, 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMV, SLACPY, SLAG2, SLALN2, XERBLA
@@ -43,15 +43,15 @@
 
       // Decode and Test the input parameters
 
-      if ( LSAME( HOWMNY, 'A' ) ) {
+      if ( lsame( HOWMNY, 'A' ) ) {
          IHWMNY = 1;
          ILALL = true;
          ILBACK = false;
-      } else if ( LSAME( HOWMNY, 'S' ) ) {
+      } else if ( lsame( HOWMNY, 'S' ) ) {
          IHWMNY = 2;
          ILALL = false;
          ILBACK = false;
-      } else if ( LSAME( HOWMNY, 'B' ) ) {
+      } else if ( lsame( HOWMNY, 'B' ) ) {
          IHWMNY = 3;
          ILALL = true;
          ILBACK = true;
@@ -60,15 +60,15 @@
          ILALL = true;
       }
 
-      if ( LSAME( SIDE, 'R' ) ) {
+      if ( lsame( SIDE, 'R' ) ) {
          ISIDE = 1;
          COMPL = false;
          COMPR = true;
-      } else if ( LSAME( SIDE, 'L' ) ) {
+      } else if ( lsame( SIDE, 'L' ) ) {
          ISIDE = 2;
          COMPL = true;
          COMPR = false;
-      } else if ( LSAME( SIDE, 'B' ) ) {
+      } else if ( lsame( SIDE, 'B' ) ) {
          ISIDE = 3;
          COMPL = true;
          COMPR = true;

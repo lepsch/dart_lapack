@@ -28,10 +28,10 @@
       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX, ILAENV;
       //- REAL   SDOT, SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, ILAENV, SDOT, SLAMCH
+      // EXTERNAL lsame, ISAMAX, ILAENV, SDOT, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGEMV, SLALN2, SSCAL, XERBLA, SLACPY, SGEMM, SLASET
@@ -47,13 +47,13 @@
 
       // Decode and test the input parameters
 
-      BOTHV  = LSAME( SIDE, 'B' );
-      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV;
-      LEFTV  = LSAME( SIDE, 'L' ) || BOTHV;
+      BOTHV  = lsame( SIDE, 'B' );
+      RIGHTV = lsame( SIDE, 'R' ) || BOTHV;
+      LEFTV  = lsame( SIDE, 'L' ) || BOTHV;
 
-      ALLV  = LSAME( HOWMNY, 'A' );
-      OVER  = LSAME( HOWMNY, 'B' );
-      SOMEV = LSAME( HOWMNY, 'S' );
+      ALLV  = lsame( HOWMNY, 'A' );
+      OVER  = lsame( HOWMNY, 'B' );
+      SOMEV = lsame( HOWMNY, 'S' );
 
       INFO = 0;
       NB = ILAENV( 1, 'STREVC', SIDE // HOWMNY, N, -1, -1, -1 );

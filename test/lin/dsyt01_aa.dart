@@ -25,9 +25,9 @@
       double             ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANSY;
-      // EXTERNAL LSAME, DLAMCH, DLANSY
+      // EXTERNAL lsame, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASET, DLAVSY
@@ -54,7 +54,7 @@
       dlaset('Full', N, N, ZERO, ZERO, C, LDC );
       dlacpy('F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 );
       if ( N > 1 ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             dlacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 );
             dlacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 );
          } else {
@@ -64,7 +64,7 @@
 
          // Call DTRMM to form the product U' * D (or L * D ).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             dtrmm('Left', UPLO, 'Transpose', 'Unit', N-1, N, ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC );
          } else {
             dtrmm('Left', UPLO, 'No transpose', 'Unit', N-1, N, ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC );
@@ -72,7 +72,7 @@
 
          // Call DTRMM again to multiply by U (or L ).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             dtrmm('Right', UPLO, 'No transpose', 'Unit', N, N-1, ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC );
          } else {
             dtrmm('Right', UPLO, 'Transpose', 'Unit', N, N-1, ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC );
@@ -93,7 +93,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
                C[I, J] = C( I, J ) - A( I, J );

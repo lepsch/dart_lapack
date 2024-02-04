@@ -24,9 +24,9 @@
       double             ANORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL LSAME, DLAMCH, DLANST
+      // EXTERNAL lsame, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DLACPY, DPTCON, DPTRFS, DPTTRF, DPTTRS, XERBLA
@@ -39,8 +39,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
+      NOFACT = lsame( FACT, 'N' );
+      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

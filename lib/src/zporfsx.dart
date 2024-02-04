@@ -52,10 +52,10 @@
       // INTRINSIC MAX, SQRT, TRANSFER
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME, ILAPREC
+      // EXTERNAL lsame, ILAPREC
       // EXTERNAL DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C
       double             DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C;
-      bool               LSAME;
+      bool               lsame;
       int                ILAPREC;
       // ..
       // .. Executable Statements ..
@@ -106,13 +106,13 @@
          N_NORMS = 2;
       }
 
-      RCEQU = LSAME( EQUED, 'Y' );
+      RCEQU = lsame( EQUED, 'Y' );
 
       // Test input parameters.
 
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
         INFO = -1;
-      } else if ( !RCEQU && !LSAME( EQUED, 'N' ) ) {
+      } else if ( !RCEQU && !lsame( EQUED, 'N' ) ) {
         INFO = -2;
       } else if ( N < 0 ) {
         INFO = -3;

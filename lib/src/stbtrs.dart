@@ -23,8 +23,8 @@
       int                J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL STBSV, XERBLA
@@ -37,13 +37,13 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOUNIT = LSAME( DIAG, 'N' );
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      NOUNIT = lsame( DIAG, 'N' );
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
-      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

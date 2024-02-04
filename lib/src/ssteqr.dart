@@ -25,9 +25,9 @@
       REAL               ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANST, SLAPY2;
-      // EXTERNAL LSAME, SLAMCH, SLANST, SLAPY2
+      // EXTERNAL lsame, SLAMCH, SLANST, SLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAE2, SLAEV2, SLARTG, SLASCL, SLASET, SLASR, SLASRT, SSWAP, XERBLA
@@ -41,11 +41,11 @@
 
       INFO = 0;
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ICOMPZ = 0;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ICOMPZ = 2;
       } else {
          ICOMPZ = -1;

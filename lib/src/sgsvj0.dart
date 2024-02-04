@@ -33,8 +33,8 @@
       // .. External Functions ..
       //- REAL               SDOT, SNRM2;
       //- int                ISAMAX;
-      //- bool               LSAME;
-      // EXTERNAL ISAMAX, LSAME, SDOT, SNRM2
+      //- bool               lsame;
+      // EXTERNAL ISAMAX, lsame, SDOT, SNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SLASCL, SLASSQ, SROTM, SSWAP, XERBLA
@@ -43,9 +43,9 @@
 
       // Test the input parameters.
 
-      APPLV = LSAME( JOBV, 'A' );
-      RSVEC = LSAME( JOBV, 'V' );
-      if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      APPLV = lsame( JOBV, 'A' );
+      RSVEC = lsame( JOBV, 'V' );
+      if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

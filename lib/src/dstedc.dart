@@ -25,10 +25,10 @@
       double             EPS, ORGNRM, P, TINY;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLAED0, DLASCL, DLASET, DLASRT, DSTEQR, DSTERF, DSWAP, XERBLA
@@ -43,11 +43,11 @@
       INFO = 0;
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ICOMPZ = 0;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ICOMPZ = 2;
       } else {
          ICOMPZ = -1;

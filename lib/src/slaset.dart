@@ -19,15 +19,15 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Set the strictly upper triangular or trapezoidal part of the
          // array to ALPHA.
@@ -38,7 +38,7 @@
             } // 10
          } // 20
 
-      } else if ( LSAME( UPLO, 'L' ) ) {
+      } else if ( lsame( UPLO, 'L' ) ) {
 
          // Set the strictly lower triangular or trapezoidal part of the
          // array to ALPHA.

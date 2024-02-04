@@ -25,9 +25,9 @@
       REAL               BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH, SISNAN
+      // EXTERNAL lsame, SLAMCH, SISNAN
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -41,19 +41,19 @@
 
       INFO = 0;
 
-      if ( LSAME( TYPE, 'G' ) ) {
+      if ( lsame( TYPE, 'G' ) ) {
          ITYPE = 0;
-      } else if ( LSAME( TYPE, 'L' ) ) {
+      } else if ( lsame( TYPE, 'L' ) ) {
          ITYPE = 1;
-      } else if ( LSAME( TYPE, 'U' ) ) {
+      } else if ( lsame( TYPE, 'U' ) ) {
          ITYPE = 2;
-      } else if ( LSAME( TYPE, 'H' ) ) {
+      } else if ( lsame( TYPE, 'H' ) ) {
          ITYPE = 3;
-      } else if ( LSAME( TYPE, 'B' ) ) {
+      } else if ( lsame( TYPE, 'B' ) ) {
          ITYPE = 4;
-      } else if ( LSAME( TYPE, 'Q' ) ) {
+      } else if ( lsame( TYPE, 'Q' ) ) {
          ITYPE = 5;
-      } else if ( LSAME( TYPE, 'Z' ) ) {
+      } else if ( lsame( TYPE, 'Z' ) ) {
          ITYPE = 6;
       } else {
          ITYPE = -1;

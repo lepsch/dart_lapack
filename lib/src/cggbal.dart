@@ -29,10 +29,10 @@
       COMPLEX            CDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SDOT, SLAMCH;
-      // EXTERNAL LSAME, ICAMAX, SDOT, SLAMCH
+      // EXTERNAL lsame, ICAMAX, SDOT, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CSSCAL, CSWAP, SAXPY, SSCAL, XERBLA
@@ -51,7 +51,7 @@
       // Test the input parameters
 
       INFO = 0;
-      if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
+      if ( !lsame( JOB, 'N' ) && !lsame( JOB, 'P' ) && !lsame( JOB, 'S' ) && !lsame( JOB, 'B' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -81,7 +81,7 @@
          return;
       }
 
-      if ( LSAME( JOB, 'N' ) ) {
+      if ( lsame( JOB, 'N' ) ) {
          ILO = 1;
          IHI = N;
          for (I = 1; I <= N; I++) { // 10
@@ -93,7 +93,7 @@
 
       K = 1;
       L = N;
-      if( LSAME( JOB, 'S' ) ) GO TO 190;
+      if( lsame( JOB, 'S' ) ) GO TO 190;
 
       GO TO 30;
 
@@ -180,7 +180,7 @@
       ILO = K;
       IHI = L;
 
-      if ( LSAME( JOB, 'P' ) ) {
+      if ( lsame( JOB, 'P' ) ) {
          for (I = ILO; I <= IHI; I++) { // 195
             LSCALE[I] = ONE;
             RSCALE[I] = ONE;

@@ -43,17 +43,17 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
       INFO = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

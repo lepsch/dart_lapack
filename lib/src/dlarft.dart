@@ -25,8 +25,8 @@
       // EXTERNAL DGEMV, DTRMV
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
@@ -34,7 +34,7 @@
 
       if (N == 0) return;
 
-      if ( LSAME( DIRECT, 'F' ) ) {
+      if ( lsame( DIRECT, 'F' ) ) {
          PREVLASTV = N;
          for (I = 1; I <= K; I++) {
             PREVLASTV = max( I, PREVLASTV );
@@ -49,7 +49,7 @@
 
                // general case
 
-               if ( LSAME( STOREV, 'C' ) ) {
+               if ( lsame( STOREV, 'C' ) ) {
                   // Skip any trailing zeros.
                   for (LASTV = N; LASTV >= I+1; LASTV--) {
                      if( V( LASTV, I ) != ZERO ) EXIT;
@@ -103,7 +103,7 @@
                // general case
 
                if ( I < K ) {
-                  if ( LSAME( STOREV, 'C' ) ) {
+                  if ( lsame( STOREV, 'C' ) ) {
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {
                         if( V( LASTV, I ) != ZERO ) EXIT;

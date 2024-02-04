@@ -27,9 +27,9 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE
+      // EXTERNAL lsame, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGELQ2, ZGEQR2, ZLACPY, ZLASCL
@@ -40,7 +40,7 @@
       // .. Executable Statements ..
 
       ZQRT14 = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          LDWORK = M + NRHS;
          TPSD = false;
          if ( LWORK < ( M+NRHS )*( N+2 ) ) {
@@ -49,7 +49,7 @@
          } else if ( N <= 0 || NRHS <= 0 ) {
             return;
          }
-      } else if ( LSAME( TRANS, 'C' ) ) {
+      } else if ( lsame( TRANS, 'C' ) ) {
          LDWORK = M;
          TPSD = true;
          if ( LWORK < ( N+NRHS )*( M+2 ) ) {

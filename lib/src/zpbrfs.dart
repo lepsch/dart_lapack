@@ -43,9 +43,9 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, DLAMCH
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. Statement Functions ..
       double             CABS1;
@@ -58,8 +58,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

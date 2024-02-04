@@ -37,9 +37,9 @@
       // INTRINSIC MIN, MAX, CEILING, REAL
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV2STAGE;
-      // EXTERNAL LSAME, ILAENV2STAGE
+      // EXTERNAL lsame, ILAENV2STAGE
       // ..
       // .. Executable Statements ..
 
@@ -47,9 +47,9 @@
       // Test the input parameters
 
       INFO    = 0;
-      AFTERS1 = LSAME( STAGE1, 'Y' );
-      WANTQ   = LSAME( VECT, 'V' );
-      UPPER   = LSAME( UPLO, 'U' );
+      AFTERS1 = lsame( STAGE1, 'Y' );
+      WANTQ   = lsame( VECT, 'V' );
+      UPPER   = lsame( UPLO, 'U' );
       LQUERY  = ( LWORK == -1 ) || ( LHOUS == -1 );
 
       // Determine the block size, the workspace size and the hous size.
@@ -63,11 +63,11 @@
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 );
       }
 
-      if ( !AFTERS1 && !LSAME( STAGE1, 'N' ) ) {
+      if ( !AFTERS1 && !lsame( STAGE1, 'N' ) ) {
          INFO = -1;
-      } else if ( !LSAME( VECT, 'N' ) ) {
+      } else if ( !lsame( VECT, 'N' ) ) {
          INFO = -2;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

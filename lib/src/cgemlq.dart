@@ -20,9 +20,9 @@
       int                MB, NB, LW, NBLCKS, MN, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLAMSWLQ, CGEMLQT, XERBLA
@@ -35,10 +35,10 @@
       // Test the input arguments
 
       LQUERY  = ( LWORK == -1 );
-      NOTRAN  = LSAME( TRANS, 'N' );
-      TRAN    = LSAME( TRANS, 'C' );
-      LEFT    = LSAME( SIDE, 'L' );
-      RIGHT   = LSAME( SIDE, 'R' );
+      NOTRAN  = lsame( TRANS, 'N' );
+      TRAN    = lsame( TRANS, 'C' );
+      LEFT    = lsame( SIDE, 'L' );
+      RIGHT   = lsame( SIDE, 'R' );
 
       MB = INT( T( 2 ) );
       NB = INT( T( 3 ) );

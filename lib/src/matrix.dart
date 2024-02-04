@@ -81,6 +81,11 @@ class Matrix2d<T> extends Array<T> {
   Matrix2d<T> oneIndexed({int offset = 1}) {
     return Matrix2d.fromArray(this, offset: offset);
   }
+
+  @override
+  T operator []((int, int) index) {
+    return _array[index - _offset];
+  }
 }
 
 class ArrayBox<T> implements Box<T> {

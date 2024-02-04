@@ -25,10 +25,10 @@
       double             ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DDOT, DLAMCH;
-      // EXTERNAL LSAME, idamax, DDOT, DLAMCH
+      // EXTERNAL lsame, idamax, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DSCAL, DSWAP, XERBLA
@@ -41,7 +41,7 @@
       // Test the input parameters
 
       INFO = 0;
-      if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
+      if ( !lsame( JOB, 'N' ) && !lsame( JOB, 'P' ) && !lsame( JOB, 'S' ) && !lsame( JOB, 'B' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -71,7 +71,7 @@
          return;
       }
 
-      if ( LSAME( JOB, 'N' ) ) {
+      if ( lsame( JOB, 'N' ) ) {
          ILO = 1;
          IHI = N;
          for (I = 1; I <= N; I++) { // 10
@@ -83,7 +83,7 @@
 
       K = 1;
       L = N;
-      if( LSAME( JOB, 'S' ) ) GO TO 190;
+      if( lsame( JOB, 'S' ) ) GO TO 190;
 
       GO TO 30;
 
@@ -170,7 +170,7 @@
       ILO = K;
       IHI = L;
 
-      if ( LSAME( JOB, 'P' ) ) {
+      if ( lsame( JOB, 'P' ) ) {
          for (I = ILO; I <= IHI; I++) { // 195
             LSCALE[I] = ONE;
             RSCALE[I] = ONE;

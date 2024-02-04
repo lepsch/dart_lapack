@@ -36,8 +36,8 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- bool               LSAME;
-      // EXTERNAL LSAME, DLAMCH
+      //- bool               lsame;
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, ATAN2, COS, MAX, MIN, SIN, SQRT
@@ -48,11 +48,11 @@
 
       INFO = 0;
       LQUERY = LWORK == -1;
-      WANTU1 = LSAME( JOBU1, 'Y' );
-      WANTU2 = LSAME( JOBU2, 'Y' );
-      WANTV1T = LSAME( JOBV1T, 'Y' );
-      WANTV2T = LSAME( JOBV2T, 'Y' );
-      COLMAJOR = !LSAME( TRANS, 'T' );
+      WANTU1 = lsame( JOBU1, 'Y' );
+      WANTU2 = lsame( JOBU2, 'Y' );
+      WANTV1T = lsame( JOBV1T, 'Y' );
+      WANTV2T = lsame( JOBV2T, 'Y' );
+      COLMAJOR = !lsame( TRANS, 'T' );
 
       if ( M < 0 ) {
          INFO = -6;

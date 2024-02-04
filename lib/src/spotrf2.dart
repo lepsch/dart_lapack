@@ -23,8 +23,8 @@
       int                N1, N2, IINFO;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSYRK, STRSM, XERBLA
@@ -37,8 +37,8 @@
       // Test the input parameters
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

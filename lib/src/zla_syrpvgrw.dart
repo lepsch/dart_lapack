@@ -26,8 +26,8 @@
       // INTRINSIC ABS, REAL, DIMAG, MAX, MIN
       // ..
       // .. External Subroutines ..
-      // EXTERNAL LSAME
-      bool               LSAME;
+      // EXTERNAL lsame
+      bool               lsame;
       // ..
       // .. Statement Functions ..
       double             CABS1;
@@ -37,7 +37,7 @@
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( 'Upper', UPLO );
+      UPPER = lsame( 'Upper', UPLO );
       if ( INFO == 0 ) {
          if ( UPPER ) {
             NCOLS = 1;

@@ -34,9 +34,9 @@
       // ..
       // .. External Functions ..
       //- double           DLAMCH, ZLANGE, ZLANSY;
-      //- bool     LSAME;
+      //- bool     lsame;
       //- int     ILAENV;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME, ILAENV
+      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, lsame, ILAENV
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -51,7 +51,7 @@
 
       // TEST TALL SKINNY OR SHORT WIDE
 
-      TS = LSAME(TSSW, 'TS');
+      TS = lsame(TSSW, 'TS');
 
       // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
 

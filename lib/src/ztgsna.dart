@@ -32,10 +32,10 @@
       Complex         DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLAPY2, DZNRM2;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
+      // EXTERNAL lsame, DLAMCH, DLAPY2, DZNRM2, ZDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZLACPY, ZTGEXC, ZTGSYL
@@ -47,18 +47,18 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' );
-      WANTS = LSAME( JOB, 'E' ) || WANTBH;
-      WANTDF = LSAME( JOB, 'V' ) || WANTBH;
+      WANTBH = lsame( JOB, 'B' );
+      WANTS = lsame( JOB, 'E' ) || WANTBH;
+      WANTDF = lsame( JOB, 'V' ) || WANTBH;
 
-      SOMCON = LSAME( HOWMNY, 'S' );
+      SOMCON = lsame( HOWMNY, 'S' );
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
 
       if ( !WANTS && !WANTDF ) {
          INFO = -1;
-      } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
+      } else if ( !lsame( HOWMNY, 'A' ) && !SOMCON ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
@@ -86,7 +86,7 @@
 
          if ( N == 0 ) {
             LWMIN = 1;
-         } else if ( LSAME( JOB, 'V' ) || LSAME( JOB, 'B' ) ) {
+         } else if ( lsame( JOB, 'V' ) || lsame( JOB, 'B' ) ) {
             LWMIN = 2*N*N;
          } else {
             LWMIN = N;

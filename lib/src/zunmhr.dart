@@ -19,9 +19,9 @@
       int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZUNMQR
@@ -35,7 +35,7 @@
 
       INFO = 0;
       NH = IHI - ILO;
-      LEFT = LSAME( SIDE, 'L' );
+      LEFT = lsame( SIDE, 'L' );
       LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
@@ -47,9 +47,9 @@
          NQ = N;
          NW = max( 1, M );
       }
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( M < 0 ) {
          INFO = -3;

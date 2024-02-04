@@ -20,8 +20,8 @@
       String             SYM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
-      // EXTERNAL LSAME, LSAMEN
+      //- bool               lsame, LSAMEN;
+      // EXTERNAL lsame, LSAMEN
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
@@ -32,8 +32,8 @@
       C1 = PATH( 1: 1 );
       C3 = PATH( 3: 3 );
       P2 = PATH( 2: 3 );
-      SORD = LSAME( C1, 'S' ) || LSAME( C1, 'D' );
-      CORZ = LSAME( C1, 'C' ) || LSAME( C1, 'Z' );
+      SORD = lsame( C1, 'S' ) || lsame( C1, 'D' );
+      CORZ = lsame( C1, 'C' ) || lsame( C1, 'Z' );
       if( !( SORD || CORZ ) ) return;
 
       if ( LSAMEN( 2, P2, 'GE' ) ) {
@@ -97,7 +97,7 @@
          } else {
             SYM = 'Hermitian';
          }
-         if ( LSAME( C3, 'O' ) ) {
+         if ( lsame( C3, 'O' ) ) {
             WRITE( IOUNIT, FMT = 9996 )PATH, SYM;
          } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM;
@@ -124,7 +124,7 @@
          } else {
             SYM = 'Hermitian';
          }
-         if ( LSAME( C1, 'S' ) || LSAME( C1, 'C' ) ) {
+         if ( lsame( C1, 'S' ) || lsame( C1, 'C' ) ) {
             EIGCNM = '1E04';
          } else {
             EIGCNM = '1D12';
@@ -183,7 +183,7 @@
          // SY: Symmetric indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         if ( LSAME( C3, 'Y' ) ) {
+         if ( lsame( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric';
@@ -243,7 +243,7 @@
          // SP: Symmetric indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         if ( LSAME( C3, 'Y' ) ) {
+         if ( lsame( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric';
@@ -342,7 +342,7 @@
          // HP: Hermitian indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
 
-         if ( LSAME( C3, 'E' ) ) {
+         if ( lsame( C3, 'E' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian';
@@ -365,7 +365,7 @@
          // TR: Triangular full
          // TP: Triangular packed
 
-         if ( LSAME( C3, 'R' ) ) {
+         if ( lsame( C3, 'R' ) ) {
             WRITE( IOUNIT, FMT = 9990 )PATH;
             SUBNAM = PATH( 1: 1 ) // 'LATRS';
          } else {

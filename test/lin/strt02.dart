@@ -24,9 +24,9 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SASUM, SLAMCH, SLANTR;
-      // EXTERNAL LSAME, SASUM, SLAMCH, SLANTR
+      // EXTERNAL lsame, SASUM, SLAMCH, SLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, STRMV
@@ -45,7 +45,7 @@
 
       // Compute the 1-norm of op(A).
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = SLANTR( '1', UPLO, DIAG, N, N, A, LDA, WORK );
       } else {
          ANORM = SLANTR( 'I', UPLO, DIAG, N, N, A, LDA, WORK );

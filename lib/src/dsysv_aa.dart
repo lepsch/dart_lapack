@@ -20,9 +20,9 @@
       int                LWKMIN, LWKOPT, LWKOPT_SYTRF, LWKOPT_SYTRS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL ILAENV, LSAME
+      // EXTERNAL ILAENV, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, DSYTRF_AA, DSYTRS_AA
@@ -37,7 +37,7 @@
       INFO = 0;
       LQUERY = ( LWORK == -1 );
       LWKMIN = max( 1, 2*N, 3*N-2 );
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

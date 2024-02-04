@@ -25,9 +25,9 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTR, SLAMCH;
-      // EXTERNAL LSAME, CLANTR, SLAMCH
+      // EXTERNAL lsame, CLANTR, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CTRMV
@@ -59,7 +59,7 @@
 
       // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 
-      if ( LSAME( DIAG, 'U' ) ) {
+      if ( lsame( DIAG, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             AINV[J, J] = ONE;
          } // 10
@@ -67,7 +67,7 @@
 
       // Compute A * AINV, overwriting AINV.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             ctrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
          } // 20

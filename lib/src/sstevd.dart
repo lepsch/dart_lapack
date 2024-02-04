@@ -25,9 +25,9 @@
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSTEDC, SSTERF, XERBLA
@@ -39,7 +39,7 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
+      WANTZ = lsame( JOBZ, 'V' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       INFO = 0;
@@ -50,7 +50,7 @@
          LIWMIN = 3 + 5*N;
       }
 
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

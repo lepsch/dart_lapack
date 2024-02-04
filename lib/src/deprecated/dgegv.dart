@@ -31,10 +31,10 @@
       // EXTERNAL DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX
@@ -43,10 +43,10 @@
 
       // Decode the input arguments
 
-      if ( LSAME( JOBVL, 'N' ) ) {
+      if ( lsame( JOBVL, 'N' ) ) {
          IJOBVL = 1;
          ILVL = false;
-      } else if ( LSAME( JOBVL, 'V' ) ) {
+      } else if ( lsame( JOBVL, 'V' ) ) {
          IJOBVL = 2;
          ILVL = true;
       } else {
@@ -54,10 +54,10 @@
          ILVL = false;
       }
 
-      if ( LSAME( JOBVR, 'N' ) ) {
+      if ( lsame( JOBVR, 'N' ) ) {
          IJOBVR = 1;
          ILVR = false;
-      } else if ( LSAME( JOBVR, 'V' ) ) {
+      } else if ( lsame( JOBVR, 'V' ) ) {
          IJOBVR = 2;
          ILVR = true;
       } else {

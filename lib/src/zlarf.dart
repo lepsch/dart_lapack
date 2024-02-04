@@ -27,13 +27,13 @@
       // EXTERNAL ZGEMV, ZGERC
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAZLR, ILAZLC;
-      // EXTERNAL LSAME, ILAZLR, ILAZLC
+      // EXTERNAL lsame, ILAZLR, ILAZLC
       // ..
       // .. Executable Statements ..
 
-      APPLYLEFT = LSAME( SIDE, 'L' );
+      APPLYLEFT = lsame( SIDE, 'L' );
       LASTV = 0;
       LASTC = 0;
       if ( TAU != ZERO ) {

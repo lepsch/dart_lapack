@@ -19,8 +19,8 @@
       int                I, K;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSWAP, XERBLA
@@ -32,11 +32,11 @@
 
       // Test the input parameters
 
-      RIGHTV = LSAME( SIDE, 'R' );
-      LEFTV = LSAME( SIDE, 'L' );
+      RIGHTV = lsame( SIDE, 'R' );
+      LEFTV = lsame( SIDE, 'L' );
 
       INFO = 0;
-      if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
+      if ( !lsame( JOB, 'N' ) && !lsame( JOB, 'P' ) && !lsame( JOB, 'S' ) && !lsame( JOB, 'B' ) ) {
          INFO = -1;
       } else if ( !RIGHTV && !LEFTV ) {
          INFO = -2;
@@ -64,13 +64,13 @@
 
       if (N == 0) return;
       if( M == 0 ) return;
-      IF( LSAME( JOB, 'N' ) ) return;
+      IF( lsame( JOB, 'N' ) ) return;
 
       if (ILO == IHI) GO TO 30;
 
       // Backward balance
 
-      if ( LSAME( JOB, 'S' ) || LSAME( JOB, 'B' ) ) {
+      if ( lsame( JOB, 'S' ) || lsame( JOB, 'B' ) ) {
 
          // Backward transformation on right eigenvectors
 
@@ -92,7 +92,7 @@
       // Backward permutation
 
       } // 30
-      if ( LSAME( JOB, 'P' ) || LSAME( JOB, 'B' ) ) {
+      if ( lsame( JOB, 'P' ) || lsame( JOB, 'B' ) ) {
 
          // Backward permutation on right eigenvectors
 

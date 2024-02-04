@@ -24,10 +24,10 @@
       REAL               RES1, RES2, S, ULP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SIGN
@@ -40,9 +40,9 @@
       // Check inputs
 
       INFO = 0;
-      if ( LSAME( RC, 'R' ) ) {
+      if ( lsame( RC, 'R' ) ) {
          IRC = 0;
-      } else if ( LSAME( RC, 'C' ) ) {
+      } else if ( lsame( RC, 'C' ) ) {
          IRC = 1;
       } else {
          IRC = -1;

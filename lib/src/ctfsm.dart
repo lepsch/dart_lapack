@@ -24,8 +24,8 @@
       int                M1, M2, N1, N2, K, INFO, I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, CGEMM, CTRSM
@@ -38,19 +38,19 @@
       // Test the input parameters.
 
       INFO = 0;
-      NORMALTRANSR = LSAME( TRANSR, 'N' );
-      LSIDE = LSAME( SIDE, 'L' );
-      LOWER = LSAME( UPLO, 'L' );
-      NOTRANS = LSAME( TRANS, 'N' );
-      if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
+      NORMALTRANSR = lsame( TRANSR, 'N' );
+      LSIDE = lsame( SIDE, 'L' );
+      LOWER = lsame( UPLO, 'L' );
+      NOTRANS = lsame( TRANS, 'N' );
+      if ( !NORMALTRANSR && !lsame( TRANSR, 'C' ) ) {
          INFO = -1;
-      } else if ( !LSIDE && !LSAME( SIDE, 'R' ) ) {
+      } else if ( !LSIDE && !lsame( SIDE, 'R' ) ) {
          INFO = -2;
-      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !lsame( UPLO, 'U' ) ) {
          INFO = -3;
-      } else if ( !NOTRANS && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRANS && !lsame( TRANS, 'C' ) ) {
          INFO = -4;
-      } else if ( !LSAME( DIAG, 'N' ) && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !lsame( DIAG, 'N' ) && !lsame( DIAG, 'U' ) ) {
          INFO = -5;
       } else if ( M < 0 ) {
          INFO = -6;

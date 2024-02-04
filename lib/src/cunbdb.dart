@@ -33,8 +33,8 @@
       // ..
       // .. External Functions ..
       //- REAL               SCNRM2, SROUNDUP_LWORK;
-      //- bool               LSAME;
-      // EXTERNAL SCNRM2, SROUNDUP_LWORK, LSAME
+      //- bool               lsame;
+      // EXTERNAL SCNRM2, SROUNDUP_LWORK, lsame
       // ..
       // .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, MIN, SIN
@@ -45,8 +45,8 @@
       // Test input arguments
 
       INFO = 0;
-      COLMAJOR = !LSAME( TRANS, 'T' );
-      if ( !LSAME( SIGNS, 'O' ) ) {
+      COLMAJOR = !lsame( TRANS, 'T' );
+      if ( !lsame( SIGNS, 'O' ) ) {
          Z1 = REALONE;
          Z2 = REALONE;
          Z3 = REALONE;

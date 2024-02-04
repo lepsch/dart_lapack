@@ -28,9 +28,9 @@
       COMPLEX            TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEQR, CGEMQR, CLASCL, CLASET, CTRTRS, XERBLA, CGELQ, CGEMLQ
@@ -44,10 +44,10 @@
 
       INFO = 0;
       MAXMN = max( M, N );
-      TRAN  = LSAME( TRANS, 'C' );
+      TRAN  = lsame( TRANS, 'C' );
 
       LQUERY = ( LWORK == -1 || LWORK == -2 );
-      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'C' ) ) ) {
+      if ( !( lsame( TRANS, 'N' ) || lsame( TRANS, 'C' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

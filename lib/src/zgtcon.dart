@@ -29,8 +29,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGTTRS, ZLACN2
@@ -43,8 +43,8 @@
       // Test the input arguments.
 
       INFO = 0;
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
-      if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
+      ONENRM = NORM == '1' || lsame( NORM, 'O' );
+      if ( !ONENRM && !lsame( NORM, 'I' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

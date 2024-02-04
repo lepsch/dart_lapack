@@ -19,8 +19,8 @@
       String             C3;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
-      // EXTERNAL LSAME, LSAMEN
+      //- bool               lsame, LSAMEN;
+      // EXTERNAL lsame, LSAMEN
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
@@ -422,7 +422,7 @@
 
          } else if ( LSAMEN( 3, C3, 'CON' ) ) {
 
-            if( LSAME( SUBNAM( 1: 1 ), 'S' ) || LSAME( SUBNAM( 1: 1 ), 'D' ) ) {
+            if( lsame( SUBNAM( 1: 1 ), 'S' ) || lsame( SUBNAM( 1: 1 ), 'D' ) ) {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT;
             } else {
                WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT;

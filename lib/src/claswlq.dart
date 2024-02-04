@@ -19,10 +19,10 @@
       int                I, II, KK, CTR, MINMN, LWMIN;
       // ..
       // .. EXTERNAL FUNCTIONS ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SROUNDUP_LWORK
       // ..
       // .. EXTERNAL SUBROUTINES ..
       // EXTERNAL CGELQT, CTPLQT, XERBLA

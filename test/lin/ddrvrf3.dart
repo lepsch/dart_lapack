@@ -32,9 +32,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE, DLARND;
-      // EXTERNAL DLAMCH, DLANGE, DLARND, LSAME
+      // EXTERNAL DLAMCH, DLANGE, DLARND, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DTRTTF, DGEQRF, DGEQLF, DTFSM, DTRSM
@@ -155,7 +155,7 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 if ( LSAME( DIAG, 'U' ) ) {
+                                 if ( lsame( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
                                           A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
@@ -175,7 +175,7 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 if ( LSAME( DIAG, 'U' ) ) {
+                                 if ( lsame( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
                                           A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );

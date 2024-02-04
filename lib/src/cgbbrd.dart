@@ -34,20 +34,20 @@
       // INTRINSIC ABS, CONJG, MAX, MIN
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      WANTB = LSAME( VECT, 'B' );
-      WANTQ = LSAME( VECT, 'Q' ) || WANTB;
-      WANTPT = LSAME( VECT, 'P' ) || WANTB;
+      WANTB = lsame( VECT, 'B' );
+      WANTQ = lsame( VECT, 'Q' ) || WANTB;
+      WANTPT = lsame( VECT, 'P' ) || WANTB;
       WANTC = NCC > 0;
       KLU1 = KL + KU + 1;
       INFO = 0;
-      if ( !WANTQ && !WANTPT && !LSAME( VECT, 'N' ) ) {
+      if ( !WANTQ && !WANTPT && !lsame( VECT, 'N' ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

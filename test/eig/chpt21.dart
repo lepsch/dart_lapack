@@ -31,10 +31,10 @@
       COMPLEX            TEMP, VSAVE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANHP, SLAMCH;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
+      // EXTERNAL lsame, CLANGE, CLANHP, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
@@ -52,7 +52,7 @@
 
       LAP = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

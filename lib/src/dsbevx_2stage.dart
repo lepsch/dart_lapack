@@ -29,10 +29,10 @@
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV2STAGE;
       //- double             DLAMCH, DLANSB;
-      // EXTERNAL LSAME, DLAMCH, DLANSB, ILAENV2STAGE
+      // EXTERNAL lsame, DLAMCH, DLANSB, ILAENV2STAGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMV, DLACPY, DLASCL, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA, DSYTRD_SB2ST
@@ -44,19 +44,19 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
-      LOWER = LSAME( UPLO, 'L' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
+      LOWER = lsame( UPLO, 'L' );
       LQUERY = ( LWORK == -1 );
 
       INFO = 0;
-      if ( !( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;
-      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || lsame( UPLO, 'U' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

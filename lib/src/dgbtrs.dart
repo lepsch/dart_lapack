@@ -24,8 +24,8 @@
       int                I, J, KD, L, LM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DGER, DSWAP, DTBSV, XERBLA
@@ -38,8 +38,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

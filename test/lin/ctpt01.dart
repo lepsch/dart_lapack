@@ -26,9 +26,9 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTP, SLAMCH;
-      // EXTERNAL LSAME, CLANTP, SLAMCH
+      // EXTERNAL lsame, CLANTP, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CTPMV
@@ -60,8 +60,8 @@
 
       // Compute A * AINV, overwriting AINV.
 
-      UNITD = LSAME( DIAG, 'U' );
-      if ( LSAME( UPLO, 'U' ) ) {
+      UNITD = lsame( DIAG, 'U' );
+      if ( lsame( UPLO, 'U' ) ) {
          JC = 1;
          for (J = 1; J <= N; J++) { // 10
             if (UNITD) AINVP( JC+J-1 ) = ONE;

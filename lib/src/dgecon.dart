@@ -30,10 +30,10 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
+      //- bool               lsame, DISNAN;
       //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, idamax, DLAMCH, DISNAN
+      // EXTERNAL lsame, idamax, DLAMCH, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLACN2, DLATRS, DRSCL, XERBLA
@@ -48,8 +48,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
-      if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
+      ONENRM = NORM == '1' || lsame( NORM, 'O' );
+      if ( !ONENRM && !lsame( NORM, 'I' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

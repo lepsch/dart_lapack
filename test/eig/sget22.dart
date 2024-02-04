@@ -27,9 +27,9 @@
       REAL               WMAT( 2, 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE;
-      // EXTERNAL LSAME, SLAMCH, SLANGE
+      // EXTERNAL lsame, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEMM, SLASET
@@ -53,10 +53,10 @@
       NORMA = 'O';
       NORME = 'O';
 
-      if ( LSAME( TRANSA, 'T' ) || LSAME( TRANSA, 'C' ) ) {
+      if ( lsame( TRANSA, 'T' ) || lsame( TRANSA, 'C' ) ) {
          NORMA = 'I';
       }
-      if ( LSAME( TRANSE, 'T' ) || LSAME( TRANSE, 'C' ) ) {
+      if ( lsame( TRANSE, 'T' ) || lsame( TRANSE, 'C' ) ) {
          NORME = 'I';
          ITRNSE = 1;
          INCE = LDE;

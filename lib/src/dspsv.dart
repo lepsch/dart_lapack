@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSPTRF, DSPTRS, XERBLA
@@ -30,7 +30,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

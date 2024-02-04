@@ -32,10 +32,10 @@
       // EXTERNAL ZGELQF, ZGEQP3, ZGEQRF, ZGESVD, ZLACPY, ZLAPMT, ZLASCL, ZLASET, ZLASWP, ZDSCAL, DLASET, DLASCL, ZPOCON, ZUNMLQ, ZUNMQR, XERBLA
       // ..
       // .. External Functions (BLAS, LAPACK)
-      //- bool        LSAME;
+      //- bool        lsame;
       //- int                         idamax;
       //- double             ZLANGE,          DZNRM2, DLAMCH;
-      // EXTERNAL LSAME, ZLANGE,  idamax, DZNRM2, DLAMCH
+      // EXTERNAL lsame, ZLANGE,  idamax, DZNRM2, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, DBLE, SQRT
@@ -44,26 +44,26 @@
 
       // Test the input arguments
 
-      WNTUS  = LSAME( JOBU, 'S' ) || LSAME( JOBU, 'U' );
-      WNTUR  = LSAME( JOBU, 'R' );
-      WNTUA  = LSAME( JOBU, 'A' );
-      WNTUF  = LSAME( JOBU, 'F' );
+      WNTUS  = lsame( JOBU, 'S' ) || lsame( JOBU, 'U' );
+      WNTUR  = lsame( JOBU, 'R' );
+      WNTUA  = lsame( JOBU, 'A' );
+      WNTUF  = lsame( JOBU, 'F' );
       LSVC0  = WNTUS || WNTUR || WNTUA;
       LSVEC  = LSVC0 || WNTUF;
-      DNTWU  = LSAME( JOBU, 'N' );
+      DNTWU  = lsame( JOBU, 'N' );
 
-      WNTVR  = LSAME( JOBV, 'R' );
-      WNTVA  = LSAME( JOBV, 'A' ) || LSAME( JOBV, 'V' );
+      WNTVR  = lsame( JOBV, 'R' );
+      WNTVA  = lsame( JOBV, 'A' ) || lsame( JOBV, 'V' );
       RSVEC  = WNTVR || WNTVA;
-      DNTWV  = LSAME( JOBV, 'N' );
+      DNTWV  = lsame( JOBV, 'N' );
 
-      ACCLA  = LSAME( JOBA, 'A' );
-      ACCLM  = LSAME( JOBA, 'M' );
-      CONDA  = LSAME( JOBA, 'E' );
-      ACCLH  = LSAME( JOBA, 'H' ) || CONDA;
+      ACCLA  = lsame( JOBA, 'A' );
+      ACCLM  = lsame( JOBA, 'M' );
+      CONDA  = lsame( JOBA, 'E' );
+      ACCLH  = lsame( JOBA, 'H' ) || CONDA;
 
-      ROWPRM = LSAME( JOBP, 'P' );
-      RTRANS = LSAME( JOBR, 'T' );
+      ROWPRM = lsame( JOBP, 'P' );
+      RTRANS = lsame( JOBR, 'T' );
 
       if ( ROWPRM ) {
          IMINWRK = max( 1, N + M - 1 );
@@ -76,9 +76,9 @@
       INFO  = 0;
       if ( !( ACCLA || ACCLM || ACCLH ) ) {
          INFO = -1;
-      } else if ( !( ROWPRM || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( ROWPRM || lsame( JOBP, 'N' ) ) ) {
           INFO = -2;
-      } else if ( !( RTRANS || LSAME( JOBR, 'N' ) ) ) {
+      } else if ( !( RTRANS || lsame( JOBR, 'N' ) ) ) {
           INFO = -3;
       } else if ( !( LSVEC || DNTWU ) ) {
          INFO = -4;

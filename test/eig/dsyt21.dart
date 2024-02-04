@@ -25,9 +25,9 @@
       double             ANORM, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE, DLANSY;
-      // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSY
+      // EXTERNAL lsame, DLAMCH, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLARFY, DLASET, DORM2L, DORM2R, DSYR, DSYR2
@@ -41,7 +41,7 @@
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

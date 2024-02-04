@@ -31,10 +31,10 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- int                ICAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH, SISNAN
+      // EXTERNAL lsame, ICAMAX, SLAMCH, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACN2, CLATRS, CSRSCL, XERBLA
@@ -55,8 +55,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
-      if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
+      ONENRM = NORM == '1' || lsame( NORM, 'O' );
+      if ( !ONENRM && !lsame( NORM, 'I' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

@@ -27,9 +27,9 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DZASUM, ZLANGE;
-      // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANGE
+      // EXTERNAL lsame, DLAMCH, DZASUM, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM
@@ -46,7 +46,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          ANORM = ZLANGE( 'I', M, N, A, LDA, RWORK );
          N1 = N;
          N2 = M;

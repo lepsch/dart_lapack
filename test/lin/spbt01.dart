@@ -25,9 +25,9 @@
       REAL               ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT, SLAMCH, SLANSB;
-      // EXTERNAL LSAME, SDOT, SLAMCH, SLANSB
+      // EXTERNAL lsame, SDOT, SLAMCH, SLANSB
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSYR, STRMV
@@ -55,7 +55,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = N; K >= 1; K--) { // 10
             KC = max( 1, KD+2-K );
             KLEN = KD + 1 - KC;
@@ -92,7 +92,7 @@
 
       // Compute the difference  L*L' - A  or  U'*U - A.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 40
             MU = max( 1, KD+2-J );
             for (I = MU; I <= KD + 1; I++) { // 30

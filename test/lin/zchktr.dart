@@ -40,9 +40,9 @@
       double             RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             ZLANTR;
-      // EXTERNAL LSAME, ZLANTR
+      // EXTERNAL lsame, ZLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DLAMCH, XLAENV, ZCOPY, ZDSCAL, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATRS, ZLATRS3, ZLATTR, ZTRCON, ZTRRFS, ZTRT01, ZTRT02, ZTRT03, ZTRT05, ZTRT06, ZTRTRI, ZTRTRS
@@ -109,7 +109,7 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               if ( LSAME( DIAG, 'N' ) ) {
+               if ( lsame( DIAG, 'N' ) ) {
                   IDIAG = 1;
                } else {
                   IDIAG = 2;

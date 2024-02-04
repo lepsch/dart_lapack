@@ -24,8 +24,8 @@
       REAL               SCALE, SUM, VALUE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASSQ
@@ -37,7 +37,7 @@
 
       if ( N == 0 ) {
          VALUE = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -48,7 +48,7 @@
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 10
          } // 20
-      } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
+      } else if ( ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
@@ -60,7 +60,7 @@
             } // 30
             if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
          } // 40
-      } else if ( LSAME( NORM, 'I' ) ) {
+      } else if ( lsame( NORM, 'I' ) ) {
 
          // Find normI(A).
 
@@ -77,7 +77,7 @@
             SUM = WORK( I );
             if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
          } // 80
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

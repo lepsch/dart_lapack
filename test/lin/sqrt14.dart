@@ -27,9 +27,9 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE;
-      // EXTERNAL LSAME, SLAMCH, SLANGE
+      // EXTERNAL lsame, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGELQ2, SGEQR2, SLACPY, SLASCL, XERBLA
@@ -40,7 +40,7 @@
       // .. Executable Statements ..
 
       SQRT14 = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          LDWORK = M + NRHS;
          TPSD = false;
          if ( LWORK < ( M+NRHS )*( N+2 ) ) {
@@ -49,7 +49,7 @@
          } else if ( N <= 0 || NRHS <= 0 ) {
             return;
          }
-      } else if ( LSAME( TRANS, 'T' ) ) {
+      } else if ( lsame( TRANS, 'T' ) ) {
          LDWORK = M;
          TPSD = true;
          if ( LWORK < ( N+NRHS )*( M+2 ) ) {

@@ -24,9 +24,9 @@
       REAL               ANORM, BNORM, EPS, TEMP, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- REAL               SASUM, SLAMCH;
-      // EXTERNAL LSAME, SASUM, SISNAN, SLAMCH
+      // EXTERNAL lsame, SASUM, SISNAN, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGBMV
@@ -47,7 +47,7 @@
 
       EPS = SLAMCH( 'Epsilon' );
       ANORM = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
 
          // Find norm1(A).
 
@@ -83,7 +83,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
       } else {
          N1 = M;

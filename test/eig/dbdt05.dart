@@ -23,10 +23,10 @@
       double             ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DASUM, DLAMCH, DLANGE;
-      // EXTERNAL LSAME, idamax, DASUM, DLAMCH, DLANGE
+      // EXTERNAL lsame, idamax, DASUM, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM

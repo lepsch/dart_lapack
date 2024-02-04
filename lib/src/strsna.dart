@@ -30,9 +30,9 @@
       REAL               DUMMY( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT, SLAMCH, SLAPY2, SNRM2;
-      // EXTERNAL LSAME, SDOT, SLAMCH, SLAPY2, SNRM2
+      // EXTERNAL lsame, SDOT, SLAMCH, SLAPY2, SNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLACN2, SLACPY, SLAQTR, STREXC, XERBLA
@@ -44,16 +44,16 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' );
-      WANTS = LSAME( JOB, 'E' ) || WANTBH;
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
+      WANTBH = lsame( JOB, 'B' );
+      WANTS = lsame( JOB, 'E' ) || WANTBH;
+      WANTSP = lsame( JOB, 'V' ) || WANTBH;
 
-      SOMCON = LSAME( HOWMNY, 'S' );
+      SOMCON = lsame( HOWMNY, 'S' );
 
       INFO = 0;
       if ( !WANTS && !WANTSP ) {
          INFO = -1;
-      } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
+      } else if ( !lsame( HOWMNY, 'A' ) && !SOMCON ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;

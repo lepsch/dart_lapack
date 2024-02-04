@@ -35,10 +35,10 @@
       // EXTERNAL DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, DTRSNA, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax, ILAENV;
       //- double             DLAMCH, DLANGE, DLAPY2, DNRM2;
-      // EXTERNAL LSAME, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
+      // EXTERNAL lsame, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -49,17 +49,17 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      WANTVL = LSAME( JOBVL, 'V' );
-      WANTVR = LSAME( JOBVR, 'V' );
-      WNTSNN = LSAME( SENSE, 'N' );
-      WNTSNE = LSAME( SENSE, 'E' );
-      WNTSNV = LSAME( SENSE, 'V' );
-      WNTSNB = LSAME( SENSE, 'B' );
-      if ( !( LSAME( BALANC, 'N' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'B' ) ) ) {
+      WANTVL = lsame( JOBVL, 'V' );
+      WANTVR = lsame( JOBVR, 'V' );
+      WNTSNN = lsame( SENSE, 'N' );
+      WNTSNE = lsame( SENSE, 'E' );
+      WNTSNV = lsame( SENSE, 'V' );
+      WNTSNB = lsame( SENSE, 'B' );
+      if ( !( lsame( BALANC, 'N' ) || lsame( BALANC, 'S' ) || lsame( BALANC, 'P' ) || lsame( BALANC, 'B' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
+      } else if ( ( !WANTVL ) && ( !lsame( JOBVL, 'N' ) ) ) {
          INFO = -2;
-      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !lsame( JOBVR, 'N' ) ) ) {
          INFO = -3;
       } else if ( !( WNTSNN || WNTSNE || WNTSNB || WNTSNV ) || ( ( WNTSNE || WNTSNB ) && !( WANTVL && WANTVR ) ) ) {
          INFO = -4;

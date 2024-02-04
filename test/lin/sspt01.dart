@@ -25,9 +25,9 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANSP, SLANSY;
-      // EXTERNAL LSAME, SLAMCH, SLANSP, SLANSY
+      // EXTERNAL lsame, SLAMCH, SLANSP, SLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAVSP, SLASET
@@ -63,7 +63,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          JC = 0;
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10

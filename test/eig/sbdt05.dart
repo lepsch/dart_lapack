@@ -23,10 +23,10 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SASUM, SLAMCH, SLANGE;
-      // EXTERNAL LSAME, ISAMAX, SASUM, SLAMCH, SLANGE
+      // EXTERNAL lsame, ISAMAX, SASUM, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM

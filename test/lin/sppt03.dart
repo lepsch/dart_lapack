@@ -24,9 +24,9 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SLANSP;
-      // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSP
+      // EXTERNAL lsame, SLAMCH, SLANGE, SLANSP
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -61,7 +61,7 @@
       // expand it to a full matrix, then multiply by A one column at a
       // time, moving the result one column to the left.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Copy AINV
 

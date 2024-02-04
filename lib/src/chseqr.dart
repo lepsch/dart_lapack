@@ -44,9 +44,9 @@
       // ..
       // .. External Functions ..
       //- int                ILAENV;
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACPY, CLAHQR, CLAQR0, CLASET, XERBLA
@@ -58,16 +58,16 @@
 
       // ==== Decode and check the input parameters. ====
 
-      WANTT = LSAME( JOB, 'S' );
-      INITZ = LSAME( COMPZ, 'I' );
-      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      WANTT = lsame( JOB, 'S' );
+      INITZ = lsame( COMPZ, 'I' );
+      WANTZ = INITZ || lsame( COMPZ, 'V' );
       WORK[1] = CMPLX( REAL( max( 1, N ) ), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
-      if ( !LSAME( JOB, 'E' ) && !WANTT ) {
+      if ( !lsame( JOB, 'E' ) && !WANTT ) {
          INFO = -1;
-      } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
+      } else if ( !lsame( COMPZ, 'N' ) && !WANTZ ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

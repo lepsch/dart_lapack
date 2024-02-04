@@ -24,9 +24,9 @@
       double             AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE, DLANSY;
-      // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSY
+      // EXTERNAL lsame, DLAMCH, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSYMM
@@ -59,7 +59,7 @@
       // Expand AINV into a full matrix and call DSYMM to multiply
       // AINV on the left by A.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
                AINV[J, I] = AINV( I, J );

@@ -27,10 +27,10 @@
       double             ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANGE, DLARMM;
-      // EXTERNAL DLAMCH, DLANGE, DLARMM, ILAENV, LSAME
+      // EXTERNAL DLAMCH, DLANGE, DLARMM, ILAENV, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLATRS, DSCAL, XERBLA
@@ -41,9 +41,9 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      NOUNIT = LSAME( DIAG, 'N' );
+      UPPER = lsame( UPLO, 'U' );
+      NOTRAN = lsame( TRANS, 'N' );
+      NOUNIT = lsame( DIAG, 'N' );
       LQUERY = ( LWORK == -1 );
 
       // Partition A and X into blocks
@@ -82,13 +82,13 @@
 
       // Test the input parameters
 
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
-      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
          INFO = -3;
-      } else if ( !LSAME( NORMIN, 'Y' ) && !LSAME( NORMIN, 'N' ) ) {
+      } else if ( !lsame( NORMIN, 'Y' ) && !lsame( NORMIN, 'N' ) ) {
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;

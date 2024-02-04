@@ -29,10 +29,10 @@
       double             DUM( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE;
       //- Complex         ZDOTC, ZDOTU, ZLADIV;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL
@@ -44,13 +44,13 @@
 
       // Decode and Test input parameters
 
-      NOTRNA = LSAME( TRANA, 'N' );
-      NOTRNB = LSAME( TRANB, 'N' );
+      NOTRNA = lsame( TRANA, 'N' );
+      NOTRNB = lsame( TRANB, 'N' );
 
       INFO = 0;
-      if ( !NOTRNA && !LSAME( TRANA, 'C' ) ) {
+      if ( !NOTRNA && !lsame( TRANA, 'C' ) ) {
          INFO = -1;
-      } else if ( !NOTRNB && !LSAME( TRANB, 'C' ) ) {
+      } else if ( !NOTRNB && !lsame( TRANB, 'C' ) ) {
          INFO = -2;
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3;

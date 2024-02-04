@@ -24,9 +24,9 @@
       double             FACTOR, XNORM, XNORMS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLARND, DNRM2;
-      // EXTERNAL LSAME, DLARND, DNRM2
+      // EXTERNAL lsame, DLARND, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DGER, DLASET, DSCAL, XERBLA
@@ -40,11 +40,11 @@
       if (N == 0 || M == 0) return;
 
       ITYPE = 0;
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
          ITYPE = 1;
-      } else if ( LSAME( SIDE, 'R' ) ) {
+      } else if ( lsame( SIDE, 'R' ) ) {
          ITYPE = 2;
-      } else if ( LSAME( SIDE, 'C' ) || LSAME( SIDE, 'T' ) ) {
+      } else if ( lsame( SIDE, 'C' ) || lsame( SIDE, 'T' ) ) {
          ITYPE = 3;
       }
 
@@ -72,7 +72,7 @@
 
       // Initialize A to the identity matrix if desired
 
-      if( LSAME( INIT, 'I' ) ) dlaset( 'Full', M, N, ZERO, ONE, A, LDA );
+      if( lsame( INIT, 'I' ) ) dlaset( 'Full', M, N, ZERO, ONE, A, LDA );
 
       // If no rotation possible, multiply by random +/-1
 

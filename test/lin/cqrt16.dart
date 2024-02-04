@@ -27,9 +27,9 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SCASUM, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, SCASUM, SLAMCH
+      // EXTERNAL lsame, CLANGE, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM
@@ -46,7 +46,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          ANORM = CLANGE( 'I', M, N, A, LDA, RWORK );
          N1 = N;
          N2 = M;

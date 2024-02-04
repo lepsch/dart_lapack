@@ -20,8 +20,8 @@
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CBDSQR, CLASET, SPTTRF, XERBLA
@@ -41,11 +41,11 @@
 
       INFO = 0;
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ICOMPZ = 0;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ICOMPZ = 2;
       } else {
          ICOMPZ = -1;

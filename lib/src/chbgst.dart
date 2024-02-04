@@ -27,8 +27,8 @@
       COMPLEX            RA, RA1, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGERC, CGERU, CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSSCAL, XERBLA
@@ -40,14 +40,14 @@
 
       // Test the input parameters
 
-      WANTX = LSAME( VECT, 'V' );
-      UPPER = LSAME( UPLO, 'U' );
+      WANTX = lsame( VECT, 'V' );
+      UPPER = lsame( UPLO, 'U' );
       KA1 = KA + 1;
       KB1 = KB + 1;
       INFO = 0;
-      if ( !WANTX && !LSAME( VECT, 'N' ) ) {
+      if ( !WANTX && !lsame( VECT, 'N' ) ) {
          INFO = -1;
-      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

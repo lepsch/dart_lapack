@@ -19,9 +19,9 @@
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLATSQR, CGEQRT, XERBLA

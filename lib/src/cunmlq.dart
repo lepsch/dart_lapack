@@ -24,10 +24,10 @@
       int                I, I1, I2, I3, IB, IC, IINFO, IWT, JC, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARFB, CLARFT, CUNML2, XERBLA
@@ -40,8 +40,8 @@
       // Test the input arguments
 
       INFO = 0;
-      LEFT = LSAME( SIDE, 'L' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      LEFT = lsame( SIDE, 'L' );
+      NOTRAN = lsame( TRANS, 'N' );
       LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q and NW is the minimum dimension of WORK
@@ -53,9 +53,9 @@
          NQ = N;
          NW = max( 1, M );
       }
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( M < 0 ) {
          INFO = -3;

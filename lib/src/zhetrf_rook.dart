@@ -20,9 +20,9 @@
       int                IINFO, IWS, J, K, KB, LDWORK, LWKOPT, NB, NBMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLAHEF_ROOK, ZHETF2_ROOK, XERBLA
@@ -35,9 +35,9 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

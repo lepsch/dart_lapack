@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -39,8 +39,8 @@
       // transposed and set  NROWA and NROWB  as the number of rows of  A
       // and  B  respectively.
 
-      NOTA = LSAME(TRANSA,'N');
-      NOTB = LSAME(TRANSB,'N');
+      NOTA = lsame(TRANSA,'N');
+      NOTB = lsame(TRANSB,'N');
       if (NOTA) {
           NROWA = M;
       } else {
@@ -55,9 +55,9 @@
       // Test the input parameters.
 
       INFO = 0;
-      if (( !NOTA) && ( !LSAME(TRANSA,'C')) && ( !LSAME(TRANSA,'T'))) {
+      if (( !NOTA) && ( !lsame(TRANSA,'C')) && ( !lsame(TRANSA,'T'))) {
           INFO = 1;
-      } else if (( !NOTB) && ( !LSAME(TRANSB,'C')) && ( !LSAME(TRANSB,'T'))) {
+      } else if (( !NOTB) && ( !lsame(TRANSB,'C')) && ( !lsame(TRANSB,'T'))) {
           INFO = 2;
       } else if (M < 0) {
           INFO = 3;

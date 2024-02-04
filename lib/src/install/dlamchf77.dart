@@ -20,8 +20,8 @@
       double             BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAMC2
@@ -59,25 +59,25 @@
          }
       }
 
-      if ( LSAME( CMACH, 'E' ) ) {
+      if ( lsame( CMACH, 'E' ) ) {
          RMACH = EPS;
-      } else if ( LSAME( CMACH, 'S' ) ) {
+      } else if ( lsame( CMACH, 'S' ) ) {
          RMACH = SFMIN;
-      } else if ( LSAME( CMACH, 'B' ) ) {
+      } else if ( lsame( CMACH, 'B' ) ) {
          RMACH = BASE;
-      } else if ( LSAME( CMACH, 'P' ) ) {
+      } else if ( lsame( CMACH, 'P' ) ) {
          RMACH = PREC;
-      } else if ( LSAME( CMACH, 'N' ) ) {
+      } else if ( lsame( CMACH, 'N' ) ) {
          RMACH = T;
-      } else if ( LSAME( CMACH, 'R' ) ) {
+      } else if ( lsame( CMACH, 'R' ) ) {
          RMACH = RND;
-      } else if ( LSAME( CMACH, 'M' ) ) {
+      } else if ( lsame( CMACH, 'M' ) ) {
          RMACH = EMIN;
-      } else if ( LSAME( CMACH, 'U' ) ) {
+      } else if ( lsame( CMACH, 'U' ) ) {
          RMACH = RMIN;
-      } else if ( LSAME( CMACH, 'L' ) ) {
+      } else if ( lsame( CMACH, 'L' ) ) {
          RMACH = EMAX;
-      } else if ( LSAME( CMACH, 'O' ) ) {
+      } else if ( lsame( CMACH, 'O' ) ) {
          RMACH = RMAX;
       }
 

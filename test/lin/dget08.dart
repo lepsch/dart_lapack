@@ -24,10 +24,10 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, idamax, DLAMCH, DLANGE
+      // EXTERNAL lsame, idamax, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM
@@ -44,7 +44,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
          N2 = M;
       } else {

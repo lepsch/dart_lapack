@@ -27,10 +27,10 @@
       COMPLEX            TMP, ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANSY, SLAMCH;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CLANSY, SLAMCH, CDOTC
+      // EXTERNAL lsame, CLANSY, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHERK, CLASET
@@ -53,7 +53,7 @@
       if (M <= 0 || N <= 0) return;
 
       EPS = SLAMCH( 'Precision' );
-      if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;
       } else {

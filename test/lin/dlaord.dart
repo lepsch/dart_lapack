@@ -19,8 +19,8 @@
       double             TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -28,7 +28,7 @@
       // .. Executable Statements ..
 
       INC = ( INCX ).abs();
-      if ( LSAME( JOB, 'I' ) ) {
+      if ( lsame( JOB, 'I' ) ) {
 
          // Sort in increasing order
 
@@ -48,7 +48,7 @@
             GO TO 10;
          } // 20
 
-      } else if ( LSAME( JOB, 'D' ) ) {
+      } else if ( lsame( JOB, 'D' ) ) {
 
          // Sort in decreasing order
 

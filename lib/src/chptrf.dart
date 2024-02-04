@@ -28,10 +28,10 @@
       COMPLEX            D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SLAPY2;
-      // EXTERNAL LSAME, ICAMAX, SLAPY2
+      // EXTERNAL lsame, ICAMAX, SLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHPR, CSSCAL, CSWAP, XERBLA
@@ -50,8 +50,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

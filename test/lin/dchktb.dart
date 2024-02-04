@@ -39,9 +39,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLANTB, DLANTR;
-      // EXTERNAL LSAME, DLANTB, DLANTR
+      // EXTERNAL lsame, DLANTB, DLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLASET, DLATBS, DLATTB, DTBCON, DTBRFS, DTBSV, DTBT02, DTBT03, DTBT05, DTBT06, DTBTRS
@@ -130,7 +130,7 @@
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-                  if ( LSAME( DIAG, 'N' ) ) {
+                  if ( lsame( DIAG, 'N' ) ) {
                      IDIAG = 1;
                   } else {
                      IDIAG = 2;
@@ -140,7 +140,7 @@
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                   dlaset('Full', N, N, ZERO, ONE, AINV, LDA );
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         dtbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
                      } // 20

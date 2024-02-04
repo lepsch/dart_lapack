@@ -31,10 +31,10 @@
       Complex         TEMP, VSAVE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE, ZLANHP;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP, ZDOTC
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZLANHP, ZDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZGEMM, ZHPMV, ZHPR, ZHPR2, ZLACPY, ZLASET, ZUPMTR
@@ -52,7 +52,7 @@
 
       LAP = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

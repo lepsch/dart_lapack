@@ -4,6 +4,7 @@
 
 ### Quick
  - Array -> (\b[XV])\(([^()]+)\)
+ - Cleanup ->  // \d+$
 
 ### Line continuations
 ```

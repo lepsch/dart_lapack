@@ -30,10 +30,10 @@
       Complex         D11, D12, D21, D22, R1, T, Z;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH
+      // EXTERNAL lsame, IZAMAX, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZGEMM, ZGEMV, ZSCAL, ZSWAP
@@ -59,7 +59,7 @@
 
       SFMIN = DLAMCH( 'S' );
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Factorize the trailing columns of A using the upper triangle
          // of A and working backwards, and compute the matrix W = U12*D

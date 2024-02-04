@@ -43,8 +43,8 @@
       // .. External Functions ..
       //- REAL      SLAMCH, SCNRM2;
       //- int       ISAMAX, ICAMAX;
-      //- bool      LSAME;
-      // EXTERNAL ISAMAX, ICAMAX, LSAME, SLAMCH, SCNRM2
+      //- bool      lsame;
+      // EXTERNAL ISAMAX, ICAMAX, lsame, SLAMCH, SCNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ, CCOPY,  CGELQF, CGEQP3, CGEQRF, CLACPY, CLAPMR, CLASCL, SLASCL, CLASET, CLASSQ, CLASWP, CUNGQR, CUNMLQ, CUNMQR, CPOCON, SSCAL,  CSSCAL, CSWAP,  CTRSM,  CLACGV, XERBLA
@@ -54,31 +54,31 @@
 
       // Test the input arguments
 
-      LSVEC  = LSAME( JOBU, 'U' ) || LSAME( JOBU, 'F' );
-      JRACC  = LSAME( JOBV, 'J' );
-      RSVEC  = LSAME( JOBV, 'V' ) || JRACC;
-      ROWPIV = LSAME( JOBA, 'F' ) || LSAME( JOBA, 'G' );
-      L2RANK = LSAME( JOBA, 'R' );
-      L2ABER = LSAME( JOBA, 'A' );
-      ERREST = LSAME( JOBA, 'E' ) || LSAME( JOBA, 'G' );
-      L2TRAN = LSAME( JOBT, 'T' ) && ( M == N );
-      L2KILL = LSAME( JOBR, 'R' );
-      DEFR   = LSAME( JOBR, 'N' );
-      L2PERT = LSAME( JOBP, 'P' );
+      LSVEC  = lsame( JOBU, 'U' ) || lsame( JOBU, 'F' );
+      JRACC  = lsame( JOBV, 'J' );
+      RSVEC  = lsame( JOBV, 'V' ) || JRACC;
+      ROWPIV = lsame( JOBA, 'F' ) || lsame( JOBA, 'G' );
+      L2RANK = lsame( JOBA, 'R' );
+      L2ABER = lsame( JOBA, 'A' );
+      ERREST = lsame( JOBA, 'E' ) || lsame( JOBA, 'G' );
+      L2TRAN = lsame( JOBT, 'T' ) && ( M == N );
+      L2KILL = lsame( JOBR, 'R' );
+      DEFR   = lsame( JOBR, 'N' );
+      L2PERT = lsame( JOBP, 'P' );
 
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 );
 
-      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
+      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || lsame( JOBA, 'C' ) )) {
          INFO = - 1;
-      } else if ( !( LSVEC || LSAME( JOBU, 'N' ) || ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
+      } else if ( !( LSVEC || lsame( JOBU, 'N' ) || ( lsame( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
          INFO = - 2;
-      } else if ( !( RSVEC || LSAME( JOBV, 'N' ) || ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
+      } else if ( !( RSVEC || lsame( JOBV, 'N' ) || ( lsame( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
          INFO = - 3;
       } else if ( !( L2KILL || DEFR ) ) {
          INFO = - 4;
-      } else if ( !( LSAME(JOBT,'T') || LSAME(JOBT,'N') ) ) {
+      } else if ( !( lsame(JOBT,'T') || lsame(JOBT,'N') ) ) {
          INFO = - 5;
-      } else if ( !( L2PERT || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( L2PERT || lsame( JOBP, 'N' ) ) ) {
          INFO = - 6;
       } else if ( M < 0 ) {
          INFO = - 7;
@@ -320,7 +320,7 @@
 
       if ( LSVEC ) {
          N1 = N;
-         if ( LSAME( JOBU, 'F' ) ) N1 = M;
+         if ( lsame( JOBU, 'F' ) ) N1 = M;
       }
 
       // Set numerical parameters

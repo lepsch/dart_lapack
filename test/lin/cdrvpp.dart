@@ -39,9 +39,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHP, SGET06;
-      // EXTERNAL LSAME, CLANHP, SGET06
+      // EXTERNAL lsame, CLANHP, SGET06
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CLACPY, CLAIPD, CLAQHP, CLARHS, CLASET, CLATB4, CLATMS, CPPEQU, CPPSV, CPPSVX, CPPT01, CPPT02, CPPT05, CPPTRF, CPPTRI
@@ -184,15 +184,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by CPPSVX (FACT = 'N' reuses
@@ -349,7 +349,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

@@ -25,10 +25,10 @@
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -46,7 +46,7 @@
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
 
       // Test 1:  Compute the maximum of
          // norm(X - XACT) / ( norm(X) * FERR )

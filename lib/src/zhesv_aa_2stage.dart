@@ -25,9 +25,9 @@
       int                LWKOPT, LWKMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHETRF_AA_2STAGE, ZHETRS_AA_2STAGE
@@ -40,11 +40,11 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       WQUERY = ( LWORK == -1 );
       TQUERY = ( LTB == -1 );
       LWKMIN = max( 1, N );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

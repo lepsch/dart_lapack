@@ -33,10 +33,10 @@
       // EXTERNAL SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLARTG, SLASCL, SORGHR, SROT, SSCAL, STREVC3, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX, ILAENV;
       //- REAL               SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK
+      // EXTERNAL lsame, ISAMAX, ILAENV, SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -47,11 +47,11 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      WANTVL = LSAME( JOBVL, 'V' );
-      WANTVR = LSAME( JOBVR, 'V' );
-      if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
+      WANTVL = lsame( JOBVL, 'V' );
+      WANTVR = lsame( JOBVR, 'V' );
+      if ( ( !WANTVL ) && ( !lsame( JOBVL, 'N' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !lsame( JOBVR, 'N' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

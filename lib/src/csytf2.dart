@@ -30,9 +30,9 @@
       COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- int                ICAMAX;
-      // EXTERNAL LSAME, ICAMAX, SISNAN
+      // EXTERNAL lsame, ICAMAX, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CSCAL, CSWAP, CSYR, XERBLA
@@ -51,8 +51,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

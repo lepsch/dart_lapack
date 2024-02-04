@@ -41,9 +41,9 @@
       double             RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB;
-      // EXTERNAL LSAME, DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB
+      // EXTERNAL lsame, DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGBEQU, ZGBSV, ZGBSVX, ZGBT01, ZGBT02, ZGBT05, ZGBTRF, ZGBTRS, ZGET04, ZLACPY, ZLAQGB, ZLARHS, ZLASET, ZLATB4, ZLATMS
@@ -224,9 +224,9 @@
 
                      for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                         FACT = FACTS( IFACT );
-                        PREFAC = LSAME( FACT, 'F' );
-                        NOFACT = LSAME( FACT, 'N' );
-                        EQUIL = LSAME( FACT, 'E' );
+                        PREFAC = lsame( FACT, 'F' );
+                        NOFACT = lsame( FACT, 'N' );
+                        EQUIL = lsame( FACT, 'E' );
 
                         if ( ZEROT ) {
                            if (PREFAC) GO TO 100;
@@ -248,13 +248,13 @@
 
                               zgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                               if ( INFO == 0 && N > 0 ) {
-                                 if ( LSAME( EQUED, 'R' ) ) {
+                                 if ( lsame( EQUED, 'R' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ONE;
-                                 } else if ( LSAME( EQUED, 'C' ) ) {
+                                 } else if ( lsame( EQUED, 'C' ) ) {
                                     ROWCND = ONE;
                                     COLCND = ZERO;
-                                 } else if ( LSAME( EQUED, 'B' ) ) {
+                                 } else if ( lsame( EQUED, 'B' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ZERO;
                                  }
@@ -449,7 +449,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                              if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                                  zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {

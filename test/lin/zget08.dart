@@ -28,10 +28,10 @@
       Complex         ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH, ZLANGE
+      // EXTERNAL lsame, IZAMAX, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM
@@ -54,7 +54,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
          N2 = M;
       } else {

@@ -31,8 +31,8 @@
       COMPLEX            RHS( LDZ ), Z( LDZ, LDZ );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CGESC2, CGETC2, CSCAL, CLATDF, XERBLA
@@ -46,8 +46,8 @@
 
       INFO = 0;
       IERR = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOTRAN && !lsame( TRANS, 'C' ) ) {
          INFO = -1;
       } else if ( NOTRAN ) {
          if ( ( IJOB < 0 ) || ( IJOB > 2 ) ) {

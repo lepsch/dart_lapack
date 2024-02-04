@@ -38,9 +38,9 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, DLAMCH
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. Statement Functions ..
       double             CABS1;
@@ -53,15 +53,15 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      NOUNIT = LSAME( DIAG, 'N' );
+      UPPER = lsame( UPLO, 'U' );
+      NOTRAN = lsame( TRANS, 'N' );
+      NOUNIT = lsame( DIAG, 'N' );
 
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
-      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

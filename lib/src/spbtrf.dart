@@ -27,9 +27,9 @@
       REAL               WORK( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SPBTF2, SPOTF2, SSYRK, STRSM, XERBLA
@@ -42,7 +42,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( ( !LSAME( UPLO, 'U' ) ) && ( !LSAME( UPLO, 'L' ) ) ) {
+      if ( ( !lsame( UPLO, 'U' ) ) && ( !lsame( UPLO, 'L' ) ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -78,7 +78,7 @@
 
          // Use blocked code
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Compute the Cholesky factorization of a symmetric band
             // matrix, given the upper triangle of the matrix in band

@@ -25,8 +25,8 @@
       double             SCALE, SUM, VALUE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
-      // EXTERNAL LSAME, DISNAN
+      //- bool               lsame, DISNAN;
+      // EXTERNAL lsame, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLASSQ
@@ -38,13 +38,13 @@
 
       if ( min( M, N ) == 0 ) {
          VALUE = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         if ( LSAME( DIAG, 'U' ) ) {
+         if ( lsame( DIAG, 'U' ) ) {
             VALUE = ONE;
-            if ( LSAME( UPLO, 'U' ) ) {
+            if ( lsame( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= min( M, J-1 ); I++) { // 10
                      SUM = ( A( I, J ) ).abs();
@@ -61,7 +61,7 @@
             }
          } else {
             VALUE = ZERO;
-            if ( LSAME( UPLO, 'U' ) ) {
+            if ( lsame( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
                   for (I = 1; I <= min( M, J ); I++) { // 50
                      SUM = ( A( I, J ) ).abs();
@@ -77,13 +77,13 @@
                } // 80
             }
          }
-      } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
+      } else if ( ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
          VALUE = ZERO;
-         UDIAG = LSAME( DIAG, 'U' );
-         if ( LSAME( UPLO, 'U' ) ) {
+         UDIAG = lsame( DIAG, 'U' );
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 110
                if ( ( UDIAG ) && ( J <= M ) ) {
                   SUM = ONE;
@@ -114,12 +114,12 @@
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 140
          }
-      } else if ( LSAME( NORM, 'I' ) ) {
+      } else if ( lsame( NORM, 'I' ) ) {
 
          // Find normI(A).
 
-         if ( LSAME( UPLO, 'U' ) ) {
-            if ( LSAME( DIAG, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
+            if ( lsame( DIAG, 'U' ) ) {
                for (I = 1; I <= M; I++) { // 150
                   WORK[I] = ONE;
                } // 150
@@ -139,7 +139,7 @@
                } // 200
             }
          } else {
-            if ( LSAME( DIAG, 'U' ) ) {
+            if ( lsame( DIAG, 'U' ) ) {
                for (I = 1; I <= min( M, N ); I++) { // 210
                   WORK[I] = ONE;
                } // 210
@@ -167,12 +167,12 @@
             SUM = WORK( I );
             if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 280
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         if ( LSAME( UPLO, 'U' ) ) {
-            if ( LSAME( DIAG, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
+            if ( lsame( DIAG, 'U' ) ) {
                SCALE = ONE;
                SUM = min( M, N );
                for (J = 2; J <= N; J++) { // 290
@@ -186,7 +186,7 @@
                } // 300
             }
          } else {
-            if ( LSAME( DIAG, 'U' ) ) {
+            if ( lsame( DIAG, 'U' ) ) {
                SCALE = ONE;
                SUM = min( M, N );
                for (J = 1; J <= N; J++) { // 310

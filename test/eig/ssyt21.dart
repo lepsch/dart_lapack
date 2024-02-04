@@ -25,9 +25,9 @@
       REAL               ANORM, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SLANSY;
-      // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSY
+      // EXTERNAL lsame, SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLARFY, SLASET, SORM2L, SORM2R, SSYR, SSYR2
@@ -41,7 +41,7 @@
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

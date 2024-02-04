@@ -27,9 +27,9 @@
       // EXTERNAL ZAXPY, ZGEMV, ZHEMV, ZLACGV, ZLARFG, ZSCAL
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, ZDOTC
+      // EXTERNAL lsame, ZDOTC
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MIN
@@ -40,7 +40,7 @@
 
       if (N <= 0) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Reduce last NB columns of upper triangle
 

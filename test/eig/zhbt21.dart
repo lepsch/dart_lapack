@@ -28,9 +28,9 @@
       double             ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE, ZLANHB, ZLANHP;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHB, ZLANHP
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZLANHB, ZLANHP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZHPR, ZHPR2
@@ -48,7 +48,7 @@
 
       IKA = max( 0, min( N-1, KA ) );
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

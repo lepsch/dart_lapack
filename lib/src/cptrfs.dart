@@ -33,10 +33,10 @@
       COMPLEX            BI, CX, DX, EX, ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CPTTRS, XERBLA
@@ -55,8 +55,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

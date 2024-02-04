@@ -33,10 +33,10 @@
       // EXTERNAL DBDSVDX, DGEBRD, DGELQF, DGEQRF, DLACPY, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, DCOPY, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
@@ -51,21 +51,21 @@
       LQUERY = ( LWORK == -1 );
       MINMN = min( M, N );
 
-      WANTU = LSAME( JOBU, 'V' );
-      WANTVT = LSAME( JOBVT, 'V' );
+      WANTU = lsame( JOBU, 'V' );
+      WANTVT = lsame( JOBVT, 'V' );
       if ( WANTU || WANTVT ) {
          JOBZ = 'V';
       } else {
          JOBZ = 'N';
       }
-      ALLS = LSAME( RANGE, 'A' );
-      VALS = LSAME( RANGE, 'V' );
-      INDS = LSAME( RANGE, 'I' );
+      ALLS = lsame( RANGE, 'A' );
+      VALS = lsame( RANGE, 'V' );
+      INDS = lsame( RANGE, 'I' );
 
       INFO = 0;
-      if ( !LSAME( JOBU, 'V' ) && !LSAME( JOBU, 'N' ) ) {
+      if ( !lsame( JOBU, 'V' ) && !lsame( JOBU, 'N' ) ) {
          INFO = -1;
-      } else if ( !LSAME( JOBVT, 'V' ) && !LSAME( JOBVT, 'N' ) ) {
+      } else if ( !lsame( JOBVT, 'V' ) && !lsame( JOBVT, 'N' ) ) {
          INFO = -2;
       } else if ( !( ALLS || VALS || INDS ) ) {
          INFO = -3;

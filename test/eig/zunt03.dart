@@ -27,10 +27,10 @@
       Complex         S, SU, SV;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH
+      // EXTERNAL lsame, IZAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
@@ -43,9 +43,9 @@
       // Check inputs
 
       INFO = 0;
-      if ( LSAME( RC, 'R' ) ) {
+      if ( lsame( RC, 'R' ) ) {
          IRC = 0;
-      } else if ( LSAME( RC, 'C' ) ) {
+      } else if ( lsame( RC, 'C' ) ) {
          IRC = 1;
       } else {
          IRC = -1;

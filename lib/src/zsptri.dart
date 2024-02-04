@@ -25,9 +25,9 @@
       Complex         AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- Complex         ZDOTU;
-      // EXTERNAL LSAME, ZDOTU
+      // EXTERNAL lsame, ZDOTU
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZCOPY, ZSPMV, ZSWAP
@@ -40,8 +40,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

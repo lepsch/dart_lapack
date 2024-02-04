@@ -25,9 +25,9 @@
       REAL               EPS, TMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT, SLAMCH, SLANSY;
-      // EXTERNAL LSAME, SDOT, SLAMCH, SLANSY
+      // EXTERNAL lsame, SDOT, SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASET, SSYRK
@@ -44,7 +44,7 @@
       if (M <= 0 || N <= 0) return;
 
       EPS = SLAMCH( 'Precision' );
-      if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;
       } else {

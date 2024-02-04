@@ -26,10 +26,10 @@
       COMPLEX            T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANSP, SLAMCH;
       //- COMPLEX            CDOTU;
-      // EXTERNAL LSAME, CLANGE, CLANSP, SLAMCH, CDOTU
+      // EXTERNAL lsame, CLANGE, CLANSP, SLAMCH, CDOTU
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -60,7 +60,7 @@
       // Each element of - A * AINV is computed by taking the dot product
       // of a row of A with a column of AINV.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (I = 1; I <= N; I++) { // 70
             ICOL = ( ( I-1 )*I ) / 2 + 1;
 

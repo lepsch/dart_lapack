@@ -25,9 +25,9 @@
       REAL               PIV, ALPHA;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX, ILAENV;
-      // EXTERNAL LSAME, ILAENV, ISAMAX
+      // EXTERNAL lsame, ILAENV, ISAMAX
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEMV, SSCAL, SCOPY, SSWAP, SLASET, XERBLA
@@ -44,7 +44,7 @@
 
       K1 = (2-J1)+1;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // .....................................................
          // Factorize A as U**T*D*U using the upper triangle of A

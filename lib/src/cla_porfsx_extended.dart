@@ -40,7 +40,7 @@
       const              LA_LINRX_RCOND_I = 3 ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       // EXTERNAL ILAUPLO
       int                ILAUPLO;
       // ..
@@ -67,7 +67,7 @@
       // Using HUGEVAL may lead to spurious underflows.
       INCR_THRESH = REAL(N) * EPS;
 
-      if (LSAME (UPLO, 'L')) {
+      if (lsame (UPLO, 'L')) {
          UPLO2 = ILAUPLO( 'L' );
       } else {
          UPLO2 = ILAUPLO( 'U' );

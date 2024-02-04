@@ -19,15 +19,15 @@
       COMPLEX            TMP;
 
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CSWAP
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if (UPPER) {
 
           // UPPER

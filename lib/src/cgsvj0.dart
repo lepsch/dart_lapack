@@ -37,8 +37,8 @@
       //- REAL               SCNRM2;
       //- COMPLEX            CDOTC;
       //- int                ISAMAX;
-      //- bool               LSAME;
-      // EXTERNAL ISAMAX, LSAME, CDOTC, SCNRM2
+      //- bool               lsame;
+      // EXTERNAL ISAMAX, lsame, CDOTC, SCNRM2
       // ..
       // ..
       // .. External Subroutines ..
@@ -52,9 +52,9 @@
 
       // Test the input parameters.
 
-      APPLV = LSAME( JOBV, 'A' );
-      RSVEC = LSAME( JOBV, 'V' );
-      if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      APPLV = lsame( JOBV, 'A' );
+      RSVEC = lsame( JOBV, 'V' );
+      if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

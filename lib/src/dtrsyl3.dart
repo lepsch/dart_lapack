@@ -23,10 +23,10 @@
       double             WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLANGE, DLAMCH, DLARMM;
-      // EXTERNAL DLANGE, DLAMCH, DLARMM, ILAENV, LSAME
+      // EXTERNAL DLANGE, DLAMCH, DLARMM, ILAENV, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLASCL, DSCAL, DTRSYL, XERBLA
@@ -38,8 +38,8 @@
 
       // Decode and Test input parameters
 
-      NOTRNA = LSAME( TRANA, 'N' );
-      NOTRNB = LSAME( TRANB, 'N' );
+      NOTRNA = lsame( TRANA, 'N' );
+      NOTRNB = lsame( TRANB, 'N' );
 
       // Use the same block size for all matrices.
 
@@ -63,9 +63,9 @@
 
       // Test the input arguments
 
-      if ( !NOTRNA && !LSAME( TRANA, 'T' ) && !LSAME( TRANA, 'C' ) ) {
+      if ( !NOTRNA && !lsame( TRANA, 'T' ) && !lsame( TRANA, 'C' ) ) {
          INFO = -1;
-      } else if ( !NOTRNB && !LSAME( TRANB, 'T' ) && !LSAME( TRANB, 'C' ) ) {
+      } else if ( !NOTRNB && !lsame( TRANB, 'T' ) && !lsame( TRANB, 'C' ) ) {
          INFO = -2;
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3;

@@ -33,8 +33,8 @@
       // .. External Functions ..
       //- REAL SLAMCH;
       //- REAL SLANGE, SLANSY;
-      //- bool     LSAME;
-      // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
+      //- bool     lsame;
+      // EXTERNAL SLAMCH, SLANGE, SLANSY, lsame
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];

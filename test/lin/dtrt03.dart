@@ -24,10 +24,10 @@
       double             BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, idamax, DLAMCH
+      // EXTERNAL lsame, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DSCAL, DTRMV
@@ -51,7 +51,7 @@
       // norms already computed by DLATRS.
 
       TNORM = ZERO;
-      if ( LSAME( DIAG, 'N' ) ) {
+      if ( lsame( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
             TNORM = max( TNORM, TSCAL*( A( J, J ) ).abs()+CNORM( J ) );
          } // 10

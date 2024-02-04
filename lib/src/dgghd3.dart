@@ -27,9 +27,9 @@
       double             C, C1, C2, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL ILAENV, LSAME
+      // EXTERNAL ILAENV, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGGHRD, DLARTG, DLASET, DORM22, DROT, DGEMM, DGEMV, DTRMV, DLACPY, XERBLA
@@ -50,15 +50,15 @@
          LWKOPT = 6*N*NB;
       }
       WORK[1] = LWKOPT.toDouble();
-      INITQ = LSAME( COMPQ, 'I' );
-      WANTQ = INITQ || LSAME( COMPQ, 'V' );
-      INITZ = LSAME( COMPZ, 'I' );
-      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      INITQ = lsame( COMPQ, 'I' );
+      WANTQ = INITQ || lsame( COMPQ, 'V' );
+      INITZ = lsame( COMPZ, 'I' );
+      WANTZ = INITZ || lsame( COMPZ, 'V' );
       LQUERY = ( LWORK == -1 );
 
-      if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
+      if ( !lsame( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -1;
-      } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
+      } else if ( !lsame( COMPZ, 'N' ) && !WANTZ ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

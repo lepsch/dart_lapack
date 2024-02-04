@@ -40,9 +40,9 @@
       Complex, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- double             DLAMCH, DSECND;
-      // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND
+      // EXTERNAL lsame, LSAMEN, DLAMCH, DSECND
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, ZCHKEQ, ZCHKGB, ZCHKGE, ZCHKGT, ZCHKHE, ZCHKHE_ROOK, ZCHKHE_RK, ZCHKHE_AA, ZCHKHP, ZCHKLQ, ZCHKUNHR_COL, ZCHKPB, ZCHKPO, ZCHKPS, ZCHKPP, ZCHKPT, ZCHKQ3, ZCHKQP3RK, ZCHKQL, ZCHKQR, ZCHKRQ, ZCHKSP, ZCHKSY, ZCHKSY_ROOK, ZCHKSY_RK, ZCHKSY_AA, ZCHKTB, ZCHKTP, ZCHKTR, ZCHKTZ, ZDRVGB, ZDRVGE, ZDRVGT, ZDRVHE, ZDRVHE_ROOK, ZDRVHE_RK, ZDRVHE_AA, ZDRVHE_AA_2STAGE, ZDRVHP, ZDRVLS, ZDRVPB, ZDRVPO, ZDRVPP, ZDRVPT, ZDRVSP, ZDRVSY, ZDRVSY_ROOK, ZDRVSY_RK, ZDRVSY_AA, ZDRVSY_AA_2STAGE, ILAVER, ZCHKQRT, ZCHKQRTP, ZCHKLQT, ZCHKLQTP, ZCHKTSQR
@@ -299,7 +299,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'Zomplex precision' ) ) {
+      if ( !lsame( C1, 'Zomplex precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {

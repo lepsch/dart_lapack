@@ -26,8 +26,8 @@
       int                STACK( 2, 32 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -38,9 +38,9 @@
 
       INFO = 0;
       DIR = -1;
-      if ( LSAME( ID, 'D' ) ) {
+      if ( lsame( ID, 'D' ) ) {
          DIR = 0;
-      } else if ( LSAME( ID, 'I' ) ) {
+      } else if ( lsame( ID, 'I' ) ) {
          DIR = 1;
       }
       if ( DIR == -1 ) {

@@ -40,9 +40,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SGET06, SLAMCH, SLANGE, SLANTR;
-      // EXTERNAL LSAME, SGET06, SLAMCH, SLANGE, SLANTR
+      // EXTERNAL lsame, SGET06, SLAMCH, SLANGE, SLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGEEQU, SGESV, SGESVX, SGET01, SGET02, SGET04, SGET07, SGETRF, SGETRI, SLACPY, SLAQGE, SLARHS, SLASET, SLATB4, SLATMS, XLAENV
@@ -163,9 +163,9 @@
 
                for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 60
                   FACT = FACTS( IFACT );
-                  PREFAC = LSAME( FACT, 'F' );
-                  NOFACT = LSAME( FACT, 'N' );
-                  EQUIL = LSAME( FACT, 'E' );
+                  PREFAC = lsame( FACT, 'F' );
+                  NOFACT = lsame( FACT, 'N' );
+                  EQUIL = lsame( FACT, 'E' );
 
                   if ( ZEROT ) {
                      if (PREFAC) GO TO 60;
@@ -187,13 +187,13 @@
 
                         sgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                         if ( INFO == 0 && N > 0 ) {
-                           if ( LSAME( EQUED, 'R' ) ) {
+                           if ( lsame( EQUED, 'R' ) ) {
                               ROWCND = ZERO;
                               COLCND = ONE;
-                           } else if ( LSAME( EQUED, 'C' ) ) {
+                           } else if ( lsame( EQUED, 'C' ) ) {
                               ROWCND = ONE;
                               COLCND = ZERO;
-                           } else if ( LSAME( EQUED, 'B' ) ) {
+                           } else if ( lsame( EQUED, 'B' ) ) {
                               ROWCND = ZERO;
                               COLCND = ZERO;
                            }
@@ -381,7 +381,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {

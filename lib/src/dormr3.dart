@@ -19,8 +19,8 @@
       int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARZ, XERBLA
@@ -33,8 +33,8 @@
       // Test the input arguments
 
       INFO = 0;
-      LEFT = LSAME( SIDE, 'L' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      LEFT = lsame( SIDE, 'L' );
+      NOTRAN = lsame( TRANS, 'N' );
 
       // NQ is the order of Q
 
@@ -43,9 +43,9 @@
       } else {
          NQ = N;
       }
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
          INFO = -2;
       } else if ( M < 0 ) {
          INFO = -3;

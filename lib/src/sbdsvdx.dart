@@ -29,10 +29,10 @@
       REAL               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SDOT, SLAMCH, SNRM2;
-      // EXTERNAL ISAMAX, LSAME, SAXPY, SDOT, SLAMCH, SNRM2
+      // EXTERNAL ISAMAX, lsame, SAXPY, SDOT, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLASET, SSCAL, SSWAP, SSTEVX, XERBLA
@@ -44,16 +44,16 @@
 
       // Test the input parameters.
 
-      ALLSV = LSAME( RANGE, 'A' );
-      VALSV = LSAME( RANGE, 'V' );
-      INDSV = LSAME( RANGE, 'I' );
-      WANTZ = LSAME( JOBZ, 'V' );
-      LOWER = LSAME( UPLO, 'L' );
+      ALLSV = lsame( RANGE, 'A' );
+      VALSV = lsame( RANGE, 'V' );
+      INDSV = lsame( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      LOWER = lsame( UPLO, 'L' );
 
       INFO = 0;
-      if ( !LSAME( UPLO, 'U' ) && !LOWER ) {
+      if ( !lsame( UPLO, 'U' ) && !LOWER ) {
          INFO = -1;
-      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -2;
       } else if ( !( ALLSV || VALSV || INDSV ) ) {
          INFO = -3;

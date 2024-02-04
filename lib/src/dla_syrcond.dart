@@ -25,9 +25,9 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, DLAMCH
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLACN2, XERBLA, DSYTRS
@@ -56,7 +56,7 @@
          return;
       }
       UP = false;
-      if ( LSAME( UPLO, 'U' ) ) UP = true;
+      if ( lsame( UPLO, 'U' ) ) UP = true;
 
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.

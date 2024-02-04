@@ -20,8 +20,8 @@
       int                I, II, KK, LW, CTR, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZTPMLQT, ZGEMLQT, XERBLA
@@ -32,10 +32,10 @@
 
       INFO = 0;
       LQUERY  = ( LWORK == -1 );
-      NOTRAN  = LSAME( TRANS, 'N' );
-      TRAN    = LSAME( TRANS, 'C' );
-      LEFT    = LSAME( SIDE, 'L' );
-      RIGHT   = LSAME( SIDE, 'R' );
+      NOTRAN  = lsame( TRANS, 'N' );
+      TRAN    = lsame( TRANS, 'C' );
+      LEFT    = lsame( SIDE, 'L' );
+      RIGHT   = lsame( SIDE, 'R' );
       if ( LEFT ) {
         LW = N * MB;
       } else {

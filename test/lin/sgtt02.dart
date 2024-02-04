@@ -24,9 +24,9 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SASUM, SLAMCH, SLANGT;
-      // EXTERNAL LSAME, SASUM, SLAMCH, SLANGT
+      // EXTERNAL lsame, SASUM, SLAMCH, SLANGT
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAGTM
@@ -44,7 +44,7 @@
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = SLANGT( '1', N, DL, D, DU );
       } else {
          ANORM = SLANGT( 'I', N, DL, D, DU );

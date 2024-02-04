@@ -27,8 +27,8 @@
       // EXTERNAL SBDSQR, SLARTG, SLASR, SSWAP, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -39,8 +39,8 @@
 
       INFO = 0;
       IUPLO = 0;
-      if( LSAME( UPLO, 'U' ) ) IUPLO = 1;
-      IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
+      if( lsame( UPLO, 'U' ) ) IUPLO = 1;
+      IF( lsame( UPLO, 'L' ) ) IUPLO = 2;
       if ( IUPLO == 0 ) {
          INFO = -1;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {

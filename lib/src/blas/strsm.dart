@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -37,23 +37,23 @@
 
       // Test the input parameters.
 
-      LSIDE = LSAME(SIDE,'L');
+      LSIDE = lsame(SIDE,'L');
       if (LSIDE) {
           NROWA = M;
       } else {
           NROWA = N;
       }
-      NOUNIT = LSAME(DIAG,'N');
-      UPPER = LSAME(UPLO,'U');
+      NOUNIT = lsame(DIAG,'N');
+      UPPER = lsame(UPLO,'U');
 
       INFO = 0;
-      if (( !LSIDE) && ( !LSAME(SIDE,'R'))) {
+      if (( !LSIDE) && ( !lsame(SIDE,'R'))) {
           INFO = 1;
-      } else if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
+      } else if (( !UPPER) && ( !lsame(UPLO,'L'))) {
           INFO = 2;
-      } else if (( !LSAME(TRANSA,'N')) && ( !LSAME(TRANSA,'T')) && ( !LSAME(TRANSA,'C'))) {
+      } else if (( !lsame(TRANSA,'N')) && ( !lsame(TRANSA,'T')) && ( !lsame(TRANSA,'C'))) {
           INFO = 3;
-      } else if (( !LSAME(DIAG,'U')) && ( !LSAME(DIAG,'N'))) {
+      } else if (( !lsame(DIAG,'U')) && ( !lsame(DIAG,'N'))) {
           INFO = 4;
       } else if (M < 0) {
           INFO = 5;
@@ -87,7 +87,7 @@
       // Start the operations.
 
       if (LSIDE) {
-          if (LSAME(TRANSA,'N')) {
+          if (lsame(TRANSA,'N')) {
 
             // Form  B := alpha*inv( A )*B.
 
@@ -153,7 +153,7 @@
               }
           }
       } else {
-          if (LSAME(TRANSA,'N')) {
+          if (lsame(TRANSA,'N')) {
 
             // Form  B := alpha*B*inv( A ).
 

@@ -27,10 +27,10 @@
       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DLAMCH, DLARND;
-      // EXTERNAL LSAME, idamax, DLAMCH, DLARND
+      // EXTERNAL lsame, idamax, DLAMCH, DLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DLARNV, DLATB4, DLATMS, DROT, DROTG, DSCAL, DSWAP
@@ -59,7 +59,7 @@
 
       // Call DLATB4 to set parameters for DLATMS.
 
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
          dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
       } else {
@@ -543,7 +543,7 @@
 
       // Flip the matrix if the transpose will be used.
 
-      if ( !LSAME( TRANS, 'N' ) ) {
+      if ( !lsame( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 420
                dswap(N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 );

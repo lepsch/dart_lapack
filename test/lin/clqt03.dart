@@ -26,9 +26,9 @@
       REAL               CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, SLAMCH
+      // EXTERNAL lsame, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CLACPY, CLARNV, CLASET, CUNGLQ, CUNMLQ
@@ -99,7 +99,7 @@
 
             // Form explicit product and subtract
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
                cgemm(TRANS, 'No transpose', MC, NC, MC, CMPLX( -ONE ), Q, LDA, C, LDA, CMPLX( ONE ), CC, LDA );
             } else {
                cgemm('No transpose', TRANS, MC, NC, NC, CMPLX( -ONE ), C, LDA, Q, LDA, CMPLX( ONE ), CC, LDA );

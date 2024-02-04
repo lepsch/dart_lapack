@@ -32,8 +32,8 @@
       REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME, SLAMCH, SLA_GBRPVGRW
-      bool               LSAME;
+      // EXTERNAL lsame, SLAMCH, SLA_GBRPVGRW
+      bool               lsame;
       REAL               SLAMCH, SLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
@@ -45,9 +45,9 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      EQUIL = LSAME( FACT, 'E' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOFACT = lsame( FACT, 'N' );
+      EQUIL = lsame( FACT, 'E' );
+      NOTRAN = lsame( TRANS, 'N' );
       SMLNUM = SLAMCH( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
@@ -55,8 +55,8 @@
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
-         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+         ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
+         COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
       }
 
       // Default is failure.  If an input parameter is wrong or
@@ -67,9 +67,9 @@
 
       // Test the input parameters.  PARAMS is not tested until SGBRFSX.
 
-      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
@@ -83,7 +83,7 @@
          INFO = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
          INFO = -10;
-      } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( lsame( FACT, 'F' ) && !( ROWEQU || COLEQU || lsame( EQUED, 'N' ) ) ) {
          INFO = -12;
       } else {
          if ( ROWEQU ) {
@@ -140,8 +140,8 @@
       // Equilibrate the matrix.
 
             slaqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
-            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+            ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
+            COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
          }
 
       // If the scaling factors are not applied, set them to 1.0.

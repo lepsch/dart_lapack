@@ -20,8 +20,8 @@
       COMPLEX            TAUI;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARZ, XERBLA
@@ -34,8 +34,8 @@
       // Test the input arguments
 
       INFO = 0;
-      LEFT = LSAME( SIDE, 'L' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      LEFT = lsame( SIDE, 'L' );
+      NOTRAN = lsame( TRANS, 'N' );
 
       // NQ is the order of Q
 
@@ -44,9 +44,9 @@
       } else {
          NQ = N;
       }
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( M < 0 ) {
          INFO = -3;

@@ -29,11 +29,11 @@
       Complex         PLUS1, PLUS2, STAR1;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH, DLARND;
       //- Complex         ZLARND;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
+      // EXTERNAL lsame, IZAMAX, DLAMCH, DLARND, ZLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZSWAP
@@ -62,7 +62,7 @@
 
       // Call ZLATB4 to set parameters for ZLATMS.
 
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
          zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          KU = KD;
@@ -510,7 +510,7 @@
 
       // Flip the matrix if the transpose will be used.
 
-      if ( !LSAME( TRANS, 'N' ) ) {
+      if ( !lsame( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 420
                LENJ = min( N-2*J+1, KD+1 );

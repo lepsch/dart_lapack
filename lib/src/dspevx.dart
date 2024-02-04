@@ -27,9 +27,9 @@
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANSP;
-      // EXTERNAL LSAME, DLAMCH, DLANSP
+      // EXTERNAL lsame, DLAMCH, DLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DOPGTR, DOPMTR, DSCAL, DSPTRD, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
@@ -41,17 +41,17 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;
-      } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( lsame( UPLO, 'L' ) || lsame( UPLO, 'U' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

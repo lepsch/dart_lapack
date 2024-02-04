@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      //- REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW       EXTERNAL           LSAME, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW;
+      //- bool               lsame;
+      //- REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW       EXTERNAL           lsame, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGBEQU, SGBSV, SGBSVX, SGBT01, SGBT02, SGBT05, SGBTRF, SGBTRS, SGET04, SLACPY, SLAQGB, SLARHS, SLASET, SLATB4, SLATMS, XLAENV, SGBSVXX
@@ -222,9 +222,9 @@
 
                      for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                         FACT = FACTS( IFACT );
-                        PREFAC = LSAME( FACT, 'F' );
-                        NOFACT = LSAME( FACT, 'N' );
-                        EQUIL = LSAME( FACT, 'E' );
+                        PREFAC = lsame( FACT, 'F' );
+                        NOFACT = lsame( FACT, 'N' );
+                        EQUIL = lsame( FACT, 'E' );
 
                         if ( ZEROT ) {
                            if (PREFAC) GO TO 100;
@@ -246,13 +246,13 @@
 
                               sgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                               if ( INFO == 0 && N > 0 ) {
-                                 if ( LSAME( EQUED, 'R' ) ) {
+                                 if ( lsame( EQUED, 'R' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ONE;
-                                 } else if ( LSAME( EQUED, 'C' ) ) {
+                                 } else if ( lsame( EQUED, 'C' ) ) {
                                     ROWCND = ONE;
                                     COLCND = ZERO;
-                                 } else if ( LSAME( EQUED, 'B' ) ) {
+                                 } else if ( lsame( EQUED, 'B' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ZERO;
                                  }
@@ -448,7 +448,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                              if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                                  sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {
@@ -585,7 +585,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {

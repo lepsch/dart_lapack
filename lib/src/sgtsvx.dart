@@ -26,9 +26,9 @@
       REAL               ANORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGT;
-      // EXTERNAL LSAME, SLAMCH, SLANGT
+      // EXTERNAL lsame, SLAMCH, SLANGT
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGTCON, SGTRFS, SGTTRF, SGTTRS, SLACPY, XERBLA
@@ -39,11 +39,11 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
+      NOFACT = lsame( FACT, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

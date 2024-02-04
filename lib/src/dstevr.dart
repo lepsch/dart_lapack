@@ -27,10 +27,10 @@
       double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTEMR, DSTEIN, DSTERF, DSWAP, XERBLA
@@ -45,10 +45,10 @@
 
       IEEEOK = ILAENV( 10, 'DSTEVR', 'N', 1, 2, 3, 4 );
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) );
       LWMIN = max( 1, 20*N );
@@ -56,7 +56,7 @@
 
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;

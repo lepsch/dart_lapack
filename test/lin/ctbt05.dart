@@ -26,10 +26,10 @@
       COMPLEX            ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH
+      // EXTERNAL lsame, ICAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
@@ -53,9 +53,9 @@
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      UPPER = LSAME( UPLO, 'U' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      UNIT = LSAME( DIAG, 'U' );
+      UPPER = lsame( UPLO, 'U' );
+      NOTRAN = lsame( TRANS, 'N' );
+      UNIT = lsame( DIAG, 'U' );
       NZ = min( KD, N-1 ) + 1;
 
       // Test 1:  Compute the maximum of

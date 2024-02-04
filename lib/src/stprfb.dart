@@ -23,8 +23,8 @@
       bool      LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;
       // ..
       // .. External Functions ..
-      //- bool      LSAME;
-      // EXTERNAL LSAME
+      //- bool      lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, STRMM
@@ -35,10 +35,10 @@
 
       if (M <= 0 || N <= 0 || K <= 0 || L < 0) return;
 
-      if ( LSAME( STOREV, 'C' ) ) {
+      if ( lsame( STOREV, 'C' ) ) {
          COLUMN = true;
          ROW = false;
-      } else if ( LSAME( STOREV, 'R' ) ) {
+      } else if ( lsame( STOREV, 'R' ) ) {
          COLUMN = false;
          ROW = true;
       } else {
@@ -46,10 +46,10 @@
          ROW = false;
       }
 
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
          LEFT = true;
          RIGHT = false;
-      } else if ( LSAME( SIDE, 'R' ) ) {
+      } else if ( lsame( SIDE, 'R' ) ) {
          LEFT = false;
          RIGHT = true;
       } else {
@@ -57,10 +57,10 @@
          RIGHT = false;
       }
 
-      if ( LSAME( DIRECT, 'F' ) ) {
+      if ( lsame( DIRECT, 'F' ) ) {
          FORWARD = true;
          BACKWARD = false;
-      } else if ( LSAME( DIRECT, 'B' ) ) {
+      } else if ( lsame( DIRECT, 'B' ) ) {
          FORWARD = false;
          BACKWARD = true;
       } else {

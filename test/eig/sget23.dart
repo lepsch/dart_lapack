@@ -35,9 +35,9 @@
       REAL               DUM( 1 ), RES( 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLAPY2, SNRM2;
-      // EXTERNAL LSAME, SLAMCH, SLAPY2, SNRM2
+      // EXTERNAL lsame, SLAMCH, SLAPY2, SNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEEVX, SGET22, SLACPY, XERBLA
@@ -52,8 +52,8 @@
 
       // Check for errors
 
-      NOBAL = LSAME( BALANC, 'N' );
-      BALOK = NOBAL || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' );
+      NOBAL = lsame( BALANC, 'N' );
+      BALOK = NOBAL || lsame( BALANC, 'P' ) || lsame( BALANC, 'S' ) || lsame( BALANC, 'B' );
       INFO = 0;
       if ( !BALOK ) {
          INFO = -2;

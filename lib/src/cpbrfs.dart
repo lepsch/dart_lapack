@@ -43,9 +43,9 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. Statement Functions ..
       REAL               CABS1;
@@ -58,8 +58,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

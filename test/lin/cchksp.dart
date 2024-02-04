@@ -39,9 +39,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANSP, SGET06;
-      // EXTERNAL LSAME, CLANSP, SGET06
+      // EXTERNAL lsame, CLANSP, SGET06
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, CCOPY, CERRSY, CGET04, CLACPY, CLARHS, CLATB4, CLATMS, CLATSP, CPPT05, CSPCON, CSPRFS, CSPT01, CSPT02, CSPT03, CSPTRF, CSPTRI, CSPTRS
@@ -104,7 +104,7 @@
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 150
                UPLO = UPLOS( IUPLO );
-               if ( LSAME( UPLO, 'U' ) ) {
+               if ( lsame( UPLO, 'U' ) ) {
                   PACKIT = 'C';
                } else {
                   PACKIT = 'R';

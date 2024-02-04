@@ -26,10 +26,10 @@
       COMPLEX            TC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHP, SLAMCH;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CLANHP, SLAMCH, CDOTC
+      // EXTERNAL lsame, CLANHP, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHPR, CSCAL, CTPMV
@@ -59,7 +59,7 @@
       // an error code if any are nonzero.
 
       KC = 1;
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = 1; K <= N; K++) { // 10
             if ( AIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS;
@@ -79,7 +79,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1;
          for (K = N; K >= 1; K--) { // 30
 

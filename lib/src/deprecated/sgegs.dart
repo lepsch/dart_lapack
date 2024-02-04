@@ -27,10 +27,10 @@
       // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH, SLANGE;
-      // EXTERNAL ILAENV, LSAME, SLAMCH, SLANGE
+      // EXTERNAL ILAENV, lsame, SLAMCH, SLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX
@@ -39,10 +39,10 @@
 
       // Decode the input arguments
 
-      if ( LSAME( JOBVSL, 'N' ) ) {
+      if ( lsame( JOBVSL, 'N' ) ) {
          IJOBVL = 1;
          ILVSL = false;
-      } else if ( LSAME( JOBVSL, 'V' ) ) {
+      } else if ( lsame( JOBVSL, 'V' ) ) {
          IJOBVL = 2;
          ILVSL = true;
       } else {
@@ -50,10 +50,10 @@
          ILVSL = false;
       }
 
-      if ( LSAME( JOBVSR, 'N' ) ) {
+      if ( lsame( JOBVSR, 'N' ) ) {
          IJOBVR = 1;
          ILVSR = false;
-      } else if ( LSAME( JOBVSR, 'V' ) ) {
+      } else if ( lsame( JOBVSR, 'V' ) ) {
          IJOBVR = 2;
          ILVSR = true;
       } else {

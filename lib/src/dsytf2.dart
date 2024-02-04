@@ -27,9 +27,9 @@
       double             ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, R1, ROWMAX, T, WK, WKM1, WKP1;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
+      //- bool               lsame, DISNAN;
       //- int                idamax;
-      // EXTERNAL LSAME, idamax, DISNAN
+      // EXTERNAL lsame, idamax, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSWAP, DSYR, XERBLA
@@ -42,8 +42,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

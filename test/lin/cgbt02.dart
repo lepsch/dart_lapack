@@ -28,9 +28,9 @@
       COMPLEX            CDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- REAL               SCASUM, SLAMCH;
-      // EXTERNAL LSAME, SCASUM, SISNAN, SLAMCH
+      // EXTERNAL lsame, SCASUM, SISNAN, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGBMV
@@ -57,7 +57,7 @@
 
       EPS = SLAMCH( 'Epsilon' );
       ANORM = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
 
          // Find norm1(A).
 
@@ -93,7 +93,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
       } else {
          N1 = M;

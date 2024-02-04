@@ -27,8 +27,8 @@
       int                J, MB, NX;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
-      // EXTERNAL LSAME, LSAMEN
+      //- bool               lsame, LSAMEN;
+      // EXTERNAL lsame, LSAMEN
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGBMV, ZGEMM, ZHBMV, ZHEMM, ZHPMV, ZLACPY, ZLARNV, ZSBMV, ZSPMV, ZSYMM, ZTBMV, ZTPMV, ZTRMM
@@ -43,20 +43,20 @@
       INFO = 0;
       C1 = PATH( 1: 1 );
       C2 = PATH( 2: 3 );
-      TRAN = LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' );
+      TRAN = lsame( TRANS, 'T' ) || lsame( TRANS, 'C' );
       NOTRAN = !TRAN;
-      GEN = LSAME( PATH( 2: 2 ), 'G' );
-      QRS = LSAME( PATH( 2: 2 ), 'Q' ) || LSAME( PATH( 3: 3 ), 'Q' );
-      SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' ) || LSAME( PATH( 2: 2 ), 'H' );
-      TRI = LSAME( PATH( 2: 2 ), 'T' );
-      BAND = LSAME( PATH( 3: 3 ), 'B' );
-      if ( !LSAME( C1, 'Zomplex precision' ) ) {
+      GEN = lsame( PATH( 2: 2 ), 'G' );
+      QRS = lsame( PATH( 2: 2 ), 'Q' ) || lsame( PATH( 3: 3 ), 'Q' );
+      SYM = lsame( PATH( 2: 2 ), 'P' ) || lsame( PATH( 2: 2 ), 'S' ) || lsame( PATH( 2: 2 ), 'H' );
+      TRI = lsame( PATH( 2: 2 ), 'T' );
+      BAND = lsame( PATH( 3: 3 ), 'B' );
+      if ( !lsame( C1, 'Zomplex precision' ) ) {
          INFO = -1;
-      } else if ( !( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
+      } else if ( !( lsame( XTYPE, 'N' ) || lsame( XTYPE, 'C' ) ) ) {
          INFO = -2;
-      } else if ( ( SYM || TRI ) && !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( ( SYM || TRI ) && !( lsame( UPLO, 'U' ) || lsame( UPLO, 'L' ) ) ) {
          INFO = -3;
-      } else if ( ( GEN || QRS ) && !( TRAN || LSAME( TRANS, 'N' ) ) ) {
+      } else if ( ( GEN || QRS ) && !( TRAN || lsame( TRANS, 'N' ) ) ) {
          INFO = -4;
       } else if ( M < 0 ) {
          INFO = -5;
@@ -89,7 +89,7 @@
          NX = N;
          MB = M;
       }
-      if ( !LSAME( XTYPE, 'C' ) ) {
+      if ( !lsame( XTYPE, 'C' ) ) {
          for (J = 1; J <= NRHS; J++) { // 10
             zlarnv(2, ISEED, N, X( 1, J ) );
          } // 10

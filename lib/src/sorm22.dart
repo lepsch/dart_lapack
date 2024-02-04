@@ -25,9 +25,9 @@
       int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, STRMM, XERBLA
@@ -40,8 +40,8 @@
       // Test the input arguments
 
       INFO = 0;
-      LEFT = LSAME( SIDE, 'L' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      LEFT = lsame( SIDE, 'L' );
+      NOTRAN = lsame( TRANS, 'N' );
       LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q;
@@ -54,9 +54,9 @@
       }
       NW = NQ;
       if (N1 == 0 || N2 == 0) NW = 1;
-      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
          INFO = -1;
-      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) ) {
          INFO = -2;
       } else if ( M < 0 ) {
          INFO = -3;

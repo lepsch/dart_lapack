@@ -26,9 +26,9 @@
       double             BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
+      //- bool               lsame, DISNAN;
       //- double             DLAMCH, DLANHS;
-      // EXTERNAL LSAME, DLAMCH, DLANHS, DISNAN
+      // EXTERNAL lsame, DLAMCH, DLANHS, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAEIN, XERBLA
@@ -40,13 +40,13 @@
 
       // Decode and test the input parameters.
 
-      BOTHV = LSAME( SIDE, 'B' );
-      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV;
-      LEFTV = LSAME( SIDE, 'L' ) || BOTHV;
+      BOTHV = lsame( SIDE, 'B' );
+      RIGHTV = lsame( SIDE, 'R' ) || BOTHV;
+      LEFTV = lsame( SIDE, 'L' ) || BOTHV;
 
-      FROMQR = LSAME( EIGSRC, 'Q' );
+      FROMQR = lsame( EIGSRC, 'Q' );
 
-      NOINIT = LSAME( INITV, 'N' );
+      NOINIT = lsame( INITV, 'N' );
 
       // Set M to the number of columns required to store the selected
       // eigenvectors, and standardize the array SELECT.
@@ -73,9 +73,9 @@
       INFO = 0;
       if ( !RIGHTV && !LEFTV ) {
          INFO = -1;
-      } else if ( !FROMQR && !LSAME( EIGSRC, 'N' ) ) {
+      } else if ( !FROMQR && !lsame( EIGSRC, 'N' ) ) {
          INFO = -2;
-      } else if ( !NOINIT && !LSAME( INITV, 'U' ) ) {
+      } else if ( !NOINIT && !lsame( INITV, 'U' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;

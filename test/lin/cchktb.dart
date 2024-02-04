@@ -40,9 +40,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTB, CLANTR;
-      // EXTERNAL LSAME, CLANTB, CLANTR
+      // EXTERNAL lsame, CLANTB, CLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, CCOPY, CERRTR, CGET04, CLACPY, CLARHS, CLASET, CLATBS, CLATTB, CTBCON, CTBRFS, CTBSV, CTBT02, CTBT03, CTBT05, CTBT06, CTBTRS
@@ -131,7 +131,7 @@
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-                  if ( LSAME( DIAG, 'N' ) ) {
+                  if ( lsame( DIAG, 'N' ) ) {
                      IDIAG = 1;
                   } else {
                      IDIAG = 2;
@@ -141,7 +141,7 @@
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                   claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), AINV, LDA );
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         ctbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
                      } // 20

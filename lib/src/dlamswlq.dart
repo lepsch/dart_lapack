@@ -20,8 +20,8 @@
       int                I, II, KK, CTR, LW, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // .. External Subroutines ..
       // EXTERNAL DTPMLQT, DGEMLQT, XERBLA
       // ..
@@ -30,10 +30,10 @@
       // Test the input arguments
 
       LQUERY  = ( LWORK == -1 );
-      NOTRAN  = LSAME( TRANS, 'N' );
-      TRAN    = LSAME( TRANS, 'T' );
-      LEFT    = LSAME( SIDE, 'L' );
-      RIGHT   = LSAME( SIDE, 'R' );
+      NOTRAN  = lsame( TRANS, 'N' );
+      TRAN    = lsame( TRANS, 'T' );
+      LEFT    = lsame( SIDE, 'L' );
+      RIGHT   = lsame( SIDE, 'R' );
       if ( LEFT ) {
         LW = N * MB;
       } else {

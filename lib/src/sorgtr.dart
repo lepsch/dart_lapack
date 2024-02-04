@@ -23,10 +23,10 @@
       int                I, IINFO, J, LWKOPT, NB;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SORGQL, SORGQR, XERBLA
@@ -40,8 +40,8 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

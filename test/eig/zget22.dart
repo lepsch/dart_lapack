@@ -28,9 +28,9 @@
       Complex         WTEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE
+      // EXTERNAL lsame, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZLASET
@@ -54,19 +54,19 @@
       NORMA = 'O';
       NORME = 'O';
 
-      if ( LSAME( TRANSA, 'T' ) || LSAME( TRANSA, 'C' ) ) {
+      if ( lsame( TRANSA, 'T' ) || lsame( TRANSA, 'C' ) ) {
          NORMA = 'I';
       }
 
-      if ( LSAME( TRANSE, 'T' ) ) {
+      if ( lsame( TRANSE, 'T' ) ) {
          ITRNSE = 1;
          NORME = 'I';
-      } else if ( LSAME( TRANSE, 'C' ) ) {
+      } else if ( lsame( TRANSE, 'C' ) ) {
          ITRNSE = 2;
          NORME = 'I';
       }
 
-      if ( LSAME( TRANSW, 'C' ) ) {
+      if ( lsame( TRANSW, 'C' ) ) {
          ITRNSW = 1;
       }
 

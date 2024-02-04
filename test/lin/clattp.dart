@@ -29,11 +29,11 @@
       COMPLEX            CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SLAMCH;
       //- COMPLEX            CLARND;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH, CLARND
+      // EXTERNAL lsame, ICAMAX, SLAMCH, CLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARNV, CLATB4, CLATMS, CROT, CROTG, CSSCAL, SLARNV
@@ -62,7 +62,7 @@
 
       // Call CLATB4 to set parameters for CLATMS.
 
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
          clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          PACKIT = 'C';
@@ -630,7 +630,7 @@
       // Flip the matrix across its counter-diagonal if the transpose will
       // be used.
 
-      if ( !LSAME( TRANS, 'N' ) ) {
+      if ( !lsame( TRANS, 'N' ) ) {
          if ( UPPER ) {
             JJ = 1;
             JR = N*( N+1 ) / 2;

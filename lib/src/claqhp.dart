@@ -25,9 +25,9 @@
       REAL               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -55,7 +55,7 @@
 
          // Replace A by diag(S) * A * diag(S).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Upper triangle of A is stored.
 

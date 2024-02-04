@@ -17,14 +17,14 @@
       int                J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, LSAMEN;
-      // EXTERNAL LSAME, LSAMEN
+      //- bool               lsame, LSAMEN;
+      // EXTERNAL lsame, LSAMEN
       // ..
       // .. Executable Statements ..
 
       if (IOUNIT <= 0) return;
-      SORD = LSAME( PATH, 'S' ) || LSAME( PATH, 'D' );
-      CORZ = LSAME( PATH, 'C' ) || LSAME( PATH, 'Z' );
+      SORD = lsame( PATH, 'S' ) || lsame( PATH, 'D' );
+      CORZ = lsame( PATH, 'C' ) || lsame( PATH, 'Z' );
       if ( !SORD && !CORZ ) {
          WRITE( IOUNIT, FMT = 9999 )PATH;
       }

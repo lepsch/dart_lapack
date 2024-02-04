@@ -32,8 +32,8 @@
       Complex         A2, B2, SNQ, SNU, SNV;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARTG, XERBLA, ZCOPY, ZDSCAL, ZLAGS2, ZLAPLL, ZLASET, ZROT
@@ -46,21 +46,21 @@
 
       // Decode and test the input parameters
 
-      INITU = LSAME( JOBU, 'I' );
-      WANTU = INITU || LSAME( JOBU, 'U' );
+      INITU = lsame( JOBU, 'I' );
+      WANTU = INITU || lsame( JOBU, 'U' );
 
-      INITV = LSAME( JOBV, 'I' );
-      WANTV = INITV || LSAME( JOBV, 'V' );
+      INITV = lsame( JOBV, 'I' );
+      WANTV = INITV || lsame( JOBV, 'V' );
 
-      INITQ = LSAME( JOBQ, 'I' );
-      WANTQ = INITQ || LSAME( JOBQ, 'Q' );
+      INITQ = lsame( JOBQ, 'I' );
+      WANTQ = INITQ || lsame( JOBQ, 'Q' );
 
       INFO = 0;
-      if ( !( INITU || WANTU || LSAME( JOBU, 'N' ) ) ) {
+      if ( !( INITU || WANTU || lsame( JOBU, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( INITV || WANTV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( INITV || WANTV || lsame( JOBV, 'N' ) ) ) {
          INFO = -2;
-      } else if ( !( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( !( INITQ || WANTQ || lsame( JOBQ, 'N' ) ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

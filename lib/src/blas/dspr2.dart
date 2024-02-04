@@ -24,8 +24,8 @@
       int     I,INFO,IX,IY,J,JX,JY,K,KK,KX,KY;
       // ..
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -34,7 +34,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
+      if ( !lsame(UPLO,'U') && !lsame(UPLO,'L')) {
           INFO = 1;
       } else if (N < 0) {
           INFO = 2;
@@ -74,7 +74,7 @@
       // are accessed sequentially with one pass through AP.
 
       KK = 1;
-      if (LSAME(UPLO,'U')) {
+      if (lsame(UPLO,'U')) {
 
          // Form  A  when upper triangle is stored in AP.
 

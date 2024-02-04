@@ -39,9 +39,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLANTP;
-      // EXTERNAL LSAME, DLANTP
+      // EXTERNAL lsame, DLANTP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLATPS, DLATTP, DTPCON, DTPRFS, DTPT01, DTPT02, DTPT03, DTPT05, DTPT06, DTPTRI, DTPTRS
@@ -108,7 +108,7 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               if ( LSAME( DIAG, 'N' ) ) {
+               if ( lsame( DIAG, 'N' ) ) {
                   IDIAG = 1;
                } else {
                   IDIAG = 2;

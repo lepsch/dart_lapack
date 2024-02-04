@@ -27,9 +27,9 @@
       // EXTERNAL CAXPY, CGEMV, CHEMV, CLACGV, CLARFG, CSCAL
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CDOTC
+      // EXTERNAL lsame, CDOTC
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL
@@ -40,7 +40,7 @@
 
       if (N <= 0) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Reduce last NB columns of upper triangle
 

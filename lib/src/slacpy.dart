@@ -18,21 +18,21 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= min( J, M ); I++) { // 10
                B[I, J] = A( I, J );
             } // 10
          } // 20
-      } else if ( LSAME( UPLO, 'L' ) ) {
+      } else if ( lsame( UPLO, 'L' ) ) {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= M; I++) { // 30
                B[I, J] = A( I, J );

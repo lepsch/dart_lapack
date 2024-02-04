@@ -25,8 +25,8 @@
       int                INFO, NROWA, J, NK, N1, N2;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, DGEMM, DSYRK
@@ -39,9 +39,9 @@
       // Test the input parameters.
 
       INFO = 0;
-      NORMALTRANSR = LSAME( TRANSR, 'N' );
-      LOWER = LSAME( UPLO, 'L' );
-      NOTRANS = LSAME( TRANS, 'N' );
+      NORMALTRANSR = lsame( TRANSR, 'N' );
+      LOWER = lsame( UPLO, 'L' );
+      NOTRANS = lsame( TRANS, 'N' );
 
       if ( NOTRANS ) {
          NROWA = N;
@@ -49,11 +49,11 @@
          NROWA = K;
       }
 
-      if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
+      if ( !NORMALTRANSR && !lsame( TRANSR, 'T' ) ) {
          INFO = -1;
-      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !lsame( UPLO, 'U' ) ) {
          INFO = -2;
-      } else if ( !NOTRANS && !LSAME( TRANS, 'T' ) ) {
+      } else if ( !NOTRANS && !lsame( TRANS, 'T' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

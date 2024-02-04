@@ -24,9 +24,9 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DASUM, DLAMCH, DLANTB;
-      // EXTERNAL LSAME, DASUM, DLAMCH, DLANTB
+      // EXTERNAL lsame, DASUM, DLAMCH, DLANTB
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DTBMV
@@ -45,7 +45,7 @@
 
       // Compute the 1-norm of op(A).
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = DLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, WORK );
       } else {
          ANORM = DLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, WORK );

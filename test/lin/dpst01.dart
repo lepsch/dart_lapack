@@ -26,8 +26,8 @@
       // ..
       // .. External Functions ..
       //- double             DDOT, DLAMCH, DLANSY;
-      //- bool               LSAME;
-      // EXTERNAL DDOT, DLAMCH, DLANSY, LSAME
+      //- bool               lsame;
+      // EXTERNAL DDOT, DLAMCH, DLANSY, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYR, DTRMV
@@ -55,7 +55,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 110
@@ -106,7 +106,7 @@
 
          // Form P*L*L'*P' or P*U'*U*P'
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          for (J = 1; J <= N; J++) { // 170
             for (I = 1; I <= N; I++) { // 160
@@ -139,7 +139,7 @@
 
       // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 210
             for (I = 1; I <= J; I++) { // 200
                PERM[I, J] = PERM( I, J ) - A( I, J );

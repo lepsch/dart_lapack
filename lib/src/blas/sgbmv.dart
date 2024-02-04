@@ -24,8 +24,8 @@
       int     I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY;
       // ..
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -37,7 +37,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME(TRANS,'N') && !LSAME(TRANS,'T') && !LSAME(TRANS,'C')) {
+      if ( !lsame(TRANS,'N') && !lsame(TRANS,'T') && !lsame(TRANS,'C')) {
           INFO = 1;
       } else if (M < 0) {
           INFO = 2;
@@ -66,7 +66,7 @@
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
 
-      if (LSAME(TRANS,'N')) {
+      if (lsame(TRANS,'N')) {
           LENX = N;
           LENY = M;
       } else {
@@ -117,7 +117,7 @@
       }
       if (ALPHA == ZERO) return;
       KUP1 = KU + 1;
-      if (LSAME(TRANS,'N')) {
+      if (lsame(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.
 

@@ -19,11 +19,11 @@
       // .. Local Scalars ..
       int                NCOLS, I, J, K, KP;
       REAL               AMAX, UMAX, RPVGRW, TMP;
-      bool               UPPER, LSAME;
+      bool               UPPER, lsame;
       COMPLEX            ZDUM;
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
@@ -36,7 +36,7 @@
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( 'Upper', UPLO );
+      UPPER = lsame( 'Upper', UPLO );
       if ( INFO == 0 ) {
          if (UPPER) {
             NCOLS = 1;

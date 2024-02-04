@@ -38,9 +38,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DGET06, DLANSP;
-      // EXTERNAL LSAME, DGET06, DLANSP
+      // EXTERNAL lsame, DGET06, DLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DLACPY, DLAQSP, DLARHS, DLASET, DLATB4, DLATMS, DPPEQU, DPPSV, DPPSVX, DPPT01, DPPT02, DPPT05, DPPTRF, DPPTRI
@@ -175,15 +175,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by DPPSVX (FACT = 'N' reuses
@@ -340,7 +340,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            dget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

@@ -21,9 +21,9 @@
       REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGGSVP3, STGSJA, XERBLA
@@ -35,20 +35,20 @@
 
       // Decode and test the input parameters
 
-      WANTU = LSAME( JOBU, 'U' );
-      WANTV = LSAME( JOBV, 'V' );
-      WANTQ = LSAME( JOBQ, 'Q' );
+      WANTU = lsame( JOBU, 'U' );
+      WANTV = lsame( JOBV, 'V' );
+      WANTQ = lsame( JOBQ, 'Q' );
       LQUERY = ( LWORK == -1 );
       LWKOPT = 1;
 
       // Test the input arguments
 
       INFO = 0;
-      if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
+      if ( !( WANTU || lsame( JOBU, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( WANTV || lsame( JOBV, 'N' ) ) ) {
          INFO = -2;
-      } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( !( WANTQ || lsame( JOBQ, 'N' ) ) ) {
          INFO = -3;
       } else if ( M < 0 ) {
          INFO = -4;

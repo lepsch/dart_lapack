@@ -27,9 +27,9 @@
       double             AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE, ZLANHP;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZLANHP
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG
@@ -64,7 +64,7 @@
       // expand it to a full matrix, then multiply by A one column at a
       // time, moving the result one column to the left.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Copy AINV
 

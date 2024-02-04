@@ -26,10 +26,10 @@
       COMPLEX            TC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHE, SLAMCH;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CLANHE, SLAMCH, CDOTC
+      // EXTERNAL lsame, CLANHE, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHER, CSCAL, CTRMV
@@ -67,7 +67,7 @@
 
       // Compute the product U**H * U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = N; K >= 1; K--) { // 20
 
             // Compute the (K,K) element of the result.
@@ -101,7 +101,7 @@
 
       // Compute the difference L * L**H - A (or U**H * U - A).
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= J - 1; I++) { // 40
                AFAC[I, J] = AFAC( I, J ) - A( I, J );

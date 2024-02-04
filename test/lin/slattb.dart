@@ -27,10 +27,10 @@
       REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, PLUS1, PLUS2, REXP, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH, SLARND;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH, SLARND
+      // EXTERNAL lsame, ISAMAX, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLARNV, SLATB4, SLATMS, SSCAL, SSWAP
@@ -59,7 +59,7 @@
 
       // Call SLATB4 to set parameters for SLATMS.
 
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
          slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          KU = KD;
@@ -505,7 +505,7 @@
 
       // Flip the matrix if the transpose will be used.
 
-      if ( !LSAME( TRANS, 'N' ) ) {
+      if ( !lsame( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 430
                LENJ = min( N-2*J+1, KD+1 );

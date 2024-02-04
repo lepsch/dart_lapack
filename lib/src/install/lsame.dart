@@ -20,8 +20,8 @@
 
       // Test if the characters are equal
 
-      LSAME = CA == CB;
-      if (LSAME) return;
+      lsame = CA == CB;
+      if (lsame) return;
 
       // Now test for equivalence if both characters are alphabetic.
 
@@ -59,7 +59,7 @@
          if (INTA >= 225 && INTA <= 250) INTA = INTA - 32;
          if (INTB >= 225 && INTB <= 250) INTB = INTB - 32;
       }
-      LSAME = INTA == INTB;
+      lsame = INTA == INTB;
 
       // return;
       }

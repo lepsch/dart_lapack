@@ -26,8 +26,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACN2, CHETRS, XERBLA
@@ -46,8 +46,8 @@
       CLA_HERCOND_X = 0.0;
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -61,7 +61,7 @@
          return;
       }
       UP = false;
-      if ( LSAME( UPLO, 'U' ) ) UP = true;
+      if ( lsame( UPLO, 'U' ) ) UP = true;
 
       // Compute norm of op(A)*op2(C).
 

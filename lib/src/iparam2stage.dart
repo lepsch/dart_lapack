@@ -24,8 +24,8 @@
       // ..
       // .. External Functions ..
       //- int                ILAENV;
-      //- bool               LSAME;
-      // EXTERNAL ILAENV, LSAME
+      //- bool               lsame;
+      // EXTERNAL ILAENV, lsame
       // ..
       // .. Executable Statements ..
 
@@ -150,7 +150,7 @@
 
       // Will add the VECT OPTION HERE next release
          VECT  = OPTS(1:1);
-         if ( LSAME( VECT, 'N' ) ) {
+         if ( lsame( VECT, 'N' ) ) {
             LHOUS = max( 1, 4*NI );
          } else {
             // This is not correct, it need to call the ALGO and the stage2

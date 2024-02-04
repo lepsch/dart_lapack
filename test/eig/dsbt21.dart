@@ -25,9 +25,9 @@
       double             ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE, DLANSB, DLANSP;
-      // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSB, DLANSP
+      // EXTERNAL lsame, DLAMCH, DLANGE, DLANSB, DLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DSPR, DSPR2
@@ -46,7 +46,7 @@
       IKA = max( 0, min( N-1, KA ) );
       LW = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

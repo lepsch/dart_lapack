@@ -1,4 +1,5 @@
 import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/f2c/nint.dart';
@@ -19,55 +20,21 @@ void dlacon(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  // int                KASE.value, N;
-  // double             EST.value;
-  // ..
-  // .. Array Arguments ..
-  // int                ISGN[ * ];
-  // double             V[ * ], X[ * ];
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  // int                ITMAX;
   const ITMAX = 5;
-  // double             ZERO, ONE, TWO;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
-  // ..
-  // .. Local Scalars ..
-  int I, JLAST;
-  double ALTSGN, TEMP;
-  // ..
-  // .. External Functions ..
-  //- int                idamax;
-  //- double             dasum;
-  // EXTERNAL idamax, dasum
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DCOPY
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS, DBLE, nint, sign
-  // ..
+
   // .. Save statement ..
   // SAVE;
-  // ..
-  // .. Executable Statements ..
 
   if (KASE.value == 0) {
-    for (I = 1; I <= N; I++) {
-      // 10
+    for (var I = 1; I <= N; I++) {
       X[I] = ONE / N.toDouble();
-    } // 10
+    }
     KASE.value = 1;
     _JUMP = 1;
     return;
   }
 
-  // GO TO ( 20, 40, 70, 110, 140 )_JUMP;
   switch (_JUMP) {
     case 1:
       // ................ ENTRY   (_JUMP = 1)
@@ -81,11 +48,10 @@ void dlacon(
       }
       EST.value = dasum(N, X, 1);
 
-      for (I = 1; I <= N; I++) {
-        // 30
+      for (var I = 1; I <= N; I++) {
         X[I] = sign(ONE, X[I]).toDouble();
         ISGN[I] = nint(X[I]);
-      } // 30
+      }
       KASE.value = 2;
       _JUMP = 2;
       return;
@@ -100,7 +66,7 @@ void dlacon(
     L50:
     case 50:
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
-      for (I = 1; I <= N; I++) {
+      for (var I = 1; I <= N; I++) {
         X[I] = ZERO;
       }
       X[_J] = ONE;
@@ -115,7 +81,7 @@ void dlacon(
       _ESTOLD = EST.value;
       EST.value = dasum(N, V, 1);
       var isConverged = true;
-      for (I = 1; I <= N; I++) {
+      for (var I = 1; I <= N; I++) {
         if (nint(sign(ONE, X[I]).toDouble()) != ISGN[I]) {
           isConverged = false;
           break;
@@ -127,7 +93,7 @@ void dlacon(
       // TEST FOR CYCLING.
       if (EST.value <= _ESTOLD) continue L120;
 
-      for (I = 1; I <= N; I++) {
+      for (var I = 1; I <= N; I++) {
         X[I] = sign(ONE, X[I]).toDouble();
         ISGN[I] = nint(X[I]);
       }
@@ -139,7 +105,7 @@ void dlacon(
       // ................ ENTRY   (_JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
-      JLAST = _J;
+      final JLAST = _J;
       _J = idamax(N, X, 1);
       if ((X[JLAST] != X[_J].abs()) && (_ITER < ITMAX)) {
         _ITER = _ITER + 1;
@@ -151,8 +117,8 @@ void dlacon(
     case 120:
       // ITERATION COMPLETE.  FINAL STAGE.
 
-      ALTSGN = ONE;
-      for (I = 1; I <= N; I++) {
+      var ALTSGN = ONE;
+      for (var I = 1; I <= N; I++) {
         X[I] = ALTSGN * (ONE + (I - 1).toDouble() / (N - 1).toDouble());
         ALTSGN = -ALTSGN;
       }

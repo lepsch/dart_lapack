@@ -31,8 +31,8 @@
       REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME, SLAMCH, CLA_PORPVGRW
-      bool               LSAME;
+      // EXTERNAL lsame, SLAMCH, CLA_PORPVGRW
+      bool               lsame;
       REAL               SLAMCH, CLA_PORPVGRW;
       // ..
       // .. External Subroutines ..
@@ -44,15 +44,15 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      EQUIL = LSAME( FACT, 'E' );
+      NOFACT = lsame( FACT, 'N' );
+      EQUIL = lsame( FACT, 'E' );
       SMLNUM = SLAMCH( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
          EQUED = 'N';
          RCEQU = false;
       } else {
-         RCEQU = LSAME( EQUED, 'Y' );
+         RCEQU = lsame( EQUED, 'Y' );
       }
 
       // Default is failure.  If an input parameter is wrong or
@@ -63,9 +63,9 @@
 
       // Test the input parameters.  PARAMS is not tested until CPORFSX.
 
-      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
@@ -75,7 +75,7 @@
          INFO = -6;
       } else if ( LDAF < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( lsame( FACT, 'F' ) && !( RCEQU || lsame( EQUED, 'N' ) ) ) {
          INFO = -9;
       } else {
          if ( RCEQU ) {
@@ -117,7 +117,7 @@
       // Equilibrate the matrix.
 
             claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
-            RCEQU = LSAME( EQUED, 'Y' );
+            RCEQU = lsame( EQUED, 'Y' );
          }
       }
 

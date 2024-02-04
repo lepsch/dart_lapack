@@ -26,10 +26,10 @@
       double             EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH
+      // EXTERNAL lsame, IZAMAX, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZDSCAL, ZTBMV
@@ -52,8 +52,8 @@
       // norms already computed by ZLATBS.
 
       TNORM = ZERO;
-      if ( LSAME( DIAG, 'N' ) ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( DIAG, 'N' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 10
                TNORM = max( TNORM, TSCAL*( AB( KD+1, J ) ).abs()+ CNORM( J ) );
             } // 10

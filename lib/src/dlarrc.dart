@@ -26,8 +26,8 @@
 
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
@@ -42,7 +42,7 @@
          return;
       }
 
-      MATT = LSAME( JOBT, 'T' );
+      MATT = lsame( JOBT, 'T' );
 
 
       if (MATT) {

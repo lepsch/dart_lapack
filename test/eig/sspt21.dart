@@ -27,9 +27,9 @@
       REAL               ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT, SLAMCH, SLANGE, SLANSP;
-      // EXTERNAL LSAME, SDOT, SLAMCH, SLANGE, SLANSP
+      // EXTERNAL lsame, SDOT, SLAMCH, SLANGE, SLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGEMM, SLACPY, SLASET, SOPMTR, SSPMV, SSPR, SSPR2
@@ -47,7 +47,7 @@
 
       LAP = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

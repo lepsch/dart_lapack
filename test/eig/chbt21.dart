@@ -28,9 +28,9 @@
       REAL               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANHB, CLANHP, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, CLANHB, CLANHP, SLAMCH
+      // EXTERNAL lsame, CLANGE, CLANHB, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CHPR, CHPR2
@@ -48,7 +48,7 @@
 
       IKA = max( 0, min( N-1, KA ) );
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

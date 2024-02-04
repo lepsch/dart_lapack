@@ -27,10 +27,10 @@
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV2STAGE;
       //- REAL               SLAMCH, SLANSB, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, SLANSB, ILAENV2STAGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, SLANSB, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASCL, SSCAL, SSTEDC, SSTERF, XERBLA, SSYTRD_SB2ST
@@ -42,8 +42,8 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      LOWER = LSAME( UPLO, 'L' );
+      WANTZ = lsame( JOBZ, 'V' );
+      LOWER = lsame( UPLO, 'L' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       INFO = 0;
@@ -62,9 +62,9 @@
             LWMIN = max( 2*N, N+LHTRD+LWTRD );
          }
       }
-      if ( !( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || lsame( UPLO, 'U' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

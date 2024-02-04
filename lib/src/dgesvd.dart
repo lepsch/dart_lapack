@@ -31,10 +31,10 @@
       // EXTERNAL DBDSQR, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
@@ -45,16 +45,16 @@
 
       INFO = 0;
       MINMN = min( M, N );
-      WNTUA = LSAME( JOBU, 'A' );
-      WNTUS = LSAME( JOBU, 'S' );
+      WNTUA = lsame( JOBU, 'A' );
+      WNTUS = lsame( JOBU, 'S' );
       WNTUAS = WNTUA || WNTUS;
-      WNTUO = LSAME( JOBU, 'O' );
-      WNTUN = LSAME( JOBU, 'N' );
-      WNTVA = LSAME( JOBVT, 'A' );
-      WNTVS = LSAME( JOBVT, 'S' );
+      WNTUO = lsame( JOBU, 'O' );
+      WNTUN = lsame( JOBU, 'N' );
+      WNTVA = lsame( JOBVT, 'A' );
+      WNTVS = lsame( JOBVT, 'S' );
       WNTVAS = WNTVA || WNTVS;
-      WNTVO = LSAME( JOBVT, 'O' );
-      WNTVN = LSAME( JOBVT, 'N' );
+      WNTVO = lsame( JOBVT, 'O' );
+      WNTVN = lsame( JOBVT, 'N' );
       LQUERY = ( LWORK == -1 );
 
       if ( !( WNTUA || WNTUS || WNTUO || WNTUN ) ) {

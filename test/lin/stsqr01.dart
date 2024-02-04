@@ -32,9 +32,9 @@
       // ..
       // .. External Functions ..
       //- REAL     SLAMCH, SLANGE, SLANSY;
-      //- bool     LSAME;
+      //- bool     lsame;
       //- int      ILAENV;
-      // EXTERNAL SLAMCH, SLARNV, SLANGE, SLANSY, LSAME, ILAENV
+      // EXTERNAL SLAMCH, SLARNV, SLANGE, SLANSY, lsame, ILAENV
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -49,7 +49,7 @@
 
       // TEST TALL SKINNY OR SHORT WIDE
 
-      TS = LSAME(TSSW, 'TS');
+      TS = lsame(TSSW, 'TS');
 
       // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
 

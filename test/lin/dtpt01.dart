@@ -25,9 +25,9 @@
       double             AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANTP;
-      // EXTERNAL LSAME, DLAMCH, DLANTP
+      // EXTERNAL lsame, DLAMCH, DLANTP
       // ..
       // .. External Subroutines ..
       // EXTERNAL DTPMV
@@ -59,8 +59,8 @@
 
       // Compute A * AINV, overwriting AINV.
 
-      UNITD = LSAME( DIAG, 'U' );
-      if ( LSAME( UPLO, 'U' ) ) {
+      UNITD = lsame( DIAG, 'U' );
+      if ( lsame( UPLO, 'U' ) ) {
          JC = 1;
          for (J = 1; J <= N; J++) { // 10
             if (UNITD) AINVP( JC+J-1 ) = ONE;

@@ -28,8 +28,8 @@
       COMPLEX            CALPHA, CBETA;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CHERK, XERBLA
@@ -43,9 +43,9 @@
       // Test the input parameters.
 
       INFO = 0;
-      NORMALTRANSR = LSAME( TRANSR, 'N' );
-      LOWER = LSAME( UPLO, 'L' );
-      NOTRANS = LSAME( TRANS, 'N' );
+      NORMALTRANSR = lsame( TRANSR, 'N' );
+      LOWER = lsame( UPLO, 'L' );
+      NOTRANS = lsame( TRANS, 'N' );
 
       if ( NOTRANS ) {
          NROWA = N;
@@ -53,11 +53,11 @@
          NROWA = K;
       }
 
-      if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
+      if ( !NORMALTRANSR && !lsame( TRANSR, 'C' ) ) {
          INFO = -1;
-      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !lsame( UPLO, 'U' ) ) {
          INFO = -2;
-      } else if ( !NOTRANS && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRANS && !lsame( TRANS, 'C' ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

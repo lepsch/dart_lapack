@@ -25,8 +25,8 @@
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DPBSTF, DSBGST, DSBTRD, DSTEDC, DSTERF, XERBLA
@@ -35,8 +35,8 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      UPPER = LSAME( UPLO, 'U' );
+      WANTZ = lsame( JOBZ, 'V' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       INFO = 0;
@@ -51,9 +51,9 @@
          LWMIN = 2*N;
       }
 
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

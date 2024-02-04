@@ -27,9 +27,9 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DZASUM, ZLANGE;
-      // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANGE
+      // EXTERNAL lsame, DLAMCH, DZASUM, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM
@@ -46,7 +46,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
          N2 = M;
       } else {
@@ -57,7 +57,7 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' );
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
       } else {
          ANORM = ZLANGE( 'I', M, N, A, LDA, RWORK );

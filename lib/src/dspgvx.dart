@@ -22,8 +22,8 @@
       int                J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DPPTRF, DSPEVX, DSPGST, DTPMV, DTPSV, XERBLA
@@ -35,20 +35,20 @@
 
       // Test the input parameters.
 
-      UPPER = LSAME( UPLO, 'U' );
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      UPPER = lsame( UPLO, 'U' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1;
-      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -2;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -3;
-      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;

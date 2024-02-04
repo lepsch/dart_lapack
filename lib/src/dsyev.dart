@@ -24,10 +24,10 @@
       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, DLANSY;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, DLANSY
+      // EXTERNAL lsame, ILAENV, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASCL, DORGTR, DSCAL, DSTEQR, DSTERF, DSYTRD, XERBLA
@@ -39,14 +39,14 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      LOWER = LSAME( UPLO, 'L' );
+      WANTZ = lsame( JOBZ, 'V' );
+      LOWER = lsame( UPLO, 'L' );
       LQUERY = ( LWORK == -1 );
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || lsame( UPLO, 'U' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

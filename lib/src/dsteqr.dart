@@ -25,9 +25,9 @@
       double             ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANST, DLAPY2;
-      // EXTERNAL LSAME, DLAMCH, DLANST, DLAPY2
+      // EXTERNAL lsame, DLAMCH, DLANST, DLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAE2, DLAEV2, DLARTG, DLASCL, DLASET, DLASR, DLASRT, DSWAP, XERBLA
@@ -41,11 +41,11 @@
 
       INFO = 0;
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ICOMPZ = 0;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ICOMPZ = 2;
       } else {
          ICOMPZ = -1;

@@ -24,9 +24,9 @@
       REAL               ANORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANST;
-      // EXTERNAL LSAME, SLAMCH, SLANST
+      // EXTERNAL lsame, SLAMCH, SLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLACPY, SPTCON, SPTRFS, SPTTRF, SPTTRS, XERBLA
@@ -39,8 +39,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
+      NOFACT = lsame( FACT, 'N' );
+      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

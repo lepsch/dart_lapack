@@ -26,8 +26,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLACN2, ZGBTRS, XERBLA
@@ -46,8 +46,8 @@
       ZLA_GBRCOND_X = 0.0;
 
       INFO = 0;
-      NOTRANS = LSAME( TRANS, 'N' );
-      if ( !NOTRANS && !LSAME(TRANS, 'T') && !LSAME( TRANS, 'C' ) ) {
+      NOTRANS = lsame( TRANS, 'N' );
+      if ( !NOTRANS && !lsame(TRANS, 'T') && !lsame( TRANS, 'C' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

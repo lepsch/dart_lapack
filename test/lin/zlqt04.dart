@@ -33,8 +33,8 @@
       // .. External Functions ..
       //- double           DLAMCH;
       //- double           ZLANGE, ZLANSY;
-      //- bool     LSAME;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
+      //- bool     lsame;
+      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

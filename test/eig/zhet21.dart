@@ -29,9 +29,9 @@
       Complex         VSAVE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE, ZLANHE;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHE
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZLANHE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZHER, ZHER2, ZLACPY, ZLARFY, ZLASET, ZUNM2L, ZUNM2R
@@ -45,7 +45,7 @@
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

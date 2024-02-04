@@ -29,9 +29,9 @@
       // ..
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL LSAME, DLAMCH, DLANST
+      // EXTERNAL lsame, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DLAE2, DLAEV2, DLARRC, DLARRE, DLARRJ, DLARRR, DLARRV, DLASRT, DSCAL, DSWAP, XERBLA
@@ -45,10 +45,10 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) );
       ZQUERY = ( NZC == -1 );
@@ -85,7 +85,7 @@
       }
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;

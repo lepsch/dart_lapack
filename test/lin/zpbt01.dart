@@ -26,10 +26,10 @@
       double             AKK, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANHB;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, DLAMCH, ZLANHB, ZDOTC
+      // EXTERNAL lsame, DLAMCH, ZLANHB, ZDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZHER, ZTRMV
@@ -58,7 +58,7 @@
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             if ( DIMAG( AFAC( KD+1, J ) ) != ZERO ) {
                RESID = ONE / EPS;
@@ -76,7 +76,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = N; K >= 1; K--) { // 30
             KC = max( 1, KD+2-K );
             KLEN = KD + 1 - KC;
@@ -113,7 +113,7 @@
 
       // Compute the difference  L*L' - A  or  U'*U - A.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 60
             MU = max( 1, KD+2-J );
             for (I = MU; I <= KD + 1; I++) { // 50

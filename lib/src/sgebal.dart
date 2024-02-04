@@ -28,10 +28,10 @@
       REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
       // ..
       // .. External Functions ..
-      //- bool               SISNAN, LSAME;
+      //- bool               SISNAN, lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH, SNRM2;
-      // EXTERNAL SISNAN, LSAME, ISAMAX, SLAMCH, SNRM2
+      // EXTERNAL SISNAN, lsame, ISAMAX, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSWAP, XERBLA
@@ -42,7 +42,7 @@
       // Test the input parameters
 
       INFO = 0;
-      if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
+      if ( !lsame( JOB, 'N' ) && !lsame( JOB, 'P' ) && !lsame( JOB, 'S' ) && !lsame( JOB, 'B' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -62,7 +62,7 @@
          return;
       }
 
-      if ( LSAME( JOB, 'N' ) ) {
+      if ( lsame( JOB, 'N' ) ) {
          for (I = 1; I <= N; I++) {
             SCALE[I] = ONE;
          }
@@ -76,7 +76,7 @@
       K = 1;
       L = N;
 
-      if ( !LSAME( JOB, 'S' ) ) {
+      if ( !lsame( JOB, 'S' ) ) {
 
          // Row and column exchange.
 
@@ -154,7 +154,7 @@
 
       // If we only had to permute, we are done.
 
-      if ( LSAME( JOB, 'P' ) ) {
+      if ( lsame( JOB, 'P' ) ) {
          ILO = K;
          IHI = L;
          return;

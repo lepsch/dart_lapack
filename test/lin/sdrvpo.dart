@@ -38,9 +38,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SGET06, SLANSY;
-      // EXTERNAL LSAME, SGET06, SLANSY
+      // EXTERNAL lsame, SGET06, SLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGET04, SLACPY, SLAQSY, SLARHS, SLASET, SLATB4, SLATMS, SPOEQU, SPOSV, SPOSVX, SPOT01, SPOT02, SPOT05, SPOTRF, SPOTRI, XLAENV
@@ -181,15 +181,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 90
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 90;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by SPOSVX (FACT = 'N' reuses
@@ -346,7 +346,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

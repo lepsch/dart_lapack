@@ -37,9 +37,9 @@
       Complex         CDUM( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DZNRM2;
-      // EXTERNAL LSAME, DLAMCH, DZNRM2
+      // EXTERNAL lsame, DLAMCH, DZNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEEVX, ZGET22, ZLACPY
@@ -54,8 +54,8 @@
 
       // Check for errors
 
-      NOBAL = LSAME( BALANC, 'N' );
-      BALOK = NOBAL || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' );
+      NOBAL = lsame( BALANC, 'N' );
+      BALOK = NOBAL || lsame( BALANC, 'P' ) || lsame( BALANC, 'S' ) || lsame( BALANC, 'B' );
       INFO = 0;
       if ( ISRT != 0 && ISRT != 1 ) {
          INFO = -2;

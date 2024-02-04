@@ -39,9 +39,9 @@
       REAL               RESULT( NTESTS ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLANTR;
-      // EXTERNAL LSAME, SLANTR
+      // EXTERNAL lsame, SLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATRS, SLATRS3, SLATTR, SSCAL, STRCON, STRRFS, STRT01, STRT02, STRT03, STRT05, STRT06, STRTRI, STRTRS, XLAENV, SLAMCH
@@ -109,7 +109,7 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               if ( LSAME( DIAG, 'N' ) ) {
+               if ( lsame( DIAG, 'N' ) ) {
                   IDIAG = 1;
                } else {
                   IDIAG = 2;

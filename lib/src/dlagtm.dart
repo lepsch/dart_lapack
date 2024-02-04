@@ -23,8 +23,8 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
@@ -47,7 +47,7 @@
       }
 
       if ( ALPHA == ONE ) {
-         if ( LSAME( TRANS, 'N' ) ) {
+         if ( lsame( TRANS, 'N' ) ) {
 
             // Compute B := B + A*X
 
@@ -77,7 +77,7 @@
             } // 80
          }
       } else if ( ALPHA == -ONE ) {
-         if ( LSAME( TRANS, 'N' ) ) {
+         if ( lsame( TRANS, 'N' ) ) {
 
             // Compute B := B - A*X
 

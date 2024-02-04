@@ -24,9 +24,9 @@
       REAL               ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SDOT, SLAMCH, SLANSP;
-      // EXTERNAL LSAME, SDOT, SLAMCH, SLANSP
+      // EXTERNAL lsame, SDOT, SLAMCH, SLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSPR, STPMV
@@ -54,7 +54,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1;
          for (K = N; K >= 1; K--) { // 10
 

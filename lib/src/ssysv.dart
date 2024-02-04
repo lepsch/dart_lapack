@@ -20,9 +20,9 @@
       int                LWKOPT;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SSYTRF, SSYTRS, SSYTRS2
@@ -36,7 +36,7 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

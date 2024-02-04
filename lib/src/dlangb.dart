@@ -27,8 +27,8 @@
       // EXTERNAL DLASSQ
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
-      // EXTERNAL LSAME, DISNAN
+      //- bool               lsame, DISNAN;
+      // EXTERNAL lsame, DISNAN
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
@@ -37,7 +37,7 @@
 
       if ( N == 0 ) {
          VALUE = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -48,7 +48,7 @@
                if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
-      } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
+      } else if ( ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
@@ -60,7 +60,7 @@
             } // 30
             if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 40
-      } else if ( LSAME( NORM, 'I' ) ) {
+      } else if ( lsame( NORM, 'I' ) ) {
 
          // Find normI(A).
 
@@ -78,7 +78,7 @@
             TEMP = WORK( I );
             if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
          } // 80
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

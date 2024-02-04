@@ -28,9 +28,9 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANSY, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, CLANSY, SLAMCH
+      // EXTERNAL lsame, CLANGE, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CSYMM
@@ -63,7 +63,7 @@
       // Expand AINV into a full matrix and call CSYMM to multiply
       // AINV on the left by A (store the result in WORK).
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
                AINV[J, I] = AINV( I, J );

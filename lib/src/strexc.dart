@@ -23,8 +23,8 @@
       int                HERE, NBF, NBL, NBNEXT;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAEXC, XERBLA
@@ -37,8 +37,8 @@
       // Decode and test the input arguments.
 
       INFO = 0;
-      WANTQ = LSAME( COMPQ, 'V' );
-      if ( !WANTQ && !LSAME( COMPQ, 'N' ) ) {
+      WANTQ = lsame( COMPQ, 'V' );
+      if ( !WANTQ && !lsame( COMPQ, 'N' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

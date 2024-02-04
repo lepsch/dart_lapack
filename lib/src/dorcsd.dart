@@ -29,8 +29,8 @@
       // EXTERNAL DBBCSD, DLACPY, DLAPMR, DLAPMT, DORBDB, DORGLQ, DORGQR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN
@@ -40,12 +40,12 @@
       // Test input arguments
 
       INFO = 0;
-      WANTU1 = LSAME( JOBU1, 'Y' );
-      WANTU2 = LSAME( JOBU2, 'Y' );
-      WANTV1T = LSAME( JOBV1T, 'Y' );
-      WANTV2T = LSAME( JOBV2T, 'Y' );
-      COLMAJOR = !LSAME( TRANS, 'T' );
-      DEFAULTSIGNS = !LSAME( SIGNS, 'O' );
+      WANTU1 = lsame( JOBU1, 'Y' );
+      WANTU2 = lsame( JOBU2, 'Y' );
+      WANTV1T = lsame( JOBV1T, 'Y' );
+      WANTV2T = lsame( JOBV2T, 'Y' );
+      COLMAJOR = !lsame( TRANS, 'T' );
+      DEFAULTSIGNS = !lsame( SIGNS, 'O' );
       LQUERY = LWORK == -1;
       if ( M < 0 ) {
          INFO = -7;

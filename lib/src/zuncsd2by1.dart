@@ -34,8 +34,8 @@
       // EXTERNAL ZBBCSD, ZCOPY, ZLACPY, ZLAPMR, ZLAPMT, ZUNBDB1, ZUNBDB2, ZUNBDB3, ZUNBDB4, ZUNGLQ, ZUNGQR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN
@@ -45,9 +45,9 @@
       // Test input arguments
 
       INFO = 0;
-      WANTU1 = LSAME( JOBU1, 'Y' );
-      WANTU2 = LSAME( JOBU2, 'Y' );
-      WANTV1T = LSAME( JOBV1T, 'Y' );
+      WANTU1 = lsame( JOBU1, 'Y' );
+      WANTU2 = lsame( JOBU2, 'Y' );
+      WANTV1T = lsame( JOBV1T, 'Y' );
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 );
 
       if ( M < 0 ) {

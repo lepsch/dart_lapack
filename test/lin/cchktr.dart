@@ -40,9 +40,9 @@
       REAL               RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTR;
-      // EXTERNAL LSAME, CLANTR
+      // EXTERNAL lsame, CLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, CCOPY, CERRTR, CGET04, CLACPY, CLARHS, CLATRS, CLATRS3, CLATTR, CSSCAL, CTRCON, CTRRFS, CTRT01, CTRT02, CTRT03, CTRT05, CTRT06, CTRTRI, CTRTRS, XLAENV, SLAMCH
@@ -109,7 +109,7 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               if ( LSAME( DIAG, 'N' ) ) {
+               if ( lsame( DIAG, 'N' ) ) {
                   IDIAG = 1;
                } else {
                   IDIAG = 2;

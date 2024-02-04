@@ -33,8 +33,8 @@
       // .. External Functions ..
       //- double             DDOT, DNRM2;
       //- int                idamax;
-      //- bool               LSAME;
-      // EXTERNAL idamax, LSAME, DDOT, DNRM2
+      //- bool               lsame;
+      // EXTERNAL idamax, lsame, DDOT, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
@@ -43,9 +43,9 @@
 
       // Test the input parameters.
 
-      APPLV = LSAME( JOBV, 'A' );
-      RSVEC = LSAME( JOBV, 'V' );
-      if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      APPLV = lsame( JOBV, 'A' );
+      RSVEC = lsame( JOBV, 'V' );
+      if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

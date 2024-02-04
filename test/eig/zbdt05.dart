@@ -29,10 +29,10 @@
       double             DUM( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DASUM, DZASUM, DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, idamax, DASUM, DZASUM, DLAMCH, ZLANGE
+      // EXTERNAL lsame, idamax, DASUM, DZASUM, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM

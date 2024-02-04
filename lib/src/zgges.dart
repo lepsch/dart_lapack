@@ -39,10 +39,10 @@
       // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -51,10 +51,10 @@
 
       // Decode the input arguments
 
-      if ( LSAME( JOBVSL, 'N' ) ) {
+      if ( lsame( JOBVSL, 'N' ) ) {
          IJOBVL = 1;
          ILVSL = false;
-      } else if ( LSAME( JOBVSL, 'V' ) ) {
+      } else if ( lsame( JOBVSL, 'V' ) ) {
          IJOBVL = 2;
          ILVSL = true;
       } else {
@@ -62,10 +62,10 @@
          ILVSL = false;
       }
 
-      if ( LSAME( JOBVSR, 'N' ) ) {
+      if ( lsame( JOBVSR, 'N' ) ) {
          IJOBVR = 1;
          ILVSR = false;
-      } else if ( LSAME( JOBVSR, 'V' ) ) {
+      } else if ( lsame( JOBVSR, 'V' ) ) {
          IJOBVR = 2;
          ILVSR = true;
       } else {
@@ -73,7 +73,7 @@
          ILVSR = false;
       }
 
-      WANTST = LSAME( SORT, 'S' );
+      WANTST = lsame( SORT, 'S' );
 
       // Test the input arguments
 
@@ -83,7 +83,7 @@
          INFO = -1;
       } else if ( IJOBVR <= 0 ) {
          INFO = -2;
-      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !lsame( SORT, 'N' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;

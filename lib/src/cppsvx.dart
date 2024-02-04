@@ -26,9 +26,9 @@
       REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHP, SLAMCH;
-      // EXTERNAL LSAME, CLANHP, SLAMCH
+      // EXTERNAL lsame, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACPY, CLAQHP, CPPCON, CPPEQU, CPPRFS, CPPTRF, CPPTRS, XERBLA
@@ -39,28 +39,28 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      EQUIL = LSAME( FACT, 'E' );
+      NOFACT = lsame( FACT, 'N' );
+      EQUIL = lsame( FACT, 'E' );
       if ( NOFACT || EQUIL ) {
          EQUED = 'N';
          RCEQU = false;
       } else {
-         RCEQU = LSAME( EQUED, 'Y' );
+         RCEQU = lsame( EQUED, 'Y' );
          SMLNUM = SLAMCH( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
       }
 
       // Test the input parameters.
 
-      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( lsame( FACT, 'F' ) && !( RCEQU || lsame( EQUED, 'N' ) ) ) {
          INFO = -7;
       } else {
          if ( RCEQU ) {
@@ -102,7 +102,7 @@
             // Equilibrate the matrix.
 
             claqhp(UPLO, N, AP, S, SCOND, AMAX, EQUED );
-            RCEQU = LSAME( EQUED, 'Y' );
+            RCEQU = lsame( EQUED, 'Y' );
          }
       }
 

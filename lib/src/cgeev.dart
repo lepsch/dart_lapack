@@ -35,10 +35,10 @@
       // EXTERNAL XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CUNGHR
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX, ILAENV;
       //- REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX, CONJG, AIMAG, MAX, SQRT
@@ -49,11 +49,11 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      WANTVL = LSAME( JOBVL, 'V' );
-      WANTVR = LSAME( JOBVR, 'V' );
-      if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
+      WANTVL = lsame( JOBVL, 'V' );
+      WANTVR = lsame( JOBVR, 'V' );
+      if ( ( !WANTVL ) && ( !lsame( JOBVL, 'N' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !lsame( JOBVR, 'N' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

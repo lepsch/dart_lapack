@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -37,19 +37,19 @@
 
       // Set NROWA as the number of rows of A.
 
-      if (LSAME(SIDE,'L')) {
+      if (lsame(SIDE,'L')) {
           NROWA = M;
       } else {
           NROWA = N;
       }
-      UPPER = LSAME(UPLO,'U');
+      UPPER = lsame(UPLO,'U');
 
       // Test the input parameters.
 
       INFO = 0;
-      if (( !LSAME(SIDE,'L')) && ( !LSAME(SIDE,'R'))) {
+      if (( !lsame(SIDE,'L')) && ( !lsame(SIDE,'R'))) {
           INFO = 1;
-      } else if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
+      } else if (( !UPPER) && ( !lsame(UPLO,'L'))) {
           INFO = 2;
       } else if (M < 0) {
           INFO = 3;
@@ -92,7 +92,7 @@
 
       // Start the operations.
 
-      if (LSAME(SIDE,'L')) {
+      if (lsame(SIDE,'L')) {
 
          // Form  C := alpha*A*B + beta*C.
 

@@ -32,14 +32,14 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MOD
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // ..
       // .. Executable Statements ..
 
       AJETER = IB + LDVT;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
 
       if ( UPPER ) {
           DPOS    = 2 * NB + 1;

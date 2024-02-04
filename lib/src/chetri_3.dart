@@ -20,10 +20,10 @@
       int                LWKOPT, NB;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHETRI_3X, XERBLA
@@ -36,7 +36,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
 
       // Determine the block size
@@ -49,7 +49,7 @@
       }
       WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

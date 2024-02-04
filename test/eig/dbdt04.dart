@@ -24,10 +24,10 @@
       double             BNORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DASUM, DLAMCH;
-      // EXTERNAL LSAME, idamax, DASUM, DLAMCH
+      // EXTERNAL lsame, idamax, DASUM, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM
@@ -48,7 +48,7 @@
 
       BNORM = ZERO;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // B is upper bidiagonal.
 

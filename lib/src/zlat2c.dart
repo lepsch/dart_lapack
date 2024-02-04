@@ -25,13 +25,13 @@
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
-      //- bool               LSAME;
-      // EXTERNAL SLAMCH, LSAME
+      //- bool               lsame;
+      // EXTERNAL SLAMCH, lsame
       // ..
       // .. Executable Statements ..
 
       RMAX = SLAMCH( 'O' );
-      UPPER = LSAME( UPLO, 'U' );
+      UPPER = lsame( UPLO, 'U' );
       if ( UPPER ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10

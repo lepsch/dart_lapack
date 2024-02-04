@@ -25,9 +25,9 @@
       REAL               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SLANSB, SLANSP;
-      // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSB, SLANSP
+      // EXTERNAL lsame, SLAMCH, SLANGE, SLANSB, SLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SSPR, SSPR2
@@ -46,7 +46,7 @@
       IKA = max( 0, min( N-1, KA ) );
       LW = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

@@ -22,8 +22,8 @@
       Complex         ZDUM;
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME
-      bool               LSAME;
+      // EXTERNAL lsame
+      bool               lsame;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, DIMAG
@@ -35,7 +35,7 @@
       CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
-      UPPER = LSAME( 'Upper', UPLO );
+      UPPER = lsame( 'Upper', UPLO );
 
       // DPOTRF will have factored only the NCOLSxNCOLS leading submatrix,
       // so we restrict the growth search to that submatrix and use only
@@ -65,7 +65,7 @@
       // Now find the max magnitude entry of each column of the factor in
       // AF.  No pivoting, so no permutations.
 
-      if ( LSAME( 'Upper', UPLO ) ) {
+      if ( lsame( 'Upper', UPLO ) ) {
          for (J = 1; J <= NCOLS; J++) {
             for (I = 1; I <= J; I++) {
                WORK[J] = max( CABS1( AF( I, J ) ), WORK( J ) );
@@ -86,7 +86,7 @@
       // as growth in itself, so simply ignore terms with zero
       // denominators.
 
-      if ( LSAME( 'Upper', UPLO ) ) {
+      if ( lsame( 'Upper', UPLO ) ) {
          for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I );
             AMAX = WORK( NCOLS+I );

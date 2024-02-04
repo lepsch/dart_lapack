@@ -26,8 +26,8 @@
       // EXTERNAL SLASSQ
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
@@ -36,12 +36,12 @@
 
       if ( N == 0 ) {
          VALUE = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO;
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= J; I++) { // 10
                   SUM = ( A( I, J ) ).abs();
@@ -56,12 +56,12 @@
                } // 30
             } // 40
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
+      } else if ( ( lsame( NORM, 'I' ) ) || ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
          VALUE = ZERO;
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
@@ -89,13 +89,13 @@
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 100
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
          SCALE = ZERO;
          SUM = ONE;
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 2; J <= N; J++) { // 110
                slassq(J-1, A( 1, J ), 1, SCALE, SUM );
             } // 110

@@ -35,10 +35,10 @@
       // EXTERNAL XERBLA, ZDSCAL, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZSCAL, ZTREVC3, ZUNGHR
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax, ILAENV;
       //- double             DLAMCH, DZNRM2, ZLANGE;
-      // EXTERNAL LSAME, idamax, ILAENV, DLAMCH, DZNRM2, ZLANGE
+      // EXTERNAL lsame, idamax, ILAENV, DLAMCH, DZNRM2, ZLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, CONJG, AIMAG, MAX, SQRT
@@ -49,11 +49,11 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      WANTVL = LSAME( JOBVL, 'V' );
-      WANTVR = LSAME( JOBVR, 'V' );
-      if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
+      WANTVL = lsame( JOBVL, 'V' );
+      WANTVR = lsame( JOBVR, 'V' );
+      if ( ( !WANTVL ) && ( !lsame( JOBVL, 'N' ) ) ) {
          INFO = -1;
-      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !lsame( JOBVR, 'N' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

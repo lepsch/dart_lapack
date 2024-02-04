@@ -24,9 +24,9 @@
       double             ANORM, BNORM, EPS, TEMP, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               DISNAN, LSAME;
+      //- bool               DISNAN, lsame;
       //- double             DASUM, DLAMCH;
-      // EXTERNAL DASUM, DISNAN, DLAMCH, LSAME
+      // EXTERNAL DASUM, DISNAN, DLAMCH, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGBMV
@@ -47,7 +47,7 @@
 
       EPS = DLAMCH( 'Epsilon' );
       ANORM = ZERO;
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
 
          // Find norm1(A).
 
@@ -83,7 +83,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
       } else {
          N1 = M;

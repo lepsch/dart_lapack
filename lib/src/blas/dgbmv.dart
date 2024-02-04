@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dgbmv(
@@ -20,41 +22,14 @@ void dgbmv(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  // double           ALPHA,BETA;
-  // int     INCX,INCY,KL,KU,LDA,M,N;
-  String TRANS;
-  // ..
-  // .. Array Arguments ..
-  // double           A(LDA,*),X[*],Y[*];
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  // double           ONE,ZERO;
   const ONE = 1.0, ZERO = 0.0;
-  // ..
-  // .. Local Scalars ..
   double TEMP;
   int I, INFO, IX, IY, J, JX, JY, K, KUP1, KX, KY, LENX, LENY;
-  // ..
-  // .. External Functions ..
-  //- bool    LSAME;
-  // EXTERNAL LSAME
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC MAX,MIN
-  // ..
 
   // Test the input parameters.
 
   INFO = 0;
-  if (!LSAME(TRANS, 'N') && !LSAME(TRANS, 'T') && !LSAME(TRANS, 'C')) {
+  if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
     INFO = 1;
   } else if (M < 0) {
     INFO = 2;
@@ -83,7 +58,7 @@ void dgbmv(
   // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
   // up the start points in  X  and  Y.
 
-  if (LSAME(TRANS, 'N')) {
+  if (lsame(TRANS, 'N')) {
     LENX = N;
     LENY = M;
   } else {
@@ -110,63 +85,54 @@ void dgbmv(
     if (INCY == 1) {
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-          // 10
           Y[I] = ZERO;
-        } // 10
+        }
       } else {
         for (I = 1; I <= LENY; I++) {
-          // 20
           Y[I] = BETA * Y[I];
-        } // 20
+        }
       }
     } else {
       IY = KY;
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-          // 30
           Y[IY] = ZERO;
           IY = IY + INCY;
-        } // 30
+        }
       } else {
         for (I = 1; I <= LENY; I++) {
-          // 40
           Y[IY] = BETA * Y[IY];
           IY = IY + INCY;
-        } // 40
+        }
       }
     }
   }
   if (ALPHA == ZERO) return;
   KUP1 = KU + 1;
-  if (LSAME(TRANS, 'N')) {
+  if (lsame(TRANS, 'N')) {
     // Form  y := alpha*A*x + y.
-
     JX = KX;
     if (INCY == 1) {
       for (J = 1; J <= N; J++) {
-        // 60
         TEMP = ALPHA * X[JX];
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          // 50
-          Y[I] = Y[I] + TEMP * A(K + I, J);
-        } // 50
+          Y[I] = Y[I] + TEMP * A[K + I, J];
+        }
         JX = JX + INCX;
-      } // 60
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 80
         TEMP = ALPHA * X[JX];
         IY = KY;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          // 70
-          Y[IY] = Y[IY] + TEMP * A(K + I, J);
+          Y[IY] = Y[IY] + TEMP * A[K + I, J];
           IY = IY + INCY;
-        } // 70
+        }
         JX = JX + INCX;
         if (J > KU) KY = KY + INCY;
-      } // 80
+      }
     }
   } else {
     // Form  y := alpha*A**T*x + y.
@@ -179,7 +145,7 @@ void dgbmv(
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           // 90
-          TEMP = TEMP + A(K + I, J) * X[I];
+          TEMP = TEMP + A[K + I, J] * X[I];
         } // 90
         Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
@@ -192,7 +158,7 @@ void dgbmv(
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           // 110
-          TEMP = TEMP + A(K + I, J) * X[IX];
+          TEMP = TEMP + A[K + I, J] * X[IX];
           IX = IX + INCX;
         } // 110
         Y[JY] = Y[JY] + ALPHA * TEMP;

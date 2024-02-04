@@ -25,17 +25,17 @@
       // EXTERNAL DGEMV, DTRMV, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Executable Statements ..
 
       // Check for currently supported options
 
       INFO = 0;
-      if ( !LSAME( DIRECT, 'B' ) ) {
+      if ( !lsame( DIRECT, 'B' ) ) {
          INFO = -1;
-      } else if ( !LSAME( STOREV, 'R' ) ) {
+      } else if ( !lsame( STOREV, 'R' ) ) {
          INFO = -2;
       }
       if ( INFO != 0 ) {

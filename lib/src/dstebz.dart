@@ -31,10 +31,10 @@
       int                IDUMMA( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, ILAENV, DLAMCH
+      // EXTERNAL lsame, ILAENV, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAEBZ, XERBLA
@@ -48,11 +48,11 @@
 
       // Decode RANGE
 
-      if ( LSAME( RANGE, 'A' ) ) {
+      if ( lsame( RANGE, 'A' ) ) {
          IRANGE = 1;
-      } else if ( LSAME( RANGE, 'V' ) ) {
+      } else if ( lsame( RANGE, 'V' ) ) {
          IRANGE = 2;
-      } else if ( LSAME( RANGE, 'I' ) ) {
+      } else if ( lsame( RANGE, 'I' ) ) {
          IRANGE = 3;
       } else {
          IRANGE = 0;
@@ -60,9 +60,9 @@
 
       // Decode ORDER
 
-      if ( LSAME( ORDER, 'B' ) ) {
+      if ( lsame( ORDER, 'B' ) ) {
          IORDER = 2;
-      } else if ( LSAME( ORDER, 'E' ) ) {
+      } else if ( lsame( ORDER, 'E' ) ) {
          IORDER = 1;
       } else {
          IORDER = 0;

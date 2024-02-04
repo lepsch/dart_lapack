@@ -31,8 +31,8 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- bool               LSAME, DISNAN;
-      // EXTERNAL DLAMCH, LSAME, DISNAN
+      //- bool               lsame, DISNAN;
+      // EXTERNAL DLAMCH, lsame, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZGEMV, ZLACGV, ZSWAP, XERBLA
@@ -45,8 +45,8 @@
       // Test the input parameters
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

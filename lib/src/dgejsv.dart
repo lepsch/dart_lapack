@@ -31,8 +31,8 @@
       // .. External Functions ..
       //- double            DLAMCH, DNRM2;
       //- int       idamax;
-      //- bool      LSAME;
-      // EXTERNAL idamax, LSAME, DLAMCH, DNRM2
+      //- bool      lsame;
+      // EXTERNAL idamax, lsame, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY,  DGELQF, DGEQP3, DGEQRF, DLACPY, DLASCL, DLASET, DLASSQ, DLASWP, DORGQR, DORMLQ, DORMQR, DPOCON, DSCAL,  DSWAP,  DTRSM,  XERBLA
@@ -42,29 +42,29 @@
 
       // Test the input arguments
 
-      LSVEC  = LSAME( JOBU, 'U' ) || LSAME( JOBU, 'F' );
-      JRACC  = LSAME( JOBV, 'J' );
-      RSVEC  = LSAME( JOBV, 'V' ) || JRACC;
-      ROWPIV = LSAME( JOBA, 'F' ) || LSAME( JOBA, 'G' );
-      L2RANK = LSAME( JOBA, 'R' );
-      L2ABER = LSAME( JOBA, 'A' );
-      ERREST = LSAME( JOBA, 'E' ) || LSAME( JOBA, 'G' );
-      L2TRAN = LSAME( JOBT, 'T' );
-      L2KILL = LSAME( JOBR, 'R' );
-      DEFR   = LSAME( JOBR, 'N' );
-      L2PERT = LSAME( JOBP, 'P' );
+      LSVEC  = lsame( JOBU, 'U' ) || lsame( JOBU, 'F' );
+      JRACC  = lsame( JOBV, 'J' );
+      RSVEC  = lsame( JOBV, 'V' ) || JRACC;
+      ROWPIV = lsame( JOBA, 'F' ) || lsame( JOBA, 'G' );
+      L2RANK = lsame( JOBA, 'R' );
+      L2ABER = lsame( JOBA, 'A' );
+      ERREST = lsame( JOBA, 'E' ) || lsame( JOBA, 'G' );
+      L2TRAN = lsame( JOBT, 'T' );
+      L2KILL = lsame( JOBR, 'R' );
+      DEFR   = lsame( JOBR, 'N' );
+      L2PERT = lsame( JOBP, 'P' );
 
-      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
+      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || lsame( JOBA, 'C' ) )) {
          INFO = - 1;
-      } else if ( !( LSVEC || LSAME( JOBU, 'N' ) || LSAME( JOBU, 'W' )) ) {
+      } else if ( !( LSVEC || lsame( JOBU, 'N' ) || lsame( JOBU, 'W' )) ) {
          INFO = - 2;
-      } else if ( !( RSVEC || LSAME( JOBV, 'N' ) || LSAME( JOBV, 'W' )) || ( JRACC && ( !LSVEC) ) ) {
+      } else if ( !( RSVEC || lsame( JOBV, 'N' ) || lsame( JOBV, 'W' )) || ( JRACC && ( !LSVEC) ) ) {
          INFO = - 3;
       } else if ( !( L2KILL || DEFR ) ) {
          INFO = - 4;
-      } else if ( !( L2TRAN || LSAME( JOBT, 'N' ) ) ) {
+      } else if ( !( L2TRAN || lsame( JOBT, 'N' ) ) ) {
          INFO = - 5;
-      } else if ( !( L2PERT || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( L2PERT || lsame( JOBP, 'N' ) ) ) {
          INFO = - 6;
       } else if ( M < 0 ) {
          INFO = - 7;
@@ -101,7 +101,7 @@
 
       if ( LSVEC ) {
          N1 = N;
-         if ( LSAME( JOBU, 'F' ) ) N1 = M;
+         if ( lsame( JOBU, 'F' ) ) N1 = M;
       }
 
       // Set numerical parameters

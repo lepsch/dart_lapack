@@ -30,9 +30,9 @@
       REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLARND;
-      // EXTERNAL LSAME, SLARND
+      // EXTERNAL lsame, SLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAGGE, SLAGSY, SLAROT, SLARTG, SLATM1, SLASET, SSCAL, XERBLA
@@ -53,11 +53,11 @@
 
       // Decode DIST
 
-      if ( LSAME( DIST, 'U' ) ) {
+      if ( lsame( DIST, 'U' ) ) {
          IDIST = 1;
-      } else if ( LSAME( DIST, 'S' ) ) {
+      } else if ( lsame( DIST, 'S' ) ) {
          IDIST = 2;
-      } else if ( LSAME( DIST, 'N' ) ) {
+      } else if ( lsame( DIST, 'N' ) ) {
          IDIST = 3;
       } else {
          IDIST = -1;
@@ -65,16 +65,16 @@
 
       // Decode SYM
 
-      if ( LSAME( SYM, 'N' ) ) {
+      if ( lsame( SYM, 'N' ) ) {
          ISYM = 1;
          IRSIGN = 0;
-      } else if ( LSAME( SYM, 'P' ) ) {
+      } else if ( lsame( SYM, 'P' ) ) {
          ISYM = 2;
          IRSIGN = 0;
-      } else if ( LSAME( SYM, 'S' ) ) {
+      } else if ( lsame( SYM, 'S' ) ) {
          ISYM = 2;
          IRSIGN = 1;
-      } else if ( LSAME( SYM, 'H' ) ) {
+      } else if ( lsame( SYM, 'H' ) ) {
          ISYM = 2;
          IRSIGN = 1;
       } else {
@@ -84,27 +84,27 @@
       // Decode PACK
 
       ISYMPK = 0;
-      if ( LSAME( PACK, 'N' ) ) {
+      if ( lsame( PACK, 'N' ) ) {
          IPACK = 0;
-      } else if ( LSAME( PACK, 'U' ) ) {
+      } else if ( lsame( PACK, 'U' ) ) {
          IPACK = 1;
          ISYMPK = 1;
-      } else if ( LSAME( PACK, 'L' ) ) {
+      } else if ( lsame( PACK, 'L' ) ) {
          IPACK = 2;
          ISYMPK = 1;
-      } else if ( LSAME( PACK, 'C' ) ) {
+      } else if ( lsame( PACK, 'C' ) ) {
          IPACK = 3;
          ISYMPK = 2;
-      } else if ( LSAME( PACK, 'R' ) ) {
+      } else if ( lsame( PACK, 'R' ) ) {
          IPACK = 4;
          ISYMPK = 3;
-      } else if ( LSAME( PACK, 'B' ) ) {
+      } else if ( lsame( PACK, 'B' ) ) {
          IPACK = 5;
          ISYMPK = 3;
-      } else if ( LSAME( PACK, 'Q' ) ) {
+      } else if ( lsame( PACK, 'Q' ) ) {
          IPACK = 6;
          ISYMPK = 2;
-      } else if ( LSAME( PACK, 'Z' ) ) {
+      } else if ( lsame( PACK, 'Z' ) ) {
          IPACK = 7;
       } else {
          IPACK = -1;

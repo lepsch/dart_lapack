@@ -30,8 +30,8 @@
       double             TMP1;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR, ZSWAP
@@ -43,18 +43,18 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      UPPER = LSAME( UPLO, 'U' );
-      ALLEIG = LSAME( RANGE, 'A' );
-      VALEIG = LSAME( RANGE, 'V' );
-      INDEIG = LSAME( RANGE, 'I' );
+      WANTZ = lsame( JOBZ, 'V' );
+      UPPER = lsame( UPLO, 'U' );
+      ALLEIG = lsame( RANGE, 'A' );
+      VALEIG = lsame( RANGE, 'V' );
+      INDEIG = lsame( RANGE, 'I' );
 
       INFO = 0;
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2;
-      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

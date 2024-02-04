@@ -23,8 +23,8 @@
       // EXTERNAL ZAXPY, ZCOPY, ZGEMV, ZGERC, ZGERU, ZLACGV
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
@@ -33,7 +33,7 @@
 
       if( ( min( M, N ) == 0 ) || ( TAU == ZERO ) ) return;
 
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
 
          // w :=  ( C1 + v**H * C2 )**H
 
@@ -48,7 +48,7 @@
          zaxpy(N, -TAU, WORK, 1, C1, LDC );
          zgeru(M-1, N, -TAU, V, INCV, WORK, 1, C2, LDC );
 
-      } else if ( LSAME( SIDE, 'R' ) ) {
+      } else if ( lsame( SIDE, 'R' ) ) {
 
          // w := C1 + C2 * v
 

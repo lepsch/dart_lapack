@@ -25,10 +25,10 @@
       REAL               EPS, ORGNRM, P, TINY;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
-      // EXTERNAL ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
+      // EXTERNAL ILAENV, lsame, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLAED0, SLASCL, SLASET, SLASRT, SSTEQR, SSTERF, SSWAP, XERBLA
@@ -43,11 +43,11 @@
       INFO = 0;
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ICOMPZ = 0;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ICOMPZ = 2;
       } else {
          ICOMPZ = -1;

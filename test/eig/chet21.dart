@@ -29,9 +29,9 @@
       COMPLEX            VSAVE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, CLANHE, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, CLANHE, SLAMCH
+      // EXTERNAL lsame, CLANGE, CLANHE, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CHER, CHER2, CLACPY, CLARFY, CLASET, CUNM2L, CUNM2R
@@ -45,7 +45,7 @@
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

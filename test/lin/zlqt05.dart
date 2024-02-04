@@ -32,8 +32,8 @@
       // .. External Functions ..
       //- double           DLAMCH;
       //- double           ZLANGE, ZLANSY;
-      //- bool     LSAME;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
+      //- bool     lsame;
+      // EXTERNAL DLAMCH, ZLANGE, ZLANSY, lsame
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];

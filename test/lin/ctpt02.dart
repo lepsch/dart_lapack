@@ -25,9 +25,9 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTP, SCASUM, SLAMCH;
-      // EXTERNAL LSAME, CLANTP, SCASUM, SLAMCH
+      // EXTERNAL lsame, CLANTP, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CTPMV
@@ -46,7 +46,7 @@
 
       // Compute the 1-norm of op(A).
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = CLANTP( '1', UPLO, DIAG, N, AP, RWORK );
       } else {
          ANORM = CLANTP( 'I', UPLO, DIAG, N, AP, RWORK );

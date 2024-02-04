@@ -41,8 +41,8 @@
       int                ITER, KASE;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPOT06, DSPOSV

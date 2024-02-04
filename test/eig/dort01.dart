@@ -25,9 +25,9 @@
       double             EPS, TMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT, DLAMCH, DLANSY;
-      // EXTERNAL LSAME, DDOT, DLAMCH, DLANSY
+      // EXTERNAL lsame, DDOT, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASET, DSYRK
@@ -44,7 +44,7 @@
       if (M <= 0 || N <= 0) return;
 
       EPS = DLAMCH( 'Precision' );
-      if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
+      if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;
       } else {

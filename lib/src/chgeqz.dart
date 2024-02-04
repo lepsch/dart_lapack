@@ -31,9 +31,9 @@
       // ..
       // .. External Functions ..
       //- COMPLEX            CLADIV;
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHS, SLAMCH;
-      // EXTERNAL CLADIV, LSAME, CLANHS, SLAMCH
+      // EXTERNAL CLADIV, lsame, CLANHS, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARTG, CLASET, CROT, CSCAL, XERBLA
@@ -51,10 +51,10 @@
 
       // Decode JOB, COMPQ, COMPZ
 
-      if ( LSAME( JOB, 'E' ) ) {
+      if ( lsame( JOB, 'E' ) ) {
          ILSCHR = false;
          ISCHUR = 1;
-      } else if ( LSAME( JOB, 'S' ) ) {
+      } else if ( lsame( JOB, 'S' ) ) {
          ILSCHR = true;
          ISCHUR = 2;
       } else {
@@ -62,13 +62,13 @@
          ISCHUR = 0;
       }
 
-      if ( LSAME( COMPQ, 'N' ) ) {
+      if ( lsame( COMPQ, 'N' ) ) {
          ILQ = false;
          ICOMPQ = 1;
-      } else if ( LSAME( COMPQ, 'V' ) ) {
+      } else if ( lsame( COMPQ, 'V' ) ) {
          ILQ = true;
          ICOMPQ = 2;
-      } else if ( LSAME( COMPQ, 'I' ) ) {
+      } else if ( lsame( COMPQ, 'I' ) ) {
          ILQ = true;
          ICOMPQ = 3;
       } else {
@@ -76,13 +76,13 @@
          ICOMPQ = 0;
       }
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ILZ = false;
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ILZ = true;
          ICOMPZ = 2;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ILZ = true;
          ICOMPZ = 3;
       } else {

@@ -24,42 +24,42 @@
       // External Functions
       // EXTERNAL :: XERBLA, CHGEQZ, CLAQZ2, CLAQZ3, CLASET, CLARTG, CROT
       REAL, EXTERNAL :: SLAMCH, CLANHS;
-      bool   , EXTERNAL :: LSAME;
+      bool   , EXTERNAL :: lsame;
       int    , EXTERNAL :: ILAENV;
 
 
       // Decode wantS,wantQ,wantZ
 
-      if ( LSAME( WANTS, 'E' ) ) {
+      if ( lsame( WANTS, 'E' ) ) {
          ILSCHUR = false;
          IWANTS = 1;
-      } else if ( LSAME( WANTS, 'S' ) ) {
+      } else if ( lsame( WANTS, 'S' ) ) {
          ILSCHUR = true;
          IWANTS = 2;
       } else {
          IWANTS = 0;
       }
 
-      if ( LSAME( WANTQ, 'N' ) ) {
+      if ( lsame( WANTQ, 'N' ) ) {
          ILQ = false;
          IWANTQ = 1;
-      } else if ( LSAME( WANTQ, 'V' ) ) {
+      } else if ( lsame( WANTQ, 'V' ) ) {
          ILQ = true;
          IWANTQ = 2;
-      } else if ( LSAME( WANTQ, 'I' ) ) {
+      } else if ( lsame( WANTQ, 'I' ) ) {
          ILQ = true;
          IWANTQ = 3;
       } else {
          IWANTQ = 0;
       }
 
-      if ( LSAME( WANTZ, 'N' ) ) {
+      if ( lsame( WANTZ, 'N' ) ) {
          ILZ = false;
          IWANTZ = 1;
-      } else if ( LSAME( WANTZ, 'V' ) ) {
+      } else if ( lsame( WANTZ, 'V' ) ) {
          ILZ = true;
          IWANTZ = 2;
-      } else if ( LSAME( WANTZ, 'I' ) ) {
+      } else if ( lsame( WANTZ, 'I' ) ) {
          ILZ = true;
          IWANTZ = 3;
       } else {

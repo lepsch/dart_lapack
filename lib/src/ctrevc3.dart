@@ -32,10 +32,10 @@
       COMPLEX            CDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV, ICAMAX;
       //- REAL               SLAMCH, SCASUM, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV, CLATRS, CLACPY
@@ -53,13 +53,13 @@
 
       // Decode and test the input parameters
 
-      BOTHV  = LSAME( SIDE, 'B' );
-      RIGHTV = LSAME( SIDE, 'R' ) || BOTHV;
-      LEFTV  = LSAME( SIDE, 'L' ) || BOTHV;
+      BOTHV  = lsame( SIDE, 'B' );
+      RIGHTV = lsame( SIDE, 'R' ) || BOTHV;
+      LEFTV  = lsame( SIDE, 'L' ) || BOTHV;
 
-      ALLV  = LSAME( HOWMNY, 'A' );
-      OVER  = LSAME( HOWMNY, 'B' );
-      SOMEV = LSAME( HOWMNY, 'S' );
+      ALLV  = lsame( HOWMNY, 'A' );
+      OVER  = lsame( HOWMNY, 'B' );
+      SOMEV = lsame( HOWMNY, 'S' );
 
       // Set M to the number of columns required to store the selected
       // eigenvectors.

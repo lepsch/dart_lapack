@@ -32,8 +32,8 @@
       // .. External Functions ..
       //- REAL               SLAMCH;
       //- int                ILAENV;
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL SLAMCH, ILAENV, LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL SLAMCH, ILAENV, lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CHERK, CLACGV, CPSTF2, CSSCAL, CSWAP, XERBLA
@@ -46,8 +46,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

@@ -26,10 +26,10 @@
       REAL               EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ICAMAX, SLAMCH
+      // EXTERNAL lsame, ICAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CSSCAL, CTBMV
@@ -52,8 +52,8 @@
       // norms already computed by CLATBS.
 
       TNORM = ZERO;
-      if ( LSAME( DIAG, 'N' ) ) {
-         if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( DIAG, 'N' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 10
                TNORM = max( TNORM, TSCAL*( AB( KD+1, J ) ).abs()+ CNORM( J ) );
             } // 10

@@ -25,9 +25,9 @@
       REAL               CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE;
-      // EXTERNAL LSAME, SLAMCH, SLANGE
+      // EXTERNAL lsame, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLARNV, SLASET, SORGRQ, SORMRQ
@@ -110,7 +110,7 @@
 
             // Form explicit product and subtract
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
                sgemm(TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA );
             } else {
                sgemm('No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA );

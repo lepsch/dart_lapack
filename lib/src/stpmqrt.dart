@@ -20,8 +20,8 @@
       int                I, IB, MB, LB, KF, LDAQ, LDVQ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL STPRFB, XERBLA
@@ -34,10 +34,10 @@
       // .. Test the input arguments ..
 
       INFO   = 0;
-      LEFT   = LSAME( SIDE,  'L' );
-      RIGHT  = LSAME( SIDE,  'R' );
-      TRAN   = LSAME( TRANS, 'T' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      LEFT   = lsame( SIDE,  'L' );
+      RIGHT  = lsame( SIDE,  'R' );
+      TRAN   = lsame( TRANS, 'T' );
+      NOTRAN = lsame( TRANS, 'N' );
 
       if ( LEFT ) {
          LDVQ = max( 1, M );

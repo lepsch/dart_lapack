@@ -44,8 +44,8 @@
       // ..
       // .. External Functions ..
       //- int                ILAENV;
-      //- bool               LSAME;
-      // EXTERNAL ILAENV, LSAME
+      //- bool               lsame;
+      // EXTERNAL ILAENV, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZCOPY, ZLACPY, ZLAHQR, ZLAQR0, ZLASET
@@ -57,16 +57,16 @@
 
       // ==== Decode and check the input parameters. ====
 
-      WANTT = LSAME( JOB, 'S' );
-      INITZ = LSAME( COMPZ, 'I' );
-      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      WANTT = lsame( JOB, 'S' );
+      INITZ = lsame( COMPZ, 'I' );
+      WANTZ = INITZ || lsame( COMPZ, 'V' );
       WORK[1] = DCMPLX( (max( 1, N )).toDouble(), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
-      if ( !LSAME( JOB, 'E' ) && !WANTT ) {
+      if ( !lsame( JOB, 'E' ) && !WANTT ) {
          INFO = -1;
-      } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
+      } else if ( !lsame( COMPZ, 'N' ) && !WANTZ ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

@@ -29,10 +29,10 @@
       Complex         ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                IZAMAX;
       //- double             DLAMCH, ZLANSY;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH, ZLANSY
+      // EXTERNAL lsame, IZAMAX, DLAMCH, ZLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZHEMM

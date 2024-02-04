@@ -38,9 +38,9 @@
       // EXTERNAL CGEBRD, CGELQF, CGEMM, CGEQRF, CLACP2, CLACPY, CLACRM, CLARCM, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SBDSDC, SLASCL, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, CLANGE, SISNAN,  SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, CLANGE, SISNAN,  SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, SQRT
@@ -53,11 +53,11 @@
       MINMN  = min( M, N );
       MNTHR1 = INT( MINMN*17.0 / 9.0 );
       MNTHR2 = INT( MINMN*5.0 / 3.0 );
-      WNTQA  = LSAME( JOBZ, 'A' );
-      WNTQS  = LSAME( JOBZ, 'S' );
+      WNTQA  = lsame( JOBZ, 'A' );
+      WNTQS  = lsame( JOBZ, 'S' );
       WNTQAS = WNTQA || WNTQS;
-      WNTQO  = LSAME( JOBZ, 'O' );
-      WNTQN  = LSAME( JOBZ, 'N' );
+      WNTQO  = lsame( JOBZ, 'O' );
+      WNTQN  = lsame( JOBZ, 'N' );
       LQUERY = ( LWORK == -1 );
       MINWRK = 1;
       MAXWRK = 1;

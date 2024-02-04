@@ -23,8 +23,8 @@
       REAL               ANORM, SCALE, SUM, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASSQ
@@ -36,7 +36,7 @@
 
       if ( N <= 0 ) {
          ANORM = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -46,7 +46,7 @@
             if( ANORM < ( D( I ) ).abs() || SISNAN( ( D( I ) ) ) ).abs() ANORM = (D(I)).abs();
             IF( ANORM < ( DU( I ) ).abs() || SISNAN (( DU( I ) ) ) ).abs() ANORM = (DU(I)).abs();
          } // 10
-      } else if ( LSAME( NORM, 'O' ) || NORM == '1' ) {
+      } else if ( lsame( NORM, 'O' ) || NORM == '1' ) {
 
          // Find norm1(A).
 
@@ -61,7 +61,7 @@
                if( ANORM < TEMP || SISNAN( TEMP ) ) ANORM = TEMP;
             } // 20
          }
-      } else if ( LSAME( NORM, 'I' ) ) {
+      } else if ( lsame( NORM, 'I' ) ) {
 
          // Find normI(A).
 
@@ -76,7 +76,7 @@
                if( ANORM < TEMP || SISNAN( TEMP ) ) ANORM = TEMP;
             } // 30
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

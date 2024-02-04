@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -39,17 +39,17 @@
 
       // Test the input parameters.
 
-      if (LSAME(TRANS,'N')) {
+      if (lsame(TRANS,'N')) {
           NROWA = N;
       } else {
           NROWA = K;
       }
-      UPPER = LSAME(UPLO,'U');
+      UPPER = lsame(UPLO,'U');
 
       INFO = 0;
-      if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
+      if (( !UPPER) && ( !lsame(UPLO,'L'))) {
           INFO = 1;
-      } else if (( !LSAME(TRANS,'N')) && ( !LSAME(TRANS,'T'))) {
+      } else if (( !lsame(TRANS,'N')) && ( !lsame(TRANS,'T'))) {
           INFO = 2;
       } else if (N < 0) {
           INFO = 3;
@@ -106,7 +106,7 @@
 
       // Start the operations.
 
-      if (LSAME(TRANS,'N')) {
+      if (lsame(TRANS,'N')) {
 
          // Form  C := alpha*A*A**T + beta*C.
 

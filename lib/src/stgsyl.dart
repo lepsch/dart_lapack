@@ -28,10 +28,10 @@
       REAL               DSCALE, DSUM, SCALE2, SCALOC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
+      // EXTERNAL lsame, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASET, SSCAL, STGSY2, XERBLA
@@ -44,10 +44,10 @@
       // Decode and test input parameters
 
       INFO = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOTRAN = lsame( TRANS, 'N' );
       LQUERY = ( LWORK == -1 );
 
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
          INFO = -1;
       } else if ( NOTRAN ) {
          if ( ( IJOB < 0 ) || ( IJOB > 4 ) ) {

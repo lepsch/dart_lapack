@@ -25,9 +25,9 @@
       double             CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, DLAMCH, DLANGE
+      // EXTERNAL lsame, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLARNV, DLASET, DORGQL, DORMQL
@@ -110,7 +110,7 @@
 
             // Form explicit product and subtract
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
                dgemm(TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA );
             } else {
                dgemm('No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA );

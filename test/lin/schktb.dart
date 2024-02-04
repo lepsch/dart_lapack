@@ -39,9 +39,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLANTB, SLANTR;
-      // EXTERNAL LSAME, SLANTB, SLANTR
+      // EXTERNAL lsame, SLANTB, SLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLASET, SLATBS, SLATTB, STBCON, STBRFS, STBSV, STBT02, STBT03, STBT05, STBT06, STBTRS
@@ -130,7 +130,7 @@
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-                  if ( LSAME( DIAG, 'N' ) ) {
+                  if ( lsame( DIAG, 'N' ) ) {
                      IDIAG = 1;
                   } else {
                      IDIAG = 2;
@@ -140,7 +140,7 @@
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                   slaset('Full', N, N, ZERO, ONE, AINV, LDA );
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         stbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
                      } // 20

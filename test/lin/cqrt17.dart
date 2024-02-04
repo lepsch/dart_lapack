@@ -26,9 +26,9 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, SLAMCH
+      // EXTERNAL lsame, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CLACPY, CLASCL, XERBLA
@@ -40,10 +40,10 @@
 
       CQRT17 = ZERO;
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          NROWS = M;
          NCOLS = N;
-      } else if ( LSAME( TRANS, 'C' ) ) {
+      } else if ( lsame( TRANS, 'C' ) ) {
          NROWS = N;
          NCOLS = M;
       } else {

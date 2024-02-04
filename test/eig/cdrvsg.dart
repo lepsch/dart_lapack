@@ -35,9 +35,9 @@
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLARND;
-      // EXTERNAL LSAME, SLAMCH, SLARND
+      // EXTERNAL lsame, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHBGV, CHBGVD, CHBGVX, CHEGV, CHEGVD, CHEGVX, CHPGV, CHPGVD, CHPGVX, CLACPY, CLASET, CLATMR, CLATMS, CSGT01, SLAFTS, SLASUM, XERBLA
@@ -422,7 +422,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 120
                         for (I = 1; I <= J; I++) { // 110
@@ -464,7 +464,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 160
                         for (I = 1; I <= J; I++) { // 150
@@ -506,7 +506,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 200
                         for (I = 1; I <= J; I++) { // 190
@@ -546,7 +546,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 240
                         for (I = 1; I <= J; I++) { // 230
@@ -588,7 +588,7 @@
 
                   // Copy the matrices into packed storage.
 
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 280
                         for (I = 1; I <= J; I++) { // 270
@@ -634,7 +634,7 @@
 
                      // Copy the matrices into band storage.
 
-                     if ( LSAME( UPLO, 'U' ) ) {
+                     if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
                            for (I = max( 1, J-KA ); I <= J; I++) { // 320
                               AB[KA+1+I-J, J] = A( I, J );
@@ -676,7 +676,7 @@
 
                      // Copy the matrices into band storage.
 
-                     if ( LSAME( UPLO, 'U' ) ) {
+                     if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
                            for (I = max( 1, J-KA ); I <= J; I++) { // 380
                               AB[KA+1+I-J, J] = A( I, J );
@@ -718,7 +718,7 @@
 
                      // Copy the matrices into band storage.
 
-                     if ( LSAME( UPLO, 'U' ) ) {
+                     if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
                            for (I = max( 1, J-KA ); I <= J; I++) { // 440
                               AB[KA+1+I-J, J] = A( I, J );
@@ -758,7 +758,7 @@
 
                      // Copy the matrices into band storage.
 
-                     if ( LSAME( UPLO, 'U' ) ) {
+                     if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
                            for (I = max( 1, J-KA ); I <= J; I++) { // 500
                               AB[KA+1+I-J, J] = A( I, J );
@@ -800,7 +800,7 @@
 
                      // Copy the matrices into band storage.
 
-                     if ( LSAME( UPLO, 'U' ) ) {
+                     if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
                            for (I = max( 1, J-KA ); I <= J; I++) { // 560
                               AB[KA+1+I-J, J] = A( I, J );

@@ -28,10 +28,10 @@
       Complex         D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
+      //- bool               lsame, DISNAN;
       //- int                IZAMAX;
       //- double             DLAPY2;
-      // EXTERNAL LSAME, IZAMAX, DLAPY2, DISNAN
+      // EXTERNAL lsame, IZAMAX, DLAPY2, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZHER, ZSWAP
@@ -50,8 +50,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

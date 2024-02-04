@@ -23,8 +23,8 @@
       double             CTEMP, STEMP, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -37,11 +37,11 @@
       // Test the input parameters
 
       INFO = 0;
-      if ( !( LSAME( SIDE, 'L' ) || LSAME( SIDE, 'R' ) ) ) {
+      if ( !( lsame( SIDE, 'L' ) || lsame( SIDE, 'R' ) ) ) {
          INFO = 1;
-      } else if ( !( LSAME( PIVOT, 'V' ) || LSAME( PIVOT, 'T' ) || LSAME( PIVOT, 'B' ) ) ) {
+      } else if ( !( lsame( PIVOT, 'V' ) || lsame( PIVOT, 'T' ) || lsame( PIVOT, 'B' ) ) ) {
          INFO = 2;
-      } else if ( !( LSAME( DIRECT, 'F' ) || LSAME( DIRECT, 'B' ) ) ) {
+      } else if ( !( lsame( DIRECT, 'F' ) || lsame( DIRECT, 'B' ) ) ) {
          INFO = 3;
       } else if ( M < 0 ) {
          INFO = 4;
@@ -58,12 +58,12 @@
       // Quick return if possible
 
       if( ( M == 0 ) || ( N == 0 ) ) return;
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
 
          // Form  P * A
 
-         if ( LSAME( PIVOT, 'V' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         if ( lsame( PIVOT, 'V' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 1; J <= M - 1; J++) { // 20
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -75,7 +75,7 @@
                      } // 10
                   }
                } // 20
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = M - 1; J >= 1; J--) { // 40
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -88,8 +88,8 @@
                   }
                } // 40
             }
-         } else if ( LSAME( PIVOT, 'T' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         } else if ( lsame( PIVOT, 'T' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 2; J <= M; J++) { // 60
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
@@ -101,7 +101,7 @@
                      } // 50
                   }
                } // 60
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = M; J >= 2; J--) { // 80
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
@@ -114,8 +114,8 @@
                   }
                } // 80
             }
-         } else if ( LSAME( PIVOT, 'B' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         } else if ( lsame( PIVOT, 'B' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 1; J <= M - 1; J++) { // 100
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -127,7 +127,7 @@
                      } // 90
                   }
                } // 100
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = M - 1; J >= 1; J--) { // 120
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -141,12 +141,12 @@
                } // 120
             }
          }
-      } else if ( LSAME( SIDE, 'R' ) ) {
+      } else if ( lsame( SIDE, 'R' ) ) {
 
          // Form A * P**T
 
-         if ( LSAME( PIVOT, 'V' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         if ( lsame( PIVOT, 'V' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 1; J <= N - 1; J++) { // 140
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -158,7 +158,7 @@
                      } // 130
                   }
                } // 140
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = N - 1; J >= 1; J--) { // 160
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -171,8 +171,8 @@
                   }
                } // 160
             }
-         } else if ( LSAME( PIVOT, 'T' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         } else if ( lsame( PIVOT, 'T' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 2; J <= N; J++) { // 180
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
@@ -184,7 +184,7 @@
                      } // 170
                   }
                } // 180
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = N; J >= 2; J--) { // 200
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
@@ -197,8 +197,8 @@
                   }
                } // 200
             }
-         } else if ( LSAME( PIVOT, 'B' ) ) {
-            if ( LSAME( DIRECT, 'F' ) ) {
+         } else if ( lsame( PIVOT, 'B' ) ) {
+            if ( lsame( DIRECT, 'F' ) ) {
                for (J = 1; J <= N - 1; J++) { // 220
                   CTEMP = C( J );
                   STEMP = S( J );
@@ -210,7 +210,7 @@
                      } // 210
                   }
                } // 220
-            } else if ( LSAME( DIRECT, 'B' ) ) {
+            } else if ( lsame( DIRECT, 'B' ) ) {
                for (J = N - 1; J >= 1; J--) { // 240
                   CTEMP = C( J );
                   STEMP = S( J );

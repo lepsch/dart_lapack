@@ -24,9 +24,9 @@
       REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, SLAMCH
+      // EXTERNAL lsame, SLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -39,9 +39,9 @@
       // Test the input arguments
 
       INFO = 0;
-      EIGEN = LSAME( JOB, 'E' );
-      LEFT = LSAME( JOB, 'L' );
-      RIGHT = LSAME( JOB, 'R' );
+      EIGEN = lsame( JOB, 'E' );
+      LEFT = lsame( JOB, 'L' );
+      RIGHT = lsame( JOB, 'R' );
       SING = LEFT || RIGHT;
       if ( EIGEN ) {
          K = M;

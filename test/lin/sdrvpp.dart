@@ -38,9 +38,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SGET06, SLANSP;
-      // EXTERNAL LSAME, SGET06, SLANSP
+      // EXTERNAL lsame, SGET06, SLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SCOPY, SERRVX, SGET04, SLACPY, SLAQSP, SLARHS, SLASET, SLATB4, SLATMS, SPPEQU, SPPSV, SPPSVX, SPPT01, SPPT02, SPPT05, SPPTRF, SPPTRI
@@ -175,15 +175,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by SPPSVX (FACT = 'N' reuses
@@ -340,7 +340,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

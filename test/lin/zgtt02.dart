@@ -24,9 +24,9 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DZASUM, ZLANGT;
-      // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANGT
+      // EXTERNAL lsame, DLAMCH, DZASUM, ZLANGT
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLAGTM
@@ -44,7 +44,7 @@
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = ZLANGT( '1', N, DL, D, DU );
       } else {
          ANORM = ZLANGT( 'I', N, DL, D, DU );

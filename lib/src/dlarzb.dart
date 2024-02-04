@@ -23,8 +23,8 @@
       int                I, INFO, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DTRMM, XERBLA
@@ -38,9 +38,9 @@
       // Check for currently supported options
 
       INFO = 0;
-      if ( !LSAME( DIRECT, 'B' ) ) {
+      if ( !lsame( DIRECT, 'B' ) ) {
          INFO = -3;
-      } else if ( !LSAME( STOREV, 'R' ) ) {
+      } else if ( !lsame( STOREV, 'R' ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -48,13 +48,13 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          TRANST = 'T';
       } else {
          TRANST = 'N';
       }
 
-      if ( LSAME( SIDE, 'L' ) ) {
+      if ( lsame( SIDE, 'L' ) ) {
 
          // Form  H * C  or  H**T * C
 
@@ -86,7 +86,7 @@
 
          if (L > 0) dgemm( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
 
-      } else if ( LSAME( SIDE, 'R' ) ) {
+      } else if ( lsame( SIDE, 'R' ) ) {
 
          // Form  C * H  or  C * H**T
 

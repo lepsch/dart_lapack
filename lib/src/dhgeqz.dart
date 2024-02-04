@@ -28,9 +28,9 @@
       double             V( 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, DLANHS, DLAPY2, DLAPY3;
-      // EXTERNAL LSAME, DLAMCH, DLANHS, DLAPY2, DLAPY3
+      // EXTERNAL lsame, DLAMCH, DLANHS, DLAPY2, DLAPY3
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAG2, DLARFG, DLARTG, DLASET, DLASV2, DROT, XERBLA
@@ -42,36 +42,36 @@
 
       // Decode JOB, COMPQ, COMPZ
 
-      if ( LSAME( JOB, 'E' ) ) {
+      if ( lsame( JOB, 'E' ) ) {
          ILSCHR = false;
          ISCHUR = 1;
-      } else if ( LSAME( JOB, 'S' ) ) {
+      } else if ( lsame( JOB, 'S' ) ) {
          ILSCHR = true;
          ISCHUR = 2;
       } else {
          ISCHUR = 0;
       }
 
-      if ( LSAME( COMPQ, 'N' ) ) {
+      if ( lsame( COMPQ, 'N' ) ) {
          ILQ = false;
          ICOMPQ = 1;
-      } else if ( LSAME( COMPQ, 'V' ) ) {
+      } else if ( lsame( COMPQ, 'V' ) ) {
          ILQ = true;
          ICOMPQ = 2;
-      } else if ( LSAME( COMPQ, 'I' ) ) {
+      } else if ( lsame( COMPQ, 'I' ) ) {
          ILQ = true;
          ICOMPQ = 3;
       } else {
          ICOMPQ = 0;
       }
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ILZ = false;
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ILZ = true;
          ICOMPZ = 2;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ILZ = true;
          ICOMPZ = 3;
       } else {

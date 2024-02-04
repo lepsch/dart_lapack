@@ -25,9 +25,9 @@
       REAL               ANRM, BIGNUM, BNRM, SMLNUM, TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQR, SGEMQR, SLASCL, SLASET, STRTRS, XERBLA, SGELQ, SGEMLQ
@@ -41,10 +41,10 @@
 
       INFO = 0;
       MAXMN = max( M, N );
-      TRAN  = LSAME( TRANS, 'T' );
+      TRAN  = lsame( TRANS, 'T' );
 
       LQUERY = ( LWORK == -1 || LWORK == -2 );
-      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
+      if ( !( lsame( TRANS, 'N' ) || lsame( TRANS, 'T' ) ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;

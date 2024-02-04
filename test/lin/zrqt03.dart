@@ -26,9 +26,9 @@
       double             CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE
+      // EXTERNAL lsame, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZLACPY, ZLARNV, ZLASET, ZUNGRQ, ZUNMRQ
@@ -111,7 +111,7 @@
 
             // Form explicit product and subtract
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
                zgemm(TRANS, 'No transpose', MC, NC, MC, DCMPLX( -ONE ), Q, LDA, C, LDA, DCMPLX( ONE ), CC, LDA );
             } else {
                zgemm('No transpose', TRANS, MC, NC, NC, DCMPLX( -ONE ), C, LDA, Q, LDA, DCMPLX( ONE ), CC, LDA );

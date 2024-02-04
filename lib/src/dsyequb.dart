@@ -28,8 +28,8 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- bool               LSAME;
-      // EXTERNAL DLAMCH, LSAME
+      //- bool               lsame;
+      // EXTERNAL DLAMCH, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASSQ, XERBLA
@@ -42,7 +42,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
+      if ( !( lsame( UPLO, 'U' ) || lsame( UPLO, 'L' ) ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -54,7 +54,7 @@
          return;
       }
 
-      UP = LSAME( UPLO, 'U' );
+      UP = lsame( UPLO, 'U' );
       AMAX = ZERO;
 
       // Quick return if possible.

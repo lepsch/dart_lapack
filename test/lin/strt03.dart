@@ -24,10 +24,10 @@
       REAL               BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SSCAL, STRMV
@@ -51,7 +51,7 @@
       // norms already computed by SLATRS.
 
       TNORM = ZERO;
-      if ( LSAME( DIAG, 'N' ) ) {
+      if ( lsame( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
             TNORM = max( TNORM, TSCAL*( A( J, J ) ).abs()+CNORM( J ) );
          } // 10

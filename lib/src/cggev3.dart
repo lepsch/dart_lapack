@@ -35,9 +35,9 @@
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHD3, CLAQZ0, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SLAMCH, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, CLANGE, SLAMCH, SROUNDUP_LWORK
+      // EXTERNAL lsame, CLANGE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
@@ -52,10 +52,10 @@
 
       // Decode the input arguments
 
-      if ( LSAME( JOBVL, 'N' ) ) {
+      if ( lsame( JOBVL, 'N' ) ) {
          IJOBVL = 1;
          ILVL = false;
-      } else if ( LSAME( JOBVL, 'V' ) ) {
+      } else if ( lsame( JOBVL, 'V' ) ) {
          IJOBVL = 2;
          ILVL = true;
       } else {
@@ -63,10 +63,10 @@
          ILVL = false;
       }
 
-      if ( LSAME( JOBVR, 'N' ) ) {
+      if ( lsame( JOBVR, 'N' ) ) {
          IJOBVR = 1;
          ILVR = false;
-      } else if ( LSAME( JOBVR, 'V' ) ) {
+      } else if ( lsame( JOBVR, 'V' ) ) {
          IJOBVR = 2;
          ILVR = true;
       } else {

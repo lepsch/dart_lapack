@@ -38,9 +38,9 @@
       // EXTERNAL DBDSDC, DLASCL, XERBLA, ZGEBRD, ZGELQF, ZGEMM, ZGEQRF, ZLACP2, ZLACPY, ZLACRM, ZLARCM, ZLASCL, ZLASET, ZUNGBR, ZUNGLQ, ZUNGQR, ZUNMBR
       // ..
       // .. External Functions ..
-      //- bool               LSAME, DISNAN;
+      //- bool               lsame, DISNAN;
       //- double             DLAMCH, ZLANGE, DROUNDUP_LWORK;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, DISNAN,  DROUNDUP_LWORK
+      // EXTERNAL lsame, DLAMCH, ZLANGE, DISNAN,  DROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, SQRT
@@ -53,11 +53,11 @@
       MINMN  = min( M, N );
       MNTHR1 = INT( MINMN*17.0 / 9.0 );
       MNTHR2 = INT( MINMN*5.0 / 3.0 );
-      WNTQA  = LSAME( JOBZ, 'A' );
-      WNTQS  = LSAME( JOBZ, 'S' );
+      WNTQA  = lsame( JOBZ, 'A' );
+      WNTQS  = lsame( JOBZ, 'S' );
       WNTQAS = WNTQA || WNTQS;
-      WNTQO  = LSAME( JOBZ, 'O' );
-      WNTQN  = LSAME( JOBZ, 'N' );
+      WNTQO  = lsame( JOBZ, 'O' );
+      WNTQN  = lsame( JOBZ, 'N' );
       LQUERY = ( LWORK == -1 );
       MINWRK = 1;
       MAXWRK = 1;

@@ -28,9 +28,9 @@
       double             ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANSY;
-      // EXTERNAL LSAME, DLAMCH, ZLANSY
+      // EXTERNAL lsame, DLAMCH, ZLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLASET, ZLAVSY
@@ -66,7 +66,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
                C[I, J] = C( I, J ) - A( I, J );

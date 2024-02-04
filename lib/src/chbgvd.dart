@@ -26,9 +26,9 @@
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SROUNDUP_LWORK;
-      // EXTERNAL LSAME, SROUNDUP_LWORK
+      // EXTERNAL lsame, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSTERF, XERBLA, CGEMM, CHBGST, CHBTRD, CLACPY, CPBSTF, CSTEDC
@@ -37,8 +37,8 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      UPPER = LSAME( UPLO, 'U' );
+      WANTZ = lsame( JOBZ, 'V' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
       INFO = 0;
@@ -55,9 +55,9 @@
          LRWMIN = N;
          LIWMIN = 1;
       }
-      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -1;
-      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

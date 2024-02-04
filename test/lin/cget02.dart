@@ -27,9 +27,9 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SCASUM, SLAMCH;
-      // EXTERNAL LSAME, CLANGE, SCASUM, SLAMCH
+      // EXTERNAL lsame, CLANGE, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM
@@ -46,7 +46,7 @@
          return;
       }
 
-      if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
+      if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
          N1 = N;
          N2 = M;
       } else {
@@ -57,7 +57,7 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = SLAMCH( 'Epsilon' );
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          ANORM = CLANGE( '1', M, N, A, LDA, RWORK );
       } else {
          ANORM = CLANGE( 'I', M, N, A, LDA, RWORK );

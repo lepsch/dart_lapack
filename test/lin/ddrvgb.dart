@@ -40,9 +40,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DGET06, DLAMCH, DLANGB, DLANGE, DLANTB;
-      // EXTERNAL LSAME, DGET06, DLAMCH, DLANGB, DLANGE, DLANTB
+      // EXTERNAL lsame, DGET06, DLAMCH, DLANGB, DLANGE, DLANTB
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGBEQU, DGBSV, DGBSVX, DGBT01, DGBT02, DGBT05, DGBTRF, DGBTRS, DGET04, DLACPY, DLAQGB, DLARHS, DLASET, DLATB4, DLATMS, XLAENV
@@ -223,9 +223,9 @@
 
                      for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                         FACT = FACTS( IFACT );
-                        PREFAC = LSAME( FACT, 'F' );
-                        NOFACT = LSAME( FACT, 'N' );
-                        EQUIL = LSAME( FACT, 'E' );
+                        PREFAC = lsame( FACT, 'F' );
+                        NOFACT = lsame( FACT, 'N' );
+                        EQUIL = lsame( FACT, 'E' );
 
                         if ( ZEROT ) {
                            if (PREFAC) GO TO 100;
@@ -247,13 +247,13 @@
 
                               dgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                               if ( INFO == 0 && N > 0 ) {
-                                 if ( LSAME( EQUED, 'R' ) ) {
+                                 if ( lsame( EQUED, 'R' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ONE;
-                                 } else if ( LSAME( EQUED, 'C' ) ) {
+                                 } else if ( lsame( EQUED, 'C' ) ) {
                                     ROWCND = ONE;
                                     COLCND = ZERO;
-                                 } else if ( LSAME( EQUED, 'B' ) ) {
+                                 } else if ( lsame( EQUED, 'B' ) ) {
                                     ROWCND = ZERO;
                                     COLCND = ZERO;
                                  }
@@ -449,7 +449,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                              if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                                  dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {

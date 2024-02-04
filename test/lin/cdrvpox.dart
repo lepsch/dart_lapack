@@ -39,9 +39,9 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHE, SGET06;
-      // EXTERNAL LSAME, CLANHE, SGET06
+      // EXTERNAL lsame, CLANHE, SGET06
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, CERRVX, CGET04, CLACPY, CLAIPD, CLAQHE, CLARHS, CLASET, CLATB4, CLATMS, CPOEQU, CPOSV, CPOSVX, CPOT01, CPOT02, CPOT05, CPOTRF, CPOTRI, XLAENV, CPOSVXX
@@ -186,15 +186,15 @@
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 90
                      FACT = FACTS( IFACT );
-                     PREFAC = LSAME( FACT, 'F' );
-                     NOFACT = LSAME( FACT, 'N' );
-                     EQUIL = LSAME( FACT, 'E' );
+                     PREFAC = lsame( FACT, 'F' );
+                     NOFACT = lsame( FACT, 'N' );
+                     EQUIL = lsame( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 90;
                         RCONDC = ZERO;
 
-                     } else if ( !LSAME( FACT, 'N' ) ) {
+                     } else if ( !lsame( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by CPOSVX (FACT = 'N' reuses
@@ -351,7 +351,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
@@ -436,7 +436,7 @@
 
                         // Check solution from generated exact solution.
 
-                        if( NOFACT || ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
+                        if( NOFACT || ( PREFAC && lsame( EQUED, 'N' ) ) ) THEN;
                            cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );

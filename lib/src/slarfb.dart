@@ -23,8 +23,8 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, STRMM
@@ -35,21 +35,21 @@
 
       if (M <= 0 || N <= 0) return;
 
-      if ( LSAME( TRANS, 'N' ) ) {
+      if ( lsame( TRANS, 'N' ) ) {
          TRANST = 'T';
       } else {
          TRANST = 'N';
       }
 
-      if ( LSAME( STOREV, 'C' ) ) {
+      if ( lsame( STOREV, 'C' ) ) {
 
-         if ( LSAME( DIRECT, 'F' ) ) {
+         if ( lsame( DIRECT, 'F' ) ) {
 
             // Let  V =  ( V1 )    (first K rows)
                       // ( V2 )
             // where  V1  is unit lower triangular.
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**T * C  where  C = ( C1 )
                                                      // ( C2 )
@@ -97,7 +97,7 @@
                   } // 20
                } // 30
 
-            } else if ( LSAME( SIDE, 'R' ) ) {
+            } else if ( lsame( SIDE, 'R' ) ) {
 
                // Form  C * H  or  C * H**T  where  C = ( C1  C2 )
 
@@ -151,7 +151,7 @@
                       // ( V2 )    (last K rows)
             // where  V2  is unit upper triangular.
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**T * C  where  C = ( C1 )
                                                      // ( C2 )
@@ -199,7 +199,7 @@
                   } // 80
                } // 90
 
-            } else if ( LSAME( SIDE, 'R' ) ) {
+            } else if ( lsame( SIDE, 'R' ) ) {
 
                // Form  C * H  or  C * H'  where  C = ( C1  C2 )
 
@@ -248,14 +248,14 @@
             }
          }
 
-      } else if ( LSAME( STOREV, 'R' ) ) {
+      } else if ( lsame( STOREV, 'R' ) ) {
 
-         if ( LSAME( DIRECT, 'F' ) ) {
+         if ( lsame( DIRECT, 'F' ) ) {
 
             // Let  V =  ( V1  V2 )    (V1: first K columns)
             // where  V1  is unit upper triangular.
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**T * C  where  C = ( C1 )
                                                      // ( C2 )
@@ -303,7 +303,7 @@
                   } // 140
                } // 150
 
-            } else if ( LSAME( SIDE, 'R' ) ) {
+            } else if ( lsame( SIDE, 'R' ) ) {
 
                // Form  C * H  or  C * H**T  where  C = ( C1  C2 )
 
@@ -357,7 +357,7 @@
             // Let  V =  ( V1  V2 )    (V2: last K columns)
             // where  V2  is unit lower triangular.
 
-            if ( LSAME( SIDE, 'L' ) ) {
+            if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**T * C  where  C = ( C1 )
                                                      // ( C2 )
@@ -405,7 +405,7 @@
                   } // 200
                } // 210
 
-            } else if ( LSAME( SIDE, 'R' ) ) {
+            } else if ( lsame( SIDE, 'R' ) ) {
 
                // Form  C * H  or  C * H**T  where  C = ( C1  C2 )
 

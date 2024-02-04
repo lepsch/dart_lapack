@@ -24,12 +24,12 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME
-      bool               LSAME;
+      // EXTERNAL lsame
+      bool               lsame;
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( 'Upper', UPLO );
+      UPPER = lsame( 'Upper', UPLO );
       if ( INFO == 0 ) {
          if ( UPPER ) {
             NCOLS = 1;

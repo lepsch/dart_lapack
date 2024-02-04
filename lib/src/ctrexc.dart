@@ -21,8 +21,8 @@
       COMPLEX            SN, T11, T22, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARTG, CROT, XERBLA
@@ -35,8 +35,8 @@
       // Decode and test the input parameters.
 
       INFO = 0;
-      WANTQ = LSAME( COMPQ, 'V' );
-      if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
+      WANTQ = lsame( COMPQ, 'V' );
+      if ( !lsame( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

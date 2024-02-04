@@ -24,8 +24,8 @@
       int                I, J;
       // ..
       // .. EXTERNAL FUNCTIONS ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, STRMM
@@ -36,7 +36,7 @@
 
       if (M < 0 || N <= 0 || K == 0 || K > N) return;
 
-      LNOTIDENT = !LSAME( IDENT, 'I' );
+      LNOTIDENT = !lsame( IDENT, 'I' );
 
       // ------------------------------------------------------------------
 

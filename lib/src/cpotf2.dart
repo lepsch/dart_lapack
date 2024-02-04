@@ -26,9 +26,9 @@
       REAL               AJJ;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
+      //- bool               lsame, SISNAN;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, CDOTC, SISNAN
+      // EXTERNAL lsame, CDOTC, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CLACGV, CSSCAL, XERBLA
@@ -41,8 +41,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

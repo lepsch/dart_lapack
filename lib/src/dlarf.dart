@@ -27,13 +27,13 @@
       // EXTERNAL DGEMV, DGER
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILADLR, ILADLC;
-      // EXTERNAL LSAME, ILADLR, ILADLC
+      // EXTERNAL lsame, ILADLR, ILADLC
       // ..
       // .. Executable Statements ..
 
-      APPLYLEFT = LSAME( SIDE, 'L' );
+      APPLYLEFT = lsame( SIDE, 'L' );
       LASTV = 0;
       LASTC = 0;
       if ( TAU != ZERO ) {

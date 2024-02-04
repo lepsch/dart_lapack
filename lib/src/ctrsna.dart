@@ -32,11 +32,11 @@
       COMPLEX            DUMMY( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ICAMAX;
       //- REAL               SCNRM2, SLAMCH;
       //- COMPLEX            CDOTC;
-      // EXTERNAL LSAME, ICAMAX, SCNRM2, SLAMCH, CDOTC
+      // EXTERNAL lsame, ICAMAX, SCNRM2, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACN2, CLACPY, CLATRS, CSRSCL, CTREXC, XERBLA
@@ -54,11 +54,11 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' );
-      WANTS = LSAME( JOB, 'E' ) || WANTBH;
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
+      WANTBH = lsame( JOB, 'B' );
+      WANTS = lsame( JOB, 'E' ) || WANTBH;
+      WANTSP = lsame( JOB, 'V' ) || WANTBH;
 
-      SOMCON = LSAME( HOWMNY, 'S' );
+      SOMCON = lsame( HOWMNY, 'S' );
 
       // Set M to the number of eigenpairs for which condition numbers are
       // to be computed.
@@ -75,7 +75,7 @@
       INFO = 0;
       if ( !WANTS && !WANTSP ) {
          INFO = -1;
-      } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
+      } else if ( !lsame( HOWMNY, 'A' ) && !SOMCON ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;

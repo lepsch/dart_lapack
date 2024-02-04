@@ -29,10 +29,10 @@
       // ..
       // .. External Functions ..
 
-      bool               LSAME;
+      bool               lsame;
       int                IZAMAX;
       double             DLAMCH, DLAPY2;
-      // EXTERNAL LSAME, IZAMAX, DLAMCH, DLAPY2
+      // EXTERNAL lsame, IZAMAX, DLAMCH, DLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZHER, ZSWAP
@@ -51,8 +51,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

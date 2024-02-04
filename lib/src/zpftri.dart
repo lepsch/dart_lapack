@@ -23,8 +23,8 @@
       int                N1, N2, K;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZTFTRI, ZLAUUM, ZTRMM, ZHERK
@@ -37,11 +37,11 @@
       // Test the input parameters.
 
       INFO = 0;
-      NORMALTRANSR = LSAME( TRANSR, 'N' );
-      LOWER = LSAME( UPLO, 'L' );
-      if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
+      NORMALTRANSR = lsame( TRANSR, 'N' );
+      LOWER = lsame( UPLO, 'L' );
+      if ( !NORMALTRANSR && !lsame( TRANSR, 'C' ) ) {
          INFO = -1;
-      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !lsame( UPLO, 'U' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

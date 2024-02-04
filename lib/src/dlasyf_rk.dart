@@ -27,10 +27,10 @@
       double             ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, DTEMP, R1, ROWMAX, T, SFMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, idamax, DLAMCH
+      // EXTERNAL lsame, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DGEMV, DSCAL, DSWAP
@@ -50,7 +50,7 @@
 
       SFMIN = DLAMCH( 'S' );
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          // Factorize the trailing columns of A using the upper triangle
          // of A and working backwards, and compute the matrix W = U12*D

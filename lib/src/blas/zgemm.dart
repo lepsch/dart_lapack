@@ -16,8 +16,8 @@
 // =====================================================================
 
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -42,10 +42,10 @@
       // B  respectively are to be  transposed but  not conjugated  and set
       // NROWA and NROWB  as the number of rows  of  A  and  B  respectively.
 
-      NOTA = LSAME(TRANSA,'N');
-      NOTB = LSAME(TRANSB,'N');
-      CONJA = LSAME(TRANSA,'C');
-      CONJB = LSAME(TRANSB,'C');
+      NOTA = lsame(TRANSA,'N');
+      NOTB = lsame(TRANSB,'N');
+      CONJA = lsame(TRANSA,'C');
+      CONJB = lsame(TRANSB,'C');
       if (NOTA) {
           NROWA = M;
       } else {
@@ -60,9 +60,9 @@
       // Test the input parameters.
 
       INFO = 0;
-      if (( !NOTA) && ( !CONJA) && ( !LSAME(TRANSA,'T'))) {
+      if (( !NOTA) && ( !CONJA) && ( !lsame(TRANSA,'T'))) {
           INFO = 1;
-      } else if (( !NOTB) && ( !CONJB) && ( !LSAME(TRANSB,'T'))) {
+      } else if (( !NOTB) && ( !CONJB) && ( !lsame(TRANSB,'T'))) {
           INFO = 2;
       } else if (M < 0) {
           INFO = 3;

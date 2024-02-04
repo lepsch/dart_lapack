@@ -32,10 +32,10 @@
       int                IDUMMA( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, ILAENV, SLAMCH
+      // EXTERNAL lsame, ILAENV, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAEBZ
@@ -56,11 +56,11 @@
 
       // Decode RANGE
 
-      if ( LSAME( RANGE, 'A' ) ) {
+      if ( lsame( RANGE, 'A' ) ) {
          IRANGE = ALLRNG;
-      } else if ( LSAME( RANGE, 'V' ) ) {
+      } else if ( lsame( RANGE, 'V' ) ) {
          IRANGE = VALRNG;
-      } else if ( LSAME( RANGE, 'I' ) ) {
+      } else if ( lsame( RANGE, 'I' ) ) {
          IRANGE = INDRNG;
       } else {
          IRANGE = 0;
@@ -70,7 +70,7 @@
 
       if ( IRANGE <= 0 ) {
          INFO = -1;
-      } else if ( !(LSAME(ORDER,'B') || LSAME(ORDER,'E')) ) {
+      } else if ( !(lsame(ORDER,'B') || lsame(ORDER,'E')) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
@@ -465,7 +465,7 @@
          // block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( LSAME(ORDER,'E') && NSPLIT > 1 ) {
+      if ( lsame(ORDER,'E') && NSPLIT > 1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0;
             TMP1 = W( JE );

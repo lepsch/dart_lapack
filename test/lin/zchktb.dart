@@ -40,9 +40,9 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             ZLANTB, ZLANTR;
-      // EXTERNAL LSAME, ZLANTB, ZLANTR
+      // EXTERNAL lsame, ZLANTB, ZLANTR
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZCOPY, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATBS, ZLATTB, ZTBCON, ZTBRFS, ZTBSV, ZTBT02, ZTBT03, ZTBT05, ZTBT06, ZTBTRS
@@ -131,7 +131,7 @@
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-                  if ( LSAME( DIAG, 'N' ) ) {
+                  if ( lsame( DIAG, 'N' ) ) {
                      IDIAG = 1;
                   } else {
                      IDIAG = 2;
@@ -141,7 +141,7 @@
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                   zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
-                  if ( LSAME( UPLO, 'U' ) ) {
+                  if ( lsame( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         ztbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
                      } // 20

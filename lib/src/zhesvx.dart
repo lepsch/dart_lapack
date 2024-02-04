@@ -27,10 +27,10 @@
       double             ANORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, ZLANHE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANHE
+      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANHE
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHECON, ZHERFS, ZHETRF, ZHETRS, ZLACPY
@@ -43,12 +43,12 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
+      NOFACT = lsame( FACT, 'N' );
       LQUERY = ( LWORK == -1 );
       LWKMIN = max( 1, 2*N );
-      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      } else if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;

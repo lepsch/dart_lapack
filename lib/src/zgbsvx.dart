@@ -31,9 +31,9 @@
       double             AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGB, ZLANTB;
-      // EXTERNAL LSAME, DLAMCH, ZLANGB, ZLANTB
+      // EXTERNAL lsame, DLAMCH, ZLANGB, ZLANTB
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZCOPY, ZGBCON, ZGBEQU, ZGBRFS, ZGBTRF, ZGBTRS, ZLACPY, ZLAQGB
@@ -44,25 +44,25 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      NOFACT = LSAME( FACT, 'N' );
-      EQUIL = LSAME( FACT, 'E' );
-      NOTRAN = LSAME( TRANS, 'N' );
+      NOFACT = lsame( FACT, 'N' );
+      EQUIL = lsame( FACT, 'E' );
+      NOTRAN = lsame( TRANS, 'N' );
       if ( NOFACT || EQUIL ) {
          EQUED = 'N';
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
-         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+         ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
+         COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
          SMLNUM = DLAMCH( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
       }
 
       // Test the input parameters.
 
-      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !lsame( FACT, 'F' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
@@ -76,7 +76,7 @@
          INFO = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
          INFO = -10;
-      } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( lsame( FACT, 'F' ) && !( ROWEQU || COLEQU || lsame( EQUED, 'N' ) ) ) {
          INFO = -12;
       } else {
          if ( ROWEQU ) {
@@ -133,8 +133,8 @@
             // Equilibrate the matrix.
 
             zlaqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
-            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+            ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
+            COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
          }
       }
 

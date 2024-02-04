@@ -28,9 +28,9 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANHE, CLANHP, SLAMCH;
-      // EXTERNAL LSAME, CLANHE, CLANHP, SLAMCH
+      // EXTERNAL lsame, CLANHE, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLAVHP, CLASET
@@ -56,7 +56,7 @@
       // an error code if any are nonzero.
 
       JC = 1;
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             if ( AIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS;
@@ -88,7 +88,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          JC = 0;
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J - 1; I++) { // 30

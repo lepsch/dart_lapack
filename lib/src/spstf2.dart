@@ -27,8 +27,8 @@
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL SLAMCH, LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL SLAMCH, lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMV, SSCAL, SSWAP, XERBLA
@@ -41,8 +41,8 @@
       // Test the input parameters
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      UPPER = lsame( UPLO, 'U' );
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

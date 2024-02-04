@@ -40,9 +40,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANTP;
-      // EXTERNAL LSAME, CLANTP
+      // EXTERNAL lsame, CLANTP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, CCOPY, CERRTR, CGET04, CLACPY, CLARHS, CLATPS, CLATTP, CTPCON, CTPRFS, CTPT01, CTPT02, CTPT03, CTPT05, CTPT06, CTPTRI, CTPTRS
@@ -109,7 +109,7 @@
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
-               if ( LSAME( DIAG, 'N' ) ) {
+               if ( lsame( DIAG, 'N' ) ) {
                   IDIAG = 1;
                } else {
                   IDIAG = 2;

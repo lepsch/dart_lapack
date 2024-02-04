@@ -24,8 +24,8 @@
       double             C, S, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARTG, DLASET, DROT, XERBLA
@@ -37,13 +37,13 @@
 
       // Decode COMPQ
 
-      if ( LSAME( COMPQ, 'N' ) ) {
+      if ( lsame( COMPQ, 'N' ) ) {
          ILQ = false;
          ICOMPQ = 1;
-      } else if ( LSAME( COMPQ, 'V' ) ) {
+      } else if ( lsame( COMPQ, 'V' ) ) {
          ILQ = true;
          ICOMPQ = 2;
-      } else if ( LSAME( COMPQ, 'I' ) ) {
+      } else if ( lsame( COMPQ, 'I' ) ) {
          ILQ = true;
          ICOMPQ = 3;
       } else {
@@ -52,13 +52,13 @@
 
       // Decode COMPZ
 
-      if ( LSAME( COMPZ, 'N' ) ) {
+      if ( lsame( COMPZ, 'N' ) ) {
          ILZ = false;
          ICOMPZ = 1;
-      } else if ( LSAME( COMPZ, 'V' ) ) {
+      } else if ( lsame( COMPZ, 'V' ) ) {
          ILZ = true;
          ICOMPZ = 2;
-      } else if ( LSAME( COMPZ, 'I' ) ) {
+      } else if ( lsame( COMPZ, 'I' ) ) {
          ILZ = true;
          ICOMPZ = 3;
       } else {

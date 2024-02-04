@@ -26,10 +26,10 @@
       Complex         T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANGE, ZLANSP;
       //- Complex         ZDOTU;
-      // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
+      // EXTERNAL lsame, DLAMCH, ZLANGE, ZLANSP, ZDOTU
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
@@ -60,7 +60,7 @@
       // Each element of - A * AINV is computed by taking the dot product
       // of a row of A with a column of AINV.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (I = 1; I <= N; I++) { // 70
             ICOL = ( ( I-1 )*I ) / 2 + 1;
 

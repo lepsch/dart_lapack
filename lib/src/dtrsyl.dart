@@ -28,9 +28,9 @@
       double             DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT, DLAMCH, DLANGE;
-      // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE
+      // EXTERNAL lsame, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLALN2, DLASY2, DSCAL, XERBLA
@@ -42,13 +42,13 @@
 
       // Decode and Test input parameters
 
-      NOTRNA = LSAME( TRANA, 'N' );
-      NOTRNB = LSAME( TRANB, 'N' );
+      NOTRNA = lsame( TRANA, 'N' );
+      NOTRNB = lsame( TRANB, 'N' );
 
       INFO = 0;
-      if ( !NOTRNA && !LSAME( TRANA, 'T' ) && !LSAME( TRANA, 'C' ) ) {
+      if ( !NOTRNA && !lsame( TRANA, 'T' ) && !lsame( TRANA, 'C' ) ) {
          INFO = -1;
-      } else if ( !NOTRNB && !LSAME( TRANB, 'T' ) && !LSAME( TRANB, 'C' ) ) {
+      } else if ( !NOTRNB && !lsame( TRANB, 'T' ) && !lsame( TRANB, 'C' ) ) {
          INFO = -2;
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3;

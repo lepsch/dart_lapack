@@ -26,10 +26,10 @@
       Complex         TC;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANHP;
       //- Complex         ZDOTC;
-      // EXTERNAL LSAME, DLAMCH, ZLANHP, ZDOTC
+      // EXTERNAL lsame, DLAMCH, ZLANHP, ZDOTC
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZHPR, ZSCAL, ZTPMV
@@ -59,7 +59,7 @@
       // an error code if any are nonzero.
 
       KC = 1;
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = 1; K <= N; K++) { // 10
             if ( DIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS;
@@ -79,7 +79,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1;
          for (K = N; K >= 1; K--) { // 30
 

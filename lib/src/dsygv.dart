@@ -24,9 +24,9 @@
       int                LWKMIN, LWKOPT, NB, NEIG;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
-      // EXTERNAL LSAME, ILAENV
+      // EXTERNAL lsame, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL DPOTRF, DSYEV, DSYGST, DTRMM, DTRSM, XERBLA
@@ -38,16 +38,16 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' );
-      UPPER = LSAME( UPLO, 'U' );
+      WANTZ = lsame( JOBZ, 'V' );
+      UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
 
       INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1;
-      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
          INFO = -2;
-      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;

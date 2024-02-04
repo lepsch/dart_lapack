@@ -51,10 +51,10 @@
       // INTRINSIC MAX, SQRT, TRANSFER
       // ..
       // .. External Functions ..
-      // EXTERNAL LSAME, ILATRANS, ILAPREC
+      // EXTERNAL lsame, ILATRANS, ILAPREC
       // EXTERNAL SLAMCH, CLANGE, CLA_GERCOND_X, CLA_GERCOND_C
       REAL               SLAMCH, CLANGE, CLA_GERCOND_X, CLA_GERCOND_C;
-      bool               LSAME;
+      bool               lsame;
       int                ILATRANS, ILAPREC;
       // ..
       // .. Executable Statements ..
@@ -106,15 +106,15 @@
          N_NORMS = 2;
       }
 
-      NOTRAN = LSAME( TRANS, 'N' );
-      ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
-      COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+      NOTRAN = lsame( TRANS, 'N' );
+      ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
+      COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
 
       // Test input parameters.
 
       if ( TRANS_TYPE == -1 ) {
         INFO = -1;
-      } else if ( !ROWEQU && !COLEQU && !LSAME( EQUED, 'N' ) ) {
+      } else if ( !ROWEQU && !COLEQU && !lsame( EQUED, 'N' ) ) {
         INFO = -2;
       } else if ( N < 0 ) {
         INFO = -3;

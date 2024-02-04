@@ -31,8 +31,8 @@
       double             TEMPA( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      //- double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
+      //- bool               lsame;
+      //- double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           lsame, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLATM1, DSCAL, XERBLA
@@ -53,11 +53,11 @@
 
       // Decode DIST
 
-      if ( LSAME( DIST, 'U' ) ) {
+      if ( lsame( DIST, 'U' ) ) {
          IDIST = 1;
-      } else if ( LSAME( DIST, 'S' ) ) {
+      } else if ( lsame( DIST, 'S' ) ) {
          IDIST = 2;
-      } else if ( LSAME( DIST, 'N' ) ) {
+      } else if ( lsame( DIST, 'N' ) ) {
          IDIST = 3;
       } else {
          IDIST = -1;
@@ -65,11 +65,11 @@
 
       // Decode SYM
 
-      if ( LSAME( SYM, 'S' ) ) {
+      if ( lsame( SYM, 'S' ) ) {
          ISYM = 0;
-      } else if ( LSAME( SYM, 'N' ) ) {
+      } else if ( lsame( SYM, 'N' ) ) {
          ISYM = 1;
-      } else if ( LSAME( SYM, 'H' ) ) {
+      } else if ( lsame( SYM, 'H' ) ) {
          ISYM = 0;
       } else {
          ISYM = -1;
@@ -77,9 +77,9 @@
 
       // Decode RSIGN
 
-      if ( LSAME( RSIGN, 'F' ) ) {
+      if ( lsame( RSIGN, 'F' ) ) {
          IRSIGN = 0;
-      } else if ( LSAME( RSIGN, 'T' ) ) {
+      } else if ( lsame( RSIGN, 'T' ) ) {
          IRSIGN = 1;
       } else {
          IRSIGN = -1;
@@ -87,20 +87,20 @@
 
       // Decode PIVTNG
 
-      if ( LSAME( PIVTNG, 'N' ) ) {
+      if ( lsame( PIVTNG, 'N' ) ) {
          IPVTNG = 0;
-      } else if ( LSAME( PIVTNG, ' ' ) ) {
+      } else if ( lsame( PIVTNG, ' ' ) ) {
          IPVTNG = 0;
-      } else if ( LSAME( PIVTNG, 'L' ) ) {
+      } else if ( lsame( PIVTNG, 'L' ) ) {
          IPVTNG = 1;
          NPVTS = M;
-      } else if ( LSAME( PIVTNG, 'R' ) ) {
+      } else if ( lsame( PIVTNG, 'R' ) ) {
          IPVTNG = 2;
          NPVTS = N;
-      } else if ( LSAME( PIVTNG, 'B' ) ) {
+      } else if ( lsame( PIVTNG, 'B' ) ) {
          IPVTNG = 3;
          NPVTS = min( N, M );
-      } else if ( LSAME( PIVTNG, 'F' ) ) {
+      } else if ( lsame( PIVTNG, 'F' ) ) {
          IPVTNG = 3;
          NPVTS = min( N, M );
       } else {
@@ -109,17 +109,17 @@
 
       // Decode GRADE
 
-      if ( LSAME( GRADE, 'N' ) ) {
+      if ( lsame( GRADE, 'N' ) ) {
          IGRADE = 0;
-      } else if ( LSAME( GRADE, 'L' ) ) {
+      } else if ( lsame( GRADE, 'L' ) ) {
          IGRADE = 1;
-      } else if ( LSAME( GRADE, 'R' ) ) {
+      } else if ( lsame( GRADE, 'R' ) ) {
          IGRADE = 2;
-      } else if ( LSAME( GRADE, 'B' ) ) {
+      } else if ( lsame( GRADE, 'B' ) ) {
          IGRADE = 3;
-      } else if ( LSAME( GRADE, 'E' ) ) {
+      } else if ( lsame( GRADE, 'E' ) ) {
          IGRADE = 4;
-      } else if ( LSAME( GRADE, 'H' ) || LSAME( GRADE, 'S' ) ) {
+      } else if ( lsame( GRADE, 'H' ) || lsame( GRADE, 'S' ) ) {
          IGRADE = 5;
       } else {
          IGRADE = -1;
@@ -127,21 +127,21 @@
 
       // Decode PACK
 
-      if ( LSAME( PACK, 'N' ) ) {
+      if ( lsame( PACK, 'N' ) ) {
          IPACK = 0;
-      } else if ( LSAME( PACK, 'U' ) ) {
+      } else if ( lsame( PACK, 'U' ) ) {
          IPACK = 1;
-      } else if ( LSAME( PACK, 'L' ) ) {
+      } else if ( lsame( PACK, 'L' ) ) {
          IPACK = 2;
-      } else if ( LSAME( PACK, 'C' ) ) {
+      } else if ( lsame( PACK, 'C' ) ) {
          IPACK = 3;
-      } else if ( LSAME( PACK, 'R' ) ) {
+      } else if ( lsame( PACK, 'R' ) ) {
          IPACK = 4;
-      } else if ( LSAME( PACK, 'B' ) ) {
+      } else if ( lsame( PACK, 'B' ) ) {
          IPACK = 5;
-      } else if ( LSAME( PACK, 'Q' ) ) {
+      } else if ( lsame( PACK, 'Q' ) ) {
          IPACK = 6;
-      } else if ( LSAME( PACK, 'Z' ) ) {
+      } else if ( lsame( PACK, 'Z' ) ) {
          IPACK = 7;
       } else {
          IPACK = -1;

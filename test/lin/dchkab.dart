@@ -38,9 +38,9 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH, DSECND;
-      //- bool               LSAME, LSAMEN;
+      //- bool               lsame, LSAMEN;
       //- REAL               SLAMCH;
-      // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
+      // EXTERNAL lsame, LSAMEN, DLAMCH, DSECND, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAREQ, DDRVAB, DDRVAC, DERRAB, DERRAC, ILAVER
@@ -193,7 +193,7 @@
 
       // Check first character for correct precision.
 
-      if ( !LSAME( C1, 'double;
+      if ( !lsame( C1, 'double;
          ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH;
 

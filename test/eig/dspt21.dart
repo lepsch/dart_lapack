@@ -27,9 +27,9 @@
       double             ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT, DLAMCH, DLANGE, DLANSP;
-      // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE, DLANSP
+      // EXTERNAL lsame, DDOT, DLAMCH, DLANGE, DLANSP
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMM, DLACPY, DLASET, DOPMTR, DSPMV, DSPR, DSPR2
@@ -47,7 +47,7 @@
 
       LAP = ( N*( N+1 ) ) / 2;
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          LOWER = false;
          CUPLO = 'U';
       } else {

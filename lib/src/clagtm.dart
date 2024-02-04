@@ -23,8 +23,8 @@
       int                I, J;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG
@@ -50,7 +50,7 @@
       }
 
       if ( ALPHA == ONE ) {
-         if ( LSAME( TRANS, 'N' ) ) {
+         if ( lsame( TRANS, 'N' ) ) {
 
             // Compute B := B + A*X
 
@@ -64,7 +64,7 @@
                   } // 50
                }
             } // 60
-         } else if ( LSAME( TRANS, 'T' ) ) {
+         } else if ( lsame( TRANS, 'T' ) ) {
 
             // Compute B := B + A**T * X
 
@@ -78,7 +78,7 @@
                   } // 70
                }
             } // 80
-         } else if ( LSAME( TRANS, 'C' ) ) {
+         } else if ( lsame( TRANS, 'C' ) ) {
 
             // Compute B := B + A**H * X
 
@@ -94,7 +94,7 @@
             } // 100
          }
       } else if ( ALPHA == -ONE ) {
-         if ( LSAME( TRANS, 'N' ) ) {
+         if ( lsame( TRANS, 'N' ) ) {
 
             // Compute B := B - A*X
 
@@ -108,7 +108,7 @@
                   } // 110
                }
             } // 120
-         } else if ( LSAME( TRANS, 'T' ) ) {
+         } else if ( lsame( TRANS, 'T' ) ) {
 
             // Compute B := B - A**T*X
 
@@ -122,7 +122,7 @@
                   } // 130
                }
             } // 140
-         } else if ( LSAME( TRANS, 'C' ) ) {
+         } else if ( lsame( TRANS, 'C' ) ) {
 
             // Compute B := B - A**H*X
 

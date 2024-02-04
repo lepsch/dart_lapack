@@ -28,9 +28,9 @@
       double             ANORM, EPS;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH, ZLANHE, ZLANHP;
-      // EXTERNAL LSAME, DLAMCH, ZLANHE, ZLANHP
+      // EXTERNAL lsame, DLAMCH, ZLANHE, ZLANHP
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLASET, ZLAVHP
@@ -56,7 +56,7 @@
       // an error code if any are nonzero.
 
       JC = 1;
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             if ( DIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS;
@@ -88,7 +88,7 @@
 
       // Compute the difference  C - A .
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          JC = 0;
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J - 1; I++) { // 30

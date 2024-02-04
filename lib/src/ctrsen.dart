@@ -30,9 +30,9 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               CLANGE, SROUNDUP_LWORK;
-      // EXTERNAL LSAME, CLANGE, SROUNDUP_LWORK
+      // EXTERNAL lsame, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACN2, CLACPY, CTREXC, CTRSYL, XERBLA
@@ -44,10 +44,10 @@
 
       // Decode and test the input parameters.
 
-      WANTBH = LSAME( JOB, 'B' );
-      WANTS = LSAME( JOB, 'E' ) || WANTBH;
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
-      WANTQ = LSAME( COMPQ, 'V' );
+      WANTBH = lsame( JOB, 'B' );
+      WANTS = lsame( JOB, 'E' ) || WANTBH;
+      WANTSP = lsame( JOB, 'V' ) || WANTBH;
+      WANTQ = lsame( COMPQ, 'V' );
 
       // Set M to the number of selected eigenvalues.
 
@@ -65,15 +65,15 @@
 
       if ( WANTSP ) {
          LWMIN = max( 1, 2*NN );
-      } else if ( LSAME( JOB, 'N' ) ) {
+      } else if ( lsame( JOB, 'N' ) ) {
          LWMIN = 1;
-      } else if ( LSAME( JOB, 'E' ) ) {
+      } else if ( lsame( JOB, 'E' ) ) {
          LWMIN = max( 1, NN );
       }
 
-      if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
+      if ( !lsame( JOB, 'N' ) && !WANTS && !WANTSP ) {
          INFO = -1;
-      } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
+      } else if ( !lsame( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;

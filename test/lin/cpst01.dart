@@ -31,8 +31,8 @@
       // .. External Functions ..
       //- COMPLEX            CDOTC;
       //- REAL               CLANHE, SLAMCH;
-      //- bool               LSAME;
-      // EXTERNAL CDOTC, CLANHE, SLAMCH, LSAME
+      //- bool               lsame;
+      // EXTERNAL CDOTC, CLANHE, SLAMCH, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHER, CSCAL, CTRMV
@@ -70,7 +70,7 @@
 
       // Compute the product U'*U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 120
@@ -121,7 +121,7 @@
 
          // Form P*L*L'*P' or P*U'*U*P'
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
 
          for (J = 1; J <= N; J++) { // 180
             for (I = 1; I <= N; I++) { // 170
@@ -154,7 +154,7 @@
 
       // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 220
             for (I = 1; I <= J - 1; I++) { // 210
                PERM[I, J] = PERM( I, J ) - A( I, J );

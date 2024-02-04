@@ -25,9 +25,9 @@
       double             CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, DLAMCH
+      // EXTERNAL lsame, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
@@ -55,7 +55,7 @@
 
          // Replace A by diag(S) * A * diag(S).
 
-         if ( LSAME( UPLO, 'U' ) ) {
+         if ( lsame( UPLO, 'U' ) ) {
 
             // Upper triangle of A is stored in band format.
 

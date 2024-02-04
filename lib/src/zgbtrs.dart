@@ -24,8 +24,8 @@
       int                I, J, KD, L, LM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZGERU, ZLACGV, ZSWAP, ZTBSV
@@ -38,8 +38,8 @@
       // Test the input parameters.
 
       INFO = 0;
-      NOTRAN = LSAME( TRANS, 'N' );
-      if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      NOTRAN = lsame( TRANS, 'N' );
+      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -93,7 +93,7 @@
             ztbsv('Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
          } // 20
 
-      } else if ( LSAME( TRANS, 'T' ) ) {
+      } else if ( lsame( TRANS, 'T' ) ) {
 
          // Solve A**T * X = B.
 

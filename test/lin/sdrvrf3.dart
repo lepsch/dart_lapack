@@ -32,9 +32,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- REAL               SLAMCH, SLANGE, SLARND;
-      // EXTERNAL SLAMCH, SLANGE, SLARND, LSAME
+      // EXTERNAL SLAMCH, SLANGE, SLARND, lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL STRTTF, SGEQRF, SGEQLF, STFSM, STRSM
@@ -155,7 +155,7 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 if ( LSAME( DIAG, 'U' ) ) {
+                                 if ( lsame( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
                                           A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
@@ -175,7 +175,7 @@
                                  // be unit makes it ill-conditioned for
                                  // some test cases
 
-                                 if ( LSAME( DIAG, 'U' ) ) {
+                                 if ( lsame( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
                                           A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );

@@ -24,8 +24,8 @@
       bool    NOUNIT;
       // ..
       // .. External Functions ..
-      //- bool    LSAME;
-      // EXTERNAL LSAME
+      //- bool    lsame;
+      // EXTERNAL lsame
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -34,11 +34,11 @@
       // Test the input parameters.
 
       INFO = 0;
-      if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
+      if ( !lsame(UPLO,'U') && !lsame(UPLO,'L')) {
           INFO = 1;
-      } else if ( !LSAME(TRANS,'N') && !LSAME(TRANS,'T') && !LSAME(TRANS,'C')) {
+      } else if ( !lsame(TRANS,'N') && !lsame(TRANS,'T') && !lsame(TRANS,'C')) {
           INFO = 2;
-      } else if ( !LSAME(DIAG,'U') && !LSAME(DIAG,'N')) {
+      } else if ( !lsame(DIAG,'U') && !lsame(DIAG,'N')) {
           INFO = 3;
       } else if (N < 0) {
           INFO = 4;
@@ -54,7 +54,7 @@
 
       if (N == 0) return;
 
-      NOUNIT = LSAME(DIAG,'N');
+      NOUNIT = lsame(DIAG,'N');
 
       // Set up the start point in X if the increment is not unity. This
       // will be  ( N - 1 )*INCX  too small for descending loops.
@@ -68,11 +68,11 @@
       // Start the operations. In this version the elements of AP are
       // accessed sequentially with one pass through AP.
 
-      if (LSAME(TRANS,'N')) {
+      if (lsame(TRANS,'N')) {
 
          // Form  x:= A*x.
 
-          if (LSAME(UPLO,'U')) {
+          if (lsame(UPLO,'U')) {
               KK = 1;
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 20
@@ -140,7 +140,7 @@
 
          // Form  x := A**T*x.
 
-          if (LSAME(UPLO,'U')) {
+          if (lsame(UPLO,'U')) {
               KK = (N* (N+1))/2;
               if (INCX == 1) {
                   for (J = N; J >= 1; J--) { // 100

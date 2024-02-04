@@ -24,9 +24,9 @@
       double             ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double             DDOT, DLAMCH, DLANSY;
-      // EXTERNAL LSAME, DDOT, DLAMCH, DLANSY
+      // EXTERNAL lsame, DDOT, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYR, DTRMV
@@ -54,7 +54,7 @@
 
       // Compute the product U**T * U, overwriting U.
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (K = N; K >= 1; K--) { // 10
 
             // Compute the (K,K) element of the result.
@@ -88,7 +88,7 @@
 
       // Compute the difference L * L**T - A (or U**T * U - A).
 
-      if ( LSAME( UPLO, 'U' ) ) {
+      if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J; I++) { // 30
                AFAC[I, J] = AFAC( I, J ) - A( I, J );

@@ -38,10 +38,10 @@
       // EXTERNAL DLASCL, XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZTGEVC, ZTGSNA, ZUNGQR, ZUNMQR
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ILAENV;
       //- double             DLAMCH, ZLANGE;
-      // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
+      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
@@ -56,10 +56,10 @@
 
       // Decode the input arguments
 
-      if ( LSAME( JOBVL, 'N' ) ) {
+      if ( lsame( JOBVL, 'N' ) ) {
          IJOBVL = 1;
          ILVL = false;
-      } else if ( LSAME( JOBVL, 'V' ) ) {
+      } else if ( lsame( JOBVL, 'V' ) ) {
          IJOBVL = 2;
          ILVL = true;
       } else {
@@ -67,10 +67,10 @@
          ILVL = false;
       }
 
-      if ( LSAME( JOBVR, 'N' ) ) {
+      if ( lsame( JOBVR, 'N' ) ) {
          IJOBVR = 1;
          ILVR = false;
-      } else if ( LSAME( JOBVR, 'V' ) ) {
+      } else if ( lsame( JOBVR, 'V' ) ) {
          IJOBVR = 2;
          ILVR = true;
       } else {
@@ -79,17 +79,17 @@
       }
       ILV = ILVL || ILVR;
 
-      NOSCL  = LSAME( BALANC, 'N' ) || LSAME( BALANC, 'P' );
-      WANTSN = LSAME( SENSE, 'N' );
-      WANTSE = LSAME( SENSE, 'E' );
-      WANTSV = LSAME( SENSE, 'V' );
-      WANTSB = LSAME( SENSE, 'B' );
+      NOSCL  = lsame( BALANC, 'N' ) || lsame( BALANC, 'P' );
+      WANTSN = lsame( SENSE, 'N' );
+      WANTSE = lsame( SENSE, 'E' );
+      WANTSV = lsame( SENSE, 'V' );
+      WANTSB = lsame( SENSE, 'B' );
 
       // Test the input arguments
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      if ( !( NOSCL || LSAME( BALANC,'S' ) || LSAME( BALANC, 'B' ) ) ) {
+      if ( !( NOSCL || lsame( BALANC,'S' ) || lsame( BALANC, 'B' ) ) ) {
          INFO = -1;
       } else if ( IJOBVL <= 0 ) {
          INFO = -2;

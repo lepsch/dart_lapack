@@ -40,8 +40,8 @@
       // .. External Functions ..
       //- int                IZAMAX;
       //- double             DLAMCH, ZLANHE;
-      //- bool               LSAME;
-      // EXTERNAL IZAMAX, DLAMCH, ZLANHE, LSAME
+      //- bool               lsame;
+      // EXTERNAL IZAMAX, DLAMCH, ZLANHE, lsame
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT
@@ -58,7 +58,7 @@
 
       // Test the input parameters.
 
-      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
+      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;

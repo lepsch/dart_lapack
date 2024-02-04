@@ -24,8 +24,8 @@
       REAL               SCALE, S, VALUE, AA, TEMP;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASSQ
@@ -51,12 +51,12 @@
       // set ifm = 0 when form='C' or 'c' and 1 otherwise
 
       IFM = 1;
-      if( LSAME( TRANSR, 'C' ) ) IFM = 0;
+      if( lsame( TRANSR, 'C' ) ) IFM = 0;
 
       // set ilu = 0 when uplo='U or 'u' and 1 otherwise
 
       ILU = 1;
-      if( LSAME( UPLO, 'U' ) ) ILU = 0;
+      if( lsame( UPLO, 'U' ) ) ILU = 0;
 
       // set lda = (n+1)/2 when ifm = 0
       // set lda = n when ifm = 1 and noe = 1
@@ -74,7 +74,7 @@
          LDA = ( N+1 ) / 2;
       }
 
-      if ( LSAME( NORM, 'M' ) ) {
+      if ( lsame( NORM, 'M' ) ) {
 
         // Find max(abs(A(i,j))).
 
@@ -372,7 +372,7 @@
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
+      } else if ( ( lsame( NORM, 'I' ) ) || ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
         // Find normI(A) ( = norm1(A), since A is Hermitian).
 
@@ -814,7 +814,7 @@
                }
             }
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
         // Find normF(A).
 

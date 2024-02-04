@@ -33,9 +33,9 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- double                      DLAMCH;
-      // EXTERNAL DLAMCH, LSAME
+      // EXTERNAL DLAMCH, lsame
 
       // ..
       // .. External Subroutines ..
@@ -60,11 +60,11 @@
 
       // Decode RANGE
 
-      if ( LSAME( RANGE, 'A' ) ) {
+      if ( lsame( RANGE, 'A' ) ) {
          IRANGE = ALLRNG;
-      } else if ( LSAME( RANGE, 'V' ) ) {
+      } else if ( lsame( RANGE, 'V' ) ) {
          IRANGE = VALRNG;
-      } else if ( LSAME( RANGE, 'I' ) ) {
+      } else if ( lsame( RANGE, 'I' ) ) {
          IRANGE = INDRNG;
       }
 

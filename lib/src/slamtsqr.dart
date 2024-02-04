@@ -20,8 +20,8 @@
       int                I, II, KK, LW, CTR, Q, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
-      // EXTERNAL LSAME
+      //- bool               lsame;
+      // EXTERNAL lsame
       REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
@@ -34,10 +34,10 @@
 
       INFO = 0;
       LQUERY  = ( LWORK == -1 );
-      NOTRAN  = LSAME( TRANS, 'N' );
-      TRAN    = LSAME( TRANS, 'T' );
-      LEFT    = LSAME( SIDE, 'L' );
-      RIGHT   = LSAME( SIDE, 'R' );
+      NOTRAN  = lsame( TRANS, 'N' );
+      TRAN    = lsame( TRANS, 'T' );
+      LEFT    = lsame( SIDE, 'L' );
+      RIGHT   = lsame( SIDE, 'R' );
       if ( LEFT ) {
         LW = N * NB;
         Q = M;

@@ -23,8 +23,8 @@
       REAL               ANORM, SCALE, SUM;
       // ..
       // .. External Functions ..
-      //- bool               LSAME, SISNAN;
-      // EXTERNAL LSAME, SISNAN
+      //- bool               lsame, SISNAN;
+      // EXTERNAL lsame, SISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ
@@ -36,7 +36,7 @@
 
       if ( N <= 0 ) {
          ANORM = ZERO;
-      } else if ( LSAME( NORM, 'M' ) ) {
+      } else if ( lsame( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
@@ -47,7 +47,7 @@
             SUM = ( E( I ) ).abs();
             if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
          } // 10
-      } else if ( LSAME( NORM, 'O' ) || NORM == '1' || LSAME( NORM, 'I' ) ) {
+      } else if ( lsame( NORM, 'O' ) || NORM == '1' || lsame( NORM, 'I' ) ) {
 
          // Find norm1(A).
 
@@ -62,7 +62,7 @@
                if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
             } // 20
          }
-      } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
+      } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 

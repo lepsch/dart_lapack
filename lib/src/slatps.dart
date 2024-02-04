@@ -25,10 +25,10 @@
       REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
       // ..
       // .. External Functions ..
-      //- bool               LSAME;
+      //- bool               lsame;
       //- int                ISAMAX;
       //- REAL               SASUM, SDOT, SLAMCH;
-      // EXTERNAL LSAME, ISAMAX, SASUM, SDOT, SLAMCH
+      // EXTERNAL lsame, ISAMAX, SASUM, SDOT, SLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SSCAL, STPSV, XERBLA
@@ -39,19 +39,19 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      UPPER = LSAME( UPLO, 'U' );
-      NOTRAN = LSAME( TRANS, 'N' );
-      NOUNIT = LSAME( DIAG, 'N' );
+      UPPER = lsame( UPLO, 'U' );
+      NOTRAN = lsame( TRANS, 'N' );
+      NOUNIT = lsame( DIAG, 'N' );
 
       // Test the input parameters.
 
-      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
          INFO = -1;
-      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
          INFO = -2;
-      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
          INFO = -3;
-      } else if ( !LSAME( NORMIN, 'Y' ) && !LSAME( NORMIN, 'N' ) ) {
+      } else if ( !lsame( NORMIN, 'Y' ) && !lsame( NORMIN, 'N' ) ) {
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
@@ -71,7 +71,7 @@
       BIGNUM = ONE / SMLNUM;
       SCALE = ONE;
 
-      if ( LSAME( NORMIN, 'N' ) ) {
+      if ( lsame( NORMIN, 'N' ) ) {
 
          // Compute the 1-norm of each column, not including the diagonal.
 
