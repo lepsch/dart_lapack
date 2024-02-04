@@ -88,7 +88,7 @@
          // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I = N;
-         DO WHILE ( I >= 1 );
+         while (I >= 1) {
             if ( IPIV( I ) > 0 ) {
                S = REAL( ONE ) / REAL( A( I, I ) );
                csscal(NRHS, S, B( I, 1 ), LDB );
@@ -156,7 +156,7 @@
          // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I = 1;
-         DO WHILE ( I <= N );
+         while (I <= N) {
             if ( IPIV( I ) > 0 ) {
                S = REAL( ONE ) / REAL( A( I, I ) );
                csscal(NRHS, S, B( I, 1 ), LDB );

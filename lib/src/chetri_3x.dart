@@ -109,7 +109,7 @@
          // inv(D) and inv(D) * inv(U)
 
          K = 1;
-         DO WHILE( K <= N );
+         while (K <= N) {
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
                WORK[K, INVD] = ONE / REAL( A( K, K ) );
@@ -135,7 +135,7 @@
          // inv(U**H) * inv(D) * inv(U)
 
          CUT = N;
-         DO WHILE( CUT > 0 );
+         while (CUT > 0) {
             NNB = NB;
             if ( CUT <= NNB ) {
                NNB = CUT;
@@ -174,7 +174,7 @@
             // invD * U01
 
             I = 1;
-            DO WHILE( I <= CUT );
+            while (I <= CUT) {
                if ( IPIV( I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK[I, J] = WORK( I, INVD ) * WORK( I, J );
@@ -193,7 +193,7 @@
             // invD1 * U11
 
             I = 1;
-            DO WHILE ( I <= NNB );
+            while (I <= NNB) {
                if ( IPIV( CUT+I ) > 0 ) {
                   for (J = I; J <= NNB; J++) {
                      WORK[U11+I, J] = WORK(CUT+I,INVD) * WORK(U11+I,J);
@@ -279,7 +279,7 @@
          // inv(D) and inv(D) * inv(L)
 
          K = N;
-         DO WHILE ( K >= 1 );
+         while (K >= 1) {
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
                WORK[K, INVD] = ONE / REAL( A( K, K ) );
@@ -305,7 +305,7 @@
          // inv(L**H) * inv(D) * inv(L)
 
          CUT = 0;
-         DO WHILE( CUT < N );
+         while (CUT < N) {
             NNB = NB;
             if ( (CUT + NNB) > N ) {
                NNB = N - CUT;
@@ -342,7 +342,7 @@
             // invD*L21
 
             I = N-CUT-NNB;
-            DO WHILE( I >= 1 );
+            while (I >= 1) {
                if ( IPIV( CUT+NNB+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK[I, J] = WORK( CUT+NNB+I, INVD) * WORK( I, J);
@@ -361,7 +361,7 @@
             // invD1*L11
 
             I = NNB;
-            DO WHILE( I >= 1 );
+            while (I >= 1) {
                if ( IPIV( CUT+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK[U11+I, J] = WORK( CUT+I, INVD)*WORK(U11+I,J);

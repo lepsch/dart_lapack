@@ -351,7 +351,7 @@
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
 
-         DO WHILE( J <= JMAXB );
+         while (J <= JMAXB) {
 
             JB = min( NB, JMAXB-J+1 );
             N_SUB = N-J+1;

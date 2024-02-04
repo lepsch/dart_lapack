@@ -83,7 +83,7 @@
             // Pivot, P**T * B -> B
 
             K = 1;
-            DO WHILE ( K <= N );
+            while (K <= N) {
                KP = IPIV( K );
                if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1;
@@ -117,7 +117,7 @@
             // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 
             K = N;
-            DO WHILE ( K >= 1 );
+            while (K >= 1) {
                KP = IPIV( K );
                if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1;
@@ -135,7 +135,7 @@
             // Pivot, P**T * B -> B
 
             K = 1;
-            DO WHILE ( K <= N );
+            while (K <= N) {
                KP = IPIV( K );
                if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1;
@@ -168,7 +168,7 @@
             // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
             K = N;
-            DO WHILE ( K >= 1 );
+            while (K >= 1) {
                KP = IPIV( K );
                if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1;

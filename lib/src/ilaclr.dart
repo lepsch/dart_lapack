@@ -32,7 +32,7 @@
          ILACLR = 0;
          for (J = 1; J <= N; J++) {
             I=M;
-            DO WHILE((A(max(I,1),J) == ZERO) && (I >= 1));
+            while ((A(max(I,1),J) == ZERO) && (I >= 1)) {
                I=I-1;
             }
             ILACLR = max( ILACLR, I );

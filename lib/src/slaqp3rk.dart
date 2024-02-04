@@ -59,7 +59,7 @@
       LSTICC = 0;
       DONE = false;
 
-      DO WHILE ( K < NB && LSTICC == 0 );
+      while (K < NB && LSTICC == 0) {
          K = K + 1;
          I = IOFFSET + K;
 
@@ -480,7 +480,7 @@
       // Loop over the index of the difficult columns from the largest
       // to the smallest index.
 
-      DO WHILE( LSTICC > 0 );
+      while (LSTICC > 0) {
 
          // LSTICC is the index of the last difficult column is greater
          // than 1.

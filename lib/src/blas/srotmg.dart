@@ -101,7 +101,7 @@
 
       // PROCEDURE..SCALE-CHECK
          if (SD1 != ZERO) {
-            DO WHILE ((SD1 <= RGAMSQ) || (SD1 >= GAMSQ));
+            while ((SD1 <= RGAMSQ) || (SD1 >= GAMSQ)) {
                if (SFLAG == ZERO) {
                   SH11 = ONE;
                   SH22 = ONE;
@@ -126,7 +126,7 @@
          }
 
          if (SD2 != ZERO) {
-            DO WHILE ( ((SD2).abs() <= RGAMSQ) || ((SD2).abs() >= GAMSQ) );
+            while (((SD2).abs() <= RGAMSQ) || ((SD2).abs() >= GAMSQ)) {
                if (SFLAG == ZERO) {
                   SH11 = ONE;
                   SH22 = ONE;

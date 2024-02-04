@@ -65,7 +65,7 @@
          if ( CONVERT ) {
             I=N;
             E(1)=ZERO;
-            DO WHILE ( I > 1 );
+            while (I > 1) {
                if ( IPIV(I) < 0 ) {
                   E(I)=A(I-1,I);
                   E(I-1)=ZERO;
@@ -80,7 +80,7 @@
          // Convert PERMUTATIONS
 
          I=N;
-         DO WHILE ( I >= 1 );
+         while (I >= 1) {
             if ( IPIV(I) > 0) {
                IP=IPIV(I);
                if ( I < N) {
@@ -112,7 +112,7 @@
          // Revert PERMUTATIONS
 
             I=1;
-            DO WHILE ( I <= N );
+            while (I <= N) {
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I);
                   if ( I < N) {
@@ -139,7 +139,7 @@
          // Revert VALUE
 
             I=N;
-            DO WHILE ( I > 1 );
+            while (I > 1) {
                if ( IPIV(I) < 0 ) {
                   A(I-1,I)=E(I);
                   I=I-1;
@@ -160,7 +160,7 @@
 
             I=1;
             E(N)=ZERO;
-            DO WHILE ( I <= N );
+            while (I <= N) {
                if ( I < N && IPIV(I) < 0 ) {
                   E(I)=A(I+1,I);
                   E(I+1)=ZERO;
@@ -175,7 +175,7 @@
          // Convert PERMUTATIONS
 
          I=1;
-         DO WHILE ( I <= N );
+         while (I <= N) {
             if ( IPIV(I) > 0 ) {
                IP=IPIV(I);
                if (I > 1) {
@@ -206,7 +206,7 @@
          // Revert PERMUTATIONS
 
             I=N;
-            DO WHILE ( I >= 1 );
+            while (I >= 1) {
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I);
                   if (I > 1) {
@@ -233,7 +233,7 @@
          // Revert VALUE
 
             I=1;
-            DO WHILE ( I <= N-1 );
+            while (I <= N-1) {
                if ( IPIV(I) < 0 ) {
                   A(I+1,I)=E(I);
                   I=I+1;

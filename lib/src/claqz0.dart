@@ -226,7 +226,7 @@
          // Check infinite eigenvalues, this is done without blocking so might
          // slow down the method when many infinite eigenvalues are present
          K = ISTOP;
-         DO WHILE ( K >= ISTART2 );
+         while (K >= ISTART2) {
 
             if ( ( B( K, K ) ).abs() < BTOL ) {
                // A diagonal element of B is negligible, move it

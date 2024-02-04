@@ -86,7 +86,7 @@
          NTOPIV = 1;
          IPIVSTART = J;
          JPIVSTART = J - NTOPIV;
-         DO WHILE ( NTOPIV < KAHEAD );
+         while (NTOPIV < KAHEAD) {
             zlaswp(NTOPIV, A( 1, JPIVSTART ), LDA, IPIVSTART, J, IPIV, 1 );
             IPIVSTART = IPIVSTART - NTOPIV;
             NTOPIV = NTOPIV * 2;
@@ -119,7 +119,7 @@
       // Handle pivot permutations on the way out of the recursion
       NPIVED = IAND( NSTEP, -NSTEP );
       J = NSTEP - NPIVED;
-      DO WHILE ( J > 0 );
+      while (J > 0) {
          NTOPIV = IAND( J, -J );
          zlaswp(NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP, IPIV, 1 );
          J = J - NTOPIV;

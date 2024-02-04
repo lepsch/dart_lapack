@@ -113,7 +113,7 @@
                 print *, "!! [a] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y = DCMPLX( Xj, 0.0 );
                 R = Y / Y;
@@ -138,7 +138,7 @@
                 print *, "!! [b] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y = DCMPLX( 0.0, Xj );
                 R = Y / Y;
@@ -163,7 +163,7 @@
                 print *, "!! [c] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y = DCMPLX( Xj, Xj );
                 R = Y / Y;
@@ -188,7 +188,7 @@
                 print *, "!! [d] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y  = DCMPLX( 0.0, Xj );
                 Y2 = DCMPLX( Xj, 0.0 );
@@ -214,7 +214,7 @@
                 print *, "!! [e] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y  = DCMPLX( 0.0, Xj );
                 Y2 = DCMPLX( Xj, 0.0 );
@@ -240,7 +240,7 @@
                 print *, "!! [f] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y  = DCMPLX( Xj, Xj );
                 R = Y / DCONJG( Y );

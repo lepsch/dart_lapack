@@ -69,7 +69,7 @@
 
             I = N;
             E[1] = ZERO;
-            DO WHILE ( I > 1 );
+            while (I > 1) {
                if ( IPIV( I ) < 0 ) {
                   E[I] = A( I-1, I );
                   E[I-1] = ZERO;
@@ -87,7 +87,7 @@
             // in factorization order where i decreases from N to 1
 
             I = N;
-            DO WHILE ( I >= 1 );
+            while (I >= 1) {
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -135,7 +135,7 @@
             // in reverse factorization order where i increases from 1 to N
 
             I = 1;
-            DO WHILE ( I <= N );
+            while (I <= N) {
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -177,7 +177,7 @@
             // superdiagonal entries of A.
 
             I = N;
-            DO WHILE ( I > 1 );
+            while (I > 1) {
                if ( IPIV( I ) < 0 ) {
                   A[I-1, I] = E( I );
                   I = I - 1;
@@ -204,7 +204,7 @@
 
             I = 1;
             E[N] = ZERO;
-            DO WHILE ( I <= N );
+            while (I <= N) {
                if ( I < N && IPIV(I) < 0 ) {
                   E[I] = A( I+1, I );
                   E[I+1] = ZERO;
@@ -222,7 +222,7 @@
             // in factorization order where i increases from 1 to N
 
             I = 1;
-            DO WHILE ( I <= N );
+            while (I <= N) {
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -270,7 +270,7 @@
             // in reverse factorization order where i decreases from N to 1
 
             I = N;
-            DO WHILE ( I >= 1 );
+            while (I >= 1) {
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -312,7 +312,7 @@
             // subdiagonal entries of A.
 
             I = 1;
-            DO WHILE ( I <= N-1 );
+            while (I <= N-1) {
                if ( IPIV( I ) < 0 ) {
                   A[I + 1, I] = E( I );
                   I = I + 1;

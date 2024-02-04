@@ -74,7 +74,7 @@
 
       if ( UPPER ) {
          K = N;
-         DO WHILE ( K < NCOLS && K > 0 );
+         while (K < NCOLS && K > 0) {
             if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
                KP = IPIV( K );
@@ -102,7 +102,7 @@
             }
          }
          K = NCOLS;
-         DO WHILE ( K <= N );
+         while (K <= N) {
             if ( IPIV( K ) > 0 ) {
                KP = IPIV( K );
                if ( KP != K ) {
@@ -121,7 +121,7 @@
          }
       } else {
          K = 1;
-         DO WHILE ( K <= NCOLS );
+         while (K <= NCOLS) {
             if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
                KP = IPIV( K );
@@ -149,7 +149,7 @@
             }
          }
          K = NCOLS;
-         DO WHILE ( K >= 1 );
+         while (K >= 1) {
             if ( IPIV( K ) > 0 ) {
                KP = IPIV( K );
                if ( KP != K ) {

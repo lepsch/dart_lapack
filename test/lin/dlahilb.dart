@@ -60,7 +60,7 @@
          TM = M;
          TI = I;
          R = (TM % TI);
-         DO WHILE (R != 0);
+         while (R != 0) {
             TM = TI;
             TI = R;
             R = (TM % TI);

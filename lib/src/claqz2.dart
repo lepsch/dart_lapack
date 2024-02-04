@@ -101,7 +101,7 @@
          KWBOT = IHI;
          K = 1;
          K2 = 1;
-         DO WHILE ( K <= JW );
+         while (K <= JW) {
                // Try to deflate eigenvalue
                TEMPR = ( A( KWBOT, KWBOT ) ).abs();
                if ( TEMPR == ZERO ) {
@@ -126,7 +126,7 @@
       ND = IHI-KWBOT;
       NS = JW-ND;
       K = KWTOP;
-      DO WHILE ( K <= IHI );
+      while (K <= IHI) {
          ALPHA[K] = A( K, K );
          BETA[K] = B( K, K );
          K = K+1;
@@ -149,7 +149,7 @@
          ISTARTM = KWTOP;
          ISTOPM = IHI;
          K = KWBOT-1;
-         DO WHILE ( K >= KWTOP );
+         while (K >= KWTOP) {
 
             // Move bulge down and remove it
             for (K2 = K; K2 <= KWBOT-1; K2++) {

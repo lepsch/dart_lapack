@@ -134,7 +134,7 @@
       // Initial deflation
 
       IMAX = Q;
-      DO WHILE( IMAX > 1 );
+      while (IMAX > 1) {
          if ( PHI(IMAX-1) != ZERO ) {
             EXIT;
          }
@@ -142,7 +142,7 @@
       }
       IMIN = IMAX - 1;
       if ( IMIN > 1 ) {
-         DO WHILE( PHI(IMIN-1) != ZERO );
+         while (PHI(IMIN-1) != ZERO) {
             IMIN = IMIN - 1;
             if (IMIN <= 1) EXIT;
          }
@@ -155,7 +155,7 @@
 
       // Begin main iteration loop
 
-      DO WHILE( IMAX > 1 );
+      while (IMAX > 1) {
 
          // Compute the matrix entries
 
@@ -576,14 +576,14 @@
          // Deflate
 
          if (IMAX > 1) {
-            DO WHILE( PHI(IMAX-1) == ZERO );
+            while (PHI(IMAX-1) == ZERO) {
                IMAX = IMAX - 1;
                if (IMAX <= 1) EXIT;
             }
          }
          if (IMIN > IMAX - 1) IMIN = IMAX - 1;
          if (IMIN > 1) {
-            DO WHILE (PHI(IMIN-1) != ZERO);
+            while (PHI(IMIN-1) != ZERO) {
                 IMIN = IMIN - 1;
                 if (IMIN <= 1) EXIT;
             }

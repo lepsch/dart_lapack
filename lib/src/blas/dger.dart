@@ -1,21 +1,26 @@
-      void dger(M,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
+      import 'dart:math';
+
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dger(final int M,final int N,final double ALPHA,final Array<double> X,final int INCX,final Array<double> Y,final int INCY,final Matrix2d<double> A,final int LDA,) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      double           ALPHA;
-      int     INCX,INCY,LDA,M,N;
+      // double           ALPHA;
+      // int     INCX,INCY,LDA,M,N;
       // ..
       // .. Array Arguments ..
-      double           A(LDA,*),X(*),Y(*);
+      // double           A[LDA,*],X[*],Y[*];
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      double           ZERO;
+      // double           ZERO;
       const     ZERO=0.0;
       // ..
       // .. Local Scalars ..
@@ -61,32 +66,32 @@
           JY = 1 - (N-1)*INCY;
       }
       if (INCX == 1) {
-          for (J = 1; J <= N; J++) { // 20
-              if (Y(JY) != ZERO) {
-                  TEMP = ALPHA*Y(JY);
-                  for (I = 1; I <= M; I++) { // 10
-                      A[I,J] = A(I,J) + X(I)*TEMP;
-                  } // 10
+          for (J = 1; J <= N; J++) {
+              if (Y[JY] != ZERO) {
+                  TEMP = ALPHA*Y[JY];
+                  for (I = 1; I <= M; I++) {
+                      A[I,J] = A[I,J] + X[I]*TEMP;
+                  }
               }
               JY = JY + INCY;
-          } // 20
+          }
       } else {
           if (INCX > 0) {
               KX = 1;
           } else {
               KX = 1 - (M-1)*INCX;
           }
-          for (J = 1; J <= N; J++) { // 40
-              if (Y(JY) != ZERO) {
-                  TEMP = ALPHA*Y(JY);
+          for (J = 1; J <= N; J++) {
+              if (Y[JY] != ZERO) {
+                  TEMP = ALPHA*Y[JY];
                   IX = KX;
-                  for (I = 1; I <= M; I++) { // 30
-                      A[I,J] = A(I,J) + X(IX)*TEMP;
+                  for (I = 1; I <= M; I++) {
+                      A[I,J] = A[I,J] + X[IX]*TEMP;
                       IX = IX + INCX;
-                  } // 30
+                  }
               }
               JY = JY + INCY;
-          } // 40
+          }
       }
 
       return;

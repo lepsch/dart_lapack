@@ -81,7 +81,7 @@
          // Row and column exchange.
 
          NOCONV = true;
-         DO WHILE( NOCONV );
+         while (NOCONV) {
 
             // Search for rows isolating an eigenvalue and push them down.
 
@@ -116,7 +116,7 @@
          }
 
          NOCONV = true;
-         DO WHILE( NOCONV );
+         while (NOCONV) {
 
             // Search for columns isolating an eigenvalue and push them left.
 
@@ -170,7 +170,7 @@
       SFMAX2 = ONE / SFMIN2;
 
       NOCONV = true;
-      DO WHILE( NOCONV );
+      while (NOCONV) {
          NOCONV = false;
 
          for (I = K; I <= L; I++) {
@@ -198,7 +198,7 @@
             F = ONE;
             S = C + R;
 
-            DO WHILE( C < G && max( F, C, CA ) < SFMAX2 && min( R, G, RA ) > SFMIN2 );
+            while (C < G && max( F, C, CA ) < SFMAX2 && min( R, G, RA ) > SFMIN2) {
                F = F*SCLFAC;
                C = C*SCLFAC;
                CA = CA*SCLFAC;
@@ -209,7 +209,7 @@
 
             G = C / SCLFAC;
 
-            DO WHILE( G >= R && max( R, RA ) < SFMAX2 && min( F, C, G, CA ) > SFMIN2 );
+            while (G >= R && max( R, RA ) < SFMAX2 && min( F, C, G, CA ) > SFMIN2) {
                F = F / SCLFAC;
                C = C / SCLFAC;
                G = G / SCLFAC;

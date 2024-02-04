@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/blas/xerbla.dart';
 import 'package:lapack/src/matrix.dart';
 
@@ -78,29 +79,29 @@ void dgemv(
     if (INCY == 1) {
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-          // 10
+
           Y[I] = ZERO;
-        } // 10
+        }
       } else {
         for (I = 1; I <= LENY; I++) {
-          // 20
-          Y[I] = BETA * Y(I);
-        } // 20
+
+          Y[I] = BETA * Y[I];
+        }
       }
     } else {
       IY = KY;
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-          // 30
+
           Y[IY] = ZERO;
           IY = IY + INCY;
-        } // 30
+        }
       } else {
         for (I = 1; I <= LENY; I++) {
-          // 40
-          Y[IY] = BETA * Y(IY);
+
+          Y[IY] = BETA * Y[IY];
           IY = IY + INCY;
-        } // 40
+        }
       }
     }
   }
@@ -111,55 +112,54 @@ void dgemv(
     JX = KX;
     if (INCY == 1) {
       for (J = 1; J <= N; J++) {
-        // 60
-        TEMP = ALPHA * X(JX);
+
+        TEMP = ALPHA * X[JX];
         for (I = 1; I <= M; I++) {
-          // 50
-          Y[I] = Y(I) + TEMP * A(I, J);
-        } // 50
+
+          Y[I] = Y[I] + TEMP * A[I, J];
+        }
         JX = JX + INCX;
-      } // 60
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 80
-        TEMP = ALPHA * X(JX);
+
+        TEMP = ALPHA * X[JX];
         IY = KY;
         for (I = 1; I <= M; I++) {
-          // 70
-          Y[IY] = Y(IY) + TEMP * A(I, J);
+
+          Y[IY] = Y[IY] + TEMP * A[I, J];
           IY = IY + INCY;
-        } // 70
+        }
         JX = JX + INCX;
-      } // 80
+      }
     }
   } else {
     // Form  y := alpha*A**T*x + y.
-
     JY = KY;
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 100
+
         TEMP = ZERO;
         for (I = 1; I <= M; I++) {
-          // 90
-          TEMP = TEMP + A(I, J) * X(I);
-        } // 90
-        Y[JY] = Y(JY) + ALPHA * TEMP;
+
+          TEMP = TEMP + A[I, J] * X[I];
+        }
+        Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
-      } // 100
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 120
+
         TEMP = ZERO;
         IX = KX;
         for (I = 1; I <= M; I++) {
-          // 110
-          TEMP = TEMP + A(I, J) * X(IX);
+
+          TEMP = TEMP + A[I, J] * X[IX];
           IX = IX + INCX;
-        } // 110
-        Y[JY] = Y(JY) + ALPHA * TEMP;
+        }
+        Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
-      } // 120
+      }
     }
   }
 

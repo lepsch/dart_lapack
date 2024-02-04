@@ -69,7 +69,7 @@
 
         // P**T * B
         K=N;
-        DO WHILE ( K >= 1 );
+        while (K >= 1) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
@@ -92,7 +92,7 @@
 // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I=N;
-         DO WHILE ( I >= 1 );
+         while (I >= 1) {
             if ( IPIV(I) > 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) );
               csscal(NRHS, S, B( I, 1 ), LDB );
@@ -121,7 +121,7 @@
         // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
 
         K=1;
-        DO WHILE ( K <= N );
+        while (K <= N) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
@@ -143,7 +143,7 @@
 
         // P**T * B
         K=1;
-        DO WHILE ( K <= N );
+        while (K <= N) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
@@ -166,7 +166,7 @@
 // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I=1;
-         DO WHILE ( I <= N );
+         while (I <= N) {
             if ( IPIV(I) > 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) );
               csscal(NRHS, S, B( I, 1 ), LDB );
@@ -193,7 +193,7 @@
         // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
 
         K=N;
-        DO WHILE ( K >= 1 );
+        while (K >= 1) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).

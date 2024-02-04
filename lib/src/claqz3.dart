@@ -137,7 +137,7 @@
       // positions at a time
 
       K = ILO;
-      DO WHILE ( K < IHI-NS );
+      while (K < IHI-NS) {
          NP = min( IHI-NS-K, NPOS );
          // Size of the near-the-diagonal block
          NBLOCK = NS+NP;

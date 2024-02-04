@@ -108,7 +108,7 @@
                 print *, "!! [a] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y = DCMPLX( Xj, 0.0 );
                 R = ( Y ).abs();
@@ -133,7 +133,7 @@
                 print *, "!! [b] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 Y = DCMPLX( 0.0, Xj );
                 R = ( Y ).abs();
@@ -163,7 +163,7 @@
                 print *, "!! [c] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 nTests = nTests + 1;
                 answerC = fiveFourth * Xj;
                 Y = DCMPLX( threeFourth * Xj, Xj );
@@ -193,7 +193,7 @@
                 print *, "!! [d] fl( subnormal ) may be 0";
             }
         } else {
-            do while( Xj != limX(i) );
+            while (Xj != limX(i)) {
                 answerD = (oneHalf * Xj) * sqrt(2.0);
                 if (answerD == 0.0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
