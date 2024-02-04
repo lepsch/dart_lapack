@@ -44,7 +44,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -76,8 +76,8 @@
       if ( N == 1 ) {
          ILO = 1;
          IHI = N;
-         LSCALE( 1 ) = ONE;
-         RSCALE( 1 ) = ONE;
+         LSCALE[1] = ONE;
+         RSCALE[1] = ONE;
          return;
       }
 
@@ -85,8 +85,8 @@
          ILO = 1;
          IHI = N;
          for (I = 1; I <= N; I++) { // 10
-            LSCALE( I ) = ONE;
-            RSCALE( I ) = ONE;
+            LSCALE[I] = ONE;
+            RSCALE[I] = ONE;
          } // 10
          return;
       }
@@ -105,8 +105,8 @@
       L = LM1;
       if (L != 1) GO TO 30;
 
-      RSCALE( 1 ) = 1;
-      LSCALE( 1 ) = 1;
+      RSCALE[1] = 1;
+      LSCALE[1] = 1;
       GO TO 190;
 
       } // 30
@@ -160,7 +160,7 @@
       // Permute rows M and I
 
       } // 160
-      LSCALE( M ) = I;
+      LSCALE[M] = I;
       if (I == M) GO TO 170;
       zswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
       zswap(N-K+1, B( I, K ), LDB, B( M, K ), LDB );
@@ -168,7 +168,7 @@
       // Permute columns M and J
 
       } // 170
-      RSCALE( M ) = J;
+      RSCALE[M] = J;
       if (J == M) GO TO 180;
       zswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       zswap(L, B( 1, J ), 1, B( 1, M ), 1 );
@@ -182,8 +182,8 @@
 
       if ( LSAME( JOB, 'P' ) ) {
          for (I = ILO; I <= IHI; I++) { // 195
-            LSCALE( I ) = ONE;
-            RSCALE( I ) = ONE;
+            LSCALE[I] = ONE;
+            RSCALE[I] = ONE;
          } // 195
          return;
       }
@@ -194,15 +194,15 @@
 
       NR = IHI - ILO + 1;
       for (I = ILO; I <= IHI; I++) { // 200
-         RSCALE( I ) = ZERO;
-         LSCALE( I ) = ZERO;
+         RSCALE[I] = ZERO;
+         LSCALE[I] = ZERO;
 
-         WORK( I ) = ZERO;
-         WORK( I+N ) = ZERO;
-         WORK( I+2*N ) = ZERO;
-         WORK( I+3*N ) = ZERO;
-         WORK( I+4*N ) = ZERO;
-         WORK( I+5*N ) = ZERO;
+         WORK[I] = ZERO;
+         WORK[I+N] = ZERO;
+         WORK[I+2*N] = ZERO;
+         WORK[I+3*N] = ZERO;
+         WORK[I+4*N] = ZERO;
+         WORK[I+5*N] = ZERO;
       } // 200
 
       // Compute right side vector in resulting linear equations
@@ -224,8 +224,8 @@
             TB = LOG10( CABS1( B( I, J ) ) ) / BASL;
 
             } // 220
-            WORK( I+4*N ) = WORK( I+4*N ) - TA - TB;
-            WORK( J+5*N ) = WORK( J+5*N ) - TA - TB;
+            WORK[I+4*N] = WORK( I+4*N ) - TA - TB;
+            WORK[J+5*N] = WORK( J+5*N ) - TA - TB;
          } // 230
       } // 240
 
@@ -262,8 +262,8 @@
       daxpy(NR, COEF, WORK( ILO+5*N ), 1, WORK( ILO ), 1 );
 
       for (I = ILO; I <= IHI; I++) { // 270
-         WORK( I ) = WORK( I ) + TC;
-         WORK( I+N ) = WORK( I+N ) + T;
+         WORK[I] = WORK( I ) + TC;
+         WORK[I+N] = WORK( I+N ) + T;
       } // 270
 
       // Apply matrix to vector
@@ -280,7 +280,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
          } // 290
-         WORK( I+2*N ) = DBLE( KOUNT )*WORK( I+N ) + SUM;
+         WORK[I+2*N] = DBLE( KOUNT )*WORK( I+N ) + SUM;
       } // 300
 
       for (J = ILO; J <= IHI; J++) { // 330
@@ -295,7 +295,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
          } // 320
-         WORK( J+3*N ) = DBLE( KOUNT )*WORK( J ) + SUM;
+         WORK[J+3*N] = DBLE( KOUNT )*WORK( J ) + SUM;
       } // 330
 
       SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 );
@@ -307,10 +307,10 @@
       for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N );
          if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
-         LSCALE( I ) = LSCALE( I ) + COR;
+         LSCALE[I] = LSCALE( I ) + COR;
          COR = ALPHA*WORK( I );
          if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
-         RSCALE( I ) = RSCALE( I ) + COR;
+         RSCALE[I] = RSCALE( I ) + COR;
       } // 340
       if (CMAX < HALF) GO TO 350;
 
@@ -336,7 +336,7 @@
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT(LSCALE( I ) + SIGN( HALF, LSCALE( I ) ));
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
-         LSCALE( I ) = SCLFAC**IR;
+         LSCALE[I] = SCLFAC**IR;
          ICAB = IZAMAX( IHI, A( 1, I ), 1 );
          CAB = ( A( ICAB, I ) ).abs();
          ICAB = IZAMAX( IHI, B( 1, I ), 1 );
@@ -344,7 +344,7 @@
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT(RSCALE( I ) + SIGN( HALF, RSCALE( I ) ));
          JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );
-         RSCALE( I ) = SCLFAC**JC;
+         RSCALE[I] = SCLFAC**JC;
       } // 360
 
       // Row scaling of matrices A and B

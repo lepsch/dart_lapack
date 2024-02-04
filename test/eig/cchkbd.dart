@@ -112,8 +112,8 @@
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'BD';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'BD';
       NFAIL = 0;
       NTEST = 0;
       UNFL = SLAMCH( 'Safe minimum' );
@@ -143,11 +143,11 @@
             if( !DOTYPE( JTYPE ) ) GO TO 170;
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             for (J = 1; J <= 14; J++) { // 30
-               RESULT( J ) = -ONE;
+               RESULT[J] = -ONE;
             } // 30
 
             UPLO = ' ';
@@ -207,7 +207,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -252,7 +252,7 @@
 
                TEMP1 = -TWO*LOG( ULP );
                for (J = 1; J <= MNMIN; J++) { // 90
-                  BD( J ) = EXP( TEMP1*SLARND( 2, ISEED ) );
+                  BD[J] = EXP( TEMP1*SLARND( 2, ISEED ) );
                   if (J < MNMIN) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) );
                } // 90
 
@@ -371,7 +371,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 4 ) = ULPINV;
+                  RESULT[4] = ULPINV;
                   GO TO 150;
                }
             }
@@ -392,7 +392,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 9 ) = ULPINV;
+                  RESULT[9] = ULPINV;
                   GO TO 150;
                }
             }
@@ -410,13 +410,13 @@
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
 
-            RESULT( 8 ) = ZERO;
+            RESULT[8] = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               if( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV;
-               IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if[S1( I ) < S1( I+1 ) ) RESULT( 8] = ULPINV;
+               IF[S1( I ) < ZERO ) RESULT( 8] = ULPINV;
             } // 110
             if ( MNMIN >= 1 ) {
-               if( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
+               if[S1( MNMIN ) < ZERO ) RESULT( 8] = ULPINV;
             }
 
             // Test 9:  Compare CBDSQR with and without singular vectors
@@ -428,7 +428,7 @@
                TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 
-            RESULT( 9 ) = TEMP2;
+            RESULT[9] = TEMP2;
 
             // Test 10:  Sturm sequence test of singular values
                       // Go up by factors of two until it succeeds
@@ -442,7 +442,7 @@
             } // 130
 
             } // 140
-            RESULT( 10 ) = TEMP1;
+            RESULT[10] = TEMP1;
 
             // Use CBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.

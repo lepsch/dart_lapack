@@ -51,8 +51,8 @@
             GO TO 30;
          }
          EI = E( I );
-         E( I ) = EI / D( I );
-         D( I+1 ) = D( I+1 ) - E( I )*EI;
+         E[I] = EI / D( I );
+         D[I+1] = D( I+1 ) - E( I )*EI;
       } // 10
 
       for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) { // 20
@@ -68,8 +68,8 @@
          // Solve for e(i) and d(i+1).
 
          EI = E( I );
-         E( I ) = EI / D( I );
-         D( I+1 ) = D( I+1 ) - E( I )*EI;
+         E[I] = EI / D( I );
+         D[I+1] = D( I+1 ) - E( I )*EI;
 
          if ( D( I+1 ) <= ZERO ) {
             INFO = I + 1;
@@ -79,8 +79,8 @@
          // Solve for e(i+1) and d(i+2).
 
          EI = E( I+1 );
-         E( I+1 ) = EI / D( I+1 );
-         D( I+2 ) = D( I+2 ) - E( I+1 )*EI;
+         E[I+1] = EI / D( I+1 );
+         D[I+2] = D( I+2 ) - E( I+1 )*EI;
 
          if ( D( I+2 ) <= ZERO ) {
             INFO = I + 2;
@@ -90,8 +90,8 @@
          // Solve for e(i+2) and d(i+3).
 
          EI = E( I+2 );
-         E( I+2 ) = EI / D( I+2 );
-         D( I+3 ) = D( I+3 ) - E( I+2 )*EI;
+         E[I+2] = EI / D( I+2 );
+         D[I+3] = D( I+3 ) - E( I+2 )*EI;
 
          if ( D( I+3 ) <= ZERO ) {
             INFO = I + 3;
@@ -101,8 +101,8 @@
          // Solve for e(i+3) and d(i+4).
 
          EI = E( I+3 );
-         E( I+3 ) = EI / D( I+3 );
-         D( I+4 ) = D( I+4 ) - E( I+3 )*EI;
+         E[I+3] = EI / D( I+3 );
+         D[I+4] = D( I+4 ) - E( I+3 )*EI;
       } // 20
 
       // Check d(n) for positive definiteness.

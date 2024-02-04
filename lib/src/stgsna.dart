@@ -103,7 +103,7 @@
          } else {
             LWMIN = N;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
 
          if ( MM < M ) {
             INFO = -15;
@@ -183,8 +183,8 @@
                UHAV = SLAPY2( UHAV, UHAVI );
                UHBV = SLAPY2( UHBV, UHBVI );
                COND = SLAPY2( UHAV, UHBV );
-               S( KS ) = COND / ( RNRM*LNRM );
-               S( KS+1 ) = S( KS );
+               S[KS] = COND / ( RNRM*LNRM );
+               S[KS+1] = S( KS );
 
             } else {
 
@@ -198,16 +198,16 @@
                UHBV = SDOT( N, WORK, 1, VL( 1, KS ), 1 );
                COND = SLAPY2( UHAV, UHBV );
                if ( COND == ZERO ) {
-                  S( KS ) = -ONE;
+                  S[KS] = -ONE;
                } else {
-                  S( KS ) = COND / ( RNRM*LNRM );
+                  S[KS] = COND / ( RNRM*LNRM );
                }
             }
          }
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF( KS ) = SLAPY2( A( 1, 1 ), B( 1, 1 ) );
+               DIF[KS] = SLAPY2( A( 1, 1 ), B( 1, 1 ) );
                GO TO 20;
             }
 
@@ -218,14 +218,14 @@
                // Copy the  2-by 2 pencil beginning at (A(k,k), B(k, k)).
                // Compute the eigenvalue(s) at position K.
 
-               WORK( 1 ) = A( K, K );
-               WORK( 2 ) = A( K+1, K );
-               WORK( 3 ) = A( K, K+1 );
-               WORK( 4 ) = A( K+1, K+1 );
-               WORK( 5 ) = B( K, K );
-               WORK( 6 ) = B( K+1, K );
-               WORK( 7 ) = B( K, K+1 );
-               WORK( 8 ) = B( K+1, K+1 );
+               WORK[1] = A( K, K );
+               WORK[2] = A( K+1, K );
+               WORK[3] = A( K, K+1 );
+               WORK[4] = A( K+1, K+1 );
+               WORK[5] = B( K, K );
+               WORK[6] = B( K+1, K );
+               WORK[7] = B( K, K+1 );
+               WORK[8] = B( K+1, K+1 );
                slag2(WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA, DUMMY1( 1 ), ALPHAR, DUMMY( 1 ), ALPHAI );
                ALPRQT = ONE;
                C1 = TWO*( ALPHAR*ALPHAR+ALPHAI*ALPHAI+BETA*BETA );
@@ -250,7 +250,7 @@
 
                // Ill-conditioned problem - swap rejected.
 
-               DIF( KS ) = ZERO;
+               DIF[KS] = ZERO;
             } else {
 
                // Reordering successful, solve generalized Sylvester
@@ -263,7 +263,7 @@
                if( WORK( 2 ) != ZERO ) N1 = 2;
                N2 = N - N1;
                if ( N2 == 0 ) {
-                  DIF( KS ) = COND;
+                  DIF[KS] = COND;
                } else {
                   I = N*N + 1;
                   IZ = 2*N*N + 1;
@@ -277,6 +277,6 @@
          if (PAIR) KS = KS + 1;
 
       } // 20
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
       return;
       }

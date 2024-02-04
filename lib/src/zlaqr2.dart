@@ -39,7 +39,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -68,7 +68,7 @@
       // ==== Quick return in case of workspace query. ====
 
       if ( LWORK == -1 ) {
-         WORK( 1 ) = DCMPLX( LWKOPT, 0 );
+         WORK[1] = DCMPLX( LWKOPT, 0 );
          return;
       }
 
@@ -76,7 +76,7 @@
       // ... for an empty active block ... ====
       NS = 0;
       ND = 0;
-      WORK( 1 ) = ONE;
+      WORK[1] = ONE;
       if (KTOP > KBOT) return;
       // ... nor for an empty deflation window. ====
       if (NW < 1) return;
@@ -102,7 +102,7 @@
 
          // ==== 1-by-1 deflation window: not much to do ====
 
-         SH( KWTOP ) = H( KWTOP, KWTOP );
+         SH[KWTOP] = H( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
          if ( CABS1( S ) <= max( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
@@ -110,7 +110,7 @@
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       }
 
@@ -174,7 +174,7 @@
       // ==== Restore shift/eigenvalue array from T ====
 
       for (I = INFQR + 1; I <= JW; I++) { // 40
-         SH( KWTOP+I-1 ) = T( I, I );
+         SH[KWTOP+I-1] = T( I, I );
       } // 40
 
 
@@ -185,11 +185,11 @@
 
             zcopy(NS, V, LDV, WORK, 1 );
             for (I = 1; I <= NS; I++) { // 50
-               WORK( I ) = DCONJG( WORK( I ) );
+               WORK[I] = DCONJG( WORK( I ) );
             } // 50
             BETA = WORK( 1 );
             zlarfg(NS, BETA, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
 
             zlaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
@@ -259,7 +259,7 @@
 
        // ==== Return optimal workspace. ====
 
-      WORK( 1 ) = DCMPLX( LWKOPT, 0 );
+      WORK[1] = DCMPLX( LWKOPT, 0 );
 
       // ==== End of ZLAQR2 ====
 

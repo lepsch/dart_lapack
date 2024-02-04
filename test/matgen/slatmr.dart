@@ -230,10 +230,10 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 30
-         ISEED( I ) = (( ISEED( I ) ).abs() % 4096);
+         ISEED[I] = (( ISEED( I ) ).abs() % 4096);
       } // 30
 
-      ISEED( 4 ) = 2*( ISEED( 4 ) / 2 ) + 1;
+      ISEED[4] = 2*( ISEED( 4 ) / 2 ) + 1;
 
       // 2)      Set up D, DL, and DR, if indicated.
 
@@ -262,7 +262,7 @@
             ALPHA = ONE;
          }
          for (I = 1; I <= MNMIN; I++) { // 50
-            D( I ) = ALPHA*D( I );
+            D[I] = ALPHA*D( I );
          } // 50
 
       }
@@ -291,21 +291,21 @@
 
       if ( IPVTNG > 0 ) {
          for (I = 1; I <= NPVTS; I++) { // 60
-            IWORK( I ) = I;
+            IWORK[I] = I;
          } // 60
          if ( FULBND ) {
             for (I = 1; I <= NPVTS; I++) { // 70
                K = IPIVOT( I );
                J = IWORK( I );
-               IWORK( I ) = IWORK( K );
-               IWORK( K ) = J;
+               IWORK[I] = IWORK( K );
+               IWORK[K] = J;
             } // 70
          } else {
             for (I = NPVTS; I >= 1; I--) { // 80
                K = IPIVOT( I );
                J = IWORK( I );
-               IWORK( I ) = IWORK( K );
-               IWORK( K ) = J;
+               IWORK[I] = IWORK( K );
+               IWORK[K] = J;
             } // 80
          }
       }
@@ -325,15 +325,15 @@
                for (J = 1; J <= N; J++) { // 100
                   for (I = 1; I <= J; I++) { // 90
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A( ISUB, JSUB ) = TEMP;
-                     A( JSUB, ISUB ) = TEMP;
+                     A[ISUB, JSUB] = TEMP;
+                     A[JSUB, ISUB] = TEMP;
                   } // 90
                } // 100
             } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A( ISUB, JSUB ) = TEMP;
+                     A[ISUB, JSUB] = TEMP;
                   } // 110
                } // 120
             }
@@ -345,7 +345,7 @@
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   MNSUB = min( ISUB, JSUB );
                   MXSUB = max( ISUB, JSUB );
-                  A( MNSUB, MXSUB ) = TEMP;
+                  A[MNSUB, MXSUB] = TEMP;
                   if (MNSUB != MXSUB) A( MXSUB, MNSUB ) = ZERO;
                } // 130
             } // 140
@@ -357,7 +357,7 @@
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   MNSUB = min( ISUB, JSUB );
                   MXSUB = max( ISUB, JSUB );
-                  A( MXSUB, MNSUB ) = TEMP;
+                  A[MXSUB, MNSUB] = TEMP;
                   if (MNSUB != MXSUB) A( MNSUB, MXSUB ) = ZERO;
                } // 150
             } // 160
@@ -380,7 +380,7 @@
                   JJSUB = ( K-1 ) / LDA + 1;
                   IISUB = K - LDA*( JJSUB-1 );
 
-                  A( IISUB, JJSUB ) = TEMP;
+                  A[IISUB, JJSUB] = TEMP;
                } // 170
             } // 180
 
@@ -405,7 +405,7 @@
                   JJSUB = ( K-1 ) / LDA + 1;
                   IISUB = K - LDA*( JJSUB-1 );
 
-                  A( IISUB, JJSUB ) = TEMP;
+                  A[IISUB, JJSUB] = TEMP;
                } // 190
             } // 200
 
@@ -414,12 +414,12 @@
             for (J = 1; J <= N; J++) { // 220
                for (I = J - KUU; I <= J; I++) { // 210
                   if ( I < 1 ) {
-                     A( J-I+1, I+N ) = ZERO;
+                     A[J-I+1, I+N] = ZERO;
                   } else {
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                      MNSUB = min( ISUB, JSUB );
                      MXSUB = max( ISUB, JSUB );
-                     A( MXSUB-MNSUB+1, MNSUB ) = TEMP;
+                     A[MXSUB-MNSUB+1, MNSUB] = TEMP;
                   }
                } // 210
             } // 220
@@ -431,7 +431,7 @@
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   MNSUB = min( ISUB, JSUB );
                   MXSUB = max( ISUB, JSUB );
-                  A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP;
+                  A[MNSUB-MXSUB+KUU+1, MXSUB] = TEMP;
                } // 230
             } // 240
 
@@ -443,7 +443,7 @@
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                      MNSUB = min( ISUB, JSUB );
                      MXSUB = max( ISUB, JSUB );
-                     A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP;
+                     A[MNSUB-MXSUB+KUU+1, MXSUB] = TEMP;
                      if (I < 1) A( J-I+1+KUU, I+N ) = ZERO;
                      IF( I >= 1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
@@ -452,7 +452,7 @@
                for (J = 1; J <= N; J++) { // 280
                   for (I = J - KUU; I <= J + KLL; I++) { // 270
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A( ISUB-JSUB+KUU+1, JSUB ) = TEMP;
+                     A[ISUB-JSUB+KUU+1, JSUB] = TEMP;
                   } // 270
                } // 280
             }
@@ -467,14 +467,14 @@
             if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 300
                   for (I = 1; I <= J; I++) { // 290
-                     A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A( J, I ) = A( I, J );
+                     A[I, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[J, I] = A( I, J );
                   } // 290
                } // 300
             } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 320
                   for (I = 1; I <= M; I++) { // 310
-                     A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[I, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 310
                } // 320
             }
@@ -483,7 +483,7 @@
 
             for (J = 1; J <= N; J++) { // 340
                for (I = 1; I <= J; I++) { // 330
-                  A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = ZERO;
+                  A[I, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = ZERO;
                } // 330
             } // 340
 
@@ -491,7 +491,7 @@
 
             for (J = 1; J <= N; J++) { // 360
                for (I = 1; I <= J; I++) { // 350
-                  A( J, I ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( I, J ) = ZERO;
+                  A[J, I] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( I, J ) = ZERO;
                } // 350
             } // 360
 
@@ -506,7 +506,7 @@
                      ISUB = 1;
                      JSUB = JSUB + 1;
                   }
-                  A( ISUB, JSUB ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                  A[ISUB, JSUB] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                } // 370
             } // 380
 
@@ -529,7 +529,7 @@
                      JSUB = ( K-1 ) / LDA + 1;
                      ISUB = K - LDA*( JSUB-1 );
 
-                     A( ISUB, JSUB ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[ISUB, JSUB] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 390
                } // 400
             } else {
@@ -542,7 +542,7 @@
                         ISUB = 1;
                         JSUB = JSUB + 1;
                      }
-                     A( ISUB, JSUB ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[ISUB, JSUB] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 410
                } // 420
             }
@@ -552,9 +552,9 @@
             for (J = 1; J <= N; J++) { // 440
                for (I = J - KUU; I <= J; I++) { // 430
                   if ( I < 1 ) {
-                     A( J-I+1, I+N ) = ZERO;
+                     A[J-I+1, I+N] = ZERO;
                   } else {
-                     A( J-I+1, I ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[J-I+1, I] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   }
                } // 430
             } // 440
@@ -563,7 +563,7 @@
 
             for (J = 1; J <= N; J++) { // 460
                for (I = J - KUU; I <= J; I++) { // 450
-                  A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                  A[I-J+KUU+1, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                } // 450
             } // 460
 
@@ -572,7 +572,7 @@
             if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
-                     A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[I-J+KUU+1, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                      if (I < 1) A( J-I+1+KUU, I+N ) = ZERO;
                      IF( I >= 1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
@@ -580,7 +580,7 @@
             } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 500
                   for (I = J - KUU; I <= J + KLL; I++) { // 490
-                     A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[I-J+KUU+1, J] = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 490
                } // 500
             }

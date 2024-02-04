@@ -31,7 +31,7 @@
       Complex         CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -43,11 +43,11 @@
       SAFE1 = (NZ+1)*SAFE1;
 
       for (J = 1; J <= NRHS; J++) {
-         BERR(J) = 0.0;
+         BERR[J] = 0.0;
          for (I = 1; I <= N; I++) {
             if (AYB(I,J) != 0.0) {
                TMP = (SAFE1 + CABS1(RES(I,J)))/AYB(I,J);
-               BERR(J) = max( BERR(J), TMP );
+               BERR[J] = max( BERR(J), TMP );
             }
 
       // If AYB is exactly 0.0 (and if computed by CLA_yyAMV), then we know

@@ -53,7 +53,7 @@
 
          NB = ILAENV( 1, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, N*NB );
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -153,9 +153,9 @@
 
          for (J = K; J <= K + KB - 1; J++) { // 30
             if ( IPIV( J ) > 0 ) {
-               IPIV( J ) = IPIV( J ) + K - 1;
+               IPIV[J] = IPIV( J ) + K - 1;
             } else {
-               IPIV( J ) = IPIV( J ) - K + 1;
+               IPIV[J] = IPIV( J ) - K + 1;
             }
          } // 30
 
@@ -167,6 +167,6 @@
       }
 
       } // 40
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       return;
       }

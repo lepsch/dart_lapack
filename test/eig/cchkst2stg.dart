@@ -59,7 +59,7 @@
       // .. Executable Statements ..
 
       // Keep ftnchek happy
-      IDUMMA( 1 ) = 1;
+      IDUMMA[1] = 1;
 
       // Check for errors
 
@@ -117,7 +117,7 @@
       // Loop over sizes, types
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED2( I ) = ISEED( I );
+         ISEED2[I] = ISEED( I );
       } // 20
       NERRS = 0;
       NMATS = 0;
@@ -151,7 +151,7 @@
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 30
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 30
 
             // Compute "A"
@@ -213,7 +213,7 @@
                // Identity
 
                for (JC = 1; JC <= N; JC++) { // 80
-                  A( JC, JC ) = ANORM;
+                  A[JC, JC] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -256,8 +256,8 @@
                   TEMP1 = ( A( I-1, I ) ).abs();
                   TEMP2 = sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                   if ( TEMP1 > HALF*TEMP2 ) {
-                     A( I-1, I ) = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) );
-                     A( I, I-1 ) = CONJG( A( I-1, I ) );
+                     A[I-1, I] = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) );
+                     A[I, I-1] = CONJG( A( I-1, I ) );
                   }
                } // 90
 
@@ -288,7 +288,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   GO TO 280;
                }
             }
@@ -303,7 +303,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 2 ) = ULPINV;
+                  RESULT[2] = ULPINV;
                   GO TO 280;
                }
             }
@@ -330,7 +330,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 3 ) = ULPINV;
+                  RESULT[3] = ULPINV;
                   GO TO 280;
                }
             }
@@ -360,7 +360,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 3 ) = ULPINV;
+                  RESULT[3] = ULPINV;
                   GO TO 280;
                }
             }
@@ -388,7 +388,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 4 ) = ULPINV;
+                  RESULT[4] = ULPINV;
                   GO TO 280;
                }
             }
@@ -409,8 +409,8 @@
                TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
             } // 151
 
-            RESULT( 3 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
-            RESULT( 4 ) = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
+            RESULT[3] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT[4] = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
             // Store the upper triangle of A in AP
 
@@ -418,7 +418,7 @@
             for (JC = 1; JC <= N; JC++) { // 120
                for (JR = 1; JR <= JC; JR++) { // 110
                   I = I + 1;
-                  AP( I ) = A( JR, JC );
+                  AP[I] = A( JR, JC );
                } // 110
             } // 120
 
@@ -435,7 +435,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 5 ) = ULPINV;
+                  RESULT[5] = ULPINV;
                   GO TO 280;
                }
             }
@@ -448,7 +448,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 6 ) = ULPINV;
+                  RESULT[6] = ULPINV;
                   GO TO 280;
                }
             }
@@ -464,7 +464,7 @@
             for (JC = 1; JC <= N; JC++) { // 140
                for (JR = JC; JR <= N; JR++) { // 130
                   I = I + 1;
-                  AP( I ) = A( JR, JC );
+                  AP[I] = A( JR, JC );
                } // 130
             } // 140
 
@@ -481,7 +481,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 7 ) = ULPINV;
+                  RESULT[7] = ULPINV;
                   GO TO 280;
                }
             }
@@ -494,7 +494,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 8 ) = ULPINV;
+                  RESULT[8] = ULPINV;
                   GO TO 280;
                }
             }
@@ -518,7 +518,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 9 ) = ULPINV;
+                  RESULT[9] = ULPINV;
                   GO TO 280;
                }
             }
@@ -536,7 +536,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 11 ) = ULPINV;
+                  RESULT[11] = ULPINV;
                   GO TO 280;
                }
             }
@@ -554,7 +554,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 12 ) = ULPINV;
+                  RESULT[12] = ULPINV;
                   GO TO 280;
                }
             }
@@ -577,8 +577,8 @@
                TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
             } // 150
 
-            RESULT( 11 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
-            RESULT( 12 ) = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
+            RESULT[11] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT[12] = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
             // Do Test 13 -- Sturm Sequence Test of Eigenvalues
                           // Go up by factors of two until it succeeds
@@ -593,7 +593,7 @@
             } // 160
 
             } // 170
-            RESULT( 13 ) = TEMP1;
+            RESULT[13] = TEMP1;
 
             // For positive definite matrices ( JTYPE > 15 ) call CPTEQR
             // and do tests 14, 15, and 16 .
@@ -614,7 +614,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 14 ) = ULPINV;
+                     RESULT[14] = ULPINV;
                      GO TO 280;
                   }
                }
@@ -636,7 +636,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 16 ) = ULPINV;
+                     RESULT[16] = ULPINV;
                      GO TO 280;
                   }
                }
@@ -650,11 +650,11 @@
                   TEMP2 = max( TEMP2, ABS( D4( J )-D5( J ) ) );
                } // 180
 
-               RESULT( 16 ) = TEMP2 / max( UNFL, HUN*ULP*max( TEMP1, TEMP2 ) );
+               RESULT[16] = TEMP2 / max( UNFL, HUN*ULP*max( TEMP1, TEMP2 ) );
             } else {
-               RESULT( 14 ) = ZERO;
-               RESULT( 15 ) = ZERO;
-               RESULT( 16 ) = ZERO;
+               RESULT[14] = ZERO;
+               RESULT[15] = ZERO;
+               RESULT[16] = ZERO;
             }
 
             // Call SSTEBZ with different options and do tests 17-18.
@@ -676,7 +676,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 17 ) = ULPINV;
+                     RESULT[17] = ULPINV;
                      GO TO 280;
                   }
                }
@@ -690,9 +690,9 @@
                   TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+( D4( J ) ) ) ).abs();
                } // 190
 
-               RESULT( 17 ) = TEMP1 / TEMP2;
+               RESULT[17] = TEMP1 / TEMP2;
             } else {
-               RESULT( 17 ) = ZERO;
+               RESULT[17] = ZERO;
             }
 
             // Now ask for all eigenvalues with high absolute accuracy.
@@ -706,7 +706,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 18 ) = ULPINV;
+                  RESULT[18] = ULPINV;
                   GO TO 280;
                }
             }
@@ -720,7 +720,7 @@
                TEMP2 = max( TEMP2, ABS( D3( J )-WA1( J ) ) );
             } // 200
 
-            RESULT( 18 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT[18] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Choose random values for IL and IU, and ask for the
             // IL-th through IU-th eigenvalues.
@@ -746,7 +746,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 19 ) = ULPINV;
+                  RESULT[19] = ULPINV;
                   GO TO 280;
                }
             }
@@ -777,13 +777,13 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 19 ) = ULPINV;
+                  RESULT[19] = ULPINV;
                   GO TO 280;
                }
             }
 
             if ( M3 == 0 && N != 0 ) {
-               RESULT( 19 ) = ULPINV;
+               RESULT[19] = ULPINV;
                GO TO 280;
             }
 
@@ -797,7 +797,7 @@
                TEMP3 = ZERO;
             }
 
-            RESULT( 19 ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+            RESULT[19] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
             // Call CSTEIN to compute eigenvectors corresponding to
             // eigenvalues in WA1.  (First call SSTEBZ again, to make sure
@@ -811,8 +811,8 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 20 ) = ULPINV;
-                  RESULT( 21 ) = ULPINV;
+                  RESULT[20] = ULPINV;
+                  RESULT[21] = ULPINV;
                   GO TO 280;
                }
             }
@@ -824,8 +824,8 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 20 ) = ULPINV;
-                  RESULT( 21 ) = ULPINV;
+                  RESULT[20] = ULPINV;
+                  RESULT[21] = ULPINV;
                   GO TO 280;
                }
             }
@@ -852,7 +852,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 22 ) = ULPINV;
+                  RESULT[22] = ULPINV;
                   GO TO 280;
                }
             }
@@ -877,7 +877,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 24 ) = ULPINV;
+                  RESULT[24] = ULPINV;
                   GO TO 280;
                }
             }
@@ -902,7 +902,7 @@
                if ( IINFO < 0 ) {
                   return;
                } else {
-                  RESULT( 26 ) = ULPINV;
+                  RESULT[26] = ULPINV;
                   GO TO 280;
                }
             }
@@ -917,7 +917,7 @@
                TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
             } // 210
 
-            RESULT( 26 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT[26] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Only test CSTEMR if IEEE compliant
 
@@ -942,7 +942,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( 27 ) = ULPINV;
+                        RESULT[27] = ULPINV;
                         GO TO 270;
                      }
                   }
@@ -956,7 +956,7 @@
                      TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+( D4( J ) ) ) ).abs();
                   } // 220
 
-                  RESULT( 27 ) = TEMP1 / TEMP2;
+                  RESULT[27] = TEMP1 / TEMP2;
 
                   IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) );
                   IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) );
@@ -977,7 +977,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( 28 ) = ULPINV;
+                           RESULT[28] = ULPINV;
                            GO TO 270;
                         }
                      }
@@ -991,13 +991,13 @@
                         TEMP1 = max( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+( WR( J-IL+1 ) ) ) ).abs();
                      } // 230
 
-                     RESULT( 28 ) = TEMP1 / TEMP2;
+                     RESULT[28] = TEMP1 / TEMP2;
                   } else {
-                     RESULT( 28 ) = ZERO;
+                     RESULT[28] = ZERO;
                   }
                } else {
-                  RESULT( 27 ) = ZERO;
-                  RESULT( 28 ) = ZERO;
+                  RESULT[27] = ZERO;
+                  RESULT[28] = ZERO;
                }
 
             // Call CSTEMR(V,I) to compute D1 and Z, do tests.
@@ -1024,7 +1024,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( 29 ) = ULPINV;
+                        RESULT[29] = ULPINV;
                         GO TO 280;
                      }
                   }
@@ -1046,7 +1046,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( 31 ) = ULPINV;
+                        RESULT[31] = ULPINV;
                         GO TO 280;
                      }
                   }
@@ -1061,7 +1061,7 @@
                      TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 240
 
-                  RESULT( 31 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+                  RESULT[31] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Call CSTEMR(V,V) to compute D1 and Z, do tests.
 
@@ -1096,7 +1096,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( 32 ) = ULPINV;
+                        RESULT[32] = ULPINV;
                         GO TO 280;
                      }
                   }
@@ -1120,7 +1120,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( 34 ) = ULPINV;
+                        RESULT[34] = ULPINV;
                         GO TO 280;
                      }
                   }
@@ -1135,14 +1135,14 @@
                      TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 250
 
-                  RESULT( 34 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+                  RESULT[34] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
                } else {
-                  RESULT( 29 ) = ZERO;
-                  RESULT( 30 ) = ZERO;
-                  RESULT( 31 ) = ZERO;
-                  RESULT( 32 ) = ZERO;
-                  RESULT( 33 ) = ZERO;
-                  RESULT( 34 ) = ZERO;
+                  RESULT[29] = ZERO;
+                  RESULT[30] = ZERO;
+                  RESULT[31] = ZERO;
+                  RESULT[32] = ZERO;
+                  RESULT[33] = ZERO;
+                  RESULT[34] = ZERO;
                }
 
             // Call CSTEMR(V,A) to compute D1 and Z, do tests.
@@ -1161,7 +1161,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 35 ) = ULPINV;
+                     RESULT[35] = ULPINV;
                      GO TO 280;
                   }
                }
@@ -1185,7 +1185,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 37 ) = ULPINV;
+                     RESULT[37] = ULPINV;
                      GO TO 280;
                   }
                }
@@ -1200,7 +1200,7 @@
                   TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                } // 260
 
-               RESULT( 37 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[37] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
             }
             } // 270
             } // 280

@@ -23,8 +23,8 @@
         // code for both increments equal to 1
          for (I = 1; I <= N; I++) {
             ZTEMP = ZX(I);
-            ZX(I) = ZY(I);
-            ZY(I) = ZTEMP;
+            ZX[I] = ZY(I);
+            ZY[I] = ZTEMP;
          }
       } else {
 
@@ -37,8 +37,8 @@
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             ZTEMP = ZX(IX);
-            ZX(IX) = ZY(IY);
-            ZY(IY) = ZTEMP;
+            ZX[IX] = ZY(IY);
+            ZY[IY] = ZTEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

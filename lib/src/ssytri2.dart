@@ -61,7 +61,7 @@
          xerbla('SSYTRI2', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( MINSIZE );
+         WORK[1] = SROUNDUP_LWORK( MINSIZE );
          return;
       }
 

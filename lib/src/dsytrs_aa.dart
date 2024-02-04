@@ -62,7 +62,7 @@
          xerbla('DSYTRS_AA', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = LWKMIN;
+         WORK[1] = LWKMIN;
          return;
       }
 

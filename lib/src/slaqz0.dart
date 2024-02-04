@@ -96,16 +96,16 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK( 1 ) = REAL( 1 );
+         WORK[1] = REAL( 1 );
          return;
       }
 
 
       // Get the parameters
 
-      JBCMPZ( 1:1 ) = WANTS;
-      JBCMPZ( 2:2 ) = WANTQ;
-      JBCMPZ( 3:3 ) = WANTZ;
+      JBCMPZ[1:1] = WANTS;
+      JBCMPZ[2:2] = WANTQ;
+      JBCMPZ[3:3] = WANTZ;
 
       NMIN = ILAENV( 12, 'SLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
 
@@ -143,7 +143,7 @@
 
       LWORKREQ = max( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 );
       if ( LWORK == -1 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKREQ );
+         WORK[1] = SROUNDUP_LWORK( LWORKREQ );
          return;
       } else if ( LWORK < LWORKREQ ) {
          INFO = -19;
@@ -184,24 +184,24 @@
 
          // Check deflations at the end
          if ( ( A( ISTOP-1, ISTOP-2 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP-1, ISTOP-1 ) ).abs()+( A( ISTOP-2, ISTOP-2 ) ) ) ) ).abs() {
-            A( ISTOP-1, ISTOP-2 ) = ZERO;
+            A[ISTOP-1, ISTOP-2] = ZERO;
             ISTOP = ISTOP-2;
             LD = 0;
             ESHIFT = ZERO;
          } else if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ) ) ) ).abs() {
-            A( ISTOP, ISTOP-1 ) = ZERO;
+            A[ISTOP, ISTOP-1] = ZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = ZERO;
          }
          // Check deflations at the start
          if ( ( A( ISTART+2, ISTART+1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART+1, ISTART+1 ) ).abs()+( A( ISTART+2, ISTART+2 ) ) ) ) ).abs() {
-            A( ISTART+2, ISTART+1 ) = ZERO;
+            A[ISTART+2, ISTART+1] = ZERO;
             ISTART = ISTART+2;
             LD = 0;
             ESHIFT = ZERO;
          } else if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ) ) ) ).abs() {
-            A( ISTART+1, ISTART ) = ZERO;
+            A[ISTART+1, ISTART] = ZERO;
             ISTART = ISTART+1;
             LD = 0;
             ESHIFT = ZERO;
@@ -215,7 +215,7 @@
          ISTART2 = ISTART;
          for (K = ISTOP; K >= ISTART+1; K--) {
             if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
-               A( K, K-1 ) = ZERO;
+               A[K, K-1] = ZERO;
                ISTART2 = K;
                EXIT;
             }
@@ -241,8 +241,8 @@
 
                for (K2 = K; K2 >= ISTART2+1; K2--) {
                   slartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
-                  B( K2-1, K2 ) = TEMP;
-                  B( K2-1, K2-1 ) = ZERO;
+                  B[K2-1, K2] = TEMP;
+                  B[K2-1, K2-1] = ZERO;
                    srot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 );
                   srot(min( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
@@ -251,8 +251,8 @@
 
                   if ( K2 < ISTOP ) {
                      slartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
-                     A( K2, K2-1 ) = TEMP;
-                     A( K2+1, K2-1 ) = ZERO;
+                     A[K2, K2-1] = TEMP;
+                     A[K2+1, K2-1] = ZERO;
                       srot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 );
                      srot(ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
                      if ( ILQ ) {
@@ -264,8 +264,8 @@
 
                if ( ISTART2 < ISTOP ) {
                   slartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
-                  A( ISTART2, ISTART2 ) = TEMP;
-                  A( ISTART2+1, ISTART2 ) = ZERO;
+                  A[ISTART2, ISTART2] = TEMP;
+                  A[ISTART2+1, ISTART2] = ZERO;
                    srot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 );
                   srot(ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
                   if ( ILQ ) {
@@ -333,19 +333,19 @@
             if ( ALPHAI( I ) != -ALPHAI( I+1 ) ) {
 
                SWAP = ALPHAR( I );
-               ALPHAR( I ) = ALPHAR( I+1 );
-               ALPHAR( I+1 ) = ALPHAR( I+2 );
-               ALPHAR( I+2 ) = SWAP;
+               ALPHAR[I] = ALPHAR( I+1 );
+               ALPHAR[I+1] = ALPHAR( I+2 );
+               ALPHAR[I+2] = SWAP;
 
                SWAP = ALPHAI( I );
-               ALPHAI( I ) = ALPHAI( I+1 );
-               ALPHAI( I+1 ) = ALPHAI( I+2 );
-               ALPHAI( I+2 ) = SWAP;
+               ALPHAI[I] = ALPHAI( I+1 );
+               ALPHAI[I+1] = ALPHAI( I+2 );
+               ALPHAI[I+2] = SWAP;
 
                SWAP = BETA( I );
-               BETA( I ) = BETA( I+1 );
-               BETA( I+1 ) = BETA( I+2 );
-               BETA( I+2 ) = SWAP;
+               BETA[I] = BETA( I+1 );
+               BETA[I+1] = BETA( I+2 );
+               BETA[I+2] = SWAP;
             }
          }
 
@@ -358,12 +358,12 @@
             } else {
                ESHIFT = ESHIFT+ONE/( SAFMIN*REAL( MAXIT ) );
             }
-            ALPHAR( SHIFTPOS ) = ONE;
-            ALPHAR( SHIFTPOS+1 ) = ZERO;
-            ALPHAI( SHIFTPOS ) = ZERO;
-            ALPHAI( SHIFTPOS+1 ) = ZERO;
-            BETA( SHIFTPOS ) = ESHIFT;
-            BETA( SHIFTPOS+1 ) = ESHIFT;
+            ALPHAR[SHIFTPOS] = ONE;
+            ALPHAR[SHIFTPOS+1] = ZERO;
+            ALPHAI[SHIFTPOS] = ZERO;
+            ALPHAI[SHIFTPOS+1] = ZERO;
+            BETA[SHIFTPOS] = ESHIFT;
+            BETA[SHIFTPOS+1] = ESHIFT;
             NS = 2;
          }
 

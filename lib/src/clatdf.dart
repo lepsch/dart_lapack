@@ -66,9 +66,9 @@
             SMINU = REAL( CDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) );
             SPLUS = SPLUS*REAL( RHS( J ) );
             if ( SPLUS > SMINU ) {
-               RHS( J ) = BP;
+               RHS[J] = BP;
             } else if ( SMINU > SPLUS ) {
-               RHS( J ) = BM;
+               RHS[J] = BM;
             } else {
 
                // In this case the updating sums are equal and we can
@@ -77,7 +77,7 @@
                // good estimates of matrices like Byers well-known example
                // (see [1]). (Not done in BSOLVE.)
 
-               RHS( J ) = RHS( J ) + PMONE;
+               RHS[J] = RHS( J ) + PMONE;
                PMONE = CONE;
             }
 
@@ -93,17 +93,17 @@
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
          ccopy(N-1, RHS, 1, WORK, 1 );
-         WORK( N ) = RHS( N ) + CONE;
-         RHS( N ) = RHS( N ) - CONE;
+         WORK[N] = RHS( N ) + CONE;
+         RHS[N] = RHS( N ) - CONE;
          SPLUS = ZERO;
          SMINU = ZERO;
          for (I = N; I >= 1; I--) { // 30
             TEMP = CONE / Z( I, I );
-            WORK( I ) = WORK( I )*TEMP;
-            RHS( I ) = RHS( I )*TEMP;
+            WORK[I] = WORK( I )*TEMP;
+            RHS[I] = RHS( I )*TEMP;
             for (K = I + 1; K <= N; K++) { // 20
-               WORK( I ) = WORK( I ) - WORK( K )*( Z( I, K )*TEMP );
-               RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
+               WORK[I] = WORK( I ) - WORK( K )*( Z( I, K )*TEMP );
+               RHS[I] = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
             } // 20
             SPLUS = SPLUS + ( WORK( I ) ).abs();
             SMINU = SMINU + ( RHS( I ) ).abs();

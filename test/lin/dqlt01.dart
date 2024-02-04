@@ -87,9 +87,9 @@
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
       RESID = DLANGE( '1', M, N, L, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
+         RESULT[1] = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -101,7 +101,7 @@
 
       RESID = DLANSY( '1', 'Upper', M, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
+      RESULT[2] = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
 
       return;
       }

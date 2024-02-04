@@ -43,7 +43,7 @@
       LWORKREQ = max( LWORKREQ, N*NW, 2*NW**2+N );
       if ( LWORK == -1 ) {
          // workspace query, quick return;
-         WORK( 1 ) = LWORKREQ;
+         WORK[1] = LWORKREQ;
          return;
       } else if ( LWORK < LWORKREQ ) {
          INFO = -26;
@@ -62,15 +62,15 @@
 
       if ( IHI == KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation
-         ALPHA( KWTOP ) = A( KWTOP, KWTOP );
-         BETA( KWTOP ) = B( KWTOP, KWTOP );
+         ALPHA[KWTOP] = A( KWTOP, KWTOP );
+         BETA[KWTOP] = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
          if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ) ).abs() {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
-               A( KWTOP, KWTOP-1 ) = CZERO;
+               A[KWTOP, KWTOP-1] = CZERO;
             }
          }
       }
@@ -127,18 +127,18 @@
       NS = JW-ND;
       K = KWTOP;
       DO WHILE ( K <= IHI );
-         ALPHA( K ) = A( K, K );
-         BETA( K ) = B( K, K );
+         ALPHA[K] = A( K, K );
+         BETA[K] = B( K, K );
          K = K+1;
       }
 
       if ( KWTOP != ILO && S != CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
-         A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *CONJG( QC( 1, 1:JW-ND ) );
+         A[KWTOP:KWBOT, KWTOP-1] = A( KWTOP, KWTOP-1 ) *CONJG( QC( 1, 1:JW-ND ) );
          for (K = KWBOT-1; K >= KWTOP; K--) {
             clartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
-            A( K, KWTOP-1 ) = TEMP;
-            A( K+1, KWTOP-1 ) = CZERO;
+            A[K, KWTOP-1] = TEMP;
+            A[K+1, KWTOP-1] = CZERO;
             K2 = max( KWTOP, K-1 );
             crot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             crot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );

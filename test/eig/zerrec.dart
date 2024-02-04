@@ -48,13 +48,13 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = ZERO;
-            B( I, J ) = ZERO;
+            A[I, J] = ZERO;
+            B[I, J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= NMAX; I++) { // 30
-         A( I, I ) = ONE;
-         SEL( I ) = true;
+         A[I, I] = ONE;
+         SEL[I] = true;
       } // 30
 
       // Test ZTRSYL
@@ -187,7 +187,7 @@
 
       // Test ZTRSEN
 
-      SEL( 1 ) = false;
+      SEL[1] = false;
       SRNAMT = 'ZTRSEN';
       INFOT = 1;
       ztrsen('X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );

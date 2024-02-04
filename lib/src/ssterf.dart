@@ -71,10 +71,10 @@
 
       } // 10
       if (L1 > N) GO TO 170;
-      IF( L1 > 1 ) E( L1-1 ) = ZERO;
+      IF[L1 > 1 ) E( L1-1] = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
          if ( ( E( M ) ).abs() <= ( sqrt( ( D( M ) ) ).abs()* sqrt( ( D( M+1 ) ) ) ).abs()*EPS ) {
-            E( M ) = ZERO;
+            E[M] = ZERO;
             GO TO 30;
          }
       } // 20
@@ -104,7 +104,7 @@
       }
 
       for (I = L; I <= LEND - 1; I++) { // 40
-         E( I ) = E( I )**2;
+         E[I] = E( I )**2;
       } // 40
 
       // Choose between QL and QR iteration
@@ -139,9 +139,9 @@
          if ( M == L+1 ) {
             RTE = sqrt( E( L ) );
             slae2(D( L ), RTE, D( L+1 ), RT1, RT2 );
-            D( L ) = RT1;
-            D( L+1 ) = RT2;
-            E( L ) = ZERO;
+            D[L] = RT1;
+            D[L+1] = RT2;
+            E[L] = ZERO;
             L = L + 2;
             if (L <= LEND) GO TO 50;
             GO TO 150;
@@ -174,7 +174,7 @@
             OLDGAM = GAMMA;
             ALPHA = D( I );
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM;
-            D( I+1 ) = OLDGAM + ( ALPHA-GAMMA );
+            D[I+1] = OLDGAM + ( ALPHA-GAMMA );
             if ( C != ZERO ) {
                P = ( GAMMA*GAMMA ) / C;
             } else {
@@ -182,14 +182,14 @@
             }
          } // 80
 
-         E( L ) = S*P;
-         D( L ) = SIGMA + GAMMA;
+         E[L] = S*P;
+         D[L] = SIGMA + GAMMA;
          GO TO 50;
 
          // Eigenvalue found.
 
          } // 90
-         D( L ) = P;
+         D[L] = P;
 
          L = L + 1;
          if (L <= LEND) GO TO 50;
@@ -218,9 +218,9 @@
          if ( M == L-1 ) {
             RTE = sqrt( E( L-1 ) );
             slae2(D( L ), RTE, D( L-1 ), RT1, RT2 );
-            D( L ) = RT1;
-            D( L-1 ) = RT2;
-            E( L-1 ) = ZERO;
+            D[L] = RT1;
+            D[L-1] = RT2;
+            E[L-1] = ZERO;
             L = L - 2;
             if (L >= LEND) GO TO 100;
             GO TO 150;
@@ -253,7 +253,7 @@
             OLDGAM = GAMMA;
             ALPHA = D( I+1 );
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM;
-            D( I ) = OLDGAM + ( ALPHA-GAMMA );
+            D[I] = OLDGAM + ( ALPHA-GAMMA );
             if ( C != ZERO ) {
                P = ( GAMMA*GAMMA ) / C;
             } else {
@@ -261,14 +261,14 @@
             }
          } // 130
 
-         E( L-1 ) = S*P;
-         D( L ) = SIGMA + GAMMA;
+         E[L-1] = S*P;
+         D[L] = SIGMA + GAMMA;
          GO TO 100;
 
          // Eigenvalue found.
 
          } // 140
-         D( L ) = P;
+         D[L] = P;
 
          L = L - 1;
          if (L >= LEND) GO TO 100;

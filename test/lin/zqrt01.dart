@@ -78,9 +78,9 @@
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
+         RESULT[1] = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -92,7 +92,7 @@
 
       RESID = ZLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
+      RESULT[2] = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
 
       return;
       }

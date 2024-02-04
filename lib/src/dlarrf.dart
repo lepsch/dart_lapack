@@ -110,20 +110,20 @@
 
       // Left end
       S = -LSIGMA;
-      DPLUS( 1 ) = D( 1 ) + S;
+      DPLUS[1] = D( 1 ) + S;
       if ((DPLUS(1)).abs() < PIVMIN) {
-         DPLUS(1) = -PIVMIN;
+         DPLUS[1] = -PIVMIN;
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
          SAWNAN1 = true;
       }
       MAX1 = ( DPLUS( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 6
-         LPLUS( I ) = LD( I ) / DPLUS( I );
+         LPLUS[I] = LD( I ) / DPLUS( I );
          S = S*LPLUS( I )*L( I ) - LSIGMA;
-         DPLUS( I+1 ) = D( I+1 ) + S;
+         DPLUS[I+1] = D( I+1 ) + S;
          if ((DPLUS(I+1)).abs() < PIVMIN) {
-            DPLUS(I+1) = -PIVMIN;
+            DPLUS[I+1] = -PIVMIN;
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
             SAWNAN1 = true;
@@ -139,20 +139,20 @@
 
       // Right end
       S = -RSIGMA;
-      WORK( 1 ) = D( 1 ) + S;
+      WORK[1] = D( 1 ) + S;
       if ((WORK(1)).abs() < PIVMIN) {
-         WORK(1) = -PIVMIN;
+         WORK[1] = -PIVMIN;
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
          SAWNAN2 = true;
       }
       MAX2 = ( WORK( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 7
-         WORK( N+I ) = LD( I ) / WORK( I );
+         WORK[N+I] = LD( I ) / WORK( I );
          S = S*WORK( N+I )*L( I ) - RSIGMA;
-         WORK( I+1 ) = D( I+1 ) + S;
+         WORK[I+1] = D( I+1 ) + S;
          if ((WORK(I+1)).abs() < PIVMIN) {
-            WORK(I+1) = -PIVMIN;
+            WORK[I+1] = -PIVMIN;
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
             SAWNAN2 = true;

@@ -46,7 +46,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -121,9 +121,9 @@
             LWKOPT = max( LWKOPT, N+INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
-            WORK( 1 ) = 1;
+            WORK[1] = 1;
          } else {
-            WORK( 1 ) = DCMPLX( LWKOPT );
+            WORK[1] = DCMPLX( LWKOPT );
          }
       }
 
@@ -272,7 +272,7 @@
                if (TEMP < SMLNUM) GO TO 30;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 20
-                  VL( JR, JC ) = VL( JR, JC )*TEMP;
+                  VL[JR, JC] = VL( JR, JC )*TEMP;
                } // 20
             } // 30
          }
@@ -286,7 +286,7 @@
                if (TEMP < SMLNUM) GO TO 60;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 50
-                  VR( JR, JC ) = VR( JR, JC )*TEMP;
+                  VR[JR, JC] = VR( JR, JC )*TEMP;
                } // 50
             } // 60
          }
@@ -300,6 +300,6 @@
 
       if (ILBSCL) zlascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
-      WORK( 1 ) = DCMPLX( LWKOPT );
+      WORK[1] = DCMPLX( LWKOPT );
       return;
       }

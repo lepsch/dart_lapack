@@ -108,8 +108,8 @@
          xerbla('ZGESVJ', -INFO );
          return;
       } else if ( LQUERY ) {
-         CWORK( 1 ) = LWMIN;
-         RWORK( 1 ) = LRWMIN;
+         CWORK[1] = LWMIN;
+         RWORK[1] = LRWMIN;
          return;
       }
 
@@ -194,14 +194,14 @@
             }
             AAQQ = sqrt( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ;
+               SVA[p] = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL );
+               SVA[p] = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 1873
-                     SVA( q ) = SVA( q )*SKL;
+                     SVA[q] = SVA( q )*SKL;
                   } // 1873
                }
             }
@@ -219,14 +219,14 @@
             }
             AAQQ = sqrt( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ;
+               SVA[p] = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL );
+               SVA[p] = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 2873
-                     SVA( q ) = SVA( q )*SKL;
+                     SVA[q] = SVA( q )*SKL;
                   } // 2873
                }
             }
@@ -244,14 +244,14 @@
             }
             AAQQ = sqrt( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ;
+               SVA[p] = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL );
+               SVA[p] = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 3873
-                     SVA( q ) = SVA( q )*SKL;
+                     SVA[q] = SVA( q )*SKL;
                   } // 3873
                }
             }
@@ -275,12 +275,12 @@
 
       if ( AAPP == ZERO ) {
          if (LSVEC) zlaset( 'G', M, N, CZERO, CONE, A, LDA );
-         RWORK( 1 ) = ONE;
-         RWORK( 2 ) = ZERO;
-         RWORK( 3 ) = ZERO;
-         RWORK( 4 ) = ZERO;
-         RWORK( 5 ) = ZERO;
-         RWORK( 6 ) = ZERO;
+         RWORK[1] = ONE;
+         RWORK[2] = ZERO;
+         RWORK[3] = ZERO;
+         RWORK[4] = ZERO;
+         RWORK[5] = ZERO;
+         RWORK[6] = ZERO;
          return;
       }
 
@@ -288,16 +288,16 @@
 
       if ( N == 1 ) {
          if (LSVEC) zlascl( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
-         RWORK( 1 ) = ONE / SKL;
+         RWORK[1] = ONE / SKL;
          if ( SVA( 1 ) >= SFMIN ) {
-            RWORK( 2 ) = ONE;
+            RWORK[2] = ONE;
          } else {
-            RWORK( 2 ) = ZERO;
+            RWORK[2] = ZERO;
          }
-         RWORK( 3 ) = ZERO;
-         RWORK( 4 ) = ZERO;
-         RWORK( 5 ) = ZERO;
-         RWORK( 6 ) = ZERO;
+         RWORK[3] = ZERO;
+         RWORK[4] = ZERO;
+         RWORK[5] = ZERO;
+         RWORK[6] = ZERO;
          return;
       }
 
@@ -343,7 +343,7 @@
       NOTROT = 0;
 
       for (q = 1; q <= N; q++) { // 1868
-         CWORK( q ) = CONE;
+         CWORK[q] = CONE;
       } // 1868
 
 
@@ -461,11 +461,11 @@
                      zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) zswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p );
-                     SVA( p ) = SVA( q );
-                     SVA( q ) = TEMP1;
+                     SVA[p] = SVA( q );
+                     SVA[q] = TEMP1;
                      AAPQ = CWORK(p);
-                     CWORK(p) = CWORK(q);
-                     CWORK(q) = AAPQ;
+                     CWORK[p] = CWORK(q);
+                     CWORK[q] = AAPQ;
                   }
 
                   if ( ir1 == 0 ) {
@@ -483,12 +483,12 @@
          // below should be replaced with "AAPP = DZNRM2( M, A(1,p), 1 )".
 
                      if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ) > ROOTSFMIN ) ) {
-                        SVA( p ) = DZNRM2( M, A( 1, p ), 1 );
+                        SVA[p] = DZNRM2( M, A( 1, p ), 1 );
                      } else {
                         TEMP1 = ZERO;
                         AAPP = ONE;
                         zlassq(M, A( 1, p ), 1, TEMP1, AAPP );
-                        SVA( p ) = TEMP1*sqrt( AAPP );
+                        SVA[p] = TEMP1*sqrt( AAPP );
                      }
                      AAPP = SVA( p );
                   } else {
@@ -558,7 +558,7 @@
                                     if ( RSVEC ) {
                                         zrot(MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*T );
                                     }
-                                     SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
+                                     SVA[q] = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
                                     MXSINJ = max( MXSINJ, ( T ).abs() );
 
                                  } else {
@@ -571,14 +571,14 @@
                                     SN = T*CS;
 
                                     MXSINJ = max( MXSINJ, ( SN ).abs() );
-                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
+                                    SVA[q] = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
 
                                     zrot(M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*SN );
                                     if ( RSVEC ) {
                                         zrot(MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*SN );
                                     }
                                  }
-                                 CWORK(p) = -CWORK(q) * OMPQ;
+                                 CWORK[p] = -CWORK(q) * OMPQ;
 
                                  } else {
                // .. have to use modified Gram-Schmidt like transformation
@@ -586,7 +586,7 @@
                                  zlascl('G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR );
                                  zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                  zaxpy(M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 );
-                                 zlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
+                                 zlascl['G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q] = AAQQ*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
                                  MXSINJ = max( MXSINJ, SFMIN );
                               }
             // END IF ROTOK THEN ... ELSE
@@ -596,12 +596,12 @@
 
                               if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
                                  if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA( q ) = DZNRM2( M, A( 1, q ), 1 );
+                                    SVA[q] = DZNRM2( M, A( 1, q ), 1 );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
                                     zlassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*sqrt( AAQQ );
+                                    SVA[q] = T*sqrt( AAQQ );
                                  }
                               }
                               if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
@@ -613,7 +613,7 @@
                                     zlassq(M, A( 1, p ), 1, T, AAPP );
                                     AAPP = T*sqrt( AAPP );
                                  }
-                                 SVA( p ) = AAPP;
+                                 SVA[p] = AAPP;
                               }
 
                            } else {
@@ -640,10 +640,10 @@
                      } // 2103
       // bailed out of q-loop
 
-                     SVA( p ) = AAPP;
+                     SVA[p] = AAPP;
 
                   } else {
-                     SVA( p ) = AAPP;
+                     SVA[p] = AAPP;
                      if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + min( igl+KBL-1, N ) - p;
                   }
 
@@ -737,7 +737,7 @@
                                     if ( RSVEC ) {
                                         zrot(MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*T );
                                     }
-                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
+                                    SVA[q] = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
                                     MXSINJ = max( MXSINJ, ( T ).abs() );
                                  } else {
 
@@ -749,14 +749,14 @@
                                     CS = sqrt( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
                                     MXSINJ = max( MXSINJ, ( SN ).abs() );
-                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
+                                    SVA[q] = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ1 ) );
 
                                     zrot(M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*SN );
                                     if ( RSVEC ) {
                                         zrot(MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*SN );
                                     }
                                  }
-                                 CWORK(p) = -CWORK(q) * OMPQ;
+                                 CWORK[p] = -CWORK(q) * OMPQ;
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
@@ -766,7 +766,7 @@
                                     zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                     zaxpy(M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 );
                                     zlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
+                                    SVA[q] = AAQQ*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
                                     MXSINJ = max( MXSINJ, SFMIN );
                                } else {
                                    zcopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
@@ -774,7 +774,7 @@
                                     zlascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
                                     zaxpy(M, -CONJG(AAPQ), CWORK(N+1), 1, A( 1, p ), 1 );
                                     zlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA( p ) = AAPP*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
+                                    SVA[p] = AAPP*sqrt( max( ZERO, ONE-AAPQ1*AAPQ1 ) );
                                     MXSINJ = max( MXSINJ, SFMIN );
                                }
                               }
@@ -784,12 +784,12 @@
             // .. recompute SVA(q), SVA(p)
                               if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
                                  if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA( q ) = DZNRM2( M, A( 1, q ), 1);
+                                    SVA[q] = DZNRM2( M, A( 1, q ), 1);
                                   } else {
                                     T = ZERO;
                                     AAQQ = ONE;
                                     zlassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*sqrt( AAQQ );
+                                    SVA[q] = T*sqrt( AAQQ );
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
@@ -801,7 +801,7 @@
                                     zlassq(M, A( 1, p ), 1, T, AAPP );
                                     AAPP = T*sqrt( AAPP );
                                  }
-                                 SVA( p ) = AAPP;
+                                 SVA[p] = AAPP;
                               }
                // end of OK rotation
                            } else {
@@ -817,7 +817,7 @@
                         }
 
                         if ( ( i <= SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
-                           SVA( p ) = AAPP;
+                           SVA[p] = AAPP;
                            NOTROT = 0;
                            GO TO 2011;
                         }
@@ -831,7 +831,7 @@
          // end of the q-loop
                      } // 2203
 
-                     SVA( p ) = AAPP;
+                     SVA[p] = AAPP;
 
                   } else {
 
@@ -847,7 +847,7 @@
             } // 2011
 // 2011 bailed out of the jbc-loop
             for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2012
-               SVA( p ) = ( SVA( p ) ).abs();
+               SVA[p] = ( SVA( p ) ).abs();
             } // 2012
 // **
          } // 2000
@@ -855,12 +855,12 @@
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
-            SVA( N ) = DZNRM2( M, A( 1, N ), 1 );
+            SVA[N] = DZNRM2( M, A( 1, N ), 1 );
          } else {
             T = ZERO;
             AAPP = ONE;
             zlassq(M, A( 1, N ), 1, T, AAPP );
-            SVA( N ) = T*sqrt( AAPP );
+            SVA[N] = T*sqrt( AAPP );
          }
 
       // Additional steering devices
@@ -897,8 +897,8 @@
          q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
             TEMP1 = SVA( p );
-            SVA( p ) = SVA( q );
-            SVA( q ) = TEMP1;
+            SVA[p] = SVA( q );
+            SVA[q] = TEMP1;
             zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
             if (RSVEC) zswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
@@ -933,32 +933,32 @@
       // Undo scaling, if necessary (and possible).
       if ( ( ( SKL > ONE ) && ( SVA( 1 ) < ( BIG / SKL ) ) ) || ( ( SKL < ONE ) && ( SVA( max( N2, 1 ) ) > ( SFMIN / SKL ) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
-            SVA( p ) = SKL*SVA( p );
+            SVA[p] = SKL*SVA( p );
          } // 2400
          SKL = ONE;
       }
 
-      RWORK( 1 ) = SKL;
+      RWORK[1] = SKL;
       // The singular values of A are SKL*SVA(1:N). If SKL != ONE
       // then some of the singular values may overflow or underflow and
       // the spectrum is given in this factored representation.
 
-      RWORK( 2 ) = DBLE( N4 );
+      RWORK[2] = DBLE( N4 );
       // N4 is the number of computed nonzero singular values of A.
 
-      RWORK( 3 ) = DBLE( N2 );
+      RWORK[3] = DBLE( N2 );
       // N2 is the number of singular values of A greater than SFMIN.
       // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
       // that may carry some information.
 
-      RWORK( 4 ) = DBLE( i );
+      RWORK[4] = DBLE( i );
       // i is the index of the last sweep before declaring convergence.
 
-      RWORK( 5 ) = MXAAPQ;
+      RWORK[5] = MXAAPQ;
       // MXAAPQ is the largest absolute value of scaled pivots in the
       // last sweep
 
-      RWORK( 6 ) = MXSINJ;
+      RWORK[6] = MXSINJ;
       // MXSINJ is the largest absolute value of the sines of Jacobi angles
       // in the last sweep
 

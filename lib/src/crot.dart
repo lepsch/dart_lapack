@@ -35,8 +35,8 @@
       IF( INCY < 0 ) IY = ( -N+1 )*INCY + 1;
       for (I = 1; I <= N; I++) { // 10
          STEMP = C*CX( IX ) + S*CY( IY );
-         CY( IY ) = C*CY( IY ) - CONJG( S )*CX( IX );
-         CX( IX ) = STEMP;
+         CY[IY] = C*CY( IY ) - CONJG( S )*CX( IX );
+         CX[IX] = STEMP;
          IX = IX + INCX;
          IY = IY + INCY;
       } // 10
@@ -47,8 +47,8 @@
       } // 20
       for (I = 1; I <= N; I++) { // 30
          STEMP = C*CX( I ) + S*CY( I );
-         CY( I ) = C*CY( I ) - CONJG( S )*CX( I );
-         CX( I ) = STEMP;
+         CY[I] = C*CY( I ) - CONJG( S )*CX( I );
+         CX[I] = STEMP;
       } // 30
       return;
       }

@@ -79,29 +79,29 @@
               if (BETA == DBLE(ZERO)) {
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 10
                   } // 20
               } else {
                   for (J = 1; J <= N; J++) { // 40
                       for (I = 1; I <= J - 1; I++) { // 30
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 30
-                      C(J,J) = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*DBLE(C(J,J));
                   } // 40
               }
           } else {
               if (BETA == DBLE(ZERO)) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 50
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
-                      C(J,J) = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*DBLE(C(J,J));
                       for (I = J + 1; I <= N; I++) { // 70
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 70
                   } // 80
               }
@@ -120,24 +120,24 @@
               for (J = 1; J <= N; J++) { // 130
                   if (BETA == DBLE(ZERO)) {
                       for (I = 1; I <= J; I++) { // 90
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 90
                   } else if (BETA != ONE) {
                       for (I = 1; I <= J - 1; I++) { // 100
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 100
-                      C(J,J) = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*DBLE(C(J,J));
                   } else {
-                      C(J,J) = DBLE(C(J,J));
+                      C[J,J] = DBLE(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 120
                       if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*DCONJG(B(J,L));
                           TEMP2 = DCONJG(ALPHA*A(J,L));
                           for (I = 1; I <= J - 1; I++) { // 110
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
+                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
                           } // 110
-                          C(J,J) = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2);
+                          C[J,J] = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2);
                       }
                   } // 120
               } // 130
@@ -145,24 +145,24 @@
               for (J = 1; J <= N; J++) { // 180
                   if (BETA == DBLE(ZERO)) {
                       for (I = J; I <= N; I++) { // 140
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 140
                   } else if (BETA != ONE) {
                       for (I = J + 1; I <= N; I++) { // 150
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 150
-                      C(J,J) = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*DBLE(C(J,J));
                   } else {
-                      C(J,J) = DBLE(C(J,J));
+                      C[J,J] = DBLE(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 170
                       if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*DCONJG(B(J,L));
                           TEMP2 = DCONJG(ALPHA*A(J,L));
                           for (I = J + 1; I <= N; I++) { // 160
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
+                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
                           } // 160
-                          C(J,J) = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2);
+                          C[J,J] = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2);
                       }
                   } // 170
               } // 180
@@ -183,15 +183,15 @@
                       } // 190
                       if (I == J) {
                           if (BETA == DBLE(ZERO)) {
-                              C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
+                              C[J,J] = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
                           } else {
-                              C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
+                              C[J,J] = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
                           }
                       } else {
                           if (BETA == DBLE(ZERO)) {
-                              C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
+                              C[I,J] = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
                           } else {
-                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
+                              C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
                           }
                       }
                   } // 200
@@ -207,15 +207,15 @@
                       } // 220
                       if (I == J) {
                           if (BETA == DBLE(ZERO)) {
-                              C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
+                              C[J,J] = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
                           } else {
-                              C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
+                              C[J,J] = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2);
                           }
                       } else {
                           if (BETA == DBLE(ZERO)) {
-                              C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
+                              C[I,J] = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
                           } else {
-                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
+                              C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2;
                           }
                       }
                   } // 230

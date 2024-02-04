@@ -40,16 +40,16 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1:1 ) = 'Single precision';
-      PATH( 2:3 ) = 'EQ';
+      PATH[1:1] = 'Single precision';
+      PATH[2:3] = 'EQ';
 
       EPS = SLAMCH( 'P' );
       for (I = 1; I <= 5; I++) { // 10
-         RESLTS( I ) = ZERO;
+         RESLTS[I] = ZERO;
       } // 10
       for (I = 1; I <= NPOW; I++) { // 20
-         POW( I ) = TEN**( I-1 );
-         RPOW( I ) = ONE / POW( I );
+         POW[I] = TEN**( I-1 );
+         RPOW[I] = ONE / POW( I );
       } // 20
 
       // Test SGEEQU
@@ -60,9 +60,9 @@
             for (J = 1; J <= NSZ; J++) { // 40
                for (I = 1; I <= NSZ; I++) { // 30
                   if ( I <= M && J <= N ) {
-                     A( I, J ) = POW( I+J+1 )*( -1 )**( I+J );
+                     A[I, J] = POW( I+J+1 )*( -1 )**( I+J );
                   } else {
-                     A( I, J ) = ZERO;
+                     A[I, J] = ZERO;
                   }
                } // 30
             } // 40
@@ -70,15 +70,15 @@
             sgeequ(M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
 
             if ( INFO != 0 ) {
-               RESLTS( 1 ) = ONE;
+               RESLTS[1] = ONE;
             } else {
                if ( N != 0 && M != 0 ) {
-                  RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) );
+                  RESLTS[1] = max( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) );
                   for (I = 1; I <= M; I++) { // 50
-                     RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( R( I )-RPOW( I+N+1 ) ) / RPOW( I+N+1 ) ) );
+                     RESLTS[1] = max( RESLTS( 1 ), ABS( ( R( I )-RPOW( I+N+1 ) ) / RPOW( I+N+1 ) ) );
                   } // 50
                   for (J = 1; J <= N; J++) { // 60
-                     RESLTS( 1 ) = max( RESLTS( 1 ), ABS( ( C( J )-POW( N-J+1 ) ) / POW( N-J+1 ) ) );
+                     RESLTS[1] = max( RESLTS( 1 ), ABS( ( C( J )-POW( N-J+1 ) ) / POW( N-J+1 ) ) );
                   } // 60
                }
             }
@@ -89,20 +89,20 @@
       // Test with zero rows and columns
 
       for (J = 1; J <= NSZ; J++) { // 90
-         A( max( NSZ-1, 1 ), J ) = ZERO;
+         A[max( NSZ-1, 1 ), J] = ZERO;
       } // 90
       sgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       if( INFO != max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
 
       for (J = 1; J <= NSZ; J++) { // 100
-         A( max( NSZ-1, 1 ), J ) = ONE;
+         A[max( NSZ-1, 1 ), J] = ONE;
       } // 100
       for (I = 1; I <= NSZ; I++) { // 110
-         A( I, max( NSZ-1, 1 ) ) = ZERO;
+         A[I, max( NSZ-1, 1 )] = ZERO;
       } // 110
       sgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       if( INFO != NSZ+max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
-      RESLTS( 1 ) = RESLTS( 1 ) / EPS;
+      RESLTS[1] = RESLTS( 1 ) / EPS;
 
       // Test SGBEQU
 
@@ -113,13 +113,13 @@
 
                   for (J = 1; J <= NSZ; J++) { // 130
                      for (I = 1; I <= NSZB; I++) { // 120
-                        AB( I, J ) = ZERO;
+                        AB[I, J] = ZERO;
                      } // 120
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
                         if( I <= min( M, J+KL ) && I >= max( 1, J-KU ) && J <= N ) {
-                           AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J );
+                           AB[KU+1+I-J, J] = POW( I+J+1 )* ( -1 )**( I+J );
                         }
                      } // 140
                   } // 150
@@ -128,7 +128,7 @@
 
                   if ( INFO != 0 ) {
                      if ( !( ( N+KL < M && INFO == N+KL+1 ) || ( M+KU < N && INFO == 2*M+KU+1 ) ) ) {
-                        RESLTS( 2 ) = ONE;
+                        RESLTS[2] = ONE;
                      }
                   } else {
                      if ( N != 0 && M != 0 ) {
@@ -140,7 +140,7 @@
                            RCMAX = max( RCMAX, R( I ) );
                         } // 160
                         RATIO = RCMIN / RCMAX;
-                        RESLTS( 2 ) = max( RESLTS( 2 ), ( ( RCOND-RATIO ) / RATIO ) ).abs();
+                        RESLTS[2] = max( RESLTS( 2 ), ( ( RCOND-RATIO ) / RATIO ) ).abs();
 
                         RCMIN = C( 1 );
                         RCMAX = C( 1 );
@@ -149,9 +149,9 @@
                            RCMAX = max( RCMAX, C( J ) );
                         } // 170
                         RATIO = RCMIN / RCMAX;
-                        RESLTS( 2 ) = max( RESLTS( 2 ), ( ( CCOND-RATIO ) / RATIO ) ).abs();
+                        RESLTS[2] = max( RESLTS( 2 ), ( ( CCOND-RATIO ) / RATIO ) ).abs();
 
-                        RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+1 ) ) );
+                        RESLTS[2] = max( RESLTS( 2 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+1 ) ) );
                         for (I = 1; I <= M; I++) { // 190
                            RCMAX = ZERO;
                            for (J = 1; J <= N; J++) { // 180
@@ -160,7 +160,7 @@
                                  RCMAX = max( RCMAX, RATIO );
                               }
                            } // 180
-                           RESLTS( 2 ) = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
+                           RESLTS[2] = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
                         } // 190
 
                         for (J = 1; J <= N; J++) { // 210
@@ -171,7 +171,7 @@
                                  RCMAX = max( RCMAX, RATIO );
                               }
                            } // 200
-                           RESLTS( 2 ) = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
+                           RESLTS[2] = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
                         } // 210
                      }
                   }
@@ -180,7 +180,7 @@
             } // 230
          } // 240
       } // 250
-      RESLTS( 2 ) = RESLTS( 2 ) / EPS;
+      RESLTS[2] = RESLTS( 2 ) / EPS;
 
       // Test SPOEQU
 
@@ -189,9 +189,9 @@
          for (I = 1; I <= NSZ; I++) { // 270
             for (J = 1; J <= NSZ; J++) { // 260
                if ( I <= N && J == I ) {
-                  A( I, J ) = POW( I+J+1 )*( -1 )**( I+J );
+                  A[I, J] = POW( I+J+1 )*( -1 )**( I+J );
                } else {
-                  A( I, J ) = ZERO;
+                  A[I, J] = ZERO;
                }
             } // 260
          } // 270
@@ -199,20 +199,20 @@
          spoequ(N, A, NSZ, R, RCOND, NORM, INFO );
 
          if ( INFO != 0 ) {
-            RESLTS( 3 ) = ONE;
+            RESLTS[3] = ONE;
          } else {
             if ( N != 0 ) {
-               RESLTS( 3 ) = max( RESLTS( 3 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 3 ) = max( RESLTS( 3 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
+               RESLTS[3] = max( RESLTS( 3 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 3 ) = max( RESLTS( 3 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
                for (I = 1; I <= N; I++) { // 280
-                  RESLTS( 3 ) = max( RESLTS( 3 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
+                  RESLTS[3] = max( RESLTS( 3 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
                } // 280
             }
          }
       } // 290
-      A( max( NSZ-1, 1 ), max( NSZ-1, 1 ) ) = -ONE;
+      A[max( NSZ-1, 1 ), max( NSZ-1, 1 )] = -ONE;
       spoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO );
       if( INFO != max( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE;
-      RESLTS( 3 ) = RESLTS( 3 ) / EPS;
+      RESLTS[3] = RESLTS( 3 ) / EPS;
 
       // Test SPPEQU
 
@@ -221,21 +221,21 @@
          // Upper triangular packed storage
 
          for (I = 1; I <= ( N*( N+1 ) ) / 2; I++) { // 300
-            AP( I ) = ZERO;
+            AP[I] = ZERO;
          } // 300
          for (I = 1; I <= N; I++) { // 310
-            AP( ( I*( I+1 ) ) / 2 ) = POW( 2*I+1 );
+            AP[( I*( I+1 ) ) / 2] = POW( 2*I+1 );
          } // 310
 
          sppequ('U', N, AP, R, RCOND, NORM, INFO );
 
          if ( INFO != 0 ) {
-            RESLTS( 4 ) = ONE;
+            RESLTS[4] = ONE;
          } else {
             if ( N != 0 ) {
-               RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
+               RESLTS[4] = max( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
                for (I = 1; I <= N; I++) { // 320
-                  RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
+                  RESLTS[4] = max( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
                } // 320
             }
          }
@@ -243,33 +243,33 @@
          // Lower triangular packed storage
 
          for (I = 1; I <= ( N*( N+1 ) ) / 2; I++) { // 330
-            AP( I ) = ZERO;
+            AP[I] = ZERO;
          } // 330
          J = 1;
          for (I = 1; I <= N; I++) { // 340
-            AP( J ) = POW( 2*I+1 );
+            AP[J] = POW( 2*I+1 );
             J = J + ( N-I+1 );
          } // 340
 
          sppequ('L', N, AP, R, RCOND, NORM, INFO );
 
          if ( INFO != 0 ) {
-            RESLTS( 4 ) = ONE;
+            RESLTS[4] = ONE;
          } else {
             if ( N != 0 ) {
-               RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
+               RESLTS[4] = max( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
                for (I = 1; I <= N; I++) { // 350
-                  RESLTS( 4 ) = max( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
+                  RESLTS[4] = max( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) );
                } // 350
             }
          }
 
       } // 360
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2;
-      AP( I ) = -ONE;
+      AP[I] = -ONE;
       sppequ('L', NSZ, AP, R, RCOND, NORM, INFO );
       if( INFO != max( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE;
-      RESLTS( 4 ) = RESLTS( 4 ) / EPS;
+      RESLTS[4] = RESLTS( 4 ) / EPS;
 
       // Test SPBEQU
 
@@ -280,27 +280,27 @@
 
             for (J = 1; J <= NSZ; J++) { // 380
                for (I = 1; I <= NSZB; I++) { // 370
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 370
             } // 380
             for (J = 1; J <= N; J++) { // 390
-               AB( KL+1, J ) = POW( 2*J+1 );
+               AB[KL+1, J] = POW( 2*J+1 );
             } // 390
 
             spbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
             if ( INFO != 0 ) {
-               RESLTS( 5 ) = ONE;
+               RESLTS[5] = ONE;
             } else {
                if ( N != 0 ) {
-                  RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
+                  RESLTS[5] = max( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
                   for (I = 1; I <= N; I++) { // 400
-                     RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) );
+                     RESLTS[5] = max( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) );
                   } // 400
                }
             }
             if ( N != 0 ) {
-               AB( KL+1, max( N-1, 1 ) ) = -ONE;
+               AB[KL+1, max( N-1, 1 )] = -ONE;
                spbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
                if( INFO != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
@@ -309,33 +309,33 @@
 
             for (J = 1; J <= NSZ; J++) { // 420
                for (I = 1; I <= NSZB; I++) { // 410
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 410
             } // 420
             for (J = 1; J <= N; J++) { // 430
-               AB( 1, J ) = POW( 2*J+1 );
+               AB[1, J] = POW( 2*J+1 );
             } // 430
 
             spbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
             if ( INFO != 0 ) {
-               RESLTS( 5 ) = ONE;
+               RESLTS[5] = ONE;
             } else {
                if ( N != 0 ) {
-                  RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
+                  RESLTS[5] = max( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) );
                   for (I = 1; I <= N; I++) { // 440
-                     RESLTS( 5 ) = max( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) );
+                     RESLTS[5] = max( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) );
                   } // 440
                }
             }
             if ( N != 0 ) {
-               AB( 1, max( N-1, 1 ) ) = -ONE;
+               AB[1, max( N-1, 1 )] = -ONE;
                spbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
                if( INFO != max( N-1, 1 ) ) RESLTS( 5 ) = ONE;
             }
          } // 450
       } // 460
-      RESLTS( 5 ) = RESLTS( 5 ) / EPS;
+      RESLTS[5] = RESLTS( 5 ) / EPS;
       OK = ( RESLTS( 1 ) <= THRESH ) && ( RESLTS( 2 ) <= THRESH ) && ( RESLTS( 3 ) <= THRESH ) && ( RESLTS( 4 ) <= THRESH ) && ( RESLTS( 5 ) <= THRESH );
       WRITE( NOUT, FMT = * );
       if ( OK ) {

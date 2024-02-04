@@ -98,14 +98,14 @@
          xerbla('ZGETSQRHRT', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = DCMPLX( LWORKOPT );
+         WORK[1] = DCMPLX( LWORKOPT );
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK( 1 ) = DCMPLX( LWORKOPT );
+         WORK[1] = DCMPLX( LWORKOPT );
          return;
       }
 
@@ -151,13 +151,13 @@
       for (I = 1; I <= N; I++) {
          if ( WORK( LWT+N*N+I ) == -CONE ) {
             for (J = I; J <= N; J++) {
-               A( I, J ) = -CONE * WORK( LWT+N*(J-1)+I );
+               A[I, J] = -CONE * WORK( LWT+N*(J-1)+I );
             }
          } else {
             zcopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );
          }
       }
 
-      WORK( 1 ) = DCMPLX( LWORKOPT );
+      WORK[1] = DCMPLX( LWORKOPT );
       return;
       }

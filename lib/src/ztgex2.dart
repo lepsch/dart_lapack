@@ -124,10 +124,10 @@
          zrot(2, WORK, 2, WORK( 2 ), 2, CQ, -SQ );
          zrot(2, WORK( 5 ), 2, WORK( 6 ), 2, CQ, -SQ );
          for (I = 1; I <= 2; I++) { // 10
-            WORK( I ) = WORK( I ) - A( J1+I-1, J1 );
-            WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 );
-            WORK( I+4 ) = WORK( I+4 ) - B( J1+I-1, J1 );
-            WORK( I+6 ) = WORK( I+6 ) - B( J1+I-1, J1+1 );
+            WORK[I] = WORK( I ) - A( J1+I-1, J1 );
+            WORK[I+2] = WORK( I+2 ) - A( J1+I-1, J1+1 );
+            WORK[I+4] = WORK( I+4 ) - B( J1+I-1, J1 );
+            WORK[I+6] = WORK( I+6 ) - B( J1+I-1, J1+1 );
          } // 10
          SCALE = DBLE( CZERO );
          SUM = DBLE( CONE );
@@ -150,8 +150,8 @@
 
       // Set  N1 by N2 (2,1) blocks to 0
 
-      A( J1+1, J1 ) = CZERO;
-      B( J1+1, J1 ) = CZERO;
+      A[J1+1, J1] = CZERO;
+      B[J1+1, J1] = CZERO;
 
       // Accumulate transformations into Q and Z if requested.
 

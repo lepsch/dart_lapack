@@ -41,36 +41,36 @@
       blueMax = b**FLOOR( (Max - m + 1) * 0.5 );
 
       // .. Vector X ..
-      X(1) = TINY(0.0) * b**( DBLE(1-m) );
-      X(2) = TINY(0.0);
-      X(3) = HUGE(0.0);
-      X(4) = b**( DBLE(Max-1) );
+      X[1] = TINY(0.0) * b**( DBLE(1-m) );
+      X[2] = TINY(0.0);
+      X[3] = HUGE(0.0);
+      X[4] = b**( DBLE(Max-1) );
 
       // .. Then modify X using the step ..
-      stepX(1) = 2.0;
-      stepX(2) = 2.0;
-      stepX(3) = 0.0;
-      stepX(4) = 0.5;
+      stepX[1] = 2.0;
+      stepX[2] = 2.0;
+      stepX[3] = 0.0;
+      stepX[4] = 0.5;
 
       // .. Up to the value ..
-      limX(1) = X(2);
-      limX(2) = 1.0;
-      limX(3) = 0.0;
-      limX(4) = 2.0;
+      limX[1] = X(2);
+      limX[2] = 1.0;
+      limX[3] = 0.0;
+      limX[4] = 2.0;
 
       // .. Inf entries ..
       aInf = X(3) * 2;
-      cInf(1) = DCMPLX( aInf, 0.0 );
-      cInf(2) = DCMPLX(-aInf, 0.0 );
-      cInf(3) = DCMPLX( 0.0, aInf );
-      cInf(4) = DCMPLX( 0.0,-aInf );
-      cInf(5) = DCMPLX( aInf,  aInf );
+      cInf[1] = DCMPLX( aInf, 0.0 );
+      cInf[2] = DCMPLX(-aInf, 0.0 );
+      cInf[3] = DCMPLX( 0.0, aInf );
+      cInf[4] = DCMPLX( 0.0,-aInf );
+      cInf[5] = DCMPLX( aInf,  aInf );
 
       // .. NaN entries ..
       aNaN = aInf / aInf;
-      cNaN(1) = DCMPLX( aNaN, 0.0 );
-      cNaN(2) = DCMPLX( 0.0, aNaN );
-      cNaN(3) = DCMPLX( aNaN,  aNaN );
+      cNaN[1] = DCMPLX( aNaN, 0.0 );
+      cNaN[2] = DCMPLX( 0.0, aNaN );
+      cNaN[3] = DCMPLX( aNaN,  aNaN );
 
 
       // .. Tests ..

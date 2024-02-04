@@ -72,8 +72,8 @@
                LWMIN = 2*N + 1 + LHTRD + LWTRD;
             }
          }
-         WORK( 1 )  = LWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -94,7 +94,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = A( 1, 1 );
+         W[1] = A( 1, 1 );
          if (WANTZ) A( 1, 1 ) = ONE;
          return;
       }
@@ -153,8 +153,8 @@
 
       if (ISCALE == 1) dscal( N, ONE / SIGMA, W, 1 );
 
-      WORK( 1 )  = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

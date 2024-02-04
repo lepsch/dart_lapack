@@ -85,7 +85,7 @@
                       TEMP2 = ALPHA*X(J);
                       K = KK;
                       for (I = 1; I <= J; I++) { // 10
-                          AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
+                          AP[K] = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
                           K = K + 1;
                       } // 10
                   }
@@ -99,7 +99,7 @@
                       IX = KX;
                       IY = KY;
                       for (K = KK; K <= KK + J - 1; K++) { // 30
-                          AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2;
+                          AP[K] = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                           IX = IX + INCX;
                           IY = IY + INCY;
                       } // 30
@@ -120,7 +120,7 @@
                       TEMP2 = ALPHA*X(J);
                       K = KK;
                       for (I = J; I <= N; I++) { // 50
-                          AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
+                          AP[K] = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
                           K = K + 1;
                       } // 50
                   }
@@ -134,7 +134,7 @@
                       IX = JX;
                       IY = JY;
                       for (K = KK; K <= KK + N - J; K++) { // 70
-                          AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2;
+                          AP[K] = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                           IX = IX + INCX;
                           IY = IY + INCY;
                       } // 70

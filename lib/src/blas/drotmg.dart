@@ -41,7 +41,7 @@
          DP2 = DD2*DY1;
          if (DP2 == ZERO) {
             DFLAG = -TWO;
-            DPARAM(1) = DFLAG;
+            DPARAM[1] = DFLAG;
             return;
          }
          // REGULAR-CASE..
@@ -151,18 +151,18 @@
       }
 
       if (DFLAG < ZERO) {
-         DPARAM(2) = DH11;
-         DPARAM(3) = DH21;
-         DPARAM(4) = DH12;
-         DPARAM(5) = DH22;
+         DPARAM[2] = DH11;
+         DPARAM[3] = DH21;
+         DPARAM[4] = DH12;
+         DPARAM[5] = DH22;
       } else if (DFLAG == ZERO) {
-         DPARAM(3) = DH21;
-         DPARAM(4) = DH12;
+         DPARAM[3] = DH21;
+         DPARAM[4] = DH12;
       } else {
-         DPARAM(2) = DH11;
-         DPARAM(5) = DH22;
+         DPARAM[2] = DH11;
+         DPARAM[5] = DH22;
       }
 
-      DPARAM(1) = DFLAG;
+      DPARAM[1] = DFLAG;
       return;
       }

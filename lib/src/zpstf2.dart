@@ -65,13 +65,13 @@
       // Initialize PIV
 
       for (I = 1; I <= N; I++) { // 100
-         PIV( I ) = I;
+         PIV[I] = I;
       } // 100
 
       // Compute stopping value
 
       for (I = 1; I <= N; I++) { // 110
-         WORK( I ) = DBLE( A( I, I ) );
+         WORK[I] = DBLE( A( I, I ) );
       } // 110
       PVT = MAXLOC( WORK( 1:N ), 1 );
       AJJ = DBLE( A( PVT, PVT ) );
@@ -92,7 +92,7 @@
       // Set first half of WORK to zero, holds dot products
 
       for (I = 1; I <= N; I++) { // 120
-         WORK( I ) = 0;
+         WORK[I] = 0;
       } // 120
 
       if ( UPPER ) {
@@ -108,9 +108,9 @@
             for (I = J; I <= N; I++) { // 130
 
                if ( J > 1 ) {
-                  WORK( I ) = WORK( I ) + DBLE( DCONJG( A( J-1, I ) )* A( J-1, I ) );
+                  WORK[I] = WORK( I ) + DBLE( DCONJG( A( J-1, I ) )* A( J-1, I ) );
                }
-               WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I );
+               WORK[N+I] = DBLE( A( I, I ) ) - WORK( I );
 
             } // 130
 
@@ -119,7 +119,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
-                  A( J, J ) = AJJ;
+                  A[J, J] = AJJ;
                   GO TO 190;
                }
             }
@@ -128,28 +128,28 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A( PVT, PVT ) = A( J, J );
+               A[PVT, PVT] = A( J, J );
                zswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                if (PVT < N) zswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                for (I = J + 1; I <= PVT - 1; I++) { // 140
                   ZTEMP = DCONJG( A( J, I ) );
-                  A( J, I ) = DCONJG( A( I, PVT ) );
-                  A( I, PVT ) = ZTEMP;
+                  A[J, I] = DCONJG( A( I, PVT ) );
+                  A[I, PVT] = ZTEMP;
                } // 140
-               A( J, PVT ) = DCONJG( A( J, PVT ) );
+               A[J, PVT] = DCONJG( A( J, PVT ) );
 
                // Swap dot products and PIV
 
                DTEMP = WORK( J );
-               WORK( J ) = WORK( PVT );
-               WORK( PVT ) = DTEMP;
+               WORK[J] = WORK( PVT );
+               WORK[PVT] = DTEMP;
                ITEMP = PIV( PVT );
-               PIV( PVT ) = PIV( J );
-               PIV( J ) = ITEMP;
+               PIV[PVT] = PIV( J );
+               PIV[J] = ITEMP;
             }
 
             AJJ = sqrt( AJJ );
-            A( J, J ) = AJJ;
+            A[J, J] = AJJ;
 
             // Compute elements J+1:N of row J
 
@@ -175,9 +175,9 @@
             for (I = J; I <= N; I++) { // 160
 
                if ( J > 1 ) {
-                  WORK( I ) = WORK( I ) + DBLE( DCONJG( A( I, J-1 ) )* A( I, J-1 ) );
+                  WORK[I] = WORK( I ) + DBLE( DCONJG( A( I, J-1 ) )* A( I, J-1 ) );
                }
-               WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I );
+               WORK[N+I] = DBLE( A( I, I ) ) - WORK( I );
 
             } // 160
 
@@ -186,7 +186,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
-                  A( J, J ) = AJJ;
+                  A[J, J] = AJJ;
                   GO TO 190;
                }
             }
@@ -195,28 +195,28 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A( PVT, PVT ) = A( J, J );
+               A[PVT, PVT] = A( J, J );
                zswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                if (PVT < N) zswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                for (I = J + 1; I <= PVT - 1; I++) { // 170
                   ZTEMP = DCONJG( A( I, J ) );
-                  A( I, J ) = DCONJG( A( PVT, I ) );
-                  A( PVT, I ) = ZTEMP;
+                  A[I, J] = DCONJG( A( PVT, I ) );
+                  A[PVT, I] = ZTEMP;
                } // 170
-               A( PVT, J ) = DCONJG( A( PVT, J ) );
+               A[PVT, J] = DCONJG( A( PVT, J ) );
 
                // Swap dot products and PIV
 
                DTEMP = WORK( J );
-               WORK( J ) = WORK( PVT );
-               WORK( PVT ) = DTEMP;
+               WORK[J] = WORK( PVT );
+               WORK[PVT] = DTEMP;
                ITEMP = PIV( PVT );
-               PIV( PVT ) = PIV( J );
-               PIV( J ) = ITEMP;
+               PIV[PVT] = PIV( J );
+               PIV[J] = ITEMP;
             }
 
             AJJ = sqrt( AJJ );
-            A( J, J ) = AJJ;
+            A[J, J] = AJJ;
 
             // Compute elements J+1:N of column J
 

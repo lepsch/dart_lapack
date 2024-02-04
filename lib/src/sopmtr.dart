@@ -111,9 +111,9 @@
             // Apply H(i)
 
             AII = AP( II );
-            AP( II ) = ONE;
+            AP[II] = ONE;
             slarf(SIDE, MI, NI, AP( II-I+1 ), 1, TAU( I ), C, LDC, WORK );
-            AP( II ) = AII;
+            AP[II] = AII;
 
             if ( FORWRD ) {
                II = II + I + 2;
@@ -149,7 +149,7 @@
 
          for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 20
             AII = AP( II );
-            AP( II ) = ONE;
+            AP[II] = ONE;
             if ( LEFT ) {
 
                // H(i) is applied to C(i+1:m,1:n)
@@ -167,7 +167,7 @@
             // Apply H(i)
 
             slarf(SIDE, MI, NI, AP( II ), 1, TAU( I ), C( IC, JC ), LDC, WORK );
-            AP( II ) = AII;
+            AP[II] = AII;
 
             if ( FORWRD ) {
                II = II + NQ - I + 1;

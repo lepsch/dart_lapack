@@ -184,7 +184,7 @@
                // which is equivalent to seting TAU(K:MINMNFACT) = ZERO.
 
                for (J = K; J <= MINMNFACT; J++) {
-                  TAU( J ) = ZERO;
+                  TAU[J] = ZERO;
                }
 
                // Return from the routine.
@@ -258,7 +258,7 @@
                // which is equivalent to seting TAU(K:MINMNFACT) = ZERO.
 
                for (J = K; J <= MINMNFACT; J++) {
-                  TAU( J ) = ZERO;
+                  TAU[J] = ZERO;
                }
 
                // Return from the routine.
@@ -290,11 +290,11 @@
          if ( KP != K ) {
             sswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
             sswap(K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF );
-            VN1( KP ) = VN1( K );
-            VN2( KP ) = VN2( K );
+            VN1[KP] = VN1( K );
+            VN2[KP] = VN2( K );
             ITEMP = JPIV( KP );
-            JPIV( KP ) = JPIV( K );
-            JPIV( K ) = ITEMP;
+            JPIV[KP] = JPIV( K );
+            JPIV[K] = ITEMP;
          }
 
          // Apply previous Householder reflectors to column K:
@@ -309,7 +309,7 @@
          if ( I < M ) {
             slarfg(M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) );
          } else {
-            TAU( K ) = ZERO;
+            TAU[K] = ZERO;
          }
 
          // Check if TAU(K) contains NaN, set INFO parameter
@@ -372,7 +372,7 @@
          // ===============================================================
 
          AIK = A( I, K );
-         A( I, K ) = ONE;
+         A[I, K] = ONE;
 
          // ===============================================================
 
@@ -387,7 +387,7 @@
                // column K in matrix F, i.e elements F(1:K,K).
 
          for (J = 1; J <= K; J++) {
-            F( J, K ) = ZERO;
+            F[J, K] = ZERO;
          }
 
           // 3) Incremental updating of the K-th column of F:
@@ -410,7 +410,7 @@
             sgemv('No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA );
          }
 
-         A( I, K ) = AIK;
+         A[I, K] = AIK;
 
          // Update the partial column 2-norms for the residual matrix,
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.
@@ -436,14 +436,14 @@
                      // with N-1 elements, where the elements are
                      // shifted by 1 to the left.
 
-                     IWORK( J-1 ) = LSTICC;
+                     IWORK[J-1] = LSTICC;
 
                      // Set the index of the last difficult column LSTICC.
 
                      LSTICC = J;
 
                   } else {
-                     VN1( J ) = VN1( J )*sqrt( TEMP );
+                     VN1[J] = VN1( J )*sqrt( TEMP );
                   }
                }
             }
@@ -495,8 +495,8 @@
          // SNRM2 does not fail on vectors with norm below the value of
          // sqrt(SLAMCH('S'))
 
-         VN1( LSTICC ) = SNRM2( M-IF, A( IF+1, LSTICC ), 1 );
-         VN2( LSTICC ) = VN1( LSTICC );
+         VN1[LSTICC] = SNRM2( M-IF, A( IF+1, LSTICC ), 1 );
+         VN2[LSTICC] = VN1( LSTICC );
 
          // Downdate the index of the last difficult column to
          // the index of the previous difficult column.

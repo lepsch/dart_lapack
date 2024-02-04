@@ -71,7 +71,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = LWMIN;
+        WORK[1] = LWMIN;
       }
       if ( INFO != 0 ) {
         xerbla('DLAMSWLQ', -INFO );
@@ -195,7 +195,7 @@
 
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
 
       return;
       }

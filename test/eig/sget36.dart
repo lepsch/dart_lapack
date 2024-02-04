@@ -43,9 +43,9 @@
       RMAX = ZERO;
       LMAX = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NINFO( 3 ) = 0;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NINFO[3] = 0;
 
       // Read input data until N=0
 
@@ -96,7 +96,7 @@
       // Test for successful reordering of T2
 
       if ( INFO2 != 0 ) {
-         NINFO( INFO2 ) = NINFO( INFO2 ) + 1;
+         NINFO[INFO2] = NINFO( INFO2 ) + 1;
       } else {
          if( ( IFST2-IFSTSV ).abs() > 1 ) RES = RES + ONE / EPS;
          IF( ( ILST2-ILSTSV ).abs() > 1 ) RES = RES + ONE / EPS;

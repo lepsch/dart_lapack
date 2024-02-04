@@ -75,7 +75,7 @@
          JC = 1;
          for (J = 1; J <= N; J++) { // 30
             if ( NOUNIT ) {
-               AP( JC+J-1 ) = ONE / AP( JC+J-1 );
+               AP[JC+J-1] = ONE / AP( JC+J-1 );
                AJJ = -AP( JC+J-1 );
             } else {
                AJJ = -ONE;
@@ -95,7 +95,7 @@
          JC = N*( N+1 ) / 2;
          for (J = N; J >= 1; J--) { // 40
             if ( NOUNIT ) {
-               AP( JC ) = ONE / AP( JC );
+               AP[JC] = ONE / AP( JC );
                AJJ = -AP( JC );
             } else {
                AJJ = -ONE;

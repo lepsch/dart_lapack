@@ -61,7 +61,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = AP( 1 );
+         W[1] = AP( 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;
       }

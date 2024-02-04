@@ -78,9 +78,9 @@
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK );
       RESID = CLANGE( '1', M, N, L, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( max( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT[1] = ( ( RESID / REAL( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -92,7 +92,7 @@
 
       RESID = CLANSY( '1', 'Upper', N, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( max( 1, N ) ) ) / EPS;
+      RESULT[2] = ( RESID / REAL( max( 1, N ) ) ) / EPS;
 
       return;
       }

@@ -125,13 +125,13 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 16; J++) { // 30
-               RESULT( J ) = ZERO;
+               RESULT[J] = ZERO;
             } // 30
 
             // Compute "A"
@@ -190,7 +190,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 3 ) {
@@ -198,7 +198,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
@@ -226,7 +226,7 @@
                   CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' ';
+               ADUMMA[1] = ' ';
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -278,18 +278,18 @@
             dgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
             if ( IINFO != 0 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE, IOLDSD;
                INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
             for (J = 1; J <= N - 1; J++) { // 120
-               UU( J+1, J ) = ZERO;
+               UU[J+1, J] = ZERO;
                for (I = J + 2; I <= N; I++) { // 110
-                  U( I, J ) = H( I, J );
-                  UU( I, J ) = H( I, J );
-                  H( I, J ) = ZERO;
+                  U[I, J] = H( I, J );
+                  UU[I, J] = H( I, J );
+                  H[I, J] = ZERO;
                } // 110
             } // 120
             dcopy(N-1, WORK, 1, TAU, 1 );
@@ -304,7 +304,7 @@
 
             dlacpy(' ', N, N, H, LDA, T2, LDA );
             NTEST = 3;
-            RESULT( 3 ) = ULPINV;
+            RESULT[3] = ULPINV;
 
             dhseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
@@ -366,14 +366,14 @@
                TEMP1 = max( TEMP1, ( WR1( J ) ).abs()+( WI1( J ) ).abs(), ( WR2( J ) ).abs()+( WI2( J ) ) ).abs()                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
             } // 130
 
-            RESULT( 8 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT[8] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Compute the Left and Right Eigenvectors of T
 
             // Compute the Right eigenvector Matrix:
 
             NTEST = 9;
-            RESULT( 9 ) = ULPINV;
+            RESULT[9] = ULPINV;
 
             // Select last max(N/4,1) real, max(N/4,1) complex eigenvectors
 
@@ -384,19 +384,19 @@
             if ( WI1( J ) == ZERO ) {
                if ( NSELR < max( N / 4, 1 ) ) {
                   NSELR = NSELR + 1;
-                  SELECT( J ) = true;
+                  SELECT[J] = true;
                } else {
-                  SELECT( J ) = false;
+                  SELECT[J] = false;
                }
                J = J - 1;
             } else {
                if ( NSELC < max( N / 4, 1 ) ) {
                   NSELC = NSELC + 1;
-                  SELECT( J ) = true;
-                  SELECT( J-1 ) = false;
+                  SELECT[J] = true;
+                  SELECT[J-1] = false;
                } else {
-                  SELECT( J ) = false;
-                  SELECT( J-1 ) = false;
+                  SELECT[J] = false;
+                  SELECT[J-1] = false;
                }
                J = J - 2;
             }
@@ -412,7 +412,7 @@
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
             dget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
-            RESULT( 9 ) = DUMMA( 1 );
+            RESULT[9] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -454,7 +454,7 @@
             // Compute the Left eigenvector Matrix:
 
             NTEST = 10;
-            RESULT( 10 ) = ULPINV;
+            RESULT[10] = ULPINV;
             dtrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD;
@@ -465,7 +465,7 @@
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
             dget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
-            RESULT( 10 ) = DUMMA( 3 );
+            RESULT[10] = DUMMA( 3 );
             if ( DUMMA( 4 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD;
             }
@@ -507,9 +507,9 @@
             // Call DHSEIN for Right eigenvectors of H, do test 11
 
             NTEST = 11;
-            RESULT( 11 ) = ULPINV;
+            RESULT[11] = ULPINV;
             for (J = 1; J <= N; J++) { // 230
-               SELECT( J ) = true;
+               SELECT[J] = true;
             } // 230
 
             dhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
@@ -532,9 +532,9 @@
             // Call DHSEIN for Left eigenvectors of H, do test 12
 
             NTEST = 12;
-            RESULT( 12 ) = ULPINV;
+            RESULT[12] = ULPINV;
             for (J = 1; J <= N; J++) { // 240
-               SELECT( J ) = true;
+               SELECT[J] = true;
             } // 240
 
             dhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
@@ -557,7 +557,7 @@
             // Call DORMHR for Right eigenvectors of A, do test 13
 
             NTEST = 13;
-            RESULT( 13 ) = ULPINV;
+            RESULT[13] = ULPINV;
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
@@ -576,7 +576,7 @@
             // Call DORMHR for Left eigenvectors of A, do test 14
 
             NTEST = 14;
-            RESULT( 14 ) = ULPINV;
+            RESULT[14] = ULPINV;
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
@@ -597,7 +597,7 @@
             // Compute a Right eigenvector matrix:
 
             NTEST = 15;
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
 
             dlacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
@@ -613,7 +613,7 @@
                       // (from Schur decomposition)
 
             dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
-            RESULT( 15 ) = DUMMA( 1 );
+            RESULT[15] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -621,7 +621,7 @@
             // Compute a Left eigenvector matrix:
 
             NTEST = 16;
-            RESULT( 16 ) = ULPINV;
+            RESULT[16] = ULPINV;
 
             dlacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
@@ -637,7 +637,7 @@
                       // (from Schur decomposition)
 
             dget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
-            RESULT( 16 ) = DUMMA( 3 );
+            RESULT[16] = DUMMA( 3 );
             if ( DUMMA( 4 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD;
             }

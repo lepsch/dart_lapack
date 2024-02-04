@@ -80,8 +80,8 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -17;
@@ -105,11 +105,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = D( 1 );
+            W[1] = D( 1 );
          } else {
             if ( VL < D( 1 ) && VU >= D( 1 ) ) {
                M = 1;
-               W( 1 ) = D( 1 );
+               W[1] = D( 1 );
             }
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
@@ -242,10 +242,10 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( I );
-               W( I ) = W( J );
-               IWORK( I ) = IWORK( J );
-               W( J ) = TMP1;
-               IWORK( J ) = ITMP1;
+               W[I] = W( J );
+               IWORK[I] = IWORK( J );
+               W[J] = TMP1;
+               IWORK[J] = ITMP1;
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
          } // 30
@@ -255,7 +255,7 @@
        // IF (wantz && INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
 
 
-      WORK( 1 ) = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
       return;
       }

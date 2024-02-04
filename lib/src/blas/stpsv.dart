@@ -81,7 +81,7 @@
                           TEMP = X(J);
                           K = KK - 1;
                           for (I = J - 1; I >= 1; I--) { // 10
-                              X(I) = X(I) - TEMP*AP(K);
+                              X[I] = X(I) - TEMP*AP(K);
                               K = K - 1;
                           } // 10
                       }
@@ -96,7 +96,7 @@
                           IX = JX;
                           for (K = KK - 1; K >= KK - J + 1; K--) { // 30
                               IX = IX - INCX;
-                              X(IX) = X(IX) - TEMP*AP(K);
+                              X[IX] = X(IX) - TEMP*AP(K);
                           } // 30
                       }
                       JX = JX - INCX;
@@ -112,7 +112,7 @@
                           TEMP = X(J);
                           K = KK + 1;
                           for (I = J + 1; I <= N; I++) { // 50
-                              X(I) = X(I) - TEMP*AP(K);
+                              X[I] = X(I) - TEMP*AP(K);
                               K = K + 1;
                           } // 50
                       }
@@ -127,7 +127,7 @@
                           IX = JX;
                           for (K = KK + 1; K <= KK + N - J; K++) { // 70
                               IX = IX + INCX;
-                              X(IX) = X(IX) - TEMP*AP(K);
+                              X[IX] = X(IX) - TEMP*AP(K);
                           } // 70
                       }
                       JX = JX + INCX;
@@ -150,7 +150,7 @@
                           K = K + 1;
                       } // 90
                       if (NOUNIT) TEMP = TEMP/AP(KK+J-1);
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                       KK = KK + J;
                   } // 100
               } else {
@@ -163,7 +163,7 @@
                           IX = IX + INCX;
                       } // 110
                       if (NOUNIT) TEMP = TEMP/AP(KK+J-1);
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX + INCX;
                       KK = KK + J;
                   } // 120
@@ -179,7 +179,7 @@
                           K = K - 1;
                       } // 130
                       if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                       KK = KK - (N-J+1);
                   } // 140
               } else {
@@ -193,7 +193,7 @@
                           IX = IX - INCX;
                       } // 150
                       if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX - INCX;
                       KK = KK - (N-J+1);
                   } // 160

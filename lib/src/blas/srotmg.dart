@@ -41,7 +41,7 @@
          SP2 = SD2*SY1;
          if (SP2 == ZERO) {
             SFLAG = -TWO;
-            SPARAM(1) = SFLAG;
+            SPARAM[1] = SFLAG;
             return;
          }
          // REGULAR-CASE..
@@ -151,18 +151,18 @@
       }
 
       if (SFLAG < ZERO) {
-         SPARAM(2) = SH11;
-         SPARAM(3) = SH21;
-         SPARAM(4) = SH12;
-         SPARAM(5) = SH22;
+         SPARAM[2] = SH11;
+         SPARAM[3] = SH21;
+         SPARAM[4] = SH12;
+         SPARAM[5] = SH22;
       } else if (SFLAG == ZERO) {
-         SPARAM(3) = SH21;
-         SPARAM(4) = SH12;
+         SPARAM[3] = SH21;
+         SPARAM[4] = SH12;
       } else {
-         SPARAM(2) = SH11;
-         SPARAM(5) = SH22;
+         SPARAM[2] = SH11;
+         SPARAM[5] = SH22;
       }
 
-      SPARAM(1) = SFLAG;
+      SPARAM[1] = SFLAG;
       return;
       }

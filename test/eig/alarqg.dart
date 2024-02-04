@@ -37,11 +37,11 @@
          // Test everything if NMATS >= NTYPES.
 
          for (I = 1; I <= NTYPES; I++) { // 10
-            DOTYPE( I ) = true;
+            DOTYPE[I] = true;
          } // 10
       } else {
          for (I = 1; I <= NTYPES; I++) { // 20
-            DOTYPE( I ) = false;
+            DOTYPE[I] = false;
          } // 20
          FIRSTT = true;
 
@@ -52,7 +52,7 @@
             LENP = LEN( LINE );
             I = 0;
             for (J = 1; J <= NMATS; J++) { // 60
-               NREQ( J ) = 0;
+               NREQ[J] = 0;
                I1 = 0;
                } // 30
                I = I + 1;
@@ -81,7 +81,7 @@
                   WRITE( NOUT, FMT = 9994 )NMATS;
                   GO TO 80;
                   } // 50
-                  NREQ( J ) = 10*NREQ( J ) + IC;
+                  NREQ[J] = 10*NREQ( J ) + IC;
                   GO TO 30;
                } else if ( I1 > 0 ) {
                   GO TO 60;
@@ -98,7 +98,7 @@
                   FIRSTT = false;
                   WRITE( NOUT, FMT = 9997 )NT, PATH;
                }
-               DOTYPE( NT ) = true;
+               DOTYPE[NT] = true;
             } else {
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES;
  9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ', I4, ': must satisfy  1 <= type <= ', I2 );

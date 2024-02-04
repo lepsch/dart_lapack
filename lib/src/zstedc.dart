@@ -86,9 +86,9 @@
             LRWMIN = 1 + 4*N + 2*N**2;
             LIWMIN = 3 + 5*N;
          }
-         WORK( 1 ) = LWMIN;
-         RWORK( 1 ) = LRWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         RWORK[1] = LRWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -147,7 +147,7 @@
             dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
-                  Z( I, J ) = RWORK( ( J-1 )*N+I );
+                  Z[I, J] = RWORK( ( J-1 )*N+I );
                } // 10
             } // 20
             GO TO 70;
@@ -237,17 +237,17 @@
               }
            } // 50
            if ( K != I ) {
-              D( K ) = D( I );
-              D( I ) = P;
+              D[K] = D( I );
+              D[I] = P;
               zswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
            }
          } // 60
       }
 
       } // 70
-      WORK( 1 ) = LWMIN;
-      RWORK( 1 ) = LRWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      RWORK[1] = LRWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

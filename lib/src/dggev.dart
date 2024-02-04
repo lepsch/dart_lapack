@@ -100,7 +100,7 @@
          if ( ILVL ) {
             MAXWRK = max( MAXWRK, N*( 7 + ILAENV( 1, 'DORGQR', ' ', N, 1, N, -1 ) ) );
          }
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
 
          if (LWORK < MINWRK && !LQUERY) INFO = -16;
       }
@@ -265,12 +265,12 @@
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
-                     VL( JR, JC ) = VL( JR, JC )*TEMP;
+                     VL[JR, JC] = VL( JR, JC )*TEMP;
                   } // 30
                } else {
                   for (JR = 1; JR <= N; JR++) { // 40
-                     VL( JR, JC ) = VL( JR, JC )*TEMP;
-                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP;
+                     VL[JR, JC] = VL( JR, JC )*TEMP;
+                     VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
                   } // 40
                }
             } // 50
@@ -293,12 +293,12 @@
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
-                     VR( JR, JC ) = VR( JR, JC )*TEMP;
+                     VR[JR, JC] = VR( JR, JC )*TEMP;
                   } // 80
                } else {
                   for (JR = 1; JR <= N; JR++) { // 90
-                     VR( JR, JC ) = VR( JR, JC )*TEMP;
-                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP;
+                     VR[JR, JC] = VR( JR, JC )*TEMP;
+                     VR[JR, JC+1] = VR( JR, JC+1 )*TEMP;
                   } // 90
                }
             } // 100
@@ -321,6 +321,6 @@
          dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
       return;
       }

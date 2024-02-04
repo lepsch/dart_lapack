@@ -46,7 +46,7 @@
          NB = max( 1, ILAENV( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) );
          LWKOPT = ( N+NB+1 ) * ( NB+3 );
       }
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1;
@@ -71,7 +71,7 @@
 
       dsytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

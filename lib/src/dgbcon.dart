@@ -102,8 +102,8 @@
                   JP = IPIV( J );
                   T = WORK( JP );
                   if ( JP != J ) {
-                     WORK( JP ) = WORK( J );
-                     WORK( J ) = T;
+                     WORK[JP] = WORK( J );
+                     WORK[J] = T;
                   }
                   daxpy(LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                } // 20
@@ -123,12 +123,12 @@
             if ( LNOTI ) {
                for (J = N - 1; J >= 1; J--) { // 30
                   LM = min( KL, N-J );
-                  WORK( J ) = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
+                  WORK[J] = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                   JP = IPIV( J );
                   if ( JP != J ) {
                      T = WORK( JP );
-                     WORK( JP ) = WORK( J );
-                     WORK( J ) = T;
+                     WORK[JP] = WORK( J );
+                     WORK[J] = T;
                   }
                } // 30
             }

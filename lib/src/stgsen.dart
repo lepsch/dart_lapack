@@ -113,8 +113,8 @@
          LIWMIN = 1;
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
+      IWORK[1] = LIWMIN;
 
       if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -22;
@@ -143,8 +143,8 @@
                slassq(N, A( 1, I ), 1, DSCALE, DSUM );
                slassq(N, B( 1, I ), 1, DSCALE, DSUM );
             } // 20
-            DIF( 1 ) = DSCALE*sqrt( DSUM );
-            DIF( 2 ) = DIF( 1 );
+            DIF[1] = DSCALE*sqrt( DSUM );
+            DIF[2] = DIF( 1 );
          }
          GO TO 60;
       }
@@ -187,8 +187,8 @@
                      PR = ZERO;
                   }
                   if ( WANTD ) {
-                     DIF( 1 ) = ZERO;
-                     DIF( 2 ) = ZERO;
+                     DIF[1] = ZERO;
+                     DIF[2] = ZERO;
                   }
                   GO TO 60;
                }
@@ -283,7 +283,7 @@
                }
                GO TO 40;
             }
-            DIF( 1 ) = DSCALE / DIF( 1 );
+            DIF[1] = DSCALE / DIF( 1 );
 
             // 1-norm-based estimate of Difl.
 
@@ -303,7 +303,7 @@
                }
                GO TO 50;
             }
-            DIF( 2 ) = DSCALE / DIF( 2 );
+            DIF[2] = DSCALE / DIF( 2 );
 
          }
       }
@@ -329,16 +329,16 @@
 
               // Compute the eigenvalue(s) at position K.
 
-               WORK( 1 ) = A( K, K );
-               WORK( 2 ) = A( K+1, K );
-               WORK( 3 ) = A( K, K+1 );
-               WORK( 4 ) = A( K+1, K+1 );
-               WORK( 5 ) = B( K, K );
-               WORK( 6 ) = B( K+1, K );
-               WORK( 7 ) = B( K, K+1 );
-               WORK( 8 ) = B( K+1, K+1 );
+               WORK[1] = A( K, K );
+               WORK[2] = A( K+1, K );
+               WORK[3] = A( K, K+1 );
+               WORK[4] = A( K+1, K+1 );
+               WORK[5] = B( K, K );
+               WORK[6] = B( K+1, K );
+               WORK[7] = B( K, K+1 );
+               WORK[8] = B( K+1, K+1 );
                slag2(WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) );
-               ALPHAI( K+1 ) = -ALPHAI( K );
+               ALPHAI[K+1] = -ALPHAI( K );
 
             } else {
 
@@ -347,22 +347,22 @@
                   // If B(K,K) is negative, make it positive
 
                   for (I = 1; I <= N; I++) { // 80
-                     A( K, I ) = -A( K, I );
-                     B( K, I ) = -B( K, I );
+                     A[K, I] = -A( K, I );
+                     B[K, I] = -B( K, I );
                      if (WANTQ) Q( I, K ) = -Q( I, K );
                   } // 80
                }
 
-               ALPHAR( K ) = A( K, K );
-               ALPHAI( K ) = ZERO;
-               BETA( K ) = B( K, K );
+               ALPHAR[K] = A( K, K );
+               ALPHAI[K] = ZERO;
+               BETA[K] = B( K, K );
 
             }
          }
       } // 70
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
+      IWORK[1] = LIWMIN;
 
       return;
       }

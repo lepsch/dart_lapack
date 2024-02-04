@@ -58,7 +58,7 @@
 
       J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + DCMPLX( S( I ), ZERO );
+         WORK[J+I] = WORK( J+I ) + DCMPLX( S( I ), ZERO );
          RESID = max( RESID, DZASUM( NS, WORK( J+1 ), 1 ) );
          J = J + NS;
       } // 10

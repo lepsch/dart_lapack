@@ -47,7 +47,7 @@
 
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               X( I, J ) = 0.0;
+               X[I, J] = 0.0;
             } // 10
          } // 20
          N5 = N / 5;
@@ -58,17 +58,17 @@
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
             R = C / BETA;
-            X( I, I ) = A;
-            X( I-2, I ) = B;
-            X( I-2, I-1 ) = R;
-            X( I-2, I-2 ) = C;
-            X( I-1, I-1 ) = CLARND( 2, ISEED );
-            X( I-3, I-3 ) = CLARND( 2, ISEED );
-            X( I-4, I-4 ) = CLARND( 2, ISEED );
+            X[I, I] = A;
+            X[I-2, I] = B;
+            X[I-2, I-1] = R;
+            X[I-2, I-2] = C;
+            X[I-1, I-1] = CLARND( 2, ISEED );
+            X[I-3, I-3] = CLARND( 2, ISEED );
+            X[I-4, I-4] = CLARND( 2, ISEED );
             if ( ( X( I-3, I-3 ) ).abs() > ( X( I-4, I-4 ) ) ).abs() {
-               X( I-4, I-3 ) = 2.0*X( I-3, I-3 );
+               X[I-4, I-3] = 2.0*X( I-3, I-3 );
             } else {
-               X( I-4, I-3 ) = 2.0*X( I-4, I-4 );
+               X[I-4, I-3] = 2.0*X( I-4, I-4 );
             }
          } // 30
 
@@ -80,24 +80,24 @@
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
             R = C / BETA;
-            X( I, I ) = A;
-            X( I-2, I ) = B;
-            X( I-2, I-1 ) = R;
-            X( I-2, I-2 ) = C;
-            X( I-1, I-1 ) = CLARND( 2, ISEED );
+            X[I, I] = A;
+            X[I-2, I] = B;
+            X[I-2, I-1] = R;
+            X[I-2, I-2] = C;
+            X[I-1, I-1] = CLARND( 2, ISEED );
             I = I - 3;
          }
          if ( I > 1 ) {
-            X( I, I ) = CLARND( 2, ISEED );
-            X( I-1, I-1 ) = CLARND( 2, ISEED );
+            X[I, I] = CLARND( 2, ISEED );
+            X[I-1, I-1] = CLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ) ).abs() {
-               X( I-1, I ) = 2.0*X( I, I );
+               X[I-1, I] = 2.0*X( I, I );
             } else {
-               X( I-1, I ) = 2.0*X( I-1, I-1 );
+               X[I-1, I] = 2.0*X( I-1, I-1 );
             }
             I = I - 2;
          } else if ( I == 1 ) {
-            X( I, I ) = CLARND( 2, ISEED );
+            X[I, I] = CLARND( 2, ISEED );
             I = I - 1;
          }
 
@@ -109,7 +109,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (I = J; I <= N; I++) { // 40
-               X( I, J ) = 0.0;
+               X[I, J] = 0.0;
             } // 40
          } // 50
          N5 = N / 5;
@@ -120,17 +120,17 @@
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
             R = C / BETA;
-            X( I, I ) = A;
-            X( I+2, I ) = B;
-            X( I+2, I+1 ) = R;
-            X( I+2, I+2 ) = C;
-            X( I+1, I+1 ) = CLARND( 2, ISEED );
-            X( I+3, I+3 ) = CLARND( 2, ISEED );
-            X( I+4, I+4 ) = CLARND( 2, ISEED );
+            X[I, I] = A;
+            X[I+2, I] = B;
+            X[I+2, I+1] = R;
+            X[I+2, I+2] = C;
+            X[I+1, I+1] = CLARND( 2, ISEED );
+            X[I+3, I+3] = CLARND( 2, ISEED );
+            X[I+4, I+4] = CLARND( 2, ISEED );
             if ( ( X( I+3, I+3 ) ).abs() > ( X( I+4, I+4 ) ) ).abs() {
-               X( I+4, I+3 ) = 2.0*X( I+3, I+3 );
+               X[I+4, I+3] = 2.0*X( I+3, I+3 );
             } else {
-               X( I+4, I+3 ) = 2.0*X( I+4, I+4 );
+               X[I+4, I+3] = 2.0*X( I+4, I+4 );
             }
          } // 60
 
@@ -142,24 +142,24 @@
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
             R = C / BETA;
-            X( I, I ) = A;
-            X( I+2, I ) = B;
-            X( I+2, I+1 ) = R;
-            X( I+2, I+2 ) = C;
-            X( I+1, I+1 ) = CLARND( 2, ISEED );
+            X[I, I] = A;
+            X[I+2, I] = B;
+            X[I+2, I+1] = R;
+            X[I+2, I+2] = C;
+            X[I+1, I+1] = CLARND( 2, ISEED );
             I = I + 3;
          }
          if ( I < N ) {
-            X( I, I ) = CLARND( 2, ISEED );
-            X( I+1, I+1 ) = CLARND( 2, ISEED );
+            X[I, I] = CLARND( 2, ISEED );
+            X[I+1, I+1] = CLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ) ).abs() {
-               X( I+1, I ) = 2.0*X( I, I );
+               X[I+1, I] = 2.0*X( I, I );
             } else {
-               X( I+1, I ) = 2.0*X( I+1, I+1 );
+               X[I+1, I] = 2.0*X( I+1, I+1 );
             }
             I = I + 2;
          } else if ( I == N ) {
-            X( I, I ) = CLARND( 2, ISEED );
+            X[I, I] = CLARND( 2, ISEED );
             I = I + 1;
          }
       }

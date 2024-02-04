@@ -84,7 +84,7 @@
                           TEMP = X(J);
                           K = KK;
                           for (I = 1; I <= J - 1; I++) { // 10
-                              X(I) = X(I) + TEMP*AP(K);
+                              X[I] = X(I) + TEMP*AP(K);
                               K = K + 1;
                           } // 10
                           if (NOUNIT) X(J) = X(J)*AP(KK+J-1);
@@ -98,7 +98,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (K = KK; K <= KK + J - 2; K++) { // 30
-                              X(IX) = X(IX) + TEMP*AP(K);
+                              X[IX] = X(IX) + TEMP*AP(K);
                               IX = IX + INCX;
                           } // 30
                           if (NOUNIT) X(JX) = X(JX)*AP(KK+J-1);
@@ -115,7 +115,7 @@
                           TEMP = X(J);
                           K = KK;
                           for (I = N; I >= J + 1; I--) { // 50
-                              X(I) = X(I) + TEMP*AP(K);
+                              X[I] = X(I) + TEMP*AP(K);
                               K = K - 1;
                           } // 50
                           if (NOUNIT) X(J) = X(J)*AP(KK-N+J);
@@ -130,7 +130,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (K = KK; K >= KK - (N- (J+1)); K--) { // 70
-                              X(IX) = X(IX) + TEMP*AP(K);
+                              X[IX] = X(IX) + TEMP*AP(K);
                               IX = IX - INCX;
                           } // 70
                           if (NOUNIT) X(JX) = X(JX)*AP(KK-N+J);
@@ -163,7 +163,7 @@
                               K = K - 1;
                           } // 100
                       }
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                       KK = KK - J;
                   } // 110
               } else {
@@ -184,7 +184,7 @@
                               TEMP = TEMP + CONJG(AP(K))*X(IX);
                           } // 130
                       }
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX - INCX;
                       KK = KK - J;
                   } // 140
@@ -208,7 +208,7 @@
                               K = K + 1;
                           } // 160
                       }
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                       KK = KK + (N-J+1);
                   } // 170
               } else {
@@ -229,7 +229,7 @@
                               TEMP = TEMP + CONJG(AP(K))*X(IX);
                           } // 190
                       }
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX + INCX;
                       KK = KK + (N-J+1);
                   } // 200

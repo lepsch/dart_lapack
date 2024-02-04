@@ -65,11 +65,11 @@
          // Find normI(A).
 
          for (I = 1; I <= M; I++) { // 50
-            WORK( I ) = ZERO;
+            WORK[I] = ZERO;
          } // 50
          for (J = 1; J <= N; J++) { // 70
             for (I = 1; I <= M; I++) { // 60
-               WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
+               WORK[I] = WORK( I ) + ( A( I, J ) ).abs();
             } // 60
          } // 70
          VALUE = ZERO;

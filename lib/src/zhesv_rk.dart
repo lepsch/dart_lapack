@@ -56,7 +56,7 @@
             zhetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO );
             LWKOPT = INT( DBLE( WORK( 1 ) ) );
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

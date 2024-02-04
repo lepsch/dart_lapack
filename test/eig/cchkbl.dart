@@ -40,13 +40,13 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       NINFO = 0;
       KNT = 0;
       RMAX = ZERO;
@@ -74,12 +74,12 @@
 
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 1 ) = KNT;
+         LMAX[1] = KNT;
       }
 
       if ( ILO != ILOIN || IHI != IHIIN ) {
          NINFO = NINFO + 1;
-         LMAX( 2 ) = KNT;
+         LMAX[2] = KNT;
       }
 
       for (I = 1; I <= N; I++) { // 50
@@ -97,7 +97,7 @@
       } // 60
 
       if ( VMAX > RMAX ) {
-         LMAX( 3 ) = KNT;
+         LMAX[3] = KNT;
          RMAX = VMAX;
       }
 

@@ -68,7 +68,7 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -83,7 +83,7 @@
       if ( N == 0 ) {
           return;
       }
-      IPIV( 1 ) = 1;
+      IPIV[1] = 1;
       if ( N == 1 ) {
          return;
       }
@@ -130,7 +130,7 @@
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
          for (J2 = J+2; J2 <= min(N, J+JB+1); J2++) {
-            IPIV( J2 ) = IPIV( J2 ) + J;
+            IPIV[J2] = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                sswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
@@ -150,7 +150,7 @@
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = A( J, J+1 );
-               A( J, J+1 ) = ONE;
+               A[J, J+1] = ONE;
                scopy(N-J, A( J-1, J+1 ), LDA, WORK( (J+1-J1+1)+JB*N ), 1 );
                sscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -192,7 +192,7 @@
 
                // Recover T( J, J+1 )
 
-               A( J, J+1 ) = ALPHA;
+               A[J, J+1] = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
@@ -237,7 +237,7 @@
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
          for (J2 = J+2; J2 <= min(N, J+JB+1); J2++) {
-            IPIV( J2 ) = IPIV( J2 ) + J;
+            IPIV[J2] = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                sswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
@@ -257,7 +257,7 @@
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = A( J+1, J );
-               A( J+1, J ) = ONE;
+               A[J+1, J] = ONE;
                scopy(N-J, A( J+1, J-1 ), 1, WORK( (J+1-J1+1)+JB*N ), 1 );
                sscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -299,7 +299,7 @@
 
                // Recover T( J+1, J )
 
-               A( J+1, J ) = ALPHA;
+               A[J+1, J] = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
@@ -311,6 +311,6 @@
 
       } // 20
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
       return;
       }

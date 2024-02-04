@@ -63,8 +63,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -93,27 +93,27 @@
          if ( N == 1 ) {
             BI = B( 1, J );
             DX = D( 1 )*X( 1, J );
-            WORK( N+1 ) = BI - DX;
-            WORK( 1 ) = ( BI ).abs() + ( DX ).abs();
+            WORK[N+1] = BI - DX;
+            WORK[1] = ( BI ).abs() + ( DX ).abs();
          } else {
             BI = B( 1, J );
             DX = D( 1 )*X( 1, J );
             EX = E( 1 )*X( 2, J );
-            WORK( N+1 ) = BI - DX - EX;
-            WORK( 1 ) = ( BI ).abs() + ( DX ).abs() + ( EX ).abs();
+            WORK[N+1] = BI - DX - EX;
+            WORK[1] = ( BI ).abs() + ( DX ).abs() + ( EX ).abs();
             for (I = 2; I <= N - 1; I++) { // 30
                BI = B( I, J );
                CX = E( I-1 )*X( I-1, J );
                DX = D( I )*X( I, J );
                EX = E( I )*X( I+1, J );
-               WORK( N+I ) = BI - CX - DX - EX;
-               WORK( I ) = ( BI ).abs() + ( CX ).abs() + ( DX ).abs() + ( EX ).abs();
+               WORK[N+I] = BI - CX - DX - EX;
+               WORK[I] = ( BI ).abs() + ( CX ).abs() + ( DX ).abs() + ( EX ).abs();
             } // 30
             BI = B( N, J );
             CX = E( N-1 )*X( N-1, J );
             DX = D( N )*X( N, J );
-            WORK( N+N ) = BI - CX - DX;
-            WORK( N ) = ( BI ).abs() + ( CX ).abs() + ( DX ).abs();
+            WORK[N+N] = BI - CX - DX;
+            WORK[N] = ( BI ).abs() + ( CX ).abs() + ( DX ).abs();
          }
 
          // Compute componentwise relative backward error from formula
@@ -133,7 +133,7 @@
                S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 40
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -172,13 +172,13 @@
 
          for (I = 1; I <= N; I++) { // 50
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 50
          IX = IDAMAX( N, WORK, 1 );
-         FERR( J ) = WORK( IX );
+         FERR[J] = WORK( IX );
 
          // Estimate the norm of inv(A).
 
@@ -191,22 +191,22 @@
 
          // Solve M(L) * x = e.
 
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          for (I = 2; I <= N; I++) { // 60
-            WORK( I ) = ONE + WORK( I-1 )*( EF( I-1 ) ).abs();
+            WORK[I] = ONE + WORK( I-1 )*( EF( I-1 ) ).abs();
          } // 60
 
          // Solve D * M(L)**T * x = b.
 
-         WORK( N ) = WORK( N ) / DF( N );
+         WORK[N] = WORK( N ) / DF( N );
          for (I = N - 1; I >= 1; I--) { // 70
-            WORK( I ) = WORK( I ) / DF( I ) + WORK( I+1 )*( EF( I ) ).abs();
+            WORK[I] = WORK( I ) / DF( I ) + WORK( I+1 )*( EF( I ) ).abs();
          } // 70
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
          IX = IDAMAX( N, WORK, 1 );
-         FERR( J ) = FERR( J )*( WORK( IX ) ).abs();
+         FERR[J] = FERR( J )*( WORK( IX ) ).abs();
 
          // Normalize error.
 

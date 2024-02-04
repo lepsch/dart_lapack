@@ -351,7 +351,7 @@
          MAXWRK = max( MAXWRK, MINWRK );
       }
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
+         WORK[1] = SROUNDUP_LWORK( MAXWRK );
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12;
          }
@@ -1750,7 +1750,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
+      WORK[1] = SROUNDUP_LWORK( MAXWRK );
 
       return;
       }

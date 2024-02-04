@@ -44,16 +44,16 @@
             // Solve U**H * x = b.
 
             for (I = 2; I <= N; I++) { // 20
-               B( I, J ) = B( I, J ) - B( I-1, J )*DCONJG( E( I-1 ) );
+               B[I, J] = B( I, J ) - B( I-1, J )*DCONJG( E( I-1 ) );
             } // 20
 
             // Solve D * U * x = b.
 
             for (I = 1; I <= N; I++) { // 30
-               B( I, J ) = B( I, J ) / D( I );
+               B[I, J] = B( I, J ) / D( I );
             } // 30
             for (I = N - 1; I >= 1; I--) { // 40
-               B( I, J ) = B( I, J ) - B( I+1, J )*E( I );
+               B[I, J] = B( I, J ) - B( I+1, J )*E( I );
             } // 40
             if ( J < NRHS ) {
                J = J + 1;
@@ -65,14 +65,14 @@
                // Solve U**H * x = b.
 
                for (I = 2; I <= N; I++) { // 50
-                  B( I, J ) = B( I, J ) - B( I-1, J )*DCONJG( E( I-1 ) );
+                  B[I, J] = B( I, J ) - B( I-1, J )*DCONJG( E( I-1 ) );
                } // 50
 
                // Solve D * U * x = b.
 
-               B( N, J ) = B( N, J ) / D( N );
+               B[N, J] = B( N, J ) / D( N );
                for (I = N - 1; I >= 1; I--) { // 60
-                  B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I );
+                  B[I, J] = B( I, J ) / D( I ) - B( I+1, J )*E( I );
                } // 60
             } // 70
          }
@@ -88,16 +88,16 @@
             // Solve L * x = b.
 
             for (I = 2; I <= N; I++) { // 90
-               B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 );
+               B[I, J] = B( I, J ) - B( I-1, J )*E( I-1 );
             } // 90
 
             // Solve D * L**H * x = b.
 
             for (I = 1; I <= N; I++) { // 100
-               B( I, J ) = B( I, J ) / D( I );
+               B[I, J] = B( I, J ) / D( I );
             } // 100
             for (I = N - 1; I >= 1; I--) { // 110
-               B( I, J ) = B( I, J ) - B( I+1, J )*DCONJG( E( I ) );
+               B[I, J] = B( I, J ) - B( I+1, J )*DCONJG( E( I ) );
             } // 110
             if ( J < NRHS ) {
                J = J + 1;
@@ -109,14 +109,14 @@
                // Solve L * x = b.
 
                for (I = 2; I <= N; I++) { // 120
-                  B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 );
+                  B[I, J] = B( I, J ) - B( I-1, J )*E( I-1 );
                } // 120
 
                // Solve D * L**H * x = b.
 
-               B( N, J ) = B( N, J ) / D( N );
+               B[N, J] = B( N, J ) / D( N );
                for (I = N - 1; I >= 1; I--) { // 130
-                  B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*DCONJG( E( I ) );
+                  B[I, J] = B( I, J ) / D( I ) - B( I+1, J )*DCONJG( E( I ) );
                } // 130
             } // 140
          }

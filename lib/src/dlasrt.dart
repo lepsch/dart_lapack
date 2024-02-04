@@ -58,8 +58,8 @@
       if (N <= 1) return;
 
       STKPNT = 1;
-      STACK( 1, 1 ) = 1;
-      STACK( 2, 1 ) = N;
+      STACK[1, 1] = 1;
+      STACK[2, 1] = N;
       } // 10
       START = STACK( 1, STKPNT );
       ENDD = STACK( 2, STKPNT );
@@ -76,8 +76,8 @@
                for (J = I; J >= START + 1; J--) { // 20
                   if ( D( J ) > D( J-1 ) ) {
                      DMNMX = D( J );
-                     D( J ) = D( J-1 );
-                     D( J-1 ) = DMNMX;
+                     D[J] = D( J-1 );
+                     D[J-1] = DMNMX;
                   } else {
                      GO TO 30;
                   }
@@ -92,8 +92,8 @@
                for (J = I; J >= START + 1; J--) { // 40
                   if ( D( J ) < D( J-1 ) ) {
                      DMNMX = D( J );
-                     D( J ) = D( J-1 );
-                     D( J-1 ) = DMNMX;
+                     D[J] = D( J-1 );
+                     D[J-1] = DMNMX;
                   } else {
                      GO TO 50;
                   }
@@ -145,24 +145,24 @@
             if( D( I ) > DMNMX ) GO TO 80;
             if ( I < J ) {
                TMP = D( I );
-               D( I ) = D( J );
-               D( J ) = TMP;
+               D[I] = D( J );
+               D[J] = TMP;
                GO TO 60;
             }
             if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = START;
-               STACK( 2, STKPNT ) = J;
+               STACK[1, STKPNT] = START;
+               STACK[2, STKPNT] = J;
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = J + 1;
-               STACK( 2, STKPNT ) = ENDD;
+               STACK[1, STKPNT] = J + 1;
+               STACK[2, STKPNT] = ENDD;
             } else {
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = J + 1;
-               STACK( 2, STKPNT ) = ENDD;
+               STACK[1, STKPNT] = J + 1;
+               STACK[2, STKPNT] = ENDD;
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = START;
-               STACK( 2, STKPNT ) = J;
+               STACK[1, STKPNT] = START;
+               STACK[2, STKPNT] = J;
             }
          } else {
 
@@ -179,24 +179,24 @@
             if( D( I ) < DMNMX ) GO TO 110;
             if ( I < J ) {
                TMP = D( I );
-               D( I ) = D( J );
-               D( J ) = TMP;
+               D[I] = D( J );
+               D[J] = TMP;
                GO TO 90;
             }
             if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = START;
-               STACK( 2, STKPNT ) = J;
+               STACK[1, STKPNT] = START;
+               STACK[2, STKPNT] = J;
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = J + 1;
-               STACK( 2, STKPNT ) = ENDD;
+               STACK[1, STKPNT] = J + 1;
+               STACK[2, STKPNT] = ENDD;
             } else {
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = J + 1;
-               STACK( 2, STKPNT ) = ENDD;
+               STACK[1, STKPNT] = J + 1;
+               STACK[2, STKPNT] = ENDD;
                STKPNT = STKPNT + 1;
-               STACK( 1, STKPNT ) = START;
-               STACK( 2, STKPNT ) = J;
+               STACK[1, STKPNT] = START;
+               STACK[2, STKPNT] = J;
             }
          }
       }

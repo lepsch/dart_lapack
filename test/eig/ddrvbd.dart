@@ -113,8 +113,8 @@
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'BD';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'BD';
       NFAIL = 0;
       NTEST = 0;
       UNFL = DLAMCH( 'Safe minimum' );
@@ -141,7 +141,7 @@
             if( !DOTYPE( JTYPE ) ) GO TO 230;
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -183,7 +183,7 @@
             for (IWS = 1; IWS <= 4; IWS++) { // 220
 
                for (J = 1; J <= 32; J++) { // 40
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 40
 
                // Test DGESVD: Factorize A
@@ -210,20 +210,20 @@
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
-               RESULT( 4 ) = ZERO;
+               RESULT[4] = ZERO;
                for (I = 1; I <= MNMIN - 1; I++) { // 50
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 4] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 4] = ULPINV;
                } // 50
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 4] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 5 ) = ZERO;
-               RESULT( 6 ) = ZERO;
-               RESULT( 7 ) = ZERO;
+               RESULT[5] = ZERO;
+               RESULT[6] = ZERO;
+               RESULT[7] = ZERO;
                for (IJU = 0; IJU <= 3; IJU++) { // 80
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 70
                      if( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 70;
@@ -245,7 +245,7 @@
                            dort03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 5 ) = max( RESULT( 5 ), DIF );
+                     RESULT[5] = max( RESULT( 5 ), DIF );
 
                      // Compare VT
 
@@ -259,7 +259,7 @@
                            dort03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 6 ) = max( RESULT( 6 ), DIF );
+                     RESULT[6] = max( RESULT( 6 ), DIF );
 
                      // Compare S
 
@@ -270,7 +270,7 @@
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 60
-                     RESULT( 7 ) = max( RESULT( 7 ), DIF );
+                     RESULT[7] = max( RESULT( 7 ), DIF );
                   } // 70
                } // 80
 
@@ -298,20 +298,20 @@
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
-               RESULT( 11 ) = ZERO;
+               RESULT[11] = ZERO;
                for (I = 1; I <= MNMIN - 1; I++) { // 90
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 11] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 11] = ULPINV;
                } // 90
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 11] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 12 ) = ZERO;
-               RESULT( 13 ) = ZERO;
-               RESULT( 14 ) = ZERO;
+               RESULT[12] = ZERO;
+               RESULT[13] = ZERO;
+               RESULT[14] = ZERO;
                for (IJQ = 0; IJQ <= 2; IJQ++) { // 110
                   JOBQ = CJOB( IJQ+1 );
                   dlacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -332,7 +332,7 @@
                         dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                      }
                   }
-                  RESULT( 12 ) = max( RESULT( 12 ), DIF );
+                  RESULT[12] = max( RESULT( 12 ), DIF );
 
                   // Compare VT
 
@@ -348,7 +348,7 @@
                         dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                      }
                   }
-                  RESULT( 13 ) = max( RESULT( 13 ), DIF );
+                  RESULT[13] = max( RESULT( 13 ), DIF );
 
                   // Compare S
 
@@ -359,16 +359,16 @@
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                      DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                   } // 100
-                  RESULT( 14 ) = max( RESULT( 14 ), DIF );
+                  RESULT[14] = max( RESULT( 14 ), DIF );
                } // 110
 
                // Test DGESVDQ
                // Note: DGESVDQ only works for M >= N
 
-               RESULT( 36 ) = ZERO;
-               RESULT( 37 ) = ZERO;
-               RESULT( 38 ) = ZERO;
-               RESULT( 39 ) = ZERO;
+               RESULT[36] = ZERO;
+               RESULT[37] = ZERO;
+               RESULT[38] = ZERO;
+               RESULT[39] = ZERO;
 
                if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
@@ -397,23 +397,23 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
-                  RESULT( 39 ) = ZERO;
+                  RESULT[39] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 39] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 39] = ULPINV;
                   } // 199
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 39] = ULPINV;
                   }
                }
 
                // Test DGESVJ
                // Note: DGESVJ only works for M >= N
 
-               RESULT( 15 ) = ZERO;
-               RESULT( 16 ) = ZERO;
-               RESULT( 17 ) = ZERO;
-               RESULT( 18 ) = ZERO;
+               RESULT[15] = ZERO;
+               RESULT[16] = ZERO;
+               RESULT[17] = ZERO;
+               RESULT[18] = ZERO;
 
                if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
@@ -430,7 +430,7 @@
 
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= N; I++) {
-                        VTSAV(J,I) = A(I,J);
+                        VTSAV[J,I] = A(I,J);
                      }
                   }
 
@@ -447,23 +447,23 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
-                  RESULT( 18 ) = ZERO;
+                  RESULT[18] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 18] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 18] = ULPINV;
                   } // 120
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 18] = ULPINV;
                   }
                }
 
                // Test DGEJSV
                // Note: DGEJSV only works for M >= N
 
-               RESULT( 19 ) = ZERO;
-               RESULT( 20 ) = ZERO;
-               RESULT( 21 ) = ZERO;
-               RESULT( 22 ) = ZERO;
+               RESULT[19] = ZERO;
+               RESULT[20] = ZERO;
+               RESULT[21] = ZERO;
+               RESULT[22] = ZERO;
                if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
@@ -479,7 +479,7 @@
 
                   for (J = 1; J <= N; J++) { // 140
                      for (I = 1; I <= N; I++) { // 130
-                        VTSAV(J,I) = A(I,J);
+                        VTSAV[J,I] = A(I,J);
   130                END DO;
   140             END DO;
 
@@ -496,13 +496,13 @@
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
-                  RESULT( 22 ) = ZERO;
+                  RESULT[22] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 150
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 22] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 22] = ULPINV;
                   } // 150
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 22] = ULPINV;
                   }
                }
 
@@ -518,28 +518,28 @@
 
                // Do tests 23--29
 
-               RESULT( 23 ) = ZERO;
-               RESULT( 24 ) = ZERO;
-               RESULT( 25 ) = ZERO;
+               RESULT[23] = ZERO;
+               RESULT[24] = ZERO;
+               RESULT[25] = ZERO;
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
                if ( M != 0 && N != 0 ) {
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
-               RESULT( 26 ) = ZERO;
+               RESULT[26] = ZERO;
                for (I = 1; I <= MNMIN - 1; I++) { // 160
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 26] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 26] = ULPINV;
                } // 160
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 26] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 27 ) = ZERO;
-               RESULT( 28 ) = ZERO;
-               RESULT( 29 ) = ZERO;
+               RESULT[27] = ZERO;
+               RESULT[28] = ZERO;
+               RESULT[29] = ZERO;
                for (IJU = 0; IJU <= 1; IJU++) { // 180
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 170
                      if( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 170;
@@ -557,7 +557,7 @@
                            dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 27 ) = max( RESULT( 27 ), DIF );
+                     RESULT[27] = max( RESULT( 27 ), DIF );
 
                      // Compare VT
 
@@ -567,7 +567,7 @@
                            dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 28 ) = max( RESULT( 28 ), DIF );
+                     RESULT[28] = max( RESULT( 28 ), DIF );
 
                      // Compare S
 
@@ -578,14 +578,14 @@
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 190
-                     RESULT( 29 ) = max( RESULT( 29 ), DIF );
+                     RESULT[29] = max( RESULT( 29 ), DIF );
                   } // 170
                } // 180
 
                // Do tests 30--32: DGESVDX( 'V', 'V', 'I' )
 
                for (I = 1; I <= 4; I++) { // 200
-                  ISEED2( I ) = ISEED( I );
+                  ISEED2[I] = ISEED( I );
                } // 200
                if ( MNMIN <= 1 ) {
                   IL = 1;
@@ -607,9 +607,9 @@
                   return;
                }
 
-               RESULT( 30 ) = ZERO;
-               RESULT( 31 ) = ZERO;
-               RESULT( 32 ) = ZERO;
+               RESULT[30] = ZERO;
+               RESULT[31] = ZERO;
+               RESULT[32] = ZERO;
                dbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
                dort01('Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) );
                dort01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
@@ -642,9 +642,9 @@
                   return;
                }
 
-               RESULT( 33 ) = ZERO;
-               RESULT( 34 ) = ZERO;
-               RESULT( 35 ) = ZERO;
+               RESULT[33] = ZERO;
+               RESULT[34] = ZERO;
+               RESULT[35] = ZERO;
                dbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
                dort01('Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) );
                dort01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );

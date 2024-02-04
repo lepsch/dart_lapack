@@ -63,7 +63,7 @@
          // Find pivot and test for singularity.
 
          JP = J - 1 + IZAMAX( M-J+1, A( J, J ), 1 );
-         IPIV( J ) = JP;
+         IPIV[J] = JP;
          if ( A( JP, J ) != ZERO ) {
 
             // Apply the interchange to columns 1:N.

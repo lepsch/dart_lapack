@@ -55,7 +55,7 @@
             NB = ILAENV( 1, 'SORGQL', ' ', M, N, K, -1 );
             LWKOPT = N*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < max( 1, N ) && !LQUERY ) {
             INFO = -8;
@@ -111,7 +111,7 @@
 
          for (J = 1; J <= N - KK; J++) { // 20
             for (I = M - KK + 1; I <= M; I++) { // 10
-               A( I, J ) = ZERO;
+               A[I, J] = ZERO;
             } // 10
          } // 20
       } else {
@@ -148,12 +148,12 @@
 
             for (J = N - K + I; J <= N - K + I + IB - 1; J++) { // 40
                for (L = M - K + I + IB; L <= M; L++) { // 30
-                  A( L, J ) = ZERO;
+                  A[L, J] = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(IWS);
+      WORK[1] = SROUNDUP_LWORK(IWS);
       return;
       }

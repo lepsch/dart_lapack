@@ -43,8 +43,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'TB';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'TB';
       UNFL = SLAMCH( 'Safe minimum' );
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
       SMLNUM = UNFL;
@@ -91,15 +91,15 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 20
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 10
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 10
-               AB( KD+1, J ) = J;
+               AB[KD+1, J] = J;
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               AB( 1, J ) = J;
+               AB[1, J] = J;
                for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 30
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 30
             } // 40
          }
@@ -117,16 +117,16 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 60
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 50
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 50
-               AB( KD+1, J ) = REAL( J );
+               AB[KD+1, J] = REAL( J );
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
                for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 70
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 70
-               AB( 1, J ) = REAL( J );
+               AB[1, J] = REAL( J );
             } // 80
          }
 
@@ -135,18 +135,18 @@
 
          if ( KD == 1 ) {
             if ( UPPER ) {
-               AB( 1, 2 ) = TNORM*CLARND( 5, ISEED );
+               AB[1, 2] = TNORM*CLARND( 5, ISEED );
                LENJ = ( N-3 ) / 2;
                clarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 90
-                  AB( 1, 2*( J+1 ) ) = TNORM*WORK( J );
+                  AB[1, 2*( J+1 )] = TNORM*WORK( J );
                } // 90
             } else {
-               AB( 2, 1 ) = TNORM*CLARND( 5, ISEED );
+               AB[2, 1] = TNORM*CLARND( 5, ISEED );
                LENJ = ( N-3 ) / 2;
                clarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 100
-                  AB( 2, 2*J+1 ) = TNORM*WORK( J );
+                  AB[2, 2*J+1] = TNORM*WORK( J );
                } // 100
             }
          } else if ( KD > 1 ) {
@@ -172,11 +172,11 @@
             PLUS1 = SFAC*CLARND( 5, ISEED );
             for (J = 1; J <= N; J += 2) { // 110
                PLUS2 = STAR1 / PLUS1;
-               WORK( J ) = PLUS1;
-               WORK( N+J ) = STAR1;
+               WORK[J] = PLUS1;
+               WORK[N+J] = STAR1;
                if ( J+1 <= N ) {
-                  WORK( J+1 ) = PLUS2;
-                  WORK( N+J+1 ) = ZERO;
+                  WORK[J+1] = PLUS2;
+                  WORK[N+J+1] = ZERO;
                   PLUS1 = STAR1 / PLUS2;
 
                   // Generate a new *-value with norm between sqrt(TNORM)
@@ -216,13 +216,13 @@
             for (J = 1; J <= N; J++) { // 120
                LENJ = min( J-1, KD );
                clarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
-               AB( KD+1, J ) = CLARND( 5, ISEED )*TWO;
+               AB[KD+1, J] = CLARND( 5, ISEED )*TWO;
             } // 120
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = min( N-J, KD );
                if (LENJ > 0) clarnv( 4, ISEED, LENJ, AB( 2, J ) );
-               AB( 1, J ) = CLARND( 5, ISEED )*TWO;
+               AB[1, J] = CLARND( 5, ISEED )*TWO;
             } // 130
          }
 
@@ -249,9 +249,9 @@
                   clarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                   csscal(LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 );
                }
-               AB( KD+1, J ) = CLARND( 5, ISEED );
+               AB[KD+1, J] = CLARND( 5, ISEED );
             } // 140
-            AB( KD+1, N ) = SMLNUM*AB( KD+1, N );
+            AB[KD+1, N] = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 150
                LENJ = min( N-J, KD );
@@ -259,9 +259,9 @@
                   clarnv(4, ISEED, LENJ, AB( 2, J ) );
                   csscal(LENJ, TSCAL, AB( 2, J ), 1 );
                }
-               AB( 1, J ) = CLARND( 5, ISEED );
+               AB[1, J] = CLARND( 5, ISEED );
             } // 150
-            AB( 1, 1 ) = SMLNUM*AB( 1, 1 );
+            AB[1, 1] = SMLNUM*AB( 1, 1 );
          }
 
       } else if ( IMAT == 12 ) {
@@ -275,16 +275,16 @@
             for (J = 1; J <= N; J++) { // 160
                LENJ = min( J-1, KD );
                if (LENJ > 0) clarnv( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               AB( KD+1, J ) = CLARND( 5, ISEED );
+               AB[KD+1, J] = CLARND( 5, ISEED );
             } // 160
-            AB( KD+1, N ) = SMLNUM*AB( KD+1, N );
+            AB[KD+1, N] = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = min( N-J, KD );
                if (LENJ > 0) clarnv( 4, ISEED, LENJ, AB( 2, J ) );
-               AB( 1, J ) = CLARND( 5, ISEED );
+               AB[1, J] = CLARND( 5, ISEED );
             } // 170
-            AB( 1, 1 ) = SMLNUM*AB( 1, 1 );
+            AB[1, 1] = SMLNUM*AB( 1, 1 );
          }
 
       } else if ( IMAT == 13 ) {
@@ -297,12 +297,12 @@
             JCOUNT = 1;
             for (J = N; J >= 1; J--) { // 190
                DO 180 I = max( 1, KD+1-( J-1 ) ), KD;
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 180
                if ( JCOUNT <= 2 ) {
-                  AB( KD+1, J ) = SMLNUM*CLARND( 5, ISEED );
+                  AB[KD+1, J] = SMLNUM*CLARND( 5, ISEED );
                } else {
-                  AB( KD+1, J ) = CLARND( 5, ISEED );
+                  AB[KD+1, J] = CLARND( 5, ISEED );
                }
                JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
@@ -311,12 +311,12 @@
             JCOUNT = 1;
             for (J = 1; J <= N; J++) { // 210
                for (I = 2; I <= min( N-J+1, KD+1 ); I++) { // 200
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 200
                if ( JCOUNT <= 2 ) {
-                  AB( 1, J ) = SMLNUM*CLARND( 5, ISEED );
+                  AB[1, J] = SMLNUM*CLARND( 5, ISEED );
                } else {
-                  AB( 1, J ) = CLARND( 5, ISEED );
+                  AB[1, J] = CLARND( 5, ISEED );
                }
                JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
@@ -326,16 +326,16 @@
          // Set the right hand side alternately zero and small.
 
          if ( UPPER ) {
-            B( 1 ) = ZERO;
+            B[1] = ZERO;
             for (I = N; I >= 2; I -= 2) { // 220
-               B( I ) = ZERO;
-               B( I-1 ) = SMLNUM*CLARND( 5, ISEED );
+               B[I] = ZERO;
+               B[I-1] = SMLNUM*CLARND( 5, ISEED );
             } // 220
          } else {
-            B( N ) = ZERO;
+            B[N] = ZERO;
             for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 230
-               B( I ) = ZERO;
-               B( I+1 ) = SMLNUM*CLARND( 5, ISEED );
+               B[I] = ZERO;
+               B[I+1] = SMLNUM*CLARND( 5, ISEED );
             } // 230
          }
 
@@ -351,21 +351,21 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 250
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 240
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 240
                if (J > 1 && KD > 0) AB( KD, J ) = CMPLX( -ONE, -ONE );
-               AB( KD+1, J ) = TSCAL*CLARND( 5, ISEED );
+               AB[KD+1, J] = TSCAL*CLARND( 5, ISEED );
             } // 250
-            B( N ) = CMPLX( ONE, ONE );
+            B[N] = CMPLX( ONE, ONE );
          } else {
             for (J = 1; J <= N; J++) { // 270
                for (I = 3; I <= min( N-J+1, KD+1 ); I++) { // 260
-                  AB( I, J ) = ZERO;
+                  AB[I, J] = ZERO;
                } // 260
                if (J < N && KD > 0) AB( 2, J ) = CMPLX( -ONE, -ONE );
-               AB( 1, J ) = TSCAL*CLARND( 5, ISEED );
+               AB[1, J] = TSCAL*CLARND( 5, ISEED );
             } // 270
-            B( 1 ) = CMPLX( ONE, ONE );
+            B[1] = CMPLX( ONE, ONE );
          }
 
       } else if ( IMAT == 15 ) {
@@ -378,9 +378,9 @@
                LENJ = min( J, KD+1 );
                clarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J != IY ) {
-                  AB( KD+1, J ) = CLARND( 5, ISEED )*TWO;
+                  AB[KD+1, J] = CLARND( 5, ISEED )*TWO;
                } else {
-                  AB( KD+1, J ) = ZERO;
+                  AB[KD+1, J] = ZERO;
                }
             } // 280
          } else {
@@ -388,9 +388,9 @@
                LENJ = min( N-J+1, KD+1 );
                clarnv(4, ISEED, LENJ, AB( 1, J ) );
                if ( J != IY ) {
-                  AB( 1, J ) = CLARND( 5, ISEED )*TWO;
+                  AB[1, J] = CLARND( 5, ISEED )*TWO;
                } else {
-                  AB( 1, J ) = ZERO;
+                  AB[1, J] = ZERO;
                }
             } // 290
          }
@@ -408,7 +408,7 @@
          TSCAL = ( ONE-ULP ) / TSCAL;
          for (J = 1; J <= N; J++) { // 310
             for (I = 1; I <= KD + 1; I++) { // 300
-               AB( I, J ) = ZERO;
+               AB[I, J] = ZERO;
             } // 300
          } // 310
          TEXP = ONE;
@@ -416,34 +416,34 @@
             if ( UPPER ) {
                for (J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) { // 330
                   for (I = J; I >= max( 1, J-KD+1 ); I -= 2) { // 320
-                     AB( 1+( J-I ), I ) = -TSCAL / REAL( KD+2 );
-                     AB( KD+1, I ) = ONE;
-                     B( I ) = TEXP*( ONE-ULP );
+                     AB[1+( J-I ), I] = -TSCAL / REAL( KD+2 );
+                     AB[KD+1, I] = ONE;
+                     B[I] = TEXP*( ONE-ULP );
                      if ( I > max( 1, J-KD+1 ) ) {
-                        AB( 2+( J-I ), I-1 ) = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
-                        AB( KD+1, I-1 ) = ONE;
-                        B( I-1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
+                        AB[2+( J-I ), I-1] = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
+                        AB[KD+1, I-1] = ONE;
+                        B[I-1] = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 320
-                  B( max( 1, J-KD+1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
+                  B[max( 1, J-KD+1 )] = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
                } // 330
             } else {
                for (J = 1; KD < 0 ? J >= N : J <= N; J += KD) { // 350
                   TEXP = ONE;
                   LENJ = min( KD+1, N-J+1 );
                   for (I = J; 2 < 0 ? I >= min( N, J+KD-1 ) : I <= min( N, J+KD-1 ); I += 2) { // 340
-                     AB( LENJ-( I-J ), J ) = -TSCAL / REAL( KD+2 );
-                     AB( 1, J ) = ONE;
-                     B( J ) = TEXP*( ONE-ULP );
+                     AB[LENJ-( I-J ), J] = -TSCAL / REAL( KD+2 );
+                     AB[1, J] = ONE;
+                     B[J] = TEXP*( ONE-ULP );
                      if ( I < min( N, J+KD-1 ) ) {
-                        AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
-                        AB( 1, I+1 ) = ONE;
-                        B( I+1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
+                        AB[LENJ-( I-J+1 ), I+1] = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
+                        AB[1, I+1] = ONE;
+                        B[I+1] = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 340
-                  B( min( N, J+KD-1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
+                  B[min( N, J+KD-1 )] = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
                } // 350
             }
          }
@@ -458,13 +458,13 @@
             for (J = 1; J <= N; J++) { // 360
                LENJ = min( J-1, KD );
                clarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
-               AB( KD+1, J ) = REAL( J );
+               AB[KD+1, J] = REAL( J );
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = min( N-J, KD );
                if (LENJ > 0) clarnv( 4, ISEED, LENJ, AB( 2, J ) );
-               AB( 1, J ) = REAL( J );
+               AB[1, J] = REAL( J );
             } // 370
          }
 
@@ -491,7 +491,7 @@
                clarnv(5, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                slarnv(1, ISEED, LENJ, RWORK( KD+2-LENJ ) );
                for (I = KD + 2 - LENJ; I <= KD + 1; I++) { // 380
-                  AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL );
+                  AB[I, J] = AB( I, J )*( TLEFT+RWORK( I )*TSCAL );
                } // 380
             } // 390
          } else {
@@ -500,7 +500,7 @@
                clarnv(5, ISEED, LENJ, AB( 1, J ) );
                slarnv(1, ISEED, LENJ, RWORK );
                for (I = 1; I <= LENJ; I++) { // 400
-                  AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL );
+                  AB[I, J] = AB( I, J )*( TLEFT+RWORK( I )*TSCAL );
                } // 400
             } // 410
          }

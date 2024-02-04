@@ -63,7 +63,7 @@
          for (I = 1; I <= N; I++) { // 10
             AII = REAL( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
+               A[I, I] = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
                clacgv(N-I, A( I, I+1 ), LDA );
                cgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 );
                clacgv(N-I, A( I, I+1 ), LDA );
@@ -79,7 +79,7 @@
          for (I = 1; I <= N; I++) { // 20
             AII = REAL( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
+               A[I, I] = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
                clacgv(I-1, A( I, 1 ), LDA );
                cgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA );
                clacgv(I-1, A( I, 1 ), LDA );

@@ -41,7 +41,7 @@
 
       slarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 );
-      X( 1 ) = ONE;
+      X[1] = ONE;
 
       C = -TAU*SDOT( N, X, INCX, Y, INCY );
       saxpy(N, C, X, INCX, Y, INCY );

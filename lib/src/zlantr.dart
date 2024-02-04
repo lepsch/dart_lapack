@@ -121,43 +121,43 @@
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= M; I++) { // 150
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   for (I = 1; I <= min( M, J-1 ); I++) { // 160
-                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( A( I, J ) ).abs();
                   } // 160
                } // 170
             } else {
                for (I = 1; I <= M; I++) { // 180
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   for (I = 1; I <= min( M, J ); I++) { // 190
-                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( A( I, J ) ).abs();
                   } // 190
                } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= min( M, N ); I++) { // 210
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 210
                for (I = N + 1; I <= M; I++) { // 220
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 220
                for (J = 1; J <= N; J++) { // 240
                   for (I = J + 1; I <= M; I++) { // 230
-                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( A( I, J ) ).abs();
                   } // 230
                } // 240
             } else {
                for (I = 1; I <= M; I++) { // 250
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 250
                for (J = 1; J <= N; J++) { // 270
                   for (I = J; I <= M; I++) { // 260
-                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( A( I, J ) ).abs();
                   } // 260
                } // 270
             }

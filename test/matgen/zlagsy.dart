@@ -56,11 +56,11 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = J + 1; I <= N; I++) { // 10
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= N; I++) { // 30
-         A( I, I ) = D( I );
+         A[I, I] = D( I );
       } // 30
 
       // Generate lower triangle of symmetric matrix
@@ -77,7 +77,7 @@
          } else {
             WB = WORK( 1 ) + WA;
             zscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
             TAU = DBLE( WB / WA );
          }
 
@@ -102,7 +102,7 @@
 
          for (JJ = I; JJ <= N; JJ++) { // 50
             for (II = JJ; II <= N; II++) { // 40
-               A( II, JJ ) = A( II, JJ ) - WORK( II-I+1 )*WORK( N+JJ-I+1 ) - WORK( N+II-I+1 )*WORK( JJ-I+1 );
+               A[II, JJ] = A( II, JJ ) - WORK( II-I+1 )*WORK( N+JJ-I+1 ) - WORK( N+II-I+1 )*WORK( JJ-I+1 );
             } // 40
          } // 50
       } // 60
@@ -120,7 +120,7 @@
          } else {
             WB = A( K+I, I ) + WA;
             zscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
-            A( K+I, I ) = ONE;
+            A[K+I, I] = ONE;
             TAU = DBLE( WB / WA );
          }
 
@@ -149,13 +149,13 @@
 
          for (JJ = K + I; JJ <= N; JJ++) { // 80
             for (II = JJ; II <= N; II++) { // 70
-               A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I );
+               A[II, JJ] = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I );
             } // 70
          } // 80
 
-         A( K+I, I ) = -WA;
+         A[K+I, I] = -WA;
          for (J = K + I + 1; J <= N; J++) { // 90
-            A( J, I ) = ZERO;
+            A[J, I] = ZERO;
          } // 90
       } // 100
 
@@ -163,7 +163,7 @@
 
       for (J = 1; J <= N; J++) { // 120
          for (I = J + 1; I <= N; I++) { // 110
-            A( J, I ) = A( I, J );
+            A[J, I] = A( I, J );
          } // 110
       } // 120
       return;

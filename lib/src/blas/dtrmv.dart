@@ -83,7 +83,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           for (I = 1; I <= J - 1; I++) { // 10
-                              X(I) = X(I) + TEMP*A(I,J);
+                              X[I] = X(I) + TEMP*A(I,J);
                           } // 10
                           if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
@@ -95,7 +95,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (I = 1; I <= J - 1; I++) { // 30
-                              X(IX) = X(IX) + TEMP*A(I,J);
+                              X[IX] = X(IX) + TEMP*A(I,J);
                               IX = IX + INCX;
                           } // 30
                           if (NOUNIT) X(JX) = X(JX)*A(J,J);
@@ -109,7 +109,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           for (I = N; I >= J + 1; I--) { // 50
-                              X(I) = X(I) + TEMP*A(I,J);
+                              X[I] = X(I) + TEMP*A(I,J);
                           } // 50
                           if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
@@ -122,7 +122,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (I = N; I >= J + 1; I--) { // 70
-                              X(IX) = X(IX) + TEMP*A(I,J);
+                              X[IX] = X(IX) + TEMP*A(I,J);
                               IX = IX - INCX;
                           } // 70
                           if (NOUNIT) X(JX) = X(JX)*A(J,J);
@@ -143,7 +143,7 @@
                       for (I = J - 1; I >= 1; I--) { // 90
                           TEMP = TEMP + A(I,J)*X(I);
                       } // 90
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                   } // 100
               } else {
                   JX = KX + (N-1)*INCX;
@@ -155,7 +155,7 @@
                           IX = IX - INCX;
                           TEMP = TEMP + A(I,J)*X(IX);
                       } // 110
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX - INCX;
                   } // 120
               }
@@ -167,7 +167,7 @@
                       for (I = J + 1; I <= N; I++) { // 130
                           TEMP = TEMP + A(I,J)*X(I);
                       } // 130
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                   } // 140
               } else {
                   JX = KX;
@@ -179,7 +179,7 @@
                           IX = IX + INCX;
                           TEMP = TEMP + A(I,J)*X(IX);
                       } // 150
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX + INCX;
                   } // 160
               }

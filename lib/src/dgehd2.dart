@@ -52,7 +52,7 @@
 
          dlarfg(IHI-I, A( I+1, I ), A( min( I+2, N ), I ), 1, TAU( I ) );
          AII = A( I+1, I );
-         A( I+1, I ) = ONE;
+         A[I+1, I] = ONE;
 
          // Apply H(i) to A(1:ihi,i+1:ihi) from the right
 
@@ -62,7 +62,7 @@
 
          dlarf('Left', IHI-I, N-I, A( I+1, I ), 1, TAU( I ), A( I+1, I+1 ), LDA, WORK );
 
-         A( I+1, I ) = AII;
+         A[I+1, I] = AII;
       } // 10
 
       return;

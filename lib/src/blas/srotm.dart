@@ -34,8 +34,8 @@
             for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
-               SX(I) = W*SH11 + Z*SH12;
-               SY(I) = W*SH21 + Z*SH22;
+               SX[I] = W*SH11 + Z*SH12;
+               SY[I] = W*SH21 + Z*SH22;
             }
          } else if (SFLAG == ZERO) {
             SH12 = SPARAM(4);
@@ -43,8 +43,8 @@
             for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
-               SX(I) = W + Z*SH12;
-               SY(I) = W*SH21 + Z;
+               SX[I] = W + Z*SH12;
+               SY[I] = W*SH21 + Z;
             }
          } else {
             SH11 = SPARAM(2);
@@ -52,8 +52,8 @@
             for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
-               SX(I) = W*SH11 + Z;
-               SY(I) = -W + SH22*Z;
+               SX[I] = W*SH11 + Z;
+               SY[I] = -W + SH22*Z;
             }
          }
       } else {
@@ -70,8 +70,8 @@
             for (I = 1; I <= N; I++) {
                W = SX(KX);
                Z = SY(KY);
-               SX(KX) = W*SH11 + Z*SH12;
-               SY(KY) = W*SH21 + Z*SH22;
+               SX[KX] = W*SH11 + Z*SH12;
+               SY[KY] = W*SH21 + Z*SH22;
                KX = KX + INCX;
                KY = KY + INCY;
             }
@@ -81,8 +81,8 @@
             for (I = 1; I <= N; I++) {
                W = SX(KX);
                Z = SY(KY);
-               SX(KX) = W + Z*SH12;
-               SY(KY) = W*SH21 + Z;
+               SX[KX] = W + Z*SH12;
+               SY[KY] = W*SH21 + Z;
                KX = KX + INCX;
                KY = KY + INCY;
             }
@@ -92,8 +92,8 @@
              for (I = 1; I <= N; I++) {
                 W = SX(KX);
                 Z = SY(KY);
-                SX(KX) = W*SH11 + Z;
-                SY(KY) = -W + SH22*Z;
+                SX[KX] = W*SH11 + Z;
+                SY[KY] = -W + SH22*Z;
                 KX = KX + INCX;
                 KY = KY + INCY;
             }

@@ -108,9 +108,9 @@
          // Apply H(i)
 
          AII = A( I, I );
-         A( I, I ) = ONE;
+         A[I, I] = ONE;
          dlarf(SIDE, MI, NI, A( I, I ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
-         A( I, I ) = AII;
+         A[I, I] = AII;
       } // 10
       return;
       }

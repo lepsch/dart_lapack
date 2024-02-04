@@ -33,9 +33,9 @@
          T4 = T2 + SI*YI;
          T5 = CI*XI + T1;
          T6 = CI*YI - T1;
-         X( IX ) = CI*T5 + SI*T4;
-         Y( IX ) = CI*T6 - SI*T3;
-         Z( IX ) = CI*T4 - SI*T5;
+         X[IX] = CI*T5 + SI*T4;
+         Y[IX] = CI*T6 - SI*T3;
+         Z[IX] = CI*T4 - SI*T5;
          IX = IX + INCX;
          IC = IC + INCC;
       } // 10

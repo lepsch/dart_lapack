@@ -27,7 +27,7 @@
          // code for increment equal to 1
 
          for (I = 1; I <= N; I++) {
-            CX(I) = CA*CX(I);
+            CX[I] = CA*CX(I);
          }
       } else {
 
@@ -35,7 +35,7 @@
 
          NINCX = N*INCX;
          for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            CX(I) = CA*CX(I);
+            CX[I] = CA*CX(I);
          }
       }
       return;

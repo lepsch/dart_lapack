@@ -37,7 +37,7 @@
       NB3 = ILAENV( 1, 'DORMRQ', ' ', M, N, P, -1 );
       NB = max( NB1, NB2, NB3 );
       LWKOPT = max( 1, max( N, M, P )*NB );
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -72,7 +72,7 @@
       // QR factorization of P-by-N matrix B: B = Z*T
 
       dgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
-      WORK( 1 ) = max( LOPT, INT( WORK( 1 ) ) );
+      WORK[1] = max( LOPT, INT( WORK( 1 ) ) );
 
       return;
       }

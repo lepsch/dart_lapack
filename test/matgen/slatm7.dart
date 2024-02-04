@@ -75,37 +75,37 @@
 
          } // 100
          for (I = 2; I <= RANK; I++) { // 110
-            D( I ) = ONE / COND;
+            D[I] = ONE / COND;
          } // 110
          for (I = RANK + 1; I <= N; I++) { // 120
-            D( I ) = ZERO;
+            D[I] = ZERO;
          } // 120
-         D( 1 ) = ONE;
+         D[1] = ONE;
          GO TO 240;
 
          // One small D value:
 
          } // 130
          for (I = 1; I <= RANK - 1; I++) { // 140
-            D( I ) = ONE;
+            D[I] = ONE;
          } // 140
          for (I = RANK + 1; I <= N; I++) { // 150
-            D( I ) = ZERO;
+            D[I] = ZERO;
          } // 150
-         D( RANK ) = ONE / COND;
+         D[RANK] = ONE / COND;
          GO TO 240;
 
          // Exponentially distributed D values:
 
          } // 160
-         D( 1 ) = ONE;
+         D[1] = ONE;
          if ( N > 1 && RANK > 1 ) {
             ALPHA = COND**( -ONE / REAL( RANK-1 ) );
             for (I = 2; I <= RANK; I++) { // 170
-               D( I ) = ALPHA**( I-1 );
+               D[I] = ALPHA**( I-1 );
             } // 170
             for (I = RANK + 1; I <= N; I++) { // 180
-               D( I ) = ZERO;
+               D[I] = ZERO;
             } // 180
          }
          GO TO 240;
@@ -113,12 +113,12 @@
          // Arithmetically distributed D values:
 
          } // 190
-         D( 1 ) = ONE;
+         D[1] = ONE;
          if ( N > 1 ) {
             TEMP = ONE / COND;
             ALPHA = ( ONE-TEMP ) / REAL( N-1 );
             for (I = 2; I <= N; I++) { // 200
-               D( I ) = REAL( N-I )*ALPHA + TEMP;
+               D[I] = REAL( N-I )*ALPHA + TEMP;
             } // 200
          }
          GO TO 240;
@@ -128,7 +128,7 @@
          } // 210
          ALPHA = LOG( ONE / COND );
          for (I = 1; I <= N; I++) { // 220
-            D( I ) = EXP( ALPHA*SLARAN( ISEED ) );
+            D[I] = EXP( ALPHA*SLARAN( ISEED ) );
          } // 220
          GO TO 240;
 
@@ -154,8 +154,8 @@
          if ( MODE < 0 ) {
             for (I = 1; I <= N / 2; I++) { // 260
                TEMP = D( I );
-               D( I ) = D( N+1-I );
-               D( N+1-I ) = TEMP;
+               D[I] = D( N+1-I );
+               D[N+1-I] = TEMP;
             } // 260
          }
 

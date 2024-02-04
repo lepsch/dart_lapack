@@ -129,22 +129,22 @@
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 150
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   for (I = 1; I <= J - 1; I++) { // 160
-                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
+                     WORK[I] = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 160
                   K = K + 1;
                } // 170
             } else {
                for (I = 1; I <= N; I++) { // 180
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   for (I = 1; I <= J; I++) { // 190
-                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
+                     WORK[I] = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 190
                } // 200
@@ -152,22 +152,22 @@
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 210
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 210
                for (J = 1; J <= N; J++) { // 230
                   K = K + 1;
                   for (I = J + 1; I <= N; I++) { // 220
-                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
+                     WORK[I] = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 220
                } // 230
             } else {
                for (I = 1; I <= N; I++) { // 240
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 240
                for (J = 1; J <= N; J++) { // 260
                   for (I = J; I <= N; I++) { // 250
-                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
+                     WORK[I] = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 250
                } // 260

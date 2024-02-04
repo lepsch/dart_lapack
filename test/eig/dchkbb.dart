@@ -151,7 +151,7 @@
                NTEST = 0;
 
                for (J = 1; J <= 4; J++) { // 30
-                  IOLDSD( J ) = ISEED( J );
+                  IOLDSD[J] = ISEED( J );
                } // 30
 
                // Compute "A".
@@ -209,7 +209,7 @@
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A( JCOL, JCOL ) = ANORM;
+                     A[JCOL, JCOL] = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
@@ -251,7 +251,7 @@
 
                for (J = 1; J <= N; J++) { // 110
                   for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 100
-                     AB( KU+1+I-J, J ) = A( I, J );
+                     AB[KU+1+I-J, J] = A( I, J );
                   } // 100
                } // 110
 
@@ -269,7 +269,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 1 ) = ULPINV;
+                     RESULT[1] = ULPINV;
                      GO TO 120;
                   }
                }

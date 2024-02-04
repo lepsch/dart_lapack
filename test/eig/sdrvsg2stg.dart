@@ -100,7 +100,7 @@
       RTOVFL = sqrt( OVFL );
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED2( I ) = ISEED( I );
+         ISEED2[I] = ISEED( I );
       } // 20
 
       // Loop over sizes, types
@@ -126,7 +126,7 @@
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 30
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 30
 
             // 2)      Compute "A"
@@ -188,7 +188,7 @@
                KB = 0;
                slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -307,7 +307,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -330,7 +330,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -352,7 +352,7 @@
                      TEMP2 = max( TEMP2, ABS( D( J )-D2( J ) ) );
                   } // 151
 
-                  RESULT( NTEST ) = TEMP2 /  max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+                  RESULT[NTEST] = TEMP2 /  max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                   // Test SSYGVD
 
@@ -368,7 +368,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -391,7 +391,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -419,7 +419,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -440,7 +440,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 100;
                      }
                   }
@@ -461,8 +461,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 120
                         for (I = 1; I <= J; I++) { // 110
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 110
                      } // 120
@@ -470,8 +470,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 140
                         for (I = J; I <= N; I++) { // 130
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 130
                      } // 140
@@ -484,7 +484,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 310;
                      }
                   }
@@ -503,8 +503,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 160
                         for (I = 1; I <= J; I++) { // 150
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 150
                      } // 160
@@ -512,8 +512,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 180
                         for (I = J; I <= N; I++) { // 170
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 170
                      } // 180
@@ -526,7 +526,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 310;
                      }
                   }
@@ -545,8 +545,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 200
                         for (I = 1; I <= J; I++) { // 190
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 190
                      } // 200
@@ -554,8 +554,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 220
                         for (I = J; I <= N; I++) { // 210
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 210
                      } // 220
@@ -568,7 +568,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 310;
                      }
                   }
@@ -585,8 +585,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 240
                         for (I = 1; I <= J; I++) { // 230
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 230
                      } // 240
@@ -594,8 +594,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 260
                         for (I = J; I <= N; I++) { // 250
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 250
                      } // 260
@@ -610,7 +610,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 310;
                      }
                   }
@@ -627,8 +627,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 280
                         for (I = 1; I <= J; I++) { // 270
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 270
                      } // 280
@@ -636,8 +636,8 @@
                      IJ = 1;
                      for (J = 1; J <= N; J++) { // 300
                         for (I = J; I <= N; I++) { // 290
-                           AP( IJ ) = A( I, J );
-                           BP( IJ ) = B( I, J );
+                           AP[IJ] = A( I, J );
+                           BP[IJ] = B( I, J );
                            IJ = IJ + 1;
                         } // 290
                      } // 300
@@ -650,7 +650,7 @@
                      if ( IINFO < 0 ) {
                         return;
                      } else {
-                        RESULT( NTEST ) = ULPINV;
+                        RESULT[NTEST] = ULPINV;
                         GO TO 310;
                      }
                   }
@@ -672,19 +672,19 @@
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
                            for (I = max( 1, J-KA ); I <= J; I++) { // 320
-                              AB( KA+1+I-J, J ) = A( I, J );
+                              AB[KA+1+I-J, J] = A( I, J );
                            } // 320
                            for (I = max( 1, J-KB ); I <= J; I++) { // 330
-                              BB( KB+1+I-J, J ) = B( I, J );
+                              BB[KB+1+I-J, J] = B( I, J );
                            } // 330
                         } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
                            for (I = J; I <= min( N, J+KA ); I++) { // 350
-                              AB( 1+I-J, J ) = A( I, J );
+                              AB[1+I-J, J] = A( I, J );
                            } // 350
                            for (I = J; I <= min( N, J+KB ); I++) { // 360
-                              BB( 1+I-J, J ) = B( I, J );
+                              BB[1+I-J, J] = B( I, J );
                            } // 360
                         } // 370
                      }
@@ -696,7 +696,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( NTEST ) = ULPINV;
+                           RESULT[NTEST] = ULPINV;
                            GO TO 620;
                         }
                      }
@@ -714,19 +714,19 @@
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
                            for (I = max( 1, J-KA ); I <= J; I++) { // 380
-                              AB( KA+1+I-J, J ) = A( I, J );
+                              AB[KA+1+I-J, J] = A( I, J );
                            } // 380
                            for (I = max( 1, J-KB ); I <= J; I++) { // 390
-                              BB( KB+1+I-J, J ) = B( I, J );
+                              BB[KB+1+I-J, J] = B( I, J );
                            } // 390
                         } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
                            for (I = J; I <= min( N, J+KA ); I++) { // 410
-                              AB( 1+I-J, J ) = A( I, J );
+                              AB[1+I-J, J] = A( I, J );
                            } // 410
                            for (I = J; I <= min( N, J+KB ); I++) { // 420
-                              BB( 1+I-J, J ) = B( I, J );
+                              BB[1+I-J, J] = B( I, J );
                            } // 420
                         } // 430
                      }
@@ -738,7 +738,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( NTEST ) = ULPINV;
+                           RESULT[NTEST] = ULPINV;
                            GO TO 620;
                         }
                      }
@@ -756,19 +756,19 @@
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
                            for (I = max( 1, J-KA ); I <= J; I++) { // 440
-                              AB( KA+1+I-J, J ) = A( I, J );
+                              AB[KA+1+I-J, J] = A( I, J );
                            } // 440
                            for (I = max( 1, J-KB ); I <= J; I++) { // 450
-                              BB( KB+1+I-J, J ) = B( I, J );
+                              BB[KB+1+I-J, J] = B( I, J );
                            } // 450
                         } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
                            for (I = J; I <= min( N, J+KA ); I++) { // 470
-                              AB( 1+I-J, J ) = A( I, J );
+                              AB[1+I-J, J] = A( I, J );
                            } // 470
                            for (I = J; I <= min( N, J+KB ); I++) { // 480
-                              BB( 1+I-J, J ) = B( I, J );
+                              BB[1+I-J, J] = B( I, J );
                            } // 480
                         } // 490
                      }
@@ -780,7 +780,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( NTEST ) = ULPINV;
+                           RESULT[NTEST] = ULPINV;
                            GO TO 620;
                         }
                      }
@@ -797,19 +797,19 @@
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
                            for (I = max( 1, J-KA ); I <= J; I++) { // 500
-                              AB( KA+1+I-J, J ) = A( I, J );
+                              AB[KA+1+I-J, J] = A( I, J );
                            } // 500
                            for (I = max( 1, J-KB ); I <= J; I++) { // 510
-                              BB( KB+1+I-J, J ) = B( I, J );
+                              BB[KB+1+I-J, J] = B( I, J );
                            } // 510
                         } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
                            for (I = J; I <= min( N, J+KA ); I++) { // 530
-                              AB( 1+I-J, J ) = A( I, J );
+                              AB[1+I-J, J] = A( I, J );
                            } // 530
                            for (I = J; I <= min( N, J+KB ); I++) { // 540
-                              BB( 1+I-J, J ) = B( I, J );
+                              BB[1+I-J, J] = B( I, J );
                            } // 540
                         } // 550
                      }
@@ -823,7 +823,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( NTEST ) = ULPINV;
+                           RESULT[NTEST] = ULPINV;
                            GO TO 620;
                         }
                      }
@@ -839,19 +839,19 @@
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
                            for (I = max( 1, J-KA ); I <= J; I++) { // 560
-                              AB( KA+1+I-J, J ) = A( I, J );
+                              AB[KA+1+I-J, J] = A( I, J );
                            } // 560
                            for (I = max( 1, J-KB ); I <= J; I++) { // 570
-                              BB( KB+1+I-J, J ) = B( I, J );
+                              BB[KB+1+I-J, J] = B( I, J );
                            } // 570
                         } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
                            for (I = J; I <= min( N, J+KA ); I++) { // 590
-                              AB( 1+I-J, J ) = A( I, J );
+                              AB[1+I-J, J] = A( I, J );
                            } // 590
                            for (I = J; I <= min( N, J+KB ); I++) { // 600
-                              BB( 1+I-J, J ) = B( I, J );
+                              BB[1+I-J, J] = B( I, J );
                            } // 600
                         } // 610
                      }
@@ -863,7 +863,7 @@
                         if ( IINFO < 0 ) {
                            return;
                         } else {
-                           RESULT( NTEST ) = ULPINV;
+                           RESULT[NTEST] = ULPINV;
                            GO TO 620;
                         }
                      }

@@ -31,8 +31,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'EC';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'EC';
       EPS = SLAMCH( 'P' );
       SFMIN = SLAMCH( 'S' );
       WRITE( NOUT, FMT = 9994 );

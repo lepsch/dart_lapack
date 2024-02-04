@@ -42,7 +42,7 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -75,12 +75,12 @@
          // Find normI(A).
 
          for (I1 = 1; I1 <= M; I1++) { // 12
-            RWORK( I1 ) = ZERO;
+            RWORK[I1] = ZERO;
          } // 12
          for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J;
             for (I1 = max( 1, J-KU ); I1 <= min( M, J+KL ); I1++) { // 14
-               RWORK( I1 ) = RWORK( I1 ) + CABS1( A( KD+I1, J ) );
+               RWORK[I1] = RWORK( I1 ) + CABS1( A( KD+I1, J ) );
             } // 14
          } // 16
          for (I1 = 1; I1 <= M; I1++) { // 18

@@ -59,11 +59,11 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= min( M, N ); I++) { // 30
-         A( I, I ) = D( I );
+         A[I, I] = D( I );
       } // 30
 
       // Quick exit if the user wants a diagonal matrix
@@ -85,7 +85,7 @@
             } else {
                WB = WORK( 1 ) + WA;
                zscal(M-I, ONE / WB, WORK( 2 ), 1 );
-               WORK( 1 ) = ONE;
+               WORK[1] = ONE;
                TAU = DBLE( WB / WA );
             }
 
@@ -106,7 +106,7 @@
             } else {
                WB = WORK( 1 ) + WA;
                zscal(N-I, ONE / WB, WORK( 2 ), 1 );
-               WORK( 1 ) = ONE;
+               WORK[1] = ONE;
                TAU = DBLE( WB / WA );
             }
 
@@ -136,7 +136,7 @@
                } else {
                   WB = A( KL+I, I ) + WA;
                   zscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A( KL+I, I ) = ONE;
+                  A[KL+I, I] = ONE;
                   TAU = DBLE( WB / WA );
                }
 
@@ -144,7 +144,7 @@
 
                zgemv('Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                zgerc(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A( KL+I, I ) = -WA;
+               A[KL+I, I] = -WA;
             }
 
             if ( I <= min( N-1-KU, M ) ) {
@@ -158,7 +158,7 @@
                } else {
                   WB = A( I, KU+I ) + WA;
                   zscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A( I, KU+I ) = ONE;
+                  A[I, KU+I] = ONE;
                   TAU = DBLE( WB / WA );
                }
 
@@ -167,7 +167,7 @@
                zlacgv(N-KU-I+1, A( I, KU+I ), LDA );
                zgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                zgerc(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A( I, KU+I ) = -WA;
+               A[I, KU+I] = -WA;
             }
          } else {
 
@@ -185,7 +185,7 @@
                } else {
                   WB = A( I, KU+I ) + WA;
                   zscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A( I, KU+I ) = ONE;
+                  A[I, KU+I] = ONE;
                   TAU = DBLE( WB / WA );
                }
 
@@ -194,7 +194,7 @@
                zlacgv(N-KU-I+1, A( I, KU+I ), LDA );
                zgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                zgerc(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A( I, KU+I ) = -WA;
+               A[I, KU+I] = -WA;
             }
 
             if ( I <= min( M-1-KL, N ) ) {
@@ -208,7 +208,7 @@
                } else {
                   WB = A( KL+I, I ) + WA;
                   zscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A( KL+I, I ) = ONE;
+                  A[KL+I, I] = ONE;
                   TAU = DBLE( WB / WA );
                }
 
@@ -216,19 +216,19 @@
 
                zgemv('Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                zgerc(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A( KL+I, I ) = -WA;
+               A[KL+I, I] = -WA;
             }
          }
 
          if (I <= N) {
             for (J = KL + I + 1; J <= M; J++) { // 50
-               A( J, I ) = ZERO;
+               A[J, I] = ZERO;
             } // 50
          }
 
          if (I <= M) {
             for (J = KU + I + 1; J <= N; J++) { // 60
-               A( I, J ) = ZERO;
+               A[I, J] = ZERO;
             } // 60
          }
       } // 70

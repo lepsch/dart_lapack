@@ -103,11 +103,11 @@
       if ( N == 1 ) {
          if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1) <= VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1;
-            W(1) = D(1);
+            W[1] = D(1);
             // The computation error of the eigenvalue is zero
-            WERR(1) = ZERO;
-            IBLOCK( 1 ) = 1;
-            INDEXW( 1 ) = 1;
+            WERR[1] = ZERO;
+            IBLOCK[1] = 1;
+            INDEXW[1] = 1;
          }
          return;
       }
@@ -148,18 +148,18 @@
          // IL through IU. The initial interval [GL,GU] from the global
          // Gerschgorin bounds GL and GU is refined by DLAEBZ.
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
-         WORK( N+1 ) = GL;
-         WORK( N+2 ) = GL;
-         WORK( N+3 ) = GU;
-         WORK( N+4 ) = GU;
-         WORK( N+5 ) = GL;
-         WORK( N+6 ) = GU;
-         IWORK( 1 ) = -1;
-         IWORK( 2 ) = -1;
-         IWORK( 3 ) = N + 1;
-         IWORK( 4 ) = N + 1;
-         IWORK( 5 ) = IL - 1;
-         IWORK( 6 ) = IU;
+         WORK[N+1] = GL;
+         WORK[N+2] = GL;
+         WORK[N+3] = GU;
+         WORK[N+4] = GU;
+         WORK[N+5] = GL;
+         WORK[N+6] = GU;
+         IWORK[1] = -1;
+         IWORK[2] = -1;
+         IWORK[3] = N + 1;
+         IWORK[4] = N + 1;
+         IWORK[5] = IL - 1;
+         IWORK[6] = IU;
 
          dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
          if ( IINFO != 0 ) {
@@ -221,12 +221,12 @@
             if( WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1;
             IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1;
-               W( M ) = D( IBEGIN );
-               WERR(M) = ZERO;
+               W[M] = D( IBEGIN );
+               WERR[M] = ZERO;
                // The gap for a single block doesn't matter for the later
                // algorithm and is assigned an arbitrary large value
-               IBLOCK( M ) = JBLK;
-               INDEXW( M ) = 1;
+               IBLOCK[M] = JBLK;
+               INDEXW[M] = 1;
             }
 
          // Disabled 2x2 case because of a failure on the following matrix
@@ -310,8 +310,8 @@
             }
 
             // Find negcount of initial interval boundaries GL and GU
-            WORK( N+1 ) = GL;
-            WORK( N+IN+1 ) = GU;
+            WORK[N+1] = GL;
+            WORK[N+IN+1] = GU;
             dlaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO;
@@ -346,10 +346,10 @@
                   IB = JBLK;
                }
                for (JE = IWORK( J ) + 1 + IWOFF; JE <= IWORK( J+IN ) + IWOFF; JE++) { // 50
-                  W( JE ) = TMP1;
-                  WERR( JE ) = TMP2;
-                  INDEXW( JE ) = JE - IWOFF;
-                  IBLOCK( JE ) = IB;
+                  W[JE] = TMP1;
+                  WERR[JE] = TMP2;
+                  INDEXW[JE] = JE - IWOFF;
+                  IBLOCK[JE] = IB;
                } // 50
             } // 60
 
@@ -372,10 +372,10 @@
                   IDISCL = IDISCL - 1;
                } else {
                   IM = IM + 1;
-                  W( IM ) = W( JE );
-                  WERR( IM ) = WERR( JE );
-                  INDEXW( IM ) = INDEXW( JE );
-                  IBLOCK( IM ) = IBLOCK( JE );
+                  W[IM] = W( JE );
+                  WERR[IM] = WERR( JE );
+                  INDEXW[IM] = INDEXW( JE );
+                  IBLOCK[IM] = IBLOCK( JE );
                }
             } // 80
             M = IM;
@@ -389,19 +389,19 @@
                   IDISCU = IDISCU - 1;
                } else {
                   IM = IM - 1;
-                  W( IM ) = W( JE );
-                  WERR( IM ) = WERR( JE );
-                  INDEXW( IM ) = INDEXW( JE );
-                  IBLOCK( IM ) = IBLOCK( JE );
+                  W[IM] = W( JE );
+                  WERR[IM] = WERR( JE );
+                  INDEXW[IM] = INDEXW( JE );
+                  IBLOCK[IM] = IBLOCK( JE );
                }
             } // 81
             JEE = 0;
             for (JE = IM; JE <= M; JE++) { // 82
                JEE = JEE + 1;
-               W( JEE ) = W( JE );
-               WERR( JEE ) = WERR( JE );
-               INDEXW( JEE ) = INDEXW( JE );
-               IBLOCK( JEE ) = IBLOCK( JE );
+               W[JEE] = W( JE );
+               WERR[JEE] = WERR( JE );
+               INDEXW[JEE] = INDEXW( JE );
+               IBLOCK[JEE] = IBLOCK( JE );
             } // 82
             M = M-IM+1;
          }
@@ -423,7 +423,7 @@
                         WKILL = W( JE );
                      }
                   } // 90
-                  IBLOCK( IW ) = 0;
+                  IBLOCK[IW] = 0;
                } // 100
             }
             if ( IDISCU > 0 ) {
@@ -436,7 +436,7 @@
                         WKILL = W( JE );
                      }
                   } // 110
-                  IBLOCK( IW ) = 0;
+                  IBLOCK[IW] = 0;
                } // 120
             }
             // Now erase all eigenvalues with IBLOCK set to zero
@@ -444,10 +444,10 @@
             for (JE = 1; JE <= M; JE++) { // 130
                if ( IBLOCK( JE ) != 0 ) {
                   IM = IM + 1;
-                  W( IM ) = W( JE );
-                  WERR( IM ) = WERR( JE );
-                  INDEXW( IM ) = INDEXW( JE );
-                  IBLOCK( IM ) = IBLOCK( JE );
+                  W[IM] = W( JE );
+                  WERR[IM] = WERR( JE );
+                  INDEXW[IM] = INDEXW( JE );
+                  IBLOCK[IM] = IBLOCK( JE );
                }
             } // 130
             M = IM;
@@ -479,14 +479,14 @@
                TMP2 = WERR( IE );
                ITMP1 = IBLOCK( IE );
                ITMP2 = INDEXW( IE );
-               W( IE ) = W( JE );
-               WERR( IE ) = WERR( JE );
-               IBLOCK( IE ) = IBLOCK( JE );
-               INDEXW( IE ) = INDEXW( JE );
-               W( JE ) = TMP1;
-               WERR( JE ) = TMP2;
-               IBLOCK( JE ) = ITMP1;
-               INDEXW( JE ) = ITMP2;
+               W[IE] = W( JE );
+               WERR[IE] = WERR( JE );
+               IBLOCK[IE] = IBLOCK( JE );
+               INDEXW[IE] = INDEXW( JE );
+               W[JE] = TMP1;
+               WERR[JE] = TMP2;
+               IBLOCK[JE] = ITMP1;
+               INDEXW[JE] = ITMP2;
             }
          } // 150
       }

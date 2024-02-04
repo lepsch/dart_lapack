@@ -47,7 +47,7 @@
             for (JP = 1; JP <= 2; JP++) { // 20
                TMP1 = D( 1 ) - AB( JI, JP );
                if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
-               NAB( JI, JP ) = 0;
+               NAB[JI, JP] = 0;
                if (TMP1 <= ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
@@ -75,7 +75,7 @@
 
       if ( IJOB == 2 ) {
          for (JI = 1; JI <= MINP; JI++) { // 40
-            C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) );
+            C[JI] = HALF*( AB( JI, 1 )+AB( JI, 2 ) );
          } // 40
       }
 
@@ -93,18 +93,18 @@
 
                // Compute N(c), the number of eigenvalues less than c
 
-               WORK( JI ) = D( 1 ) - C( JI );
-               IWORK( JI ) = 0;
+               WORK[JI] = D( 1 ) - C( JI );
+               IWORK[JI] = 0;
                if ( WORK( JI ) <= PIVMIN ) {
-                  IWORK( JI ) = 1;
-                  WORK( JI ) = min( WORK( JI ), -PIVMIN );
+                  IWORK[JI] = 1;
+                  WORK[JI] = min( WORK( JI ), -PIVMIN );
                }
 
                for (J = 2; J <= N; J++) { // 50
-                  WORK( JI ) = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI );
+                  WORK[JI] = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI );
                   if ( WORK( JI ) <= PIVMIN ) {
-                     IWORK( JI ) = IWORK( JI ) + 1;
-                     WORK( JI ) = min( WORK( JI ), -PIVMIN );
+                     IWORK[JI] = IWORK( JI ) + 1;
+                     WORK[JI] = min( WORK( JI ), -PIVMIN );
                   }
                } // 50
             } // 60
@@ -118,7 +118,7 @@
 
                   // Insure that N(w) is monotone
 
-                  IWORK( JI ) = min( NAB( JI, 2 ), max( NAB( JI, 1 ), IWORK( JI ) ) );
+                  IWORK[JI] = min( NAB( JI, 2 ), max( NAB( JI, 1 ), IWORK( JI ) ) );
 
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
@@ -128,14 +128,14 @@
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
-                     AB( JI, 2 ) = C( JI );
+                     AB[JI, 2] = C( JI );
 
                   } else if ( IWORK( JI ) == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
 
-                     AB( JI, 1 ) = C( JI );
+                     AB[JI, 1] = C( JI );
                   } else {
                      KLNEW = KLNEW + 1;
                      if ( KLNEW <= MMAX ) {
@@ -143,12 +143,12 @@
                         // Eigenvalue in both intervals -- add upper to
                         // queue.
 
-                        AB( KLNEW, 2 ) = AB( JI, 2 );
-                        NAB( KLNEW, 2 ) = NAB( JI, 2 );
-                        AB( KLNEW, 1 ) = C( JI );
-                        NAB( KLNEW, 1 ) = IWORK( JI );
-                        AB( JI, 2 ) = C( JI );
-                        NAB( JI, 2 ) = IWORK( JI );
+                        AB[KLNEW, 2] = AB( JI, 2 );
+                        NAB[KLNEW, 2] = NAB( JI, 2 );
+                        AB[KLNEW, 1] = C( JI );
+                        NAB[KLNEW, 1] = IWORK( JI );
+                        AB[JI, 2] = C( JI );
+                        NAB[JI, 2] = IWORK( JI );
                      } else {
                         INFO = MMAX + 1;
                      }
@@ -163,12 +163,12 @@
 
                for (JI = KF; JI <= KL; JI++) { // 80
                   if ( IWORK( JI ) <= NVAL( JI ) ) {
-                     AB( JI, 1 ) = C( JI );
-                     NAB( JI, 1 ) = IWORK( JI );
+                     AB[JI, 1] = C( JI );
+                     NAB[JI, 1] = IWORK( JI );
                   }
                   if ( IWORK( JI ) >= NVAL( JI ) ) {
-                     AB( JI, 2 ) = C( JI );
-                     NAB( JI, 2 ) = IWORK( JI );
+                     AB[JI, 2] = C( JI );
+                     NAB[JI, 2] = IWORK( JI );
                   }
                } // 80
             }
@@ -216,25 +216,25 @@
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
-                     AB( JI, 2 ) = TMP1;
+                     AB[JI, 2] = TMP1;
 
                   } else if ( ITMP1 == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
 
-                     AB( JI, 1 ) = TMP1;
+                     AB[JI, 1] = TMP1;
                   } else if ( KLNEW < MMAX ) {
 
                      // Eigenvalue in both intervals -- add upper to queue.
 
                      KLNEW = KLNEW + 1;
-                     AB( KLNEW, 2 ) = AB( JI, 2 );
-                     NAB( KLNEW, 2 ) = NAB( JI, 2 );
-                     AB( KLNEW, 1 ) = TMP1;
-                     NAB( KLNEW, 1 ) = ITMP1;
-                     AB( JI, 2 ) = TMP1;
-                     NAB( JI, 2 ) = ITMP1;
+                     AB[KLNEW, 2] = AB( JI, 2 );
+                     NAB[KLNEW, 2] = NAB( JI, 2 );
+                     AB[KLNEW, 1] = TMP1;
+                     NAB[KLNEW, 1] = ITMP1;
+                     AB[JI, 2] = TMP1;
+                     NAB[JI, 2] = ITMP1;
                   } else {
                      INFO = MMAX + 1;
                      return;
@@ -245,12 +245,12 @@
                           // containing  w  s.t. N(w) = NVAL
 
                   if ( ITMP1 <= NVAL( JI ) ) {
-                     AB( JI, 1 ) = TMP1;
-                     NAB( JI, 1 ) = ITMP1;
+                     AB[JI, 1] = TMP1;
+                     NAB[JI, 1] = ITMP1;
                   }
                   if ( ITMP1 >= NVAL( JI ) ) {
-                     AB( JI, 2 ) = TMP1;
-                     NAB( JI, 2 ) = ITMP1;
+                     AB[JI, 2] = TMP1;
+                     NAB[JI, 2] = ITMP1;
                   }
                }
             } // 100
@@ -274,18 +274,18 @@
                   TMP2 = AB( JI, 2 );
                   ITMP1 = NAB( JI, 1 );
                   ITMP2 = NAB( JI, 2 );
-                  AB( JI, 1 ) = AB( KFNEW, 1 );
-                  AB( JI, 2 ) = AB( KFNEW, 2 );
-                  NAB( JI, 1 ) = NAB( KFNEW, 1 );
-                  NAB( JI, 2 ) = NAB( KFNEW, 2 );
-                  AB( KFNEW, 1 ) = TMP1;
-                  AB( KFNEW, 2 ) = TMP2;
-                  NAB( KFNEW, 1 ) = ITMP1;
-                  NAB( KFNEW, 2 ) = ITMP2;
+                  AB[JI, 1] = AB( KFNEW, 1 );
+                  AB[JI, 2] = AB( KFNEW, 2 );
+                  NAB[JI, 1] = NAB( KFNEW, 1 );
+                  NAB[JI, 2] = NAB( KFNEW, 2 );
+                  AB[KFNEW, 1] = TMP1;
+                  AB[KFNEW, 2] = TMP2;
+                  NAB[KFNEW, 1] = ITMP1;
+                  NAB[KFNEW, 2] = ITMP2;
                   if ( IJOB == 3 ) {
                      ITMP1 = NVAL( JI );
-                     NVAL( JI ) = NVAL( KFNEW );
-                     NVAL( KFNEW ) = ITMP1;
+                     NVAL[JI] = NVAL( KFNEW );
+                     NVAL[KFNEW] = ITMP1;
                   }
                }
                KFNEW = KFNEW + 1;
@@ -296,7 +296,7 @@
          // Choose Midpoints
 
          for (JI = KF; JI <= KL; JI++) { // 120
-            C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) );
+            C[JI] = HALF*( AB( JI, 1 )+AB( JI, 2 ) );
          } // 120
 
          // If no more intervals to refine, quit.

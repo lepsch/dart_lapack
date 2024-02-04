@@ -60,7 +60,7 @@
             // zero checks when TAU != ZERO, and we must clear X.
             TAU = TWO;
             for (J = 1; J <= N-1; J++) {
-               X( 1 + (J-1)*INCX ) = ZERO;
+               X[1 + (J-1)*INCX] = ZERO;
             }
             ALPHA = -ALPHA;
          }
@@ -121,7 +121,7 @@
                } else {
                   TAU = TWO;
                   for (J = 1; J <= N-1; J++) {
-                     X( 1 + (J-1)*INCX ) = ZERO;
+                     X[1 + (J-1)*INCX] = ZERO;
                   }
                   BETA = DBLE( -SAVEALPHA );
                }
@@ -129,7 +129,7 @@
                XNORM = DLAPY2( ALPHR, ALPHI );
                TAU = DCMPLX( ONE - ALPHR / XNORM, -ALPHI / XNORM );
                for (J = 1; J <= N-1; J++) {
-                  X( 1 + (J-1)*INCX ) = ZERO;
+                  X[1 + (J-1)*INCX] = ZERO;
                }
                BETA = XNORM;
             }

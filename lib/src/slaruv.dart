@@ -192,7 +192,7 @@
 
          // Convert 48-bit integer to a real number in the interval (0,1)
 
-         X( I ) = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* REAL( IT4 ) ) ) );
+         X[I] = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* REAL( IT4 ) ) ) );
 
          if (X( I ) == 1.0) {
             // If a real number has n bits of precision, and the first
@@ -215,9 +215,9 @@
 
       // Return final value of seed
 
-      ISEED( 1 ) = IT1;
-      ISEED( 2 ) = IT2;
-      ISEED( 3 ) = IT3;
-      ISEED( 4 ) = IT4;
+      ISEED[1] = IT1;
+      ISEED[2] = IT2;
+      ISEED[3] = IT3;
+      ISEED[4] = IT4;
       return;
       }

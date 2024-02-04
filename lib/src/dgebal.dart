@@ -64,7 +64,7 @@
 
       if ( LSAME( JOB, 'N' ) ) {
          for (I = 1; I <= N; I++) {
-            SCALE( I ) = ONE;
+            SCALE[I] = ONE;
          }
          ILO = 1;
          IHI = N;
@@ -96,7 +96,7 @@
                }
 
                if ( CANSWAP ) {
-                  SCALE( L ) = I;
+                  SCALE[L] = I;
                   if ( I != L ) {
                      dswap(L, A( 1, I ), 1, A( 1, L ), 1 );
                      dswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
@@ -131,7 +131,7 @@
                }
 
                if ( CANSWAP ) {
-                  SCALE( K ) = J;
+                  SCALE[K] = J;
                   if ( J != K ) {
                      dswap(L, A( 1, J ), 1, A( 1, K ), 1 );
                      dswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
@@ -149,7 +149,7 @@
       // Initialize SCALE for non-permuted submatrix.
 
       for (I = K; I <= L; I++) {
-         SCALE( I ) = ONE;
+         SCALE[I] = ONE;
       }
 
       // If we only had to permute, we are done.
@@ -228,7 +228,7 @@
                if( SCALE( I ) >= SFMAX1 / F ) CYCLE;
             }
             G = ONE / F;
-            SCALE( I ) = SCALE( I )*F;
+            SCALE[I] = SCALE( I )*F;
             NOCONV = true;
 
             dscal(N-K+1, G, A( I, K ), LDA );

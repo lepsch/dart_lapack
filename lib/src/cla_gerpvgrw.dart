@@ -25,7 +25,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

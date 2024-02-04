@@ -47,7 +47,7 @@
 
       zlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 );
-      X( 1 ) = CONE;
+      X[1] = CONE;
 
       C = -DCONJG( TAU )*ZDOTC( N, X, INCX, Y, INCY );
       zaxpy(N, C, X, INCX, Y, INCY );

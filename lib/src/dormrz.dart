@@ -82,7 +82,7 @@
             NB = min( NBMAX, ILAENV( 1, 'DORMRQ', SIDE // TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -95,7 +95,7 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -173,7 +173,7 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

@@ -43,7 +43,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -103,7 +103,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) );
+            AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -164,21 +164,21 @@
                for (J = KP + 1; J <= KK - 1; J++) { // 30
                   KX = KX + J - 1;
                   T = DCONJG( AP( KNC+J-1 ) );
-                  AP( KNC+J-1 ) = DCONJG( AP( KX ) );
-                  AP( KX ) = T;
+                  AP[KNC+J-1] = DCONJG( AP( KX ) );
+                  AP[KX] = T;
                } // 30
-               AP( KX+KK-1 ) = DCONJG( AP( KX+KK-1 ) );
+               AP[KX+KK-1] = DCONJG( AP( KX+KK-1 ) );
                R1 = DBLE( AP( KNC+KK-1 ) );
-               AP( KNC+KK-1 ) = DBLE( AP( KPC+KP-1 ) );
-               AP( KPC+KP-1 ) = R1;
+               AP[KNC+KK-1] = DBLE( AP( KPC+KP-1 ) );
+               AP[KPC+KP-1] = R1;
                if ( KSTEP == 2 ) {
-                  AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) );
+                  AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
                   T = AP( KC+K-2 );
-                  AP( KC+K-2 ) = AP( KC+KP-1 );
-                  AP( KC+KP-1 ) = T;
+                  AP[KC+K-2] = AP( KC+KP-1 );
+                  AP[KC+KP-1] = T;
                }
             } else {
-               AP( KC+K-1 ) = DBLE( AP( KC+K-1 ) );
+               AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
                if (KSTEP == 2) AP( KC-1 ) = DBLE( AP( KC-1 ) );
             }
 
@@ -228,11 +228,11 @@
                   for (J = K - 2; J >= 1; J--) { // 50
                      WKM1 = D*( D11*AP( J+( K-2 )*( K-1 ) / 2 )- DCONJG( D12 )*AP( J+( K-1 )*K / 2 ) )                      WK = D*( D22*AP( J+( K-1 )*K / 2 )-D12* AP( J+( K-2 )*( K-1 ) / 2 ) );
                      for (I = J; I >= 1; I--) { // 40
-                        AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*DCONJG( WK ) - AP( I+( K-2 )*( K-1 ) / 2 )*DCONJG( WKM1 );
+                        AP[I+( J-1 )*J / 2] = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*DCONJG( WK ) - AP( I+( K-2 )*( K-1 ) / 2 )*DCONJG( WKM1 );
                      } // 40
-                     AP( J+( K-1 )*K / 2 ) = WK;
-                     AP( J+( K-2 )*( K-1 ) / 2 ) = WKM1;
-                     AP( J+( J-1 )*J / 2 ) = DCMPLX( DBLE( AP( J+( J- 1 )*J / 2 ) ), 0.0 );
+                     AP[J+( K-1 )*K / 2] = WK;
+                     AP[J+( K-2 )*( K-1 ) / 2] = WKM1;
+                     AP[J+( J-1 )*J / 2] = DCMPLX( DBLE( AP( J+( J- 1 )*J / 2 ) ), 0.0 );
                   } // 50
 
                }
@@ -243,10 +243,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -294,7 +294,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            AP( KC ) = DBLE( AP( KC ) );
+            AP[KC] = DBLE( AP( KC ) );
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -354,21 +354,21 @@
                for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1;
                   T = DCONJG( AP( KNC+J-KK ) );
-                  AP( KNC+J-KK ) = DCONJG( AP( KX ) );
-                  AP( KX ) = T;
+                  AP[KNC+J-KK] = DCONJG( AP( KX ) );
+                  AP[KX] = T;
                } // 80
-               AP( KNC+KP-KK ) = DCONJG( AP( KNC+KP-KK ) );
+               AP[KNC+KP-KK] = DCONJG( AP( KNC+KP-KK ) );
                R1 = DBLE( AP( KNC ) );
-               AP( KNC ) = DBLE( AP( KPC ) );
-               AP( KPC ) = R1;
+               AP[KNC] = DBLE( AP( KPC ) );
+               AP[KPC] = R1;
                if ( KSTEP == 2 ) {
-                  AP( KC ) = DBLE( AP( KC ) );
+                  AP[KC] = DBLE( AP( KC ) );
                   T = AP( KC+1 );
-                  AP( KC+1 ) = AP( KC+KP-K );
-                  AP( KC+KP-K ) = T;
+                  AP[KC+1] = AP( KC+KP-K );
+                  AP[KC+KP-K] = T;
                }
             } else {
-               AP( KC ) = DBLE( AP( KC ) );
+               AP[KC] = DBLE( AP( KC ) );
                if (KSTEP == 2) AP( KNC ) = DBLE( AP( KNC ) );
             }
 
@@ -424,11 +424,11 @@
                   for (J = K + 2; J <= N; J++) { // 100
                      WK = D*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-D21* AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- DCONJG( D21 )*AP( J+( K-1 )*( 2*N-K ) / 2 ) );
                      for (I = J; I <= N; I++) { // 90
-                        AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*DCONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )* DCONJG( WKP1 );
+                        AP[I+( J-1 )*( 2*N-J ) / 2] = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*DCONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )* DCONJG( WKP1 );
                      } // 90
-                     AP( J+( K-1 )*( 2*N-K ) / 2 ) = WK;
-                     AP( J+K*( 2*N-K-1 ) / 2 ) = WKP1;
-                     AP( J+( J-1 )*( 2*N-J ) / 2 ) = DCMPLX( DBLE( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0 );
+                     AP[J+( K-1 )*( 2*N-K ) / 2] = WK;
+                     AP[J+K*( 2*N-K-1 ) / 2] = WKP1;
+                     AP[J+( J-1 )*( 2*N-J ) / 2] = DCMPLX( DBLE( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0 );
                   } // 100
                }
             }
@@ -437,10 +437,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

@@ -454,6 +454,19 @@ Simple
 ($1 % $2)
 ```
 
+### Array assignment
+```
+^(\s+\w+)\(\s*([^=]+?)\s*\)\s*=\s+
+$1[$2] =
+```
+
+### DBLE -> toDouble
+Simple
+```
+^(\s+.*)\bDBLE\s*\(\s*([^()]+?)\s*\)
+$1($2).toDouble()
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

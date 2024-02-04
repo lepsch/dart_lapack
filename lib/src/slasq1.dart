@@ -41,12 +41,12 @@
       } else if ( N == 0 ) {
          return;
       } else if ( N == 1 ) {
-         D( 1 ) = ( D( 1 ) ).abs();
+         D[1] = ( D( 1 ) ).abs();
          return;
       } else if ( N == 2 ) {
          slas2(D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX );
-         D( 1 ) = SIGMX;
-         D( 2 ) = SIGMN;
+         D[1] = SIGMX;
+         D[2] = SIGMN;
          return;
       }
 
@@ -54,10 +54,10 @@
 
       SIGMX = ZERO;
       for (I = 1; I <= N - 1; I++) { // 10
-         D( I ) = ( D( I ) ).abs();
+         D[I] = ( D( I ) ).abs();
          SIGMX = max( SIGMX, ( E( I ) ) ).abs();
       } // 10
-      D( N ) = ( D( N ) ).abs();
+      D[N] = ( D( N ) ).abs();
 
       // Early return if SIGMX is zero (matrix is already diagonal).
 
@@ -83,15 +83,15 @@
       // Compute the q's and e's.
 
       for (I = 1; I <= 2*N - 1; I++) { // 30
-         WORK( I ) = WORK( I )**2;
+         WORK[I] = WORK( I )**2;
       } // 30
-      WORK( 2*N ) = ZERO;
+      WORK[2*N] = ZERO;
 
       slasq2(N, WORK, INFO );
 
       if ( INFO == 0 ) {
          for (I = 1; I <= N; I++) { // 40
-            D( I ) = sqrt( WORK( I ) );
+            D[I] = sqrt( WORK( I ) );
          } // 40
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
       } else if ( INFO == 2 ) {
@@ -100,8 +100,8 @@
       // into D and E so the calling subroutine can try to finish
 
          for (I = 1; I <= N; I++) {
-            D( I ) = sqrt( WORK( 2*I-1 ) );
-            E( I ) = sqrt( WORK( 2*I ) );
+            D[I] = sqrt( WORK( 2*I-1 ) );
+            E[I] = sqrt( WORK( 2*I ) );
          }
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );

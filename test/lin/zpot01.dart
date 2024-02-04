@@ -73,7 +73,7 @@
             // Compute the (K,K) element of the result.
 
             TR = DBLE( ZDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
-            AFAC( K, K ) = TR;
+            AFAC[K, K] = TR;
 
             // Compute the rest of column K.
 
@@ -104,15 +104,15 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= J - 1; I++) { // 40
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
+               AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 40
-            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - DBLE( A( J, J ) );
          } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
-            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - DBLE( A( J, J ) );
             for (I = J + 1; I <= N; I++) { // 60
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
+               AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 60
          } // 70
       }

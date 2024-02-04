@@ -31,8 +31,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Single precision';
-      PATH( 2: 3 ) = 'EC';
+      PATH[1: 1] = 'Single precision';
+      PATH[2: 3] = 'EC';
       EPS = SLAMCH( 'P' );
       SFMIN = SLAMCH( 'S' );
 

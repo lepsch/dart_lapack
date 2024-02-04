@@ -69,9 +69,9 @@
             }
          }
 
-         WORK( 1 ) = LWMIN;
-         RWORK( 1 ) = LRWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         RWORK[1] = LRWMIN;
+         IWORK[1] = LIWMIN;
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
@@ -146,8 +146,8 @@
          }
       }
 
-      WORK( 1 ) = LWMIN;
-      RWORK( 1 ) = LRWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      RWORK[1] = LRWMIN;
+      IWORK[1] = LIWMIN;
       return;
       }

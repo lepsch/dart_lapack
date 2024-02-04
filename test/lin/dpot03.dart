@@ -62,13 +62,13 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               AINV( J, I ) = AINV( I, J );
+               AINV[J, I] = AINV( I, J );
             } // 10
          } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
             for (I = J + 1; I <= N; I++) { // 30
-               AINV( J, I ) = AINV( I, J );
+               AINV[J, I] = AINV( I, J );
             } // 30
          } // 40
       }
@@ -77,7 +77,7 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 50
-         WORK( I, I ) = WORK( I, I ) + ONE;
+         WORK[I, I] = WORK( I, I ) + ONE;
       } // 50
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

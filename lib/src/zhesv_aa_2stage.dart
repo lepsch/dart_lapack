@@ -63,7 +63,7 @@
       if ( INFO == 0 ) {
          zhetrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
          LWKOPT = max( LWKMIN, INT( WORK( 1 ) ) );
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -84,7 +84,7 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

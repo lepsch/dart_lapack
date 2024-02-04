@@ -34,17 +34,17 @@
          M = (N % 5);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
-               DX(I) = DA*DX(I);
+               DX[I] = DA*DX(I);
             }
             if (N < 5) return;
          }
          MP1 = M + 1;
          for (I = MP1; I <= N; I += 5) {
-            DX(I) = DA*DX(I);
-            DX(I+1) = DA*DX(I+1);
-            DX(I+2) = DA*DX(I+2);
-            DX(I+3) = DA*DX(I+3);
-            DX(I+4) = DA*DX(I+4);
+            DX[I] = DA*DX(I);
+            DX[I+1] = DA*DX(I+1);
+            DX[I+2] = DA*DX(I+2);
+            DX[I+3] = DA*DX(I+3);
+            DX[I+4] = DA*DX(I+4);
          }
       } else {
 
@@ -52,7 +52,7 @@
 
          NINCX = N*INCX;
          for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            DX(I) = DA*DX(I);
+            DX[I] = DA*DX(I);
          }
       }
       return;

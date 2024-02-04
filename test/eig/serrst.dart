@@ -53,15 +53,15 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1. / REAL( I+J );
+            A[I, J] = 1. / REAL( I+J );
          } // 10
       } // 20
       for (J = 1; J <= NMAX; J++) { // 30
-         D( J ) = REAL( J );
-         E( J ) = 0.0;
-         I1( J ) = J;
-         I2( J ) = J;
-         TAU( J ) = 1.;
+         D[J] = REAL( J );
+         E[J] = 0.0;
+         I1[J] = J;
+         I2[J] = J;
+         TAU[J] = 1.;
       } // 30
       OK = true;
       NT = 0;

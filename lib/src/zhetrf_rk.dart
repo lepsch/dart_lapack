@@ -53,7 +53,7 @@
 
          NB = ILAENV( 1, 'ZHETRF_RK', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, N*NB );
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -180,9 +180,9 @@
 
          for (I = K; I <= K + KB - 1; I++) {
             if ( IPIV( I ) > 0 ) {
-               IPIV( I ) = IPIV( I ) + K - 1;
+               IPIV[I] = IPIV( I ) + K - 1;
             } else {
-               IPIV( I ) = IPIV( I ) - K + 1;
+               IPIV[I] = IPIV( I ) - K + 1;
             }
          }
 
@@ -218,6 +218,6 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       return;
       }

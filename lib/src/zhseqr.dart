@@ -60,7 +60,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK( 1 ) = DCMPLX( DBLE( max( 1, N ) ), RZERO );
+      WORK[1] = DCMPLX( DBLE( max( 1, N ) ), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -102,7 +102,7 @@
          zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = DCMPLX( max( DBLE( WORK( 1 ) ), DBLE( max( 1, N ) ) ), RZERO );
+         WORK[1] = DCMPLX( max( DBLE( WORK( 1 ) ), DBLE( max( 1, N ) ) ), RZERO );
          return;
 
       } else {
@@ -119,7 +119,7 @@
          // ==== Quick return if possible ====
 
          if ( ILO == IHI ) {
-            W( ILO ) = H( ILO, ILO );
+            W[ILO] = H( ILO, ILO );
             return;
          }
 
@@ -160,7 +160,7 @@
                   // .    array before calling ZLAQR0. ====
 
                   zlacpy('A', N, N, H, LDH, HL, NL );
-                  HL( N+1, N ) = ZERO;
+                  HL[N+1, N] = ZERO;
                   zlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
                   zlaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH );
                }
@@ -174,7 +174,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = DCMPLX( max( DBLE( max( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
+         WORK[1] = DCMPLX( max( DBLE( max( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
       }
 
       // ==== End of ZHSEQR ====

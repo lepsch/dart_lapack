@@ -58,7 +58,7 @@
 
       dgemm('No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK );
       for (I = 1; I <= N; I++) { // 10
-         WORK( I, I ) = ONE + WORK( I, I );
+         WORK[I, I] = ONE + WORK( I, I );
       } // 10
 
       // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)

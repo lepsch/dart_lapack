@@ -73,16 +73,16 @@
 
       // Solve M(L) * x = e.
 
-      RWORK( 1 ) = ONE;
+      RWORK[1] = ONE;
       for (I = 2; I <= N; I++) { // 20
-         RWORK( I ) = ONE + RWORK( I-1 )*( E( I-1 ) ).abs();
+         RWORK[I] = ONE + RWORK( I-1 )*( E( I-1 ) ).abs();
       } // 20
 
       // Solve D * M(L)**H * x = b.
 
-      RWORK( N ) = RWORK( N ) / D( N );
+      RWORK[N] = RWORK( N ) / D( N );
       for (I = N - 1; I >= 1; I--) { // 30
-         RWORK( I ) = RWORK( I ) / D( I ) + RWORK( I+1 )*( E( I ) ).abs();
+         RWORK[I] = RWORK( I ) / D( I ) + RWORK( I+1 )*( E( I ) ).abs();
       } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.

@@ -121,9 +121,9 @@
             LWKOPT = max( LWKOPT, 2*N+INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
-            WORK( 1 ) = 1;
+            WORK[1] = 1;
          } else {
-            WORK( 1 ) = LWKOPT;
+            WORK[1] = LWKOPT;
          }
       }
 
@@ -243,7 +243,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) );
+            BWORK[I] = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) );
          } // 10
 
          dtgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
@@ -265,15 +265,15 @@
          for (I = 1; I <= N; I++) { // 20
             if ( ALPHAI( I ) != ZERO ) {
                if ( ( ALPHAR( I ) / SAFMAX ) > ( ANRMTO / ANRM ) || ( SAFMIN / ALPHAR( I ) ) > ( ANRM / ANRMTO ) ) {
-                  WORK( 1 ) = ABS( A( I, I ) / ALPHAR( I ) );
-                  BETA( I ) = BETA( I )*WORK( 1 );
-                  ALPHAR( I ) = ALPHAR( I )*WORK( 1 );
-                  ALPHAI( I ) = ALPHAI( I )*WORK( 1 );
+                  WORK[1] = ABS( A( I, I ) / ALPHAR( I ) );
+                  BETA[I] = BETA( I )*WORK( 1 );
+                  ALPHAR[I] = ALPHAR( I )*WORK( 1 );
+                  ALPHAI[I] = ALPHAI( I )*WORK( 1 );
                } else if ( ( ALPHAI( I ) / SAFMAX ) > ( ANRMTO / ANRM ) || ( SAFMIN / ALPHAI( I ) ) > ( ANRM / ANRMTO ) ) {
-                  WORK( 1 ) = ABS( A( I, I+1 ) / ALPHAI( I ) );
-                  BETA( I ) = BETA( I )*WORK( 1 );
-                  ALPHAR( I ) = ALPHAR( I )*WORK( 1 );
-                  ALPHAI( I ) = ALPHAI( I )*WORK( 1 );
+                  WORK[1] = ABS( A( I, I+1 ) / ALPHAI( I ) );
+                  BETA[I] = BETA( I )*WORK( 1 );
+                  ALPHAR[I] = ALPHAR( I )*WORK( 1 );
+                  ALPHAI[I] = ALPHAI( I )*WORK( 1 );
                }
             }
          } // 20
@@ -283,10 +283,10 @@
          for (I = 1; I <= N; I++) { // 30
             if ( ALPHAI( I ) != ZERO ) {
                if ( ( BETA( I ) / SAFMAX ) > ( BNRMTO / BNRM ) || ( SAFMIN / BETA( I ) ) > ( BNRM / BNRMTO ) ) {
-                  WORK( 1 ) = ABS( B( I, I ) / BETA( I ) );
-                  BETA( I ) = BETA( I )*WORK( 1 );
-                  ALPHAR( I ) = ALPHAR( I )*WORK( 1 );
-                  ALPHAI( I ) = ALPHAI( I )*WORK( 1 );
+                  WORK[1] = ABS( B( I, I ) / BETA( I ) );
+                  BETA[I] = BETA( I )*WORK( 1 );
+                  ALPHAR[I] = ALPHAR( I )*WORK( 1 );
+                  ALPHAI[I] = ALPHAI( I )*WORK( 1 );
                }
             }
          } // 30
@@ -344,7 +344,7 @@
 
       } // 50
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

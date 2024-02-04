@@ -89,23 +89,23 @@
           if (INCY == 1) {
               if (BETA == ZERO) {
                   for (I = 1; I <= LENY; I++) { // 10
-                      Y(I) = ZERO;
+                      Y[I] = ZERO;
                   } // 10
               } else {
                   for (I = 1; I <= LENY; I++) { // 20
-                      Y(I) = BETA*Y(I);
+                      Y[I] = BETA*Y(I);
                   } // 20
               }
           } else {
               IY = KY;
               if (BETA == ZERO) {
                   for (I = 1; I <= LENY; I++) { // 30
-                      Y(IY) = ZERO;
+                      Y[IY] = ZERO;
                       IY = IY + INCY;
                   } // 30
               } else {
                   for (I = 1; I <= LENY; I++) { // 40
-                      Y(IY) = BETA*Y(IY);
+                      Y[IY] = BETA*Y(IY);
                       IY = IY + INCY;
                   } // 40
               }
@@ -121,7 +121,7 @@
               for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX);
                   for (I = 1; I <= M; I++) { // 50
-                      Y(I) = Y(I) + TEMP*A(I,J);
+                      Y[I] = Y(I) + TEMP*A(I,J);
                   } // 50
                   JX = JX + INCX;
               } // 60
@@ -130,7 +130,7 @@
                   TEMP = ALPHA*X(JX);
                   IY = KY;
                   for (I = 1; I <= M; I++) { // 70
-                      Y(IY) = Y(IY) + TEMP*A(I,J);
+                      Y[IY] = Y(IY) + TEMP*A(I,J);
                       IY = IY + INCY;
                   } // 70
                   JX = JX + INCX;
@@ -147,7 +147,7 @@
                   for (I = 1; I <= M; I++) { // 90
                       TEMP = TEMP + A(I,J)*X(I);
                   } // 90
-                  Y(JY) = Y(JY) + ALPHA*TEMP;
+                  Y[JY] = Y(JY) + ALPHA*TEMP;
                   JY = JY + INCY;
               } // 100
           } else {
@@ -158,7 +158,7 @@
                       TEMP = TEMP + A(I,J)*X(IX);
                       IX = IX + INCX;
                   } // 110
-                  Y(JY) = Y(JY) + ALPHA*TEMP;
+                  Y[JY] = Y(JY) + ALPHA*TEMP;
                   JY = JY + INCY;
               } // 120
           }

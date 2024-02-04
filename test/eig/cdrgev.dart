@@ -104,7 +104,7 @@
          MINWRK = NMAX*( NMAX+1 );
          NB = max( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -23;
@@ -126,8 +126,8 @@
 
       // The values RMAGN(2:3) depend on N, see below.
 
-      RMAGN( 0 ) = ZERO;
-      RMAGN( 1 ) = ONE;
+      RMAGN[0] = ZERO;
+      RMAGN[1] = ONE;
 
       // Loop over sizes, types
 
@@ -138,8 +138,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN( 2 ) = SAFMAX*ULP / REAL( N1 );
-         RMAGN( 3 ) = SAFMIN*ULPINV*N1;
+         RMAGN[2] = SAFMAX*ULP / REAL( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -154,7 +154,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Generate test matrices A and B
@@ -215,30 +215,30 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
-                        Q( JR, JC ) = CLARND( 3, ISEED );
-                        Z( JR, JC ) = CLARND( 3, ISEED );
+                        Q[JR, JC] = CLARND( 3, ISEED );
+                        Z[JR, JC] = CLARND( 3, ISEED );
                      } // 30
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK( 2*N+JC ) = SIGN( ONE, REAL( Q( JC, JC ) ) );
-                     Q( JC, JC ) = CONE;
+                     WORK[2*N+JC] = SIGN( ONE, REAL( Q( JC, JC ) ) );
+                     Q[JC, JC] = CONE;
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK( 3*N+JC ) = SIGN( ONE, REAL( Z( JC, JC ) ) );
-                     Z( JC, JC ) = CONE;
+                     WORK[3*N+JC] = SIGN( ONE, REAL( Z( JC, JC ) ) );
+                     Z[JC, JC] = CONE;
                   } // 40
                   CTEMP = CLARND( 3, ISEED );
-                  Q( N, N ) = CONE;
-                  WORK( N ) = CZERO;
-                  WORK( 3*N ) = CTEMP / ( CTEMP ).abs();
+                  Q[N, N] = CONE;
+                  WORK[N] = CZERO;
+                  WORK[3*N] = CTEMP / ( CTEMP ).abs();
                   CTEMP = CLARND( 3, ISEED );
-                  Z( N, N ) = CONE;
-                  WORK( 2*N ) = CZERO;
-                  WORK( 4*N ) = CTEMP / ( CTEMP ).abs();
+                  Z[N, N] = CONE;
+                  WORK[2*N] = CZERO;
+                  WORK[4*N] = CTEMP / ( CTEMP ).abs();
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 60
                      for (JR = 1; JR <= N; JR++) { // 50
-                        A( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC );
+                        A[JR, JC] = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC );
                      } // 50
                   } // 60
                   CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
@@ -252,7 +252,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED );
                   } // 70
                } // 80
             }
@@ -268,7 +268,7 @@
             } // 100
 
             for (I = 1; I <= 7; I++) { // 110
-               RESULT( I ) = -ONE;
+               RESULT[I] = -ONE;
             } // 110
 
             // Call CGGEV to compute eigenvalues and eigenvectors.
@@ -277,7 +277,7 @@
             clacpy(' ', N, N, B, LDA, T, LDA );
             cggev('V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV1', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -303,7 +303,7 @@
             clacpy(' ', N, N, B, LDA, T, LDA );
             cggev('N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV2', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -320,7 +320,7 @@
             clacpy(' ', N, N, B, LDA, T, LDA );
             cggev('V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV3', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -343,7 +343,7 @@
             clacpy(' ', N, N, B, LDA, T, LDA );
             cggev('N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV4', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -403,7 +403,7 @@
 
       alasvm('CGV', NOUNIT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

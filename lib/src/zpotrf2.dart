@@ -71,7 +71,7 @@
 
          // Factor
 
-         A( 1, 1 ) = sqrt( AJJ );
+         A[1, 1] = sqrt( AJJ );
 
       // Use recursive code
 

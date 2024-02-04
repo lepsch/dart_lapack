@@ -48,15 +48,15 @@
 
       if (N == 0) return;
       if ( ILO == IHI ) {
-         WR( ILO ) = H( ILO, ILO );
-         WI( ILO ) = ZERO;
+         WR[ILO] = H( ILO, ILO );
+         WI[ILO] = ZERO;
          return;
       }
 
       // ==== clear out the trash ====
       for (J = ILO; J <= IHI - 3; J++) { // 10
-         H( J+2, J ) = ZERO;
-         H( J+3, J ) = ZERO;
+         H[J+2, J] = ZERO;
+         H[J+3, J] = ZERO;
       } // 10
       if (ILO <= IHI-2) H( IHI, IHI-2 ) = ZERO;
 
@@ -131,7 +131,7 @@
 
             // H(L,L-1) is negligible
 
-            H( L, L-1 ) = ZERO;
+            H[L, L-1] = ZERO;
          }
 
          // Exit from loop if a submatrix of order 1 or 2 has split off.
@@ -227,13 +227,13 @@
             H21S = H( M+1, M );
             S = ABS( H( M, M )-RT2R ) + ( RT2I ).abs() + ( H21S ).abs();
             H21S = H( M+1, M ) / S;
-            V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S );
-            V( 2 ) = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R );
-            V( 3 ) = H21S*H( M+2, M+1 );
+            V[1] = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S );
+            V[2] = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R );
+            V[3] = H21S*H( M+2, M+1 );
             S = ( V( 1 ) ).abs() + ( V( 2 ) ).abs() + ( V( 3 ) ).abs();
-            V( 1 ) = V( 1 ) / S;
-            V( 2 ) = V( 2 ) / S;
-            V( 3 ) = V( 3 ) / S;
+            V[1] = V( 1 ) / S;
+            V[2] = V( 2 ) / S;
+            V[3] = V( 3 ) / S;
             if (M == L) GO TO 60;
             IF( ( H( M, M-1 ) ).abs()*( ( V( 2 ) ).abs()+( V( 3 ) ) ).abs() <= ULP*( V( 1 ) ).abs()*( ( H( M-1, M-1 ) ).abs()+( H( M, M ) ).abs()+( H( M+1, M+1 ) ) ) ).abs()GO TO 60;
          } // 50
@@ -256,15 +256,15 @@
             if (K > M) dcopy( NR, H( K, K-1 ), 1, V, 1 );
             dlarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
-               H( K, K-1 ) = V( 1 );
-               H( K+1, K-1 ) = ZERO;
+               H[K, K-1] = V( 1 );
+               H[K+1, K-1] = ZERO;
                if (K < I-1) H( K+2, K-1 ) = ZERO;
             } else if ( M > L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to
                 // .    avoid a bug when v(2) and v(3)
                 // .    underflow. ====
-               H( K, K-1 ) = H( K, K-1 )*( ONE-T1 );
+               H[K, K-1] = H( K, K-1 )*( ONE-T1 );
             }
             V2 = V( 2 );
             T2 = T1*V2;
@@ -277,9 +277,9 @@
 
                for (J = K; J <= I2; J++) { // 70
                   SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J );
-                  H( K, J ) = H( K, J ) - SUM*T1;
-                  H( K+1, J ) = H( K+1, J ) - SUM*T2;
-                  H( K+2, J ) = H( K+2, J ) - SUM*T3;
+                  H[K, J] = H( K, J ) - SUM*T1;
+                  H[K+1, J] = H( K+1, J ) - SUM*T2;
+                  H[K+2, J] = H( K+2, J ) - SUM*T3;
                } // 70
 
                // Apply G from the right to transform the columns of the
@@ -287,9 +287,9 @@
 
                for (J = I1; J <= min( K+3, I ); J++) { // 80
                   SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 );
-                  H( J, K ) = H( J, K ) - SUM*T1;
-                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2;
-                  H( J, K+2 ) = H( J, K+2 ) - SUM*T3;
+                  H[J, K] = H( J, K ) - SUM*T1;
+                  H[J, K+1] = H( J, K+1 ) - SUM*T2;
+                  H[J, K+2] = H( J, K+2 ) - SUM*T3;
                } // 80
 
                if ( WANTZ ) {
@@ -298,9 +298,9 @@
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 90
                      SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 );
-                     Z( J, K ) = Z( J, K ) - SUM*T1;
-                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2;
-                     Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3;
+                     Z[J, K] = Z( J, K ) - SUM*T1;
+                     Z[J, K+1] = Z( J, K+1 ) - SUM*T2;
+                     Z[J, K+2] = Z( J, K+2 ) - SUM*T3;
                   } // 90
                }
             } else if ( NR == 2 ) {
@@ -310,8 +310,8 @@
 
                for (J = K; J <= I2; J++) { // 100
                   SUM = H( K, J ) + V2*H( K+1, J );
-                  H( K, J ) = H( K, J ) - SUM*T1;
-                  H( K+1, J ) = H( K+1, J ) - SUM*T2;
+                  H[K, J] = H( K, J ) - SUM*T1;
+                  H[K+1, J] = H( K+1, J ) - SUM*T2;
                } // 100
 
                // Apply G from the right to transform the columns of the
@@ -319,8 +319,8 @@
 
                for (J = I1; J <= I; J++) { // 110
                   SUM = H( J, K ) + V2*H( J, K+1 );
-                  H( J, K ) = H( J, K ) - SUM*T1;
-                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2;
+                  H[J, K] = H( J, K ) - SUM*T1;
+                  H[J, K+1] = H( J, K+1 ) - SUM*T2;
                } // 110
 
                if ( WANTZ ) {
@@ -329,8 +329,8 @@
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 120
                      SUM = Z( J, K ) + V2*Z( J, K+1 );
-                     Z( J, K ) = Z( J, K ) - SUM*T1;
-                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2;
+                     Z[J, K] = Z( J, K ) - SUM*T1;
+                     Z[J, K+1] = Z( J, K+1 ) - SUM*T2;
                   } // 120
                }
             }
@@ -349,8 +349,8 @@
 
          // H(I,I-1) is negligible: one eigenvalue has converged.
 
-         WR( I ) = H( I, I );
-         WI( I ) = ZERO;
+         WR[I] = H( I, I );
+         WI[I] = ZERO;
       } else if ( L == I-1 ) {
 
          // H(I-1,I-2) is negligible: a pair of eigenvalues have converged.

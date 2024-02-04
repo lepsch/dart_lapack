@@ -49,7 +49,7 @@
             NB = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 );
             LWKOPT = M*NB;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
          if ( !LQUERY ) {
             if( LWORK <= 0 || ( N > 0 && LWORK < max( 1, M ) ) ) INFO = -7;
@@ -132,6 +132,6 @@
 
       if (MU > 0 && NU > 0) zgerq2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
-      WORK( 1 ) = IWS;
+      WORK[1] = IWS;
       return;
       }

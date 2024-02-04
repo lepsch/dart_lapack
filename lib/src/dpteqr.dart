@@ -76,10 +76,10 @@
       dpttrf(N, D, E, INFO );
       if (INFO != 0) return;
       for (I = 1; I <= N; I++) { // 10
-         D( I ) = sqrt( D( I ) );
+         D[I] = sqrt( D( I ) );
       } // 10
       for (I = 1; I <= N - 1; I++) { // 20
-         E( I ) = E( I )*D( I );
+         E[I] = E( I )*D( I );
       } // 20
 
       // Call DBDSQR to compute the singular values/vectors of the
@@ -96,7 +96,7 @@
 
       if ( INFO == 0 ) {
          for (I = 1; I <= N; I++) { // 30
-            D( I ) = D( I )*D( I );
+            D[I] = D( I )*D( I );
          } // 30
       } else {
          INFO = N + INFO;

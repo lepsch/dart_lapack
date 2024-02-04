@@ -79,7 +79,7 @@
             NB = min( NBMAX, ILAENV( 1, 'DORMQL', SIDE // TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -154,6 +154,6 @@
             dlarfb(SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK );
          } // 10
       }
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       return;
       }

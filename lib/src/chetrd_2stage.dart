@@ -66,8 +66,8 @@
       }
 
       if ( INFO == 0 ) {
-         HOUS2( 1 ) = SROUNDUP_LWORK( LHMIN );
-         WORK( 1 )  = SROUNDUP_LWORK( LWMIN );
+         HOUS2[1] = SROUNDUP_LWORK( LHMIN );
+         WORK[1] = SROUNDUP_LWORK( LWMIN );
       }
 
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -102,6 +102,6 @@
       }
 
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
       return;
       }

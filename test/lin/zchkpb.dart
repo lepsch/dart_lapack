@@ -63,20 +63,20 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'PB';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'PB';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) zerrpo( PATH, NOUT );
       INFOT = 0;
-      KDVAL( 1 ) = 0;
+      KDVAL[1] = 0;
 
       // Do for each value of N in NVAL
 
@@ -91,9 +91,9 @@
          NIMAT = NTYPES;
          if (N == 0) NIMAT = 1;
 
-         KDVAL( 2 ) = N + ( N+1 ) / 4;
-         KDVAL( 3 ) = ( 3*N-1 ) / 4;
-         KDVAL( 4 ) = ( N+1 ) / 4;
+         KDVAL[2] = N + ( N+1 ) / 4;
+         KDVAL[3] = ( 3*N-1 ) / 4;
+         KDVAL[4] = ( N+1 ) / 4;
 
          for (IKD = 1; IKD <= NKD; IKD++) { // 80
 
@@ -181,7 +181,7 @@
 
                      IW = 2*LDA;
                      for (I = 1; I <= min( 2*KD+1, N ); I++) { // 20
-                        WORK( IW+I ) = ZERO;
+                        WORK[IW+I] = ZERO;
                      } // 20
                      IW = IW + 1;
                      I1 = max( IZERO-KD, 1 );
@@ -331,7 +331,7 @@
 
                      if (INFO != 0) alaerh( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
-                     RESULT( 7 ) = DGET06( RCOND, RCONDC );
+                     RESULT[7] = DGET06( RCOND, RCONDC );
 
                      // Print the test ratio if it is >= THRESH.
 

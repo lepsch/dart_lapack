@@ -26,8 +26,8 @@
       // Initialize X and Y
 
       for (I = 1; I <= NMAX; I++) { // 10
-         X( I ) = DBLE( 1 ) / DBLE( I );
-         Y( I ) = DBLE( NMAX-I ) / DBLE( NMAX );
+         X[I] = DBLE( 1 ) / DBLE( I );
+         Y[I] = DBLE( NMAX-I ) / DBLE( NMAX );
       } // 10
       ALPHA = 0.315;
 
@@ -36,7 +36,7 @@
       T1 = DSECND( );
       for (J = 1; J <= ITS; J++) { // 30
          for (I = 1; I <= NMAX; I++) { // 20
-            Y( I ) = Y( I ) + ALPHA*X( I );
+            Y[I] = Y( I ) + ALPHA*X( I );
          } // 20
          ALPHA = -ALPHA;
       } // 30
@@ -54,7 +54,7 @@
       T1 = DSECND( );
       for (J = 1; J <= ITS; J++) { // 50
          for (I = 1; I <= NMAX; I++) { // 40
-            Y( I ) = Y( I ) + ALPHA*X( I );
+            Y[I] = Y( I ) + ALPHA*X( I );
          } // 40
          ALPHA = -ALPHA;
          T2 = DSECND( );

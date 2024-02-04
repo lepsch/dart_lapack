@@ -57,7 +57,7 @@
          return;
       } else if ( LQUERY ) {
          LWKOPT = (3*N-2);
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
          return;
       }
 

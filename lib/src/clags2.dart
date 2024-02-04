@@ -30,7 +30,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( T ) = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
+      ABS1[T] = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

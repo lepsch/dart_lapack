@@ -67,7 +67,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
       INFO = 0;
@@ -75,7 +75,7 @@
       // ==== Quick return for N = 0: nothing to do. ====
 
       if ( N == 0 ) {
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       }
 
@@ -97,14 +97,14 @@
          // ==== Set up job flags for ILAENV. ====
 
          if ( WANTT ) {
-            JBCMPZ( 1: 1 ) = 'S';
+            JBCMPZ[1: 1] = 'S';
          } else {
-            JBCMPZ( 1: 1 ) = 'E';
+            JBCMPZ[1: 1] = 'E';
          }
          if ( WANTZ ) {
-            JBCMPZ( 2: 2 ) = 'V';
+            JBCMPZ[2: 2] = 'V';
          } else {
-            JBCMPZ( 2: 2 ) = 'N';
+            JBCMPZ[2: 2] = 'N';
          }
 
          // ==== NWR = recommended deflation window size.  At this
@@ -139,7 +139,7 @@
          // ==== Quick return in case of workspace query. ====
 
          if ( LWORK == -1 ) {
-            WORK( 1 ) = DCMPLX( LWKOPT, 0 );
+            WORK[1] = DCMPLX( LWKOPT, 0 );
             return;
          }
 
@@ -294,8 +294,8 @@
                if ( (NDFL % KEXSH) == 0 ) {
                   KS = KBOT - NS + 1;
                   for (I = KBOT; I >= KS + 1; I -= 2) { // 30
-                     W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) );
-                     W( I-1 ) = W( I );
+                     W[I] = H( I, I ) + WILK1*CABS1( H( I, I-1 ) );
+                     W[I-1] = W( I );
                   } // 30
                } else {
 
@@ -332,8 +332,8 @@
                         TR2 = ( AA+DD ) / TWO;
                         DET = ( AA-TR2 )*( DD-TR2 ) - BB*CC;
                         RTDISC = sqrt( -DET );
-                        W( KBOT-1 ) = ( TR2+RTDISC )*S;
-                        W( KBOT ) = ( TR2-RTDISC )*S;
+                        W[KBOT-1] = ( TR2+RTDISC )*S;
+                        W[KBOT] = ( TR2-RTDISC )*S;
 
                         KS = KBOT - 1;
                      }
@@ -351,8 +351,8 @@
                            if ( CABS1( W( I ) ) < CABS1( W( I+1 ) ) ) {
                               SORTED = false;
                               SWAP = W( I );
-                              W( I ) = W( I+1 );
-                              W( I+1 ) = SWAP;
+                              W[I] = W( I+1 );
+                              W[I+1] = SWAP;
                            }
                         } // 40
                      } // 50
@@ -365,9 +365,9 @@
 
                if ( KBOT-KS+1 == 2 ) {
                   if ( CABS1( W( KBOT )-H( KBOT, KBOT ) ) < CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) {
-                     W( KBOT-1 ) = W( KBOT );
+                     W[KBOT-1] = W( KBOT );
                   } else {
-                     W( KBOT ) = W( KBOT-1 );
+                     W[KBOT] = W( KBOT-1 );
                   }
                }
 
@@ -423,7 +423,7 @@
 
       // ==== Return the optimal value of LWORK. ====
 
-      WORK( 1 ) = DCMPLX( LWKOPT, 0 );
+      WORK[1] = DCMPLX( LWKOPT, 0 );
 
       // ==== End of ZLAQR0 ====
 

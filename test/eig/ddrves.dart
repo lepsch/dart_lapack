@@ -63,8 +63,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'ES';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'ES';
 
       // Check for errors
 
@@ -135,7 +135,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -193,7 +193,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -201,7 +201,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
@@ -229,7 +229,7 @@
                   CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' ';
+               ADUMMA[1] = ' ';
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -288,7 +288,7 @@
                // Initialize RESULT
 
                for (J = 1; J <= 13; J++) { // 100
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 100
 
                // Test with and without sorting of eigenvalues
@@ -307,7 +307,7 @@
                   dlacpy('F', N, N, A, LDA, H, LDA );
                   dgees('V', SORT, DSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
                   if ( IINFO != 0 && IINFO != N+2 ) {
-                     RESULT( 1+RSUB ) = ULPINV;
+                     RESULT[1+RSUB] = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'DGEES1', IINFO, N, JTYPE, IOLDSD;
                      INFO = ( IINFO ).abs();
                      GO TO 220;
@@ -315,7 +315,7 @@
 
                   // Do Test (1) or Test (7)
 
-                  RESULT( 1+RSUB ) = ZERO;
+                  RESULT[1+RSUB] = ZERO;
                   for (J = 1; J <= N - 2; J++) { // 120
                      for (I = J + 2; I <= N; I++) { // 110
                         if( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV;
@@ -334,12 +334,12 @@
 
                   LWORK = max( 1, 2*N*N );
                   dhst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RES );
-                  RESULT( 2+RSUB ) = RES( 1 );
-                  RESULT( 3+RSUB ) = RES( 2 );
+                  RESULT[2+RSUB] = RES( 1 );
+                  RESULT[3+RSUB] = RES( 2 );
 
                   // Do Test (4) or Test (10)
 
-                  RESULT( 4+RSUB ) = ZERO;
+                  RESULT[4+RSUB] = ZERO;
                   for (I = 1; I <= N; I++) { // 150
                      if( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV;
                   } // 150
@@ -360,13 +360,13 @@
                   dlacpy('F', N, N, A, LDA, HT, LDA );
                   dgees('N', SORT, DSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
                   if ( IINFO != 0 && IINFO != N+2 ) {
-                     RESULT( 5+RSUB ) = ULPINV;
+                     RESULT[5+RSUB] = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'DGEES2', IINFO, N, JTYPE, IOLDSD;
                      INFO = ( IINFO ).abs();
                      GO TO 220;
                   }
 
-                  RESULT( 5+RSUB ) = ZERO;
+                  RESULT[5+RSUB] = ZERO;
                   for (J = 1; J <= N; J++) { // 180
                      for (I = 1; I <= N; I++) { // 170
                         if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
@@ -375,7 +375,7 @@
 
                   // Do Test (6) or Test (12)
 
-                  RESULT( 6+RSUB ) = ZERO;
+                  RESULT[6+RSUB] = ZERO;
                   for (I = 1; I <= N; I++) { // 190
                      if( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV;
                   } // 190
@@ -383,7 +383,7 @@
                   // Do Test (13)
 
                   if ( ISORT == 1 ) {
-                     RESULT( 13 ) = ZERO;
+                     RESULT[13] = ZERO;
                      KNTEIG = 0;
                      for (I = 1; I <= N; I++) { // 200
                         if( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1;
@@ -392,7 +392,7 @@
                         }
                      } // 200
                      if ( SDIM != KNTEIG ) {
-                        RESULT( 13 ) = ULPINV;
+                        RESULT[13] = ULPINV;
                      }
                   }
 

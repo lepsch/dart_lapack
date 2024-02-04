@@ -45,7 +45,7 @@
       SAFMIN = SLAMCH( 'Safe minimum' );
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = CMPLX( ONE / REAL( N ) );
+            X[I] = CMPLX( ONE / REAL( N ) );
          } // 10
          KASE = 1;
          JUMP = 1;
@@ -59,7 +59,7 @@
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 );
+         V[1] = X( 1 );
          EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 130;
@@ -69,9 +69,9 @@
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE;
+            X[I] = CONE;
          }
       } // 30
       KASE = 2;
@@ -89,9 +89,9 @@
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = CZERO;
+         X[I] = CZERO;
       } // 60
-      X( J ) = CONE;
+      X[J] = CONE;
       KASE = 1;
       JUMP = 3;
       return;
@@ -110,9 +110,9 @@
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE;
+            X[I] = CONE;
          }
       } // 80
       KASE = 2;
@@ -135,7 +135,7 @@
       } // 100
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 110
-         X( I ) = CMPLX( ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) ) );
+         X[I] = CMPLX( ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) ) );
          ALTSGN = -ALTSGN;
       } // 110
       KASE = 1;

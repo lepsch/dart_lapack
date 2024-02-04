@@ -135,7 +135,7 @@
          LBBCSDWORKMIN = LBBCSDWORKOPT;
          LRWORKOPT = IBBCSD + LBBCSDWORKOPT - 1;
          LRWORKMIN = IBBCSD + LBBCSDWORKMIN - 1;
-         RWORK(1) = LRWORKOPT;
+         RWORK[1] = LRWORKOPT;
 
          // Complex workspace
 
@@ -157,7 +157,7 @@
          LORBDBWORKMIN = LORBDBWORKOPT;
          LWORKOPT = max( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = max( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1;
          LWORKOPT = max(LWORKOPT,LWORKMIN);
-         WORK(1) = SROUNDUP_LWORK(LWORKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWORKOPT);
 
          if ( LWORK < LWORKMIN && !( LQUERY || LRQUERY ) ) {
             INFO = -22;
@@ -197,10 +197,10 @@
          }
          if ( WANTV1T && Q > 0 ) {
             clacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
-            V1T(1, 1) = ONE;
+            V1T[1, 1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T(1,J) = ZERO;
-               V1T(J,1) = ZERO;
+               V1T[1,J] = ZERO;
+               V1T[J,1] = ZERO;
             }
             cunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
@@ -224,10 +224,10 @@
          }
          if ( WANTV1T && Q > 0 ) {
             clacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
-            V1T(1, 1) = ONE;
+            V1T[1, 1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T(1,J) = ZERO;
-               V1T(J,1) = ZERO;
+               V1T[1,J] = ZERO;
+               V1T[J,1] = ZERO;
             }
             cungqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
@@ -253,10 +253,10 @@
 
       if ( Q > 0 && WANTU2 ) {
          for (I = 1; I <= Q; I++) {
-            IWORK(I) = M - P - Q + I;
+            IWORK[I] = M - P - Q + I;
          }
          for (I = Q + 1; I <= M - P; I++) {
-            IWORK(I) = I - Q;
+            IWORK[I] = I - Q;
          }
          if ( COLMAJOR ) {
             clapmt( false , M-P, M-P, U2, LDU2, IWORK );
@@ -266,10 +266,10 @@
       }
       if ( M > 0 && WANTV2T ) {
          for (I = 1; I <= P; I++) {
-            IWORK(I) = M - P - Q + I;
+            IWORK[I] = M - P - Q + I;
          }
          for (I = P + 1; I <= M - Q; I++) {
-            IWORK(I) = I - P;
+            IWORK[I] = I - P;
          }
          if ( !COLMAJOR ) {
             clapmt( false , M-Q, M-Q, V2T, LDV2T, IWORK );

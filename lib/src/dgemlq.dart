@@ -88,7 +88,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = LWMIN;
+        WORK[1] = LWMIN;
       }
 
       if ( INFO != 0 ) {
@@ -110,7 +110,7 @@
         dlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
 
       return;
       }

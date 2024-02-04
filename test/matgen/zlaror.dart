@@ -88,7 +88,7 @@
                // order in which they are computed is irrelevant.
 
       for (J = 1; J <= NXFRM; J++) { // 10
-         X( J ) = CZERO;
+         X[J] = CZERO;
       } // 10
 
       for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 30
@@ -97,7 +97,7 @@
          // Generate independent normal( 0, 1 ) random numbers
 
          for (J = KBEG; J <= NXFRM; J++) { // 20
-            X( J ) = ZLARND( 3, ISEED );
+            X[J] = ZLARND( 3, ISEED );
          } // 20
 
          // Generate a Householder transformation from the random vector X
@@ -110,7 +110,7 @@
             CSIGN = CONE;
          }
          XNORMS = CSIGN*XNORM;
-         X( NXFRM+KBEG ) = -CSIGN;
+         X[NXFRM+KBEG] = -CSIGN;
          FACTOR = XNORM*( XNORM+XABS );
          if ( ( FACTOR ).abs() < TOOSML ) {
             INFO = 1;
@@ -119,7 +119,7 @@
          } else {
             FACTOR = ONE / FACTOR;
          }
-         X( KBEG ) = X( KBEG ) + XNORMS;
+         X[KBEG] = X( KBEG ) + XNORMS;
 
          // Apply Householder transformation to A
 
@@ -146,14 +146,14 @@
          }
       } // 30
 
-      X( 1 ) = ZLARND( 3, ISEED );
+      X[1] = ZLARND( 3, ISEED );
       XABS = ( X( 1 ) ).abs();
       if ( XABS != ZERO ) {
          CSIGN = X( 1 ) / XABS;
       } else {
          CSIGN = CONE;
       }
-      X( 2*NXFRM ) = CSIGN;
+      X[2*NXFRM] = CSIGN;
 
       // Scale the matrix A by D.
 

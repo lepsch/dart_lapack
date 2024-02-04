@@ -79,5 +79,5 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       }

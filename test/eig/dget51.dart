@@ -72,7 +72,7 @@
 
             for (JCOL = 1; JCOL <= N; JCOL++) { // 20
                for (JROW = 1; JROW <= N; JROW++) { // 10
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
+                  WORK[JROW+N*( JCOL-1 )] = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
                } // 10
             } // 20
          }
@@ -100,7 +100,7 @@
          dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          for (JDIAG = 1; JDIAG <= N; JDIAG++) { // 30
-            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE;
+            WORK[( N+1 )*( JDIAG-1 )+1] = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE;
          } // 30
 
          RESULT = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );

@@ -53,10 +53,10 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1. / REAL( I+J );
+            A[I, J] = 1. / REAL( I+J );
          } // 10
-         WI( J ) = REAL( J );
-         SEL( J ) = true;
+         WI[J] = REAL( J );
+         SEL[J] = true;
       } // 20
       OK = true;
       NT = 0;

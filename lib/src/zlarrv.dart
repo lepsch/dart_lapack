@@ -61,7 +61,7 @@
       MINWSIZE = 12 * N;
 
       for (I = 1; I <= MINWSIZE; I++) { // 5
-         WORK( I ) = ZERO;
+         WORK[I] = ZERO;
       } // 5
 
       // IWORK(IINDR+1:IINDR+N) hold the twist indices R for the
@@ -75,7 +75,7 @@
 
       MINIWSIZE = 7 * N;
       for (I = 1; I <= MINIWSIZE; I++) { // 10
-         IWORK( I ) = 0;
+         IWORK[I] = 0;
       } // 10
 
       ZUSEDL = 1;
@@ -159,11 +159,11 @@
          // This is for a 1x1 block
          if ( IBEGIN == IEND ) {
             DONE = DONE+1;
-            Z( IBEGIN, WBEGIN ) = DCMPLX( ONE, ZERO );
-            ISUPPZ( 2*WBEGIN-1 ) = IBEGIN;
-            ISUPPZ( 2*WBEGIN ) = IBEGIN;
-            W( WBEGIN ) = W( WBEGIN ) + SIGMA;
-            WORK( WBEGIN ) = W( WBEGIN );
+            Z[IBEGIN, WBEGIN] = DCMPLX( ONE, ZERO );
+            ISUPPZ[2*WBEGIN-1] = IBEGIN;
+            ISUPPZ[2*WBEGIN] = IBEGIN;
+            W[WBEGIN] = W( WBEGIN ) + SIGMA;
+            WORK[WBEGIN] = W( WBEGIN );
             IBEGIN = IEND + 1;
             WBEGIN = WBEGIN + 1;
             GO TO 170;
@@ -180,7 +180,7 @@
          // We store in W the eigenvalue approximations w.r.t. the original
          // matrix T.
          for (I = 1; I <= IM; I++) { // 30
-            W(WBEGIN+I-1) = W(WBEGIN+I-1)+SIGMA;
+            W[WBEGIN+I-1] = W(WBEGIN+I-1)+SIGMA;
          } // 30
 
 
@@ -191,8 +191,8 @@
          // NCLUS is the number of clusters for the next level of the
          // representation tree, we start with NCLUS = 1 for the root
          NCLUS = 1;
-         IWORK( IINDC1+1 ) = 1;
-         IWORK( IINDC1+2 ) = IM;
+         IWORK[IINDC1+1] = 1;
+         IWORK[IINDC1+2] = IM;
 
          // IDONE is the number of eigenvectors already computed in the current
          // block
@@ -251,9 +251,9 @@
                      }
                   }
                   for (K = 1; K <= IN - 1; K++) { // 45
-                     D( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J+1 ) );
+                     D[IBEGIN+K-1] = DBLE( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J+1 ) );
                   } // 45
-                  D( IEND ) = DBLE( Z( IEND, J ) );
+                  D[IEND] = DBLE( Z( IEND, J ) );
                   SIGMA = DBLE( Z( IEND, J+1 ) );
 
                   // Set the corresponding entries in Z to zero
@@ -263,8 +263,8 @@
                // Compute DL and DLL of current RRR
                for (J = IBEGIN; J <= IEND-1; J++) { // 50
                   TMP = D( J )*L( J );
-                  WORK( INDLD-1+J ) = TMP;
-                  WORK( INDLLD-1+J ) = TMP*L( J );
+                  WORK[INDLD-1+J] = TMP;
+                  WORK[INDLLD-1+J] = TMP*L( J );
                } // 50
 
                if ( NDEPTH > 0 ) {
@@ -291,15 +291,15 @@
                   // However, we only allow the gaps to become greater since
                   // this is what should happen when we decrease WERR
                   if ( OLDFST > 1) {
-                     WGAP( WBEGIN+OLDFST-2 ) = max(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) );
+                     WGAP[WBEGIN+OLDFST-2] = max(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) );
                   }
                   if ( WBEGIN + OLDLST -1 < WEND ) {
-                     WGAP( WBEGIN+OLDLST-1 ) = max(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) );
+                     WGAP[WBEGIN+OLDLST-1] = max(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) );
                   }
                   // Each time the eigenvalues in WORK get refined, we store
                   // the newly found approximation with all shifts applied in W
                   for (J = OLDFST; J <= OLDLST; J++) { // 53
-                     W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA;
+                     W[WBEGIN+J-1] = WORK(WBEGIN+J-1)+SIGMA;
                   } // 53
                }
 
@@ -399,20 +399,20 @@
                      // the new RRR directly into Z and needs an intermediate
                      // workspace
                      for (K = 1; K <= IN-1; K++) { // 56
-                        Z( IBEGIN+K-1, NEWFTT ) = DCMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = DCMPLX( WORK( INDIN2+K-1 ), ZERO );
+                        Z[IBEGIN+K-1, NEWFTT] = DCMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = DCMPLX( WORK( INDIN2+K-1 ), ZERO );
                      } // 56
-                     Z( IEND, NEWFTT ) = DCMPLX( WORK( INDIN1+IN-1 ), ZERO );
+                     Z[IEND, NEWFTT] = DCMPLX( WORK( INDIN1+IN-1 ), ZERO );
                      if ( IINFO == 0 ) {
                         // a new RRR for the cluster was found by DLARRF
                         // update shift and store it
                         SSIGMA = SIGMA + TAU;
-                        Z( IEND, NEWFTT+1 ) = DCMPLX( SSIGMA, ZERO );
+                        Z[IEND, NEWFTT+1] = DCMPLX( SSIGMA, ZERO );
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
                         for (K = NEWFST; K <= NEWLST; K++) { // 116
                            FUDGE = THREE*EPS*(WORK(WBEGIN+K-1)).abs()                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*(WORK(WBEGIN+K-1)).abs();
                            // Fudge errors
-                           WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE;
+                           WERR[WBEGIN + K - 1] = WERR( WBEGIN + K - 1 ) + FUDGE;
                            // Gaps are not fudged. Provided that WERR is small
                            // when eigenvalues are close, a zero gap indicates
                            // that a new representation is needed for resolving
@@ -424,8 +424,8 @@
 
                         NCLUS = NCLUS + 1;
                         K = NEWCLS + 2*NCLUS;
-                        IWORK( K-1 ) = NEWFST;
-                        IWORK( K ) = NEWLST;
+                        IWORK[K-1] = NEWFST;
+                        IWORK[K] = NEWLST;
                      } else {
                         INFO = -2;
                         return;
@@ -499,7 +499,7 @@
                      // eigenvalue is refined up to the required precision.
                      // The correct value is restored afterwards.
                      SAVGAP = WGAP(WINDEX);
-                     WGAP(WINDEX) = GAP;
+                     WGAP[WINDEX] = GAP;
                      // We want to use the Rayleigh Quotient Correction
                      // as often as possible since it converges quadratically
                      // when we are close enough to the desired eigenvalue.
@@ -525,7 +525,7 @@
                         LAMBDA = WORK( WINDEX );
                         // Reset twist index from inaccurate LAMBDA to
                         // force computation of true MINGMA
-                        IWORK( IINDR+WINDEX ) = 0;
+                        IWORK[IINDR+WINDEX] = 0;
                      }
                      // Given LAMBDA, compute the eigenvector.
                      zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
@@ -583,12 +583,12 @@
                               // correct above.
                                // LEFT = min(LEFT, LAMBDA + RQCORR)
                            }
-                           WORK( WINDEX ) = HALF * (RIGHT + LEFT);
+                           WORK[WINDEX] = HALF * (RIGHT + LEFT);
                            // Take RQCORR since it has the correct sign and
                            // improves the iterate reasonably
                            LAMBDA = LAMBDA + RQCORR;
                            // Update width of error interval
-                           WERR( WINDEX ) = HALF * (RIGHT-LEFT);
+                           WERR[WINDEX] = HALF * (RIGHT-LEFT);
                         } else {
                            NEEDBS = true;
                         }
@@ -616,13 +616,13 @@
                            // improve error angle by second step
                            zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                         }
-                        WORK( WINDEX ) = LAMBDA;
+                        WORK[WINDEX] = LAMBDA;
                      }
 
                      // Compute FP-vector support w.r.t. whole matrix
 
-                     ISUPPZ( 2*WINDEX-1 ) = ISUPPZ( 2*WINDEX-1 )+OLDIEN;
-                     ISUPPZ( 2*WINDEX ) = ISUPPZ( 2*WINDEX )+OLDIEN;
+                     ISUPPZ[2*WINDEX-1] = ISUPPZ( 2*WINDEX-1 )+OLDIEN;
+                     ISUPPZ[2*WINDEX] = ISUPPZ( 2*WINDEX )+OLDIEN;
                      ZFROM = ISUPPZ( 2*WINDEX-1 );
                      ZTO = ISUPPZ( 2*WINDEX );
                      ISUPMN = ISUPMN + OLDIEN;
@@ -630,18 +630,18 @@
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN < ZFROM) {
                         for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
-                           Z( II, WINDEX ) = ZERO;
+                           Z[II, WINDEX] = ZERO;
                         } // 122
                      }
                      if (ISUPMX > ZTO) {
                         for (II = ZTO+1; II <= ISUPMX; II++) { // 123
-                           Z( II, WINDEX ) = ZERO;
+                           Z[II, WINDEX] = ZERO;
                         } // 123
                      }
                      zdscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );
                      } // 125
                      // Update W
-                     W( WINDEX ) = LAMBDA+SIGMA;
+                     W[WINDEX] = LAMBDA+SIGMA;
                      // Recompute the gaps on the left and right
                      // But only allow them to become larger and not
                      // smaller (which can only happen through "bad"
@@ -650,10 +650,10 @@
                      // to WERR being too crude.)
                      if ( !ESKIP) {
                         if ( K > 1) {
-                           WGAP( WINDMN ) = max( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) );
+                           WGAP[WINDMN] = max( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) );
                         }
                         if ( WINDEX < WEND ) {
-                           WGAP( WINDEX ) = max( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) );
+                           WGAP[WINDEX] = max( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) );
                         }
                      }
                      IDONE = IDONE + 1;

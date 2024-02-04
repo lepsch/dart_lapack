@@ -384,7 +384,7 @@
                if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = 0; I <= K - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = 0; J <= K; J++) {
                      S = ZERO;
@@ -392,25 +392,25 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(i,j+k)
                         S = S + AA;
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
-                     WORK( J+K ) = S + AA;
+                     WORK[J+K] = S + AA;
                      if (I == K+K) GO TO 10;
                      I = I + 1;
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j,j)
-                     WORK( J ) = WORK( J ) + AA;
+                     WORK[J] = WORK( J ) + AA;
                      S = ZERO;
                      for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   } // 10
                   VALUE = WORK( 0 );
@@ -423,7 +423,7 @@
                   K = K + 1;
                   // k=(n+1)/2 for n odd and ilu=1
                   for (I = K; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = K - 1; J >= 0; J--) {
                      S = ZERO;
@@ -431,28 +431,28 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(j+k,i+k)
                         S = S + AA;
-                        WORK( I+K ) = WORK( I+K ) + AA;
+                        WORK[I+K] = WORK( I+K ) + AA;
                      }
                      if ( J > 0 ) {
                         AA = ABS( REAL( A( I+J*LDA ) ) );
                         // -> A(j+k,j+k)
                         S = S + AA;
-                        WORK( I+K ) = WORK( I+K ) + S;
+                        WORK[I+K] = WORK( I+K ) + S;
                         // i=j
                         I = I + 1;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j,j)
-                     WORK( J ) = AA;
+                     WORK[J] = AA;
                      S = ZERO;
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
@@ -465,7 +465,7 @@
                if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = 0; I <= K - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = 0; J <= K - 1; J++) {
                      S = ZERO;
@@ -473,24 +473,24 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(i,j+k)
                         S = S + AA;
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
-                     WORK( J+K ) = S + AA;
+                     WORK[J+K] = S + AA;
                      I = I + 1;
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j,j)
-                     WORK( J ) = WORK( J ) + AA;
+                     WORK[J] = WORK( J ) + AA;
                      S = ZERO;
                      for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
@@ -500,7 +500,7 @@
                } else {
                   // ilu = 1 & uplo = 'L'
                   for (I = K; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = K - 1; J >= 0; J--) {
                      S = ZERO;
@@ -508,26 +508,26 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(j+k,i+k)
                         S = S + AA;
-                        WORK( I+K ) = WORK( I+K ) + AA;
+                        WORK[I+K] = WORK( I+K ) + AA;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
                      S = S + AA;
-                     WORK( I+K ) = WORK( I+K ) + S;
+                     WORK[I+K] = WORK( I+K ) + S;
                      // i=j
                      I = I + 1;
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // -> A(j,j)
-                     WORK( J ) = AA;
+                     WORK[J] = AA;
                      S = ZERO;
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
@@ -548,17 +548,17 @@
                   K = K + 1;
                   // k is the row size and lda
                   for (I = N1; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = 0; J <= N1 - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,n1+i)
-                        WORK( I+N1 ) = WORK( I+N1 ) + AA;
+                        WORK[I+N1] = WORK( I+N1 ) + AA;
                         S = S + AA;
                      }
-                     WORK( J ) = S;
+                     WORK[J] = S;
                   }
                   // j=n1=k-1 is special
                   S = ABS( REAL( A( 0+J*LDA ) ) );
@@ -566,23 +566,23 @@
                   for (I = 1; I <= K - 1; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
                      // A(k-1,i+n1)
-                     WORK( I+N1 ) = WORK( I+N1 ) + AA;
+                     WORK[I+N1] = WORK( I+N1 ) + AA;
                      S = S + AA;
                   }
-                  WORK( J ) = WORK( J ) + S;
+                  WORK[J] = WORK( J ) + S;
                   for (J = K; J <= N - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= J - K - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(i,j-k)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
                      // i=j-k
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // A(j-k,j-k)
                      S = S + AA;
-                     WORK( J-K ) = WORK( J-K ) + S;
+                     WORK[J-K] = WORK( J-K ) + S;
                      I = I + 1;
                      S = ABS( REAL( A( I+J*LDA ) ) );
                      // A(j,j)
@@ -590,10 +590,10 @@
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,l)
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                         S = S + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
@@ -605,7 +605,7 @@
                   K = K + 1;
                   // k=(n+1)/2 for n odd and ilu=1
                   for (I = K; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = 0; J <= K - 2; J++) {
                      // process
@@ -613,13 +613,13 @@
                      for (I = 0; I <= J - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // i=j so process of A(j,j)
                      S = S + AA;
-                     WORK( J ) = S;
+                     WORK[J] = S;
                      // is initialised here
                      I = I + 1;
                      // i=j process A(j+k,j+k)
@@ -630,23 +630,23 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(l,k+j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( K+J ) = WORK( K+J ) + S;
+                     WORK[K+J] = WORK( K+J ) + S;
                   }
                   // j=k-1 is special :process col A(k-1,0:k-1)
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
                      // A(k,i)
-                     WORK( I ) = WORK( I ) + AA;
+                     WORK[I] = WORK( I ) + AA;
                      S = S + AA;
                   }
                   // i=k-1
                   AA = ABS( REAL( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
-                  WORK( I ) = S;
+                  WORK[I] = S;
                   // done with col j=k+1
                   for (J = K; J <= N - 1; J++) {
                      // process col j of A = A(j,0:k-1)
@@ -654,10 +654,10 @@
                      for (I = 0; I <= K - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
@@ -670,17 +670,17 @@
                if ( ILU == 0 ) {
                   // uplo = 'U'
                   for (I = K; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   for (J = 0; J <= K - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i+k)
-                        WORK( I+K ) = WORK( I+K ) + AA;
+                        WORK[I+K] = WORK( I+K ) + AA;
                         S = S + AA;
                      }
-                     WORK( J ) = S;
+                     WORK[J] = S;
                   }
                   // j=k
                   AA = ABS( REAL( A( 0+J*LDA ) ) );
@@ -689,23 +689,23 @@
                   for (I = 1; I <= K - 1; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
                      // A(k,k+i)
-                     WORK( I+K ) = WORK( I+K ) + AA;
+                     WORK[I+K] = WORK( I+K ) + AA;
                      S = S + AA;
                   }
-                  WORK( J ) = WORK( J ) + S;
+                  WORK[J] = WORK( J ) + S;
                   for (J = K + 1; J <= N - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= J - 2 - K; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(i,j-k-1)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
                      // i=j-1-k
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // A(j-k-1,j-k-1)
                      S = S + AA;
-                     WORK( J-K-1 ) = WORK( J-K-1 ) + S;
+                     WORK[J-K-1] = WORK( J-K-1 ) + S;
                      I = I + 1;
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // A(j,j)
@@ -714,24 +714,24 @@
                         I = I + 1;
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j,l)
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                         S = S + AA;
                      }
-                     WORK( J ) = WORK( J ) + S;
+                     WORK[J] = WORK( J ) + S;
                   }
                   // j=n
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
                      // A(i,k-1)
-                     WORK( I ) = WORK( I ) + AA;
+                     WORK[I] = WORK( I ) + AA;
                      S = S + AA;
                   }
                   // i=k-1
                   AA = ABS( REAL( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
-                  WORK( I ) = WORK( I ) + S;
+                  WORK[I] = WORK( I ) + S;
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
@@ -740,7 +740,7 @@
                } else {
                   // ilu=1 & uplo = 'L'
                   for (I = K; I <= N - 1; I++) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   }
                   // j=0 is special :process col A(k:n-1,k)
                   S = ABS( REAL( A( 0 ) ) );
@@ -748,23 +748,23 @@
                   for (I = 1; I <= K - 1; I++) {
                      AA = ( A( I ) ).abs();
                      // A(k+i,k)
-                     WORK( I+K ) = WORK( I+K ) + AA;
+                     WORK[I+K] = WORK( I+K ) + AA;
                      S = S + AA;
                   }
-                  WORK( K ) = WORK( K ) + S;
+                  WORK[K] = WORK( K ) + S;
                   for (J = 1; J <= K - 1; J++) {
                      // process
                      S = ZERO;
                      for (I = 0; I <= J - 2; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j-1,i)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
                      AA = ABS( REAL( A( I+J*LDA ) ) );
                      // i=j-1 so process of A(j-1,j-1)
                      S = S + AA;
-                     WORK( J-1 ) = S;
+                     WORK[J-1] = S;
                      // is initialised here
                      I = I + 1;
                      // i=j process A(j+k,j+k)
@@ -775,16 +775,16 @@
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(l,k+j)
                         S = S + AA;
-                        WORK( L ) = WORK( L ) + AA;
+                        WORK[L] = WORK( L ) + AA;
                      }
-                     WORK( K+J ) = WORK( K+J ) + S;
+                     WORK[K+J] = WORK( K+J ) + S;
                   }
                   // j=k is special :process col A(k,0:k-1)
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
                      // A(k,i)
-                     WORK( I ) = WORK( I ) + AA;
+                     WORK[I] = WORK( I ) + AA;
                      S = S + AA;
                   }
 
@@ -792,7 +792,7 @@
                   AA = ABS( REAL( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
-                  WORK( I ) = S;
+                  WORK[I] = S;
                   // done with col j=k+1
                   for (J = K + 1; J <= N; J++) {
 
@@ -801,10 +801,10 @@
                      for (I = 0; I <= K - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
                         // A(j-1,i)
-                        WORK( I ) = WORK( I ) + AA;
+                        WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
-                     WORK( J-1 ) = WORK( J-1 ) + S;
+                     WORK[J-1] = WORK( J-1 ) + S;
                   }
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {

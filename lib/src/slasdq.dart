@@ -78,20 +78,20 @@
       if ( ( IUPLO == 1 ) && ( SQRE1 == 1 ) ) {
          for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
             if ( ROTATE ) {
-               WORK( I ) = CS;
-               WORK( N+I ) = SN;
+               WORK[I] = CS;
+               WORK[N+I] = SN;
             }
          } // 10
          slartg(D( N ), E( N ), CS, SN, R );
-         D( N ) = R;
-         E( N ) = ZERO;
+         D[N] = R;
+         E[N] = ZERO;
          if ( ROTATE ) {
-            WORK( N ) = CS;
-            WORK( N+N ) = SN;
+            WORK[N] = CS;
+            WORK[N+N] = SN;
          }
          IUPLO = 2;
          SQRE1 = 0;
@@ -107,12 +107,12 @@
       if ( IUPLO == 2 ) {
          for (I = 1; I <= N - 1; I++) { // 20
             slartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
             if ( ROTATE ) {
-               WORK( I ) = CS;
-               WORK( N+I ) = SN;
+               WORK[I] = CS;
+               WORK[N+I] = SN;
             }
          } // 20
 
@@ -121,10 +121,10 @@
 
          if ( SQRE1 == 1 ) {
             slartg(D( N ), E( N ), CS, SN, R );
-            D( N ) = R;
+            D[N] = R;
             if ( ROTATE ) {
-               WORK( N ) = CS;
-               WORK( N+N ) = SN;
+               WORK[N] = CS;
+               WORK[N+N] = SN;
             }
          }
 
@@ -170,8 +170,8 @@
 
             // Swap singular values and vectors.
 
-            D( ISUB ) = D( I );
-            D( I ) = SMIN;
+            D[ISUB] = D( I );
+            D[I] = SMIN;
             if (NCVT > 0) sswap( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT );
             if( NRU > 0 ) sswap( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 );
             IF( NCC > 0 ) sswap( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );

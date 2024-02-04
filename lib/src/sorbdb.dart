@@ -85,7 +85,7 @@
       if ( INFO == 0 ) {
          LWORKOPT = M - Q;
          LWORKMIN = M - Q;
-         WORK(1) = LWORKOPT;
+         WORK[1] = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -21;
          }
@@ -118,20 +118,20 @@
                saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
-            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) );
+            THETA[I] = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) );
 
             if ( P > I ) {
                slarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
             } else if ( P == I ) {
                slarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
-            X11(I,I) = ONE;
+            X11[I,I] = ONE;
             if ( M-P > I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
-            X21(I,I) = ONE;
+            X21[I,I] = ONE;
 
             if ( Q > I ) {
                slarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK );
@@ -161,7 +161,7 @@
                } else {
                   slarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
                }
-               X11(I,I+1) = ONE;
+               X11[I,I+1] = ONE;
             }
             if ( Q+I-1 < M ) {
                if ( M-Q == I ) {
@@ -170,7 +170,7 @@
                   slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
-            X12(I,I) = ONE;
+            X12[I,I] = ONE;
 
             if ( I < Q ) {
                slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -195,7 +195,7 @@
             } else {
                slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
-            X12(I,I) = ONE;
+            X12[I,I] = ONE;
 
             if ( P > I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -214,7 +214,7 @@
             } else {
                slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
             }
-            X22(Q+I,P+I) = ONE;
+            X22[Q+I,P+I] = ONE;
             if ( I < M-P-Q ) {
                slarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
             }
@@ -240,16 +240,16 @@
                saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
-            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), LDX21 ), SNRM2( P-I+1, X11(I,I), LDX11 ) );
+            THETA[I] = ATAN2( SNRM2( M-P-I+1, X21(I,I), LDX21 ), SNRM2( P-I+1, X11(I,I), LDX11 ) );
 
             slarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
-            X11(I,I) = ONE;
+            X11[I,I] = ONE;
             if ( I == M-P ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
-            X21(I,I) = ONE;
+            X21[I,I] = ONE;
 
             if ( Q > I ) {
                slarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
@@ -279,14 +279,14 @@
                } else {
                   slarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
                }
-               X11(I+1,I) = ONE;
+               X11[I+1,I] = ONE;
             }
             if ( M-Q > I ) {
                slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             } else {
                slarfgp(M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) );
             }
-            X12(I,I) = ONE;
+            X12[I,I] = ONE;
 
             if ( I < Q ) {
                slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -305,7 +305,7 @@
 
             sscal(M-Q-I+1, -Z1*Z4, X12(I,I), 1 );
             slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12(I,I) = ONE;
+            X12[I,I] = ONE;
 
             if ( P > I ) {
                slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
@@ -321,10 +321,10 @@
             sscal(M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 );
             if ( M-P-Q == I ) {
                slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) );
-               X22(P+I,Q+I) = ONE;
+               X22[P+I,Q+I] = ONE;
             } else {
                slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
-               X22(P+I,Q+I) = ONE;
+               X22[P+I,Q+I] = ONE;
                slarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK );
             }
 

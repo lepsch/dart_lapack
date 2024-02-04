@@ -51,9 +51,9 @@
 
             ALPHA = A( I, I );
             clarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = REAL( ALPHA );
+            D[I] = REAL( ALPHA );
             if ( I < N ) {
-               A( I, I ) = ONE;
+               A[I, I] = ONE;
 
                // Compute Y(i+1:n,i)
 
@@ -78,8 +78,8 @@
 
                ALPHA = A( I, I+1 );
                clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = REAL( ALPHA );
-               A( I, I+1 ) = ONE;
+               E[I] = REAL( ALPHA );
+               A[I, I+1] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -112,9 +112,9 @@
 
             ALPHA = A( I, I );
             clarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = REAL( ALPHA );
+            D[I] = REAL( ALPHA );
             if ( I < M ) {
-               A( I, I ) = ONE;
+               A[I, I] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -137,8 +137,8 @@
 
                ALPHA = A( I+1, I );
                clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = REAL( ALPHA );
-               A( I+1, I ) = ONE;
+               E[I] = REAL( ALPHA );
+               A[I+1, I] = ONE;
 
                // Compute Y(i+1:n,i)
 

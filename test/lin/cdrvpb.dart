@@ -66,20 +66,20 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'PB';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'PB';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) cerrvx( PATH, NOUT );
       INFOT = 0;
-      KDVAL( 1 ) = 0;
+      KDVAL[1] = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -101,9 +101,9 @@
          NIMAT = NTYPES;
          if (N == 0) NIMAT = 1;
 
-         KDVAL( 2 ) = N + ( N+1 ) / 4;
-         KDVAL( 3 ) = ( 3*N-1 ) / 4;
-         KDVAL( 4 ) = ( N+1 ) / 4;
+         KDVAL[2] = N + ( N+1 ) / 4;
+         KDVAL[3] = ( 3*N-1 ) / 4;
+         KDVAL[4] = ( N+1 ) / 4;
 
          for (IKD = 1; IKD <= NKD; IKD++) { // 100
 
@@ -191,7 +191,7 @@
 
                      IW = 2*LDA;
                      for (I = 1; I <= min( 2*KD+1, N ); I++) { // 20
-                        WORK( IW+I ) = ZERO;
+                        WORK[IW+I] = ZERO;
                      } // 20
                      IW = IW + 1;
                      I1 = max( IZERO-KD, 1 );
@@ -417,7 +417,7 @@
                         // Compare RCOND from CPBSVX with the computed
                         // value in RCONDC.
 
-                        RESULT( 6 ) = SGET06( RCOND, RCONDC );
+                        RESULT[6] = SGET06( RCOND, RCONDC );
 
                         // Print information about the tests that did not
                         // pass the threshold.

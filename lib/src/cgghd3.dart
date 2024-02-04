@@ -52,7 +52,7 @@
       } else {
          LWKOPT = 6*N*NB;
       }
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
       INITQ = LSAME( COMPQ, 'I' );
       WANTQ = INITQ || LSAME( COMPQ, 'V' );
       INITZ = LSAME( COMPZ, 'I' );
@@ -99,7 +99,7 @@
       // Quick return if possible
 
       if ( NH <= 1 ) {
-         WORK( 1 ) = CONE;
+         WORK[1] = CONE;
          return;
       }
 
@@ -171,8 +171,8 @@
                for (I = IHI; I >= J+2; I--) {
                   TEMP = A( I-1, J );
                   clartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
-                  A( I, J ) = CMPLX( C );
-                  B( I, J ) = S;
+                  A[I, J] = CMPLX( C );
+                  B[I, J] = S;
                }
 
                // Accumulate Givens rotations into workspace array.
@@ -185,8 +185,8 @@
                   S = B( I, J );
                   for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                      TEMP = WORK( JJ + NBLST );
-                     WORK( JJ + NBLST ) = CTEMP*TEMP - S*WORK( JJ );
-                     WORK( JJ ) = CONJG( S )*TEMP + CTEMP*WORK( JJ );
+                     WORK[JJ + NBLST] = CTEMP*TEMP - S*WORK( JJ );
+                     WORK[JJ] = CONJG( S )*TEMP + CTEMP*WORK( JJ );
                   }
                   LEN = LEN + 1;
                   PPW = PPW - NBLST - 1;
@@ -202,8 +202,8 @@
                      S = B( I, J );
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                         TEMP = WORK( JJ + 2*NNB );
-                        WORK( JJ + 2*NNB ) = CTEMP*TEMP - S*WORK( JJ );
-                        WORK( JJ ) = CONJG( S )*TEMP + CTEMP*WORK( JJ );
+                        WORK[JJ + 2*NNB] = CTEMP*TEMP - S*WORK( JJ );
+                        WORK[JJ] = CONJG( S )*TEMP + CTEMP*WORK( JJ );
                      }
                      LEN = LEN + 1;
                      PPW = PPW - 2*NNB - 1;
@@ -231,8 +231,8 @@
                      CTEMP = A( I, J );
                      S = B( I, J );
                      TEMP = B( I, JJ );
-                     B( I, JJ ) = CTEMP*TEMP - CONJG( S )*B( I-1, JJ );
-                     B( I-1, JJ ) = S*TEMP + CTEMP*B( I-1, JJ );
+                     B[I, JJ] = CTEMP*TEMP - CONJG( S )*B( I-1, JJ );
+                     B[I-1, JJ] = S*TEMP + CTEMP*B( I-1, JJ );
                   }
 
                   // Annihilate B( JJ+1, JJ ).
@@ -240,10 +240,10 @@
                   if ( JJ < IHI ) {
                      TEMP = B( JJ+1, JJ+1 );
                      clartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
-                     B( JJ+1, JJ ) = CZERO;
+                     B[JJ+1, JJ] = CZERO;
                      crot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
-                     A( JJ+1, J ) = CMPLX( C );
-                     B( JJ+1, J ) = -CONJG( S );
+                     A[JJ+1, J] = CMPLX( C );
+                     B[JJ+1, J] = -CONJG( S );
                   }
                }
 
@@ -263,12 +263,12 @@
                      TEMP1 = A( K, J+I+1 );
                      TEMP2 = A( K, J+I+2 );
                      TEMP3 = A( K, J+I+3 );
-                     A( K, J+I+3 ) = C2*TEMP3 + CONJG( S2 )*TEMP2;
+                     A[K, J+I+3] = C2*TEMP3 + CONJG( S2 )*TEMP2;
                      TEMP2 = -S2*TEMP3 + C2*TEMP2;
-                     A( K, J+I+2 ) = C1*TEMP2 + CONJG( S1 )*TEMP1;
+                     A[K, J+I+2] = C1*TEMP2 + CONJG( S1 )*TEMP1;
                      TEMP1 = -S1*TEMP2 + C1*TEMP1;
-                     A( K, J+I+1 ) = CTEMP*TEMP1 + CONJG( S )*TEMP;
-                     A( K, J+I ) = -S*TEMP1 + CTEMP*TEMP;
+                     A[K, J+I+1] = CTEMP*TEMP1 + CONJG( S )*TEMP;
+                     A[K, J+I] = -S*TEMP1 + CTEMP*TEMP;
                   }
                }
 
@@ -298,14 +298,14 @@
                   cgemv('Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 );
                   PPW = PW + LEN;
                   for (I = JROW; I <= JROW+NBLST-LEN-1; I++) {
-                     WORK( PPW ) = A( I, J+1 );
+                     WORK[PPW] = A( I, J+1 );
                      PPW = PPW + 1;
                   }
                   ctrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 );
                   cgemv('Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                   PPW = PW;
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
-                     A( I, J+1 ) = WORK( PPW );
+                     A[I, J+1] = WORK( PPW );
                      PPW = PPW + 1;
                   }
 
@@ -327,12 +327,12 @@
                   for (JROW = J0; -NNB < 0 ? JROW >= JCOL+1 : JROW <= JCOL+1; JROW += -NNB) {
                      PPW = PW + LEN;
                      for (I = JROW; I <= JROW+NNB-1; I++) {
-                        WORK( PPW ) = A( I, J+1 );
+                        WORK[PPW] = A( I, J+1 );
                         PPW = PPW + 1;
                      }
                      PPW = PW;
                      for (I = JROW+NNB; I <= JROW+NNB+LEN-1; I++) {
-                        WORK( PPW ) = A( I, J+1 );
+                        WORK[PPW] = A( I, J+1 );
                         PPW = PPW + 1;
                      }
                      ctrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 );
@@ -341,7 +341,7 @@
                      cgemv('Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                      PPW = PW;
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
-                        A( I, J+1 ) = WORK( PPW );
+                        A[I, J+1] = WORK( PPW );
                         PPW = PPW + 1;
                      }
                      PPWO = PPWO + 4*NNB*NNB;
@@ -438,13 +438,13 @@
                   JROW = J + N2NB*NNB + 2;
                   for (I = IHI; I >= JROW; I--) {
                      CTEMP = A( I, J );
-                     A( I, J ) = CZERO;
+                     A[I, J] = CZERO;
                      S = B( I, J );
-                     B( I, J ) = CZERO;
+                     B[I, J] = CZERO;
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                         TEMP = WORK( JJ + NBLST );
-                        WORK( JJ + NBLST ) = CTEMP*TEMP - CONJG( S )*WORK( JJ );
-                        WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ );
+                        WORK[JJ + NBLST] = CTEMP*TEMP - CONJG( S )*WORK( JJ );
+                        WORK[JJ] = S*TEMP + CTEMP*WORK( JJ );
                      }
                      LEN = LEN + 1;
                      PPW = PPW - NBLST - 1;
@@ -457,13 +457,13 @@
                      LEN  = 2 + J - JCOL;
                      for (I = JROW+NNB-1; I >= JROW; I--) {
                         CTEMP = A( I, J );
-                        A( I, J ) = CZERO;
+                        A[I, J] = CZERO;
                         S = B( I, J );
-                        B( I, J ) = CZERO;
+                        B[I, J] = CZERO;
                         for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                            TEMP = WORK( JJ + 2*NNB );
-                           WORK( JJ + 2*NNB ) = CTEMP*TEMP - CONJG( S )*WORK( JJ );
-                           WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ );
+                           WORK[JJ + 2*NNB] = CTEMP*TEMP - CONJG( S )*WORK( JJ );
+                           WORK[JJ] = S*TEMP + CTEMP*WORK( JJ );
                         }
                         LEN = LEN + 1;
                         PPW = PPW - 2*NNB - 1;
@@ -573,7 +573,7 @@
 
       if (JCOL < IHI) cgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

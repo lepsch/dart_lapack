@@ -47,7 +47,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -80,7 +80,7 @@
 
       LWKMIN = max( 2*N, 1 );
       LWKOPT = LWKMIN;
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       INFO = 0;
       if ( IJOBVL <= 0 ) {
@@ -107,7 +107,7 @@
          NB3 = ILAENV( 1, 'ZUNGQR', ' ', N, N, N, -1 );
          NB = max( NB1, NB2, NB3 );
          LOPT = max( 2*N, N*( NB+1 ) );
-         WORK( 1 ) = LOPT;
+         WORK[1] = LOPT;
       }
 
       if ( INFO != 0 ) {
@@ -288,7 +288,7 @@
                if (TEMP < SAFMIN) GO TO 30;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 20
-                  VL( JR, JC ) = VL( JR, JC )*TEMP;
+                  VL[JR, JC] = VL( JR, JC )*TEMP;
                } // 20
             } // 30
          }
@@ -306,7 +306,7 @@
                if (TEMP < SAFMIN) GO TO 60;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 50
-                  VR( JR, JC ) = VR( JR, JC )*TEMP;
+                  VR[JR, JC] = VR( JR, JC )*TEMP;
                } // 50
             } // 60
          }
@@ -367,12 +367,12 @@
             SALFAI = ( SCALE*DIMAG( ALPHA( JC ) ) )*ANRM;
             SBETA = ( SCALE*BETA( JC ) )*BNRM;
          }
-         ALPHA( JC ) = DCMPLX( SALFAR, SALFAI );
-         BETA( JC ) = SBETA;
+         ALPHA[JC] = DCMPLX( SALFAR, SALFAI );
+         BETA[JC] = SBETA;
       } // 70
 
       } // 80
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

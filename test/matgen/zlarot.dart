@@ -44,8 +44,8 @@
          NT = 1;
          IX = 1 + IINC;
          IY = 2 + LDA;
-         XT( 1 ) = A( 1 );
-         YT( 1 ) = XLEFT;
+         XT[1] = A( 1 );
+         YT[1] = XLEFT;
       } else {
          NT = 0;
          IX = 1;
@@ -55,8 +55,8 @@
       if ( LRIGHT ) {
          IYT = 1 + INEXT + ( NL-1 )*IINC;
          NT = NT + 1;
-         XT( NT ) = XRIGHT;
-         YT( NT ) = A( IYT );
+         XT[NT] = XRIGHT;
+         YT[NT] = A( IYT );
       }
 
       // Check for errors
@@ -76,28 +76,28 @@
 
       for (J = 0; J <= NL - NT - 1; J++) { // 10
          TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC );
-         A( IY+J*IINC ) = -DCONJG( S )*A( IX+J*IINC ) + DCONJG( C )*A( IY+J*IINC );
-         A( IX+J*IINC ) = TEMPX;
+         A[IY+J*IINC] = -DCONJG( S )*A( IX+J*IINC ) + DCONJG( C )*A( IY+J*IINC );
+         A[IX+J*IINC] = TEMPX;
       } // 10
 
       // ZROT( NT, XT,1, YT,1, C, S ) with complex C, S
 
       for (J = 1; J <= NT; J++) { // 20
          TEMPX = C*XT( J ) + S*YT( J );
-         YT( J ) = -DCONJG( S )*XT( J ) + DCONJG( C )*YT( J );
-         XT( J ) = TEMPX;
+         YT[J] = -DCONJG( S )*XT( J ) + DCONJG( C )*YT( J );
+         XT[J] = TEMPX;
       } // 20
 
       // Stuff values back into XLEFT, XRIGHT, etc.
 
       if ( LLEFT ) {
-         A( 1 ) = XT( 1 );
+         A[1] = XT( 1 );
          XLEFT = YT( 1 );
       }
 
       if ( LRIGHT ) {
          XRIGHT = XT( NT );
-         A( IYT ) = YT( NT );
+         A[IYT] = YT( NT );
       }
 
       return;

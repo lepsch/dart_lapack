@@ -36,8 +36,8 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       SAFMIN = DLAMCH( 'Safe minimum' );
@@ -95,7 +95,7 @@
 
                ILCPLX = true;
                if ( JVEC == N ) {
-                  RESULT( 1 ) = TEN / ULP;
+                  RESULT[1] = TEN / ULP;
                   return;
                }
                ABMAX = max( ( SALFR ).abs()+( SALFI ).abs(), ( SBETA ).abs() );
@@ -128,7 +128,7 @@
 
       // Compute RESULT(1)
 
-      RESULT( 1 ) = ERRNRM / ULP;
+      RESULT[1] = ERRNRM / ULP;
 
       // Normalization of E:
 
@@ -156,7 +156,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP );
+      RESULT[2] = ENRMER / ( DBLE( N )*ULP );
 
       return;
       }

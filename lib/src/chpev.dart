@@ -62,8 +62,8 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = REAL( AP( 1 ) );
-         RWORK( 1 ) = 1;
+         W[1] = REAL( AP( 1 ) );
+         RWORK[1] = 1;
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;
       }

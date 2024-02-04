@@ -81,23 +81,23 @@
       // used storage space.
 
       if ( CURLVL == TLVLS ) {
-         QPTR( CURR ) = 1;
-         PRMPTR( CURR ) = 1;
-         GIVPTR( CURR ) = 1;
+         QPTR[CURR] = 1;
+         PRMPTR[CURR] = 1;
+         GIVPTR[CURR] = 1;
       }
 
       // Sort and Deflate eigenvalues.
 
       claed8(K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, RWORK( IZ ), RWORK( IDLMDA ), WORK, QSIZ, RWORK( IW ), IWORK( INDXP ), IWORK( INDX ), INDXQ, PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), INFO );
-      PRMPTR( CURR+1 ) = PRMPTR( CURR ) + N;
-      GIVPTR( CURR+1 ) = GIVPTR( CURR+1 ) + GIVPTR( CURR );
+      PRMPTR[CURR+1] = PRMPTR( CURR ) + N;
+      GIVPTR[CURR+1] = GIVPTR( CURR+1 ) + GIVPTR( CURR );
 
       // Solve Secular Equation.
 
       if ( K != 0 ) {
          slaed9(K, 1, K, N, D, RWORK( IQ ), K, RHO, RWORK( IDLMDA ), RWORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO );
          clacrm(QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) );
-         QPTR( CURR+1 ) = QPTR( CURR ) + K**2;
+         QPTR[CURR+1] = QPTR( CURR ) + K**2;
          if ( INFO != 0 ) {
             return;
          }
@@ -108,9 +108,9 @@
          N2 = N - K;
          slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
-         QPTR( CURR+1 ) = QPTR( CURR );
+         QPTR[CURR+1] = QPTR( CURR );
          for (I = 1; I <= N; I++) { // 20
-            INDXQ( I ) = I;
+            INDXQ[I] = I;
          } // 20
       }
 

@@ -123,7 +123,7 @@
       // whether they are to be tested.
 
       for (I = 1; I <= NSUBS; I++) { // 20
-         LTEST( I ) = false;
+         LTEST[I] = false;
       } // 20
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT;
       for (I = 1; I <= NSUBS; I++) { // 40
@@ -147,14 +147,14 @@
       N = min( 32, NMAX );
       for (J = 1; J <= N; J++) { // 100
          for (I = 1; I <= N; I++) { // 90
-            AB( I, J ) = max( I - J + 1, 0 );
+            AB[I, J] = max( I - J + 1, 0 );
          } // 90
-         AB( J, NMAX + 1 ) = J;
-         AB( 1, NMAX + J ) = J;
-         C( J, 1 ) = ZERO;
+         AB[J, NMAX + 1] = J;
+         AB[1, NMAX + J] = J;
+         C[J, 1] = ZERO;
       } // 100
       for (J = 1; J <= N; J++) { // 110
-         CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
+         CC[J] = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
       } // 110
       // CC holds the exact result. On exit from ZMMCH CT holds
       // the result computed by ZMMCH.
@@ -174,11 +174,11 @@
          STOP;
       }
       for (J = 1; J <= N; J++) { // 120
-         AB( J, NMAX + 1 ) = N - J + 1;
-         AB( 1, NMAX + J ) = N - J + 1;
+         AB[J, NMAX + 1] = N - J + 1;
+         AB[1, NMAX + J] = N - J + 1;
       } // 120
       for (J = 1; J <= N; J++) { // 130
-         CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
+         CC[N - J + 1] = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
       } // 130
       TRANSA = 'C';
       TRANSB = 'N';
@@ -404,16 +404,16 @@
                            KS = K;
                            ALS = ALPHA;
                            for (I = 1; I <= LAA; I++) { // 10
-                              AS( I ) = AA( I );
+                              AS[I] = AA( I );
                            } // 10
                            LDAS = LDA;
                            for (I = 1; I <= LBB; I++) { // 20
-                              BS( I ) = BB( I );
+                              BS[I] = BB( I );
                            } // 20
                            LDBS = LDB;
                            BLS = BETA;
                            for (I = 1; I <= LCC; I++) { // 30
-                              CS( I ) = CC( I );
+                              CS[I] = CC( I );
                            } // 30
                            LDCS = LDC;
 
@@ -433,23 +433,23 @@
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = TRANSA == TRANAS;
-                           ISAME( 2 ) = TRANSB == TRANBS;
-                           ISAME( 3 ) = MS == M;
-                           ISAME( 4 ) = NS == N;
-                           ISAME( 5 ) = KS == K;
-                           ISAME( 6 ) = ALS == ALPHA;
-                           ISAME( 7 ) = LZE( AS, AA, LAA );
-                           ISAME( 8 ) = LDAS == LDA;
-                           ISAME( 9 ) = LZE( BS, BB, LBB );
-                           ISAME( 10 ) = LDBS == LDB;
-                           ISAME( 11 ) = BLS == BETA;
+                           ISAME[1] = TRANSA == TRANAS;
+                           ISAME[2] = TRANSB == TRANBS;
+                           ISAME[3] = MS == M;
+                           ISAME[4] = NS == N;
+                           ISAME[5] = KS == K;
+                           ISAME[6] = ALS == ALPHA;
+                           ISAME[7] = LZE( AS, AA, LAA );
+                           ISAME[8] = LDAS == LDA;
+                           ISAME[9] = LZE( BS, BB, LBB );
+                           ISAME[10] = LDBS == LDB;
+                           ISAME[11] = BLS == BETA;
                            if ( NULL ) {
-                              ISAME( 12 ) = LZE( CS, CC, LCC );
+                              ISAME[12] = LZE( CS, CC, LCC );
                            } else {
-                              ISAME( 12 ) = LZERES( 'GE', ' ', M, N, CS, CC, LDC );
+                              ISAME[12] = LZERES( 'GE', ' ', M, N, CS, CC, LDC );
                            }
-                           ISAME( 13 ) = LDCS == LDC;
+                           ISAME[13] = LDCS == LDC;
 
                            // If data was incorrectly changed, report
                            // and return.
@@ -636,16 +636,16 @@
                         NS = N;
                         ALS = ALPHA;
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I );
+                           AS[I] = AA( I );
                         } // 10
                         LDAS = LDA;
                         for (I = 1; I <= LBB; I++) { // 20
-                           BS( I ) = BB( I );
+                           BS[I] = BB( I );
                         } // 20
                         LDBS = LDB;
                         BLS = BETA;
                         for (I = 1; I <= LCC; I++) { // 30
-                           CS( I ) = CC( I );
+                           CS[I] = CC( I );
                         } // 30
                         LDCS = LDC;
 
@@ -669,22 +669,22 @@
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = SIDES == SIDE;
-                        ISAME( 2 ) = UPLOS == UPLO;
-                        ISAME( 3 ) = MS == M;
-                        ISAME( 4 ) = NS == N;
-                        ISAME( 5 ) = ALS == ALPHA;
-                        ISAME( 6 ) = LZE( AS, AA, LAA );
-                        ISAME( 7 ) = LDAS == LDA;
-                        ISAME( 8 ) = LZE( BS, BB, LBB );
-                        ISAME( 9 ) = LDBS == LDB;
-                        ISAME( 10 ) = BLS == BETA;
+                        ISAME[1] = SIDES == SIDE;
+                        ISAME[2] = UPLOS == UPLO;
+                        ISAME[3] = MS == M;
+                        ISAME[4] = NS == N;
+                        ISAME[5] = ALS == ALPHA;
+                        ISAME[6] = LZE( AS, AA, LAA );
+                        ISAME[7] = LDAS == LDA;
+                        ISAME[8] = LZE( BS, BB, LBB );
+                        ISAME[9] = LDBS == LDB;
+                        ISAME[10] = BLS == BETA;
                         if ( NULL ) {
-                           ISAME( 11 ) = LZE( CS, CC, LCC );
+                           ISAME[11] = LZE( CS, CC, LCC );
                         } else {
-                           ISAME( 11 ) = LZERES( 'GE', ' ', M, N, CS, CC, LDC );
+                           ISAME[11] = LZERES( 'GE', ' ', M, N, CS, CC, LDC );
                         }
-                        ISAME( 12 ) = LDCS == LDC;
+                        ISAME[12] = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -808,7 +808,7 @@
       // Set up zero matrix for ZMMCH.
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            C( I, J ) = ZERO;
+            C[I, J] = ZERO;
          } // 10
       } // 20
 
@@ -873,11 +873,11 @@
                            NS = N;
                            ALS = ALPHA;
                            for (I = 1; I <= LAA; I++) { // 30
-                              AS( I ) = AA( I );
+                              AS[I] = AA( I );
                            } // 30
                            LDAS = LDA;
                            for (I = 1; I <= LBB; I++) { // 40
-                              BS( I ) = BB( I );
+                              BS[I] = BB( I );
                            } // 40
                            LDBS = LDB;
 
@@ -903,21 +903,21 @@
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = SIDES == SIDE;
-                           ISAME( 2 ) = UPLOS == UPLO;
-                           ISAME( 3 ) = TRANAS == TRANSA;
-                           ISAME( 4 ) = DIAGS == DIAG;
-                           ISAME( 5 ) = MS == M;
-                           ISAME( 6 ) = NS == N;
-                           ISAME( 7 ) = ALS == ALPHA;
-                           ISAME( 8 ) = LZE( AS, AA, LAA );
-                           ISAME( 9 ) = LDAS == LDA;
+                           ISAME[1] = SIDES == SIDE;
+                           ISAME[2] = UPLOS == UPLO;
+                           ISAME[3] = TRANAS == TRANSA;
+                           ISAME[4] = DIAGS == DIAG;
+                           ISAME[5] = MS == M;
+                           ISAME[6] = NS == N;
+                           ISAME[7] = ALS == ALPHA;
+                           ISAME[8] = LZE( AS, AA, LAA );
+                           ISAME[9] = LDAS == LDA;
                            if ( NULL ) {
-                              ISAME( 10 ) = LZE( BS, BB, LBB );
+                              ISAME[10] = LZE( BS, BB, LBB );
                            } else {
-                              ISAME( 10 ) = LZERES( 'GE', ' ', M, N, BS, BB, LDB );
+                              ISAME[10] = LZERES( 'GE', ' ', M, N, BS, BB, LDB );
                            }
-                           ISAME( 11 ) = LDBS == LDB;
+                           ISAME[11] = LDBS == LDB;
 
                            // If data was incorrectly changed, report and
                            // return.
@@ -949,7 +949,7 @@
 
                                  for (J = 1; J <= N; J++) { // 70
                                     for (I = 1; I <= M; I++) { // 60
-                                       C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J );
+                                       C[I, J] = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J );
                                     } // 60
                                  } // 70
 
@@ -1131,7 +1131,7 @@
                            ALS = ALPHA;
                         }
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I );
+                           AS[I] = AA( I );
                         } // 10
                         LDAS = LDA;
                         if ( CONJ ) {
@@ -1140,7 +1140,7 @@
                            BETS = BETA;
                         }
                         for (I = 1; I <= LCC; I++) { // 20
-                           CS( I ) = CC( I );
+                           CS[I] = CC( I );
                         } // 20
                         LDCS = LDC;
 
@@ -1166,28 +1166,28 @@
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS == UPLO;
-                        ISAME( 2 ) = TRANSS == TRANS;
-                        ISAME( 3 ) = NS == N;
-                        ISAME( 4 ) = KS == K;
+                        ISAME[1] = UPLOS == UPLO;
+                        ISAME[2] = TRANSS == TRANS;
+                        ISAME[3] = NS == N;
+                        ISAME[4] = KS == K;
                         if ( CONJ ) {
-                           ISAME( 5 ) = RALS == RALPHA;
+                           ISAME[5] = RALS == RALPHA;
                         } else {
-                           ISAME( 5 ) = ALS == ALPHA;
+                           ISAME[5] = ALS == ALPHA;
                         }
-                        ISAME( 6 ) = LZE( AS, AA, LAA );
-                        ISAME( 7 ) = LDAS == LDA;
+                        ISAME[6] = LZE( AS, AA, LAA );
+                        ISAME[7] = LDAS == LDA;
                         if ( CONJ ) {
-                           ISAME( 8 ) = RBETS == RBETA;
+                           ISAME[8] = RBETS == RBETA;
                         } else {
-                           ISAME( 8 ) = BETS == BETA;
+                           ISAME[8] = BETS == BETA;
                         }
                         if ( NULL ) {
-                           ISAME( 9 ) = LZE( CS, CC, LCC );
+                           ISAME[9] = LZE( CS, CC, LCC );
                         } else {
-                           ISAME( 9 ) = LZERES( SNAME( 2: 3 ), UPLO, N, N, CS, CC, LDC );
+                           ISAME[9] = LZERES( SNAME( 2: 3 ), UPLO, N, N, CS, CC, LDC );
                         }
-                        ISAME( 10 ) = LDCS == LDC;
+                        ISAME[10] = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -1416,11 +1416,11 @@
                         KS = K;
                         ALS = ALPHA;
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I );
+                           AS[I] = AA( I );
                         } // 10
                         LDAS = LDA;
                         for (I = 1; I <= LBB; I++) { // 20
-                           BS( I ) = BB( I );
+                           BS[I] = BB( I );
                         } // 20
                         LDBS = LDB;
                         if ( CONJ ) {
@@ -1429,7 +1429,7 @@
                            BETS = BETA;
                         }
                         for (I = 1; I <= LCC; I++) { // 30
-                           CS( I ) = CC( I );
+                           CS[I] = CC( I );
                         } // 30
                         LDCS = LDC;
 
@@ -1455,26 +1455,26 @@
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS == UPLO;
-                        ISAME( 2 ) = TRANSS == TRANS;
-                        ISAME( 3 ) = NS == N;
-                        ISAME( 4 ) = KS == K;
-                        ISAME( 5 ) = ALS == ALPHA;
-                        ISAME( 6 ) = LZE( AS, AA, LAA );
-                        ISAME( 7 ) = LDAS == LDA;
-                        ISAME( 8 ) = LZE( BS, BB, LBB );
-                        ISAME( 9 ) = LDBS == LDB;
+                        ISAME[1] = UPLOS == UPLO;
+                        ISAME[2] = TRANSS == TRANS;
+                        ISAME[3] = NS == N;
+                        ISAME[4] = KS == K;
+                        ISAME[5] = ALS == ALPHA;
+                        ISAME[6] = LZE( AS, AA, LAA );
+                        ISAME[7] = LDAS == LDA;
+                        ISAME[8] = LZE( BS, BB, LBB );
+                        ISAME[9] = LDBS == LDB;
                         if ( CONJ ) {
-                           ISAME( 10 ) = RBETS == RBETA;
+                           ISAME[10] = RBETS == RBETA;
                         } else {
-                           ISAME( 10 ) = BETS == BETA;
+                           ISAME[10] = BETS == BETA;
                         }
                         if ( NULL ) {
-                           ISAME( 11 ) = LZE( CS, CC, LCC );
+                           ISAME[11] = LZE( CS, CC, LCC );
                         } else {
-                           ISAME( 11 ) = LZERES( 'HE', UPLO, N, N, CS, CC, LDC );
+                           ISAME[11] = LZERES( 'HE', UPLO, N, N, CS, CC, LDC );
                         }
-                        ISAME( 12 ) = LDCS == LDC;
+                        ISAME[12] = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
@@ -1510,20 +1510,20 @@
                               }
                               if ( TRAN ) {
                                  for (I = 1; I <= K; I++) { // 50
-                                    W( I ) = ALPHA*AB( ( J - 1 )*2* NMAX + K + I );
+                                    W[I] = ALPHA*AB( ( J - 1 )*2* NMAX + K + I );
                                     if ( CONJ ) {
-                                       W( K + I ) = DCONJG( ALPHA )* AB( ( J - 1 )*2* NMAX + I );
+                                       W[K + I] = DCONJG( ALPHA )* AB( ( J - 1 )*2* NMAX + I );
                                     } else {
-                                       W( K + I ) = ALPHA* AB( ( J - 1 )*2* NMAX + I );
+                                       W[K + I] = ALPHA* AB( ( J - 1 )*2* NMAX + I );
                                     }
                                  } // 50
                                  zmmch(TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               } else {
                                  for (I = 1; I <= K; I++) { // 60
                                     if ( CONJ ) {
-                                       W( I ) = ALPHA*DCONJG( AB( ( K + I - 1 )*NMAX + J ) )                                        W( K + I ) = DCONJG( ALPHA* AB( ( I - 1 )*NMAX + J ) );
+                                       W[I] = ALPHA*DCONJG( AB( ( K + I - 1 )*NMAX + J ) )                                        W( K + I ) = DCONJG( ALPHA* AB( ( I - 1 )*NMAX + J ) );
                                     } else {
-                                       W( I ) = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                        W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J );
+                                       W[I] = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                        W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J );
                                     }
                                  } // 60
                                  zmmch('N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
@@ -2578,23 +2578,23 @@
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
-               A( I, J ) = ZBEG( RESET ) + TRANSL;
+               A[I, J] = ZBEG( RESET ) + TRANSL;
                if ( I != J ) {
                   // Set some elements to zero
                   if (N > 3 && J == N/2) A( I, J ) = ZERO;
                   if ( HER ) {
-                     A( J, I ) = DCONJG( A( I, J ) );
+                     A[J, I] = DCONJG( A( I, J ) );
                   } else if ( SYM ) {
-                     A( J, I ) = A( I, J );
+                     A[J, I] = A( I, J );
                   } else if ( TRI ) {
-                     A( J, I ) = ZERO;
+                     A[J, I] = ZERO;
                   }
                }
             }
          } // 10
          if (HER) A( J, J ) = DCMPLX( DBLE( A( J, J ) ), RZERO );
-         if( TRI ) A( J, J ) = A( J, J ) + ONE;
-         IF( UNIT ) A( J, J ) = ONE;
+         if[TRI ) A( J, J] = A( J, J ) + ONE;
+         IF[UNIT ) A( J, J] = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2602,10 +2602,10 @@
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
-               AA( I + ( J - 1 )*LDA ) = A( I, J );
+               AA[I + ( J - 1 )*LDA] = A( I, J );
             } // 30
             for (I = M + 1; I <= LDA; I++) { // 40
-               AA( I + ( J - 1 )*LDA ) = ROGUE;
+               AA[I + ( J - 1 )*LDA] = ROGUE;
             } // 40
          } // 50
       } else if ( TYPE == 'HE' || TYPE == 'SY' || TYPE == 'TR' ) {
@@ -2626,17 +2626,17 @@
                IEND = N;
             }
             for (I = 1; I <= IBEG - 1; I++) { // 60
-               AA( I + ( J - 1 )*LDA ) = ROGUE;
+               AA[I + ( J - 1 )*LDA] = ROGUE;
             } // 60
             for (I = IBEG; I <= IEND; I++) { // 70
-               AA( I + ( J - 1 )*LDA ) = A( I, J );
+               AA[I + ( J - 1 )*LDA] = A( I, J );
             } // 70
             for (I = IEND + 1; I <= LDA; I++) { // 80
-               AA( I + ( J - 1 )*LDA ) = ROGUE;
+               AA[I + ( J - 1 )*LDA] = ROGUE;
             } // 80
             if ( HER ) {
                JJ = J + ( J - 1 )*LDA;
-               AA( JJ ) = DCMPLX( DBLE( AA( JJ ) ), RROGUE );
+               AA[JJ] = DCMPLX( DBLE( AA( JJ ) ), RROGUE );
             }
          } // 90
       }
@@ -2678,7 +2678,7 @@
       // .. Statement Functions ..
       double             ABS1;
       // .. Statement Function definitions ..
-      ABS1( CL ) = ( DBLE( CL ) ).abs() + ( DIMAG( CL ) ).abs();
+      ABS1[CL] = ( DBLE( CL ) ).abs() + ( DIMAG( CL ) ).abs();
       // .. Executable Statements ..
       TRANA = TRANSA == 'T' || TRANSA == 'C';
       TRANB = TRANSB == 'T' || TRANSB == 'C';
@@ -2692,29 +2692,29 @@
       for (J = 1; J <= N; J++) { // 220
 
          for (I = 1; I <= M; I++) { // 10
-            CT( I ) = ZERO;
-            G( I ) = RZERO;
+            CT[I] = ZERO;
+            G[I] = RZERO;
          } // 10
          if ( !TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
-                  CT( I ) = CT( I ) + A( I, K )*B( K, J );
-                  G( I ) = G( I ) + ABS1( A( I, K ) )*ABS1( B( K, J ) );
+                  CT[I] = CT( I ) + A( I, K )*B( K, J );
+                  G[I] = G( I ) + ABS1( A( I, K ) )*ABS1( B( K, J ) );
                } // 20
             } // 30
          } else if ( TRANA && !TRANB ) {
             if ( CTRANA ) {
                for (K = 1; K <= KK; K++) { // 50
                   for (I = 1; I <= M; I++) { // 40
-                     CT( I ) = CT( I ) + DCONJG( A( K, I ) )*B( K, J );
-                     G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( K, J ) );
+                     CT[I] = CT( I ) + DCONJG( A( K, I ) )*B( K, J );
+                     G[I] = G( I ) + ABS1( A( K, I ) )* ABS1( B( K, J ) );
                   } // 40
                } // 50
             } else {
                for (K = 1; K <= KK; K++) { // 70
                   for (I = 1; I <= M; I++) { // 60
-                     CT( I ) = CT( I ) + A( K, I )*B( K, J );
-                     G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( K, J ) );
+                     CT[I] = CT( I ) + A( K, I )*B( K, J );
+                     G[I] = G( I ) + ABS1( A( K, I ) )* ABS1( B( K, J ) );
                   } // 60
                } // 70
             }
@@ -2722,15 +2722,15 @@
             if ( CTRANB ) {
                for (K = 1; K <= KK; K++) { // 90
                   for (I = 1; I <= M; I++) { // 80
-                     CT( I ) = CT( I ) + A( I, K )*DCONJG( B( J, K ) );
-                     G( I ) = G( I ) + ABS1( A( I, K ) )* ABS1( B( J, K ) );
+                     CT[I] = CT( I ) + A( I, K )*DCONJG( B( J, K ) );
+                     G[I] = G( I ) + ABS1( A( I, K ) )* ABS1( B( J, K ) );
                   } // 80
                } // 90
             } else {
                for (K = 1; K <= KK; K++) { // 110
                   for (I = 1; I <= M; I++) { // 100
-                     CT( I ) = CT( I ) + A( I, K )*B( J, K );
-                     G( I ) = G( I ) + ABS1( A( I, K ) )* ABS1( B( J, K ) );
+                     CT[I] = CT( I ) + A( I, K )*B( J, K );
+                     G[I] = G( I ) + ABS1( A( I, K ) )* ABS1( B( J, K ) );
                   } // 100
                } // 110
             }
@@ -2739,13 +2739,13 @@
                if ( CTRANB ) {
                   for (K = 1; K <= KK; K++) { // 130
                      for (I = 1; I <= M; I++) { // 120
-                        CT( I ) = CT( I ) + DCONJG( A( K, I ) )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
+                        CT[I] = CT( I ) + DCONJG( A( K, I ) )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
                      } // 120
                   } // 130
                } else {
                   for (K = 1; K <= KK; K++) { // 150
                      for (I = 1; I <= M; I++) { // 140
-                        CT( I ) = CT( I ) + DCONJG( A( K, I ) )* B( J, K )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
+                        CT[I] = CT( I ) + DCONJG( A( K, I ) )* B( J, K )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
                      } // 140
                   } // 150
                }
@@ -2753,22 +2753,22 @@
                if ( CTRANB ) {
                   for (K = 1; K <= KK; K++) { // 170
                      for (I = 1; I <= M; I++) { // 160
-                        CT( I ) = CT( I ) + A( K, I )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
+                        CT[I] = CT( I ) + A( K, I )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
                      } // 160
                   } // 170
                } else {
                   for (K = 1; K <= KK; K++) { // 190
                      for (I = 1; I <= M; I++) { // 180
-                        CT( I ) = CT( I ) + A( K, I )*B( J, K );
-                        G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
+                        CT[I] = CT( I ) + A( K, I )*B( J, K );
+                        G[I] = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) );
                      } // 180
                   } // 190
                }
             }
          }
          for (I = 1; I <= M; I++) { // 200
-            CT( I ) = ALPHA*CT( I ) + BETA*C( I, J );
-            G( I ) = ABS1( ALPHA )*G( I ) + ABS1( BETA )*ABS1( C( I, J ) );
+            CT[I] = ALPHA*CT( I ) + BETA*C( I, J );
+            G[I] = ABS1( ALPHA )*G( I ) + ABS1( BETA )*ABS1( C( I, J ) );
          } // 200
 
          // Compute the error ratio for this result.

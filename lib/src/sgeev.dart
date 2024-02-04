@@ -107,7 +107,7 @@
             }
             MAXWRK = max( MAXWRK, MINWRK );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13;
@@ -245,12 +245,12 @@
                sscal(N, SCL, VL( 1, I ), 1 );
                sscal(N, SCL, VL( 1, I+1 ), 1 );
                for (K = 1; K <= N; K++) { // 10
-                  WORK( IWRK+K-1 ) = VL( K, I )**2 + VL( K, I+1 )**2;
+                  WORK[IWRK+K-1] = VL( K, I )**2 + VL( K, I+1 )**2;
                } // 10
                K = ISAMAX( N, WORK( IWRK ), 1 );
                slartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
                srot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
-               VL( K, I+1 ) = ZERO;
+               VL[K, I+1] = ZERO;
             }
          } // 20
       }
@@ -273,12 +273,12 @@
                sscal(N, SCL, VR( 1, I ), 1 );
                sscal(N, SCL, VR( 1, I+1 ), 1 );
                for (K = 1; K <= N; K++) { // 30
-                  WORK( IWRK+K-1 ) = VR( K, I )**2 + VR( K, I+1 )**2;
+                  WORK[IWRK+K-1] = VR( K, I )**2 + VR( K, I+1 )**2;
                } // 30
                K = ISAMAX( N, WORK( IWRK ), 1 );
                slartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
                srot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
-               VR( K, I+1 ) = ZERO;
+               VR[K, I+1] = ZERO;
             }
          } // 40
       }
@@ -295,6 +295,6 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

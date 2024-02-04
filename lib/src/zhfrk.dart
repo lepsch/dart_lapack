@@ -79,7 +79,7 @@
 
       if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
-            C( J ) = CZERO;
+            C[J] = CZERO;
          }
          return;
       }

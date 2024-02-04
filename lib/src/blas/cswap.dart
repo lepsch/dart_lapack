@@ -23,8 +23,8 @@
         // code for both increments equal to 1
          for (I = 1; I <= N; I++) {
             CTEMP = CX(I);
-            CX(I) = CY(I);
-            CY(I) = CTEMP;
+            CX[I] = CY(I);
+            CY[I] = CTEMP;
          }
       } else {
 
@@ -37,8 +37,8 @@
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             CTEMP = CX(IX);
-            CX(IX) = CY(IY);
-            CY(IY) = CTEMP;
+            CX[IX] = CY(IY);
+            CY[IY] = CTEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

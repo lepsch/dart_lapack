@@ -72,9 +72,9 @@
                for (I = 1; I <= J - 1; I++) { // 50
                   ABSA = ( A( I, J ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ABS( REAL( A( J, J ) ) );
+               WORK[J] = SUM + ABS( REAL( A( J, J ) ) );
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
@@ -82,14 +82,14 @@
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO;
+               WORK[I] = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( REAL( A( J, J ) ) );
                for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ( A( I, J ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                } // 90
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 100

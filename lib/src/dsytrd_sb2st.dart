@@ -82,8 +82,8 @@
       }
 
       if ( INFO == 0 ) {
-         HOUS( 1 ) = LHMIN;
-         WORK( 1 ) = LWMIN;
+         HOUS[1] = LHMIN;
+         WORK[1] = LWMIN;
       }
 
       if ( INFO != 0 ) {
@@ -96,8 +96,8 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -140,14 +140,14 @@
 
       if ( KD == 0 ) {
           for (I = 1; I <= N; I++) { // 30
-              D( I ) = ( AB( ABDPOS, I ) );
+              D[I] = ( AB( ABDPOS, I ) );
           } // 30
           for (I = 1; I <= N-1; I++) { // 40
-              E( I ) = RZERO;
+              E[I] = RZERO;
           } // 40
 
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -163,21 +163,21 @@
 
       if ( KD == 1 ) {
           for (I = 1; I <= N; I++) { // 50
-              D( I ) = ( AB( ABDPOS, I ) );
+              D[I] = ( AB( ABDPOS, I ) );
           } // 50
 
           if ( UPPER ) {
               for (I = 1; I <= N-1; I++) { // 60
-                 E( I ) = ( AB( ABOFDPOS, I+1 ) );
+                 E[I] = ( AB( ABOFDPOS, I+1 ) );
               } // 60
           } else {
               for (I = 1; I <= N-1; I++) { // 70
-                 E( I ) = ( AB( ABOFDPOS, I ) );
+                 E[I] = ( AB( ABOFDPOS, I ) );
               } // 70
           }
 
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -281,7 +281,7 @@
       // the Real part is needed, the imaginary part should be zero.
 
       for (I = 1; I <= N; I++) { // 150
-          D( I ) = ( WORK( DPOS+(I-1)*LDA ) );
+          D[I] = ( WORK( DPOS+(I-1)*LDA ) );
       } // 150
 
       // Copy the off diagonal from A to E. Note that E is REAL thus only
@@ -289,14 +289,14 @@
 
       if ( UPPER ) {
           for (I = 1; I <= N-1; I++) { // 160
-             E( I ) = ( WORK( OFDPOS+I*LDA ) );
+             E[I] = ( WORK( OFDPOS+I*LDA ) );
           } // 160
       } else {
           for (I = 1; I <= N-1; I++) { // 170
-             E( I ) = ( WORK( OFDPOS+(I-1)*LDA ) );
+             E[I] = ( WORK( OFDPOS+(I-1)*LDA ) );
           } // 170
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

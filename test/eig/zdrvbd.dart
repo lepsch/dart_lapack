@@ -145,7 +145,7 @@
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -158,7 +158,7 @@
 
                zlaset('Full', M, N, CZERO, CZERO, A, LDA );
                for (I = 1; I <= min( M, N ); I++) { // 30
-                  S( I ) = ZERO;
+                  S[I] = ZERO;
                } // 30
 
             } else if ( JTYPE == 2 ) {
@@ -167,7 +167,7 @@
 
                zlaset('Full', M, N, CZERO, CONE, A, LDA );
                for (I = 1; I <= min( M, N ); I++) { // 40
-                  S( I ) = ONE;
+                  S[I] = ONE;
                } // 40
 
             } else {
@@ -201,7 +201,7 @@
                if (IWSPC == 4) LSWORK = LWORK;
 
                for (J = 1; J <= 35; J++) { // 60
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 60
 
                // Factorize A
@@ -222,20 +222,20 @@
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
-               RESULT( 4 ) = 0;
+               RESULT[4] = 0;
                for (I = 1; I <= MNMIN - 1; I++) { // 70
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 4] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 4] = ULPINV;
                } // 70
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 4] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 5 ) = ZERO;
-               RESULT( 6 ) = ZERO;
-               RESULT( 7 ) = ZERO;
+               RESULT[5] = ZERO;
+               RESULT[6] = ZERO;
+               RESULT[7] = ZERO;
                for (IJU = 0; IJU <= 3; IJU++) { // 100
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
                      if( ( IJU == 3 && IJVT == 3 ) || ( IJU == 1 && IJVT == 1 ) )GO TO 90;
@@ -257,7 +257,7 @@
                            zunt03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 5 ) = max( RESULT( 5 ), DIF );
+                     RESULT[5] = max( RESULT( 5 ), DIF );
 
                      // Compare VT
 
@@ -271,7 +271,7 @@
                            zunt03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 6 ) = max( RESULT( 6 ), DIF );
+                     RESULT[6] = max( RESULT( 6 ), DIF );
 
                      // Compare S
 
@@ -282,7 +282,7 @@
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 80
-                     RESULT( 7 ) = max( RESULT( 7 ), DIF );
+                     RESULT[7] = max( RESULT( 7 ), DIF );
                   } // 90
                } // 100
 
@@ -312,20 +312,20 @@
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
-               RESULT( 11 ) = 0;
+               RESULT[11] = 0;
                for (I = 1; I <= MNMIN - 1; I++) { // 110
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 11] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 11] = ULPINV;
                } // 110
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 11] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 12 ) = ZERO;
-               RESULT( 13 ) = ZERO;
-               RESULT( 14 ) = ZERO;
+               RESULT[12] = ZERO;
+               RESULT[13] = ZERO;
+               RESULT[14] = ZERO;
                for (IJQ = 0; IJQ <= 2; IJQ++) { // 130
                   JOBQ = CJOB( IJQ+1 );
                   zlacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -346,7 +346,7 @@
                         zunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
-                  RESULT( 12 ) = max( RESULT( 12 ), DIF );
+                  RESULT[12] = max( RESULT( 12 ), DIF );
 
                   // Compare VT
 
@@ -362,7 +362,7 @@
                         zunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
-                  RESULT( 13 ) = max( RESULT( 13 ), DIF );
+                  RESULT[13] = max( RESULT( 13 ), DIF );
 
                   // Compare S
 
@@ -373,16 +373,16 @@
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                      DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                   } // 120
-                  RESULT( 14 ) = max( RESULT( 14 ), DIF );
+                  RESULT[14] = max( RESULT( 14 ), DIF );
                } // 130
 
                // Test ZGESVDQ
                // Note: ZGESVDQ only works for M >= N
 
-               RESULT( 36 ) = ZERO;
-               RESULT( 37 ) = ZERO;
-               RESULT( 38 ) = ZERO;
-               RESULT( 39 ) = ZERO;
+               RESULT[36] = ZERO;
+               RESULT[37] = ZERO;
+               RESULT[38] = ZERO;
+               RESULT[39] = ZERO;
 
                if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + max( M, N );
@@ -411,23 +411,23 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
-                  RESULT( 39 ) = ZERO;
+                  RESULT[39] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 39] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 39] = ULPINV;
                   } // 199
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 39] = ULPINV;
                   }
                }
 
                // Test ZGESVJ
                // Note: ZGESVJ only works for M >= N
 
-               RESULT( 15 ) = ZERO;
-               RESULT( 16 ) = ZERO;
-               RESULT( 17 ) = ZERO;
-               RESULT( 18 ) = ZERO;
+               RESULT[15] = ZERO;
+               RESULT[16] = ZERO;
+               RESULT[17] = ZERO;
+               RESULT[18] = ZERO;
 
                if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + max( M, N );
@@ -445,7 +445,7 @@
 
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= N; I++) {
-                        VTSAV(J,I) = CONJG (A(I,J));
+                        VTSAV[J,I] = CONJG (A(I,J));
                      }
                   }
 
@@ -462,23 +462,23 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
-                  RESULT( 18 ) = ZERO;
+                  RESULT[18] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 131
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 18] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 18] = ULPINV;
                   } // 131
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 18] = ULPINV;
                   }
                }
 
                // Test ZGEJSV
                // Note: ZGEJSV only works for M >= N
 
-               RESULT( 19 ) = ZERO;
-               RESULT( 20 ) = ZERO;
-               RESULT( 21 ) = ZERO;
-               RESULT( 22 ) = ZERO;
+               RESULT[19] = ZERO;
+               RESULT[20] = ZERO;
+               RESULT[21] = ZERO;
+               RESULT[22] = ZERO;
                if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + max( M, N );
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3;
@@ -495,7 +495,7 @@
 
                   for (J = 1; J <= N; J++) { // 133
                      for (I = 1; I <= N; I++) { // 132
-                        VTSAV(J,I) = CONJG (A(I,J));
+                        VTSAV[J,I] = CONJG (A(I,J));
   132                END DO;
   133             END DO;
 
@@ -512,13 +512,13 @@
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
-                  RESULT( 22 ) = ZERO;
+                  RESULT[22] = ZERO;
                   for (I = 1; I <= MNMIN - 1; I++) { // 134
-                     if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV;
-                     IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 22] = ULPINV;
+                     IF[SSAV( I ) < ZERO ) RESULT( 22] = ULPINV;
                   } // 134
                   if ( MNMIN >= 1 ) {
-                     if( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV;
+                     if[SSAV( MNMIN ) < ZERO ) RESULT( 22] = ULPINV;
                   }
                }
 
@@ -537,28 +537,28 @@
 
                // Do tests 1--4
 
-               RESULT( 23 ) = ZERO;
-               RESULT( 24 ) = ZERO;
-               RESULT( 25 ) = ZERO;
+               RESULT[23] = ZERO;
+               RESULT[24] = ZERO;
+               RESULT[25] = ZERO;
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
                if ( M != 0 && N != 0 ) {
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
-               RESULT( 26 ) = ZERO;
+               RESULT[26] = ZERO;
                for (I = 1; I <= MNMIN - 1; I++) { // 140
-                  if( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV;
-                  IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if[SSAV( I ) < SSAV( I+1 ) ) RESULT( 26] = ULPINV;
+                  IF[SSAV( I ) < ZERO ) RESULT( 26] = ULPINV;
                } // 140
                if ( MNMIN >= 1 ) {
-                  if( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV;
+                  if[SSAV( MNMIN ) < ZERO ) RESULT( 26] = ULPINV;
                }
 
                // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 
-               RESULT( 27 ) = ZERO;
-               RESULT( 28 ) = ZERO;
-               RESULT( 29 ) = ZERO;
+               RESULT[27] = ZERO;
+               RESULT[28] = ZERO;
+               RESULT[29] = ZERO;
                for (IJU = 0; IJU <= 1; IJU++) { // 170
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
                      if( ( IJU == 0 && IJVT == 0 ) || ( IJU == 1 && IJVT == 1 ) ) GO TO 160;
@@ -577,7 +577,7 @@
                            zunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 27 ) = max( RESULT( 27 ), DIF );
+                     RESULT[27] = max( RESULT( 27 ), DIF );
 
                      // Compare VT
 
@@ -587,7 +587,7 @@
                            zunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 28 ) = max( RESULT( 28 ), DIF );
+                     RESULT[28] = max( RESULT( 28 ), DIF );
 
                      // Compare S
 
@@ -598,14 +598,14 @@
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
                         DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 150
-                     RESULT( 29) = max( RESULT( 29 ), DIF );
+                     RESULT[29] = max( RESULT( 29 ), DIF );
                   } // 160
                } // 170
 
                // Do tests 8--10
 
                for (I = 1; I <= 4; I++) { // 180
-                  ISEED2( I ) = ISEED( I );
+                  ISEED2[I] = ISEED( I );
                } // 180
                if ( MNMIN <= 1 ) {
                   IL = 1;
@@ -628,9 +628,9 @@
                   return;
                }
 
-               RESULT( 30 ) = ZERO;
-               RESULT( 31 ) = ZERO;
-               RESULT( 32 ) = ZERO;
+               RESULT[30] = ZERO;
+               RESULT[31] = ZERO;
+               RESULT[32] = ZERO;
                zbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
                if ( M != 0 && N != 0 ) {
                   zunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) );
@@ -666,9 +666,9 @@
                   return;
                }
 
-               RESULT( 33 ) = ZERO;
-               RESULT( 34 ) = ZERO;
-               RESULT( 35 ) = ZERO;
+               RESULT[33] = ZERO;
+               RESULT[34] = ZERO;
+               RESULT[35] = ZERO;
                zbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
                if ( M != 0 && N != 0 ) {
                   zunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) );

@@ -95,7 +95,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB( KD1, 1 ) = DBLE( AB( KD1, 1 ) );
+            AB[KD1, 1] = DBLE( AB( KD1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
@@ -138,7 +138,7 @@
                         // within the band
 
                         zlartg(AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB( KD-K+3, I+K-2 ) = TEMP;
+                        AB[KD-K+3, I+K-2] = TEMP;
 
                         // apply rotation from the right
 
@@ -227,8 +227,8 @@
                      // create nonzero element a(j-1,j+kd) outside the band
                      // and store it in WORK
 
-                     WORK( J+KD ) = WORK( J )*AB( 1, J+KD );
-                     AB( 1, J+KD ) = D( J )*AB( 1, J+KD );
+                     WORK[J+KD] = WORK( J )*AB( 1, J+KD );
+                     AB[1, J+KD] = D( J )*AB( 1, J+KD );
                   } // 70
                } // 80
             } // 90
@@ -241,8 +241,8 @@
             for (I = 1; I <= N - 1; I++) { // 100
                T = AB( KD, I+1 );
                ABST = ( T ).abs();
-               AB( KD, I+1 ) = ABST;
-               E( I ) = ABST;
+               AB[KD, I+1] = ABST;
+               E[I] = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;
                } else {
@@ -258,14 +258,14 @@
             // set E to zero if original matrix was diagonal
 
             for (I = 1; I <= N - 1; I++) { // 110
-               E( I ) = ZERO;
+               E[I] = ZERO;
             } // 110
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 120
-            D( I ) = DBLE( AB( KD1, I ) );
+            D[I] = DBLE( AB( KD1, I ) );
          } // 120
 
       } else {
@@ -279,7 +279,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB( 1, 1 ) = DBLE( AB( 1, 1 ) );
+            AB[1, 1] = DBLE( AB( 1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
@@ -321,7 +321,7 @@
                         // within the band
 
                         zlartg(AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB( K-1, I ) = TEMP;
+                        AB[K-1, I] = TEMP;
 
                         // apply rotation from the left
 
@@ -411,8 +411,8 @@
                      // create nonzero element a(j+kd,j-1) outside the
                      // band and store it in WORK
 
-                     WORK( J+KD ) = WORK( J )*AB( KD1, J );
-                     AB( KD1, J ) = D( J )*AB( KD1, J );
+                     WORK[J+KD] = WORK( J )*AB( KD1, J );
+                     AB[KD1, J] = D( J )*AB( KD1, J );
                   } // 190
                } // 200
             } // 210
@@ -425,8 +425,8 @@
             for (I = 1; I <= N - 1; I++) { // 220
                T = AB( 2, I );
                ABST = ( T ).abs();
-               AB( 2, I ) = ABST;
-               E( I ) = ABST;
+               AB[2, I] = ABST;
+               E[I] = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;
                } else {
@@ -442,14 +442,14 @@
             // set E to zero if original matrix was diagonal
 
             for (I = 1; I <= N - 1; I++) { // 230
-               E( I ) = ZERO;
+               E[I] = ZERO;
             } // 230
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 240
-            D( I ) = DBLE( AB( 1, I ) );
+            D[I] = DBLE( AB( 1, I ) );
          } // 240
       }
 

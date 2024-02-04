@@ -41,12 +41,12 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       SAFMIN = DLAMCH( 'Safe minimum' );
@@ -96,7 +96,7 @@
 
       // Compute RESULT(1)
 
-      RESULT( 1 ) = ERRNRM / ULP;
+      RESULT[1] = ERRNRM / ULP;
 
       // Normalization of E:
 
@@ -111,7 +111,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP );
+      RESULT[2] = ENRMER / ( DBLE( N )*ULP );
 
       return;
       }

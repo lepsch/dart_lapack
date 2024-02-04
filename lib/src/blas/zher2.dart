@@ -89,11 +89,11 @@
                       TEMP1 = ALPHA*DCONJG(Y(J));
                       TEMP2 = DCONJG(ALPHA*X(J));
                       for (I = 1; I <= J - 1; I++) { // 10
-                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
+                          A[I,J] = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 10
-                      A(J,J) = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2);
+                      A[J,J] = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2);
                   } else {
-                      A(J,J) = DBLE(A(J,J));
+                      A[J,J] = DBLE(A(J,J));
                   }
               } // 20
           } else {
@@ -104,13 +104,13 @@
                       IX = KX;
                       IY = KY;
                       for (I = 1; I <= J - 1; I++) { // 30
-                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
+                          A[I,J] = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                           IX = IX + INCX;
                           IY = IY + INCY;
                       } // 30
-                      A(J,J) = DBLE(A(J,J)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      A[J,J] = DBLE(A(J,J)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2);
                   } else {
-                      A(J,J) = DBLE(A(J,J));
+                      A[J,J] = DBLE(A(J,J));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;
@@ -125,12 +125,12 @@
                   if ((X(J) != ZERO) || (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J));
                       TEMP2 = DCONJG(ALPHA*X(J));
-                      A(J,J) = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2);
+                      A[J,J] = DBLE(A(J,J)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2);
                       for (I = J + 1; I <= N; I++) { // 50
-                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
+                          A[I,J] = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 50
                   } else {
-                      A(J,J) = DBLE(A(J,J));
+                      A[J,J] = DBLE(A(J,J));
                   }
               } // 60
           } else {
@@ -138,16 +138,16 @@
                   if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(JY));
                       TEMP2 = DCONJG(ALPHA*X(JX));
-                      A(J,J) = DBLE(A(J,J)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      A[J,J] = DBLE(A(J,J)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2);
                       IX = JX;
                       IY = JY;
                       for (I = J + 1; I <= N; I++) { // 70
                           IX = IX + INCX;
                           IY = IY + INCY;
-                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
+                          A[I,J] = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                       } // 70
                   } else {
-                      A(J,J) = DBLE(A(J,J));
+                      A[J,J] = DBLE(A(J,J));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;

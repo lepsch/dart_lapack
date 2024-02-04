@@ -55,9 +55,9 @@
             for (J = 1; J <= N; J++) { // 20
                dcopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= N - 1; I++) { // 10
-                  WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J );
+                  WORK[M+I] = D( I )*PT( I, J ) + E( I )*PT( I+1, J );
                } // 10
-               WORK( M+N ) = D( N )*PT( N, J );
+               WORK[M+N] = D( N )*PT( N, J );
                dgemv('No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 20
@@ -68,9 +68,9 @@
             for (J = 1; J <= N; J++) { // 40
                dcopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= M - 1; I++) { // 30
-                  WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J );
+                  WORK[M+I] = D( I )*PT( I, J ) + E( I )*PT( I+1, J );
                } // 30
-               WORK( M+M ) = D( M )*PT( M, J );
+               WORK[M+M] = D( M )*PT( M, J );
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 40
@@ -80,9 +80,9 @@
 
             for (J = 1; J <= N; J++) { // 60
                dcopy(M, A( 1, J ), 1, WORK, 1 );
-               WORK( M+1 ) = D( 1 )*PT( 1, J );
+               WORK[M+1] = D( 1 )*PT( 1, J );
                for (I = 2; I <= M; I++) { // 50
-                  WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J );
+                  WORK[M+I] = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J );
                } // 50
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = max( RESID, DASUM( M, WORK, 1 ) );
@@ -96,7 +96,7 @@
             for (J = 1; J <= N; J++) { // 80
                dcopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= N; I++) { // 70
-                  WORK( M+I ) = D( I )*PT( I, J );
+                  WORK[M+I] = D( I )*PT( I, J );
                } // 70
                dgemv('No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = max( RESID, DASUM( M, WORK, 1 ) );
@@ -105,7 +105,7 @@
             for (J = 1; J <= N; J++) { // 100
                dcopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= M; I++) { // 90
-                  WORK( M+I ) = D( I )*PT( I, J );
+                  WORK[M+I] = D( I )*PT( I, J );
                } // 90
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = max( RESID, DASUM( M, WORK, 1 ) );

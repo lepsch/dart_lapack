@@ -59,7 +59,7 @@
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J );
                for (I = 1; I <= J; I++) { // 10
-                  A( I, J ) = CJ*S( I )*A( I, J );
+                  A[I, J] = CJ*S( I )*A( I, J );
                } // 10
             } // 20
          } else {
@@ -69,7 +69,7 @@
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
                for (I = J; I <= N; I++) { // 30
-                  A( I, J ) = CJ*S( I )*A( I, J );
+                  A[I, J] = CJ*S( I )*A( I, J );
                } // 30
             } // 40
          }

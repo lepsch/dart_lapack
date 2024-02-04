@@ -80,7 +80,7 @@
       // H(2), H(3), ..., H(nhouse)
 
       for (J = 1; J <= NXFRM; J++) { // 10
-         X( J ) = ZERO;
+         X[J] = ZERO;
       } // 10
 
       for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 30
@@ -89,14 +89,14 @@
          // Generate independent normal( 0, 1 ) random numbers
 
          for (J = KBEG; J <= NXFRM; J++) { // 20
-            X( J ) = DLARND( 3, ISEED );
+            X[J] = DLARND( 3, ISEED );
          } // 20
 
          // Generate a Householder transformation from the random vector X
 
          XNORM = DNRM2( IXFRM, X( KBEG ), 1 );
          XNORMS = SIGN( XNORM, X( KBEG ) );
-         X( KBEG+NXFRM ) = SIGN( ONE, -X( KBEG ) );
+         X[KBEG+NXFRM] = SIGN( ONE, -X( KBEG ) );
          FACTOR = XNORMS*( XNORMS+X( KBEG ) );
          if ( ( FACTOR ).abs() < TOOSML ) {
             INFO = 1;
@@ -105,7 +105,7 @@
          } else {
             FACTOR = ONE / FACTOR;
          }
-         X( KBEG ) = X( KBEG ) + XNORMS;
+         X[KBEG] = X( KBEG ) + XNORMS;
 
          // Apply Householder transformation to A
 
@@ -128,7 +128,7 @@
          }
       } // 30
 
-      X( 2*NXFRM ) = SIGN( ONE, DLARND( 3, ISEED ) );
+      X[2*NXFRM] = SIGN( ONE, DLARND( 3, ISEED ) );
 
       // Scale the matrix A by D.
 

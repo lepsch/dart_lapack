@@ -68,8 +68,8 @@
          if (J3 <= N) srot( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS, SN );
          srot(J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN );
 
-         T( J1, J1 ) = T22;
-         T( J2, J2 ) = T11;
+         T[J1, J1] = T22;
+         T[J2, J2] = T11;
 
          if ( WANTQ ) {
 
@@ -111,11 +111,11 @@
 
          // ( scale, X11, X12 ) H = ( 0, 0, * )
 
-         U( 1 ) = SCALE;
-         U( 2 ) = X( 1, 1 );
-         U( 3 ) = X( 1, 2 );
+         U[1] = SCALE;
+         U[2] = X( 1, 1 );
+         U[3] = X( 1, 2 );
          slarfg(3, U( 3 ), U, 1, TAU );
-         U( 3 ) = ONE;
+         U[3] = ONE;
          T11 = T( J1, J1 );
 
          // Perform swap provisionally on diagonal block in D.
@@ -132,9 +132,9 @@
          slarfx('L', 3, N-J1+1, U, TAU, T( J1, J1 ), LDT, WORK );
          slarfx('R', J2, 3, U, TAU, T( 1, J1 ), LDT, WORK );
 
-         T( J3, J1 ) = ZERO;
-         T( J3, J2 ) = ZERO;
-         T( J3, J3 ) = T11;
+         T[J3, J1] = ZERO;
+         T[J3, J2] = ZERO;
+         T[J3, J3] = T11;
 
          if ( WANTQ ) {
 
@@ -152,11 +152,11 @@
            // (  -X21 ) = ( 0 )
            // ( scale ) = ( 0 )
 
-         U( 1 ) = -X( 1, 1 );
-         U( 2 ) = -X( 2, 1 );
-         U( 3 ) = SCALE;
+         U[1] = -X( 1, 1 );
+         U[2] = -X( 2, 1 );
+         U[3] = SCALE;
          slarfg(3, U( 1 ), U( 2 ), 1, TAU );
-         U( 1 ) = ONE;
+         U[1] = ONE;
          T33 = T( J3, J3 );
 
          // Perform swap provisionally on diagonal block in D.
@@ -173,9 +173,9 @@
          slarfx('R', J3, 3, U, TAU, T( 1, J1 ), LDT, WORK );
          slarfx('L', 3, N-J1, U, TAU, T( J1, J2 ), LDT, WORK );
 
-         T( J1, J1 ) = T33;
-         T( J2, J1 ) = ZERO;
-         T( J3, J1 ) = ZERO;
+         T[J1, J1] = T33;
+         T[J2, J1] = ZERO;
+         T[J3, J1] = ZERO;
 
          if ( WANTQ ) {
 
@@ -195,18 +195,18 @@
                    // ( scale    0  )   (  0  0 )
                    // (    0  scale )   (  0  0 )
 
-         U1( 1 ) = -X( 1, 1 );
-         U1( 2 ) = -X( 2, 1 );
-         U1( 3 ) = SCALE;
+         U1[1] = -X( 1, 1 );
+         U1[2] = -X( 2, 1 );
+         U1[3] = SCALE;
          slarfg(3, U1( 1 ), U1( 2 ), 1, TAU1 );
-         U1( 1 ) = ONE;
+         U1[1] = ONE;
 
          TEMP = -TAU1*( X( 1, 2 )+U1( 2 )*X( 2, 2 ) );
-         U2( 1 ) = -TEMP*U1( 2 ) - X( 2, 2 );
-         U2( 2 ) = -TEMP*U1( 3 );
-         U2( 3 ) = SCALE;
+         U2[1] = -TEMP*U1( 2 ) - X( 2, 2 );
+         U2[2] = -TEMP*U1( 3 );
+         U2[3] = SCALE;
          slarfg(3, U2( 1 ), U2( 2 ), 1, TAU2 );
-         U2( 1 ) = ONE;
+         U2[1] = ONE;
 
          // Perform swap provisionally on diagonal block in D.
 
@@ -226,10 +226,10 @@
          slarfx('L', 3, N-J1+1, U2, TAU2, T( J2, J1 ), LDT, WORK );
          slarfx('R', J4, 3, U2, TAU2, T( 1, J2 ), LDT, WORK );
 
-         T( J3, J1 ) = ZERO;
-         T( J3, J2 ) = ZERO;
-         T( J4, J1 ) = ZERO;
-         T( J4, J2 ) = ZERO;
+         T[J3, J1] = ZERO;
+         T[J3, J2] = ZERO;
+         T[J4, J1] = ZERO;
+         T[J4, J2] = ZERO;
 
          if ( WANTQ ) {
 

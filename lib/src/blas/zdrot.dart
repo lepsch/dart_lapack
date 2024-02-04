@@ -27,8 +27,8 @@
 
          for (I = 1; I <= N; I++) {
             CTEMP = C*ZX( I ) + S*ZY( I );
-            ZY( I ) = C*ZY( I ) - S*ZX( I );
-            ZX( I ) = CTEMP;
+            ZY[I] = C*ZY( I ) - S*ZX( I );
+            ZX[I] = CTEMP;
          }
       } else {
 
@@ -41,8 +41,8 @@
          IF( INCY < 0 ) IY = ( -N+1 )*INCY + 1;
          for (I = 1; I <= N; I++) {
             CTEMP = C*ZX( IX ) + S*ZY( IY );
-            ZY( IY ) = C*ZY( IY ) - S*ZX( IX );
-            ZX( IX ) = CTEMP;
+            ZY[IY] = C*ZY( IY ) - S*ZX( IX );
+            ZX[IX] = CTEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

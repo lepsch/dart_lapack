@@ -41,7 +41,7 @@
 
       // 1)      Constants
 
-      RESULT( 1 ) = ZERO;
+      RESULT[1] = ZERO;
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
@@ -61,7 +61,7 @@
       // Some Error Checks
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         RESULT( 1 ) = TEN / ULP;
+         RESULT[1] = TEN / ULP;
          return;
       }
 
@@ -102,53 +102,53 @@
          dlaset('Full', N, N, ZERO, ZERO, WORK, N );
 
          if ( LOWER ) {
-            WORK( LAP ) = D( N );
+            WORK[LAP] = D( N );
             for (J = N - 1; J >= 1; J--) { // 40
                JP = ( ( 2*N-J )*( J-1 ) ) / 2;
                JP1 = JP + N - J;
                if ( KBAND == 1 ) {
-                  WORK( JP+J+1 ) = ( ONE-TAU( J ) )*E( J );
+                  WORK[JP+J+1] = ( ONE-TAU( J ) )*E( J );
                   for (JR = J + 2; JR <= N; JR++) { // 30
-                     WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR );
+                     WORK[JP+JR] = -TAU( J )*E( J )*VP( JP+JR );
                   } // 30
                }
 
                if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP+J+1 );
-                  VP( JP+J+1 ) = ONE;
+                  VP[JP+J+1] = ONE;
                   dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
                   daxpy(N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 );
                   dspr2('L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
-                  VP( JP+J+1 ) = VSAVE;
+                  VP[JP+J+1] = VSAVE;
                }
-               WORK( JP+J ) = D( J );
+               WORK[JP+J] = D( J );
             } // 40
          } else {
-            WORK( 1 ) = D( 1 );
+            WORK[1] = D( 1 );
             for (J = 1; J <= N - 1; J++) { // 60
                JP = ( J*( J-1 ) ) / 2;
                JP1 = JP + J;
                if ( KBAND == 1 ) {
-                  WORK( JP1+J ) = ( ONE-TAU( J ) )*E( J );
+                  WORK[JP1+J] = ( ONE-TAU( J ) )*E( J );
                   for (JR = 1; JR <= J - 1; JR++) { // 50
-                     WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR );
+                     WORK[JP1+JR] = -TAU( J )*E( J )*VP( JP1+JR );
                   } // 50
                }
 
                if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP1+J );
-                  VP( JP1+J ) = ONE;
+                  VP[JP1+J] = ONE;
                   dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
                   daxpy(J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 );
                   dspr2('U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
-                  VP( JP1+J ) = VSAVE;
+                  VP[JP1+J] = VSAVE;
                }
-               WORK( JP1+J+1 ) = D( J+1 );
+               WORK[JP1+J+1] = D( J+1 );
             } // 60
          }
 
          for (J = 1; J <= LAP; J++) { // 70
-            WORK( J ) = WORK( J ) - AP( J );
+            WORK[J] = WORK( J ) - AP( J );
          } // 70
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LAP+1 ) );
 
@@ -160,24 +160,24 @@
          dlacpy(' ', N, N, U, LDU, WORK, N );
          dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = TEN / ULP;
+            RESULT[1] = TEN / ULP;
             return;
          }
 
          for (J = 1; J <= N; J++) { // 80
-            WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
+            WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 80
 
          WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) );
       }
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
+         RESULT[1] = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT[1] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+            RESULT[1] = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
          }
       }
 
@@ -189,10 +189,10 @@
          dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          for (J = 1; J <= N; J++) { // 90
-            WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
+            WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 90
 
-         RESULT( 2 ) = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
+         RESULT[2] = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
       }
 
       return;

@@ -52,7 +52,7 @@
 
          ALPHA = A( I+1, I );
          clarfg(IHI-I, ALPHA, A( min( I+2, N ), I ), 1, TAU( I ) );
-         A( I+1, I ) = ONE;
+         A[I+1, I] = ONE;
 
          // Apply H(i) to A(1:ihi,i+1:ihi) from the right
 
@@ -62,7 +62,7 @@
 
          clarf('Left', IHI-I, N-I, A( I+1, I ), 1, CONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK );
 
-         A( I+1, I ) = ALPHA;
+         A[I+1, I] = ALPHA;
       } // 10
 
       return;

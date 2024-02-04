@@ -133,8 +133,8 @@
          // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
 
          for (I = 1; I <= 3; I++) { // 10
-            DSCALE( I ) = D( I )*SCLFAC;
-            ZSCALE( I ) = Z( I )*SCLFAC;
+            DSCALE[I] = D( I )*SCLFAC;
+            ZSCALE[I] = Z( I )*SCLFAC;
          } // 10
          TAU = TAU*SCLFAC;
          LBD = LBD*SCLFAC;
@@ -144,8 +144,8 @@
          // Copy D and Z to DSCALE and ZSCALE
 
          for (I = 1; I <= 3; I++) { // 20
-            DSCALE( I ) = D( I );
-            ZSCALE( I ) = Z( I );
+            DSCALE[I] = D( I );
+            ZSCALE[I] = Z( I );
          } // 20
       }
 

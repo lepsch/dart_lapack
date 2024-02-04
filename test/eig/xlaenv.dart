@@ -22,7 +22,7 @@
       // .. Executable Statements ..
 
       if ( ISPEC >= 1 && ISPEC <= 16 ) {
-         IPARMS( ISPEC ) = NVALUE;
+         IPARMS[ISPEC] = NVALUE;
       }
 
       return;

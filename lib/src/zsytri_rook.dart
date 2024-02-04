@@ -96,13 +96,13 @@
 
             // Invert the diagonal block.
 
-            A( K, K ) = CONE / A( K, K );
+            A[K, K] = CONE / A( K, K );
 
             // Compute column K of the inverse.
 
             if ( K > 1 ) {
                zcopy(K-1, A( 1, K ), 1, WORK, 1 );
-               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 );
+               zsymv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -116,17 +116,17 @@
             AKP1 = A( K+1, K+1 ) / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-CONE );
-            A( K, K ) = AKP1 / D;
-            A( K+1, K+1 ) = AK / D;
-            A( K, K+1 ) = -AKKP1 / D;
+            A[K, K] = AKP1 / D;
+            A[K+1, K+1] = AK / D;
+            A[K, K+1] = -AKKP1 / D;
 
             // Compute columns K and K+1 of the inverse.
 
             if ( K > 1 ) {
                zcopy(K-1, A( 1, K ), 1, WORK, 1 );
-               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - ZDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               zsymv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - ZDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                zcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
-               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - ZDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 );
+               zsymv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - ZDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
             KSTEP = 2;
          }
@@ -141,8 +141,8 @@
                if (KP > 1) zswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
             }
          } else {
 
@@ -155,11 +155,11 @@
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
                TEMP = A( K, K+1 );
-               A( K, K+1 ) = A( KP, K+1 );
-               A( KP, K+1 ) = TEMP;
+               A[K, K+1] = A( KP, K+1 );
+               A[KP, K+1] = TEMP;
             }
 
             K = K + 1;
@@ -168,8 +168,8 @@
                if (KP > 1) zswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
             }
          }
 
@@ -197,13 +197,13 @@
 
             // Invert the diagonal block.
 
-            A( K, K ) = CONE / A( K, K );
+            A[K, K] = CONE / A( K, K );
 
             // Compute column K of the inverse.
 
             if ( K < N ) {
                zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 );
+               zsymv[UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -217,17 +217,17 @@
             AKP1 = A( K, K ) / T;
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-CONE );
-            A( K-1, K-1 ) = AKP1 / D;
-            A( K, K ) = AK / D;
-            A( K, K-1 ) = -AKKP1 / D;
+            A[K-1, K-1] = AKP1 / D;
+            A[K, K] = AK / D;
+            A[K, K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
 
             if ( K < N ) {
                zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - ZDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               zsymv[UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - ZDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                zcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
-               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - ZDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 );
+               zsymv[UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1] = A( K-1, K-1 ) - ZDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
             KSTEP = 2;
          }
@@ -242,8 +242,8 @@
                if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
             }
          } else {
 
@@ -256,11 +256,11 @@
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
                TEMP = A( K, K-1 );
-               A( K, K-1 ) = A( KP, K-1 );
-               A( KP, K-1 ) = TEMP;
+               A[K, K-1] = A( KP, K-1 );
+               A[KP, K-1] = TEMP;
             }
 
             K = K - 1;
@@ -269,8 +269,8 @@
                if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K );
-               A( K, K ) = A( KP, KP );
-               A( KP, KP ) = TEMP;
+               A[K, K] = A( KP, KP );
+               A[KP, KP] = TEMP;
             }
          }
 

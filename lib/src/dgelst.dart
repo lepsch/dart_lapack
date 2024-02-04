@@ -72,7 +72,7 @@
 
          MNNRHS = max( MN, NRHS );
          LWOPT = max( 1, (MN+MNNRHS)*NB );
-         WORK( 1 ) = DBLE( LWOPT );
+         WORK[1] = DBLE( LWOPT );
 
       }
 
@@ -87,7 +87,7 @@
 
       if ( min( M, N, NRHS ) == 0 ) {
          dlaset('Full', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         WORK( 1 ) = DBLE( LWOPT );
+         WORK[1] = DBLE( LWOPT );
          return;
       }
 
@@ -135,7 +135,7 @@
          // Matrix all zero. Return zero solution.
 
          dlaset('Full', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         WORK( 1 ) = DBLE( LWOPT );
+         WORK[1] = DBLE( LWOPT );
          return;
       }
 
@@ -209,7 +209,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = N + 1; I <= M; I++) {
-                  B( I, J ) = ZERO;
+                  B[I, J] = ZERO;
                }
             }
 
@@ -253,7 +253,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = M + 1; I <= N; I++) {
-                  B( I, J ) = ZERO;
+                  B[I, J] = ZERO;
                }
             }
 
@@ -304,7 +304,7 @@
          dlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
-      WORK( 1 ) = DBLE( LWOPT );
+      WORK[1] = DBLE( LWOPT );
 
       return;
       }

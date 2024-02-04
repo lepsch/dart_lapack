@@ -86,7 +86,7 @@
             // Compute the (K,K) element of the result.
 
             TR = REAL( CDOTC( K, AFAC( KC ), 1, AFAC( KC ), 1 ) );
-            AFAC( KC+K-1 ) = TR;
+            AFAC[KC+K-1] = TR;
 
             // Compute the rest of column K.
 
@@ -101,9 +101,9 @@
          KC = 1;
          for (K = 1; K <= N; K++) { // 50
             for (I = 1; I <= K - 1; I++) { // 40
-               AFAC( KC+I-1 ) = AFAC( KC+I-1 ) - A( KC+I-1 );
+               AFAC[KC+I-1] = AFAC( KC+I-1 ) - A( KC+I-1 );
             } // 40
-            AFAC( KC+K-1 ) = AFAC( KC+K-1 ) - REAL( A( KC+K-1 ) );
+            AFAC[KC+K-1] = AFAC( KC+K-1 ) - REAL( A( KC+K-1 ) );
             KC = KC + K;
          } // 50
 
@@ -130,9 +130,9 @@
 
          KC = 1;
          for (K = 1; K <= N; K++) { // 80
-            AFAC( KC ) = AFAC( KC ) - REAL( A( KC ) );
+            AFAC[KC] = AFAC( KC ) - REAL( A( KC ) );
             for (I = K + 1; I <= N; I++) { // 70
-               AFAC( KC+I-K ) = AFAC( KC+I-K ) - A( KC+I-K );
+               AFAC[KC+I-K] = AFAC( KC+I-K ) - A( KC+I-K );
             } // 70
             KC = KC + N - K + 1;
          } // 80

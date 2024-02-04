@@ -38,7 +38,7 @@
       NB3 = ILAENV( 1, 'SORMRQ', ' ', M, N, P, -1 );
       NB = max( NB1, NB2, NB3 );
       LWKOPT = max( 1, max( N, M, P )*NB );
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -74,7 +74,7 @@
 
       sgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       LWKOPT = max( LOPT, INT( WORK( 1 ) ) );
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

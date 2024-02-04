@@ -71,7 +71,7 @@
             NB = ILAENV( 1, 'CSYTRF', UPLO, N, -1, -1, -1 );
             LWKOPT = max( LWKOPT, N*NB );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -118,7 +118,7 @@
 
       if( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

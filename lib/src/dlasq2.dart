@@ -79,10 +79,10 @@
            return;
          } else if ( Z( 3 ) > Z( 1 ) ) {
             D = Z( 3 );
-            Z( 3 ) = Z( 1 );
-            Z( 1 ) = D;
+            Z[3] = Z( 1 );
+            Z[1] = D;
          }
-         Z( 5 ) = Z( 1 ) + Z( 2 ) + Z( 3 );
+         Z[5] = Z( 1 ) + Z( 2 ) + Z( 3 );
          if ( Z( 2 ) > Z( 3 )*TOL2 ) {
             T = HALF*( ( Z( 1 )-Z( 3 ) )+Z( 2 ) );
             S = Z( 3 )*( Z( 2 ) / T );
@@ -92,17 +92,17 @@
                S = Z( 3 )*( Z( 2 ) / ( T+sqrt( T )*sqrt( T+S ) ) );
             }
             T = Z( 1 ) + ( S+Z( 2 ) );
-            Z( 3 ) = Z( 3 )*( Z( 1 ) / T );
-            Z( 1 ) = T;
+            Z[3] = Z( 3 )*( Z( 1 ) / T );
+            Z[1] = T;
          }
-         Z( 2 ) = Z( 3 );
-         Z( 6 ) = Z( 2 ) + Z( 1 );
+         Z[2] = Z( 3 );
+         Z[6] = Z( 2 ) + Z( 1 );
          return;
       }
 
       // Check for negative data and compute sums of q's and e's.
 
-      Z( 2*N ) = ZERO;
+      Z[2*N] = ZERO;
       EMIN = Z( 2 );
       QMAX = ZERO;
       ZMAX = ZERO;
@@ -138,10 +138,10 @@
 
       if ( E == ZERO ) {
          for (K = 2; K <= N; K++) { // 20
-            Z( K ) = Z( 2*K-1 );
+            Z[K] = Z( 2*K-1 );
          } // 20
          dlasrt('D', N, Z, IINFO );
-         Z( 2*N-1 ) = D;
+         Z[2*N-1] = D;
          return;
       }
 
@@ -150,7 +150,7 @@
       // Check for zero data.
 
       if ( TRACE == ZERO ) {
-         Z( 2*N-1 ) = ZERO;
+         Z[2*N-1] = ZERO;
          return;
       }
 
@@ -161,10 +161,10 @@
       // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
 
       for (K = 2*N; K >= 2; K -= 2) { // 30
-         Z( 2*K ) = ZERO;
-         Z( 2*K-1 ) = Z( K );
-         Z( 2*K-2 ) = ZERO;
-         Z( 2*K-3 ) = Z( K-1 );
+         Z[2*K] = ZERO;
+         Z[2*K-1] = Z( K );
+         Z[2*K-2] = ZERO;
+         Z[2*K-3] = Z( K-1 );
       } // 30
 
       I0 = 1;
@@ -176,11 +176,11 @@
          IPN4 = 4*( I0+N0 );
          for (I4 = 4*I0; I4 <= 2*( I0+N0-1 ); I4 += 4) { // 40
             TEMP = Z( I4-3 );
-            Z( I4-3 ) = Z( IPN4-I4-3 );
-            Z( IPN4-I4-3 ) = TEMP;
+            Z[I4-3] = Z( IPN4-I4-3 );
+            Z[IPN4-I4-3] = TEMP;
             TEMP = Z( I4-1 );
-            Z( I4-1 ) = Z( IPN4-I4-5 );
-            Z( IPN4-I4-5 ) = TEMP;
+            Z[I4-1] = Z( IPN4-I4-5 );
+            Z[IPN4-I4-5] = TEMP;
          } // 40
       }
 
@@ -193,7 +193,7 @@
          D = Z( 4*N0+PP-3 );
          for (I4 = 4*( N0-1 ) + PP; I4 >= 4*I0 + PP; I4 -= 4) { // 50
             if ( Z( I4-1 ) <= TOL2*D ) {
-               Z( I4-1 ) = -ZERO;
+               Z[I4-1] = -ZERO;
                D = Z( I4-3 );
             } else {
                D = Z( I4-3 )*( D / ( D+Z( I4-1 ) ) );
@@ -205,23 +205,23 @@
          EMIN = Z( 4*I0+PP+1 );
          D = Z( 4*I0+PP-3 );
          for (I4 = 4*I0 + PP; I4 <= 4*( N0-1 ) + PP; I4 += 4) { // 60
-            Z( I4-2*PP-2 ) = D + Z( I4-1 );
+            Z[I4-2*PP-2] = D + Z( I4-1 );
             if ( Z( I4-1 ) <= TOL2*D ) {
-               Z( I4-1 ) = -ZERO;
-               Z( I4-2*PP-2 ) = D;
-               Z( I4-2*PP ) = ZERO;
+               Z[I4-1] = -ZERO;
+               Z[I4-2*PP-2] = D;
+               Z[I4-2*PP] = ZERO;
                D = Z( I4+1 );
             } else if ( SAFMIN*Z( I4+1 ) < Z( I4-2*PP-2 ) && SAFMIN*Z( I4-2*PP-2 ) < Z( I4+1 ) ) {
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 );
-               Z( I4-2*PP ) = Z( I4-1 )*TEMP;
+               Z[I4-2*PP] = Z( I4-1 )*TEMP;
                D = D*TEMP;
             } else {
-               Z( I4-2*PP ) = Z( I4+1 )*( Z( I4-1 ) / Z( I4-2*PP-2 ) );
+               Z[I4-2*PP] = Z( I4+1 )*( Z( I4-1 ) / Z( I4-2*PP-2 ) );
                D = Z( I4+1 )*( D / Z( I4-2*PP-2 ) );
             }
             EMIN = min( EMIN, Z( I4-2*PP ) );
          } // 60
-         Z( 4*N0-PP-2 ) = D;
+         Z[4*N0-PP-2] = D;
 
          // Now find qmax.
 
@@ -311,17 +311,17 @@
                PP = 2;
                for (I4 = 4*I0; I4 <= 2*( I0+N0-1 ); I4 += 4) { // 120
                   TEMP = Z( I4-3 );
-                  Z( I4-3 ) = Z( IPN4-I4-3 );
-                  Z( IPN4-I4-3 ) = TEMP;
+                  Z[I4-3] = Z( IPN4-I4-3 );
+                  Z[IPN4-I4-3] = TEMP;
                   TEMP = Z( I4-2 );
-                  Z( I4-2 ) = Z( IPN4-I4-2 );
-                  Z( IPN4-I4-2 ) = TEMP;
+                  Z[I4-2] = Z( IPN4-I4-2 );
+                  Z[IPN4-I4-2] = TEMP;
                   TEMP = Z( I4-1 );
-                  Z( I4-1 ) = Z( IPN4-I4-5 );
-                  Z( IPN4-I4-5 ) = TEMP;
+                  Z[I4-1] = Z( IPN4-I4-5 );
+                  Z[IPN4-I4-5] = TEMP;
                   TEMP = Z( I4 );
-                  Z( I4 ) = Z( IPN4-I4-4 );
-                  Z( IPN4-I4-4 ) = TEMP;
+                  Z[I4] = Z( IPN4-I4-4 );
+                  Z[IPN4-I4-4] = TEMP;
                } // 120
             }
          }
@@ -356,7 +356,7 @@
                   OLDEMN = Z( 4*I0 );
                   for (I4 = 4*I0; I4 <= 4*( N0-3 ); I4 += 4) { // 130
                      if ( Z( I4 ) <= TOL2*Z( I4-3 ) || Z( I4-1 ) <= TOL2*SIGMA ) {
-                        Z( I4-1 ) = -SIGMA;
+                        Z[I4-1] = -SIGMA;
                         SPLT = I4 / 4;
                         QMAX = ZERO;
                         EMIN = Z( I4+3 );
@@ -367,8 +367,8 @@
                         OLDEMN = min( OLDEMN, Z( I4 ) );
                      }
                   } // 130
-                  Z( 4*N0-1 ) = EMIN;
-                  Z( 4*N0 ) = OLDEMN;
+                  Z[4*N0-1] = EMIN;
+                  Z[4*N0] = OLDEMN;
                   I0 = SPLT + 1;
                }
             }
@@ -385,12 +385,12 @@
          N1 = N0;
          } // 145
          TEMPQ = Z( 4*I0-3 );
-         Z( 4*I0-3 ) = Z( 4*I0-3 ) + SIGMA;
+         Z[4*I0-3] = Z( 4*I0-3 ) + SIGMA;
          for (K = I0+1; K <= N0; K++) {
             TEMPE = Z( 4*K-5 );
-            Z( 4*K-5 ) = Z( 4*K-5 ) * (TEMPQ / Z( 4*K-7 ));
+            Z[4*K-5] = Z( 4*K-5 ) * (TEMPQ / Z( 4*K-7 ));
             TEMPQ = Z( 4*K-3 );
-            Z( 4*K-3 ) = Z( 4*K-3 ) + SIGMA + TEMPE - Z( 4*K-5 );
+            Z[4*K-3] = Z( 4*K-3 ) + SIGMA + TEMPE - Z( 4*K-5 );
          }
 
          // Prepare to do this on the previous block if there is one
@@ -405,16 +405,16 @@
          }
 
          for (K = 1; K <= N; K++) {
-            Z( 2*K-1 ) = Z( 4*K-3 );
+            Z[2*K-1] = Z( 4*K-3 );
 
          // Only the block 1..N0 is unfinished.  The rest of the e's
          // must be essentially zero, although sometimes other data
          // has been stored in them.
 
             if ( K < N0 ) {
-               Z( 2*K ) = Z( 4*K-1 );
+               Z[2*K] = Z( 4*K-1 );
             } else {
-               Z( 2*K ) = 0;
+               Z[2*K] = 0;
             }
          }
          return;
@@ -435,7 +435,7 @@
       // Move q's to the front.
 
       for (K = 2; K <= N; K++) { // 180
-         Z( K ) = Z( 4*K-3 );
+         Z[K] = Z( 4*K-3 );
       } // 180
 
       // Sort and compute sum of eigenvalues.
@@ -449,10 +449,10 @@
 
       // Store trace, sum(eigenvalues) and information on performance.
 
-      Z( 2*N+1 ) = TRACE;
-      Z( 2*N+2 ) = E;
-      Z( 2*N+3 ) = DBLE( ITER );
-      Z( 2*N+4 ) = DBLE( NDIV ) / DBLE( N**2 );
-      Z( 2*N+5 ) = HUNDRD*NFAIL / DBLE( ITER );
+      Z[2*N+1] = TRACE;
+      Z[2*N+2] = E;
+      Z[2*N+3] = DBLE( ITER );
+      Z[2*N+4] = DBLE( NDIV ) / DBLE( N**2 );
+      Z[2*N+5] = HUNDRD*NFAIL / DBLE( ITER );
       return;
       }

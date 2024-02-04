@@ -393,7 +393,7 @@
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13;
@@ -2821,12 +2821,12 @@
       if ( INFO != 0 ) {
          if ( IE > 2 ) {
             for (I = 1; I <= MINMN - 1; I++) { // 50
-               WORK( I+1 ) = WORK( I+IE-1 );
+               WORK[I+1] = WORK( I+IE-1 );
             } // 50
          }
          if ( IE < 2 ) {
             for (I = MINMN - 1; I >= 1; I--) { // 60
-               WORK( I+1 ) = WORK( I+IE-1 );
+               WORK[I+1] = WORK( I+IE-1 );
             } // 60
          }
       }
@@ -2842,7 +2842,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
       }

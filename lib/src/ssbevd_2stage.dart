@@ -77,8 +77,8 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 )  = SROUNDUP_LWORK(LWMIN);
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
@@ -99,7 +99,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = AB( 1, 1 );
+         W[1] = AB( 1, 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;
       }
@@ -157,7 +157,7 @@
 
       if (ISCALE == 1) sscal( N, ONE / SIGMA, W, 1 );
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
+      IWORK[1] = LIWMIN;
       return;
       }

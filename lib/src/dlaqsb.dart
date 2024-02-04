@@ -61,7 +61,7 @@
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J );
                for (I = max( 1, J-KD ); I <= J; I++) { // 10
-                  AB( KD+1+I-J, J ) = CJ*S( I )*AB( KD+1+I-J, J );
+                  AB[KD+1+I-J, J] = CJ*S( I )*AB( KD+1+I-J, J );
                } // 10
             } // 20
          } else {
@@ -71,7 +71,7 @@
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
                for (I = J; I <= min( N, J+KD ); I++) { // 30
-                  AB( 1+I-J, J ) = CJ*S( I )*AB( 1+I-J, J );
+                  AB[1+I-J, J] = CJ*S( I )*AB( 1+I-J, J );
                } // 30
             } // 40
          }

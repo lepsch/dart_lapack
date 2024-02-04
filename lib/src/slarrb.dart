@@ -105,7 +105,7 @@
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
             // Remove it from the list.
-            IWORK( K-1 ) = -1;
+            IWORK[K-1] = -1;
             // Make sure that I1 always points to the first unconverged interval
             if((I == I1) && (I < ILAST)) I1 = I + 1;
             if((PREV >= I1) && (I <= ILAST)) IWORK( 2*PREV-1 ) = I + 1;
@@ -113,11 +113,11 @@
             // unconverged interval found
             PREV = I;
             NINT = NINT + 1;
-            IWORK( K-1 ) = I + 1;
-            IWORK( K ) = NEGCNT;
+            IWORK[K-1] = I + 1;
+            IWORK[K] = NEGCNT;
          }
-         WORK( K-1 ) = LEFT;
-         WORK( K ) = RIGHT;
+         WORK[K-1] = LEFT;
+         WORK[K] = RIGHT;
       } // 75
 
 
@@ -150,7 +150,7 @@
             // reduce number of unconverged intervals
             NINT = NINT - 1;
             // Mark interval as converged.
-            IWORK( K-1 ) = 0;
+            IWORK[K-1] = 0;
             if ( I1 == I ) {
                I1 = NEXT;
             } else {
@@ -166,9 +166,9 @@
 
          NEGCNT = SLANEG( N, D, LLD, MID, PIVMIN, R );
          if ( NEGCNT <= I-1 ) {
-            WORK( K-1 ) = MID;
+            WORK[K-1] = MID;
          } else {
-            WORK( K ) = MID;
+            WORK[K] = MID;
          }
          I = NEXT;
       } // 100
@@ -185,15 +185,15 @@
          II = I - OFFSET;
          // All intervals marked by '0' have been refined.
          if ( IWORK( K-1 ) == 0 ) {
-            W( II ) = HALF*( WORK( K-1 )+WORK( K ) );
-            WERR( II ) = WORK( K ) - W( II );
+            W[II] = HALF*( WORK( K-1 )+WORK( K ) );
+            WERR[II] = WORK( K ) - W( II );
          }
       } // 110
 
       for (I = IFIRST+1; I <= ILAST; I++) { // 111
          K = 2*I;
          II = I - OFFSET;
-         WGAP( II-1 ) = max( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
+         WGAP[II-1] = max( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
       } // 111
 
       return;

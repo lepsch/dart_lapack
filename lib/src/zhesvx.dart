@@ -72,7 +72,7 @@
             NB = ILAENV( 1, 'ZHETRF', UPLO, N, -1, -1, -1 );
             LWKOPT = max( LWKOPT, N*NB );
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -119,7 +119,7 @@
 
       if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

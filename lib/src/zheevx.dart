@@ -83,13 +83,13 @@
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
             LWKMIN = 1;
-            WORK( 1 ) = LWKMIN;
+            WORK[1] = LWKMIN;
          } else {
             LWKMIN = 2*N;
             NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
             NB = max( NB, ILAENV( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) );
             LWKOPT = max( 1, ( NB + 1 )*N );
-            WORK( 1 ) = LWKOPT;
+            WORK[1] = LWKOPT;
          }
 
          if (LWORK < LWKMIN && !LQUERY) INFO = -17;
@@ -112,11 +112,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = DBLE( A( 1, 1 ) );
+            W[1] = DBLE( A( 1, 1 ) );
          } else if ( VALEIG ) {
             if ( VL < DBLE( A( 1, 1 ) ) && VU >= DBLE( A( 1, 1 ) ) ) {
                M = 1;
-               W( 1 ) = DBLE( A( 1, 1 ) );
+               W[1] = DBLE( A( 1, 1 ) );
             }
          }
          if (WANTZ) Z( 1, 1 ) = CONE;
@@ -198,7 +198,7 @@
             zsteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 30
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 30
             }
          }
@@ -258,15 +258,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 );
-               W( I ) = W( J );
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
-               W( J ) = TMP1;
-               IWORK( INDIBL+J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[INDIBL+I-1] = IWORK( INDIBL+J-1 );
+               W[J] = TMP1;
+               IWORK[INDIBL+J-1] = ITMP1;
                zswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 60
@@ -274,7 +274,7 @@
 
       // Set WORK(1) to optimal complex workspace size.
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

@@ -78,7 +78,7 @@
       if (ALPHA == ZERO) {
           for (J = 1; J <= N; J++) { // 20
               for (I = 1; I <= M; I++) { // 10
-                  B(I,J) = ZERO;
+                  B[I,J] = ZERO;
               } // 10
           } // 20
           return;
@@ -97,10 +97,10 @@
                           if (B(K,J) != ZERO) {
                               TEMP = ALPHA*B(K,J);
                               for (I = 1; I <= K - 1; I++) { // 30
-                                  B(I,J) = B(I,J) + TEMP*A(I,K);
+                                  B[I,J] = B(I,J) + TEMP*A(I,K);
                               } // 30
                               if (NOUNIT) TEMP = TEMP*A(K,K);
-                              B(K,J) = TEMP;
+                              B[K,J] = TEMP;
                           }
                       } // 40
                   } // 50
@@ -109,10 +109,10 @@
                       for (K = M; K >= 1; K--) { // 70
                           if (B(K,J) != ZERO) {
                               TEMP = ALPHA*B(K,J);
-                              B(K,J) = TEMP;
+                              B[K,J] = TEMP;
                               if (NOUNIT) B(K,J) = B(K,J)*A(K,K);
                               for (I = K + 1; I <= M; I++) { // 60
-                                  B(I,J) = B(I,J) + TEMP*A(I,K);
+                                  B[I,J] = B(I,J) + TEMP*A(I,K);
                               } // 60
                           }
                       } // 70
@@ -130,7 +130,7 @@
                           for (K = 1; K <= I - 1; K++) { // 90
                               TEMP = TEMP + A(K,I)*B(K,J);
                           } // 90
-                          B(I,J) = ALPHA*TEMP;
+                          B[I,J] = ALPHA*TEMP;
                       } // 100
                   } // 110
               } else {
@@ -141,7 +141,7 @@
                           for (K = I + 1; K <= M; K++) { // 120
                               TEMP = TEMP + A(K,I)*B(K,J);
                           } // 120
-                          B(I,J) = ALPHA*TEMP;
+                          B[I,J] = ALPHA*TEMP;
                       } // 130
                   } // 140
               }
@@ -156,13 +156,13 @@
                       TEMP = ALPHA;
                       if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = 1; I <= M; I++) { // 150
-                          B(I,J) = TEMP*B(I,J);
+                          B[I,J] = TEMP*B(I,J);
                       } // 150
                       for (K = 1; K <= J - 1; K++) { // 170
                           if (A(K,J) != ZERO) {
                               TEMP = ALPHA*A(K,J);
                               for (I = 1; I <= M; I++) { // 160
-                                  B(I,J) = B(I,J) + TEMP*B(I,K);
+                                  B[I,J] = B(I,J) + TEMP*B(I,K);
                               } // 160
                           }
                       } // 170
@@ -172,13 +172,13 @@
                       TEMP = ALPHA;
                       if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = 1; I <= M; I++) { // 190
-                          B(I,J) = TEMP*B(I,J);
+                          B[I,J] = TEMP*B(I,J);
                       } // 190
                       for (K = J + 1; K <= N; K++) { // 210
                           if (A(K,J) != ZERO) {
                               TEMP = ALPHA*A(K,J);
                               for (I = 1; I <= M; I++) { // 200
-                                  B(I,J) = B(I,J) + TEMP*B(I,K);
+                                  B[I,J] = B(I,J) + TEMP*B(I,K);
                               } // 200
                           }
                       } // 210
@@ -194,7 +194,7 @@
                           if (A(J,K) != ZERO) {
                               TEMP = ALPHA*A(J,K);
                               for (I = 1; I <= M; I++) { // 230
-                                  B(I,J) = B(I,J) + TEMP*B(I,K);
+                                  B[I,J] = B(I,J) + TEMP*B(I,K);
                               } // 230
                           }
                       } // 240
@@ -202,7 +202,7 @@
                       if (NOUNIT) TEMP = TEMP*A(K,K);
                       if (TEMP != ONE) {
                           for (I = 1; I <= M; I++) { // 250
-                              B(I,K) = TEMP*B(I,K);
+                              B[I,K] = TEMP*B(I,K);
                           } // 250
                       }
                   } // 260
@@ -212,7 +212,7 @@
                           if (A(J,K) != ZERO) {
                               TEMP = ALPHA*A(J,K);
                               for (I = 1; I <= M; I++) { // 270
-                                  B(I,J) = B(I,J) + TEMP*B(I,K);
+                                  B[I,J] = B(I,J) + TEMP*B(I,K);
                               } // 270
                           }
                       } // 280
@@ -220,7 +220,7 @@
                       if (NOUNIT) TEMP = TEMP*A(K,K);
                       if (TEMP != ONE) {
                           for (I = 1; I <= M; I++) { // 290
-                              B(I,K) = TEMP*B(I,K);
+                              B[I,K] = TEMP*B(I,K);
                           } // 290
                       }
                   } // 300

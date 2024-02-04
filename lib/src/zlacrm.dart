@@ -35,7 +35,7 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            RWORK( ( J-1 )*M+I ) = DBLE( A( I, J ) );
+            RWORK[( J-1 )*M+I] = DBLE( A( I, J ) );
          } // 10
       } // 20
 
@@ -43,19 +43,19 @@
       dgemm('N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 40
          for (I = 1; I <= M; I++) { // 30
-            C( I, J ) = RWORK( L+( J-1 )*M+I-1 );
+            C[I, J] = RWORK( L+( J-1 )*M+I-1 );
          } // 30
       } // 40
 
       for (J = 1; J <= N; J++) { // 60
          for (I = 1; I <= M; I++) { // 50
-            RWORK( ( J-1 )*M+I ) = DIMAG( A( I, J ) );
+            RWORK[( J-1 )*M+I] = DIMAG( A( I, J ) );
          } // 50
       } // 60
       dgemm('N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 80
          for (I = 1; I <= M; I++) { // 70
-            C( I, J ) = DCMPLX( DBLE( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) );
+            C[I, J] = DCMPLX( DBLE( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) );
          } // 70
       } // 80
 

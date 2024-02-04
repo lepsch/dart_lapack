@@ -76,7 +76,7 @@
                   TMP = TMP + ABS( A( I, J ) / C( J ) );
                }
             }
-            WORK( 2*N+I ) = TMP;
+            WORK[2*N+I] = TMP;
          }
       } else {
          for (I = 1; I <= N; I++) {
@@ -94,7 +94,7 @@
                   TMP = TMP + ABS( A( J, I ) / C( J ) );
                }
             }
-            WORK( 2*N+I ) = TMP;
+            WORK[2*N+I] = TMP;
          }
       }
 
@@ -111,7 +111,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK(I) = WORK(I) * WORK(2*N+I);
+               WORK[I] = WORK(I) * WORK(2*N+I);
             }
 
             if (NOTRANS) {
@@ -124,11 +124,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I );
+                  WORK[I] = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I );
+                  WORK[I] = WORK( I ) * C( I );
                }
             }
          } else {
@@ -137,11 +137,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I );
+                  WORK[I] = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I );
+                  WORK[I] = WORK( I ) * C( I );
                }
             }
 
@@ -154,7 +154,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * WORK( 2*N+I );
+               WORK[I] = WORK( I ) * WORK( 2*N+I );
             }
          }
          GO TO 10;

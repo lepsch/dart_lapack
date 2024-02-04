@@ -47,7 +47,7 @@
 
       clarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 );
-      X( 1 ) = CONE;
+      X[1] = CONE;
 
       C = -CONJG( TAU )*CDOTC( N, X, INCX, Y, INCY );
       caxpy(N, C, X, INCX, Y, INCY );

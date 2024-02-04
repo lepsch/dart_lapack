@@ -90,9 +90,9 @@
 
       RESID = SLANGE( '1', N, M, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( max(1,M,N) ) ) / ANORM ) / ULP;
+         RESULT[1] = ( ( RESID / REAL( max(1,M,N) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute T*Z - Q'*B
@@ -103,9 +103,9 @@
 
       RESID = SLANGE( '1', N, P, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / REAL( max(1,P,N ) ) )/BNORM ) / ULP;
+         RESULT[2] = ( ( RESID / REAL( max(1,P,N ) ) )/BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO;
+         RESULT[2] = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -116,7 +116,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT( 3 ) = ( RESID / REAL( max( 1, N ) ) ) / ULP;
+      RESULT[3] = ( RESID / REAL( max( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -126,7 +126,7 @@
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
       RESID = SLANSY( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT( 4 ) = ( RESID / REAL( max( 1, P ) ) ) / ULP;
+      RESULT[4] = ( RESID / REAL( max( 1, P ) ) ) / ULP;
 
       return;
       }

@@ -43,8 +43,8 @@
       REAL               CABS1, CABS2;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      CABS2( ZDUM ) = ABS( REAL( ZDUM ) / 2. ) + ABS( AIMAG( ZDUM ) / 2. );
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS2[ZDUM] = ABS( REAL( ZDUM ) / 2. ) + ABS( AIMAG( ZDUM ) / 2. );
       // ..
       // .. Executable Statements ..
 
@@ -92,16 +92,16 @@
             // A is upper triangular.
 
             for (J = 1; J <= N; J++) { // 10
-               CNORM( J ) = SCASUM( J-1, A( 1, J ), 1 );
+               CNORM[J] = SCASUM( J-1, A( 1, J ), 1 );
             } // 10
          } else {
 
             // A is lower triangular.
 
             for (J = 1; J <= N - 1; J++) { // 20
-               CNORM( J ) = SCASUM( N-J, A( J+1, J ), 1 );
+               CNORM[J] = SCASUM( N-J, A( J+1, J ), 1 );
             } // 20
-            CNORM( N ) = ZERO;
+            CNORM[N] = ZERO;
          }
       }
 
@@ -152,19 +152,19 @@
                TSCAL = ONE / ( SMLNUM*TMAX );
                for (J = 1; J <= N; J++) {
                   if ( CNORM( J ) <= SLAMCH('Overflow') ) {
-                     CNORM( J ) = CNORM( J )*TSCAL;
+                     CNORM[J] = CNORM( J )*TSCAL;
                   } else {
                      // Recompute the 1-norm of each column without
                      // introducing Infinity in the summation.
                      TSCAL = TWO * TSCAL;
-                     CNORM( J ) = ZERO;
+                     CNORM[J] = ZERO;
                      if ( UPPER ) {
                         for (I = 1; I <= J - 1; I++) {
-                           CNORM( J ) = CNORM( J ) + TSCAL * CABS2( A( I, J ) );
+                           CNORM[J] = CNORM( J ) + TSCAL * CABS2( A( I, J ) );
                         }
                      } else {
                         for (I = J + 1; I <= N; I++) {
-                           CNORM( J ) = CNORM( J ) + TSCAL * CABS2( A( I, J ) );
+                           CNORM[J] = CNORM( J ) + TSCAL * CABS2( A( I, J ) );
                         }
                      }
                      TSCAL = TSCAL * HALF;
@@ -400,7 +400,7 @@
                            XMAX = XMAX*REC;
                         }
                      }
-                     X( J ) = CLADIV( X( J ), TJJS );
+                     X[J] = CLADIV( X( J ), TJJS );
                      XJ = CABS1( X( J ) );
                   } else if ( TJJ > ZERO ) {
 
@@ -423,7 +423,7 @@
                         SCALE = SCALE*REC;
                         XMAX = XMAX*REC;
                      }
-                     X( J ) = CLADIV( X( J ), TJJS );
+                     X[J] = CLADIV( X( J ), TJJS );
                      XJ = CABS1( X( J ) );
                   } else {
 
@@ -431,9 +431,9 @@
                      // scale = 0, and compute a solution to A*x = 0.
 
                      for (I = 1; I <= N; I++) { // 100
-                        X( I ) = ZERO;
+                        X[I] = ZERO;
                      } // 100
-                     X( J ) = ONE;
+                     X[J] = ONE;
                      XJ = ONE;
                      SCALE = ZERO;
                      XMAX = ZERO;
@@ -552,7 +552,7 @@
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
 
-                  X( J ) = X( J ) - CSUMJ;
+                  X[J] = X( J ) - CSUMJ;
                   XJ = CABS1( X( J ) );
                   if ( NOUNIT ) {
                      TJJS = A( J, J )*TSCAL;
@@ -579,7 +579,7 @@
                               XMAX = XMAX*REC;
                            }
                         }
-                        X( J ) = CLADIV( X( J ), TJJS );
+                        X[J] = CLADIV( X( J ), TJJS );
                      } else if ( TJJ > ZERO ) {
 
                         // 0 < abs(A(j,j)) <= SMLNUM:
@@ -593,16 +593,16 @@
                            SCALE = SCALE*REC;
                            XMAX = XMAX*REC;
                         }
-                        X( J ) = CLADIV( X( J ), TJJS );
+                        X[J] = CLADIV( X( J ), TJJS );
                      } else {
 
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**T *x = 0.
 
                         for (I = 1; I <= N; I++) { // 140
-                           X( I ) = ZERO;
+                           X[I] = ZERO;
                         } // 140
-                        X( J ) = ONE;
+                        X[J] = ONE;
                         SCALE = ZERO;
                         XMAX = ZERO;
                      }
@@ -612,7 +612,7 @@
                   // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
                   // product has already been divided by 1/A(j,j).
 
-                  X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ;
+                  X[J] = CLADIV( X( J ), TJJS ) - CSUMJ;
                }
                XMAX = max( XMAX, CABS1( X( J ) ) );
             } // 150
@@ -685,7 +685,7 @@
                   // Compute x(j) := ( x(j) - CSUMJ ) / A(j,j) if 1/A(j,j)
                   // was not used to scale the dotproduct.
 
-                  X( J ) = X( J ) - CSUMJ;
+                  X[J] = X( J ) - CSUMJ;
                   XJ = CABS1( X( J ) );
                   if ( NOUNIT ) {
                      TJJS = CONJG( A( J, J ) )*TSCAL;
@@ -712,7 +712,7 @@
                               XMAX = XMAX*REC;
                            }
                         }
-                        X( J ) = CLADIV( X( J ), TJJS );
+                        X[J] = CLADIV( X( J ), TJJS );
                      } else if ( TJJ > ZERO ) {
 
                         // 0 < abs(A(j,j)) <= SMLNUM:
@@ -726,16 +726,16 @@
                            SCALE = SCALE*REC;
                            XMAX = XMAX*REC;
                         }
-                        X( J ) = CLADIV( X( J ), TJJS );
+                        X[J] = CLADIV( X( J ), TJJS );
                      } else {
 
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**H *x = 0.
 
                         for (I = 1; I <= N; I++) { // 180
-                           X( I ) = ZERO;
+                           X[I] = ZERO;
                         } // 180
-                        X( J ) = ONE;
+                        X[J] = ONE;
                         SCALE = ZERO;
                         XMAX = ZERO;
                      }
@@ -745,7 +745,7 @@
                   // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
                   // product has already been divided by 1/A(j,j).
 
-                  X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ;
+                  X[J] = CLADIV( X( J ), TJJS ) - CSUMJ;
                }
                XMAX = max( XMAX, CABS1( X( J ) ) );
             } // 190

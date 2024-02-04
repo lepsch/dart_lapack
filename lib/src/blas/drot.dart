@@ -25,8 +25,8 @@
 
          for (I = 1; I <= N; I++) {
             DTEMP = C*DX(I) + S*DY(I);
-            DY(I) = C*DY(I) - S*DX(I);
-            DX(I) = DTEMP;
+            DY[I] = C*DY(I) - S*DX(I);
+            DX[I] = DTEMP;
          }
       } else {
 
@@ -39,8 +39,8 @@
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             DTEMP = C*DX(IX) + S*DY(IY);
-            DY(IY) = C*DY(IY) - S*DX(IX);
-            DX(IX) = DTEMP;
+            DY[IY] = C*DY(IY) - S*DX(IX);
+            DX[IX] = DTEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

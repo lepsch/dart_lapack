@@ -41,12 +41,12 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       SAFMIN = SLAMCH( 'Safe minimum' );
@@ -96,7 +96,7 @@
 
       // Compute RESULT(1)
 
-      RESULT( 1 ) = ERRNRM / ULP;
+      RESULT[1] = ERRNRM / ULP;
 
       // Normalization of E:
 
@@ -111,7 +111,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = ENRMER / ( REAL( N )*ULP );
+      RESULT[2] = ENRMER / ( REAL( N )*ULP );
 
       return;
       }

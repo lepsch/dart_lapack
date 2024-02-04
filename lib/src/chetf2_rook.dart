@@ -44,7 +44,7 @@
       REAL   CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -110,7 +110,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A( K, K ) = REAL( A( K, K ) );
+            A[K, K] = REAL( A( K, K ) );
          } else {
 
             // ============================================================
@@ -217,15 +217,15 @@
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = CONJG( A( J, K ) );
-                  A( J, K ) = CONJG( A( P, J ) );
-                  A( P, J ) = T;
+                  A[J, K] = CONJG( A( P, J ) );
+                  A[P, J] = T;
                } // 14
                // (3) Swap and conjugate corner elements at row-col intersection
-               A( P, K ) = CONJG( A( P, K ) );
+               A[P, K] = CONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = REAL( A( K, K ) );
-               A( K, K ) = REAL( A( P, P ) );
-               A( P, P ) = R1;
+               A[K, K] = REAL( A( P, P ) );
+               A[P, P] = R1;
             }
 
             // For both 1x1 and 2x2 pivots, interchange rows and
@@ -237,27 +237,27 @@
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = CONJG( A( J, KK ) );
-                  A( J, KK ) = CONJG( A( KP, J ) );
-                  A( KP, J ) = T;
+                  A[J, KK] = CONJG( A( KP, J ) );
+                  A[KP, J] = T;
                } // 15
                // (3) Swap and conjugate corner elements at row-col intersection
-               A( KP, KK ) = CONJG( A( KP, KK ) );
+               A[KP, KK] = CONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = REAL( A( KK, KK ) );
-               A( KK, KK ) = REAL( A( KP, KP ) );
-               A( KP, KP ) = R1;
+               A[KK, KK] = REAL( A( KP, KP ) );
+               A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A( K, K ) = REAL( A( K, K ) );
+                  A[K, K] = REAL( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K-1, K );
-                  A( K-1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K-1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A( K, K ) = REAL( A( K, K ) );
+               A[K, K] = REAL( A( K, K ) );
                if (KSTEP == 2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
             }
 
@@ -294,7 +294,7 @@
 
                      D11 = REAL( A( K, K ) );
                      for (II = 1; II <= K - 1; II++) { // 16
-                        A( II, K ) = A( II, K ) / D11;
+                        A[II, K] = A( II, K ) / D11;
                      } // 16
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -340,15 +340,15 @@
                      // Perform a rank-2 update of A(1:k-2,1:k-2)
 
                      for (I = J; I >= 1; I--) { // 20
-                        A( I, J ) = A( I, J ) - ( A( I, K ) / D )*CONJG( WK ) - ( A( I, K-1 ) / D )*CONJG( WKM1 );
+                        A[I, J] = A( I, J ) - ( A( I, K ) / D )*CONJG( WK ) - ( A( I, K-1 ) / D )*CONJG( WKM1 );
                      } // 20
 
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
-                     A( J, K ) = WK / D;
-                     A( J, K-1 ) = WKM1 / D;
+                     A[J, K] = WK / D;
+                     A[J, K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A( J, J ) = CMPLX( REAL( A( J, J ) ), ZERO );
+                     A[J, J] = CMPLX( REAL( A( J, J ) ), ZERO );
 
                   } // 30
 
@@ -361,10 +361,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -410,7 +410,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A( K, K ) = REAL( A( K, K ) );
+            A[K, K] = REAL( A( K, K ) );
          } else {
 
             // ============================================================
@@ -518,15 +518,15 @@
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = CONJG( A( J, K ) );
-                  A( J, K ) = CONJG( A( P, J ) );
-                  A( P, J ) = T;
+                  A[J, K] = CONJG( A( P, J ) );
+                  A[P, J] = T;
                } // 44
                // (3) Swap and conjugate corner elements at row-col intersection
-               A( P, K ) = CONJG( A( P, K ) );
+               A[P, K] = CONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = REAL( A( K, K ) );
-               A( K, K ) = REAL( A( P, P ) );
-               A( P, P ) = R1;
+               A[K, K] = REAL( A( P, P ) );
+               A[P, P] = R1;
             }
 
             // For both 1x1 and 2x2 pivots, interchange rows and
@@ -538,27 +538,27 @@
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = CONJG( A( J, KK ) );
-                  A( J, KK ) = CONJG( A( KP, J ) );
-                  A( KP, J ) = T;
+                  A[J, KK] = CONJG( A( KP, J ) );
+                  A[KP, J] = T;
                } // 45
                // (3) Swap and conjugate corner elements at row-col intersection
-               A( KP, KK ) = CONJG( A( KP, KK ) );
+               A[KP, KK] = CONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = REAL( A( KK, KK ) );
-               A( KK, KK ) = REAL( A( KP, KP ) );
-               A( KP, KP ) = R1;
+               A[KK, KK] = REAL( A( KP, KP ) );
+               A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A( K, K ) = REAL( A( K, K ) );
+                  A[K, K] = REAL( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K+1, K );
-                  A( K+1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K+1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A( K, K ) = REAL( A( K, K ) );
+               A[K, K] = REAL( A( K, K ) );
                if (KSTEP == 2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
             }
 
@@ -597,7 +597,7 @@
 
                      D11 = REAL( A( K, K ) );
                      for (II = K + 1; II <= N; II++) { // 46
-                        A( II, K ) = A( II, K ) / D11;
+                        A[II, K] = A( II, K ) / D11;
                      } // 46
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -644,15 +644,15 @@
                      // Perform a rank-2 update of A(k+2:n,k+2:n)
 
                      for (I = J; I <= N; I++) { // 50
-                        A( I, J ) = A( I, J ) - ( A( I, K ) / D )*CONJG( WK ) - ( A( I, K+1 ) / D )*CONJG( WKP1 );
+                        A[I, J] = A( I, J ) - ( A( I, K ) / D )*CONJG( WK ) - ( A( I, K+1 ) / D )*CONJG( WKP1 );
                      } // 50
 
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
-                     A( J, K ) = WK / D;
-                     A( J, K+1 ) = WKP1 / D;
+                     A[J, K] = WK / D;
+                     A[J, K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A( J, J ) = CMPLX( REAL( A( J, J ) ), ZERO );
+                     A[J, J] = CMPLX( REAL( A( J, J ) ), ZERO );
 
                   } // 60
 
@@ -665,10 +665,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

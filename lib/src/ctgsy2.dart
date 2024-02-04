@@ -92,15 +92,15 @@
 
                // Build 2 by 2 system
 
-               Z( 1, 1 ) = A( I, I );
-               Z( 2, 1 ) = D( I, I );
-               Z( 1, 2 ) = -B( J, J );
-               Z( 2, 2 ) = -E( J, J );
+               Z[1, 1] = A( I, I );
+               Z[2, 1] = D( I, I );
+               Z[1, 2] = -B( J, J );
+               Z[2, 2] = -E( J, J );
 
                // Set up right hand side(s)
 
-               RHS( 1 ) = C( I, J );
-               RHS( 2 ) = F( I, J );
+               RHS[1] = C( I, J );
+               RHS[2] = F( I, J );
 
                // Solve Z * x = RHS
 
@@ -121,8 +121,8 @@
 
                // Unpack solution vector(s)
 
-               C( I, J ) = RHS( 1 );
-               F( I, J ) = RHS( 2 );
+               C[I, J] = RHS( 1 );
+               F[I, J] = RHS( 2 );
 
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
@@ -152,16 +152,16 @@
 
                // Build 2 by 2 system Z**H
 
-               Z( 1, 1 ) = CONJG( A( I, I ) );
-               Z( 2, 1 ) = -CONJG( B( J, J ) );
-               Z( 1, 2 ) = CONJG( D( I, I ) );
-               Z( 2, 2 ) = -CONJG( E( J, J ) );
+               Z[1, 1] = CONJG( A( I, I ) );
+               Z[2, 1] = -CONJG( B( J, J ) );
+               Z[1, 2] = CONJG( D( I, I ) );
+               Z[2, 2] = -CONJG( E( J, J ) );
 
 
                // Set up right hand side(s)
 
-               RHS( 1 ) = C( I, J );
-               RHS( 2 ) = F( I, J );
+               RHS[1] = C( I, J );
+               RHS[2] = F( I, J );
 
                // Solve Z**H * x = RHS
 
@@ -178,16 +178,16 @@
 
                // Unpack solution vector(s)
 
-               C( I, J ) = RHS( 1 );
-               F( I, J ) = RHS( 2 );
+               C[I, J] = RHS( 1 );
+               F[I, J] = RHS( 2 );
 
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
                for (K = 1; K <= J - 1; K++) { // 50
-                  F( I, K ) = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) + RHS( 2 )*CONJG( E( K, J ) );
+                  F[I, K] = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) + RHS( 2 )*CONJG( E( K, J ) );
                } // 50
                for (K = I + 1; K <= M; K++) { // 60
-                  C( K, J ) = C( K, J ) - CONJG( A( I, K ) )*RHS( 1 ) - CONJG( D( I, K ) )*RHS( 2 );
+                  C[K, J] = C( K, J ) - CONJG( A( I, K ) )*RHS( 1 ) - CONJG( D( I, K ) )*RHS( 2 );
                } // 60
 
             } // 70

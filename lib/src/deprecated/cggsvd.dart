@@ -107,11 +107,11 @@
             }
          } // 10
          if ( ISUB != I ) {
-            RWORK( K+ISUB ) = RWORK( K+I );
-            RWORK( K+I ) = SMAX;
-            IWORK( K+I ) = K + ISUB;
+            RWORK[K+ISUB] = RWORK( K+I );
+            RWORK[K+I] = SMAX;
+            IWORK[K+I] = K + ISUB;
          } else {
-            IWORK( K+I ) = K + I;
+            IWORK[K+I] = K + I;
          }
       } // 20
 

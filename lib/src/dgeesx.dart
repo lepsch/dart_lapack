@@ -108,8 +108,8 @@
             if ( !WANTSN) LWRK = max( LWRK, N + ( N*N )/2 );
             IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
          }
-         IWORK( 1 ) = LIWRK;
-         WORK( 1 ) = LWRK;
+         IWORK[1] = LIWRK;
+         WORK[1] = LWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -16;
@@ -194,7 +194,7 @@
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
          }
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELECT( WR( I ), WI( I ) );
+            BWORK[I] = SELECT( WR( I ), WI( I ) );
          } // 10
 
          // Reorder eigenvalues, transform Schur vectors, and compute
@@ -239,7 +239,7 @@
          dlascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          dcopy(N, A, LDA+1, WR, 1 );
          if ( ( WANTSV || WANTSB ) && INFO == 0 ) {
-            DUM( 1 ) = RCONDV;
+            DUM[1] = RCONDV;
             dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 );
          }
@@ -267,18 +267,18 @@
                   INXT = I + 1;
                } else {
                   if ( A( I+1, I ) == ZERO ) {
-                     WI( I ) = ZERO;
-                     WI( I+1 ) = ZERO;
+                     WI[I] = ZERO;
+                     WI[I+1] = ZERO;
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
-                     WI( I ) = ZERO;
-                     WI( I+1 ) = ZERO;
+                     WI[I] = ZERO;
+                     WI[I+1] = ZERO;
                      if (I > 1) dswap( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 );
                      IF( N > I+1 ) dswap( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                        dswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
-                     A( I, I+1 ) = A( I+1, I );
-                     A( I+1, I ) = ZERO;
+                     A[I, I+1] = A( I+1, I );
+                     A[I+1, I] = ZERO;
                   }
                   INXT = I + 2;
                }
@@ -323,11 +323,11 @@
          } // 30
       }
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
       if ( WANTSV || WANTSB ) {
-         IWORK( 1 ) = max( 1, SDIM*( N-SDIM ) );
+         IWORK[1] = max( 1, SDIM*( N-SDIM ) );
       } else {
-         IWORK( 1 ) = 1;
+         IWORK[1] = 1;
       }
 
       return;

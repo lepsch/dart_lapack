@@ -93,7 +93,7 @@
          cgeqp3(M, N, A, LDA, IWORK, TAU, WORK, -1, RWORK, INFO );
          LWKOPT = max( LWKOPT, INT( WORK ( 1 ) ) );
          LWKOPT = max( 1, LWKOPT );
-         WORK( 1 ) = CMPLX( LWKOPT );
+         WORK[1] = CMPLX( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -108,7 +108,7 @@
                                             // (  0   0  )
 
       for (I = 1; I <= N; I++) { // 10
-         IWORK( I ) = 0;
+         IWORK[I] = 0;
       } // 10
       cgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, RWORK, INFO );
 
@@ -136,7 +136,7 @@
 
       for (J = 1; J <= L - 1; J++) { // 40
          for (I = J + 1; I <= L; I++) { // 30
-            B( I, J ) = CZERO;
+            B[I, J] = CZERO;
          } // 30
       } // 40
       if (P > L) claset( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
@@ -170,7 +170,7 @@
          claset('Full', L, N-L, CZERO, CZERO, B, LDB );
          for (J = N - L + 1; J <= N; J++) { // 60
             for (I = J - N + L + 1; I <= L; I++) { // 50
-               B( I, J ) = CZERO;
+               B[I, J] = CZERO;
             } // 50
          } // 60
 
@@ -185,7 +185,7 @@
                        // (  0   0  )
 
       for (I = 1; I <= N - L; I++) { // 70
-         IWORK( I ) = 0;
+         IWORK[I] = 0;
       } // 70
       cgeqp3(M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, RWORK, INFO );
 
@@ -221,7 +221,7 @@
 
       for (J = 1; J <= K - 1; J++) { // 100
          for (I = J + 1; I <= K; I++) { // 90
-            A( I, J ) = CZERO;
+            A[I, J] = CZERO;
          } // 90
       } // 100
       if (M > K) claset( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
@@ -244,7 +244,7 @@
          claset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
          for (J = N - L - K + 1; J <= N - L; J++) { // 120
             for (I = J - N + L + K + 1; I <= K; I++) { // 110
-               A( I, J ) = CZERO;
+               A[I, J] = CZERO;
             } // 110
          } // 120
 
@@ -267,12 +267,12 @@
 
          for (J = N - L + 1; J <= N; J++) { // 140
             for (I = J - N + K + L + 1; I <= M; I++) { // 130
-               A( I, J ) = CZERO;
+               A[I, J] = CZERO;
             } // 130
          } // 140
 
       }
 
-      WORK( 1 ) = CMPLX( LWKOPT );
+      WORK[1] = CMPLX( LWKOPT );
       return;
       }

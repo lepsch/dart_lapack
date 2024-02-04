@@ -76,7 +76,7 @@
 
          NB = min( NBMAX, ILAENV( 1, 'SORMQR', SIDE // TRANS, M, N, K, -1 ) );
          LWKOPT = NW*NB + TSIZE;
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -89,7 +89,7 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -156,6 +156,6 @@
             slarfb(SIDE, TRANS, 'Forward', 'Columnwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK );
          } // 10
       }
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
       return;
       }

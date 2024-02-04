@@ -88,7 +88,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = LW;
+        WORK[1] = LW;
       }
 
       if ( INFO != 0 ) {
@@ -110,7 +110,7 @@
         zlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = LW;
+      WORK[1] = LW;
 
       return;
       }

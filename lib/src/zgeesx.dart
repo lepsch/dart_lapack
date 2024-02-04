@@ -106,7 +106,7 @@
             LWRK = MAXWRK;
             if ( !WANTSN) LWRK = max( LWRK, ( N*N )/2 );
          }
-         WORK( 1 ) = LWRK;
+         WORK[1] = LWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -15;
@@ -191,7 +191,7 @@
       if ( WANTST && INFO == 0 ) {
          if (SCALEA) zlascl( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELECT( W( I ) );
+            BWORK[I] = SELECT( W( I ) );
          } // 10
 
          // Reorder eigenvalues, transform Schur vectors, and compute
@@ -226,12 +226,12 @@
          zlascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          zcopy(N, A, LDA+1, W, 1 );
          if ( ( WANTSV || WANTSB ) && INFO == 0 ) {
-            DUM( 1 ) = RCONDV;
+            DUM[1] = RCONDV;
             dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 );
          }
       }
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
       return;
       }

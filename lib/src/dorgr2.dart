@@ -55,7 +55,7 @@
 
          for (J = 1; J <= N; J++) { // 20
             for (L = 1; L <= M - K; L++) { // 10
-               A( L, J ) = ZERO;
+               A[L, J] = ZERO;
             } // 10
             if (J > N-M && J <= N-K) A( M-N+J, J ) = ONE;
          } // 20
@@ -66,15 +66,15 @@
 
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the right
 
-         A( II, N-M+II ) = ONE;
+         A[II, N-M+II] = ONE;
          dlarf('Right', II-1, N-M+II, A( II, 1 ), LDA, TAU( I ), A, LDA, WORK );
          dscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
-         A( II, N-M+II ) = ONE - TAU( I );
+         A[II, N-M+II] = ONE - TAU( I );
 
          // Set A(m-k+i,n-k+i+1:n) to zero
 
          for (L = N - M + II + 1; L <= N; L++) { // 30
-            A( II, L ) = ZERO;
+            A[II, L] = ZERO;
          } // 30
       } // 40
       return;

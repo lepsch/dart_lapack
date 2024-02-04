@@ -58,7 +58,7 @@
          ssytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_SYTRS = INT( WORK( 1 ) );
          LWKOPT = max( LWKMIN, LWKOPT_SYTRF, LWKOPT_SYTRS );
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

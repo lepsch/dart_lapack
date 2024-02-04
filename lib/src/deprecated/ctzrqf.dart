@@ -49,7 +49,7 @@
       if (M == 0) return;
       if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = CZERO;
+            TAU[I] = CZERO;
          } // 10
       } else {
          M1 = min( M+1, N );
@@ -58,12 +58,12 @@
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
 
-            A( K, K ) = CONJG( A( K, K ) );
+            A[K, K] = CONJG( A( K, K ) );
             clacgv(N-M, A( K, M1 ), LDA );
             ALPHA = A( K, K );
             clarfg(N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) );
-            A( K, K ) = ALPHA;
-            TAU( K ) = CONJG( TAU( K ) );
+            A[K, K] = ALPHA;
+            TAU[K] = CONJG( TAU( K ) );
 
             if ( TAU( K ) != CZERO && K > 1 ) {
 

@@ -72,7 +72,7 @@
          MINWRK = 2*NMAX*( NMAX+1 );
          MAXWRK = NMAX*( 1+ILAENV( 1, 'CGEQRF', ' ', NMAX, 1, NMAX, 0 ) );
          MAXWRK = max( MAXWRK, 2*NMAX*( NMAX+1 ) );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -23;
@@ -94,11 +94,11 @@
 
       // Parameters used for generating test matrices.
 
-      WEIGHT( 1 ) = CMPLX( TNTH, ZERO );
-      WEIGHT( 2 ) = CMPLX( HALF, ZERO );
-      WEIGHT( 3 ) = ONE;
-      WEIGHT( 4 ) = ONE / WEIGHT( 2 );
-      WEIGHT( 5 ) = ONE / WEIGHT( 1 );
+      WEIGHT[1] = CMPLX( TNTH, ZERO );
+      WEIGHT[2] = CMPLX( HALF, ZERO );
+      WEIGHT[3] = ONE;
+      WEIGHT[4] = ONE / WEIGHT( 2 );
+      WEIGHT[5] = ONE / WEIGHT( 1 );
 
       for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) { // 80
          for (IWA = 1; IWA <= 5; IWA++) { // 70
@@ -131,13 +131,13 @@
 
                      // Tests (1) and (2)
 
-                     RESULT( 1 ) = ZERO;
+                     RESULT[1] = ZERO;
                      cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
                      if ( RESULT( 2 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY;
                      }
 
-                     RESULT( 2 ) = ZERO;
+                     RESULT[2] = ZERO;
                      cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
                      if ( RESULT( 3 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY;
@@ -145,32 +145,32 @@
 
                      // Test (3)
 
-                     RESULT( 3 ) = ZERO;
+                     RESULT[3] = ZERO;
                      for (I = 1; I <= N; I++) { // 10
                         if ( S( I ) == ZERO ) {
-                           if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if[STRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
                         } else if ( STRU( I ) == ZERO ) {
-                           if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
                         } else {
-                           RWORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-                           RESULT( 3 ) = max( RESULT( 3 ), RWORK( I ) );
+                           RWORK[I] = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+                           RESULT[3] = max( RESULT( 3 ), RWORK( I ) );
                         }
                      } // 10
 
                      // Test (4)
 
-                     RESULT( 4 ) = ZERO;
+                     RESULT[4] = ZERO;
                      if ( DIF( 1 ) == ZERO ) {
-                        if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIFTRU( 1 ) == ZERO ) {
-                        if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIF( 5 ) == ZERO ) {
-                        if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIFTRU( 5 ) == ZERO ) {
-                        if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else {
                         RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-                        RESULT( 4 ) = max( RATIO1, RATIO2 );
+                        RESULT[4] = max( RATIO1, RATIO2 );
                      }
 
                      NTESTT = NTESTT + 4;
@@ -258,13 +258,13 @@
 
       // Tests (1) and (2)
 
-      RESULT( 1 ) = ZERO;
+      RESULT[1] = ZERO;
       cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
       if ( RESULT( 2 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N, NPTKNT;
       }
 
-      RESULT( 2 ) = ZERO;
+      RESULT[2] = ZERO;
       cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
       if ( RESULT( 3 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N, NPTKNT;
@@ -272,32 +272,32 @@
 
       // Test (3)
 
-      RESULT( 3 ) = ZERO;
+      RESULT[3] = ZERO;
       for (I = 1; I <= N; I++) { // 120
          if ( S( I ) == ZERO ) {
-            if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if[STRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
          } else if ( STRU( I ) == ZERO ) {
-            if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
          } else {
-            RWORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-            RESULT( 3 ) = max( RESULT( 3 ), RWORK( I ) );
+            RWORK[I] = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+            RESULT[3] = max( RESULT( 3 ), RWORK( I ) );
          }
       } // 120
 
       // Test (4)
 
-      RESULT( 4 ) = ZERO;
+      RESULT[4] = ZERO;
       if ( DIF( 1 ) == ZERO ) {
-         if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIFTRU( 1 ) == ZERO ) {
-         if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIF( 5 ) == ZERO ) {
-         if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIFTRU( 5 ) == ZERO ) {
-         if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else {
          RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-         RESULT( 4 ) = max( RATIO1, RATIO2 );
+         RESULT[4] = max( RATIO1, RATIO2 );
       }
 
       NTESTT = NTESTT + 4;
@@ -342,7 +342,7 @@
 
       alasvm('CXV', NOUT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

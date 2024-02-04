@@ -66,7 +66,7 @@
 
          LBWORK = 0;
          LWKOPT = 1;
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
       } else if ( NT > NB ) {
 
@@ -75,13 +75,13 @@
           // Optimal workspace for dlarfb = max(1,N)*NT
 
           LWKOPT = (LBWORK+LLWORK)*NB;
-          WORK( 1 ) = DROUNDUP_LWORK(LWKOPT+NT*NT);
+          WORK[1] = DROUNDUP_LWORK(LWKOPT+NT*NT);
 
       } else {
 
           LBWORK = CEILING(REAL(K)/REAL(NB))*NB;
           LWKOPT = (LBWORK+LLWORK-NB)*NB;
-          WORK( 1 ) = DROUNDUP_LWORK(LWKOPT);
+          WORK[1] = DROUNDUP_LWORK(LWKOPT);
 
       }
 
@@ -229,6 +229,6 @@
 
       }
 
-      WORK( 1 ) = DROUNDUP_LWORK(IWS);
+      WORK[1] = DROUNDUP_LWORK(IWS);
       return;
       }

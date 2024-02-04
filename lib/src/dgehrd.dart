@@ -63,7 +63,7 @@
             NB = min( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
             LWKOPT = N*NB + TSIZE;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -76,16 +76,16 @@
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
       for (I = 1; I <= ILO - 1; I++) { // 10
-         TAU( I ) = ZERO;
+         TAU[I] = ZERO;
       } // 10
       for (I = max( 1, IHI ); I <= N - 1; I++) { // 20
-         TAU( I ) = ZERO;
+         TAU[I] = ZERO;
       } // 20
 
       // Quick return if possible
 
       if ( NH <= 1 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -145,9 +145,9 @@
             // to 1
 
             EI = A( I+IB, I+IB-1 );
-            A( I+IB, I+IB-1 ) = ONE;
+            A[I+IB, I+IB-1] = ONE;
             dgemm('No transpose', 'Transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA );
-            A( I+IB, I+IB-1 ) = EI;
+            A[I+IB, I+IB-1] = EI;
 
             // Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
             // right
@@ -168,7 +168,7 @@
 
       dgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

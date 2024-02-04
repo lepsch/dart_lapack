@@ -59,7 +59,7 @@
       NERRS = 0;
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       EPS = DLAMCH( 'Precision' );
@@ -82,14 +82,14 @@
 
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
-                  A( I, J) = DLARND( 2, ISEED );
+                  A[I, J] = DLARND( 2, ISEED );
                }
             }
 
             if ( IIT == 2 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A( I, J) = A( I, J ) * LARGE;
+                     A[I, J] = A( I, J ) * LARGE;
                   }
                }
             }
@@ -97,7 +97,7 @@
             if ( IIT == 3 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A( I, J) = A( I, J) * SMALL;
+                     A[I, J] = A( I, J) * SMALL;
                   }
                }
             }
@@ -137,7 +137,7 @@
                      NORMARF = DLANSF( NORM, CFORM, UPLO, N, ARF, WORK );
                      NORMA = DLANSY( NORM, UPLO, N, A, LDA, WORK );
 
-                     RESULT(1) = ( NORMA - NORMARF ) / NORMA / EPS;
+                     RESULT[1] = ( NORMA - NORMARF ) / NORMA / EPS;
                      NRUN = NRUN + 1;
 
                      if ( RESULT(1) >= THRESH ) {

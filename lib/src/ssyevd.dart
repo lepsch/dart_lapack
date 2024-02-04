@@ -73,8 +73,8 @@
             LOPT = max( LWMIN, 2*N + N*ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 ) );
             LIOPT = LIWMIN;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LOPT );
-         IWORK( 1 ) = LIOPT;
+         WORK[1] = SROUNDUP_LWORK( LOPT );
+         IWORK[1] = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -95,7 +95,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = A( 1, 1 );
+         W[1] = A( 1, 1 );
          if (WANTZ) A( 1, 1 ) = ONE;
          return;
       }
@@ -150,8 +150,8 @@
 
       if (ISCALE == 1) sscal( N, ONE / SIGMA, W, 1 );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LOPT );
-      IWORK( 1 ) = LIOPT;
+      WORK[1] = SROUNDUP_LWORK( LOPT );
+      IWORK[1] = LIOPT;
 
       return;
       }

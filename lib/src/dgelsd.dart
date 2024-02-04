@@ -119,8 +119,8 @@
             MINWRK = max( 3*M+NRHS, 3*M+M, 3*M+WLALSD );
          }
          MINWRK = min( MINWRK, MAXWRK );
-         WORK( 1 ) = MAXWRK;
-         IWORK( 1 ) = LIWORK;
+         WORK[1] = MAXWRK;
+         IWORK[1] = LIWORK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12;
@@ -358,7 +358,7 @@
       }
 
       } // 10
-      WORK( 1 ) = MAXWRK;
-      IWORK( 1 ) = LIWORK;
+      WORK[1] = MAXWRK;
+      IWORK[1] = LIWORK;
       return;
       }

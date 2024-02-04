@@ -33,7 +33,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -50,7 +50,7 @@
 
       RPVGRW = 1.0;
       for (I = 1; I <= 2*N; I++) {
-         WORK( I ) = 0.0;
+         WORK[I] = 0.0;
       }
 
       // Find the max magnitude entry of each column of A.  Compute the max
@@ -60,15 +60,15 @@
       if ( UPPER ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( N+I ) = max( CABS1( A( I, J ) ), WORK( N+I ) );
-               WORK( N+J ) = max( CABS1( A( I, J ) ), WORK( N+J ) );
+               WORK[N+I] = max( CABS1( A( I, J ) ), WORK( N+I ) );
+               WORK[N+J] = max( CABS1( A( I, J ) ), WORK( N+J ) );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               WORK( N+I ) = max( CABS1( A( I, J ) ), WORK( N+I ) );
-               WORK( N+J ) = max( CABS1( A( I, J ) ), WORK( N+J ) );
+               WORK[N+I] = max( CABS1( A( I, J ) ), WORK( N+I ) );
+               WORK[N+J] = max( CABS1( A( I, J ) ), WORK( N+J ) );
             }
          }
       }
@@ -88,24 +88,24 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                for (I = 1; I <= K; I++) {
-                  WORK( K ) = max( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK[K] = max( CABS1( AF( I, K ) ), WORK( K ) );
                }
                K = K - 1;
             } else {
                // 2x2 pivot
                KP = -IPIV( K );
                TMP = WORK( N+K-1 );
-               WORK( N+K-1 ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K-1] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                for (I = 1; I <= K-1; I++) {
-                  WORK( K ) = max( CABS1( AF( I, K ) ), WORK( K ) );
-                  WORK( K-1 ) = max( CABS1( AF( I, K-1 ) ), WORK( K-1 ) );
+                  WORK[K] = max( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK[K-1] = max( CABS1( AF( I, K-1 ) ), WORK( K-1 ) );
                }
-               WORK( K ) = max( CABS1( AF( K, K ) ), WORK( K ) );
+               WORK[K] = max( CABS1( AF( K, K ) ), WORK( K ) );
                K = K - 2;
             }
          }
@@ -115,15 +115,15 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                K = K + 1;
             } else {
                KP = -IPIV( K );
                TMP = WORK( N+K );
-               WORK( N+K ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                K = K + 2;
             }
          }
@@ -135,24 +135,24 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                for (I = K; I <= N; I++) {
-                  WORK( K ) = max( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK[K] = max( CABS1( AF( I, K ) ), WORK( K ) );
                }
                K = K + 1;
             } else {
                // 2x2 pivot
                KP = -IPIV( K );
                TMP = WORK( N+K+1 );
-               WORK( N+K+1 ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K+1] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                for (I = K+1; I <= N; I++) {
-                  WORK( K ) = max( CABS1( AF( I, K ) ), WORK( K ) );
-                  WORK( K+1 ) = max( CABS1( AF( I, K+1 ) ), WORK( K+1 ) );
+                  WORK[K] = max( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK[K+1] = max( CABS1( AF( I, K+1 ) ), WORK( K+1 ) );
                }
-               WORK( K ) = max( CABS1( AF( K, K ) ), WORK( K ) );
+               WORK[K] = max( CABS1( AF( K, K ) ), WORK( K ) );
                K = K + 2;
             }
          }
@@ -162,15 +162,15 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                K = K - 1;
             } else {
                KP = -IPIV( K );
                TMP = WORK( N+K );
-               WORK( N+K ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                K = K - 2;
             }
          }

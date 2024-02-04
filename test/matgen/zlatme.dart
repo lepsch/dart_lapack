@@ -151,7 +151,7 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED( I ) = (( ISEED( I ) ).abs() % 4096);
+         ISEED[I] = (( ISEED( I ) ).abs() % 4096);
       } // 20
 
       if( (ISEED( 4 ) % 2) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
@@ -258,7 +258,7 @@
             XNORMS = WORK( 1 );
             zlarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = DCONJG( TAU );
-            WORK( 1 ) = CONE;
+            WORK[1] = CONE;
             ALPHA = ZLARND( 5, ISEED );
 
             zgemv('C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 );
@@ -267,7 +267,7 @@
             zgemv('N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 );
             zgerc(N, IROWS, -DCONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A( JCR, IC ) = XNORMS;
+            A[JCR, IC] = XNORMS;
             zlaset('Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA );
 
             zscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
@@ -286,7 +286,7 @@
             XNORMS = WORK( 1 );
             zlarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = DCONJG( TAU );
-            WORK( 1 ) = CONE;
+            WORK[1] = CONE;
             zlacgv(ICOLS-1, WORK( 2 ), 1 );
             ALPHA = ZLARND( 5, ISEED );
 
@@ -296,7 +296,7 @@
             zgemv('C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 );
             zgerc(ICOLS, N, -DCONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A( IR, JCR ) = XNORMS;
+            A[IR, JCR] = XNORMS;
             zlaset('Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA );
 
             zscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );

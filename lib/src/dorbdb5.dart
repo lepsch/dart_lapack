@@ -93,11 +93,11 @@
 
       for (I = 1; I <= M1; I++) {
          for (J = 1; J <= M1; J++) {
-            X1(J) = ZERO;
+            X1[J] = ZERO;
          }
-         X1(I) = ONE;
+         X1[I] = ONE;
          for (J = 1; J <= M2; J++) {
-            X2(J) = ZERO;
+            X2[J] = ZERO;
          }
          CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO || DNRM2(M2,X2,INCX2) != REALZERO ) THEN;
             return;
@@ -109,12 +109,12 @@
 
       for (I = 1; I <= M2; I++) {
          for (J = 1; J <= M1; J++) {
-            X1(J) = ZERO;
+            X1[J] = ZERO;
          }
          for (J = 1; J <= M2; J++) {
-            X2(J) = ZERO;
+            X2[J] = ZERO;
          }
-         X2(I) = ONE;
+         X2[I] = ONE;
          CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DNRM2(M1,X1,INCX1) != REALZERO || DNRM2(M2,X2,INCX2) != REALZERO ) THEN;
             return;
          }

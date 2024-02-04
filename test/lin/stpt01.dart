@@ -71,7 +71,7 @@
 
             // Subtract 1 from the diagonal
 
-            AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE;
+            AINVP[JC+J-1] = AINVP( JC+J-1 ) - ONE;
             JC = JC + J;
          } // 10
       } else {
@@ -85,7 +85,7 @@
 
             // Subtract 1 from the diagonal
 
-            AINVP( JC ) = AINVP( JC ) - ONE;
+            AINVP[JC] = AINVP( JC ) - ONE;
             JC = JC + N - J + 1;
          } // 20
       }

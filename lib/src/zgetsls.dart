@@ -100,7 +100,7 @@
           INFO = -10;
        }
 
-       WORK( 1 ) = DBLE( WSIZEO );
+       WORK[1] = DBLE( WSIZEO );
 
       }
 
@@ -212,7 +212,7 @@
 
             for (J = 1; J <= NRHS; J++) { // 20
                for (I = N + 1; I <= M; I++) { // 10
-                  B( I, J ) = CZERO;
+                  B[I, J] = CZERO;
                } // 10
             } // 20
 
@@ -248,7 +248,7 @@
 
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = M + 1; I <= N; I++) { // 30
-                  B( I, J ) = CZERO;
+                  B[I, J] = CZERO;
                } // 30
             } // 40
 
@@ -298,6 +298,6 @@
       }
 
       } // 50
-      WORK( 1 ) = DBLE( TSZO + LWO );
+      WORK[1] = DBLE( TSZO + LWO );
       return;
       }

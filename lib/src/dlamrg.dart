@@ -36,12 +36,12 @@
       } // 10
       if ( N1SV > 0 && N2SV > 0 ) {
          if ( A( IND1 ) <= A( IND2 ) ) {
-            INDEX( I ) = IND1;
+            INDEX[I] = IND1;
             I = I + 1;
             IND1 = IND1 + DTRD1;
             N1SV = N1SV - 1;
          } else {
-            INDEX( I ) = IND2;
+            INDEX[I] = IND2;
             I = I + 1;
             IND2 = IND2 + DTRD2;
             N2SV = N2SV - 1;
@@ -51,14 +51,14 @@
       // end while
       if ( N1SV == 0 ) {
          for (N1SV = 1; N1SV <= N2SV; N1SV++) { // 20
-            INDEX( I ) = IND2;
+            INDEX[I] = IND2;
             I = I + 1;
             IND2 = IND2 + DTRD2;
          } // 20
       } else {
       // N2SV == 0
          for (N2SV = 1; N2SV <= N1SV; N2SV++) { // 30
-            INDEX( I ) = IND1;
+            INDEX[I] = IND1;
             I = I + 1;
             IND1 = IND1 + DTRD1;
          } // 30

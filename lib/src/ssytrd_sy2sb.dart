@@ -69,7 +69,7 @@
          xerbla('SSYTRD_SY2SB', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+         WORK[1] = SROUNDUP_LWORK( LWMIN );
          return;
       }
 
@@ -88,7 +88,7 @@
                   scopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
               } // 110
           }
-          WORK( 1 ) = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -223,6 +223,6 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
       return;
       }

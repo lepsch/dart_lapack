@@ -41,8 +41,8 @@
 
       // Initialize RESULT (in case N=0)
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       UNFL = DLAMCH( 'Safe minimum' );
@@ -104,7 +104,7 @@
          // Eigenvectors are row vectors.
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-            WORK( JVEC ) = ZERO;
+            WORK[JVEC] = ZERO;
          } // 40
 
          for (J = 1; J <= N; J++) { // 60
@@ -112,12 +112,12 @@
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
                if( IPAIR == 0 && JVEC < N && WI( JVEC ) != ZERO ) IPAIR = 1;
                if ( IPAIR == 1 ) {
-                  WORK( JVEC ) = max( WORK( JVEC ), ( E( J, JVEC ) ).abs()+( E( J, JVEC+1 ) ) ).abs();
-                  WORK( JVEC+1 ) = WORK( JVEC );
+                  WORK[JVEC] = max( WORK( JVEC ), ( E( J, JVEC ) ).abs()+( E( J, JVEC+1 ) ) ).abs();
+                  WORK[JVEC+1] = WORK( JVEC );
                } else if ( IPAIR == 2 ) {
                   IPAIR = 0;
                } else {
-                  WORK( JVEC ) = max( WORK( JVEC ), ( E( J, JVEC ) ) ).abs();
+                  WORK[JVEC] = max( WORK( JVEC ), ( E( J, JVEC ) ) ).abs();
                   IPAIR = 0;
                }
             } // 50
@@ -157,10 +157,10 @@
          if( IPAIR == 0 && WI( JCOL ) != ZERO ) IPAIR = 1;
 
          if ( IPAIR == 1 ) {
-            WMAT( 1, 1 ) = WR( JCOL );
-            WMAT( 2, 1 ) = -WI( JCOL );
-            WMAT( 1, 2 ) = WI( JCOL );
-            WMAT( 2, 2 ) = WR( JCOL );
+            WMAT[1, 1] = WR( JCOL );
+            WMAT[2, 1] = -WI( JCOL );
+            WMAT[1, 2] = WI( JCOL );
+            WMAT[2, 2] = WR( JCOL );
             dgemm(TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N );
             IPAIR = 2;
          } else if ( IPAIR == 2 ) {
@@ -181,18 +181,18 @@
       // Compute RESULT(1) (avoiding under/overflow)
 
       if ( ANORM > ERRNRM ) {
-         RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP;
+         RESULT[1] = ( ERRNRM / ANORM ) / ULP;
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ONE / ULP;
+            RESULT[1] = ONE / ULP;
          } else {
-            RESULT( 1 ) = min( ERRNRM / ANORM, ONE ) / ULP;
+            RESULT[1] = min( ERRNRM / ANORM, ONE ) / ULP;
          }
       }
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
+      RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
 
       return;
       }

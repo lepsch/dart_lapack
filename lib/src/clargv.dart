@@ -43,8 +43,8 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1( FF ) = max( ( REAL( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
-      ABSSQ( FF ) = REAL( FF )**2 + AIMAG( FF )**2;
+      ABS1[FF] = max( ( REAL( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
+      ABSSQ[FF] = REAL( FF )**2 + AIMAG( FF )**2;
       // ..
       // .. Executable Statements ..
 
@@ -157,9 +157,9 @@
             }
          }
          } // 50
-         C( IC ) = CS;
-         Y( IY ) = SN;
-         X( IX ) = R;
+         C[IC] = CS;
+         Y[IY] = SN;
+         X[IX] = R;
          IC = IC + INCC;
          IY = IY + INCY;
          IX = IX + INCX;

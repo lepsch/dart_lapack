@@ -60,13 +60,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Single precision';
-      PATH( 2: 3 ) = 'TZ';
+      PATH[1: 1] = 'Single precision';
+      PATH[2: 3] = 'TZ';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = SLAMCH( 'Epsilon' );
 
@@ -109,7 +109,7 @@
                   if ( MODE == 0 ) {
                      slaset('Full', M, N, ZERO, ZERO, A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
-                        S( I ) = ZERO;
+                        S[I] = ZERO;
                      } // 30
                   } else {
                      slatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
@@ -130,15 +130,15 @@
 
                   // Compute norm(svd(a) - svd(r))
 
-                  RESULT( 1 ) = SQRT12( M, M, A, LDA, S, WORK, LWORK );
+                  RESULT[1] = SQRT12( M, M, A, LDA, S, WORK, LWORK );
 
                   // Compute norm( A - R*Q )
 
-                  RESULT( 2 ) = SRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
+                  RESULT[2] = SRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
 
                   // Compute norm(Q'*Q - I).
 
-                  RESULT( 3 ) = SRZT02( M, N, A, LDA, TAU, WORK, LWORK );
+                  RESULT[3] = SRZT02( M, N, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.

@@ -73,9 +73,9 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LWMIN;
-         RWORK( 1 ) = LRWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         RWORK[1] = LRWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -14;
@@ -133,8 +133,8 @@
          zlacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
       }
 
-      WORK( 1 ) = LWMIN;
-      RWORK( 1 ) = LRWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      RWORK[1] = LRWMIN;
+      IWORK[1] = LIWMIN;
       return;
       }

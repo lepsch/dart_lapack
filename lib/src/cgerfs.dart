@@ -53,7 +53,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -85,8 +85,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -133,7 +133,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            RWORK( I ) = CABS1( B( I, J ) );
+            RWORK[I] = CABS1( B( I, J ) );
          } // 30
 
          // Compute abs(op(A))*abs(X) + abs(B).
@@ -142,7 +142,7 @@
             for (K = 1; K <= N; K++) { // 50
                XK = CABS1( X( K, J ) );
                for (I = 1; I <= N; I++) { // 40
-                  RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK;
+                  RWORK[I] = RWORK( I ) + CABS1( A( I, K ) )*XK;
                } // 40
             } // 50
          } else {
@@ -151,7 +151,7 @@
                for (I = 1; I <= N; I++) { // 60
                   S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) );
                } // 60
-               RWORK( K ) = RWORK( K ) + S;
+               RWORK[K] = RWORK( K ) + S;
             } // 70
          }
          S = ZERO;
@@ -162,7 +162,7 @@
                S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 80
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -205,9 +205,9 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 90
 
@@ -221,14 +221,14 @@
 
                cgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 110
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 110
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 120
                cgetrs(TRANSN, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }

@@ -58,13 +58,13 @@
          // in AF(1:K,1:K) into the work array WORK.
 
          for (I = 1; I <= min( J, M ); I++) {
-            WORK( ( J-1 )*M+I ) = AF( I, J );
+            WORK[( J-1 )*M+I] = AF( I, J );
          }
 
          // Zero out the elements below the diagonal in the work array.
 
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO;
+            WORK[( J-1 )*M+I] = ZERO;
          }
       }
 

@@ -57,14 +57,14 @@
 
       for (I = 1; I <= min( K+L, M ); I++) { // 20
          for (J = I; J <= K + L; J++) { // 10
-            R( I, J ) = AF( I, N-K-L+J );
+            R[I, J] = AF( I, N-K-L+J );
          } // 10
       } // 20
 
       if ( M-K-L < 0 ) {
          for (I = M + 1; I <= K + L; I++) { // 40
             for (J = I; J <= K + L; J++) { // 30
-               R( I, J ) = BF( I-K, N-K-L+J );
+               R[I, J] = BF( I-K, N-K-L+J );
             } // 30
          } // 40
       }
@@ -77,13 +77,13 @@
 
       for (I = 1; I <= K; I++) { // 60
          for (J = I; J <= K + L; J++) { // 50
-            A( I, N-K-L+J ) = A( I, N-K-L+J ) - R( I, J );
+            A[I, N-K-L+J] = A( I, N-K-L+J ) - R( I, J );
          } // 50
       } // 60
 
       for (I = K + 1; I <= min( K+L, M ); I++) { // 80
          for (J = I; J <= K + L; J++) { // 70
-            A( I, N-K-L+J ) = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
+            A[I, N-K-L+J] = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
          } // 70
       } // 80
 
@@ -91,9 +91,9 @@
 
       RESID = ZLANGE( '1', M, N, A, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
+         RESULT[1] = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute B := V'*B*Q - D2*R
@@ -104,7 +104,7 @@
 
       for (I = 1; I <= L; I++) { // 100
          for (J = I; J <= L; J++) { // 90
-            B( I, N-L+J ) = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J );
+            B[I, N-L+J] = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J );
          } // 90
       } // 100
 
@@ -112,9 +112,9 @@
 
       RESID = ZLANGE( '1', P, N, B, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / DBLE( max( 1, P, N ) ) ) / BNORM ) / ULP;
+         RESULT[2] = ( ( RESID / DBLE( max( 1, P, N ) ) ) / BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO;
+         RESULT[2] = ZERO;
       }
 
       // Compute I - U'*U
@@ -125,7 +125,7 @@
       // Compute norm( I - U'*U ) / ( M * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', M, WORK, LDU, RWORK );
-      RESULT( 3 ) = ( RESID / DBLE( max( 1, M ) ) ) / ULP;
+      RESULT[3] = ( RESID / DBLE( max( 1, M ) ) ) / ULP;
 
       // Compute I - V'*V
 
@@ -135,7 +135,7 @@
       // Compute norm( I - V'*V ) / ( P * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', P, WORK, LDV, RWORK );
-      RESULT( 4 ) = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
+      RESULT[4] = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
 
       // Compute I - Q'*Q
 
@@ -145,7 +145,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', N, WORK, LDQ, RWORK );
-      RESULT( 5 ) = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
+      RESULT[5] = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
 
       // Check sorting
 
@@ -154,14 +154,14 @@
          J = IWORK( I );
          if ( I != J ) {
             TEMP = RWORK( I );
-            RWORK( I ) = RWORK( J );
-            RWORK( J ) = TEMP;
+            RWORK[I] = RWORK( J );
+            RWORK[J] = TEMP;
          }
       } // 110
 
-      RESULT( 6 ) = ZERO;
+      RESULT[6] = ZERO;
       for (I = K + 1; I <= min( K+L, M ) - 1; I++) { // 120
-         if( RWORK( I ) < RWORK( I+1 ) ) RESULT( 6 ) = ULPINV;
+         if[RWORK( I ) < RWORK( I+1 ) ) RESULT( 6] = ULPINV;
       } // 120
 
       return;

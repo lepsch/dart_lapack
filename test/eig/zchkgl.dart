@@ -37,9 +37,9 @@
       // ..
       // .. Executable Statements ..
 
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       NINFO = 0;
       KNT = 0;
       RMAX = ZERO;
@@ -78,12 +78,12 @@
 
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 1 ) = KNT;
+         LMAX[1] = KNT;
       }
 
       if ( ILO != ILOIN || IHI != IHIIN ) {
          NINFO = NINFO + 1;
-         LMAX( 2 ) = KNT;
+         LMAX[2] = KNT;
       }
 
       VMAX = ZERO;
@@ -102,7 +102,7 @@
       VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
 
       if ( VMAX > RMAX ) {
-         LMAX( 3 ) = KNT;
+         LMAX[3] = KNT;
          RMAX = VMAX;
       }
 

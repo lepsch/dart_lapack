@@ -65,8 +65,8 @@
                LWMIN = 2*N;
             }
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
+         IWORK[1] = LIWMIN;
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
@@ -138,8 +138,8 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
+      IWORK[1] = LIWMIN;
 
       return;
       }

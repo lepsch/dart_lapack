@@ -166,7 +166,7 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 30
-         ISEED( I ) = (( ISEED( I ) ).abs() % 4096);
+         ISEED[I] = (( ISEED( I ) ).abs() % 4096);
       } // 30
 
       if( (ISEED( 4 ) % 2) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
@@ -211,9 +211,9 @@
          if ( USEEI ) {
             for (J = 2; J <= N; J++) { // 50
                if ( LSAME( EI( J ), 'I' ) ) {
-                  A( J-1, J ) = A( J, J );
-                  A( J, J-1 ) = -A( J, J );
-                  A( J, J ) = A( J-1, J-1 );
+                  A[J-1, J] = A( J, J );
+                  A[J, J-1] = -A( J, J );
+                  A[J, J] = A( J-1, J-1 );
                }
             } // 50
          }
@@ -222,9 +222,9 @@
 
          for (J = 2; J <= N; J += 2) { // 60
             if ( SLARAN( ISEED ) > HALF ) {
-               A( J-1, J ) = A( J, J );
-               A( J, J-1 ) = -A( J, J );
-               A( J, J ) = A( J-1, J-1 );
+               A[J-1, J] = A( J, J );
+               A[J, J-1] = -A( J, J );
+               A[J, J] = A( J-1, J-1 );
             }
          } // 60
       }
@@ -304,7 +304,7 @@
             scopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
             XNORMS = WORK( 1 );
             slarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
 
             sgemv('T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 );
             sger(IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
@@ -312,7 +312,7 @@
             sgemv('N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 );
             sger(N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A( JCR, IC ) = XNORMS;
+            A[JCR, IC] = XNORMS;
             slaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
          } // 90
       } else if ( KU < N-1 ) {
@@ -327,7 +327,7 @@
             scopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
             XNORMS = WORK( 1 );
             slarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
 
             sgemv('N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 );
             sger(IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
@@ -335,7 +335,7 @@
             sgemv('C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 );
             sger(ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A( IR, JCR ) = XNORMS;
+            A[IR, JCR] = XNORMS;
             slaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
          } // 100
       }

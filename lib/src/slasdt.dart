@@ -33,9 +33,9 @@
       LVL = INT( TEMP ) + 1;
 
       I = N / 2;
-      INODE( 1 ) = I + 1;
-      NDIML( 1 ) = I;
-      NDIMR( 1 ) = N - I - 1;
+      INODE[1] = I + 1;
+      NDIML[1] = I;
+      NDIMR[1] = N - I - 1;
       IL = 0;
       IR = 1;
       LLST = 1;
@@ -48,12 +48,12 @@
             IL = IL + 2;
             IR = IR + 2;
             NCRNT = LLST + I;
-            NDIML( IL ) = NDIML( NCRNT ) / 2;
-            NDIMR( IL ) = NDIML( NCRNT ) - NDIML( IL ) - 1;
-            INODE( IL ) = INODE( NCRNT ) - NDIMR( IL ) - 1;
-            NDIML( IR ) = NDIMR( NCRNT ) / 2;
-            NDIMR( IR ) = NDIMR( NCRNT ) - NDIML( IR ) - 1;
-            INODE( IR ) = INODE( NCRNT ) + NDIML( IR ) + 1;
+            NDIML[IL] = NDIML( NCRNT ) / 2;
+            NDIMR[IL] = NDIML( NCRNT ) - NDIML( IL ) - 1;
+            INODE[IL] = INODE( NCRNT ) - NDIMR( IL ) - 1;
+            NDIML[IR] = NDIMR( NCRNT ) / 2;
+            NDIMR[IR] = NDIMR( NCRNT ) - NDIML( IR ) - 1;
+            INODE[IR] = INODE( NCRNT ) + NDIML( IR ) + 1;
          } // 10
          LLST = LLST*2;
       } // 20

@@ -75,29 +75,29 @@
               if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 10
                   } // 20
               } else {
                   for (J = 1; J <= N; J++) { // 40
                       for (I = 1; I <= J - 1; I++) { // 30
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 30
-                      C(J,J) = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*REAL(C(J,J));
                   } // 40
               }
           } else {
               if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 50
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
-                      C(J,J) = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*REAL(C(J,J));
                       for (I = J + 1; I <= N; I++) { // 70
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 70
                   } // 80
               }
@@ -115,23 +115,23 @@
               for (J = 1; J <= N; J++) { // 130
                   if (BETA == ZERO) {
                       for (I = 1; I <= J; I++) { // 90
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 90
                   } else if (BETA != ONE) {
                       for (I = 1; I <= J - 1; I++) { // 100
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 100
-                      C(J,J) = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*REAL(C(J,J));
                   } else {
-                      C(J,J) = REAL(C(J,J));
+                      C[J,J] = REAL(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 120
                       if (A(J,L) != CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L));
                           for (I = 1; I <= J - 1; I++) { // 110
-                              C(I,J) = C(I,J) + TEMP*A(I,L);
+                              C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 110
-                          C(J,J) = REAL(C(J,J)) + REAL(TEMP*A(I,L));
+                          C[J,J] = REAL(C(J,J)) + REAL(TEMP*A(I,L));
                       }
                   } // 120
               } // 130
@@ -139,22 +139,22 @@
               for (J = 1; J <= N; J++) { // 180
                   if (BETA == ZERO) {
                       for (I = J; I <= N; I++) { // 140
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 140
                   } else if (BETA != ONE) {
-                      C(J,J) = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*REAL(C(J,J));
                       for (I = J + 1; I <= N; I++) { // 150
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 150
                   } else {
-                      C(J,J) = REAL(C(J,J));
+                      C[J,J] = REAL(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 170
                       if (A(J,L) != CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L));
-                          C(J,J) = REAL(C(J,J)) + REAL(TEMP*A(J,L));
+                          C[J,J] = REAL(C(J,J)) + REAL(TEMP*A(J,L));
                           for (I = J + 1; I <= N; I++) { // 160
-                              C(I,J) = C(I,J) + TEMP*A(I,L);
+                              C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 160
                       }
                   } // 170
@@ -172,9 +172,9 @@
                           TEMP = TEMP + CONJG(A(L,I))*A(L,J);
                       } // 190
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP;
+                          C[I,J] = ALPHA*TEMP;
                       } else {
-                          C(I,J) = ALPHA*TEMP + BETA*C(I,J);
+                          C[I,J] = ALPHA*TEMP + BETA*C(I,J);
                       }
                   } // 200
                   RTEMP = ZERO;
@@ -182,9 +182,9 @@
                       RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J));
                   } // 210
                   if (BETA == ZERO) {
-                      C(J,J) = ALPHA*RTEMP;
+                      C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C(J,J) = ALPHA*RTEMP + BETA*REAL(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*REAL(C(J,J));
                   }
               } // 220
           } else {
@@ -194,9 +194,9 @@
                       RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J));
                   } // 230
                   if (BETA == ZERO) {
-                      C(J,J) = ALPHA*RTEMP;
+                      C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C(J,J) = ALPHA*RTEMP + BETA*REAL(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*REAL(C(J,J));
                   }
                   for (I = J + 1; I <= N; I++) { // 250
                       TEMP = ZERO;
@@ -204,9 +204,9 @@
                           TEMP = TEMP + CONJG(A(L,I))*A(L,J);
                       } // 240
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP;
+                          C[I,J] = ALPHA*TEMP;
                       } else {
-                          C(I,J) = ALPHA*TEMP + BETA*C(I,J);
+                          C[I,J] = ALPHA*TEMP + BETA*C(I,J);
                       }
                   } // 250
               } // 260

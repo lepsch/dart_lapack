@@ -56,14 +56,14 @@
       for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
             PAIR = false;
-            SELECT( K ) = false;
+            SELECT[K] = false;
          } else {
             if ( WI( K ) == ZERO ) {
                if( SELECT( K ) ) M = M + 1;
             } else {
                PAIR = true;
                if ( SELECT( K ) || SELECT( K+1 ) ) {
-                  SELECT( K ) = true;
+                  SELECT[K] = true;
                   M = M + 2;
                }
             }
@@ -177,7 +177,7 @@
                   GO TO 60;
                }
             } // 70
-            WR( K ) = WKR;
+            WR[K] = WKR;
 
             PAIR = WKI != ZERO;
             if ( PAIR ) {
@@ -196,18 +196,18 @@
                   } else {
                      INFO = INFO + 1;
                   }
-                  IFAILL( KSR ) = K;
-                  IFAILL( KSI ) = K;
+                  IFAILL[KSR] = K;
+                  IFAILL[KSI] = K;
                } else {
-                  IFAILL( KSR ) = 0;
-                  IFAILL( KSI ) = 0;
+                  IFAILL[KSR] = 0;
+                  IFAILL[KSI] = 0;
                }
                for (I = 1; I <= KL - 1; I++) { // 80
-                  VL( I, KSR ) = ZERO;
+                  VL[I, KSR] = ZERO;
                } // 80
                if ( PAIR ) {
                   for (I = 1; I <= KL - 1; I++) { // 90
-                     VL( I, KSI ) = ZERO;
+                     VL[I, KSI] = ZERO;
                   } // 90
                }
             }
@@ -222,18 +222,18 @@
                   } else {
                      INFO = INFO + 1;
                   }
-                  IFAILR( KSR ) = K;
-                  IFAILR( KSI ) = K;
+                  IFAILR[KSR] = K;
+                  IFAILR[KSI] = K;
                } else {
-                  IFAILR( KSR ) = 0;
-                  IFAILR( KSI ) = 0;
+                  IFAILR[KSR] = 0;
+                  IFAILR[KSI] = 0;
                }
                for (I = KR + 1; I <= N; I++) { // 100
-                  VR( I, KSR ) = ZERO;
+                  VR[I, KSR] = ZERO;
                } // 100
                if ( PAIR ) {
                   for (I = KR + 1; I <= N; I++) { // 110
-                     VR( I, KSI ) = ZERO;
+                     VR[I, KSI] = ZERO;
                   } // 110
                }
             }

@@ -124,7 +124,7 @@
             LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
-               CX(I) = CV(I,NP1,INCX);
+               CX[I] = CV(I,NP1,INCX);
             } // 20
             if (ICASE == 6) {
                // .. SCNRM2 ..
@@ -148,7 +148,7 @@
                // .. ICAMAX ..
                itest1(ICAMAX(N,CX,INCX),ITRUE3(NP1));
                for (I = 1; I <= LEN; I++) { // 160
-                  CX(I) = (42.0,43.0);
+                  CX[I] = (42.0,43.0);
                } // 160
                itest1(ICAMAX(N,CX,INCX),ITRUEC(NP1));
             } else {
@@ -161,7 +161,7 @@
             N = 8;
             IX = 1;
             for (I = 1; I <= N; I++) { // 180
-               CXR(IX) = CVR(I);
+               CXR[IX] = CVR(I);
                IX = IX + INCX;
             } // 180
             itest1(ICAMAX(N,CXR,INCX),3);
@@ -174,8 +174,8 @@
          // Add a test for alpha equal to zero.
          CA = (0.0,0.0);
          for (I = 1; I <= 5; I++) { // 80
-            MWPCT(I) = (0.0,0.0);
-            MWPCS(I) = (1.0,1.0);
+            MWPCT[I] = (0.0,0.0);
+            MWPCS[I] = (1.0,1.0);
          } // 80
          cscal(5,CA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
@@ -184,24 +184,24 @@
          // Add a test for alpha equal to zero.
          SA = 0.0;
          for (I = 1; I <= 5; I++) { // 100
-            MWPCT(I) = (0.0,0.0);
-            MWPCS(I) = (1.0,1.0);
+            MWPCT[I] = (0.0,0.0);
+            MWPCS[I] = (1.0,1.0);
          } // 100
          csscal(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
          SA = 1.0;
          for (I = 1; I <= 5; I++) { // 120
-            MWPCT(I) = CX(I);
-            MWPCS(I) = CX(I);
+            MWPCT[I] = CX(I);
+            MWPCS[I] = CX(I);
          } // 120
          csscal(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
          SA = -1.0;
          for (I = 1; I <= 5; I++) { // 140
-            MWPCT(I) = -CX(I);
-            MWPCS(I) = -CX(I);
+            MWPCT[I] = -CX(I);
+            MWPCS[I] = -CX(I);
          } // 140
          csscal(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
@@ -271,16 +271,16 @@
             LENY = LENS(KN,MY);
             // .. initialize all argument arrays ..
             for (I = 1; I <= 7; I++) { // 20
-               CX(I) = CX1(I);
-               CY(I) = CY1(I);
+               CX[I] = CX1(I);
+               CY[I] = CY1(I);
             } // 20
             if (ICASE == 1) {
                // .. CDOTC ..
-               CDOT(1) = CDOTC(N,CX,INCX,CY,INCY);
+               CDOT[1] = CDOTC(N,CX,INCX,CY,INCY);
                ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE == 2) {
                // .. CDOTU ..
-               CDOT(1) = CDOTU(N,CX,INCX,CY,INCY);
+               CDOT[1] = CDOTU(N,CX,INCX,CY,INCY);
                ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE == 3) {
                // .. CAXPY ..
@@ -291,12 +291,12 @@
                ccopy(N,CX,INCX,CY,INCY);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0);
                if (KI == 1) {
-                  CX0(1) = (42.0,43.0);
-                  CY0(1) = (44.0,45.0);
+                  CX0[1] = (42.0,43.0);
+                  CY0[1] = (44.0,45.0);
                   if (N == 0) {
-                     CTY0(1) = CY0(1);
+                     CTY0[1] = CY0(1);
                   } else {
-                     CTY0(1) = CX0(1);
+                     CTY0[1] = CX0(1);
                   }
                   LINCX = INCX;
                   INCX = 0;
@@ -392,8 +392,8 @@
       // EXTERNAL STEST
       // .. Executable Statements ..
 
-      SCOMP(1) = SCOMP1;
-      STRUE(1) = STRUE1;
+      SCOMP[1] = SCOMP1;
+      STRUE[1] = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       return;
@@ -428,12 +428,12 @@
       // INTRINSIC AIMAG, REAL
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP(2*I-1) = REAL(CCOMP(I));
-         SCOMP(2*I) = AIMAG(CCOMP(I));
-         STRUE(2*I-1) = REAL(CTRUE(I));
-         STRUE(2*I) = AIMAG(CTRUE(I));
-         SSIZE(2*I-1) = REAL(CSIZE(I));
-         SSIZE(2*I) = AIMAG(CSIZE(I));
+         SCOMP[2*I-1] = REAL(CCOMP(I));
+         SCOMP[2*I] = AIMAG(CCOMP(I));
+         STRUE[2*I-1] = REAL(CTRUE(I));
+         STRUE[2*I] = AIMAG(CTRUE(I));
+         SSIZE[2*I-1] = REAL(CSIZE(I));
+         SSIZE[2*I] = AIMAG(CSIZE(I));
       } // 20
 
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
@@ -520,16 +520,16 @@
       COMPLEX           X(NMAX), Z(NMAX);
       REAL              VALUES(NV), WORK(NMAX);
       // .. Executable Statements ..
-      VALUES(1) = ZERO;
-      VALUES(2) = TWO*SAFMIN;
-      VALUES(3) = SMLNUM;
-      VALUES(4) = ULP;
-      VALUES(5) = ONE;
-      VALUES(6) = ONE / ULP;
-      VALUES(7) = BIGNUM;
-      VALUES(8) = SAFMAX;
-      VALUES(9) = SXVALS(V0,2);
-      VALUES(10) = SXVALS(V0,3);
+      VALUES[1] = ZERO;
+      VALUES[2] = TWO*SAFMIN;
+      VALUES[3] = SMLNUM;
+      VALUES[4] = ULP;
+      VALUES[5] = ONE;
+      VALUES[6] = ONE / ULP;
+      VALUES[7] = BIGNUM;
+      VALUES[8] = SAFMAX;
+      VALUES[9] = SXVALS(V0,2);
+      VALUES[10] = SXVALS(V0,3);
       ROGUE = CMPLX(1234.5678,-1234.5678);
       FIRST = true;
 
@@ -550,7 +550,7 @@
       KS = 2*(N-1);
       for (I = 1; I <= KS; I++) {
          random_number(WORK(I));
-         WORK(I) = ONE - TWO*WORK(I);
+         WORK[I] = ONE - TWO*WORK(I);
       }
 
       // Compute the sum of squares of the random values
@@ -570,14 +570,14 @@
          if ((V0).abs() > ONE) {
             V0 = V0*HALF*HALF;
          }
-         Z(1) = CMPLX(V0,-THREE*V0);
+         Z[1] = CMPLX(V0,-THREE*V0);
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
             if ((V1).abs() > ONE) {
                V1 = (V1*HALF) / sqrt(REAL(KS+1));
             }
             for (I = 1; I <= N-1; I++) {
-               Z(I+1) = CMPLX(V1*WORK(2*I-1),V1*WORK(2*I));
+               Z[I+1] = CMPLX(V1*WORK(2*I-1),V1*WORK(2*I));
             }
 
             // Compute the expected value of the 2-norm
@@ -609,12 +609,12 @@
             // Fill the input array to SCNRM2 with steps of incx
 
             for (I = 1; I <= N; I++) {
-               X(I) = ROGUE;
+               X[I] = ROGUE;
             }
             IX = 1;
             if (INCX < 0) IX = 1 - (N-1)*INCX;
             for (I = 1; I <= N; I++) {
-               X(IX) = Z(I);
+               X[IX] = Z(I);
                IX = IX + INCX;
             }
 

@@ -101,7 +101,7 @@
             HSWORK = INT( WORK(1) );
             MAXWRK = max( MAXWRK, HSWORK, MINWRK );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12;
@@ -244,12 +244,12 @@
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 );
             csscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
-               RWORK( IRWORK+K-1 ) = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
+               RWORK[IRWORK+K-1] = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = ISAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             cscal(N, TMP, VL( 1, I ), 1 );
-            VL( K, I ) = CMPLX( REAL( VL( K, I ) ), ZERO );
+            VL[K, I] = CMPLX( REAL( VL( K, I ) ), ZERO );
          } // 20
       }
 
@@ -267,12 +267,12 @@
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 );
             csscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
-               RWORK( IRWORK+K-1 ) = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
+               RWORK[IRWORK+K-1] = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = ISAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             cscal(N, TMP, VR( 1, I ), 1 );
-            VR( K, I ) = CMPLX( REAL( VR( K, I ) ), ZERO );
+            VR[K, I] = CMPLX( REAL( VR( K, I ) ), ZERO );
          } // 40
       }
 
@@ -286,6 +286,6 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

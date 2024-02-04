@@ -208,9 +208,9 @@
          }
          LRWORKMIN = IBBCSD+LBBCSD-1;
          LRWORKOPT = LRWORKMIN;
-         RWORK(1) = LRWORKOPT;
+         RWORK[1] = LRWORKOPT;
          LWORKMIN = max( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = max( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 );
-         WORK(1) = SROUNDUP_LWORK(LWORKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWORKOPT);
          if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -19;
          }
@@ -249,10 +249,10 @@
             cungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T && Q > 0 ) {
-            V1T(1,1) = ONE;
+            V1T[1,1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T(1,J) = ZERO;
-               V1T(J,1) = ZERO;
+               V1T[1,J] = ZERO;
+               V1T[J,1] = ZERO;
             }
             clacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T );
             cunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
@@ -267,10 +267,10 @@
 
          if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
-               IWORK(I) = M - P - Q + I;
+               IWORK[I] = M - P - Q + I;
             }
             for (I = Q + 1; I <= M - P; I++) {
-               IWORK(I) = I - Q;
+               IWORK[I] = I - Q;
             }
             clapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
@@ -285,10 +285,10 @@
          // Accumulate Householder reflectors
 
          if ( WANTU1 && P > 0 ) {
-            U1(1,1) = ONE;
+            U1[1,1] = ONE;
             for (J = 2; J <= P; J++) {
-               U1(1,J) = ZERO;
-               U1(J,1) = ZERO;
+               U1[1,J] = ZERO;
+               U1[J,1] = ZERO;
             }
             clacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -311,10 +311,10 @@
 
          if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
-               IWORK(I) = M - P - Q + I;
+               IWORK[I] = M - P - Q + I;
             }
             for (I = Q + 1; I <= M - P; I++) {
-               IWORK(I) = I - Q;
+               IWORK[I] = I - Q;
             }
             clapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
@@ -333,10 +333,10 @@
             cungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
-            U2(1,1) = ONE;
+            U2[1,1] = ONE;
             for (J = 2; J <= M-P; J++) {
-               U2(1,J) = ZERO;
-               U2(J,1) = ZERO;
+               U2[1,J] = ZERO;
+               U2[J,1] = ZERO;
             }
             clacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -355,10 +355,10 @@
 
          if ( Q > R ) {
             for (I = 1; I <= R; I++) {
-               IWORK(I) = Q - R + I;
+               IWORK[I] = Q - R + I;
             }
             for (I = R + 1; I <= Q; I++) {
-               IWORK(I) = I - R;
+               IWORK[I] = I - R;
             }
             if ( WANTU1 ) {
                clapmt( false , P, Q, U1, LDU1, IWORK );
@@ -384,14 +384,14 @@
          if ( WANTU1 && P > 0 ) {
             ccopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
-               U1(1,J) = ZERO;
+               U1[1,J] = ZERO;
             }
             clacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
             for (J = 2; J <= M-P; J++) {
-               U2(1,J) = ZERO;
+               U2[1,J] = ZERO;
             }
             clacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -412,10 +412,10 @@
 
          if ( P > R ) {
             for (I = 1; I <= R; I++) {
-               IWORK(I) = P - R + I;
+               IWORK[I] = P - R + I;
             }
             for (I = R + 1; I <= P; I++) {
-               IWORK(I) = I - R;
+               IWORK[I] = I - R;
             }
             if ( WANTU1 ) {
                clapmt( false , P, P, U1, LDU1, IWORK );

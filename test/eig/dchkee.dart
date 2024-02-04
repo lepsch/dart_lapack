@@ -287,7 +287,7 @@
          } // 40
       } else {
          for (I = 1; I <= NN; I++) { // 50
-            NVAL( I ) = MVAL( I );
+            NVAL[I] = MVAL( I );
          } // 50
       }
       if ( !( DGX || DXV ) ) {
@@ -442,7 +442,7 @@
             WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 90
-               NBMIN( I ) = 1;
+               NBMIN[I] = 1;
             } // 90
          }
 
@@ -462,7 +462,7 @@
             WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 110
-               NXVAL( I ) = 1;
+               NXVAL[I] = 1;
             } // 110
          }
 
@@ -483,7 +483,7 @@
             WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 130
-               NSVAL( I ) = 1;
+               NSVAL[I] = 1;
             } // 130
          }
 
@@ -503,7 +503,7 @@
             WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 150
-               MXBVAL( I ) = 1;
+               MXBVAL[I] = 1;
             } // 150
          }
 
@@ -520,7 +520,7 @@
             WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 550
-               INMIN( I ) = 1;
+               INMIN[I] = 1;
             } // 550
          }
 
@@ -537,7 +537,7 @@
             WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 570
-               INWIN( I ) = 1;
+               INWIN[I] = 1;
             } // 570
          }
 
@@ -554,7 +554,7 @@
             WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 590
-               INIBL( I ) = 1;
+               INIBL[I] = 1;
             } // 590
          }
 
@@ -571,7 +571,7 @@
             WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 610
-               ISHFTS( I ) = 1;
+               ISHFTS[I] = 1;
             } // 610
          }
 
@@ -588,7 +588,7 @@
             WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 630
-               IACC22( I ) = 1;
+               IACC22[I] = 1;
             } // 630
          }
 
@@ -608,7 +608,7 @@
             WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 170
-               NBCOL( I ) = 1;
+               NBCOL[I] = 1;
             } // 170
          }
       }
@@ -651,7 +651,7 @@
       if (NEWSD == 2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
 
       for (I = 1; I <= 4; I++) { // 180
-         ISEED( I ) = IOLDSD( I );
+         ISEED[I] = IOLDSD( I );
       } // 180
 
       if ( FATAL ) {
@@ -726,7 +726,7 @@
 
       if ( NEWSD == 0 ) {
          for (K = 1; K <= 4; K++) { // 250
-            ISEED( K ) = IOLDSD( K );
+            ISEED[K] = IOLDSD( K );
          } // 250
       }
 
@@ -759,7 +759,7 @@
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 260
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 260
             }
             WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), max( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
@@ -800,7 +800,7 @@
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 280
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 280
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
@@ -843,7 +843,7 @@
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 300
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 300
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
@@ -887,7 +887,7 @@
             xlaenv(3, NXVAL( I ) );
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 320
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 320
             }
             WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS;
@@ -1006,7 +1006,7 @@
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 340
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 340
             }
             WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I );
@@ -1141,7 +1141,7 @@
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 360
-                  ISEED( K ) = IOLDSD( K );
+                  ISEED[K] = IOLDSD( K );
                } // 360
             }
             WRITE( NOUT, FMT = 9966 )C3, NRHS;

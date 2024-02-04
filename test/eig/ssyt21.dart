@@ -37,7 +37,7 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
+      RESULT[1] = ZERO;
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
       IF( N <= 0 ) return;
 
@@ -55,7 +55,7 @@
       // Some Error Checks
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         RESULT( 1 ) = TEN / ULP;
+         RESULT[1] = TEN / ULP;
          return;
       }
 
@@ -96,47 +96,47 @@
          slaset('Full', N, N, ZERO, ZERO, WORK, N );
 
          if ( LOWER ) {
-            WORK( N**2 ) = D( N );
+            WORK[N**2] = D( N );
             for (J = N - 1; J >= 1; J--) { // 40
                if ( KBAND == 1 ) {
-                  WORK( ( N+1 )*( J-1 )+2 ) = ( ONE-TAU( J ) )*E( J );
+                  WORK[( N+1 )*( J-1 )+2] = ( ONE-TAU( J ) )*E( J );
                   for (JR = J + 2; JR <= N; JR++) { // 30
-                     WORK( ( J-1 )*N+JR ) = -TAU( J )*E( J )*V( JR, J );
+                     WORK[( J-1 )*N+JR] = -TAU( J )*E( J )*V( JR, J );
                   } // 30
                }
 
                VSAVE = V( J+1, J );
-               V( J+1, J ) = ONE;
+               V[J+1, J] = ONE;
                slarfy('L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) );
-               V( J+1, J ) = VSAVE;
-               WORK( ( N+1 )*( J-1 )+1 ) = D( J );
+               V[J+1, J] = VSAVE;
+               WORK[( N+1 )*( J-1 )+1] = D( J );
             } // 40
          } else {
-            WORK( 1 ) = D( 1 );
+            WORK[1] = D( 1 );
             for (J = 1; J <= N - 1; J++) { // 60
                if ( KBAND == 1 ) {
-                  WORK( ( N+1 )*J ) = ( ONE-TAU( J ) )*E( J );
+                  WORK[( N+1 )*J] = ( ONE-TAU( J ) )*E( J );
                   for (JR = 1; JR <= J - 1; JR++) { // 50
-                     WORK( J*N+JR ) = -TAU( J )*E( J )*V( JR, J+1 );
+                     WORK[J*N+JR] = -TAU( J )*E( J )*V( JR, J+1 );
                   } // 50
                }
 
                VSAVE = V( J, J+1 );
-               V( J, J+1 ) = ONE;
+               V[J, J+1] = ONE;
                slarfy('U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) );
-               V( J, J+1 ) = VSAVE;
-               WORK( ( N+1 )*J+1 ) = D( J+1 );
+               V[J, J+1] = VSAVE;
+               WORK[( N+1 )*J+1] = D( J+1 );
             } // 60
          }
 
          for (JCOL = 1; JCOL <= N; JCOL++) { // 90
             if ( LOWER ) {
                for (JROW = JCOL; JROW <= N; JROW++) { // 70
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
+                  WORK[JROW+N*( JCOL-1 )] = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
                } // 70
             } else {
                for (JROW = 1; JROW <= JCOL; JROW++) { // 80
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
+                  WORK[JROW+N*( JCOL-1 )] = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
                } // 80
             }
          } // 90
@@ -154,24 +154,24 @@
             sorm2l('R', 'T', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          }
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = TEN / ULP;
+            RESULT[1] = TEN / ULP;
             return;
          }
 
          for (J = 1; J <= N; J++) { // 100
-            WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
+            WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 100
 
          WNORM = SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) );
       }
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
+         RESULT[1] = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT[1] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+            RESULT[1] = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -183,10 +183,10 @@
          sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          for (J = 1; J <= N; J++) { // 110
-            WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
+            WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 110
 
-         RESULT( 2 ) = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+         RESULT[2] = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
       }
 
       return;

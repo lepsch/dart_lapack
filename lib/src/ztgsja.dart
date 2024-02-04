@@ -136,18 +136,18 @@
 
                if ( UPPER ) {
                   if (K+I <= M) A( K+I, N-L+J ) = CZERO;
-                  B( I, N-L+J ) = CZERO;
+                  B[I, N-L+J] = CZERO;
                } else {
                   if (K+J <= M) A( K+J, N-L+I ) = CZERO;
-                  B( J, N-L+I ) = CZERO;
+                  B[J, N-L+I] = CZERO;
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
                if (K+I <= M) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) );
                IF( K+J <= M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) );
-               B( I, N-L+I ) = DBLE( B( I, N-L+I ) );
-               B( J, N-L+J ) = DBLE( B( J, N-L+J ) );
+               B[I, N-L+I] = DBLE( B( I, N-L+I ) );
+               B[J, N-L+J] = DBLE( B( J, N-L+J ) );
 
                // Update unitary matrices U, V, Q, if desired.
 
@@ -195,8 +195,8 @@
       // set the triangular matrix R to array A.
 
       for (I = 1; I <= K; I++) { // 60
-         ALPHA( I ) = ONE;
-         BETA( I ) = ZERO;
+         ALPHA[I] = ONE;
+         BETA[I] = ZERO;
       } // 60
 
       for (I = 1; I <= min( L, M-K ); I++) { // 70
@@ -223,8 +223,8 @@
 
          } else {
 
-            ALPHA( K+I ) = ZERO;
-            BETA( K+I ) = ONE;
+            ALPHA[K+I] = ZERO;
+            BETA[K+I] = ONE;
             zcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
          }
       } // 70
@@ -232,14 +232,14 @@
       // Post-assignment
 
       for (I = M + 1; I <= K + L; I++) { // 80
-         ALPHA( I ) = ZERO;
-         BETA( I ) = ONE;
+         ALPHA[I] = ZERO;
+         BETA[I] = ONE;
       } // 80
 
       if ( K+L < N ) {
          for (I = K + L + 1; I <= N; I++) { // 90
-            ALPHA( I ) = ZERO;
-            BETA( I ) = ZERO;
+            ALPHA[I] = ZERO;
+            BETA[I] = ZERO;
          } // 90
       }
 

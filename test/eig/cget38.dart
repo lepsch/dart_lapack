@@ -52,19 +52,19 @@
       // EPSIN = 2**(-24) = precision to which input data computed
 
       EPS = max( EPS, EPSIN );
-      RMAX( 1 ) = ZERO;
-      RMAX( 2 ) = ZERO;
-      RMAX( 3 ) = ZERO;
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      RMAX[1] = ZERO;
+      RMAX[2] = ZERO;
+      RMAX[3] = ZERO;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NINFO( 3 ) = 0;
-      VAL( 1 ) = sqrt( SMLNUM );
-      VAL( 2 ) = ONE;
-      VAL( 3 ) = sqrt( sqrt( BIGNUM ) );
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NINFO[3] = 0;
+      VAL[1] = sqrt( SMLNUM );
+      VAL[2] = ONE;
+      VAL[3] = sqrt( sqrt( BIGNUM ) );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
@@ -97,8 +97,8 @@
 
          cgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO != 0 ) {
-            LMAX( 1 ) = KNT;
-            NINFO( 1 ) = NINFO( 1 ) + 1;
+            LMAX[1] = KNT;
+            NINFO[1] = NINFO( 1 ) + 1;
             GO TO 200;
          }
 
@@ -111,29 +111,29 @@
 
          for (J = 1; J <= N - 2; J++) { // 50
             for (I = J + 2; I <= N; I++) { // 40
-               T( I, J ) = CZERO;
+               T[I, J] = CZERO;
             } // 40
          } // 50
          chseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 2 ) = KNT;
-            NINFO( 2 ) = NINFO( 2 ) + 1;
+            LMAX[2] = KNT;
+            NINFO[2] = NINFO( 2 ) + 1;
             GO TO 200;
          }
 
          // Sort, select eigenvalues
 
          for (I = 1; I <= N; I++) { // 60
-            IPNT( I ) = I;
-            SELECT( I ) = false;
+            IPNT[I] = I;
+            SELECT[I] = false;
          } // 60
          if ( ISRT == 0 ) {
             for (I = 1; I <= N; I++) { // 70
-               WSRT( I ) = REAL( W( I ) );
+               WSRT[I] = REAL( W( I ) );
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WSRT( I ) = AIMAG( W( I ) );
+               WSRT[I] = AIMAG( W( I ) );
             } // 80
          }
          for (I = 1; I <= N - 1; I++) { // 100
@@ -145,14 +145,14 @@
                   VMIN = WSRT( J );
                }
             } // 90
-            WSRT( KMIN ) = WSRT( I );
-            WSRT( I ) = VMIN;
+            WSRT[KMIN] = WSRT( I );
+            WSRT[I] = VMIN;
             ITMP = IPNT( I );
-            IPNT( I ) = IPNT( KMIN );
-            IPNT( KMIN ) = ITMP;
+            IPNT[I] = IPNT( KMIN );
+            IPNT[KMIN] = ITMP;
          } // 100
          for (I = 1; I <= NDIM; I++) { // 110
-            SELECT( IPNT( ISELEC( I ) ) ) = true;
+            SELECT[IPNT( ISELEC( I ) )] = true;
          } // 110
 
          // Compute condition numbers
@@ -161,8 +161,8 @@
          clacpy('F', N, N, T, LDT, TSAV1, LDT );
          ctrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 200;
          }
          SEPTMP = SEP / VMUL;
@@ -173,7 +173,7 @@
          chst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
          VMAX = max( RESULT( 1 ), RESULT( 2 ) );
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
@@ -206,7 +206,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX;
+            RMAX[2] = VMAX;
             if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
@@ -237,7 +237,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX;
+            RMAX[2] = VMAX;
             if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
@@ -258,7 +258,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX;
+            RMAX[3] = VMAX;
             if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
@@ -279,7 +279,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX;
+            RMAX[3] = VMAX;
             if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
@@ -293,8 +293,8 @@
          STMP = -ONE;
          ctrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 200;
          }
          if (S != STMP) VMAX = ONE / EPS;
@@ -315,8 +315,8 @@
          STMP = -ONE;
          ctrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 200;
          }
          if (-ONE != STMP) VMAX = ONE / EPS;
@@ -337,8 +337,8 @@
          STMP = -ONE;
          ctrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 200;
          }
          if (S != STMP) VMAX = ONE / EPS;
@@ -359,8 +359,8 @@
          STMP = -ONE;
          ctrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 200;
          }
          if (-ONE != STMP) VMAX = ONE / EPS;
@@ -372,7 +372,7 @@
             } // 180
          } // 190
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 200

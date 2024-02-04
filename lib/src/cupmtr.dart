@@ -116,9 +116,9 @@
                TAUI = CONJG( TAU( I ) );
             }
             AII = AP( II );
-            AP( II ) = ONE;
+            AP[II] = ONE;
             clarf(SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK );
-            AP( II ) = AII;
+            AP[II] = AII;
 
             if ( FORWRD ) {
                II = II + I + 2;
@@ -154,7 +154,7 @@
 
          for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 20
             AII = AP( II );
-            AP( II ) = ONE;
+            AP[II] = ONE;
             if ( LEFT ) {
 
                // H(i) or H(i)**H is applied to C(i+1:m,1:n)
@@ -177,7 +177,7 @@
                TAUI = CONJG( TAU( I ) );
             }
             clarf(SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK );
-            AP( II ) = AII;
+            AP[II] = AII;
 
             if ( FORWRD ) {
                II = II + NQ - I + 1;

@@ -87,7 +87,7 @@
             NB = max( NB, ILAENV( 1, 'SORMTR', UPLO, N, -1, -1, -1 ) );
             LWKOPT = max( LWKMIN, ( NB + 3 )*N );
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
          if (LWORK < LWKMIN && !LQUERY) INFO = -17;
       }
@@ -109,11 +109,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = A( 1, 1 );
+            W[1] = A( 1, 1 );
          } else {
             if ( VL < A( 1, 1 ) && VU >= A( 1, 1 ) ) {
                M = 1;
-               W( 1 ) = A( 1, 1 );
+               W[1] = A( 1, 1 );
             }
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
@@ -194,7 +194,7 @@
             ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 30
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 30
             }
          }
@@ -256,15 +256,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 );
-               W( I ) = W( J );
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
-               W( J ) = TMP1;
-               IWORK( INDIBL+J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[INDIBL+I-1] = IWORK( INDIBL+J-1 );
+               W[J] = TMP1;
+               IWORK[INDIBL+J-1] = ITMP1;
                sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 60
@@ -272,7 +272,7 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

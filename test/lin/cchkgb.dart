@@ -64,13 +64,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'GB';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'GB';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -80,8 +80,8 @@
 
       // Initialize the first value for the lower and upper bandwidths.
 
-      KLVAL( 1 ) = 0;
-      KUVAL( 1 ) = 0;
+      KLVAL[1] = 0;
+      KUVAL[1] = 0;
 
       // Do for each value of M in MVAL
 
@@ -90,12 +90,12 @@
 
          // Set values to use for the lower bandwidth.
 
-         KLVAL( 2 ) = M + ( M+1 ) / 4;
+         KLVAL[2] = M + ( M+1 ) / 4;
 
          // KLVAL( 2 ) = max( M-1, 0 )
 
-         KLVAL( 3 ) = ( 3*M-1 ) / 4;
-         KLVAL( 4 ) = ( M+1 ) / 4;
+         KLVAL[3] = ( 3*M-1 ) / 4;
+         KLVAL[4] = ( M+1 ) / 4;
 
          // Do for each value of N in NVAL
 
@@ -105,12 +105,12 @@
 
             // Set values to use for the upper bandwidth.
 
-            KUVAL( 2 ) = N + ( N+1 ) / 4;
+            KUVAL[2] = N + ( N+1 ) / 4;
 
             // KUVAL( 2 ) = max( N-1, 0 )
 
-            KUVAL( 3 ) = ( 3*N-1 ) / 4;
-            KUVAL( 4 ) = ( N+1 ) / 4;
+            KUVAL[3] = ( 3*N-1 ) / 4;
+            KUVAL[4] = ( N+1 ) / 4;
 
             // Set limits on the number of loop iterations.
 
@@ -175,7 +175,7 @@
 
                         KOFF = max( 1, KU+2-N );
                         for (I = 1; I <= KOFF - 1; I++) { // 20
-                           A( I ) = ZERO;
+                           A[I] = ZERO;
                         } // 20
                         SRNAMT = 'CLATMS';
                         clatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
@@ -216,12 +216,12 @@
                            ccopy(I2-I1+1, A( IOFF+I1 ), 1, B, 1 );
 
                            for (I = I1; I <= I2; I++) { // 30
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 30
                         } else {
                            for (J = IZERO; J <= N; J++) { // 50
                               DO 40 I = max( 1, KU+2-J ), min( KL+KU+1, KU+1+( M-J ) );
-                                 A( IOFF+I ) = ZERO;
+                                 A[IOFF+I] = ZERO;
                               } // 40
                               IOFF = IOFF + LDA;
                            } // 50
@@ -404,7 +404,7 @@
 
                            if (INFO != 0) alaerh( PATH, 'CGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
-                           RESULT( 7 ) = SGET06( RCOND, RCONDC );
+                           RESULT[7] = SGET06( RCOND, RCONDC );
 
                            // Print information about the tests that did
                            // not pass the threshold.

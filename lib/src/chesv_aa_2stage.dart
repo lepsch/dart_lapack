@@ -60,7 +60,7 @@
       if ( INFO == 0 ) {
          chetrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
          LWKOPT = max( LWKMIN, INT( WORK( 1 ) ) );
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -81,7 +81,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

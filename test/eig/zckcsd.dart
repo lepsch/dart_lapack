@@ -51,7 +51,7 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 3 ) = 'CSD';
+      PATH[1: 3] = 'CSD';
       INFO = 0;
       NRUN = 0;
       NFAIL = 0;
@@ -89,24 +89,24 @@
             } else if ( IMAT == 2 ) {
                R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R; I++) {
-                  THETA(I) = PIOVER2 * DLARND( 1, ISEED );
+                  THETA[I] = PIOVER2 * DLARND( 1, ISEED );
                }
                zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
                for (I = 1; I <= M; I++) {
                   for (J = 1; J <= M; J++) {
-                     X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*DLARND(2,ISEED);
+                     X[I+(J-1)*LDX] = X(I+(J-1)*LDX) + ORTH*DLARND(2,ISEED);
                   }
                }
             } else if ( IMAT == 3 ) {
                R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R+1; I++) {
-                  THETA(I) = TEN**(-DLARND(1,ISEED)*GAPDIGIT);
+                  THETA[I] = TEN**(-DLARND(1,ISEED)*GAPDIGIT);
                }
                for (I = 2; I <= R+1; I++) {
-                  THETA(I) = THETA(I-1) + THETA(I);
+                  THETA[I] = THETA(I-1) + THETA(I);
                }
                for (I = 1; I <= R; I++) {
-                  THETA(I) = PIOVER2 * THETA(I) / THETA(R+1);
+                  THETA[I] = PIOVER2 * THETA(I) / THETA(R+1);
                }
                zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
             } else {
@@ -169,28 +169,28 @@
       zlaset('Full', M, M, ZERO, ZERO, X, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         X(I,I) = ONE;
+         X[I,I] = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(min(P,Q)-R+I,min(P,Q)-R+I) = DCMPLX( COS(THETA(I)), 0.0 );
+         X[min(P,Q)-R+I,min(P,Q)-R+I] = DCMPLX( COS(THETA(I)), 0.0 );
       }
       for (I = 1; I <= min(P,M-Q)-R; I++) {
-         X(P-I+1,M-I+1) = -ONE;
+         X[P-I+1,M-I+1] = -ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) = DCMPLX( -SIN(THETA(R-I+1)), 0.0 );
+         X[P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I] = DCMPLX( -SIN(THETA(R-I+1)), 0.0 );
       }
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         X(M-I+1,Q-I+1) = ONE;
+         X[M-I+1,Q-I+1] = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = DCMPLX( SIN(THETA(R-I+1)), 0.0 );
+         X[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
       for (I = 1; I <= min(M-P,M-Q)-R; I++) {
-         X(P+I,Q+I) = ONE;
+         X[P+I,Q+I] = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) = DCMPLX( COS(THETA(I)), 0.0 );
+         X[P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I] = DCMPLX( COS(THETA(I)), 0.0 );
       }
       zlaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
       zlaror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL ZLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );

@@ -102,7 +102,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 20
             for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 10
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 10
          } // 20
          dgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
@@ -110,7 +110,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 40
             for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 30
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 30
          } // 40
          dgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1+NL*NRHS ), NL );
@@ -120,7 +120,7 @@
             for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 50
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 50
          } // 60
 
@@ -134,7 +134,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
             for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 70
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 70
          } // 80
          dgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
@@ -142,7 +142,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 100
             for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 90
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 90
          } // 100
          dgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1+NR*NRHS ), NR );
@@ -152,7 +152,7 @@
             for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 110
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 110
          } // 120
 
@@ -265,7 +265,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
             for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 200
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 200
          } // 210
          dgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
@@ -273,7 +273,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
             for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 220
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 220
          } // 230
          dgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1+NLP1*NRHS ), NLP1 );
@@ -283,7 +283,7 @@
             for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 240
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 240
          } // 250
 
@@ -297,7 +297,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270
             for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 260
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 260
          } // 270
          dgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );
@@ -305,7 +305,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 290
             for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 280
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 280
          } // 290
          dgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1+NRP1*NRHS ), NRP1 );
@@ -315,7 +315,7 @@
             for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 300
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 300
          } // 310
 

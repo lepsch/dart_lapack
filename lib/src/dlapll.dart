@@ -41,7 +41,7 @@
 
       dlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 );
-      X( 1 ) = ONE;
+      X[1] = ONE;
 
       C = -TAU*DDOT( N, X, INCX, Y, INCY );
       daxpy(N, C, X, INCX, Y, INCY );

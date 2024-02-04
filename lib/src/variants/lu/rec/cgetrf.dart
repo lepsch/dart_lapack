@@ -73,13 +73,13 @@
          // Find pivot.
 
          JP = J - 1 + ICAMAX( M-J+1, A( J, J ), 1 );
-         IPIV( J ) = JP;
+         IPIV[J] = JP;
 
          // Permute just this column.
          if (JP != J) {
             TMP = A( J, J );
-            A( J, J ) = A( JP, J );
-            A( JP, J ) = TMP;
+            A[J, J] = A( JP, J );
+            A[JP, J] = TMP;
          }
 
          // Apply pending permutations to L
@@ -103,7 +103,7 @@
                   cscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) {
-                    A( J+I, J ) = A( J+I, J ) / A( J, J );
+                    A[J+I, J] = A( J+I, J ) / A( J, J );
                  }
                }
          } else if ( PIVMAG == ZERO && INFO == 0 ) {

@@ -44,7 +44,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -171,7 +171,7 @@
                   GO TO 60;
                }
             } // 70
-            W( K ) = WK;
+            W[K] = WK;
 
             if ( LEFTV ) {
 
@@ -180,12 +180,12 @@
                zlaein( false , NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO > 0 ) {
                   INFO = INFO + 1;
-                  IFAILL( KS ) = K;
+                  IFAILL[KS] = K;
                } else {
-                  IFAILL( KS ) = 0;
+                  IFAILL[KS] = 0;
                }
                for (I = 1; I <= KL - 1; I++) { // 80
-                  VL( I, KS ) = ZERO;
+                  VL[I, KS] = ZERO;
                } // 80
             }
             if ( RIGHTV ) {
@@ -195,12 +195,12 @@
                zlaein( true , NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO > 0 ) {
                   INFO = INFO + 1;
-                  IFAILR( KS ) = K;
+                  IFAILR[KS] = K;
                } else {
-                  IFAILR( KS ) = 0;
+                  IFAILR[KS] = 0;
                }
                for (I = KR + 1; I <= N; I++) { // 90
-                  VR( I, KS ) = ZERO;
+                  VR[I, KS] = ZERO;
                } // 90
             }
             KS = KS + 1;

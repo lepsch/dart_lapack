@@ -64,8 +64,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'SX';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'SX';
 
       // Check for errors
 
@@ -144,7 +144,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -203,7 +203,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -211,7 +211,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 
@@ -339,7 +339,7 @@
       READ( NIUNIT, FMT = *, END = 200 )N, NSLCT, ISRT;
       if (N == 0) GO TO 200;
       JTYPE = JTYPE + 1;
-      ISEED( 1 ) = JTYPE;
+      ISEED[1] = JTYPE;
       READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT );
       for (I = 1; I <= N; I++) { // 170
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N );

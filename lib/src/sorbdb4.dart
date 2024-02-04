@@ -62,7 +62,7 @@
          LWORKOPT = ILARF + LLARF - 1;
          LWORKOPT = max( LWORKOPT, IORBDB5 + LORBDB5 - 1 );
          LWORKMIN = LWORKOPT;
-         WORK(1) = LWORKOPT;
+         WORK[1] = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
            INFO = -14;
          }
@@ -80,17 +80,17 @@
 
          if ( I == 1 ) {
             for (J = 1; J <= M; J++) {
-               PHANTOM(J) = ZERO;
+               PHANTOM[J] = ZERO;
             }
             sorbdb5(P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
             sscal(P, NEGONE, PHANTOM(1), 1 );
             slarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
             slarfgp(M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) );
-            THETA(I) = ATAN2( PHANTOM(1), PHANTOM(P+1) );
+            THETA[I] = ATAN2( PHANTOM(1), PHANTOM(P+1) );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
-            PHANTOM(1) = ONE;
-            PHANTOM(P+1) = ONE;
+            PHANTOM[1] = ONE;
+            PHANTOM[P+1] = ONE;
             slarf('L', P, Q, PHANTOM(1), 1, TAUP1(1), X11, LDX11, WORK(ILARF) );
             slarf('L', M-P, Q, PHANTOM(P+1), 1, TAUP2(1), X21, LDX21, WORK(ILARF) );
          } else {
@@ -98,11 +98,11 @@
             sscal(P-I+1, NEGONE, X11(I,I-1), 1 );
             slarfgp(P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) );
             slarfgp(M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) );
-            THETA(I) = ATAN2( X11(I,I-1), X21(I,I-1) );
+            THETA[I] = ATAN2( X11(I,I-1), X21(I,I-1) );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
-            X11(I,I-1) = ONE;
-            X21(I,I-1) = ONE;
+            X11[I,I-1] = ONE;
+            X21[I,I-1] = ONE;
             slarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, TAUP1(I), X11(I,I), LDX11, WORK(ILARF) );
             slarf('L', M-P-I+1, Q-I+1, X21(I,I-1), 1, TAUP2(I), X21(I,I), LDX21, WORK(ILARF) );
          }
@@ -110,12 +110,12 @@
          srot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
          slarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = X21(I,I);
-         X21(I,I) = ONE;
+         X21[I,I] = ONE;
          slarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          slarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          if ( I < M-Q ) {
             S = sqrt( SNRM2( P-I, X11(I+1,I), 1 )**2 + SNRM2( M-P-I, X21(I+1,I), 1 )**2 );
-            PHI(I) = ATAN2( S, C );
+            PHI[I] = ATAN2( S, C );
          }
 
       }
@@ -124,7 +124,7 @@
 
       for (I = M - Q + 1; I <= P; I++) {
          slarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
-         X11(I,I) = ONE;
+         X11[I,I] = ONE;
          slarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          slarf('R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
       }
@@ -133,7 +133,7 @@
 
       for (I = P + 1; I <= Q; I++) {
          slarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
-         X21(M-Q+I-P,I) = ONE;
+         X21[M-Q+I-P,I] = ONE;
          slarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
       }
 

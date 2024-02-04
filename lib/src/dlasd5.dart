@@ -44,10 +44,10 @@
 
             TAU = TAU / ( D( 1 )+sqrt( D( 1 )*D( 1 )+TAU ) );
             DSIGMA = D( 1 ) + TAU;
-            DELTA( 1 ) = -TAU;
-            DELTA( 2 ) = DEL - TAU;
-            WORK( 1 ) = TWO*D( 1 ) + TAU;
-            WORK( 2 ) = ( D( 1 )+TAU ) + D( 2 );
+            DELTA[1] = -TAU;
+            DELTA[2] = DEL - TAU;
+            WORK[1] = TWO*D( 1 ) + TAU;
+            WORK[2] = ( D( 1 )+TAU ) + D( 2 );
             // DELTA( 1 ) = -Z( 1 ) / TAU
             // DELTA( 2 ) = Z( 2 ) / ( DEL-TAU )
          } else {
@@ -66,10 +66,10 @@
 
             TAU = TAU / ( D( 2 )+sqrt( ABS( D( 2 )*D( 2 )+TAU ) ) );
             DSIGMA = D( 2 ) + TAU;
-            DELTA( 1 ) = -( DEL+TAU );
-            DELTA( 2 ) = -TAU;
-            WORK( 1 ) = D( 1 ) + TAU + D( 2 );
-            WORK( 2 ) = TWO*D( 2 ) + TAU;
+            DELTA[1] = -( DEL+TAU );
+            DELTA[2] = -TAU;
+            WORK[1] = D( 1 ) + TAU + D( 2 );
+            WORK[2] = TWO*D( 2 ) + TAU;
             // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
             // DELTA( 2 ) = -Z( 2 ) / TAU
          }
@@ -95,10 +95,10 @@
 
          TAU = TAU / ( D( 2 )+sqrt( D( 2 )*D( 2 )+TAU ) );
          DSIGMA = D( 2 ) + TAU;
-         DELTA( 1 ) = -( DEL+TAU );
-         DELTA( 2 ) = -TAU;
-         WORK( 1 ) = D( 1 ) + TAU + D( 2 );
-         WORK( 2 ) = TWO*D( 2 ) + TAU;
+         DELTA[1] = -( DEL+TAU );
+         DELTA[2] = -TAU;
+         WORK[1] = D( 1 ) + TAU + D( 2 );
+         WORK[2] = TWO*D( 2 ) + TAU;
          // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
          // DELTA( 2 ) = -Z( 2 ) / TAU
          // TEMP = sqrt( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )

@@ -64,11 +64,11 @@
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
             LWMIN = 1;
-            WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+            WORK[1] = SROUNDUP_LWORK(LWMIN);
          } else {
             IB    = ILAENV2STAGE( 2, 'CHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 );
             LWMIN = LHTRD + LWTRD;
-            WORK( 1 )  = SROUNDUP_LWORK(LWMIN);
+            WORK[1] = SROUNDUP_LWORK(LWMIN);
          }
 
          if (LWORK < LWMIN && !LQUERY) INFO = -11;
@@ -87,9 +87,9 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W( 1 ) = REAL( AB( 1, 1 ) );
+            W[1] = REAL( AB( 1, 1 ) );
          } else {
-            W( 1 ) = REAL( AB( KD+1, 1 ) );
+            W[1] = REAL( AB( KD+1, 1 ) );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;
@@ -154,7 +154,7 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
 
       return;
       }

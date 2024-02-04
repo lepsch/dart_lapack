@@ -62,14 +62,14 @@
          if ( JPVT( I ) != 0 ) {
             if ( I != ITEMP ) {
                zswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
-               JPVT( I ) = JPVT( ITEMP );
-               JPVT( ITEMP ) = I;
+               JPVT[I] = JPVT( ITEMP );
+               JPVT[ITEMP] = I;
             } else {
-               JPVT( I ) = I;
+               JPVT[I] = I;
             }
             ITEMP = ITEMP + 1;
          } else {
-            JPVT( I ) = I;
+            JPVT[I] = I;
          }
       } // 10
       ITEMP = ITEMP - 1;
@@ -90,8 +90,8 @@
          // work store the exact column norms.
 
          for (I = ITEMP + 1; I <= N; I++) { // 20
-            RWORK( I ) = DZNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
-            RWORK( N+I ) = RWORK( I );
+            RWORK[I] = DZNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
+            RWORK[N+I] = RWORK( I );
          } // 20
 
          // Compute factorization
@@ -105,26 +105,26 @@
             if ( PVT != I ) {
                zswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT );
-               JPVT( PVT ) = JPVT( I );
-               JPVT( I ) = ITEMP;
-               RWORK( PVT ) = RWORK( I );
-               RWORK( N+PVT ) = RWORK( N+I );
+               JPVT[PVT] = JPVT( I );
+               JPVT[I] = ITEMP;
+               RWORK[PVT] = RWORK( I );
+               RWORK[N+PVT] = RWORK( N+I );
             }
 
             // Generate elementary reflector H(i)
 
             AII = A( I, I );
             zlarfg(M-I+1, AII, A( min( I+1, M ), I ), 1, TAU( I ) );
-            A( I, I ) = AII;
+            A[I, I] = AII;
 
             if ( I < N ) {
 
                // Apply H(i) to A(i:m,i+1:n) from the left
 
                AII = A( I, I );
-               A( I, I ) = DCMPLX( ONE );
+               A[I, I] = DCMPLX( ONE );
                zlarf('Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
-               A( I, I ) = AII;
+               A[I, I] = AII;
             }
 
             // Update partial column norms
@@ -140,14 +140,14 @@
                   TEMP2 = TEMP*( RWORK( J ) / RWORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
-                        RWORK( J ) = DZNRM2( M-I, A( I+1, J ), 1 );
-                        RWORK( N+J ) = RWORK( J );
+                        RWORK[J] = DZNRM2( M-I, A( I+1, J ), 1 );
+                        RWORK[N+J] = RWORK( J );
                      } else {
-                        RWORK( J ) = ZERO;
-                        RWORK( N+J ) = ZERO;
+                        RWORK[J] = ZERO;
+                        RWORK[N+J] = ZERO;
                      }
                   } else {
-                     RWORK( J ) = RWORK( J )*sqrt( TEMP );
+                     RWORK[J] = RWORK( J )*sqrt( TEMP );
                   }
                }
             } // 30

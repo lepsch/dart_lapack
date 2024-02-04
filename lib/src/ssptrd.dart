@@ -63,13 +63,13 @@
             // to annihilate A(1:i-1,i+1)
 
             slarfg(I, AP( I1+I-1 ), AP( I1 ), 1, TAUI );
-            E( I ) = AP( I1+I-1 );
+            E[I] = AP( I1+I-1 );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               AP( I1+I-1 ) = ONE;
+               AP[I1+I-1] = ONE;
 
                // Compute  y := tau * A * v  storing y in TAU(1:i)
 
@@ -85,13 +85,13 @@
 
                sspr2(UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP );
 
-               AP( I1+I-1 ) = E( I );
+               AP[I1+I-1] = E( I );
             }
-            D( I+1 ) = AP( I1+I );
-            TAU( I ) = TAUI;
+            D[I+1] = AP( I1+I );
+            TAU[I] = TAUI;
             I1 = I1 - I;
          } // 10
-         D( 1 ) = AP( 1 );
+         D[1] = AP( 1 );
       } else {
 
          // Reduce the lower triangle of A. II is the index in AP of
@@ -105,13 +105,13 @@
             // to annihilate A(i+2:n,i)
 
             slarfg(N-I, AP( II+1 ), AP( II+2 ), 1, TAUI );
-            E( I ) = AP( II+1 );
+            E[I] = AP( II+1 );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               AP( II+1 ) = ONE;
+               AP[II+1] = ONE;
 
                // Compute  y := tau * A * v  storing y in TAU(i:n-1)
 
@@ -127,13 +127,13 @@
 
                sspr2(UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) );
 
-               AP( II+1 ) = E( I );
+               AP[II+1] = E( I );
             }
-            D( I ) = AP( II );
-            TAU( I ) = TAUI;
+            D[I] = AP( II );
+            TAU[I] = TAUI;
             II = I1I1;
          } // 20
-         D( N ) = AP( II );
+         D[N] = AP( II );
       }
 
       return;

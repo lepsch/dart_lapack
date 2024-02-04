@@ -92,8 +92,8 @@
       // Quick return for void matrix (Y3K safe)
 // #:)
       if ( ( M == 0 ) || ( N == 0 ) ) {
-         IWORK(1:3) = 0;
-         WORK(1:7) = 0;
+         IWORK[1:3] = 0;
+         WORK[1:7] = 0;
          return;
       }
 
@@ -134,10 +134,10 @@
          }
          AAQQ = DSQRT(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
-            SVA(p)  = AAPP * AAQQ;
+            SVA[p] = AAPP * AAQQ;
          } else {
             NOSCAL  = false;
-            SVA(p)  = AAPP * ( AAQQ * SCALEM );
+            SVA[p] = AAPP * ( AAQQ * SCALEM );
             if ( GOSCAL ) {
                GOSCAL = false;
                dscal(p-1, SCALEM, SVA, 1 );
@@ -159,20 +159,20 @@
       if ( AAPP == ZERO ) {
          if (LSVEC) dlaset( 'G', M, N1, ZERO, ONE, U, LDU );
          if (RSVEC) dlaset( 'G', N, N,  ZERO, ONE, V, LDV );
-         WORK(1) = ONE;
-         WORK(2) = ONE;
+         WORK[1] = ONE;
+         WORK[2] = ONE;
          if (ERREST) WORK(3) = ONE;
          if ( LSVEC && RSVEC ) {
-            WORK(4) = ONE;
-            WORK(5) = ONE;
+            WORK[4] = ONE;
+            WORK[5] = ONE;
          }
          if ( L2TRAN ) {
-            WORK(6) = ZERO;
-            WORK(7) = ZERO;
+            WORK[6] = ZERO;
+            WORK[7] = ZERO;
          }
-         IWORK(1) = 0;
-         IWORK(2) = 0;
-         IWORK(3) = 0;
+         IWORK[1] = 0;
+         IWORK[2] = 0;
+         IWORK[3] = 0;
          return;
       }
 
@@ -202,34 +202,34 @@
             }
          }
          if ( RSVEC ) {
-             V(1,1) = ONE;
+             V[1,1] = ONE;
          }
          if ( SVA(1) < (BIG*SCALEM) ) {
-            SVA(1)  = SVA(1) / SCALEM;
+            SVA[1] = SVA(1) / SCALEM;
             SCALEM  = ONE;
          }
-         WORK(1) = ONE / SCALEM;
-         WORK(2) = ONE;
+         WORK[1] = ONE / SCALEM;
+         WORK[2] = ONE;
          if ( SVA(1) != ZERO ) {
-            IWORK(1) = 1;
+            IWORK[1] = 1;
             if ( ( SVA(1) / SCALEM) >= SFMIN ) {
-               IWORK(2) = 1;
+               IWORK[2] = 1;
             } else {
-               IWORK(2) = 0;
+               IWORK[2] = 0;
             }
          } else {
-            IWORK(1) = 0;
-            IWORK(2) = 0;
+            IWORK[1] = 0;
+            IWORK[2] = 0;
          }
-         IWORK(3) = 0;
+         IWORK[3] = 0;
          if (ERREST) WORK(3) = ONE;
          if ( LSVEC && RSVEC ) {
-            WORK(4) = ONE;
-            WORK(5) = ONE;
+            WORK[4] = ONE;
+            WORK[5] = ONE;
          }
          if ( L2TRAN ) {
-            WORK(6) = ZERO;
-            WORK(7) = ZERO;
+            WORK[6] = ZERO;
+            WORK[7] = ZERO;
          }
          return;
 
@@ -254,14 +254,14 @@
                dlassq(N, A(p,1), LDA, XSC, TEMP1 );
                // DLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
-               WORK(M+N+p)  = XSC * SCALEM;
-               WORK(N+p)    = XSC * (SCALEM*DSQRT(TEMP1));
+               WORK[M+N+p] = XSC * SCALEM;
+               WORK[N+p] = XSC * (SCALEM*DSQRT(TEMP1));
                AATMAX = max( AATMAX, WORK(N+p) );
                if (WORK(N+p) != ZERO) AATMIN = min(AATMIN,WORK(N+p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
-               WORK(M+N+p) = SCALEM*( A(p,IDAMAX(N,A(p,1),LDA)) ).abs();
+               WORK[M+N+p] = SCALEM*( A(p,IDAMAX(N,A(p,1),LDA)) ).abs();
                AATMAX = max( AATMAX, WORK(M+N+p) );
                AATMIN = min( AATMIN, WORK(M+N+p) );
             } // 1904
@@ -318,13 +318,13 @@
             for (p = 1; p <= N - 1; p++) { // 1115
                for (q = p + 1; q <= N; q++) { // 1116
                    TEMP1 = A(q,p);
-                  A(q,p) = A(p,q);
-                  A(p,q) = TEMP1;
+                  A[q,p] = A(p,q);
+                  A[p,q] = TEMP1;
                } // 1116
             } // 1115
             for (p = 1; p <= N; p++) { // 1117
-               WORK(M+N+p) = SVA(p);
-               SVA(p)      = WORK(N+p);
+               WORK[M+N+p] = SVA(p);
+               SVA[p] = WORK(N+p);
             } // 1117
             TEMP1  = AAPP;
             AAPP   = AATMAX;
@@ -396,7 +396,7 @@
          for (p = 1; p <= N; p++) { // 700
             if ( SVA(p) < XSC ) {
                dlaset('A', M, 1, ZERO, ZERO, A(1,p), LDA );
-               SVA(p) = ZERO;
+               SVA[p] = ZERO;
             }
          } // 700
       }
@@ -411,11 +411,11 @@
          // The ell-infinity norms of A are made nonincreasing.
          for (p = 1; p <= M - 1; p++) { // 1952
             q = IDAMAX( M-p+1, WORK(M+N+p), 1 ) + p - 1;
-            IWORK(2*N+p) = q;
+            IWORK[2*N+p] = q;
             if ( p != q ) {
                TEMP1       = WORK(M+N+p);
-               WORK(M+N+p) = WORK(M+N+q);
-               WORK(M+N+q) = TEMP1;
+               WORK[M+N+p] = WORK(M+N+q);
+               WORK[M+N+q] = TEMP1;
             }
          } // 1952
          dlaswp(N, A, LDA, 1, M-1, IWORK(2*N+1), 1 );
@@ -438,7 +438,7 @@
       // A * P1 = Q1 * [ R1^t 0]^t:
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
-         IWORK(p) = 0;
+         IWORK[p] = 0;
       } // 1963
       dgeqp3(M,N,A,LDA, IWORK,WORK, WORK(N+1),LWORK-N, IERR );
 
@@ -819,7 +819,7 @@
 
                // R1^t * P2 = Q2 * R2
                for (p = 1; p <= NR; p++) { // 3003
-                  IWORK(N+p) = 0;
+                  IWORK[N+p] = 0;
                } // 3003
                dgeqp3(N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 // *               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
@@ -841,7 +841,7 @@
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
                         TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q)).abs());
-                        V(p,q) = - DSIGN( TEMP1, V(q,p) );
+                        V[p,q] = - DSIGN( TEMP1, V(q,p) );
                      } // 8971
                   } // 8970
                } else {
@@ -876,7 +876,7 @@
                   TEMP1 = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
                      // V(p,q) = - DSIGN( TEMP1, V(q,p) )
-                     V(p,q) = - DSIGN( TEMP1, V(p,q) );
+                     V[p,q] = - DSIGN( TEMP1, V(p,q) );
                   } // 4969
                } // 4968
             } else {
@@ -940,10 +940,10 @@
                // .. apply the permutation from the second QR factorization
                for (q = 1; q <= NR; q++) { // 873
                   for (p = 1; p <= NR; p++) { // 872
-                     WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q);
+                     WORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 872
                   for (p = 1; p <= NR; p++) { // 874
-                     U(p,q) = WORK(2*N+N*NR+NR+p);
+                     U[p,q] = WORK(2*N+N*NR+NR+p);
                   } // 874
                } // 873
                if ( NR < N ) {
@@ -977,10 +977,10 @@
                dormlq('L', 'T', NR, NR, NR, WORK(2*N+1), N, WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                for (q = 1; q <= NR; q++) { // 773
                   for (p = 1; p <= NR; p++) { // 772
-                     WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q);
+                     WORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 772
                   for (p = 1; p <= NR; p++) { // 774
-                     U(p,q) = WORK(2*N+N*NR+NR+p);
+                     U[p,q] = WORK(2*N+N*NR+NR+p);
                   } // 774
                } // 773
 
@@ -993,10 +993,10 @@
             TEMP1 = DSQRT(DBLE(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
-                  WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
+                  WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 972
                for (p = 1; p <= N; p++) { // 973
-                  V(p,q) = WORK(2*N+N*NR+NR+p);
+                  V[p,q] = WORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / DNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
@@ -1127,7 +1127,7 @@
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
                   TEMP1 = XSC * min((U(p,p)).abs(),(U(q,q)).abs());
-                  U(p,q) = - DSIGN( TEMP1, U(q,p) );
+                  U[p,q] = - DSIGN( TEMP1, U(q,p) );
                } // 9971
             } // 9970
          } else {
@@ -1151,10 +1151,10 @@
             TEMP1 = DSQRT(DBLE(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
-                  WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
+                  WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 8972
                for (p = 1; p <= N; p++) { // 8973
-                  V(p,q) = WORK(2*N+N*NR+NR+p);
+                  V[p,q] = WORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / DNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
@@ -1197,25 +1197,25 @@
 
       if ( NR < N ) {
          for (p = NR+1; p <= N; p++) { // 3004
-            SVA(p) = ZERO;
+            SVA[p] = ZERO;
          } // 3004
       }
 
-      WORK(1) = USCAL2 * SCALEM;
-      WORK(2) = USCAL1;
+      WORK[1] = USCAL2 * SCALEM;
+      WORK[2] = USCAL1;
       if (ERREST) WORK(3) = SCONDA;
       if ( LSVEC && RSVEC ) {
-         WORK(4) = CONDR1;
-         WORK(5) = CONDR2;
+         WORK[4] = CONDR1;
+         WORK[5] = CONDR2;
       }
       if ( L2TRAN ) {
-         WORK(6) = ENTRA;
-         WORK(7) = ENTRAT;
+         WORK[6] = ENTRA;
+         WORK[7] = ENTRAT;
       }
 
-      IWORK(1) = NR;
-      IWORK(2) = NUMRANK;
-      IWORK(3) = WARNING;
+      IWORK[1] = NR;
+      IWORK[2] = NUMRANK;
+      IWORK[3] = WARNING;
 
       return;
       // ..

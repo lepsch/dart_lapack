@@ -76,7 +76,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+        WORK[1] = SROUNDUP_LWORK( LWMIN );
       }
 
       if ( INFO != 0 ) {
@@ -203,6 +203,6 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
       return;
       }

@@ -54,7 +54,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Data statements ..
       const KCLASS = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,];
@@ -110,7 +110,7 @@
          MINWRK = 3*NMAX*NMAX;
          NB = max( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( NMAX+NMAX*NB, 3*NMAX*NMAX);
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -19;
@@ -132,8 +132,8 @@
 
       // The values RMAGN(2:3) depend on N, see below.
 
-      RMAGN( 0 ) = ZERO;
-      RMAGN( 1 ) = ONE;
+      RMAGN[0] = ZERO;
+      RMAGN[1] = ONE;
 
       // Loop over matrix sizes
 
@@ -144,8 +144,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN( 2 ) = SAFMAX*ULP / REAL( N1 );
-         RMAGN( 3 ) = SAFMIN*ULPINV*REAL( N1 );
+         RMAGN[2] = SAFMAX*ULP / REAL( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*REAL( N1 );
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -163,13 +163,13 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 13; J++) { // 30
-               RESULT( J ) = ZERO;
+               RESULT[J] = ZERO;
             } // 30
 
             // Generate test matrices A and B
@@ -230,30 +230,30 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
-                        Q( JR, JC ) = CLARND( 3, ISEED );
-                        Z( JR, JC ) = CLARND( 3, ISEED );
+                        Q[JR, JC] = CLARND( 3, ISEED );
+                        Z[JR, JC] = CLARND( 3, ISEED );
                      } // 40
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK( 2*N+JC ) = SIGN( ONE, REAL( Q( JC, JC ) ) );
-                     Q( JC, JC ) = CONE;
+                     WORK[2*N+JC] = SIGN( ONE, REAL( Q( JC, JC ) ) );
+                     Q[JC, JC] = CONE;
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK( 3*N+JC ) = SIGN( ONE, REAL( Z( JC, JC ) ) );
-                     Z( JC, JC ) = CONE;
+                     WORK[3*N+JC] = SIGN( ONE, REAL( Z( JC, JC ) ) );
+                     Z[JC, JC] = CONE;
                   } // 50
                   CTEMP = CLARND( 3, ISEED );
-                  Q( N, N ) = CONE;
-                  WORK( N ) = CZERO;
-                  WORK( 3*N ) = CTEMP / ( CTEMP ).abs();
+                  Q[N, N] = CONE;
+                  WORK[N] = CZERO;
+                  WORK[3*N] = CTEMP / ( CTEMP ).abs();
                   CTEMP = CLARND( 3, ISEED );
-                  Z( N, N ) = CONE;
-                  WORK( 2*N ) = CZERO;
-                  WORK( 4*N ) = CTEMP / ( CTEMP ).abs();
+                  Z[N, N] = CONE;
+                  WORK[2*N] = CZERO;
+                  WORK[4*N] = CTEMP / ( CTEMP ).abs();
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
-                        A( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC );
+                        A[JR, JC] = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC );
                      } // 60
                   } // 70
                   CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
@@ -267,7 +267,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED );
                   } // 80
                } // 90
             }
@@ -283,7 +283,7 @@
             } // 110
 
             for (I = 1; I <= 13; I++) { // 120
-               RESULT( I ) = -ONE;
+               RESULT[I] = -ONE;
             } // 120
 
             // Test with and without sorting of eigenvalues
@@ -310,10 +310,10 @@
                clacpy('Full', N, N, A, LDA, S, LDA );
                clacpy('Full', N, N, B, LDA, T, LDA );
                NTEST = 1 + RSUB + ISORT;
-               RESULT( 1+RSUB+ISORT ) = ULPINV;
+               RESULT[1+RSUB+ISORT] = ULPINV;
                cgges3('V', 'V', SORT, CLCTES, N, S, LDA, T, LDA, SDIM, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, BWORK, IINFO );
                if ( IINFO != 0 && IINFO != N+2 ) {
-                  RESULT( 1+RSUB+ISORT ) = ULPINV;
+                  RESULT[1+RSUB+ISORT] = ULPINV;
                   WRITE( NOUNIT, FMT = 9999 )'CGGES3', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 160;
@@ -347,13 +347,13 @@
                   if ( J < N ) {
                      if ( S( J+1, J ) != ZERO ) {
                         ILABAD = true;
-                        RESULT( 5+RSUB ) = ULPINV;
+                        RESULT[5+RSUB] = ULPINV;
                      }
                   }
                   if ( J > 1 ) {
                      if ( S( J, J-1 ) != ZERO ) {
                         ILABAD = true;
-                        RESULT( 5+RSUB ) = ULPINV;
+                        RESULT[5+RSUB] = ULPINV;
                      }
                   }
                   TEMP1 = max( TEMP1, TEMP2 );
@@ -361,14 +361,14 @@
                      WRITE( NOUNIT, FMT = 9998 )J, N, JTYPE, IOLDSD;
                   }
                } // 130
-               RESULT( 6+RSUB ) = TEMP1;
+               RESULT[6+RSUB] = TEMP1;
 
                if ( ISORT >= 1 ) {
 
                   // Do test 12
 
                   NTEST = 12;
-                  RESULT( 12 ) = ZERO;
+                  RESULT[12] = ZERO;
                   KNTEIG = 0;
                   for (I = 1; I <= N; I++) { // 140
                      if( CLCTES( ALPHA( I ), BETA( I ) ) ) KNTEIG = KNTEIG + 1;
@@ -422,7 +422,7 @@
 
       alasvm('CGS', NOUNIT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

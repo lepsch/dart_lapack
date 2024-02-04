@@ -87,7 +87,7 @@
       // Quick return if nothing to do
 
       for (I = 1; I <= 11; I++) { // 10
-         RESULT( I ) = -ONE;
+         RESULT[I] = -ONE;
       } // 10
 
       if (N == 0) return;
@@ -110,7 +110,7 @@
       clacpy('F', N, N, A, LDA, H, LDA );
       cgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
       if ( IINFO != 0 ) {
-         RESULT( 1 ) = ULPINV;
+         RESULT[1] = ULPINV;
          if ( JTYPE != 22 ) {
             WRITE( NOUNIT, FMT = 9998 )'CGEEVX1', IINFO, N, JTYPE, BALANC, ISEED;
          } else {
@@ -123,18 +123,18 @@
       // Do Test (1)
 
       cget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
-      RESULT( 1 ) = RES( 1 );
+      RESULT[1] = RES( 1 );
 
       // Do Test (2)
 
       cget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
-      RESULT( 2 ) = RES( 1 );
+      RESULT[2] = RES( 1 );
 
       // Do Test (3)
 
       for (J = 1; J <= N; J++) { // 30
          TNRM = SCNRM2( N, VR( 1, J ), 1 );
-         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+         RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 20
@@ -149,7 +149,7 @@
 
       for (J = 1; J <= N; J++) { // 50
          TNRM = SCNRM2( N, VL( 1, J ), 1 );
-         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+         RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 40
@@ -171,7 +171,7 @@
          clacpy('F', N, N, A, LDA, H, LDA );
          cgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX2', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -211,7 +211,7 @@
          clacpy('F', N, N, A, LDA, H, LDA );
          cgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX3', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -259,7 +259,7 @@
          clacpy('F', N, N, A, LDA, H, LDA );
          cgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEEVX4', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -312,7 +312,7 @@
          clacpy('F', N, N, A, LDA, H, LDA );
          cgeevx('N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'CGEEVX5', IINFO, N, ISEED( 1 );
             INFO = ( IINFO ).abs();
             GO TO 250;
@@ -340,20 +340,20 @@
                }
             } // 210
             CTMP = W( KMIN );
-            W( KMIN ) = W( I );
-            W( I ) = CTMP;
+            W[KMIN] = W( I );
+            W[I] = CTMP;
             VRIMIN = RCONDE( KMIN );
-            RCONDE( KMIN ) = RCONDE( I );
-            RCONDE( I ) = VRIMIN;
+            RCONDE[KMIN] = RCONDE( I );
+            RCONDE[I] = VRIMIN;
             VRIMIN = RCONDV( KMIN );
-            RCONDV( KMIN ) = RCONDV( I );
-            RCONDV( I ) = VRIMIN;
+            RCONDV[KMIN] = RCONDV( I );
+            RCONDV[I] = VRIMIN;
          } // 220
 
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
 
-         RESULT( 10 ) = ZERO;
+         RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
          V = max( REAL( N )*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
@@ -381,13 +381,13 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 10 ) = max( RESULT( 10 ), VMAX );
+            RESULT[10] = max( RESULT( 10 ), VMAX );
          } // 230
 
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         RESULT( 11 ) = ZERO;
+         RESULT[11] = ZERO;
          for (I = 1; I <= N; I++) { // 240
             if ( V > RCONDV( I ) ) {
                TOL = ONE;
@@ -412,7 +412,7 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 11 ) = max( RESULT( 11 ), VMAX );
+            RESULT[11] = max( RESULT( 11 ), VMAX );
          } // 240
          } // 250
 

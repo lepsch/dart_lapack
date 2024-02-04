@@ -57,7 +57,7 @@
             for (J = 1; J <= N; J++) { // 20
                CJ = C( J );
                for (I = 1; I <= M; I++) { // 10
-                  A( I, J ) = CJ*A( I, J );
+                  A[I, J] = CJ*A( I, J );
                } // 10
             } // 20
             EQUED = 'C';
@@ -68,7 +68,7 @@
 
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= M; I++) { // 30
-               A( I, J ) = R( I )*A( I, J );
+               A[I, J] = R( I )*A( I, J );
             } // 30
          } // 40
          EQUED = 'R';
@@ -79,7 +79,7 @@
          for (J = 1; J <= N; J++) { // 60
             CJ = C( J );
             for (I = 1; I <= M; I++) { // 50
-               A( I, J ) = CJ*R( I )*A( I, J );
+               A[I, J] = CJ*R( I )*A( I, J );
             } // 50
          } // 60
          EQUED = 'B';

@@ -83,7 +83,7 @@
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, ( NB + 1 )*N );
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
          if ( LWORK < max( 1, 2*N ) && !LQUERY ) {
             INFO = -20;
@@ -152,7 +152,7 @@
 
       // Set WORK(1) to optimal complex workspace size.
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

@@ -109,9 +109,9 @@
             TAUI = DCONJG( TAU( I ) );
          }
          AII = A( NQ-K+I, I );
-         A( NQ-K+I, I ) = ONE;
+         A[NQ-K+I, I] = ONE;
          zlarf(SIDE, MI, NI, A( 1, I ), 1, TAUI, C, LDC, WORK );
-         A( NQ-K+I, I ) = AII;
+         A[NQ-K+I, I] = AII;
       } // 10
       return;
       }

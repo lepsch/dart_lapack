@@ -43,8 +43,8 @@
       RMAX = ZERO;
       LMAX = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
 
       // Read input data until N=0
 

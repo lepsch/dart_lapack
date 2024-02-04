@@ -62,9 +62,9 @@
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J );
                for (I = 1; I <= J - 1; I++) { // 10
-                  A( I, J ) = CJ*S( I )*A( I, J );
+                  A[I, J] = CJ*S( I )*A( I, J );
                } // 10
-               A( J, J ) = CJ*CJ*DBLE( A( J, J ) );
+               A[J, J] = CJ*CJ*DBLE( A( J, J ) );
             } // 20
          } else {
 
@@ -72,9 +72,9 @@
 
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               A( J, J ) = CJ*CJ*DBLE( A( J, J ) );
+               A[J, J] = CJ*CJ*DBLE( A( J, J ) );
                for (I = J + 1; I <= N; I++) { // 30
-                  A( I, J ) = CJ*S( I )*A( I, J );
+                  A[I, J] = CJ*S( I )*A( I, J );
                } // 30
             } // 40
          }

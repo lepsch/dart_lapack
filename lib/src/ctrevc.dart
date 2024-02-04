@@ -44,7 +44,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -105,15 +105,15 @@
       // Store the diagonal elements of T in working array WORK.
 
       for (I = 1; I <= N; I++) { // 20
-         WORK( I+N ) = T( I, I );
+         WORK[I+N] = T( I, I );
       } // 20
 
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
 
-      RWORK( 1 ) = ZERO;
+      RWORK[1] = ZERO;
       for (J = 2; J <= N; J++) { // 30
-         RWORK( J ) = SCASUM( J-1, T( 1, J ), 1 );
+         RWORK[J] = SCASUM( J-1, T( 1, J ), 1 );
       } // 30
 
       if ( RIGHTV ) {
@@ -128,25 +128,25 @@
             }
             SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
-            WORK( 1 ) = CMONE;
+            WORK[1] = CMONE;
 
             // Form right-hand side.
 
             for (K = 1; K <= KI - 1; K++) { // 40
-               WORK( K ) = -T( K, KI );
+               WORK[K] = -T( K, KI );
             } // 40
 
             // Solve the triangular system:
                // (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 
             for (K = 1; K <= KI - 1; K++) { // 50
-               T( K, K ) = T( K, K ) - T( KI, KI );
-               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               T[K, K] = T( K, K ) - T( KI, KI );
+               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 50
 
             if ( KI > 1 ) {
                clatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO );
-               WORK( KI ) = SCALE;
+               WORK[KI] = SCALE;
             }
 
             // Copy the vector x or Q*x to VR and normalize.
@@ -159,7 +159,7 @@
                csscal(KI, REMAX, VR( 1, IS ), 1 );
 
                for (K = KI + 1; K <= N; K++) { // 60
-                  VR( K, IS ) = CMZERO;
+                  VR[K, IS] = CMZERO;
                } // 60
             } else {
                if (KI > 1) cgemv( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
@@ -172,7 +172,7 @@
             // Set back the original diagonal elements of T.
 
             for (K = 1; K <= KI - 1; K++) { // 70
-               T( K, K ) = WORK( K+N );
+               T[K, K] = WORK( K+N );
             } // 70
 
             IS = IS - 1;
@@ -191,25 +191,25 @@
             }
             SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
-            WORK( N ) = CMONE;
+            WORK[N] = CMONE;
 
             // Form right-hand side.
 
             for (K = KI + 1; K <= N; K++) { // 90
-               WORK( K ) = -CONJG( T( KI, K ) );
+               WORK[K] = -CONJG( T( KI, K ) );
             } // 90
 
             // Solve the triangular system:
                // (T(KI+1:N,KI+1:N) - T(KI,KI))**H*X = SCALE*WORK.
 
             for (K = KI + 1; K <= N; K++) { // 100
-               T( K, K ) = T( K, K ) - T( KI, KI );
-               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               T[K, K] = T( K, K ) - T( KI, KI );
+               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 100
 
             if ( KI < N ) {
                clatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 ), SCALE, RWORK, INFO );
-               WORK( KI ) = SCALE;
+               WORK[KI] = SCALE;
             }
 
             // Copy the vector x or Q*x to VL and normalize.
@@ -222,7 +222,7 @@
                csscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                for (K = 1; K <= KI - 1; K++) { // 110
-                  VL( K, IS ) = CMZERO;
+                  VL[K, IS] = CMZERO;
                } // 110
             } else {
                if (KI < N) cgemv( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
@@ -235,7 +235,7 @@
             // Set back the original diagonal elements of T.
 
             for (K = KI + 1; K <= N; K++) { // 120
-               T( K, K ) = WORK( K+N );
+               T[K, K] = WORK( K+N );
             } // 120
 
             IS = IS + 1;

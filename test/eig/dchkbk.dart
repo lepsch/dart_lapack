@@ -36,8 +36,8 @@
       // ..
       // .. Executable Statements ..
 
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
       NINFO = 0;
       KNT = 0;
       RMAX = ZERO;
@@ -63,7 +63,7 @@
 
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 1 ) = KNT;
+         LMAX[1] = KNT;
       }
 
       VMAX = ZERO;
@@ -76,7 +76,7 @@
       } // 50
 
       if ( VMAX > RMAX ) {
-         LMAX( 2 ) = KNT;
+         LMAX[2] = KNT;
          RMAX = VMAX;
       }
 

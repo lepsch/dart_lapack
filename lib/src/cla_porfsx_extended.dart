@@ -55,7 +55,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -77,7 +77,7 @@
          Y_PREC_STATE = EXTRA_RESIDUAL;
          if (Y_PREC_STATE == EXTRA_Y) {
             for (I = 1; I <= N; I++) {
-               Y_TAIL( I ) = 0.0;
+               Y_TAIL[I] = 0.0;
             }
          }
 
@@ -200,7 +200,7 @@
                INCR_PREC = false;
                Y_PREC_STATE = Y_PREC_STATE + 1;
                for (I = 1; I <= N; I++) {
-                  Y_TAIL( I ) = 0.0;
+                  Y_TAIL[I] = 0.0;
                }
             }
 
@@ -227,10 +227,10 @@
       // Compute error bounds.
 
          if (N_NORMS >= 1) {
-            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX);
+            ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = FINAL_DX_X / (1 - DXRATMAX);
          }
          if (N_NORMS >= 2) {
-            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX);
+            ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = FINAL_DZ_Z / (1 - DZRATMAX);
          }
 
       // Compute componentwise relative backward error from formula
@@ -245,7 +245,7 @@
          chemv(UPLO, N, CMPLX(-1.0), A, LDA, Y(1,J), 1, CMPLX(1.0), RES, 1);
 
          for (I = 1; I <= N; I++) {
-            AYB( I ) = CABS1( B( I, J ) );
+            AYB[I] = CABS1( B( I, J ) );
          }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).

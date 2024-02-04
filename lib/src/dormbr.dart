@@ -84,7 +84,7 @@
             }
          }
          LWKOPT = NW*NB;
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -96,7 +96,7 @@
 
       // Quick return if possible
 
-      WORK( 1 ) = 1;
+      WORK[1] = 1;
       if (M == 0 || N == 0) return;
 
       if ( APPLYQ ) {
@@ -157,6 +157,6 @@
             dormlq(SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       }
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       return;
       }

@@ -110,11 +110,11 @@
       if ( LOWER ) {
          for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
-            RWORK( I ) = CS;
-            RWORK( NM1+I ) = SN;
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
+            RWORK[I] = CS;
+            RWORK[NM1+I] = SN;
          } // 10
 
          // Update singular vectors if desired
@@ -204,7 +204,7 @@
       LL = 0;
       GO TO 90;
       } // 80
-      E( LL ) = ZERO;
+      E[LL] = ZERO;
 
       // Matrix splits since E(LL) = 0
 
@@ -225,9 +225,9 @@
          // 2 by 2 block, handle separately
 
          slasv2(D( M-1 ), E( M-1 ), D( M ), SIGMN, SIGMX, SINR, COSR, SINL, COSL );
-         D( M-1 ) = SIGMX;
-         E( M-1 ) = ZERO;
-         D( M ) = SIGMN;
+         D[M-1] = SIGMX;
+         E[M-1] = ZERO;
+         D[M] = SIGMN;
 
          // Compute singular vectors, if desired
 
@@ -263,7 +263,7 @@
          // First apply standard test to bottom of matrix
 
          if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ) <= THRESH ) ).abs() {
-            E( M-1 ) = ZERO;
+            E[M-1] = ZERO;
             GO TO 60;
          }
 
@@ -276,7 +276,7 @@
             SMIN = MU;
             for (LLL = LL; LLL <= M - 1; LLL++) { // 100
                if ( ( E( LLL ) ).abs() <= TOL*MU ) {
-                  E( LLL ) = ZERO;
+                  E[LLL] = ZERO;
                   GO TO 60;
                }
                MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
@@ -290,7 +290,7 @@
          // First apply standard test to top of matrix
 
          if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ) <= THRESH ) ).abs() {
-            E( LL ) = ZERO;
+            E[LL] = ZERO;
             GO TO 60;
          }
 
@@ -303,7 +303,7 @@
             SMIN = MU;
             for (LLL = M - 1; LLL >= LL; LLL--) { // 110
                if ( ( E( LLL ) ).abs() <= TOL*MU ) {
-                  E( LLL ) = ZERO;
+                  E[LLL] = ZERO;
                   GO TO 60;
                }
                MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
@@ -359,14 +359,14 @@
                slartg(D( I )*CS, E( I ), CS, SN, R );
                if (I > LL) E( I-1 ) = OLDSN*R;
                slartg(OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) );
-               RWORK( I-LL+1 ) = CS;
-               RWORK( I-LL+1+NM1 ) = SN;
-               RWORK( I-LL+1+NM12 ) = OLDCS;
-               RWORK( I-LL+1+NM13 ) = OLDSN;
+               RWORK[I-LL+1] = CS;
+               RWORK[I-LL+1+NM1] = SN;
+               RWORK[I-LL+1+NM12] = OLDCS;
+               RWORK[I-LL+1+NM13] = OLDSN;
             } // 120
             H = D( M )*CS;
-            D( M ) = H*OLDCS;
-            E( M-1 ) = H*OLDSN;
+            D[M] = H*OLDCS;
+            E[M-1] = H*OLDSN;
 
             // Update singular vectors
 
@@ -389,14 +389,14 @@
                slartg(D( I )*CS, E( I-1 ), CS, SN, R );
                if (I < M) E( I ) = OLDSN*R;
                slartg(OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) );
-               RWORK( I-LL ) = CS;
-               RWORK( I-LL+NM1 ) = -SN;
-               RWORK( I-LL+NM12 ) = OLDCS;
-               RWORK( I-LL+NM13 ) = -OLDSN;
+               RWORK[I-LL] = CS;
+               RWORK[I-LL+NM1] = -SN;
+               RWORK[I-LL+NM12] = OLDCS;
+               RWORK[I-LL+NM13] = -OLDSN;
             } // 130
             H = D( LL )*CS;
-            D( LL ) = H*OLDCS;
-            E( LL ) = H*OLDSN;
+            D[LL] = H*OLDCS;
+            E[LL] = H*OLDSN;
 
             // Update singular vectors
 
@@ -423,23 +423,23 @@
                slartg(F, G, COSR, SINR, R );
                if (I > LL) E( I-1 ) = R;
                F = COSR*D( I ) + SINR*E( I );
-               E( I ) = COSR*E( I ) - SINR*D( I );
+               E[I] = COSR*E( I ) - SINR*D( I );
                G = SINR*D( I+1 );
-               D( I+1 ) = COSR*D( I+1 );
+               D[I+1] = COSR*D( I+1 );
                slartg(F, G, COSL, SINL, R );
-               D( I ) = R;
+               D[I] = R;
                F = COSL*E( I ) + SINL*D( I+1 );
-               D( I+1 ) = COSL*D( I+1 ) - SINL*E( I );
+               D[I+1] = COSL*D( I+1 ) - SINL*E( I );
                if ( I < M-1 ) {
                   G = SINL*E( I+1 );
-                  E( I+1 ) = COSL*E( I+1 );
+                  E[I+1] = COSL*E( I+1 );
                }
-               RWORK( I-LL+1 ) = COSR;
-               RWORK( I-LL+1+NM1 ) = SINR;
-               RWORK( I-LL+1+NM12 ) = COSL;
-               RWORK( I-LL+1+NM13 ) = SINL;
+               RWORK[I-LL+1] = COSR;
+               RWORK[I-LL+1+NM1] = SINR;
+               RWORK[I-LL+1+NM12] = COSL;
+               RWORK[I-LL+1+NM13] = SINL;
             } // 140
-            E( M-1 ) = F;
+            E[M-1] = F;
 
             // Update singular vectors
 
@@ -462,23 +462,23 @@
                slartg(F, G, COSR, SINR, R );
                if (I < M) E( I ) = R;
                F = COSR*D( I ) + SINR*E( I-1 );
-               E( I-1 ) = COSR*E( I-1 ) - SINR*D( I );
+               E[I-1] = COSR*E( I-1 ) - SINR*D( I );
                G = SINR*D( I-1 );
-               D( I-1 ) = COSR*D( I-1 );
+               D[I-1] = COSR*D( I-1 );
                slartg(F, G, COSL, SINL, R );
-               D( I ) = R;
+               D[I] = R;
                F = COSL*E( I-1 ) + SINL*D( I-1 );
-               D( I-1 ) = COSL*D( I-1 ) - SINL*E( I-1 );
+               D[I-1] = COSL*D( I-1 ) - SINL*E( I-1 );
                if ( I > LL+1 ) {
                   G = SINL*E( I-2 );
-                  E( I-2 ) = COSL*E( I-2 );
+                  E[I-2] = COSL*E( I-2 );
                }
-               RWORK( I-LL ) = COSR;
-               RWORK( I-LL+NM1 ) = -SINR;
-               RWORK( I-LL+NM12 ) = COSL;
-               RWORK( I-LL+NM13 ) = -SINL;
+               RWORK[I-LL] = COSR;
+               RWORK[I-LL+NM1] = -SINR;
+               RWORK[I-LL+NM12] = COSL;
+               RWORK[I-LL+NM13] = -SINL;
             } // 150
-            E( LL ) = F;
+            E[LL] = F;
 
             // Test convergence
 
@@ -501,7 +501,7 @@
       } // 160
       for (I = 1; I <= N; I++) { // 170
          if ( D( I ) < ZERO ) {
-            D( I ) = -D( I );
+            D[I] = -D( I );
 
             // Change sign of singular vectors, if desired
 
@@ -528,8 +528,8 @@
 
             // Swap singular values and vectors
 
-            D( ISUB ) = D( N+1-I );
-            D( N+1-I ) = SMIN;
+            D[ISUB] = D( N+1-I );
+            D[N+1-I] = SMIN;
             if (NCVT > 0) cswap( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
             if (NRU > 0) cswap( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 );
             IF( NCC > 0 ) cswap( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );

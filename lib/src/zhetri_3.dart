@@ -57,7 +57,7 @@
          xerbla('ZHETRI_3', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
          return;
       }
 
@@ -67,7 +67,7 @@
 
       zhetri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

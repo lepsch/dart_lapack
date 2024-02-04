@@ -98,7 +98,7 @@
          MINWRK = max( 10*( NMAX+1 ), 3*NMAX*NMAX );
          NB = max( 1, ILAENV( 1, 'DGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'DORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'DORGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( 10*( NMAX+1 ), 2*NMAX+NMAX*NB, 3*NMAX*NMAX );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -20;
@@ -120,8 +120,8 @@
 
       // The values RMAGN(2:3) depend on N, see below.
 
-      RMAGN( 0 ) = ZERO;
-      RMAGN( 1 ) = ONE;
+      RMAGN[0] = ZERO;
+      RMAGN[1] = ONE;
 
       // Loop over matrix sizes
 
@@ -132,8 +132,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 );
-         RMAGN( 3 ) = SAFMIN*ULPINV*DBLE( N1 );
+         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*DBLE( N1 );
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -151,13 +151,13 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 13; J++) { // 30
-               RESULT( J ) = ZERO;
+               RESULT[J] = ZERO;
             } // 30
 
             // Generate test matrices A and B
@@ -220,28 +220,28 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
-                        Q( JR, JC ) = DLARND( 3, ISEED );
-                        Z( JR, JC ) = DLARND( 3, ISEED );
+                        Q[JR, JC] = DLARND( 3, ISEED );
+                        Z[JR, JC] = DLARND( 3, ISEED );
                      } // 40
                      dlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK( 2*N+JC ) = SIGN( ONE, Q( JC, JC ) );
-                     Q( JC, JC ) = ONE;
+                     WORK[2*N+JC] = SIGN( ONE, Q( JC, JC ) );
+                     Q[JC, JC] = ONE;
                      dlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK( 3*N+JC ) = SIGN( ONE, Z( JC, JC ) );
-                     Z( JC, JC ) = ONE;
+                     WORK[3*N+JC] = SIGN( ONE, Z( JC, JC ) );
+                     Z[JC, JC] = ONE;
                   } // 50
-                  Q( N, N ) = ONE;
-                  WORK( N ) = ZERO;
-                  WORK( 3*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
-                  Z( N, N ) = ONE;
-                  WORK( 2*N ) = ZERO;
-                  WORK( 4*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
+                  Q[N, N] = ONE;
+                  WORK[N] = ZERO;
+                  WORK[3*N] = SIGN( ONE, DLARND( 2, ISEED ) );
+                  Z[N, N] = ONE;
+                  WORK[2*N] = ZERO;
+                  WORK[4*N] = SIGN( ONE, DLARND( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
-                        A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
+                        A[JR, JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
                      } // 60
                   } // 70
                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
@@ -255,7 +255,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 80
                } // 90
             }
@@ -271,7 +271,7 @@
             } // 110
 
             for (I = 1; I <= 13; I++) { // 120
-               RESULT( I ) = -ONE;
+               RESULT[I] = -ONE;
             } // 120
 
             // Test with and without sorting of eigenvalues
@@ -298,10 +298,10 @@
                dlacpy('Full', N, N, A, LDA, S, LDA );
                dlacpy('Full', N, N, B, LDA, T, LDA );
                NTEST = 1 + RSUB + ISORT;
-               RESULT( 1+RSUB+ISORT ) = ULPINV;
+               RESULT[1+RSUB+ISORT] = ULPINV;
                dgges3('V', 'V', SORT, DLCTES, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO );
                if ( IINFO != 0 && IINFO != N+2 ) {
-                  RESULT( 1+RSUB+ISORT ) = ULPINV;
+                  RESULT[1+RSUB+ISORT] = ULPINV;
                   WRITE( NOUNIT, FMT = 9999 )'DGGES3', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 160;
@@ -335,13 +335,13 @@
                      if ( J < N ) {
                         if ( S( J+1, J ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5+RSUB ) = ULPINV;
+                           RESULT[5+RSUB] = ULPINV;
                         }
                      }
                      if ( J > 1 ) {
                         if ( S( J, J-1 ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5+RSUB ) = ULPINV;
+                           RESULT[5+RSUB] = ULPINV;
                         }
                      }
 
@@ -356,12 +356,12 @@
                      } else if ( I1 < N-1 ) {
                         if ( S( I1+2, I1+1 ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5+RSUB ) = ULPINV;
+                           RESULT[5+RSUB] = ULPINV;
                         }
                      } else if ( I1 > 1 ) {
                         if ( S( I1, I1-1 ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5+RSUB ) = ULPINV;
+                           RESULT[5+RSUB] = ULPINV;
                         }
                      }
                      if ( !ILABAD ) {
@@ -380,14 +380,14 @@
                      WRITE( NOUNIT, FMT = 9997 )J, N, JTYPE, IOLDSD;
                   }
                } // 130
-               RESULT( 6+RSUB ) = TEMP1;
+               RESULT[6+RSUB] = TEMP1;
 
                if ( ISORT >= 1 ) {
 
                   // Do test 12
 
                   NTEST = 12;
-                  RESULT( 12 ) = ZERO;
+                  RESULT[12] = ZERO;
                   KNTEIG = 0;
                   for (I = 1; I <= N; I++) { // 140
                      if ( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) {
@@ -395,12 +395,12 @@
                      }
                      if ( I < N ) {
                         if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) || DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( !( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
-                           RESULT( 12 ) = ULPINV;
+                           RESULT[12] = ULPINV;
                         }
                      }
                   } // 140
                   if ( SDIM != KNTEIG ) {
-                     RESULT( 12 ) = ULPINV;
+                     RESULT[12] = ULPINV;
                   }
                }
 
@@ -450,7 +450,7 @@
 
       alasvm('DGS', NOUNIT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

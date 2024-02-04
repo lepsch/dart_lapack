@@ -78,7 +78,7 @@
          } else {
             RANK = 1;
             zlascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
-            D( 1 ) = ( D( 1 ) ).abs();
+            D[1] = ( D( 1 ) ).abs();
          }
          return;
       }
@@ -88,14 +88,14 @@
       if ( UPLO == 'L' ) {
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
             if ( NRHS == 1 ) {
                zdrot(1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN );
             } else {
-               RWORK( I*2-1 ) = CS;
-               RWORK( I*2 ) = SN;
+               RWORK[I*2-1] = CS;
+               RWORK[I*2] = SN;
             }
          } // 10
          if ( NRHS > 1 ) {
@@ -146,7 +146,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 50
             for (JROW = 1; JROW <= N; JROW++) { // 40
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 40
          } // 50
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -154,7 +154,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 70
             for (JROW = 1; JROW <= N; JROW++) { // 60
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 60
          } // 70
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
@@ -164,7 +164,7 @@
             for (JROW = 1; JROW <= N; JROW++) { // 80
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 80
          } // 90
 
@@ -189,7 +189,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
             for (JROW = 1; JROW <= N; JROW++) { // 110
                J = J + 1;
-               RWORK( J ) = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = DBLE( B( JROW, JCOL ) );
             } // 110
          } // 120
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -197,7 +197,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
             for (JROW = 1; JROW <= N; JROW++) { // 130
                J = J + 1;
-               RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+               RWORK[J] = DIMAG( B( JROW, JCOL ) );
             } // 130
          } // 140
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
@@ -207,7 +207,7 @@
             for (JROW = 1; JROW <= N; JROW++) { // 150
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 150
          } // 160
 
@@ -257,14 +257,14 @@
 
       for (I = 1; I <= N; I++) { // 170
          if ( ( D( I ) ).abs() < EPS ) {
-            D( I ) = SIGN( EPS, D( I ) );
+            D[I] = SIGN( EPS, D( I ) );
          }
       } // 170
 
       for (I = 1; I <= NM1; I++) { // 240
          if ( ( ( E( I ) ).abs() < EPS ) || ( I == NM1 ) ) {
             NSUB = NSUB + 1;
-            IWORK( NSUB ) = ST;
+            IWORK[NSUB] = ST;
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.
@@ -274,13 +274,13 @@
                // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
             } else if ( ( E( I ) ).abs() >= EPS ) {
 
                // A subproblem with E(NM1) not too small but I = NM1.
 
                NSIZE = N - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
             } else {
 
                // A subproblem with E(NM1) small. This implies an
@@ -288,10 +288,10 @@
                // explicitly.
 
                NSIZE = I - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
                NSUB = NSUB + 1;
-               IWORK( NSUB ) = N;
-               IWORK( SIZEI+NSUB-1 ) = 1;
+               IWORK[NSUB] = N;
+               IWORK[SIZEI+NSUB-1] = 1;
                zcopy(NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N );
             }
             ST1 = ST - 1;
@@ -320,7 +320,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 190
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 180
                      J = J + 1;
-                     RWORK( J ) = DBLE( B( JROW, JCOL ) );
+                     RWORK[J] = DBLE( B( JROW, JCOL ) );
                   } // 180
                } // 190
                dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
@@ -328,7 +328,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 200
                      J = J + 1;
-                     RWORK( J ) = DIMAG( B( JROW, JCOL ) );
+                     RWORK[J] = DIMAG( B( JROW, JCOL ) );
                   } // 200
                } // 210
                dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
@@ -338,7 +338,7 @@
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 220
                      JREAL = JREAL + 1;
                      JIMAG = JIMAG + 1;
-                     B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+                     B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
                   } // 220
                } // 230
 
@@ -376,7 +376,7 @@
             RANK = RANK + 1;
             zlascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
-         D( I ) = ( D( I ) ).abs();
+         D[I] = ( D( I ) ).abs();
       } // 250
 
       // Now apply back the right singular vectors.
@@ -404,7 +404,7 @@
                J = J + N;
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 260
                   JREAL = JREAL + 1;
-                  RWORK( JREAL ) = DBLE( WORK( J+JROW ) );
+                  RWORK[JREAL] = DBLE( WORK( J+JROW ) );
                } // 260
             } // 270
             dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
@@ -414,7 +414,7 @@
                J = J + N;
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 280
                   JIMAG = JIMAG + 1;
-                  RWORK( JIMAG ) = DIMAG( WORK( J+JROW ) );
+                  RWORK[JIMAG] = DIMAG( WORK( J+JROW ) );
                } // 280
             } // 290
             dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
@@ -424,7 +424,7 @@
                for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 300
                   JREAL = JREAL + 1;
                   JIMAG = JIMAG + 1;
-                  B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+                  B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
                } // 300
             } // 310
          } else {

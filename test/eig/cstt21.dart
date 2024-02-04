@@ -38,8 +38,8 @@
 
       // 1)      Constants
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       UNFL = SLAMCH( 'Safe minimum' );
@@ -55,14 +55,14 @@
       TEMP1 = ZERO;
 
       for (J = 1; J <= N - 1; J++) { // 10
-         WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
-         WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
+         WORK[( N+1 )*( J-1 )+1] = AD( J );
+         WORK[( N+1 )*( J-1 )+2] = AE( J );
          TEMP2 = ( AE( J ) ).abs();
          ANORM = max( ANORM, ( AD( J ) ).abs()+TEMP1+TEMP2 );
          TEMP1 = TEMP2;
       } // 10
 
-      WORK( N**2 ) = AD( N );
+      WORK[N**2] = AD( N );
       ANORM = max( ANORM, ( AD( N ) ).abs()+TEMP1, UNFL );
 
       // Norm of A - U S U**H
@@ -80,12 +80,12 @@
       WNORM = CLANHE( '1', 'L', N, WORK, N, RWORK );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
+         RESULT[1] = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT[1] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+            RESULT[1] = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -96,10 +96,10 @@
       cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 40
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
+         WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 40
 
-      RESULT( 2 ) = min( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
+      RESULT[2] = min( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
       return;
       }

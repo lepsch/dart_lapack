@@ -42,7 +42,7 @@
 
       RPVGRW = 1.0;
       for (I = 1; I <= 2*N; I++) {
-         WORK( I ) = 0.0;
+         WORK[I] = 0.0;
       }
 
       // Find the max magnitude entry of each column of A.  Compute the max
@@ -52,15 +52,15 @@
       if ( UPPER ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( N+I ) = max( ( A( I, J ) ).abs(), WORK( N+I ) );
-               WORK( N+J ) = max( ( A( I, J ) ).abs(), WORK( N+J ) );
+               WORK[N+I] = max( ( A( I, J ) ).abs(), WORK( N+I ) );
+               WORK[N+J] = max( ( A( I, J ) ).abs(), WORK( N+J ) );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               WORK( N+I ) = max( ( A( I, J ) ).abs(), WORK( N+I ) );
-               WORK( N+J ) = max( ( A( I, J ) ).abs(), WORK( N+J ) );
+               WORK[N+I] = max( ( A( I, J ) ).abs(), WORK( N+I ) );
+               WORK[N+J] = max( ( A( I, J ) ).abs(), WORK( N+J ) );
             }
          }
       }
@@ -80,24 +80,24 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                for (I = 1; I <= K; I++) {
-                  WORK( K ) = max( ( AF( I, K ) ).abs(), WORK( K ) );
+                  WORK[K] = max( ( AF( I, K ) ).abs(), WORK( K ) );
                }
                K = K - 1;
             } else {
                // 2x2 pivot
                KP = -IPIV( K );
                TMP = WORK( N+K-1 );
-               WORK( N+K-1 ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K-1] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                for (I = 1; I <= K-1; I++) {
-                  WORK( K ) = max( ( AF( I, K ) ).abs(), WORK( K ) );
-                  WORK( K-1 ) = max( ( AF( I, K-1 ) ).abs(), WORK( K-1 ) );
+                  WORK[K] = max( ( AF( I, K ) ).abs(), WORK( K ) );
+                  WORK[K-1] = max( ( AF( I, K-1 ) ).abs(), WORK( K-1 ) );
                }
-               WORK( K ) = max( ( AF( K, K ) ).abs(), WORK( K ) );
+               WORK[K] = max( ( AF( K, K ) ).abs(), WORK( K ) );
                K = K - 2;
             }
          }
@@ -107,15 +107,15 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                K = K + 1;
             } else {
                KP = -IPIV( K );
                TMP = WORK( N+K );
-               WORK( N+K ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                K = K + 2;
             }
          }
@@ -127,24 +127,24 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                for (I = K; I <= N; I++) {
-                  WORK( K ) = max( ( AF( I, K ) ).abs(), WORK( K ) );
+                  WORK[K] = max( ( AF( I, K ) ).abs(), WORK( K ) );
                }
                K = K + 1;
             } else {
                // 2x2 pivot
                KP = -IPIV( K );
                TMP = WORK( N+K+1 );
-               WORK( N+K+1 ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K+1] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                for (I = K+1; I <= N; I++) {
-                  WORK( K ) = max( ( AF( I, K ) ).abs(), WORK( K ) );
-                  WORK( K+1 ) = max( ( AF(I, K+1 ) ).abs(), WORK( K+1 ) );
+                  WORK[K] = max( ( AF( I, K ) ).abs(), WORK( K ) );
+                  WORK[K+1] = max( ( AF(I, K+1 ) ).abs(), WORK( K+1 ) );
                }
-               WORK( K ) = max( ( AF( K, K ) ).abs(), WORK( K ) );
+               WORK[K] = max( ( AF( K, K ) ).abs(), WORK( K ) );
                K = K + 2;
             }
          }
@@ -154,15 +154,15 @@
                KP = IPIV( K );
                if ( KP != K ) {
                   TMP = WORK( N+K );
-                  WORK( N+K ) = WORK( N+KP );
-                  WORK( N+KP ) = TMP;
+                  WORK[N+K] = WORK( N+KP );
+                  WORK[N+KP] = TMP;
                }
                K = K - 1;
             } else {
                KP = -IPIV( K );
                TMP = WORK( N+K );
-               WORK( N+K ) = WORK( N+KP );
-               WORK( N+KP ) = TMP;
+               WORK[N+K] = WORK( N+KP );
+               WORK[N+KP] = TMP;
                K = K - 2;
             }
          }

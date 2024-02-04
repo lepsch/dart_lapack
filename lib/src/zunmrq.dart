@@ -80,7 +80,7 @@
             NB = min( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -161,6 +161,6 @@
             zlarfb(SIDE, TRANST, 'Backward', 'Rowwise', MI, NI, IB, A( I, 1 ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK );
          } // 10
       }
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       return;
       }

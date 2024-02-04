@@ -65,12 +65,12 @@
       BSIZ1 = INT( HALF+sqrt( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) );
       BSIZ2 = INT( HALF+sqrt( REAL( QPTR( CURR+2 )-QPTR( CURR+1 ) ) ) );
       for (K = 1; K <= MID - BSIZ1 - 1; K++) { // 10
-         Z( K ) = ZERO;
+         Z[K] = ZERO;
       } // 10
       scopy(BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1, Z( MID-BSIZ1 ), 1 );
       scopy(BSIZ2, Q( QPTR( CURR+1 ) ), BSIZ2, Z( MID ), 1 );
       for (K = MID + BSIZ2; K <= N; K++) { // 20
-         Z( K ) = ZERO;
+         Z[K] = ZERO;
       } // 20
 
       // Loop through remaining levels 1 -> CURLVL applying the Givens
@@ -95,10 +95,10 @@
          PSIZ1 = PRMPTR( CURR+1 ) - PRMPTR( CURR );
          PSIZ2 = PRMPTR( CURR+2 ) - PRMPTR( CURR+1 );
          for (I = 0; I <= PSIZ1 - 1; I++) { // 50
-            ZTEMP( I+1 ) = Z( ZPTR1+PERM( PRMPTR( CURR )+I )-1 );
+            ZTEMP[I+1] = Z( ZPTR1+PERM( PRMPTR( CURR )+I )-1 );
          } // 50
          for (I = 0; I <= PSIZ2 - 1; I++) { // 60
-            ZTEMP( PSIZ1+I+1 ) = Z( MID+PERM( PRMPTR( CURR+1 )+I )-1 );
+            ZTEMP[PSIZ1+I+1] = Z( MID+PERM( PRMPTR( CURR+1 )+I )-1 );
          } // 60
 
          // Multiply Blocks at CURR and CURR+1

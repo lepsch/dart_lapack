@@ -65,7 +65,7 @@
          LHTRD = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWTRD = ILAENV2STAGE( 4, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWMIN = 2*N + LHTRD + LWTRD;
-         WORK( 1 )  = LWMIN;
+         WORK[1] = LWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
@@ -130,6 +130,6 @@
          }
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

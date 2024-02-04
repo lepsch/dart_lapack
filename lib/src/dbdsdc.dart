@@ -78,13 +78,13 @@
       SMLSIZ = ILAENV( 9, 'DBDSDC', ' ', 0, 0, 0, 0 );
       if ( N == 1 ) {
          if ( ICOMPQ == 1 ) {
-            Q( 1 ) = SIGN( ONE, D( 1 ) );
-            Q( 1+SMLSIZ*N ) = ONE;
+            Q[1] = SIGN( ONE, D( 1 ) );
+            Q[1+SMLSIZ*N] = ONE;
          } else if ( ICOMPQ == 2 ) {
-            U( 1, 1 ) = SIGN( ONE, D( 1 ) );
-            VT( 1, 1 ) = ONE;
+            U[1, 1] = SIGN( ONE, D( 1 ) );
+            VT[1, 1] = ONE;
          }
-         D( 1 ) = ( D( 1 ) ).abs();
+         D[1] = ( D( 1 ) ).abs();
          return;
       }
       NM1 = N - 1;
@@ -103,15 +103,15 @@
          if (ICOMPQ == 2) WSTART = 2*N - 1;
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
             if ( ICOMPQ == 1 ) {
-               Q( I+2*N ) = CS;
-               Q( I+3*N ) = SN;
+               Q[I+2*N] = CS;
+               Q[I+3*N] = SN;
             } else if ( ICOMPQ == 2 ) {
-               WORK( I ) = CS;
-               WORK( NM1+I ) = -SN;
+               WORK[I] = CS;
+               WORK[NM1+I] = -SN;
             }
          } // 10
       }
@@ -180,7 +180,7 @@
 
       for (I = 1; I <= N; I++) { // 20
          if ( ( D( I ) ).abs() < EPS ) {
-            D( I ) = SIGN( EPS, D( I ) );
+            D[I] = SIGN( EPS, D( I ) );
          }
       } // 20
 
@@ -211,13 +211,13 @@
 
                NSIZE = I - START + 1;
                if ( ICOMPQ == 2 ) {
-                  U( N, N ) = SIGN( ONE, D( N ) );
-                  VT( N, N ) = ONE;
+                  U[N, N] = SIGN( ONE, D( N ) );
+                  VT[N, N] = ONE;
                } else if ( ICOMPQ == 1 ) {
-                  Q( N+( QSTART-1 )*N ) = SIGN( ONE, D( N ) );
-                  Q( N+( SMLSIZ+QSTART-1 )*N ) = ONE;
+                  Q[N+( QSTART-1 )*N] = SIGN( ONE, D( N ) );
+                  Q[N+( SMLSIZ+QSTART-1 )*N] = ONE;
                }
-               D( N ) = ( D( N ) ).abs();
+               D[N] = ( D( N ) ).abs();
             }
             if ( ICOMPQ == 2 ) {
                dlasd0(NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO );
@@ -249,16 +249,16 @@
             }
          } // 50
          if ( KK != I ) {
-            D( KK ) = D( I );
-            D( I ) = P;
+            D[KK] = D( I );
+            D[I] = P;
             if ( ICOMPQ == 1 ) {
-               IQ( I ) = KK;
+               IQ[I] = KK;
             } else if ( ICOMPQ == 2 ) {
                dswap(N, U( 1, I ), 1, U( 1, KK ), 1 );
                dswap(N, VT( I, 1 ), LDVT, VT( KK, 1 ), LDVT );
             }
          } else if ( ICOMPQ == 1 ) {
-            IQ( I ) = I;
+            IQ[I] = I;
          }
       } // 60
 
@@ -266,9 +266,9 @@
 
       if ( ICOMPQ == 1 ) {
          if ( IUPLO == 1 ) {
-            IQ( N ) = 1;
+            IQ[N] = 1;
          } else {
-            IQ( N ) = 0;
+            IQ[N] = 0;
          }
       }
 

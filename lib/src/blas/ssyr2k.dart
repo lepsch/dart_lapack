@@ -76,13 +76,13 @@
               if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 10
                   } // 20
               } else {
                   for (J = 1; J <= N; J++) { // 40
                       for (I = 1; I <= J; I++) { // 30
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 30
                   } // 40
               }
@@ -90,13 +90,13 @@
               if (BETA == ZERO) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 50
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
                       for (I = J; I <= N; I++) { // 70
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 70
                   } // 80
               }
@@ -114,11 +114,11 @@
               for (J = 1; J <= N; J++) { // 130
                   if (BETA == ZERO) {
                       for (I = 1; I <= J; I++) { // 90
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 90
                   } else if (BETA != ONE) {
                       for (I = 1; I <= J; I++) { // 100
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 100
                   }
                   for (L = 1; L <= K; L++) { // 120
@@ -126,7 +126,7 @@
                           TEMP1 = ALPHA*B(J,L);
                           TEMP2 = ALPHA*A(J,L);
                           for (I = 1; I <= J; I++) { // 110
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
+                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
                           } // 110
                       }
                   } // 120
@@ -135,11 +135,11 @@
               for (J = 1; J <= N; J++) { // 180
                   if (BETA == ZERO) {
                       for (I = J; I <= N; I++) { // 140
-                          C(I,J) = ZERO;
+                          C[I,J] = ZERO;
                       } // 140
                   } else if (BETA != ONE) {
                       for (I = J; I <= N; I++) { // 150
-                          C(I,J) = BETA*C(I,J);
+                          C[I,J] = BETA*C(I,J);
                       } // 150
                   }
                   for (L = 1; L <= K; L++) { // 170
@@ -147,7 +147,7 @@
                           TEMP1 = ALPHA*B(J,L);
                           TEMP2 = ALPHA*A(J,L);
                           for (I = J; I <= N; I++) { // 160
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
+                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
                           } // 160
                       }
                   } // 170
@@ -167,9 +167,9 @@
                           TEMP2 = TEMP2 + B(L,I)*A(L,J);
                       } // 190
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2;
+                          C[I,J] = ALPHA*TEMP1 + ALPHA*TEMP2;
                       } else {
-                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
+                          C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
                       }
                   } // 200
               } // 210
@@ -183,9 +183,9 @@
                           TEMP2 = TEMP2 + B(L,I)*A(L,J);
                       } // 220
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2;
+                          C[I,J] = ALPHA*TEMP1 + ALPHA*TEMP2;
                       } else {
-                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
+                          C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
                       }
                   } // 230
               } // 240

@@ -67,8 +67,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'ES';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'ES';
 
       // Check for errors
 
@@ -142,7 +142,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -201,7 +201,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = DCMPLX( ANORM );
+                  A[JCOL, JCOL] = DCMPLX( ANORM );
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -209,7 +209,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = DCMPLX( ANORM );
+                  A[JCOL, JCOL] = DCMPLX( ANORM );
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 
@@ -295,7 +295,7 @@
                // Initialize RESULT
 
                for (J = 1; J <= 13; J++) { // 100
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 100
 
                // Test with and without sorting of eigenvalues
@@ -314,7 +314,7 @@
                   zlacpy('F', N, N, A, LDA, H, LDA );
                   zgees('V', SORT, ZSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     RESULT( 1+RSUB ) = ULPINV;
+                     RESULT[1+RSUB] = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES1', IINFO, N, JTYPE, IOLDSD;
                      INFO = ( IINFO ).abs();
                      GO TO 190;
@@ -322,7 +322,7 @@
 
                   // Do Test (1) or Test (7)
 
-                  RESULT( 1+RSUB ) = ZERO;
+                  RESULT[1+RSUB] = ZERO;
                   for (J = 1; J <= N - 1; J++) { // 120
                      for (I = J + 1; I <= N; I++) { // 110
                         if( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV;
@@ -333,12 +333,12 @@
 
                   LWORK = max( 1, 2*N*N );
                   zhst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES );
-                  RESULT( 2+RSUB ) = RES( 1 );
-                  RESULT( 3+RSUB ) = RES( 2 );
+                  RESULT[2+RSUB] = RES( 1 );
+                  RESULT[3+RSUB] = RES( 2 );
 
                   // Do Test (4) or Test (10)
 
-                  RESULT( 4+RSUB ) = ZERO;
+                  RESULT[4+RSUB] = ZERO;
                   for (I = 1; I <= N; I++) { // 130
                      if( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV;
                   } // 130
@@ -348,13 +348,13 @@
                   zlacpy('F', N, N, A, LDA, HT, LDA );
                   zgees('N', SORT, ZSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     RESULT( 5+RSUB ) = ULPINV;
+                     RESULT[5+RSUB] = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES2', IINFO, N, JTYPE, IOLDSD;
                      INFO = ( IINFO ).abs();
                      GO TO 190;
                   }
 
-                  RESULT( 5+RSUB ) = ZERO;
+                  RESULT[5+RSUB] = ZERO;
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= N; I++) { // 140
                         if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
@@ -363,7 +363,7 @@
 
                   // Do Test (6) or Test (12)
 
-                  RESULT( 6+RSUB ) = ZERO;
+                  RESULT[6+RSUB] = ZERO;
                   for (I = 1; I <= N; I++) { // 160
                      if( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV;
                   } // 160
@@ -371,12 +371,12 @@
                   // Do Test (13)
 
                   if ( ISORT == 1 ) {
-                     RESULT( 13 ) = ZERO;
+                     RESULT[13] = ZERO;
                      KNTEIG = 0;
                      for (I = 1; I <= N; I++) { // 170
                         if( ZSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1;
                         if ( I < N ) {
-                           if( ZSLECT( W( I+1 ) ) && ( !ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV;
+                           if[ZSLECT( W( I+1 ) ) && ( !ZSLECT( W( I ) ) ) )RESULT( 13] = ULPINV;
                         }
                      } // 170
                      if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

@@ -63,7 +63,7 @@
          // Find pivot and test for singularity.
 
          JP = J - 1 + ISAMAX( M-J+1, A( J, J ), 1 );
-         IPIV( J ) = JP;
+         IPIV[J] = JP;
          if ( A( JP, J ) != ZERO ) {
 
             // Apply the interchange to columns 1:N.
@@ -77,7 +77,7 @@
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) { // 20
-                    A( J+I, J ) = A( J+I, J ) / A( J, J );
+                    A[J+I, J] = A( J+I, J ) / A( J, J );
                  } // 20
                }
             }

@@ -70,8 +70,8 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LOPT;
-         IWORK( 1 ) = LIOPT;
+         WORK[1] = LOPT;
+         IWORK[1] = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
@@ -138,8 +138,8 @@
          }
       }
 
-      WORK( 1 ) = LOPT;
-      IWORK( 1 ) = LIOPT;
+      WORK[1] = LOPT;
+      IWORK[1] = LIOPT;
 
       return;
       }

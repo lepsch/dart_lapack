@@ -77,8 +77,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -123,7 +123,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            WORK( I ) = ( B( I, J ) ).abs();
+            WORK[I] = ( B( I, J ) ).abs();
          } // 30
 
          // Compute abs(op(A))*abs(X) + abs(B).
@@ -132,7 +132,7 @@
             for (K = 1; K <= N; K++) { // 50
                XK = ( X( K, J ) ).abs();
                for (I = 1; I <= N; I++) { // 40
-                  WORK( I ) = WORK( I ) + ( A( I, K ) ).abs()*XK;
+                  WORK[I] = WORK( I ) + ( A( I, K ) ).abs()*XK;
                } // 40
             } // 50
          } else {
@@ -141,7 +141,7 @@
                for (I = 1; I <= N; I++) { // 60
                   S = S + ( A( I, K ) ).abs()*( X( I, J ) ).abs();
                } // 60
-               WORK( K ) = WORK( K ) + S;
+               WORK[K] = WORK( K ) + S;
             } // 70
          }
          S = ZERO;
@@ -152,7 +152,7 @@
                S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 80
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -195,9 +195,9 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 90
 
@@ -211,14 +211,14 @@
 
                sgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 110
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 110
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 120
                sgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO );
             }

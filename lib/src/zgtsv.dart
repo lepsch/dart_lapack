@@ -31,7 +31,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -68,28 +68,28 @@
             // No row interchange required
 
             MULT = DL( K ) / D( K );
-            D( K+1 ) = D( K+1 ) - MULT*DU( K );
+            D[K+1] = D( K+1 ) - MULT*DU( K );
             for (J = 1; J <= NRHS; J++) { // 10
-               B( K+1, J ) = B( K+1, J ) - MULT*B( K, J );
+               B[K+1, J] = B( K+1, J ) - MULT*B( K, J );
             } // 10
-            if( K < ( N-1 ) ) DL( K ) = ZERO;
+            if[K < ( N-1 ) ) DL( K] = ZERO;
          } else {
 
             // Interchange rows K and K+1
 
             MULT = D( K ) / DL( K );
-            D( K ) = DL( K );
+            D[K] = DL( K );
             TEMP = D( K+1 );
-            D( K+1 ) = DU( K ) - MULT*TEMP;
+            D[K+1] = DU( K ) - MULT*TEMP;
             if ( K < ( N-1 ) ) {
-               DL( K ) = DU( K+1 );
-               DU( K+1 ) = -MULT*DL( K );
+               DL[K] = DU( K+1 );
+               DU[K+1] = -MULT*DL( K );
             }
-            DU( K ) = TEMP;
+            DU[K] = TEMP;
             for (J = 1; J <= NRHS; J++) { // 20
                TEMP = B( K, J );
-               B( K, J ) = B( K+1, J );
-               B( K+1, J ) = TEMP - MULT*B( K+1, J );
+               B[K, J] = B( K+1, J );
+               B[K+1, J] = TEMP - MULT*B( K+1, J );
             } // 20
          }
       } // 30
@@ -101,10 +101,10 @@
       // Back solve with the matrix U from the factorization.
 
       for (J = 1; J <= NRHS; J++) { // 50
-         B( N, J ) = B( N, J ) / D( N );
+         B[N, J] = B( N, J ) / D( N );
          if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
          for (K = N - 2; K >= 1; K--) { // 40
-            B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K );
+            B[K, J] = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K );
          } // 40
       } // 50
 

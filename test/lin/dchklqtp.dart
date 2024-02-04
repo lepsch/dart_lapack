@@ -43,8 +43,8 @@
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'D';
-      PATH( 2: 3 ) = 'XQ';
+      PATH[1: 1] = 'D';
+      PATH[2: 3] = 'XQ';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;

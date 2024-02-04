@@ -86,11 +86,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = REAL( AP( 1 ) );
+            W[1] = REAL( AP( 1 ) );
          } else {
             if ( VL < REAL( AP( 1 ) ) && VU >= REAL( AP( 1 ) ) ) {
                M = 1;
-               W( 1 ) = REAL( AP( 1 ) );
+               W[1] = REAL( AP( 1 ) );
             }
          }
          if (WANTZ) Z( 1, 1 ) = CONE;
@@ -165,7 +165,7 @@
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 10
             }
          }
@@ -225,15 +225,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( 1 + I-1 );
-               W( I ) = W( J );
-               IWORK( 1 + I-1 ) = IWORK( 1 + J-1 );
-               W( J ) = TMP1;
-               IWORK( 1 + J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[1 + I-1] = IWORK( 1 + J-1 );
+               W[J] = TMP1;
+               IWORK[1 + J-1] = ITMP1;
                cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 40

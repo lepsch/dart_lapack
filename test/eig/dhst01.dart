@@ -36,8 +36,8 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RESULT( 1 ) = ZERO;
-         RESULT( 2 ) = ZERO;
+         RESULT[1] = ZERO;
+         RESULT[2] = ZERO;
          return;
       }
 
@@ -66,7 +66,7 @@
 
       // Note that RESULT(1) cannot overflow and is bounded by 1/(N*EPS)
 
-      RESULT( 1 ) = min( WNORM, ANORM ) / max( SMLNUM, ANORM*EPS ) / N;
+      RESULT[1] = min( WNORM, ANORM ) / max( SMLNUM, ANORM*EPS ) / N;
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 

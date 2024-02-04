@@ -82,7 +82,7 @@
       } else {
          LWMIN = LSCALE + LANRM;
       }
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
 
       // Test the input parameters.
 
@@ -115,7 +115,7 @@
       // Initialize scaling factors
 
       for (KK = 1; KK <= NRHS; KK++) {
-         SCALE( KK ) = ONE;
+         SCALE[KK] = ONE;
       }
 
       // Quick return if possible
@@ -159,10 +159,10 @@
 
             if ( NOTRAN ) {
                ANRM = ZLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
-               WORK( AWRK + I+(J-1)*NBA ) = ANRM;
+               WORK[AWRK + I+(J-1)*NBA] = ANRM;
             } else {
                ANRM = ZLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
-               WORK( AWRK + J+(I-1) * NBA ) = ANRM;
+               WORK[AWRK + J+(I-1) * NBA] = ANRM;
             }
             TMAX = max( TMAX, ANRM );
          }
@@ -200,7 +200,7 @@
 
          for (KK = 1; KK <= K2 - K1; KK++) {
             for (I = 1; I <= NBA; I++) {
-               WORK( I+KK*LDS ) = ONE;
+               WORK[I+KK*LDS] = ONE;
             }
          }
 
@@ -252,23 +252,23 @@
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
                // growth in the linear updates.
-               XNRM( KK ) = ZLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W );
+               XNRM[KK] = ZLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W );
 
                if ( SCALOC == ZERO ) {
                   // LATRS found that A is singular through A(j,j) = 0.
                   // Reset the computation x(1:n) = 0, x(j) = 1, SCALE = 0
                   // and compute op(A)*x = 0. Note that X(J1:J2-1, KK) is
                   // set by LATRS.
-                  SCALE( RHS ) = ZERO;
+                  SCALE[RHS] = ZERO;
                   for (II = 1; II <= J1-1; II++) {
-                     X( II, KK ) = CZERO;
+                     X[II, KK] = CZERO;
                   }
                   for (II = J2; II <= N; II++) {
-                     X( II, KK ) = CZERO;
+                     X[II, KK] = CZERO;
                   }
                   // Discard the local scale factors.
                   for (II = 1; II <= NBA; II++) {
-                     WORK( II+KK*LDS ) = ONE;
+                     WORK[II+KK*LDS] = ONE;
                   }
                   SCALOC = ONE;
                } else if ( SCALOC*WORK( J+KK*LDS ) == ZERO ) {
@@ -280,13 +280,13 @@
                   // factor and increase SCALOC accordingly.
                   SCAL = WORK( J+KK*LDS ) / SMLNUM;
                   SCALOC = SCALOC * SCAL;
-                  WORK( J+KK*LDS ) = SMLNUM;
+                  WORK[J+KK*LDS] = SMLNUM;
                   // If LATRS overestimated the growth, x may be
                   // rescaled to preserve a valid combined scale
                   // factor WORK( J, KK ) > 0.
                   RSCAL = ONE / SCALOC;
                   if ( XNRM( KK )*RSCAL <= BIGNUM ) {
-                     XNRM( KK ) = XNRM( KK ) * RSCAL;
+                     XNRM[KK] = XNRM( KK ) * RSCAL;
                      zdscal(J2-J1, RSCAL, X( J1, RHS ), 1 );
                      SCALOC = ONE;
                   } else {
@@ -295,19 +295,19 @@
                      // Set x to zero. This approach deviates from LATRS
                      // where a completely meaningless non-zero vector
                      // is returned that is not a solution to op(A) * x = b.
-                     SCALE( RHS ) = ZERO;
+                     SCALE[RHS] = ZERO;
                      for (II = 1; II <= N; II++) {
-                        X( II, KK ) = CZERO;
+                        X[II, KK] = CZERO;
                      }
                      // Discard the local scale factors.
                      for (II = 1; II <= NBA; II++) {
-                        WORK( II+KK*LDS ) = ONE;
+                        WORK[II+KK*LDS] = ONE;
                      }
                      SCALOC = ONE;
                   }
                }
                SCALOC = SCALOC * WORK( J+KK*LDS );
-               WORK( J+KK*LDS ) = SCALOC;
+               WORK[J+KK*LDS] = SCALOC;
             }
 
             // Linear block updates
@@ -357,7 +357,7 @@
 
                   BNRM = ZLANGE( 'I', I2-I1, 1, X( I1, RHS ), LDX, W );
                   BNRM = BNRM*( SCAMIN / WORK( I+KK*LDS ) );
-                  XNRM( KK ) = XNRM( KK )*( SCAMIN / WORK( J+KK*LDS) );
+                  XNRM[KK] = XNRM( KK )*( SCAMIN / WORK( J+KK*LDS) );
                   ANRM = WORK( AWRK + I+(J-1)*NBA );
                   SCALOC = DLARMM( ANRM, XNRM( KK ), BNRM );
 
@@ -367,13 +367,13 @@
                   SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC;
                   if ( SCAL != ONE ) {
                      zdscal(I2-I1, SCAL, X( I1, RHS ), 1 );
-                     WORK( I+KK*LDS ) = SCAMIN*SCALOC;
+                     WORK[I+KK*LDS] = SCAMIN*SCALOC;
                   }
 
                   SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC;
                   if ( SCAL != ONE ) {
                      zdscal(J2-J1, SCAL, X( J1, RHS ), 1 );
-                     WORK( J+KK*LDS ) = SCAMIN*SCALOC;
+                     WORK[J+KK*LDS] = SCAMIN*SCALOC;
                   }
                }
 
@@ -402,7 +402,7 @@
          for (KK = 1; KK <= K2 - K1; KK++) {
             RHS = K1 + KK - 1;
             for (I = 1; I <= NBA; I++) {
-               SCALE( RHS ) = min( SCALE( RHS ), WORK( I+KK*LDS ) );
+               SCALE[RHS] = min( SCALE( RHS ), WORK( I+KK*LDS ) );
             }
          }
 

@@ -71,7 +71,7 @@
 
             // Compute the (K,K) element
 
-            AFAC( K, K ) = T + ZDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
+            AFAC[K, K] = T + ZDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
 
             // Compute elements (1:K-1,K)
 
@@ -84,7 +84,7 @@
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            AFAC( I, J ) = AFAC( I, J ) - A( I, J );
+            AFAC[I, J] = AFAC( I, J ) - A( I, J );
          } // 20
       } // 30
 

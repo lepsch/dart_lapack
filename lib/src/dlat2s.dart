@@ -39,7 +39,7 @@
                   INFO = 1;
                   GO TO 50;
                }
-               SA( I, J ) = REAL( A( I, J ) );
+               SA[I, J] = REAL( A( I, J ) );
             } // 10
          } // 20
       } else {
@@ -49,7 +49,7 @@
                   INFO = 1;
                   GO TO 50;
                }
-               SA( I, J ) = REAL( A( I, J ) );
+               SA[I, J] = REAL( A( I, J ) );
             } // 30
          } // 40
       }

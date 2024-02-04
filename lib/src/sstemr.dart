@@ -113,8 +113,8 @@
       RMAX = min( sqrt( BIGNUM ), ONE / sqrt( sqrt( SAFMIN ) ) );
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
+         IWORK[1] = LIWMIN;
 
          if ( WANTZ && ALLEIG ) {
             NZCMIN = N;
@@ -127,7 +127,7 @@
             NZCMIN = 0;
          }
          if ( ZQUERY && INFO == 0 ) {
-            Z( 1,1 ) = NZCMIN;
+            Z[1,1] = NZCMIN;
          } else if ( NZC < NZCMIN && !ZQUERY ) {
             INFO = -14;
          }
@@ -150,17 +150,17 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = D( 1 );
+            W[1] = D( 1 );
          } else {
             if ( WL < D( 1 ) && WU >= D( 1 ) ) {
                M = 1;
-               W( 1 ) = D( 1 );
+               W[1] = D( 1 );
             }
          }
          if ( WANTZ && ( !ZQUERY) ) {
-            Z( 1, 1 ) = ONE;
-            ISUPPZ(1) = 1;
-            ISUPPZ(2) = 1;
+            Z[1, 1] = ONE;
+            ISUPPZ[1] = 1;
+            ISUPPZ[2] = 1;
          }
          return;
       }
@@ -175,60 +175,60 @@
          // the following code requires R1 >= R2. Hence, we correct
          // the order of R1, R2, CS, SN if R1 < R2 before further processing.
          if ( R1 < R2 ) {
-            E(2) = R1;
+            E[2] = R1;
             R1 = R2;
             R2 = E(2);
             LAESWAP = true;
          }
          if ( ALLEIG || (VALEIG && (R2 > WL) && (R2 <= WU)) || (INDEIG && (IIL == 1)) ) {
             M = M+1;
-            W( M ) = R2;
+            W[M] = R2;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z( 1, M ) = CS;
-                  Z( 2, M ) = SN;
+                  Z[1, M] = CS;
+                  Z[2, M] = SN;
                } else {
-                  Z( 1, M ) = -SN;
-                  Z( 2, M ) = CS;
+                  Z[1, M] = -SN;
+                  Z[2, M] = CS;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {
                   if (CS != ZERO) {
-                     ISUPPZ(2*M-1) = 1;
-                     ISUPPZ(2*M) = 2;
+                     ISUPPZ[2*M-1] = 1;
+                     ISUPPZ[2*M] = 2;
                   } else {
-                     ISUPPZ(2*M-1) = 1;
-                     ISUPPZ(2*M) = 1;
+                     ISUPPZ[2*M-1] = 1;
+                     ISUPPZ[2*M] = 1;
                   }
                } else {
-                  ISUPPZ(2*M-1) = 2;
-                  ISUPPZ(2*M) = 2;
+                  ISUPPZ[2*M-1] = 2;
+                  ISUPPZ[2*M] = 2;
                }
             }
          }
          if ( ALLEIG || (VALEIG && (R1 > WL) && (R1 <= WU)) || (INDEIG && (IIU == 2)) ) {
             M = M+1;
-            W( M ) = R1;
+            W[M] = R1;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z( 1, M ) = -SN;
-                  Z( 2, M ) = CS;
+                  Z[1, M] = -SN;
+                  Z[2, M] = CS;
                } else {
-                  Z( 1, M ) = CS;
-                  Z( 2, M ) = SN;
+                  Z[1, M] = CS;
+                  Z[2, M] = SN;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {
                   if (CS != ZERO) {
-                     ISUPPZ(2*M-1) = 1;
-                     ISUPPZ(2*M) = 2;
+                     ISUPPZ[2*M-1] = 1;
+                     ISUPPZ[2*M] = 2;
                   } else {
-                     ISUPPZ(2*M-1) = 1;
-                     ISUPPZ(2*M) = 1;
+                     ISUPPZ[2*M-1] = 1;
+                     ISUPPZ[2*M] = 1;
                   }
                } else {
-                  ISUPPZ(2*M-1) = 2;
-                  ISUPPZ(2*M) = 2;
+                  ISUPPZ[2*M-1] = 2;
+                  ISUPPZ[2*M] = 2;
                }
             }
          }
@@ -303,7 +303,7 @@
          }
          // Store the squares of the offdiagonal values of T
          for (J = 1; J <= N-1; J++) { // 5
-            WORK( INDE2+J-1 ) = E(J)**2;
+            WORK[INDE2+J-1] = E(J)**2;
       } // 5
 
          // Set the tolerance parameters for bisection
@@ -347,7 +347,7 @@
             // eigenvalues of the original matrix.
             for (J = 1; J <= M; J++) { // 20
                ITMP = IWORK( IINDBL+J-1 );
-               W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) );
+               W[J] = W( J ) + E( IWORK( IINSPL+ITMP-1 ) );
          } // 20
          }
 
@@ -412,16 +412,16 @@
                   }
                } // 50
                if ( I != 0 ) {
-                  W( I ) = W( J );
-                  W( J ) = TMP;
+                  W[I] = W( J );
+                  W[J] = TMP;
                   if ( WANTZ ) {
                      sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                      ITMP = ISUPPZ( 2*I-1 );
-                     ISUPPZ( 2*I-1 ) = ISUPPZ( 2*J-1 );
-                     ISUPPZ( 2*J-1 ) = ITMP;
+                     ISUPPZ[2*I-1] = ISUPPZ( 2*J-1 );
+                     ISUPPZ[2*J-1] = ITMP;
                      ITMP = ISUPPZ( 2*I );
-                     ISUPPZ( 2*I ) = ISUPPZ( 2*J );
-                     ISUPPZ( 2*J ) = ITMP;
+                     ISUPPZ[2*I] = ISUPPZ( 2*J );
+                     ISUPPZ[2*J] = ITMP;
                   }
                }
             } // 60
@@ -429,7 +429,7 @@
       }
 
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
+      IWORK[1] = LIWMIN;
       return;
       }

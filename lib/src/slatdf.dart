@@ -63,9 +63,9 @@
             SMINU = SDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 );
             SPLUS = SPLUS*RHS( J );
             if ( SPLUS > SMINU ) {
-               RHS( J ) = BP;
+               RHS[J] = BP;
             } else if ( SMINU > SPLUS ) {
-               RHS( J ) = BM;
+               RHS[J] = BM;
             } else {
 
                // In this case the updating sums are equal and we can
@@ -74,7 +74,7 @@
                // get good estimates of matrices like Byers well-known
                // example (see [1]). (Not done in BSOLVE.)
 
-               RHS( J ) = RHS( J ) + PMONE;
+               RHS[J] = RHS( J ) + PMONE;
                PMONE = ONE;
             }
 
@@ -91,17 +91,17 @@
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
          scopy(N-1, RHS, 1, XP, 1 );
-         XP( N ) = RHS( N ) + ONE;
-         RHS( N ) = RHS( N ) - ONE;
+         XP[N] = RHS( N ) + ONE;
+         RHS[N] = RHS( N ) - ONE;
          SPLUS = ZERO;
          SMINU = ZERO;
          for (I = N; I >= 1; I--) { // 30
             TEMP = ONE / Z( I, I );
-            XP( I ) = XP( I )*TEMP;
-            RHS( I ) = RHS( I )*TEMP;
+            XP[I] = XP( I )*TEMP;
+            RHS[I] = RHS( I )*TEMP;
             for (K = I + 1; K <= N; K++) { // 20
-               XP( I ) = XP( I ) - XP( K )*( Z( I, K )*TEMP );
-               RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
+               XP[I] = XP( I ) - XP( K )*( Z( I, K )*TEMP );
+               RHS[I] = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
             } // 20
             SPLUS = SPLUS + ( XP( I ) ).abs();
             SMINU = SMINU + ( RHS( I ) ).abs();

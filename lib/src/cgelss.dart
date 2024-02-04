@@ -163,7 +163,7 @@
             }
             MAXWRK = max( MINWRK, MAXWRK );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if (LWORK < MINWRK && !LQUERY) INFO = -12;
       }
@@ -515,6 +515,6 @@
          clascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
       } // 70
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

@@ -73,12 +73,12 @@
                   TEMP = ALPHA*X( J );
                   K = KK;
                   for (I = 1; I <= J - 1; I++) { // 10
-                     AP( K ) = AP( K ) + X( I )*TEMP;
+                     AP[K] = AP( K ) + X( I )*TEMP;
                      K = K + 1;
                   } // 10
-                  AP( KK+J-1 ) = AP( KK+J-1 ) + X( J )*TEMP;
+                  AP[KK+J-1] = AP( KK+J-1 ) + X( J )*TEMP;
                } else {
-                  AP( KK+J-1 ) = AP( KK+J-1 );
+                  AP[KK+J-1] = AP( KK+J-1 );
                }
                KK = KK + J;
             } // 20
@@ -89,12 +89,12 @@
                   TEMP = ALPHA*X( JX );
                   IX = KX;
                   for (K = KK; K <= KK + J - 2; K++) { // 30
-                     AP( K ) = AP( K ) + X( IX )*TEMP;
+                     AP[K] = AP( K ) + X( IX )*TEMP;
                      IX = IX + INCX;
                   } // 30
-                  AP( KK+J-1 ) = AP( KK+J-1 ) + X( JX )*TEMP;
+                  AP[KK+J-1] = AP( KK+J-1 ) + X( JX )*TEMP;
                } else {
-                  AP( KK+J-1 ) = AP( KK+J-1 );
+                  AP[KK+J-1] = AP( KK+J-1 );
                }
                JX = JX + INCX;
                KK = KK + J;
@@ -108,14 +108,14 @@
             for (J = 1; J <= N; J++) { // 60
                if ( X( J ) != ZERO ) {
                   TEMP = ALPHA*X( J );
-                  AP( KK ) = AP( KK ) + TEMP*X( J );
+                  AP[KK] = AP( KK ) + TEMP*X( J );
                   K = KK + 1;
                   for (I = J + 1; I <= N; I++) { // 50
-                     AP( K ) = AP( K ) + X( I )*TEMP;
+                     AP[K] = AP( K ) + X( I )*TEMP;
                      K = K + 1;
                   } // 50
                } else {
-                  AP( KK ) = AP( KK );
+                  AP[KK] = AP( KK );
                }
                KK = KK + N - J + 1;
             } // 60
@@ -124,14 +124,14 @@
             for (J = 1; J <= N; J++) { // 80
                if ( X( JX ) != ZERO ) {
                   TEMP = ALPHA*X( JX );
-                  AP( KK ) = AP( KK ) + TEMP*X( JX );
+                  AP[KK] = AP( KK ) + TEMP*X( JX );
                   IX = JX;
                   for (K = KK + 1; K <= KK + N - J; K++) { // 70
                      IX = IX + INCX;
-                     AP( K ) = AP( K ) + X( IX )*TEMP;
+                     AP[K] = AP( K ) + X( IX )*TEMP;
                   } // 70
                } else {
-                  AP( KK ) = AP( KK );
+                  AP[KK] = AP( KK );
                }
                JX = JX + INCX;
                KK = KK + N - J + 1;

@@ -171,7 +171,7 @@
             }
             MAXWRK = max( MINWRK, MAXWRK );
          }
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
 
          if (LWORK < MINWRK && !LQUERY) INFO = -12;
       }
@@ -503,6 +503,6 @@
       }
 
       } // 70
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
       return;
       }

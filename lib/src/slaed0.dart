@@ -63,21 +63,21 @@
       // Determine the size and placement of the submatrices, and save in
       // the leading elements of IWORK.
 
-      IWORK( 1 ) = N;
+      IWORK[1] = N;
       SUBPBS = 1;
       TLVLS = 0;
       } // 10
       if ( IWORK( SUBPBS ) > SMLSIZ ) {
          for (J = SUBPBS; J >= 1; J--) { // 20
-            IWORK( 2*J ) = ( IWORK( J )+1 ) / 2;
-            IWORK( 2*J-1 ) = IWORK( J ) / 2;
+            IWORK[2*J] = ( IWORK( J )+1 ) / 2;
+            IWORK[2*J-1] = IWORK( J ) / 2;
          } // 20
          TLVLS = TLVLS + 1;
          SUBPBS = 2*SUBPBS;
          GO TO 10;
       }
       for (J = 2; J <= SUBPBS; J++) { // 30
-         IWORK( J ) = IWORK( J ) + IWORK( J-1 );
+         IWORK[J] = IWORK( J ) + IWORK( J-1 );
       } // 30
 
       // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
@@ -87,8 +87,8 @@
       for (I = 1; I <= SPM1; I++) { // 40
          SUBMAT = IWORK( I ) + 1;
          SMM1 = SUBMAT - 1;
-         D( SMM1 ) = D( SMM1 ) - ( E( SMM1 ) ).abs();
-         D( SUBMAT ) = D( SUBMAT ) - ( E( SMM1 ) ).abs();
+         D[SMM1] = D( SMM1 ) - ( E( SMM1 ) ).abs();
+         D[SUBMAT] = D( SUBMAT ) - ( E( SMM1 ) ).abs();
       } // 40
 
       INDXQ = 4*N + 3;
@@ -114,10 +114,10 @@
          // Initialize pointers
 
          for (I = 0; I <= SUBPBS; I++) { // 50
-            IWORK( IPRMPT+I ) = 1;
-            IWORK( IGIVPT+I ) = 1;
+            IWORK[IPRMPT+I] = 1;
+            IWORK[IGIVPT+I] = 1;
          } // 50
-         IWORK( IQPTR ) = 1;
+         IWORK[IQPTR] = 1;
       }
 
       // Solve each submatrix eigenproblem at the bottom of the divide and
@@ -140,12 +140,12 @@
             if ( ICOMPQ == 1 ) {
                sgemm('N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS );
             }
-            IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2;
+            IWORK[IQPTR+CURR+1] = IWORK( IQPTR+CURR ) + MATSIZ**2;
             CURR = CURR + 1;
          }
          K = 1;
          for (J = SUBMAT; J <= IWORK( I+1 ); J++) { // 60
-            IWORK( INDXQ+J ) = K;
+            IWORK[INDXQ+J] = K;
             K = K + 1;
          } // 60
       } // 70
@@ -186,7 +186,7 @@
                slaed7(ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             }
             if (INFO != 0) GO TO 130;
-            IWORK( I / 2+1 ) = IWORK( I+2 );
+            IWORK[I / 2+1] = IWORK( I+2 );
          } // 90
          SUBPBS = SUBPBS / 2;
          CURLVL = CURLVL + 1;
@@ -201,14 +201,14 @@
       if ( ICOMPQ == 1 ) {
          for (I = 1; I <= N; I++) { // 100
             J = IWORK( INDXQ+I );
-            WORK( I ) = D( J );
+            WORK[I] = D( J );
             scopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );
          } // 100
          scopy(N, WORK, 1, D, 1 );
       } else if ( ICOMPQ == 2 ) {
          for (I = 1; I <= N; I++) { // 110
             J = IWORK( INDXQ+I );
-            WORK( I ) = D( J );
+            WORK[I] = D( J );
             scopy(N, Q( 1, J ), 1, WORK( N*I+1 ), 1 );
          } // 110
          scopy(N, WORK, 1, D, 1 );
@@ -216,7 +216,7 @@
       } else {
          for (I = 1; I <= N; I++) { // 120
             J = IWORK( INDXQ+I );
-            WORK( I ) = D( J );
+            WORK[I] = D( J );
          } // 120
          scopy(N, WORK, 1, D, 1 );
       }

@@ -71,14 +71,14 @@
          xerbla('SORGTSQR_ROW', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
@@ -181,6 +181,6 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWORKOPT );
       return;
       }

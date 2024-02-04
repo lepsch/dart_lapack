@@ -37,7 +37,7 @@
       NB3 = ILAENV( 1, 'DORMQR', ' ', N, M, P, -1 );
       NB = max( NB1, NB2, NB3 );
       LWKOPT = max( 1, max( N, M, P )*NB );
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
@@ -73,7 +73,7 @@
 
       dgerqf(N, P, B, LDB, TAUB, WORK, LWORK, INFO );
 
-      WORK( 1 ) = max( LOPT, INT( WORK( 1 ) ) );
+      WORK[1] = max( LOPT, INT( WORK( 1 ) ) );
 
       return;
       }

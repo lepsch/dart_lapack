@@ -57,7 +57,7 @@
             NB = ILAENV( 1, 'ZHETRF_ROOK', UPLO, N, -1, -1, -1 );
             LWKOPT = N*NB;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
       }
 
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
 
       }
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

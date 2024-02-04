@@ -42,8 +42,8 @@
 
       // Initialize RESULT (in case N=0)
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       UNFL = DLAMCH( 'Safe minimum' );
@@ -85,12 +85,12 @@
          } // 20
       } else {
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
-            RWORK( JVEC ) = ZERO;
+            RWORK[JVEC] = ZERO;
          } // 30
 
          for (J = 1; J <= N; J++) { // 50
             for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-               RWORK( JVEC ) = max( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) );
+               RWORK[JVEC] = max( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) );
             } // 40
          } // 50
 
@@ -124,15 +124,15 @@
 
          if ( ITRNSE == 0 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 70
-               WORK( JOFF+JROW ) = E( JROW, JCOL )*WTEMP;
+               WORK[JOFF+JROW] = E( JROW, JCOL )*WTEMP;
             } // 70
          } else if ( ITRNSE == 1 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 80
-               WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP;
+               WORK[JOFF+JROW] = E( JCOL, JROW )*WTEMP;
             } // 80
          } else {
             for (JROW = 1; JROW <= N; JROW++) { // 90
-               WORK( JOFF+JROW ) = DCONJG( E( JCOL, JROW ) )*WTEMP;
+               WORK[JOFF+JROW] = DCONJG( E( JCOL, JROW ) )*WTEMP;
             } // 90
          }
          JOFF = JOFF + N;
@@ -145,18 +145,18 @@
       // Compute RESULT(1) (avoiding under/overflow)
 
       if ( ANORM > ERRNRM ) {
-         RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP;
+         RESULT[1] = ( ERRNRM / ANORM ) / ULP;
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ONE / ULP;
+            RESULT[1] = ONE / ULP;
          } else {
-            RESULT( 1 ) = min( ERRNRM / ANORM, ONE ) / ULP;
+            RESULT[1] = min( ERRNRM / ANORM, ONE ) / ULP;
          }
       }
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
+      RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
 
       return;
       }

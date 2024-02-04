@@ -47,7 +47,7 @@
 
       INFO = 0;
       for (I = 1; I <= M; I++) { // 10
-         IFAIL( I ) = 0;
+         IFAIL[I] = 0;
       } // 10
 
       if ( N < 0 ) {
@@ -80,7 +80,7 @@
       if ( N == 0 || M == 0 ) {
          return;
       } else if ( N == 1 ) {
-         Z( 1, 1 ) = CONE;
+         Z[1, 1] = CONE;
          return;
       }
 
@@ -91,7 +91,7 @@
       // Initialize seed for random number generator DLARNV.
 
       for (I = 1; I <= 4; I++) { // 40
-         ISEED( I ) = 1;
+         ISEED[I] = 1;
       } // 40
 
       // Initialize pointers.
@@ -145,7 +145,7 @@
             // Skip all the work if the block size is one.
 
             if ( BLKSIZ == 1 ) {
-               WORK( INDRV1+1 ) = ONE;
+               WORK[INDRV1+1] = ONE;
                GO TO 140;
             }
 
@@ -205,7 +205,7 @@
                      ZTR = ZTR + WORK( INDRV1+JR )* DBLE( Z( B1-1+JR, I ) );
                   } // 80
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 90
-                     WORK( INDRV1+JR ) = WORK( INDRV1+JR ) - ZTR*DBLE( Z( B1-1+JR, I ) );
+                     WORK[INDRV1+JR] = WORK( INDRV1+JR ) - ZTR*DBLE( Z( B1-1+JR, I ) );
                   } // 90
                } // 100
             }
@@ -230,7 +230,7 @@
 
             } // 120
             INFO = INFO + 1;
-            IFAIL( INFO ) = J;
+            IFAIL[INFO] = J;
 
             // Accept iterate as jth eigenvector.
 
@@ -241,10 +241,10 @@
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 140
             for (I = 1; I <= N; I++) { // 150
-               Z( I, J ) = CZERO;
+               Z[I, J] = CZERO;
             } // 150
             for (I = 1; I <= BLKSIZ; I++) { // 160
-               Z( B1+I-1, J ) = DCMPLX( WORK( INDRV1+I ), ZERO );
+               Z[B1+I-1, J] = DCMPLX( WORK( INDRV1+I ), ZERO );
             } // 160
 
             // Save the shift to check eigenvalue spacing at next

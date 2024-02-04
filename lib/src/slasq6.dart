@@ -41,18 +41,18 @@
 
       if ( PP == 0 ) {
          for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 10
-            Z( J4-2 ) = D + Z( J4-1 );
+            Z[J4-2] = D + Z( J4-1 );
             if ( Z( J4-2 ) == ZERO ) {
-               Z( J4 ) = ZERO;
+               Z[J4] = ZERO;
                D = Z( J4+1 );
                DMIN = D;
                EMIN = ZERO;
             } else if ( SAFMIN*Z( J4+1 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4+1 ) ) {
                TEMP = Z( J4+1 ) / Z( J4-2 );
-               Z( J4 ) = Z( J4-1 )*TEMP;
+               Z[J4] = Z( J4-1 )*TEMP;
                D = D*TEMP;
             } else {
-               Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
+               Z[J4] = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
                D = Z( J4+1 )*( D / Z( J4-2 ) );
             }
             DMIN = min( DMIN, D );
@@ -60,18 +60,18 @@
          } // 10
       } else {
          for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 20
-            Z( J4-3 ) = D + Z( J4 );
+            Z[J4-3] = D + Z( J4 );
             if ( Z( J4-3 ) == ZERO ) {
-               Z( J4-1 ) = ZERO;
+               Z[J4-1] = ZERO;
                D = Z( J4+2 );
                DMIN = D;
                EMIN = ZERO;
             } else if ( SAFMIN*Z( J4+2 ) < Z( J4-3 ) && SAFMIN*Z( J4-3 ) < Z( J4+2 ) ) {
                TEMP = Z( J4+2 ) / Z( J4-3 );
-               Z( J4-1 ) = Z( J4 )*TEMP;
+               Z[J4-1] = Z( J4 )*TEMP;
                D = D*TEMP;
             } else {
-               Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
+               Z[J4-1] = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
                D = Z( J4+2 )*( D / Z( J4-3 ) );
             }
             DMIN = min( DMIN, D );
@@ -85,18 +85,18 @@
       DMIN2 = DMIN;
       J4 = 4*( N0-2 ) - PP;
       J4P2 = J4 + 2*PP - 1;
-      Z( J4-2 ) = DNM2 + Z( J4P2 );
+      Z[J4-2] = DNM2 + Z( J4P2 );
       if ( Z( J4-2 ) == ZERO ) {
-         Z( J4 ) = ZERO;
+         Z[J4] = ZERO;
          DNM1 = Z( J4P2+2 );
          DMIN = DNM1;
          EMIN = ZERO;
       } else if ( SAFMIN*Z( J4P2+2 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 );
-         Z( J4 ) = Z( J4P2 )*TEMP;
+         Z[J4] = Z( J4P2 )*TEMP;
          DNM1 = DNM2*TEMP;
       } else {
-         Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
+         Z[J4] = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) );
       }
       DMIN = min( DMIN, DNM1 );
@@ -104,23 +104,23 @@
       DMIN1 = DMIN;
       J4 = J4 + 4;
       J4P2 = J4 + 2*PP - 1;
-      Z( J4-2 ) = DNM1 + Z( J4P2 );
+      Z[J4-2] = DNM1 + Z( J4P2 );
       if ( Z( J4-2 ) == ZERO ) {
-         Z( J4 ) = ZERO;
+         Z[J4] = ZERO;
          DN = Z( J4P2+2 );
          DMIN = DN;
          EMIN = ZERO;
       } else if ( SAFMIN*Z( J4P2+2 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 );
-         Z( J4 ) = Z( J4P2 )*TEMP;
+         Z[J4] = Z( J4P2 )*TEMP;
          DN = DNM1*TEMP;
       } else {
-         Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
+         Z[J4] = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) );
       }
       DMIN = min( DMIN, DN );
 
-      Z( J4+2 ) = DN;
-      Z( 4*N0-PP ) = EMIN;
+      Z[J4+2] = DN;
+      Z[4*N0-PP] = EMIN;
       return;
       }

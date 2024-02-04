@@ -45,9 +45,9 @@
          for (I = 1; I <= N-1; I++) { // 9
             EABS = ( E(I) ).abs();
             if ( EABS <= TMP1) {
-               E(I) = ZERO;
-               E2(I) = ZERO;
-               ISPLIT( NSPLIT ) = I;
+               E[I] = ZERO;
+               E2[I] = ZERO;
+               ISPLIT[NSPLIT] = I;
                NSPLIT = NSPLIT + 1;
             }
          } // 9
@@ -56,14 +56,14 @@
          for (I = 1; I <= N-1; I++) { // 10
             EABS = ( E(I) ).abs();
             if ( EABS <= SPLTOL * sqrt((D(I))).abs()*sqrt((D(I+1))) ).abs() {
-               E(I) = ZERO;
-               E2(I) = ZERO;
-               ISPLIT( NSPLIT ) = I;
+               E[I] = ZERO;
+               E2[I] = ZERO;
+               ISPLIT[NSPLIT] = I;
                NSPLIT = NSPLIT + 1;
             }
          } // 10
       }
-      ISPLIT( NSPLIT ) = N;
+      ISPLIT[NSPLIT] = N;
 
       return;
       }

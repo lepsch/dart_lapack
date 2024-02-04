@@ -58,7 +58,7 @@
          return;
       } else if ( LQUERY ) {
          LWKOPT = (3*N-2);
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
          return;
       }
 

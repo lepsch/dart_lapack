@@ -75,7 +75,7 @@
 
       if ( M1 == 0 ) {
          for (I = 1; I <= N; I++) {
-            WORK(I) = ZERO;
+            WORK[I] = ZERO;
          }
       } else {
          sgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
@@ -101,10 +101,10 @@
 
       if ( NORM_NEW <= N * EPS * NORM ) {
          for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
-           X1( IX ) = ZERO;
+           X1[IX] = ZERO;
          }
          for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
-           X2( IX ) = ZERO;
+           X2[IX] = ZERO;
          }
          return;
       }
@@ -112,12 +112,12 @@
       NORM = NORM_NEW;
 
       for (I = 1; I <= N; I++) {
-         WORK(I) = ZERO;
+         WORK[I] = ZERO;
       }
 
       if ( M1 == 0 ) {
          for (I = 1; I <= N; I++) {
-            WORK(I) = ZERO;
+            WORK[I] = ZERO;
          }
       } else {
          sgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
@@ -139,10 +139,10 @@
 
       if ( NORM_NEW < ALPHA * NORM ) {
          for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
-            X1(IX) = ZERO;
+            X1[IX] = ZERO;
          }
          for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
-            X2(IX) = ZERO;
+            X2[IX] = ZERO;
          }
       }
 

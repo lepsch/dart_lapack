@@ -67,7 +67,7 @@
          LHTRD = ILAENV2STAGE( 3, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWTRD = ILAENV2STAGE( 4, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWMIN = N + LHTRD + LWTRD;
-         WORK( 1 )  = SROUNDUP_LWORK(LWMIN);
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
@@ -132,7 +132,7 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
 
       return;
       }

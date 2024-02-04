@@ -67,11 +67,11 @@
       if ( ( JOB ).abs() == 1 ) {
          for (K = 2; K <= N; K++) { // 20
             if ( IN( K-1 ) == 0 ) {
-               Y( K ) = Y( K ) - C( K-1 )*Y( K-1 );
+               Y[K] = Y( K ) - C( K-1 )*Y( K-1 );
             } else {
                TEMP = Y( K-1 );
-               Y( K-1 ) = Y( K );
-               Y( K ) = TEMP - C( K-1 )*Y( K );
+               Y[K-1] = Y( K );
+               Y[K] = TEMP - C( K-1 )*Y( K );
             }
          } // 20
          if ( JOB == 1 ) {
@@ -99,7 +99,7 @@
                      return;
                   }
                }
-               Y( K ) = TEMP / AK;
+               Y[K] = TEMP / AK;
             } // 30
          } else {
             for (K = N; K >= 1; K--) { // 50
@@ -130,7 +130,7 @@
                      GO TO 40;
                   }
                }
-               Y( K ) = TEMP / AK;
+               Y[K] = TEMP / AK;
             } // 50
          }
       } else {
@@ -162,7 +162,7 @@
                      return;
                   }
                }
-               Y( K ) = TEMP / AK;
+               Y[K] = TEMP / AK;
             } // 60
          } else {
             for (K = 1; K <= N; K++) { // 80
@@ -193,17 +193,17 @@
                      GO TO 70;
                   }
                }
-               Y( K ) = TEMP / AK;
+               Y[K] = TEMP / AK;
             } // 80
          }
 
          for (K = N; K >= 2; K--) { // 90
             if ( IN( K-1 ) == 0 ) {
-               Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K );
+               Y[K-1] = Y( K-1 ) - C( K-1 )*Y( K );
             } else {
                TEMP = Y( K-1 );
-               Y( K-1 ) = Y( K );
-               Y( K ) = TEMP - C( K-1 )*Y( K );
+               Y[K-1] = Y( K );
+               Y[K] = TEMP - C( K-1 )*Y( K );
             }
          } // 90
       }

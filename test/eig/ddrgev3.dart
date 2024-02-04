@@ -98,7 +98,7 @@
          MINWRK = max( 1, 8*NMAX, NMAX*( NMAX+1 ) );
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 );
          MAXWRK = max( MAXWRK, NMAX*( NMAX+1 ) );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -25;
@@ -120,8 +120,8 @@
 
       // The values RMAGN(2:3) depend on N, see below.
 
-      RMAGN( 0 ) = ZERO;
-      RMAGN( 1 ) = ONE;
+      RMAGN[0] = ZERO;
+      RMAGN[1] = ONE;
 
       // Loop over sizes, types
 
@@ -132,8 +132,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 );
-         RMAGN( 3 ) = SAFMIN*ULPINV*N1;
+         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -148,7 +148,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Generate test matrices A and B
@@ -212,28 +212,28 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
-                        Q( JR, JC ) = DLARND( 3, ISEED );
-                        Z( JR, JC ) = DLARND( 3, ISEED );
+                        Q[JR, JC] = DLARND( 3, ISEED );
+                        Z[JR, JC] = DLARND( 3, ISEED );
                      } // 30
                      dlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK( 2*N+JC ) = SIGN( ONE, Q( JC, JC ) );
-                     Q( JC, JC ) = ONE;
+                     WORK[2*N+JC] = SIGN( ONE, Q( JC, JC ) );
+                     Q[JC, JC] = ONE;
                      dlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK( 3*N+JC ) = SIGN( ONE, Z( JC, JC ) );
-                     Z( JC, JC ) = ONE;
+                     WORK[3*N+JC] = SIGN( ONE, Z( JC, JC ) );
+                     Z[JC, JC] = ONE;
                   } // 40
-                  Q( N, N ) = ONE;
-                  WORK( N ) = ZERO;
-                  WORK( 3*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
-                  Z( N, N ) = ONE;
-                  WORK( 2*N ) = ZERO;
-                  WORK( 4*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
+                  Q[N, N] = ONE;
+                  WORK[N] = ZERO;
+                  WORK[3*N] = SIGN( ONE, DLARND( 2, ISEED ) );
+                  Z[N, N] = ONE;
+                  WORK[2*N] = ZERO;
+                  WORK[4*N] = SIGN( ONE, DLARND( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 60
                      for (JR = 1; JR <= N; JR++) { // 50
-                        A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
+                        A[JR, JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
                      } // 50
                   } // 60
                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
@@ -247,7 +247,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 70
                } // 80
             } else {
@@ -256,22 +256,22 @@
 
                for (JC = 1; JC <= N; JC++) { // 81
                   for (JR = 1; JR <= min( JC + 1, N); JR++) { // 71
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 71
                   for (JR = JC + 2; JR <= N; JR++) { // 72
-                     A( JR, JC ) = ZERO;
+                     A[JR, JC] = ZERO;
                   } // 72
                } // 81
                for (JC = 1; JC <= N; JC++) { // 82
                   for (JR = 1; JR <= JC; JR++) { // 73
-                     B( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     B[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 73
                   for (JR = JC + 1; JR <= N; JR++) { // 74
-                     B( JR, JC ) = ZERO;
+                     B[JR, JC] = ZERO;
                   } // 74
                } // 82
                for (JC = 1; JC <= N; JC += 4) { // 83
-                  B( JC, JC ) = ZERO;
+                  B[JC, JC] = ZERO;
                } // 83
 
             }
@@ -287,7 +287,7 @@
             } // 100
 
             for (I = 1; I <= 7; I++) { // 110
-               RESULT( I ) = -ONE;
+               RESULT[I] = -ONE;
             } // 110
 
             // Call XLAENV to set the parameters used in DLAQZ0
@@ -304,7 +304,7 @@
             dlacpy(' ', N, N, B, LDA, T, LDA );
             dggev3('V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV31', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -330,7 +330,7 @@
             dlacpy(' ', N, N, B, LDA, T, LDA );
             dggev3('N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV32', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -347,7 +347,7 @@
             dlacpy(' ', N, N, B, LDA, T, LDA );
             dggev3('V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV33', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -370,7 +370,7 @@
             dlacpy(' ', N, N, B, LDA, T, LDA );
             dggev3('N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR );
             if ( IERR != 0 && IERR != N+1 ) {
-               RESULT( 1 ) = ULPINV;
+               RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV34', IERR, N, JTYPE, IOLDSD;
                INFO = ( IERR ).abs();
                GO TO 190;
@@ -430,7 +430,7 @@
 
       alasvm('DGV', NOUNIT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

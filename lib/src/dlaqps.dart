@@ -54,10 +54,10 @@
             dswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
             dswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );
             ITEMP = JPVT( PVT );
-            JPVT( PVT ) = JPVT( K );
-            JPVT( K ) = ITEMP;
-            VN1( PVT ) = VN1( K );
-            VN2( PVT ) = VN2( K );
+            JPVT[PVT] = JPVT( K );
+            JPVT[K] = ITEMP;
+            VN1[PVT] = VN1( K );
+            VN2[PVT] = VN2( K );
          }
 
          // Apply previous Householder reflectors to column K:
@@ -76,7 +76,7 @@
          }
 
          AKK = A( RK, K );
-         A( RK, K ) = ONE;
+         A[RK, K] = ONE;
 
          // Compute Kth column of F:
 
@@ -89,7 +89,7 @@
          // Padding F(1:K,K) with zeros.
 
          for (J = 1; J <= K; J++) { // 20
-            F( J, K ) = ZERO;
+            F[J, K] = ZERO;
          } // 20
 
          // Incremental updating of F:
@@ -122,16 +122,16 @@
                   TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
-                     VN2( J ) = DBLE( LSTICC );
+                     VN2[J] = DBLE( LSTICC );
                      LSTICC = J;
                   } else {
-                     VN1( J ) = VN1( J )*sqrt( TEMP );
+                     VN1[J] = VN1( J )*sqrt( TEMP );
                   }
                }
             } // 30
          }
 
-         A( RK, K ) = AKK;
+         A[RK, K] = AKK;
 
          // End of while loop.
 
@@ -153,13 +153,13 @@
       } // 40
       if ( LSTICC > 0 ) {
          ITEMP = NINT( VN2( LSTICC ) );
-         VN1( LSTICC ) = DNRM2( M-RK, A( RK+1, LSTICC ), 1 );
+         VN1[LSTICC] = DNRM2( M-RK, A( RK+1, LSTICC ), 1 );
 
          // NOTE: The computation of VN1( LSTICC ) relies on the fact that
          // SNRM2 does not fail on vectors with norm below the value of
          // sqrt(DLAMCH('S'))
 
-         VN2( LSTICC ) = VN1( LSTICC );
+         VN2[LSTICC] = VN1( LSTICC );
          LSTICC = ITEMP;
          GO TO 40;
       }

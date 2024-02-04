@@ -91,7 +91,7 @@
          }
          ITEMP = IDXQ + NLF - 2;
          for (J = 1; J <= NL; J++) { // 10
-            IWORK( ITEMP+J ) = J;
+            IWORK[ITEMP+J] = J;
          } // 10
          if ( I == ND ) {
             SQREI = SQRE;
@@ -105,7 +105,7 @@
          }
          ITEMP = IDXQ + IC;
          for (J = 1; J <= NR; J++) { // 20
-            IWORK( ITEMP+J-1 ) = J;
+            IWORK[ITEMP+J-1] = J;
          } // 20
       } // 30
 

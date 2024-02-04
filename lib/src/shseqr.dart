@@ -59,7 +59,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK( 1 ) = SROUNDUP_LWORK( max( 1, N ) );
+      WORK[1] = SROUNDUP_LWORK( max( 1, N ) );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -101,7 +101,7 @@
          slaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = max( REAL( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( REAL( max( 1, N ) ), WORK( 1 ) );
          return;
 
       } else {
@@ -109,12 +109,12 @@
          // ==== copy eigenvalues isolated by SGEBAL ====
 
          for (I = 1; I <= ILO - 1; I++) { // 10
-            WR( I ) = H( I, I );
-            WI( I ) = ZERO;
+            WR[I] = H( I, I );
+            WI[I] = ZERO;
          } // 10
          for (I = IHI + 1; I <= N; I++) { // 20
-            WR( I ) = H( I, I );
-            WI( I ) = ZERO;
+            WR[I] = H( I, I );
+            WI[I] = ZERO;
          } // 20
 
          // ==== Initialize Z, if requested ====
@@ -124,8 +124,8 @@
          // ==== Quick return if possible ====
 
          if ( ILO == IHI ) {
-            WR( ILO ) = H( ILO, ILO );
-            WI( ILO ) = ZERO;
+            WR[ILO] = H( ILO, ILO );
+            WI[ILO] = ZERO;
             return;
          }
 
@@ -166,7 +166,7 @@
                   // .    array before calling SLAQR0. ====
 
                   slacpy('A', N, N, H, LDH, HL, NL );
-                  HL( N+1, N ) = ZERO;
+                  HL[N+1, N] = ZERO;
                   slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
                   slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
                }
@@ -180,7 +180,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = max( REAL( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( REAL( max( 1, N ) ), WORK( 1 ) );
       }
 
       // ==== End of SHSEQR ====

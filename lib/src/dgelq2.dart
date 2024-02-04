@@ -56,9 +56,9 @@
             // Apply H(i) to A(i+1:m,i:n) from the right
 
             AII = A( I, I );
-            A( I, I ) = ONE;
+            A[I, I] = ONE;
             dlarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
-            A( I, I ) = AII;
+            A[I, I] = AII;
          }
       } // 10
       return;

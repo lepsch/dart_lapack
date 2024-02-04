@@ -58,7 +58,7 @@
 
       J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + CMPLX( S( I ), ZERO );
+         WORK[J+I] = WORK( J+I ) + CMPLX( S( I ), ZERO );
          RESID = max( RESID, SCASUM( NS, WORK( J+1 ), 1 ) );
          J = J + NS;
       } // 10

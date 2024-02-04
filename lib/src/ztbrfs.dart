@@ -46,7 +46,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -85,8 +85,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -128,7 +128,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 20
-            RWORK( I ) = CABS1( B( I, J ) );
+            RWORK[I] = CABS1( B( I, J ) );
          } // 20
 
          if ( NOTRAN ) {
@@ -140,16 +140,16 @@
                   for (K = 1; K <= N; K++) { // 40
                      XK = CABS1( X( K, J ) );
                      for (I = max( 1, K-KD ); I <= K; I++) { // 30
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
+                        RWORK[I] = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 30
                   } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = CABS1( X( K, J ) );
                      for (I = max( 1, K-KD ); I <= K - 1; I++) { // 50
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
+                        RWORK[I] = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 50
-                     RWORK( K ) = RWORK( K ) + XK;
+                     RWORK[K] = RWORK( K ) + XK;
                   } // 60
                }
             } else {
@@ -157,16 +157,16 @@
                   for (K = 1; K <= N; K++) { // 80
                      XK = CABS1( X( K, J ) );
                      for (I = K; I <= min( N, K+KD ); I++) { // 70
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
+                        RWORK[I] = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 70
                   } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = CABS1( X( K, J ) );
                      for (I = K + 1; I <= min( N, K+KD ); I++) { // 90
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
+                        RWORK[I] = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 90
-                     RWORK( K ) = RWORK( K ) + XK;
+                     RWORK[K] = RWORK( K ) + XK;
                   } // 100
                }
             }
@@ -181,7 +181,7 @@
                      for (I = max( 1, K-KD ); I <= K; I++) { // 110
                         S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 110
-                     RWORK( K ) = RWORK( K ) + S;
+                     RWORK[K] = RWORK( K ) + S;
                   } // 120
                } else {
                   for (K = 1; K <= N; K++) { // 140
@@ -189,7 +189,7 @@
                      for (I = max( 1, K-KD ); I <= K - 1; I++) { // 130
                         S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 130
-                     RWORK( K ) = RWORK( K ) + S;
+                     RWORK[K] = RWORK( K ) + S;
                   } // 140
                }
             } else {
@@ -199,7 +199,7 @@
                      for (I = K; I <= min( N, K+KD ); I++) { // 150
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 150
-                     RWORK( K ) = RWORK( K ) + S;
+                     RWORK[K] = RWORK( K ) + S;
                   } // 160
                } else {
                   for (K = 1; K <= N; K++) { // 180
@@ -207,7 +207,7 @@
                      for (I = K + 1; I <= min( N, K+KD ); I++) { // 170
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 170
-                     RWORK( K ) = RWORK( K ) + S;
+                     RWORK[K] = RWORK( K ) + S;
                   } // 180
                }
             }
@@ -220,7 +220,7 @@
                S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 190
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Bound error from formula
 
@@ -246,9 +246,9 @@
 
          for (I = 1; I <= N; I++) { // 200
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 200
 
@@ -262,14 +262,14 @@
 
                ztbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 );
                for (I = 1; I <= N; I++) { // 220
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 220
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 230
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 230
                ztbsv(UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 );
             }

@@ -54,7 +54,7 @@
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'SORGQR', ' ', NH, NH, NH, -1 );
          LWKOPT = max( 1, NH )*NB;
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -67,7 +67,7 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -77,26 +77,26 @@
 
       for (J = IHI; J >= ILO + 1; J--) { // 40
          for (I = 1; I <= J - 1; I++) { // 10
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 10
          for (I = J + 1; I <= IHI; I++) { // 20
-            A( I, J ) = A( I, J-1 );
+            A[I, J] = A( I, J-1 );
          } // 20
          for (I = IHI + 1; I <= N; I++) { // 30
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 30
       } // 40
       for (J = 1; J <= ILO; J++) { // 60
          for (I = 1; I <= N; I++) { // 50
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 50
-         A( J, J ) = ONE;
+         A[J, J] = ONE;
       } // 60
       for (J = IHI + 1; J <= N; J++) { // 80
          for (I = 1; I <= N; I++) { // 70
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 70
-         A( J, J ) = ONE;
+         A[J, J] = ONE;
       } // 80
 
       if ( NH > 0 ) {
@@ -105,6 +105,6 @@
 
          sorgqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
       }
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
       return;
       }

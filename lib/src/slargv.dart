@@ -33,23 +33,23 @@
          F = X( IX );
          G = Y( IY );
          if ( G == ZERO ) {
-            C( IC ) = ONE;
+            C[IC] = ONE;
          } else if ( F == ZERO ) {
-            C( IC ) = ZERO;
-            Y( IY ) = ONE;
-            X( IX ) = G;
+            C[IC] = ZERO;
+            Y[IY] = ONE;
+            X[IX] = G;
          } else if ( ( F ).abs() > ( G ).abs() ) {
             T = G / F;
             TT = sqrt( ONE+T*T );
-            C( IC ) = ONE / TT;
-            Y( IY ) = T*C( IC );
-            X( IX ) = F*TT;
+            C[IC] = ONE / TT;
+            Y[IY] = T*C( IC );
+            X[IX] = F*TT;
          } else {
             T = F / G;
             TT = sqrt( ONE+T*T );
-            Y( IY ) = ONE / TT;
-            C( IC ) = T*Y( IY );
-            X( IX ) = G*TT;
+            Y[IY] = ONE / TT;
+            C[IC] = T*Y( IY );
+            X[IX] = G*TT;
          }
          IC = IC + INCC;
          IY = IY + INCY;

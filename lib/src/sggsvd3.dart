@@ -77,7 +77,7 @@
          LWKOPT = N + INT( WORK( 1 ) );
          LWKOPT = max( 2*N, LWKOPT );
          LWKOPT = max( 1, LWKOPT );
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -128,14 +128,14 @@
             }
          } // 10
          if ( ISUB != I ) {
-            WORK( K+ISUB ) = WORK( K+I );
-            WORK( K+I ) = SMAX;
-            IWORK( K+I ) = K + ISUB;
+            WORK[K+ISUB] = WORK( K+I );
+            WORK[K+I] = SMAX;
+            IWORK[K+I] = K + ISUB;
          } else {
-            IWORK( K+I ) = K + I;
+            IWORK[K+I] = K + I;
          }
       } // 20
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
       return;
       }

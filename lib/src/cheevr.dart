@@ -95,9 +95,9 @@
          NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
          NB = max( NB, ILAENV( 1, 'CUNMTR', UPLO, N, -1, -1, -1 ) );
          LWKOPT = max( ( NB+1 )*N, LWMIN );
-         WORK( 1 )  = SROUNDUP_LWORK( LWKOPT );
-         RWORK( 1 ) = SROUNDUP_LWORK( LRWMIN );
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
+         RWORK[1] = SROUNDUP_LWORK( LRWMIN );
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -18;
@@ -119,25 +119,25 @@
 
       M = 0;
       if ( N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
       if ( N == 1 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W( 1 ) = REAL( A( 1, 1 ) );
+            W[1] = REAL( A( 1, 1 ) );
          } else {
             if ( VL < REAL( A( 1, 1 ) ) && VU >= REAL( A( 1, 1 ) ) ) {
                M = 1;
-               W( 1 ) = REAL( A( 1, 1 ) );
+               W[1] = REAL( A( 1, 1 ) );
             }
          }
          if ( WANTZ ) {
-            Z( 1, 1 ) = ONE;
-            ISUPPZ( 1 ) = 1;
-            ISUPPZ( 2 ) = 1;
+            Z[1, 1] = ONE;
+            ISUPPZ[1] = 1;
+            ISUPPZ[2] = 1;
          }
          return;
       }
@@ -323,10 +323,10 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 );
-               W( I ) = W( J );
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
-               W( J ) = TMP1;
-               IWORK( INDIBL+J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[INDIBL+I-1] = IWORK( INDIBL+J-1 );
+               W[J] = TMP1;
+               IWORK[INDIBL+J-1] = ITMP1;
                cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
          } // 50
@@ -334,9 +334,9 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 )  = SROUNDUP_LWORK( LWKOPT );
-      RWORK( 1 ) = SROUNDUP_LWORK( LRWMIN );
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
+      RWORK[1] = SROUNDUP_LWORK( LRWMIN );
+      IWORK[1] = LIWMIN;
 
       return;
       }

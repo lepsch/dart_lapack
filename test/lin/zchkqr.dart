@@ -62,13 +62,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'QR';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'QR';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -115,10 +115,10 @@
                // corresponding to the call of ZQRT01; other values are
                // used in the calls of ZQRT02, and must not exceed MINMN.
 
-               KVAL( 1 ) = MINMN;
-               KVAL( 2 ) = 0;
-               KVAL( 3 ) = 1;
-               KVAL( 4 ) = MINMN / 2;
+               KVAL[1] = MINMN;
+               KVAL[2] = 0;
+               KVAL[3] = 1;
+               KVAL[4] = MINMN / 2;
                if ( MINMN == 0 ) {
                   NK = 1;
                } else if ( MINMN == 1 ) {
@@ -142,7 +142,7 @@
                      NX = NXVAL( INB );
                      xlaenv(3, NX );
                      for (I = 1; I <= NTESTS; I++) {
-                        RESULT( I ) = ZERO;
+                        RESULT[I] = ZERO;
                      }
                      NT = 2;
                      if ( IK == 1 ) {
@@ -154,7 +154,7 @@
                         // Test ZGEQRFP
 
                         zqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
-                          if( !ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH;
+                          if[!ZGENND( M, N, AF, LDA ) ) RESULT( 9] = 2*THRESH;
                         NT = NT + 1;
                      } else if ( M >= N ) {
 

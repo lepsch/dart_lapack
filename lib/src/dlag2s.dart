@@ -34,7 +34,7 @@
                INFO = 1;
                GO TO 30;
             }
-            SA( I, J ) = REAL( A( I, J ) );
+            SA[I, J] = REAL( A( I, J ) );
          } // 10
       } // 20
       INFO = 0;

@@ -67,7 +67,7 @@
 
       for (J = KU + 2; J <= min( KV, N ); J++) { // 20
          for (I = KV - J + 2; I <= KL; I++) { // 10
-            AB( I, J ) = ZERO;
+            AB[I, J] = ZERO;
          } // 10
       } // 20
 
@@ -82,7 +82,7 @@
 
          if ( J+KV <= N ) {
             for (I = 1; I <= KL; I++) { // 30
-               AB( I, J+KV ) = ZERO;
+               AB[I, J+KV] = ZERO;
             } // 30
          }
 
@@ -91,7 +91,7 @@
 
          KM = min( KL, M-J );
          JP = ISAMAX( KM+1, AB( KV+1, J ), 1 );
-         IPIV( J ) = JP + J - 1;
+         IPIV[J] = JP + J - 1;
          if ( AB( KV+JP, J ) != ZERO ) {
             JU = max( JU, min( J+KU+JP-1, N ) );
 

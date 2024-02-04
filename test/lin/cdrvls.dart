@@ -70,13 +70,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'LS';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'LS';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = SLAMCH( 'Epsilon' );
 
@@ -276,12 +276,12 @@
 
                                  // Solving LS system
 
-                                 RESULT( 2 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                 RESULT[2] = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
 
                                  // Solving overdetermined system
 
-                                 RESULT( 2 ) = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                 RESULT[2] = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                               }
 
                               // Print information about the tests that
@@ -366,12 +366,12 @@
 
                                  // Solving LS system
 
-                                 RESULT( 4 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                 RESULT[4] = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
 
                                  // Solving overdetermined system
 
-                                 RESULT( 4 ) = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                 RESULT[4] = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                               }
 
                               // Print information about the tests that
@@ -462,12 +462,12 @@
                                     // r = norm((B- A*X)**T * A) /
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
-                                    RESULT( 6 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                    RESULT[6] = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                                  } else {
 
                                     // Solving overdetermined system
 
-                                    RESULT( 6 ) = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                    RESULT[6] = CQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                                  }
 
                                  // Print information about the tests that
@@ -518,7 +518,7 @@
                         // Initialize vector IWORK.
 
                         for (J = 1; J <= N; J++) { // 70
-                           IWORK( J ) = 0;
+                           IWORK[J] = 0;
                         } // 70
 
                         SRNAMT = 'CGELSY';
@@ -529,7 +529,7 @@
                         // Test 7:  Compute relative error in svd
                                  // workspace: M*N + 4*min(M,N) + max(M,N)
 
-                        RESULT( 7 ) = CQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK, RWORK );
+                        RESULT[7] = CQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK, RWORK );
 
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
@@ -540,13 +540,13 @@
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
 
-                        RESULT( 9 ) = ZERO;
+                        RESULT[9] = ZERO;
                         if (M > CRANK) RESULT( 9 ) = CQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
                                  // workspace: (M+NRHS)*(N+2)
 
-                        RESULT( 10 ) = ZERO;
+                        RESULT[10] = ZERO;
 
                         if (N > CRANK) RESULT( 10 ) = CQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
@@ -570,9 +570,9 @@
 
                         if ( RANK > 0 ) {
                            saxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT( 11 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) );
+                           RESULT[11] = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) );
                         } else {
-                           RESULT( 11 ) = ZERO;
+                           RESULT[11] = ZERO;
                         }
 
                         // Test 12:  Compute error in solution
@@ -582,12 +582,12 @@
 
                         // Test 13:  Check norm of r'*A
 
-                        RESULT( 13 ) = ZERO;
+                        RESULT[13] = ZERO;
                         if (M > CRANK) RESULT( 13 ) = CQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 14:  Check if x is in the rowspace of A
 
-                        RESULT( 14 ) = ZERO;
+                        RESULT[14] = ZERO;
                         if (N > CRANK) RESULT( 14 ) = CQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test CGELSD
@@ -608,9 +608,9 @@
 
                         if ( RANK > 0 ) {
                            saxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT( 15 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) );
+                           RESULT[15] = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) );
                         } else {
-                           RESULT( 15 ) = ZERO;
+                           RESULT[15] = ZERO;
                         }
 
                         // Test 16:  Compute error in solution
@@ -620,12 +620,12 @@
 
                         // Test 17:  Check norm of r'*A
 
-                        RESULT( 17 ) = ZERO;
+                        RESULT[17] = ZERO;
                         if (M > CRANK) RESULT( 17 ) = CQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 18:  Check if x is in the rowspace of A
 
-                        RESULT( 18 ) = ZERO;
+                        RESULT[18] = ZERO;
                         if (N > CRANK) RESULT( 18 ) = CQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Print information about the tests that did not

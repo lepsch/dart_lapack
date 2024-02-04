@@ -62,7 +62,7 @@
          LORBDB5 = Q-2;
          LWORKOPT = max( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
          LWORKMIN = LWORKOPT;
-         WORK(1) = LWORKOPT;
+         WORK[1] = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
            INFO = -14;
          }
@@ -80,11 +80,11 @@
 
          zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          zlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         THETA(I) = ATAN2( DBLE( X21(I,I) ), DBLE( X11(I,I) ) );
+         THETA[I] = ATAN2( DBLE( X21(I,I) ), DBLE( X11(I,I) ) );
          C = COS( THETA(I) );
          S = SIN( THETA(I) );
-         X11(I,I) = ONE;
-         X21(I,I) = ONE;
+         X11[I,I] = ONE;
+         X21[I,I] = ONE;
          zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
          zlarf('L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
@@ -93,12 +93,12 @@
             zlacgv(Q-I, X21(I,I+1), LDX21 );
             zlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = DBLE( X21(I,I+1) );
-            X21(I,I+1) = ONE;
+            X21[I,I+1] = ONE;
             zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             zlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             zlacgv(Q-I, X21(I,I+1), LDX21 );
             C = sqrt( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
-            PHI(I) = ATAN2( S, C );
+            PHI[I] = ATAN2( S, C );
             zunbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }
 

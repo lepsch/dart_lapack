@@ -107,7 +107,7 @@
             // Compute error in the difference
 
             RESID = SLANGE( '1', MC, NC, CC, LDA, RWORK );
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( REAL( max( 1, M ) )*CNORM*EPS );
+            RESULT[( ISIDE-1 )*2+ITRANS] = RESID / ( REAL( max( 1, M ) )*CNORM*EPS );
 
          } // 20
       } // 30

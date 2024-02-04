@@ -30,7 +30,7 @@
       IA = 1;
       IXA = INDA;
       for (I = 1; I <= N; I++) { // 10
-         A( IA ) = CMPLX( REAL( A( IA ) ), BIGNUM );
+         A[IA] = CMPLX( REAL( A( IA ) ), BIGNUM );
          IA = IA + IXA;
          IXA = IXA + VINDA;
       } // 10

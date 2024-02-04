@@ -55,7 +55,7 @@
 
          for (J = 1; J <= N; J++) { // 20
             for (L = 1; L <= M - K; L++) { // 10
-               A( L, J ) = ZERO;
+               A[L, J] = ZERO;
             } // 10
             if (J > N-M && J <= N-K) A( M-N+J, J ) = ONE;
          } // 20
@@ -67,16 +67,16 @@
          // Apply H(i)**H to A(1:m-k+i,1:n-k+i) from the right
 
          zlacgv(N-M+II-1, A( II, 1 ), LDA );
-         A( II, N-M+II ) = ONE;
+         A[II, N-M+II] = ONE;
          zlarf('Right', II-1, N-M+II, A( II, 1 ), LDA, DCONJG( TAU( I ) ), A, LDA, WORK );
          zscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
          zlacgv(N-M+II-1, A( II, 1 ), LDA );
-         A( II, N-M+II ) = ONE - DCONJG( TAU( I ) );
+         A[II, N-M+II] = ONE - DCONJG( TAU( I ) );
 
          // Set A(m-k+i,n-k+i+1:n) to zero
 
          for (L = N - M + II + 1; L <= N; L++) { // 30
-            A( II, L ) = ZERO;
+            A[II, L] = ZERO;
          } // 30
       } // 40
       return;

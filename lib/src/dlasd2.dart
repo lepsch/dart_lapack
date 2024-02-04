@@ -74,50 +74,50 @@
       // values in the first part of D one position backward.
 
       Z1 = ALPHA*VT( NLP1, NLP1 );
-      Z( 1 ) = Z1;
+      Z[1] = Z1;
       for (I = NL; I >= 1; I--) { // 10
-         Z( I+1 ) = ALPHA*VT( I, NLP1 );
-         D( I+1 ) = D( I );
-         IDXQ( I+1 ) = IDXQ( I ) + 1;
+         Z[I+1] = ALPHA*VT( I, NLP1 );
+         D[I+1] = D( I );
+         IDXQ[I+1] = IDXQ( I ) + 1;
       } // 10
 
       // Generate the second part of the vector Z.
 
       for (I = NLP2; I <= M; I++) { // 20
-         Z( I ) = BETA*VT( I, NLP2 );
+         Z[I] = BETA*VT( I, NLP2 );
       } // 20
 
       // Initialize some reference arrays.
 
       for (I = 2; I <= NLP1; I++) { // 30
-         COLTYP( I ) = 1;
+         COLTYP[I] = 1;
       } // 30
       for (I = NLP2; I <= N; I++) { // 40
-         COLTYP( I ) = 2;
+         COLTYP[I] = 2;
       } // 40
 
       // Sort the singular values into increasing order
 
       for (I = NLP2; I <= N; I++) { // 50
-         IDXQ( I ) = IDXQ( I ) + NLP1;
+         IDXQ[I] = IDXQ( I ) + NLP1;
       } // 50
 
       // DSIGMA, IDXC, IDXC, and the first column of U2
       // are used as storage space.
 
       for (I = 2; I <= N; I++) { // 60
-         DSIGMA( I ) = D( IDXQ( I ) );
-         U2( I, 1 ) = Z( IDXQ( I ) );
-         IDXC( I ) = COLTYP( IDXQ( I ) );
+         DSIGMA[I] = D( IDXQ( I ) );
+         U2[I, 1] = Z( IDXQ( I ) );
+         IDXC[I] = COLTYP( IDXQ( I ) );
       } // 60
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
       for (I = 2; I <= N; I++) { // 70
          IDXI = 1 + IDX( I );
-         D( I ) = DSIGMA( IDXI );
-         Z( I ) = U2( IDXI, 1 );
-         COLTYP( I ) = IDXC( IDXI );
+         D[I] = DSIGMA( IDXI );
+         Z[I] = U2( IDXI, 1 );
+         COLTYP[I] = IDXC( IDXI );
       } // 70
 
       // Calculate the allowable deflation tolerance
@@ -153,8 +153,8 @@
             // Deflate due to small z component.
 
             K2 = K2 - 1;
-            IDXP( K2 ) = J;
-            COLTYP( J ) = 4;
+            IDXP[K2] = J;
+            COLTYP[J] = 4;
             if (J == N) GO TO 120;
          } else {
             JPREV = J;
@@ -171,8 +171,8 @@
          // Deflate due to small z component.
 
          K2 = K2 - 1;
-         IDXP( K2 ) = J;
-         COLTYP( J ) = 4;
+         IDXP[K2] = J;
+         COLTYP[J] = 4;
       } else {
 
          // Check if singular values are close enough to allow deflation.
@@ -190,8 +190,8 @@
             TAU = DLAPY2( C, S );
             C = C / TAU;
             S = -S / TAU;
-            Z( J ) = TAU;
-            Z( JPREV ) = ZERO;
+            Z[J] = TAU;
+            Z[JPREV] = ZERO;
 
             // Apply back the Givens rotation to the left and right
             // singular vector matrices.
@@ -207,17 +207,17 @@
             drot(N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S );
             drot(M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S );
             if ( COLTYP( J ) != COLTYP( JPREV ) ) {
-               COLTYP( J ) = 3;
+               COLTYP[J] = 3;
             }
-            COLTYP( JPREV ) = 4;
+            COLTYP[JPREV] = 4;
             K2 = K2 - 1;
-            IDXP( K2 ) = JPREV;
+            IDXP[K2] = JPREV;
             JPREV = J;
          } else {
             K = K + 1;
-            U2( K, 1 ) = Z( JPREV );
-            DSIGMA( K ) = D( JPREV );
-            IDXP( K ) = JPREV;
+            U2[K, 1] = Z( JPREV );
+            DSIGMA[K] = D( JPREV );
+            IDXP[K] = JPREV;
             JPREV = J;
          }
       }
@@ -227,9 +227,9 @@
       // Record the last singular value.
 
       K = K + 1;
-      U2( K, 1 ) = Z( JPREV );
-      DSIGMA( K ) = D( JPREV );
-      IDXP( K ) = JPREV;
+      U2[K, 1] = Z( JPREV );
+      DSIGMA[K] = D( JPREV );
+      IDXP[K] = JPREV;
 
       } // 120
 
@@ -239,19 +239,19 @@
       // groups may be empty).
 
       for (J = 1; J <= 4; J++) { // 130
-         CTOT( J ) = 0;
+         CTOT[J] = 0;
       } // 130
       for (J = 2; J <= N; J++) { // 140
          CT = COLTYP( J );
-         CTOT( CT ) = CTOT( CT ) + 1;
+         CTOT[CT] = CTOT( CT ) + 1;
       } // 140
 
       // PSM(*) = Position in SubMatrix (of types 1 through 4)
 
-      PSM( 1 ) = 2;
-      PSM( 2 ) = 2 + CTOT( 1 );
-      PSM( 3 ) = PSM( 2 ) + CTOT( 2 );
-      PSM( 4 ) = PSM( 3 ) + CTOT( 3 );
+      PSM[1] = 2;
+      PSM[2] = 2 + CTOT( 1 );
+      PSM[3] = PSM( 2 ) + CTOT( 2 );
+      PSM[4] = PSM( 3 ) + CTOT( 3 );
 
       // Fill out the IDXC array so that the permutation which it induces
       // will place all type-1 columns first, all type-2 columns next,
@@ -261,8 +261,8 @@
       for (J = 2; J <= N; J++) { // 150
          JP = IDXP( J );
          CT = COLTYP( JP );
-         IDXC( PSM( CT ) ) = J;
-         PSM( CT ) = PSM( CT ) + 1;
+         IDXC[PSM( CT )] = J;
+         PSM[CT] = PSM( CT ) + 1;
       } // 150
 
       // Sort the singular values and corresponding singular vectors into
@@ -274,7 +274,7 @@
 
       for (J = 2; J <= N; J++) { // 160
          JP = IDXP( J );
-         DSIGMA( J ) = D( JP );
+         DSIGMA[J] = D( JP );
          IDXJ = IDXQ( IDX( IDXP( IDXC( J ) ) )+1 );
          if ( IDXJ <= NLP1 ) {
             IDXJ = IDXJ - 1;
@@ -285,24 +285,24 @@
 
       // Determine DSIGMA(1), DSIGMA(2) and Z(1)
 
-      DSIGMA( 1 ) = ZERO;
+      DSIGMA[1] = ZERO;
       HLFTOL = TOL / TWO;
       if( ( DSIGMA( 2 ) ).abs() <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
-         Z( 1 ) = DLAPY2( Z1, Z( M ) );
+         Z[1] = DLAPY2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {
             C = ONE;
             S = ZERO;
-            Z( 1 ) = TOL;
+            Z[1] = TOL;
          } else {
             C = Z1 / Z( 1 );
             S = Z( M ) / Z( 1 );
          }
       } else {
          if ( ( Z1 ).abs() <= TOL ) {
-            Z( 1 ) = TOL;
+            Z[1] = TOL;
          } else {
-            Z( 1 ) = Z1;
+            Z[1] = Z1;
          }
       }
 
@@ -314,15 +314,15 @@
       // last row of VT.
 
       dlaset('A', N, 1, ZERO, ZERO, U2, LDU2 );
-      U2( NLP1, 1 ) = ONE;
+      U2[NLP1, 1] = ONE;
       if ( M > N ) {
          for (I = 1; I <= NLP1; I++) { // 170
-            VT( M, I ) = -S*VT( NLP1, I );
-            VT2( 1, I ) = C*VT( NLP1, I );
+            VT[M, I] = -S*VT( NLP1, I );
+            VT2[1, I] = C*VT( NLP1, I );
          } // 170
          for (I = NLP2; I <= M; I++) { // 180
-            VT2( 1, I ) = S*VT( M, I );
-            VT( M, I ) = C*VT( M, I );
+            VT2[1, I] = S*VT( M, I );
+            VT[M, I] = C*VT( M, I );
          } // 180
       } else {
          dcopy(M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 );
@@ -343,7 +343,7 @@
       // Copy CTOT into COLTYP for referencing in DLASD3.
 
       for (J = 1; J <= 4; J++) { // 190
-         COLTYP( J ) = CTOT( J );
+         COLTYP[J] = CTOT( J );
       } // 190
 
       return;

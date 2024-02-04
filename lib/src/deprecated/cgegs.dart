@@ -68,7 +68,7 @@
 
       LWKMIN = max( 2*N, 1 );
       LWKOPT = LWKMIN;
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       INFO = 0;
       if ( IJOBVL <= 0 ) {
@@ -95,7 +95,7 @@
          NB3 = ILAENV( 1, 'CUNGQR', ' ', N, N, N, -1 );
          NB = max( NB1, NB2, NB3 );
          LOPT = N*(NB+1);
-         WORK( 1 ) = LOPT;
+         WORK[1] = LOPT;
       }
 
       if ( INFO != 0 ) {
@@ -270,7 +270,7 @@
       }
 
       } // 10
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

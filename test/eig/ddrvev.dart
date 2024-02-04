@@ -53,8 +53,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'EV';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'EV';
 
       // Check for errors
 
@@ -131,7 +131,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -189,7 +189,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -197,7 +197,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
@@ -225,7 +225,7 @@
                   CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' ';
+               ADUMMA[1] = ' ';
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -284,7 +284,7 @@
                // Initialize RESULT
 
                for (J = 1; J <= 7; J++) { // 100
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 100
 
                // Compute eigenvalues and eigenvectors, and test them
@@ -292,7 +292,7 @@
                dlacpy('F', N, N, A, LDA, H, LDA );
                dgeev('V', 'V', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, NNWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV1', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -301,12 +301,12 @@
                // Do Test (1)
 
                dget22('N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES );
-               RESULT( 1 ) = RES( 1 );
+               RESULT[1] = RES( 1 );
 
                // Do Test (2)
 
                dget22('T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES );
-               RESULT( 2 ) = RES( 1 );
+               RESULT[2] = RES( 1 );
 
                // Do Test (3)
 
@@ -317,7 +317,7 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = DLAPY2( DNRM2( N, VR( 1, J ), 1 ), DNRM2( N, VR( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+                  RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;
@@ -339,7 +339,7 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = DLAPY2( DNRM2( N, VL( 1, J ), 1 ), DNRM2( N, VL( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+                  RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;
@@ -357,7 +357,7 @@
                dlacpy('F', N, N, A, LDA, H, LDA );
                dgeev('N', 'N', N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, WORK, NNWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV2', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -374,7 +374,7 @@
                dlacpy('F', N, N, A, LDA, H, LDA );
                dgeev('N', 'V', N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, WORK, NNWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV3', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -399,7 +399,7 @@
                dlacpy('F', N, N, A, LDA, H, LDA );
                dgeev('V', 'N', N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, WORK, NNWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV4', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;

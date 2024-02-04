@@ -69,7 +69,7 @@
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
             // Remove it from the list.
-            IWORK( K-1 ) = -1;
+            IWORK[K-1] = -1;
             // Make sure that I1 always points to the first unconverged interval
             if((I == I1) && (I < I2)) I1 = I + 1;
             if((PREV >= I1) && (I <= I2)) IWORK( 2*PREV-1 ) = I + 1;
@@ -114,11 +114,11 @@
                GO TO 50;
             }
             NINT = NINT + 1;
-            IWORK( K-1 ) = I + 1;
-            IWORK( K ) = CNT;
+            IWORK[K-1] = I + 1;
+            IWORK[K] = CNT;
          }
-         WORK( K-1 ) = LEFT;
-         WORK( K ) = RIGHT;
+         WORK[K-1] = LEFT;
+         WORK[K] = RIGHT;
       } // 75
 
 
@@ -148,7 +148,7 @@
             // reduce number of unconverged intervals
             NINT = NINT - 1;
             // Mark interval as converged.
-            IWORK( K-1 ) = 0;
+            IWORK[K-1] = 0;
             if ( I1 == I ) {
                I1 = NEXT;
             } else {
@@ -171,9 +171,9 @@
             if (DPLUS < ZERO) CNT = CNT + 1;
          } // 90
          if ( CNT <= I-1 ) {
-            WORK( K-1 ) = MID;
+            WORK[K-1] = MID;
          } else {
-            WORK( K ) = MID;
+            WORK[K] = MID;
          }
          I = NEXT;
 
@@ -191,8 +191,8 @@
          II = I - OFFSET;
          // All intervals marked by '0' have been refined.
          if ( IWORK( K-1 ) == 0 ) {
-            W( II ) = HALF*( WORK( K-1 )+WORK( K ) );
-            WERR( II ) = WORK( K ) - W( II );
+            W[II] = HALF*( WORK( K-1 )+WORK( K ) );
+            WERR[II] = WORK( K ) - W( II );
          }
       } // 110
 

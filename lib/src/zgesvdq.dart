@@ -284,10 +284,10 @@
 
       // Return optimal workspace
 
-          IWORK(1) = IMINWRK;
-          CWORK(1) = OPTWRK;
-          CWORK(2) = MINWRK;
-          RWORK(1) = RMINWRK;
+          IWORK[1] = IMINWRK;
+          CWORK[1] = OPTWRK;
+          CWORK[2] = MINWRK;
+          RWORK[1] = RMINWRK;
           return;
       }
 
@@ -307,7 +307,7 @@
             for (p = 1; p <= M; p++) { // 1904
                 // RWORK(p) = ABS( A(p,IZAMAX(N,A(p,1),LDA)) )
                 // [[ZLANGE will return NaN if an entry of the p-th row is Nan]]
-                RWORK(p) = ZLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY );
+                RWORK[p] = ZLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY );
                 // .. check for NaN's and Inf's
                 if ( ( RWORK(p) != RWORK(p) ) || ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = -8;
@@ -317,11 +317,11 @@
             } // 1904
             for (p = 1; p <= M - 1; p++) { // 1952
             q = IDAMAX( M-p+1, RWORK(p), 1 ) + p - 1;
-            IWORK(N+p) = q;
+            IWORK[N+p] = q;
             if ( p != q ) {
                RTMP     = RWORK(p);
-               RWORK(p) = RWORK(q);
-               RWORK(q) = RTMP;
+               RWORK[p] = RWORK(q);
+               RWORK[q] = RTMP;
             }
             } // 1952
 
@@ -337,15 +337,15 @@
                    zlaset('G', M, N, CZERO, CONE, U, LDU );
                }
                for (p = 1; p <= N; p++) { // 5001
-                   IWORK(p) = p;
+                   IWORK[p] = p;
                } // 5001
                if ( ROWPRM ) {
                    for (p = N + 1; p <= N + M - 1; p++) { // 5002
-                       IWORK(p) = p - N;
+                       IWORK[p] = p - N;
                    } // 5002
                }
                if (CONDA) RWORK(1) = -1;
-               RWORK(2) = -1;
+               RWORK[2] = -1;
                return;
             }
 
@@ -385,7 +385,7 @@
 
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
-         IWORK(p) = 0;
+         IWORK[p] = 0;
       } // 1963
       zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR );
 
@@ -483,9 +483,9 @@
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
             // the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
-               A(p,p) = CONJG(A(p,p));
+               A[p,p] = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1147
-                  A(q,p) = CONJG(A(p,q));
+                  A[q,p] = CONJG(A(p,q));
                   if (q <= NR) A(p,q) = CZERO;
                } // 1147
             } // 1146
@@ -511,7 +511,7 @@
              // vectors of R
             for (p = 1; p <= NR; p++) { // 1192
                for (q = p; q <= N; q++) { // 1193
-                  U(q,p) = CONJG(A(p,q));
+                  U[q,p] = CONJG(A(p,q));
                } // 1193
             } // 1192
             if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU );
@@ -521,11 +521,11 @@
                zgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1119
-                   U(p,p) = CONJG(U(p,p));
+                   U[p,p] = CONJG(U(p,p));
                    for (q = p + 1; q <= NR; q++) { // 1120
                       CTMP   = CONJG(U(q,p));
-                      U(q,p) = CONJG(U(p,q));
-                      U(p,q) = CTMP;
+                      U[q,p] = CONJG(U(p,q));
+                      U[p,q] = CTMP;
                    } // 1120
                } // 1119
 
@@ -567,7 +567,7 @@
              // .. copy R**H into V and overwrite V with the left singular vectors
             for (p = 1; p <= NR; p++) { // 1165
                for (q = p; q <= N; q++) { // 1166
-                  V(q,p) = CONJG(A(p,q));
+                  V[q,p] = CONJG(A(p,q));
                } // 1166
             } // 1165
             if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
@@ -577,18 +577,18 @@
                zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
-                   V(p,p) = CONJG(V(p,p));
+                   V[p,p] = CONJG(V(p,p));
                    for (q = p + 1; q <= NR; q++) { // 1122
                       CTMP   = CONJG(V(q,p));
-                      V(q,p) = CONJG(V(p,q));
-                      V(p,q) = CTMP;
+                      V[q,p] = CONJG(V(p,q));
+                      V[p,q] = CTMP;
                    } // 1122
                } // 1121
 
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       for (q = NR + 1; q <= N; q++) { // 1104
-                          V(p,q) = CONJG(V(q,p));
+                          V[p,q] = CONJG(V(q,p));
                       } // 1104
                    } // 1103
                }
@@ -603,11 +603,11 @@
                 zgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                 for (p = 1; p <= N; p++) { // 1123
-                   V(p,p) = CONJG(V(p,p));
+                   V[p,p] = CONJG(V(p,p));
                    for (q = p + 1; q <= N; q++) { // 1124
                       CTMP   = CONJG(V(q,p));
-                      V(q,p) = CONJG(V(p,q));
-                      V(p,q) = CTMP;
+                      V[q,p] = CONJG(V(p,q));
+                      V[p,q] = CTMP;
                    } // 1124
                 } // 1123
                 zlapmt( false , N, N, V, LDV, IWORK );
@@ -651,7 +651,7 @@
              // vectors of R**H
             for (p = 1; p <= NR; p++) { // 1168
                for (q = p; q <= N; q++) { // 1169
-                  V(q,p) = CONJG(A(p,q));
+                  V[q,p] = CONJG(A(p,q));
                } // 1169
             } // 1168
             if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
@@ -662,28 +662,28 @@
                zgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
                // .. assemble V
                for (p = 1; p <= NR; p++) { // 1115
-                  V(p,p) = CONJG(V(p,p));
+                  V[p,p] = CONJG(V(p,p));
                   for (q = p + 1; q <= NR; q++) { // 1116
                      CTMP   = CONJG(V(q,p));
-                     V(q,p) = CONJG(V(p,q));
-                     V(p,q) = CTMP;
+                     V[q,p] = CONJG(V(p,q));
+                     V[p,q] = CTMP;
                   } // 1116
                } // 1115
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       for (q = NR+1; q <= N; q++) { // 1102
-                         V(p,q) = CONJG(V(q,p));
+                         V[p,q] = CONJG(V(q,p));
                       } // 1102
                    } // 1101
                }
                zlapmt( false , NR, N, V, LDV, IWORK );
 
                 for (p = 1; p <= NR; p++) { // 1117
-                   U(p,p) = CONJG(U(p,p));
+                   U[p,p] = CONJG(U(p,p));
                    for (q = p + 1; q <= NR; q++) { // 1118
                       CTMP   = CONJG(U(q,p));
-                      U(q,p) = CONJG(U(p,q));
-                      U(p,q) = CTMP;
+                      U[q,p] = CONJG(U(p,q));
+                      U[p,q] = CTMP;
                    } // 1118
                 } // 1117
 
@@ -708,7 +708,7 @@
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
-                         V(q,p) = CONJG(A(p,q));
+                         V[q,p] = CONJG(A(p,q));
                       } // 1199
                    } // 1198
                    if (NR > 1) zlaset('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV);
@@ -717,11 +717,11 @@
                    zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                    for (p = 1; p <= N; p++) { // 1113
-                      V(p,p) = CONJG(V(p,p));
+                      V[p,p] = CONJG(V(p,p));
                       for (q = p + 1; q <= N; q++) { // 1114
                          CTMP   = CONJG(V(q,p));
-                         V(q,p) = CONJG(V(p,q));
-                         V(p,q) = CTMP;
+                         V[q,p] = CONJG(V(p,q));
+                         V[p,q] = CTMP;
                       } // 1114
                    } // 1113
                    zlapmt( false , N, N, V, LDV, IWORK );
@@ -729,11 +729,11 @@
                // (M x N1), i.e. (M x N) or (M x M).
 
                    for (p = 1; p <= N; p++) { // 1111
-                      U(p,p) = CONJG(U(p,p));
+                      U[p,p] = CONJG(U(p,p));
                       for (q = p + 1; q <= N; q++) { // 1112
                          CTMP   = CONJG(U(q,p));
-                         U(q,p) = CONJG(U(p,q));
-                         U(p,q) = CTMP;
+                         U[q,p] = CONJG(U(p,q));
+                         U[p,q] = CTMP;
                       } // 1112
                    } // 1111
 
@@ -749,14 +749,14 @@
                    // singular vectors of R
                    for (p = 1; p <= NR; p++) { // 1196
                       for (q = p; q <= N; q++) { // 1197
-                         U(q,NR+p) = CONJG(A(p,q));
+                         U[q,NR+p] = CONJG(A(p,q));
                       } // 1197
                    } // 1196
                    if (NR > 1) zlaset('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU);
                    zgeqrf(N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
-                           V(q,p) = CONJG(U(p,NR+q));
+                           V[q,p] = CONJG(U(p,NR+q));
                        } // 1144
                    } // 1143
                   zlaset('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
@@ -882,7 +882,7 @@
       // values.
       if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
-      RWORK(2) = p - NR;
+      RWORK[2] = p - NR;
       // .. p-NR is the number of singular values that are computed as
       // exact zeros in ZGESVD() applied to the (possibly truncated)
       // full row rank triangular (trapezoidal) factor of A.

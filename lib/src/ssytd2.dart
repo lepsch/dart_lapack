@@ -66,13 +66,13 @@
             // to annihilate A(1:i-1,i+1)
 
             slarfg(I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI );
-            E( I ) = A( I, I+1 );
+            E[I] = A( I, I+1 );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               A( I, I+1 ) = ONE;
+               A[I, I+1] = ONE;
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
@@ -88,12 +88,12 @@
 
                ssyr2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
-               A( I, I+1 ) = E( I );
+               A[I, I+1] = E( I );
             }
-            D( I+1 ) = A( I+1, I+1 );
-            TAU( I ) = TAUI;
+            D[I+1] = A( I+1, I+1 );
+            TAU[I] = TAUI;
          } // 10
-         D( 1 ) = A( 1, 1 );
+         D[1] = A( 1, 1 );
       } else {
 
          // Reduce the lower triangle of A
@@ -104,13 +104,13 @@
             // to annihilate A(i+2:n,i)
 
             slarfg(N-I, A( I+1, I ), A( min( I+2, N ), I ), 1, TAUI );
-            E( I ) = A( I+1, I );
+            E[I] = A( I+1, I );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               A( I+1, I ) = ONE;
+               A[I+1, I] = ONE;
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
@@ -126,12 +126,12 @@
 
                ssyr2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
-               A( I+1, I ) = E( I );
+               A[I+1, I] = E( I );
             }
-            D( I ) = A( I, I );
-            TAU( I ) = TAUI;
+            D[I] = A( I, I );
+            TAU[I] = TAUI;
          } // 20
-         D( N ) = A( N, N );
+         D[N] = A( N, N );
       }
 
       return;

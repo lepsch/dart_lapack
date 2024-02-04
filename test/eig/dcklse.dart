@@ -42,7 +42,7 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 3 ) = 'LSE';
+      PATH[1: 3] = 'LSE';
       INFO = 0;
       NRUN = 0;
       NFAIL = 0;

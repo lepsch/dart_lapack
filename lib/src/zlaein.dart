@@ -45,7 +45,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -63,9 +63,9 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= J - 1; I++) { // 10
-            B( I, J ) = H( I, J );
+            B[I, J] = H( I, J );
          } // 10
-         B( J, J ) = H( J, J ) - W;
+         B[J, J] = H( J, J ) - W;
       } // 20
 
       if ( NOINIT ) {
@@ -73,7 +73,7 @@
          // Initialize V.
 
          for (I = 1; I <= N; I++) { // 30
-            V( I ) = EPS3;
+            V[I] = EPS3;
          } // 30
       } else {
 
@@ -95,11 +95,11 @@
                // Interchange rows and eliminate.
 
                X = ZLADIV( B( I, I ), EI );
-               B( I, I ) = EI;
+               B[I, I] = EI;
                for (J = I + 1; J <= N; J++) { // 40
                   TEMP = B( I+1, J );
-                  B( I+1, J ) = B( I, J ) - X*TEMP;
-                  B( I, J ) = TEMP;
+                  B[I+1, J] = B( I, J ) - X*TEMP;
+                  B[I, J] = TEMP;
                } // 40
             } else {
 
@@ -109,7 +109,7 @@
                X = ZLADIV( EI, B( I, I ) );
                if ( X != ZERO ) {
                   for (J = I + 1; J <= N; J++) { // 50
-                     B( I+1, J ) = B( I+1, J ) - X*B( I, J );
+                     B[I+1, J] = B( I+1, J ) - X*B( I, J );
                   } // 50
                }
             }
@@ -130,11 +130,11 @@
                // Interchange columns and eliminate.
 
                X = ZLADIV( B( J, J ), EJ );
-               B( J, J ) = EJ;
+               B[J, J] = EJ;
                for (I = 1; I <= J - 1; I++) { // 70
                   TEMP = B( I, J-1 );
-                  B( I, J-1 ) = B( I, J ) - X*TEMP;
-                  B( I, J ) = TEMP;
+                  B[I, J-1] = B( I, J ) - X*TEMP;
+                  B[I, J] = TEMP;
                } // 70
             } else {
 
@@ -144,7 +144,7 @@
                X = ZLADIV( EJ, B( J, J ) );
                if ( X != ZERO ) {
                   for (I = 1; I <= J - 1; I++) { // 80
-                     B( I, J-1 ) = B( I, J-1 ) - X*B( I, J );
+                     B[I, J-1] = B( I, J-1 ) - X*B( I, J );
                   } // 80
                }
             }
@@ -173,11 +173,11 @@
          // Choose new orthogonal starting vector and try again.
 
          RTEMP = EPS3 / ( ROOTN+ONE );
-         V( 1 ) = EPS3;
+         V[1] = EPS3;
          for (I = 2; I <= N; I++) { // 100
-            V( I ) = RTEMP;
+            V[I] = RTEMP;
          } // 100
-         V( N-ITS+1 ) = V( N-ITS+1 ) - EPS3*ROOTN;
+         V[N-ITS+1] = V( N-ITS+1 ) - EPS3*ROOTN;
       } // 110
 
       // Failure to find eigenvector in N iterations.

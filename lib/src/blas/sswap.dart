@@ -32,22 +32,22 @@
          if (M != 0) {
             for (I = 1; I <= M; I++) {
                STEMP = SX(I);
-               SX(I) = SY(I);
-               SY(I) = STEMP;
+               SX[I] = SY(I);
+               SY[I] = STEMP;
             }
             if (N < 3) return;
          }
          MP1 = M + 1;
          for (I = MP1; I <= N; I += 3) {
             STEMP = SX(I);
-            SX(I) = SY(I);
-            SY(I) = STEMP;
+            SX[I] = SY(I);
+            SY[I] = STEMP;
             STEMP = SX(I+1);
-            SX(I+1) = SY(I+1);
-            SY(I+1) = STEMP;
+            SX[I+1] = SY(I+1);
+            SY[I+1] = STEMP;
             STEMP = SX(I+2);
-            SX(I+2) = SY(I+2);
-            SY(I+2) = STEMP;
+            SX[I+2] = SY(I+2);
+            SY[I+2] = STEMP;
          }
       } else {
 
@@ -60,8 +60,8 @@
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             STEMP = SX(IX);
-            SX(IX) = SY(IY);
-            SY(IY) = STEMP;
+            SX[IX] = SY(IY);
+            SY[IY] = STEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

@@ -50,7 +50,7 @@
 
       for (I = 1; I <= N - 1; I++) { // 20
          for (J = I + 1; J <= N; J++) { // 10
-            RHS( J ) = RHS( J ) - A( J, I )*RHS( I );
+            RHS[J] = RHS( J ) - A( J, I )*RHS( I );
          } // 10
       } // 20
 
@@ -69,9 +69,9 @@
 
       for (I = N; I >= 1; I--) { // 40
          TEMP = ONE / A( I, I );
-         RHS( I ) = RHS( I )*TEMP;
+         RHS[I] = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30
-            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
+            RHS[I] = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
          } // 30
       } // 40
 

@@ -26,7 +26,7 @@
       }
       if ( LWORK == -1 ) {
          // workspace query, quick return;
-         WORK( 1 ) = SROUNDUP_LWORK(N*NBLOCK_DESIRED);
+         WORK[1] = SROUNDUP_LWORK(N*NBLOCK_DESIRED);
          return;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {
          INFO = -25;
@@ -64,19 +64,19 @@
          if ( SI( I ) != -SI( I+1 ) ) {
 
             SWAP = SR( I );
-            SR( I ) = SR( I+1 );
-            SR( I+1 ) = SR( I+2 );
-            SR( I+2 ) = SWAP;
+            SR[I] = SR( I+1 );
+            SR[I+1] = SR( I+2 );
+            SR[I+2] = SWAP;
 
             SWAP = SI( I );
-            SI( I ) = SI( I+1 );
-            SI( I+1 ) = SI( I+2 );
-            SI( I+2 ) = SWAP;
+            SI[I] = SI( I+1 );
+            SI[I+1] = SI( I+2 );
+            SI[I+2] = SWAP;
 
             SWAP = SS( I );
-            SS( I ) = SS( I+1 );
-            SS( I+1 ) = SS( I+2 );
-            SS( I+2 ) = SWAP;
+            SS[I] = SS( I+1 );
+            SS[I+1] = SS( I+2 );
+            SS[I+2] = SWAP;
          }
       }
 

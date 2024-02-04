@@ -120,9 +120,9 @@
             LWKOPT = max( LWKOPT, INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
-            WORK( 1 ) = 1;
+            WORK[1] = 1;
          } else {
-            WORK( 1 ) = DCMPLX( LWKOPT );
+            WORK[1] = DCMPLX( LWKOPT );
          }
       }
 
@@ -242,7 +242,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) );
+            BWORK[I] = SELCTG( ALPHA( I ), BETA( I ) );
          } // 10
 
          ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
@@ -284,7 +284,7 @@
 
       } // 30
 
-      WORK( 1 ) = DCMPLX( LWKOPT );
+      WORK[1] = DCMPLX( LWKOPT );
 
       return;
       }

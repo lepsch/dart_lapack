@@ -61,7 +61,7 @@
          } else {
             WB = WORK( 1 ) + WA;
             sscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
             TAU = WB / WA;
          }
 

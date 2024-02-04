@@ -1,34 +1,40 @@
-      void dlacon(N, V, X, ISGN, EST, KASE ) {
+      import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/matrix.dart';
+
+      double              _ESTOLD;
+      int                _ITER, _J, _JUMP;
+
+void dlacon(final int N, final Array<double> V, final Array<double> X, final Array<int> ISGN, final double EST, final int KASE, ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      int                KASE, N;
-      double             EST;
+      // int                KASE, N;
+      // double             EST;
       // ..
       // .. Array Arguments ..
-      int                ISGN( * );
-      double             V( * ), X( * );
+      // int                ISGN( * );
+      // double             V( * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      int                ITMAX;
+      // int                ITMAX;
       const              ITMAX = 5 ;
-      double             ZERO, ONE, TWO;
+      // double             ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
-      int                I, ITER, J, JLAST, JUMP;
-      double             ALTSGN, ESTOLD, TEMP;
+      int                I, JLAST;
+      double ALTSGN, TEMP;
       // ..
       // .. External Functions ..
       //- int                IDAMAX;
-      //- double             DASUM;
-      // EXTERNAL IDAMAX, DASUM
+      //- double             dasum;
+      // EXTERNAL IDAMAX, dasum
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY
@@ -37,66 +43,66 @@
       // INTRINSIC ABS, DBLE, NINT, SIGN
       // ..
       // .. Save statement ..
-      SAVE;
+      // SAVE;
       // ..
       // .. Executable Statements ..
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = ONE / DBLE( N );
+            X[I] = ONE / DBLE( N );
          } // 10
          KASE = 1;
-         JUMP = 1;
+         _JUMP = 1;
          return;
       }
 
-      GO TO ( 20, 40, 70, 110, 140 )JUMP;
+      GO TO ( 20, 40, 70, 110, 140 )_JUMP;
 
-      // ................ ENTRY   (JUMP = 1)
+      // ................ ENTRY   (_JUMP = 1)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 );
+         V[1] = X( 1 );
          EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 150;
       }
-      EST = DASUM( N, X, 1 );
+      EST = dasum( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
-         X( I ) = SIGN( ONE, X( I ) );
-         ISGN( I ) = NINT( X( I ) );
+         X[I] = SIGN( ONE, X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 30
       KASE = 2;
-      JUMP = 2;
+      _JUMP = 2;
       return;
 
-      // ................ ENTRY   (JUMP = 2)
+      // ................ ENTRY   (_JUMP = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
       } // 40
-      J = IDAMAX( N, X, 1 );
-      ITER = 2;
+      _J = IDAMAX( N, X, 1 );
+      _ITER = 2;
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = ZERO;
+         X[I] = ZERO;
       } // 60
-      X( J ) = ONE;
+      X[_J] = ONE;
       KASE = 1;
-      JUMP = 3;
+      _JUMP = 3;
       return;
 
-      // ................ ENTRY   (JUMP = 3)
+      // ................ ENTRY   (_JUMP = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 70
       dcopy(N, X, 1, V, 1 );
-      ESTOLD = EST;
-      EST = DASUM( N, V, 1 );
+      _ESTOLD = EST;
+      EST = dasum( N, V, 1 );
       for (I = 1; I <= N; I++) { // 80
          if( NINT( SIGN( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90;
       } // 80
@@ -105,24 +111,24 @@
 
       } // 90
       // TEST FOR CYCLING.
-      if (EST <= ESTOLD) GO TO 120;
+      if (EST <= _ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
-         X( I ) = SIGN( ONE, X( I ) );
-         ISGN( I ) = NINT( X( I ) );
+         X[I] = SIGN( ONE, X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 100
       KASE = 2;
-      JUMP = 4;
+      _JUMP = 4;
       return;
 
-      // ................ ENTRY   (JUMP = 4)
+      // ................ ENTRY   (_JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
       } // 110
-      JLAST = J;
-      J = IDAMAX( N, X, 1 );
-      if ( ( X( JLAST ) != ( X( J ) ) ).abs() && ( ITER < ITMAX ) ) {
-         ITER = ITER + 1;
+      JLAST = _J;
+      _J = IDAMAX( N, X, 1 );
+      if ( ( X( JLAST ) != ( X( _J ) ) ).abs() && ( _ITER < ITMAX ) ) {
+         _ITER = _ITER + 1;
          GO TO 50;
       }
 
@@ -131,21 +137,23 @@
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X( I ) = ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) );
+         X[I] = ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;
-      JUMP = 5;
+      _JUMP = 5;
       return;
 
-      // ................ ENTRY   (JUMP = 5)
+      // ................ ENTRY   (_JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-      } // 140
-      TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) );
-      if ( TEMP > EST ) {
+      } // 140;
+      double TEMP = TWO*( dasum( N, X, 1 ) / DBLE( 3*N ) );
+      if ;
+        double TEMP > EST ) {
          dcopy(N, X, 1, V, 1 );
-         EST = TEMP;
+         EST ;
+         double TEMP;
       }
 
       } // 150

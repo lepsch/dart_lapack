@@ -44,14 +44,14 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
-      LMAX( 4 ) = 0;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
+      LMAX[4] = 0;
       NINFO = 0;
       KNT = 0;
       RMAX = ZERO;
@@ -89,7 +89,7 @@
       zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO );
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 1 ) = KNT;
+         LMAX[1] = KNT;
       }
 
       zlacpy('FULL', N, M, VL, LDVL, VLF, LDVL );
@@ -98,13 +98,13 @@
       zggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 2 ) = KNT;
+         LMAX[2] = KNT;
       }
 
       zggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
       if ( INFO != 0 ) {
          NINFO = NINFO + 1;
-         LMAX( 3 ) = KNT;
+         LMAX[3] = KNT;
       }
 
       // Test of ZGGBAK
@@ -124,7 +124,7 @@
       } // 70
       VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
       if ( VMAX > RMAX ) {
-         LMAX( 4 ) = KNT;
+         LMAX[4] = KNT;
          RMAX = VMAX;
       }
 
@@ -142,7 +142,7 @@
       } // 90
       VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
       if ( VMAX > RMAX ) {
-         LMAX( 4 ) = KNT;
+         LMAX[4] = KNT;
          RMAX = VMAX;
       }
 

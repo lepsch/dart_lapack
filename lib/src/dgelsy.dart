@@ -74,7 +74,7 @@
             LWKMIN = MN + max( 2*MN, N + 1, MN + NRHS );
             LWKOPT = max( LWKMIN, MN + 2*N + NB*( N + 1 ), 2*MN + NB*NRHS );
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
          if ( LWORK < LWKMIN && !LQUERY ) {
             INFO = -12;
@@ -152,8 +152,8 @@
 
       // Determine RANK using incremental condition estimation
 
-      WORK( ISMIN ) = ONE;
-      WORK( ISMAX ) = ONE;
+      WORK[ISMIN] = ONE;
+      WORK[ISMAX] = ONE;
       SMAX = ( A( 1, 1 ) ).abs();
       SMIN = SMAX;
       if ( ( A( 1, 1 ) ).abs() == ZERO ) {
@@ -172,11 +172,11 @@
 
          if ( SMAXPR*RCOND <= SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20
-               WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 );
-               WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 );
+               WORK[ISMIN+I-1] = S1*WORK( ISMIN+I-1 );
+               WORK[ISMAX+I-1] = S2*WORK( ISMAX+I-1 );
             } // 20
-            WORK( ISMIN+RANK ) = C1;
-            WORK( ISMAX+RANK ) = C2;
+            WORK[ISMIN+RANK] = C1;
+            WORK[ISMAX+RANK] = C2;
             SMIN = SMINPR;
             SMAX = SMAXPR;
             RANK = RANK + 1;
@@ -210,7 +210,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 40
          for (I = RANK + 1; I <= N; I++) { // 30
-            B( I, J ) = ZERO;
+            B[I, J] = ZERO;
          } // 30
       } // 40
 
@@ -226,7 +226,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 60
          for (I = 1; I <= N; I++) { // 50
-            WORK( JPVT( I ) ) = B( I, J );
+            WORK[JPVT( I )] = B( I, J );
          } // 50
          dcopy(N, WORK( 1 ), 1, B( 1, J ), 1 );
       } // 60
@@ -249,7 +249,7 @@
       }
 
       } // 70
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

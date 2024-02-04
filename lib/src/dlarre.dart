@@ -80,17 +80,17 @@
       if ( N == 1 ) {
          if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1) <= VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1;
-            W(1) = D(1);
+            W[1] = D(1);
             // The computation error of the eigenvalue is zero
-            WERR(1) = ZERO;
-            WGAP(1) = ZERO;
-            IBLOCK( 1 ) = 1;
-            INDEXW( 1 ) = 1;
-            GERS(1) = D( 1 );
-            GERS(2) = D( 1 );
+            WERR[1] = ZERO;
+            WGAP[1] = ZERO;
+            IBLOCK[1] = 1;
+            INDEXW[1] = 1;
+            GERS[1] = D( 1 );
+            GERS[2] = D( 1 );
          }
          // store the shift for the initial RRR, which is zero in this case
-         E(1) = ZERO;
+         E[1] = ZERO;
          return;
       }
 
@@ -102,18 +102,18 @@
       GU = D(1);
       EOLD = ZERO;
       EMAX = ZERO;
-      E(N) = ZERO;
+      E[N] = ZERO;
       for (I = 1; I <= N; I++) { // 5
-         WERR(I) = ZERO;
-         WGAP(I) = ZERO;
+         WERR[I] = ZERO;
+         WGAP[I] = ZERO;
          EABS = ( E(I) ).abs();
          if ( EABS >= EMAX ) {
             EMAX = EABS;
          }
          TMP1 = EABS + EOLD;
-         GERS( 2*I-1) = D(I) - TMP1;
+         GERS[2*I-1] = D(I) - TMP1;
          GL =  min( GL, GERS( 2*I - 1));
-         GERS( 2*I ) = D(I) + TMP1;
+         GERS[2*I] = D(I) + TMP1;
          GU = max( GU, GERS(2*I) );
          EOLD  = EABS;
       } // 5
@@ -152,10 +152,10 @@
          }
          // Make sure that the entries M+1 to N in W, WERR, IBLOCK, INDEXW are 0
          for (I = MM+1; I <= N; I++) { // 14
-            W( I ) = ZERO;
-            WERR( I ) = ZERO;
-            IBLOCK( I ) = 0;
-            INDEXW( I ) = 0;
+            W[I] = ZERO;
+            WERR[I] = ZERO;
+            IBLOCK[I] = 0;
+            INDEXW[I] = 0;
          } // 14
       }
 
@@ -172,17 +172,17 @@
          if ( IN == 1 ) {
             if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ) > VL ) && ( D( IBEGIN ) <= VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1;
-               W( M ) = D( IBEGIN );
-               WERR(M) = ZERO;
+               W[M] = D( IBEGIN );
+               WERR[M] = ZERO;
                // The gap for a single block doesn't matter for the later
                // algorithm and is assigned an arbitrary large value
-               WGAP(M) = ZERO;
-               IBLOCK( M ) = JBLK;
-               INDEXW( M ) = 1;
+               WGAP[M] = ZERO;
+               IBLOCK[M] = JBLK;
+               INDEXW[M] = 1;
                WBEGIN = WBEGIN + 1;
             }
             // E( IEND ) holds the shift for the initial RRR
-            E( IEND ) = ZERO;
+            E[IEND] = ZERO;
             IBEGIN = IEND + 1;
             GO TO 170;
          }
@@ -190,7 +190,7 @@
          // Blocks of size larger than 1x1
 
          // E( IEND ) will hold the shift for the initial RRR, for now set it =0
-         E( IEND ) = ZERO;
+         E[IEND] = ZERO;
 
          // Find local outer bounds GL,GU for the block
          GL = D(IBEGIN);
@@ -216,7 +216,7 @@
             if ( MB == 0) {
                // No eigenvalue in the current block lies in the desired range
                // E( IEND ) holds the shift for the initial RRR
-               E( IEND ) = ZERO;
+               E[IEND] = ZERO;
                IBEGIN = IEND + 1;
                GO TO 170;
             } else {
@@ -229,9 +229,9 @@
                // eigenvalues are different, we use SIGMA = E( IEND ).
                SIGMA = ZERO;
                for (I = WBEGIN; I <= WEND - 1; I++) { // 30
-                  WGAP( I ) = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
+                  WGAP[I] = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
                } // 30
-               WGAP( WEND ) = max( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )));
+               WGAP[WEND] = max( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )));
                // Find local index of the first and last desired evalue.
                INDL = INDEXW(WBEGIN);
                INDU = INDEXW( WEND );
@@ -363,15 +363,15 @@
             // Store D in WORK(1:IN), L in WORK(IN+1:2*IN), and reciprocals of
             // pivots in WORK(2*IN+1:3*IN)
             DPIVOT = D( IBEGIN ) - SIGMA;
-            WORK( 1 ) = DPIVOT;
+            WORK[1] = DPIVOT;
             DMAX = ( WORK(1) ).abs();
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 70
-               WORK( 2*IN+I ) = ONE / WORK( I );
+               WORK[2*IN+I] = ONE / WORK( I );
                TMP = E( J )*WORK( 2*IN+I );
-               WORK( IN+I ) = TMP;
+               WORK[IN+I] = TMP;
                DPIVOT = ( D( J+1 )-SIGMA ) - TMP*E( J );
-               WORK( I+1 ) = DPIVOT;
+               WORK[I+1] = DPIVOT;
                DMAX = max( DMAX, (DPIVOT).abs() );
                J = J + 1;
             } // 70
@@ -418,7 +418,7 @@
          // At this point, we have found an initial base representation
          // T - SIGMA I = L D L^T with not too much element growth.
          // Store the shift.
-         E( IEND ) = SIGMA;
+         E[IEND] = SIGMA;
          // Store D and L.
          dcopy(IN, WORK, 1, D( IBEGIN ), 1 );
          dcopy(IN-1, WORK( IN+1 ), 1, E( IBEGIN ), 1 );
@@ -431,15 +431,15 @@
             // glued matrices.
 
             for (I = 1; I <= 4; I++) { // 122
-               ISEED( I ) = 1;
+               ISEED[I] = 1;
             } // 122
 
             dlarnv(2, ISEED, 2*IN-1, WORK(1));
             for (I = 1; I <= IN-1; I++) { // 125
-               D(IBEGIN+I-1) = D(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(I));
-               E(IBEGIN+I-1) = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I));
+               D[IBEGIN+I-1] = D(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(I));
+               E[IBEGIN+I-1] = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I));
             } // 125
-            D(IEND) = D(IEND)*(ONE+EPS*FOUR*WORK(IN));
+            D[IEND] = D(IEND)*(ONE+EPS*FOUR*WORK(IN));
 
          }
 
@@ -456,13 +456,13 @@
             // shifted representation. In DLARRV, W will always hold the
             // UNshifted eigenvalue approximation.
             for (J = WBEGIN; J <= WEND; J++) { // 134
-               W(J) = W(J) - SIGMA;
-               WERR(J) = WERR(J) + (W(J)).abs() * EPS;
+               W[J] = W(J) - SIGMA;
+               WERR[J] = WERR(J) + (W(J)).abs() * EPS;
             } // 134
             // call DLARRB to reduce eigenvalue error of the approximations
             // from DLARRD
             for (I = IBEGIN; I <= IEND-1; I++) { // 135
-               WORK( I ) = D( I ) * E( I )**2;
+               WORK[I] = D( I ) * E( I )**2;
             } // 135
             // use bisection to find EV from INDL to INDU
             dlarrb(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO );
@@ -472,11 +472,11 @@
             }
             // DLARRB computes all gaps correctly except for the last one
             // Record distance to VU/GU
-            WGAP( WEND ) = max( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) );
+            WGAP[WEND] = max( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) );
             for (I = INDL; I <= INDU; I++) { // 138
                M = M + 1;
-               IBLOCK(M) = JBLK;
-               INDEXW(M) = I;
+               IBLOCK[M] = JBLK;
+               INDEXW[M] = I;
             } // 138
          } else {
             // Call dqds to get all eigs (and then possibly delete unwanted
@@ -493,12 +493,12 @@
             RTOL = LOG(DBLE(IN)) * FOUR * EPS;
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 140
-               WORK( 2*I-1 ) = ( D( J ) ).abs();
-               WORK( 2*I ) = E( J )*E( J )*WORK( 2*I-1 );
+               WORK[2*I-1] = ( D( J ) ).abs();
+               WORK[2*I] = E( J )*E( J )*WORK( 2*I-1 );
                J = J + 1;
             } // 140
-            WORK( 2*IN-1 ) = ( D( IEND ) ).abs();
-            WORK( 2*IN ) = ZERO;
+            WORK[2*IN-1] = ( D( IEND ) ).abs();
+            WORK[2*IN] = ZERO;
             dlasq2(IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                // If IINFO = -5 then an index is part of a tight cluster
@@ -518,28 +518,28 @@
             if ( SGNDEF > ZERO ) {
                for (I = INDL; I <= INDU; I++) { // 150
                   M = M + 1;
-                  W( M ) = WORK( IN-I+1 );
-                  IBLOCK( M ) = JBLK;
-                  INDEXW( M ) = I;
+                  W[M] = WORK( IN-I+1 );
+                  IBLOCK[M] = JBLK;
+                  INDEXW[M] = I;
                } // 150
             } else {
                for (I = INDL; I <= INDU; I++) { // 160
                   M = M + 1;
-                  W( M ) = -WORK( I );
-                  IBLOCK( M ) = JBLK;
-                  INDEXW( M ) = I;
+                  W[M] = -WORK( I );
+                  IBLOCK[M] = JBLK;
+                  INDEXW[M] = I;
                } // 160
             }
 
             for (I = M - MB + 1; I <= M; I++) { // 165
                // the value of RTOL below should be the tolerance in DLASQ2
-               WERR( I ) = RTOL * ( W(I) ).abs();
+               WERR[I] = RTOL * ( W(I) ).abs();
             } // 165
             for (I = M - MB + 1; I <= M - 1; I++) { // 166
                // compute the right gap between the intervals
-               WGAP( I ) = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
+               WGAP[I] = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
             } // 166
-            WGAP( M ) = max( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) );
+            WGAP[M] = max( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) );
          }
          // proceed with next block
          IBEGIN = IEND + 1;

@@ -65,7 +65,7 @@
          LHTRD = ILAENV2STAGE( 3, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWTRD = ILAENV2STAGE( 4, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
          LWMIN = N + LHTRD + LWTRD;
-         WORK( 1 )  = LWMIN;
+         WORK[1] = LWMIN;
 
          if (LWORK < LWMIN && !LQUERY) INFO = -8;
       }
@@ -84,8 +84,8 @@
       }
 
       if ( N == 1 ) {
-         W( 1 ) = DBLE( A( 1, 1 ) );
-         WORK( 1 ) = 1;
+         W[1] = DBLE( A( 1, 1 ) );
+         WORK[1] = 1;
          if (WANTZ) A( 1, 1 ) = CONE;
          return;
       }
@@ -146,7 +146,7 @@
 
       // Set WORK(1) to optimal complex workspace size.
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
 
       return;
       }

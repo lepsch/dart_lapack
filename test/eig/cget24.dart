@@ -83,7 +83,7 @@
       // Quick return if nothing to do
 
       for (I = 1; I <= 17; I++) { // 10
-         RESULT( I ) = -ONE;
+         RESULT[I] = -ONE;
       } // 10
 
       if (N == 0) return;
@@ -111,7 +111,7 @@
          clacpy('F', N, N, A, LDA, H, LDA );
          cgeesx('V', SORT, CSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1+RSUB ) = ULPINV;
+            RESULT[1+RSUB] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX1', IINFO, N, JTYPE, ISEED;
             } else {
@@ -126,7 +126,7 @@
 
          // Do Test (1) or Test (7)
 
-         RESULT( 1+RSUB ) = ZERO;
+         RESULT[1+RSUB] = ZERO;
          for (J = 1; J <= N - 1; J++) { // 30
             for (I = J + 1; I <= N; I++) { // 20
                if( H( I, J ) != CZERO ) RESULT( 1+RSUB ) = ULPINV;
@@ -151,12 +151,12 @@
          WNORM = CLANGE( '1', N, N, VS1, LDVS, RWORK );
 
          if ( ANORM > WNORM ) {
-            RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP );
+            RESULT[2+RSUB] = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT( 2+RSUB ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+               RESULT[2+RSUB] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT( 2+RSUB ) = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+               RESULT[2+RSUB] = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
             }
          }
 
@@ -166,7 +166,7 @@
 
          // Do Test (4) or Test (10)
 
-         RESULT( 4+RSUB ) = ZERO;
+         RESULT[4+RSUB] = ZERO;
          for (I = 1; I <= N; I++) { // 40
             if( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV;
          } // 40
@@ -176,7 +176,7 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('N', SORT, CSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 5+RSUB ) = ULPINV;
+            RESULT[5+RSUB] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX2', IINFO, N, JTYPE, ISEED;
             } else {
@@ -186,7 +186,7 @@
             GO TO 220;
          }
 
-         RESULT( 5+RSUB ) = ZERO;
+         RESULT[5+RSUB] = ZERO;
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
                if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
@@ -195,7 +195,7 @@
 
          // Do Test (6) or Test (12)
 
-         RESULT( 6+RSUB ) = ZERO;
+         RESULT[6+RSUB] = ZERO;
          for (I = 1; I <= N; I++) { // 70
             if( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV;
          } // 70
@@ -203,12 +203,12 @@
          // Do Test (13)
 
          if ( ISORT == 1 ) {
-            RESULT( 13 ) = ZERO;
+            RESULT[13] = ZERO;
             KNTEIG = 0;
             for (I = 1; I <= N; I++) { // 80
                if( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1;
                if ( I < N ) {
-                  if( CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV;
+                  if[CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13] = ULPINV;
                }
             } // 80
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
@@ -224,13 +224,13 @@
          // Compute both RCONDE and RCONDV with VS
 
          SORT = 'S';
-         RESULT( 14 ) = ZERO;
-         RESULT( 15 ) = ZERO;
+         RESULT[14] = ZERO;
+         RESULT[15] = ZERO;
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('V', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 14 ) = ULPINV;
-            RESULT( 15 ) = ULPINV;
+            RESULT[14] = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX3', IINFO, N, JTYPE, ISEED;
             } else {
@@ -256,8 +256,8 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('N', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 14 ) = ULPINV;
-            RESULT( 15 ) = ULPINV;
+            RESULT[14] = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX4', IINFO, N, JTYPE, ISEED;
             } else {
@@ -288,7 +288,7 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('V', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 14 ) = ULPINV;
+            RESULT[14] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX5', IINFO, N, JTYPE, ISEED;
             } else {
@@ -318,7 +318,7 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('N', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 14 ) = ULPINV;
+            RESULT[14] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX6', IINFO, N, JTYPE, ISEED;
             } else {
@@ -348,7 +348,7 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('V', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX7', IINFO, N, JTYPE, ISEED;
             } else {
@@ -378,7 +378,7 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('N', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'CGEESX8', IINFO, N, JTYPE, ISEED;
             } else {
@@ -420,10 +420,10 @@
          SELOPT = 1;
          EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 230
-            IPNT( I ) = I;
-            SELVAL( I ) = false;
-            SELWR( I ) = REAL( WTMP( I ) );
-            SELWI( I ) = AIMAG( WTMP( I ) );
+            IPNT[I] = I;
+            SELVAL[I] = false;
+            SELWR[I] = REAL( WTMP( I ) );
+            SELWI[I] = AIMAG( WTMP( I ) );
          } // 230
          for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I;
@@ -444,14 +444,14 @@
                }
             } // 240
             CTMP = WTMP( KMIN );
-            WTMP( KMIN ) = WTMP( I );
-            WTMP( I ) = CTMP;
+            WTMP[KMIN] = WTMP( I );
+            WTMP[I] = CTMP;
             ITMP = IPNT( I );
-            IPNT( I ) = IPNT( KMIN );
-            IPNT( KMIN ) = ITMP;
+            IPNT[I] = IPNT( KMIN );
+            IPNT[KMIN] = ITMP;
          } // 250
          for (I = 1; I <= NSLCT; I++) { // 260
-            SELVAL( IPNT( ISLCT( I ) ) ) = true;
+            SELVAL[IPNT( ISLCT( I ) )] = true;
          } // 260
 
          // Compute condition numbers
@@ -459,8 +459,8 @@
          clacpy('F', N, N, A, LDA, HT, LDA );
          cgeesx('N', 'S', CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 16 ) = ULPINV;
-            RESULT( 17 ) = ULPINV;
+            RESULT[16] = ULPINV;
+            RESULT[17] = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'CGEESX9', IINFO, N, ISEED( 1 );
             INFO = ( IINFO ).abs();
             GO TO 270;
@@ -485,15 +485,15 @@
          TOL = max( TOL, SMLNUM / EPS );
          TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
-            RESULT( 16 ) = ULPINV;
+            RESULT[16] = ULPINV;
          } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
-            RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL );
+            RESULT[16] = ( RCDEIN-TOLIN ) / ( RCONDE+TOL );
          } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
-            RESULT( 16 ) = ULPINV;
+            RESULT[16] = ULPINV;
          } else if ( RCDEIN+TOLIN < RCONDE-TOL ) {
-            RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN );
+            RESULT[16] = ( RCONDE-TOL ) / ( RCDEIN+TOLIN );
          } else {
-            RESULT( 16 ) = ONE;
+            RESULT[16] = ONE;
          }
 
          // Compare condition numbers for right invariant subspace
@@ -512,15 +512,15 @@
          TOL = max( TOL, SMLNUM / EPS );
          TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
-            RESULT( 17 ) = ULPINV;
+            RESULT[17] = ULPINV;
          } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {
-            RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL );
+            RESULT[17] = ( RCDVIN-TOLIN ) / ( RCONDV+TOL );
          } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
-            RESULT( 17 ) = ULPINV;
+            RESULT[17] = ULPINV;
          } else if ( RCDVIN+TOLIN < RCONDV-TOL ) {
-            RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN );
+            RESULT[17] = ( RCONDV-TOL ) / ( RCDVIN+TOLIN );
          } else {
-            RESULT( 17 ) = ONE;
+            RESULT[17] = ONE;
          }
 
          } // 270

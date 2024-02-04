@@ -47,7 +47,7 @@
          NB = max( 1, ILAENV( 1, 'CHETRI_3', UPLO, N, -1, -1, -1 ) );
          LWKOPT = ( N+NB+1 ) * ( NB+3 );
       }
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1;
@@ -72,7 +72,7 @@
 
       chetri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

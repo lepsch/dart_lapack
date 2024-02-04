@@ -74,7 +74,7 @@
 
       if ( INFO == 0 && Q == 0 ) {
          LRWORKMIN = 1;
-         RWORK(1) = LRWORKMIN;
+         RWORK[1] = LRWORKMIN;
          return;
       }
 
@@ -91,7 +91,7 @@
          IV2TSN = IV2TCS + Q;
          LRWORKOPT = IV2TSN + Q - 1;
          LRWORKMIN = LRWORKOPT;
-         RWORK(1) = LRWORKOPT;
+         RWORK[1] = LRWORKOPT;
          if ( LRWORK < LRWORKMIN && !LQUERY ) {
             INFO = -28;
          }
@@ -116,16 +116,16 @@
 
       for (I = 1; I <= Q; I++) {
          if ( THETA(I) < THRESH ) {
-            THETA(I) = ZERO;
+            THETA[I] = ZERO;
          } else if ( THETA(I) > PIOVER2-THRESH ) {
-            THETA(I) = PIOVER2;
+            THETA[I] = PIOVER2;
          }
       }
       for (I = 1; I <= Q-1; I++) {
          if ( PHI(I) < THRESH ) {
-            PHI(I) = ZERO;
+            PHI[I] = ZERO;
          } else if ( PHI(I) > PIOVER2-THRESH ) {
-            PHI(I) = PIOVER2;
+            PHI[I] = PIOVER2;
          }
       }
 
@@ -157,20 +157,20 @@
 
          // Compute the matrix entries
 
-         B11D(IMIN) = COS( THETA(IMIN) );
-         B21D(IMIN) = -SIN( THETA(IMIN) );
+         B11D[IMIN] = COS( THETA(IMIN) );
+         B21D[IMIN] = -SIN( THETA(IMIN) );
          for (I = IMIN; I <= IMAX - 1; I++) {
-            B11E(I) = -SIN( THETA(I) ) * SIN( PHI(I) );
-            B11D(I+1) = COS( THETA(I+1) ) * COS( PHI(I) );
-            B12D(I) = SIN( THETA(I) ) * COS( PHI(I) );
-            B12E(I) = COS( THETA(I+1) ) * SIN( PHI(I) );
-            B21E(I) = -COS( THETA(I) ) * SIN( PHI(I) );
-            B21D(I+1) = -SIN( THETA(I+1) ) * COS( PHI(I) );
-            B22D(I) = COS( THETA(I) ) * COS( PHI(I) );
-            B22E(I) = -SIN( THETA(I+1) ) * SIN( PHI(I) );
+            B11E[I] = -SIN( THETA(I) ) * SIN( PHI(I) );
+            B11D[I+1] = COS( THETA(I+1) ) * COS( PHI(I) );
+            B12D[I] = SIN( THETA(I) ) * COS( PHI(I) );
+            B12E[I] = COS( THETA(I+1) ) * SIN( PHI(I) );
+            B21E[I] = -COS( THETA(I) ) * SIN( PHI(I) );
+            B21D[I+1] = -SIN( THETA(I+1) ) * COS( PHI(I) );
+            B22D[I] = COS( THETA(I) ) * COS( PHI(I) );
+            B22E[I] = -SIN( THETA(I+1) ) * SIN( PHI(I) );
          }
-         B12D(IMAX) = SIN( THETA(IMAX) );
-         B22D(IMAX) = COS( THETA(IMAX) );
+         B12D[IMAX] = SIN( THETA(IMAX) );
+         B22D[IMAX] = COS( THETA(IMAX) );
 
          // Abort if not converging; otherwise, increment ITER
 
@@ -242,17 +242,17 @@
          }
 
          TEMP = RWORK(IV1TCS+IMIN-1)*B11D(IMIN) + RWORK(IV1TSN+IMIN-1)*B11E(IMIN)          B11E(IMIN) = RWORK(IV1TCS+IMIN-1)*B11E(IMIN) - RWORK(IV1TSN+IMIN-1)*B11D(IMIN);
-         B11D(IMIN) = TEMP;
+         B11D[IMIN] = TEMP;
          B11BULGE = RWORK(IV1TSN+IMIN-1)*B11D(IMIN+1);
-         B11D(IMIN+1) = RWORK(IV1TCS+IMIN-1)*B11D(IMIN+1);
+         B11D[IMIN+1] = RWORK(IV1TCS+IMIN-1)*B11D(IMIN+1);
          TEMP = RWORK(IV1TCS+IMIN-1)*B21D(IMIN) + RWORK(IV1TSN+IMIN-1)*B21E(IMIN)          B21E(IMIN) = RWORK(IV1TCS+IMIN-1)*B21E(IMIN) - RWORK(IV1TSN+IMIN-1)*B21D(IMIN);
-         B21D(IMIN) = TEMP;
+         B21D[IMIN] = TEMP;
          B21BULGE = RWORK(IV1TSN+IMIN-1)*B21D(IMIN+1);
-         B21D(IMIN+1) = RWORK(IV1TCS+IMIN-1)*B21D(IMIN+1);
+         B21D[IMIN+1] = RWORK(IV1TCS+IMIN-1)*B21D(IMIN+1);
 
          // Compute THETA(IMIN)
 
-         THETA( IMIN ) = ATAN2( sqrt( B21D(IMIN)**2+B21BULGE**2 ), sqrt( B11D(IMIN)**2+B11BULGE**2 ) );
+         THETA[IMIN] = ATAN2( sqrt( B21D(IMIN)**2+B21BULGE**2 ), sqrt( B11D(IMIN)**2+B11BULGE**2 ) );
 
          // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 
@@ -270,29 +270,29 @@
          } else {
             dlartgs(B22D(IMIN), B22E(IMIN), MU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) );
          }
-         RWORK(IU2CS+IMIN-1) = -RWORK(IU2CS+IMIN-1);
-         RWORK(IU2SN+IMIN-1) = -RWORK(IU2SN+IMIN-1);
+         RWORK[IU2CS+IMIN-1] = -RWORK(IU2CS+IMIN-1);
+         RWORK[IU2SN+IMIN-1] = -RWORK(IU2SN+IMIN-1);
 
          TEMP = RWORK(IU1CS+IMIN-1)*B11E(IMIN) + RWORK(IU1SN+IMIN-1)*B11D(IMIN+1)          B11D(IMIN+1) = RWORK(IU1CS+IMIN-1)*B11D(IMIN+1) - RWORK(IU1SN+IMIN-1)*B11E(IMIN);
-         B11E(IMIN) = TEMP;
+         B11E[IMIN] = TEMP;
          if ( IMAX > IMIN+1 ) {
             B11BULGE = RWORK(IU1SN+IMIN-1)*B11E(IMIN+1);
-            B11E(IMIN+1) = RWORK(IU1CS+IMIN-1)*B11E(IMIN+1);
+            B11E[IMIN+1] = RWORK(IU1CS+IMIN-1)*B11E(IMIN+1);
          }
          TEMP = RWORK(IU1CS+IMIN-1)*B12D(IMIN) + RWORK(IU1SN+IMIN-1)*B12E(IMIN)          B12E(IMIN) = RWORK(IU1CS+IMIN-1)*B12E(IMIN) - RWORK(IU1SN+IMIN-1)*B12D(IMIN);
-         B12D(IMIN) = TEMP;
+         B12D[IMIN] = TEMP;
          B12BULGE = RWORK(IU1SN+IMIN-1)*B12D(IMIN+1);
-         B12D(IMIN+1) = RWORK(IU1CS+IMIN-1)*B12D(IMIN+1);
+         B12D[IMIN+1] = RWORK(IU1CS+IMIN-1)*B12D(IMIN+1);
          TEMP = RWORK(IU2CS+IMIN-1)*B21E(IMIN) + RWORK(IU2SN+IMIN-1)*B21D(IMIN+1)          B21D(IMIN+1) = RWORK(IU2CS+IMIN-1)*B21D(IMIN+1) - RWORK(IU2SN+IMIN-1)*B21E(IMIN);
-         B21E(IMIN) = TEMP;
+         B21E[IMIN] = TEMP;
          if ( IMAX > IMIN+1 ) {
             B21BULGE = RWORK(IU2SN+IMIN-1)*B21E(IMIN+1);
-            B21E(IMIN+1) = RWORK(IU2CS+IMIN-1)*B21E(IMIN+1);
+            B21E[IMIN+1] = RWORK(IU2CS+IMIN-1)*B21E(IMIN+1);
          }
          TEMP = RWORK(IU2CS+IMIN-1)*B22D(IMIN) + RWORK(IU2SN+IMIN-1)*B22E(IMIN)          B22E(IMIN) = RWORK(IU2CS+IMIN-1)*B22E(IMIN) - RWORK(IU2SN+IMIN-1)*B22D(IMIN);
-         B22D(IMIN) = TEMP;
+         B22D[IMIN] = TEMP;
          B22BULGE = RWORK(IU2SN+IMIN-1)*B22D(IMIN+1);
-         B22D(IMIN+1) = RWORK(IU2CS+IMIN-1)*B22D(IMIN+1);
+         B22D[IMIN+1] = RWORK(IU2CS+IMIN-1)*B22D(IMIN+1);
 
          // Inner loop: chase bulges from B11(IMIN,IMIN+2),
          // B12(IMIN,IMIN+1), B21(IMIN,IMIN+2), and B22(IMIN,IMIN+1) to
@@ -307,7 +307,7 @@
             Y1 = SIN(THETA(I-1))*B12D(I-1) + COS(THETA(I-1))*B22D(I-1);
             Y2 = SIN(THETA(I-1))*B12BULGE + COS(THETA(I-1))*B22BULGE;
 
-            PHI(I-1) = ATAN2( sqrt(X1**2+X2**2), sqrt(Y1**2+Y2**2) );
+            PHI[I-1] = ATAN2( sqrt(X1**2+X2**2), sqrt(Y1**2+Y2**2) );
 
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
@@ -332,8 +332,8 @@
             } else {
                dlartgs(B21D(I), B21E(I), NU, RWORK(IV1TCS+I-1), RWORK(IV1TSN+I-1) );
             }
-            RWORK(IV1TCS+I-1) = -RWORK(IV1TCS+I-1);
-            RWORK(IV1TSN+I-1) = -RWORK(IV1TSN+I-1);
+            RWORK[IV1TCS+I-1] = -RWORK(IV1TCS+I-1);
+            RWORK[IV1TSN+I-1] = -RWORK(IV1TSN+I-1);
             if ( !RESTART12 && !RESTART22 ) {
                dlartgp(Y2, Y1, RWORK(IV2TSN+I-1-1), RWORK(IV2TCS+I-1-1), R );
             } else if ( !RESTART12 && RESTART22 ) {
@@ -347,23 +347,23 @@
             }
 
             TEMP = RWORK(IV1TCS+I-1)*B11D(I) + RWORK(IV1TSN+I-1)*B11E(I);
-            B11E(I) = RWORK(IV1TCS+I-1)*B11E(I) - RWORK(IV1TSN+I-1)*B11D(I);
-            B11D(I) = TEMP;
+            B11E[I] = RWORK(IV1TCS+I-1)*B11E(I) - RWORK(IV1TSN+I-1)*B11D(I);
+            B11D[I] = TEMP;
             B11BULGE = RWORK(IV1TSN+I-1)*B11D(I+1);
-            B11D(I+1) = RWORK(IV1TCS+I-1)*B11D(I+1);
+            B11D[I+1] = RWORK(IV1TCS+I-1)*B11D(I+1);
             TEMP = RWORK(IV1TCS+I-1)*B21D(I) + RWORK(IV1TSN+I-1)*B21E(I);
-            B21E(I) = RWORK(IV1TCS+I-1)*B21E(I) - RWORK(IV1TSN+I-1)*B21D(I);
-            B21D(I) = TEMP;
+            B21E[I] = RWORK(IV1TCS+I-1)*B21E(I) - RWORK(IV1TSN+I-1)*B21D(I);
+            B21D[I] = TEMP;
             B21BULGE = RWORK(IV1TSN+I-1)*B21D(I+1);
-            B21D(I+1) = RWORK(IV1TCS+I-1)*B21D(I+1);
+            B21D[I+1] = RWORK(IV1TCS+I-1)*B21D(I+1);
             TEMP = RWORK(IV2TCS+I-1-1)*B12E(I-1) + RWORK(IV2TSN+I-1-1)*B12D(I)             B12D(I) = RWORK(IV2TCS+I-1-1)*B12D(I) - RWORK(IV2TSN+I-1-1)*B12E(I-1);
-            B12E(I-1) = TEMP;
+            B12E[I-1] = TEMP;
             B12BULGE = RWORK(IV2TSN+I-1-1)*B12E(I);
-            B12E(I) = RWORK(IV2TCS+I-1-1)*B12E(I);
+            B12E[I] = RWORK(IV2TCS+I-1-1)*B12E(I);
             TEMP = RWORK(IV2TCS+I-1-1)*B22E(I-1) + RWORK(IV2TSN+I-1-1)*B22D(I)             B22D(I) = RWORK(IV2TCS+I-1-1)*B22D(I) - RWORK(IV2TSN+I-1-1)*B22E(I-1);
-            B22E(I-1) = TEMP;
+            B22E[I-1] = TEMP;
             B22BULGE = RWORK(IV2TSN+I-1-1)*B22E(I);
-            B22E(I) = RWORK(IV2TCS+I-1-1)*B22E(I);
+            B22E[I] = RWORK(IV2TCS+I-1-1)*B22E(I);
 
             // Compute THETA(I)
 
@@ -372,7 +372,7 @@
             Y1 = COS(PHI(I-1))*B21D(I) + SIN(PHI(I-1))*B22E(I-1);
             Y2 = COS(PHI(I-1))*B21BULGE + SIN(PHI(I-1))*B22BULGE;
 
-            THETA(I) = ATAN2( sqrt(Y1**2+Y2**2), sqrt(X1**2+X2**2) );
+            THETA[I] = ATAN2( sqrt(Y1**2+Y2**2), sqrt(X1**2+X2**2) );
 
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
@@ -408,33 +408,33 @@
             } else {
                dlartgs(B22D(I), B22E(I), MU, RWORK(IU2CS+I-1), RWORK(IU2SN+I-1) );
             }
-            RWORK(IU2CS+I-1) = -RWORK(IU2CS+I-1);
-            RWORK(IU2SN+I-1) = -RWORK(IU2SN+I-1);
+            RWORK[IU2CS+I-1] = -RWORK(IU2CS+I-1);
+            RWORK[IU2SN+I-1] = -RWORK(IU2SN+I-1);
 
             TEMP = RWORK(IU1CS+I-1)*B11E(I) + RWORK(IU1SN+I-1)*B11D(I+1);
-            B11D(I+1) = RWORK(IU1CS+I-1)*B11D(I+1) - RWORK(IU1SN+I-1)*B11E(I);
-            B11E(I) = TEMP;
+            B11D[I+1] = RWORK(IU1CS+I-1)*B11D(I+1) - RWORK(IU1SN+I-1)*B11E(I);
+            B11E[I] = TEMP;
             if ( I < IMAX - 1 ) {
                B11BULGE = RWORK(IU1SN+I-1)*B11E(I+1);
-               B11E(I+1) = RWORK(IU1CS+I-1)*B11E(I+1);
+               B11E[I+1] = RWORK(IU1CS+I-1)*B11E(I+1);
             }
             TEMP = RWORK(IU2CS+I-1)*B21E(I) + RWORK(IU2SN+I-1)*B21D(I+1);
-            B21D(I+1) = RWORK(IU2CS+I-1)*B21D(I+1) - RWORK(IU2SN+I-1)*B21E(I);
-            B21E(I) = TEMP;
+            B21D[I+1] = RWORK(IU2CS+I-1)*B21D(I+1) - RWORK(IU2SN+I-1)*B21E(I);
+            B21E[I] = TEMP;
             if ( I < IMAX - 1 ) {
                B21BULGE = RWORK(IU2SN+I-1)*B21E(I+1);
-               B21E(I+1) = RWORK(IU2CS+I-1)*B21E(I+1);
+               B21E[I+1] = RWORK(IU2CS+I-1)*B21E(I+1);
             }
             TEMP = RWORK(IU1CS+I-1)*B12D(I) + RWORK(IU1SN+I-1)*B12E(I);
-            B12E(I) = RWORK(IU1CS+I-1)*B12E(I) - RWORK(IU1SN+I-1)*B12D(I);
-            B12D(I) = TEMP;
+            B12E[I] = RWORK(IU1CS+I-1)*B12E(I) - RWORK(IU1SN+I-1)*B12D(I);
+            B12D[I] = TEMP;
             B12BULGE = RWORK(IU1SN+I-1)*B12D(I+1);
-            B12D(I+1) = RWORK(IU1CS+I-1)*B12D(I+1);
+            B12D[I+1] = RWORK(IU1CS+I-1)*B12D(I+1);
             TEMP = RWORK(IU2CS+I-1)*B22D(I) + RWORK(IU2SN+I-1)*B22E(I);
-            B22E(I) = RWORK(IU2CS+I-1)*B22E(I) - RWORK(IU2SN+I-1)*B22D(I);
-            B22D(I) = TEMP;
+            B22E[I] = RWORK(IU2CS+I-1)*B22E(I) - RWORK(IU2SN+I-1)*B22D(I);
+            B22D[I] = TEMP;
             B22BULGE = RWORK(IU2SN+I-1)*B22D(I+1);
-            B22D(I+1) = RWORK(IU2CS+I-1)*B22D(I+1);
+            B22D[I+1] = RWORK(IU2CS+I-1)*B22D(I+1);
 
          }
 
@@ -443,7 +443,7 @@
          X1 = SIN(THETA(IMAX-1))*B11E(IMAX-1) + COS(THETA(IMAX-1))*B21E(IMAX-1)          Y1 = SIN(THETA(IMAX-1))*B12D(IMAX-1) + COS(THETA(IMAX-1))*B22D(IMAX-1);
          Y2 = SIN(THETA(IMAX-1))*B12BULGE + COS(THETA(IMAX-1))*B22BULGE;
 
-         PHI(IMAX-1) = ATAN2( (X1).abs(), sqrt(Y1**2+Y2**2) );
+         PHI[IMAX-1] = ATAN2( (X1).abs(), sqrt(Y1**2+Y2**2) );
 
          // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 
@@ -463,9 +463,9 @@
          }
 
          TEMP = RWORK(IV2TCS+IMAX-1-1)*B12E(IMAX-1) + RWORK(IV2TSN+IMAX-1-1)*B12D(IMAX)          B12D(IMAX) = RWORK(IV2TCS+IMAX-1-1)*B12D(IMAX) - RWORK(IV2TSN+IMAX-1-1)*B12E(IMAX-1);
-         B12E(IMAX-1) = TEMP;
+         B12E[IMAX-1] = TEMP;
          TEMP = RWORK(IV2TCS+IMAX-1-1)*B22E(IMAX-1) + RWORK(IV2TSN+IMAX-1-1)*B22D(IMAX)          B22D(IMAX) = RWORK(IV2TCS+IMAX-1-1)*B22D(IMAX) - RWORK(IV2TSN+IMAX-1-1)*B22E(IMAX-1);
-         B22E(IMAX-1) = TEMP;
+         B22E[IMAX-1] = TEMP;
 
          // Update singular vectors
 
@@ -501,8 +501,8 @@
          // Fix signs on B11(IMAX-1,IMAX) and B21(IMAX-1,IMAX)
 
          if ( B11E(IMAX-1)+B21E(IMAX-1) > 0 ) {
-            B11D(IMAX) = -B11D(IMAX);
-            B21D(IMAX) = -B21D(IMAX);
+            B11D[IMAX] = -B11D(IMAX);
+            B21D[IMAX] = -B21D(IMAX);
             if ( WANTV1T ) {
                if ( COLMAJOR ) {
                   zscal(Q, NEGONECOMPLEX, V1T(IMAX,1), LDV1T );
@@ -516,13 +516,13 @@
 
          X1 = COS(PHI(IMAX-1))*B11D(IMAX) + SIN(PHI(IMAX-1))*B12E(IMAX-1)          Y1 = COS(PHI(IMAX-1))*B21D(IMAX) + SIN(PHI(IMAX-1))*B22E(IMAX-1);
 
-         THETA(IMAX) = ATAN2( (Y1).abs(), (X1).abs() );
+         THETA[IMAX] = ATAN2( (Y1).abs(), (X1).abs() );
 
          // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
          // and B22(IMAX,IMAX-1)
 
          if ( B11D(IMAX)+B12E(IMAX-1) < 0 ) {
-            B12D(IMAX) = -B12D(IMAX);
+            B12D[IMAX] = -B12D(IMAX);
             if ( WANTU1 ) {
                if ( COLMAJOR ) {
                   zscal(P, NEGONECOMPLEX, U1(1,IMAX), 1 );
@@ -532,7 +532,7 @@
             }
          }
          if ( B21D(IMAX)+B22E(IMAX-1) > 0 ) {
-            B22D(IMAX) = -B22D(IMAX);
+            B22D[IMAX] = -B22D(IMAX);
             if ( WANTU2 ) {
                if ( COLMAJOR ) {
                   zscal(M-P, NEGONECOMPLEX, U2(1,IMAX), 1 );
@@ -558,16 +558,16 @@
 
          for (I = IMIN; I <= IMAX; I++) {
             if ( THETA(I) < THRESH ) {
-               THETA(I) = ZERO;
+               THETA[I] = ZERO;
             } else if ( THETA(I) > PIOVER2-THRESH ) {
-               THETA(I) = PIOVER2;
+               THETA[I] = PIOVER2;
             }
          }
          for (I = IMIN; I <= IMAX-1; I++) {
             if ( PHI(I) < THRESH ) {
-               PHI(I) = ZERO;
+               PHI[I] = ZERO;
             } else if ( PHI(I) > PIOVER2-THRESH ) {
-               PHI(I) = PIOVER2;
+               PHI[I] = PIOVER2;
             }
          }
 
@@ -605,8 +605,8 @@
          }
 
          if ( MINI != I ) {
-            THETA(MINI) = THETA(I);
-            THETA(I) = THETAMIN;
+            THETA[MINI] = THETA(I);
+            THETA[I] = THETAMIN;
             if ( COLMAJOR ) {
                if (WANTU1) zswap( P, U1(1,I), 1, U1(1,MINI), 1 );
                if( WANTU2 ) zswap( M-P, U2(1,I), 1, U2(1,MINI), 1 );

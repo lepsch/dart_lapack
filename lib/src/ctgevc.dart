@@ -45,7 +45,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -152,14 +152,14 @@
 
       ANORM = ABS1( S( 1, 1 ) );
       BNORM = ABS1( P( 1, 1 ) );
-      RWORK( 1 ) = ZERO;
-      RWORK( N+1 ) = ZERO;
+      RWORK[1] = ZERO;
+      RWORK[N+1] = ZERO;
       for (J = 2; J <= N; J++) { // 40
-         RWORK( J ) = ZERO;
-         RWORK( N+J ) = ZERO;
+         RWORK[J] = ZERO;
+         RWORK[N+J] = ZERO;
          for (I = 1; I <= J - 1; I++) { // 30
-            RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) );
-            RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) );
+            RWORK[J] = RWORK( J ) + ABS1( S( I, J ) );
+            RWORK[N+J] = RWORK( N+J ) + ABS1( P( I, J ) );
          } // 30
          ANORM = max( ANORM, RWORK( J )+ABS1( S( J, J ) ) );
          BNORM = max( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) );
@@ -189,9 +189,9 @@
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 50
-                     VL( JR, IEIG ) = CZERO;
+                     VL[JR, IEIG] = CZERO;
                   } // 50
-                  VL( IEIG, IEIG ) = CONE;
+                  VL[IEIG, IEIG] = CONE;
                   GO TO 140;
                }
 
@@ -232,9 +232,9 @@
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 60
-                  WORK( JR ) = CZERO;
+                  WORK[JR] = CZERO;
                } // 60
-               WORK( JE ) = CONE;
+               WORK[JE] = CONE;
                DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                                                // H
@@ -254,7 +254,7 @@
                   TEMP = ONE / XMAX;
                   if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) > BIGNUM* TEMP ) {
                      for (JR = JE; JR <= J - 1; JR++) { // 70
-                        WORK( JR ) = TEMP*WORK( JR );
+                        WORK[JR] = TEMP*WORK( JR );
                      } // 70
                      XMAX = ONE;
                   }
@@ -278,13 +278,13 @@
                      if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM );
                         for (JR = JE; JR <= J - 1; JR++) { // 90
-                           WORK( JR ) = TEMP*WORK( JR );
+                           WORK[JR] = TEMP*WORK( JR );
                         } // 90
                         XMAX = TEMP*XMAX;
                         SUM = TEMP*SUM;
                      }
                   }
-                  WORK( J ) = CLADIV( -SUM, D );
+                  WORK[J] = CLADIV( -SUM, D );
                   XMAX = max( XMAX, ABS1( WORK( J ) ) );
                } // 100
 
@@ -309,14 +309,14 @@
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = IBEG; JR <= N; JR++) { // 120
-                     VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VL[JR, IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 120
                } else {
                   IBEG = N + 1;
                }
 
                for (JR = 1; JR <= IBEG - 1; JR++) { // 130
-                  VL( JR, IEIG ) = CZERO;
+                  VL[JR, IEIG] = CZERO;
                } // 130
 
             }
@@ -344,9 +344,9 @@
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 150
-                     VR( JR, IEIG ) = CZERO;
+                     VR[JR, IEIG] = CZERO;
                   } // 150
-                  VR( IEIG, IEIG ) = CONE;
+                  VR[IEIG, IEIG] = CONE;
                   GO TO 250;
                }
 
@@ -387,9 +387,9 @@
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 160
-                  WORK( JR ) = CZERO;
+                  WORK[JR] = CZERO;
                } // 160
-               WORK( JE ) = CONE;
+               WORK[JE] = CONE;
                DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                // Triangular solve of  (a A - b B) x = 0  (columnwise)
@@ -398,9 +398,9 @@
                // WORK(j+1:JE) contains x
 
                for (JR = 1; JR <= JE - 1; JR++) { // 170
-                  WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE );
+                  WORK[JR] = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE );
                } // 170
-               WORK( JE ) = CONE;
+               WORK[JE] = CONE;
 
                for (J = JE - 1; J >= 1; J--) { // 210
 
@@ -414,12 +414,12 @@
                      if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( WORK( J ) );
                         for (JR = 1; JR <= JE; JR++) { // 180
-                           WORK( JR ) = TEMP*WORK( JR );
+                           WORK[JR] = TEMP*WORK( JR );
                         } // 180
                      }
                   }
 
-                  WORK( J ) = CLADIV( -WORK( J ), D );
+                  WORK[J] = CLADIV( -WORK( J ), D );
 
                   if ( J > 1 ) {
 
@@ -429,7 +429,7 @@
                         TEMP = ONE / ABS1( WORK( J ) );
                         if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) >= BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
-                              WORK( JR ) = TEMP*WORK( JR );
+                              WORK[JR] = TEMP*WORK( JR );
                            } // 190
                         }
                      }
@@ -437,7 +437,7 @@
                      CA = ACOEFF*WORK( J );
                      CB = BCOEFF*WORK( J );
                      for (JR = 1; JR <= J - 1; JR++) { // 200
-                        WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J );
+                        WORK[JR] = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J );
                      } // 200
                   }
                } // 210
@@ -463,14 +463,14 @@
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = 1; JR <= IEND; JR++) { // 230
-                     VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VR[JR, IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 230
                } else {
                   IEND = 0;
                }
 
                for (JR = IEND + 1; JR <= N; JR++) { // 240
-                  VR( JR, IEIG ) = CZERO;
+                  VR[JR, IEIG] = CZERO;
                } // 240
 
             }

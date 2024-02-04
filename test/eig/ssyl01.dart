@@ -70,21 +70,21 @@
       SMLNUM = SLAMCH( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
-      VM( 1 ) = ONE;
-      VM( 2 ) = 0.05;
+      VM[1] = ONE;
+      VM[2] = 0.05;
 
       // Begin test loop
 
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NFAIL( 1 ) = 0;
-      NFAIL( 2 ) = 0;
-      NFAIL( 3 ) = 0;
-      RMAX( 1 ) = ZERO;
-      RMAX( 2 ) = ZERO;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NFAIL[1] = 0;
+      NFAIL[2] = 0;
+      NFAIL[3] = 0;
+      RMAX[1] = ZERO;
+      RMAX[2] = ZERO;
       KNT = 0;
       for (I = 1; I <= 4; I++) {
-         ISEED( I ) = 1;
+         ISEED[I] = 1;
       }
       SCALE = ONE;
       SCALE3 = ONE;
@@ -93,14 +93,14 @@
          for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
             // Reset seed (overwritten by LATMR)
             for (I = 1; I <= 4; I++) {
-               ISEED( I ) = 1;
+               ISEED[I] = 1;
             }
             for (M = 32; M <= MAXM; M += 71) {
                KLA = 0;
                KUA = M - 1;
                slatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                for (I = 1; I <= M; I++) {
-                  A( I, I ) = A( I, I ) * VM( J );
+                  A[I, I] = A( I, I ) * VM( J );
                }
                ANRM = SLANGE( 'M', M, M, A, MAXM, DUM );
                for (N = 51; N <= MAXN; N += 47) {
@@ -160,10 +160,10 @@
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
                         if ( SCALE3 == ZERO && SCALE > ZERO || IINFO != INFO ) {
-                           NFAIL( 3 ) = NFAIL( 3 ) + 1;
+                           NFAIL[3] = NFAIL( 3 ) + 1;
                         }
-                        if( RES > THRESH || SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1;
-                        IF( RES > RMAX( 2 ) ) RMAX( 2 ) = RES;
+                        if[RES > THRESH || SISNAN( RES ) ) NFAIL( 2] = NFAIL( 2 ) + 1;
+                        IF[RES > RMAX( 2 ) ) RMAX( 2] = RES;
                      }
                   }
                }

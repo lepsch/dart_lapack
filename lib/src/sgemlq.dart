@@ -92,7 +92,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+        WORK[1] = SROUNDUP_LWORK( LWMIN );
       }
 
       if ( INFO != 0 ) {
@@ -114,7 +114,7 @@
         slamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
 
       return;
       }

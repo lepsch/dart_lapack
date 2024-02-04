@@ -55,12 +55,12 @@
 
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
-                  WORK( N+I ) = S( I )*VT( I, J );
+                  WORK[N+I] = S( I )*VT( I, J );
                } // 10
                sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-               WORK( J ) = WORK( J ) + D( J );
+               WORK[J] = WORK( J ) + D( J );
                if ( J > 1 ) {
-                  WORK( J-1 ) = WORK( J-1 ) + E( J-1 );
+                  WORK[J-1] = WORK( J-1 ) + E( J-1 );
                   BNORM = max( BNORM, ( D( J ) ).abs()+( E( J-1 ) ) ).abs();
                } else {
                   BNORM = max( BNORM, ( D( J ) ) ).abs();
@@ -73,12 +73,12 @@
 
             for (J = 1; J <= N; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
-                  WORK( N+I ) = S( I )*VT( I, J );
+                  WORK[N+I] = S( I )*VT( I, J );
                } // 30
                sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-               WORK( J ) = WORK( J ) + D( J );
+               WORK[J] = WORK( J ) + D( J );
                if ( J < N ) {
-                  WORK( J+1 ) = WORK( J+1 ) + E( J );
+                  WORK[J+1] = WORK( J+1 ) + E( J );
                   BNORM = max( BNORM, ( D( J ) ).abs()+( E( J ) ) ).abs();
                } else {
                   BNORM = max( BNORM, ( D( J ) ) ).abs();
@@ -92,10 +92,10 @@
 
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
-               WORK( N+I ) = S( I )*VT( I, J );
+               WORK[N+I] = S( I )*VT( I, J );
             } // 50
             sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-            WORK( J ) = WORK( J ) + D( J );
+            WORK[J] = WORK( J ) + D( J );
             RESID = max( RESID, SASUM( N, WORK, 1 ) );
          } // 60
          J = ISAMAX( N, D, 1 );

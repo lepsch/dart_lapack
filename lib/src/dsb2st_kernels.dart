@@ -65,14 +65,14 @@
           if ( TTYPE == 1 ) {
               LM = ED - ST + 1;
 
-              V( VPOS ) = ONE;
+              V[VPOS] = ONE;
               for (I = 1; I <= LM-1; I++) { // 10
-                  V( VPOS+I )         = ( A( OFDPOS-I, ST+I ) );
-                  A( OFDPOS-I, ST+I ) = ZERO;
+                  V[VPOS+I] = ( A( OFDPOS-I, ST+I ) );
+                  A[OFDPOS-I, ST+I] = ZERO;
               } // 10
               CTMP = ( A( OFDPOS, ST ) );
               dlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-              A( OFDPOS, ST ) = CTMP;
+              A[OFDPOS, ST] = CTMP;
 
               LM = ED - ST + 1;
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
@@ -100,14 +100,14 @@
                       TAUPOS = (SWEEP-1 % 2) * N + J1;
                   }
 
-                  V( VPOS ) = ONE;
+                  V[VPOS] = ONE;
                   for (I = 1; I <= LM-1; I++) { // 30
-                      V( VPOS+I )          = ( A( DPOS-NB-I, J1+I ) );
-                      A( DPOS-NB-I, J1+I ) = ZERO;
+                      V[VPOS+I] = ( A( DPOS-NB-I, J1+I ) );
+                      A[DPOS-NB-I, J1+I] = ZERO;
                   } // 30
                   CTMP = ( A( DPOS-NB, J1 ) );
                   dlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-                  A( DPOS-NB, J1 ) = CTMP;
+                  A[DPOS-NB, J1] = CTMP;
 
                   dlarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
               }
@@ -128,10 +128,10 @@
           if ( TTYPE == 1 ) {
               LM = ED - ST + 1;
 
-              V( VPOS ) = ONE;
+              V[VPOS] = ONE;
               for (I = 1; I <= LM-1; I++) { // 20
-                  V( VPOS+I )         = A( OFDPOS+I, ST-1 );
-                  A( OFDPOS+I, ST-1 ) = ZERO;
+                  V[VPOS+I] = A( OFDPOS+I, ST-1 );
+                  A[OFDPOS+I, ST-1] = ZERO;
               } // 20
               dlarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
@@ -165,10 +165,10 @@
                       TAUPOS = (SWEEP-1 % 2) * N + J1;
                   }
 
-                  V( VPOS ) = ONE;
+                  V[VPOS] = ONE;
                   for (I = 1; I <= LM-1; I++) { // 40
-                      V( VPOS+I )        = A( DPOS+NB+I, ST );
-                      A( DPOS+NB+I, ST ) = ZERO;
+                      V[VPOS+I] = A( DPOS+NB+I, ST );
+                      A[DPOS+NB+I, ST] = ZERO;
                   } // 40
                   dlarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 

@@ -56,18 +56,18 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1.0 / DBLE( I+J );
-            AF( I, J ) = 1.0 / DBLE( I+J );
+            A[I, J] = 1.0 / DBLE( I+J );
+            AF[I, J] = 1.0 / DBLE( I+J );
          } // 10
-         B( J ) = 0.0;
-         E( J ) = 0.0;
-         R1( J ) = 0.0;
-         R2( J ) = 0.0;
-         W( J ) = 0.0;
-         X( J ) = 0.0;
-         C( J ) = 0.0;
-         R( J ) = 0.0;
-         IP( J ) = J;
+         B[J] = 0.0;
+         E[J] = 0.0;
+         R1[J] = 0.0;
+         R2[J] = 0.0;
+         W[J] = 0.0;
+         X[J] = 0.0;
+         C[J] = 0.0;
+         R[J] = 0.0;
+         IP[J] = J;
       } // 20
       EQ = ' ';
       OK = true;
@@ -660,7 +660,7 @@
          chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 11;
          EQ='Y';
-         R(1) = -ONE;
+         R[1] = -ONE;
          dsysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
          chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 13;

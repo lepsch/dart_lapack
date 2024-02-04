@@ -106,30 +106,30 @@
                   DSIGJP = -POLES( J+1, 2 );
                }
                if ( ( Z( J ) == ZERO ) || ( POLES( J, 2 ) == ZERO ) ) {
-                  WORK( J ) = ZERO;
+                  WORK[J] = ZERO;
                } else {
-                  WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ );
+                  WORK[J] = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ );
                }
                for (I = 1; I <= J - 1; I++) { // 30
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
 
-                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ );
+                     WORK[I] = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 30
                for (I = J + 1; I <= K; I++) { // 40
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   } else {
-                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ );
+                     WORK[I] = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 40
-               WORK( 1 ) = NEGONE;
+               WORK[1] = NEGONE;
                TEMP = SNRM2( K, WORK, 1 );
                sgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB );
                slascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
@@ -152,27 +152,27 @@
             for (J = 1; J <= K; J++) { // 80
                DSIGJ = POLES( J, 2 );
                if ( Z( J ) == ZERO ) {
-                  WORK( J ) = ZERO;
+                  WORK[J] = ZERO;
                } else {
-                  WORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 );
+                  WORK[J] = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 );
                }
                for (I = 1; I <= J - 1; I++) { // 60
                   if ( Z( J ) == ZERO ) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
 
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
+                     WORK[I] = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 60
                for (I = J + 1; I <= K; I++) { // 70
                   if ( Z( J ) == ZERO ) {
-                     WORK( I ) = ZERO;
+                     WORK[I] = ZERO;
                   } else {
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
+                     WORK[I] = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 70
                sgemv('T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX );

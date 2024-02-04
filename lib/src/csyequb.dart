@@ -43,7 +43,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -73,33 +73,33 @@
       }
 
       for (I = 1; I <= N; I++) {
-         S( I ) = ZERO;
+         S[I] = ZERO;
       }
 
       AMAX = ZERO;
       if ( UP ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J-1; I++) {
-               S( I ) = max( S( I ), CABS1( A( I, J ) ) );
-               S( J ) = max( S( J ), CABS1( A( I, J ) ) );
+               S[I] = max( S( I ), CABS1( A( I, J ) ) );
+               S[J] = max( S( J ), CABS1( A( I, J ) ) );
                AMAX = max( AMAX, CABS1( A( I, J ) ) );
             }
-            S( J ) = max( S( J ), CABS1( A( J, J ) ) );
+            S[J] = max( S( J ), CABS1( A( J, J ) ) );
             AMAX = max( AMAX, CABS1( A( J, J ) ) );
          }
       } else {
          for (J = 1; J <= N; J++) {
-            S( J ) = max( S( J ), CABS1( A( J, J ) ) );
+            S[J] = max( S( J ), CABS1( A( J, J ) ) );
             AMAX = max( AMAX, CABS1( A( J, J ) ) );
             for (I = J+1; I <= N; I++) {
-               S( I ) = max( S( I ), CABS1( A( I, J ) ) );
-               S( J ) = max( S( J ), CABS1( A( I, J ) ) );
+               S[I] = max( S( I ), CABS1( A( I, J ) ) );
+               S[J] = max( S( J ), CABS1( A( I, J ) ) );
                AMAX = max( AMAX, CABS1( A( I, J ) ) );
             }
          }
       }
       for (J = 1; J <= N; J++) {
-         S( J ) = 1.0 / S( J );
+         S[J] = 1.0 / S( J );
       }
 
       TOL = ONE / sqrt( 2.0 * N );
@@ -109,22 +109,22 @@
          SUMSQ = 0.0;
          // beta = |A|s
          for (I = 1; I <= N; I++) {
-             WORK( I ) = ZERO;
+             WORK[I] = ZERO;
          }
          if ( UP ) {
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= J-1; I++) {
-                  WORK( I ) = WORK( I ) + CABS1( A( I, J ) ) * S( J );
-                  WORK( J ) = WORK( J ) + CABS1( A( I, J ) ) * S( I );
+                  WORK[I] = WORK( I ) + CABS1( A( I, J ) ) * S( J );
+                  WORK[J] = WORK( J ) + CABS1( A( I, J ) ) * S( I );
                }
-               WORK( J ) = WORK( J ) + CABS1( A( J, J ) ) * S( J );
+               WORK[J] = WORK( J ) + CABS1( A( J, J ) ) * S( J );
             }
          } else {
             for (J = 1; J <= N; J++) {
-               WORK( J ) = WORK( J ) + CABS1( A( J, J ) ) * S( J );
+               WORK[J] = WORK( J ) + CABS1( A( J, J ) ) * S( J );
                for (I = J+1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) + CABS1( A( I, J ) ) * S( J );
-                  WORK( J ) = WORK( J ) + CABS1( A( I, J ) ) * S( I );
+                  WORK[I] = WORK( I ) + CABS1( A( I, J ) ) * S( J );
+                  WORK[J] = WORK( J ) + CABS1( A( I, J ) ) * S( I );
                }
             }
          }
@@ -138,7 +138,7 @@
 
          STD = 0.0;
          for (I = N+1; I <= 2*N; I++) {
-            WORK( I ) = S( I-N ) * WORK( I-N ) - AVG;
+            WORK[I] = S( I-N ) * WORK( I-N ) - AVG;
          }
          classq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * sqrt( SUMSQ / N );
@@ -165,28 +165,28 @@
                for (J = 1; J <= I; J++) {
                   T = CABS1( A( J, I ) );
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
                   T = CABS1( A( I, J ) );
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
             } else {
                for (J = 1; J <= I; J++) {
                   T = CABS1( A( I, J ) );
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
                   T = CABS1( A( J, I ) );
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
             }
 
             AVG = AVG + ( U + REAL( WORK( I ) ) ) * D / N;
-            S( I ) = SI;
+            S[I] = SI;
          }
       }
 
@@ -200,7 +200,7 @@
       BASE = SLAMCH( 'B' );
       U = ONE / LOG( BASE );
       for (I = 1; I <= N; I++) {
-         S( I ) = BASE ** INT( U * LOG( S( I ) * T ) );
+         S[I] = BASE ** INT( U * LOG( S( I ) * T ) );
          SMIN = min( SMIN, S( I ) );
          SMAX = max( SMAX, S( I ) );
       }

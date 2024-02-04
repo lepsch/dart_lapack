@@ -64,7 +64,7 @@
          if ( LENJ > 0 ) {
             dcopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
             for (I = LENJ + 1; I <= JU + JL + 1; I++) { // 20
-               WORK( I ) = ZERO;
+               WORK[I] = ZERO;
             } // 20
 
             // Multiply by the unit lower triangular matrix L.  Note that L
@@ -79,8 +79,8 @@
                   IP = IPIV( I );
                   if ( I != IP ) {
                      IP = IP - J + JU + 1;
-                     WORK( IW ) = WORK( IP );
-                     WORK( IP ) = T;
+                     WORK[IW] = WORK( IP );
+                     WORK[IP] = T;
                   }
                }
             } // 30

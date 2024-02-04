@@ -91,7 +91,7 @@
          } else {
             LWMIN = N;
          }
-         WORK( 1 ) = LWMIN;
+         WORK[1] = LWMIN;
 
          if ( MM < M ) {
             INFO = -15;
@@ -141,15 +141,15 @@
             YHBX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 );
             COND = DLAPY2( ( YHAX ).abs(), ( YHBX ).abs() );
             if ( COND == ZERO ) {
-               S( KS ) = -ONE;
+               S[KS] = -ONE;
             } else {
-               S( KS ) = COND / ( RNRM*LNRM );
+               S[KS] = COND / ( RNRM*LNRM );
             }
          }
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF( KS ) = DLAPY2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
+               DIF[KS] = DLAPY2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
             } else {
 
                // Estimate the reciprocal condition number of the k-th
@@ -169,7 +169,7 @@
 
                   // Ill-conditioned problem - swap rejected.
 
-                  DIF( KS ) = ZERO;
+                  DIF[KS] = ZERO;
                } else {
 
                   // Reordering successful, solve generalized Sylvester
@@ -187,6 +187,6 @@
          }
 
       } // 20
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

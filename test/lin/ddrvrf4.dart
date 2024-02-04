@@ -61,7 +61,7 @@
       NFAIL = 0;
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = DLAMCH( 'Precision' );
 
@@ -114,7 +114,7 @@
 
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
-                                 A( I, J) = DLARND( 2, ISEED );
+                                 A[I, J] = DLARND( 2, ISEED );
                               }
                            }
 
@@ -127,7 +127,7 @@
 
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
-                                 A( I, J) = DLARND( 2, ISEED );
+                                 A[I, J] = DLARND( 2, ISEED );
                               }
                            }
 
@@ -142,8 +142,8 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1( I, J) = DLARND( 2, ISEED );
-                              C2(I,J) = C1(I,J);
+                              C1[I, J] = DLARND( 2, ISEED );
+                              C2[I,J] = C1(I,J);
                            }
                         }
 
@@ -174,7 +174,7 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1(I,J) = C1(I,J)-C2(I,J);
+                              C1[I,J] = C1(I,J)-C2(I,J);
                            }
                         }
 
@@ -183,7 +183,7 @@
                         // supposed to be unchanged and the diagonal that
                         // is supposed to be real -> DLANGE
 
-                        RESULT(1) = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / max( ( ALPHA ).abs() * NORMA + ( BETA ).abs() , ONE ) / max( N , 1 ) / EPS;
+                        RESULT[1] = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / max( ( ALPHA ).abs() * NORMA + ( BETA ).abs() , ONE ) / max( N , 1 ) / EPS;
 
                         if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {

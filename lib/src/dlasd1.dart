@@ -72,7 +72,7 @@
       // Scale.
 
       ORGNRM = max( ( ALPHA ).abs(), ( BETA ).abs() );
-      D( NL+1 ) = ZERO;
+      D[NL+1] = ZERO;
       for (I = 1; I <= N; I++) { // 10
          if ( ( D( I ) ).abs() > ORGNRM ) {
             ORGNRM = ( D( I ) ).abs();

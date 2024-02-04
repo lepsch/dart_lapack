@@ -71,10 +71,10 @@
 
             AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
             if ( AJJ <= ZERO ) {
-               AP( JJ ) = AJJ;
+               AP[JJ] = AJJ;
                GO TO 30;
             }
-            AP( JJ ) = sqrt( AJJ );
+            AP[JJ] = sqrt( AJJ );
          } // 10
       } else {
 
@@ -87,11 +87,11 @@
 
             AJJ = REAL( AP( JJ ) );
             if ( AJJ <= ZERO ) {
-               AP( JJ ) = AJJ;
+               AP[JJ] = AJJ;
                GO TO 30;
             }
             AJJ = sqrt( AJJ );
-            AP( JJ ) = AJJ;
+            AP[JJ] = AJJ;
 
             // Compute elements J+1:N of column J and update the trailing
             // submatrix.

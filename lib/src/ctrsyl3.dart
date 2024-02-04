@@ -59,8 +59,8 @@
       LQUERY = ( LDSWORK == -1 );
       if ( LQUERY ) {
          LDSWORK = 2;
-         SWORK(1,1) = max( NBA, NBB );
-         SWORK(2,1) = 2 * NBB + NBA;
+         SWORK[1,1] = max( NBA, NBB );
+         SWORK[2,1] = 2 * NBB + NBA;
       }
 
       // Test the input arguments
@@ -111,7 +111,7 @@
 
       for (L = 1; L <= NBB; L++) {
          for (K = 1; K <= NBA; K++) {
-            SWORK( K, L ) = ONE;
+            SWORK[K, L] = ONE;
          }
       }
 
@@ -130,9 +130,9 @@
             L1 = (L - 1) * NB + 1;
             L2 = min( L * NB, M ) + 1;
             if ( NOTRNA ) {
-               SWORK( K, AWRK + L ) = CLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[K, AWRK + L] = CLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             } else {
-               SWORK( L, AWRK + K ) = CLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[L, AWRK + K] = CLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             }
          }
       }
@@ -144,9 +144,9 @@
             L1 = (L - 1) * NB + 1;
             L2 = min( L * NB, N ) + 1;
             if ( NOTRNB ) {
-               SWORK( K, BWRK + L ) = CLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[K, BWRK + L] = CLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             } else {
-               SWORK( L, BWRK + K ) = CLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[L, BWRK + K] = CLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             }
          }
       }
@@ -206,11 +206,11 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK( K, L ) = SCALOC * SWORK( K, L );
+               SWORK[K, L] = SCALOC * SWORK( K, L );
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K - 1; I >= 1; I--) {
@@ -234,7 +234,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -262,8 +262,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( I, L ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[I, L] = SCAMIN * SCALOC;
 
                   cgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
@@ -290,7 +290,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -318,8 +318,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( K, J ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[K, J] = SCAMIN * SCALOC;
 
                   cgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
                }
@@ -377,11 +377,11 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK( K, L ) = SCALOC * SWORK( K, L );
+               SWORK[K, L] = SCALOC * SWORK( K, L );
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K + 1; I <= NBA; I++) {
@@ -405,7 +405,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -433,8 +433,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( I, L ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[I, L] = SCAMIN * SCALOC;
 
                   cgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                }
@@ -460,7 +460,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -488,8 +488,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( K, J ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[K, J] = SCAMIN * SCALOC;
 
                   cgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
                }
@@ -547,11 +547,11 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK( K, L ) = SCALOC * SWORK( K, L );
+               SWORK[K, L] = SCALOC * SWORK( K, L );
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K + 1; I <= NBA; I++) {
@@ -575,7 +575,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -603,8 +603,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( I, L ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[I, L] = SCAMIN * SCALOC;
 
                   cgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                }
@@ -630,7 +630,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -658,8 +658,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( K, J ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[K, J] = SCAMIN * SCALOC;
 
                   cgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
                }
@@ -717,11 +717,11 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK( K, L ) = SCALOC * SWORK( K, L );
+               SWORK[K, L] = SCALOC * SWORK( K, L );
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = 1; I <= K - 1; I++) {
@@ -745,7 +745,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -773,8 +773,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( I, L ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[I, L] = SCAMIN * SCALOC;
 
                   cgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
@@ -801,7 +801,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -829,8 +829,8 @@
 
                   // Record current scaling factor
 
-                  SWORK( K, L ) = SCAMIN * SCALOC;
-                  SWORK( K, J ) = SCAMIN * SCALOC;
+                  SWORK[K, L] = SCAMIN * SCALOC;
+                  SWORK[K, J] = SCAMIN * SCALOC;
 
                   cgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
                }
@@ -854,8 +854,8 @@
          // form (1/SCALE)*X if SCALE is REAL. Set SCALE to
          // zero and give up.
 
-         SWORK(1,1) = max( NBA, NBB );
-         SWORK(2,1) = 2 * NBB + NBA;
+         SWORK[1,1] = max( NBA, NBB );
+         SWORK[2,1] = 2 * NBB + NBA;
          return;
       }
 
@@ -916,8 +916,8 @@
 
       // Restore workspace dimensions
 
-      SWORK(1,1) = max( NBA, NBB );
-      SWORK(2,1) = 2 * NBB + NBA;
+      SWORK[1,1] = max( NBA, NBB );
+      SWORK[2,1] = 2 * NBB + NBA;
 
       return;
       }

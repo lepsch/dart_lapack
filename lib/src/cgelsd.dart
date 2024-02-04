@@ -120,9 +120,9 @@
             }
          }
          MINWRK = min( MINWRK, MAXWRK );
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
-         IWORK( 1 ) = LIWORK;
-         RWORK( 1 ) = LRWORK;
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
+         IWORK[1] = LIWORK;
+         RWORK[1] = LRWORK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12;
@@ -368,8 +368,8 @@
       }
 
       } // 10
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
-      IWORK( 1 ) = LIWORK;
-      RWORK( 1 ) = LRWORK;
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
+      IWORK[1] = LIWORK;
+      RWORK[1] = LRWORK;
       return;
       }

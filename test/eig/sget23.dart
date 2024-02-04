@@ -83,7 +83,7 @@
       // Quick return if nothing to do
 
       for (I = 1; I <= 11; I++) { // 10
-         RESULT( I ) = -ONE;
+         RESULT[I] = -ONE;
       } // 10
 
       if (N == 0) return;
@@ -106,7 +106,7 @@
       slacpy('F', N, N, A, LDA, H, LDA );
       sgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
       if ( IINFO != 0 ) {
-         RESULT( 1 ) = ULPINV;
+         RESULT[1] = ULPINV;
          if ( JTYPE != 22 ) {
             WRITE( NOUNIT, FMT = 9998 )'SGEEVX1', IINFO, N, JTYPE, BALANC, ISEED;
          } else {
@@ -119,12 +119,12 @@
       // Do Test (1)
 
       sget22('N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES );
-      RESULT( 1 ) = RES( 1 );
+      RESULT[1] = RES( 1 );
 
       // Do Test (2)
 
       sget22('T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES );
-      RESULT( 2 ) = RES( 1 );
+      RESULT[2] = RES( 1 );
 
       // Do Test (3)
 
@@ -135,7 +135,7 @@
          } else if ( WI( J ) > ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) );
          }
-         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+         RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
@@ -157,7 +157,7 @@
          } else if ( WI( J ) > ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) );
          }
-         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+         RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
@@ -181,7 +181,7 @@
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX2', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -221,7 +221,7 @@
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX3', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -269,7 +269,7 @@
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX4', IINFO, N, JTYPE, BALANC, ISEED;
             } else {
@@ -322,7 +322,7 @@
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx('N', 'V', 'V', 'B', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX5', IINFO, N, ISEED( 1 );
             INFO = ( IINFO ).abs();
             GO TO 250;
@@ -342,22 +342,22 @@
                   VIMIN = WI( J );
                }
             } // 210
-            WR( KMIN ) = WR( I );
-            WI( KMIN ) = WI( I );
-            WR( I ) = VRMIN;
-            WI( I ) = VIMIN;
+            WR[KMIN] = WR( I );
+            WI[KMIN] = WI( I );
+            WR[I] = VRMIN;
+            WI[I] = VIMIN;
             VRMIN = RCONDE( KMIN );
-            RCONDE( KMIN ) = RCONDE( I );
-            RCONDE( I ) = VRMIN;
+            RCONDE[KMIN] = RCONDE( I );
+            RCONDE[I] = VRMIN;
             VRMIN = RCONDV( KMIN );
-            RCONDV( KMIN ) = RCONDV( I );
-            RCONDV( I ) = VRMIN;
+            RCONDV[KMIN] = RCONDV( I );
+            RCONDV[I] = VRMIN;
          } // 220
 
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
 
-         RESULT( 10 ) = ZERO;
+         RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
          V = max( REAL( N )*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
@@ -385,13 +385,13 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 10 ) = max( RESULT( 10 ), VMAX );
+            RESULT[10] = max( RESULT( 10 ), VMAX );
          } // 230
 
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         RESULT( 11 ) = ZERO;
+         RESULT[11] = ZERO;
          for (I = 1; I <= N; I++) { // 240
             if ( V > RCONDV( I ) ) {
                TOL = ONE;
@@ -416,7 +416,7 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 11 ) = max( RESULT( 11 ), VMAX );
+            RESULT[11] = max( RESULT( 11 ), VMAX );
          } // 240
          } // 250
 

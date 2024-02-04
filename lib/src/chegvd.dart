@@ -76,9 +76,9 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LOPT);
-         RWORK( 1 ) = LROPT;
-         IWORK( 1 ) = LIOPT;
+         WORK[1] = SROUNDUP_LWORK(LOPT);
+         RWORK[1] = LROPT;
+         IWORK[1] = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11;
@@ -148,9 +148,9 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LOPT);
-      RWORK( 1 ) = LROPT;
-      IWORK( 1 ) = LIOPT;
+      WORK[1] = SROUNDUP_LWORK(LOPT);
+      RWORK[1] = LROPT;
+      IWORK[1] = LIOPT;
 
       return;
       }

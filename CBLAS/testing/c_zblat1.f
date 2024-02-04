@@ -118,7 +118,7 @@
             LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
-               CX(I) = CV(I,NP1,INCX);
+               CX[I] = CV(I,NP1,INCX);
             } // 20
             if (ICASE == 6) {
                // .. DZNRM2TEST ..
@@ -151,8 +151,8 @@
          // Add a test for alpha equal to zero.
          CA = (0.0,0.0);
          for (I = 1; I <= 5; I++) { // 80
-            MWPCT(I) = (0.0,0.0);
-            MWPCS(I) = (1.0,1.0);
+            MWPCT[I] = (0.0,0.0);
+            MWPCS[I] = (1.0,1.0);
          } // 80
          zscaltest(5,CA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
@@ -161,24 +161,24 @@
          // Add a test for alpha equal to zero.
          SA = 0.0;
          for (I = 1; I <= 5; I++) { // 100
-            MWPCT(I) = (0.0,0.0);
-            MWPCS(I) = (1.0,1.0);
+            MWPCT[I] = (0.0,0.0);
+            MWPCS[I] = (1.0,1.0);
          } // 100
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
          SA = 1.0;
          for (I = 1; I <= 5; I++) { // 120
-            MWPCT(I) = CX(I);
-            MWPCS(I) = CX(I);
+            MWPCT[I] = CX(I);
+            MWPCS[I] = CX(I);
          } // 120
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
          SA = -1.0;
          for (I = 1; I <= 5; I++) { // 140
-            MWPCT(I) = -CX(I);
-            MWPCS(I) = -CX(I);
+            MWPCT[I] = -CX(I);
+            MWPCS[I] = -CX(I);
          } // 140
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
@@ -247,18 +247,18 @@
             LENY = LENS(KN,MY);
             // .. initialize all argument arrays ..
             for (I = 1; I <= 7; I++) { // 20
-               CX(I) = CX1(I);
-               CY(I) = CY1(I);
+               CX[I] = CX1(I);
+               CY[I] = CY1(I);
             } // 20
             if (ICASE == 1) {
                // .. ZDOTCTEST ..
                zdotctest(N,CX,INCX,CY,INCY,ZTEMP);
-               CDOT(1) = ZTEMP;
+               CDOT[1] = ZTEMP;
                ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE == 2) {
                // .. ZDOTUTEST ..
                zdotutest(N,CX,INCX,CY,INCY,ZTEMP);
-               CDOT(1) = ZTEMP;
+               CDOT[1] = ZTEMP;
                ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE == 3) {
                // .. ZAXPYTEST ..
@@ -352,8 +352,8 @@
       // EXTERNAL STEST
       // .. Executable Statements ..
 
-      SCOMP(1) = SCOMP1;
-      STRUE(1) = STRUE1;
+      SCOMP[1] = SCOMP1;
+      STRUE[1] = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       return;
@@ -388,12 +388,12 @@
       // INTRINSIC DIMAG, DBLE
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP(2*I-1) = DBLE(CCOMP(I));
-         SCOMP(2*I) = DIMAG(CCOMP(I));
-         STRUE(2*I-1) = DBLE(CTRUE(I));
-         STRUE(2*I) = DIMAG(CTRUE(I));
-         SSIZE(2*I-1) = DBLE(CSIZE(I));
-         SSIZE(2*I) = DIMAG(CSIZE(I));
+         SCOMP[2*I-1] = DBLE(CCOMP(I));
+         SCOMP[2*I] = DIMAG(CCOMP(I));
+         STRUE[2*I-1] = DBLE(CTRUE(I));
+         STRUE[2*I] = DIMAG(CTRUE(I));
+         SSIZE[2*I-1] = DBLE(CSIZE(I));
+         SSIZE[2*I] = DIMAG(CSIZE(I));
       } // 20
 
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);

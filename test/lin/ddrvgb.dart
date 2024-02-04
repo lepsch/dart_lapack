@@ -69,13 +69,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'GB';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'GB';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -197,12 +197,12 @@
                         I1 = max( 1, KU+2-IZERO );
                         I2 = min( KL+KU+1, KU+1+( N-IZERO ) );
                         for (I = I1; I <= I2; I++) { // 20
-                           A( IOFF+I ) = ZERO;
+                           A[IOFF+I] = ZERO;
                         } // 20
                      } else {
                         for (J = IZERO; J <= N; J++) { // 40
                            DO 30 I = max( 1, KU+2-J ), min( KL+KU+1, KU+1+( N-J ) );
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 30
                            IOFF = IOFF + LDA;
                         } // 40
@@ -425,7 +425,7 @@
                                  RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW;
                               }
                            }
-                           RESULT( 7 ) = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
+                           RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
 
                            if ( !PREFAC ) {
 
@@ -471,7 +471,7 @@
                            // Compare RCOND from DGBSVX with the computed
                            // value in RCONDC.
 
-                           RESULT( 6 ) = DGET06( RCOND, RCONDC );
+                           RESULT[6] = DGET06( RCOND, RCONDC );
 
                            // Print information about the tests that did
                            // not pass the threshold.

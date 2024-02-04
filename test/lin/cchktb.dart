@@ -67,13 +67,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'TB';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'TB';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits

@@ -57,13 +57,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Single precision';
-      PATH( 2: 3 ) = 'RQ';
+      PATH[1: 1] = 'Single precision';
+      PATH[2: 3] = 'RQ';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -110,10 +110,10 @@
                // corresponding to the call of SRQT01; other values are
                // used in the calls of SRQT02, and must not exceed MINMN.
 
-               KVAL( 1 ) = MINMN;
-               KVAL( 2 ) = 0;
-               KVAL( 3 ) = 1;
-               KVAL( 4 ) = MINMN / 2;
+               KVAL[1] = MINMN;
+               KVAL[2] = 0;
+               KVAL[3] = 1;
+               KVAL[4] = MINMN / 2;
                if ( MINMN == 0 ) {
                   NK = 1;
                } else if ( MINMN == 1 ) {
@@ -137,7 +137,7 @@
                      NX = NXVAL( INB );
                      xlaenv(3, NX );
                      for (I = 1; I <= NTESTS; I++) {
-                        RESULT( I ) = ZERO;
+                        RESULT[I] = ZERO;
                      }
                      NT = 2;
                      if ( IK == 1 ) {

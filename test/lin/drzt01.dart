@@ -54,7 +54,7 @@
       dlaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= M; J++) { // 20
          for (I = 1; I <= J; I++) { // 10
-            WORK( ( J-1 )*M+I ) = AF( I, J );
+            WORK[( J-1 )*M+I] = AF( I, J );
          } // 10
       } // 20
 

@@ -59,7 +59,7 @@
          // Use unblocked code for one row case
          // Just need to handle IPIV and INFO
 
-         IPIV( 1 ) = 1;
+         IPIV[1] = 1;
          if ( A(1,1) == ZERO ) INFO = 1;
 
       } else if ( N == 1 ) {
@@ -74,15 +74,15 @@
          // Find pivot and test for singularity
 
          I = IDAMAX( M, A( 1, 1 ), 1 );
-         IPIV( 1 ) = I;
+         IPIV[1] = I;
          if ( A( I, 1 ) != ZERO ) {
 
             // Apply the interchange
 
             if ( I != 1 ) {
                TEMP = A( 1, 1 );
-               A( 1, 1 ) = A( I, 1 );
-               A( I, 1 ) = TEMP;
+               A[1, 1] = A( I, 1 );
+               A[I, 1] = TEMP;
             }
 
             // Compute elements 2:M of the column
@@ -91,7 +91,7 @@
                dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
             } else {
                for (I = 1; I <= M-1; I++) { // 10
-                  A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 );
+                  A[1+I, 1] = A( 1+I, 1 ) / A( 1, 1 );
                } // 10
             }
 
@@ -135,7 +135,7 @@
 
          if (INFO == 0 && IINFO > 0) INFO = IINFO + N1;
          for (I = N1+1; I <= min( M, N ); I++) { // 20
-            IPIV( I ) = IPIV( I ) + N1;
+            IPIV[I] = IPIV( I ) + N1;
          } // 20
 
          // Apply interchanges to A21

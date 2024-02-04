@@ -45,7 +45,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
+      CABS1[Z] = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -68,7 +68,7 @@
          // Initialize the first entry of array E, where superdiagonal
          // elements of D are stored
 
-         E( 1 ) = CZERO;
+         E[1] = CZERO;
 
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
@@ -248,7 +248,7 @@
 
                // Copy non-updated column KK to column KP
 
-               A( KP, K ) = A( KK, K );
+               A[KP, K] = A( KK, K );
                zcopy(K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                zcopy(KP, A( 1, KK ), 1, A( 1, KP ), 1 );
 
@@ -276,13 +276,13 @@
                      zscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ) != CZERO ) {
                      for (II = 1; II <= K - 1; II++) { // 14
-                        A( II, K ) = A( II, K ) / A( K, K );
+                        A[II, K] = A( II, K ) / A( K, K );
                      } // 14
                   }
 
                   // Store the superdiagonal element of D in array E
 
-                  E( K ) = CZERO;
+                  E[K] = CZERO;
 
                }
 
@@ -305,7 +305,7 @@
                   D22 = W( K-1, KW-1 ) / D12;
                   T = CONE / ( D11*D22-CONE );
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
+                     A[J, K-1] = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
                   } // 20
                }
 
@@ -313,11 +313,11 @@
                // copy superdiagonal element of D(K) to E(K) and
                // ZERO out superdiagonal entry of A
 
-               A( K-1, K-1 ) = W( K-1, KW-1 );
-               A( K-1, K ) = CZERO;
-               A( K, K ) = W( K, KW );
-               E( K ) = W( K-1, KW );
-               E( K-1 ) = CZERO;
+               A[K-1, K-1] = W( K-1, KW-1 );
+               A[K-1, K] = CZERO;
+               A[K, K] = W( K, KW );
+               E[K] = W( K-1, KW );
+               E[K-1] = CZERO;
 
             }
 
@@ -328,10 +328,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -373,7 +373,7 @@
 
          // Initialize the unused last entry of the subdiagonal array E.
 
-         E( N ) = CZERO;
+         E[N] = CZERO;
 
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
@@ -543,7 +543,7 @@
 
                // Copy non-updated column KK to column KP
 
-               A( KP, K ) = A( KK, K );
+               A[KP, K] = A( KK, K );
                zcopy(KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA );
                zcopy(N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 );
 
@@ -570,13 +570,13 @@
                      zscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ) != CZERO ) {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A( II, K ) = A( II, K ) / A( K, K );
+                        A[II, K] = A( II, K ) / A( K, K );
                      } // 74
                   }
 
                   // Store the subdiagonal element of D in array E
 
-                  E( K ) = CZERO;
+                  E[K] = CZERO;
 
                }
 
@@ -598,7 +598,7 @@
                   D22 = W( K, K ) / D21;
                   T = CONE / ( D11*D22-CONE );
                   for (J = K + 2; J <= N; J++) { // 80
-                     A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
+                     A[J, K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
@@ -606,11 +606,11 @@
                // copy subdiagonal element of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
 
-               A( K, K ) = W( K, K );
-               A( K+1, K ) = CZERO;
-               A( K+1, K+1 ) = W( K+1, K+1 );
-               E( K ) = W( K+1, K );
-               E( K+1 ) = CZERO;
+               A[K, K] = W( K, K );
+               A[K+1, K] = CZERO;
+               A[K+1, K+1] = W( K+1, K+1 );
+               E[K] = W( K+1, K );
+               E[K+1] = CZERO;
 
             }
 
@@ -621,10 +621,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

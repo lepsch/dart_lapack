@@ -77,7 +77,7 @@
 
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= K; I++) { // 20
-               C( I, J ) = C( I, J ) - WORK( J, I );
+               C[I, J] = C( I, J ) - WORK( J, I );
             } // 20
          } // 30
 
@@ -109,7 +109,7 @@
 
          for (J = 1; J <= K; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
-               C( I, J ) = C( I, J ) - WORK( I, J );
+               C[I, J] = C( I, J ) - WORK( I, J );
             } // 50
          } // 60
 

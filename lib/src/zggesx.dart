@@ -134,13 +134,13 @@
             MAXWRK = 1;
             LWRK   = 1;
          }
-         WORK( 1 ) = LWRK;
+         WORK[1] = LWRK;
          if ( WANTSN || N == 0 ) {
             LIWMIN = 1;
          } else {
             LIWMIN = N + 2;
          }
-         IWORK( 1 ) = LIWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -21;
@@ -271,7 +271,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) );
+            BWORK[I] = SELCTG( ALPHA( I ), BETA( I ) );
          } // 10
 
          // Reorder eigenvalues, transform Generalized Schur vectors, and
@@ -289,12 +289,12 @@
             INFO = -21;
          } else {
             if ( IJOB == 1 || IJOB == 4 ) {
-               RCONDE( 1 ) = PL;
-               RCONDE( 2 ) = PR;
+               RCONDE[1] = PL;
+               RCONDE[2] = PR;
             }
             if ( IJOB == 2 || IJOB == 4 ) {
-               RCONDV( 1 ) = DIF( 1 );
-               RCONDV( 2 ) = DIF( 2 );
+               RCONDV[1] = DIF( 1 );
+               RCONDV[2] = DIF( 2 );
             }
             if (IERR == 1) INFO = N + 3;
          }
@@ -337,8 +337,8 @@
 
       } // 40
 
-      WORK( 1 ) = MAXWRK;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = MAXWRK;
+      IWORK[1] = LIWMIN;
 
       return;
       }

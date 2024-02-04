@@ -79,21 +79,21 @@
       // Compute reciprocal condition numbers
 
       if ( K == 1 ) {
-         SEP( 1 ) = DLAMCH( 'O' );
+         SEP[1] = DLAMCH( 'O' );
       } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) );
-         SEP( 1 ) = OLDGAP;
+         SEP[1] = OLDGAP;
          for (I = 2; I <= K - 1; I++) { // 20
             NEWGAP = ABS( D( I+1 )-D( I ) );
-            SEP( I ) = min( OLDGAP, NEWGAP );
+            SEP[I] = min( OLDGAP, NEWGAP );
             OLDGAP = NEWGAP;
          } // 20
-         SEP( K ) = OLDGAP;
+         SEP[K] = OLDGAP;
       }
       if ( SING ) {
          if ( ( LEFT && M > N ) || ( RIGHT && M < N ) ) {
             if (INCR) SEP( 1 ) = min( SEP( 1 ), D( 1 ) );
-            IF( DECR ) SEP( K ) = min( SEP( K ), D( K ) );
+            IF[DECR ) SEP( K] = min( SEP( K ), D( K ) );
          }
       }
 
@@ -109,7 +109,7 @@
          THRESH = max( EPS*ANORM, SAFMIN );
       }
       for (I = 1; I <= K; I++) { // 30
-         SEP( I ) = max( SEP( I ), THRESH );
+         SEP[I] = max( SEP( I ), THRESH );
       } // 30
 
       return;

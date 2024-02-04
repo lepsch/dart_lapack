@@ -71,10 +71,10 @@
 
             AJJ = DBLE( AP( JJ ) ) - DBLE( ZDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
             if ( AJJ <= ZERO ) {
-               AP( JJ ) = AJJ;
+               AP[JJ] = AJJ;
                GO TO 30;
             }
-            AP( JJ ) = sqrt( AJJ );
+            AP[JJ] = sqrt( AJJ );
          } // 10
       } else {
 
@@ -87,11 +87,11 @@
 
             AJJ = DBLE( AP( JJ ) );
             if ( AJJ <= ZERO ) {
-               AP( JJ ) = AJJ;
+               AP[JJ] = AJJ;
                GO TO 30;
             }
             AJJ = sqrt( AJJ );
-            AP( JJ ) = AJJ;
+            AP[JJ] = AJJ;
 
             // Compute elements J+1:N of column J and update the trailing
             // submatrix.

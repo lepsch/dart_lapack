@@ -167,8 +167,8 @@
       ANORM = ( S( 1, 1 ) ).abs();
       if (N > 1) ANORM = ANORM + ( S( 2, 1 ) ).abs();
       BNORM = ( P( 1, 1 ) ).abs();
-      WORK( 1 ) = ZERO;
-      WORK( N+1 ) = ZERO;
+      WORK[1] = ZERO;
+      WORK[N+1] = ZERO;
 
       for (J = 2; J <= N; J++) { // 50
          TEMP = ZERO;
@@ -182,8 +182,8 @@
             TEMP = TEMP + ( S( I, J ) ).abs();
             TEMP2 = TEMP2 + ( P( I, J ) ).abs();
          } // 30
-         WORK( J ) = TEMP;
-         WORK( N+J ) = TEMP2;
+         WORK[J] = TEMP;
+         WORK[N+J] = TEMP2;
          for (I = IEND + 1; I <= min( J+1, N ); I++) { // 40
             TEMP = TEMP + ( S( I, J ) ).abs();
             TEMP2 = TEMP2 + ( P( I, J ) ).abs();
@@ -240,9 +240,9 @@
 
                   IEIG = IEIG + 1;
                   for (JR = 1; JR <= N; JR++) { // 60
-                     VL( JR, IEIG ) = ZERO;
+                     VL[JR, IEIG] = ZERO;
                   } // 60
-                  VL( IEIG, IEIG ) = ONE;
+                  VL[IEIG, IEIG] = ONE;
                   GO TO 220;
                }
             }
@@ -250,7 +250,7 @@
             // Clear vector
 
             for (JR = 1; JR <= NW*N; JR++) { // 70
-               WORK( 2*N+JR ) = ZERO;
+               WORK[2*N+JR] = ZERO;
             } // 70
                                                   // T
             // Compute coefficients in  ( a A - b B )  y = 0
@@ -291,7 +291,7 @@
 
                // First component is 1
 
-               WORK( 2*N+JE ) = ONE;
+               WORK[2*N+JE] = ONE;
                XMAX = ONE;
             } else {
 
@@ -327,16 +327,16 @@
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE );
                TEMP2I = -BCOEFI*P( JE, JE );
                if ( ( TEMP ).abs() > ( TEMP2R ).abs()+( TEMP2I ).abs() ) {
-                  WORK( 2*N+JE ) = ONE;
-                  WORK( 3*N+JE ) = ZERO;
-                  WORK( 2*N+JE+1 ) = -TEMP2R / TEMP;
-                  WORK( 3*N+JE+1 ) = -TEMP2I / TEMP;
+                  WORK[2*N+JE] = ONE;
+                  WORK[3*N+JE] = ZERO;
+                  WORK[2*N+JE+1] = -TEMP2R / TEMP;
+                  WORK[3*N+JE+1] = -TEMP2I / TEMP;
                } else {
-                  WORK( 2*N+JE+1 ) = ONE;
-                  WORK( 3*N+JE+1 ) = ZERO;
+                  WORK[2*N+JE+1] = ONE;
+                  WORK[3*N+JE+1] = ZERO;
                   TEMP = ACOEF*S( JE, JE+1 );
-                  WORK( 2*N+JE ) = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP;
-                  WORK( 3*N+JE ) = BCOEFI*P( JE+1, JE+1 ) / TEMP;
+                  WORK[2*N+JE] = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP;
+                  WORK[3*N+JE] = BCOEFI*P( JE+1, JE+1 ) / TEMP;
                }
                XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE+1 ) ).abs()+( WORK( 3*N+JE+1 ) ) ).abs();
             }
@@ -358,11 +358,11 @@
                }
 
                NA = 1;
-               BDIAG( 1 ) = P( J, J );
+               BDIAG[1] = P( J, J );
                if ( J < N ) {
                   if ( S( J+1, J ) != ZERO ) {
                      IL2BY2 = true;
-                     BDIAG( 2 ) = P( J+1, J+1 );
+                     BDIAG[2] = P( J+1, J+1 );
                      NA = 2;
                   }
                }
@@ -374,7 +374,7 @@
                if ( TEMP > BIGNUM*XSCALE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 90
                      for (JR = JE; JR <= J - 1; JR++) { // 80
-                        WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR );
+                        WORK[( JW+2 )*N+JR] = XSCALE* WORK( ( JW+2 )*N+JR );
                      } // 80
                   } // 90
                   XMAX = XMAX*XSCALE;
@@ -398,20 +398,20 @@
 
                for (JW = 1; JW <= NW; JW++) { // 120
                   for (JA = 1; JA <= NA; JA++) { // 110
-                     SUMS( JA, JW ) = ZERO;
-                     SUMP( JA, JW ) = ZERO;
+                     SUMS[JA, JW] = ZERO;
+                     SUMP[JA, JW] = ZERO;
 
                      for (JR = JE; JR <= J - 1; JR++) { // 100
-                        SUMS( JA, JW ) = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR );
+                        SUMS[JA, JW] = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR );
                      } // 100
                   } // 110
                } // 120
 
                for (JA = 1; JA <= NA; JA++) { // 130
                   if ( ILCPLX ) {
-                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 );
+                     SUM[JA, 1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 );
                   } else {
-                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 );
+                     SUM[JA, 1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 );
                   }
                } // 130
 
@@ -423,7 +423,7 @@
                if ( SCALE < ONE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 150
                      for (JR = JE; JR <= J - 1; JR++) { // 140
-                        WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR );
+                        WORK[( JW+2 )*N+JR] = SCALE* WORK( ( JW+2 )*N+JR );
                      } // 140
                   } // 150
                   XMAX = SCALE*XMAX;
@@ -464,7 +464,7 @@
 
                for (JW = 0; JW <= NW - 1; JW++) { // 210
                   for (JR = IBEG; JR <= N; JR++) { // 200
-                     VL( JR, IEIG+JW ) = XSCALE*VL( JR, IEIG+JW );
+                     VL[JR, IEIG+JW] = XSCALE*VL( JR, IEIG+JW );
                   } // 200
                } // 210
             }
@@ -521,9 +521,9 @@
 
                   IEIG = IEIG - 1;
                   for (JR = 1; JR <= N; JR++) { // 230
-                     VR( JR, IEIG ) = ZERO;
+                     VR[JR, IEIG] = ZERO;
                   } // 230
-                  VR( IEIG, IEIG ) = ONE;
+                  VR[IEIG, IEIG] = ONE;
                   GO TO 500;
                }
             }
@@ -532,7 +532,7 @@
 
             for (JW = 0; JW <= NW - 1; JW++) { // 250
                for (JR = 1; JR <= N; JR++) { // 240
-                  WORK( ( JW+2 )*N+JR ) = ZERO;
+                  WORK[( JW+2 )*N+JR] = ZERO;
                } // 240
             } // 250
 
@@ -574,14 +574,14 @@
 
                // First component is 1
 
-               WORK( 2*N+JE ) = ONE;
+               WORK[2*N+JE] = ONE;
                XMAX = ONE;
 
                // Compute contribution from column JE of A and B to sum
                // (See "Further Details", above.)
 
                for (JR = 1; JR <= JE - 1; JR++) { // 260
-                  WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE );
+                  WORK[2*N+JR] = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE );
                } // 260
             } else {
 
@@ -617,16 +617,16 @@
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE );
                TEMP2I = -BCOEFI*P( JE, JE );
                if ( ( TEMP ).abs() >= ( TEMP2R ).abs()+( TEMP2I ).abs() ) {
-                  WORK( 2*N+JE ) = ONE;
-                  WORK( 3*N+JE ) = ZERO;
-                  WORK( 2*N+JE-1 ) = -TEMP2R / TEMP;
-                  WORK( 3*N+JE-1 ) = -TEMP2I / TEMP;
+                  WORK[2*N+JE] = ONE;
+                  WORK[3*N+JE] = ZERO;
+                  WORK[2*N+JE-1] = -TEMP2R / TEMP;
+                  WORK[3*N+JE-1] = -TEMP2I / TEMP;
                } else {
-                  WORK( 2*N+JE-1 ) = ONE;
-                  WORK( 3*N+JE-1 ) = ZERO;
+                  WORK[2*N+JE-1] = ONE;
+                  WORK[3*N+JE-1] = ZERO;
                   TEMP = ACOEF*S( JE-1, JE );
-                  WORK( 2*N+JE ) = ( BCOEFR*P( JE-1, JE-1 )-ACOEF* S( JE-1, JE-1 ) ) / TEMP;
-                  WORK( 3*N+JE ) = BCOEFI*P( JE-1, JE-1 ) / TEMP;
+                  WORK[2*N+JE] = ( BCOEFR*P( JE-1, JE-1 )-ACOEF* S( JE-1, JE-1 ) ) / TEMP;
+                  WORK[3*N+JE] = BCOEFI*P( JE-1, JE-1 ) / TEMP;
                }
 
                XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE-1 ) ).abs()+( WORK( 3*N+JE-1 ) ) ).abs();
@@ -642,7 +642,7 @@
                CRE2B = BCOEFR*WORK( 2*N+JE ) - BCOEFI*WORK( 3*N+JE );
                CIM2B = BCOEFI*WORK( 2*N+JE ) + BCOEFR*WORK( 3*N+JE );
                for (JR = 1; JR <= JE - 2; JR++) { // 270
-                  WORK( 2*N+JR ) = -CREALA*S( JR, JE-1 ) + CREALB*P( JR, JE-1 ) - CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )                   WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) + CIMAGB*P( JR, JE-1 ) - CIM2A*S( JR, JE ) + CIM2B*P( JR, JE );
+                  WORK[2*N+JR] = -CREALA*S( JR, JE-1 ) + CREALB*P( JR, JE-1 ) - CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )                   WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) + CIMAGB*P( JR, JE-1 ) - CIM2A*S( JR, JE ) + CIM2B*P( JR, JE );
                } // 270
             }
 
@@ -662,10 +662,10 @@
                      GO TO 370;
                   }
                }
-               BDIAG( 1 ) = P( J, J );
+               BDIAG[1] = P( J, J );
                if ( IL2BY2 ) {
                   NA = 2;
-                  BDIAG( 2 ) = P( J+1, J+1 );
+                  BDIAG[2] = P( J+1, J+1 );
                } else {
                   NA = 1;
                }
@@ -677,7 +677,7 @@
 
                   for (JW = 0; JW <= NW - 1; JW++) { // 290
                      for (JR = 1; JR <= JE; JR++) { // 280
-                        WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR );
+                        WORK[( JW+2 )*N+JR] = SCALE* WORK( ( JW+2 )*N+JR );
                      } // 280
                   } // 290
                }
@@ -685,7 +685,7 @@
 
                for (JW = 1; JW <= NW; JW++) { // 310
                   for (JA = 1; JA <= NA; JA++) { // 300
-                     WORK( ( JW+1 )*N+J+JA-1 ) = SUM( JA, JW );
+                     WORK[( JW+1 )*N+J+JA-1] = SUM( JA, JW );
                   } // 300
                } // 310
 
@@ -703,7 +703,7 @@
 
                      for (JW = 0; JW <= NW - 1; JW++) { // 330
                         for (JR = 1; JR <= JE; JR++) { // 320
-                           WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR );
+                           WORK[( JW+2 )*N+JR] = XSCALE* WORK( ( JW+2 )*N+JR );
                         } // 320
                      } // 330
                      XMAX = XMAX*XSCALE;
@@ -720,13 +720,13 @@
                         CIMAGA = ACOEF*WORK( 3*N+J+JA-1 );
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 ) - BCOEFI*WORK( 3*N+J+JA-1 )                         CIMAGB = BCOEFI*WORK( 2*N+J+JA-1 ) + BCOEFR*WORK( 3*N+J+JA-1 );
                         for (JR = 1; JR <= J - 1; JR++) { // 340
-                           WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 );
+                           WORK[2*N+JR] = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 );
                         } // 340
                      } else {
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 );
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 );
                         for (JR = 1; JR <= J - 1; JR++) { // 350
-                           WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 );
+                           WORK[2*N+JR] = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 );
                         } // 350
                      }
                   } // 360
@@ -743,7 +743,7 @@
 
                for (JW = 0; JW <= NW - 1; JW++) { // 410
                   for (JR = 1; JR <= N; JR++) { // 380
-                     WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 );
+                     WORK[( JW+4 )*N+JR] = WORK( ( JW+2 )*N+1 )* VR( JR, 1 );
                   } // 380
 
                   // A series of compiler directives to defeat
@@ -752,14 +752,14 @@
 
                   for (JC = 2; JC <= JE; JC++) { // 400
                      for (JR = 1; JR <= N; JR++) { // 390
-                        WORK( ( JW+4 )*N+JR ) = WORK( ( JW+4 )*N+JR ) + WORK( ( JW+2 )*N+JC )*VR( JR, JC );
+                        WORK[( JW+4 )*N+JR] = WORK( ( JW+4 )*N+JR ) + WORK( ( JW+2 )*N+JC )*VR( JR, JC );
                      } // 390
                   } // 400
                } // 410
 
                for (JW = 0; JW <= NW - 1; JW++) { // 430
                   for (JR = 1; JR <= N; JR++) { // 420
-                     VR( JR, IEIG+JW ) = WORK( ( JW+4 )*N+JR );
+                     VR[JR, IEIG+JW] = WORK( ( JW+4 )*N+JR );
                   } // 420
                } // 430
 
@@ -767,7 +767,7 @@
             } else {
                for (JW = 0; JW <= NW - 1; JW++) { // 450
                   for (JR = 1; JR <= N; JR++) { // 440
-                     VR( JR, IEIG+JW ) = WORK( ( JW+2 )*N+JR );
+                     VR[JR, IEIG+JW] = WORK( ( JW+2 )*N+JR );
                   } // 440
                } // 450
 
@@ -791,7 +791,7 @@
                XSCALE = ONE / XMAX;
                for (JW = 0; JW <= NW - 1; JW++) { // 490
                   for (JR = 1; JR <= IEND; JR++) { // 480
-                     VR( JR, IEIG+JW ) = XSCALE*VR( JR, IEIG+JW );
+                     VR[JR, IEIG+JW] = XSCALE*VR( JR, IEIG+JW );
                   } // 480
                } // 490
             }

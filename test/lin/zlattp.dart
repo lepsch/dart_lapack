@@ -43,8 +43,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'TP';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'TP';
       UNFL = DLAMCH( 'Safe minimum' );
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
       SMLNUM = UNFL;
@@ -86,17 +86,17 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= J - 1; I++) { // 10
-                  AP( JC+I-1 ) = ZERO;
+                  AP[JC+I-1] = ZERO;
                } // 10
-               AP( JC+J-1 ) = J;
+               AP[JC+J-1] = J;
                JC = JC + J;
             } // 20
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 40
-               AP( JC ) = J;
+               AP[JC] = J;
                for (I = J + 1; I <= N; I++) { // 30
-                  AP( JC+I-J ) = ZERO;
+                  AP[JC+I-J] = ZERO;
                } // 30
                JC = JC + N - J + 1;
             } // 40
@@ -113,17 +113,17 @@
             JC = 0;
             for (J = 1; J <= N; J++) { // 60
                for (I = 1; I <= J - 1; I++) { // 50
-                  AP( JC+I ) = ZERO;
+                  AP[JC+I] = ZERO;
                } // 50
-               AP( JC+J ) = J;
+               AP[JC+J] = J;
                JC = JC + J;
             } // 60
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 80
-               AP( JC ) = J;
+               AP[JC] = J;
                for (I = J + 1; I <= N; I++) { // 70
-                  AP( JC+I-J ) = ZERO;
+                  AP[JC+I-J] = ZERO;
                } // 70
                JC = JC + N - J + 1;
             } // 80
@@ -192,11 +192,11 @@
          PLUS1 = SFAC*ZLARND( 5, ISEED );
          for (J = 1; J <= N; J += 2) { // 90
             PLUS2 = STAR1 / PLUS1;
-            WORK( J ) = PLUS1;
-            WORK( N+J ) = STAR1;
+            WORK[J] = PLUS1;
+            WORK[N+J] = STAR1;
             if ( J+1 <= N ) {
-               WORK( J+1 ) = PLUS2;
-               WORK( N+J+1 ) = ZERO;
+               WORK[J+1] = PLUS2;
+               WORK[N+J+1] = ZERO;
                PLUS1 = STAR1 / PLUS2;
                REXP = DBLE( ZLARND( 2, ISEED ) );
                if ( REXP < ZERO ) {
@@ -222,15 +222,15 @@
 
             JC = 1;
             for (J = 2; J <= N; J++) { // 100
-               AP( JC+1 ) = Y;
+               AP[JC+1] = Y;
                if (J > 2) AP( JC+J-1 ) = WORK( J-2 );
-               IF( J > 3 ) AP( JC+J-2 ) = WORK( N+J-3 );
+               IF[J > 3 ) AP( JC+J-2] = WORK( N+J-3 );
                JC = JC + J;
             } // 100
             JC = JC - N;
-            AP( JC+1 ) = Z;
+            AP[JC+1] = Z;
             for (J = 2; J <= N - 1; J++) { // 110
-               AP( JC+J ) = Y;
+               AP[JC+J] = Y;
             } // 110
          } else {
 
@@ -238,14 +238,14 @@
             // of known condition number.
 
             for (I = 2; I <= N - 1; I++) { // 120
-               AP( I ) = Y;
+               AP[I] = Y;
             } // 120
-            AP( N ) = Z;
+            AP[N] = Z;
             JC = N + 1;
             for (J = 2; J <= N - 1; J++) { // 130
-               AP( JC+1 ) = WORK( J-1 );
+               AP[JC+1] = WORK( J-1 );
                if (J < N-1) AP( JC+2 ) = WORK( N+J-1 );
-               AP( JC+N-J ) = Y;
+               AP[JC+N-J] = Y;
                JC = JC + N - J + 1;
             } // 130
          }
@@ -266,8 +266,8 @@
                   JX = JCNEXT + J;
                   for (I = J + 2; I <= N; I++) { // 140
                      CTEMP = C*AP( JX+J ) + S*AP( JX+J+1 );
-                     AP( JX+J+1 ) = -DCONJG( S )*AP( JX+J ) + C*AP( JX+J+1 );
-                     AP( JX+J ) = CTEMP;
+                     AP[JX+J+1] = -DCONJG( S )*AP( JX+J ) + C*AP( JX+J+1 );
+                     AP[JX+J] = CTEMP;
                      JX = JX + I;
                   } // 140
                }
@@ -278,7 +278,7 @@
 
                // Negate A(J,J+1).
 
-               AP( JCNEXT+J-1 ) = -AP( JCNEXT+J-1 );
+               AP[JCNEXT+J-1] = -AP( JCNEXT+J-1 );
                JC = JCNEXT;
             } // 150
          } else {
@@ -300,15 +300,15 @@
                   JX = 1;
                   for (I = 1; I <= J - 1; I++) { // 160
                      CTEMP = -C*AP( JX+J-I ) + S*AP( JX+J-I+1 );
-                     AP( JX+J-I+1 ) = -DCONJG( S )*AP( JX+J-I ) - C*AP( JX+J-I+1 );
-                     AP( JX+J-I ) = CTEMP;
+                     AP[JX+J-I+1] = -DCONJG( S )*AP( JX+J-I ) - C*AP( JX+J-I+1 );
+                     AP[JX+J-I] = CTEMP;
                      JX = JX + N - I + 1;
                   } // 160
                }
 
                // Negate A(J+1,J).
 
-               AP( JC+1 ) = -AP( JC+1 );
+               AP[JC+1] = -AP( JC+1 );
                JC = JCNEXT;
             } // 170
          }
@@ -327,14 +327,14 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 180
                zlarnv(4, ISEED, J-1, AP( JC ) );
-               AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO;
+               AP[JC+J-1] = ZLARND( 5, ISEED )*TWO;
                JC = JC + J;
             } // 180
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 190
                if (J < N) zlarnv( 4, ISEED, N-J, AP( JC+1 ) );
-               AP( JC ) = ZLARND( 5, ISEED )*TWO;
+               AP[JC] = ZLARND( 5, ISEED )*TWO;
                JC = JC + N - J + 1;
             } // 190
          }
@@ -360,19 +360,19 @@
             for (J = 1; J <= N; J++) { // 200
                zlarnv(4, ISEED, J-1, AP( JC ) );
                zdscal(J-1, TSCAL, AP( JC ), 1 );
-               AP( JC+J-1 ) = ZLARND( 5, ISEED );
+               AP[JC+J-1] = ZLARND( 5, ISEED );
                JC = JC + J;
             } // 200
-            AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 );
+            AP[N*( N+1 ) / 2] = SMLNUM*AP( N*( N+1 ) / 2 );
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 210
                zlarnv(2, ISEED, N-J, AP( JC+1 ) );
                zdscal(N-J, TSCAL, AP( JC+1 ), 1 );
-               AP( JC ) = ZLARND( 5, ISEED );
+               AP[JC] = ZLARND( 5, ISEED );
                JC = JC + N - J + 1;
             } // 210
-            AP( 1 ) = SMLNUM*AP( 1 );
+            AP[1] = SMLNUM*AP( 1 );
          }
 
       } else if ( IMAT == 13 ) {
@@ -386,18 +386,18 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 220
                zlarnv(4, ISEED, J-1, AP( JC ) );
-               AP( JC+J-1 ) = ZLARND( 5, ISEED );
+               AP[JC+J-1] = ZLARND( 5, ISEED );
                JC = JC + J;
             } // 220
-            AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 );
+            AP[N*( N+1 ) / 2] = SMLNUM*AP( N*( N+1 ) / 2 );
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 230
                zlarnv(4, ISEED, N-J, AP( JC+1 ) );
-               AP( JC ) = ZLARND( 5, ISEED );
+               AP[JC] = ZLARND( 5, ISEED );
                JC = JC + N - J + 1;
             } // 230
-            AP( 1 ) = SMLNUM*AP( 1 );
+            AP[1] = SMLNUM*AP( 1 );
          }
 
       } else if ( IMAT == 14 ) {
@@ -411,12 +411,12 @@
             JC = ( N-1 )*N / 2 + 1;
             for (J = N; J >= 1; J--) { // 250
                for (I = 1; I <= J - 1; I++) { // 240
-                  AP( JC+I-1 ) = ZERO;
+                  AP[JC+I-1] = ZERO;
                } // 240
                if ( JCOUNT <= 2 ) {
-                  AP( JC+J-1 ) = SMLNUM*ZLARND( 5, ISEED );
+                  AP[JC+J-1] = SMLNUM*ZLARND( 5, ISEED );
                } else {
-                  AP( JC+J-1 ) = ZLARND( 5, ISEED );
+                  AP[JC+J-1] = ZLARND( 5, ISEED );
                }
                JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
@@ -427,12 +427,12 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 270
                for (I = J + 1; I <= N; I++) { // 260
-                  AP( JC+I-J ) = ZERO;
+                  AP[JC+I-J] = ZERO;
                } // 260
                if ( JCOUNT <= 2 ) {
-                  AP( JC ) = SMLNUM*ZLARND( 5, ISEED );
+                  AP[JC] = SMLNUM*ZLARND( 5, ISEED );
                } else {
-                  AP( JC ) = ZLARND( 5, ISEED );
+                  AP[JC] = ZLARND( 5, ISEED );
                }
                JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
@@ -443,16 +443,16 @@
          // Set the right hand side alternately zero and small.
 
          if ( UPPER ) {
-            B( 1 ) = ZERO;
+            B[1] = ZERO;
             for (I = N; I >= 2; I -= 2) { // 280
-               B( I ) = ZERO;
-               B( I-1 ) = SMLNUM*ZLARND( 5, ISEED );
+               B[I] = ZERO;
+               B[I-1] = SMLNUM*ZLARND( 5, ISEED );
             } // 280
          } else {
-            B( N ) = ZERO;
+            B[N] = ZERO;
             for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 290
-               B( I ) = ZERO;
-               B( I+1 ) = SMLNUM*ZLARND( 5, ISEED );
+               B[I] = ZERO;
+               B[I+1] = SMLNUM*ZLARND( 5, ISEED );
             } // 290
          }
 
@@ -469,24 +469,24 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 310
                for (I = 1; I <= J - 2; I++) { // 300
-                  AP( JC+I-1 ) = ZERO;
+                  AP[JC+I-1] = ZERO;
                } // 300
                if (J > 1) AP( JC+J-2 ) = DCMPLX( -ONE, -ONE );
-               AP( JC+J-1 ) = TSCAL*ZLARND( 5, ISEED );
+               AP[JC+J-1] = TSCAL*ZLARND( 5, ISEED );
                JC = JC + J;
             } // 310
-            B( N ) = DCMPLX( ONE, ONE );
+            B[N] = DCMPLX( ONE, ONE );
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 330
                for (I = J + 2; I <= N; I++) { // 320
-                  AP( JC+I-J ) = ZERO;
+                  AP[JC+I-J] = ZERO;
                } // 320
                if (J < N) AP( JC+1 ) = DCMPLX( -ONE, -ONE );
-               AP( JC ) = TSCAL*ZLARND( 5, ISEED );
+               AP[JC] = TSCAL*ZLARND( 5, ISEED );
                JC = JC + N - J + 1;
             } // 330
-            B( 1 ) = DCMPLX( ONE, ONE );
+            B[1] = DCMPLX( ONE, ONE );
          }
 
       } else if ( IMAT == 16 ) {
@@ -499,9 +499,9 @@
             for (J = 1; J <= N; J++) { // 340
                zlarnv(4, ISEED, J, AP( JC ) );
                if ( J != IY ) {
-                  AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO;
+                  AP[JC+J-1] = ZLARND( 5, ISEED )*TWO;
                } else {
-                  AP( JC+J-1 ) = ZERO;
+                  AP[JC+J-1] = ZERO;
                }
                JC = JC + J;
             } // 340
@@ -510,9 +510,9 @@
             for (J = 1; J <= N; J++) { // 350
                zlarnv(4, ISEED, N-J+1, AP( JC ) );
                if ( J != IY ) {
-                  AP( JC ) = ZLARND( 5, ISEED )*TWO;
+                  AP[JC] = ZLARND( 5, ISEED )*TWO;
                } else {
-                  AP( JC ) = ZERO;
+                  AP[JC] = ZERO;
                }
                JC = JC + N - J + 1;
             } // 350
@@ -530,37 +530,37 @@
          TSCAL = UNFL / ULP;
          TSCAL = ( ONE-ULP ) / TSCAL;
          for (J = 1; J <= N*( N+1 ) / 2; J++) { // 360
-            AP( J ) = ZERO;
+            AP[J] = ZERO;
          } // 360
          TEXP = ONE;
          if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1;
             for (J = N; J >= 2; J -= 2) { // 370
-               AP( JC ) = -TSCAL / DBLE( N+1 );
-               AP( JC+J-1 ) = ONE;
-               B( J ) = TEXP*( ONE-ULP );
+               AP[JC] = -TSCAL / DBLE( N+1 );
+               AP[JC+J-1] = ONE;
+               B[J] = TEXP*( ONE-ULP );
                JC = JC - J + 1;
-               AP( JC ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
-               AP( JC+J-2 ) = ONE;
-               B( J-1 ) = TEXP*DBLE( N*N+N-1 );
+               AP[JC] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               AP[JC+J-2] = ONE;
+               B[J-1] = TEXP*DBLE( N*N+N-1 );
                TEXP = TEXP*TWO;
                JC = JC - J + 2;
             } // 370
-            B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[1] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
          } else {
             JC = 1;
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 380
-               AP( JC+N-J ) = -TSCAL / DBLE( N+1 );
-               AP( JC ) = ONE;
-               B( J ) = TEXP*( ONE-ULP );
+               AP[JC+N-J] = -TSCAL / DBLE( N+1 );
+               AP[JC] = ONE;
+               B[J] = TEXP*( ONE-ULP );
                JC = JC + N - J + 1;
-               AP( JC+N-J-1 ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
-               AP( JC ) = ONE;
-               B( J+1 ) = TEXP*DBLE( N*N+N-1 );
+               AP[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               AP[JC] = ONE;
+               B[J+1] = TEXP*DBLE( N*N+N-1 );
                TEXP = TEXP*TWO;
                JC = JC + N - J;
             } // 380
-            B( N ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[N] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -573,14 +573,14 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 390
                zlarnv(4, ISEED, J-1, AP( JC ) );
-               AP( JC+J-1 ) = ZERO;
+               AP[JC+J-1] = ZERO;
                JC = JC + J;
             } // 390
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 400
                if (J < N) zlarnv( 4, ISEED, N-J, AP( JC+1 ) );
-               AP( JC ) = ZERO;
+               AP[JC] = ZERO;
                JC = JC + N - J + 1;
             } // 400
          }
@@ -608,7 +608,7 @@
                zlarnv(5, ISEED, J, AP( JC ) );
                dlarnv(1, ISEED, J, RWORK );
                for (I = 1; I <= J; I++) { // 410
-                  AP( JC+I-1 ) = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL );
+                  AP[JC+I-1] = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL );
                } // 410
                JC = JC + J;
             } // 420
@@ -618,7 +618,7 @@
                zlarnv(5, ISEED, N-J+1, AP( JC ) );
                dlarnv(1, ISEED, N-J+1, RWORK );
                for (I = J; I <= N; I++) { // 430
-                  AP( JC+I-J ) = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL );
+                  AP[JC+I-J] = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL );
                } // 430
                JC = JC + N - J + 1;
             } // 440
@@ -638,8 +638,8 @@
                JL = JJ;
                for (I = J; I <= N - J; I++) { // 450
                   T = DBLE( AP( JR-I+J ) );
-                  AP( JR-I+J ) = AP( JL );
-                  AP( JL ) = T;
+                  AP[JR-I+J] = AP( JL );
+                  AP[JL] = T;
                   JL = JL + I;
                } // 450
                JJ = JJ + J + 1;
@@ -652,8 +652,8 @@
                JR = JJ;
                for (I = J; I <= N - J; I++) { // 470
                   T = DBLE( AP( JL+I-J ) );
-                  AP( JL+I-J ) = AP( JR );
-                  AP( JR ) = T;
+                  AP[JL+I-J] = AP( JR );
+                  AP[JR] = T;
                   JR = JR - I;
                } // 470
                JL = JL + N - J + 1;

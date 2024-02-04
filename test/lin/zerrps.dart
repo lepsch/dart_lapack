@@ -47,12 +47,12 @@
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A( I, J ) = 1.0 / DBLE( I+J );
+            A[I, J] = 1.0 / DBLE( I+J );
 
          } // 100
-         PIV( J ) = J;
-         RWORK( J ) = 0.0;
-         RWORK( NMAX+J ) = 0.0;
+         PIV[J] = J;
+         RWORK[J] = 0.0;
+         RWORK[NMAX+J] = 0.0;
 
       } // 110
       OK = true;

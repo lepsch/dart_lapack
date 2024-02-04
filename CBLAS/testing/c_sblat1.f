@@ -107,9 +107,9 @@
       // Compute true values which cannot be prestored
       // in decimal notation
 
-      DBTRUE(1) = 1.0/0.6;
-      DBTRUE(3) = -1.0/0.6;
-      DBTRUE(5) = 1.0/0.6;
+      DBTRUE[1] = 1.0/0.6;
+      DBTRUE[3] = -1.0/0.6;
+      DBTRUE[5] = 1.0/0.6;
 
       for (K = 1; K <= 8; K++) { // 20
          // .. Set N=K for identification in output if any ..
@@ -169,22 +169,22 @@
             LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
-               SX(I) = DV(I,NP1,INCX);
+               SX[I] = DV(I,NP1,INCX);
             } // 20
 
             if (ICASE == 7) {
                // .. SNRM2TEST ..
-               STEMP(1) = DTRUE1(NP1);
+               STEMP[1] = DTRUE1(NP1);
                stest1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE == 8) {
                // .. SASUMTEST ..
-               STEMP(1) = DTRUE3(NP1);
+               STEMP[1] = DTRUE3(NP1);
                stest1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE == 9) {
                // .. SSCALTEST ..
                sscaltest(N,SA((INCX-1)*5+NP1),SX,INCX);
                for (I = 1; I <= LEN; I++) { // 40
-                  STRUE(I) = DTRUE5(I,NP1,INCX);
+                  STRUE[I] = DTRUE5(I,NP1,INCX);
                } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE == 10) {
@@ -251,8 +251,8 @@
             LENY = LENS(KN,MY);
             // .. Initialize all argument arrays ..
             for (I = 1; I <= 7; I++) { // 20
-               SX(I) = DX1(I);
-               SY(I) = DY1(I);
+               SX[I] = DX1(I);
+               SY[I] = DY1(I);
             } // 20
 
             if (ICASE == 1) {
@@ -262,13 +262,13 @@
                // .. SAXPYTEST ..
                saxpytest(N,SA,SX,INCX,SY,INCY);
                for (J = 1; J <= LENY; J++) { // 40
-                  STY(J) = DT8(J,KN,KI);
+                  STY[J] = DT8(J,KN,KI);
                } // 40
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE == 5) {
                // .. SCOPYTEST ..
                for (I = 1; I <= 7; I++) { // 60
-                  STY(I) = DT10Y(I,KN,KI);
+                  STY[I] = DT10Y(I,KN,KI);
                } // 60
                scopytest(N,SX,INCX,SY,INCY);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0);
@@ -276,8 +276,8 @@
                // .. SSWAPTEST ..
                sswaptest(N,SX,INCX,SY,INCY);
                for (I = 1; I <= 7; I++) { // 80
-                  STX(I) = DT10X(I,KN,KI);
-                  STY(I) = DT10Y(I,KN,KI);
+                  STX[I] = DT10X(I,KN,KI);
+                  STY[I] = DT10Y(I,KN,KI);
                } // 80
                stest(LENX,SX,STX,SSIZE2(1,1),1.0);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0);
@@ -338,10 +338,10 @@
             if (ICASE == 4) {
                // .. SROTTEST ..
                for (I = 1; I <= 7; I++) { // 20
-                  SX(I) = DX1(I);
-                  SY(I) = DY1(I);
-                  STX(I) = DT9X(I,KN,KI);
-                  STY(I) = DT9Y(I,KN,KI);
+                  SX[I] = DX1(I);
+                  SY[I] = DY1(I);
+                  STX[I] = DT9X(I,KN,KI);
+                  STY[I] = DT9Y(I,KN,KI);
                } // 20
                srottest(N,SX,INCX,SY,INCY,SC,SS);
                stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
@@ -353,94 +353,94 @@
          } // 40
       } // 60
 
-      MWPC(1) = 1;
+      MWPC[1] = 1;
       for (I = 2; I <= 11; I++) { // 80
-         MWPC(I) = 0;
+         MWPC[I] = 0;
       } // 80
-      MWPS(1) = 0;
+      MWPS[1] = 0;
       for (I = 2; I <= 6; I++) { // 100
-         MWPS(I) = 1;
+         MWPS[I] = 1;
       } // 100
       for (I = 7; I <= 11; I++) { // 120
-         MWPS(I) = -1;
+         MWPS[I] = -1;
       } // 120
-      MWPINX(1) = 1;
-      MWPINX(2) = 1;
-      MWPINX(3) = 1;
-      MWPINX(4) = -1;
-      MWPINX(5) = 1;
-      MWPINX(6) = -1;
-      MWPINX(7) = 1;
-      MWPINX(8) = 1;
-      MWPINX(9) = -1;
-      MWPINX(10) = 1;
-      MWPINX(11) = -1;
-      MWPINY(1) = 1;
-      MWPINY(2) = 1;
-      MWPINY(3) = -1;
-      MWPINY(4) = -1;
-      MWPINY(5) = 2;
-      MWPINY(6) = 1;
-      MWPINY(7) = 1;
-      MWPINY(8) = -1;
-      MWPINY(9) = -1;
-      MWPINY(10) = 2;
-      MWPINY(11) = 1;
+      MWPINX[1] = 1;
+      MWPINX[2] = 1;
+      MWPINX[3] = 1;
+      MWPINX[4] = -1;
+      MWPINX[5] = 1;
+      MWPINX[6] = -1;
+      MWPINX[7] = 1;
+      MWPINX[8] = 1;
+      MWPINX[9] = -1;
+      MWPINX[10] = 1;
+      MWPINX[11] = -1;
+      MWPINY[1] = 1;
+      MWPINY[2] = 1;
+      MWPINY[3] = -1;
+      MWPINY[4] = -1;
+      MWPINY[5] = 2;
+      MWPINY[6] = 1;
+      MWPINY[7] = 1;
+      MWPINY[8] = -1;
+      MWPINY[9] = -1;
+      MWPINY[10] = 2;
+      MWPINY[11] = 1;
       for (I = 1; I <= 11; I++) { // 140
-         MWPN(I) = 5;
+         MWPN[I] = 5;
       } // 140
-      MWPN(5) = 3;
-      MWPN(10) = 3;
+      MWPN[5] = 3;
+      MWPN[10] = 3;
       for (I = 1; I <= 5; I++) { // 160
-         MWPX(I) = I;
-         MWPY(I) = I;
-         MWPTX(1,I) = I;
-         MWPTY(1,I) = I;
-         MWPTX(2,I) = I;
-         MWPTY(2,I) = -I;
-         MWPTX(3,I) = 6 - I;
-         MWPTY(3,I) = I - 6;
-         MWPTX(4,I) = I;
-         MWPTY(4,I) = -I;
-         MWPTX(6,I) = 6 - I;
-         MWPTY(6,I) = I - 6;
-         MWPTX(7,I) = -I;
-         MWPTY(7,I) = I;
-         MWPTX(8,I) = I - 6;
-         MWPTY(8,I) = 6 - I;
-         MWPTX(9,I) = -I;
-         MWPTY(9,I) = I;
-         MWPTX(11,I) = I - 6;
-         MWPTY(11,I) = 6 - I;
+         MWPX[I] = I;
+         MWPY[I] = I;
+         MWPTX[1,I] = I;
+         MWPTY[1,I] = I;
+         MWPTX[2,I] = I;
+         MWPTY[2,I] = -I;
+         MWPTX[3,I] = 6 - I;
+         MWPTY[3,I] = I - 6;
+         MWPTX[4,I] = I;
+         MWPTY[4,I] = -I;
+         MWPTX[6,I] = 6 - I;
+         MWPTY[6,I] = I - 6;
+         MWPTX[7,I] = -I;
+         MWPTY[7,I] = I;
+         MWPTX[8,I] = I - 6;
+         MWPTY[8,I] = 6 - I;
+         MWPTX[9,I] = -I;
+         MWPTY[9,I] = I;
+         MWPTX[11,I] = I - 6;
+         MWPTY[11,I] = 6 - I;
       } // 160
-      MWPTX(5,1) = 1;
-      MWPTX(5,2) = 3;
-      MWPTX(5,3) = 5;
-      MWPTX(5,4) = 4;
-      MWPTX(5,5) = 5;
-      MWPTY(5,1) = -1;
-      MWPTY(5,2) = 2;
-      MWPTY(5,3) = -2;
-      MWPTY(5,4) = 4;
-      MWPTY(5,5) = -3;
-      MWPTX(10,1) = -1;
-      MWPTX(10,2) = -3;
-      MWPTX(10,3) = -5;
-      MWPTX(10,4) = 4;
-      MWPTX(10,5) = 5;
-      MWPTY(10,1) = 1;
-      MWPTY(10,2) = 2;
-      MWPTY(10,3) = 2;
-      MWPTY(10,4) = 4;
-      MWPTY(10,5) = 3;
+      MWPTX[5,1] = 1;
+      MWPTX[5,2] = 3;
+      MWPTX[5,3] = 5;
+      MWPTX[5,4] = 4;
+      MWPTX[5,5] = 5;
+      MWPTY[5,1] = -1;
+      MWPTY[5,2] = 2;
+      MWPTY[5,3] = -2;
+      MWPTY[5,4] = 4;
+      MWPTY[5,5] = -3;
+      MWPTX[10,1] = -1;
+      MWPTX[10,2] = -3;
+      MWPTX[10,3] = -5;
+      MWPTX[10,4] = 4;
+      MWPTX[10,5] = 5;
+      MWPTY[10,1] = 1;
+      MWPTY[10,2] = 2;
+      MWPTY[10,3] = 2;
+      MWPTY[10,4] = 4;
+      MWPTY[10,5] = 3;
       for (I = 1; I <= 11; I++) { // 200
          INCX = MWPINX(I);
          INCY = MWPINY(I);
          for (K = 1; K <= 5; K++) { // 180
-            COPYX(K) = MWPX(K);
-            COPYY(K) = MWPY(K);
-            MWPSTX(K) = MWPTX(I,K);
-            MWPSTY(K) = MWPTY(I,K);
+            COPYX[K] = MWPX(K);
+            COPYY[K] = MWPY(K);
+            MWPSTX[K] = MWPTX(I,K);
+            MWPSTY[K] = MWPTY(I,K);
          } // 180
          srottest(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I));
          stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
@@ -518,8 +518,8 @@
       // EXTERNAL STEST
       // .. Executable Statements ..
 
-      SCOMP(1) = SCOMP1;
-      STRUE(1) = STRUE1;
+      SCOMP[1] = SCOMP1;
+      STRUE[1] = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       return;

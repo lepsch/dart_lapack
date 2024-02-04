@@ -24,8 +24,8 @@
          // Shift is located on the edge of the matrix, remove it
 
          clartg(B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP );
-         B( IHI, IHI ) = TEMP;
-         B( IHI, IHI-1 ) = CZERO;
+         B[IHI, IHI] = TEMP;
+         B[IHI, IHI-1] = CZERO;
          crot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S );
          crot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S );
          if ( ILZ ) {
@@ -40,8 +40,8 @@
          // Apply transformation from the right
 
          clartg(B( K+1, K+1 ), B( K+1, K ), C, S, TEMP );
-         B( K+1, K+1 ) = TEMP;
-         B( K+1, K ) = CZERO;
+         B[K+1, K+1] = TEMP;
+         B[K+1, K] = CZERO;
          crot(K+2-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C, S );
          crot(K-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C, S );
          if ( ILZ ) {
@@ -51,8 +51,8 @@
          // Apply transformation from the left
 
          clartg(A( K+1, K ), A( K+2, K ), C, S, TEMP );
-         A( K+1, K ) = TEMP;
-         A( K+2, K ) = CZERO;
+         A[K+1, K] = TEMP;
+         A[K+2, K] = CZERO;
          crot(ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C, S );
          crot(ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C, S );
          if ( ILQ ) {

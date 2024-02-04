@@ -61,13 +61,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'Q3';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'Q3';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = DLAMCH( 'Epsilon' );
       INFOT = 0;
@@ -105,12 +105,12 @@
                // singular value distribution indicated by `mode'.
 
                for (I = 1; I <= N; I++) { // 20
-                  IWORK( I ) = 0;
+                  IWORK[I] = 0;
                } // 20
                if ( IMODE == 1 ) {
                   zlaset('Full', M, N, CZERO, CZERO, COPYA, LDA );
                   for (I = 1; I <= MNMIN; I++) { // 30
-                     S( I ) = ZERO;
+                     S[I] = ZERO;
                   } // 30
                } else {
                   zlatms(M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO );
@@ -129,7 +129,7 @@
                         IHIGH = N;
                      }
                      for (I = ILOW; ISTEP < 0 ? I >= IHIGH : I <= IHIGH; I += ISTEP) { // 40
-                        IWORK( I ) = 1;
+                        IWORK[I] = 1;
                      } // 40
                   }
                   dlaord('Decreasing', MNMIN, S, 1 );
@@ -159,15 +159,15 @@
 
                   // Compute norm(svd(a) - svd(r))
 
-                  RESULT( 1 ) = ZQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK );
+                  RESULT[1] = ZQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK );
 
                   // Compute norm( A*P - Q*R )
 
-                  RESULT( 2 ) = ZQPT01( M, N, MNMIN, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK );
+                  RESULT[2] = ZQPT01( M, N, MNMIN, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK );
 
                   // Compute Q'*Q
 
-                  RESULT( 3 ) = ZQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK );
+                  RESULT[3] = ZQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.

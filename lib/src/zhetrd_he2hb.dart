@@ -68,7 +68,7 @@
          xerbla('ZHETRD_HE2HB', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = LWMIN;
+         WORK[1] = LWMIN;
          return;
       }
 
@@ -87,7 +87,7 @@
                   zcopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
               } // 110
           }
-          WORK( 1 ) = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -222,6 +222,6 @@
 
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

@@ -121,7 +121,7 @@
             return;
          }
          for (J = 1; J <= NL; J++) { // 10
-            IWORK( IDXQI+J ) = J;
+            IWORK[IDXQI+J] = J;
          } // 10
          if ( ( I == ND ) && ( SQRE == 0 ) ) {
             SQREI = 0;
@@ -149,7 +149,7 @@
             return;
          }
          for (J = 1; J <= NR; J++) { // 20
-            IWORK( IDXQI+J ) = J;
+            IWORK[IDXQI+J] = J;
          } // 20
       } // 30
 

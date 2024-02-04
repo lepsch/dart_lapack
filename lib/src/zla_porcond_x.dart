@@ -38,7 +38,7 @@
       double           CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -74,7 +74,7 @@
             for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) );
             }
-            RWORK( I ) = TMP;
+            RWORK[I] = TMP;
             ANORM = max( ANORM, TMP );
          }
       } else {
@@ -86,7 +86,7 @@
             for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) );
             }
-            RWORK( I ) = TMP;
+            RWORK[I] = TMP;
             ANORM = max( ANORM, TMP );
          }
       }
@@ -113,7 +113,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * RWORK( I );
+               WORK[I] = WORK( I ) * RWORK( I );
             }
 
             if ( UP ) {
@@ -125,14 +125,14 @@
             // Multiply by inv(X).
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) / X( I );
+               WORK[I] = WORK( I ) / X( I );
             }
          } else {
 
             // Multiply by inv(X**H).
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) / X( I );
+               WORK[I] = WORK( I ) / X( I );
             }
 
             if ( UP ) {
@@ -144,7 +144,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * RWORK( I );
+               WORK[I] = WORK( I ) * RWORK( I );
             }
          }
          GO TO 10;

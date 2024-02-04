@@ -35,17 +35,17 @@
          M = (N % 5);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
-               SX(I) = SA*SX(I);
+               SX[I] = SA*SX(I);
             }
             if (N < 5) return;
          }
          MP1 = M + 1;
          for (I = MP1; I <= N; I += 5) {
-            SX(I) = SA*SX(I);
-            SX(I+1) = SA*SX(I+1);
-            SX(I+2) = SA*SX(I+2);
-            SX(I+3) = SA*SX(I+3);
-            SX(I+4) = SA*SX(I+4);
+            SX[I] = SA*SX(I);
+            SX[I+1] = SA*SX(I+1);
+            SX[I+2] = SA*SX(I+2);
+            SX[I+3] = SA*SX(I+3);
+            SX[I+4] = SA*SX(I+4);
          }
       } else {
 
@@ -53,7 +53,7 @@
 
          NINCX = N*INCX;
          for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            SX(I) = SA*SX(I);
+            SX[I] = SA*SX(I);
          }
       }
       return;

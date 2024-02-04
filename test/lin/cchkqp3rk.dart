@@ -63,13 +63,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'QK';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'QK';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) {
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       }
       EPS = SLAMCH( 'Epsilon' );
       INFOT = 0;
@@ -149,7 +149,7 @@
 
                   claset('Full', M, N, CZERO, CZERO, COPYA, LDA );
                   for (I = 1; I <= MINMN; I++) {
-                     S( I ) = ZERO;
+                     S[I] = ZERO;
                   }
 
                } else if ( (IMAT >= 2 && IMAT <= 4 ) || (IMAT >= 14 && IMAT <= 19 ) ) {
@@ -336,7 +336,7 @@
                   slaord('Decreasing', MINMNB_GEN, S, 1 );
 
                   for (I = MINMNB_GEN+1; I <= MINMN; I++) {
-                     S( I ) = ZERO;
+                     S[I] = ZERO;
                   }
 
                } else {
@@ -349,7 +349,7 @@
                // Initialize a copy array for a pivot array for DGEQP3RK.
 
                for (I = 1; I <= N; I++) {
-                  IWORK( I ) = 0;
+                  IWORK[I] = 0;
                }
 
                for (INB = 1; INB <= NNB; INB++) {
@@ -412,7 +412,7 @@
 
                   // 2-norm(svd(R) - svd(A)) / ( max(M,N) * 2-norm(svd(A)) * EPS )
 
-                     RESULT( 1 ) = CQRT12( M, N, A, LDA, S, WORK, LWORK , RWORK );
+                     RESULT[1] = CQRT12( M, N, A, LDA, S, WORK, LWORK , RWORK );
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ) >= THRESH ) {
@@ -433,7 +433,7 @@
 
                   // 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A) * EPS )
 
-                  RESULT( 2 ) = CQPT01( M, N, KFACT, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK );
+                  RESULT[2] = CQPT01( M, N, KFACT, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK );
 
                   // Compute test 3:
 
@@ -441,7 +441,7 @@
 
                   // 1-norm( Q**T * Q - I ) / ( M * EPS )
 
-                  RESULT( 3 ) = CQRT11( M, KFACT, A, LDA, TAU, WORK, LWORK );
+                  RESULT[3] = CQRT11( M, KFACT, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -474,7 +474,7 @@
                         DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ( A(1) ) ).abs();
 
                         if ( DTEMP < ZERO ) {
-                           RESULT( 4 ) = BIGNUM;
+                           RESULT[4] = BIGNUM;
                         }
 
                      }
@@ -518,7 +518,7 @@
                         caxpy(M, -CONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      }
 
-                     RESULT( 5 ) = ABS( CLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) ) );
+                     RESULT[5] = ABS( CLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

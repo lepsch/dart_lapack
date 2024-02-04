@@ -84,11 +84,11 @@
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
             LWMIN = 1;
-            WORK( 1 ) = LWMIN;
+            WORK[1] = LWMIN;
          } else {
             IB    = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 );
             LWMIN = 2*N + LHTRD + LWTRD;
-            WORK( 1 )  = LWMIN;
+            WORK[1] = LWMIN;
          }
 
          if (LWORK < LWMIN && !LQUERY) INFO = -20;
@@ -117,7 +117,7 @@
             if( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
-            W( 1 ) = TMP1;
+            W[1] = TMP1;
             if (WANTZ) Z( 1, 1 ) = ONE;
          }
          return;
@@ -196,7 +196,7 @@
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 10
             }
          }
@@ -259,15 +259,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 );
-               W( I ) = W( J );
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
-               W( J ) = TMP1;
-               IWORK( INDIBL+J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[INDIBL+I-1] = IWORK( INDIBL+J-1 );
+               W[J] = TMP1;
+               IWORK[INDIBL+J-1] = ITMP1;
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 50
@@ -275,7 +275,7 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
 
       return;
       }

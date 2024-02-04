@@ -70,19 +70,19 @@
 
       // Test path
 
-      PATH( 1: 1 ) = 'Single precision';
-      PATH( 2: 3 ) = 'SK';
+      PATH[1: 1] = 'Single precision';
+      PATH[2: 3] = 'SK';
 
       // Path to generate matrices
 
-      MATPATH( 1: 1 ) = 'Single precision';
-      MATPATH( 2: 3 ) = 'SY';
+      MATPATH[1: 1] = 'Single precision';
+      MATPATH[2: 3] = 'SY';
 
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -166,22 +166,22 @@
                      if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDA;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = ZERO;
+                           A[IOFF+I] = ZERO;
                         } // 20
                         IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = ZERO;
+                           A[IOFF] = ZERO;
                            IOFF = IOFF + LDA;
                         } // 30
                      } else {
                         IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = ZERO;
+                           A[IOFF] = ZERO;
                            IOFF = IOFF + LDA;
                         } // 40
                         IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = ZERO;
+                           A[IOFF+I] = ZERO;
                         } // 50
                      }
                   } else {
@@ -193,7 +193,7 @@
                         for (J = 1; J <= N; J++) { // 70
                            I2 = min( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 60
                            IOFF = IOFF + LDA;
                         } // 70
@@ -205,7 +205,7 @@
                         for (J = 1; J <= N; J++) { // 90
                            I1 = max( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 80
                            IOFF = IOFF + LDA;
                         } // 90
@@ -321,7 +321,7 @@
 // +    TEST 3
                   // Compute largest element in U or L
 
-                  RESULT( 3 ) = ZERO;
+                  RESULT[3] = ZERO;
                   STEMP = ZERO;
 
                   CONST = ONE / ( ONE-ALPHA );
@@ -353,7 +353,7 @@
                      // STEMP should be bounded by CONST
 
                      STEMP = STEMP - CONST + THRESH;
-                     if( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP;
+                     if[STEMP > RESULT( 3 ) ) RESULT( 3] = STEMP;
 
                      K = K - 1;
 
@@ -387,7 +387,7 @@
                      // STEMP should be bounded by CONST
 
                      STEMP = STEMP - CONST + THRESH;
-                     if( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP;
+                     if[STEMP > RESULT( 3 ) ) RESULT( 3] = STEMP;
 
                      K = K + 1;
 
@@ -399,7 +399,7 @@
                   // Compute largest 2-Norm (condition number)
                   // of 2-by-2 diag blocks
 
-                  RESULT( 4 ) = ZERO;
+                  RESULT[4] = ZERO;
                   STEMP = ZERO;
 
                   CONST = ( ONE+ALPHA ) / ( ONE-ALPHA );
@@ -419,10 +419,10 @@
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK( 1, 1 ) = AFAC( ( K-2 )*LDA+K-1 );
-                        BLOCK( 1, 2 ) = E( K );
-                        BLOCK( 2, 1 ) = BLOCK( 1, 2 );
-                        BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K );
+                        BLOCK[1, 1] = AFAC( ( K-2 )*LDA+K-1 );
+                        BLOCK[1, 2] = E( K );
+                        BLOCK[2, 1] = BLOCK( 1, 2 );
+                        BLOCK[2, 2] = AFAC( (K-1)*LDA+K );
 
                         sgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, SDUMMY, 1, SDUMMY, 1, WORK, 10, INFO );
 
@@ -434,7 +434,7 @@
                         // STEMP should be bounded by CONST
 
                         STEMP = STEMP - CONST + THRESH;
-                        if( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP;
+                        if[STEMP > RESULT( 4 ) ) RESULT( 4] = STEMP;
                         K = K - 1;
 
                      }
@@ -458,10 +458,10 @@
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK( 1, 1 ) = AFAC( ( K-1 )*LDA+K );
-                        BLOCK( 2, 1 ) = E( K );
-                        BLOCK( 1, 2 ) = BLOCK( 2, 1 );
-                        BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 );
+                        BLOCK[1, 1] = AFAC( ( K-1 )*LDA+K );
+                        BLOCK[2, 1] = E( K );
+                        BLOCK[1, 2] = BLOCK( 2, 1 );
+                        BLOCK[2, 2] = AFAC( K*LDA+K+1 );
 
                         sgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, SDUMMY, 1, SDUMMY, 1, WORK, 10, INFO );
 
@@ -474,7 +474,7 @@
                         // STEMP should be bounded by CONST
 
                         STEMP = STEMP - CONST + THRESH;
-                        if( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP;
+                        if[STEMP > RESULT( 4 ) ) RESULT( 4] = STEMP;
                         K = K + 1;
 
                      }
@@ -572,7 +572,7 @@
 
                   // Compute the test ratio to compare to values of RCOND
 
-                  RESULT( 7 ) = SGET06( RCOND, RCONDC );
+                  RESULT[7] = SGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.

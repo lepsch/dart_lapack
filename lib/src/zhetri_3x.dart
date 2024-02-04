@@ -62,7 +62,7 @@
       // Workspace got Non-diag elements of D
 
       for (K = 1; K <= N; K++) {
-         WORK( K, 1 ) = E( K );
+         WORK[K, 1] = E( K );
       }
 
       // Check that the diagonal matrix D is nonsingular.
@@ -112,8 +112,8 @@
          DO WHILE( K <= N );
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK( K, INVD ) = ONE / DBLE( A( K, K ) );
-               WORK( K, INVD+1 ) = CZERO;
+               WORK[K, INVD] = ONE / DBLE( A( K, K ) );
+               WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K+1, 1 ) ).abs();
@@ -121,10 +121,10 @@
                AKP1 = DBLE( A( K+1, K+1 ) ) / T;
                AKKP1 = WORK( K+1, 1 )  / T;
                D = T*( AK*AKP1-CONE );
-               WORK( K, INVD ) = AKP1 / D;
-               WORK( K+1, INVD+1 ) = AK / D;
-               WORK( K, INVD+1 ) = -AKKP1 / D;
-               WORK( K+1, INVD ) = DCONJG( WORK( K, INVD+1 ) );
+               WORK[K, INVD] = AKP1 / D;
+               WORK[K+1, INVD+1] = AK / D;
+               WORK[K, INVD+1] = -AKKP1 / D;
+               WORK[K+1, INVD] = DCONJG( WORK( K, INVD+1 ) );
                K = K + 1;
             }
             K = K + 1;
@@ -155,19 +155,19 @@
 
             for (I = 1; I <= CUT; I++) {
                for (J = 1; J <= NNB; J++) {
-                  WORK( I, J ) = A( I, CUT+J );
+                  WORK[I, J] = A( I, CUT+J );
                }
             }
 
             // U11 Block
 
             for (I = 1; I <= NNB; I++) {
-               WORK( U11+I, I ) = CONE;
+               WORK[U11+I, I] = CONE;
                for (J = 1; J <= I-1; J++) {
-                  WORK( U11+I, J ) = CZERO;
+                  WORK[U11+I, J] = CZERO;
                 }
                 for (J = I+1; J <= NNB; J++) {
-                   WORK( U11+I, J ) = A( CUT+I, CUT+J );
+                   WORK[U11+I, J] = A( CUT+I, CUT+J );
                 }
             }
 
@@ -177,13 +177,13 @@
             DO WHILE( I <= CUT );
                if ( IPIV( I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
-                     WORK( I, J ) = WORK( I, INVD ) * WORK( I, J );
+                     WORK[I, J] = WORK( I, INVD ) * WORK( I, J );
                   }
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U01_I_J = WORK( I, J );
                      U01_IP1_J = WORK( I+1, J );
-                     WORK( I, J ) = WORK( I, INVD ) * U01_I_J + WORK( I, INVD+1 ) * U01_IP1_J                      WORK( I+1, J ) = WORK( I+1, INVD ) * U01_I_J + WORK( I+1, INVD+1 ) * U01_IP1_J;
+                     WORK[I, J] = WORK( I, INVD ) * U01_I_J + WORK( I, INVD+1 ) * U01_IP1_J                      WORK( I+1, J ) = WORK( I+1, INVD ) * U01_I_J + WORK( I+1, INVD+1 ) * U01_IP1_J;
                   }
                   I = I + 1;
                }
@@ -196,13 +196,13 @@
             DO WHILE ( I <= NNB );
                if ( IPIV( CUT+I ) > 0 ) {
                   for (J = I; J <= NNB; J++) {
-                     WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J);
+                     WORK[U11+I, J] = WORK(CUT+I,INVD) * WORK(U11+I,J);
                   }
                } else {
                   for (J = I; J <= NNB; J++) {
                      U11_I_J = WORK(U11+I,J);
                      U11_IP1_J = WORK(U11+I+1,J);
-                     WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * WORK(U11+I+1,J)                      WORK( U11+I+1, J ) = WORK(CUT+I+1,INVD) * U11_I_J + WORK(CUT+I+1,INVD+1) * U11_IP1_J;
+                     WORK[U11+I, J] = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * WORK(U11+I+1,J)                      WORK( U11+I+1, J ) = WORK(CUT+I+1,INVD) * U11_I_J + WORK(CUT+I+1,INVD+1) * U11_IP1_J;
                   }
                   I = I + 1;
                }
@@ -215,7 +215,7 @@
 
             for (I = 1; I <= NNB; I++) {
                for (J = I; J <= NNB; J++) {
-                  A( CUT+I, CUT+J ) = WORK( U11+I, J );
+                  A[CUT+I, CUT+J] = WORK( U11+I, J );
                }
             }
 
@@ -228,7 +228,7 @@
 
             for (I = 1; I <= NNB; I++) {
                for (J = I; J <= NNB; J++) {
-                  A( CUT+I, CUT+J ) = A( CUT+I, CUT+J ) + WORK(U11+I,J);
+                  A[CUT+I, CUT+J] = A( CUT+I, CUT+J ) + WORK(U11+I,J);
                }
             }
 
@@ -241,7 +241,7 @@
 
             for (I = 1; I <= CUT; I++) {
                for (J = 1; J <= NNB; J++) {
-                  A( I, CUT+J ) = WORK( I, J );
+                  A[I, CUT+J] = WORK( I, J );
                }
             }
 
@@ -282,8 +282,8 @@
          DO WHILE ( K >= 1 );
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK( K, INVD ) = ONE / DBLE( A( K, K ) );
-               WORK( K, INVD+1 ) = CZERO;
+               WORK[K, INVD] = ONE / DBLE( A( K, K ) );
+               WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K-1, 1 ) ).abs();
@@ -291,10 +291,10 @@
                AKP1 = DBLE( A( K, K ) ) / T;
                AKKP1 = WORK( K-1, 1 ) / T;
                D = T*( AK*AKP1-CONE );
-               WORK( K-1, INVD ) = AKP1 / D;
-               WORK( K, INVD ) = AK / D;
-               WORK( K, INVD+1 ) = -AKKP1 / D;
-               WORK( K-1, INVD+1 ) = DCONJG( WORK( K, INVD+1 ) );
+               WORK[K-1, INVD] = AKP1 / D;
+               WORK[K, INVD] = AK / D;
+               WORK[K, INVD+1] = -AKKP1 / D;
+               WORK[K-1, INVD+1] = DCONJG( WORK( K, INVD+1 ) );
                K = K - 1;
             }
             K = K - 1;
@@ -323,19 +323,19 @@
 
             for (I = 1; I <= N-CUT-NNB; I++) {
                for (J = 1; J <= NNB; J++) {
-                 WORK( I, J ) = A( CUT+NNB+I, CUT+J );
+                 WORK[I, J] = A( CUT+NNB+I, CUT+J );
                }
             }
 
             // L11 Block
 
             for (I = 1; I <= NNB; I++) {
-               WORK( U11+I, I) = CONE;
+               WORK[U11+I, I] = CONE;
                for (J = I+1; J <= NNB; J++) {
-                  WORK( U11+I, J ) = CZERO;
+                  WORK[U11+I, J] = CZERO;
                }
                for (J = 1; J <= I-1; J++) {
-                  WORK( U11+I, J ) = A( CUT+I, CUT+J );
+                  WORK[U11+I, J] = A( CUT+I, CUT+J );
                }
             }
 
@@ -345,7 +345,7 @@
             DO WHILE( I >= 1 );
                if ( IPIV( CUT+NNB+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
-                     WORK( I, J ) = WORK( CUT+NNB+I, INVD) * WORK( I, J);
+                     WORK[I, J] = WORK( CUT+NNB+I, INVD) * WORK( I, J);
                   }
                } else {
                   for (J = 1; J <= NNB; J++) {
@@ -364,14 +364,14 @@
             DO WHILE( I >= 1 );
                if ( IPIV( CUT+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
-                     WORK( U11+I, J ) = WORK( CUT+I, INVD)*WORK(U11+I,J);
+                     WORK[U11+I, J] = WORK( CUT+I, INVD)*WORK(U11+I,J);
                   }
 
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U11_I_J = WORK( U11+I, J );
                      U11_IP1_J = WORK( U11+I-1, J );
-                     WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * U11_IP1_J                      WORK( U11+I-1, J ) = WORK(CUT+I-1,INVD+1) * U11_I_J + WORK(CUT+I-1,INVD) * U11_IP1_J;
+                     WORK[U11+I, J] = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * U11_IP1_J                      WORK( U11+I-1, J ) = WORK(CUT+I-1,INVD+1) * U11_I_J + WORK(CUT+I-1,INVD) * U11_IP1_J;
                   }
                   I = I - 1;
                }
@@ -385,7 +385,7 @@
 
             for (I = 1; I <= NNB; I++) {
                for (J = 1; J <= I; J++) {
-                  A( CUT+I, CUT+J ) = WORK( U11+I, J );
+                  A[CUT+I, CUT+J] = WORK( U11+I, J );
                }
             }
 
@@ -400,7 +400,7 @@
 
                for (I = 1; I <= NNB; I++) {
                   for (J = 1; J <= I; J++) {
-                     A( CUT+I, CUT+J ) = A( CUT+I, CUT+J )+WORK(U11+I,J);
+                     A[CUT+I, CUT+J] = A( CUT+I, CUT+J )+WORK(U11+I,J);
                   }
                }
 
@@ -412,7 +412,7 @@
 
                for (I = 1; I <= N-CUT-NNB; I++) {
                   for (J = 1; J <= NNB; J++) {
-                     A( CUT+NNB+I, CUT+J ) = WORK( I, J );
+                     A[CUT+NNB+I, CUT+J] = WORK( I, J );
                   }
                }
 
@@ -422,7 +422,7 @@
 
                for (I = 1; I <= NNB; I++) {
                   for (J = 1; J <= I; J++) {
-                     A( CUT+I, CUT+J ) = WORK( U11+I, J );
+                     A[CUT+I, CUT+J] = WORK( U11+I, J );
                   }
                }
             }

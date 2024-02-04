@@ -56,7 +56,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -102,7 +102,7 @@
 
          MAXWRK = max( MAXWRK, MINWRK );
 
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -18;
@@ -175,7 +175,7 @@
                   zggesx('V', 'V', 'S', ZLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
                   if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
-                     RESULT( 1 ) = ULPINV;
+                     RESULT[1] = ULPINV;
                      WRITE( NOUT, FMT = 9999 )'ZGGESX', LINFO, MPLUSN, PRTYPE;
                      INFO = LINFO;
                      GO TO 30;
@@ -188,7 +188,7 @@
 
                   // Do tests (1) to (4)
 
-                  RESULT( 2 ) = ZERO;
+                  RESULT[2] = ZERO;
                   zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) );
                   zget51(1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) );
                   zget51(3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) );
@@ -199,8 +199,8 @@
                   // compare eigenvalues with diagonals.
 
                   TEMP1 = ZERO;
-                  RESULT( 5 ) = ZERO;
-                  RESULT( 6 ) = ZERO;
+                  RESULT[5] = ZERO;
+                  RESULT[6] = ZERO;
 
                   for (J = 1; J <= MPLUSN; J++) { // 10
                      ILABAD = false;
@@ -208,13 +208,13 @@
                      if ( J < MPLUSN ) {
                         if ( AI( J+1, J ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5 ) = ULPINV;
+                           RESULT[5] = ULPINV;
                         }
                      }
                      if ( J > 1 ) {
                         if ( AI( J, J-1 ) != ZERO ) {
                            ILABAD = true;
-                           RESULT( 5 ) = ULPINV;
+                           RESULT[5] = ULPINV;
                         }
                      }
                      TEMP1 = max( TEMP1, TEMP2 );
@@ -222,23 +222,23 @@
                         WRITE( NOUT, FMT = 9997 )J, MPLUSN, PRTYPE;
                      }
                   } // 10
-                  RESULT( 6 ) = TEMP1;
+                  RESULT[6] = TEMP1;
                   NTEST = NTEST + 2;
 
                   // Test (7) (if sorting worked)
 
-                  RESULT( 7 ) = ZERO;
+                  RESULT[7] = ZERO;
                   if ( LINFO == MPLUSN+3 ) {
-                     RESULT( 7 ) = ULPINV;
+                     RESULT[7] = ULPINV;
                   } else if ( MM != N ) {
-                     RESULT( 7 ) = ULPINV;
+                     RESULT[7] = ULPINV;
                   }
                   NTEST = NTEST + 1;
 
                   // Test (8): compare the estimated value DIF and its
                   // value. first, compute the exact DIF.
 
-                  RESULT( 8 ) = ZERO;
+                  RESULT[8] = ZERO;
                   MN2 = MM*( MPLUSN-MM )*2;
                   if ( IFUNC >= 2 && MN2 <= NCMAX*NCMAX ) {
 
@@ -253,16 +253,16 @@
                      if ( DIFEST( 2 ) == ZERO ) {
                         if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU == ZERO ) {
-                        if( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
+                        if[DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8] = ULPINV;
                      ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
-                        RESULT( 8 ) = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
+                        RESULT[8] = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
                      }
                      NTEST = NTEST + 1;
                   }
 
                   // Test (9)
 
-                  RESULT( 9 ) = ZERO;
+                  RESULT[9] = ZERO;
                   if ( LINFO == ( MPLUSN+2 ) ) {
                      if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
                      if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -341,7 +341,7 @@
       zggesx('V', 'V', 'S', ZLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
       if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
-         RESULT( 1 ) = ULPINV;
+         RESULT[1] = ULPINV;
          WRITE( NOUT, FMT = 9998 )'ZGGESX', LINFO, MPLUSN, NPTKNT;
          GO TO 130;
       }
@@ -362,8 +362,8 @@
 
       NTEST = 6;
       TEMP1 = ZERO;
-      RESULT( 5 ) = ZERO;
-      RESULT( 6 ) = ZERO;
+      RESULT[5] = ZERO;
+      RESULT[6] = ZERO;
 
       for (J = 1; J <= MPLUSN; J++) { // 110
          ILABAD = false;
@@ -371,13 +371,13 @@
          if ( J < MPLUSN ) {
             if ( AI( J+1, J ) != ZERO ) {
                ILABAD = true;
-               RESULT( 5 ) = ULPINV;
+               RESULT[5] = ULPINV;
             }
          }
          if ( J > 1 ) {
             if ( AI( J, J-1 ) != ZERO ) {
                ILABAD = true;
-               RESULT( 5 ) = ULPINV;
+               RESULT[5] = ULPINV;
             }
          }
          TEMP1 = max( TEMP1, TEMP2 );
@@ -385,30 +385,30 @@
             WRITE( NOUT, FMT = 9997 )J, MPLUSN, NPTKNT;
          }
       } // 110
-      RESULT( 6 ) = TEMP1;
+      RESULT[6] = TEMP1;
 
       // Test (7) (if sorting worked)  <--------- need to be checked.
 
       NTEST = 7;
-      RESULT( 7 ) = ZERO;
+      RESULT[7] = ZERO;
       if (LINFO == MPLUSN+3) RESULT( 7 ) = ULPINV;
 
       // Test (8): compare the estimated value of DIF and its true value.
 
       NTEST = 8;
-      RESULT( 8 ) = ZERO;
+      RESULT[8] = ZERO;
       if ( DIFEST( 2 ) == ZERO ) {
          if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU == ZERO ) {
          if ( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
       ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
-         RESULT( 8 ) = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
+         RESULT[8] = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
       }
 
       // Test (9)
 
       NTEST = 9;
-      RESULT( 9 ) = ZERO;
+      RESULT[9] = ZERO;
       if ( LINFO == ( MPLUSN+2 ) ) {
          if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
          if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -418,13 +418,13 @@
       // Test (10): compare the estimated value of PL and it true value.
 
       NTEST = 10;
-      RESULT( 10 ) = ZERO;
+      RESULT[10] = ZERO;
       if ( PL( 1 ) == ZERO ) {
          if (PLTRU > ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU == ZERO ) {
          if ( PL( 1 ) > ABNRM*ULP ) RESULT( 10 ) = ULPINV;
       ELSE IF( ( PLTRU > THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
-         RESULT( 10 ) = ULPINV;
+         RESULT[10] = ULPINV;
       }
 
       NTESTT = NTESTT + NTEST;
@@ -469,7 +469,7 @@
 
       alasvm('ZGX', NOUT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

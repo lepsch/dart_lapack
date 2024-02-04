@@ -61,7 +61,7 @@
 
          // Reduce the upper triangle of A
 
-         A( N, N ) = DBLE( A( N, N ) );
+         A[N, N] = DBLE( A( N, N ) );
          for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -69,13 +69,13 @@
 
             ALPHA = A( I, I+1 );
             zlarfg(I, ALPHA, A( 1, I+1 ), 1, TAUI );
-            E( I ) = DBLE( ALPHA );
+            E[I] = DBLE( ALPHA );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               A( I, I+1 ) = ONE;
+               A[I, I+1] = ONE;
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
@@ -92,18 +92,18 @@
                zher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
             } else {
-               A( I, I ) = DBLE( A( I, I ) );
+               A[I, I] = DBLE( A( I, I ) );
             }
-            A( I, I+1 ) = E( I );
-            D( I+1 ) = DBLE( A( I+1, I+1 ) );
-            TAU( I ) = TAUI;
+            A[I, I+1] = E( I );
+            D[I+1] = DBLE( A( I+1, I+1 ) );
+            TAU[I] = TAUI;
          } // 10
-         D( 1 ) = DBLE( A( 1, 1 ) );
+         D[1] = DBLE( A( 1, 1 ) );
       } else {
 
          // Reduce the lower triangle of A
 
-         A( 1, 1 ) = DBLE( A( 1, 1 ) );
+         A[1, 1] = DBLE( A( 1, 1 ) );
          for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -111,13 +111,13 @@
 
             ALPHA = A( I+1, I );
             zlarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAUI );
-            E( I ) = DBLE( ALPHA );
+            E[I] = DBLE( ALPHA );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               A( I+1, I ) = ONE;
+               A[I+1, I] = ONE;
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
@@ -134,13 +134,13 @@
                zher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
             } else {
-               A( I+1, I+1 ) = DBLE( A( I+1, I+1 ) );
+               A[I+1, I+1] = DBLE( A( I+1, I+1 ) );
             }
-            A( I+1, I ) = E( I );
-            D( I ) = DBLE( A( I, I ) );
-            TAU( I ) = TAUI;
+            A[I+1, I] = E( I );
+            D[I] = DBLE( A( I, I ) );
+            TAU[I] = TAUI;
          } // 20
-         D( N ) = DBLE( A( N, N ) );
+         D[N] = DBLE( A( N, N ) );
       }
 
       return;

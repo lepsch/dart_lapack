@@ -51,8 +51,8 @@
          // Presumably, I=1 upon entry
 
          SIGMA = sqrt( D( 1 )*D( 1 )+RHO*Z( 1 )*Z( 1 ) );
-         DELTA( 1 ) = ONE;
-         WORK( 1 ) = ONE;
+         DELTA[1] = ONE;
+         WORK[1] = ONE;
          return;
       }
       if ( N == 2 ) {
@@ -84,8 +84,8 @@
 
          TEMP1 = TEMP / ( D( N )+sqrt( D( N )*D( N )+TEMP ) );
          for (J = 1; J <= N; J++) { // 10
-            WORK( J ) = D( J ) + D( N ) + TEMP1;
-            DELTA( J ) = ( D( J )-D( N ) ) - TEMP1;
+            WORK[J] = D( J ) + D( N ) + TEMP1;
+            DELTA[J] = ( D( J )-D( N ) ) - TEMP1;
          } // 10
 
          PSI = ZERO;
@@ -147,8 +147,8 @@
 
          SIGMA = D( N ) + TAU;
          for (J = 1; J <= N; J++) { // 30
-            DELTA( J ) = ( D( J )-D( N ) ) - TAU;
-            WORK( J ) = D( J ) + D( N ) + TAU;
+            DELTA[J] = ( D( J )-D( N ) ) - TAU;
+            WORK[J] = D( J ) + D( N ) + TAU;
          } // 30
 
          // Evaluate PSI and the derivative DPSI
@@ -212,8 +212,8 @@
          SIGMA = SIGMA + ETA;
 
          for (J = 1; J <= N; J++) { // 50
-            DELTA( J ) = DELTA( J ) - ETA;
-            WORK( J ) = WORK( J ) + ETA;
+            DELTA[J] = DELTA( J ) - ETA;
+            WORK[J] = WORK( J ) + ETA;
          } // 50
 
          // Evaluate PSI and the derivative DPSI
@@ -280,8 +280,8 @@
             SIGMA = SIGMA + ETA;
 
             for (J = 1; J <= N; J++) { // 70
-               DELTA( J ) = DELTA( J ) - ETA;
-               WORK( J ) = WORK( J ) + ETA;
+               DELTA[J] = DELTA( J ) - ETA;
+               WORK[J] = WORK( J ) + ETA;
             } // 70
 
             // Evaluate PSI and the derivative DPSI
@@ -330,8 +330,8 @@
          SQ2=sqrt( ( D( I )*D( I )+D( IP1 )*D( IP1 ) ) / TWO );
          TEMP = DELSQ2 / ( D( I )+SQ2 );
          for (J = 1; J <= N; J++) { // 100
-            WORK( J ) = D( J ) + D( I ) + TEMP;
-            DELTA( J ) = ( D( J )-D( I ) ) - TEMP;
+            WORK[J] = D( J ) + D( I ) + TEMP;
+            DELTA[J] = ( D( J )-D( I ) ) - TEMP;
          } // 100
 
          PSI = ZERO;
@@ -402,8 +402,8 @@
 
          SIGMA = D( II ) + TAU;
          for (J = 1; J <= N; J++) { // 130
-            WORK( J ) = D( J ) + D( II ) + TAU;
-            DELTA( J ) = ( D( J )-D( II ) ) - TAU;
+            WORK[J] = D( J ) + D( II ) + TAU;
+            DELTA[J] = ( D( J )-D( II ) ) - TAU;
          } // 130
          IIM1 = II - 1;
          IIP1 = II + 1;
@@ -502,27 +502,27 @@
                TEMP1 = Z( IIM1 ) / DTIIM;
                TEMP1 = TEMP1*TEMP1;
                C = ( TEMP - DTIIP*( DPSI+DPHI ) ) - ( D( IIM1 )-D( IIP1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1;
-               ZZ( 1 ) = Z( IIM1 )*Z( IIM1 );
+               ZZ[1] = Z( IIM1 )*Z( IIM1 );
                if ( DPSI < TEMP1 ) {
-                  ZZ( 3 ) = DTIIP*DTIIP*DPHI;
+                  ZZ[3] = DTIIP*DTIIP*DPHI;
                } else {
-                  ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI );
+                  ZZ[3] = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI );
                }
             } else {
                TEMP1 = Z( IIP1 ) / DTIIP;
                TEMP1 = TEMP1*TEMP1;
                C = ( TEMP - DTIIM*( DPSI+DPHI ) ) - ( D( IIP1 )-D( IIM1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1;
                if ( DPHI < TEMP1 ) {
-                  ZZ( 1 ) = DTIIM*DTIIM*DPSI;
+                  ZZ[1] = DTIIM*DTIIM*DPSI;
                } else {
-                  ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) );
+                  ZZ[1] = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) );
                }
-               ZZ( 3 ) = Z( IIP1 )*Z( IIP1 );
+               ZZ[3] = Z( IIP1 )*Z( IIP1 );
             }
-            ZZ( 2 ) = Z( II )*Z( II );
-            DD( 1 ) = DTIIM;
-            DD( 2 ) = DELTA( II )*WORK( II );
-            DD( 3 ) = DTIIP;
+            ZZ[2] = Z( II )*Z( II );
+            DD[1] = DTIIM;
+            DD[2] = DELTA( II )*WORK( II );
+            DD[3] = DTIIP;
             slaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
             if ( INFO != 0 ) {
@@ -593,8 +593,8 @@
          SIGMA = SIGMA + ETA;
 
          for (J = 1; J <= N; J++) { // 170
-            WORK( J ) = WORK( J ) + ETA;
-            DELTA( J ) = DELTA( J ) - ETA;
+            WORK[J] = WORK( J ) + ETA;
+            DELTA[J] = DELTA( J ) - ETA;
          } // 170
 
          // Evaluate PSI and the derivative DPSI
@@ -704,19 +704,19 @@
                TEMP = RHOINV + PSI + PHI;
                if ( SWTCH ) {
                   C = TEMP - DTIIM*DPSI - DTIIP*DPHI;
-                  ZZ( 1 ) = DTIIM*DTIIM*DPSI;
-                  ZZ( 3 ) = DTIIP*DTIIP*DPHI;
+                  ZZ[1] = DTIIM*DTIIM*DPSI;
+                  ZZ[3] = DTIIP*DTIIP*DPHI;
                } else {
                   if ( ORGATI ) {
                      TEMP1 = Z( IIM1 ) / DTIIM;
                      TEMP1 = TEMP1*TEMP1;
                      TEMP2 = ( D( IIM1 )-D( IIP1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1;
                      C = TEMP - DTIIP*( DPSI+DPHI ) - TEMP2;
-                     ZZ( 1 ) = Z( IIM1 )*Z( IIM1 );
+                     ZZ[1] = Z( IIM1 )*Z( IIM1 );
                      if ( DPSI < TEMP1 ) {
-                        ZZ( 3 ) = DTIIP*DTIIP*DPHI;
+                        ZZ[3] = DTIIP*DTIIP*DPHI;
                      } else {
-                        ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI );
+                        ZZ[3] = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI );
                      }
                   } else {
                      TEMP1 = Z( IIP1 ) / DTIIP;
@@ -724,16 +724,16 @@
                      TEMP2 = ( D( IIP1 )-D( IIM1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1;
                      C = TEMP - DTIIM*( DPSI+DPHI ) - TEMP2;
                      if ( DPHI < TEMP1 ) {
-                        ZZ( 1 ) = DTIIM*DTIIM*DPSI;
+                        ZZ[1] = DTIIM*DTIIM*DPSI;
                      } else {
-                        ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) );
+                        ZZ[1] = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) );
                      }
-                     ZZ( 3 ) = Z( IIP1 )*Z( IIP1 );
+                     ZZ[3] = Z( IIP1 )*Z( IIP1 );
                   }
                }
-               DD( 1 ) = DTIIM;
-               DD( 2 ) = DELTA( II )*WORK( II );
-               DD( 3 ) = DTIIP;
+               DD[1] = DTIIM;
+               DD[2] = DELTA( II )*WORK( II );
+               DD[3] = DTIIP;
                slaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
                if ( INFO != 0 ) {
@@ -818,8 +818,8 @@
             SIGMA = SIGMA + ETA;
 
             for (J = 1; J <= N; J++) { // 200
-               WORK( J ) = WORK( J ) + ETA;
-               DELTA( J ) = DELTA( J ) - ETA;
+               WORK[J] = WORK( J ) + ETA;
+               DELTA[J] = DELTA( J ) - ETA;
             } // 200
 
             // Evaluate PSI and the derivative DPSI

@@ -61,7 +61,7 @@
             // Compute the (K,K) element of the result.
 
             T = DDOT( K, AFAC( KC ), 1, AFAC( KC ), 1 );
-            AFAC( KC+K-1 ) = T;
+            AFAC[KC+K-1] = T;
 
             // Compute the rest of column K.
 
@@ -95,7 +95,7 @@
 
       NPP = N*( N+1 ) / 2;
       for (I = 1; I <= NPP; I++) { // 30
-         AFAC( I ) = AFAC( I ) - A( I );
+         AFAC[I] = AFAC( I ) - A( I );
       } // 30
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )

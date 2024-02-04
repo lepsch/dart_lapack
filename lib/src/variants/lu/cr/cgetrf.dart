@@ -81,7 +81,7 @@
 
             if (INFO == 0 && IINFO > 0) INFO = IINFO + J - 1;
             for (I = J; I <= min( M, J+JB-1 ); I++) { // 10
-               IPIV( I ) = J - 1 + IPIV( I );
+               IPIV[I] = J - 1 + IPIV( I );
             } // 10
 
             // Apply interchanges to column 1:J-1

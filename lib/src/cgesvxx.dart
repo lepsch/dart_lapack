@@ -144,12 +144,12 @@
 
          if ( !ROWEQU ) {
             for (J = 1; J <= N; J++) {
-               R( J ) = 1.0;
+               R[J] = 1.0;
             }
          }
          if ( !COLEQU ) {
             for (J = 1; J <= N; J++) {
-               C( J ) = 1.0;
+               C[J] = 1.0;
             }
          }
       }

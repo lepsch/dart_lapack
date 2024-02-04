@@ -41,7 +41,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -99,25 +99,25 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -128,25 +128,25 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -159,12 +159,12 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {
@@ -172,14 +172,14 @@
                      TEMP = CABS1( A( J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
                      JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( I, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
                      JX = JX + INCX;
                   }
                }
@@ -191,12 +191,12 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {
@@ -204,14 +204,14 @@
                      TEMP = CABS1( A( I, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
                      JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = CABS1( A( J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP;
                      JX = JX + INCX;
                   }
                }

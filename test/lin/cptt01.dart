@@ -44,11 +44,11 @@
 
       // Construct the difference L*D*L' - A.
 
-      WORK( 1 ) = DF( 1 ) - D( 1 );
+      WORK[1] = DF( 1 ) - D( 1 );
       for (I = 1; I <= N - 1; I++) { // 10
          DE = DF( I )*EF( I );
-         WORK( N+I ) = DE - E( I );
-         WORK( 1+I ) = DE*CONJG( EF( I ) ) + DF( I+1 ) - D( I+1 );
+         WORK[N+I] = DE - E( I );
+         WORK[1+I] = DE*CONJG( EF( I ) ) + DF( I+1 ) - D( I+1 );
       } // 10
 
       // Compute the 1-norms of the tridiagonal matrices A and WORK.

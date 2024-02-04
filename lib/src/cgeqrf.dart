@@ -54,14 +54,14 @@
          } else {
             LWKOPT = N*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
          return;
       }
 
       // Quick return if possible
 
       if ( K == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -121,6 +121,6 @@
 
       if (I <= K) cgeqr2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK(IWS);
+      WORK[1] = SROUNDUP_LWORK(IWS);
       return;
       }

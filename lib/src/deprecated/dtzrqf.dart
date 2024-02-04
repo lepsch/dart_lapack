@@ -48,7 +48,7 @@
       if (M == 0) return;
       if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = ZERO;
+            TAU[I] = ZERO;
          } // 10
       } else {
          M1 = min( M+1, N );

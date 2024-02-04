@@ -43,10 +43,10 @@
       SAFMIN = SLAMCH( 'Safe minimum' );
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = CMPLX( ONE / REAL( N ) );
+            X[I] = CMPLX( ONE / REAL( N ) );
          } // 10
          KASE = 1;
-         ISAVE( 1 ) = 1;
+         ISAVE[1] = 1;
          return;
       }
 
@@ -57,7 +57,7 @@
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 );
+         V[1] = X( 1 );
          EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 130;
@@ -67,31 +67,31 @@
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE;
+            X[I] = CONE;
          }
       } // 30
       KASE = 2;
-      ISAVE( 1 ) = 2;
+      ISAVE[1] = 2;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
       } // 40
-      ISAVE( 2 ) = ICMAX1( N, X, 1 );
-      ISAVE( 3 ) = 2;
+      ISAVE[2] = ICMAX1( N, X, 1 );
+      ISAVE[3] = 2;
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = CZERO;
+         X[I] = CZERO;
       } // 60
-      X( ISAVE( 2 ) ) = CONE;
+      X[ISAVE( 2 )] = CONE;
       KASE = 1;
-      ISAVE( 1 ) = 3;
+      ISAVE[1] = 3;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 3)
@@ -108,13 +108,13 @@
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE;
+            X[I] = CONE;
          }
       } // 80
       KASE = 2;
-      ISAVE( 1 ) = 4;
+      ISAVE[1] = 4;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 4)
@@ -122,9 +122,9 @@
 
       } // 90
       JLAST = ISAVE( 2 );
-      ISAVE( 2 ) = ICMAX1( N, X, 1 );
+      ISAVE[2] = ICMAX1( N, X, 1 );
       if ( ( ( X( JLAST ) ).abs() != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
-         ISAVE( 3 ) = ISAVE( 3 ) + 1;
+         ISAVE[3] = ISAVE( 3 ) + 1;
          GO TO 50;
       }
 
@@ -133,11 +133,11 @@
       } // 100
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 110
-         X( I ) = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) );
+         X[I] = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) );
          ALTSGN = -ALTSGN;
       } // 110
       KASE = 1;
-      ISAVE( 1 ) = 5;
+      ISAVE[1] = 5;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 5)

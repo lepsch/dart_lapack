@@ -51,19 +51,19 @@
       // EPSIN = 2**(-24) = precision to which input data computed
 
       EPS = max( EPS, EPSIN );
-      RMAX( 1 ) = ZERO;
-      RMAX( 2 ) = ZERO;
-      RMAX( 3 ) = ZERO;
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      RMAX[1] = ZERO;
+      RMAX[2] = ZERO;
+      RMAX[3] = ZERO;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NINFO( 3 ) = 0;
-      VAL( 1 ) = sqrt( SMLNUM );
-      VAL( 2 ) = ONE;
-      VAL( 3 ) = sqrt( BIGNUM );
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NINFO[3] = 0;
+      VAL[1] = sqrt( SMLNUM );
+      VAL[2] = ONE;
+      VAL[3] = sqrt( BIGNUM );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part if ISRT = 0,
@@ -95,13 +95,13 @@
 
          cgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO != 0 ) {
-            LMAX( 1 ) = KNT;
-            NINFO( 1 ) = NINFO( 1 ) + 1;
+            LMAX[1] = KNT;
+            NINFO[1] = NINFO( 1 ) + 1;
             GO TO 260;
          }
          for (J = 1; J <= N - 2; J++) { // 60
             for (I = J + 2; I <= N; I++) { // 50
-               T( I, J ) = ZERO;
+               T[I, J] = ZERO;
             } // 50
          } // 60
 
@@ -109,15 +109,15 @@
 
          chseqr('S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 2 ) = KNT;
-            NINFO( 2 ) = NINFO( 2 ) + 1;
+            LMAX[2] = KNT;
+            NINFO[2] = NINFO( 2 ) + 1;
             GO TO 260;
          }
 
          // Compute eigenvectors
 
          for (I = 1; I <= N; I++) { // 70
-            SELECT( I ) = true;
+            SELECT[I] = true;
          } // 70
          ctrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO );
 
@@ -125,8 +125,8 @@
 
          ctrsna('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
 
@@ -139,14 +139,14 @@
             // Sort by increasing real part
 
             for (I = 1; I <= N; I++) { // 80
-               WSRT( I ) = REAL( W( I ) );
+               WSRT[I] = REAL( W( I ) );
             } // 80
          } else {
 
             // Sort by increasing imaginary part
 
             for (I = 1; I <= N; I++) { // 90
-               WSRT( I ) = AIMAG( W( I ) );
+               WSRT[I] = AIMAG( W( I ) );
             } // 90
          }
          scopy(N, S, 1, STMP, 1 );
@@ -161,17 +161,17 @@
                   VMIN = WSRT( J );
                }
             } // 100
-            WSRT( KMIN ) = WSRT( I );
-            WSRT( I ) = VMIN;
+            WSRT[KMIN] = WSRT( I );
+            WSRT[I] = VMIN;
             VCMIN = REAL( WTMP( I ) );
-            WTMP( I ) = W( KMIN );
-            WTMP( KMIN ) = VCMIN;
+            WTMP[I] = W( KMIN );
+            WTMP[KMIN] = VCMIN;
             VMIN = STMP( KMIN );
-            STMP( KMIN ) = STMP( I );
-            STMP( I ) = VMIN;
+            STMP[KMIN] = STMP( I );
+            STMP[I] = VMIN;
             VMIN = SEPTMP( KMIN );
-            SEPTMP( KMIN ) = SEPTMP( I );
-            SEPTMP( I ) = VMIN;
+            SEPTMP[KMIN] = SEPTMP( I );
+            SEPTMP[I] = VMIN;
          } // 110
 
          // Compare condition numbers for eigenvalues
@@ -204,7 +204,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 2 ) ) {
-               RMAX( 2 ) = VMAX;
+               RMAX[2] = VMAX;
                if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 120
@@ -237,7 +237,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 2 ) ) {
-               RMAX( 2 ) = VMAX;
+               RMAX[2] = VMAX;
                if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 130
@@ -260,7 +260,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 3 ) ) {
-               RMAX( 3 ) = VMAX;
+               RMAX[3] = VMAX;
                if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 140
@@ -283,7 +283,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 3 ) ) {
-               RMAX( 3 ) = VMAX;
+               RMAX[3] = VMAX;
                if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 150
@@ -291,13 +291,13 @@
          // Compute eigenvalue condition numbers only and compare
 
          VMAX = ZERO;
-         DUM( 1 ) = -ONE;
+         DUM[1] = -ONE;
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= N; I++) { // 160
@@ -311,8 +311,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= N; I++) { // 170
@@ -323,14 +323,14 @@
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 180
-            SELECT( I ) = true;
+            SELECT[I] = true;
          } // 180
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= N; I++) { // 190
@@ -344,8 +344,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= N; I++) { // 200
@@ -359,8 +359,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= N; I++) { // 210
@@ -368,27 +368,27 @@
             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
          } // 210
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
          // Select second and next to last eigenvalues
 
          for (I = 1; I <= N; I++) { // 220
-            SELECT( I ) = false;
+            SELECT[I] = false;
          } // 220
          ICMP = 0;
          if ( N > 1 ) {
             ICMP = 1;
-            LCMP( 1 ) = 2;
-            SELECT( 2 ) = true;
+            LCMP[1] = 2;
+            SELECT[2] = true;
             ccopy(N, RE( 1, 2 ), 1, RE( 1, 1 ), 1 );
             ccopy(N, LE( 1, 2 ), 1, LE( 1, 1 ), 1 );
          }
          if ( N > 3 ) {
             ICMP = 2;
-            LCMP( 2 ) = N - 1;
-            SELECT( N-1 ) = true;
+            LCMP[2] = N - 1;
+            SELECT[N-1] = true;
             ccopy(N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 );
             ccopy(N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 );
          }
@@ -399,8 +399,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= ICMP; I++) { // 230
@@ -415,8 +415,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= ICMP; I++) { // 240
@@ -431,8 +431,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 260;
          }
          for (I = 1; I <= ICMP; I++) { // 250
@@ -441,7 +441,7 @@
             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS;
          } // 250
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 260

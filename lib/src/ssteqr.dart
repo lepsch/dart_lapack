@@ -97,13 +97,13 @@
 
       } // 10
       if (L1 > N) GO TO 160;
-      IF( L1 > 1 ) E( L1-1 ) = ZERO;
+      IF[L1 > 1 ) E( L1-1] = ZERO;
       if ( L1 <= NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
             TST = ( E( M ) ).abs();
             if ( TST == ZERO ) GO TO 30;
             IF( TST <= ( sqrt( ( D( M ) ) ).abs()*sqrt( ( D( M+ 1 ) ) ) ).abs()*EPS ) {
-               E( M ) = ZERO;
+               E[M] = ZERO;
                GO TO 30;
             }
          } // 20
@@ -168,15 +168,15 @@
          if ( M == L+1 ) {
             if ( ICOMPZ > 0 ) {
                slaev2(D( L ), E( L ), D( L+1 ), RT1, RT2, C, S );
-               WORK( L ) = C;
-               WORK( N-1+L ) = S;
+               WORK[L] = C;
+               WORK[N-1+L] = S;
                slasr('R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ );
             } else {
                slae2(D( L ), E( L ), D( L+1 ), RT1, RT2 );
             }
-            D( L ) = RT1;
-            D( L+1 ) = RT2;
-            E( L ) = ZERO;
+            D[L] = RT1;
+            D[L+1] = RT2;
+            E[L] = ZERO;
             L = L + 2;
             if (L <= LEND) GO TO 40;
             GO TO 140;
@@ -206,14 +206,14 @@
             G = D( I+1 ) - P;
             R = ( D( I )-G )*S + TWO*C*B;
             P = S*R;
-            D( I+1 ) = G + P;
+            D[I+1] = G + P;
             G = C*R - B;
 
             // If eigenvectors are desired, then save rotations.
 
             if ( ICOMPZ > 0 ) {
-               WORK( I ) = C;
-               WORK( N-1+I ) = -S;
+               WORK[I] = C;
+               WORK[N-1+I] = -S;
             }
 
          } // 70
@@ -225,14 +225,14 @@
             slasr('R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ );
          }
 
-         D( L ) = D( L ) - P;
-         E( L ) = G;
+         D[L] = D( L ) - P;
+         E[L] = G;
          GO TO 40;
 
          // Eigenvalue found.
 
          } // 80
-         D( L ) = P;
+         D[L] = P;
 
          L = L + 1;
          if (L <= LEND) GO TO 40;
@@ -266,15 +266,15 @@
          if ( M == L-1 ) {
             if ( ICOMPZ > 0 ) {
                slaev2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S );
-               WORK( M ) = C;
-               WORK( N-1+M ) = S;
+               WORK[M] = C;
+               WORK[N-1+M] = S;
                slasr('R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ );
             } else {
                slae2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2 );
             }
-            D( L-1 ) = RT1;
-            D( L ) = RT2;
-            E( L-1 ) = ZERO;
+            D[L-1] = RT1;
+            D[L] = RT2;
+            E[L-1] = ZERO;
             L = L - 2;
             if (L >= LEND) GO TO 90;
             GO TO 140;
@@ -304,14 +304,14 @@
             G = D( I ) - P;
             R = ( D( I+1 )-G )*S + TWO*C*B;
             P = S*R;
-            D( I ) = G + P;
+            D[I] = G + P;
             G = C*R - B;
 
             // If eigenvectors are desired, then save rotations.
 
             if ( ICOMPZ > 0 ) {
-               WORK( I ) = C;
-               WORK( N-1+I ) = S;
+               WORK[I] = C;
+               WORK[N-1+I] = S;
             }
 
          } // 120
@@ -323,14 +323,14 @@
             slasr('R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ );
          }
 
-         D( L ) = D( L ) - P;
-         E( LM1 ) = G;
+         D[L] = D( L ) - P;
+         E[LM1] = G;
          GO TO 90;
 
          // Eigenvalue found.
 
          } // 130
-         D( L ) = P;
+         D[L] = P;
 
          L = L - 1;
          if (L >= LEND) GO TO 90;
@@ -382,8 +382,8 @@
                }
             } // 170
             if ( K != I ) {
-               D( K ) = D( I );
-               D( I ) = P;
+               D[K] = D( I );
+               D[I] = P;
                sswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
             }
          } // 180

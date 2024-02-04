@@ -56,11 +56,11 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = J + 1; I <= N; I++) { // 10
-            A( I, J ) = ZERO;
+            A[I, J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= N; I++) { // 30
-         A( I, I ) = D( I );
+         A[I, I] = D( I );
       } // 30
 
       // Generate lower triangle of hermitian matrix
@@ -77,7 +77,7 @@
          } else {
             WB = WORK( 1 ) + WA;
             cscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
             TAU = REAL( WB / WA );
          }
 
@@ -111,7 +111,7 @@
          } else {
             WB = A( K+I, I ) + WA;
             cscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
-            A( K+I, I ) = ONE;
+            A[K+I, I] = ONE;
             TAU = REAL( WB / WA );
          }
 
@@ -135,9 +135,9 @@
 
          cher2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
 
-         A( K+I, I ) = -WA;
+         A[K+I, I] = -WA;
          for (J = K + I + 1; J <= N; J++) { // 50
-            A( J, I ) = ZERO;
+            A[J, I] = ZERO;
          } // 50
       } // 60
 
@@ -145,7 +145,7 @@
 
       for (J = 1; J <= N; J++) { // 80
          for (I = J + 1; I <= N; I++) { // 70
-            A( J, I ) = CONJG( A( I, J ) );
+            A[J, I] = CONJG( A( I, J ) );
          } // 70
       } // 80
       return;

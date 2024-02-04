@@ -72,13 +72,13 @@
          for (J = 1; J <= N - 1; J++) { // 20
             zcopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             for (I = 1; I <= J - 1; I++) { // 10
-               WORK( J, I+1 ) = DCONJG( AINV( JJ+I-1 ) );
+               WORK[J, I+1] = DCONJG( AINV( JJ+I-1 ) );
             } // 10
             JJ = JJ + J;
          } // 20
          JJ = ( ( N-1 )*N ) / 2 + 1;
          for (I = 1; I <= N - 1; I++) { // 30
-            WORK( N, I+1 ) = DCONJG( AINV( JJ+I-1 ) );
+            WORK[N, I+1] = DCONJG( AINV( JJ+I-1 ) );
          } // 30
 
          // Multiply by A
@@ -97,13 +97,13 @@
          // Copy AINV
 
          for (I = 1; I <= N - 1; I++) { // 50
-            WORK( 1, I ) = DCONJG( AINV( I+1 ) );
+            WORK[1, I] = DCONJG( AINV( I+1 ) );
          } // 50
          JJ = N + 1;
          for (J = 2; J <= N; J++) { // 70
             zcopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             for (I = 1; I <= N - J; I++) { // 60
-               WORK( J, J+I-1 ) = DCONJG( AINV( JJ+I ) );
+               WORK[J, J+I-1] = DCONJG( AINV( JJ+I ) );
             } // 60
             JJ = JJ + N - J + 1;
          } // 70
@@ -120,7 +120,7 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 90
-         WORK( I, I ) = WORK( I, I ) + CONE;
+         WORK[I, I] = WORK( I, I ) + CONE;
       } // 90
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

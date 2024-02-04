@@ -49,9 +49,9 @@
 
       // Set up test case parameters
 
-      VAL( 1 ) = sqrt( SMLNUM );
-      VAL( 2 ) = ONE;
-      VAL( 3 ) = sqrt( BIGNUM );
+      VAL[1] = sqrt( SMLNUM );
+      VAL[2] = ONE;
+      VAL[3] = sqrt( BIGNUM );
 
       KNT = 0;
       NINFO = 0;
@@ -72,9 +72,9 @@
                for (ITL = 1; ITL <= 3; ITL++) { // 30
                   for (ITR = 1; ITR <= 3; ITR++) { // 20
                      for (IB = 1; IB <= 3; IB++) { // 10
-                        TL( 1, 1 ) = VAL( ITL );
-                        TR( 1, 1 ) = VAL( ITR );
-                        B( 1, 1 ) = VAL( IB );
+                        TL[1, 1] = VAL( ITL );
+                        TR[1, 1] = VAL( ITR );
+                        B[1, 1] = VAL( IB );
                         KNT = KNT + 1;
                         dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                         if (INFO != 0) NINFO = NINFO + 1;
@@ -102,17 +102,17 @@
                      for (ITR = 1; ITR <= 3; ITR++) { // 60
                         for (IB1 = 1; IB1 <= 3; IB1++) { // 50
                            for (IB2 = 1; IB2 <= 3; IB2++) { // 40
-                              B( 1, 1 ) = VAL( IB1 );
-                              B( 2, 1 ) = -FOUR*VAL( IB2 );
-                              TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                               TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                               TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                               TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL );
-                              TR( 1, 1 ) = VAL( ITR );
+                              B[1, 1] = VAL( IB1 );
+                              B[2, 1] = -FOUR*VAL( IB2 );
+                              TL[1, 1] = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                               TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                               TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                               TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL );
+                              TR[1, 1] = VAL( ITR );
                               KNT = KNT + 1;
                               dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                               if (INFO != 0) NINFO = NINFO + 1;
                               if ( LTRANL ) {
                                  TMP = TL( 1, 2 );
-                                 TL( 1, 2 ) = TL( 2, 1 );
-                                 TL( 2, 1 ) = TMP;
+                                 TL[1, 2] = TL( 2, 1 );
+                                 TL[2, 1] = TMP;
                               }
                               RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )+TL( 1, 2 )*X( 2, 1 )- SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( TL( 2, 2 )+SGN*TR( 1, 1 ) )*X( 2, 1 )+TL( 2, 1 )* X( 1, 1 )-SCALE*B( 2, 1 ) )                               TNRM = ( TR( 1, 1 ) ).abs() + ( TL( 1, 1 ) ).abs() + ( TL( 1, 2 ) ).abs() + ( TL( 2, 1 ) ).abs() + ( TL( 2, 2 ) ).abs();
                               XNRM = max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ) ).abs()                               DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
@@ -136,17 +136,17 @@
                      for (ITL = 1; ITL <= 3; ITL++) { // 110
                         for (IB1 = 1; IB1 <= 3; IB1++) { // 100
                            for (IB2 = 1; IB2 <= 3; IB2++) { // 90
-                              B( 1, 1 ) = VAL( IB1 );
-                              B( 1, 2 ) = -TWO*VAL( IB2 );
-                              TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                               TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                               TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                               TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL );
-                              TL( 1, 1 ) = VAL( ITL );
+                              B[1, 1] = VAL( IB1 );
+                              B[1, 2] = -TWO*VAL( IB2 );
+                              TR[1, 1] = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                               TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                               TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                               TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL );
+                              TL[1, 1] = VAL( ITL );
                               KNT = KNT + 1;
                               dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                               if (INFO != 0) NINFO = NINFO + 1;
                               if ( LTRANR ) {
                                  TMP = TR( 1, 2 );
-                                 TR( 1, 2 ) = TR( 2, 1 );
-                                 TR( 2, 1 ) = TMP;
+                                 TR[1, 2] = TR( 2, 1 );
+                                 TR[2, 1] = TMP;
                               }
                               TNRM = ( TL( 1, 1 ) ).abs() + ( TR( 1, 1 ) ).abs() + ( TR( 1, 2 ) ).abs() + ( TR( 2, 2 ) ).abs() + ( TR( 2, 1 ) ).abs();
                               XNRM = ( X( 1, 1 ) ).abs() + ( X( 1, 2 ) ).abs();
@@ -174,23 +174,23 @@
                            for (IB1 = 1; IB1 <= 3; IB1++) { // 160
                               for (IB2 = 1; IB2 <= 3; IB2++) { // 150
                                  for (IB3 = 1; IB3 <= 3; IB3++) { // 140
-                                    B( 1, 1 ) = VAL( IB1 );
-                                    B( 2, 1 ) = -FOUR*VAL( IB2 );
-                                    B( 1, 2 ) = -TWO*VAL( IB3 );
-                                    B( 2, 2 ) = EIGHT* min( VAL( IB1 ), VAL ( IB2 ), VAL( IB3 ) );
-                                    TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                                     TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                                     TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                                     TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )                                     TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                                     TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                                     TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                                     TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL );
+                                    B[1, 1] = VAL( IB1 );
+                                    B[2, 1] = -FOUR*VAL( IB2 );
+                                    B[1, 2] = -TWO*VAL( IB3 );
+                                    B[2, 2] = EIGHT* min( VAL( IB1 ), VAL ( IB2 ), VAL( IB3 ) );
+                                    TR[1, 1] = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                                     TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                                     TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                                     TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )                                     TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                                     TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                                     TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                                     TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL );
                                     KNT = KNT + 1;
                                     dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                                     if (INFO != 0) NINFO = NINFO + 1;
                                     if ( LTRANR ) {
                                        TMP = TR( 1, 2 );
-                                       TR( 1, 2 ) = TR( 2, 1 );
-                                       TR( 2, 1 ) = TMP;
+                                       TR[1, 2] = TR( 2, 1 );
+                                       TR[2, 1] = TMP;
                                     }
                                     if ( LTRANL ) {
                                        TMP = TL( 1, 2 );
-                                       TL( 1, 2 ) = TL( 2, 1 );
-                                       TL( 2, 1 ) = TMP;
+                                       TL[1, 2] = TL( 2, 1 );
+                                       TL[2, 1] = TMP;
                                     }
                                     TNRM = ( TR( 1, 1 ) ).abs() + ( TR( 2, 1 ) ).abs() + ( TR( 1, 2 ) ).abs() + ( TR( 2, 2 ) ).abs() + ( TL( 1, 1 ) ).abs() + ( TL( 2, 1 ) ).abs() + ( TL( 1, 2 ) ).abs() + ( TL( 2, 2 ) ).abs()                                     XNRM = max( ( X( 1, 1 ) ).abs()+ ( X( 1, 2 ) ).abs(), ( X( 2, 1 ) ).abs()+ ( X( 2, 2 ) ) ).abs()                                     RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 1, 1 ) ) )                                     RES = RES + ABS( ( TL( 1, 1 ) )* ( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 2, 2 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 2 ) )- ( SCALE*B( 1, 2 ) ) )                                     RES = RES + ABS( ( TL( 2, 1 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 1, 1 ) )* ( X( 2, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 2, 2 ) )+( TL( 2, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 2, 1 ) ) );
                                     RES = RES + ABS( ( ( TL( 2, 2 )+SGN*TR( 2, 2 ) ) )* ( X( 2, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 2, 1 ) )+( TL( 2, 1 ) )* ( X( 1, 2 ) )- ( SCALE*B( 2, 2 ) ) );

@@ -56,9 +56,9 @@
             // Apply H(i)**H to A(i:m,i+1:n) from the left
 
             ALPHA = A( I, I );
-            A( I, I ) = ONE;
+            A[I, I] = ONE;
             clarf('Left', M-I+1, N-I, A( I, I ), 1, CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = ALPHA;
+            A[I, I] = ALPHA;
          }
       } // 10
       return;

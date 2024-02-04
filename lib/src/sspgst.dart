@@ -67,7 +67,7 @@
                stpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 );
                sspmv(UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
                sscal(J-1, ONE / BJJ, AP( J1 ), 1 );
-               AP( JJ ) = ( AP( JJ )-SDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ;
+               AP[JJ] = ( AP( JJ )-SDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ;
             } // 10
          } else {
 
@@ -84,7 +84,7 @@
                AKK = AP( KK );
                BKK = BP( KK );
                AKK = AKK / BKK**2;
-               AP( KK ) = AKK;
+               AP[KK] = AKK;
                if ( K < N ) {
                   sscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK;
@@ -118,7 +118,7 @@
                sspr2(UPLO, K-1, ONE, AP( K1 ), 1, BP( K1 ), 1, AP );
                saxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
                sscal(K-1, BKK, AP( K1 ), 1 );
-               AP( KK ) = AKK*BKK**2;
+               AP[KK] = AKK*BKK**2;
             } // 30
          } else {
 
@@ -134,7 +134,7 @@
 
                AJJ = AP( JJ );
                BJJ = BP( JJ );
-               AP( JJ ) = AJJ*BJJ + SDOT( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
+               AP[JJ] = AJJ*BJJ + SDOT( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
                sscal(N-J, BJJ, AP( JJ+1 ), 1 );
                sspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 );
                stpmv(UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );

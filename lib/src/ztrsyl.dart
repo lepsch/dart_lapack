@@ -126,7 +126,7 @@
                   } // 10
                   SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11;
+               C[K, L] = X11;
 
             } // 20
          } // 30
@@ -173,7 +173,7 @@
                   } // 40
                   SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11;
+               C[K, L] = X11;
 
             } // 50
          } // 60
@@ -223,7 +223,7 @@
                   } // 70
                   SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11;
+               C[K, L] = X11;
 
             } // 80
          } // 90
@@ -269,7 +269,7 @@
                   } // 100
                   SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11;
+               C[K, L] = X11;
 
             } // 110
          } // 120

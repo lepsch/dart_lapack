@@ -51,7 +51,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -79,8 +79,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -122,23 +122,23 @@
 
          if ( NOTRAN ) {
             if ( N == 1 ) {
-               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
+               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
             } else {
-               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) );
+               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 30
-                  RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) );
+                  RWORK[I] = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) );
                } // 30
-               RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
+               RWORK[N] = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
             }
          } else {
             if ( N == 1 ) {
-               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
+               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
             } else {
-               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) );
+               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 40
-                  RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) );
+                  RWORK[I] = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) );
                } // 40
-               RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
+               RWORK[N] = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
             }
          }
 
@@ -159,7 +159,7 @@
                S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 50
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -202,9 +202,9 @@
 
          for (I = 1; I <= N; I++) { // 60
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 60
 
@@ -218,14 +218,14 @@
 
                zgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 80
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 80
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 90
-                  WORK( I ) = RWORK( I )*WORK( I );
+                  WORK[I] = RWORK( I )*WORK( I );
                } // 90
                zgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
             }

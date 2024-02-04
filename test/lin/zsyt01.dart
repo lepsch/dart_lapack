@@ -69,13 +69,13 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               C( I, J ) = C( I, J ) - A( I, J );
+               C[I, J] = C( I, J ) - A( I, J );
             } // 10
          } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
-               C( I, J ) = C( I, J ) - A( I, J );
+               C[I, J] = C( I, J ) - A( I, J );
             } // 30
          } // 40
       }

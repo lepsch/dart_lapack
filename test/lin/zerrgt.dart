@@ -47,10 +47,10 @@
       WRITE( NOUT, FMT = * );
       C2 = PATH( 2: 3 );
       for (I = 1; I <= NMAX; I++) { // 10
-         D( I ) = 1.0;
-         E( I ) = 2.0;
-         DL( I ) = 3.0;
-         DU( I ) = 4.0;
+         D[I] = 1.0;
+         E[I] = 2.0;
+         DL[I] = 3.0;
+         DU[I] = 4.0;
       } // 10
       ANORM = 1.0;
       OK = true;

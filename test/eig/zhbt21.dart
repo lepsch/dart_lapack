@@ -42,8 +42,8 @@
 
       // Constants
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0) return;
 
       IKA = max( 0, min( N-1, KA ) );
@@ -76,20 +76,20 @@
          if ( LOWER ) {
             for (JR = 1; JR <= min( IKA+1, N+1-JC ); JR++) { // 10
                J = J + 1;
-               WORK( J ) = A( JR, JC );
+               WORK[J] = A( JR, JC );
             } // 10
             for (JR = IKA + 2; JR <= N + 1 - JC; JR++) { // 20
                J = J + 1;
-               WORK( J ) = ZERO;
+               WORK[J] = ZERO;
             } // 20
          } else {
             for (JR = IKA + 2; JR <= JC; JR++) { // 30
                J = J + 1;
-               WORK( J ) = ZERO;
+               WORK[J] = ZERO;
             } // 30
             for (JR = min( IKA, JC-1 ); JR >= 0; JR--) { // 40
                J = J + 1;
-               WORK( J ) = A( IKA+1-JR, JC );
+               WORK[J] = A( IKA+1-JR, JC );
             } // 40
          }
       } // 50
@@ -106,12 +106,12 @@
       WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
+         RESULT[1] = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT[1] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+            RESULT[1] = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
          }
       }
 
@@ -122,10 +122,10 @@
       zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 80
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
+         WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 80
 
-      RESULT( 2 ) = min( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
+      RESULT[2] = min( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
 
       return;
       }

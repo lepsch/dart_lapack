@@ -50,20 +50,20 @@
       // EPSIN = 2**(-24) = precision to which input data computed
 
       EPS = max( EPS, EPSIN );
-      RMAX( 1 ) = ZERO;
-      RMAX( 2 ) = ZERO;
-      RMAX( 3 ) = ZERO;
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      RMAX[1] = ZERO;
+      RMAX[2] = ZERO;
+      RMAX[3] = ZERO;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NINFO( 3 ) = 0;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NINFO[3] = 0;
 
-      VAL( 1 ) = sqrt( SMLNUM );
-      VAL( 2 ) = ONE;
-      VAL( 3 ) = sqrt( BIGNUM );
+      VAL[1] = sqrt( SMLNUM );
+      VAL[2] = ONE;
+      VAL[3] = sqrt( BIGNUM );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
@@ -98,13 +98,13 @@
 
          sgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO != 0 ) {
-            LMAX( 1 ) = KNT;
-            NINFO( 1 ) = NINFO( 1 ) + 1;
+            LMAX[1] = KNT;
+            NINFO[1] = NINFO( 1 ) + 1;
             GO TO 240;
          }
          for (J = 1; J <= N - 2; J++) { // 60
             for (I = J + 2; I <= N; I++) { // 50
-               T( I, J ) = ZERO;
+               T[I, J] = ZERO;
             } // 50
          } // 60
 
@@ -112,8 +112,8 @@
 
          shseqr('S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 2 ) = KNT;
-            NINFO( 2 ) = NINFO( 2 ) + 1;
+            LMAX[2] = KNT;
+            NINFO[2] = NINFO( 2 ) + 1;
             GO TO 240;
          }
 
@@ -125,8 +125,8 @@
 
          strsna('Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
 
@@ -149,16 +149,16 @@
                   VIMIN = WITMP( J );
                }
             } // 70
-            WRTMP( KMIN ) = WRTMP( I );
-            WITMP( KMIN ) = WITMP( I );
-            WRTMP( I ) = VRMIN;
-            WITMP( I ) = VIMIN;
+            WRTMP[KMIN] = WRTMP( I );
+            WITMP[KMIN] = WITMP( I );
+            WRTMP[I] = VRMIN;
+            WITMP[I] = VIMIN;
             VRMIN = STMP( KMIN );
-            STMP( KMIN ) = STMP( I );
-            STMP( I ) = VRMIN;
+            STMP[KMIN] = STMP( I );
+            STMP[I] = VRMIN;
             VRMIN = SEPTMP( KMIN );
-            SEPTMP( KMIN ) = SEPTMP( I );
-            SEPTMP( I ) = VRMIN;
+            SEPTMP[KMIN] = SEPTMP( I );
+            SEPTMP[I] = VRMIN;
          } // 80
 
          // Compare condition numbers for eigenvalues
@@ -191,7 +191,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 2 ) ) {
-               RMAX( 2 ) = VMAX;
+               RMAX[2] = VMAX;
                if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 90
@@ -224,7 +224,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 2 ) ) {
-               RMAX( 2 ) = VMAX;
+               RMAX[2] = VMAX;
                if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
             }
          } // 100
@@ -247,7 +247,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 3 ) ) {
-               RMAX( 3 ) = VMAX;
+               RMAX[3] = VMAX;
                if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 110
@@ -270,7 +270,7 @@
                VMAX = ONE;
             }
             if ( VMAX > RMAX( 3 ) ) {
-               RMAX( 3 ) = VMAX;
+               RMAX[3] = VMAX;
                if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
             }
          } // 120
@@ -278,13 +278,13 @@
          // Compute eigenvalue condition numbers only and compare
 
          VMAX = ZERO;
-         DUM( 1 ) = -ONE;
+         DUM[1] = -ONE;
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 130
@@ -298,8 +298,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 140
@@ -310,14 +310,14 @@
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 150
-            SELECT( I ) = true;
+            SELECT[I] = true;
          } // 150
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 160
@@ -331,8 +331,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 170
@@ -346,8 +346,8 @@
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= N; I++) { // 180
@@ -355,22 +355,22 @@
             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS;
          } // 180
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
          // Select first real and first complex eigenvalue
 
          if ( WI( 1 ) == ZERO ) {
-            LCMP( 1 ) = 1;
+            LCMP[1] = 1;
             IFND = 0;
             for (I = 2; I <= N; I++) { // 190
                if ( IFND == 1 || WI( I ) == ZERO ) {
-                  SELECT( I ) = false;
+                  SELECT[I] = false;
                } else {
                   IFND = 1;
-                  LCMP( 2 ) = I;
-                  LCMP( 3 ) = I + 1;
+                  LCMP[2] = I;
+                  LCMP[3] = I + 1;
                   scopy(N, RE( 1, I ), 1, RE( 1, 2 ), 1 );
                   scopy(N, RE( 1, I+1 ), 1, RE( 1, 3 ), 1 );
                   scopy(N, LE( 1, I ), 1, LE( 1, 2 ), 1 );
@@ -383,14 +383,14 @@
                ICMP = 3;
             }
          } else {
-            LCMP( 1 ) = 1;
-            LCMP( 2 ) = 2;
+            LCMP[1] = 1;
+            LCMP[2] = 2;
             IFND = 0;
             for (I = 3; I <= N; I++) { // 200
                if ( IFND == 1 || WI( I ) != ZERO ) {
-                  SELECT( I ) = false;
+                  SELECT[I] = false;
                } else {
-                  LCMP( 3 ) = I;
+                  LCMP[3] = I;
                   IFND = 1;
                   scopy(N, RE( 1, I ), 1, RE( 1, 3 ), 1 );
                   scopy(N, LE( 1, I ), 1, LE( 1, 3 ), 1 );
@@ -409,8 +409,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= ICMP; I++) { // 210
@@ -425,8 +425,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= ICMP; I++) { // 220
@@ -441,8 +441,8 @@
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 240;
          }
          for (I = 1; I <= ICMP; I++) { // 230
@@ -451,7 +451,7 @@
             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS;
          } // 230
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 240

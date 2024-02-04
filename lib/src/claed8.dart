@@ -80,7 +80,7 @@
 
       T = ONE / sqrt( TWO );
       for (J = 1; J <= N; J++) { // 10
-         INDX( J ) = J;
+         INDX[J] = J;
       } // 10
       sscal(N, T, Z, 1 );
       RHO = ( TWO*RHO ).abs();
@@ -88,18 +88,18 @@
       // Sort the eigenvalues into increasing order
 
       for (I = CUTPNT + 1; I <= N; I++) { // 20
-         INDXQ( I ) = INDXQ( I ) + CUTPNT;
+         INDXQ[I] = INDXQ( I ) + CUTPNT;
       } // 20
       for (I = 1; I <= N; I++) { // 30
-         DLAMBDA( I ) = D( INDXQ( I ) );
-         W( I ) = Z( INDXQ( I ) );
+         DLAMBDA[I] = D( INDXQ( I ) );
+         W[I] = Z( INDXQ( I ) );
       } // 30
       I = 1;
       J = CUTPNT + 1;
       slamrg(N1, N2, DLAMBDA, 1, 1, INDX );
       for (I = 1; I <= N; I++) { // 40
-         D( I ) = DLAMBDA( INDX( I ) );
-         Z( I ) = W( INDX( I ) );
+         D[I] = DLAMBDA( INDX( I ) );
+         Z[I] = W( INDX( I ) );
       } // 40
 
       // Calculate the allowable deflation tolerance
@@ -116,7 +116,7 @@
       if ( RHO*( Z( IMAX ) ).abs() <= TOL ) {
          K = 0;
          for (J = 1; J <= N; J++) { // 50
-            PERM( J ) = INDXQ( INDX( J ) );
+            PERM[J] = INDXQ( INDX( J ) );
             ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
          } // 50
          clacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
@@ -137,7 +137,7 @@
             // Deflate due to small z component.
 
             K2 = K2 - 1;
-            INDXP( K2 ) = J;
+            INDXP[K2] = J;
             if (J == N) GO TO 100;
          } else {
             JLAM = J;
@@ -152,7 +152,7 @@
          // Deflate due to small z component.
 
          K2 = K2 - 1;
-         INDXP( K2 ) = J;
+         INDXP[K2] = J;
       } else {
 
          // Check if eigenvalues are close enough to allow deflation.
@@ -171,41 +171,41 @@
 
             // Deflation is possible.
 
-            Z( J ) = TAU;
-            Z( JLAM ) = ZERO;
+            Z[J] = TAU;
+            Z[JLAM] = ZERO;
 
             // Record the appropriate Givens rotation
 
             GIVPTR = GIVPTR + 1;
-            GIVCOL( 1, GIVPTR ) = INDXQ( INDX( JLAM ) );
-            GIVCOL( 2, GIVPTR ) = INDXQ( INDX( J ) );
-            GIVNUM( 1, GIVPTR ) = C;
-            GIVNUM( 2, GIVPTR ) = S;
+            GIVCOL[1, GIVPTR] = INDXQ( INDX( JLAM ) );
+            GIVCOL[2, GIVPTR] = INDXQ( INDX( J ) );
+            GIVNUM[1, GIVPTR] = C;
+            GIVNUM[2, GIVPTR] = S;
             csrot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
             T = D( JLAM )*C*C + D( J )*S*S;
-            D( J ) = D( JLAM )*S*S + D( J )*C*C;
-            D( JLAM ) = T;
+            D[J] = D( JLAM )*S*S + D( J )*C*C;
+            D[JLAM] = T;
             K2 = K2 - 1;
             I = 1;
             } // 80
             if ( K2+I <= N ) {
                if ( D( JLAM ) < D( INDXP( K2+I ) ) ) {
-                  INDXP( K2+I-1 ) = INDXP( K2+I );
-                  INDXP( K2+I ) = JLAM;
+                  INDXP[K2+I-1] = INDXP( K2+I );
+                  INDXP[K2+I] = JLAM;
                   I = I + 1;
                   GO TO 80;
                } else {
-                  INDXP( K2+I-1 ) = JLAM;
+                  INDXP[K2+I-1] = JLAM;
                }
             } else {
-               INDXP( K2+I-1 ) = JLAM;
+               INDXP[K2+I-1] = JLAM;
             }
             JLAM = J;
          } else {
             K = K + 1;
-            W( K ) = Z( JLAM );
-            DLAMBDA( K ) = D( JLAM );
-            INDXP( K ) = JLAM;
+            W[K] = Z( JLAM );
+            DLAMBDA[K] = D( JLAM );
+            INDXP[K] = JLAM;
             JLAM = J;
          }
       }
@@ -215,9 +215,9 @@
       // Record the last eigenvalue.
 
       K = K + 1;
-      W( K ) = Z( JLAM );
-      DLAMBDA( K ) = D( JLAM );
-      INDXP( K ) = JLAM;
+      W[K] = Z( JLAM );
+      DLAMBDA[K] = D( JLAM );
+      INDXP[K] = JLAM;
 
       } // 100
 
@@ -228,8 +228,8 @@
 
       for (J = 1; J <= N; J++) { // 110
          JP = INDXP( J );
-         DLAMBDA( J ) = D( JP );
-         PERM( J ) = INDXQ( INDX( JP ) );
+         DLAMBDA[J] = D( JP );
+         PERM[J] = INDXQ( INDX( JP ) );
          ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
       } // 110
 

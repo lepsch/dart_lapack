@@ -55,7 +55,7 @@
             // Apply H(i) to A(I:M,I+1:N) from the left
 
             AII = A( I, I );
-            A( I, I ) = ONE;
+            A[I, I] = ONE;
 
             // W(1:N-I) := A(I:M,I+1:N)^H * A(I:M,I) [W = T(:,N)]
 
@@ -65,19 +65,19 @@
 
             ALPHA = -(T( I, 1 ));
             sger(M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA );
-            A( I, I ) = AII;
+            A[I, I] = AII;
          }
       }
 
       for (I = 2; I <= N; I++) {
          AII = A( I, I );
-         A( I, I ) = ONE;
+         A[I, I] = ONE;
 
          // T(1:I-1,I) := alpha * A(I:M,1:I-1)**T * A(I:M,I)
 
          ALPHA = -T( I, 1 );
          sgemv('T', M-I+1, I-1, ALPHA, A( I, 1 ), LDA, A( I, I ), 1, ZERO, T( 1, I ), 1 );
-         A( I, I ) = AII;
+         A[I, I] = AII;
 
          // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 
@@ -85,8 +85,8 @@
 
             // T(I,I) = tau(I)
 
-            T( I, I ) = T( I, 1 );
-            T( I, 1) = ZERO;
+            T[I, I] = T( I, 1 );
+            T[I, 1] = ZERO;
       }
 
       }

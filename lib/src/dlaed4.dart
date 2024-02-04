@@ -51,7 +51,7 @@
           // Presumably, I=1 upon entry
 
          DLAM = D( 1 ) + RHO*Z( 1 )*Z( 1 );
-         DELTA( 1 ) = ONE;
+         DELTA[1] = ONE;
          return;
       }
       if ( N == 2 ) {
@@ -81,7 +81,7 @@
          // RHO * ||Z||_2^2 / TWO
 
          for (J = 1; J <= N; J++) { // 10
-            DELTA( J ) = ( D( J )-D( I ) ) - MIDPT;
+            DELTA[J] = ( D( J )-D( I ) ) - MIDPT;
          } // 10
 
          PSI = ZERO;
@@ -130,7 +130,7 @@
          }
 
          for (J = 1; J <= N; J++) { // 30
-            DELTA( J ) = ( D( J )-D( I ) ) - TAU;
+            DELTA[J] = ( D( J )-D( I ) ) - TAU;
          } // 30
 
          // Evaluate PSI and the derivative DPSI
@@ -204,7 +204,7 @@
             }
          }
          for (J = 1; J <= N; J++) { // 50
-            DELTA( J ) = DELTA( J ) - ETA;
+            DELTA[J] = DELTA( J ) - ETA;
          } // 50
 
          TAU = TAU + ETA;
@@ -277,7 +277,7 @@
                }
             }
             for (J = 1; J <= N; J++) { // 70
-               DELTA( J ) = DELTA( J ) - ETA;
+               DELTA[J] = DELTA( J ) - ETA;
             } // 70
 
             TAU = TAU + ETA;
@@ -325,7 +325,7 @@
          DEL = D( IP1 ) - D( I );
          MIDPT = DEL / TWO;
          for (J = 1; J <= N; J++) { // 100
-            DELTA( J ) = ( D( J )-D( I ) ) - MIDPT;
+            DELTA[J] = ( D( J )-D( I ) ) - MIDPT;
          } // 100
 
          PSI = ZERO;
@@ -376,11 +376,11 @@
 
          if ( ORGATI ) {
             for (J = 1; J <= N; J++) { // 130
-               DELTA( J ) = ( D( J )-D( I ) ) - TAU;
+               DELTA[J] = ( D( J )-D( I ) ) - TAU;
             } // 130
          } else {
             for (J = 1; J <= N; J++) { // 140
-               DELTA( J ) = ( D( J )-D( IP1 ) ) - TAU;
+               DELTA[J] = ( D( J )-D( IP1 ) ) - TAU;
             } // 140
          }
          if ( ORGATI ) {
@@ -485,15 +485,15 @@
                TEMP1 = Z( IIM1 ) / DELTA( IIM1 );
                TEMP1 = TEMP1*TEMP1;
                C = TEMP - DELTA( IIP1 )*( DPSI+DPHI ) - ( D( IIM1 )-D( IIP1 ) )*TEMP1;
-               ZZ( 1 ) = Z( IIM1 )*Z( IIM1 );
-               ZZ( 3 ) = DELTA( IIP1 )*DELTA( IIP1 )* ( ( DPSI-TEMP1 )+DPHI );
+               ZZ[1] = Z( IIM1 )*Z( IIM1 );
+               ZZ[3] = DELTA( IIP1 )*DELTA( IIP1 )* ( ( DPSI-TEMP1 )+DPHI );
             } else {
                TEMP1 = Z( IIP1 ) / DELTA( IIP1 );
                TEMP1 = TEMP1*TEMP1;
                C = TEMP - DELTA( IIM1 )*( DPSI+DPHI ) - ( D( IIP1 )-D( IIM1 ) )*TEMP1                ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )* ( DPSI+( DPHI-TEMP1 ) );
-               ZZ( 3 ) = Z( IIP1 )*Z( IIP1 );
+               ZZ[3] = Z( IIP1 )*Z( IIP1 );
             }
-            ZZ( 2 ) = Z( II )*Z( II );
+            ZZ[2] = Z( II )*Z( II );
             CALL DLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )             IF( INFO != 0 ) GO TO 250;
          }
 
@@ -516,7 +516,7 @@
          PREW = W;
 
          for (J = 1; J <= N; J++) { // 180
-            DELTA( J ) = DELTA( J ) - ETA;
+            DELTA[J] = DELTA( J ) - ETA;
          } // 180
 
          // Evaluate PSI and the derivative DPSI
@@ -626,20 +626,20 @@
                TEMP = RHOINV + PSI + PHI;
                if ( SWTCH ) {
                   C = TEMP - DELTA( IIM1 )*DPSI - DELTA( IIP1 )*DPHI;
-                  ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )*DPSI;
-                  ZZ( 3 ) = DELTA( IIP1 )*DELTA( IIP1 )*DPHI;
+                  ZZ[1] = DELTA( IIM1 )*DELTA( IIM1 )*DPSI;
+                  ZZ[3] = DELTA( IIP1 )*DELTA( IIP1 )*DPHI;
                } else {
                   if ( ORGATI ) {
                      TEMP1 = Z( IIM1 ) / DELTA( IIM1 );
                      TEMP1 = TEMP1*TEMP1;
                      C = TEMP - DELTA( IIP1 )*( DPSI+DPHI ) - ( D( IIM1 )-D( IIP1 ) )*TEMP1;
-                     ZZ( 1 ) = Z( IIM1 )*Z( IIM1 );
-                     ZZ( 3 ) = DELTA( IIP1 )*DELTA( IIP1 )* ( ( DPSI-TEMP1 )+DPHI );
+                     ZZ[1] = Z( IIM1 )*Z( IIM1 );
+                     ZZ[3] = DELTA( IIP1 )*DELTA( IIP1 )* ( ( DPSI-TEMP1 )+DPHI );
                   } else {
                      TEMP1 = Z( IIP1 ) / DELTA( IIP1 );
                      TEMP1 = TEMP1*TEMP1;
                      C = TEMP - DELTA( IIM1 )*( DPSI+DPHI ) - ( D( IIP1 )-D( IIM1 ) )*TEMP1                      ZZ( 1 ) = DELTA( IIM1 )*DELTA( IIM1 )* ( DPSI+( DPHI-TEMP1 ) );
-                     ZZ( 3 ) = Z( IIP1 )*Z( IIP1 );
+                     ZZ[3] = Z( IIP1 )*Z( IIP1 );
                   }
                }
                CALL DLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )                IF( INFO != 0 ) GO TO 250;
@@ -662,7 +662,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 210
-               DELTA( J ) = DELTA( J ) - ETA;
+               DELTA[J] = DELTA( J ) - ETA;
             } // 210
 
             TAU = TAU + ETA;

@@ -144,14 +144,14 @@
          if ( ROWEQU ) {
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
-                  B( I, J ) = R( I )*B( I, J );
+                  B[I, J] = R( I )*B( I, J );
                } // 30
             } // 40
          }
       } else if ( COLEQU ) {
          for (J = 1; J <= NRHS; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
-               B( I, J ) = C( I )*B( I, J );
+               B[I, J] = C( I )*B( I, J );
             } // 50
          } // 60
       }
@@ -187,7 +187,7 @@
             } else {
                RPVGRW = ANORM / RPVGRW;
             }
-            RWORK( 1 ) = RPVGRW;
+            RWORK[1] = RPVGRW;
             RCOND = ZERO;
             return;
          }
@@ -230,21 +230,21 @@
          if ( COLEQU ) {
             for (J = 1; J <= NRHS; J++) { // 110
                for (I = 1; I <= N; I++) { // 100
-                  X( I, J ) = C( I )*X( I, J );
+                  X[I, J] = C( I )*X( I, J );
                } // 100
             } // 110
             for (J = 1; J <= NRHS; J++) { // 120
-               FERR( J ) = FERR( J ) / COLCND;
+               FERR[J] = FERR( J ) / COLCND;
             } // 120
          }
       } else if ( ROWEQU ) {
          for (J = 1; J <= NRHS; J++) { // 140
             for (I = 1; I <= N; I++) { // 130
-               X( I, J ) = R( I )*X( I, J );
+               X[I, J] = R( I )*X( I, J );
             } // 130
          } // 140
          for (J = 1; J <= NRHS; J++) { // 150
-            FERR( J ) = FERR( J ) / ROWCND;
+            FERR[J] = FERR( J ) / ROWCND;
          } // 150
       }
 
@@ -252,6 +252,6 @@
 
       if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RWORK( 1 ) = RPVGRW;
+      RWORK[1] = RPVGRW;
       return;
       }

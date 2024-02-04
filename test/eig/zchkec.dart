@@ -31,8 +31,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'EC';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'EC';
       EPS = DLAMCH( 'P' );
       SFMIN = DLAMCH( 'S' );
       WRITE( NOUT, FMT = 9994 );

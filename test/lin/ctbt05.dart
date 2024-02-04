@@ -38,15 +38,15 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
       // Quick exit if N = 0 or NRHS = 0.
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESLTS( 1 ) = ZERO;
-         RESLTS( 2 ) = ZERO;
+         RESLTS[1] = ZERO;
+         RESLTS[2] = ZERO;
          return;
       }
 
@@ -87,7 +87,7 @@
             ERRBND = ONE / EPS;
          }
       } // 30
-      RESLTS( 1 ) = ERRBND;
+      RESLTS[1] = ERRBND;
 
       // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
       // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
@@ -130,9 +130,9 @@
          } // 80
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
          if ( K == 1 ) {
-            RESLTS( 2 ) = TMP;
+            RESLTS[2] = TMP;
          } else {
-            RESLTS( 2 ) = max( RESLTS( 2 ), TMP );
+            RESLTS[2] = max( RESLTS( 2 ), TMP );
          }
       } // 90
 

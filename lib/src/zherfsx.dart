@@ -66,7 +66,7 @@
       REF_TYPE = INT( ITREF_DEFAULT );
       if ( NPARAMS >= LA_LINRX_ITREF_I ) {
          if ( PARAMS( LA_LINRX_ITREF_I ) < 0.0 ) {
-            PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT;
+            PARAMS[LA_LINRX_ITREF_I] = ITREF_DEFAULT;
          } else {
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I );
          }
@@ -82,7 +82,7 @@
 
       if ( NPARAMS >= LA_LINRX_ITHRESH_I ) {
          if ( PARAMS( LA_LINRX_ITHRESH_I ) < 0.0 ) {
-            PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH;
+            PARAMS[LA_LINRX_ITHRESH_I] = ITHRESH;
          } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) );
          }
@@ -90,9 +90,9 @@
       if ( NPARAMS >= LA_LINRX_CWISE_I ) {
          if ( PARAMS(LA_LINRX_CWISE_I ) < 0.0 ) {
             if ( IGNORE_CWISE ) {
-               PARAMS( LA_LINRX_CWISE_I ) = 0.0;
+               PARAMS[LA_LINRX_CWISE_I] = 0.0;
             } else {
-               PARAMS( LA_LINRX_CWISE_I ) = 1.0;
+               PARAMS[LA_LINRX_CWISE_I] = 1.0;
             }
          } else {
             IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) == 0.0;
@@ -137,18 +137,18 @@
       if ( N == 0 || NRHS == 0 ) {
          RCOND = 1.0;
          for (J = 1; J <= NRHS; J++) {
-            BERR( J ) = 0.0;
+            BERR[J] = 0.0;
             if ( N_ERR_BNDS >= 1 ) {
-               ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0;
-               ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0;
+               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
+               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
             }
             if ( N_ERR_BNDS >= 2 ) {
-               ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 0.0;
-               ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 0.0;
+               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 0.0;
+               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 0.0;
             }
             if ( N_ERR_BNDS >= 3 ) {
-               ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 1.0;
-               ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0;
+               ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = 1.0;
+               ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = 1.0;
             }
          }
          return;
@@ -158,18 +158,18 @@
 
       RCOND = 0.0;
       for (J = 1; J <= NRHS; J++) {
-         BERR( J ) = 1.0;
+         BERR[J] = 1.0;
          if ( N_ERR_BNDS >= 1 ) {
-            ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0;
-            ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0;
+            ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
+            ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
          }
          if ( N_ERR_BNDS >= 2 ) {
-            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0;
-            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
+            ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 1.0;
+            ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 1.0;
          }
          if ( N_ERR_BNDS >= 3 ) {
-            ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 0.0;
-            ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 0.0;
+            ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = 0.0;
+            ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = 0.0;
          }
       }
 
@@ -207,18 +207,18 @@
       // Threshold the error (see LAWN).
 
             if (RCOND_TMP < ILLRCOND_THRESH) {
-               ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0;
-               ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0;
+               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 1.0;
+               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 0.0;
                if (INFO <= N) INFO = N + J;
             } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND;
-               ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0;
+               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = ERR_LBND;
+               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP;
+               ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = RCOND_TMP;
             }
          }
       }
@@ -248,18 +248,18 @@
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
-               ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
-               ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0;
+               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 1.0;
+               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 0.0;
                if ( !IGNORE_CWISE && INFO < N + J ) INFO = N + J;
             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND;
-               ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0;
+               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = ERR_LBND;
+               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP;
+               ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = RCOND_TMP;
             }
 
          }

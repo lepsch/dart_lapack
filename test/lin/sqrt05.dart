@@ -96,9 +96,9 @@
       ANORM = SLANGE( '1', M2, N, A, M2, RWORK );
       RESID = SLANGE( '1', M2, N, R, M2, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*ANORM*max(1,M2));
+         RESULT[1] = RESID / (EPS*ANORM*max(1,M2));
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute |I - Q'*Q| and store in RESULT(2)
@@ -106,7 +106,7 @@
       slaset('Full', M2, M2, ZERO, ONE, R, M2 );
       ssyrk('U', 'C', M2, M2, -ONE, Q, M2, ONE, R, M2 );
       RESID = SLANSY( '1', 'Upper', M2, R, M2, RWORK );
-      RESULT( 2 ) = RESID / (EPS*max(1,M2));
+      RESULT[2] = RESID / (EPS*max(1,M2));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -125,9 +125,9 @@
       sgemm('N', 'N', M2, N, M2, -ONE, Q,M2,C,M2,ONE,CF,M2);
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*max(1,M2)*CNORM);
+         RESULT[3] = RESID / (EPS*max(1,M2)*CNORM);
       } else {
-         RESULT( 3 ) = ZERO;
+         RESULT[3] = ZERO;
       }
 
       // Copy C into CF again
@@ -143,9 +143,9 @@
       sgemm('T','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2);
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*max(1,M2)*CNORM);
+         RESULT[4] = RESID / (EPS*max(1,M2)*CNORM);
       } else {
-         RESULT( 4 ) = ZERO;
+         RESULT[4] = ZERO;
       }
 
       // Generate random n-by-m matrix D and a copy DF
@@ -165,9 +165,9 @@
       sgemm('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N);
       RESID = SLANGE('1',N, M2,DF,N,RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*max(1,M2)*DNORM);
+         RESULT[5] = RESID / (EPS*max(1,M2)*DNORM);
       } else {
-         RESULT( 5 ) = ZERO;
+         RESULT[5] = ZERO;
       }
 
       // Copy D into DF again
@@ -184,9 +184,9 @@
       sgemm('N', 'T', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N );
       RESID = SLANGE( '1', N, M2, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*max(1,M2)*DNORM);
+         RESULT[6] = RESID / (EPS*max(1,M2)*DNORM);
       } else {
-         RESULT( 6 ) = ZERO;
+         RESULT[6] = ZERO;
       }
 
       // Deallocate all arrays

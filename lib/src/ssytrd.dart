@@ -57,7 +57,7 @@
 
          NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = N*NB;
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -70,7 +70,7 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -128,8 +128,8 @@
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 10
-               A( J-1, J ) = E( J-1 );
-               D( J ) = A( J, J );
+               A[J-1, J] = E( J-1 );
+               D[J] = A( J, J );
             } // 10
          } // 20
 
@@ -157,8 +157,8 @@
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 30
-               A( J+1, J ) = E( J );
-               D( J ) = A( J, J );
+               A[J+1, J] = E( J );
+               D[J] = A( J, J );
             } // 30
          } // 40
 
@@ -167,6 +167,6 @@
          ssytd2(UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
       return;
       }

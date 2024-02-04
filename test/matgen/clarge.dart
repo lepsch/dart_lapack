@@ -62,7 +62,7 @@
          } else {
             WB = WORK( 1 ) + WA;
             cscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
             TAU = REAL( WB / WA );
          }
 

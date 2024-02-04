@@ -47,7 +47,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -76,8 +76,8 @@
       INFO = 0;
       NB = ILAENV( 1, 'ZTREVC', SIDE // HOWMNY, N, -1, -1, -1 );
       MAXWRK = max( 1, N + 2*N*NB );
-      WORK(1) = MAXWRK;
-      RWORK(1) = max( 1, N );
+      WORK[1] = MAXWRK;
+      RWORK[1] = max( 1, N );
       LQUERY = ( LWORK == -1 || LRWORK == -1 );
       if ( !RIGHTV && !LEFTV ) {
          INFO = -1;
@@ -130,15 +130,15 @@
       // Store the diagonal elements of T in working array WORK.
 
       for (I = 1; I <= N; I++) { // 20
-         WORK( I ) = T( I, I );
+         WORK[I] = T( I, I );
       } // 20
 
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
 
-      RWORK( 1 ) = ZERO;
+      RWORK[1] = ZERO;
       for (J = 2; J <= N; J++) { // 30
-         RWORK( J ) = DZASUM( J-1, T( 1, J ), 1 );
+         RWORK[J] = DZASUM( J-1, T( 1, J ), 1 );
       } // 30
 
       if ( RIGHTV ) {
@@ -161,25 +161,25 @@
             // --------------------------------------------------------
             // Complex right eigenvector
 
-            WORK( KI + IV*N ) = CONE;
+            WORK[KI + IV*N] = CONE;
 
             // Form right-hand side.
 
             for (K = 1; K <= KI - 1; K++) { // 40
-               WORK( K + IV*N ) = -T( K, KI );
+               WORK[K + IV*N] = -T( K, KI );
             } // 40
 
             // Solve upper triangular system:
             // [ T(1:KI-1,1:KI-1) - T(KI,KI) ]*X = SCALE*WORK.
 
             for (K = 1; K <= KI - 1; K++) { // 50
-               T( K, K ) = T( K, K ) - T( KI, KI );
-               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               T[K, K] = T( K, K ) - T( KI, KI );
+               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 50
 
             if ( KI > 1 ) {
                zlatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO );
-               WORK( KI + IV*N ) = SCALE;
+               WORK[KI + IV*N] = SCALE;
             }
 
             // Copy the vector x or Q*x to VR and normalize.
@@ -194,7 +194,7 @@
                zdscal(KI, REMAX, VR( 1, IS ), 1 );
 
                for (K = KI + 1; K <= N; K++) { // 60
-                  VR( K, IS ) = CZERO;
+                  VR[K, IS] = CZERO;
                } // 60
 
             } else if ( NB == 1 ) {
@@ -211,7 +211,7 @@
                // version 2: back-transform block of vectors with GEMM
                // zero out below vector
                for (K = KI + 1; K <= N; K++) {
-                  WORK( K + IV*N ) = CZERO;
+                  WORK[K + IV*N] = CZERO;
                }
 
                // Columns IV:NB of work are valid vectors.
@@ -235,7 +235,7 @@
             // Restore the original diagonal elements of T.
 
             for (K = 1; K <= KI - 1; K++) { // 70
-               T( K, K ) = WORK( K );
+               T[K, K] = WORK( K );
             } // 70
 
             IS = IS - 1;
@@ -263,25 +263,25 @@
             // --------------------------------------------------------
             // Complex left eigenvector
 
-            WORK( KI + IV*N ) = CONE;
+            WORK[KI + IV*N] = CONE;
 
             // Form right-hand side.
 
             for (K = KI + 1; K <= N; K++) { // 90
-               WORK( K + IV*N ) = -CONJG( T( KI, K ) );
+               WORK[K + IV*N] = -CONJG( T( KI, K ) );
             } // 90
 
             // Solve conjugate-transposed triangular system:
             // [ T(KI+1:N,KI+1:N) - T(KI,KI) ]**H * X = SCALE*WORK.
 
             for (K = KI + 1; K <= N; K++) { // 100
-               T( K, K ) = T( K, K ) - T( KI, KI );
-               if( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN;
+               T[K, K] = T( K, K ) - T( KI, KI );
+               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 100
 
             if ( KI < N ) {
                zlatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO );
-               WORK( KI + IV*N ) = SCALE;
+               WORK[KI + IV*N] = SCALE;
             }
 
             // Copy the vector x or Q*x to VL and normalize.
@@ -296,7 +296,7 @@
                zdscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                for (K = 1; K <= KI - 1; K++) { // 110
-                  VL( K, IS ) = CZERO;
+                  VL[K, IS] = CZERO;
                } // 110
 
             } else if ( NB == 1 ) {
@@ -314,7 +314,7 @@
                // zero out above vector
                // could go from KI-NV+1 to KI-1
                for (K = 1; K <= KI - 1; K++) {
-                  WORK( K + IV*N ) = CZERO;
+                  WORK[K + IV*N] = CZERO;
                }
 
                // Columns 1:IV of work are valid vectors.
@@ -338,7 +338,7 @@
             // Restore the original diagonal elements of T.
 
             for (K = KI + 1; K <= N; K++) { // 120
-               T( K, K ) = WORK( K );
+               T[K, K] = WORK( K );
             } // 120
 
             IS = IS + 1;

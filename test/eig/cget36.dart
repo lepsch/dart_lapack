@@ -88,14 +88,14 @@
       if ( IFST < ILST ) {
          for (I = IFST + 1; I <= ILST; I++) { // 70
             CTEMP = DIAG( I );
-            DIAG( I ) = DIAG( I-1 );
-            DIAG( I-1 ) = CTEMP;
+            DIAG[I] = DIAG( I-1 );
+            DIAG[I-1] = CTEMP;
          } // 70
       } else if ( IFST > ILST ) {
          for (I = IFST - 1; I >= ILST; I--) { // 80
             CTEMP = DIAG( I+1 );
-            DIAG( I+1 ) = DIAG( I );
-            DIAG( I ) = CTEMP;
+            DIAG[I+1] = DIAG( I );
+            DIAG[I] = CTEMP;
          } // 80
       }
       for (I = 1; I <= N; I++) { // 90

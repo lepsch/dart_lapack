@@ -124,7 +124,7 @@
             }
             MAXWRK = max( MAXWRK, MINWRK );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -20;
@@ -169,7 +169,7 @@
       cgebal(BALANC, N, A, LDA, ILO, IHI, SCALE, IERR );
       ABNRM = CLANGE( '1', N, N, A, LDA, DUM );
       if ( SCALEA ) {
-         DUM( 1 ) = ABNRM;
+         DUM[1] = ABNRM;
          slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
          ABNRM = DUM( 1 );
       }
@@ -284,12 +284,12 @@
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 );
             csscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
-               RWORK( K ) = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
+               RWORK[K] = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VL( 1, I ), 1 );
-            VL( K, I ) = CMPLX( REAL( VL( K, I ) ), ZERO );
+            VL[K, I] = CMPLX( REAL( VL( K, I ) ), ZERO );
          } // 20
       }
 
@@ -305,12 +305,12 @@
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 );
             csscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
-               RWORK( K ) = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
+               RWORK[K] = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VR( 1, I ), 1 );
-            VR( K, I ) = CMPLX( REAL( VR( K, I ) ), ZERO );
+            VR[K, I] = CMPLX( REAL( VR( K, I ) ), ZERO );
          } // 40
       }
 
@@ -326,6 +326,6 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

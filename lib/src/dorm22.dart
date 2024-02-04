@@ -75,7 +75,7 @@
 
       if ( INFO == 0 ) {
          LWKOPT = M*N;
-         WORK( 1 ) = DBLE( LWKOPT );
+         WORK[1] = DBLE( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -88,7 +88,7 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -96,11 +96,11 @@
 
       if ( N1 == 0 ) {
          dtrmm(SIDE, 'Upper', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       } else if ( N2 == 0 ) {
          dtrmm(SIDE, 'Lower', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       }
 
@@ -222,6 +222,6 @@
          }
       }
 
-      WORK( 1 ) = DBLE( LWKOPT );
+      WORK[1] = DBLE( LWKOPT );
       return;
       }

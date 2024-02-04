@@ -64,13 +64,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'SP';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'SP';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       LWORK = max( 2*NMAX, NMAX*NRHS );
 
@@ -145,22 +145,22 @@
                      if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*IZERO / 2;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = ZERO;
+                           A[IOFF+I] = ZERO;
                         } // 20
                         IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = ZERO;
+                           A[IOFF] = ZERO;
                            IOFF = IOFF + I;
                         } // 30
                      } else {
                         IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = ZERO;
+                           A[IOFF] = ZERO;
                            IOFF = IOFF + N - I;
                         } // 40
                         IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = ZERO;
+                           A[IOFF+I] = ZERO;
                         } // 50
                      }
                   } else {
@@ -172,7 +172,7 @@
                         for (J = 1; J <= N; J++) { // 70
                            I2 = min( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 60
                            IOFF = IOFF + J;
                         } // 70
@@ -183,7 +183,7 @@
                         for (J = 1; J <= N; J++) { // 90
                            I1 = max( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = ZERO;
+                              A[IOFF+I] = ZERO;
                            } // 80
                            IOFF = IOFF + N - J;
                         } // 90
@@ -370,7 +370,7 @@
                   // Compare RCOND from DSPSVX with the computed value
                   // in RCONDC.
 
-                  RESULT( 6 ) = DGET06( RCOND, RCONDC );
+                  RESULT[6] = DGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.

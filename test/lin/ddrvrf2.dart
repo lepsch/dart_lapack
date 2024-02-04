@@ -49,7 +49,7 @@
       NERRS = 0;
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 120
@@ -74,7 +74,7 @@
 
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A( I, J) = DLARND( 2, ISEED );
+                     A[I, J] = DLARND( 2, ISEED );
                   }
                }
 

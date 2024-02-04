@@ -91,16 +91,16 @@
       if ( N == 1 ) {
          if ( ALLSV || INDSV ) {
             NS = 1;
-            S( 1 ) = ( D( 1 ) ).abs();
+            S[1] = ( D( 1 ) ).abs();
          } else {
             if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ) ).abs() {
                NS = 1;
-               S( 1 ) = ( D( 1 ) ).abs();
+               S[1] = ( D( 1 ) ).abs();
             }
          }
          if ( WANTZ ) {
-            Z( 1, 1 ) = SIGN( ONE, D( 1 ) );
-            Z( 2, 1 ) = ONE;
+            Z[1, 1] = SIGN( ONE, D( 1 ) );
+            Z[2, 1] = ONE;
          }
          return;
       }
@@ -182,7 +182,7 @@
          RNGVX = 'V';
          VLTGK = -VU;
          VUTGK = -VL;
-         WORK( IDTGK:IDTGK+2*N-1 ) = ZERO;
+         WORK[IDTGK:IDTGK+2*N-1] = ZERO;
          scopy(N, D, 1, WORK( IETGK ), 2 );
          scopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          sstevx('N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
@@ -203,12 +203,12 @@
          ILTGK = IL;
          IUTGK = IU;
          RNGVX = 'V';
-         WORK( IDTGK:IDTGK+2*N-1 ) = ZERO;
+         WORK[IDTGK:IDTGK+2*N-1] = ZERO;
          scopy(N, D, 1, WORK( IETGK ), 2 );
          scopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          sstevx('N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VLTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          VLTGK = S( 1 ) - FUDGE*SMAX*ULP*N;
-         WORK( IDTGK:IDTGK+2*N-1 ) = ZERO;
+         WORK[IDTGK:IDTGK+2*N-1] = ZERO;
          scopy(N, D, 1, WORK( IETGK ), 2 );
          scopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          sstevx('N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
@@ -244,9 +244,9 @@
 
       // Form the tridiagonal TGK matrix.
 
-      S( 1:N ) = ZERO;
-      WORK( IETGK+2*N-1 ) = ZERO;
-      WORK( IDTGK:IDTGK+2*N-1 ) = ZERO;
+      S[1:N] = ZERO;
+      WORK[IETGK+2*N-1] = ZERO;
+      WORK[IDTGK:IDTGK+2*N-1] = ZERO;
       scopy(N, D, 1, WORK( IETGK ), 2 );
       scopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
 
@@ -369,8 +369,8 @@
                         // eigenvectors corresponding to the two smallest
                         // eigenvalues.
 
-                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 );
-                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 ) = ZERO;
+                        Z[IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2] = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 );
+                        Z[IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1] = ZERO;
                         // IF( IUTGK*2 > NTGK ) THEN
                            // Eigenvalue equal to zero or very small.
                            // NSL = NSL - 1
@@ -415,7 +415,7 @@
                         // active submatrix is reached).
 
                         SPLIT = true;
-                        Z( IROWZ:IROWZ+NTGK-1,N+1 ) = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO;
+                        Z[IROWZ:IROWZ+NTGK-1,N+1] = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO;
                      }
                   END IF !** WANTZ **!;
 
@@ -425,7 +425,7 @@
                   // Absolute values of the eigenvalues of TGK.
 
                   for (I = 0; I <= NSL-1; I++) {
-                     S( ISBEG+I ) = ( S( ISBEG+I ) ).abs();
+                     S[ISBEG+I] = ( S( ISBEG+I ) ).abs();
                   }
 
                   // Update pointers for TGK, S and Z.
@@ -441,7 +441,7 @@
                   NRV = 0;
                END IF !** NTGK > 0 **!;
                if ( IROWZ < N*2 && WANTZ ) {
-                  Z( 1:IROWZ-1, ICOLZ ) = ZERO;
+                  Z[1:IROWZ-1, ICOLZ] = ZERO;
                }
             END DO !** IDPTR loop **!;
             if ( SPLIT && WANTZ ) {
@@ -449,8 +449,8 @@
                // Bring back eigenvector corresponding
                // to eigenvalue equal to zero.
 
-               Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 );
-               Z( IDBEG:IDEND-NTGK+1,N+1 ) = 0;
+               Z[IDBEG:IDEND-NTGK+1,ISBEG-1] = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 );
+               Z[IDBEG:IDEND-NTGK+1,N+1] = 0;
             }
             IROWV = IROWV - 1;
             IROWU = IROWU + 1;
@@ -473,8 +473,8 @@
             }
          }
          if ( K != NS+1-I ) {
-            S( K ) = S( NS+1-I );
-            S( NS+1-I ) = SMIN;
+            S[K] = S( NS+1-I );
+            S[NS+1-I] = SMIN;
             if (WANTZ) sswap( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 );
          }
       }
@@ -484,7 +484,7 @@
       if ( INDSV ) {
          K = IU - IL + 1;
          if ( K < NS ) {
-            S( K+1:NS ) = ZERO;
+            S[K+1:NS] = ZERO;
             if (WANTZ) Z( 1:N*2,K+1:NS ) = ZERO;
             NS = K;
          }

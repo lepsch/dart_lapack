@@ -40,10 +40,10 @@
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = ONE / REAL( N );
+            X[I] = ONE / REAL( N );
          } // 10
          KASE = 1;
-         ISAVE( 1 ) = 1;
+         ISAVE[1] = 1;
          return;
       }
 
@@ -54,7 +54,7 @@
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 );
+         V[1] = X( 1 );
          EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 150;
@@ -63,32 +63,32 @@
 
       for (I = 1; I <= N; I++) { // 30
          if ( X(I) >= ZERO ) {
-            X(I) = ONE;
+            X[I] = ONE;
          } else {
-            X(I) = -ONE;
+            X[I] = -ONE;
          }
-         ISGN( I ) = NINT( X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 30
       KASE = 2;
-      ISAVE( 1 ) = 2;
+      ISAVE[1] = 2;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
       } // 40
-      ISAVE( 2 ) = ISAMAX( N, X, 1 );
-      ISAVE( 3 ) = 2;
+      ISAVE[2] = ISAMAX( N, X, 1 );
+      ISAVE[3] = 2;
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = ZERO;
+         X[I] = ZERO;
       } // 60
-      X( ISAVE( 2 ) ) = ONE;
+      X[ISAVE( 2 )] = ONE;
       KASE = 1;
-      ISAVE( 1 ) = 3;
+      ISAVE[1] = 3;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 3)
@@ -115,14 +115,14 @@
 
       for (I = 1; I <= N; I++) { // 100
          if ( X(I) >= ZERO ) {
-            X(I) = ONE;
+            X[I] = ONE;
          } else {
-            X(I) = -ONE;
+            X[I] = -ONE;
          }
-         ISGN( I ) = NINT( X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 100
       KASE = 2;
-      ISAVE( 1 ) = 4;
+      ISAVE[1] = 4;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 4)
@@ -130,9 +130,9 @@
 
       } // 110
       JLAST = ISAVE( 2 );
-      ISAVE( 2 ) = ISAMAX( N, X, 1 );
+      ISAVE[2] = ISAMAX( N, X, 1 );
       if ( ( X( JLAST ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
-         ISAVE( 3 ) = ISAVE( 3 ) + 1;
+         ISAVE[3] = ISAVE( 3 ) + 1;
          GO TO 50;
       }
 
@@ -141,11 +141,11 @@
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X( I ) = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) );
+         X[I] = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;
-      ISAVE( 1 ) = 5;
+      ISAVE[1] = 5;
       return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 5)

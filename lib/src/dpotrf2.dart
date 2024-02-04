@@ -67,7 +67,7 @@
 
          // Factor
 
-         A( 1, 1 ) = sqrt( A( 1, 1 ) );
+         A[1, 1] = sqrt( A( 1, 1 ) );
 
       // Use recursive code
 

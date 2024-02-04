@@ -56,7 +56,7 @@
       NB4 = ILAENV( 1, 'ZUNMRQ', ' ', M, N, NRHS, -1 );
       NB = max( NB1, NB2, NB3, NB4 );
       LWKOPT = max( 1, MN+2*N+NB*( N+1 ), 2*MN+NB*NRHS );
-      WORK( 1 ) = DCMPLX( LWKOPT );
+      WORK[1] = DCMPLX( LWKOPT );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -143,8 +143,8 @@
 
       // Determine RANK using incremental condition estimation
 
-      WORK( ISMIN ) = CONE;
-      WORK( ISMAX ) = CONE;
+      WORK[ISMIN] = CONE;
+      WORK[ISMAX] = CONE;
       SMAX = ( A( 1, 1 ) ).abs();
       SMIN = SMAX;
       if ( ( A( 1, 1 ) ).abs() == ZERO ) {
@@ -163,11 +163,11 @@
 
          if ( SMAXPR*RCOND <= SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20
-               WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 );
-               WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 );
+               WORK[ISMIN+I-1] = S1*WORK( ISMIN+I-1 );
+               WORK[ISMAX+I-1] = S2*WORK( ISMAX+I-1 );
             } // 20
-            WORK( ISMIN+RANK ) = C1;
-            WORK( ISMAX+RANK ) = C2;
+            WORK[ISMIN+RANK] = C1;
+            WORK[ISMAX+RANK] = C2;
             SMIN = SMINPR;
             SMAX = SMAXPR;
             RANK = RANK + 1;
@@ -201,7 +201,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 40
          for (I = RANK + 1; I <= N; I++) { // 30
-            B( I, J ) = CZERO;
+            B[I, J] = CZERO;
          } // 30
       } // 40
 
@@ -217,7 +217,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 60
          for (I = 1; I <= N; I++) { // 50
-            WORK( JPVT( I ) ) = B( I, J );
+            WORK[JPVT( I )] = B( I, J );
          } // 50
          zcopy(N, WORK( 1 ), 1, B( 1, J ), 1 );
       } // 60
@@ -240,7 +240,7 @@
       }
 
       } // 70
-      WORK( 1 ) = DCMPLX( LWKOPT );
+      WORK[1] = DCMPLX( LWKOPT );
 
       return;
       }

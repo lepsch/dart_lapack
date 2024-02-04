@@ -49,11 +49,11 @@
       // Handle the case N=1 by itself
 
       if ( N == 1 ) {
-         IPIV( 1 ) = 1;
-         JPIV( 1 ) = 1;
+         IPIV[1] = 1;
+         JPIV[1] = 1;
          if ( ( A( 1, 1 ) ).abs() < SMLNUM ) {
             INFO = 1;
-            A( 1, 1 ) = DCMPLX( SMLNUM, ZERO );
+            A[1, 1] = DCMPLX( SMLNUM, ZERO );
          }
          return;
       }
@@ -80,34 +80,34 @@
          // Swap rows
 
          if (IPV != I) zswap( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA );
-         IPIV( I ) = IPV;
+         IPIV[I] = IPV;
 
          // Swap columns
 
          if (JPV != I) zswap( N, A( 1, JPV ), 1, A( 1, I ), 1 );
-         JPIV( I ) = JPV;
+         JPIV[I] = JPV;
 
          // Check for singularity
 
          if ( ( A( I, I ) ).abs() < SMIN ) {
             INFO = I;
-            A( I, I ) = DCMPLX( SMIN, ZERO );
+            A[I, I] = DCMPLX( SMIN, ZERO );
          }
          for (J = I + 1; J <= N; J++) { // 30
-            A( J, I ) = A( J, I ) / A( I, I );
+            A[J, I] = A( J, I ) / A( I, I );
          } // 30
          zgeru(N-I, N-I, -DCMPLX( ONE ), A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
       } // 40
 
       if ( ( A( N, N ) ).abs() < SMIN ) {
          INFO = N;
-         A( N, N ) = DCMPLX( SMIN, ZERO );
+         A[N, N] = DCMPLX( SMIN, ZERO );
       }
 
       // Set last pivots to N
 
-      IPIV( N ) = N;
-      JPIV( N ) = N;
+      IPIV[N] = N;
+      JPIV[N] = N;
 
       return;
       }

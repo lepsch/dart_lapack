@@ -45,8 +45,8 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         RESULT( 1 ) = ZERO;
-         RESULT( 2 ) = ZERO;
+         RESULT[1] = ZERO;
+         RESULT[2] = ZERO;
          return;
       }
 
@@ -76,9 +76,9 @@
       ANORM = ZLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK );
       RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT[1] = ( ( RESID / DBLE( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO;
+         RESULT[1] = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -90,7 +90,7 @@
 
       RESID = ZLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( max( 1, N ) ) ) / EPS;
+      RESULT[2] = ( RESID / DBLE( max( 1, N ) ) ) / EPS;
 
       return;
       }

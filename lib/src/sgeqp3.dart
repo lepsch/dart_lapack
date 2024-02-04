@@ -55,7 +55,7 @@
             NB = ILAENV( INB, 'SGEQRF', ' ', M, N, -1, -1 );
             LWKOPT = 2*N + ( N + 1 )*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -8;
@@ -76,14 +76,14 @@
          if ( JPVT( J ) != 0 ) {
             if ( J != NFXD ) {
                sswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );
-               JPVT( J ) = JPVT( NFXD );
-               JPVT( NFXD ) = J;
+               JPVT[J] = JPVT( NFXD );
+               JPVT[NFXD] = J;
             } else {
-               JPVT( J ) = J;
+               JPVT[J] = J;
             }
             NFXD = NFXD + 1;
          } else {
-            JPVT( J ) = J;
+            JPVT[J] = J;
          }
       } // 10
       NFXD = NFXD - 1;
@@ -152,8 +152,8 @@
          // store the exact column norms.
 
          for (J = NFXD + 1; J <= N; J++) { // 20
-            WORK( J ) = SNRM2( SM, A( NFXD+1, J ), 1 );
-            WORK( N+J ) = WORK( J );
+            WORK[J] = SNRM2( SM, A( NFXD+1, J ), 1 );
+            WORK[N+J] = WORK( J );
          } // 20
 
          if ( ( NB >= NBMIN ) && ( NB < SMINMN ) && ( NX < SMINMN ) ) {
@@ -188,6 +188,6 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(IWS);
+      WORK[1] = SROUNDUP_LWORK(IWS);
       return;
       }

@@ -79,17 +79,17 @@
       // Sort the eigenvalues into increasing order
 
       for (I = N1P1; I <= N; I++) { // 10
-         INDXQ( I ) = INDXQ( I ) + N1;
+         INDXQ[I] = INDXQ( I ) + N1;
       } // 10
 
       // re-integrate the deflated parts from the last pass
 
       for (I = 1; I <= N; I++) { // 20
-         DLAMBDA( I ) = D( INDXQ( I ) );
+         DLAMBDA[I] = D( INDXQ( I ) );
       } // 20
       slamrg(N1, N2, DLAMBDA, 1, 1, INDXC );
       for (I = 1; I <= N; I++) { // 30
-         INDX( I ) = INDXQ( INDXC( I ) );
+         INDX[I] = INDXQ( INDXC( I ) );
       } // 30
 
       // Calculate the allowable deflation tolerance
@@ -109,7 +109,7 @@
          for (J = 1; J <= N; J++) { // 40
             I = INDX( J );
             scopy(N, Q( 1, I ), 1, Q2( IQ2 ), 1 );
-            DLAMBDA( J ) = D( I );
+            DLAMBDA[J] = D( I );
             IQ2 = IQ2 + N;
          } // 40
          slacpy('A', N, N, Q2, N, Q, LDQ );
@@ -124,10 +124,10 @@
       // components of Z are zero in this new basis.
 
       for (I = 1; I <= N1; I++) { // 50
-         COLTYP( I ) = 1;
+         COLTYP[I] = 1;
       } // 50
       for (I = N1P1; I <= N; I++) { // 60
-         COLTYP( I ) = 3;
+         COLTYP[I] = 3;
       } // 60
 
 
@@ -140,8 +140,8 @@
             // Deflate due to small z component.
 
             K2 = K2 - 1;
-            COLTYP( NJ ) = 4;
-            INDXP( K2 ) = NJ;
+            COLTYP[NJ] = 4;
+            INDXP[K2] = NJ;
             if (J == N) GO TO 100;
          } else {
             PJ = NJ;
@@ -157,8 +157,8 @@
          // Deflate due to small z component.
 
          K2 = K2 - 1;
-         COLTYP( NJ ) = 4;
-         INDXP( K2 ) = NJ;
+         COLTYP[NJ] = 4;
+         INDXP[K2] = NJ;
       } else {
 
          // Check if eigenvalues are close enough to allow deflation.
@@ -177,35 +177,35 @@
 
             // Deflation is possible.
 
-            Z( NJ ) = TAU;
-            Z( PJ ) = ZERO;
+            Z[NJ] = TAU;
+            Z[PJ] = ZERO;
             if( COLTYP( NJ ) != COLTYP( PJ ) ) COLTYP( NJ ) = 2;
-            COLTYP( PJ ) = 4;
+            COLTYP[PJ] = 4;
             srot(N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S );
             T = D( PJ )*C**2 + D( NJ )*S**2;
-            D( NJ ) = D( PJ )*S**2 + D( NJ )*C**2;
-            D( PJ ) = T;
+            D[NJ] = D( PJ )*S**2 + D( NJ )*C**2;
+            D[PJ] = T;
             K2 = K2 - 1;
             I = 1;
             } // 90
             if ( K2+I <= N ) {
                if ( D( PJ ) < D( INDXP( K2+I ) ) ) {
-                  INDXP( K2+I-1 ) = INDXP( K2+I );
-                  INDXP( K2+I ) = PJ;
+                  INDXP[K2+I-1] = INDXP( K2+I );
+                  INDXP[K2+I] = PJ;
                   I = I + 1;
                   GO TO 90;
                } else {
-                  INDXP( K2+I-1 ) = PJ;
+                  INDXP[K2+I-1] = PJ;
                }
             } else {
-               INDXP( K2+I-1 ) = PJ;
+               INDXP[K2+I-1] = PJ;
             }
             PJ = NJ;
          } else {
             K = K + 1;
-            DLAMBDA( K ) = D( PJ );
-            W( K ) = Z( PJ );
-            INDXP( K ) = PJ;
+            DLAMBDA[K] = D( PJ );
+            W[K] = Z( PJ );
+            INDXP[K] = PJ;
             PJ = NJ;
          }
       }
@@ -215,9 +215,9 @@
       // Record the last eigenvalue.
 
       K = K + 1;
-      DLAMBDA( K ) = D( PJ );
-      W( K ) = Z( PJ );
-      INDXP( K ) = PJ;
+      DLAMBDA[K] = D( PJ );
+      W[K] = Z( PJ );
+      INDXP[K] = PJ;
 
       // Count up the total number of the various types of columns, then
       // form a permutation which positions the four column types into
@@ -225,19 +225,19 @@
       // empty).
 
       for (J = 1; J <= 4; J++) { // 110
-         CTOT( J ) = 0;
+         CTOT[J] = 0;
       } // 110
       for (J = 1; J <= N; J++) { // 120
          CT = COLTYP( J );
-         CTOT( CT ) = CTOT( CT ) + 1;
+         CTOT[CT] = CTOT( CT ) + 1;
       } // 120
 
       // PSM(*) = Position in SubMatrix (of types 1 through 4)
 
-      PSM( 1 ) = 1;
-      PSM( 2 ) = 1 + CTOT( 1 );
-      PSM( 3 ) = PSM( 2 ) + CTOT( 2 );
-      PSM( 4 ) = PSM( 3 ) + CTOT( 3 );
+      PSM[1] = 1;
+      PSM[2] = 1 + CTOT( 1 );
+      PSM[3] = PSM( 2 ) + CTOT( 2 );
+      PSM[4] = PSM( 3 ) + CTOT( 3 );
       K = N - CTOT( 4 );
 
       // Fill out the INDXC array so that the permutation which it induces
@@ -247,9 +247,9 @@
       for (J = 1; J <= N; J++) { // 130
          JS = INDXP( J );
          CT = COLTYP( JS );
-         INDX( PSM( CT ) ) = JS;
-         INDXC( PSM( CT ) ) = J;
-         PSM( CT ) = PSM( CT ) + 1;
+         INDX[PSM( CT )] = JS;
+         INDXC[PSM( CT )] = J;
+         PSM[CT] = PSM( CT ) + 1;
       } // 130
 
       // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
@@ -263,7 +263,7 @@
       for (J = 1; J <= CTOT( 1 ); J++) { // 140
          JS = INDX( I );
          scopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
-         Z( I ) = D( JS );
+         Z[I] = D( JS );
          I = I + 1;
          IQ1 = IQ1 + N1;
       } // 140
@@ -272,7 +272,7 @@
          JS = INDX( I );
          scopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
          scopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
-         Z( I ) = D( JS );
+         Z[I] = D( JS );
          I = I + 1;
          IQ1 = IQ1 + N1;
          IQ2 = IQ2 + N2;
@@ -281,7 +281,7 @@
       for (J = 1; J <= CTOT( 3 ); J++) { // 160
          JS = INDX( I );
          scopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
-         Z( I ) = D( JS );
+         Z[I] = D( JS );
          I = I + 1;
          IQ2 = IQ2 + N2;
       } // 160
@@ -291,7 +291,7 @@
          JS = INDX( I );
          scopy(N, Q( 1, JS ), 1, Q2( IQ2 ), 1 );
          IQ2 = IQ2 + N;
-         Z( I ) = D( JS );
+         Z[I] = D( JS );
          I = I + 1;
       } // 170
 
@@ -306,7 +306,7 @@
       // Copy CTOT into COLTYP for referencing in SLAED3.
 
       for (J = 1; J <= 4; J++) { // 180
-         COLTYP( J ) = CTOT( J );
+         COLTYP[J] = CTOT( J );
       } // 180
 
       } // 190

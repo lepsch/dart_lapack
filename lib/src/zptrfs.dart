@@ -49,7 +49,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -77,8 +77,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -108,53 +108,53 @@
             if ( N == 1 ) {
                BI = B( 1, J );
                DX = D( 1 )*X( 1, J );
-               WORK( 1 ) = BI - DX;
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX );
+               WORK[1] = BI - DX;
+               RWORK[1] = CABS1( BI ) + CABS1( DX );
             } else {
                BI = B( 1, J );
                DX = D( 1 )*X( 1, J );
                EX = E( 1 )*X( 2, J );
-               WORK( 1 ) = BI - DX - EX;
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) );
+               WORK[1] = BI - DX - EX;
+               RWORK[1] = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 30
                   BI = B( I, J );
                   CX = DCONJG( E( I-1 ) )*X( I-1, J );
                   DX = D( I )*X( I, J );
                   EX = E( I )*X( I+1, J );
-                  WORK( I ) = BI - CX - DX - EX;
-                  RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) );
+                  WORK[I] = BI - CX - DX - EX;
+                  RWORK[I] = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) );
                } // 30
                BI = B( N, J );
                CX = DCONJG( E( N-1 ) )*X( N-1, J );
                DX = D( N )*X( N, J );
-               WORK( N ) = BI - CX - DX;
-               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX );
+               WORK[N] = BI - CX - DX;
+               RWORK[N] = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX );
             }
          } else {
             if ( N == 1 ) {
                BI = B( 1, J );
                DX = D( 1 )*X( 1, J );
-               WORK( 1 ) = BI - DX;
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX );
+               WORK[1] = BI - DX;
+               RWORK[1] = CABS1( BI ) + CABS1( DX );
             } else {
                BI = B( 1, J );
                DX = D( 1 )*X( 1, J );
                EX = DCONJG( E( 1 ) )*X( 2, J );
-               WORK( 1 ) = BI - DX - EX;
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) );
+               WORK[1] = BI - DX - EX;
+               RWORK[1] = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 40
                   BI = B( I, J );
                   CX = E( I-1 )*X( I-1, J );
                   DX = D( I )*X( I, J );
                   EX = DCONJG( E( I ) )*X( I+1, J );
-                  WORK( I ) = BI - CX - DX - EX;
-                  RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) );
+                  WORK[I] = BI - CX - DX - EX;
+                  RWORK[I] = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) );
                } // 40
                BI = B( N, J );
                CX = E( N-1 )*X( N-1, J );
                DX = D( N )*X( N, J );
-               WORK( N ) = BI - CX - DX;
-               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX );
+               WORK[N] = BI - CX - DX;
+               RWORK[N] = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX );
             }
          }
 
@@ -175,7 +175,7 @@
                S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 50
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -214,13 +214,13 @@
 
          for (I = 1; I <= N; I++) { // 60
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
+               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 60
          IX = IDAMAX( N, RWORK, 1 );
-         FERR( J ) = RWORK( IX );
+         FERR[J] = RWORK( IX );
 
          // Estimate the norm of inv(A).
 
@@ -233,22 +233,22 @@
 
          // Solve M(L) * x = e.
 
-         RWORK( 1 ) = ONE;
+         RWORK[1] = ONE;
          for (I = 2; I <= N; I++) { // 70
-            RWORK( I ) = ONE + RWORK( I-1 )*( EF( I-1 ) ).abs();
+            RWORK[I] = ONE + RWORK( I-1 )*( EF( I-1 ) ).abs();
          } // 70
 
          // Solve D * M(L)**H * x = b.
 
-         RWORK( N ) = RWORK( N ) / DF( N );
+         RWORK[N] = RWORK( N ) / DF( N );
          for (I = N - 1; I >= 1; I--) { // 80
-            RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*( EF( I ) ).abs();
+            RWORK[I] = RWORK( I ) / DF( I ) + RWORK( I+1 )*( EF( I ) ).abs();
          } // 80
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
          IX = IDAMAX( N, RWORK, 1 );
-         FERR( J ) = FERR( J )*( RWORK( IX ) ).abs();
+         FERR[J] = FERR( J )*( RWORK( IX ) ).abs();
 
          // Normalize error.
 

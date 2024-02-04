@@ -87,14 +87,14 @@
          xerbla('SORGTSQR', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
@@ -126,6 +126,6 @@
          scopy(M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWORKOPT );
       return;
       }

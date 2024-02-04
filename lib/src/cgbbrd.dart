@@ -146,7 +146,7 @@
                      // within the band, and apply rotation from the left
 
                      clartg(AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA );
-                     AB( KU+ML-1, I ) = RA;
+                     AB[KU+ML-1, I] = RA;
                      if (I < N) crot( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1;
@@ -184,8 +184,8 @@
                   // create nonzero element a(j-1,j+ku) above the band
                   // and store it in WORK(n+1:2*n)
 
-                  WORK( J+KUN ) = WORK( J )*AB( 1, J+KUN );
-                  AB( 1, J+KUN ) = RWORK( J )*AB( 1, J+KUN );
+                  WORK[J+KUN] = WORK( J )*AB( 1, J+KUN );
+                  AB[1, J+KUN] = RWORK( J )*AB( 1, J+KUN );
                } // 40
 
                // generate plane rotations to annihilate nonzero elements
@@ -211,7 +211,7 @@
                      // within the band, and apply rotation from the right
 
                      clartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), RWORK( I+MU-1 ), WORK( I+MU-1 ), RA );
-                     AB( KU-MU+3, I+MU-2 ) = RA;
+                     AB[KU-MU+3, I+MU-2] = RA;
                      crot(min( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, RWORK( I+MU-1 ), WORK( I+MU-1 ) );
                   }
                   NR = NR + 1;
@@ -240,8 +240,8 @@
                   // create nonzero element a(j+kl+ku,j+ku-1) below the
                   // band and store it in WORK(1:n)
 
-                  WORK( J+KB ) = WORK( J+KUN )*AB( KLU1, J+KUN );
-                  AB( KLU1, J+KUN ) = RWORK( J+KUN )*AB( KLU1, J+KUN );
+                  WORK[J+KB] = WORK( J+KUN )*AB( KLU1, J+KUN );
+                  AB[KLU1, J+KUN] = RWORK( J+KUN )*AB( KLU1, J+KUN );
                } // 70
 
                if ( ML > ML0 ) {
@@ -263,10 +263,10 @@
 
          for (I = 1; I <= min( M-1, N ); I++) { // 100
             clartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
-            AB( 1, I ) = RA;
+            AB[1, I] = RA;
             if ( I < N ) {
-               AB( 2, I ) = RS*AB( 1, I+1 );
-               AB( 1, I+1 ) = RC*AB( 1, I+1 );
+               AB[2, I] = RS*AB( 1, I+1 );
+               AB[1, I+1] = RC*AB( 1, I+1 );
             }
             if (WANTQ) crot( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, CONJG( RS ) );
             IF( WANTC ) crot( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
@@ -284,10 +284,10 @@
             RB = AB( KU, M+1 );
             for (I = M; I >= 1; I--) { // 110
                clartg(AB( KU+1, I ), RB, RC, RS, RA );
-               AB( KU+1, I ) = RA;
+               AB[KU+1, I] = RA;
                if ( I > 1 ) {
                   RB = -CONJG( RS )*AB( KU, I );
-                  AB( KU, I ) = RC*AB( KU, I );
+                  AB[KU, I] = RC*AB( KU, I );
                }
                if (WANTPT) crot( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, CONJG( RS ) );
             } // 110
@@ -300,7 +300,7 @@
       T = AB( KU+1, 1 );
       for (I = 1; I <= MINMN; I++) { // 120
          ABST = ( T ).abs();
-         D( I ) = ABST;
+         D[I] = ABST;
          if ( ABST != ZERO ) {
             T = T / ABST;
          } else {
@@ -310,7 +310,7 @@
          IF( WANTC ) cscal( NCC, CONJG( T ), C( I, 1 ), LDC );
          if ( I < MINMN ) {
             if ( KU == 0 && KL == 0 ) {
-               E( I ) = ZERO;
+               E[I] = ZERO;
                T = AB( 1, I+1 );
             } else {
                if ( KU == 0 ) {
@@ -319,7 +319,7 @@
                   T = AB( KU, I+1 )*CONJG( T );
                }
                ABST = ( T ).abs();
-               E( I ) = ABST;
+               E[I] = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;
                } else {

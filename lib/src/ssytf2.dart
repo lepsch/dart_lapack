@@ -145,12 +145,12 @@
                sswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                sswap(KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK );
-               A( KK, KK ) = A( KP, KP );
-               A( KP, KP ) = T;
+               A[KK, KK] = A( KP, KP );
+               A[KP, KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K-1, K );
-                  A( K-1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K-1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             }
 
@@ -200,10 +200,10 @@
                      WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) );
                      WK = D12*( D22*A( J, K )-A( J, K-1 ) );
                      for (I = J; I >= 1; I--) { // 20
-                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1;
+                        A[I, J] = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1;
                      } // 20
-                     A( J, K ) = WK;
-                     A( J, K-1 ) = WKM1;
+                     A[J, K] = WK;
+                     A[J, K-1] = WKM1;
                   } // 30
 
                }
@@ -214,10 +214,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -311,12 +311,12 @@
                if (KP < N) sswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                sswap(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK );
-               A( KK, KK ) = A( KP, KP );
-               A( KP, KP ) = T;
+               A[KK, KK] = A( KP, KP );
+               A[KP, KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K+1, K );
-                  A( K+1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K+1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             }
 
@@ -368,11 +368,11 @@
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) );
 
                      for (I = J; I <= N; I++) { // 50
-                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1;
+                        A[I, J] = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1;
                      } // 50
 
-                     A( J, K ) = WK;
-                     A( J, K+1 ) = WKP1;
+                     A[J, K] = WK;
+                     A[J, K+1] = WKP1;
 
                   } // 60
                }
@@ -382,10 +382,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

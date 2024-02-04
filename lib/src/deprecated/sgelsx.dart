@@ -124,8 +124,8 @@
 
       // Determine RANK using incremental condition estimation
 
-      WORK( ISMIN ) = ONE;
-      WORK( ISMAX ) = ONE;
+      WORK[ISMIN] = ONE;
+      WORK[ISMAX] = ONE;
       SMAX = ( A( 1, 1 ) ).abs();
       SMIN = SMAX;
       if ( ( A( 1, 1 ) ).abs() == ZERO ) {
@@ -144,11 +144,11 @@
 
          if ( SMAXPR*RCOND <= SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20
-               WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 );
-               WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 );
+               WORK[ISMIN+I-1] = S1*WORK( ISMIN+I-1 );
+               WORK[ISMAX+I-1] = S2*WORK( ISMAX+I-1 );
             } // 20
-            WORK( ISMIN+RANK ) = C1;
-            WORK( ISMAX+RANK ) = C2;
+            WORK[ISMIN+RANK] = C1;
+            WORK[ISMAX+RANK] = C2;
             SMIN = SMINPR;
             SMAX = SMAXPR;
             RANK = RANK + 1;
@@ -178,7 +178,7 @@
 
       for (I = RANK + 1; I <= N; I++) { // 40
          for (J = 1; J <= NRHS; J++) { // 30
-            B( I, J ) = ZERO;
+            B[I, J] = ZERO;
          } // 30
       } // 40
 
@@ -196,7 +196,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 90
          for (I = 1; I <= N; I++) { // 60
-            WORK( 2*MN+I ) = NTDONE;
+            WORK[2*MN+I] = NTDONE;
          } // 60
          for (I = 1; I <= N; I++) { // 80
             if ( WORK( 2*MN+I ) == NTDONE ) {
@@ -205,14 +205,14 @@
                   T1 = B( K, J );
                   T2 = B( JPVT( K ), J );
                   } // 70
-                  B( JPVT( K ), J ) = T1;
-                  WORK( 2*MN+K ) = DONE;
+                  B[JPVT( K ), J] = T1;
+                  WORK[2*MN+K] = DONE;
                   T1 = T2;
                   K = JPVT( K );
                   T2 = B( JPVT( K ), J );
                   if( JPVT( K ) != I ) GO TO 70;
-                  B( I, J ) = T1;
-                  WORK( 2*MN+K ) = DONE;
+                  B[I, J] = T1;
+                  WORK[2*MN+K] = DONE;
                }
             }
          } // 80

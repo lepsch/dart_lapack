@@ -70,10 +70,10 @@
       zgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         XF(I,I) = XF(I,I) - ONE;
+         XF[I,I] = XF(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(min(P,Q)-R+I,min(P,Q)-R+I) = XF(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );
+         XF[min(P,Q)-R+I,min(P,Q)-R+I] = XF(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );
       }
 
       zgemm('No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
@@ -81,10 +81,10 @@
       zgemm('Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX );
 
       for (I = 1; I <= min(P,M-Q)-R; I++) {
-         XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE;
+         XF[P-I+1,M-I+1] = XF(P-I+1,M-I+1) + ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) = XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) + DCMPLX( SIN(THETA(R-I+1)), 0.0 );
+         XF[P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I] = XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) + DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
       zgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
@@ -92,10 +92,10 @@
       zgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX );
 
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE;
+         XF[M-I+1,Q-I+1] = XF(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - DCMPLX( SIN(THETA(R-I+1)), 0.0 );
+         XF[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
       zgemm('No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
@@ -103,31 +103,31 @@
       zgemm('Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX );
 
       for (I = 1; I <= min(M-P,M-Q)-R; I++) {
-         XF(P+I,Q+I) = XF(P+I,Q+I) - ONE;
+         XF[P+I,Q+I] = XF(P+I,Q+I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) = XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) - DCMPLX( COS(THETA(I)), 0.0 );
+         XF[P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I] = XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) - DCMPLX( COS(THETA(I)), 0.0 );
       }
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', P, Q, XF, LDX, RWORK );
-      RESULT( 1 ) = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
+      RESULT[1] = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
 
       // Compute norm( U1'*X12*V2 - D12 ) / ( max(1,P,M-Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', P, M-Q, XF(1,Q+1), LDX, RWORK );
-      RESULT( 2 ) = ( RESID / REAL(max(1,P,M-Q)) ) / EPS2;
+      RESULT[2] = ( RESID / REAL(max(1,P,M-Q)) ) / EPS2;
 
       // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', M-P, Q, XF(P+1,1), LDX, RWORK );
-      RESULT( 3 ) = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
+      RESULT[3] = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
 
       // Compute norm( U2'*X22*V2 - D22 ) / ( max(1,M-P,M-Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', M-P, M-Q, XF(P+1,Q+1), LDX, RWORK );
-      RESULT( 4 ) = ( RESID / REAL(max(1,M-P,M-Q)) ) / EPS2;
+      RESULT[4] = ( RESID / REAL(max(1,M-P,M-Q)) ) / EPS2;
 
       // Compute I - U1'*U1
 
@@ -137,7 +137,7 @@
       // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', P, WORK, LDU1, RWORK );
-      RESULT( 5 ) = ( RESID / REAL(max(1,P)) ) / ULP;
+      RESULT[5] = ( RESID / REAL(max(1,P)) ) / ULP;
 
       // Compute I - U2'*U2
 
@@ -147,7 +147,7 @@
       // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', M-P, WORK, LDU2, RWORK );
-      RESULT( 6 ) = ( RESID / REAL(max(1,M-P)) ) / ULP;
+      RESULT[6] = ( RESID / REAL(max(1,M-P)) ) / ULP;
 
       // Compute I - V1T*V1T'
 
@@ -157,7 +157,7 @@
       // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', Q, WORK, LDV1T, RWORK );
-      RESULT( 7 ) = ( RESID / REAL(max(1,Q)) ) / ULP;
+      RESULT[7] = ( RESID / REAL(max(1,Q)) ) / ULP;
 
       // Compute I - V2T*V2T'
 
@@ -167,18 +167,18 @@
       // Compute norm( I - V2T*V2T' ) / ( max(1,M-Q) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', M-Q, WORK, LDV2T, RWORK );
-      RESULT( 8 ) = ( RESID / REAL(max(1,M-Q)) ) / ULP;
+      RESULT[8] = ( RESID / REAL(max(1,M-Q)) ) / ULP;
 
       // Check sorting
 
-      RESULT( 9 ) = REALZERO;
+      RESULT[9] = REALZERO;
       for (I = 1; I <= R; I++) {
          if ( THETA(I) < REALZERO || THETA(I) > PIOVER2 ) {
-            RESULT( 9 ) = ULPINV;
+            RESULT[9] = ULPINV;
          }
          if ( I > 1) {
             if ( THETA(I) < THETA(I-1) ) {
-               RESULT( 9 ) = ULPINV;
+               RESULT[9] = ULPINV;
             }
          }
       }
@@ -209,10 +209,10 @@
       zgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         X(I,I) = X(I,I) - ONE;
+         X[I,I] = X(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(min(P,Q)-R+I,min(P,Q)-R+I) = X(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );
+         X[min(P,Q)-R+I,min(P,Q)-R+I] = X(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );
       }
 
       zgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
@@ -220,21 +220,21 @@
       zgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX );
 
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE;
+         X[M-I+1,Q-I+1] = X(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - DCMPLX( SIN(THETA(R-I+1)), 0.0 );
+         X[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', P, Q, X, LDX, RWORK );
-      RESULT( 10 ) = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
+      RESULT[10] = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
 
       // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
       RESID = ZLANGE( '1', M-P, Q, X(P+1,1), LDX, RWORK );
-      RESULT( 11 ) = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
+      RESULT[11] = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
 
       // Compute I - U1'*U1
 
@@ -244,7 +244,7 @@
       // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', P, WORK, LDU1, RWORK );
-      RESULT( 12 ) = ( RESID / REAL(max(1,P)) ) / ULP;
+      RESULT[12] = ( RESID / REAL(max(1,P)) ) / ULP;
 
       // Compute I - U2'*U2
 
@@ -254,7 +254,7 @@
       // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', M-P, WORK, LDU2, RWORK );
-      RESULT( 13 ) = ( RESID / REAL(max(1,M-P)) ) / ULP;
+      RESULT[13] = ( RESID / REAL(max(1,M-P)) ) / ULP;
 
       // Compute I - V1T*V1T'
 
@@ -264,18 +264,18 @@
       // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', Q, WORK, LDV1T, RWORK );
-      RESULT( 14 ) = ( RESID / REAL(max(1,Q)) ) / ULP;
+      RESULT[14] = ( RESID / REAL(max(1,Q)) ) / ULP;
 
       // Check sorting
 
-      RESULT( 15 ) = REALZERO;
+      RESULT[15] = REALZERO;
       for (I = 1; I <= R; I++) {
          if ( THETA(I) < REALZERO || THETA(I) > PIOVER2 ) {
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
          }
          if ( I > 1) {
             if ( THETA(I) < THETA(I-1) ) {
-               RESULT( 15 ) = ULPINV;
+               RESULT[15] = ULPINV;
             }
          }
       }

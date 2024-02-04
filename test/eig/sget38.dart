@@ -52,20 +52,20 @@
       // EPSIN = 2**(-24) = precision to which input data computed
 
       EPS = max( EPS, EPSIN );
-      RMAX( 1 ) = ZERO;
-      RMAX( 2 ) = ZERO;
-      RMAX( 3 ) = ZERO;
-      LMAX( 1 ) = 0;
-      LMAX( 2 ) = 0;
-      LMAX( 3 ) = 0;
+      RMAX[1] = ZERO;
+      RMAX[2] = ZERO;
+      RMAX[3] = ZERO;
+      LMAX[1] = 0;
+      LMAX[2] = 0;
+      LMAX[3] = 0;
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
-      NINFO( 3 ) = 0;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
+      NINFO[3] = 0;
 
-      VAL( 1 ) = sqrt( SMLNUM );
-      VAL( 2 ) = ONE;
-      VAL( 3 ) = sqrt( sqrt( BIGNUM ) );
+      VAL[1] = sqrt( SMLNUM );
+      VAL[2] = ONE;
+      VAL[3] = sqrt( sqrt( BIGNUM ) );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
@@ -98,8 +98,8 @@
 
          sgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO != 0 ) {
-            LMAX( 1 ) = KNT;
-            NINFO( 1 ) = NINFO( 1 ) + 1;
+            LMAX[1] = KNT;
+            NINFO[1] = NINFO( 1 ) + 1;
             GO TO 160;
          }
 
@@ -112,16 +112,16 @@
 
          shseqr('S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 2 ) = KNT;
-            NINFO( 2 ) = NINFO( 2 ) + 1;
+            LMAX[2] = KNT;
+            NINFO[2] = NINFO( 2 ) + 1;
             GO TO 160;
          }
 
          // Sort, select eigenvalues
 
          for (I = 1; I <= N; I++) { // 40
-            IPNT( I ) = I;
-            SELECT( I ) = false;
+            IPNT[I] = I;
+            SELECT[I] = false;
          } // 40
          scopy(N, WR, 1, WRTMP, 1 );
          scopy(N, WI, 1, WITMP, 1 );
@@ -136,16 +136,16 @@
                   VIMIN = WITMP( J );
                }
             } // 50
-            WRTMP( KMIN ) = WRTMP( I );
-            WITMP( KMIN ) = WITMP( I );
-            WRTMP( I ) = VRMIN;
-            WITMP( I ) = VIMIN;
+            WRTMP[KMIN] = WRTMP( I );
+            WITMP[KMIN] = WITMP( I );
+            WRTMP[I] = VRMIN;
+            WITMP[I] = VIMIN;
             ITMP = IPNT( I );
-            IPNT( I ) = IPNT( KMIN );
-            IPNT( KMIN ) = ITMP;
+            IPNT[I] = IPNT( KMIN );
+            IPNT[KMIN] = ITMP;
          } // 60
          for (I = 1; I <= NDIM; I++) { // 70
-            SELECT( IPNT( ISELEC( I ) ) ) = true;
+            SELECT[IPNT( ISELEC( I ) )] = true;
          } // 70
 
          // Compute condition numbers
@@ -154,8 +154,8 @@
          slacpy('F', N, N, T, LDT, TSAV1, LDT );
          strsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 160;
          }
          SEPTMP = SEP / VMUL;
@@ -166,7 +166,7 @@
          shst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT );
          VMAX = max( RESULT( 1 ), RESULT( 2 ) );
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
@@ -199,7 +199,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX;
+            RMAX[2] = VMAX;
             if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
@@ -230,7 +230,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX;
+            RMAX[2] = VMAX;
             if( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
@@ -251,7 +251,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX;
+            RMAX[3] = VMAX;
             if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
@@ -272,7 +272,7 @@
             VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX;
+            RMAX[3] = VMAX;
             if( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
@@ -286,8 +286,8 @@
          STMP = -ONE;
          strsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 160;
          }
          if (S != STMP) VMAX = ONE / EPS;
@@ -308,8 +308,8 @@
          STMP = -ONE;
          strsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 160;
          }
          if (-ONE != STMP) VMAX = ONE / EPS;
@@ -330,8 +330,8 @@
          STMP = -ONE;
          strsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 160;
          }
          if (S != STMP) VMAX = ONE / EPS;
@@ -352,8 +352,8 @@
          STMP = -ONE;
          strsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT;
-            NINFO( 3 ) = NINFO( 3 ) + 1;
+            LMAX[3] = KNT;
+            NINFO[3] = NINFO( 3 ) + 1;
             GO TO 160;
          }
          if (-ONE != STMP) VMAX = ONE / EPS;
@@ -365,7 +365,7 @@
             } // 140
          } // 150
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX;
+            RMAX[1] = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 160

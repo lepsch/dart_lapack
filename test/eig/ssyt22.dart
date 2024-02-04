@@ -34,8 +34,8 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
-      RESULT( 2 ) = ZERO;
+      RESULT[1] = ZERO;
+      RESULT[2] = ZERO;
       if (N <= 0 || M <= 0) return;
 
       UNFL = SLAMCH( 'Safe minimum' );
@@ -57,25 +57,25 @@
       sgemm('T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO, WORK( NNP1 ), N );
       for (J = 1; J <= M; J++) { // 10
          JJ = NN + ( J-1 )*N + J;
-         WORK( JJ ) = WORK( JJ ) - D( J );
+         WORK[JJ] = WORK( JJ ) - D( J );
       } // 10
       if ( KBAND == 1 && N > 1 ) {
          for (J = 2; J <= M; J++) { // 20
             JJ1 = NN + ( J-1 )*N + J - 1;
             JJ2 = NN + ( J-2 )*N + J;
-            WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 );
-            WORK( JJ2 ) = WORK( JJ2 ) - E( J-1 );
+            WORK[JJ1] = WORK( JJ1 ) - E( J-1 );
+            WORK[JJ2] = WORK( JJ2 ) - E( J-1 );
          } // 20
       }
       WNORM = SLANSY( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP );
+         RESULT[1] = ( WNORM / ANORM ) / ( M*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
+            RESULT[1] = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
          } else {
-            RESULT( 1 ) = min( WNORM / ANORM, REAL( M ) ) / ( M*ULP );
+            RESULT[1] = min( WNORM / ANORM, REAL( M ) ) / ( M*ULP );
          }
       }
 

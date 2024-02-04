@@ -71,8 +71,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -114,23 +114,23 @@
 
          if ( NOTRAN ) {
             if ( N == 1 ) {
-               WORK( 1 ) = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) );
+               WORK[1] = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) );
             } else {
-               WORK( 1 ) = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) );
+               WORK[1] = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 30
-                  WORK( I ) = ( B( I, J ) ).abs() + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) );
+                  WORK[I] = ( B( I, J ) ).abs() + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) );
                } // 30
-               WORK( N ) = ( B( N, J ) ).abs() + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
+               WORK[N] = ( B( N, J ) ).abs() + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
             }
          } else {
             if ( N == 1 ) {
-               WORK( 1 ) = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) );
+               WORK[1] = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) );
             } else {
-               WORK( 1 ) = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) );
+               WORK[1] = ( B( 1, J ) ).abs() + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 40
-                  WORK( I ) = ( B( I, J ) ).abs() + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) );
+                  WORK[I] = ( B( I, J ) ).abs() + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) );
                } // 40
-               WORK( N ) = ( B( N, J ) ).abs() + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
+               WORK[N] = ( B( N, J ) ).abs() + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
             }
          }
 
@@ -151,7 +151,7 @@
                S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 50
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -194,9 +194,9 @@
 
          for (I = 1; I <= N; I++) { // 60
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 60
 
@@ -210,14 +210,14 @@
 
                sgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 80
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 80
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 90
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 90
                sgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
             }

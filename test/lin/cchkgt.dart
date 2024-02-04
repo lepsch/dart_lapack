@@ -63,13 +63,13 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'GT';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'GT';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -137,15 +137,15 @@
                   // elements.
 
                   if ( IZERO == 1 ) {
-                     A( N ) = Z( 2 );
+                     A[N] = Z( 2 );
                      if (N > 1) A( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
-                     A( 3*N-2 ) = Z( 1 );
-                     A( 2*N-1 ) = Z( 2 );
+                     A[3*N-2] = Z( 1 );
+                     A[2*N-1] = Z( 2 );
                   } else {
-                     A( 2*N-2+IZERO ) = Z( 1 );
-                     A( N-1+IZERO ) = Z( 2 );
-                     A( IZERO ) = Z( 3 );
+                     A[2*N-2+IZERO] = Z( 1 );
+                     A[N-1+IZERO] = Z( 2 );
+                     A[IZERO] = Z( 3 );
                   }
                }
 
@@ -155,27 +155,27 @@
                   IZERO = 0;
                } else if ( IMAT == 8 ) {
                   IZERO = 1;
-                  Z( 2 ) = A( N );
-                  A( N ) = ZERO;
+                  Z[2] = A( N );
+                  A[N] = ZERO;
                   if ( N > 1 ) {
-                     Z( 3 ) = A( 1 );
-                     A( 1 ) = ZERO;
+                     Z[3] = A( 1 );
+                     A[1] = ZERO;
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N;
-                  Z( 1 ) = A( 3*N-2 );
-                  Z( 2 ) = A( 2*N-1 );
-                  A( 3*N-2 ) = ZERO;
-                  A( 2*N-1 ) = ZERO;
+                  Z[1] = A( 3*N-2 );
+                  Z[2] = A( 2*N-1 );
+                  A[3*N-2] = ZERO;
+                  A[2*N-1] = ZERO;
                } else {
                   IZERO = ( N+1 ) / 2;
                   for (I = IZERO; I <= N - 1; I++) { // 20
-                     A( 2*N-2+I ) = ZERO;
-                     A( N-1+I ) = ZERO;
-                     A( I ) = ZERO;
+                     A[2*N-2+I] = ZERO;
+                     A[N-1+I] = ZERO;
+                     A[I] = ZERO;
                   } // 20
-                  A( 3*N-2 ) = ZERO;
-                  A( 2*N-1 ) = ZERO;
+                  A[3*N-2] = ZERO;
+                  A[2*N-1] = ZERO;
                }
             }
 
@@ -220,9 +220,9 @@
                   AINVNM = ZERO;
                   for (I = 1; I <= N; I++) { // 40
                      for (J = 1; J <= N; J++) { // 30
-                        X( J ) = ZERO;
+                        X[J] = ZERO;
                      } // 30
-                     X( I ) = ONE;
+                     X[I] = ONE;
                      cgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = max( AINVNM, SCASUM( N, X, 1 ) );
                   } // 40
@@ -254,7 +254,7 @@
 
                if (INFO != 0) alaerh( PATH, 'CGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
-               RESULT( 7 ) = SGET06( RCOND, RCONDC );
+               RESULT[7] = SGET06( RCOND, RCONDC );
 
                // Print the test ratio if it is >= THRESH.
 

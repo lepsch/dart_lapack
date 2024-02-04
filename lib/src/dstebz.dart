@@ -118,12 +118,12 @@
 
       if ( N == 1 ) {
          NSPLIT = 1;
-         ISPLIT( 1 ) = 1;
+         ISPLIT[1] = 1;
          if ( IRANGE == 2 && ( VL >= D( 1 ) || VU < D( 1 ) ) ) {
             M = 0;
          } else {
-            W( 1 ) = D( 1 );
-            IBLOCK( 1 ) = 1;
+            W[1] = D( 1 );
+            IBLOCK[1] = 1;
             M = 1;
          }
          return;
@@ -132,21 +132,21 @@
       // Compute Splitting Points
 
       NSPLIT = 1;
-      WORK( N ) = ZERO;
+      WORK[N] = ZERO;
       PIVMIN = ONE;
 
       for (J = 2; J <= N; J++) { // 10
          TMP1 = E( J-1 )**2;
          if ( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN > TMP1 ) {
-            ISPLIT( NSPLIT ) = J - 1;
+            ISPLIT[NSPLIT] = J - 1;
             NSPLIT = NSPLIT + 1;
-            WORK( J-1 ) = ZERO;
+            WORK[J-1] = ZERO;
          } else {
-            WORK( J-1 ) = TMP1;
+            WORK[J-1] = TMP1;
             PIVMIN = max( PIVMIN, TMP1 );
          }
       } // 10
-      ISPLIT( NSPLIT ) = N;
+      ISPLIT[NSPLIT] = N;
       PIVMIN = PIVMIN*SAFEMN;
 
       // Compute Interval and ATOLI
@@ -185,18 +185,18 @@
             ATOLI = ABSTOL;
          }
 
-         WORK( N+1 ) = GL;
-         WORK( N+2 ) = GL;
-         WORK( N+3 ) = GU;
-         WORK( N+4 ) = GU;
-         WORK( N+5 ) = GL;
-         WORK( N+6 ) = GU;
-         IWORK( 1 ) = -1;
-         IWORK( 2 ) = -1;
-         IWORK( 3 ) = N + 1;
-         IWORK( 4 ) = N + 1;
-         IWORK( 5 ) = IL - 1;
-         IWORK( 6 ) = IU;
+         WORK[N+1] = GL;
+         WORK[N+2] = GL;
+         WORK[N+3] = GU;
+         WORK[N+4] = GU;
+         WORK[N+5] = GL;
+         WORK[N+6] = GU;
+         IWORK[1] = -1;
+         IWORK[2] = -1;
+         IWORK[3] = N + 1;
+         IWORK[4] = N + 1;
+         IWORK[5] = IL - 1;
+         IWORK[6] = IU;
 
          dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
 
@@ -269,8 +269,8 @@
             if( IRANGE == 1 || WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1;
             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1;
-               W( M ) = D( IBEGIN );
-               IBLOCK( M ) = JB;
+               W[M] = D( IBEGIN );
+               IBLOCK[M] = JB;
             }
          } else {
 
@@ -317,8 +317,8 @@
 
             // Set Up Initial Interval
 
-            WORK( N+1 ) = GL;
-            WORK( N+IN+1 ) = GU;
+            WORK[N+1] = GL;
+            WORK[N+IN+1] = GU;
             dlaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
 
             NWL = NWL + IWORK( 1 );
@@ -345,8 +345,8 @@
                   IB = JB;
                }
                for (JE = IWORK( J ) + 1 + IWOFF; JE <= IWORK( J+IN ) + IWOFF; JE++) { // 50
-                  W( JE ) = TMP1;
-                  IBLOCK( JE ) = IB;
+                  W[JE] = TMP1;
+                  IBLOCK[JE] = IB;
                } // 50
             } // 60
 
@@ -370,8 +370,8 @@
                   IDISCU = IDISCU - 1;
                } else {
                   IM = IM + 1;
-                  W( IM ) = W( JE );
-                  IBLOCK( IM ) = IBLOCK( JE );
+                  W[IM] = W( JE );
+                  IBLOCK[IM] = IBLOCK( JE );
                }
             } // 80
             M = IM;
@@ -398,7 +398,7 @@
                         WKILL = W( JE );
                      }
                   } // 90
-                  IBLOCK( IW ) = 0;
+                  IBLOCK[IW] = 0;
                } // 100
             }
             if ( IDISCU > 0 ) {
@@ -412,15 +412,15 @@
                         WKILL = W( JE );
                      }
                   } // 110
-                  IBLOCK( IW ) = 0;
+                  IBLOCK[IW] = 0;
                } // 120
             }
             IM = 0;
             for (JE = 1; JE <= M; JE++) { // 130
                if ( IBLOCK( JE ) != 0 ) {
                   IM = IM + 1;
-                  W( IM ) = W( JE );
-                  IBLOCK( IM ) = IBLOCK( JE );
+                  W[IM] = W( JE );
+                  IBLOCK[IM] = IBLOCK( JE );
                }
             } // 130
             M = IM;
@@ -447,10 +447,10 @@
 
             if ( IE != 0 ) {
                ITMP1 = IBLOCK( IE );
-               W( IE ) = W( JE );
-               IBLOCK( IE ) = IBLOCK( JE );
-               W( JE ) = TMP1;
-               IBLOCK( JE ) = ITMP1;
+               W[IE] = W( JE );
+               IBLOCK[IE] = IBLOCK( JE );
+               W[JE] = TMP1;
+               IBLOCK[JE] = ITMP1;
             }
          } // 150
       }

@@ -86,7 +86,7 @@
          } else {
             LWMIN = 1;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -20;
@@ -174,12 +174,12 @@
       } // 40
       if (I > M) GO TO 50;
       P = P + 1;
-      IWORK( P ) = I;
+      IWORK[P] = I;
       I = I + MB;
       if (I >= M) GO TO 50;
       GO TO 40;
       } // 50
-      IWORK( P+1 ) = M + 1;
+      IWORK[P+1] = M + 1;
       if( IWORK( P ) == IWORK( P+1 ) ) P = P - 1;
 
       // Determine block structure of B
@@ -190,13 +190,13 @@
       if (J > N) GO TO 70;
 
       Q = Q + 1;
-      IWORK( Q ) = J;
+      IWORK[Q] = J;
       J = J + NB;
       if (J >= N) GO TO 70;
       GO TO 60;
 
       } // 70
-      IWORK( Q+1 ) = N + 1;
+      IWORK[Q+1] = N + 1;
       if( IWORK( Q ) == IWORK( Q+1 ) ) Q = Q - 1;
 
       if ( NOTRAN ) {
@@ -328,7 +328,7 @@
          } // 210
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
 
       return;
       }

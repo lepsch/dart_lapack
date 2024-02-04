@@ -38,7 +38,7 @@
       INFO = 0;
       NB = ILAENV( 1, 'ZUNGLQ', ' ', M, N, K, -1 );
       LWKOPT = max( 1, M )*NB;
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -61,7 +61,7 @@
       // Quick return if possible
 
       if ( M <= 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -102,7 +102,7 @@
 
          for (J = 1; J <= KK; J++) { // 20
             for (I = KK + 1; I <= M; I++) { // 10
-               A( I, J ) = ZERO;
+               A[I, J] = ZERO;
             } // 10
          } // 20
       } else {
@@ -139,12 +139,12 @@
 
             for (J = 1; J <= I - 1; J++) { // 40
                for (L = I; L <= I + IB - 1; L++) { // 30
-                  A( L, J ) = ZERO;
+                  A[L, J] = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = IWS;
+      WORK[1] = IWS;
       return;
       }

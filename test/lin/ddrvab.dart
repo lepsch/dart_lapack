@@ -62,13 +62,13 @@
       // Initialize constants and the random number seed.
 
       KASE = 0;
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'GE';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'GE';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       INFOT = 0;
@@ -123,7 +123,7 @@
                IOFF = ( IZERO-1 )*LDA;
                if ( IMAT < 7 ) {
                   for (I = 1; I <= M; I++) { // 20
-                     A( IOFF+I ) = ZERO;
+                     A[IOFF+I] = ZERO;
                   } // 20
                } else {
                   dlaset('Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );

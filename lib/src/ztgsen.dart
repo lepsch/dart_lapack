@@ -82,8 +82,8 @@
       M = 0;
       if ( !LQUERY || IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
-         ALPHA( K ) = A( K, K );
-         BETA( K ) = B( K, K );
+         ALPHA[K] = A( K, K );
+         BETA[K] = B( K, K );
          if ( K < N ) {
             if( SELECT( K ) ) M = M + 1;
          } else {
@@ -103,8 +103,8 @@
          LIWMIN = 1;
       }
 
-      WORK( 1 ) = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
 
       if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -21;
@@ -133,8 +133,8 @@
                zlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                zlassq(N, B( 1, I ), 1, DSCALE, DSUM );
             } // 20
-            DIF( 1 ) = DSCALE*sqrt( DSUM );
-            DIF( 2 ) = DIF( 1 );
+            DIF[1] = DSCALE*sqrt( DSUM );
+            DIF[2] = DIF( 1 );
          }
          GO TO 70;
       }
@@ -166,8 +166,8 @@
                   PR = ZERO;
                }
                if ( WANTD ) {
-                  DIF( 1 ) = ZERO;
-                  DIF( 2 ) = ZERO;
+                  DIF[1] = ZERO;
+                  DIF[2] = ZERO;
                }
                GO TO 70;
             }
@@ -258,7 +258,7 @@
                }
                GO TO 40;
             }
-            DIF( 1 ) = DSCALE / DIF( 1 );
+            DIF[1] = DSCALE / DIF( 1 );
 
             // 1-norm-based estimate of Difl.
 
@@ -278,7 +278,7 @@
                }
                GO TO 50;
             }
-            DIF( 2 ) = DSCALE / DIF( 2 );
+            DIF[2] = DSCALE / DIF( 2 );
          }
       }
 
@@ -291,23 +291,23 @@
          if ( DSCALE > SAFMIN ) {
             TEMP1 = DCONJG( B( K, K ) / DSCALE );
             TEMP2 = B( K, K ) / DSCALE;
-            B( K, K ) = DSCALE;
+            B[K, K] = DSCALE;
             zscal(N-K, TEMP1, B( K, K+1 ), LDB );
             zscal(N-K+1, TEMP1, A( K, K ), LDA );
             if (WANTQ) zscal( N, TEMP2, Q( 1, K ), 1 );
          } else {
-            B( K, K ) = DCMPLX( ZERO, ZERO );
+            B[K, K] = DCMPLX( ZERO, ZERO );
          }
 
-         ALPHA( K ) = A( K, K );
-         BETA( K ) = B( K, K );
+         ALPHA[K] = A( K, K );
+         BETA[K] = B( K, K );
 
       } // 60
 
       } // 70
 
-      WORK( 1 ) = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

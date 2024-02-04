@@ -69,12 +69,12 @@
 
                // Compute the j-th column of the upper triangle of A
 
-               AP( JJ ) = DBLE( AP( JJ ) );
+               AP[JJ] = DBLE( AP( JJ ) );
                BJJ = DBLE( BP( JJ ) );
                ztpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 );
                zhpmv(UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
                zdscal(J-1, ONE / BJJ, AP( J1 ), 1 );
-               AP( JJ ) = ( AP( JJ )-ZDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ;
+               AP[JJ] = ( AP( JJ )-ZDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ;
             } // 10
          } else {
 
@@ -91,7 +91,7 @@
                AKK = DBLE( AP( KK ) );
                BKK = DBLE( BP( KK ) );
                AKK = AKK / BKK**2;
-               AP( KK ) = AKK;
+               AP[KK] = AKK;
                if ( K < N ) {
                   zdscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK;
@@ -125,7 +125,7 @@
                zhpr2(UPLO, K-1, CONE, AP( K1 ), 1, BP( K1 ), 1, AP );
                zaxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
                zdscal(K-1, BKK, AP( K1 ), 1 );
-               AP( KK ) = AKK*BKK**2;
+               AP[KK] = AKK*BKK**2;
             } // 30
          } else {
 
@@ -141,7 +141,7 @@
 
                AJJ = DBLE( AP( JJ ) );
                BJJ = DBLE( BP( JJ ) );
-               AP( JJ ) = AJJ*BJJ + ZDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
+               AP[JJ] = AJJ*BJJ + ZDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
                zdscal(N-J, BJJ, AP( JJ+1 ), 1 );
                zhpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 );
                ztpmv(UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );

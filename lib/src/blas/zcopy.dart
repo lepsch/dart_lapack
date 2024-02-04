@@ -22,7 +22,7 @@
          // code for both increments equal to 1
 
          for (I = 1; I <= N; I++) {
-          ZY(I) = ZX(I);
+          ZY[I] = ZX(I);
          }
       } else {
 
@@ -34,7 +34,7 @@
          if (INCX < 0) IX = (-N+1)*INCX + 1;
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
-            ZY(IY) = ZX(IX);
+            ZY[IY] = ZX(IX);
             IX = IX + INCX;
             IY = IY + INCY;
          }

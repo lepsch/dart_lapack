@@ -66,14 +66,14 @@
       // Compute row scale factors.
 
       for (I = 1; I <= M; I++) { // 10
-         R( I ) = ZERO;
+         R[I] = ZERO;
       } // 10
 
       // Find the maximum element in each row.
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            R( I ) = max( R( I ), ( A( I, J ) ) ).abs();
+            R[I] = max( R( I ), ( A( I, J ) ) ).abs();
          } // 20
       } // 30
 
@@ -102,7 +102,7 @@
          // Invert the scale factors.
 
          for (I = 1; I <= M; I++) { // 60
-            R( I ) = ONE / min( max( R( I ), SMLNUM ), BIGNUM );
+            R[I] = ONE / min( max( R( I ), SMLNUM ), BIGNUM );
          } // 60
 
          // Compute ROWCND = min(R(I)) / max(R(I))
@@ -113,7 +113,7 @@
       // Compute column scale factors
 
       for (J = 1; J <= N; J++) { // 70
-         C( J ) = ZERO;
+         C[J] = ZERO;
       } // 70
 
       // Find the maximum element in each column,
@@ -121,7 +121,7 @@
 
       for (J = 1; J <= N; J++) { // 90
          for (I = 1; I <= M; I++) { // 80
-            C( J ) = max( C( J ), ( A( I, J ) ).abs()*R( I ) );
+            C[J] = max( C( J ), ( A( I, J ) ).abs()*R( I ) );
          } // 80
       } // 90
 
@@ -149,7 +149,7 @@
          // Invert the scale factors.
 
          for (J = 1; J <= N; J++) { // 120
-            C( J ) = ONE / min( max( C( J ), SMLNUM ), BIGNUM );
+            C[J] = ONE / min( max( C( J ), SMLNUM ), BIGNUM );
          } // 120
 
          // Compute COLCND = min(C(J)) / max(C(J))

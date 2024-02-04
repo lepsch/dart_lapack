@@ -75,7 +75,7 @@
          } else {
             RANK = 1;
             slascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
-            D( 1 ) = ( D( 1 ) ).abs();
+            D[1] = ( D( 1 ) ).abs();
          }
          return;
       }
@@ -85,14 +85,14 @@
       if ( UPLO == 'L' ) {
          for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R;
-            E( I ) = SN*D( I+1 );
-            D( I+1 ) = CS*D( I+1 );
+            D[I] = R;
+            E[I] = SN*D( I+1 );
+            D[I+1] = CS*D( I+1 );
             if ( NRHS == 1 ) {
                srot(1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN );
             } else {
-               WORK( I*2-1 ) = CS;
-               WORK( I*2 ) = SN;
+               WORK[I*2-1] = CS;
+               WORK[I*2] = SN;
             }
          } // 10
          if ( NRHS > 1 ) {
@@ -182,14 +182,14 @@
 
       for (I = 1; I <= N; I++) { // 50
          if ( ( D( I ) ).abs() < EPS ) {
-            D( I ) = SIGN( EPS, D( I ) );
+            D[I] = SIGN( EPS, D( I ) );
          }
       } // 50
 
       for (I = 1; I <= NM1; I++) { // 60
          if ( ( ( E( I ) ).abs() < EPS ) || ( I == NM1 ) ) {
             NSUB = NSUB + 1;
-            IWORK( NSUB ) = ST;
+            IWORK[NSUB] = ST;
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.
@@ -199,13 +199,13 @@
                // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
             } else if ( ( E( I ) ).abs() >= EPS ) {
 
                // A subproblem with E(NM1) not too small but I = NM1.
 
                NSIZE = N - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
             } else {
 
                // A subproblem with E(NM1) small. This implies an
@@ -213,10 +213,10 @@
                // explicitly.
 
                NSIZE = I - ST + 1;
-               IWORK( SIZEI+NSUB-1 ) = NSIZE;
+               IWORK[SIZEI+NSUB-1] = NSIZE;
                NSUB = NSUB + 1;
-               IWORK( NSUB ) = N;
-               IWORK( SIZEI+NSUB-1 ) = 1;
+               IWORK[NSUB] = N;
+               IWORK[SIZEI+NSUB-1] = 1;
                scopy(NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N );
             }
             ST1 = ST - 1;
@@ -269,7 +269,7 @@
             RANK = RANK + 1;
             slascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
-         D( I ) = ( D( I ) ).abs();
+         D[I] = ( D( I ) ).abs();
       } // 70
 
       // Now apply back the right singular vectors.

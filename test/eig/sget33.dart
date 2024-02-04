@@ -44,13 +44,13 @@
 
       // Set up test case parameters
 
-      VAL( 1 ) = ONE;
-      VAL( 2 ) = ONE + TWO*EPS;
-      VAL( 3 ) = TWO;
-      VAL( 4 ) = TWO - FOUR*EPS;
-      VM( 1 ) = SMLNUM;
-      VM( 2 ) = ONE;
-      VM( 3 ) = BIGNUM;
+      VAL[1] = ONE;
+      VAL[2] = ONE + TWO*EPS;
+      VAL[3] = TWO;
+      VAL[4] = TWO - FOUR*EPS;
+      VM[1] = SMLNUM;
+      VM[2] = ONE;
+      VM[3] = BIGNUM;
 
       KNT = 0;
       NINFO = 0;
@@ -67,34 +67,34 @@
                      for (IM2 = 1; IM2 <= 3; IM2++) { // 100
                         for (IM3 = 1; IM3 <= 3; IM3++) { // 90
                            for (IM4 = 1; IM4 <= 3; IM4++) { // 80
-                              T( 1, 1 ) = VAL( I1 )*VM( IM1 );
-                              T( 1, 2 ) = VAL( I2 )*VM( IM2 );
-                              T( 2, 1 ) = -VAL( I3 )*VM( IM3 );
-                              T( 2, 2 ) = VAL( I4 )*VM( IM4 );
+                              T[1, 1] = VAL( I1 )*VM( IM1 );
+                              T[1, 2] = VAL( I2 )*VM( IM2 );
+                              T[2, 1] = -VAL( I3 )*VM( IM3 );
+                              T[2, 2] = VAL( I4 )*VM( IM4 );
                               TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 2, 1 ) ).abs(), ( T( 2, 2 ) ) ).abs();
-                              T1( 1, 1 ) = T( 1, 1 );
-                              T1( 1, 2 ) = T( 1, 2 );
-                              T1( 2, 1 ) = T( 2, 1 );
-                              T1( 2, 2 ) = T( 2, 2 );
-                              Q( 1, 1 ) = ONE;
-                              Q( 1, 2 ) = ZERO;
-                              Q( 2, 1 ) = ZERO;
-                              Q( 2, 2 ) = ONE;
+                              T1[1, 1] = T( 1, 1 );
+                              T1[1, 2] = T( 1, 2 );
+                              T1[2, 1] = T( 2, 1 );
+                              T1[2, 2] = T( 2, 2 );
+                              Q[1, 1] = ONE;
+                              Q[1, 2] = ZERO;
+                              Q[2, 1] = ZERO;
+                              Q[2, 2] = ONE;
 
                               slanv2(T( 1, 1 ), T( 1, 2 ), T( 2, 1 ), T( 2, 2 ), WR1, WI1, WR2, WI2, CS, SN );
                               for (J1 = 1; J1 <= 2; J1++) { // 10
                                  RES = Q( J1, 1 )*CS + Q( J1, 2 )*SN;
-                                 Q( J1, 2 ) = -Q( J1, 1 )*SN + Q( J1, 2 )*CS;
-                                 Q( J1, 1 ) = RES;
+                                 Q[J1, 2] = -Q( J1, 1 )*SN + Q( J1, 2 )*CS;
+                                 Q[J1, 1] = RES;
                               } // 10
 
                               RES = ZERO;
                               RES = RES + ABS( Q( 1, 1 )**2+ Q( 1, 2 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 2, 2 )**2+ Q( 2, 1 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 1, 1 )*Q( 2, 1 )+ Q( 1, 2 )*Q( 2, 2 ) ) / EPS;
                               for (J1 = 1; J1 <= 2; J1++) { // 40
                                  for (J2 = 1; J2 <= 2; J2++) { // 30
-                                    T2( J1, J2 ) = ZERO;
+                                    T2[J1, J2] = ZERO;
                                     for (J3 = 1; J3 <= 2; J3++) { // 20
-                                       T2( J1, J2 ) = T2( J1, J2 ) + T1( J1, J3 )* Q( J3, J2 );
+                                       T2[J1, J2] = T2( J1, J2 ) + T1( J1, J3 )* Q( J3, J2 );
                                     } // 20
                                  } // 30
                               } // 40

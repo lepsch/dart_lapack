@@ -75,7 +75,7 @@
 
             for (JCOL = 1; JCOL <= N; JCOL++) { // 20
                for (JROW = 1; JROW <= N; JROW++) { // 10
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
+                  WORK[JROW+N*( JCOL-1 )] = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
                } // 10
             } // 20
          }
@@ -103,7 +103,7 @@
          cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          for (JDIAG = 1; JDIAG <= N; JDIAG++) { // 30
-            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE;
+            WORK[( N+1 )*( JDIAG-1 )+1] = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE;
          } // 30
 
          RESULT = min( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );

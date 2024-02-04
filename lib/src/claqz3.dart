@@ -29,7 +29,7 @@
       }
       if ( LWORK == -1 ) {
          // workspace query, quick return;
-         WORK( 1 ) = N*NBLOCK_DESIRED;
+         WORK[1] = N*NBLOCK_DESIRED;
          return;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {
          INFO = -25;
@@ -76,8 +76,8 @@
          // Introduce the shift
          SCALE = sqrt( ( ALPHA( I ) ) ).abs() * sqrt( ( BETA( I ) ) ).abs();
          if ( SCALE >= SAFMIN && SCALE <= SAFMAX ) {
-            ALPHA( I ) = ALPHA( I )/SCALE;
-            BETA( I ) = BETA( I )/SCALE;
+            ALPHA[I] = ALPHA( I )/SCALE;
+            BETA[I] = BETA( I )/SCALE;
          }
 
          TEMP2 = BETA( I )*A( ILO, ILO )-ALPHA( I )*B( ILO, ILO );

@@ -52,8 +52,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Single precision';
-      PATH( 2: 3 ) = 'VX';
+      PATH[1: 1] = 'Single precision';
+      PATH[2: 3] = 'VX';
 
       // Check for errors
 
@@ -132,7 +132,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -190,7 +190,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -198,7 +198,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
@@ -226,7 +226,7 @@
                   CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' ';
+               ADUMMA[1] = ' ';
                slatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -340,7 +340,7 @@
 
       if (N == 0) GO TO 220;
       JTYPE = JTYPE + 1;
-      ISEED( 1 ) = JTYPE;
+      ISEED[1] = JTYPE;
       for (I = 1; I <= N; I++) { // 180
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N );
       } // 180

@@ -110,16 +110,16 @@
 
       if ( INFO == 0 ) {
         if ( MINT ) {
-          T( 1 ) = MINTSZ;
+          T[1] = MINTSZ;
         } else {
-          T( 1 ) = MB*M*NBLCKS + 5;
+          T[1] = MB*M*NBLCKS + 5;
         }
-        T( 2 ) = MB;
-        T( 3 ) = NB;
+        T[2] = MB;
+        T[3] = NB;
         if ( MINW ) {
-          WORK( 1 ) = LWMIN;
+          WORK[1] = LWMIN;
         } else {
-          WORK( 1 ) = LWREQ;
+          WORK[1] = LWREQ;
         }
       }
       if ( INFO != 0 ) {
@@ -143,7 +143,7 @@
         zlaswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = LWREQ;
+      WORK[1] = LWREQ;
 
       return;
       }

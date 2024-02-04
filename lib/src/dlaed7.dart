@@ -90,16 +90,16 @@
       // used storage space.
 
       if ( CURLVL == TLVLS ) {
-         QPTR( CURR ) = 1;
-         PRMPTR( CURR ) = 1;
-         GIVPTR( CURR ) = 1;
+         QPTR[CURR] = 1;
+         PRMPTR[CURR] = 1;
+         GIVPTR[CURR] = 1;
       }
 
       // Sort and Deflate eigenvalues.
 
       dlaed8(ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK( IZ ), WORK( IDLMDA ), WORK( IQ2 ), LDQ2, WORK( IW ), PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), IWORK( INDXP ), IWORK( INDX ), INFO );
-      PRMPTR( CURR+1 ) = PRMPTR( CURR ) + N;
-      GIVPTR( CURR+1 ) = GIVPTR( CURR+1 ) + GIVPTR( CURR );
+      PRMPTR[CURR+1] = PRMPTR( CURR ) + N;
+      GIVPTR[CURR+1] = GIVPTR( CURR+1 ) + GIVPTR( CURR );
 
       // Solve Secular Equation.
 
@@ -108,7 +108,7 @@
          if ( ICOMPQ == 1 ) {
             dgemm('N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ );
          }
-         QPTR( CURR+1 ) = QPTR( CURR ) + K**2;
+         QPTR[CURR+1] = QPTR( CURR ) + K**2;
 
       // Prepare the INDXQ sorting permutation.
 
@@ -116,9 +116,9 @@
          N2 = N - K;
          dlamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
-         QPTR( CURR+1 ) = QPTR( CURR );
+         QPTR[CURR+1] = QPTR( CURR );
          for (I = 1; I <= N; I++) { // 20
-            INDXQ( I ) = I;
+            INDXQ[I] = I;
          } // 20
       }
 

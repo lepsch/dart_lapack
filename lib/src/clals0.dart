@@ -107,30 +107,30 @@
                   DSIGJP = -POLES( J+1, 2 );
                }
                if ( ( Z( J ) == ZERO ) || ( POLES( J, 2 ) == ZERO ) ) {
-                  RWORK( J ) = ZERO;
+                  RWORK[J] = ZERO;
                } else {
-                  RWORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ );
+                  RWORK[J] = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ );
                }
                for (I = 1; I <= J - 1; I++) { // 30
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     RWORK( I ) = ZERO;
+                     RWORK[I] = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
 
-                     RWORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ );
+                     RWORK[I] = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 30
                for (I = J + 1; I <= K; I++) { // 40
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     RWORK( I ) = ZERO;
+                     RWORK[I] = ZERO;
                   } else {
-                     RWORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ );
+                     RWORK[I] = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 40
-               RWORK( 1 ) = NEGONE;
+               RWORK[1] = NEGONE;
                TEMP = SNRM2( K, RWORK, 1 );
 
                // Since B and BX are complex, the following call to SGEMV
@@ -143,7 +143,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
                   for (JROW = 1; JROW <= K; JROW++) { // 50
                      I = I + 1;
-                     RWORK( I ) = REAL( BX( JROW, JCOL ) );
+                     RWORK[I] = REAL( BX( JROW, JCOL ) );
                   } // 50
                } // 60
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
@@ -151,12 +151,12 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
                   for (JROW = 1; JROW <= K; JROW++) { // 70
                      I = I + 1;
-                     RWORK( I ) = AIMAG( BX( JROW, JCOL ) );
+                     RWORK[I] = AIMAG( BX( JROW, JCOL ) );
                   } // 70
                } // 80
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 90
-                  B( J, JCOL ) = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
+                  B[J, JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
                } // 90
                clascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
             } // 100
@@ -178,27 +178,27 @@
             for (J = 1; J <= K; J++) { // 180
                DSIGJ = POLES( J, 2 );
                if ( Z( J ) == ZERO ) {
-                  RWORK( J ) = ZERO;
+                  RWORK[J] = ZERO;
                } else {
-                  RWORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 );
+                  RWORK[J] = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 );
                }
                for (I = 1; I <= J - 1; I++) { // 110
                   if ( Z( J ) == ZERO ) {
-                     RWORK( I ) = ZERO;
+                     RWORK[I] = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent optimizing
                      // compilers from doing x+(y+z).
 
-                     RWORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
+                     RWORK[I] = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 110
                for (I = J + 1; I <= K; I++) { // 120
                   if ( Z( J ) == ZERO ) {
-                     RWORK( I ) = ZERO;
+                     RWORK[I] = ZERO;
                   } else {
-                     RWORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
+                     RWORK[I] = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 120
 
@@ -212,7 +212,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
                   for (JROW = 1; JROW <= K; JROW++) { // 130
                      I = I + 1;
-                     RWORK( I ) = REAL( B( JROW, JCOL ) );
+                     RWORK[I] = REAL( B( JROW, JCOL ) );
                   } // 130
                } // 140
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
@@ -220,12 +220,12 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 160
                   for (JROW = 1; JROW <= K; JROW++) { // 150
                      I = I + 1;
-                     RWORK( I ) = AIMAG( B( JROW, JCOL ) );
+                     RWORK[I] = AIMAG( B( JROW, JCOL ) );
                   } // 150
                } // 160
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 170
-                  BX( J, JCOL ) = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
+                  BX[J, JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
                } // 170
             } // 180
          }

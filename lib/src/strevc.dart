@@ -76,7 +76,7 @@
             for (J = 1; J <= N; J++) { // 10
                if ( PAIR ) {
                   PAIR = false;
-                  SELECT( J ) = false;
+                  SELECT[J] = false;
                } else {
                   if ( J < N ) {
                      if ( T( J+1, J ) == ZERO ) {
@@ -84,7 +84,7 @@
                      } else {
                         PAIR = true;
                         if ( SELECT( J ) || SELECT( J+1 ) ) {
-                           SELECT( J ) = true;
+                           SELECT[J] = true;
                            M = M + 2;
                         }
                      }
@@ -121,11 +121,11 @@
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
 
-      WORK( 1 ) = ZERO;
+      WORK[1] = ZERO;
       for (J = 2; J <= N; J++) { // 30
-         WORK( J ) = ZERO;
+         WORK[J] = ZERO;
          for (I = 1; I <= J - 1; I++) { // 20
-            WORK( J ) = WORK( J ) + ( T( I, J ) ).abs();
+            WORK[J] = WORK( J ) + ( T( I, J ) ).abs();
          } // 20
       } // 30
 
@@ -169,12 +169,12 @@
 
                // Real right eigenvector
 
-               WORK( KI+N ) = ONE;
+               WORK[KI+N] = ONE;
 
                // Form right-hand side
 
                for (K = 1; K <= KI - 1; K++) { // 50
-                  WORK( K+N ) = -T( K, KI );
+                  WORK[K+N] = -T( K, KI );
                } // 50
 
                // Solve the upper quasi-triangular system:
@@ -204,7 +204,7 @@
 
                      if ( XNORM > ONE ) {
                         if ( WORK( J ) > BIGNUM / XNORM ) {
-                           X( 1, 1 ) = X( 1, 1 ) / XNORM;
+                           X[1, 1] = X( 1, 1 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -212,7 +212,7 @@
                      // Scale if necessary
 
                      if (SCALE != ONE) sscal( KI, SCALE, WORK( 1+N ), 1 );
-                     WORK( J+N ) = X( 1, 1 );
+                     WORK[J+N] = X( 1, 1 );
 
                      // Update right-hand side
 
@@ -230,8 +230,8 @@
                      if ( XNORM > ONE ) {
                         BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
-                           X( 1, 1 ) = X( 1, 1 ) / XNORM;
-                           X( 2, 1 ) = X( 2, 1 ) / XNORM;
+                           X[1, 1] = X( 1, 1 ) / XNORM;
+                           X[2, 1] = X( 2, 1 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -239,8 +239,8 @@
                      // Scale if necessary
 
                      if (SCALE != ONE) sscal( KI, SCALE, WORK( 1+N ), 1 );
-                     WORK( J-1+N ) = X( 1, 1 );
-                     WORK( J+N ) = X( 2, 1 );
+                     WORK[J-1+N] = X( 1, 1 );
+                     WORK[J+N] = X( 2, 1 );
 
                      // Update right-hand side
 
@@ -259,7 +259,7 @@
                   sscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   for (K = KI + 1; K <= N; K++) { // 70
-                     VR( K, IS ) = ZERO;
+                     VR[K, IS] = ZERO;
                   } // 70
                } else {
                   if (KI > 1) sgemv( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
@@ -278,20 +278,20 @@
                  // [ (T(KI,KI-1)   T(KI,KI)   )               ]
 
                if ( ( T( KI-1, KI ) ).abs() >= ( T( KI, KI-1 ) ) ).abs() {
-                  WORK( KI-1+N ) = ONE;
-                  WORK( KI+N2 ) = WI / T( KI-1, KI );
+                  WORK[KI-1+N] = ONE;
+                  WORK[KI+N2] = WI / T( KI-1, KI );
                } else {
-                  WORK( KI-1+N ) = -WI / T( KI, KI-1 );
-                  WORK( KI+N2 ) = ONE;
+                  WORK[KI-1+N] = -WI / T( KI, KI-1 );
+                  WORK[KI+N2] = ONE;
                }
-               WORK( KI+N ) = ZERO;
-               WORK( KI-1+N2 ) = ZERO;
+               WORK[KI+N] = ZERO;
+               WORK[KI-1+N2] = ZERO;
 
                // Form right-hand side
 
                for (K = 1; K <= KI - 2; K++) { // 80
-                  WORK( K+N ) = -WORK( KI-1+N )*T( K, KI-1 );
-                  WORK( K+N2 ) = -WORK( KI+N2 )*T( K, KI );
+                  WORK[K+N] = -WORK( KI-1+N )*T( K, KI-1 );
+                  WORK[K+N2] = -WORK( KI+N2 )*T( K, KI );
                } // 80
 
                // Solve upper quasi-triangular system:
@@ -321,8 +321,8 @@
 
                      if ( XNORM > ONE ) {
                         if ( WORK( J ) > BIGNUM / XNORM ) {
-                           X( 1, 1 ) = X( 1, 1 ) / XNORM;
-                           X( 1, 2 ) = X( 1, 2 ) / XNORM;
+                           X[1, 1] = X( 1, 1 ) / XNORM;
+                           X[1, 2] = X( 1, 2 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -333,8 +333,8 @@
                         sscal(KI, SCALE, WORK( 1+N ), 1 );
                         sscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
-                     WORK( J+N ) = X( 1, 1 );
-                     WORK( J+N2 ) = X( 1, 2 );
+                     WORK[J+N] = X( 1, 1 );
+                     WORK[J+N2] = X( 1, 2 );
 
                      // Update the right-hand side
 
@@ -354,10 +354,10 @@
                         BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
                            REC = ONE / XNORM;
-                           X( 1, 1 ) = X( 1, 1 )*REC;
-                           X( 1, 2 ) = X( 1, 2 )*REC;
-                           X( 2, 1 ) = X( 2, 1 )*REC;
-                           X( 2, 2 ) = X( 2, 2 )*REC;
+                           X[1, 1] = X( 1, 1 )*REC;
+                           X[1, 2] = X( 1, 2 )*REC;
+                           X[2, 1] = X( 2, 1 )*REC;
+                           X[2, 2] = X( 2, 2 )*REC;
                            SCALE = SCALE*REC;
                         }
                      }
@@ -368,10 +368,10 @@
                         sscal(KI, SCALE, WORK( 1+N ), 1 );
                         sscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
-                     WORK( J-1+N ) = X( 1, 1 );
-                     WORK( J+N ) = X( 2, 1 );
-                     WORK( J-1+N2 ) = X( 1, 2 );
-                     WORK( J+N2 ) = X( 2, 2 );
+                     WORK[J-1+N] = X( 1, 1 );
+                     WORK[J+N] = X( 2, 1 );
+                     WORK[J-1+N2] = X( 1, 2 );
+                     WORK[J+N2] = X( 2, 2 );
 
                      // Update the right-hand side
 
@@ -398,8 +398,8 @@
                   sscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   for (K = KI + 1; K <= N; K++) { // 110
-                     VR( K, IS-1 ) = ZERO;
-                     VR( K, IS ) = ZERO;
+                     VR[K, IS-1] = ZERO;
+                     VR[K, IS] = ZERO;
                   } // 110
 
                } else {
@@ -459,12 +459,12 @@
 
                // Real left eigenvector.
 
-               WORK( KI+N ) = ONE;
+               WORK[KI+N] = ONE;
 
                // Form right-hand side
 
                for (K = KI + 1; K <= N; K++) { // 160
-                  WORK( K+N ) = -T( KI, K );
+                  WORK[K+N] = -T( KI, K );
                } // 160
 
                // Solve the quasi-triangular system:
@@ -500,7 +500,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK( J+N ) = WORK( J+N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
 
                      // Solve (T(J,J)-WR)**T*X = WORK
 
@@ -509,7 +509,7 @@
                      // Scale if necessary
 
                      if (SCALE != ONE) sscal( N-KI+1, SCALE, WORK( KI+N ), 1 );
-                     WORK( J+N ) = X( 1, 1 );
+                     WORK[J+N] = X( 1, 1 );
                      VMAX = max( ( WORK( J+N ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
@@ -528,9 +528,9 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK( J+N ) = WORK( J+N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
 
-                     WORK( J+1+N ) = WORK( J+1+N ) - SDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+1+N] = WORK( J+1+N ) - SDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 );
 
                      // Solve
                        // [T(J,J)-WR   T(J,J+1)     ]**T* X = SCALE*( WORK1 )
@@ -541,8 +541,8 @@
                      // Scale if necessary
 
                      if (SCALE != ONE) sscal( N-KI+1, SCALE, WORK( KI+N ), 1 );
-                     WORK( J+N ) = X( 1, 1 );
-                     WORK( J+1+N ) = X( 2, 1 );
+                     WORK[J+N] = X( 1, 1 );
+                     WORK[J+1+N] = X( 2, 1 );
 
                      VMAX = max( ( WORK( J+N ) ).abs(), ( WORK( J+1+N ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
@@ -560,7 +560,7 @@
                   sscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                   for (K = 1; K <= KI - 1; K++) { // 180
-                     VL( K, IS ) = ZERO;
+                     VL[K, IS] = ZERO;
                   } // 180
 
                } else {
@@ -582,20 +582,20 @@
                   // ((T(KI+1,KI) T(KI+1,KI+1))                )
 
                if ( ( T( KI, KI+1 ) ).abs() >= ( T( KI+1, KI ) ) ).abs() {
-                  WORK( KI+N ) = WI / T( KI, KI+1 );
-                  WORK( KI+1+N2 ) = ONE;
+                  WORK[KI+N] = WI / T( KI, KI+1 );
+                  WORK[KI+1+N2] = ONE;
                } else {
-                  WORK( KI+N ) = ONE;
-                  WORK( KI+1+N2 ) = -WI / T( KI+1, KI );
+                  WORK[KI+N] = ONE;
+                  WORK[KI+1+N2] = -WI / T( KI+1, KI );
                }
-               WORK( KI+1+N ) = ZERO;
-               WORK( KI+N2 ) = ZERO;
+               WORK[KI+1+N] = ZERO;
+               WORK[KI+N2] = ZERO;
 
                // Form right-hand side
 
                for (K = KI + 2; K <= N; K++) { // 190
-                  WORK( K+N ) = -WORK( KI+N )*T( KI, K );
-                  WORK( K+N2 ) = -WORK( KI+1+N2 )*T( KI+1, K );
+                  WORK[K+N] = -WORK( KI+N )*T( KI, K );
+                  WORK[K+N2] = -WORK( KI+1+N2 )*T( KI+1, K );
                } // 190
 
                // Solve complex quasi-triangular system:
@@ -632,7 +632,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK( J+N ) = WORK( J+N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 )                      WORK( J+N2 ) = WORK( J+N2 ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+N] = WORK( J+N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 )                      WORK( J+N2 ) = WORK( J+N2 ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
 
                      // Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 
@@ -644,8 +644,8 @@
                         sscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
                         sscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
-                     WORK( J+N ) = X( 1, 1 );
-                     WORK( J+N2 ) = X( 1, 2 );
+                     WORK[J+N] = X( 1, 1 );
+                     WORK[J+N2] = X( 1, 2 );
                      VMAX = max( ( WORK( J+N ) ).abs(), ( WORK( J+N2 ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
@@ -665,13 +665,13 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK( J+N ) = WORK( J+N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 );
 
-                     WORK( J+N2 ) = WORK( J+N2 ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+N2] = WORK( J+N2 ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
 
-                     WORK( J+1+N ) = WORK( J+1+N ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N ), 1 );
+                     WORK[J+1+N] = WORK( J+1+N ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N ), 1 );
 
-                     WORK( J+1+N2 ) = WORK( J+1+N2 ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+1+N2] = WORK( J+1+N2 ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 );
 
                      // Solve 2-by-2 complex linear equation
                        // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
@@ -685,10 +685,10 @@
                         sscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
                         sscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
-                     WORK( J+N ) = X( 1, 1 );
-                     WORK( J+N2 ) = X( 1, 2 );
-                     WORK( J+1+N ) = X( 2, 1 );
-                     WORK( J+1+N2 ) = X( 2, 2 );
+                     WORK[J+N] = X( 1, 1 );
+                     WORK[J+N2] = X( 1, 2 );
+                     WORK[J+1+N] = X( 2, 1 );
+                     WORK[J+1+N2] = X( 2, 2 );
                      VMAX = max( ( X( 1, 1 ) ).abs(), ( X( 1, 2 ) ).abs(), ( X( 2, 1 ) ).abs(), ( X( 2, 2 ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
@@ -710,8 +710,8 @@
                   sscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
                   for (K = 1; K <= KI - 1; K++) { // 230
-                     VL( K, IS ) = ZERO;
-                     VL( K, IS+1 ) = ZERO;
+                     VL[K, IS] = ZERO;
+                     VL[K, IS+1] = ZERO;
                   } // 230
                } else {
                   if ( KI < N-1 ) {

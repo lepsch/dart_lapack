@@ -69,9 +69,9 @@
                for (I = max( 1, J-K ); I <= J - 1; I++) { // 50
                   ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ( AB( K+1, J ) ).abs();
+               WORK[J] = SUM + ( AB( K+1, J ) ).abs();
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
@@ -79,7 +79,7 @@
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO;
+               WORK[I] = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ( AB( 1, J ) ).abs();
@@ -87,7 +87,7 @@
                for (I = J + 1; I <= min( N, J+K ); I++) { // 90
                   ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                } // 90
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 100

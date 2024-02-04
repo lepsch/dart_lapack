@@ -97,7 +97,7 @@
 
          for (I = 1; I <= N; I++) { // 40
             for (J = 1; J <= NRHS; J++) { // 30
-               WORK( M+J+( I-1 )*LDWORK ) = DCONJG( X( I, J ) );
+               WORK[M+J+( I-1 )*LDWORK] = DCONJG( X( I, J ) );
             } // 30
          } // 40
 

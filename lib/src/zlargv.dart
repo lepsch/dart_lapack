@@ -44,8 +44,8 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1( FF ) = max( ( DBLE( FF ) ).abs(), ( DIMAG( FF ) ) ).abs();
-      ABSSQ( FF ) = DBLE( FF )**2 + DIMAG( FF )**2;
+      ABS1[FF] = max( ( DBLE( FF ) ).abs(), ( DIMAG( FF ) ) ).abs();
+      ABSSQ[FF] = DBLE( FF )**2 + DIMAG( FF )**2;
       // ..
       // .. Executable Statements ..
 
@@ -158,9 +158,9 @@
             }
          }
          } // 50
-         C( IC ) = CS;
-         Y( IY ) = SN;
-         X( IX ) = R;
+         C[IC] = CS;
+         Y[IY] = SN;
+         X[IX] = R;
          IC = IC + INCC;
          IY = IY + INCY;
          IX = IX + INCX;

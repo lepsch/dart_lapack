@@ -95,7 +95,7 @@
             // ASCII character set
 
             if ( IC >= 97 && IC <= 122 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 );
+               SUBNAM[1: 1] = CHAR( IC-32 );
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) );
                   if (IC >= 97 && IC <= 122) SUBNAM( I: I ) = CHAR( IC-32 );
@@ -107,7 +107,7 @@
             // EBCDIC character set
 
             if ( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) ) {
-               SUBNAM( 1: 1 ) = CHAR( IC+64 );
+               SUBNAM[1: 1] = CHAR( IC+64 );
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) );
                   if( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
@@ -119,7 +119,7 @@
             // Prime machines:  ASCII+128
 
             if ( IC >= 225 && IC <= 250 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 );
+               SUBNAM[1: 1] = CHAR( IC-32 );
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) );
                   if (IC >= 225 && IC <= 250) SUBNAM( I: I ) = CHAR( IC-32 );

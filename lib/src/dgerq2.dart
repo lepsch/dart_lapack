@@ -56,9 +56,9 @@
          // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 
          AII = A( M-K+I, N-K+I );
-         A( M-K+I, N-K+I ) = ONE;
+         A[M-K+I, N-K+I] = ONE;
          dlarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
-         A( M-K+I, N-K+I ) = AII;
+         A[M-K+I, N-K+I] = AII;
       } // 10
       return;
       }

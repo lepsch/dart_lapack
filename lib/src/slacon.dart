@@ -43,7 +43,7 @@
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = ONE / REAL( N );
+            X[I] = ONE / REAL( N );
          } // 10
          KASE = 1;
          JUMP = 1;
@@ -57,7 +57,7 @@
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 );
+         V[1] = X( 1 );
          EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 150;
@@ -65,8 +65,8 @@
       EST = SASUM( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
-         X( I ) = SIGN( ONE, X( I ) );
-         ISGN( I ) = NINT( X( I ) );
+         X[I] = SIGN( ONE, X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 30
       KASE = 2;
       JUMP = 2;
@@ -83,9 +83,9 @@
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = ZERO;
+         X[I] = ZERO;
       } // 60
-      X( J ) = ONE;
+      X[J] = ONE;
       KASE = 1;
       JUMP = 3;
       return;
@@ -108,8 +108,8 @@
       if (EST <= ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
-         X( I ) = SIGN( ONE, X( I ) );
-         ISGN( I ) = NINT( X( I ) );
+         X[I] = SIGN( ONE, X( I ) );
+         ISGN[I] = NINT( X( I ) );
       } // 100
       KASE = 2;
       JUMP = 4;
@@ -131,7 +131,7 @@
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X( I ) = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) );
+         X[I] = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;

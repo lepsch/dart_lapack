@@ -84,7 +84,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           for (I = 1; I <= J - 1; I++) { // 10
-                              X(I) = X(I) + TEMP*A(I,J);
+                              X[I] = X(I) + TEMP*A(I,J);
                           } // 10
                           if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
@@ -96,7 +96,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (I = 1; I <= J - 1; I++) { // 30
-                              X(IX) = X(IX) + TEMP*A(I,J);
+                              X[IX] = X(IX) + TEMP*A(I,J);
                               IX = IX + INCX;
                           } // 30
                           if (NOUNIT) X(JX) = X(JX)*A(J,J);
@@ -110,7 +110,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           for (I = N; I >= J + 1; I--) { // 50
-                              X(I) = X(I) + TEMP*A(I,J);
+                              X[I] = X(I) + TEMP*A(I,J);
                           } // 50
                           if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
@@ -123,7 +123,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           for (I = N; I >= J + 1; I--) { // 70
-                              X(IX) = X(IX) + TEMP*A(I,J);
+                              X[IX] = X(IX) + TEMP*A(I,J);
                               IX = IX - INCX;
                           } // 70
                           if (NOUNIT) X(JX) = X(JX)*A(J,J);
@@ -151,7 +151,7 @@
                               TEMP = TEMP + DCONJG(A(I,J))*X(I);
                           } // 100
                       }
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                   } // 110
               } else {
                   JX = KX + (N-1)*INCX;
@@ -171,7 +171,7 @@
                               TEMP = TEMP + DCONJG(A(I,J))*X(IX);
                           } // 130
                       }
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX - INCX;
                   } // 140
               }
@@ -190,7 +190,7 @@
                               TEMP = TEMP + DCONJG(A(I,J))*X(I);
                           } // 160
                       }
-                      X(J) = TEMP;
+                      X[J] = TEMP;
                   } // 170
               } else {
                   JX = KX;
@@ -210,7 +210,7 @@
                               TEMP = TEMP + DCONJG(A(I,J))*X(IX);
                           } // 190
                       }
-                      X(JX) = TEMP;
+                      X[JX] = TEMP;
                       JX = JX + INCX;
                   } // 200
               }

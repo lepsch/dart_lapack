@@ -61,13 +61,13 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'PT';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'PT';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -115,8 +115,8 @@
 
                IA = 1;
                for (I = 1; I <= N - 1; I++) { // 20
-                  D( I ) = A( IA );
-                  E( I ) = A( IA+1 );
+                  D[I] = A( IA );
+                  E[I] = A( IA+1 );
                   IA = IA + 2;
                } // 20
                if (N > 0) D( N ) = A( IA );
@@ -135,12 +135,12 @@
                   // Make the tridiagonal matrix diagonally dominant.
 
                   if ( N == 1 ) {
-                     D( 1 ) = ( D( 1 ) ).abs();
+                     D[1] = ( D( 1 ) ).abs();
                   } else {
-                     D( 1 ) = ( D( 1 ) ).abs() + ( E( 1 ) ).abs();
-                     D( N ) = ( D( N ) ).abs() + ( E( N-1 ) ).abs();
+                     D[1] = ( D( 1 ) ).abs() + ( E( 1 ) ).abs();
+                     D[N] = ( D( N ) ).abs() + ( E( N-1 ) ).abs();
                      for (I = 2; I <= N - 1; I++) { // 30
-                        D( I ) = ( D( I ) ).abs() + ( E( I ) ).abs() + ( E( I-1 ) ).abs();
+                        D[I] = ( D( I ) ).abs() + ( E( I ) ).abs() + ( E( I-1 ) ).abs();
                      } // 30
                   }
 
@@ -157,15 +157,15 @@
                   // elements.
 
                   if ( IZERO == 1 ) {
-                     D( 1 ) = Z( 2 );
+                     D[1] = Z( 2 );
                      if (N > 1) E( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
-                     E( N-1 ) = Z( 1 );
-                     D( N ) = Z( 2 );
+                     E[N-1] = Z( 1 );
+                     D[N] = Z( 2 );
                   } else {
-                     E( IZERO-1 ) = Z( 1 );
-                     D( IZERO ) = Z( 2 );
-                     E( IZERO ) = Z( 3 );
+                     E[IZERO-1] = Z( 1 );
+                     D[IZERO] = Z( 2 );
+                     E[IZERO] = Z( 3 );
                   }
                }
 
@@ -175,30 +175,30 @@
                IZERO = 0;
                if ( IMAT == 8 ) {
                   IZERO = 1;
-                  Z( 2 ) = D( 1 );
-                  D( 1 ) = ZERO;
+                  Z[2] = D( 1 );
+                  D[1] = ZERO;
                   if ( N > 1 ) {
-                     Z( 3 ) = E( 1 );
-                     E( 1 ) = ZERO;
+                     Z[3] = E( 1 );
+                     E[1] = ZERO;
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N;
                   if ( N > 1 ) {
-                     Z( 1 ) = E( N-1 );
-                     E( N-1 ) = ZERO;
+                     Z[1] = E( N-1 );
+                     E[N-1] = ZERO;
                   }
-                  Z( 2 ) = D( N );
-                  D( N ) = ZERO;
+                  Z[2] = D( N );
+                  D[N] = ZERO;
                } else if ( IMAT == 10 ) {
                   IZERO = ( N+1 ) / 2;
                   if ( IZERO > 1 ) {
-                     Z( 1 ) = E( IZERO-1 );
-                     E( IZERO-1 ) = ZERO;
-                     Z( 3 ) = E( IZERO );
-                     E( IZERO ) = ZERO;
+                     Z[1] = E( IZERO-1 );
+                     E[IZERO-1] = ZERO;
+                     Z[3] = E( IZERO );
+                     E[IZERO] = ZERO;
                   }
-                  Z( 2 ) = D( IZERO );
-                  D( IZERO ) = ZERO;
+                  Z[2] = D( IZERO );
+                  D[IZERO] = ZERO;
                }
             }
 
@@ -246,9 +246,9 @@
             AINVNM = ZERO;
             for (I = 1; I <= N; I++) { // 50
                for (J = 1; J <= N; J++) { // 40
-                  X( J ) = ZERO;
+                  X[J] = ZERO;
                } // 40
-               X( I ) = ONE;
+               X[I] = ONE;
                dpttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
             } // 50
@@ -325,7 +325,7 @@
 
             if (INFO != 0) alaerh( PATH, 'DPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
-            RESULT( 7 ) = DGET06( RCOND, RCONDC );
+            RESULT[7] = DGET06( RCOND, RCONDC );
 
             // Print the test ratio if greater than or equal to THRESH.
 

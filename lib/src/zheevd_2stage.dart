@@ -78,9 +78,9 @@
                LIWMIN = 1;
             }
          }
-         WORK( 1 )  = LWMIN;
-         RWORK( 1 ) = LRWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         RWORK[1] = LRWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -103,7 +103,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = DBLE( A( 1, 1 ) );
+         W[1] = DBLE( A( 1, 1 ) );
          if (WANTZ) A( 1, 1 ) = CONE;
          return;
       }
@@ -169,9 +169,9 @@
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 )  = LWMIN;
-      RWORK( 1 ) = LRWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      RWORK[1] = LRWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

@@ -65,8 +65,8 @@
       }
 
       if ( INFO == 0 ) {
-         HOUS2( 1 ) = LHMIN;
-         WORK( 1 )  = LWMIN;
+         HOUS2[1] = LHMIN;
+         WORK[1] = LWMIN;
       }
 
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -101,6 +101,6 @@
       }
 
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

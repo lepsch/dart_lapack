@@ -74,7 +74,7 @@
             ctrmv('Lower', 'No transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
             caxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
 
-            A( K+I-1, I-1 ) = EI;
+            A[K+I-1, I-1] = EI;
          }
 
          // Generate the elementary reflector H(i) to annihilate
@@ -82,7 +82,7 @@
 
          EI = A( K+I, I );
          clarfg(N-K-I+1, EI, A( min( K+I+1, N ), I ), 1, TAU( I ) );
-         A( K+I, I ) = ONE;
+         A[K+I, I] = ONE;
 
          // Compute  Y(1:n,i)
 
@@ -95,10 +95,10 @@
 
          cscal(I-1, -TAU( I ), T( 1, I ), 1 );
          ctrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
-         T( I, I ) = TAU( I );
+         T[I, I] = TAU( I );
 
       } // 10
-      A( K+NB, NB ) = EI;
+      A[K+NB, NB] = EI;
 
       return;
       }

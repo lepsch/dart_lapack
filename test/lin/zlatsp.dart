@@ -42,7 +42,7 @@
       // Fill the matrix with zeros.
 
       for (J = 1; J <= N*( N+1 ) / 2; J++) { // 10
-         X( J ) = 0.0;
+         X[J] = 0.0;
       } // 10
 
       // UPLO = 'U':  Upper triangular storage
@@ -57,21 +57,21 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X( JJ ) = A;
-            X( JJ-2 ) = B;
+            X[JJ] = A;
+            X[JJ-2] = B;
             JJ = JJ - J;
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ-1 ) = R;
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ-1] = R;
             JJ = JJ - ( J-1 );
-            X( JJ ) = C;
+            X[JJ] = C;
             JJ = JJ - ( J-2 );
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             JJ = JJ - ( J-3 );
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             if ( ABS( X( JJ+( J-3 ) ) ) > ( X( JJ ) ) ).abs() {
-               X( JJ+( J-4 ) ) = 2.0*X( JJ+( J-3 ) );
+               X[JJ+( J-4 )] = 2.0*X( JJ+( J-3 ) );
             } else {
-               X( JJ+( J-4 ) ) = 2.0*X( JJ );
+               X[JJ+( J-4 )] = 2.0*X( JJ );
             }
             JJ = JJ - ( J-4 );
          } // 20
@@ -84,28 +84,28 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X( JJ ) = A;
-            X( JJ-2 ) = B;
+            X[JJ] = A;
+            X[JJ-2] = B;
             JJ = JJ - J;
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ-1 ) = R;
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ-1] = R;
             JJ = JJ - ( J-1 );
-            X( JJ ) = C;
+            X[JJ] = C;
             JJ = JJ - ( J-2 );
             J = J - 3;
          }
          if ( J > 1 ) {
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ-J ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ-J] = ZLARND( 2, ISEED );
             if ( ( X( JJ ) ).abs() > ( X( JJ-J ) ) ).abs() {
-               X( JJ-1 ) = 2.0*X( JJ );
+               X[JJ-1] = 2.0*X( JJ );
             } else {
-               X( JJ-1 ) = 2.0*X( JJ-J );
+               X[JJ-1] = 2.0*X( JJ-J );
             }
             JJ = JJ - J - ( J-1 );
             J = J - 2;
          } else if ( J == 1 ) {
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             J = J - 1;
          }
 
@@ -121,21 +121,21 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X( JJ ) = A;
-            X( JJ+2 ) = B;
+            X[JJ] = A;
+            X[JJ+2] = B;
             JJ = JJ + ( N-J+1 );
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ+1 ) = R;
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ+1] = R;
             JJ = JJ + ( N-J );
-            X( JJ ) = C;
+            X[JJ] = C;
             JJ = JJ + ( N-J-1 );
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             JJ = JJ + ( N-J-2 );
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             if ( ABS( X( JJ-( N-J-2 ) ) ) > ( X( JJ ) ) ).abs() {
-               X( JJ-( N-J-2 )+1 ) = 2.0*X( JJ-( N-J-2 ) );
+               X[JJ-( N-J-2 )+1] = 2.0*X( JJ-( N-J-2 ) );
             } else {
-               X( JJ-( N-J-2 )+1 ) = 2.0*X( JJ );
+               X[JJ-( N-J-2 )+1] = 2.0*X( JJ );
             }
             JJ = JJ + ( N-J-3 );
          } // 30
@@ -148,28 +148,28 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X( JJ ) = A;
-            X( JJ+2 ) = B;
+            X[JJ] = A;
+            X[JJ+2] = B;
             JJ = JJ + ( N-J+1 );
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ+1 ) = R;
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ+1] = R;
             JJ = JJ + ( N-J );
-            X( JJ ) = C;
+            X[JJ] = C;
             JJ = JJ + ( N-J-1 );
             J = J + 3;
          }
          if ( J < N ) {
-            X( JJ ) = ZLARND( 2, ISEED );
-            X( JJ+( N-J+1 ) ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
+            X[JJ+( N-J+1 )] = ZLARND( 2, ISEED );
             if ( ( X( JJ ) ).abs() > ABS( X( JJ+( N-J+1 ) ) ) ) {
-               X( JJ+1 ) = 2.0*X( JJ );
+               X[JJ+1] = 2.0*X( JJ );
             } else {
-               X( JJ+1 ) = 2.0*X( JJ+( N-J+1 ) );
+               X[JJ+1] = 2.0*X( JJ+( N-J+1 ) );
             }
             JJ = JJ + ( N-J+1 ) + ( N-J );
             J = J + 2;
          } else if ( J == N ) {
-            X( JJ ) = ZLARND( 2, ISEED );
+            X[JJ] = ZLARND( 2, ISEED );
             JJ = JJ + ( N-J+1 );
             J = J + 1;
          }

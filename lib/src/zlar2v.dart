@@ -43,9 +43,9 @@
          T4 = DCONJG( T2 ) + SI*YI;
          T5 = CI*XI + T1R;
          T6 = CI*YI - T1R;
-         X( IX ) = CI*T5 + ( SIR*DBLE( T4 )+SII*DIMAG( T4 ) );
-         Y( IX ) = CI*T6 - ( SIR*DBLE( T3 )-SII*DIMAG( T3 ) );
-         Z( IX ) = CI*T3 + DCONJG( SI )*DCMPLX( T6, T1I );
+         X[IX] = CI*T5 + ( SIR*DBLE( T4 )+SII*DIMAG( T4 ) );
+         Y[IX] = CI*T6 - ( SIR*DBLE( T3 )-SII*DIMAG( T3 ) );
+         Z[IX] = CI*T3 + DCONJG( SI )*DCMPLX( T6, T1I );
          IX = IX + INCX;
          IC = IC + INCC;
       } // 10

@@ -35,7 +35,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;
@@ -62,8 +62,8 @@
       printed_guide = false;
 
       for (N = 1; N <= NMAX; N++) {
-         PARAMS(1) = -1;
-         PARAMS(2) = -1;
+         PARAMS[1] = -1;
+         PARAMS[2] = -1;
 
          KL = N-1;
          KU = N-1;
@@ -80,19 +80,19 @@
          // Store A in band format for GB tests
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               AB( I, J ) = (0.0,0.0);
+               AB[I, J] = (0.0,0.0);
             }
          }
          for (J = 1; J <= N; J++) {
             for (I = max( 1, J-KU ); I <= min( N, J+KL ); I++) {
-               AB( KU+1+I-J, J ) = A( I, J );
+               AB[KU+1+I-J, J] = A( I, J );
             }
          }
 
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               ABCOPY( I, J ) = (0.0,0.0);
+               ABCOPY[I, J] = (0.0,0.0);
             }
          }
          clacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
@@ -130,7 +130,7 @@
          // Calculating the difference between C**SVXX's X and the true X.
          for (I = 1; I <= N; I++) {
             for (J = 1; J <= NRHS; J++) {
-               DIFF(I,J) = X(I,J) - INVHILB(I,J);
+               DIFF[I,J] = X(I,J) - INVHILB(I,J);
             }
          }
 
@@ -166,11 +166,11 @@
 
          // Calculating the R for normwise rcond.
          for (I = 1; I <= N; I++) {
-            RINV(I) = 0.0;
+            RINV[I] = 0.0;
          }
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               RINV(I) = RINV(I) + CABS1(A(I,J));
+               RINV[I] = RINV(I) + CABS1(A(I,J));
             }
          }
 
@@ -213,11 +213,11 @@
             }
 
             for (I = 1; I <= N; I++) {
-               RINV(I) = 0.0;
+               RINV[I] = 0.0;
             }
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
-                  RINV(I) = RINV(I) + CABS1(A(I, J) * INVHILB(J, K));
+                  RINV[I] = RINV(I) + CABS1(A(I, J) * INVHILB(J, K));
                }
             }
             RINORM = 0.0;
@@ -243,25 +243,25 @@
             if (NCOND >= CONDTHRESH) {
                NGUAR = 'YES';
                if (NWISE_BND > ERRTHRESH) {
-                  TSTRAT(1) = 1/(2.0*EPS);
+                  TSTRAT[1] = 1/(2.0*EPS);
                } else {
                   if (NWISE_BND != 0.0) {
-                     TSTRAT(1) = NWISE_ERR / NWISE_BND;
+                     TSTRAT[1] = NWISE_ERR / NWISE_BND;
                   } else if (NWISE_ERR != 0.0) {
-                     TSTRAT(1) = 1/(16.0*EPS);
+                     TSTRAT[1] = 1/(16.0*EPS);
                   } else {
-                     TSTRAT(1) = 0.0;
+                     TSTRAT[1] = 0.0;
                   }
                   if (TSTRAT(1) > 1.0) {
-                     TSTRAT(1) = 1/(4.0*EPS);
+                     TSTRAT[1] = 1/(4.0*EPS);
                   }
                }
             } else {
                NGUAR = 'NO';
                if (NWISE_BND < 1.0) {
-                  TSTRAT(1) = 1/(8.0*EPS);
+                  TSTRAT[1] = 1/(8.0*EPS);
                } else {
-                  TSTRAT(1) = 1.0;
+                  TSTRAT[1] = 1.0;
                }
             }
              // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
@@ -270,37 +270,37 @@
             if (CCOND >= CONDTHRESH) {
                CGUAR = 'YES';
                if (CWISE_BND > ERRTHRESH) {
-                  TSTRAT(2) = 1/(2.0*EPS);
+                  TSTRAT[2] = 1/(2.0*EPS);
                } else {
                   if (CWISE_BND != 0.0) {
-                     TSTRAT(2) = CWISE_ERR / CWISE_BND;
+                     TSTRAT[2] = CWISE_ERR / CWISE_BND;
                   } else if (CWISE_ERR != 0.0) {
-                     TSTRAT(2) = 1/(16.0*EPS);
+                     TSTRAT[2] = 1/(16.0*EPS);
                   } else {
-                     TSTRAT(2) = 0.0;
+                     TSTRAT[2] = 0.0;
                   }
                   if (TSTRAT(2) > 1.0) TSTRAT(2) = 1/(4.0*EPS);
                }
             } else {
                CGUAR = 'NO';
                if (CWISE_BND < 1.0) {
-                  TSTRAT(2) = 1/(8.0*EPS);
+                  TSTRAT[2] = 1/(8.0*EPS);
                } else {
-                  TSTRAT(2) = 1.0;
+                  TSTRAT[2] = 1.0;
                }
             }
 
       // Backwards error test
-            TSTRAT(3) = BERR(K)/EPS;
+            TSTRAT[3] = BERR(K)/EPS;
 
       // Condition number tests
-            TSTRAT(4) = RCOND / ORCOND;
+            TSTRAT[4] = RCOND / ORCOND;
             if (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4);
 
-            TSTRAT(5) = NCOND / NWISE_RCOND;
+            TSTRAT[5] = NCOND / NWISE_RCOND;
             if (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5);
 
-            TSTRAT(6) = CCOND / NWISE_RCOND;
+            TSTRAT[6] = CCOND / NWISE_RCOND;
             if (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6);
 
             for (I = 1; I <= NTESTS; I++) {

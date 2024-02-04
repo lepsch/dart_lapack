@@ -72,7 +72,7 @@
          MINWRK = 2*NMAX*NMAX + 12*NMAX + 16;
          MAXWRK = 6*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 );
          MAXWRK = max( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
       }
 
       if (LWORK < MINWRK) INFO = -24;
@@ -94,11 +94,11 @@
 
       // Parameters used for generating test matrices.
 
-      WEIGHT( 1 ) = TNTH;
-      WEIGHT( 2 ) = HALF;
-      WEIGHT( 3 ) = ONE;
-      WEIGHT( 4 ) = ONE / WEIGHT( 2 );
-      WEIGHT( 5 ) = ONE / WEIGHT( 1 );
+      WEIGHT[1] = TNTH;
+      WEIGHT[2] = HALF;
+      WEIGHT[3] = ONE;
+      WEIGHT[4] = ONE / WEIGHT( 2 );
+      WEIGHT[5] = ONE / WEIGHT( 1 );
 
       for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) { // 80
          for (IWA = 1; IWA <= 5; IWA++) { // 70
@@ -119,7 +119,7 @@
 
                      sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
                      if ( LINFO != 0 ) {
-                        RESULT( 1 ) = ULPINV;
+                        RESULT[1] = ULPINV;
                         WRITE( NOUT, FMT = 9999 )'SGGEVX', LINFO, N, IPTYPE;
                         GO TO 30;
                      }
@@ -132,13 +132,13 @@
 
                      // Tests (1) and (2)
 
-                     RESULT( 1 ) = ZERO;
+                     RESULT[1] = ZERO;
                      sget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
                      if ( RESULT( 2 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'SGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY;
                      }
 
-                     RESULT( 2 ) = ZERO;
+                     RESULT[2] = ZERO;
                      sget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
                      if ( RESULT( 3 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'SGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY;
@@ -146,32 +146,32 @@
 
                      // Test (3)
 
-                     RESULT( 3 ) = ZERO;
+                     RESULT[3] = ZERO;
                      for (I = 1; I <= N; I++) { // 10
                         if ( S( I ) == ZERO ) {
-                           if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if[STRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
                         } else if ( STRU( I ) == ZERO ) {
-                           if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+                           if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
                         } else {
-                           WORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-                           RESULT( 3 ) = max( RESULT( 3 ), WORK( I ) );
+                           WORK[I] = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+                           RESULT[3] = max( RESULT( 3 ), WORK( I ) );
                         }
                      } // 10
 
                      // Test (4)
 
-                     RESULT( 4 ) = ZERO;
+                     RESULT[4] = ZERO;
                      if ( DIF( 1 ) == ZERO ) {
-                        if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIFTRU( 1 ) == ZERO ) {
-                        if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIF( 5 ) == ZERO ) {
-                        if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else if ( DIFTRU( 5 ) == ZERO ) {
-                        if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+                        if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
                      } else {
                         RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-                        RESULT( 4 ) = max( RATIO1, RATIO2 );
+                        RESULT[4] = max( RATIO1, RATIO2 );
                      }
 
                      NTESTT = NTESTT + 4;
@@ -247,7 +247,7 @@
       sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
 
       if ( LINFO != 0 ) {
-         RESULT( 1 ) = ULPINV;
+         RESULT[1] = ULPINV;
          WRITE( NOUT, FMT = 9987 )'SGGEVX', LINFO, N, NPTKNT;
          GO TO 140;
       }
@@ -260,13 +260,13 @@
 
       // Tests (1) and (2)
 
-      RESULT( 1 ) = ZERO;
+      RESULT[1] = ZERO;
       sget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
       if ( RESULT( 2 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'SGGEVX', RESULT( 2 ), N, NPTKNT;
       }
 
-      RESULT( 2 ) = ZERO;
+      RESULT[2] = ZERO;
       sget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
       if ( RESULT( 3 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'SGGEVX', RESULT( 3 ), N, NPTKNT;
@@ -274,32 +274,32 @@
 
       // Test (3)
 
-      RESULT( 3 ) = ZERO;
+      RESULT[3] = ZERO;
       for (I = 1; I <= N; I++) { // 120
          if ( S( I ) == ZERO ) {
-            if( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if[STRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
          } else if ( STRU( I ) == ZERO ) {
-            if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
+            if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
          } else {
-            WORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-            RESULT( 3 ) = max( RESULT( 3 ), WORK( I ) );
+            WORK[I] = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+            RESULT[3] = max( RESULT( 3 ), WORK( I ) );
          }
       } // 120
 
       // Test (4)
 
-      RESULT( 4 ) = ZERO;
+      RESULT[4] = ZERO;
       if ( DIF( 1 ) == ZERO ) {
-         if( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIFTRU( 1 ) == ZERO ) {
-         if( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIF( 5 ) == ZERO ) {
-         if( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else if ( DIFTRU( 5 ) == ZERO ) {
-         if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
+         if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
       } else {
          RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-         RESULT( 4 ) = max( RATIO1, RATIO2 );
+         RESULT[4] = max( RATIO1, RATIO2 );
       }
 
       NTESTT = NTESTT + 4;
@@ -344,7 +344,7 @@
 
       alasvm('SXV', NOUT, NERRS, NTESTT, 0 );
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
 

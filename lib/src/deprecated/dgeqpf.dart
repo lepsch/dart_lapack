@@ -60,14 +60,14 @@
          if ( JPVT( I ) != 0 ) {
             if ( I != ITEMP ) {
                dswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
-               JPVT( I ) = JPVT( ITEMP );
-               JPVT( ITEMP ) = I;
+               JPVT[I] = JPVT( ITEMP );
+               JPVT[ITEMP] = I;
             } else {
-               JPVT( I ) = I;
+               JPVT[I] = I;
             }
             ITEMP = ITEMP + 1;
          } else {
-            JPVT( I ) = I;
+            JPVT[I] = I;
          }
       } // 10
       ITEMP = ITEMP - 1;
@@ -88,8 +88,8 @@
          // work store the exact column norms.
 
          for (I = ITEMP + 1; I <= N; I++) { // 20
-            WORK( I ) = DNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
-            WORK( N+I ) = WORK( I );
+            WORK[I] = DNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
+            WORK[N+I] = WORK( I );
          } // 20
 
          // Compute factorization
@@ -103,10 +103,10 @@
             if ( PVT != I ) {
                dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT );
-               JPVT( PVT ) = JPVT( I );
-               JPVT( I ) = ITEMP;
-               WORK( PVT ) = WORK( I );
-               WORK( N+PVT ) = WORK( N+I );
+               JPVT[PVT] = JPVT( I );
+               JPVT[I] = ITEMP;
+               WORK[PVT] = WORK( I );
+               WORK[N+PVT] = WORK( N+I );
             }
 
             // Generate elementary reflector H(i)
@@ -122,9 +122,9 @@
                // Apply H(i) to A(i:m,i+1:n) from the left
 
                AII = A( I, I );
-               A( I, I ) = ONE;
+               A[I, I] = ONE;
                dlarf('LEFT', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK( 2*N+1 ) );
-               A( I, I ) = AII;
+               A[I, I] = AII;
             }
 
             // Update partial column norms
@@ -140,14 +140,14 @@
                   TEMP2 = TEMP*( WORK( J ) / WORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
-                        WORK( J ) = DNRM2( M-I, A( I+1, J ), 1 );
-                        WORK( N+J ) = WORK( J );
+                        WORK[J] = DNRM2( M-I, A( I+1, J ), 1 );
+                        WORK[N+J] = WORK( J );
                      } else {
-                        WORK( J ) = ZERO;
-                        WORK( N+J ) = ZERO;
+                        WORK[J] = ZERO;
+                        WORK[N+J] = ZERO;
                      }
                   } else {
-                     WORK( J ) = WORK( J )*sqrt( TEMP );
+                     WORK[J] = WORK( J )*sqrt( TEMP );
                   }
                }
             } // 30

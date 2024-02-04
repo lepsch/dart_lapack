@@ -70,7 +70,7 @@
 
       LWKMIN = max( 8*N, 1 );
       LWKOPT = LWKMIN;
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       INFO = 0;
       if ( IJOBVL <= 0 ) {
@@ -97,7 +97,7 @@
          NB3 = ILAENV( 1, 'DORGQR', ' ', N, N, N, -1 );
          NB = max( NB1, NB2, NB3 );
          LOPT = 2*N + max( 6*N, N*( NB+1 ) );
-         WORK( 1 ) = LOPT;
+         WORK[1] = LOPT;
       }
 
       if ( INFO != 0 ) {
@@ -292,12 +292,12 @@
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
-                     VL( JR, JC ) = VL( JR, JC )*TEMP;
+                     VL[JR, JC] = VL( JR, JC )*TEMP;
                   } // 30
                } else {
                   for (JR = 1; JR <= N; JR++) { // 40
-                     VL( JR, JC ) = VL( JR, JC )*TEMP;
-                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP;
+                     VL[JR, JC] = VL( JR, JC )*TEMP;
+                     VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
                   } // 40
                }
             } // 50
@@ -324,12 +324,12 @@
                TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
-                     VR( JR, JC ) = VR( JR, JC )*TEMP;
+                     VR[JR, JC] = VR( JR, JC )*TEMP;
                   } // 80
                } else {
                   for (JR = 1; JR <= N; JR++) { // 90
-                     VR( JR, JC ) = VR( JR, JC )*TEMP;
-                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP;
+                     VR[JR, JC] = VR( JR, JC )*TEMP;
+                     VR[JR, JC+1] = VR( JR, JC+1 )*TEMP;
                   } // 90
                }
             } // 100
@@ -369,9 +369,9 @@
             // conjugate eigenvalue real.
 
             if ( ALPHAI( JC ) < ZERO && JC > 1 ) {
-               ALPHAI( JC-1 ) = ZERO;
+               ALPHAI[JC-1] = ZERO;
             } else if ( ALPHAI( JC ) > ZERO && JC < N ) {
-               ALPHAI( JC+1 ) = ZERO;
+               ALPHAI[JC+1] = ZERO;
             }
          }
 
@@ -402,13 +402,13 @@
             SALFAI = ( SCALE*ALPHAI( JC ) )*ANRM;
             SBETA = ( SCALE*BETA( JC ) )*BNRM;
          }
-         ALPHAR( JC ) = SALFAR;
-         ALPHAI( JC ) = SALFAI;
-         BETA( JC ) = SBETA;
+         ALPHAR[JC] = SALFAR;
+         ALPHAI[JC] = SALFAI;
+         BETA[JC] = SBETA;
       } // 110
 
       } // 120
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

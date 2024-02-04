@@ -58,7 +58,7 @@
             LWKOPT = M*NB;
             LWKMIN = max( 1, M );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < LWKMIN && !LQUERY ) {
             INFO = -7;
@@ -78,7 +78,7 @@
          return;
       } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = ZERO;
+            TAU[I] = ZERO;
          } // 10
          return;
       }
@@ -145,7 +145,7 @@
 
       if (MU > 0) clatrz( MU, N, N-M, A, LDA, TAU, WORK );
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

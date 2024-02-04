@@ -106,19 +106,19 @@
             for (I = 1; I <= LENY; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = max( I-KL, 1 ); J <= min( I+KU, LENX ); J++) {
                      TEMP = ( AB( KD+I-J, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -128,19 +128,19 @@
             for (I = 1; I <= LENY; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = max( I-KL, 1 ); J <= min( I+KU, LENX ); J++) {
                      TEMP = ( AB( KE-I+J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -152,12 +152,12 @@
             for (I = 1; I <= LENY; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   JX = KX;
@@ -165,7 +165,7 @@
                      TEMP = ( AB( KD+I-J, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                }
@@ -177,12 +177,12 @@
             for (I = 1; I <= LENY; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0;
+                  Y[IY] = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ( Y( IY ) ).abs();
+                  Y[IY] = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   JX = KX;
@@ -190,7 +190,7 @@
                      TEMP = ( AB( KE-I+J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
+                     Y[IY] = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                }

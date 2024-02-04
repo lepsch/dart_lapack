@@ -144,7 +144,7 @@
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
                for (J = KK; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO;
+                  TAU[J] = CZERO;
                }
 
                // Return from the routine.
@@ -192,7 +192,7 @@
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
                for (J = KK; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO;
+                  TAU[J] = CZERO;
                }
 
                // Return from the routine.
@@ -222,11 +222,11 @@
 
          if ( KP != KK ) {
             zswap(M, A( 1, KP ), 1, A( 1, KK ), 1 );
-            VN1( KP ) = VN1( KK );
-            VN2( KP ) = VN2( KK );
+            VN1[KP] = VN1( KK );
+            VN2[KP] = VN2( KK );
             ITEMP = JPIV( KP );
-            JPIV( KP ) = JPIV( KK );
-            JPIV( KK ) = ITEMP;
+            JPIV[KP] = JPIV( KK );
+            JPIV[KK] = ITEMP;
          }
 
          // Generate elementary reflector H(KK) using the column A(I:M,KK),
@@ -237,7 +237,7 @@
          if ( I < M ) {
             zlarfg(M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) );
          } else {
-            TAU( KK ) = CZERO;
+            TAU[KK] = CZERO;
          }
 
          // Check if TAU(KK) contains NaN, set INFO parameter
@@ -287,9 +287,9 @@
 
          if ( KK < MINMNUPDT ) {
             AIKK = A( I, KK );
-            A( I, KK ) = CONE;
+            A[I, KK] = CONE;
             zlarf('Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, DCONJG( TAU( KK ) ), A( I, KK+1 ), LDA, WORK( 1 ) );
-            A( I, KK ) = AIKK;
+            A[I, KK] = AIKK;
          }
 
          if ( KK < MINMNFACT ) {
@@ -314,8 +314,8 @@
                      // and store it in both partial 2-norm vector VN1
                      // and exact column 2-norm vector VN2.
 
-                     VN1( J ) = DZNRM2( M-I, A( I+1, J ), 1 );
-                     VN2( J ) = VN1( J );
+                     VN1[J] = DZNRM2( M-I, A( I+1, J ), 1 );
+                     VN2[J] = VN1( J );
 
                   } else {
 
@@ -324,7 +324,7 @@
                      // element A(I,J) and store it in partial
                      // 2-norm vector VN1.
 
-                     VN1( J ) = VN1( J )*sqrt( TEMP );
+                     VN1[J] = VN1( J )*sqrt( TEMP );
 
                   }
                }
@@ -367,7 +367,7 @@
       // not factorized to ZERO, i.e. TAU(K+1:MINMNFACT) set to CZERO.
 
       for (J = K + 1; J <= MINMNFACT; J++) {
-         TAU( J ) = CZERO;
+         TAU[J] = CZERO;
       }
 
       return;

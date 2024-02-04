@@ -108,8 +108,8 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         IWORK[1] = LIWMIN;
       }
 
       if ( INFO != 0 ) {
@@ -215,18 +215,18 @@
       // Store the output eigenvalues in WR and WI.
 
       for (K = 1; K <= N; K++) { // 50
-         WR( K ) = T( K, K );
-         WI( K ) = ZERO;
+         WR[K] = T( K, K );
+         WI[K] = ZERO;
       } // 50
       for (K = 1; K <= N - 1; K++) { // 60
          if ( T( K+1, K ) != ZERO ) {
-            WI( K ) = sqrt( ( T( K, K+1 ) ) ).abs()* sqrt( ( T( K+1, K ) ) ).abs();
-            WI( K+1 ) = -WI( K );
+            WI[K] = sqrt( ( T( K, K+1 ) ) ).abs()* sqrt( ( T( K+1, K ) ) ).abs();
+            WI[K+1] = -WI( K );
          }
       } // 60
 
-      WORK( 1 ) = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

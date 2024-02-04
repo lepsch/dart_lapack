@@ -121,44 +121,44 @@
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 150
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   L = K + 1 - J;
                   for (I = max( 1, J-K ); I <= J - 1; I++) { // 160
-                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 160
                } // 170
             } else {
                for (I = 1; I <= N; I++) { // 180
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   L = K + 1 - J;
                   for (I = max( 1, J-K ); I <= J; I++) { // 190
-                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 190
                } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 210
-                  WORK( I ) = ONE;
+                  WORK[I] = ONE;
                } // 210
                for (J = 1; J <= N; J++) { // 230
                   L = 1 - J;
                   for (I = J + 1; I <= min( N, J+K ); I++) { // 220
-                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 220
                } // 230
             } else {
                for (I = 1; I <= N; I++) { // 240
-                  WORK( I ) = ZERO;
+                  WORK[I] = ZERO;
                } // 240
                for (J = 1; J <= N; J++) { // 260
                   L = 1 - J;
                   for (I = J; I <= min( N, J+K ); I++) { // 250
-                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
+                     WORK[I] = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 250
                } // 260
             }

@@ -83,7 +83,7 @@
          LWKMIN = max( 1, 8*N );
          NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( LWKMIN, ( NB + 3 )*N );
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
          if ( LWORK < LWKMIN && !LQUERY ) {
             INFO = -20;
@@ -152,7 +152,7 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
 
       return;
       }

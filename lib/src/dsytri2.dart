@@ -60,7 +60,7 @@
          xerbla('DSYTRI2', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = MINSIZE;
+         WORK[1] = MINSIZE;
          return;
       }
 

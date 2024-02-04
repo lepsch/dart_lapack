@@ -86,8 +86,8 @@
       }
 
       if ( INFO == 0 ) {
-         HOUS( 1 ) = SROUNDUP_LWORK( LHMIN );
-         WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+         HOUS[1] = SROUNDUP_LWORK( LHMIN );
+         WORK[1] = SROUNDUP_LWORK( LWMIN );
       }
 
       if ( INFO != 0 ) {
@@ -100,8 +100,8 @@
       // Quick return if possible
 
       if ( N == 0 ) {
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -144,14 +144,14 @@
 
       if ( KD == 0 ) {
           for (I = 1; I <= N; I++) { // 30
-              D( I ) = REAL( AB( ABDPOS, I ) );
+              D[I] = REAL( AB( ABDPOS, I ) );
           } // 30
           for (I = 1; I <= N-1; I++) { // 40
-              E( I ) = RZERO;
+              E[I] = RZERO;
           } // 40
 
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -167,7 +167,7 @@
 
       if ( KD == 1 ) {
           for (I = 1; I <= N; I++) { // 50
-              D( I ) = REAL( AB( ABDPOS, I ) );
+              D[I] = REAL( AB( ABDPOS, I ) );
           } // 50
 
           // make off-diagonal elements real and copy them to E
@@ -176,8 +176,8 @@
               for (I = 1; I <= N - 1; I++) { // 60
                   TMP = AB( ABOFDPOS, I+1 );
                   ABSTMP = ( TMP ).abs();
-                  AB( ABOFDPOS, I+1 ) = ABSTMP;
-                  E( I ) = ABSTMP;
+                  AB[ABOFDPOS, I+1] = ABSTMP;
+                  E[I] = ABSTMP;
                   if ( ABSTMP != RZERO ) {
                      TMP = TMP / ABSTMP;
                   } else {
@@ -192,8 +192,8 @@
               for (I = 1; I <= N - 1; I++) { // 70
                  TMP = AB( ABOFDPOS, I );
                  ABSTMP = ( TMP ).abs();
-                 AB( ABOFDPOS, I ) = ABSTMP;
-                 E( I ) = ABSTMP;
+                 AB[ABOFDPOS, I] = ABSTMP;
+                 E[I] = ABSTMP;
                  if ( ABSTMP != RZERO ) {
                     TMP = TMP / ABSTMP;
                  } else {
@@ -206,8 +206,8 @@
               } // 70
           }
 
-          HOUS( 1 ) = 1;
-          WORK( 1 ) = 1;
+          HOUS[1] = 1;
+          WORK[1] = 1;
           return;
       }
 
@@ -311,7 +311,7 @@
       // the Real part is needed, the imaginary part should be zero.
 
       for (I = 1; I <= N; I++) { // 150
-          D( I ) = REAL( WORK( DPOS+(I-1)*LDA ) );
+          D[I] = REAL( WORK( DPOS+(I-1)*LDA ) );
       } // 150
 
       // Copy the off diagonal from A to E. Note that E is REAL thus only
@@ -319,14 +319,14 @@
 
       if ( UPPER ) {
           for (I = 1; I <= N-1; I++) { // 160
-             E( I ) = REAL( WORK( OFDPOS+I*LDA ) );
+             E[I] = REAL( WORK( OFDPOS+I*LDA ) );
           } // 160
       } else {
           for (I = 1; I <= N-1; I++) { // 170
-             E( I ) = REAL( WORK( OFDPOS+(I-1)*LDA ) );
+             E[I] = REAL( WORK( OFDPOS+(I-1)*LDA ) );
           } // 170
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
       return;
       }

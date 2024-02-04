@@ -31,8 +31,8 @@
       IF( INCY < 0 ) IY = ( -N+1 )*INCY + 1;
       for (I = 1; I <= N; I++) { // 10
          CTEMP = C*CX( IX ) + S*CY( IY );
-         CY( IY ) = C*CY( IY ) - S*CX( IX );
-         CX( IX ) = CTEMP;
+         CY[IY] = C*CY( IY ) - S*CX( IX );
+         CX[IX] = CTEMP;
          IX = IX + INCX;
          IY = IY + INCY;
       } // 10
@@ -43,8 +43,8 @@
       } // 20
       for (I = 1; I <= N; I++) { // 30
          CTEMP = C*CX( I ) + S*CY( I );
-         CY( I ) = C*CY( I ) - S*CX( I );
-         CX( I ) = CTEMP;
+         CY[I] = C*CY( I ) - S*CX( I );
+         CX[I] = CTEMP;
       } // 30
       return;
       }

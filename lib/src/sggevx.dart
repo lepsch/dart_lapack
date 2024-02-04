@@ -128,7 +128,7 @@
                MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, 0 ) );
             }
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -26;
@@ -190,14 +190,14 @@
 
       ABNRM = SLANGE( '1', N, N, A, LDA, WORK( 1 ) );
       if ( ILASCL ) {
-         WORK( 1 ) = ABNRM;
+         WORK[1] = ABNRM;
          slascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR );
          ABNRM = WORK( 1 );
       }
 
       BBNRM = SLANGE( '1', N, N, B, LDB, WORK( 1 ) );
       if ( ILBSCL ) {
-         WORK( 1 ) = BBNRM;
+         WORK[1] = BBNRM;
          slascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR );
          BBNRM = WORK( 1 );
       }
@@ -317,13 +317,13 @@
                }
 
                for (J = 1; J <= N; J++) { // 10
-                  BWORK( J ) = false;
+                  BWORK[J] = false;
                } // 10
                if ( MM == 1 ) {
-                  BWORK( I ) = true;
+                  BWORK[I] = true;
                } else if ( MM == 2 ) {
-                  BWORK( I ) = true;
-                  BWORK( I+1 ) = true;
+                  BWORK[I] = true;
+                  BWORK[I+1] = true;
                }
 
                IWRK = MM*N + 1;
@@ -368,12 +368,12 @@
             TEMP = ONE / TEMP;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
-                  VL( JR, JC ) = VL( JR, JC )*TEMP;
+                  VL[JR, JC] = VL( JR, JC )*TEMP;
                } // 50
             } else {
                for (JR = 1; JR <= N; JR++) { // 60
-                  VL( JR, JC ) = VL( JR, JC )*TEMP;
-                  VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP;
+                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
                } // 60
             }
          } // 70
@@ -396,12 +396,12 @@
             TEMP = ONE / TEMP;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100
-                  VR( JR, JC ) = VR( JR, JC )*TEMP;
+                  VR[JR, JC] = VR( JR, JC )*TEMP;
                } // 100
             } else {
                for (JR = 1; JR <= N; JR++) { // 110
-                  VR( JR, JC ) = VR( JR, JC )*TEMP;
-                  VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP;
+                  VR[JR, JC] = VR( JR, JC )*TEMP;
+                  VR[JR, JC+1] = VR( JR, JC+1 )*TEMP;
                } // 110
             }
          } // 120
@@ -420,6 +420,6 @@
          slascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

@@ -57,13 +57,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'LQ';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'LQ';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -110,10 +110,10 @@
                // corresponding to the call of DLQT01; other values are
                // used in the calls of DLQT02, and must not exceed MINMN.
 
-               KVAL( 1 ) = MINMN;
-               KVAL( 2 ) = 0;
-               KVAL( 3 ) = 1;
-               KVAL( 4 ) = MINMN / 2;
+               KVAL[1] = MINMN;
+               KVAL[2] = 0;
+               KVAL[3] = 1;
+               KVAL[4] = MINMN / 2;
                if ( MINMN == 0 ) {
                   NK = 1;
                } else if ( MINMN == 1 ) {
@@ -137,7 +137,7 @@
                      NX = NXVAL( INB );
                      xlaenv(3, NX );
                      for (I = 1; I <= NTESTS; I++) {
-                        RESULT( I ) = ZERO;
+                        RESULT[I] = ZERO;
                      }
                      NT = 2;
                      if ( IK == 1 ) {
@@ -152,8 +152,8 @@
 
                         dlqt02(M, N, K, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      } else {
-                        RESULT( 1 ) = ZERO;
-                        RESULT( 2 ) = ZERO;
+                        RESULT[1] = ZERO;
+                        RESULT[2] = ZERO;
                      }
                      if ( M >= K ) {
 
@@ -192,13 +192,13 @@
                            dget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1;
                         } else {
-                           RESULT( 7 ) = ZERO;
+                           RESULT[7] = ZERO;
                         }
                      } else {
-                        RESULT( 3 ) = ZERO;
-                        RESULT( 4 ) = ZERO;
-                        RESULT( 5 ) = ZERO;
-                        RESULT( 6 ) = ZERO;
+                        RESULT[3] = ZERO;
+                        RESULT[4] = ZERO;
+                        RESULT[5] = ZERO;
+                        RESULT[6] = ZERO;
                      }
 
                      // Print information about the tests that did not

@@ -94,7 +94,7 @@
 
             // Compute X
 
-            X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / CSR;
+            X[1, 1] = ( B( 1, 1 )*SCALE ) / CSR;
             XNORM = ( X( 1, 1 ) ).abs();
          } else {
 
@@ -134,14 +134,14 @@
 
          // Compute the real part of  C = ca A - w D  (or  ca A**T - w D )
 
-         CR( 1, 1 ) = CA*A( 1, 1 ) - WR*D1;
-         CR( 2, 2 ) = CA*A( 2, 2 ) - WR*D2;
+         CR[1, 1] = CA*A( 1, 1 ) - WR*D1;
+         CR[2, 2] = CA*A( 2, 2 ) - WR*D2;
          if ( LTRANS ) {
-            CR( 1, 2 ) = CA*A( 2, 1 );
-            CR( 2, 1 ) = CA*A( 1, 2 );
+            CR[1, 2] = CA*A( 2, 1 );
+            CR[2, 1] = CA*A( 1, 2 );
          } else {
-            CR( 2, 1 ) = CA*A( 2, 1 );
-            CR( 1, 2 ) = CA*A( 1, 2 );
+            CR[2, 1] = CA*A( 2, 1 );
+            CR[1, 2] = CA*A( 1, 2 );
          }
 
          if ( NW == 1 ) {
@@ -168,8 +168,8 @@
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI;
-               X( 1, 1 ) = TEMP*B( 1, 1 );
-               X( 2, 1 ) = TEMP*B( 2, 1 );
+               X[1, 1] = TEMP*B( 1, 1 );
+               X[2, 1] = TEMP*B( 2, 1 );
                XNORM = TEMP*BNORM;
                INFO = 1;
                return;
@@ -207,11 +207,11 @@
             XR2 = ( BR2*SCALE ) / UR22;
             XR1 = ( SCALE*BR1 )*UR11R - XR2*( UR11R*UR12 );
             if ( ZSWAP( ICMAX ) ) {
-               X( 1, 1 ) = XR2;
-               X( 2, 1 ) = XR1;
+               X[1, 1] = XR2;
+               X[2, 1] = XR1;
             } else {
-               X( 1, 1 ) = XR1;
-               X( 2, 1 ) = XR2;
+               X[1, 1] = XR1;
+               X[2, 1] = XR2;
             }
             XNORM = max( ( XR1 ).abs(), ( XR2 ).abs() );
 
@@ -220,8 +220,8 @@
             if ( XNORM > ONE && CMAX > ONE ) {
                if ( XNORM > BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM;
-                  X( 1, 1 ) = TEMP*X( 1, 1 );
-                  X( 2, 1 ) = TEMP*X( 2, 1 );
+                  X[1, 1] = TEMP*X( 1, 1 );
+                  X[2, 1] = TEMP*X( 2, 1 );
                   XNORM = TEMP*XNORM;
                   SCALE = TEMP*SCALE;
                }
@@ -232,10 +232,10 @@
 
             // Find the largest element in C
 
-            CI( 1, 1 ) = -WI*D1;
-            CI( 2, 1 ) = ZERO;
-            CI( 1, 2 ) = ZERO;
-            CI( 2, 2 ) = -WI*D2;
+            CI[1, 1] = -WI*D1;
+            CI[2, 1] = ZERO;
+            CI[1, 2] = ZERO;
+            CI[2, 2] = -WI*D2;
             CMAX = ZERO;
             ICMAX = 0;
 
@@ -254,10 +254,10 @@
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI;
-               X( 1, 1 ) = TEMP*B( 1, 1 );
-               X( 2, 1 ) = TEMP*B( 2, 1 );
-               X( 1, 2 ) = TEMP*B( 1, 2 );
-               X( 2, 2 ) = TEMP*B( 2, 2 );
+               X[1, 1] = TEMP*B( 1, 1 );
+               X[2, 1] = TEMP*B( 2, 1 );
+               X[1, 2] = TEMP*B( 1, 2 );
+               X[2, 2] = TEMP*B( 2, 2 );
                XNORM = TEMP*BNORM;
                INFO = 1;
                return;
@@ -342,15 +342,15 @@
             XR1 = UR11R*BR1 - UI11R*BI1 - UR12S*XR2 + UI12S*XI2;
             XI1 = UI11R*BR1 + UR11R*BI1 - UI12S*XR2 - UR12S*XI2;
             if ( ZSWAP( ICMAX ) ) {
-               X( 1, 1 ) = XR2;
-               X( 2, 1 ) = XR1;
-               X( 1, 2 ) = XI2;
-               X( 2, 2 ) = XI1;
+               X[1, 1] = XR2;
+               X[2, 1] = XR1;
+               X[1, 2] = XI2;
+               X[2, 2] = XI1;
             } else {
-               X( 1, 1 ) = XR1;
-               X( 2, 1 ) = XR2;
-               X( 1, 2 ) = XI1;
-               X( 2, 2 ) = XI2;
+               X[1, 1] = XR1;
+               X[2, 1] = XR2;
+               X[1, 2] = XI1;
+               X[2, 2] = XI2;
             }
             XNORM = max( ( XR1 ).abs()+( XI1 ).abs(), ( XR2 ).abs()+( XI2 ).abs() );
 
@@ -359,10 +359,10 @@
             if ( XNORM > ONE && CMAX > ONE ) {
                if ( XNORM > BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM;
-                  X( 1, 1 ) = TEMP*X( 1, 1 );
-                  X( 2, 1 ) = TEMP*X( 2, 1 );
-                  X( 1, 2 ) = TEMP*X( 1, 2 );
-                  X( 2, 2 ) = TEMP*X( 2, 2 );
+                  X[1, 1] = TEMP*X( 1, 1 );
+                  X[2, 1] = TEMP*X( 2, 1 );
+                  X[1, 2] = TEMP*X( 1, 2 );
+                  X[2, 2] = TEMP*X( 2, 2 );
                   XNORM = TEMP*XNORM;
                   SCALE = TEMP*SCALE;
                }

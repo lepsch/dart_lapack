@@ -111,16 +111,16 @@
 
       if ( INFO == 0 ) {
         if ( MINT ) {
-          T( 1 ) = MINTSZ;
+          T[1] = MINTSZ;
         } else {
-          T( 1 ) = MB*M*NBLCKS + 5;
+          T[1] = MB*M*NBLCKS + 5;
         }
-        T( 2 ) = MB;
-        T( 3 ) = NB;
+        T[2] = MB;
+        T[3] = NB;
         if ( MINW ) {
-          WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+          WORK[1] = SROUNDUP_LWORK( LWMIN );
         } else {
-          WORK( 1 ) = SROUNDUP_LWORK( LWREQ );
+          WORK[1] = SROUNDUP_LWORK( LWREQ );
         }
       }
       if ( INFO != 0 ) {
@@ -144,7 +144,7 @@
         claswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWREQ );
+      WORK[1] = SROUNDUP_LWORK( LWREQ );
 
       return;
       }

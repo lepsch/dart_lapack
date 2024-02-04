@@ -135,7 +135,7 @@
 
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= M; I++) { // 20
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 20
          } // 30
 
@@ -145,7 +145,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (I = J; I <= M; I++) { // 40
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 40
          } // 50
 
@@ -155,7 +155,7 @@
 
          for (J = 1; J <= N; J++) { // 70
             for (I = 1; I <= min( J, M ); I++) { // 60
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 60
          } // 70
 
@@ -165,7 +165,7 @@
 
          for (J = 1; J <= N; J++) { // 90
             for (I = 1; I <= min( J+1, M ); I++) { // 80
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 80
          } // 90
 
@@ -177,7 +177,7 @@
          K4 = N + 1;
          for (J = 1; J <= N; J++) { // 110
             for (I = 1; I <= min( K3, K4-J ); I++) { // 100
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 100
          } // 110
 
@@ -189,7 +189,7 @@
          K3 = KU + 1;
          for (J = 1; J <= N; J++) { // 130
             for (I = max( K1-J, 1 ); I <= K3; I++) { // 120
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 120
          } // 130
 
@@ -203,7 +203,7 @@
          K4 = KL + KU + 1 + M;
          for (J = 1; J <= N; J++) { // 150
             for (I = max( K1-J, K2 ); I <= min( K3, K4-J ); I++) { // 140
-               A( I, J ) = A( I, J )*MUL;
+               A[I, J] = A( I, J )*MUL;
             } // 140
          } // 150
 

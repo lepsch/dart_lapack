@@ -63,7 +63,7 @@
          Y_PREC_STATE = EXTRA_RESIDUAL;
          if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
-               Y_TAIL( I ) = 0.0;
+               Y_TAIL[I] = 0.0;
             }
          }
 
@@ -195,7 +195,7 @@
                INCR_PREC = false;
                Y_PREC_STATE = Y_PREC_STATE + 1;
                for (I = 1; I <= N; I++) {
-                  Y_TAIL( I ) = 0.0;
+                  Y_TAIL[I] = 0.0;
                }
             }
 
@@ -222,10 +222,10 @@
       // Compute error bounds
 
          if (N_NORMS >= 1) {
-            ERRS_N( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX);
+            ERRS_N[J, LA_LINRX_ERR_I] = FINAL_DX_X / (1 - DXRATMAX);
          }
          if ( N_NORMS >= 2 ) {
-            ERRS_C( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX);
+            ERRS_C[J, LA_LINRX_ERR_I] = FINAL_DZ_Z / (1 - DZRATMAX);
          }
 
       // Compute componentwise relative backward error from formula
@@ -240,7 +240,7 @@
          dgemv(TRANS, N, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
 
          for (I = 1; I <= N; I++) {
-            AYB( I ) = ( B( I, J ) ).abs();
+            AYB[I] = ( B( I, J ) ).abs();
          }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).

@@ -58,7 +58,7 @@
 
       } // 20
 
-      Z( 4*N0-3 ) = Z( 4*N0+PP-3 ) + SIGMA;
+      Z[4*N0-3] = Z( 4*N0+PP-3 ) + SIGMA;
       N0 = N0 - 1;
       GO TO 10;
 
@@ -72,8 +72,8 @@
 
       if ( Z( NN-3 ) > Z( NN-7 ) ) {
          S = Z( NN-3 );
-         Z( NN-3 ) = Z( NN-7 );
-         Z( NN-7 ) = S;
+         Z[NN-3] = Z( NN-7 );
+         Z[NN-7] = S;
       }
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) );
       if ( Z( NN-5 ) > Z( NN-3 )*TOL2 && T != ZERO ) {
@@ -84,11 +84,11 @@
             S = Z( NN-3 )*( Z( NN-5 ) / ( T+sqrt( T )*sqrt( T+S ) ) );
          }
          T = Z( NN-7 ) + ( S+Z( NN-5 ) );
-         Z( NN-3 ) = Z( NN-3 )*( Z( NN-7 ) / T );
-         Z( NN-7 ) = T;
+         Z[NN-3] = Z( NN-3 )*( Z( NN-7 ) / T );
+         Z[NN-7] = T;
       }
-      Z( 4*N0-7 ) = Z( NN-7 ) + SIGMA;
-      Z( 4*N0-3 ) = Z( NN-3 ) + SIGMA;
+      Z[4*N0-7] = Z( NN-7 ) + SIGMA;
+      Z[4*N0-3] = Z( NN-3 ) + SIGMA;
       N0 = N0 - 2;
       GO TO 10;
 
@@ -102,24 +102,24 @@
             IPN4 = 4*( I0+N0 );
             for (J4 = 4*I0; J4 <= 2*( I0+N0-1 ); J4 += 4) { // 60
                TEMP = Z( J4-3 );
-               Z( J4-3 ) = Z( IPN4-J4-3 );
-               Z( IPN4-J4-3 ) = TEMP;
+               Z[J4-3] = Z( IPN4-J4-3 );
+               Z[IPN4-J4-3] = TEMP;
                TEMP = Z( J4-2 );
-               Z( J4-2 ) = Z( IPN4-J4-2 );
-               Z( IPN4-J4-2 ) = TEMP;
+               Z[J4-2] = Z( IPN4-J4-2 );
+               Z[IPN4-J4-2] = TEMP;
                TEMP = Z( J4-1 );
-               Z( J4-1 ) = Z( IPN4-J4-5 );
-               Z( IPN4-J4-5 ) = TEMP;
+               Z[J4-1] = Z( IPN4-J4-5 );
+               Z[IPN4-J4-5] = TEMP;
                TEMP = Z( J4 );
-               Z( J4 ) = Z( IPN4-J4-4 );
-               Z( IPN4-J4-4 ) = TEMP;
+               Z[J4] = Z( IPN4-J4-4 );
+               Z[IPN4-J4-4] = TEMP;
             } // 60
             if ( N0-I0 <= 4 ) {
-               Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 );
-               Z( 4*N0-PP ) = Z( 4*I0-PP );
+               Z[4*N0+PP-1] = Z( 4*I0+PP-1 );
+               Z[4*N0-PP] = Z( 4*I0-PP );
             }
             DMIN2 = min( DMIN2, Z( 4*N0+PP-1 ) );
-            Z( 4*N0+PP-1 ) = min( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = min( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) );
+            Z[4*N0+PP-1] = min( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = min( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) );
             QMAX = max( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) );
             DMIN = -ZERO;
          }
@@ -150,7 +150,7 @@
 
          // Convergence hidden by negative DN.
 
-         Z( 4*( N0-1 )-PP+2 ) = ZERO;
+         Z[4*( N0-1 )-PP+2] = ZERO;
          DMIN = ZERO;
          GO TO 90;
       } else if ( DMIN < ZERO ) {

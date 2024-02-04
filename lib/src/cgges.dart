@@ -111,7 +111,7 @@
          if ( ILVSL ) {
             LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if (LWORK < LWKMIN && !LQUERY) INFO = -18;
       }
@@ -240,7 +240,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) );
+            BWORK[I] = SELCTG( ALPHA( I ), BETA( I ) );
          } // 10
 
          ctgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
@@ -283,7 +283,7 @@
 
       } // 30
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

@@ -56,7 +56,7 @@
             // zero checks when TAU != ZERO, and we must clear X.
             TAU = TWO;
             for (J = 1; J <= N-1; J++) {
-               X( 1 + (J-1)*INCX ) = 0;
+               X[1 + (J-1)*INCX] = 0;
             }
             ALPHA = -ALPHA;
          }
@@ -109,7 +109,7 @@
             } else {
                TAU = TWO;
                for (J = 1; J <= N-1; J++) {
-                  X( 1 + (J-1)*INCX ) = 0;
+                  X[1 + (J-1)*INCX] = 0;
                }
                BETA = -SAVEALPHA;
             }

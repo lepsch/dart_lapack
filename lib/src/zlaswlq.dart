@@ -60,7 +60,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = LWMIN;
+        WORK[1] = LWMIN;
       }
 
       if ( INFO != 0 ) {
@@ -105,6 +105,6 @@
         ztplqt(M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO );
       }
 
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

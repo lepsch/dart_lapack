@@ -56,10 +56,10 @@
          for (I = 1; I <= NS; I++) { // 20
             for (J = 1; J <= N-1; J++) { // 10
                K = K + 1;
-               WORK( K ) = D( J )*VT( I, J ) + E( J )*VT( I, J+1 );
+               WORK[K] = D( J )*VT( I, J ) + E( J )*VT( I, J+1 );
             } // 10
             K = K + 1;
-            WORK( K ) = D( N )*VT( I, N );
+            WORK[K] = D( N )*VT( I, N );
          } // 20
          BNORM = ( D( 1 ) ).abs();
          for (I = 2; I <= N; I++) { // 30
@@ -72,10 +72,10 @@
          K = 0;
          for (I = 1; I <= NS; I++) { // 50
             K = K + 1;
-            WORK( K ) = D( 1 )*VT( I, 1 );
+            WORK[K] = D( 1 )*VT( I, 1 );
             for (J = 1; J <= N-1; J++) { // 40
                K = K + 1;
-               WORK( K ) = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 );
+               WORK[K] = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 );
             } // 40
          } // 50
          BNORM = ( D( N ) ).abs();
@@ -90,7 +90,7 @@
 
       K = N*NS;
       for (I = 1; I <= NS; I++) { // 70
-         WORK( K+I ) =  WORK( K+I ) + S( I );
+         WORK[K+I] = WORK( K+I ) + S( I );
          RESID = max( RESID, SASUM( NS, WORK( K+1 ), 1 ) );
          K = K + NS;
       } // 70

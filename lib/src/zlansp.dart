@@ -73,10 +73,10 @@
                for (I = 1; I <= J - 1; I++) { // 50
                   ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                   K = K + 1;
                } // 50
-               WORK( J ) = SUM + ( AP( K ) ).abs();
+               WORK[J] = SUM + ( AP( K ) ).abs();
                K = K + 1;
             } // 60
             for (I = 1; I <= N; I++) { // 70
@@ -85,7 +85,7 @@
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO;
+               WORK[I] = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ( AP( K ) ).abs();
@@ -93,7 +93,7 @@
                for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
-                  WORK( I ) = WORK( I ) + ABSA;
+                  WORK[I] = WORK( I ) + ABSA;
                   K = K + 1;
                } // 90
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;

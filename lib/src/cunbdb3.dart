@@ -80,7 +80,7 @@
          LORBDB5 = Q-1;
          LWORKOPT = max( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
          LWORKMIN = LWORKOPT;
-         WORK(1) = SROUNDUP_LWORK(LWORKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWORKOPT);
          if ( LWORK < LWORKMIN && !LQUERY ) {
            INFO = -14;
          }
@@ -103,24 +103,24 @@
          clacgv(Q-I+1, X21(I,I), LDX21 );
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = REAL( X21(I,I) );
-         X21(I,I) = ONE;
+         X21[I,I] = ONE;
          clarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
          clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X21(I,I), LDX21 );
          C = sqrt( SCNRM2( P-I+1, X11(I,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 );
-         THETA(I) = ATAN2( S, C );
+         THETA[I] = ATAN2( S, C );
 
          cunbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          clarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          if ( I < M-P ) {
             clarfgp(M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) );
-            PHI(I) = ATAN2( REAL( X21(I+1,I) ), REAL( X11(I,I) ) );
+            PHI[I] = ATAN2( REAL( X21(I+1,I) ), REAL( X11(I,I) ) );
             C = COS( PHI(I) );
             S = SIN( PHI(I) );
-            X21(I+1,I) = ONE;
+            X21[I+1,I] = ONE;
             clarf('L', M-P-I, Q-I, X21(I+1,I), 1, CONJG(TAUP2(I)), X21(I+1,I+1), LDX21, WORK(ILARF) );
          }
-         X11(I,I) = ONE;
+         X11[I,I] = ONE;
          clarf('L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
 
       }
@@ -129,7 +129,7 @@
 
       for (I = M-P + 1; I <= Q; I++) {
          clarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-         X11(I,I) = ONE;
+         X11[I,I] = ONE;
          clarf('L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
       }
 

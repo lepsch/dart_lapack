@@ -83,8 +83,8 @@
                LIWMIN = 3 + 5*N;
             }
          }
-         WORK( 1 ) = LWMIN;
-         IWORK( 1 ) = LIWMIN;
+         WORK[1] = LWMIN;
+         IWORK[1] = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -254,8 +254,8 @@
                  }
               } // 30
               if ( K != I ) {
-                 D( K ) = D( I );
-                 D( I ) = P;
+                 D[K] = D( I );
+                 D[I] = P;
                  dswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
               }
            } // 40
@@ -263,8 +263,8 @@
       }
 
       } // 50
-      WORK( 1 ) = LWMIN;
-      IWORK( 1 ) = LIWMIN;
+      WORK[1] = LWMIN;
+      IWORK[1] = LIWMIN;
 
       return;
       }

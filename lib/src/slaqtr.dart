@@ -62,14 +62,14 @@
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
 
-      WORK( 1 ) = ZERO;
+      WORK[1] = ZERO;
       for (J = 2; J <= N; J++) { // 10
-         WORK( J ) = SASUM( J-1, T( 1, J ), 1 );
+         WORK[J] = SASUM( J-1, T( 1, J ), 1 );
       } // 10
 
       if ( !LREAL ) {
          for (I = 2; I <= N; I++) { // 20
-            WORK( I ) = WORK( I ) + ( B( I ) ).abs();
+            WORK[I] = WORK( I ) + ( B( I ) ).abs();
          } // 20
       }
 
@@ -131,7 +131,7 @@
                         XMAX = XMAX*REC;
                      }
                   }
-                  X( J1 ) = X( J1 ) / TMP;
+                  X[J1] = X( J1 ) / TMP;
                   XJ = ( X( J1 ) ).abs();
 
                   // Scale x if necessary to avoid overflow when adding a
@@ -157,8 +157,8 @@
                   // Call 2 by 2 linear system solve, to take
                   // care of possible overflow by scaling factor.
 
-                  D( 1, 1 ) = X( J1 );
-                  D( 2, 1 ) = X( J2 );
+                  D[1, 1] = X( J1 );
+                  D[2, 1] = X( J2 );
                   slaln2( false , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
 
@@ -166,8 +166,8 @@
                      sscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC;
                   }
-                  X( J1 ) = V( 1, 1 );
-                  X( J2 ) = V( 2, 1 );
+                  X[J1] = V( 1, 1 );
+                  X[J2] = V( 2, 1 );
 
                   // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
                   // to avoid overflow in updating right-hand side.
@@ -228,7 +228,7 @@
                      }
                   }
 
-                  X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 );
+                  X[J1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 );
 
                   XJ = ( X( J1 ) ).abs();
                   TJJ = ( T( J1, J1 ) ).abs();
@@ -247,7 +247,7 @@
                         XMAX = XMAX*REC;
                      }
                   }
-                  X( J1 ) = X( J1 ) / TMP;
+                  X[J1] = X( J1 ) / TMP;
                   XMAX = max( XMAX, ( X( J1 ) ) ).abs();
 
                } else {
@@ -267,7 +267,7 @@
                      }
                   }
 
-                  D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 );
+                  D[1, 1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 );
 
                   slaln2( true , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
@@ -276,8 +276,8 @@
                      sscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC;
                   }
-                  X( J1 ) = V( 1, 1 );
-                  X( J2 ) = V( 2, 1 );
+                  X[J1] = V( 1, 1 );
+                  X[J2] = V( 2, 1 );
                   XMAX = max( ( X( J1 ) ).abs(), ( X( J2 ) ).abs(), XMAX );
 
                }
@@ -332,8 +332,8 @@
                      }
                   }
                   sladiv(X( J1 ), X( N+J1 ), TMP, Z, SR, SI );
-                  X( J1 ) = SR;
-                  X( N+J1 ) = SI;
+                  X[J1] = SR;
+                  X[N+J1] = SI;
                   XJ = ( X( J1 ) ).abs() + ( X( N+J1 ) ).abs();
 
                   // Scale x if necessary to avoid overflow when adding a
@@ -351,8 +351,8 @@
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      saxpy(J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 );
 
-                     X( 1 ) = X( 1 ) + B( J1 )*X( N+J1 );
-                     X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 );
+                     X[1] = X( 1 ) + B( J1 )*X( N+J1 );
+                     X[N+1] = X( N+1 ) - B( J1 )*X( J1 );
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 50
@@ -364,10 +364,10 @@
 
                   // Meet 2 by 2 diagonal block
 
-                  D( 1, 1 ) = X( J1 );
-                  D( 2, 1 ) = X( J2 );
-                  D( 1, 2 ) = X( N+J1 );
-                  D( 2, 2 ) = X( N+J2 );
+                  D[1, 1] = X( J1 );
+                  D[2, 1] = X( J2 );
+                  D[1, 2] = X( N+J1 );
+                  D[2, 2] = X( N+J2 );
                   slaln2( false , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
 
@@ -375,10 +375,10 @@
                      sscal(2*N, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE;
                   }
-                  X( J1 ) = V( 1, 1 );
-                  X( J2 ) = V( 2, 1 );
-                  X( N+J1 ) = V( 1, 2 );
-                  X( N+J2 ) = V( 2, 2 );
+                  X[J1] = V( 1, 1 );
+                  X[J2] = V( 2, 1 );
+                  X[N+J1] = V( 1, 2 );
+                  X[N+J2] = V( 2, 2 );
 
                   // Scale X(J1), .... to avoid overflow in
                   // updating right hand side.
@@ -401,7 +401,7 @@
                      saxpy(J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 );
                      saxpy(J1-1, -X( N+J2 ), T( 1, J2 ), 1, X( N+1 ), 1 );
 
-                     X( 1 ) = X( 1 ) + B( J1 )*X( N+J1 ) + B( J2 )*X( N+J2 )                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 ) - B( J2 )*X( J2 );
+                     X[1] = X( 1 ) + B( J1 )*X( N+J1 ) + B( J2 )*X( N+J2 )                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 ) - B( J2 )*X( J2 );
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 60
@@ -446,11 +446,11 @@
                      }
                   }
 
-                  X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 );
-                  X( N+J1 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 );
+                  X[J1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 );
+                  X[N+J1] = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 );
                   if ( J1 > 1 ) {
-                     X( J1 ) = X( J1 ) - B( J1 )*X( N+1 );
-                     X( N+J1 ) = X( N+J1 ) + B( J1 )*X( 1 );
+                     X[J1] = X( J1 ) - B( J1 )*X( N+1 );
+                     X[N+J1] = X( N+J1 ) + B( J1 )*X( 1 );
                   }
                   XJ = ( X( J1 ) ).abs() + ( X( J1+N ) ).abs();
 
@@ -477,8 +477,8 @@
                      }
                   }
                   sladiv(X( J1 ), X( N+J1 ), TMP, -Z, SR, SI );
-                  X( J1 ) = SR;
-                  X( J1+N ) = SI;
+                  X[J1] = SR;
+                  X[J1+N] = SI;
                   XMAX = max( ( X( J1 ) ).abs()+( X( J1+N ) ).abs(), XMAX );
 
                } else {
@@ -498,11 +498,11 @@
                      }
                   }
 
-                  D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
-                  D( 1, 1 ) = D( 1, 1 ) - B( J1 )*X( N+1 );
-                  D( 2, 1 ) = D( 2, 1 ) - B( J2 )*X( N+1 );
-                  D( 1, 2 ) = D( 1, 2 ) + B( J1 )*X( 1 );
-                  D( 2, 2 ) = D( 2, 2 ) + B( J2 )*X( 1 );
+                  D[1, 1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
+                  D[1, 1] = D( 1, 1 ) - B( J1 )*X( N+1 );
+                  D[2, 1] = D( 2, 1 ) - B( J2 )*X( N+1 );
+                  D[1, 2] = D( 1, 2 ) + B( J1 )*X( 1 );
+                  D[2, 2] = D( 2, 2 ) + B( J2 )*X( 1 );
 
                   slaln2( true , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
@@ -511,10 +511,10 @@
                      sscal(N2, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE;
                   }
-                  X( J1 ) = V( 1, 1 );
-                  X( J2 ) = V( 2, 1 );
-                  X( N+J1 ) = V( 1, 2 );
-                  X( N+J2 ) = V( 2, 2 );
+                  X[J1] = V( 1, 1 );
+                  X[J2] = V( 2, 1 );
+                  X[N+J1] = V( 1, 2 );
+                  X[N+J2] = V( 2, 2 );
                   XMAX = max( ( X( J1 ) ).abs()+( X( N+J1 ) ).abs(), ( X( J2 ) ).abs()+( X( N+J2 ) ).abs(), XMAX );
 
                }

@@ -103,8 +103,8 @@
       // Loop over sizes, types
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED2( I ) = ISEED( I );
-         ISEED3( I ) = ISEED( I );
+         ISEED2[I] = ISEED( I );
+         ISEED3[I] = ISEED( I );
       } // 20
 
       NERRS = 0;
@@ -138,7 +138,7 @@
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 30
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 30
 
             // 2)      Compute "A"
@@ -195,7 +195,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM;
+                  A[JCOL, JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -238,7 +238,7 @@
                   J2 = min( N, N+IDIAG );
                   for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG;
-                     A( I, J ) = U( IROW, J );
+                     A[I, J] = U( IROW, J );
                   } // 90
                } // 100
             } else {
@@ -289,9 +289,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 130;
                   }
                }
@@ -310,7 +310,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 130;
                   }
                }
@@ -323,7 +323,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 120
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 130
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -355,9 +355,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -376,7 +376,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -389,7 +389,7 @@
                   TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 140
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 150
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -403,7 +403,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 160;
                   }
                }
@@ -423,7 +423,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 160;
                   }
                }
@@ -437,7 +437,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 160
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -451,7 +451,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 170;
                   }
                }
@@ -471,13 +471,13 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 170;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
-                  RESULT( NTEST ) = ULPINV;
+                  RESULT[NTEST] = ULPINV;
                   GO TO 170;
                }
 
@@ -490,7 +490,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 170
 
@@ -505,7 +505,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 190
                      for (I = 1; I <= J; I++) { // 180
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 180
                   } // 190
@@ -513,7 +513,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 210
                      for (I = J; I <= N; I++) { // 200
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 200
                   } // 210
@@ -528,9 +528,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 270;
                   }
                }
@@ -543,7 +543,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 230
                      for (I = 1; I <= J; I++) { // 220
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 220
                   } // 230
@@ -551,7 +551,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 250
                      for (I = J; I <= N; I++) { // 240
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 240
                   } // 250
@@ -566,7 +566,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 270;
                   }
                }
@@ -579,7 +579,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 260
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array WORK with the upper or lower triangular part
                // of the matrix in packed form.
@@ -589,7 +589,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 290
                      for (I = 1; I <= J; I++) { // 280
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 280
                   } // 290
@@ -597,7 +597,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 310
                      for (I = J; I <= N; I++) { // 300
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 300
                   } // 310
@@ -630,9 +630,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 370;
                   }
                }
@@ -647,7 +647,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 330
                      for (I = 1; I <= J; I++) { // 320
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 320
                   } // 330
@@ -655,7 +655,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 350
                      for (I = J; I <= N; I++) { // 340
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 340
                   } // 350
@@ -668,7 +668,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 370;
                   }
                }
@@ -681,7 +681,7 @@
                   TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 360
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 370
                NTEST = NTEST + 1;
@@ -689,7 +689,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 390
                      for (I = 1; I <= J; I++) { // 380
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 380
                   } // 390
@@ -697,7 +697,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 410
                      for (I = J; I <= N; I++) { // 400
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 400
                   } // 410
@@ -710,9 +710,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 460;
                   }
                }
@@ -727,7 +727,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 430
                      for (I = 1; I <= J; I++) { // 420
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 420
                   } // 430
@@ -735,7 +735,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 450
                      for (I = J; I <= N; I++) { // 440
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 440
                   } // 450
@@ -748,7 +748,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 460;
                   }
                }
@@ -762,7 +762,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 460
                NTEST = NTEST + 1;
@@ -770,7 +770,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 480
                      for (I = 1; I <= J; I++) { // 470
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 470
                   } // 480
@@ -778,7 +778,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 500
                      for (I = J; I <= N; I++) { // 490
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 490
                   } // 500
@@ -791,9 +791,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 550;
                   }
                }
@@ -808,7 +808,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 520
                      for (I = 1; I <= J; I++) { // 510
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 510
                   } // 520
@@ -816,7 +816,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 540
                      for (I = J; I <= N; I++) { // 530
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 530
                   } // 540
@@ -829,13 +829,13 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 550;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
-                  RESULT( NTEST ) = ULPINV;
+                  RESULT[NTEST] = ULPINV;
                   GO TO 550;
                }
 
@@ -848,7 +848,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 550
 
@@ -868,13 +868,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 570
                      for (I = max( 1, J-KD ); I <= J; I++) { // 560
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 560
                   } // 570
                } else {
                   for (J = 1; J <= N; J++) { // 590
                      for (I = J; I <= min( N, J+KD ); I++) { // 580
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 580
                   } // 590
                }
@@ -887,9 +887,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 650;
                   }
                }
@@ -901,13 +901,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 610
                      for (I = max( 1, J-KD ); I <= J; I++) { // 600
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 600
                   } // 610
                } else {
                   for (J = 1; J <= N; J++) { // 630
                      for (I = J; I <= min( N, J+KD ); I++) { // 620
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 620
                   } // 630
                }
@@ -920,7 +920,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 650;
                   }
                }
@@ -933,7 +933,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 640
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -942,13 +942,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 670
                      for (I = max( 1, J-KD ); I <= J; I++) { // 660
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 660
                   } // 670
                } else {
                   for (J = 1; J <= N; J++) { // 690
                      for (I = J; I <= min( N, J+KD ); I++) { // 680
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 680
                   } // 690
                }
@@ -961,9 +961,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 750;
                   }
                }
@@ -977,13 +977,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 710
                      for (I = max( 1, J-KD ); I <= J; I++) { // 700
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 700
                   } // 710
                } else {
                   for (J = 1; J <= N; J++) { // 730
                      for (I = J; I <= min( N, J+KD ); I++) { // 720
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 720
                   } // 730
                }
@@ -995,7 +995,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 750;
                   }
                }
@@ -1008,7 +1008,7 @@
                   TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 740
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -1018,13 +1018,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 770
                      for (I = max( 1, J-KD ); I <= J; I++) { // 760
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 760
                   } // 770
                } else {
                   for (J = 1; J <= N; J++) { // 790
                      for (I = J; I <= min( N, J+KD ); I++) { // 780
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 780
                   } // 790
                }
@@ -1036,9 +1036,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 840;
                   }
                }
@@ -1052,13 +1052,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 810
                      for (I = max( 1, J-KD ); I <= J; I++) { // 800
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 800
                   } // 810
                } else {
                   for (J = 1; J <= N; J++) { // 830
                      for (I = J; I <= min( N, J+KD ); I++) { // 820
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 820
                   } // 830
                }
@@ -1069,7 +1069,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 840;
                   }
                }
@@ -1083,7 +1083,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -1093,13 +1093,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 860
                      for (I = max( 1, J-KD ); I <= J; I++) { // 850
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 850
                   } // 860
                } else {
                   for (J = 1; J <= N; J++) { // 880
                      for (I = J; I <= min( N, J+KD ); I++) { // 870
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 870
                   } // 880
                }
@@ -1110,9 +1110,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 930;
                   }
                }
@@ -1126,13 +1126,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 900
                      for (I = max( 1, J-KD ); I <= J; I++) { // 890
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 890
                   } // 900
                } else {
                   for (J = 1; J <= N; J++) { // 920
                      for (I = J; I <= min( N, J+KD ); I++) { // 910
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 910
                   } // 920
                }
@@ -1143,13 +1143,13 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 930;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
-                  RESULT( NTEST ) = ULPINV;
+                  RESULT[NTEST] = ULPINV;
                   GO TO 930;
                }
 
@@ -1162,7 +1162,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 930
 
@@ -1178,9 +1178,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 950;
                   }
                }
@@ -1199,7 +1199,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 950;
                   }
                }
@@ -1212,7 +1212,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 940
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 950
 
@@ -1227,7 +1227,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 970
                      for (I = 1; I <= J; I++) { // 960
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 960
                   } // 970
@@ -1235,7 +1235,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 990
                      for (I = J; I <= N; I++) { // 980
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 980
                   } // 990
@@ -1250,9 +1250,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 1050;
                   }
                }
@@ -1265,7 +1265,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 1010
                      for (I = 1; I <= J; I++) { // 1000
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 1000
                   } // 1010
@@ -1273,7 +1273,7 @@
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 1030
                      for (I = J; I <= N; I++) { // 1020
-                        WORK( INDX ) = A( I, J );
+                        WORK[INDX] = A( I, J );
                         INDX = INDX + 1;
                      } // 1020
                   } // 1030
@@ -1288,7 +1288,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 1050;
                   }
                }
@@ -1301,7 +1301,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1040
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 1050
 
@@ -1321,13 +1321,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1070
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1060
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 1060
                   } // 1070
                } else {
                   for (J = 1; J <= N; J++) { // 1090
                      for (I = J; I <= min( N, J+KD ); I++) { // 1080
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 1080
                   } // 1090
                }
@@ -1340,9 +1340,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 1140;
                   }
                }
@@ -1354,13 +1354,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1110
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1100
-                        V( KD+1+I-J, J ) = A( I, J );
+                        V[KD+1+I-J, J] = A( I, J );
                      } // 1100
                   } // 1110
                } else {
                   for (J = 1; J <= N; J++) { // 1130
                      for (I = J; I <= min( N, J+KD ); I++) { // 1120
-                        V( 1+I-J, J ) = A( I, J );
+                        V[1+I-J, J] = A( I, J );
                      } // 1120
                   } // 1130
                }
@@ -1373,7 +1373,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 1140;
                   }
                }
@@ -1388,7 +1388,7 @@
                   TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1150
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                zlacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1;
@@ -1399,9 +1399,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 1170;
                   }
                }
@@ -1420,7 +1420,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 1170;
                   }
                }
@@ -1433,7 +1433,7 @@
                   TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 1160
-               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 1170
 
@@ -1446,9 +1446,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 1180;
                   }
                }
@@ -1468,7 +1468,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 1180;
                   }
                }
@@ -1477,7 +1477,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
                } // 1180
 
                NTEST = NTEST + 1;
@@ -1489,9 +1489,9 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
-                     RESULT( NTEST+1 ) = ULPINV;
-                     RESULT( NTEST+2 ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
+                     RESULT[NTEST+1] = ULPINV;
+                     RESULT[NTEST+2] = ULPINV;
                      GO TO 1190;
                   }
                }
@@ -1511,13 +1511,13 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( NTEST ) = ULPINV;
+                     RESULT[NTEST] = ULPINV;
                      GO TO 1190;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
-                  RESULT( NTEST ) = ULPINV;
+                  RESULT[NTEST] = ULPINV;
                   GO TO 1190;
                }
 
@@ -1530,7 +1530,7 @@
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
+               RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                zlacpy(' ', N, N, V, LDU, A, LDA );
 

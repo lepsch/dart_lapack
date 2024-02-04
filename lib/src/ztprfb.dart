@@ -95,7 +95,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK( I, J ) = B( M-L+I, J );
+               WORK[I, J] = B( M-L+I, J );
             }
          }
          ztrmm('L', 'U', 'C', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
@@ -104,7 +104,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -112,7 +112,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -121,7 +121,7 @@
          ztrmm('L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J );
+               B[M-L+I, J] = B( M-L+I, J ) - WORK( I, J );
             }
          }
 
@@ -148,7 +148,7 @@
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = B( I, N-L+J );
+               WORK[I, J] = B( I, N-L+J );
             }
          }
          ztrmm('R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
@@ -157,7 +157,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -165,7 +165,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -174,7 +174,7 @@
          ztrmm('R', 'U', 'C', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J );
+               B[I, N-L+J] = B( I, N-L+J ) - WORK( I, J );
             }
          }
 
@@ -202,7 +202,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK( K-L+I, J ) = B( I, J );
+               WORK[K-L+I, J] = B( I, J );
             }
          }
 
@@ -212,7 +212,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -220,7 +220,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -229,7 +229,7 @@
          ztrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B( I, J ) = B( I, J ) - WORK( K-L+I, J );
+               B[I, J] = B( I, J ) - WORK( K-L+I, J );
             }
          }
 
@@ -256,7 +256,7 @@
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, K-L+J ) = B( I, J );
+               WORK[I, K-L+J] = B( I, J );
             }
          }
          ztrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
@@ -265,7 +265,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -273,7 +273,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -282,7 +282,7 @@
          ztrmm('R', 'L', 'C', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B( I, J ) = B( I, J ) - WORK( I, K-L+J );
+               B[I, J] = B( I, J ) - WORK( I, K-L+J );
             }
          }
 
@@ -309,7 +309,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK( I, J ) = B( M-L+I, J );
+               WORK[I, J] = B( M-L+I, J );
             }
          }
          ztrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDB );
@@ -318,7 +318,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -326,7 +326,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -335,7 +335,7 @@
          ztrmm('L', 'L', 'C', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J );
+               B[M-L+I, J] = B( M-L+I, J ) - WORK( I, J );
             }
          }
 
@@ -361,7 +361,7 @@
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = B( I, N-L+J );
+               WORK[I, J] = B( I, N-L+J );
             }
          }
          ztrmm('R', 'L', 'C', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
@@ -370,7 +370,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -378,7 +378,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -387,7 +387,7 @@
          ztrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J );
+               B[I, N-L+J] = B( I, N-L+J ) - WORK( I, J );
             }
          }
 
@@ -414,7 +414,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK( K-L+I, J ) = B( I, J );
+               WORK[K-L+I, J] = B( I, J );
             }
          }
          ztrmm('L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
@@ -423,7 +423,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -431,7 +431,7 @@
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -440,7 +440,7 @@
          ztrmm('L', 'U', 'C', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B( I, J ) = B( I, J ) - WORK( K-L+I, J );
+               B[I, J] = B( I, J ) - WORK( K-L+I, J );
             }
          }
 
@@ -466,7 +466,7 @@
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, K-L+J ) = B( I, J );
+               WORK[I, K-L+J] = B( I, J );
             }
          }
          ztrmm('R', 'U', 'C', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
@@ -475,7 +475,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               WORK( I, J ) = WORK( I, J ) + A( I, J );
+               WORK[I, J] = WORK( I, J ) + A( I, J );
             }
          }
 
@@ -483,7 +483,7 @@
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
-               A( I, J ) = A( I, J ) - WORK( I, J );
+               A[I, J] = A( I, J ) - WORK( I, J );
             }
          }
 
@@ -492,7 +492,7 @@
          ztrmm('R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B( I, J ) = B( I, J ) - WORK( I, K-L+J );
+               B[I, J] = B( I, J ) - WORK( I, K-L+J );
             }
          }
 

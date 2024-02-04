@@ -59,7 +59,7 @@
       cunm2r('Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       for (J = 1; J <= M; J++) {
-         WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE;
+         WORK[( J-1 )*M+J] = WORK( ( J-1 )*M+J ) - ONE;
       }
 
       CQRT11 = CLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) );

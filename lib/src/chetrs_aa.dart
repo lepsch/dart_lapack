@@ -63,7 +63,7 @@
          xerbla('CHETRS_AA', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWKMIN );
+         WORK[1] = SROUNDUP_LWORK( LWKMIN );
          return;
       }
 

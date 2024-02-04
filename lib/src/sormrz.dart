@@ -83,7 +83,7 @@
             NB = min( NBMAX, ILAENV( 1, 'SORMRQ', SIDE // TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -173,7 +173,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

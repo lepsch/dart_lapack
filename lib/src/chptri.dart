@@ -102,13 +102,13 @@
 
             // Invert the diagonal block.
 
-            AP( KC+K-1 ) = ONE / REAL( AP( KC+K-1 ) );
+            AP[KC+K-1] = ONE / REAL( AP( KC+K-1 ) );
 
             // Compute column K of the inverse.
 
             if ( K > 1 ) {
                ccopy(K-1, AP( KC ), 1, WORK, 1 );
-               chpmv(UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -122,17 +122,17 @@
             AKP1 = REAL( AP( KCNEXT+K ) ) / T;
             AKKP1 = AP( KCNEXT+K-1 ) / T;
             D = T*( AK*AKP1-ONE );
-            AP( KC+K-1 ) = AKP1 / D;
-            AP( KCNEXT+K ) = AK / D;
-            AP( KCNEXT+K-1 ) = -AKKP1 / D;
+            AP[KC+K-1] = AKP1 / D;
+            AP[KCNEXT+K] = AK / D;
+            AP[KCNEXT+K-1] = -AKKP1 / D;
 
             // Compute columns K and K+1 of the inverse.
 
             if ( K > 1 ) {
                ccopy(K-1, AP( KC ), 1, WORK, 1 );
-               chpmv(UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
                ccopy(K-1, AP( KCNEXT ), 1, WORK, 1 );
-               chpmv(UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - REAL( CDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K] = AP( KCNEXT+K ) - REAL( CDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT + K + 1;
@@ -150,17 +150,17 @@
             for (J = KP + 1; J <= K - 1; J++) { // 40
                KX = KX + J - 1;
                TEMP = CONJG( AP( KC+J-1 ) );
-               AP( KC+J-1 ) = CONJG( AP( KX ) );
-               AP( KX ) = TEMP;
+               AP[KC+J-1] = CONJG( AP( KX ) );
+               AP[KX] = TEMP;
             } // 40
-            AP( KC+KP-1 ) = CONJG( AP( KC+KP-1 ) );
+            AP[KC+KP-1] = CONJG( AP( KC+KP-1 ) );
             TEMP = AP( KC+K-1 );
-            AP( KC+K-1 ) = AP( KPC+KP-1 );
-            AP( KPC+KP-1 ) = TEMP;
+            AP[KC+K-1] = AP( KPC+KP-1 );
+            AP[KPC+KP-1] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = AP( KC+K+K-1 );
-               AP( KC+K+K-1 ) = AP( KC+K+KP-1 );
-               AP( KC+K+KP-1 ) = TEMP;
+               AP[KC+K+K-1] = AP( KC+K+KP-1 );
+               AP[KC+K+KP-1] = TEMP;
             }
          }
 
@@ -192,13 +192,13 @@
 
             // Invert the diagonal block.
 
-            AP( KC ) = ONE / REAL( AP( KC ) );
+            AP[KC] = ONE / REAL( AP( KC ) );
 
             // Compute column K of the inverse.
 
             if ( K < N ) {
                ccopy(N-K, AP( KC+1 ), 1, WORK, 1 );
-               chpmv(UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) );
+               chpmv[UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -212,17 +212,17 @@
             AKP1 = REAL( AP( KC ) ) / T;
             AKKP1 = AP( KCNEXT+1 ) / T;
             D = T*( AK*AKP1-ONE );
-            AP( KCNEXT ) = AKP1 / D;
-            AP( KC ) = AK / D;
-            AP( KCNEXT+1 ) = -AKKP1 / D;
+            AP[KCNEXT] = AKP1 / D;
+            AP[KC] = AK / D;
+            AP[KCNEXT+1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
 
             if ( K < N ) {
                ccopy(N-K, AP( KC+1 ), 1, WORK, 1 );
-               chpmv(UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - CDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
+               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - CDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
                ccopy(N-K, AP( KCNEXT+2 ), 1, WORK, 1 );
-               chpmv(UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - REAL( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) );
+               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT] = AP( KCNEXT ) - REAL( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT - ( N-K+3 );
@@ -240,17 +240,17 @@
             for (J = K + 1; J <= KP - 1; J++) { // 70
                KX = KX + N - J + 1;
                TEMP = CONJG( AP( KC+J-K ) );
-               AP( KC+J-K ) = CONJG( AP( KX ) );
-               AP( KX ) = TEMP;
+               AP[KC+J-K] = CONJG( AP( KX ) );
+               AP[KX] = TEMP;
             } // 70
-            AP( KC+KP-K ) = CONJG( AP( KC+KP-K ) );
+            AP[KC+KP-K] = CONJG( AP( KC+KP-K ) );
             TEMP = AP( KC );
-            AP( KC ) = AP( KPC );
-            AP( KPC ) = TEMP;
+            AP[KC] = AP( KPC );
+            AP[KPC] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = AP( KC-N+K-1 );
-               AP( KC-N+K-1 ) = AP( KC-N+KP-1 );
-               AP( KC-N+KP-1 ) = TEMP;
+               AP[KC-N+K-1] = AP( KC-N+KP-1 );
+               AP[KC-N+KP-1] = TEMP;
             }
          }
 

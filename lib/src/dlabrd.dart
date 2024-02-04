@@ -46,9 +46,9 @@
             // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
             dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = A( I, I );
+            D[I] = A( I, I );
             if ( I < N ) {
-               A( I, I ) = ONE;
+               A[I, I] = ONE;
 
                // Compute Y(i+1:n,i)
 
@@ -67,8 +67,8 @@
                // Generate reflection P(i) to annihilate A(i,i+2:n)
 
                dlarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = A( I, I+1 );
-               A( I, I+1 ) = ONE;
+               E[I] = A( I, I+1 );
+               A[I, I+1] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -94,9 +94,9 @@
             // Generate reflection P(i) to annihilate A(i,i+1:n)
 
             dlarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = A( I, I );
+            D[I] = A( I, I );
             if ( I < M ) {
-               A( I, I ) = ONE;
+               A[I, I] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -115,8 +115,8 @@
                // Generate reflection Q(i) to annihilate A(i+2:m,i)
 
                dlarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = A( I+1, I );
-               A( I+1, I ) = ONE;
+               E[I] = A( I+1, I );
+               A[I+1, I] = ONE;
 
                // Compute Y(i+1:n,i)
 

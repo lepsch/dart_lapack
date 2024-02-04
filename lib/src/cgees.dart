@@ -93,7 +93,7 @@
                MAXWRK = max( MAXWRK, HSWORK );
             }
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12;
@@ -177,7 +177,7 @@
       if ( WANTST && INFO == 0 ) {
          if (SCALEA) clascl( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELECT( W( I ) );
+            BWORK[I] = SELECT( W( I ) );
          } // 10
 
          // Reorder eigenvalues and transform Schur vectors
@@ -204,6 +204,6 @@
          ccopy(N, A, LDA+1, W, 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

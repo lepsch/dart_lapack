@@ -67,14 +67,14 @@
          xerbla('CUNGTSQR_ROW', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = CMPLX( LWORKOPT );
+         WORK[1] = CMPLX( LWORKOPT );
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK( 1 ) = CMPLX( LWORKOPT );
+         WORK[1] = CMPLX( LWORKOPT );
          return;
       }
 
@@ -177,6 +177,6 @@
 
       }
 
-      WORK( 1 ) = CMPLX( LWORKOPT );
+      WORK[1] = CMPLX( LWORKOPT );
       return;
       }

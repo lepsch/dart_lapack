@@ -29,8 +29,8 @@
       for (I = 1; I <= N; I++) { // 10
          XI = X( IX );
          YI = Y( IY );
-         X( IX ) = C( IC )*XI + S( IC )*YI;
-         Y( IY ) = C( IC )*YI - CONJG( S( IC ) )*XI;
+         X[IX] = C( IC )*XI + S( IC )*YI;
+         Y[IY] = C( IC )*YI - CONJG( S( IC ) )*XI;
          IX = IX + INCX;
          IY = IY + INCY;
          IC = IC + INCC;

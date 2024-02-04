@@ -68,15 +68,15 @@
             // corresponding entries in input storage A
 
             I = N;
-            E( 1 ) = ZERO;
+            E[1] = ZERO;
             DO WHILE ( I > 1 );
                if ( IPIV( I ) < 0 ) {
-                  E( I ) = A( I-1, I );
-                  E( I-1 ) = ZERO;
-                  A( I-1, I ) = ZERO;
+                  E[I] = A( I-1, I );
+                  E[I-1] = ZERO;
+                  A[I-1, I] = ZERO;
                   I = I - 1;
                } else {
-                  E( I ) = ZERO;
+                  E[I] = ZERO;
                }
                I = I - 1;
             }
@@ -179,7 +179,7 @@
             I = N;
             DO WHILE ( I > 1 );
                if ( IPIV( I ) < 0 ) {
-                  A( I-1, I ) = E( I );
+                  A[I-1, I] = E( I );
                   I = I - 1;
                }
                I = I - 1;
@@ -203,15 +203,15 @@
             // corresponding entries in input storage A
 
             I = 1;
-            E( N ) = ZERO;
+            E[N] = ZERO;
             DO WHILE ( I <= N );
                if ( I < N && IPIV(I) < 0 ) {
-                  E( I ) = A( I+1, I );
-                  E( I+1 ) = ZERO;
-                  A( I+1, I ) = ZERO;
+                  E[I] = A( I+1, I );
+                  E[I+1] = ZERO;
+                  A[I+1, I] = ZERO;
                   I = I + 1;
                } else {
-                  E( I ) = ZERO;
+                  E[I] = ZERO;
                }
                I = I + 1;
             }
@@ -314,7 +314,7 @@
             I = 1;
             DO WHILE ( I <= N-1 );
                if ( IPIV( I ) < 0 ) {
-                  A( I + 1, I ) = E( I );
+                  A[I + 1, I] = E( I );
                   I = I + 1;
                }
                I = I + 1;

@@ -42,7 +42,7 @@
 
       // Initialize constants.
 
-      PATH( 1: 3 ) = 'GQR';
+      PATH[1: 3] = 'GQR';
       INFO = 0;
       NRUN = 0;
       NFAIL = 0;

@@ -59,7 +59,7 @@
             // ASCII character set
 
             if ( IC >= 97 && IC <= 122 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 );
+               SUBNAM[1: 1] = CHAR( IC-32 );
                for (I = 2; I <= 12; I++) { // 100
                   IC = ICHAR( SUBNAM( I: I ) );
                   if (IC >= 97 && IC <= 122) SUBNAM( I: I ) = CHAR( IC-32 );
@@ -71,7 +71,7 @@
             // EBCDIC character set
 
             if ( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) ) {
-               SUBNAM( 1: 1 ) = CHAR( IC+64 );
+               SUBNAM[1: 1] = CHAR( IC+64 );
                for (I = 2; I <= 12; I++) { // 110
                   IC = ICHAR( SUBNAM( I: I ) );
                   if( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
@@ -83,7 +83,7 @@
             // Prime machines:  ASCII+128
 
             if ( IC >= 225 && IC <= 250 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 );
+               SUBNAM[1: 1] = CHAR( IC-32 );
                for (I = 2; I <= 12; I++) { // 120
                  IC = ICHAR( SUBNAM( I: I ) );
                  if (IC >= 225 && IC <= 250) SUBNAM( I: I ) = CHAR( IC-32 );
@@ -178,10 +178,10 @@
                      // + max(2*KD*KD, KD*NTHREADS)
                      // + (KD+1)*N
          LWORK        = -1;
-         SUBNAM(1:1)  = PREC;
-         SUBNAM(2:6)  = 'GEQRF';
+         SUBNAM[1:1] = PREC;
+         SUBNAM[2:6] = 'GEQRF';
          QROPTNB      = ILAENV( 1, SUBNAM, ' ', NI, NBI, -1, -1 );
-         SUBNAM(2:6)  = 'GELQF';
+         SUBNAM[2:6] = 'GELQF';
          LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 );
          // Could be QR or LQ for TRD and the max for BRD
          FACTOPTNB    = max(QROPTNB, LQOPTNB);

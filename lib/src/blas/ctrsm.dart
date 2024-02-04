@@ -81,7 +81,7 @@
       if (ALPHA == ZERO) {
           for (J = 1; J <= N; J++) { // 20
               for (I = 1; I <= M; I++) { // 10
-                  B(I,J) = ZERO;
+                  B[I,J] = ZERO;
               } // 10
           } // 20
           return;
@@ -98,14 +98,14 @@
                   for (J = 1; J <= N; J++) { // 60
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 30
-                              B(I,J) = ALPHA*B(I,J);
+                              B[I,J] = ALPHA*B(I,J);
                           } // 30
                       }
                       for (K = M; K >= 1; K--) { // 50
                           if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = 1; I <= K - 1; I++) { // 40
-                                  B(I,J) = B(I,J) - B(K,J)*A(I,K);
+                                  B[I,J] = B(I,J) - B(K,J)*A(I,K);
                               } // 40
                           }
                       } // 50
@@ -114,14 +114,14 @@
                   for (J = 1; J <= N; J++) { // 100
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 70
-                              B(I,J) = ALPHA*B(I,J);
+                              B[I,J] = ALPHA*B(I,J);
                           } // 70
                       }
                       for (K = 1; K <= M; K++) { // 90
                           if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = K + 1; I <= M; I++) { // 80
-                                  B(I,J) = B(I,J) - B(K,J)*A(I,K);
+                                  B[I,J] = B(I,J) - B(K,J)*A(I,K);
                               } // 80
                           }
                       } // 90
@@ -147,7 +147,7 @@
                               } // 120
                               if (NOUNIT) TEMP = TEMP/CONJG(A(I,I));
                           }
-                          B(I,J) = TEMP;
+                          B[I,J] = TEMP;
                       } // 130
                   } // 140
               } else {
@@ -165,7 +165,7 @@
                               } // 160
                               if (NOUNIT) TEMP = TEMP/CONJG(A(I,I));
                           }
-                          B(I,J) = TEMP;
+                          B[I,J] = TEMP;
                       } // 170
                   } // 180
               }
@@ -179,20 +179,20 @@
                   for (J = 1; J <= N; J++) { // 230
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 190
-                              B(I,J) = ALPHA*B(I,J);
+                              B[I,J] = ALPHA*B(I,J);
                           } // 190
                       }
                       for (K = 1; K <= J - 1; K++) { // 210
                           if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 200
-                                  B(I,J) = B(I,J) - A(K,J)*B(I,K);
+                                  B[I,J] = B(I,J) - A(K,J)*B(I,K);
                               } // 200
                           }
                       } // 210
                       if (NOUNIT) {
                           TEMP = ONE/A(J,J);
                           for (I = 1; I <= M; I++) { // 220
-                              B(I,J) = TEMP*B(I,J);
+                              B[I,J] = TEMP*B(I,J);
                           } // 220
                       }
                   } // 230
@@ -200,20 +200,20 @@
                   for (J = N; J >= 1; J--) { // 280
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 240
-                              B(I,J) = ALPHA*B(I,J);
+                              B[I,J] = ALPHA*B(I,J);
                           } // 240
                       }
                       for (K = J + 1; K <= N; K++) { // 260
                           if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 250
-                                  B(I,J) = B(I,J) - A(K,J)*B(I,K);
+                                  B[I,J] = B(I,J) - A(K,J)*B(I,K);
                               } // 250
                           }
                       } // 260
                       if (NOUNIT) {
                           TEMP = ONE/A(J,J);
                           for (I = 1; I <= M; I++) { // 270
-                              B(I,J) = TEMP*B(I,J);
+                              B[I,J] = TEMP*B(I,J);
                           } // 270
                       }
                   } // 280
@@ -232,7 +232,7 @@
                               TEMP = ONE/CONJG(A(K,K));
                           }
                           for (I = 1; I <= M; I++) { // 290
-                              B(I,K) = TEMP*B(I,K);
+                              B[I,K] = TEMP*B(I,K);
                           } // 290
                       }
                       for (J = 1; J <= K - 1; J++) { // 310
@@ -243,13 +243,13 @@
                                   TEMP = CONJG(A(J,K));
                               }
                               for (I = 1; I <= M; I++) { // 300
-                                  B(I,J) = B(I,J) - TEMP*B(I,K);
+                                  B[I,J] = B(I,J) - TEMP*B(I,K);
                               } // 300
                           }
                       } // 310
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 320
-                              B(I,K) = ALPHA*B(I,K);
+                              B[I,K] = ALPHA*B(I,K);
                           } // 320
                       }
                   } // 330
@@ -262,7 +262,7 @@
                               TEMP = ONE/CONJG(A(K,K));
                           }
                           for (I = 1; I <= M; I++) { // 340
-                              B(I,K) = TEMP*B(I,K);
+                              B[I,K] = TEMP*B(I,K);
                           } // 340
                       }
                       for (J = K + 1; J <= N; J++) { // 360
@@ -273,13 +273,13 @@
                                   TEMP = CONJG(A(J,K));
                               }
                               for (I = 1; I <= M; I++) { // 350
-                                  B(I,J) = B(I,J) - TEMP*B(I,K);
+                                  B[I,J] = B(I,J) - TEMP*B(I,K);
                               } // 350
                           }
                       } // 360
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 370
-                              B(I,K) = ALPHA*B(I,K);
+                              B[I,K] = ALPHA*B(I,K);
                           } // 370
                       }
                   } // 380

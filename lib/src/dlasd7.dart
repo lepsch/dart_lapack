@@ -70,47 +70,47 @@
       // values in the first part of D one position backward.
 
       Z1 = ALPHA*VL( NLP1 );
-      VL( NLP1 ) = ZERO;
+      VL[NLP1] = ZERO;
       TAU = VF( NLP1 );
       for (I = NL; I >= 1; I--) { // 10
-         Z( I+1 ) = ALPHA*VL( I );
-         VL( I ) = ZERO;
-         VF( I+1 ) = VF( I );
-         D( I+1 ) = D( I );
-         IDXQ( I+1 ) = IDXQ( I ) + 1;
+         Z[I+1] = ALPHA*VL( I );
+         VL[I] = ZERO;
+         VF[I+1] = VF( I );
+         D[I+1] = D( I );
+         IDXQ[I+1] = IDXQ( I ) + 1;
       } // 10
-      VF( 1 ) = TAU;
+      VF[1] = TAU;
 
       // Generate the second part of the vector Z.
 
       for (I = NLP2; I <= M; I++) { // 20
-         Z( I ) = BETA*VF( I );
-         VF( I ) = ZERO;
+         Z[I] = BETA*VF( I );
+         VF[I] = ZERO;
       } // 20
 
       // Sort the singular values into increasing order
 
       for (I = NLP2; I <= N; I++) { // 30
-         IDXQ( I ) = IDXQ( I ) + NLP1;
+         IDXQ[I] = IDXQ( I ) + NLP1;
       } // 30
 
       // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 
       for (I = 2; I <= N; I++) { // 40
-         DSIGMA( I ) = D( IDXQ( I ) );
-         ZW( I ) = Z( IDXQ( I ) );
-         VFW( I ) = VF( IDXQ( I ) );
-         VLW( I ) = VL( IDXQ( I ) );
+         DSIGMA[I] = D( IDXQ( I ) );
+         ZW[I] = Z( IDXQ( I ) );
+         VFW[I] = VF( IDXQ( I ) );
+         VLW[I] = VL( IDXQ( I ) );
       } // 40
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
       for (I = 2; I <= N; I++) { // 50
          IDXI = 1 + IDX( I );
-         D( I ) = DSIGMA( IDXI );
-         Z( I ) = ZW( IDXI );
-         VF( I ) = VFW( IDXI );
-         VL( I ) = VLW( IDXI );
+         D[I] = DSIGMA( IDXI );
+         Z[I] = ZW( IDXI );
+         VF[I] = VFW( IDXI );
+         VL[I] = VLW( IDXI );
       } // 50
 
       // Calculate the allowable deflation tolerance
@@ -146,7 +146,7 @@
             // Deflate due to small z component.
 
             K2 = K2 - 1;
-            IDXP( K2 ) = J;
+            IDXP[K2] = J;
             if (J == N) GO TO 100;
          } else {
             JPREV = J;
@@ -163,7 +163,7 @@
          // Deflate due to small z component.
 
          K2 = K2 - 1;
-         IDXP( K2 ) = J;
+         IDXP[K2] = J;
       } else {
 
          // Check if singular values are close enough to allow deflation.
@@ -179,8 +179,8 @@
             // destructive underflow.
 
             TAU = DLAPY2( C, S );
-            Z( J ) = TAU;
-            Z( JPREV ) = ZERO;
+            Z[J] = TAU;
+            Z[JPREV] = ZERO;
             C = C / TAU;
             S = -S / TAU;
 
@@ -196,21 +196,21 @@
                if ( IDXJ <= NLP1 ) {
                   IDXJ = IDXJ - 1;
                }
-               GIVCOL( GIVPTR, 2 ) = IDXJP;
-               GIVCOL( GIVPTR, 1 ) = IDXJ;
-               GIVNUM( GIVPTR, 2 ) = C;
-               GIVNUM( GIVPTR, 1 ) = S;
+               GIVCOL[GIVPTR, 2] = IDXJP;
+               GIVCOL[GIVPTR, 1] = IDXJ;
+               GIVNUM[GIVPTR, 2] = C;
+               GIVNUM[GIVPTR, 1] = S;
             }
             drot(1, VF( JPREV ), 1, VF( J ), 1, C, S );
             drot(1, VL( JPREV ), 1, VL( J ), 1, C, S );
             K2 = K2 - 1;
-            IDXP( K2 ) = JPREV;
+            IDXP[K2] = JPREV;
             JPREV = J;
          } else {
             K = K + 1;
-            ZW( K ) = Z( JPREV );
-            DSIGMA( K ) = D( JPREV );
-            IDXP( K ) = JPREV;
+            ZW[K] = Z( JPREV );
+            DSIGMA[K] = D( JPREV );
+            IDXP[K] = JPREV;
             JPREV = J;
          }
       }
@@ -220,9 +220,9 @@
       // Record the last singular value.
 
       K = K + 1;
-      ZW( K ) = Z( JPREV );
-      DSIGMA( K ) = D( JPREV );
-      IDXP( K ) = JPREV;
+      ZW[K] = Z( JPREV );
+      DSIGMA[K] = D( JPREV );
+      IDXP[K] = JPREV;
 
       } // 100
 
@@ -232,16 +232,16 @@
 
       for (J = 2; J <= N; J++) { // 110
          JP = IDXP( J );
-         DSIGMA( J ) = D( JP );
-         VFW( J ) = VF( JP );
-         VLW( J ) = VL( JP );
+         DSIGMA[J] = D( JP );
+         VFW[J] = VF( JP );
+         VLW[J] = VL( JP );
       } // 110
       if ( ICOMPQ == 1 ) {
          for (J = 2; J <= N; J++) { // 120
             JP = IDXP( J );
-            PERM( J ) = IDXQ( IDX( JP )+1 );
+            PERM[J] = IDXQ( IDX( JP )+1 );
             if ( PERM( J ) <= NLP1 ) {
-               PERM( J ) = PERM( J ) - 1;
+               PERM[J] = PERM( J ) - 1;
             }
          } // 120
       }
@@ -254,15 +254,15 @@
       // Determine DSIGMA(1), DSIGMA(2), Z(1), VF(1), VL(1), VF(M), and
       // VL(M).
 
-      DSIGMA( 1 ) = ZERO;
+      DSIGMA[1] = ZERO;
       HLFTOL = TOL / TWO;
       if( ( DSIGMA( 2 ) ).abs() <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
-         Z( 1 ) = DLAPY2( Z1, Z( M ) );
+         Z[1] = DLAPY2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {
             C = ONE;
             S = ZERO;
-            Z( 1 ) = TOL;
+            Z[1] = TOL;
          } else {
             C = Z1 / Z( 1 );
             S = -Z( M ) / Z( 1 );
@@ -271,9 +271,9 @@
          drot(1, VL( M ), 1, VL( 1 ), 1, C, S );
       } else {
          if ( ( Z1 ).abs() <= TOL ) {
-            Z( 1 ) = TOL;
+            Z[1] = TOL;
          } else {
-            Z( 1 ) = Z1;
+            Z[1] = Z1;
          }
       }
 

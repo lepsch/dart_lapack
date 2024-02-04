@@ -111,7 +111,7 @@
       if ( RCEQU ) {
          for (J = 1; J <= NRHS; J++) { // 30
             for (I = 1; I <= N; I++) { // 20
-               B( I, J ) = S( I )*B( I, J );
+               B[I, J] = S( I )*B( I, J );
             } // 20
          } // 30
       }
@@ -155,11 +155,11 @@
       if ( RCEQU ) {
          for (J = 1; J <= NRHS; J++) { // 50
             for (I = 1; I <= N; I++) { // 40
-               X( I, J ) = S( I )*X( I, J );
+               X[I, J] = S( I )*X( I, J );
             } // 40
          } // 50
          for (J = 1; J <= NRHS; J++) { // 60
-            FERR( J ) = FERR( J ) / SCOND;
+            FERR[J] = FERR( J ) / SCOND;
          } // 60
       }
 

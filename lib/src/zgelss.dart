@@ -163,7 +163,7 @@
             }
             MAXWRK = max( MINWRK, MAXWRK );
          }
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
 
          if (LWORK < MINWRK && !LQUERY) INFO = -12;
       }
@@ -515,6 +515,6 @@
          zlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
       } // 70
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
       return;
       }

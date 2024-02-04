@@ -43,7 +43,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -105,7 +105,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A( K, K ) = DBLE( A( K, K ) );
+            A[K, K] = DBLE( A( K, K ) );
          } else {
 
             // ============================================================
@@ -164,21 +164,21 @@
                zswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                for (J = KP + 1; J <= KK - 1; J++) { // 20
                   T = DCONJG( A( J, KK ) );
-                  A( J, KK ) = DCONJG( A( KP, J ) );
-                  A( KP, J ) = T;
+                  A[J, KK] = DCONJG( A( KP, J ) );
+                  A[KP, J] = T;
                } // 20
-               A( KP, KK ) = DCONJG( A( KP, KK ) );
+               A[KP, KK] = DCONJG( A( KP, KK ) );
                R1 = DBLE( A( KK, KK ) );
-               A( KK, KK ) = DBLE( A( KP, KP ) );
-               A( KP, KP ) = R1;
+               A[KK, KK] = DBLE( A( KP, KP ) );
+               A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A( K, K ) = DBLE( A( K, K ) );
+                  A[K, K] = DBLE( A( K, K ) );
                   T = A( K-1, K );
-                  A( K-1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K-1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             } else {
-               A( K, K ) = DBLE( A( K, K ) );
+               A[K, K] = DBLE( A( K, K ) );
                if (KSTEP == 2) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) );
             }
 
@@ -229,11 +229,11 @@
                      WKM1 = D*( D11*A( J, K-1 )-DCONJG( D12 )* A( J, K ) );
                      WK = D*( D22*A( J, K )-D12*A( J, K-1 ) );
                      for (I = J; I >= 1; I--) { // 30
-                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K-1 )*DCONJG( WKM1 );
+                        A[I, J] = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K-1 )*DCONJG( WKM1 );
                      } // 30
-                     A( J, K ) = WK;
-                     A( J, K-1 ) = WKM1;
-                     A( J, J ) = DCMPLX( DBLE( A( J, J ) ), 0.0 );
+                     A[J, K] = WK;
+                     A[J, K-1] = WKM1;
+                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), 0.0 );
                   } // 40
 
                }
@@ -244,10 +244,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -293,7 +293,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A( K, K ) = DBLE( A( K, K ) );
+            A[K, K] = DBLE( A( K, K ) );
          } else {
 
             // ============================================================
@@ -352,21 +352,21 @@
                if (KP < N) zswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                for (J = KK + 1; J <= KP - 1; J++) { // 60
                   T = DCONJG( A( J, KK ) );
-                  A( J, KK ) = DCONJG( A( KP, J ) );
-                  A( KP, J ) = T;
+                  A[J, KK] = DCONJG( A( KP, J ) );
+                  A[KP, J] = T;
                } // 60
-               A( KP, KK ) = DCONJG( A( KP, KK ) );
+               A[KP, KK] = DCONJG( A( KP, KK ) );
                R1 = DBLE( A( KK, KK ) );
-               A( KK, KK ) = DBLE( A( KP, KP ) );
-               A( KP, KP ) = R1;
+               A[KK, KK] = DBLE( A( KP, KP ) );
+               A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A( K, K ) = DBLE( A( K, K ) );
+                  A[K, K] = DBLE( A( K, K ) );
                   T = A( K+1, K );
-                  A( K+1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K+1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
             } else {
-               A( K, K ) = DBLE( A( K, K ) );
+               A[K, K] = DBLE( A( K, K ) );
                if (KSTEP == 2) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) );
             }
 
@@ -418,11 +418,11 @@
                      WK = D*( D11*A( J, K )-D21*A( J, K+1 ) );
                      WKP1 = D*( D22*A( J, K+1 )-DCONJG( D21 )* A( J, K ) );
                      for (I = J; I <= N; I++) { // 70
-                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K+1 )*DCONJG( WKP1 );
+                        A[I, J] = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K+1 )*DCONJG( WKP1 );
                      } // 70
-                     A( J, K ) = WK;
-                     A( J, K+1 ) = WKP1;
-                     A( J, J ) = DCMPLX( DBLE( A( J, J ) ), 0.0 );
+                     A[J, K] = WK;
+                     A[J, K+1] = WKP1;
+                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), 0.0 );
                   } // 80
                }
             }
@@ -431,10 +431,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -KP;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -KP;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

@@ -32,7 +32,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -50,10 +50,10 @@
       // Initialize IPIV(i) = i and DU2(i) = 0
 
       for (I = 1; I <= N; I++) { // 10
-         IPIV( I ) = I;
+         IPIV[I] = I;
       } // 10
       for (I = 1; I <= N - 2; I++) { // 20
-         DU2( I ) = ZERO;
+         DU2[I] = ZERO;
       } // 20
 
       for (I = 1; I <= N - 2; I++) { // 30
@@ -63,22 +63,22 @@
 
             if ( CABS1( D( I ) ) != ZERO ) {
                FACT = DL( I ) / D( I );
-               DL( I ) = FACT;
-               D( I+1 ) = D( I+1 ) - FACT*DU( I );
+               DL[I] = FACT;
+               D[I+1] = D( I+1 ) - FACT*DU( I );
             }
          } else {
 
             // Interchange rows I and I+1, eliminate DL(I)
 
             FACT = D( I ) / DL( I );
-            D( I ) = DL( I );
-            DL( I ) = FACT;
+            D[I] = DL( I );
+            DL[I] = FACT;
             TEMP = DU( I );
-            DU( I ) = D( I+1 );
-            D( I+1 ) = TEMP - FACT*D( I+1 );
-            DU2( I ) = DU( I+1 );
-            DU( I+1 ) = -FACT*DU( I+1 );
-            IPIV( I ) = I + 1;
+            DU[I] = D( I+1 );
+            D[I+1] = TEMP - FACT*D( I+1 );
+            DU2[I] = DU( I+1 );
+            DU[I+1] = -FACT*DU( I+1 );
+            IPIV[I] = I + 1;
          }
       } // 30
       if ( N > 1 ) {
@@ -86,17 +86,17 @@
          if ( CABS1( D( I ) ) >= CABS1( DL( I ) ) ) {
             if ( CABS1( D( I ) ) != ZERO ) {
                FACT = DL( I ) / D( I );
-               DL( I ) = FACT;
-               D( I+1 ) = D( I+1 ) - FACT*DU( I );
+               DL[I] = FACT;
+               D[I+1] = D( I+1 ) - FACT*DU( I );
             }
          } else {
             FACT = D( I ) / DL( I );
-            D( I ) = DL( I );
-            DL( I ) = FACT;
+            D[I] = DL( I );
+            DL[I] = FACT;
             TEMP = DU( I );
-            DU( I ) = D( I+1 );
-            D( I+1 ) = TEMP - FACT*D( I+1 );
-            IPIV( I ) = I + 1;
+            DU[I] = D( I+1 );
+            D[I+1] = TEMP - FACT*D( I+1 );
+            IPIV[I] = I + 1;
          }
       }
 

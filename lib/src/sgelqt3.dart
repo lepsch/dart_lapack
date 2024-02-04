@@ -63,7 +63,7 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               T(  I+M1, J ) = A( I+M1, J );
+               T[I+M1, J] = A( I+M1, J );
             }
          }
          strmm('R', 'U', 'T', 'U', M2, M1, ONE, A, LDA, T( I1, 1 ), LDT );
@@ -78,7 +78,7 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               A(  I+M1, J ) = A( I+M1, J ) - T( I+M1, J );
+               A[I+M1, J] = A( I+M1, J ) - T( I+M1, J );
                T( I+M1, J )=0;
             }
          }
@@ -91,7 +91,7 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               T( J, I+M1  ) = (A( J, I+M1 ));
+               T[J, I+M1] = (A( J, I+M1 ));
             }
          }
 

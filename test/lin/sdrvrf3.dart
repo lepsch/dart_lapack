@@ -64,7 +64,7 @@
       NFAIL = 0;
       INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = SLAMCH( 'Precision' );
 
@@ -139,7 +139,7 @@
 
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
-                                    A( I, J ) = SLARND( 2, ISEED );
+                                    A[I, J] = SLARND( 2, ISEED );
                                  }
                               }
 
@@ -158,7 +158,7 @@
                                  if ( LSAME( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
-                                          A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) );
+                                          A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
                                        }
                                     }
                                  }
@@ -178,7 +178,7 @@
                                  if ( LSAME( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
-                                          A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) );
+                                          A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );
                                        }
                                     }
                                  }
@@ -195,8 +195,8 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1( I, J ) = SLARND( 2, ISEED );
-                                    B2( I, J ) = B1( I, J );
+                                    B1[I, J] = SLARND( 2, ISEED );
+                                    B2[I, J] = B1( I, J );
                                  }
                               }
 
@@ -216,13 +216,13 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1( I, J ) = B2( I, J ) - B1( I, J );
+                                    B1[I, J] = B2( I, J ) - B1( I, J );
                                  }
                               }
 
-                              RESULT( 1 ) = SLANGE( 'I', M, N, B1, LDA, S_WORK_SLANGE );
+                              RESULT[1] = SLANGE( 'I', M, N, B1, LDA, S_WORK_SLANGE );
 
-                              RESULT( 1 ) = RESULT( 1 ) / sqrt( EPS ) / max( max( M, N ), 1 );
+                              RESULT[1] = RESULT( 1 ) / sqrt( EPS ) / max( max( M, N ), 1 );
 
                               if ( RESULT( 1 ) >= THRESH ) {
                                  if ( NFAIL == 0 ) {

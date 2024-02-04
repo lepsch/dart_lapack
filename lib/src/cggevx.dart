@@ -49,7 +49,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -133,7 +133,7 @@
                MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) );
             }
          }
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+         WORK[1] = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -25;
@@ -194,14 +194,14 @@
 
       ABNRM = CLANGE( '1', N, N, A, LDA, RWORK( 1 ) );
       if ( ILASCL ) {
-         RWORK( 1 ) = ABNRM;
+         RWORK[1] = ABNRM;
          slascl('G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR );
          ABNRM = RWORK( 1 );
       }
 
       BBNRM = CLANGE( '1', N, N, B, LDB, RWORK( 1 ) );
       if ( ILBSCL ) {
-         RWORK( 1 ) = BBNRM;
+         RWORK[1] = BBNRM;
          slascl('G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR );
          BBNRM = RWORK( 1 );
       }
@@ -312,9 +312,9 @@
             for (I = 1; I <= N; I++) { // 20
 
                for (J = 1; J <= N; J++) { // 10
-                  BWORK( J ) = false;
+                  BWORK[J] = false;
                } // 10
-               BWORK( I ) = true;
+               BWORK[I] = true;
 
                IWRK = N + 1;
                IWRK1 = IWRK + N;
@@ -347,7 +347,7 @@
             if (TEMP < SMLNUM) GO TO 50;
             TEMP = ONE / TEMP;
             for (JR = 1; JR <= N; JR++) { // 40
-               VL( JR, JC ) = VL( JR, JC )*TEMP;
+               VL[JR, JC] = VL( JR, JC )*TEMP;
             } // 40
          } // 50
       }
@@ -362,7 +362,7 @@
             if (TEMP < SMLNUM) GO TO 80;
             TEMP = ONE / TEMP;
             for (JR = 1; JR <= N; JR++) { // 70
-               VR( JR, JC ) = VR( JR, JC )*TEMP;
+               VR[JR, JC] = VR( JR, JC )*TEMP;
             } // 70
          } // 80
       }
@@ -375,6 +375,6 @@
 
       if (ILBSCL) clascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      WORK[1] = SROUNDUP_LWORK(MAXWRK);
       return;
       }

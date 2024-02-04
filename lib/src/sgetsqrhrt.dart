@@ -102,14 +102,14 @@
          xerbla('SGETSQRHRT', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
@@ -155,13 +155,13 @@
       for (I = 1; I <= N; I++) {
          if ( WORK( LWT+N*N+I ) == -ONE ) {
             for (J = I; J <= N; J++) {
-               A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I );
+               A[I, J] = -ONE * WORK( LWT+N*(J-1)+I );
             }
          } else {
             scopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWORKOPT );
       return;
       }

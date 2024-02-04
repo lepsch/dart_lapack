@@ -103,7 +103,7 @@
             if( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
-            W( 1 ) = REAL( CTMP1 );
+            W[1] = REAL( CTMP1 );
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
          return;
@@ -180,7 +180,7 @@
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 10
             }
          }
@@ -243,15 +243,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 );
-               W( I ) = W( J );
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
-               W( J ) = TMP1;
-               IWORK( INDIBL+J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[INDIBL+I-1] = IWORK( INDIBL+J-1 );
+               W[J] = TMP1;
+               IWORK[INDIBL+J-1] = ITMP1;
                cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 50

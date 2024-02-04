@@ -121,8 +121,8 @@
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'S';
-      PATH( 2: 3 ) = 'QT';
+      PATH[1: 1] = 'S';
+      PATH[2: 3] = 'QT';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;

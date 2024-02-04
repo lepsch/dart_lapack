@@ -72,16 +72,16 @@
 
       // Solve M(L) * x = e.
 
-      WORK( 1 ) = ONE;
+      WORK[1] = ONE;
       for (I = 2; I <= N; I++) { // 20
-         WORK( I ) = ONE + WORK( I-1 )*( E( I-1 ) ).abs();
+         WORK[I] = ONE + WORK( I-1 )*( E( I-1 ) ).abs();
       } // 20
 
       // Solve D * M(L)**T * x = b.
 
-      WORK( N ) = WORK( N ) / D( N );
+      WORK[N] = WORK( N ) / D( N );
       for (I = N - 1; I >= 1; I--) { // 30
-         WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*( E( I ) ).abs();
+         WORK[I] = WORK( I ) / D( I ) + WORK( I+1 )*( E( I ) ).abs();
       } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.

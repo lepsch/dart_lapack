@@ -58,8 +58,8 @@
       // ..
       // .. Executable Statements ..
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'EV';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'EV';
 
       // Check for errors
 
@@ -136,7 +136,7 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -194,7 +194,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = CMPLX( ANORM );
+                  A[JCOL, JCOL] = CMPLX( ANORM );
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -202,7 +202,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = CMPLX( ANORM );
+                  A[JCOL, JCOL] = CMPLX( ANORM );
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 
@@ -288,7 +288,7 @@
                // Initialize RESULT
 
                for (J = 1; J <= 7; J++) { // 100
-                  RESULT( J ) = -ONE;
+                  RESULT[J] = -ONE;
                } // 100
 
                // Compute eigenvalues and eigenvectors, and test them
@@ -296,7 +296,7 @@
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -305,18 +305,18 @@
                // Do Test (1)
 
                cget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
-               RESULT( 1 ) = RES( 1 );
+               RESULT[1] = RES( 1 );
 
                // Do Test (2)
 
                cget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
-               RESULT( 2 ) = RES( 1 );
+               RESULT[2] = RES( 1 );
 
                // Do Test (3)
 
                for (J = 1; J <= N; J++) { // 120
                   TNRM = SCNRM2( N, VR( 1, J ), 1 );
-                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+                  RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   VMX = ZERO;
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 110
@@ -331,7 +331,7 @@
 
                for (J = 1; J <= N; J++) { // 140
                   TNRM = SCNRM2( N, VL( 1, J ), 1 );
-                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
+                  RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   VMX = ZERO;
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 130
@@ -347,7 +347,7 @@
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -364,7 +364,7 @@
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;
@@ -389,7 +389,7 @@
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
-                  RESULT( 1 ) = ULPINV;
+                  RESULT[1] = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
                   GO TO 220;

@@ -160,7 +160,7 @@
          JBTEMP2 = JB - 2;
          for (J = JB; J <= JB+JNB-2; J++) {
             for (I = J-JBTEMP2; I <= NB; I++) {
-               T( I, J ) = CZERO;
+               T[I, J] = CZERO;
             }
          }
 

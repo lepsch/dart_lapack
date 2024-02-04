@@ -45,10 +45,10 @@
 
       // return updated seed
 
-      ISEED( 1 ) = IT1;
-      ISEED( 2 ) = IT2;
-      ISEED( 3 ) = IT3;
-      ISEED( 4 ) = IT4;
+      ISEED[1] = IT1;
+      ISEED[2] = IT2;
+      ISEED[3] = IT3;
+      ISEED[4] = IT4;
 
       // convert 48-bit integer to a real number in the interval (0,1)
 

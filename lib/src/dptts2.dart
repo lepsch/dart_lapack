@@ -36,14 +36,14 @@
             // Solve L * x = b.
 
          for (I = 2; I <= N; I++) { // 10
-            B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 );
+            B[I, J] = B( I, J ) - B( I-1, J )*E( I-1 );
          } // 10
 
             // Solve D * L**T * x = b.
 
-         B( N, J ) = B( N, J ) / D( N );
+         B[N, J] = B( N, J ) / D( N );
          for (I = N - 1; I >= 1; I--) { // 20
-            B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I );
+            B[I, J] = B( I, J ) / D( I ) - B( I+1, J )*E( I );
          } // 20
       } // 30
 

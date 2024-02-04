@@ -89,7 +89,7 @@
       } // 10
       if (I > M) GO TO 20;
       P = P + 1;
-      IWORK( P ) = I;
+      IWORK[P] = I;
       if (I == M) GO TO 20;
       if ( A( I+1, I ) != ZERO ) {
          I = I + 2;
@@ -98,7 +98,7 @@
       }
       GO TO 10;
       } // 20
-      IWORK( P+1 ) = M + 1;
+      IWORK[P+1] = M + 1;
 
       // Determine block structure of B
 
@@ -107,7 +107,7 @@
       } // 30
       if (J > N) GO TO 40;
       Q = Q + 1;
-      IWORK( Q ) = J;
+      IWORK[Q] = J;
       if (J == N) GO TO 40;
       if ( B( J+1, J ) != ZERO ) {
          J = J + 2;
@@ -116,7 +116,7 @@
       }
       GO TO 30;
       } // 40
-      IWORK( Q+1 ) = N + 1;
+      IWORK[Q+1] = N + 1;
       PQ = P*( Q-P-1 );
 
       if ( NOTRAN ) {
@@ -145,15 +145,15 @@
 
                   // Build a 2-by-2 system Z * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = D( IS, IS );
-                  Z( 1, 2 ) = -B( JS, JS );
-                  Z( 2, 2 ) = -E( JS, JS );
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = D( IS, IS );
+                  Z[1, 2] = -B( JS, JS );
+                  Z[2, 2] = -E( JS, JS );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = F( IS, JS );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = F( IS, JS );
 
                   // Solve Z * x = RHS
 
@@ -175,8 +175,8 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  F( IS, JS ) = RHS( 2 );
+                  C[IS, JS] = RHS( 1 );
+                  F[IS, JS] = RHS( 2 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -195,32 +195,32 @@
 
                   // Build a 4-by-4 system Z * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = ZERO;
-                  Z( 3, 1 ) = D( IS, IS );
-                  Z( 4, 1 ) = ZERO;
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = ZERO;
+                  Z[3, 1] = D( IS, IS );
+                  Z[4, 1] = ZERO;
 
-                  Z( 1, 2 ) = ZERO;
-                  Z( 2, 2 ) = A( IS, IS );
-                  Z( 3, 2 ) = ZERO;
-                  Z( 4, 2 ) = D( IS, IS );
+                  Z[1, 2] = ZERO;
+                  Z[2, 2] = A( IS, IS );
+                  Z[3, 2] = ZERO;
+                  Z[4, 2] = D( IS, IS );
 
-                  Z( 1, 3 ) = -B( JS, JS );
-                  Z( 2, 3 ) = -B( JS, JSP1 );
-                  Z( 3, 3 ) = -E( JS, JS );
-                  Z( 4, 3 ) = -E( JS, JSP1 );
+                  Z[1, 3] = -B( JS, JS );
+                  Z[2, 3] = -B( JS, JSP1 );
+                  Z[3, 3] = -E( JS, JS );
+                  Z[4, 3] = -E( JS, JSP1 );
 
-                  Z( 1, 4 ) = -B( JSP1, JS );
-                  Z( 2, 4 ) = -B( JSP1, JSP1 );
-                  Z( 3, 4 ) = ZERO;
-                  Z( 4, 4 ) = -E( JSP1, JSP1 );
+                  Z[1, 4] = -B( JSP1, JS );
+                  Z[2, 4] = -B( JSP1, JSP1 );
+                  Z[3, 4] = ZERO;
+                  Z[4, 4] = -E( JSP1, JSP1 );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = C( IS, JSP1 );
-                  RHS( 3 ) = F( IS, JS );
-                  RHS( 4 ) = F( IS, JSP1 );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = C( IS, JSP1 );
+                  RHS[3] = F( IS, JS );
+                  RHS[4] = F( IS, JSP1 );
 
                   // Solve Z * x = RHS
 
@@ -242,10 +242,10 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  C( IS, JSP1 ) = RHS( 2 );
-                  F( IS, JS ) = RHS( 3 );
-                  F( IS, JSP1 ) = RHS( 4 );
+                  C[IS, JS] = RHS( 1 );
+                  C[IS, JSP1] = RHS( 2 );
+                  F[IS, JS] = RHS( 3 );
+                  F[IS, JSP1] = RHS( 4 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -265,32 +265,32 @@
 
                   // Build a 4-by-4 system Z * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = A( ISP1, IS );
-                  Z( 3, 1 ) = D( IS, IS );
-                  Z( 4, 1 ) = ZERO;
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = A( ISP1, IS );
+                  Z[3, 1] = D( IS, IS );
+                  Z[4, 1] = ZERO;
 
-                  Z( 1, 2 ) = A( IS, ISP1 );
-                  Z( 2, 2 ) = A( ISP1, ISP1 );
-                  Z( 3, 2 ) = D( IS, ISP1 );
-                  Z( 4, 2 ) = D( ISP1, ISP1 );
+                  Z[1, 2] = A( IS, ISP1 );
+                  Z[2, 2] = A( ISP1, ISP1 );
+                  Z[3, 2] = D( IS, ISP1 );
+                  Z[4, 2] = D( ISP1, ISP1 );
 
-                  Z( 1, 3 ) = -B( JS, JS );
-                  Z( 2, 3 ) = ZERO;
-                  Z( 3, 3 ) = -E( JS, JS );
-                  Z( 4, 3 ) = ZERO;
+                  Z[1, 3] = -B( JS, JS );
+                  Z[2, 3] = ZERO;
+                  Z[3, 3] = -E( JS, JS );
+                  Z[4, 3] = ZERO;
 
-                  Z( 1, 4 ) = ZERO;
-                  Z( 2, 4 ) = -B( JS, JS );
-                  Z( 3, 4 ) = ZERO;
-                  Z( 4, 4 ) = -E( JS, JS );
+                  Z[1, 4] = ZERO;
+                  Z[2, 4] = -B( JS, JS );
+                  Z[3, 4] = ZERO;
+                  Z[4, 4] = -E( JS, JS );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = C( ISP1, JS );
-                  RHS( 3 ) = F( IS, JS );
-                  RHS( 4 ) = F( ISP1, JS );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = C( ISP1, JS );
+                  RHS[3] = F( IS, JS );
+                  RHS[4] = F( ISP1, JS );
 
                   // Solve Z * x = RHS
 
@@ -311,10 +311,10 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  C( ISP1, JS ) = RHS( 2 );
-                  F( IS, JS ) = RHS( 3 );
-                  F( ISP1, JS ) = RHS( 4 );
+                  C[IS, JS] = RHS( 1 );
+                  C[ISP1, JS] = RHS( 2 );
+                  F[IS, JS] = RHS( 3 );
+                  F[ISP1, JS] = RHS( 4 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -334,41 +334,41 @@
 
                   dlaset('F', LDZ, LDZ, ZERO, ZERO, Z, LDZ );
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = A( ISP1, IS );
-                  Z( 5, 1 ) = D( IS, IS );
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = A( ISP1, IS );
+                  Z[5, 1] = D( IS, IS );
 
-                  Z( 1, 2 ) = A( IS, ISP1 );
-                  Z( 2, 2 ) = A( ISP1, ISP1 );
-                  Z( 5, 2 ) = D( IS, ISP1 );
-                  Z( 6, 2 ) = D( ISP1, ISP1 );
+                  Z[1, 2] = A( IS, ISP1 );
+                  Z[2, 2] = A( ISP1, ISP1 );
+                  Z[5, 2] = D( IS, ISP1 );
+                  Z[6, 2] = D( ISP1, ISP1 );
 
-                  Z( 3, 3 ) = A( IS, IS );
-                  Z( 4, 3 ) = A( ISP1, IS );
-                  Z( 7, 3 ) = D( IS, IS );
+                  Z[3, 3] = A( IS, IS );
+                  Z[4, 3] = A( ISP1, IS );
+                  Z[7, 3] = D( IS, IS );
 
-                  Z( 3, 4 ) = A( IS, ISP1 );
-                  Z( 4, 4 ) = A( ISP1, ISP1 );
-                  Z( 7, 4 ) = D( IS, ISP1 );
-                  Z( 8, 4 ) = D( ISP1, ISP1 );
+                  Z[3, 4] = A( IS, ISP1 );
+                  Z[4, 4] = A( ISP1, ISP1 );
+                  Z[7, 4] = D( IS, ISP1 );
+                  Z[8, 4] = D( ISP1, ISP1 );
 
-                  Z( 1, 5 ) = -B( JS, JS );
-                  Z( 3, 5 ) = -B( JS, JSP1 );
-                  Z( 5, 5 ) = -E( JS, JS );
-                  Z( 7, 5 ) = -E( JS, JSP1 );
+                  Z[1, 5] = -B( JS, JS );
+                  Z[3, 5] = -B( JS, JSP1 );
+                  Z[5, 5] = -E( JS, JS );
+                  Z[7, 5] = -E( JS, JSP1 );
 
-                  Z( 2, 6 ) = -B( JS, JS );
-                  Z( 4, 6 ) = -B( JS, JSP1 );
-                  Z( 6, 6 ) = -E( JS, JS );
-                  Z( 8, 6 ) = -E( JS, JSP1 );
+                  Z[2, 6] = -B( JS, JS );
+                  Z[4, 6] = -B( JS, JSP1 );
+                  Z[6, 6] = -E( JS, JS );
+                  Z[8, 6] = -E( JS, JSP1 );
 
-                  Z( 1, 7 ) = -B( JSP1, JS );
-                  Z( 3, 7 ) = -B( JSP1, JSP1 );
-                  Z( 7, 7 ) = -E( JSP1, JSP1 );
+                  Z[1, 7] = -B( JSP1, JS );
+                  Z[3, 7] = -B( JSP1, JSP1 );
+                  Z[7, 7] = -E( JSP1, JSP1 );
 
-                  Z( 2, 8 ) = -B( JSP1, JS );
-                  Z( 4, 8 ) = -B( JSP1, JSP1 );
-                  Z( 8, 8 ) = -E( JSP1, JSP1 );
+                  Z[2, 8] = -B( JSP1, JS );
+                  Z[4, 8] = -B( JSP1, JSP1 );
+                  Z[8, 8] = -E( JSP1, JSP1 );
 
                   // Set up right hand side(s)
 
@@ -452,15 +452,15 @@
 
                   // Build a 2-by-2 system Z**T * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = -B( JS, JS );
-                  Z( 1, 2 ) = D( IS, IS );
-                  Z( 2, 2 ) = -E( JS, JS );
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = -B( JS, JS );
+                  Z[1, 2] = D( IS, IS );
+                  Z[2, 2] = -E( JS, JS );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = F( IS, JS );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = F( IS, JS );
 
                   // Solve Z**T * x = RHS
 
@@ -478,8 +478,8 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  F( IS, JS ) = RHS( 2 );
+                  C[IS, JS] = RHS( 1 );
+                  F[IS, JS] = RHS( 2 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -501,32 +501,32 @@
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = ZERO;
-                  Z( 3, 1 ) = -B( JS, JS );
-                  Z( 4, 1 ) = -B( JSP1, JS );
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = ZERO;
+                  Z[3, 1] = -B( JS, JS );
+                  Z[4, 1] = -B( JSP1, JS );
 
-                  Z( 1, 2 ) = ZERO;
-                  Z( 2, 2 ) = A( IS, IS );
-                  Z( 3, 2 ) = -B( JS, JSP1 );
-                  Z( 4, 2 ) = -B( JSP1, JSP1 );
+                  Z[1, 2] = ZERO;
+                  Z[2, 2] = A( IS, IS );
+                  Z[3, 2] = -B( JS, JSP1 );
+                  Z[4, 2] = -B( JSP1, JSP1 );
 
-                  Z( 1, 3 ) = D( IS, IS );
-                  Z( 2, 3 ) = ZERO;
-                  Z( 3, 3 ) = -E( JS, JS );
-                  Z( 4, 3 ) = ZERO;
+                  Z[1, 3] = D( IS, IS );
+                  Z[2, 3] = ZERO;
+                  Z[3, 3] = -E( JS, JS );
+                  Z[4, 3] = ZERO;
 
-                  Z( 1, 4 ) = ZERO;
-                  Z( 2, 4 ) = D( IS, IS );
-                  Z( 3, 4 ) = -E( JS, JSP1 );
-                  Z( 4, 4 ) = -E( JSP1, JSP1 );
+                  Z[1, 4] = ZERO;
+                  Z[2, 4] = D( IS, IS );
+                  Z[3, 4] = -E( JS, JSP1 );
+                  Z[4, 4] = -E( JSP1, JSP1 );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = C( IS, JSP1 );
-                  RHS( 3 ) = F( IS, JS );
-                  RHS( 4 ) = F( IS, JSP1 );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = C( IS, JSP1 );
+                  RHS[3] = F( IS, JS );
+                  RHS[4] = F( IS, JSP1 );
 
                   // Solve Z**T * x = RHS
 
@@ -543,10 +543,10 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  C( IS, JSP1 ) = RHS( 2 );
-                  F( IS, JS ) = RHS( 3 );
-                  F( IS, JSP1 ) = RHS( 4 );
+                  C[IS, JS] = RHS( 1 );
+                  C[IS, JSP1] = RHS( 2 );
+                  F[IS, JS] = RHS( 3 );
+                  F[IS, JSP1] = RHS( 4 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -566,32 +566,32 @@
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = A( IS, ISP1 );
-                  Z( 3, 1 ) = -B( JS, JS );
-                  Z( 4, 1 ) = ZERO;
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = A( IS, ISP1 );
+                  Z[3, 1] = -B( JS, JS );
+                  Z[4, 1] = ZERO;
 
-                  Z( 1, 2 ) = A( ISP1, IS );
-                  Z( 2, 2 ) = A( ISP1, ISP1 );
-                  Z( 3, 2 ) = ZERO;
-                  Z( 4, 2 ) = -B( JS, JS );
+                  Z[1, 2] = A( ISP1, IS );
+                  Z[2, 2] = A( ISP1, ISP1 );
+                  Z[3, 2] = ZERO;
+                  Z[4, 2] = -B( JS, JS );
 
-                  Z( 1, 3 ) = D( IS, IS );
-                  Z( 2, 3 ) = D( IS, ISP1 );
-                  Z( 3, 3 ) = -E( JS, JS );
-                  Z( 4, 3 ) = ZERO;
+                  Z[1, 3] = D( IS, IS );
+                  Z[2, 3] = D( IS, ISP1 );
+                  Z[3, 3] = -E( JS, JS );
+                  Z[4, 3] = ZERO;
 
-                  Z( 1, 4 ) = ZERO;
-                  Z( 2, 4 ) = D( ISP1, ISP1 );
-                  Z( 3, 4 ) = ZERO;
-                  Z( 4, 4 ) = -E( JS, JS );
+                  Z[1, 4] = ZERO;
+                  Z[2, 4] = D( ISP1, ISP1 );
+                  Z[3, 4] = ZERO;
+                  Z[4, 4] = -E( JS, JS );
 
                   // Set up right hand side(s)
 
-                  RHS( 1 ) = C( IS, JS );
-                  RHS( 2 ) = C( ISP1, JS );
-                  RHS( 3 ) = F( IS, JS );
-                  RHS( 4 ) = F( ISP1, JS );
+                  RHS[1] = C( IS, JS );
+                  RHS[2] = C( ISP1, JS );
+                  RHS[3] = F( IS, JS );
+                  RHS[4] = F( ISP1, JS );
 
                   // Solve Z**T * x = RHS
 
@@ -609,10 +609,10 @@
 
                   // Unpack solution vector(s)
 
-                  C( IS, JS ) = RHS( 1 );
-                  C( ISP1, JS ) = RHS( 2 );
-                  F( IS, JS ) = RHS( 3 );
-                  F( ISP1, JS ) = RHS( 4 );
+                  C[IS, JS] = RHS( 1 );
+                  C[ISP1, JS] = RHS( 2 );
+                  F[IS, JS] = RHS( 3 );
+                  F[ISP1, JS] = RHS( 4 );
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -632,41 +632,41 @@
 
                   dlaset('F', LDZ, LDZ, ZERO, ZERO, Z, LDZ );
 
-                  Z( 1, 1 ) = A( IS, IS );
-                  Z( 2, 1 ) = A( IS, ISP1 );
-                  Z( 5, 1 ) = -B( JS, JS );
-                  Z( 7, 1 ) = -B( JSP1, JS );
+                  Z[1, 1] = A( IS, IS );
+                  Z[2, 1] = A( IS, ISP1 );
+                  Z[5, 1] = -B( JS, JS );
+                  Z[7, 1] = -B( JSP1, JS );
 
-                  Z( 1, 2 ) = A( ISP1, IS );
-                  Z( 2, 2 ) = A( ISP1, ISP1 );
-                  Z( 6, 2 ) = -B( JS, JS );
-                  Z( 8, 2 ) = -B( JSP1, JS );
+                  Z[1, 2] = A( ISP1, IS );
+                  Z[2, 2] = A( ISP1, ISP1 );
+                  Z[6, 2] = -B( JS, JS );
+                  Z[8, 2] = -B( JSP1, JS );
 
-                  Z( 3, 3 ) = A( IS, IS );
-                  Z( 4, 3 ) = A( IS, ISP1 );
-                  Z( 5, 3 ) = -B( JS, JSP1 );
-                  Z( 7, 3 ) = -B( JSP1, JSP1 );
+                  Z[3, 3] = A( IS, IS );
+                  Z[4, 3] = A( IS, ISP1 );
+                  Z[5, 3] = -B( JS, JSP1 );
+                  Z[7, 3] = -B( JSP1, JSP1 );
 
-                  Z( 3, 4 ) = A( ISP1, IS );
-                  Z( 4, 4 ) = A( ISP1, ISP1 );
-                  Z( 6, 4 ) = -B( JS, JSP1 );
-                  Z( 8, 4 ) = -B( JSP1, JSP1 );
+                  Z[3, 4] = A( ISP1, IS );
+                  Z[4, 4] = A( ISP1, ISP1 );
+                  Z[6, 4] = -B( JS, JSP1 );
+                  Z[8, 4] = -B( JSP1, JSP1 );
 
-                  Z( 1, 5 ) = D( IS, IS );
-                  Z( 2, 5 ) = D( IS, ISP1 );
-                  Z( 5, 5 ) = -E( JS, JS );
+                  Z[1, 5] = D( IS, IS );
+                  Z[2, 5] = D( IS, ISP1 );
+                  Z[5, 5] = -E( JS, JS );
 
-                  Z( 2, 6 ) = D( ISP1, ISP1 );
-                  Z( 6, 6 ) = -E( JS, JS );
+                  Z[2, 6] = D( ISP1, ISP1 );
+                  Z[6, 6] = -E( JS, JS );
 
-                  Z( 3, 7 ) = D( IS, IS );
-                  Z( 4, 7 ) = D( IS, ISP1 );
-                  Z( 5, 7 ) = -E( JS, JSP1 );
-                  Z( 7, 7 ) = -E( JSP1, JSP1 );
+                  Z[3, 7] = D( IS, IS );
+                  Z[4, 7] = D( IS, ISP1 );
+                  Z[5, 7] = -E( JS, JSP1 );
+                  Z[7, 7] = -E( JSP1, JSP1 );
 
-                  Z( 4, 8 ) = D( ISP1, ISP1 );
-                  Z( 6, 8 ) = -E( JS, JSP1 );
-                  Z( 8, 8 ) = -E( JSP1, JSP1 );
+                  Z[4, 8] = D( ISP1, ISP1 );
+                  Z[6, 8] = -E( JS, JSP1 );
+                  Z[8, 8] = -E( JSP1, JSP1 );
 
                   // Set up right hand side(s)
 

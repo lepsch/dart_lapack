@@ -195,7 +195,7 @@
             if( NB == NBVAL2( J ) ) GO TO 60;
          } // 50
          NNB2 = NNB2 + 1;
-         NBVAL2( NNB2 ) = NB;
+         NBVAL2[NNB2] = NB;
       } // 60
 
       // Read the values of NX

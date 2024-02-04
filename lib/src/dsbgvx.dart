@@ -137,7 +137,7 @@
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0;
+                  IFAIL[I] = 0;
                } // 10
             }
          }
@@ -190,15 +190,15 @@
 
             if ( I != 0 ) {
                ITMP1 = IWORK( 1 + I-1 );
-               W( I ) = W( J );
-               IWORK( 1 + I-1 ) = IWORK( 1 + J-1 );
-               W( J ) = TMP1;
-               IWORK( 1 + J-1 ) = ITMP1;
+               W[I] = W( J );
+               IWORK[1 + I-1] = IWORK( 1 + J-1 );
+               W[J] = TMP1;
+               IWORK[1 + J-1] = ITMP1;
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I );
-                  IFAIL( I ) = IFAIL( J );
-                  IFAIL( J ) = ITMP1;
+                  IFAIL[I] = IFAIL( J );
+                  IFAIL[J] = ITMP1;
                }
             }
          } // 50

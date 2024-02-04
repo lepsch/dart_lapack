@@ -30,7 +30,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( T ) = ( DBLE( T ) ).abs() + ( DIMAG( T ) ).abs();
+      ABS1[T] = ( DBLE( T ) ).abs() + ( DIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

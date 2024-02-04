@@ -79,23 +79,23 @@
           if (INCY == 1) {
               if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 10
-                      Y(I) = ZERO;
+                      Y[I] = ZERO;
                   } // 10
               } else {
                   for (I = 1; I <= N; I++) { // 20
-                      Y(I) = BETA*Y(I);
+                      Y[I] = BETA*Y(I);
                   } // 20
               }
           } else {
               IY = KY;
               if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 30
-                      Y(IY) = ZERO;
+                      Y[IY] = ZERO;
                       IY = IY + INCY;
                   } // 30
               } else {
                   for (I = 1; I <= N; I++) { // 40
-                      Y(IY) = BETA*Y(IY);
+                      Y[IY] = BETA*Y(IY);
                       IY = IY + INCY;
                   } // 40
               }
@@ -113,11 +113,11 @@
                   TEMP2 = ZERO;
                   K = KK;
                   for (I = 1; I <= J - 1; I++) { // 50
-                      Y(I) = Y(I) + TEMP1*AP(K);
+                      Y[I] = Y(I) + TEMP1*AP(K);
                       TEMP2 = TEMP2 + DCONJG(AP(K))*X(I);
                       K = K + 1;
                   } // 50
-                  Y(J) = Y(J) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
+                  Y[J] = Y(J) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
                   KK = KK + J;
               } // 60
           } else {
@@ -129,12 +129,12 @@
                   IX = KX;
                   IY = KY;
                   for (K = KK; K <= KK + J - 2; K++) { // 70
-                      Y(IY) = Y(IY) + TEMP1*AP(K);
+                      Y[IY] = Y(IY) + TEMP1*AP(K);
                       TEMP2 = TEMP2 + DCONJG(AP(K))*X(IX);
                       IX = IX + INCX;
                       IY = IY + INCY;
                   } // 70
-                  Y(JY) = Y(JY) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
+                  Y[JY] = Y(JY) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
                   JX = JX + INCX;
                   JY = JY + INCY;
                   KK = KK + J;
@@ -148,14 +148,14 @@
               for (J = 1; J <= N; J++) { // 100
                   TEMP1 = ALPHA*X(J);
                   TEMP2 = ZERO;
-                  Y(J) = Y(J) + TEMP1*DBLE(AP(KK));
+                  Y[J] = Y(J) + TEMP1*DBLE(AP(KK));
                   K = KK + 1;
                   for (I = J + 1; I <= N; I++) { // 90
-                      Y(I) = Y(I) + TEMP1*AP(K);
+                      Y[I] = Y(I) + TEMP1*AP(K);
                       TEMP2 = TEMP2 + DCONJG(AP(K))*X(I);
                       K = K + 1;
                   } // 90
-                  Y(J) = Y(J) + ALPHA*TEMP2;
+                  Y[J] = Y(J) + ALPHA*TEMP2;
                   KK = KK + (N-J+1);
               } // 100
           } else {
@@ -164,16 +164,16 @@
               for (J = 1; J <= N; J++) { // 120
                   TEMP1 = ALPHA*X(JX);
                   TEMP2 = ZERO;
-                  Y(JY) = Y(JY) + TEMP1*DBLE(AP(KK));
+                  Y[JY] = Y(JY) + TEMP1*DBLE(AP(KK));
                   IX = JX;
                   IY = JY;
                   for (K = KK + 1; K <= KK + N - J; K++) { // 110
                       IX = IX + INCX;
                       IY = IY + INCY;
-                      Y(IY) = Y(IY) + TEMP1*AP(K);
+                      Y[IY] = Y(IY) + TEMP1*AP(K);
                       TEMP2 = TEMP2 + DCONJG(AP(K))*X(IX);
                   } // 110
-                  Y(JY) = Y(JY) + ALPHA*TEMP2;
+                  Y[JY] = Y(JY) + ALPHA*TEMP2;
                   JX = JX + INCX;
                   JY = JY + INCY;
                   KK = KK + (N-J+1);

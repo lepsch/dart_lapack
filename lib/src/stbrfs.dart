@@ -78,8 +78,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -119,7 +119,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 20
-            WORK( I ) = ( B( I, J ) ).abs();
+            WORK[I] = ( B( I, J ) ).abs();
          } // 20
 
          if ( NOTRAN ) {
@@ -131,16 +131,16 @@
                   for (K = 1; K <= N; K++) { // 40
                      XK = ( X( K, J ) ).abs();
                      for (I = max( 1, K-KD ); I <= K; I++) { // 30
-                        WORK( I ) = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
+                        WORK[I] = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
                      } // 30
                   } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = ( X( K, J ) ).abs();
                      for (I = max( 1, K-KD ); I <= K - 1; I++) { // 50
-                        WORK( I ) = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
+                        WORK[I] = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
                      } // 50
-                     WORK( K ) = WORK( K ) + XK;
+                     WORK[K] = WORK( K ) + XK;
                   } // 60
                }
             } else {
@@ -148,16 +148,16 @@
                   for (K = 1; K <= N; K++) { // 80
                      XK = ( X( K, J ) ).abs();
                      for (I = K; I <= min( N, K+KD ); I++) { // 70
-                        WORK( I ) = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
+                        WORK[I] = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
                      } // 70
                   } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = ( X( K, J ) ).abs();
                      for (I = K + 1; I <= min( N, K+KD ); I++) { // 90
-                        WORK( I ) = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
+                        WORK[I] = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
                      } // 90
-                     WORK( K ) = WORK( K ) + XK;
+                     WORK[K] = WORK( K ) + XK;
                   } // 100
                }
             }
@@ -172,7 +172,7 @@
                      for (I = max( 1, K-KD ); I <= K; I++) { // 110
                         S = S + ( AB( KD+1+I-K, K ) ).abs()* ( X( I, J ) ).abs();
                      } // 110
-                     WORK( K ) = WORK( K ) + S;
+                     WORK[K] = WORK( K ) + S;
                   } // 120
                } else {
                   for (K = 1; K <= N; K++) { // 140
@@ -180,7 +180,7 @@
                      for (I = max( 1, K-KD ); I <= K - 1; I++) { // 130
                         S = S + ( AB( KD+1+I-K, K ) ).abs()* ( X( I, J ) ).abs();
                      } // 130
-                     WORK( K ) = WORK( K ) + S;
+                     WORK[K] = WORK( K ) + S;
                   } // 140
                }
             } else {
@@ -190,7 +190,7 @@
                      for (I = K; I <= min( N, K+KD ); I++) { // 150
                         S = S + ( AB( 1+I-K, K ) ).abs()*( X( I, J ) ).abs();
                      } // 150
-                     WORK( K ) = WORK( K ) + S;
+                     WORK[K] = WORK( K ) + S;
                   } // 160
                } else {
                   for (K = 1; K <= N; K++) { // 180
@@ -198,7 +198,7 @@
                      for (I = K + 1; I <= min( N, K+KD ); I++) { // 170
                         S = S + ( AB( 1+I-K, K ) ).abs()*( X( I, J ) ).abs();
                      } // 170
-                     WORK( K ) = WORK( K ) + S;
+                     WORK[K] = WORK( K ) + S;
                   } // 180
                }
             }
@@ -211,7 +211,7 @@
                S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 190
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Bound error from formula
 
@@ -237,9 +237,9 @@
 
          for (I = 1; I <= N; I++) { // 200
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 200
 
@@ -253,14 +253,14 @@
 
                stbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 );
                for (I = 1; I <= N; I++) { // 220
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 220
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 230
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 230
                stbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 );
             }

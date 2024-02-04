@@ -56,34 +56,34 @@
 
       // Set up test case parameters
 
-      VSMIN( 1 ) = SMLNUM;
-      VSMIN( 2 ) = EPS;
-      VSMIN( 3 ) = ONE / ( TEN*TEN );
-      VSMIN( 4 ) = ONE / EPS;
-      VAB( 1 ) = sqrt( SMLNUM );
-      VAB( 2 ) = ONE;
-      VAB( 3 ) = sqrt( BIGNUM );
-      VWR( 1 ) = ZERO;
-      VWR( 2 ) = HALF;
-      VWR( 3 ) = TWO;
-      VWR( 4 ) = ONE;
-      VWI( 1 ) = SMLNUM;
-      VWI( 2 ) = EPS;
-      VWI( 3 ) = ONE;
-      VWI( 4 ) = TWO;
-      VDD( 1 ) = sqrt( SMLNUM );
-      VDD( 2 ) = ONE;
-      VDD( 3 ) = TWO;
-      VDD( 4 ) = sqrt( BIGNUM );
-      VCA( 1 ) = ZERO;
-      VCA( 2 ) = sqrt( SMLNUM );
-      VCA( 3 ) = EPS;
-      VCA( 4 ) = HALF;
-      VCA( 5 ) = ONE;
+      VSMIN[1] = SMLNUM;
+      VSMIN[2] = EPS;
+      VSMIN[3] = ONE / ( TEN*TEN );
+      VSMIN[4] = ONE / EPS;
+      VAB[1] = sqrt( SMLNUM );
+      VAB[2] = ONE;
+      VAB[3] = sqrt( BIGNUM );
+      VWR[1] = ZERO;
+      VWR[2] = HALF;
+      VWR[3] = TWO;
+      VWR[4] = ONE;
+      VWI[1] = SMLNUM;
+      VWI[2] = EPS;
+      VWI[3] = ONE;
+      VWI[4] = TWO;
+      VDD[1] = sqrt( SMLNUM );
+      VDD[2] = ONE;
+      VDD[3] = TWO;
+      VDD[4] = sqrt( BIGNUM );
+      VCA[1] = ZERO;
+      VCA[2] = sqrt( SMLNUM );
+      VCA[3] = EPS;
+      VCA[4] = HALF;
+      VCA[5] = ONE;
 
       KNT = 0;
-      NINFO( 1 ) = 0;
-      NINFO( 2 ) = 0;
+      NINFO[1] = 0;
+      NINFO[2] = 0;
       LMAX = 0;
       RMAX = ZERO;
 
@@ -102,9 +102,9 @@
                      NA = 1;
                      NW = 1;
                      for (IA = 1; IA <= 3; IA++) { // 30
-                        A( 1, 1 ) = VAB( IA );
+                        A[1, 1] = VAB( IA );
                         for (IB = 1; IB <= 3; IB++) { // 20
-                           B( 1, 1 ) = VAB( IB );
+                           B[1, 1] = VAB( IB );
                            for (IWR = 1; IWR <= 4; IWR++) { // 10
                               if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 );
@@ -114,7 +114,7 @@
                               WI = ZERO;
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                               if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1;
-                              if( INFO > 0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                              if[INFO > 0 ) NINFO( 2] = NINFO( 2 ) + 1;
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) );
                               if ( INFO == 0 ) {
                                  DEN = max( EPS*( ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 1 ) ) ), SMLNUM );
@@ -137,10 +137,10 @@
                      NA = 1;
                      NW = 2;
                      for (IA = 1; IA <= 3; IA++) { // 70
-                        A( 1, 1 ) = VAB( IA );
+                        A[1, 1] = VAB( IA );
                         for (IB = 1; IB <= 3; IB++) { // 60
-                           B( 1, 1 ) = VAB( IB );
-                           B( 1, 2 ) = -HALF*VAB( IB );
+                           B[1, 1] = VAB( IB );
+                           B[1, 2] = -HALF*VAB( IB );
                            for (IWR = 1; IWR <= 4; IWR++) { // 50
                               if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 );
@@ -155,7 +155,7 @@
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                                  if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1;
-                                 if( INFO > 0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                                 if[INFO > 0 ) NINFO( 2] = NINFO( 2 ) + 1;
                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) );
                                  if ( INFO == 0 ) {
                                     DEN = max( EPS*( max( ABS( CA*A( 1, 1 )-WR*D1 ), ( D1*WI ).abs() )* ( ( X( 1, 1 ) ).abs()+( X( 1, 2 ) ) ) ).abs(), SMLNUM );
@@ -180,13 +180,13 @@
                      NA = 2;
                      NW = 1;
                      for (IA = 1; IA <= 3; IA++) { // 100
-                        A( 1, 1 ) = VAB( IA );
-                        A( 1, 2 ) = -THREE*VAB( IA );
-                        A( 2, 1 ) = -SEVEN*VAB( IA );
-                        A( 2, 2 ) = TWNONE*VAB( IA );
+                        A[1, 1] = VAB( IA );
+                        A[1, 2] = -THREE*VAB( IA );
+                        A[2, 1] = -SEVEN*VAB( IA );
+                        A[2, 2] = TWNONE*VAB( IA );
                         for (IB = 1; IB <= 3; IB++) { // 90
-                           B( 1, 1 ) = VAB( IB );
-                           B( 2, 1 ) = -TWO*VAB( IB );
+                           B[1, 1] = VAB( IB );
+                           B[2, 1] = -TWO*VAB( IB );
                            for (IWR = 1; IWR <= 4; IWR++) { // 80
                               if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 );
@@ -196,11 +196,11 @@
                               WI = ZERO;
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                               if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1;
-                              IF( INFO > 0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                              IF[INFO > 0 ) NINFO( 2] = NINFO( 2 ) + 1;
                               if ( ITRANS == 1 ) {
                                  TMP = A( 1, 2 );
-                                 A( 1, 2 ) = A( 2, 1 );
-                                 A( 2, 1 ) = TMP;
+                                 A[1, 2] = A( 2, 1 );
+                                 A[2, 1] = TMP;
                               }
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )-SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )-SCALE*B( 2, 1 ) );
                               if ( INFO == 0 ) {
@@ -225,15 +225,15 @@
                      NA = 2;
                      NW = 2;
                      for (IA = 1; IA <= 3; IA++) { // 140
-                        A( 1, 1 ) = VAB( IA )*TWO;
-                        A( 1, 2 ) = -THREE*VAB( IA );
-                        A( 2, 1 ) = -SEVEN*VAB( IA );
-                        A( 2, 2 ) = TWNONE*VAB( IA );
+                        A[1, 1] = VAB( IA )*TWO;
+                        A[1, 2] = -THREE*VAB( IA );
+                        A[2, 1] = -SEVEN*VAB( IA );
+                        A[2, 2] = TWNONE*VAB( IA );
                         for (IB = 1; IB <= 3; IB++) { // 130
-                           B( 1, 1 ) = VAB( IB );
-                           B( 2, 1 ) = -TWO*VAB( IB );
-                           B( 1, 2 ) = FOUR*VAB( IB );
-                           B( 2, 2 ) = -SEVEN*VAB( IB );
+                           B[1, 1] = VAB( IB );
+                           B[2, 1] = -TWO*VAB( IB );
+                           B[1, 2] = FOUR*VAB( IB );
+                           B[2, 2] = -SEVEN*VAB( IB );
                            for (IWR = 1; IWR <= 4; IWR++) { // 120
                               if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 );
@@ -248,11 +248,11 @@
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
                                  if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1;
-                                 IF( INFO > 0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                                 IF[INFO > 0 ) NINFO( 2] = NINFO( 2 ) + 1;
                                  if ( ITRANS == 1 ) {
                                     TMP = A( 1, 2 );
-                                    A( 1, 2 ) = A( 2, 1 );
-                                    A( 2, 1 ) = TMP;
+                                    A[1, 2] = A( 2, 1 );
+                                    A[2, 1] = TMP;
                                  }
                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )+ ( CA*A( 1, 2 ) )*X( 2, 2 )- ( WI*D1 )*X( 1, 1 )-SCALE* B( 1, 2 ) );
                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )+( WI*D2 )*X( 2, 2 )- SCALE*B( 2, 1 ) )                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 2 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 2 )-( WI*D2 )*X( 2, 1 )- SCALE*B( 2, 2 ) );

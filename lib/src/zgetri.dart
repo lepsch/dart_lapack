@@ -39,7 +39,7 @@
       INFO = 0;
       NB = ILAENV( 1, 'ZGETRI', ' ', N, -1, -1, -1 );
       LWKOPT = max( 1, N*NB );
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
@@ -88,8 +88,8 @@
             // Copy current column of L to WORK and replace with zeros.
 
             for (I = J + 1; I <= N; I++) { // 10
-               WORK( I ) = A( I, J );
-               A( I, J ) = ZERO;
+               WORK[I] = A( I, J );
+               A[I, J] = ZERO;
             } // 10
 
             // Compute current column of inv(A).
@@ -109,8 +109,8 @@
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
                for (I = JJ + 1; I <= N; I++) { // 30
-                  WORK( I+( JJ-J )*LDWORK ) = A( I, JJ );
-                  A( I, JJ ) = ZERO;
+                  WORK[I+( JJ-J )*LDWORK] = A( I, JJ );
+                  A[I, JJ] = ZERO;
                } // 30
             } // 40
 
@@ -128,6 +128,6 @@
          if (JP != J) zswap( N, A( 1, J ), 1, A( 1, JP ), 1 );
       } // 60
 
-      WORK( 1 ) = IWS;
+      WORK[1] = IWS;
       return;
       }

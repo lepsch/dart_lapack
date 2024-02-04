@@ -56,7 +56,7 @@
       M = N1 + N2;
       if ( LWORK < max( N*M, M*M*2 ) ) {
          INFO = -16;
-         WORK( 1 ) = max( N*M, M*M*2 );
+         WORK[1] = max( N*M, M*M*2 );
          return;
       }
 
@@ -108,8 +108,8 @@
          SA = ( S( 2, 2 ) ).abs() * ( T( 1, 1 ) ).abs();
          SB = ( S( 1, 1 ) ).abs() * ( T( 2, 2 ) ).abs();
          slartg(F, G, IR( 1, 2 ), IR( 1, 1 ), DDUM );
-         IR( 2, 1 ) = -IR( 1, 2 );
-         IR( 2, 2 ) = IR( 1, 1 );
+         IR[2, 1] = -IR( 1, 2 );
+         IR[2, 2] = IR( 1, 1 );
          srot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          srot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          if ( SA >= SB ) {
@@ -119,8 +119,8 @@
          }
          srot(2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
          srot(2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
-         LI( 2, 2 ) = LI( 1, 1 );
-         LI( 1, 2 ) = -LI( 2, 1 );
+         LI[2, 2] = LI( 1, 1 );
+         LI[1, 2] = -LI( 2, 1 );
 
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
                             // and  |T21| <= O(EPS F-norm((B)))
@@ -163,8 +163,8 @@
 
          // Set  N1-by-N2 (2,1) - blocks to ZERO.
 
-         A( J1+1, J1 ) = ZERO;
-         B( J1+1, J1 ) = ZERO;
+         A[J1+1, J1] = ZERO;
+         B[J1+1, J1] = ZERO;
 
          // Accumulate transformations into Q and Z if requested.
 
@@ -200,7 +200,7 @@
 
          for (I = 1; I <= N2; I++) { // 10
             sscal(N1, -ONE, LI( 1, I ), 1 );
-            LI( N1+I, I ) = SCALE;
+            LI[N1+I, I] = SCALE;
          } // 10
          sgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO );
          if (LINFO != 0) GO TO 70;
@@ -214,7 +214,7 @@
           // where IR = [ SCALE * identity(N1), R ]
 
          for (I = 1; I <= N1; I++) { // 20
-            IR( N2+I, I ) = SCALE;
+            IR[N2+I, I] = SCALE;
          } // 20
          sgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
          if (LINFO != 0) GO TO 70;
@@ -324,25 +324,25 @@
          // Standardize existing 2-by-2 blocks.
 
          slaset('Full', M, M, ZERO, ZERO, WORK, M );
-         WORK( 1 ) = ONE;
-         T( 1, 1 ) = ONE;
+         WORK[1] = ONE;
+         T[1, 1] = ONE;
          IDUM = LWORK - M*M - 2;
          if ( N2 > 1 ) {
             slagv2(A( J1, J1 ), LDA, B( J1, J1 ), LDB, AR, AI, BE, WORK( 1 ), WORK( 2 ), T( 1, 1 ), T( 2, 1 ) );
-            WORK( M+1 ) = -WORK( 2 );
-            WORK( M+2 ) = WORK( 1 );
-            T( N2, N2 ) = T( 1, 1 );
-            T( 1, 2 ) = -T( 2, 1 );
+            WORK[M+1] = -WORK( 2 );
+            WORK[M+2] = WORK( 1 );
+            T[N2, N2] = T( 1, 1 );
+            T[1, 2] = -T( 2, 1 );
          }
-         WORK( M*M ) = ONE;
-         T( M, M ) = ONE;
+         WORK[M*M] = ONE;
+         T[M, M] = ONE;
 
          if ( N1 > 1 ) {
             slagv2(A( J1+N2, J1+N2 ), LDA, B( J1+N2, J1+N2 ), LDB, TAUR, TAUL, WORK( M*M+1 ), WORK( N2*M+N2+1 ), WORK( N2*M+N2+2 ), T( N2+1, N2+1 ), T( M, M-1 ) );
-            WORK( M*M ) = WORK( N2*M+N2+1 );
-            WORK( M*M-1 ) = -WORK( N2*M+N2+2 );
-            T( M, M ) = T( N2+1, N2+1 );
-            T( M-1, M ) = -T( M, M-1 );
+            WORK[M*M] = WORK( N2*M+N2+1 );
+            WORK[M*M-1] = -WORK( N2*M+N2+2 );
+            T[M, M] = T( N2+1, N2+1 );
+            T[M-1, M] = -T( M, M-1 );
          }
          sgemm('T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 );
          slacpy('Full', N2, N1, WORK( M*M+1 ), N2, A( J1, J1+N2 ), LDA );

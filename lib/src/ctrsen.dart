@@ -86,7 +86,7 @@
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         WORK[1] = SROUNDUP_LWORK(LWMIN);
       }
 
       if ( INFO != 0 ) {
@@ -168,10 +168,10 @@
       // Copy reordered eigenvalues to W.
 
       for (K = 1; K <= N; K++) { // 50
-         W( K ) = T( K, K );
+         W[K] = T( K, K );
       } // 50
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      WORK[1] = SROUNDUP_LWORK(LWMIN);
 
       return;
       }

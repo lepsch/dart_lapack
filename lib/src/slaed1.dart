@@ -88,7 +88,7 @@
          slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          for (I = 1; I <= N; I++) { // 10
-            INDXQ( I ) = I;
+            INDXQ[I] = I;
          } // 10
       }
 

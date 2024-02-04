@@ -105,7 +105,7 @@
 
       for (JCOL = 1; JCOL <= N - 1; JCOL++) { // 20
          for (JROW = JCOL + 1; JROW <= N; JROW++) { // 10
-            B( JROW, JCOL ) = ZERO;
+            B[JROW, JCOL] = ZERO;
          } // 10
       } // 20
 
@@ -119,7 +119,7 @@
 
             TEMP = A( JROW-1, JCOL );
             dlartg(TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
-            A( JROW, JCOL ) = ZERO;
+            A[JROW, JCOL] = ZERO;
             drot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
             drot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
 
@@ -127,7 +127,7 @@
 
             TEMP = B( JROW, JROW );
             dlartg(TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B( JROW, JROW-1 ) = ZERO;
+            B[JROW, JROW-1] = ZERO;
             drot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             drot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL DROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30

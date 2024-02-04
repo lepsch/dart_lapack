@@ -63,11 +63,11 @@
 
       // Find the minimum and maximum diagonal elements.
 
-      S( 1 ) = REAL( A( 1, 1 ) );
+      S[1] = REAL( A( 1, 1 ) );
       SMIN = S( 1 );
       AMAX = S( 1 );
       for (I = 2; I <= N; I++) { // 10
-         S( I ) = REAL( A( I, I ) );
+         S[I] = REAL( A( I, I ) );
          SMIN = min( SMIN, S( I ) );
          AMAX = max( AMAX, S( I ) );
       } // 10
@@ -88,7 +88,7 @@
          // of the diagonal elements.
 
          for (I = 1; I <= N; I++) { // 30
-            S( I ) = BASE ** INT( TMP * LOG( S( I ) ) );
+            S[I] = BASE ** INT( TMP * LOG( S( I ) ) );
          } // 30
 
          // Compute SCOND = min(S(I)) / max(S(I)).

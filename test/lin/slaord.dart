@@ -41,8 +41,8 @@
                GO TO 20;
             } else {
                TEMP = X( IX );
-               X( IX ) = X( IXNEXT );
-               X( IXNEXT ) = TEMP;
+               X[IX] = X( IXNEXT );
+               X[IXNEXT] = TEMP;
             }
             IX = IXNEXT;
             GO TO 10;
@@ -61,8 +61,8 @@
                GO TO 40;
             } else {
                TEMP = X( IX );
-               X( IX ) = X( IXNEXT );
-               X( IXNEXT ) = TEMP;
+               X[IX] = X( IXNEXT );
+               X[IXNEXT] = TEMP;
             }
             IX = IXNEXT;
             GO TO 30;

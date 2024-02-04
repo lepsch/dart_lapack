@@ -79,7 +79,7 @@
       // Quick return if nothing to do
 
       for (I = 1; I <= 17; I++) { // 10
-         RESULT( I ) = -ONE;
+         RESULT[I] = -ONE;
       } // 10
 
       if (N == 0) return;
@@ -108,7 +108,7 @@
          dlacpy('F', N, N, A, LDA, H, LDA );
          dgeesx('V', SORT, DSLECT, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 1+RSUB ) = ULPINV;
+            RESULT[1+RSUB] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX1', IINFO, N, JTYPE, ISEED;
             } else {
@@ -124,7 +124,7 @@
 
          // Do Test (1) or Test (7)
 
-         RESULT( 1+RSUB ) = ZERO;
+         RESULT[1+RSUB] = ZERO;
          for (J = 1; J <= N - 2; J++) { // 30
             for (I = J + 2; I <= N; I++) { // 20
                if( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV;
@@ -157,12 +157,12 @@
          WNORM = DLANGE( '1', N, N, VS1, LDVS, WORK );
 
          if ( ANORM > WNORM ) {
-            RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP );
+            RESULT[2+RSUB] = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT( 2+RSUB ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+               RESULT[2+RSUB] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT( 2+RSUB ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT[2+RSUB] = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
             }
          }
 
@@ -172,7 +172,7 @@
 
          // Do Test (4) or Test (10)
 
-         RESULT( 4+RSUB ) = ZERO;
+         RESULT[4+RSUB] = ZERO;
          for (I = 1; I <= N; I++) { // 60
             if( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV;
          } // 60
@@ -193,7 +193,7 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('N', SORT, DSLECT, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 5+RSUB ) = ULPINV;
+            RESULT[5+RSUB] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX2', IINFO, N, JTYPE, ISEED;
             } else {
@@ -203,7 +203,7 @@
             GO TO 250;
          }
 
-         RESULT( 5+RSUB ) = ZERO;
+         RESULT[5+RSUB] = ZERO;
          for (J = 1; J <= N; J++) { // 90
             for (I = 1; I <= N; I++) { // 80
                if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
@@ -212,7 +212,7 @@
 
          // Do Test (6) or Test (12)
 
-         RESULT( 6+RSUB ) = ZERO;
+         RESULT[6+RSUB] = ZERO;
          for (I = 1; I <= N; I++) { // 100
             if( WR( I ) != WRT( I ) || WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV;
          } // 100
@@ -220,7 +220,7 @@
          // Do Test (13)
 
          if ( ISORT == 1 ) {
-            RESULT( 13 ) = ZERO;
+            RESULT[13] = ZERO;
             KNTEIG = 0;
             for (I = 1; I <= N; I++) { // 110
                if( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1;
@@ -241,13 +241,13 @@
          // Compute both RCONDE and RCONDV with VS
 
          SORT = 'S';
-         RESULT( 14 ) = ZERO;
-         RESULT( 15 ) = ZERO;
+         RESULT[14] = ZERO;
+         RESULT[15] = ZERO;
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('V', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 14 ) = ULPINV;
-            RESULT( 15 ) = ULPINV;
+            RESULT[14] = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX3', IINFO, N, JTYPE, ISEED;
             } else {
@@ -273,8 +273,8 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('N', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 14 ) = ULPINV;
-            RESULT( 15 ) = ULPINV;
+            RESULT[14] = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX4', IINFO, N, JTYPE, ISEED;
             } else {
@@ -305,7 +305,7 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('V', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 14 ) = ULPINV;
+            RESULT[14] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX5', IINFO, N, JTYPE, ISEED;
             } else {
@@ -335,7 +335,7 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('N', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 14 ) = ULPINV;
+            RESULT[14] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX6', IINFO, N, JTYPE, ISEED;
             } else {
@@ -365,7 +365,7 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('V', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX7', IINFO, N, JTYPE, ISEED;
             } else {
@@ -395,7 +395,7 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('N', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 15 ) = ULPINV;
+            RESULT[15] = ULPINV;
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'DGEESX8', IINFO, N, JTYPE, ISEED;
             } else {
@@ -437,10 +437,10 @@
          SELOPT = 1;
          EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 260
-            IPNT( I ) = I;
-            SELVAL( I ) = false;
-            SELWR( I ) = WRTMP( I );
-            SELWI( I ) = WITMP( I );
+            IPNT[I] = I;
+            SELVAL[I] = false;
+            SELWR[I] = WRTMP( I );
+            SELWI[I] = WITMP( I );
          } // 260
          for (I = 1; I <= N - 1; I++) { // 280
             KMIN = I;
@@ -453,16 +453,16 @@
                   VIMIN = WITMP( J );
                }
             } // 270
-            WRTMP( KMIN ) = WRTMP( I );
-            WITMP( KMIN ) = WITMP( I );
-            WRTMP( I ) = VRMIN;
-            WITMP( I ) = VIMIN;
+            WRTMP[KMIN] = WRTMP( I );
+            WITMP[KMIN] = WITMP( I );
+            WRTMP[I] = VRMIN;
+            WITMP[I] = VIMIN;
             ITMP = IPNT( I );
-            IPNT( I ) = IPNT( KMIN );
-            IPNT( KMIN ) = ITMP;
+            IPNT[I] = IPNT( KMIN );
+            IPNT[KMIN] = ITMP;
          } // 280
          for (I = 1; I <= NSLCT; I++) { // 290
-            SELVAL( IPNT( ISLCT( I ) ) ) = true;
+            SELVAL[IPNT( ISLCT( I ) )] = true;
          } // 290
 
          // Compute condition numbers
@@ -470,8 +470,8 @@
          dlacpy('F', N, N, A, LDA, HT, LDA );
          dgeesx('N', 'S', DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO != 0 && IINFO != N+2 ) {
-            RESULT( 16 ) = ULPINV;
-            RESULT( 17 ) = ULPINV;
+            RESULT[16] = ULPINV;
+            RESULT[17] = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'DGEESX9', IINFO, N, ISEED( 1 );
             INFO = ( IINFO ).abs();
             GO TO 300;
@@ -496,15 +496,15 @@
          TOL = max( TOL, SMLNUM / EPS );
          TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
-            RESULT( 16 ) = ULPINV;
+            RESULT[16] = ULPINV;
          } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
-            RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL );
+            RESULT[16] = ( RCDEIN-TOLIN ) / ( RCONDE+TOL );
          } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
-            RESULT( 16 ) = ULPINV;
+            RESULT[16] = ULPINV;
          } else if ( RCDEIN+TOLIN < RCONDE-TOL ) {
-            RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN );
+            RESULT[16] = ( RCONDE-TOL ) / ( RCDEIN+TOLIN );
          } else {
-            RESULT( 16 ) = ONE;
+            RESULT[16] = ONE;
          }
 
          // Compare condition numbers for right invariant subspace
@@ -523,15 +523,15 @@
          TOL = max( TOL, SMLNUM / EPS );
          TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
-            RESULT( 17 ) = ULPINV;
+            RESULT[17] = ULPINV;
          } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {
-            RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL );
+            RESULT[17] = ( RCDVIN-TOLIN ) / ( RCONDV+TOL );
          } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
-            RESULT( 17 ) = ULPINV;
+            RESULT[17] = ULPINV;
          } else if ( RCDVIN+TOLIN < RCONDV-TOL ) {
-            RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN );
+            RESULT[17] = ( RCONDV-TOL ) / ( RCDVIN+TOLIN );
          } else {
-            RESULT( 17 ) = ONE;
+            RESULT[17] = ONE;
          }
 
          } // 300

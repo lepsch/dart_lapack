@@ -58,7 +58,7 @@
          chetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_HETRS = INT( WORK( 1 ) );
          LWKOPT = max( LWKMIN, LWKOPT_HETRF, LWKOPT_HETRS );
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

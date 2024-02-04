@@ -68,10 +68,10 @@
       NB = ILAENV( 1, 'CSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1 );
       if ( INFO == 0 ) {
          if ( TQUERY ) {
-            TB( 1 ) = (3*NB+1)*N;
+            TB[1] = (3*NB+1)*N;
          }
          if ( WQUERY ) {
-            WORK( 1 ) = SROUNDUP_LWORK(N*NB);
+            WORK[1] = SROUNDUP_LWORK(N*NB);
          }
       }
       if ( TQUERY || WQUERY ) {
@@ -103,12 +103,12 @@
       // Initialize vectors/matrices
 
       for (J = 1; J <= KB; J++) {
-         IPIV( J ) = J;
+         IPIV[J] = J;
       }
 
       // Save NB
 
-      TB( 1 ) = NB;
+      TB[1] = NB;
 
       if ( UPPER ) {
 
@@ -156,7 +156,7 @@
 
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
-                  TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB );
+                  TB[TD+(K-I)+1 + (J*NB+I-1)*LDTB] = TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB );
                }
             }
             if ( J > 0 ) {
@@ -216,7 +216,7 @@
 
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
-                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB );
+                     TB[TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB] = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB );
                   }
                }
                claset('Lower', KB, NB, CZERO, CONE,  A( J*NB+1, (J+1)*NB+1), LDA );
@@ -225,7 +225,7 @@
 
                for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
-                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB;
+                  IPIV[(J+1)*NB+K] = IPIV( (J+1)*NB+K ) + (J+1)*NB;
 
                   I1 = (J+1)*NB+K;
                   I2 = IPIV( (J+1)*NB+K );
@@ -238,8 +238,8 @@
                      if (I2 < N) cswap( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 );
-                     A( I1, I1 ) = A( I2, I2 );
-                     A( I2, I2 ) = PIV;
+                     A[I1, I1] = A( I2, I2 );
+                     A[I2, I2] = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
@@ -294,7 +294,7 @@
 
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
-                  TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB );
+                  TB[TD-(K-(I+1)) + (J*NB+K-1)*LDTB] = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB );
                }
             }
             if ( J > 0 ) {
@@ -309,7 +309,7 @@
 
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
-                  TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB );
+                  TB[TD-(K-(I+1)) + (J*NB+K-1)*LDTB] = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB );
                }
             }
 
@@ -350,7 +350,7 @@
 
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
-                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB );
+                     TB[TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB] = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB );
                   }
                }
                claset('Upper', KB, NB, CZERO, CONE,  A( (J+1)*NB+1, J*NB+1 ), LDA );
@@ -359,7 +359,7 @@
 
                for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
-                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB;
+                  IPIV[(J+1)*NB+K] = IPIV( (J+1)*NB+K ) + (J+1)*NB;
 
                   I1 = (J+1)*NB+K;
                   I2 = IPIV( (J+1)*NB+K );
@@ -372,8 +372,8 @@
                      if (I2 < N) cswap( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 );
-                     A( I1, I1 ) = A( I2, I2 );
-                     A( I2, I2 ) = PIV;
+                     A[I1, I1] = A( I2, I2 );
+                     A[I2, I2] = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );

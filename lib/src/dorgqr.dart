@@ -38,7 +38,7 @@
       INFO = 0;
       NB = ILAENV( 1, 'DORGQR', ' ', M, N, K, -1 );
       LWKOPT = max( 1, N )*NB;
-      WORK( 1 ) = LWKOPT;
+      WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -61,7 +61,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK( 1 ) = 1;
+         WORK[1] = 1;
          return;
       }
 
@@ -102,7 +102,7 @@
 
          for (J = KK + 1; J <= N; J++) { // 20
             for (I = 1; I <= KK; I++) { // 10
-               A( I, J ) = ZERO;
+               A[I, J] = ZERO;
             } // 10
          } // 20
       } else {
@@ -139,12 +139,12 @@
 
             for (J = I; J <= I + IB - 1; J++) { // 40
                for (L = 1; L <= I - 1; L++) { // 30
-                  A( L, J ) = ZERO;
+                  A[L, J] = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = IWS;
+      WORK[1] = IWS;
       return;
       }

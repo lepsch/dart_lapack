@@ -56,13 +56,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'PS';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'PS';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 100
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 100
 
       // Test the error exits

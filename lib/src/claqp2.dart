@@ -54,10 +54,10 @@
          if ( PVT != I ) {
             cswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
             ITEMP = JPVT( PVT );
-            JPVT( PVT ) = JPVT( I );
-            JPVT( I ) = ITEMP;
-            VN1( PVT ) = VN1( I );
-            VN2( PVT ) = VN2( I );
+            JPVT[PVT] = JPVT( I );
+            JPVT[I] = ITEMP;
+            VN1[PVT] = VN1( I );
+            VN2[PVT] = VN2( I );
          }
 
          // Generate elementary reflector H(i).
@@ -73,9 +73,9 @@
             // Apply H(i)**H to A(offset+i:m,i+1:n) from the left.
 
             AII = A( OFFPI, I );
-            A( OFFPI, I ) = CONE;
+            A[OFFPI, I] = CONE;
             clarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, CONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
-            A( OFFPI, I ) = AII;
+            A[OFFPI, I] = AII;
          }
 
          // Update partial column norms.
@@ -91,14 +91,14 @@
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                if ( TEMP2 <= TOL3Z ) {
                   if ( OFFPI < M ) {
-                     VN1( J ) = SCNRM2( M-OFFPI, A( OFFPI+1, J ), 1 );
-                     VN2( J ) = VN1( J );
+                     VN1[J] = SCNRM2( M-OFFPI, A( OFFPI+1, J ), 1 );
+                     VN2[J] = VN1( J );
                   } else {
-                     VN1( J ) = ZERO;
-                     VN2( J ) = ZERO;
+                     VN1[J] = ZERO;
+                     VN2[J] = ZERO;
                   }
                } else {
-                  VN1( J ) = VN1( J )*sqrt( TEMP );
+                  VN1[J] = VN1( J )*sqrt( TEMP );
                }
             }
          } // 10

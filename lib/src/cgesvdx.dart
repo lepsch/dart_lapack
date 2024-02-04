@@ -166,7 +166,7 @@
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
+         WORK[1] = SROUNDUP_LWORK( MAXWRK );
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -19;
@@ -266,7 +266,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     U( J, I ) = CMPLX( RWORK( K ), ZERO );
+                     U[J, I] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -290,7 +290,7 @@
                K = ITGKZ + N;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     VT( I, J ) = CMPLX( RWORK( K ), ZERO );
+                     VT[I, J] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -331,7 +331,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     U( J, I ) = CMPLX( RWORK( K ), ZERO );
+                     U[J, I] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -350,7 +350,7 @@
                K = ITGKZ + N;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     VT( I, J ) = CMPLX( RWORK( K ), ZERO );
+                     VT[I, J] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -407,7 +407,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     U( J, I ) = CMPLX( RWORK( K ), ZERO );
+                     U[J, I] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -425,7 +425,7 @@
                K = ITGKZ + M;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     VT( I, J ) = CMPLX( RWORK( K ), ZERO );
+                     VT[I, J] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -472,7 +472,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     U( J, I ) = CMPLX( RWORK( K ), ZERO );
+                     U[J, I] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -490,7 +490,7 @@
                K = ITGKZ + M;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     VT( I, J ) = CMPLX( RWORK( K ), ZERO );
+                     VT[I, J] = CMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -514,7 +514,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
+      WORK[1] = SROUNDUP_LWORK( MAXWRK );
 
       return;
       }

@@ -70,14 +70,14 @@
 
       // Initialize SMIN and AMAX.
 
-      S( 1 ) = AB( J, 1 );
+      S[1] = AB( J, 1 );
       SMIN = S( 1 );
       AMAX = S( 1 );
 
       // Find the minimum and maximum diagonal elements.
 
       for (I = 2; I <= N; I++) { // 10
-         S( I ) = AB( J, I );
+         S[I] = AB( J, I );
          SMIN = min( SMIN, S( I ) );
          AMAX = max( AMAX, S( I ) );
       } // 10
@@ -98,7 +98,7 @@
          // of the diagonal elements.
 
          for (I = 1; I <= N; I++) { // 30
-            S( I ) = ONE / sqrt( S( I ) );
+            S[I] = ONE / sqrt( S( I ) );
          } // 30
 
          // Compute SCOND = min(S(I)) / max(S(I))

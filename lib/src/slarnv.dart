@@ -54,21 +54,21 @@
             // Copy generated numbers
 
             for (I = 1; I <= IL; I++) { // 10
-               X( IV+I-1 ) = U( I );
+               X[IV+I-1] = U( I );
             } // 10
          } else if ( IDIST == 2 ) {
 
             // Convert generated numbers to uniform (-1,1) distribution
 
             for (I = 1; I <= IL; I++) { // 20
-               X( IV+I-1 ) = TWO*U( I ) - ONE;
+               X[IV+I-1] = TWO*U( I ) - ONE;
             } // 20
          } else if ( IDIST == 3 ) {
 
             // Convert generated numbers to normal (0,1) distribution
 
             for (I = 1; I <= IL; I++) { // 30
-               X( IV+I-1 ) = sqrt( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) );
+               X[IV+I-1] = sqrt( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) );
             } // 30
          }
       } // 40

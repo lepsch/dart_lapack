@@ -57,7 +57,7 @@
             csytrf(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
             LWKOPT = INT( WORK( 1 ) );
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
@@ -90,7 +90,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

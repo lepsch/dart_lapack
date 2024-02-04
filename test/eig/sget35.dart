@@ -50,12 +50,12 @@
 
       // Set up test case parameters
 
-      VM1( 1 ) = sqrt( SMLNUM );
-      VM1( 2 ) = ONE;
-      VM1( 3 ) = sqrt( BIGNUM );
-      VM2( 1 ) = ONE;
-      VM2( 2 ) = ONE + TWO*EPS;
-      VM2( 3 ) = TWO;
+      VM1[1] = sqrt( SMLNUM );
+      VM1[2] = ONE;
+      VM1[3] = sqrt( BIGNUM );
+      VM2[1] = ONE;
+      VM2[2] = ONE + TWO*EPS;
+      VM2[3] = TWO;
 
       KNT = 0;
       NINFO = 0;
@@ -82,22 +82,22 @@
                                  TNRM = ZERO;
                                  for (I = 1; I <= M; I++) { // 20
                                     for (J = 1; J <= M; J++) { // 10
-                                       A( I, J ) = IVAL( I, J, IMA );
+                                       A[I, J] = IVAL( I, J, IMA );
                                        if ( ( I-J ).abs() <= 1 ) {
-                                          A( I, J ) = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 );
+                                          A[I, J] = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 );
                                        } else {
-                                          A( I, J ) = A( I, J )* VM1( IMLOFF );
+                                          A[I, J] = A( I, J )* VM1( IMLOFF );
                                        }
                                        TNRM = max( TNRM, ( A( I, J ) ) ).abs();
                                     } // 10
                                  } // 20
                                  for (I = 1; I <= N; I++) { // 40
                                     for (J = 1; J <= N; J++) { // 30
-                                       B( I, J ) = IVAL( I, J, IMB );
+                                       B[I, J] = IVAL( I, J, IMB );
                                        if ( ( I-J ).abs() <= 1 ) {
-                                          B( I, J ) = B( I, J )* VM1( IMLDB1 );
+                                          B[I, J] = B( I, J )* VM1( IMLDB1 );
                                        } else {
-                                          B( I, J ) = B( I, J )* VM1( IMLOFF );
+                                          B[I, J] = B( I, J )* VM1( IMLOFF );
                                        }
                                        TNRM = max( TNRM, ( B( I, J ) ) ).abs();
                                     } // 30
@@ -105,9 +105,9 @@
                                  CNRM = ZERO;
                                  for (I = 1; I <= M; I++) { // 60
                                     for (J = 1; J <= N; J++) { // 50
-                                       C( I, J ) = SIN( REAL( I*J ) );
+                                       C[I, J] = SIN( REAL( I*J ) );
                                        CNRM = max( CNRM, C( I, J ) );
-                                       CC( I, J ) = C( I, J );
+                                       CC[I, J] = C( I, J );
                                     } // 50
                                  } // 60
                                  KNT = KNT + 1;

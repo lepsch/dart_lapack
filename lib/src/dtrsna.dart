@@ -111,7 +111,7 @@
             if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
-         IF( WANTSP ) SEP( 1 ) = ( T( 1, 1 ) ).abs();
+         IF[WANTSP ) SEP( 1] = ( T( 1, 1 ) ).abs();
          return;
       }
 
@@ -159,7 +159,7 @@
                PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
                RNRM = DNRM2( N, VR( 1, KS ), 1 );
                LNRM = DNRM2( N, VL( 1, KS ), 1 );
-               S( KS ) = ( PROD ).abs() / ( RNRM*LNRM );
+               S[KS] = ( PROD ).abs() / ( RNRM*LNRM );
             } else {
 
                // Complex eigenvalue.
@@ -169,8 +169,8 @@
                PROD2 = DDOT( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 );
                PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) );
                COND = DLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM );
-               S( KS ) = COND;
-               S( KS+1 ) = COND;
+               S[KS] = COND;
+               S[KS+1] = COND;
             }
          }
 
@@ -202,7 +202,7 @@
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
                   for (I = 2; I <= N; I++) { // 20
-                     WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 );
+                     WORK[I, I] = WORK( I, I ) - WORK( 1, 1 );
                   } // 20
                   N2 = 1;
                   NN = N - 1;
@@ -233,14 +233,14 @@
                   // WORK.
 
                   for (J = 3; J <= N; J++) { // 30
-                     WORK( 2, J ) = CS*WORK( 2, J );
-                     WORK( J, J ) = WORK( J, J ) - WORK( 1, 1 );
+                     WORK[2, J] = CS*WORK( 2, J );
+                     WORK[J, J] = WORK( J, J ) - WORK( 1, 1 );
                   } // 30
-                  WORK( 2, 2 ) = ZERO;
+                  WORK[2, 2] = ZERO;
 
-                  WORK( 1, N+1 ) = TWO*MU;
+                  WORK[1, N+1] = TWO*MU;
                   for (I = 2; I <= N - 1; I++) { // 40
-                     WORK( I, N+1 ) = SN*WORK( 1, I+1 );
+                     WORK[I, N+1] = SN*WORK( 1, I+1 );
                   } // 40
                   N2 = 2;
                   NN = 2*( N-1 );
@@ -286,7 +286,7 @@
                }
             }
 
-            SEP( KS ) = SCALE / max( EST, SMLNUM );
+            SEP[KS] = SCALE / max( EST, SMLNUM );
             if (PAIR) SEP( KS+1 ) = SEP( KS );
          }
 

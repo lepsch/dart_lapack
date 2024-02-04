@@ -50,33 +50,33 @@
 
       // Set up test case parameters
 
-      VM1( 1 ) = ONE;
-      VM1( 2 ) = sqrt( SMLNUM );
-      VM1( 3 ) = sqrt( VM1( 2 ) );
-      VM1( 4 ) = sqrt( BIGNUM );
-      VM1( 5 ) = sqrt( VM1( 4 ) );
+      VM1[1] = ONE;
+      VM1[2] = sqrt( SMLNUM );
+      VM1[3] = sqrt( VM1( 2 ) );
+      VM1[4] = sqrt( BIGNUM );
+      VM1[5] = sqrt( VM1( 4 ) );
 
-      VM2( 1 ) = ONE;
-      VM2( 2 ) = sqrt( SMLNUM );
-      VM2( 3 ) = sqrt( VM2( 2 ) );
-      VM2( 4 ) = sqrt( BIGNUM );
-      VM2( 5 ) = sqrt( VM2( 4 ) );
+      VM2[1] = ONE;
+      VM2[2] = sqrt( SMLNUM );
+      VM2[3] = sqrt( VM2( 2 ) );
+      VM2[4] = sqrt( BIGNUM );
+      VM2[5] = sqrt( VM2( 4 ) );
 
-      VM3( 1 ) = ONE;
-      VM3( 2 ) = sqrt( SMLNUM );
-      VM3( 3 ) = sqrt( VM3( 2 ) );
-      VM3( 4 ) = sqrt( BIGNUM );
-      VM3( 5 ) = sqrt( VM3( 4 ) );
+      VM3[1] = ONE;
+      VM3[2] = sqrt( SMLNUM );
+      VM3[3] = sqrt( VM3( 2 ) );
+      VM3[4] = sqrt( BIGNUM );
+      VM3[5] = sqrt( VM3( 4 ) );
 
-      VM4( 1 ) = ONE;
-      VM4( 2 ) = sqrt( SMLNUM );
-      VM4( 3 ) = sqrt( VM4( 2 ) );
-      VM4( 4 ) = sqrt( BIGNUM );
-      VM4( 5 ) = sqrt( VM4( 4 ) );
+      VM4[1] = ONE;
+      VM4[2] = sqrt( SMLNUM );
+      VM4[3] = sqrt( VM4( 2 ) );
+      VM4[4] = sqrt( BIGNUM );
+      VM4[5] = sqrt( VM4( 4 ) );
 
-      VM5( 1 ) = ONE;
-      VM5( 2 ) = EPS;
-      VM5( 3 ) = sqrt( SMLNUM );
+      VM5[1] = ONE;
+      VM5[2] = EPS;
+      VM5[3] = sqrt( SMLNUM );
 
       // Initialization
 
@@ -97,18 +97,18 @@
                         N = IDIM( NDIM );
                         for (I = 1; I <= N; I++) { // 20
                            for (J = 1; J <= N; J++) { // 10
-                              T( I, J ) = DBLE( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
+                              T[I, J] = DBLE( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
                            } // 10
                         } // 20
 
                         W = ONE*VM2( IVM2 );
 
                         for (I = 1; I <= N; I++) { // 30
-                           B( I ) = COS( DBLE( I ) )*VM3( IVM3 );
+                           B[I] = COS( DBLE( I ) )*VM3( IVM3 );
                         } // 30
 
                         for (I = 1; I <= 2*N; I++) { // 40
-                           D( I ) = SIN( DBLE( I ) )*VM4( IVM4 );
+                           D[I] = SIN( DBLE( I ) )*VM4( IVM4 );
                         } // 40
 
                         NORM = DLANGE( '1', N, N, T, LDT, WORK );
@@ -161,15 +161,15 @@
 
 
                         dcopy(2*N, D, 1, Y, 1 );
-                        Y( 1 ) = DDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 );
+                        Y[1] = DDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 );
                         for (I = 2; I <= N; I++) { // 50
-                           Y( I ) = W*X( I+N ) + SCALE*Y( I );
+                           Y[I] = W*X( I+N ) + SCALE*Y( I );
                         } // 50
                         dgemv('No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 );
 
-                        Y( 1+N ) = DDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N );
+                        Y[1+N] = DDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N );
                         for (I = 2; I <= N; I++) { // 60
-                           Y( I+N ) = W*X( I ) - SCALE*Y( I+N );
+                           Y[I+N] = W*X( I ) - SCALE*Y( I+N );
                         } // 60
                         dgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
 
@@ -190,15 +190,15 @@
                                    // smlnum/ulp * (||T||+||B||), smlnum )
 
                         dcopy(2*N, D, 1, Y, 1 );
-                        Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 );
+                        Y[1] = B( 1 )*X( 1+N ) - SCALE*Y( 1 );
                         for (I = 2; I <= N; I++) { // 70
-                           Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I );
+                           Y[I] = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I );
                         } // 70
                         dgemv('Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 );
 
-                        Y( 1+N ) = B( 1 )*X( 1 ) + SCALE*Y( 1+N );
+                        Y[1+N] = B( 1 )*X( 1 ) + SCALE*Y( 1+N );
                         for (I = 2; I <= N; I++) { // 80
-                           Y( I+N ) = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N );
+                           Y[I+N] = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N );
                         } // 80
                         dgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );
 

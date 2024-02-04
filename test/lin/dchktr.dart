@@ -66,14 +66,14 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'TR';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'TR';
       BIGNUM = DLAMCH('Overflow') / DLAMCH('Precision');
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -330,7 +330,7 @@
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   dscal(N, BIGNUM, X, 1 );
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );
-                  RESULT( 10 ) = max( RESULT( 10 ), RES );
+                  RESULT[10] = max( RESULT( 10 ), RES );
 
                   // Print information about the tests that did not pass
                   // the threshold.

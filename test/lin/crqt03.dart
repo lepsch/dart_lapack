@@ -56,10 +56,10 @@
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-         RESULT( 1 ) = ZERO;
-         RESULT( 2 ) = ZERO;
-         RESULT( 3 ) = ZERO;
-         RESULT( 4 ) = ZERO;
+         RESULT[1] = ZERO;
+         RESULT[2] = ZERO;
+         RESULT[3] = ZERO;
+         RESULT[4] = ZERO;
          return;
       }
 
@@ -120,7 +120,7 @@
             // Compute error in the difference
 
             RESID = CLANGE( '1', MC, NC, CC, LDA, RWORK );
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( REAL( max( 1, N ) )*CNORM*EPS );
+            RESULT[( ISIDE-1 )*2+ITRANS] = RESID / ( REAL( max( 1, N ) )*CNORM*EPS );
 
          } // 20
       } // 30

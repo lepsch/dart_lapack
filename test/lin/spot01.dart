@@ -60,7 +60,7 @@
             // Compute the (K,K) element of the result.
 
             T = SDOT( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 );
-            AFAC( K, K ) = T;
+            AFAC[K, K] = T;
 
             // Compute the rest of column K.
 
@@ -91,13 +91,13 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J; I++) { // 30
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
+               AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 30
          } // 40
       } else {
          for (J = 1; J <= N; J++) { // 60
             for (I = J; I <= N; I++) { // 50
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
+               AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 50
          } // 60
       }

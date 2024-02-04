@@ -106,7 +106,7 @@
 
       for (JCOL = 1; JCOL <= N - 1; JCOL++) { // 20
          for (JROW = JCOL + 1; JROW <= N; JROW++) { // 10
-            B( JROW, JCOL ) = CZERO;
+            B[JROW, JCOL] = CZERO;
          } // 10
       } // 20
 
@@ -120,7 +120,7 @@
 
             CTEMP = A( JROW-1, JCOL );
             clartg(CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
-            A( JROW, JCOL ) = CZERO;
+            A[JROW, JCOL] = CZERO;
             crot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
             crot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL CROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, CONJG( S ) );
 
@@ -128,7 +128,7 @@
 
             CTEMP = B( JROW, JROW );
             clartg(CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B( JROW, JROW-1 ) = CZERO;
+            B[JROW, JROW-1] = CZERO;
             crot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             crot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL CROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30

@@ -114,9 +114,9 @@
          }
          if (I < NQ) zlacgv( NQ-I, A( I, I+1 ), LDA );
          AII = A( I, I );
-         A( I, I ) = ONE;
+         A[I, I] = ONE;
          zlarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
-         A( I, I ) = AII;
+         A[I, I] = AII;
          if (I < NQ) zlacgv( NQ-I, A( I, I+1 ), LDA );
       } // 10
       return;

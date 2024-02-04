@@ -375,7 +375,7 @@
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK( 1 ) = MAXWRK;
+         WORK[1] = MAXWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13;
@@ -3026,7 +3026,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = MAXWRK;
+      WORK[1] = MAXWRK;
 
       return;
       }

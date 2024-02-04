@@ -40,8 +40,8 @@
          NT = 1;
          IX = 1 + IINC;
          IY = 2 + LDA;
-         XT( 1 ) = A( 1 );
-         YT( 1 ) = XLEFT;
+         XT[1] = A( 1 );
+         YT[1] = XLEFT;
       } else {
          NT = 0;
          IX = 1;
@@ -51,8 +51,8 @@
       if ( LRIGHT ) {
          IYT = 1 + INEXT + ( NL-1 )*IINC;
          NT = NT + 1;
-         XT( NT ) = XRIGHT;
-         YT( NT ) = A( IYT );
+         XT[NT] = XRIGHT;
+         YT[NT] = A( IYT );
       }
 
       // Check for errors
@@ -74,13 +74,13 @@
       // Stuff values back into XLEFT, XRIGHT, etc.
 
       if ( LLEFT ) {
-         A( 1 ) = XT( 1 );
+         A[1] = XT( 1 );
          XLEFT = YT( 1 );
       }
 
       if ( LRIGHT ) {
          XRIGHT = XT( NT );
-         A( IYT ) = YT( NT );
+         A[IYT] = YT( NT );
       }
 
       return;

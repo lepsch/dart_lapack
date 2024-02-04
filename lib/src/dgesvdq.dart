@@ -285,10 +285,10 @@
 
       // Return optimal workspace
 
-          IWORK(1) = IMINWRK;
-          WORK(1) = OPTWRK;
-          WORK(2) = MINWRK;
-          RWORK(1) = RMINWRK;
+          IWORK[1] = IMINWRK;
+          WORK[1] = OPTWRK;
+          WORK[2] = MINWRK;
+          RWORK[1] = RMINWRK;
           return;
       }
 
@@ -310,7 +310,7 @@
             for (p = 1; p <= M; p++) { // 1904
                 // RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
                 // [[DLANGE will return NaN if an entry of the p-th row is Nan]]
-                RWORK(p) = DLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY );
+                RWORK[p] = DLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY );
                 // .. check for NaN's and Inf's
                 if ( ( RWORK(p) != RWORK(p) ) || ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = -8;
@@ -320,11 +320,11 @@
             } // 1904
             for (p = 1; p <= M - 1; p++) { // 1952
             q = IDAMAX( M-p+1, RWORK(p), 1 ) + p - 1;
-            IWORK(N+p) = q;
+            IWORK[N+p] = q;
             if ( p != q ) {
                RTMP     = RWORK(p);
-               RWORK(p) = RWORK(q);
-               RWORK(q) = RTMP;
+               RWORK[p] = RWORK(q);
+               RWORK[q] = RTMP;
             }
             } // 1952
 
@@ -340,15 +340,15 @@
                    dlaset('G', M, N, ZERO,  ONE, U, LDU );
                }
                for (p = 1; p <= N; p++) { // 5001
-                   IWORK(p) = p;
+                   IWORK[p] = p;
                } // 5001
                if ( ROWPRM ) {
                    for (p = N + 1; p <= N + M - 1; p++) { // 5002
-                       IWORK(p) = p - N;
+                       IWORK[p] = p - N;
                    } // 5002
                }
                if (CONDA) RWORK(1) = -1;
-               RWORK(2) = -1;
+               RWORK[2] = -1;
                return;
             }
 
@@ -388,7 +388,7 @@
 
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
-         IWORK(p) = 0;
+         IWORK[p] = 0;
       } // 1963
       dgeqp3(M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N, IERR );
 
@@ -487,7 +487,7 @@
             // the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
                for (q = p + 1; q <= N; q++) { // 1147
-                  A(q,p) = A(p,q);
+                  A[q,p] = A(p,q);
                   if (q <= NR) A(p,q) = ZERO;
                } // 1147
             } // 1146
@@ -513,7 +513,7 @@
              // vectors of R
             for (p = 1; p <= NR; p++) { // 1192
                for (q = p; q <= N; q++) { // 1193
-                  U(q,p) = A(p,q);
+                  U[q,p] = A(p,q);
                } // 1193
             } // 1192
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU );
@@ -525,8 +525,8 @@
                for (p = 1; p <= NR; p++) { // 1119
                    for (q = p + 1; q <= NR; q++) { // 1120
                       RTMP   = U(q,p);
-                      U(q,p) = U(p,q);
-                      U(p,q) = RTMP;
+                      U[q,p] = U(p,q);
+                      U[p,q] = RTMP;
                    } // 1120
                } // 1119
 
@@ -568,7 +568,7 @@
              // .. copy R**T into V and overwrite V with the left singular vectors
             for (p = 1; p <= NR; p++) { // 1165
                for (q = p; q <= N; q++) { // 1166
-                  V(q,p) = (A(p,q));
+                  V[q,p] = (A(p,q));
                } // 1166
             } // 1165
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
@@ -580,15 +580,15 @@
                for (p = 1; p <= NR; p++) { // 1121
                    for (q = p + 1; q <= NR; q++) { // 1122
                       RTMP   = V(q,p);
-                      V(q,p) = V(p,q);
-                      V(p,q) = RTMP;
+                      V[q,p] = V(p,q);
+                      V[p,q] = RTMP;
                    } // 1122
                } // 1121
 
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       for (q = NR + 1; q <= N; q++) { // 1104
-                          V(p,q) = V(q,p);
+                          V[p,q] = V(q,p);
                       } // 1104
                    } // 1103
                }
@@ -605,8 +605,8 @@
                 for (p = 1; p <= N; p++) { // 1123
                    for (q = p + 1; q <= N; q++) { // 1124
                       RTMP   = V(q,p);
-                      V(q,p) = V(p,q);
-                      V(p,q) = RTMP;
+                      V[q,p] = V(p,q);
+                      V[p,q] = RTMP;
                    } // 1124
                 } // 1123
                 dlapmt( false , N, N, V, LDV, IWORK );
@@ -650,7 +650,7 @@
              // vectors of R**T
             for (p = 1; p <= NR; p++) { // 1168
                for (q = p; q <= N; q++) { // 1169
-                  V(q,p) = A(p,q);
+                  V[q,p] = A(p,q);
                } // 1169
             } // 1168
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
@@ -662,14 +662,14 @@
                for (p = 1; p <= NR; p++) { // 1115
                   for (q = p + 1; q <= NR; q++) { // 1116
                      RTMP   = V(q,p);
-                     V(q,p) = V(p,q);
-                     V(p,q) = RTMP;
+                     V[q,p] = V(p,q);
+                     V[p,q] = RTMP;
                   } // 1116
                } // 1115
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       for (q = NR+1; q <= N; q++) { // 1102
-                         V(p,q) = V(q,p);
+                         V[p,q] = V(q,p);
                       } // 1102
                    } // 1101
                }
@@ -678,8 +678,8 @@
                 for (p = 1; p <= NR; p++) { // 1117
                    for (q = p + 1; q <= NR; q++) { // 1118
                       RTMP   = U(q,p);
-                      U(q,p) = U(p,q);
-                      U(p,q) = RTMP;
+                      U[q,p] = U(p,q);
+                      U[p,q] = RTMP;
                    } // 1118
                 } // 1117
 
@@ -704,7 +704,7 @@
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
-                         V(q,p) = A(p,q);
+                         V[q,p] = A(p,q);
                       } // 1199
                    } // 1198
                    if (NR > 1) dlaset('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV);
@@ -715,8 +715,8 @@
                    for (p = 1; p <= N; p++) { // 1113
                       for (q = p + 1; q <= N; q++) { // 1114
                          RTMP   = V(q,p);
-                         V(q,p) = V(p,q);
-                         V(p,q) = RTMP;
+                         V[q,p] = V(p,q);
+                         V[p,q] = RTMP;
                       } // 1114
                    } // 1113
                    dlapmt( false , N, N, V, LDV, IWORK );
@@ -726,8 +726,8 @@
                    for (p = 1; p <= N; p++) { // 1111
                       for (q = p + 1; q <= N; q++) { // 1112
                          RTMP   = U(q,p);
-                         U(q,p) = U(p,q);
-                         U(p,q) = RTMP;
+                         U[q,p] = U(p,q);
+                         U[p,q] = RTMP;
                       } // 1112
                    } // 1111
 
@@ -743,14 +743,14 @@
                    // singular vectors of R
                    for (p = 1; p <= NR; p++) { // 1196
                       for (q = p; q <= N; q++) { // 1197
-                         U(q,NR+p) = A(p,q);
+                         U[q,NR+p] = A(p,q);
                       } // 1197
                    } // 1196
                    if (NR > 1) dlaset('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);
                    dgeqrf(N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
-                           V(q,p) = U(p,NR+q);
+                           V[q,p] = U(p,NR+q);
                        } // 1144
                    } // 1143
                   dlaset('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
@@ -876,7 +876,7 @@
       // values.
       if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
-      RWORK(2) = p - NR;
+      RWORK[2] = p - NR;
       // .. p-NR is the number of singular values that are computed as
       // exact zeros in DGESVD() applied to the (possibly truncated)
       // full row rank triangular (trapezoidal) factor of A.

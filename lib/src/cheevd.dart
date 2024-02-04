@@ -80,9 +80,9 @@
             LROPT = LRWMIN;
             LIOPT = LIWMIN;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LOPT );
-         RWORK( 1 ) = SROUNDUP_LWORK( LROPT );
-         IWORK( 1 ) = LIOPT;
+         WORK[1] = SROUNDUP_LWORK( LOPT );
+         RWORK[1] = SROUNDUP_LWORK( LROPT );
+         IWORK[1] = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8;
@@ -105,7 +105,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W( 1 ) = REAL( A( 1, 1 ) );
+         W[1] = REAL( A( 1, 1 ) );
          if (WANTZ) A( 1, 1 ) = CONE;
          return;
       }
@@ -169,9 +169,9 @@
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LOPT );
-      RWORK( 1 ) = SROUNDUP_LWORK( LROPT );
-      IWORK( 1 ) = LIOPT;
+      WORK[1] = SROUNDUP_LWORK( LOPT );
+      RWORK[1] = SROUNDUP_LWORK( LROPT );
+      IWORK[1] = LIOPT;
 
       return;
       }

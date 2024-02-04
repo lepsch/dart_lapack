@@ -110,8 +110,8 @@
 
       // The values RMAGN(2:3) depend on N, see below.
 
-      RMAGN( 0 ) = ZERO;
-      RMAGN( 1 ) = ONE;
+      RMAGN[0] = ZERO;
+      RMAGN[1] = ONE;
 
       // Loop over sizes, types
 
@@ -122,8 +122,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 );
-         RMAGN( 3 ) = SAFMIN*ULPINV*N1;
+         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -139,13 +139,13 @@
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J );
+               IOLDSD[J] = ISEED( J );
             } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 15; J++) { // 30
-               RESULT( J ) = ZERO;
+               RESULT[J] = ZERO;
             } // 30
 
             // Compute A and B
@@ -208,28 +208,28 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
-                        U( JR, JC ) = DLARND( 3, ISEED );
-                        V( JR, JC ) = DLARND( 3, ISEED );
+                        U[JR, JC] = DLARND( 3, ISEED );
+                        V[JR, JC] = DLARND( 3, ISEED );
                      } // 40
                      dlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
-                     WORK( 2*N+JC ) = SIGN( ONE, U( JC, JC ) );
-                     U( JC, JC ) = ONE;
+                     WORK[2*N+JC] = SIGN( ONE, U( JC, JC ) );
+                     U[JC, JC] = ONE;
                      dlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK( 3*N+JC ) = SIGN( ONE, V( JC, JC ) );
-                     V( JC, JC ) = ONE;
+                     WORK[3*N+JC] = SIGN( ONE, V( JC, JC ) );
+                     V[JC, JC] = ONE;
                   } // 50
-                  U( N, N ) = ONE;
-                  WORK( N ) = ZERO;
-                  WORK( 3*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
-                  V( N, N ) = ONE;
-                  WORK( 2*N ) = ZERO;
-                  WORK( 4*N ) = SIGN( ONE, DLARND( 2, ISEED ) );
+                  U[N, N] = ONE;
+                  WORK[N] = ZERO;
+                  WORK[3*N] = SIGN( ONE, DLARND( 2, ISEED ) );
+                  V[N, N] = ONE;
+                  WORK[2*N] = ZERO;
+                  WORK[4*N] = SIGN( ONE, DLARND( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
-                        A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
+                        A[JR, JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
                      } // 60
                   } // 70
                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
@@ -243,7 +243,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 80
                } // 90
             }
@@ -266,7 +266,7 @@
             dlacpy(' ', N, N, A, LDA, H, LDA );
             dlacpy(' ', N, N, B, LDA, T, LDA );
             NTEST = 1;
-            RESULT( 1 ) = ULPINV;
+            RESULT[1] = ULPINV;
 
             dgeqr2(N, N, T, LDA, WORK, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
@@ -314,7 +314,7 @@
             dlacpy(' ', N, N, H, LDA, S2, LDA );
             dlacpy(' ', N, N, T, LDA, P2, LDA );
             NTEST = 5;
-            RESULT( 5 ) = ULPINV;
+            RESULT[5] = ULPINV;
 
             dhgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO != 0 ) {
@@ -362,17 +362,17 @@
                // back transforming:
 
             NTEST = 9;
-            RESULT( 9 ) = ULPINV;
+            RESULT[9] = ULPINV;
 
             // To test "SELECT" option, compute half of the eigenvectors
             // in one call, and half in another
 
             I1 = N / 2;
             for (J = 1; J <= I1; J++) { // 120
-               LLWORK( J ) = true;
+               LLWORK[J] = true;
             } // 120
             for (J = I1 + 1; J <= N; J++) { // 130
-               LLWORK( J ) = false;
+               LLWORK[J] = false;
             } // 130
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
@@ -384,10 +384,10 @@
 
             I1 = IN;
             for (J = 1; J <= I1; J++) { // 140
-               LLWORK( J ) = false;
+               LLWORK[J] = false;
             } // 140
             for (J = I1 + 1; J <= N; J++) { // 150
-               LLWORK( J ) = true;
+               LLWORK[J] = true;
             } // 150
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
@@ -398,7 +398,7 @@
             }
 
             dget52( true , N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
-            RESULT( 9 ) = DUMMA( 1 );
+            RESULT[9] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -407,7 +407,7 @@
                 // back transforming:
 
             NTEST = 10;
-            RESULT( 10 ) = ULPINV;
+            RESULT[10] = ULPINV;
             dlacpy('F', N, N, Q, LDU, EVECTL, LDU );
             dtgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
@@ -417,7 +417,7 @@
             }
 
             dget52( true , N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
-            RESULT( 10 ) = DUMMA( 1 );
+            RESULT[10] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -426,17 +426,17 @@
                 // back transforming:
 
             NTEST = 11;
-            RESULT( 11 ) = ULPINV;
+            RESULT[11] = ULPINV;
 
             // To test "SELECT" option, compute half of the eigenvectors
             // in one call, and half in another
 
             I1 = N / 2;
             for (J = 1; J <= I1; J++) { // 160
-               LLWORK( J ) = true;
+               LLWORK[J] = true;
             } // 160
             for (J = I1 + 1; J <= N; J++) { // 170
-               LLWORK( J ) = false;
+               LLWORK[J] = false;
             } // 170
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
@@ -448,10 +448,10 @@
 
             I1 = IN;
             for (J = 1; J <= I1; J++) { // 180
-               LLWORK( J ) = false;
+               LLWORK[J] = false;
             } // 180
             for (J = I1 + 1; J <= N; J++) { // 190
-               LLWORK( J ) = true;
+               LLWORK[J] = true;
             } // 190
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
@@ -462,7 +462,7 @@
             }
 
             dget52( false , N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
-            RESULT( 11 ) = DUMMA( 1 );
+            RESULT[11] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -471,7 +471,7 @@
                 // back transforming:
 
             NTEST = 12;
-            RESULT( 12 ) = ULPINV;
+            RESULT[12] = ULPINV;
             dlacpy('F', N, N, Z, LDU, EVECTR, LDU );
             dtgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
@@ -481,7 +481,7 @@
             }
 
             dget52( false , N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
-            RESULT( 12 ) = DUMMA( 1 );
+            RESULT[12] = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
@@ -506,12 +506,12 @@
 
                TEMP1 = TEMP1 / max( SAFMIN, ULP*max( TEMP1, ANORM ) );
                TEMP2 = TEMP2 / max( SAFMIN, ULP*max( TEMP2, BNORM ) );
-               RESULT( 15 ) = max( TEMP1, TEMP2 );
+               RESULT[15] = max( TEMP1, TEMP2 );
                NTEST = 15;
             } else {
-               RESULT( 13 ) = ZERO;
-               RESULT( 14 ) = ZERO;
-               RESULT( 15 ) = ZERO;
+               RESULT[13] = ZERO;
+               RESULT[14] = ZERO;
+               RESULT[15] = ZERO;
                NTEST = 12;
             }
 

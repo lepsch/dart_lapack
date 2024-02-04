@@ -57,7 +57,7 @@
       } else if ( RKSEL == 2 ) {
          RANK = ( 3*MN ) / 4;
          for (J = RANK + 1; J <= MN; J++) { // 10
-            S( J ) = ZERO;
+            S[J] = ZERO;
          } // 10
       } else {
          xerbla('SQRT15', 2 );
@@ -67,12 +67,12 @@
 
          // Nontrivial case
 
-         S( 1 ) = ONE;
+         S[1] = ONE;
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
             TEMP = SLARND( 1, ISEED );
             if ( TEMP > SVMIN ) {
-               S( J ) = ( TEMP ).abs();
+               S[J] = ( TEMP ).abs();
             } else {
                GO TO 20;
             }
@@ -110,7 +110,7 @@
          // Generate null matrix and rhs
 
          for (J = 1; J <= MN; J++) { // 50
-            S( J ) = ZERO;
+            S[J] = ZERO;
          } // 50
          slaset('Full', M, N, ZERO, ZERO, A, LDA );
          slaset('Full', M, NRHS, ZERO, ZERO, B, LDB );

@@ -58,7 +58,7 @@
          xerbla('CSYTRI_3', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
          return;
       }
 
@@ -68,7 +68,7 @@
 
       csytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

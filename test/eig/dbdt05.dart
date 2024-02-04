@@ -52,7 +52,7 @@
 
       J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + S( I );
+         WORK[J+I] = WORK( J+I ) + S( I );
          RESID = max( RESID, DASUM( NS, WORK( J+1 ), 1 ) );
          J = J + NS;
       } // 10

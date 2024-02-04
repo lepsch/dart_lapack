@@ -54,7 +54,7 @@
             NB = ILAENV( 1, 'DORGRQ', ' ', M, N, K, -1 );
             LWKOPT = M*NB;
          }
-         WORK( 1 ) = LWKOPT;
+         WORK[1] = LWKOPT;
 
          if ( LWORK < max( 1, M ) && !LQUERY ) {
             INFO = -8;
@@ -110,7 +110,7 @@
 
          for (J = N - KK + 1; J <= N; J++) { // 20
             for (I = 1; I <= M - KK; I++) { // 10
-               A( I, J ) = ZERO;
+               A[I, J] = ZERO;
             } // 10
          } // 20
       } else {
@@ -148,12 +148,12 @@
 
             for (L = N - K + I + IB; L <= N; L++) { // 40
                for (J = II; J <= II + IB - 1; J++) { // 30
-                  A( J, L ) = ZERO;
+                  A[J, L] = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = IWS;
+      WORK[1] = IWS;
       return;
       }

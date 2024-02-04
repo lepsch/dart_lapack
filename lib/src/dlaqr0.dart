@@ -66,7 +66,7 @@
       // ==== Quick return for N = 0: nothing to do. ====
 
       if ( N == 0 ) {
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       }
 
@@ -88,14 +88,14 @@
          // ==== Set up job flags for ILAENV. ====
 
          if ( WANTT ) {
-            JBCMPZ( 1: 1 ) = 'S';
+            JBCMPZ[1: 1] = 'S';
          } else {
-            JBCMPZ( 1: 1 ) = 'E';
+            JBCMPZ[1: 1] = 'E';
          }
          if ( WANTZ ) {
-            JBCMPZ( 2: 2 ) = 'V';
+            JBCMPZ[2: 2] = 'V';
          } else {
-            JBCMPZ( 2: 2 ) = 'N';
+            JBCMPZ[2: 2] = 'N';
          }
 
          // ==== NWR = recommended deflation window size.  At this
@@ -130,7 +130,7 @@
          // ==== Quick return in case of workspace query. ====
 
          if ( LWORK == -1 ) {
-            WORK( 1 ) = DBLE( LWKOPT );
+            WORK[1] = DBLE( LWKOPT );
             return;
          }
 
@@ -293,10 +293,10 @@
                      dlanv2(AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN );
                   } // 30
                   if ( KS == KTOP ) {
-                     WR( KS+1 ) = H( KS+1, KS+1 );
-                     WI( KS+1 ) = ZERO;
-                     WR( KS ) = WR( KS+1 );
-                     WI( KS ) = WI( KS+1 );
+                     WR[KS+1] = H( KS+1, KS+1 );
+                     WI[KS+1] = ZERO;
+                     WR[KS] = WR( KS+1 );
+                     WI[KS] = WI( KS+1 );
                   }
                } else {
 
@@ -346,12 +346,12 @@
                               SORTED = false;
 
                               SWAP = WR( I );
-                              WR( I ) = WR( I+1 );
-                              WR( I+1 ) = SWAP;
+                              WR[I] = WR( I+1 );
+                              WR[I+1] = SWAP;
 
                               SWAP = WI( I );
-                              WI( I ) = WI( I+1 );
-                              WI( I+1 ) = SWAP;
+                              WI[I] = WI( I+1 );
+                              WI[I+1] = SWAP;
                            }
                         } // 40
                      } // 50
@@ -368,14 +368,14 @@
                      if ( WI( I ) != -WI( I-1 ) ) {
 
                         SWAP = WR( I );
-                        WR( I ) = WR( I-1 );
-                        WR( I-1 ) = WR( I-2 );
-                        WR( I-2 ) = SWAP;
+                        WR[I] = WR( I-1 );
+                        WR[I-1] = WR( I-2 );
+                        WR[I-2] = SWAP;
 
                         SWAP = WI( I );
-                        WI( I ) = WI( I-1 );
-                        WI( I-1 ) = WI( I-2 );
-                        WI( I-2 ) = SWAP;
+                        WI[I] = WI( I-1 );
+                        WI[I-1] = WI( I-2 );
+                        WI[I-2] = SWAP;
                      }
                   } // 70
                }
@@ -386,9 +386,9 @@
                if ( KBOT-KS+1 == 2 ) {
                   if ( WI( KBOT ) == ZERO ) {
                      if ( ABS( WR( KBOT )-H( KBOT, KBOT ) ) < ABS( WR( KBOT-1 )-H( KBOT, KBOT ) ) ) {
-                        WR( KBOT-1 ) = WR( KBOT );
+                        WR[KBOT-1] = WR( KBOT );
                      } else {
-                        WR( KBOT ) = WR( KBOT-1 );
+                        WR[KBOT] = WR( KBOT-1 );
                      }
                   }
                }
@@ -445,7 +445,7 @@
 
       // ==== Return the optimal value of LWORK. ====
 
-      WORK( 1 ) = DBLE( LWKOPT );
+      WORK[1] = DBLE( LWKOPT );
 
       // ==== End of DLAQR0 ====
 

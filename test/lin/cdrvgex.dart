@@ -70,13 +70,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision';
-      PATH( 2: 3 ) = 'GE';
+      PATH[1: 1] = 'Complex precision';
+      PATH[2: 3] = 'GE';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -141,7 +141,7 @@
                IOFF = ( IZERO-1 )*LDA;
                if ( IMAT < 7 ) {
                   for (I = 1; I <= N; I++) { // 20
-                     A( IOFF+I ) = ZERO;
+                     A[IOFF+I] = ZERO;
                   } // 20
                } else {
                   claset('Full', N, N-IZERO+1, CMPLX( ZERO ), CMPLX( ZERO ), A( IOFF+1 ), LDA );
@@ -357,7 +357,7 @@
                            RPVGRW = CLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
+                     RESULT[7] = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -402,7 +402,7 @@
                      // Compare RCOND from CGESVX with the computed value
                      // in RCONDC.
 
-                     RESULT( 6 ) = SGET06( RCOND, RCONDC );
+                     RESULT[6] = SGET06( RCOND, RCONDC );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -495,7 +495,7 @@
                      } else {
                         RPVGRW = CLA_GERPVGRW (N, N, A, LDA, AFAC, LDA);
                      }
-                      RESULT( 7 ) = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
+                      RESULT[7] = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -535,7 +535,7 @@
                      // Compare RCOND from CGESVXX with the computed value
                      // in RCONDC.
 
-                     RESULT( 6 ) = SGET06( RCOND, RCONDC );
+                     RESULT[6] = SGET06( RCOND, RCONDC );
 
                      // Print information about the tests that did not pass
                      // the threshold.

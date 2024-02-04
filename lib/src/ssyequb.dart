@@ -65,33 +65,33 @@
       }
 
       for (I = 1; I <= N; I++) {
-         S( I ) = ZERO;
+         S[I] = ZERO;
       }
 
       AMAX = ZERO;
       if ( UP ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J-1; I++) {
-               S( I ) = max( S( I ), ( A( I, J ) ) ).abs();
-               S( J ) = max( S( J ), ( A( I, J ) ) ).abs();
+               S[I] = max( S( I ), ( A( I, J ) ) ).abs();
+               S[J] = max( S( J ), ( A( I, J ) ) ).abs();
                AMAX = max( AMAX, ( A( I, J ) ) ).abs();
             }
-            S( J ) = max( S( J ), ( A( J, J ) ) ).abs();
+            S[J] = max( S( J ), ( A( J, J ) ) ).abs();
             AMAX = max( AMAX, ( A( J, J ) ) ).abs();
          }
       } else {
          for (J = 1; J <= N; J++) {
-            S( J ) = max( S( J ), ( A( J, J ) ) ).abs();
+            S[J] = max( S( J ), ( A( J, J ) ) ).abs();
             AMAX = max( AMAX, ( A( J, J ) ) ).abs();
             for (I = J+1; I <= N; I++) {
-               S( I ) = max( S( I ), ( A( I, J ) ) ).abs();
-               S( J ) = max( S( J ), ( A( I, J ) ) ).abs();
+               S[I] = max( S( I ), ( A( I, J ) ) ).abs();
+               S[J] = max( S( J ), ( A( I, J ) ) ).abs();
                AMAX = max( AMAX, ( A( I, J ) ) ).abs();
             }
          }
       }
       for (J = 1; J <= N; J++) {
-         S( J ) = 1.0 / S( J );
+         S[J] = 1.0 / S( J );
       }
 
       TOL = ONE / sqrt( 2.0 * N );
@@ -101,22 +101,22 @@
          SUMSQ = 0.0;
          // beta = |A|s
          for (I = 1; I <= N; I++) {
-            WORK( I ) = ZERO;
+            WORK[I] = ZERO;
          }
          if ( UP ) {
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= J-1; I++) {
-                  WORK( I ) = WORK( I ) + ( A( I, J ) ).abs() * S( J );
-                  WORK( J ) = WORK( J ) + ( A( I, J ) ).abs() * S( I );
+                  WORK[I] = WORK( I ) + ( A( I, J ) ).abs() * S( J );
+                  WORK[J] = WORK( J ) + ( A( I, J ) ).abs() * S( I );
                }
-               WORK( J ) = WORK( J ) + ( A( J, J ) ).abs() * S( J );
+               WORK[J] = WORK( J ) + ( A( J, J ) ).abs() * S( J );
             }
          } else {
             for (J = 1; J <= N; J++) {
-               WORK( J ) = WORK( J ) + ( A( J, J ) ).abs() * S( J );
+               WORK[J] = WORK( J ) + ( A( J, J ) ).abs() * S( J );
                for (I = J+1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) + ( A( I, J ) ).abs() * S( J );
-                  WORK( J ) = WORK( J ) + ( A( I, J ) ).abs() * S( I );
+                  WORK[I] = WORK( I ) + ( A( I, J ) ).abs() * S( J );
+                  WORK[J] = WORK( J ) + ( A( I, J ) ).abs() * S( I );
                }
             }
          }
@@ -130,7 +130,7 @@
 
          STD = 0.0;
          for (I = N+1; I <= 2*N; I++) {
-            WORK( I ) = S( I-N ) * WORK( I-N ) - AVG;
+            WORK[I] = S( I-N ) * WORK( I-N ) - AVG;
          }
          slassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * sqrt( SUMSQ / N );
@@ -157,28 +157,28 @@
                for (J = 1; J <= I; J++) {
                   T = ( A( J, I ) ).abs();
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
                   T = ( A( I, J ) ).abs();
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
             } else {
                for (J = 1; J <= I; J++) {
                   T = ( A( I, J ) ).abs();
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
                   T = ( A( J, I ) ).abs();
                   U = U + S( J )*T;
-                  WORK( J ) = WORK( J ) + D*T;
+                  WORK[J] = WORK( J ) + D*T;
                }
             }
 
             AVG = AVG + ( U + WORK( I ) ) * D / N;
-            S( I ) = SI;
+            S[I] = SI;
          }
       }
 
@@ -192,7 +192,7 @@
       BASE = SLAMCH( 'B' );
       U = ONE / LOG( BASE );
       for (I = 1; I <= N; I++) {
-         S( I ) = BASE ** INT( U * LOG( S( I ) * T ) );
+         S[I] = BASE ** INT( U * LOG( S( I ) * T ) );
          SMIN = min( SMIN, S( I ) );
          SMAX = max( SMAX, S( I ) );
       }

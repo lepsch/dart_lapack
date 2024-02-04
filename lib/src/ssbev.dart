@@ -67,9 +67,9 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W( 1 ) = AB( 1, 1 );
+            W[1] = AB( 1, 1 );
          } else {
-            W( 1 ) = AB( KD+1, 1 );
+            W[1] = AB( KD+1, 1 );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;

@@ -65,7 +65,7 @@
       // ==== Quick return in case of workspace query. ====
 
       if ( LWORK == -1 ) {
-         WORK( 1 ) = DBLE( LWKOPT );
+         WORK[1] = DBLE( LWKOPT );
          return;
       }
 
@@ -73,7 +73,7 @@
       // ... for an empty active block ... ====
       NS = 0;
       ND = 0;
-      WORK( 1 ) = ONE;
+      WORK[1] = ONE;
       if (KTOP > KBOT) return;
       // ... nor for an empty deflation window. ====
       if (NW < 1) return;
@@ -99,8 +99,8 @@
 
          // ==== 1-by-1 deflation window: not much to do ====
 
-         SR( KWTOP ) = H( KWTOP, KWTOP );
-         SI( KWTOP ) = ZERO;
+         SR[KWTOP] = H( KWTOP, KWTOP );
+         SI[KWTOP] = ZERO;
          NS = 1;
          ND = 0;
          if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ) ) ).abs() {
@@ -108,7 +108,7 @@
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
-         WORK( 1 ) = ONE;
+         WORK[1] = ONE;
          return;
       }
 
@@ -132,8 +132,8 @@
       // ==== DTREXC needs a clean margin near the diagonal ====
 
       for (J = 1; J <= JW - 3; J++) { // 10
-         T( J+2, J ) = ZERO;
-         T( J+3, J ) = ZERO;
+         T[J+2, J] = ZERO;
+         T[J+3, J] = ZERO;
       } // 10
       if (JW > 2) T( JW, JW-2 ) = ZERO;
 
@@ -270,12 +270,12 @@
       } // 60
       if ( I >= INFQR+1 ) {
          if ( I == INFQR+1 ) {
-            SR( KWTOP+I-1 ) = T( I, I );
-            SI( KWTOP+I-1 ) = ZERO;
+            SR[KWTOP+I-1] = T( I, I );
+            SI[KWTOP+I-1] = ZERO;
             I = I - 1;
          } else if ( T( I, I-1 ) == ZERO ) {
-            SR( KWTOP+I-1 ) = T( I, I );
-            SI( KWTOP+I-1 ) = ZERO;
+            SR[KWTOP+I-1] = T( I, I );
+            SI[KWTOP+I-1] = ZERO;
             I = I - 1;
          } else {
             AA = T( I-1, I-1 );
@@ -296,7 +296,7 @@
             dcopy(NS, V, LDV, WORK, 1 );
             BETA = WORK( 1 );
             dlarfg(NS, BETA, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE;
+            WORK[1] = ONE;
 
             dlaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
@@ -366,7 +366,7 @@
 
        // ==== Return optimal workspace. ====
 
-      WORK( 1 ) = DBLE( LWKOPT );
+      WORK[1] = DBLE( LWKOPT );
 
       // ==== End of DLAQR3 ====
 

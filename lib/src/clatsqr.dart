@@ -61,7 +61,7 @@
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+        WORK[1] = SROUNDUP_LWORK( LWMIN );
       }
       if ( INFO != 0 ) {
         xerbla('CLATSQR', -INFO );
@@ -104,6 +104,6 @@
         ctpqrt(KK, N, 0, NB, A(1,1), LDA, A( II, 1 ), LDA, T(1, CTR * N + 1), LDT, WORK, INFO );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      WORK[1] = SROUNDUP_LWORK( LWMIN );
       return;
       }

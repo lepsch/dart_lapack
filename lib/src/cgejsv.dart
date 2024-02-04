@@ -301,18 +301,18 @@
          xerbla('CGEJSV', - INFO );
          return;
       } else if ( LQUERY ) {
-          CWORK(1) = OPTWRK;
-          CWORK(2) = MINWRK;
-          RWORK(1) = MINRWRK;
-          IWORK(1) = max( 4, MINIWRK );
+          CWORK[1] = OPTWRK;
+          CWORK[2] = MINWRK;
+          RWORK[1] = MINRWRK;
+          IWORK[1] = max( 4, MINIWRK );
           return;
       }
 
       // Quick return for void matrix (Y3K safe)
 // #:)
       if ( ( M == 0 ) || ( N == 0 ) ) {
-         IWORK(1:4) = 0;
-         RWORK(1:7) = 0;
+         IWORK[1:4] = 0;
+         RWORK[1:7] = 0;
          return;
       }
 
@@ -353,10 +353,10 @@
          }
          AAQQ = sqrt(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
-            SVA(p)  = AAPP * AAQQ;
+            SVA[p] = AAPP * AAQQ;
          } else {
             NOSCAL  = false;
-            SVA(p)  = AAPP * ( AAQQ * SCALEM );
+            SVA[p] = AAPP * ( AAQQ * SCALEM );
             if ( GOSCAL ) {
                GOSCAL = false;
                sscal(p-1, SCALEM, SVA, 1 );
@@ -378,21 +378,21 @@
       if ( AAPP == ZERO ) {
          if (LSVEC) claset( 'G', M, N1, CZERO, CONE, U, LDU );
          if (RSVEC) claset( 'G', N, N,  CZERO, CONE, V, LDV );
-         RWORK(1) = ONE;
-         RWORK(2) = ONE;
+         RWORK[1] = ONE;
+         RWORK[2] = ONE;
          if (ERREST) RWORK(3) = ONE;
          if ( LSVEC && RSVEC ) {
-            RWORK(4) = ONE;
-            RWORK(5) = ONE;
+            RWORK[4] = ONE;
+            RWORK[5] = ONE;
          }
          if ( L2TRAN ) {
-            RWORK(6) = ZERO;
-            RWORK(7) = ZERO;
+            RWORK[6] = ZERO;
+            RWORK[7] = ZERO;
          }
-         IWORK(1) = 0;
-         IWORK(2) = 0;
-         IWORK(3) = 0;
-         IWORK(4) = -1;
+         IWORK[1] = 0;
+         IWORK[2] = 0;
+         IWORK[3] = 0;
+         IWORK[4] = -1;
          return;
       }
 
@@ -422,35 +422,35 @@
             }
          }
          if ( RSVEC ) {
-             V(1,1) = CONE;
+             V[1,1] = CONE;
          }
          if ( SVA(1) < (BIG*SCALEM) ) {
-            SVA(1)  = SVA(1) / SCALEM;
+            SVA[1] = SVA(1) / SCALEM;
             SCALEM  = ONE;
          }
-         RWORK(1) = ONE / SCALEM;
-         RWORK(2) = ONE;
+         RWORK[1] = ONE / SCALEM;
+         RWORK[2] = ONE;
          if ( SVA(1) != ZERO ) {
-            IWORK(1) = 1;
+            IWORK[1] = 1;
             if ( ( SVA(1) / SCALEM) >= SFMIN ) {
-               IWORK(2) = 1;
+               IWORK[2] = 1;
             } else {
-               IWORK(2) = 0;
+               IWORK[2] = 0;
             }
          } else {
-            IWORK(1) = 0;
-            IWORK(2) = 0;
+            IWORK[1] = 0;
+            IWORK[2] = 0;
          }
-         IWORK(3) = 0;
-         IWORK(4) = -1;
+         IWORK[3] = 0;
+         IWORK[4] = -1;
          if (ERREST) RWORK(3) = ONE;
          if ( LSVEC && RSVEC ) {
-            RWORK(4) = ONE;
-            RWORK(5) = ONE;
+            RWORK[4] = ONE;
+            RWORK[5] = ONE;
          }
          if ( L2TRAN ) {
-            RWORK(6) = ZERO;
-            RWORK(7) = ZERO;
+            RWORK[6] = ZERO;
+            RWORK[7] = ZERO;
          }
          return;
 
@@ -474,14 +474,14 @@
                classq(N, A(p,1), LDA, XSC, TEMP1 );
                // CLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
-               RWORK(M+p)  = XSC * SCALEM;
-               RWORK(p)    = XSC * (SCALEM*sqrt(TEMP1));
+               RWORK[M+p] = XSC * SCALEM;
+               RWORK[p] = XSC * (SCALEM*sqrt(TEMP1));
                AATMAX = max( AATMAX, RWORK(p) );
                if (RWORK(p) != ZERO)  AATMIN = min(AATMIN,RWORK(p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
-               RWORK(M+p) = SCALEM*ABS( A(p,ICAMAX(N,A(p,1),LDA)) );
+               RWORK[M+p] = SCALEM*ABS( A(p,ICAMAX(N,A(p,1),LDA)) );
                AATMAX = max( AATMAX, RWORK(M+p) );
                AATMIN = min( AATMIN, RWORK(M+p) );
             } // 1904
@@ -536,17 +536,17 @@
             // In an optimal implementation, this trivial transpose
             // should be replaced with faster transpose.
             for (p = 1; p <= N - 1; p++) { // 1115
-               A(p,p) = CONJG(A(p,p));
+               A[p,p] = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1116
                    CTEMP = CONJG(A(q,p));
-                  A(q,p) = CONJG(A(p,q));
-                  A(p,q) = CTEMP;
+                  A[q,p] = CONJG(A(p,q));
+                  A[p,q] = CTEMP;
                } // 1116
             } // 1115
-            A(N,N) = CONJG(A(N,N));
+            A[N,N] = CONJG(A(N,N));
             for (p = 1; p <= N; p++) { // 1117
-               RWORK(M+p) = SVA(p);
-               SVA(p) = RWORK(p);
+               RWORK[M+p] = SVA(p);
+               SVA[p] = RWORK(p);
                // previously computed row 2-norms are now column 2-norms
                // of the transposed matrix
             } // 1117
@@ -623,7 +623,7 @@
          for (p = 1; p <= N; p++) { // 700
             if ( SVA(p) < XSC ) {
                claset('A', M, 1, CZERO, CZERO, A(1,p), LDA );
-               SVA(p) = ZERO;
+               SVA[p] = ZERO;
             }
          } // 700
       }
@@ -643,11 +643,11 @@
          }
          for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, RWORK(M+p), 1 ) + p - 1;
-            IWORK(IWOFF+p) = q;
+            IWORK[IWOFF+p] = q;
             if ( p != q ) {
                TEMP1      = RWORK(M+p);
-               RWORK(M+p) = RWORK(M+q);
-               RWORK(M+q) = TEMP1;
+               RWORK[M+p] = RWORK(M+q);
+               RWORK[M+q] = TEMP1;
             }
          } // 1952
          claswp(N, A, LDA, 1, M-1, IWORK(IWOFF+1), 1 );
@@ -670,7 +670,7 @@
       // A * P1 = Q1 * [ R1^* 0]^*:
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
-         IWORK(p) = 0;
+         IWORK[p] = 0;
       } // 1963
       cgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LWORK-N, RWORK, IERR );
 
@@ -1091,7 +1091,7 @@
 
                // R1^* * P2 = Q2 * R2
                for (p = 1; p <= NR; p++) { // 3003
-                  IWORK(N+p) = 0;
+                  IWORK[N+p] = 0;
                } // 3003
                cgeqp3(N, NR, V, LDV, IWORK(N+1), CWORK(N+1), CWORK(2*N+1), LWORK-2*N, RWORK, IERR );
 // *               CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
@@ -1115,7 +1115,7 @@
                      for (q = 1; q <= p - 1; q++) { // 8971
                         CTEMP=CMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
-                        V(p,q) = - CTEMP;
+                        V[p,q] = - CTEMP;
                      } // 8971
                   } // 8970
                } else {
@@ -1151,7 +1151,7 @@
                   CTEMP = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
                       // V(p,q) = - TEMP1*( V(p,q) / ABS(V(p,q)) )
-                     V(p,q) = - CTEMP;
+                     V[p,q] = - CTEMP;
                   } // 4969
                } // 4968
             } else {
@@ -1213,10 +1213,10 @@
                // .. apply the permutation from the second QR factorization
                for (q = 1; q <= NR; q++) { // 873
                   for (p = 1; p <= NR; p++) { // 872
-                     CWORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q);
+                     CWORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 872
                   for (p = 1; p <= NR; p++) { // 874
-                     U(p,q) = CWORK(2*N+N*NR+NR+p);
+                     U[p,q] = CWORK(2*N+N*NR+NR+p);
                   } // 874
                } // 873
                if ( NR < N ) {
@@ -1250,10 +1250,10 @@
                cunmlq('L', 'C', NR, NR, NR, CWORK(2*N+1), N, CWORK(2*N+N*NR+1), U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                for (q = 1; q <= NR; q++) { // 773
                   for (p = 1; p <= NR; p++) { // 772
-                     CWORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q);
+                     CWORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 772
                   for (p = 1; p <= NR; p++) { // 774
-                     U(p,q) = CWORK(2*N+N*NR+NR+p);
+                     U[p,q] = CWORK(2*N+N*NR+NR+p);
                   } // 774
                } // 773
 
@@ -1266,10 +1266,10 @@
             TEMP1 = sqrt(REAL(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
-                  CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
+                  CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 972
                for (p = 1; p <= N; p++) { // 973
-                  V(p,q) = CWORK(2*N+N*NR+NR+p);
+                  V[p,q] = CWORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / SCNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,q), 1 );
@@ -1407,7 +1407,7 @@
                for (p = 1; p <= q - 1; p++) { // 9971
                   CTEMP = CMPLX(XSC * min((U(p,p)).abs(),(U(q,q))).abs(), ZERO);
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
-                  U(p,q) = - CTEMP;
+                  U[p,q] = - CTEMP;
                } // 9971
             } // 9970
          } else {
@@ -1431,10 +1431,10 @@
             TEMP1 = sqrt(REAL(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
-                  CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
+                  CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 8972
                for (p = 1; p <= N; p++) { // 8973
-                  V(p,q) = CWORK(2*N+N*NR+NR+p);
+                  V[p,q] = CWORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / SCNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,q), 1 );
@@ -1477,29 +1477,29 @@
 
       if ( NR < N ) {
          for (p = NR+1; p <= N; p++) { // 3004
-            SVA(p) = ZERO;
+            SVA[p] = ZERO;
          } // 3004
       }
 
-      RWORK(1) = USCAL2 * SCALEM;
-      RWORK(2) = USCAL1;
+      RWORK[1] = USCAL2 * SCALEM;
+      RWORK[2] = USCAL1;
       if (ERREST) RWORK(3) = SCONDA;
       if ( LSVEC && RSVEC ) {
-         RWORK(4) = CONDR1;
-         RWORK(5) = CONDR2;
+         RWORK[4] = CONDR1;
+         RWORK[5] = CONDR2;
       }
       if ( L2TRAN ) {
-         RWORK(6) = ENTRA;
-         RWORK(7) = ENTRAT;
+         RWORK[6] = ENTRA;
+         RWORK[7] = ENTRAT;
       }
 
-      IWORK(1) = NR;
-      IWORK(2) = NUMRANK;
-      IWORK(3) = WARNING;
+      IWORK[1] = NR;
+      IWORK[2] = NUMRANK;
+      IWORK[3] = WARNING;
       if ( TRANSP ) {
-          IWORK(4) =  1;
+          IWORK[4] = 1;
       } else {
-          IWORK(4) = -1;
+          IWORK[4] = -1;
       }
 
 

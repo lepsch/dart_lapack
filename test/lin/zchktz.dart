@@ -61,13 +61,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision';
-      PATH( 2: 3 ) = 'TZ';
+      PATH[1: 1] = 'Zomplex precision';
+      PATH[2: 3] = 'TZ';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = DLAMCH( 'Epsilon' );
 
@@ -110,7 +110,7 @@
                   if ( MODE == 0 ) {
                      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
-                        S( I ) = ZERO;
+                        S[I] = ZERO;
                      } // 30
                   } else {
                      zlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
@@ -131,15 +131,15 @@
 
                   // Compute norm(svd(a) - svd(r))
 
-                  RESULT( 1 ) = ZQRT12( M, M, A, LDA, S, WORK, LWORK, RWORK );
+                  RESULT[1] = ZQRT12( M, M, A, LDA, S, WORK, LWORK, RWORK );
 
                   // Compute norm( A - R*Q )
 
-                  RESULT( 2 ) = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
+                  RESULT[2] = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
 
                   // Compute norm(Q'*Q - I).
 
-                  RESULT( 3 ) = ZRZT02( M, N, A, LDA, TAU, WORK, LWORK );
+                  RESULT[3] = ZRZT02( M, N, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.

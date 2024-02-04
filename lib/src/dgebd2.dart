@@ -52,13 +52,13 @@
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
             dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = A( I, I );
-            A( I, I ) = ONE;
+            D[I] = A( I, I );
+            A[I, I] = ONE;
 
             // Apply H(i) to A(i:m,i+1:n) from the left
 
             if (I < N) dlarf( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = D( I );
+            A[I, I] = D( I );
 
             if ( I < N ) {
 
@@ -66,15 +66,15 @@
                // A(i,i+2:n)
 
                dlarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = A( I, I+1 );
-               A( I, I+1 ) = ONE;
+               E[I] = A( I, I+1 );
+               A[I, I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                dlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
-               A( I, I+1 ) = E( I );
+               A[I, I+1] = E( I );
             } else {
-               TAUP( I ) = ZERO;
+               TAUP[I] = ZERO;
             }
          } // 10
       } else {
@@ -86,13 +86,13 @@
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
             dlarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = A( I, I );
-            A( I, I ) = ONE;
+            D[I] = A( I, I );
+            A[I, I] = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             if (I < M) dlarf( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
-            A( I, I ) = D( I );
+            A[I, I] = D( I );
 
             if ( I < M ) {
 
@@ -100,15 +100,15 @@
                // A(i+2:m,i)
 
                dlarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = A( I+1, I );
-               A( I+1, I ) = ONE;
+               E[I] = A( I+1, I );
+               A[I+1, I] = ONE;
 
                // Apply H(i) to A(i+1:m,i+1:n) from the left
 
                dlarf('Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK );
-               A( I+1, I ) = E( I );
+               A[I+1, I] = E( I );
             } else {
-               TAUQ( I ) = ZERO;
+               TAUQ[I] = ZERO;
             }
          } // 20
       }

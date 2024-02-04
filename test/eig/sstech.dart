@@ -64,7 +64,7 @@
       // Sort eigenvalues from EIG into WORK
 
       for (I = 1; I <= N; I++) { // 20
-         WORK( I ) = EIG( I );
+         WORK[I] = EIG( I );
       } // 20
       for (I = 1; I <= N - 1; I++) { // 40
          ISUB = 1;
@@ -76,8 +76,8 @@
             }
          } // 30
          if ( ISUB != N+1-I ) {
-            WORK( ISUB ) = WORK( N+1-I );
-            WORK( N+1-I ) = EMIN;
+            WORK[ISUB] = WORK( N+1-I );
+            WORK[N+1-I] = EMIN;
          }
       } // 40
 

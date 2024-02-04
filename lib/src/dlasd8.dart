@@ -52,11 +52,11 @@
       // Quick return if possible
 
       if ( K == 1 ) {
-         D( 1 ) = ( Z( 1 ) ).abs();
-         DIFL( 1 ) = D( 1 );
+         D[1] = ( Z( 1 ) ).abs();
+         DIFL[1] = D( 1 );
          if ( ICOMPQ == 1 ) {
-            DIFL( 2 ) = ONE;
-            DIFR( 1, 2 ) = ONE;
+            DIFL[2] = ONE;
+            DIFR[1, 2] = ONE;
          }
          return;
       }
@@ -90,21 +90,21 @@
          if ( INFO != 0 ) {
             return;
          }
-         WORK( IWK3I+J ) = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J );
-         DIFL( J ) = -WORK( J );
-         DIFR( J, 1 ) = -WORK( J+1 );
+         WORK[IWK3I+J] = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J );
+         DIFL[J] = -WORK( J );
+         DIFR[J, 1] = -WORK( J+1 );
          for (I = 1; I <= J - 1; I++) { // 20
-            WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
+            WORK[IWK3I+I] = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
          } // 20
          for (I = J + 1; I <= K; I++) { // 30
-            WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
+            WORK[IWK3I+I] = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
          } // 30
       } // 40
 
       // Compute updated Z.
 
       for (I = 1; I <= K; I++) { // 50
-         Z( I ) = SIGN( sqrt( ( WORK( IWK3I+I ) ) ).abs(), Z( I ) );
+         Z[I] = SIGN( sqrt( ( WORK( IWK3I+I ) ) ).abs(), Z( I ) );
       } // 50
 
       // Update VF and VL.
@@ -117,23 +117,23 @@
             DIFRJ = -DIFR( J, 1 );
             DSIGJP = -DSIGMA( J+1 );
          }
-         WORK( J ) = -Z( J ) / DIFLJ / ( DSIGMA( J )+DJ );
+         WORK[J] = -Z( J ) / DIFLJ / ( DSIGMA( J )+DJ );
 
          // Use calls to the subroutine DLAMC3 to enforce the parentheses
          // (x+y)+z. The goal is to prevent optimizing compilers
          // from doing x+(y+z).
 
          for (I = 1; I <= J - 1; I++) { // 60
-            WORK( I ) = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJ )-DIFLJ ) / ( DSIGMA( I )+DJ );
+            WORK[I] = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJ )-DIFLJ ) / ( DSIGMA( I )+DJ );
          } // 60
          for (I = J + 1; I <= K; I++) { // 70
-            WORK( I ) = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ );
+            WORK[I] = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ );
          } // 70
          TEMP = DNRM2( K, WORK, 1 );
-         WORK( IWK2I+J ) = DDOT( K, WORK, 1, VF, 1 ) / TEMP;
-         WORK( IWK3I+J ) = DDOT( K, WORK, 1, VL, 1 ) / TEMP;
+         WORK[IWK2I+J] = DDOT( K, WORK, 1, VF, 1 ) / TEMP;
+         WORK[IWK3I+J] = DDOT( K, WORK, 1, VL, 1 ) / TEMP;
          if ( ICOMPQ == 1 ) {
-            DIFR( J, 2 ) = TEMP;
+            DIFR[J, 2] = TEMP;
          }
       } // 80
 

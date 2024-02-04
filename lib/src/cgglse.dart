@@ -66,7 +66,7 @@
             LWKMIN = M + N + P;
             LWKOPT = P + MN + max( M, N )*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < LWKMIN && !LQUERY ) {
             INFO = -12;
@@ -152,7 +152,7 @@
       // Backward transformation x = Q**H*x
 
       cunmrq('Left', 'Conjugate Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      WORK( 1 ) = P + MN + max( LOPT, INT( WORK( P+MN+1 ) ) );
+      WORK[1] = P + MN + max( LOPT, INT( WORK( P+MN+1 ) ) );
 
       return;
       }

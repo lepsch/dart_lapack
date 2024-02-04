@@ -72,8 +72,8 @@
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO;
-            BERR( J ) = ZERO;
+            FERR[J] = ZERO;
+            BERR[J] = ZERO;
          } // 10
          return;
       }
@@ -111,7 +111,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            WORK( I ) = ( B( I, J ) ).abs();
+            WORK[I] = ( B( I, J ) ).abs();
          } // 30
 
          // Compute abs(A)*abs(X) + abs(B).
@@ -123,25 +123,25 @@
                XK = ( X( K, J ) ).abs();
                IK = KK;
                for (I = 1; I <= K - 1; I++) { // 40
-                  WORK( I ) = WORK( I ) + ( AP( IK ) ).abs()*XK;
+                  WORK[I] = WORK( I ) + ( AP( IK ) ).abs()*XK;
                   S = S + ( AP( IK ) ).abs()*( X( I, J ) ).abs();
                   IK = IK + 1;
                } // 40
-               WORK( K ) = WORK( K ) + ( AP( KK+K-1 ) ).abs()*XK + S;
+               WORK[K] = WORK( K ) + ( AP( KK+K-1 ) ).abs()*XK + S;
                KK = KK + K;
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
                XK = ( X( K, J ) ).abs();
-               WORK( K ) = WORK( K ) + ( AP( KK ) ).abs()*XK;
+               WORK[K] = WORK( K ) + ( AP( KK ) ).abs()*XK;
                IK = KK + 1;
                for (I = K + 1; I <= N; I++) { // 60
-                  WORK( I ) = WORK( I ) + ( AP( IK ) ).abs()*XK;
+                  WORK[I] = WORK( I ) + ( AP( IK ) ).abs()*XK;
                   S = S + ( AP( IK ) ).abs()*( X( I, J ) ).abs();
                   IK = IK + 1;
                } // 60
-               WORK( K ) = WORK( K ) + S;
+               WORK[K] = WORK( K ) + S;
                KK = KK + ( N-K+1 );
             } // 70
          }
@@ -153,7 +153,7 @@
                S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 80
-         BERR( J ) = S;
+         BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -196,9 +196,9 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
+               WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 90
 
@@ -212,14 +212,14 @@
 
                ssptrs(UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 110
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 110
             } else if ( KASE == 2 ) {
 
                // Multiply by inv(A)*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
-                  WORK( N+I ) = WORK( I )*WORK( N+I );
+                  WORK[N+I] = WORK( I )*WORK( N+I );
                } // 120
                ssptrs(UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N, INFO );
             }

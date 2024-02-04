@@ -62,7 +62,7 @@
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, ( NB + 1 )*N );
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < max( 1, 2*N-1 ) && !LQUERY ) {
             INFO = -11;
@@ -127,7 +127,7 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      WORK[1] = SROUNDUP_LWORK(LWKOPT);
 
       return;
       }

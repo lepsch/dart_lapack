@@ -70,7 +70,7 @@
                AKK = REAL( A( K, K ) );
                BKK = REAL( B( K, K ) );
                AKK = AKK / BKK**2;
-               A( K, K ) = AKK;
+               A[K, K] = AKK;
                if ( K < N ) {
                   csscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK;
@@ -95,7 +95,7 @@
                AKK = REAL( A( K, K ) );
                BKK = REAL( B( K, K ) );
                AKK = AKK / BKK**2;
-               A( K, K ) = AKK;
+               A[K, K] = AKK;
                if ( K < N ) {
                   csscal(N-K, ONE / BKK, A( K+1, K ), 1 );
                   CT = -HALF*AKK;
@@ -123,7 +123,7 @@
                cher2(UPLO, K-1, CONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA );
                caxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                csscal(K-1, BKK, A( 1, K ), 1 );
-               A( K, K ) = AKK*BKK**2;
+               A[K, K] = AKK*BKK**2;
             } // 30
          } else {
 
@@ -145,7 +145,7 @@
                clacgv(K-1, B( K, 1 ), LDB );
                csscal(K-1, BKK, A( K, 1 ), LDA );
                clacgv(K-1, A( K, 1 ), LDA );
-               A( K, K ) = AKK*BKK**2;
+               A[K, K] = AKK*BKK**2;
             } // 40
          }
       }

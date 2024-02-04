@@ -54,10 +54,10 @@
 
       for (J = 1; J <= K; J++) {
          for (I = 1; I <= min( J, M ); I++) {
-            WORK( ( J-1 )*M+I ) = AF( I, J );
+            WORK[( J-1 )*M+I] = AF( I, J );
          }
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO;
+            WORK[( J-1 )*M+I] = ZERO;
          }
       }
       for (J = K + 1; J <= N; J++) {

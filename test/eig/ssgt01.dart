@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO;
+      RESULT[1] = ZERO;
       if (N <= 0) return;
 
       ULP = SLAMCH( 'Epsilon' );
@@ -50,7 +50,7 @@
          } // 10
          ssymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP );
+         RESULT[1] = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 2 ) {
 
@@ -62,7 +62,7 @@
          } // 20
          ssymm('Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
+         RESULT[1] = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 3 ) {
 
@@ -74,7 +74,7 @@
          } // 30
          ssymm('Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
+         RESULT[1] = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
       }
 
       return;

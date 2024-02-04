@@ -65,13 +65,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'LS';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'LS';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
       EPS = DLAMCH( 'Epsilon' );
 
@@ -266,12 +266,12 @@
                                  // r = norm((B- A*X)**T * A) /
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
-                                 RESULT( 2 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                 RESULT[2] = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
 
                                  // Solving overdetermined system
 
-                                 RESULT( 2 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                 RESULT[2] = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                               }
 
                               // Print information about the tests that
@@ -355,12 +355,12 @@
                                  // r = norm((B- A*X)**T * A) /
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
-                                 RESULT( 4 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                 RESULT[4] = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
 
                                  // Solving overdetermined system
 
-                                 RESULT( 4 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                 RESULT[4] = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                               }
 
                               // Print information about the tests that
@@ -451,12 +451,12 @@
                                     // r = norm((B- A*X)**T * A) /
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
-                                    RESULT( 6 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                                    RESULT[6] = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                                  } else {
 
                                     // Solving overdetermined system
 
-                                    RESULT( 6 ) = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                                    RESULT[6] = DQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
                                  }
 
                                  // Print information about the tests that
@@ -504,7 +504,7 @@
                         // Initialize vector IWORK.
 
                         for (J = 1; J <= N; J++) { // 70
-                           IWORK( J ) = 0;
+                           IWORK[J] = 0;
                         } // 70
 
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
@@ -516,7 +516,7 @@
                         // Test 7:  Compute relative error in svd
                                  // workspace: M*N + 4*min(M,N) + max(M,N)
 
-                        RESULT( 7 ) = DQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK );
+                        RESULT[7] = DQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK );
 
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
@@ -527,13 +527,13 @@
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
 
-                        RESULT( 9 ) = ZERO;
+                        RESULT[9] = ZERO;
                         if (M > CRANK) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
                                  // workspace: (M+NRHS)*(N+2)
 
-                        RESULT( 10 ) = ZERO;
+                        RESULT[10] = ZERO;
 
                         if (N > CRANK) RESULT( 10 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
@@ -555,9 +555,9 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
+                           RESULT[11] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
                         } else {
-                           RESULT( 11 ) = ZERO;
+                           RESULT[11] = ZERO;
                         }
 
                         // Test 12:  Compute error in solution
@@ -567,12 +567,12 @@
 
                         // Test 13:  Check norm of r'*A
 
-                        RESULT( 13 ) = ZERO;
+                        RESULT[13] = ZERO;
                         if (M > CRANK) RESULT( 13 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 14:  Check if x is in the rowspace of A
 
-                        RESULT( 14 ) = ZERO;
+                        RESULT[14] = ZERO;
                         if (N > CRANK) RESULT( 14 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test DGELSD
@@ -584,7 +584,7 @@
                         // Initialize vector IWORK.
 
                         for (J = 1; J <= N; J++) { // 80
-                           IWORK( J ) = 0;
+                           IWORK[J] = 0;
                         } // 80
 
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
@@ -597,9 +597,9 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
+                           RESULT[15] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
                         } else {
-                           RESULT( 15 ) = ZERO;
+                           RESULT[15] = ZERO;
                         }
 
                         // Test 16:  Compute error in solution
@@ -609,12 +609,12 @@
 
                         // Test 17:  Check norm of r'*A
 
-                        RESULT( 17 ) = ZERO;
+                        RESULT[17] = ZERO;
                         if (M > CRANK) RESULT( 17 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 18:  Check if x is in the rowspace of A
 
-                        RESULT( 18 ) = ZERO;
+                        RESULT[18] = ZERO;
                         if (N > CRANK) RESULT( 18 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Print information about the tests that did not

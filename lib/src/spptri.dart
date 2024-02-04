@@ -76,7 +76,7 @@
          JJ = 1;
          for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1;
-            AP( JJ ) = SDOT( N-J+1, AP( JJ ), 1, AP( JJ ), 1 );
+            AP[JJ] = SDOT( N-J+1, AP( JJ ), 1, AP( JJ ), 1 );
             if (J < N) stpmv( 'Lower', 'Transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
             JJ = JJN;
          } // 20

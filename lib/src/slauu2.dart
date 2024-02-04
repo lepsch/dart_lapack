@@ -63,7 +63,7 @@
          for (I = 1; I <= N; I++) { // 10
             AII = A( I, I );
             if ( I < N ) {
-               A( I, I ) = SDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA );
+               A[I, I] = SDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA );
                sgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, AII, A( 1, I ), 1 );
             } else {
                sscal(I, AII, A( 1, I ), 1 );
@@ -77,7 +77,7 @@
          for (I = 1; I <= N; I++) { // 20
             AII = A( I, I );
             if ( I < N ) {
-               A( I, I ) = SDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 );
+               A[I, I] = SDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 );
                sgemv('Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, AII, A( I, 1 ), LDA );
             } else {
                sscal(I, AII, A( I, 1 ), LDA );

@@ -81,7 +81,7 @@
       // Check Argument Values
 
       INFO = 0;
-      WORK( 1 ) = max( 1, N );
+      WORK[1] = max( 1, N );
       LQUERY = ( LWORK == -1 );
       if ( ISCHUR == 0 ) {
          INFO = -1;
@@ -116,7 +116,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK( 1 ) = REAL( 1 );
+         WORK[1] = REAL( 1 );
          return;
       }
 
@@ -144,22 +144,22 @@
          if ( T( J, J ) < ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 10
-                  H( JR, J ) = -H( JR, J );
-                  T( JR, J ) = -T( JR, J );
+                  H[JR, J] = -H( JR, J );
+                  T[JR, J] = -T( JR, J );
                } // 10
             } else {
-               H( J, J ) = -H( J, J );
-               T( J, J ) = -T( J, J );
+               H[J, J] = -H( J, J );
+               T[J, J] = -T( J, J );
             }
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 20
-                  Z( JR, J ) = -Z( JR, J );
+                  Z[JR, J] = -Z( JR, J );
                } // 20
             }
          }
-         ALPHAR( J ) = H( J, J );
-         ALPHAI( J ) = ZERO;
-         BETA( J ) = T( J, J );
+         ALPHAR[J] = H( J, J );
+         ALPHAI[J] = ZERO;
+         BETA[J] = T( J, J );
       } // 30
 
       // If IHI < ILO, skip QZ steps
@@ -208,13 +208,13 @@
             GO TO 80;
          } else {
             if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ) ) ) ).abs() {
-               H( ILAST, ILAST-1 ) = ZERO;
+               H[ILAST, ILAST-1] = ZERO;
                GO TO 80;
             }
          }
 
          if ( ( T( ILAST, ILAST ) ).abs() <= BTOL ) {
-            T( ILAST, ILAST ) = ZERO;
+            T[ILAST, ILAST] = ZERO;
             GO TO 70;
          }
 
@@ -228,7 +228,7 @@
                ILAZRO = true;
             } else {
                if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ) ) ) ).abs() {
-                  H( J, J-1 ) = ZERO;
+                  H[J, J-1] = ZERO;
                   ILAZRO = true;
                } else {
                   ILAZRO = false;
@@ -238,7 +238,7 @@
             // Test 2: for T(j,j)=0
 
             if ( ( T( J, J ) ).abs() < BTOL ) {
-               T( J, J ) = ZERO;
+               T[J, J] = ZERO;
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
@@ -264,7 +264,7 @@
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 40
                      TEMP = H( JCH, JCH );
                      slartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
-                     H( JCH+1, JCH ) = ZERO;
+                     H[JCH+1, JCH] = ZERO;
                      srot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
                      srot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
@@ -277,7 +277,7 @@
                            GO TO 110;
                         }
                      }
-                     T( JCH+1, JCH+1 ) = ZERO;
+                     T[JCH+1, JCH+1] = ZERO;
                   } // 40
                   GO TO 70;
                } else {
@@ -288,12 +288,12 @@
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 50
                      TEMP = T( JCH, JCH+1 );
                      slartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
-                     T( JCH+1, JCH+1 ) = ZERO;
+                     T[JCH+1, JCH+1] = ZERO;
                      if (JCH < ILASTM-1) srot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      srot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH );
                      slartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
-                     H( JCH+1, JCH-1 ) = ZERO;
+                     H[JCH+1, JCH-1] = ZERO;
                      srot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S );
                      srot(JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL SROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
                   } // 50
@@ -322,7 +322,7 @@
          } // 70
          TEMP = H( ILAST, ILAST );
          slartg(TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
-         H( ILAST, ILAST-1 ) = ZERO;
+         H[ILAST, ILAST-1] = ZERO;
          srot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S );
          srot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
@@ -333,22 +333,22 @@
          if ( T( ILAST, ILAST ) < ZERO ) {
             if ( ILSCHR ) {
                for (J = IFRSTM; J <= ILAST; J++) { // 90
-                  H( J, ILAST ) = -H( J, ILAST );
-                  T( J, ILAST ) = -T( J, ILAST );
+                  H[J, ILAST] = -H( J, ILAST );
+                  T[J, ILAST] = -T( J, ILAST );
                } // 90
             } else {
-               H( ILAST, ILAST ) = -H( ILAST, ILAST );
-               T( ILAST, ILAST ) = -T( ILAST, ILAST );
+               H[ILAST, ILAST] = -H( ILAST, ILAST );
+               T[ILAST, ILAST] = -T( ILAST, ILAST );
             }
             if ( ILZ ) {
                for (J = 1; J <= N; J++) { // 100
-                  Z( J, ILAST ) = -Z( J, ILAST );
+                  Z[J, ILAST] = -Z( J, ILAST );
                } // 100
             }
          }
-         ALPHAR( ILAST ) = H( ILAST, ILAST );
-         ALPHAI( ILAST ) = ZERO;
-         BETA( ILAST ) = T( ILAST, ILAST );
+         ALPHAR[ILAST] = H( ILAST, ILAST );
+         ALPHAI[ILAST] = ZERO;
+         BETA[ILAST] = T( ILAST, ILAST );
 
          // Go to next block -- exit if finished.
 
@@ -460,44 +460,44 @@
             if ( J > ISTART ) {
                TEMP = H( J, J-1 );
                slartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
-               H( J+1, J-1 ) = ZERO;
+               H[J+1, J-1] = ZERO;
             }
 
             for (JC = J; JC <= ILASTM; JC++) { // 140
                TEMP = C*H( J, JC ) + S*H( J+1, JC );
-               H( J+1, JC ) = -S*H( J, JC ) + C*H( J+1, JC );
-               H( J, JC ) = TEMP;
+               H[J+1, JC] = -S*H( J, JC ) + C*H( J+1, JC );
+               H[J, JC] = TEMP;
                TEMP2 = C*T( J, JC ) + S*T( J+1, JC );
-               T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC );
-               T( J, JC ) = TEMP2;
+               T[J+1, JC] = -S*T( J, JC ) + C*T( J+1, JC );
+               T[J, JC] = TEMP2;
             } // 140
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 150
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 );
-                  Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 );
-                  Q( JR, J ) = TEMP;
+                  Q[JR, J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
+                  Q[JR, J] = TEMP;
                } // 150
             }
 
             TEMP = T( J+1, J+1 );
             slartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
-            T( J+1, J ) = ZERO;
+            T[J+1, J] = ZERO;
 
             for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 160
                TEMP = C*H( JR, J+1 ) + S*H( JR, J );
-               H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J );
-               H( JR, J+1 ) = TEMP;
+               H[JR, J] = -S*H( JR, J+1 ) + C*H( JR, J );
+               H[JR, J+1] = TEMP;
             } // 160
             for (JR = IFRSTM; JR <= J; JR++) { // 170
                TEMP = C*T( JR, J+1 ) + S*T( JR, J );
-               T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J );
-               T( JR, J+1 ) = TEMP;
+               T[JR, J] = -S*T( JR, J+1 ) + C*T( JR, J );
+               T[JR, J+1] = TEMP;
             } // 170
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 180
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J );
-                  Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J );
-                  Z( JR, J+1 ) = TEMP;
+                  Z[JR, J] = -S*Z( JR, J+1 ) + C*Z( JR, J );
+                  Z[JR, J+1] = TEMP;
                } // 180
             }
          } // 190
@@ -540,22 +540,22 @@
             if (ILQ) srot( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
             IF( ILZ ) srot( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
-            T( ILAST-1, ILAST-1 ) = B11;
-            T( ILAST-1, ILAST ) = ZERO;
-            T( ILAST, ILAST-1 ) = ZERO;
-            T( ILAST, ILAST ) = B22;
+            T[ILAST-1, ILAST-1] = B11;
+            T[ILAST-1, ILAST] = ZERO;
+            T[ILAST, ILAST-1] = ZERO;
+            T[ILAST, ILAST] = B22;
 
             // If B22 is negative, negate column ILAST
 
             if ( B22 < ZERO ) {
                for (J = IFRSTM; J <= ILAST; J++) { // 210
-                  H( J, ILAST ) = -H( J, ILAST );
-                  T( J, ILAST ) = -T( J, ILAST );
+                  H[J, ILAST] = -H( J, ILAST );
+                  T[J, ILAST] = -T( J, ILAST );
                } // 210
 
                if ( ILZ ) {
                   for (J = 1; J <= N; J++) { // 220
-                     Z( J, ILAST ) = -Z( J, ILAST );
+                     Z[J, ILAST] = -Z( J, ILAST );
                   } // 220
                }
                B22 = -B22;
@@ -662,12 +662,12 @@
 
             // Normalize so beta > 0, and Im( alpha1 ) > 0
 
-            BETA( ILAST-1 ) = B1A;
-            BETA( ILAST ) = B2A;
-            ALPHAR( ILAST-1 ) = ( WR*B1A )*S1INV;
-            ALPHAI( ILAST-1 ) = ( WI*B1A )*S1INV;
-            ALPHAR( ILAST ) = ( WR*B2A )*S1INV;
-            ALPHAI( ILAST ) = -( WI*B2A )*S1INV;
+            BETA[ILAST-1] = B1A;
+            BETA[ILAST] = B2A;
+            ALPHAR[ILAST-1] = ( WR*B1A )*S1INV;
+            ALPHAI[ILAST-1] = ( WI*B1A )*S1INV;
+            ALPHAR[ILAST] = ( WR*B2A )*S1INV;
+            ALPHAI[ILAST] = -( WI*B2A )*S1INV;
 
             // Step 3: Go to next block -- exit if finished.
 
@@ -702,13 +702,13 @@
             AD11L = ( ASCALE*H( IFIRST, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD21L = ( ASCALE*H( IFIRST+1, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD12L = ( ASCALE*H( IFIRST, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD22L = ( ASCALE*H( IFIRST+1, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD32L = ( ASCALE*H( IFIRST+2, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) );
             U12L = T( IFIRST, IFIRST+1 ) / T( IFIRST+1, IFIRST+1 );
 
-            V( 1 ) = ( AD11-AD11L )*( AD22-AD11L ) - AD12*AD21 + AD21*U12*AD11L + ( AD12L-AD11L*U12L )*AD21L             V( 2 ) = ( ( AD22L-AD11L )-AD21L*U12L-( AD11-AD11L )- ( AD22-AD11L )+AD21*U12 )*AD21L;
-            V( 3 ) = AD32L*AD21L;
+            V[1] = ( AD11-AD11L )*( AD22-AD11L ) - AD12*AD21 + AD21*U12*AD11L + ( AD12L-AD11L*U12L )*AD21L             V( 2 ) = ( ( AD22L-AD11L )-AD21L*U12L-( AD11-AD11L )- ( AD22-AD11L )+AD21*U12 )*AD21L;
+            V[3] = AD32L*AD21L;
 
             ISTART = IFIRST;
 
             slarfg(3, V( 1 ), V( 2 ), 1, TAU );
-            V( 1 ) = ONE;
+            V[1] = ONE;
 
             // Sweep
 
@@ -719,34 +719,34 @@
                // Zero (j-1)st column of A
 
                if ( J > ISTART ) {
-                  V( 1 ) = H( J, J-1 );
-                  V( 2 ) = H( J+1, J-1 );
-                  V( 3 ) = H( J+2, J-1 );
+                  V[1] = H( J, J-1 );
+                  V[2] = H( J+1, J-1 );
+                  V[3] = H( J+2, J-1 );
 
                   slarfg(3, H( J, J-1 ), V( 2 ), 1, TAU );
-                  V( 1 ) = ONE;
-                  H( J+1, J-1 ) = ZERO;
-                  H( J+2, J-1 ) = ZERO;
+                  V[1] = ONE;
+                  H[J+1, J-1] = ZERO;
+                  H[J+2, J-1] = ZERO;
                }
 
                T2 = TAU * V( 2 );
                T3 = TAU * V( 3 );
                for (JC = J; JC <= ILASTM; JC++) { // 230
                   TEMP = H( J, JC )+V( 2 )*H( J+1, JC )+V( 3 )* H( J+2, JC );
-                  H( J, JC ) = H( J, JC ) - TEMP*TAU;
-                  H( J+1, JC ) = H( J+1, JC ) - TEMP*T2;
-                  H( J+2, JC ) = H( J+2, JC ) - TEMP*T3;
+                  H[J, JC] = H( J, JC ) - TEMP*TAU;
+                  H[J+1, JC] = H( J+1, JC ) - TEMP*T2;
+                  H[J+2, JC] = H( J+2, JC ) - TEMP*T3;
                   TEMP2 = T( J, JC )+V( 2 )*T( J+1, JC )+V( 3 )* T( J+2, JC );
-                  T( J, JC ) = T( J, JC ) - TEMP2*TAU;
-                  T( J+1, JC ) = T( J+1, JC ) - TEMP2*T2;
-                  T( J+2, JC ) = T( J+2, JC ) - TEMP2*T3;
+                  T[J, JC] = T( J, JC ) - TEMP2*TAU;
+                  T[J+1, JC] = T( J+1, JC ) - TEMP2*T2;
+                  T[J+2, JC] = T( J+2, JC ) - TEMP2*T3;
                } // 230
                if ( ILQ ) {
                   for (JR = 1; JR <= N; JR++) { // 240
                      TEMP = Q( JR, J )+V( 2 )*Q( JR, J+1 )+V( 3 )* Q( JR, J+2 );
-                     Q( JR, J ) = Q( JR, J ) - TEMP*TAU;
-                     Q( JR, J+1 ) = Q( JR, J+1 ) - TEMP*T2;
-                     Q( JR, J+2 ) = Q( JR, J+2 ) - TEMP*T3;
+                     Q[JR, J] = Q( JR, J ) - TEMP*TAU;
+                     Q[JR, J+1] = Q( JR, J+1 ) - TEMP*T2;
+                     Q[JR, J+2] = Q( JR, J+2 ) - TEMP*T3;
                   } // 240
                }
 
@@ -826,9 +826,9 @@
                T1 = sqrt( SCALE**2+U1**2+U2**2 );
                TAU = ONE + SCALE / T1;
                VS = -ONE / ( SCALE+T1 );
-               V( 1 ) = ONE;
-               V( 2 ) = VS*U1;
-               V( 3 ) = VS*U2;
+               V[1] = ONE;
+               V[2] = VS*U1;
+               V[3] = VS*U2;
 
                // Apply transformations from the right.
 
@@ -836,26 +836,26 @@
                T3 = TAU*V( 3 );
                for (JR = IFRSTM; JR <= min( J+3, ILAST ); JR++) { // 260
                   TEMP = H( JR, J )+V( 2 )*H( JR, J+1 )+V( 3 )* H( JR, J+2 );
-                  H( JR, J ) = H( JR, J ) - TEMP*TAU;
-                  H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2;
-                  H( JR, J+2 ) = H( JR, J+2 ) - TEMP*T3;
+                  H[JR, J] = H( JR, J ) - TEMP*TAU;
+                  H[JR, J+1] = H( JR, J+1 ) - TEMP*T2;
+                  H[JR, J+2] = H( JR, J+2 ) - TEMP*T3;
                } // 260
                for (JR = IFRSTM; JR <= J + 2; JR++) { // 270
                   TEMP = T( JR, J )+V( 2 )*T( JR, J+1 )+V( 3 )* T( JR, J+2 );
-                  T( JR, J ) = T( JR, J ) - TEMP*TAU;
-                  T( JR, J+1 ) = T( JR, J+1 ) - TEMP*T2;
-                  T( JR, J+2 ) = T( JR, J+2 ) - TEMP*T3;
+                  T[JR, J] = T( JR, J ) - TEMP*TAU;
+                  T[JR, J+1] = T( JR, J+1 ) - TEMP*T2;
+                  T[JR, J+2] = T( JR, J+2 ) - TEMP*T3;
                } // 270
                if ( ILZ ) {
                   for (JR = 1; JR <= N; JR++) { // 280
                      TEMP = Z( JR, J )+V( 2 )*Z( JR, J+1 )+V( 3 )* Z( JR, J+2 );
-                     Z( JR, J ) = Z( JR, J ) - TEMP*TAU;
-                     Z( JR, J+1 ) = Z( JR, J+1 ) - TEMP*T2;
-                     Z( JR, J+2 ) = Z( JR, J+2 ) - TEMP*T3;
+                     Z[JR, J] = Z( JR, J ) - TEMP*TAU;
+                     Z[JR, J+1] = Z( JR, J+1 ) - TEMP*T2;
+                     Z[JR, J+2] = Z( JR, J+2 ) - TEMP*T3;
                   } // 280
                }
-               T( J+1, J ) = ZERO;
-               T( J+2, J ) = ZERO;
+               T[J+1, J] = ZERO;
+               T[J+2, J] = ZERO;
             } // 290
 
             // Last elements: Use Givens rotations
@@ -865,21 +865,21 @@
             J = ILAST - 1;
             TEMP = H( J, J-1 );
             slartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
-            H( J+1, J-1 ) = ZERO;
+            H[J+1, J-1] = ZERO;
 
             for (JC = J; JC <= ILASTM; JC++) { // 300
                TEMP = C*H( J, JC ) + S*H( J+1, JC );
-               H( J+1, JC ) = -S*H( J, JC ) + C*H( J+1, JC );
-               H( J, JC ) = TEMP;
+               H[J+1, JC] = -S*H( J, JC ) + C*H( J+1, JC );
+               H[J, JC] = TEMP;
                TEMP2 = C*T( J, JC ) + S*T( J+1, JC );
-               T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC );
-               T( J, JC ) = TEMP2;
+               T[J+1, JC] = -S*T( J, JC ) + C*T( J+1, JC );
+               T[J, JC] = TEMP2;
             } // 300
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 310
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 );
-                  Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 );
-                  Q( JR, J ) = TEMP;
+                  Q[JR, J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
+                  Q[JR, J] = TEMP;
                } // 310
             }
 
@@ -887,23 +887,23 @@
 
             TEMP = T( J+1, J+1 );
             slartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
-            T( J+1, J ) = ZERO;
+            T[J+1, J] = ZERO;
 
             for (JR = IFRSTM; JR <= ILAST; JR++) { // 320
                TEMP = C*H( JR, J+1 ) + S*H( JR, J );
-               H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J );
-               H( JR, J+1 ) = TEMP;
+               H[JR, J] = -S*H( JR, J+1 ) + C*H( JR, J );
+               H[JR, J+1] = TEMP;
             } // 320
             for (JR = IFRSTM; JR <= ILAST - 1; JR++) { // 330
                TEMP = C*T( JR, J+1 ) + S*T( JR, J );
-               T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J );
-               T( JR, J+1 ) = TEMP;
+               T[JR, J] = -S*T( JR, J+1 ) + C*T( JR, J );
+               T[JR, J+1] = TEMP;
             } // 330
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 340
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J );
-                  Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J );
-                  Z( JR, J+1 ) = TEMP;
+                  Z[JR, J] = -S*Z( JR, J+1 ) + C*Z( JR, J );
+                  Z[JR, J+1] = TEMP;
                } // 340
             }
 
@@ -933,22 +933,22 @@
          if ( T( J, J ) < ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 390
-                  H( JR, J ) = -H( JR, J );
-                  T( JR, J ) = -T( JR, J );
+                  H[JR, J] = -H( JR, J );
+                  T[JR, J] = -T( JR, J );
                } // 390
             } else {
-               H( J, J ) = -H( J, J );
-               T( J, J ) = -T( J, J );
+               H[J, J] = -H( J, J );
+               T[J, J] = -T( J, J );
             }
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 400
-                  Z( JR, J ) = -Z( JR, J );
+                  Z[JR, J] = -Z( JR, J );
                } // 400
             }
          }
-         ALPHAR( J ) = H( J, J );
-         ALPHAI( J ) = ZERO;
-         BETA( J ) = T( J, J );
+         ALPHAR[J] = H( J, J );
+         ALPHAI[J] = ZERO;
+         BETA[J] = T( J, J );
       } // 410
 
       // Normal Termination
@@ -958,6 +958,6 @@
       // Exit (other than argument error) -- return optimal workspace size
 
       } // 420
-      WORK( 1 ) = SROUNDUP_LWORK( N );
+      WORK[1] = SROUNDUP_LWORK( N );
       return;
       }

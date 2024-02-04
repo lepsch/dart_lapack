@@ -135,7 +135,7 @@
                NTEST = 0;
 
                for (J = 1; J <= 4; J++) { // 30
-                  IOLDSD( J ) = ISEED( J );
+                  IOLDSD[J] = ISEED( J );
                } // 30
 
                // Compute "A".
@@ -198,7 +198,7 @@
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A( K+1, JCOL ) = ANORM;
+                     A[K+1, JCOL] = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
@@ -240,7 +240,7 @@
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ( A( K, I ) ).abs() / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
-                        A( K, I ) = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                        A[K, I] = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
                   } // 90
 
@@ -270,7 +270,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 1 ) = ULPINV;
+                     RESULT[1] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -301,7 +301,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 5 ) = ULPINV;
+                     RESULT[5] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -330,7 +330,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 5 ) = ULPINV;
+                     RESULT[5] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -340,12 +340,12 @@
 
                for (JC = 1; JC <= N; JC++) { // 120
                   for (JR = 0; JR <= min( K, N-JC ); JR++) { // 110
-                     A( JR+1, JC ) = A( K+1-JR, JC+JR );
+                     A[JR+1, JC] = A( K+1-JR, JC+JR );
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
                   for (JR = min( K, N-JC ) + 1; JR <= K; JR++) { // 130
-                     A( JR+1, JC ) = ZERO;
+                     A[JR+1, JC] = ZERO;
                   } // 130
                } // 140
 
@@ -362,7 +362,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 3 ) = ULPINV;
+                     RESULT[3] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -396,7 +396,7 @@
                   if ( IINFO < 0 ) {
                      return;
                   } else {
-                     RESULT( 6 ) = ULPINV;
+                     RESULT[6] = ULPINV;
                      GO TO 150;
                   }
                }
@@ -418,8 +418,8 @@
                   TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
                } // 151
 
-               RESULT(5) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
-               RESULT(6) = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
+               RESULT[5] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+               RESULT[6] = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

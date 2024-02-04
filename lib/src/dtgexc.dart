@@ -56,7 +56,7 @@
          } else {
             LWMIN = 4*N + 16;
          }
-         WORK(1) = LWMIN;
+         WORK[1] = LWMIN;
 
          if (LWORK < LWMIN && !LQUERY) {
             INFO = -15;
@@ -281,6 +281,6 @@
          if (HERE > ILST) GO TO 20;
       }
       ILST = HERE;
-      WORK( 1 ) = LWMIN;
+      WORK[1] = LWMIN;
       return;
       }

@@ -61,7 +61,7 @@
       // Initialize PIV
 
       for (I = 1; I <= N; I++) { // 100
-         PIV( I ) = I;
+         PIV[I] = I;
       } // 100
 
       // Compute stopping value
@@ -91,7 +91,7 @@
       // Set first half of WORK to zero, holds dot products
 
       for (I = 1; I <= N; I++) { // 110
-         WORK( I ) = 0;
+         WORK[I] = 0;
       } // 110
 
       if ( UPPER ) {
@@ -107,9 +107,9 @@
             for (I = J; I <= N; I++) { // 120
 
                if ( J > 1 ) {
-                  WORK( I ) = WORK( I ) + A( J-1, I )**2;
+                  WORK[I] = WORK( I ) + A( J-1, I )**2;
                }
-               WORK( N+I ) = A( I, I ) - WORK( I );
+               WORK[N+I] = A( I, I ) - WORK( I );
 
             } // 120
 
@@ -118,7 +118,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                  A( J, J ) = AJJ;
+                  A[J, J] = AJJ;
                   GO TO 160;
                }
             }
@@ -127,7 +127,7 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A( PVT, PVT ) = A( J, J );
+               A[PVT, PVT] = A( J, J );
                sswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                if (PVT < N) sswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                sswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
@@ -135,15 +135,15 @@
                // Swap dot products and PIV
 
                STEMP = WORK( J );
-               WORK( J ) = WORK( PVT );
-               WORK( PVT ) = STEMP;
+               WORK[J] = WORK( PVT );
+               WORK[PVT] = STEMP;
                ITEMP = PIV( PVT );
-               PIV( PVT ) = PIV( J );
-               PIV( J ) = ITEMP;
+               PIV[PVT] = PIV( J );
+               PIV[J] = ITEMP;
             }
 
             AJJ = sqrt( AJJ );
-            A( J, J ) = AJJ;
+            A[J, J] = AJJ;
 
             // Compute elements J+1:N of row J
 
@@ -167,9 +167,9 @@
             for (I = J; I <= N; I++) { // 140
 
                if ( J > 1 ) {
-                  WORK( I ) = WORK( I ) + A( I, J-1 )**2;
+                  WORK[I] = WORK( I ) + A( I, J-1 )**2;
                }
-               WORK( N+I ) = A( I, I ) - WORK( I );
+               WORK[N+I] = A( I, I ) - WORK( I );
 
             } // 140
 
@@ -178,7 +178,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                  A( J, J ) = AJJ;
+                  A[J, J] = AJJ;
                   GO TO 160;
                }
             }
@@ -187,7 +187,7 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A( PVT, PVT ) = A( J, J );
+               A[PVT, PVT] = A( J, J );
                sswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                if (PVT < N) sswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                sswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
@@ -195,15 +195,15 @@
                // Swap dot products and PIV
 
                STEMP = WORK( J );
-               WORK( J ) = WORK( PVT );
-               WORK( PVT ) = STEMP;
+               WORK[J] = WORK( PVT );
+               WORK[PVT] = STEMP;
                ITEMP = PIV( PVT );
-               PIV( PVT ) = PIV( J );
-               PIV( J ) = ITEMP;
+               PIV[PVT] = PIV( J );
+               PIV[J] = ITEMP;
             }
 
             AJJ = sqrt( AJJ );
-            A( J, J ) = AJJ;
+            A[J, J] = AJJ;
 
             // Compute elements J+1:N of column J
 

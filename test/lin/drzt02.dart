@@ -61,7 +61,7 @@
       // Q := Q - I
 
       for (I = 1; I <= N; I++) { // 10
-         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
+         WORK[( I-1 )*N+I] = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
       DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N ) ) );

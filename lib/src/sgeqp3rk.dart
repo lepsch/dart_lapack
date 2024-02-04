@@ -111,7 +111,7 @@
 
             LWKOPT = 2*N + NB*( N+NRHS+1 );
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
          if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -15;
@@ -134,7 +134,7 @@
          K = 0;
          MAXC2NRMK = ZERO;
          RELMAXC2NRMK = ZERO;
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
          return;
       }
 
@@ -143,7 +143,7 @@
       // Initialize column pivot array JPIV.
 
       for (J = 1; J <= N; J++) {
-         JPIV( J ) = J;
+         JPIV[J] = J;
       }
 
       // ==================================================================
@@ -157,8 +157,8 @@
          // computation; initialize the values of complete columns 2-norms.
 
       for (J = 1; J <= N; J++) {
-         WORK( J ) = SNRM2( M, A( 1, J ), 1 );
-         WORK( N+J ) = WORK( J );
+         WORK[J] = SNRM2( M, A( 1, J ), 1 );
+         WORK[N+J] = WORK( J );
       }
 
       // ==================================================================
@@ -187,7 +187,7 @@
 
          // Array TAU is not set and contains undefined elements.
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
          return;
       }
 
@@ -203,10 +203,10 @@
          RELMAXC2NRMK = ZERO;
 
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO;
+            TAU[J] = ZERO;
          }
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
          return;
 
       }
@@ -235,9 +235,9 @@
          MAXC2NRMK = MAXC2NRM;
          RELMAXC2NRMK = ONE;
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO;
+            TAU[J] = ZERO;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
          return;
       }
 
@@ -279,10 +279,10 @@
          RELMAXC2NRMK = ONE;
 
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO;
+            TAU[J] = ZERO;
          }
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
          return;
       }
 
@@ -393,7 +393,7 @@
 
                // Return from the routine.
 
-               WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+               WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
                return;
 
@@ -467,7 +467,7 @@
             }
 
             for (J = K + 1; J <= MINMN; J++) {
-               TAU( J ) = ZERO;
+               TAU[J] = ZERO;
             }
 
          }
@@ -476,7 +476,7 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
       return;
       }

@@ -44,7 +44,7 @@
 
       // Initialize constants.
 
-      PATH( 1: 3 ) = 'GLM';
+      PATH[1: 3] = 'GLM';
       INFO = 0;
       NRUN = 0;
       NFAIL = 0;
@@ -106,7 +106,7 @@
             // Generate random left hand side vector of GLM
 
             for (I = 1; I <= N; I++) { // 20
-               X( I ) = CLARND( 2, ISEED );
+               X[I] = CLARND( 2, ISEED );
             } // 20
 
             cglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );

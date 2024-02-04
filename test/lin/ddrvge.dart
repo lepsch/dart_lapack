@@ -69,13 +69,13 @@
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'GE';
+      PATH[1: 1] = 'double          ';
+      PATH[2: 3] = 'GE';
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I );
+         ISEED[I] = ISEEDY( I );
       } // 10
 
       // Test the error exits
@@ -140,7 +140,7 @@
                IOFF = ( IZERO-1 )*LDA;
                if ( IMAT < 7 ) {
                   for (I = 1; I <= N; I++) { // 20
-                     A( IOFF+I ) = ZERO;
+                     A[IOFF+I] = ZERO;
                   } // 20
                } else {
                   dlaset('Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
@@ -358,7 +358,7 @@
                            RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
+                     RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -403,7 +403,7 @@
                      // Compare RCOND from DGESVX with the computed value
                      // in RCONDC.
 
-                     RESULT( 6 ) = DGET06( RCOND, RCONDC );
+                     RESULT[6] = DGET06( RCOND, RCONDC );
 
                      // Print information about the tests that did not pass
                      // the threshold.

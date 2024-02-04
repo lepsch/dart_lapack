@@ -25,8 +25,8 @@
 
          for (I = 1; I <= N; I++) {
             STEMP = C*SX(I) + S*SY(I);
-            SY(I) = C*SY(I) - S*SX(I);
-            SX(I) = STEMP;
+            SY[I] = C*SY(I) - S*SX(I);
+            SX[I] = STEMP;
          }
       } else {
 
@@ -39,8 +39,8 @@
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             STEMP = C*SX(IX) + S*SY(IY);
-            SY(IY) = C*SY(IY) - S*SX(IX);
-            SX(IX) = STEMP;
+            SY[IY] = C*SY(IY) - S*SX(IX);
+            SX[IX] = STEMP;
             IX = IX + INCX;
             IY = IY + INCY;
          }

@@ -50,7 +50,7 @@
             NB = ILAENV( 1, 'CGEQLF', ' ', M, N, -1, -1 );
             LWKOPT = N*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
          if ( !LQUERY ) {
             if( LWORK <= 0 || ( M > 0 && LWORK < max( 1, N ) ) ) INFO = -7;
@@ -133,6 +133,6 @@
 
       if (MU > 0 && NU > 0) cgeql2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK( IWS );
+      WORK[1] = SROUNDUP_LWORK( IWS );
       return;
       }

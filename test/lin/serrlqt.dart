@@ -46,11 +46,11 @@
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = 1. / REAL( I+J );
-            C( I, J ) = 1. / REAL( I+J );
-            T( I, J ) = 1. / REAL( I+J );
+            A[I, J] = 1. / REAL( I+J );
+            C[I, J] = 1. / REAL( I+J );
+            T[I, J] = 1. / REAL( I+J );
          }
-         W( J ) = 0.;
+         W[J] = 0.;
       }
       OK = true;
 

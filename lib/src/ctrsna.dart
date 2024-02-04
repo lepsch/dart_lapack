@@ -48,7 +48,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -104,7 +104,7 @@
             if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
-         IF( WANTSP ) SEP( 1 ) = ( T( 1, 1 ) ).abs();
+         IF[WANTSP ) SEP( 1] = ( T( 1, 1 ) ).abs();
          return;
       }
 
@@ -129,7 +129,7 @@
             PROD = CDOTC( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
             RNRM = SCNRM2( N, VR( 1, KS ), 1 );
             LNRM = SCNRM2( N, VL( 1, KS ), 1 );
-            S( KS ) = ( PROD ).abs() / ( RNRM*LNRM );
+            S[KS] = ( PROD ).abs() / ( RNRM*LNRM );
 
          }
 
@@ -147,13 +147,13 @@
             // Form  C = T22 - lambda*I in WORK(2:N,2:N).
 
             for (I = 2; I <= N; I++) { // 20
-               WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 );
+               WORK[I, I] = WORK( I, I ) - WORK( 1, 1 );
             } // 20
 
             // Estimate a lower bound for the 1-norm of inv(C**H). The 1st
             // and (N+1)th columns of WORK are used to store work vectors.
 
-            SEP( KS ) = ZERO;
+            SEP[KS] = ZERO;
             EST = ZERO;
             KASE = 0;
             NORMIN = 'N';
@@ -186,7 +186,7 @@
                GO TO 30;
             }
 
-            SEP( KS ) = ONE / max( EST, SMLNUM );
+            SEP[KS] = ONE / max( EST, SMLNUM );
          }
 
          } // 40

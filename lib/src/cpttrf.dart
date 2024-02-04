@@ -55,8 +55,8 @@
          EII = AIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
-         E( I ) = CMPLX( F, G );
-         D( I+1 ) = D( I+1 ) - F*EIR - G*EII;
+         E[I] = CMPLX( F, G );
+         D[I+1] = D( I+1 ) - F*EIR - G*EII;
       } // 10
 
       for (I = I4+1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) { // 110
@@ -75,8 +75,8 @@
          EII = AIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
-         E( I ) = CMPLX( F, G );
-         D( I+1 ) = D( I+1 ) - F*EIR - G*EII;
+         E[I] = CMPLX( F, G );
+         D[I+1] = D( I+1 ) - F*EIR - G*EII;
 
          if ( D( I+1 ) <= ZERO ) {
             INFO = I+1;
@@ -89,8 +89,8 @@
          EII = AIMAG( E( I+1 ) );
          F = EIR / D( I+1 );
          G = EII / D( I+1 );
-         E( I+1 ) = CMPLX( F, G );
-         D( I+2 ) = D( I+2 ) - F*EIR - G*EII;
+         E[I+1] = CMPLX( F, G );
+         D[I+2] = D( I+2 ) - F*EIR - G*EII;
 
          if ( D( I+2 ) <= ZERO ) {
             INFO = I+2;
@@ -103,8 +103,8 @@
          EII = AIMAG( E( I+2 ) );
          F = EIR / D( I+2 );
          G = EII / D( I+2 );
-         E( I+2 ) = CMPLX( F, G );
-         D( I+3 ) = D( I+3 ) - F*EIR - G*EII;
+         E[I+2] = CMPLX( F, G );
+         D[I+3] = D( I+3 ) - F*EIR - G*EII;
 
          if ( D( I+3 ) <= ZERO ) {
             INFO = I+3;
@@ -117,8 +117,8 @@
          EII = AIMAG( E( I+3 ) );
          F = EIR / D( I+3 );
          G = EII / D( I+3 );
-         E( I+3 ) = CMPLX( F, G );
-         D( I+4 ) = D( I+4 ) - F*EIR - G*EII;
+         E[I+3] = CMPLX( F, G );
+         D[I+4] = D( I+4 ) - F*EIR - G*EII;
       } // 110
 
       // Check d(n) for positive definiteness.

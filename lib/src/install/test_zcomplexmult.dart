@@ -25,17 +25,17 @@
       // .. Inf entries ..
       OV = HUGE(0.0);
       aInf = OV * 2;
-      cInf(1) = DCMPLX( aInf, 0.0 );
-      cInf(2) = DCMPLX(-aInf, 0.0 );
-      cInf(3) = DCMPLX( 0.0, aInf );
-      cInf(4) = DCMPLX( 0.0,-aInf );
-      cInf(5) = DCMPLX( aInf,  aInf );
+      cInf[1] = DCMPLX( aInf, 0.0 );
+      cInf[2] = DCMPLX(-aInf, 0.0 );
+      cInf[3] = DCMPLX( 0.0, aInf );
+      cInf[4] = DCMPLX( 0.0,-aInf );
+      cInf[5] = DCMPLX( aInf,  aInf );
 
       // .. NaN entries ..
       aNaN = aInf / aInf;
-      cNaN(1) = DCMPLX( aNaN, 0.0 );
-      cNaN(2) = DCMPLX( 0.0, aNaN );
-      cNaN(3) = DCMPLX( aNaN,  aNaN );
+      cNaN[1] = DCMPLX( aNaN, 0.0 );
+      cNaN[2] = DCMPLX( 0.0, aNaN );
+      cNaN[3] = DCMPLX( aNaN,  aNaN );
 
 
       // .. Tests ..

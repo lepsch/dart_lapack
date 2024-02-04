@@ -45,7 +45,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -80,7 +80,7 @@
          // Initialize the first entry of array E, where superdiagonal
          // elements of D are stored
 
-         E( 1 ) = CZERO;
+         E[1] = CZERO;
 
          // K is the main loop index, decreasing from N to 1 in steps of
          // 1 or 2
@@ -213,8 +213,8 @@
                if (P > 1) cswap( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                IF( P < (K-1) ) cswap( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K );
-               A( K, K ) = A( P, P );
-               A( P, P ) = T;
+               A[K, K] = A( P, P );
+               A[P, P] = T;
 
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
@@ -234,12 +234,12 @@
                if (KP > 1) cswap( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                IF( ( KK > 1 ) && ( KP < (KK-1) ) ) cswap( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK );
-               A( KK, KK ) = A( KP, KP );
-               A( KP, KP ) = T;
+               A[KK, KK] = A( KP, KP );
+               A[KP, KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K-1, K );
-                  A( K-1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K-1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
 
                // Convert upper triangle of A into U form by applying
@@ -282,7 +282,7 @@
 
                      D11 = A( K, K );
                      for (II = 1; II <= K - 1; II++) { // 16
-                        A( II, K ) = A( II, K ) / D11;
+                        A[II, K] = A( II, K ) / D11;
                      } // 16
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -295,7 +295,7 @@
 
                   // Store the superdiagonal element of D in array E
 
-                  E( K ) = CZERO;
+                  E[K] = CZERO;
 
                }
 
@@ -328,13 +328,13 @@
                      WK = T*( D22*A( J, K )-A( J, K-1 ) );
 
                      for (I = J; I >= 1; I--) { // 20
-                        A( I, J ) = A( I, J ) - (A( I, K ) / D12 )*WK - ( A( I, K-1 ) / D12 )*WKM1;
+                        A[I, J] = A( I, J ) - (A( I, K ) / D12 )*WK - ( A( I, K-1 ) / D12 )*WKM1;
                      } // 20
 
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
-                     A( J, K ) = WK / D12;
-                     A( J, K-1 ) = WKM1 / D12;
+                     A[J, K] = WK / D12;
+                     A[J, K-1] = WKM1 / D12;
 
                   } // 30
 
@@ -343,9 +343,9 @@
                // Copy superdiagonal elements of D(K) to E(K) and
                // ZERO out superdiagonal entry of A
 
-               E( K ) = A( K-1, K );
-               E( K-1 ) = CZERO;
-               A( K-1, K ) = CZERO;
+               E[K] = A( K-1, K );
+               E[K-1] = CZERO;
+               A[K-1, K] = CZERO;
 
             }
 
@@ -356,10 +356,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K-1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K-1] = -KP;
          }
 
          // Decrease K and return to the start of the main loop
@@ -375,7 +375,7 @@
 
          // Initialize the unused last entry of the subdiagonal array E.
 
-         E( N ) = CZERO;
+         E[N] = CZERO;
 
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2
@@ -508,8 +508,8 @@
                if (P < N) cswap( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                IF( P > (K+1) ) cswap( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K );
-               A( K, K ) = A( P, P );
-               A( P, P ) = T;
+               A[K, K] = A( P, P );
+               A[P, P] = T;
 
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
@@ -529,12 +529,12 @@
                if (KP < N) cswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                IF( ( KK < N ) && ( KP > (KK+1) ) ) cswap( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK );
-               A( KK, KK ) = A( KP, KP );
-               A( KP, KP ) = T;
+               A[KK, KK] = A( KP, KP );
+               A[KP, KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K+1, K );
-                  A( K+1, K ) = A( KP, K );
-                  A( KP, K ) = T;
+                  A[K+1, K] = A( KP, K );
+                  A[KP, K] = T;
                }
 
                // Convert lower triangle of A into L form by applying
@@ -577,7 +577,7 @@
 
                      D11 = A( K, K );
                      for (II = K + 1; II <= N; II++) { // 46
-                        A( II, K ) = A( II, K ) / D11;
+                        A[II, K] = A( II, K ) / D11;
                      } // 46
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -590,7 +590,7 @@
 
                   // Store the subdiagonal element of D in array E
 
-                  E( K ) = CZERO;
+                  E[K] = CZERO;
 
                }
 
@@ -628,13 +628,13 @@
                      // Perform a rank-2 update of A(k+2:n,k+2:n)
 
                      for (I = J; I <= N; I++) { // 50
-                        A( I, J ) = A( I, J ) - ( A( I, K ) / D21 )*WK - ( A( I, K+1 ) / D21 )*WKP1;
+                        A[I, J] = A( I, J ) - ( A( I, K ) / D21 )*WK - ( A( I, K+1 ) / D21 )*WKP1;
                      } // 50
 
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
-                     A( J, K ) = WK / D21;
-                     A( J, K+1 ) = WKP1 / D21;
+                     A[J, K] = WK / D21;
+                     A[J, K+1] = WKP1 / D21;
 
                   } // 60
 
@@ -643,9 +643,9 @@
                // Copy subdiagonal elements of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
 
-               E( K ) = A( K+1, K );
-               E( K+1 ) = CZERO;
-               A( K+1, K ) = CZERO;
+               E[K] = A( K+1, K );
+               E[K+1] = CZERO;
+               A[K+1, K] = CZERO;
 
             }
 
@@ -656,10 +656,10 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP;
+            IPIV[K] = KP;
          } else {
-            IPIV( K ) = -P;
-            IPIV( K+1 ) = -KP;
+            IPIV[K] = -P;
+            IPIV[K+1] = -KP;
          }
 
          // Increase K and return to the start of the main loop

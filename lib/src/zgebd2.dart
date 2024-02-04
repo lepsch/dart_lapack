@@ -55,13 +55,13 @@
 
             ALPHA = A( I, I );
             zlarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = DBLE( ALPHA );
-            A( I, I ) = ONE;
+            D[I] = DBLE( ALPHA );
+            A[I, I] = ONE;
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
 
             if (I < N) zlarf( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAUQ( I ) ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = D( I );
+            A[I, I] = D( I );
 
             if ( I < N ) {
 
@@ -71,16 +71,16 @@
                zlacgv(N-I, A( I, I+1 ), LDA );
                ALPHA = A( I, I+1 );
                zlarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = DBLE( ALPHA );
-               A( I, I+1 ) = ONE;
+               E[I] = DBLE( ALPHA );
+               A[I, I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                zlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
                zlacgv(N-I, A( I, I+1 ), LDA );
-               A( I, I+1 ) = E( I );
+               A[I, I+1] = E( I );
             } else {
-               TAUP( I ) = ZERO;
+               TAUP[I] = ZERO;
             }
          } // 10
       } else {
@@ -94,14 +94,14 @@
             zlacgv(N-I+1, A( I, I ), LDA );
             ALPHA = A( I, I );
             zlarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = DBLE( ALPHA );
-            A( I, I ) = ONE;
+            D[I] = DBLE( ALPHA );
+            A[I, I] = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             if (I < M) zlarf( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
             zlacgv(N-I+1, A( I, I ), LDA );
-            A( I, I ) = D( I );
+            A[I, I] = D( I );
 
             if ( I < M ) {
 
@@ -110,15 +110,15 @@
 
                ALPHA = A( I+1, I );
                zlarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = DBLE( ALPHA );
-               A( I+1, I ) = ONE;
+               E[I] = DBLE( ALPHA );
+               A[I+1, I] = ONE;
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left
 
                zlarf('Left', M-I, N-I, A( I+1, I ), 1, DCONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK );
-               A( I+1, I ) = E( I );
+               A[I+1, I] = E( I );
             } else {
-               TAUQ( I ) = ZERO;
+               TAUQ[I] = ZERO;
             }
          } // 20
       }
