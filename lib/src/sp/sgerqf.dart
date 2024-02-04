@@ -47,7 +47,7 @@
          if ( K == 0 ) {
             LWKOPT = 1;
          } else {
-            NB = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'SGERQF', ' ', M, N, -1, -1 );
             LWKOPT = M*NB;
          }
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
@@ -77,7 +77,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = max( 0, ILAENV( 3, 'SGERQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( 3, 'SGERQF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -90,7 +90,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = max( 2, ILAENV( 2, 'SGERQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'SGERQF', ' ', M, N, -1, -1 ) );
             }
          }
       }

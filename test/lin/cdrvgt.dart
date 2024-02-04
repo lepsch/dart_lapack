@@ -330,7 +330,7 @@
 
                   // Check the error code from CGTSVX.
 
-                  if (INFO != IZERO) alaerh( PATH, 'CGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'CGTSVX', INFO, IZERO, FACT + TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT >= 2 ) {
 

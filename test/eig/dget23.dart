@@ -90,8 +90,8 @@
 
       // More Important constants
 
-      ULP = DLAMCH( 'Precision' );
-      SMLNUM = DLAMCH( 'S' );
+      ULP = dlamch( 'Precision' );
+      SMLNUM = dlamch( 'S' );
       ULPINV = ONE / ULP;
 
       // Compute eigenvalues and eigenvectors, and test them
@@ -131,16 +131,16 @@
       for (J = 1; J <= N; J++) { // 30
          TNRM = ONE;
          if ( WI( J ) == ZERO ) {
-            TNRM = DNRM2( N, VR( 1, J ), 1 );
+            TNRM = dnrm2( N, VR( 1, J ), 1 );
          } else if ( WI( J ) > ZERO ) {
-            TNRM = DLAPY2( DNRM2( N, VR( 1, J ), 1 ), DNRM2( N, VR( 1, J+1 ), 1 ) );
+            TNRM = dlapy2( dnrm2( N, VR( 1, J ), 1 ), dnrm2( N, VR( 1, J+1 ), 1 ) );
          }
          RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) { // 20
-               VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) );
+               VTST = dlapy2( VR( JJ, J ), VR( JJ, J+1 ) );
                if (VTST > VMX) VMX = VTST;
                IF( VR( JJ, J+1 ) == ZERO && ( VR( JJ, J ) ).abs() > VRMX )VRMX = ( VR( JJ, J ) ).abs();
             } // 20
@@ -153,16 +153,16 @@
       for (J = 1; J <= N; J++) { // 50
          TNRM = ONE;
          if ( WI( J ) == ZERO ) {
-            TNRM = DNRM2( N, VL( 1, J ), 1 );
+            TNRM = dnrm2( N, VL( 1, J ), 1 );
          } else if ( WI( J ) > ZERO ) {
-            TNRM = DLAPY2( DNRM2( N, VL( 1, J ), 1 ), DNRM2( N, VL( 1, J+1 ), 1 ) );
+            TNRM = dlapy2( dnrm2( N, VL( 1, J ), 1 ), dnrm2( N, VL( 1, J+1 ), 1 ) );
          }
          RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) { // 40
-               VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) );
+               VTST = dlapy2( VL( JJ, J ), VL( JJ, J+1 ) );
                if (VTST > VMX) VMX = VTST;
                IF( VL( JJ, J+1 ) == ZERO && ( VL( JJ, J ) ).abs() > VRMX )VRMX = ( VL( JJ, J ) ).abs();
             } // 40

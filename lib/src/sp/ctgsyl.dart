@@ -114,8 +114,8 @@
 
       // Determine  optimal block sizes MB and NB
 
-      MB = ILAENV( 2, 'CTGSYL', TRANS, M, N, -1, -1 );
-      NB = ILAENV( 5, 'CTGSYL', TRANS, M, N, -1, -1 );
+      MB = ilaenv( 2, 'CTGSYL', TRANS, M, N, -1, -1 );
+      NB = ilaenv( 5, 'CTGSYL', TRANS, M, N, -1, -1 );
 
       ISOLVE = 1;
       IFUNC = 0;

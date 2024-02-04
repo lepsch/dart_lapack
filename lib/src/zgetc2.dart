@@ -42,8 +42,8 @@
 
       // Set constants to control overflow
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Handle the case N=1 by itself

@@ -41,7 +41,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       XNORM = DZNRM2( N-1, X, INCX );
       ALPHR = ALPHA.toDouble();
       ALPHI = DIMAG( ALPHA );
@@ -68,8 +68,8 @@
 
          // general case
 
-         BETA = SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
-         SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' );
+         BETA = sign( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+         SMLNUM = dlamch( 'S' ) / dlamch( 'E' );
          BIGNUM = ONE / SMLNUM;
 
          KNT = 0;
@@ -89,7 +89,7 @@
 
             XNORM = DZNRM2( N-1, X, INCX );
             ALPHA = DCMPLX( ALPHR, ALPHI );
-            BETA = SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+            BETA = sign( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          }
          SAVEALPHA = ALPHA;
          ALPHA = ALPHA + BETA;
@@ -126,7 +126,7 @@
                   BETA = (-SAVEALPHA).toDouble();
                }
             } else {
-               XNORM = DLAPY2( ALPHR, ALPHI );
+               XNORM = dlapy2( ALPHR, ALPHI );
                TAU = DCMPLX( ONE - ALPHR / XNORM, -ALPHI / XNORM );
                for (J = 1; J <= N-1; J++) {
                   X[1 + (J-1)*INCX] = ZERO;

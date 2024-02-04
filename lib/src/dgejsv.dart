@@ -105,12 +105,12 @@
 
       // Set numerical parameters
 
-// !    NOTE: Make sure DLAMCH() does not fail on the target architecture.
+// !    NOTE: Make sure dlamch() does not fail on the target architecture.
 
-      EPSLN = DLAMCH('Epsilon');
-      SFMIN = DLAMCH('SafeMinimum');
+      EPSLN = dlamch('Epsilon');
+      SFMIN = dlamch('SafeMinimum');
       SMALL = SFMIN / EPSLN;
-      BIG   = DLAMCH('O');
+      BIG   = dlamch('O');
       // BIG   = ONE / SFMIN
 
       // Initialize SVA(1:N) = diag( ||A e_i||_2 )_1^N
@@ -709,7 +709,7 @@
          if (ROWPIV) dlaswp( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          for (p = 1; p <= N1; p++) { // 1974
-            XSC = ONE / DNRM2( M, U(1,p), 1 );
+            XSC = ONE / dnrm2( M, U(1,p), 1 );
             dscal(M, XSC, U(1,p), 1 );
          } // 1974
 
@@ -767,7 +767,7 @@
 
             dlacpy('L', NR, NR, V, LDV, WORK(2*N+1), NR );
             for (p = 1; p <= NR; p++) { // 3950
-               TEMP1 = DNRM2(NR-p+1,WORK(2*N+(p-1)*NR+p),1);
+               TEMP1 = dnrm2(NR-p+1,WORK(2*N+(p-1)*NR+p),1);
                dscal(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1);
             } // 3950
             dpocon('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR);
@@ -851,7 +851,7 @@
                // .. and estimate the condition number
                dlacpy('L',NR,NR,V,LDV,WORK(2*N+N*NR+NR+1),NR );
                for (p = 1; p <= NR; p++) { // 4950
-                  TEMP1 = DNRM2( p, WORK(2*N+N*NR+NR+p), NR );
+                  TEMP1 = dnrm2( p, WORK(2*N+N*NR+NR+p), NR );
                   dscal(p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR );
                } // 4950
                dpocon('L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR );
@@ -997,7 +997,7 @@
                for (p = 1; p <= N; p++) { // 973
                   V[p,q] = WORK(2*N+N*NR+NR+p);
                } // 973
-               XSC = ONE / DNRM2( N, V(1,q), 1 );
+               XSC = ONE / dnrm2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
             } // 1972
             // At this moment, V contains the right singular vectors of A.
@@ -1018,7 +1018,7 @@
             // The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = DSQRT(M.toDouble()) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
-               XSC = ONE / DNRM2( M, U(1,p), 1 );
+               XSC = ONE / dnrm2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
             } // 1973
 
@@ -1060,7 +1060,7 @@
             } // 6972
             TEMP1 = DSQRT(N.toDouble())*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
-               XSC = ONE / DNRM2( N, V(1,p), 1 );
+               XSC = ONE / dnrm2( N, V(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,p), 1 );
             } // 6971
 
@@ -1076,7 +1076,7 @@
             dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
             TEMP1 = DSQRT(M.toDouble())*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
-               XSC = ONE / DNRM2( M, U(1,p), 1 );
+               XSC = ONE / dnrm2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
             } // 6973
 
@@ -1155,7 +1155,7 @@
                for (p = 1; p <= N; p++) { // 8973
                   V[p,q] = WORK(2*N+N*NR+NR+p);
                } // 8973
-               XSC = ONE / DNRM2( N, V(1,q), 1 );
+               XSC = ONE / dnrm2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
             } // 7972
 

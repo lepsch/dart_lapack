@@ -54,7 +54,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 );
+      NB = ilaenv( 1, 'DGETRF', ' ', M, N, -1, -1 );
       if ( NB <= 1 || NB >= min( M, N ) ) {
 
          // Use unblocked code.

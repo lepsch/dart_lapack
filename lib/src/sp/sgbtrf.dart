@@ -69,7 +69,7 @@
 
       // Determine the block size for this environment
 
-      NB = ILAENV( 1, 'SGBTRF', ' ', M, N, KL, KU );
+      NB = ilaenv( 1, 'SGBTRF', ' ', M, N, KL, KU );
 
       // The block size must not exceed the limit set by the size of the
       // local arrays WORK13 and WORK31.

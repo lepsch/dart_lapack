@@ -37,7 +37,7 @@
       // Test the input arguments
 
       INFO = 0;
-      NB = ILAENV( 1, 'SORGLQ', ' ', M, N, K, -1 );
+      NB = ilaenv( 1, 'SORGLQ', ' ', M, N, K, -1 );
       LWKOPT = max( 1, M )*NB;
       WORK[1] = SROUNDUP_LWORK(LWKOPT);
       LQUERY = ( LWORK == -1 );
@@ -73,7 +73,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = max( 0, ILAENV( 3, 'SORGLQ', ' ', M, N, K, -1 ) );
+         NX = max( 0, ilaenv( 3, 'SORGLQ', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -86,7 +86,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = max( 2, ILAENV( 2, 'SORGLQ', ' ', M, N, K, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'SORGLQ', ' ', M, N, K, -1 ) );
             }
          }
       }

@@ -69,7 +69,7 @@
       for (I = 1; I <= 4; I++) {
          ISEED[I] = ISEEDY( I );
       }
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) {
@@ -515,7 +515,7 @@
                         daxpy(M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      }
 
-                   RESULT[5] = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( M.toDouble()*DLAMCH( 'Epsilon' ) ) );
+                   RESULT[5] = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

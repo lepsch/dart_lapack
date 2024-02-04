@@ -198,7 +198,7 @@
 
                      // Check error code from STBTRS.
 
-                        if (INFO != 0) alaerh( PATH, 'STBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'STBTRS', INFO, 0, UPLO + TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         stbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RESULT( 1 ) );
 
@@ -216,7 +216,7 @@
 
                      // Check error code from STBRFS.
 
-                        if (INFO != 0) alaerh( PATH, 'STBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'STBRFS', INFO, 0, UPLO + TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         stbt05(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
@@ -251,7 +251,7 @@
 
                      // Check error code from STBCON.
 
-                     if (INFO != 0) alaerh( PATH, 'STBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'STBCON', INFO, 0, NORM + UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      stbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) );
 
@@ -301,7 +301,7 @@
 
                      // Check error code from SLATBS.
 
-                     if (INFO != 0) alaerh( PATH, 'SLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SLATBS', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      stbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
 
@@ -313,7 +313,7 @@
 
                      // Check error code from SLATBS.
 
-                     if (INFO != 0) alaerh( PATH, 'SLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SLATBS', INFO, 0, UPLO + TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      stbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 

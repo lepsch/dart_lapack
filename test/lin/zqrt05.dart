@@ -38,7 +38,7 @@
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       K = N;
       M2 = M+N;
       if ( M > 0 ) {

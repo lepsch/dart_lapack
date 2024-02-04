@@ -94,8 +94,8 @@
       if (IRANGE == INDRNG && IL == 1 && IU == N) IRANGE = 1;
 
       // Get machine constants
-      EPS = DLAMCH( 'P' );
-      UFLOW = DLAMCH( 'U' );
+      EPS = dlamch( 'P' );
+      UFLOW = dlamch( 'U' );
 
 
       // Special Case when N=1
@@ -114,7 +114,7 @@
 
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
-      NB = ILAENV( 1, 'DSTEBZ', ' ', N, -1, -1, -1 );
+      NB = ilaenv( 1, 'DSTEBZ', ' ', N, -1, -1, -1 );
       if (NB <= 1) NB = 0;
 
       // Find global spectral radius

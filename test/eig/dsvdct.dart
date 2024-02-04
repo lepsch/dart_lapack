@@ -35,7 +35,7 @@
 
       // Get machine constants
 
-      UNFL = 2*DLAMCH( 'Safe minimum' );
+      UNFL = 2*dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
 
       // Find largest entry

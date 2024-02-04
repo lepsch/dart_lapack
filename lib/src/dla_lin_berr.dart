@@ -32,7 +32,7 @@
       // residuals.  A similar safeguard is in the SLA_yyAMV routine used
       // to compute AYB.
 
-      SAFE1 = DLAMCH( 'Safe minimum' );
+      SAFE1 = dlamch( 'Safe minimum' );
       SAFE1 = (NZ+1)*SAFE1;
 
       for (J = 1; J <= NRHS; J++) {

@@ -102,7 +102,7 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = NMAX*( NMAX+1 );
-         NB = max( 1, ILAENV( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
+         NB = max( 1, ilaenv( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ilaenv( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ilaenv( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) );
          WORK[1] = MAXWRK;
       }
@@ -118,8 +118,8 @@
 
       if (NSIZES == 0 || NTYPES == 0) return;
 
-      ULP = DLAMCH( 'Precision' );
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      ULP = dlamch( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
       SAFMIN = SAFMIN / ULP;
       SAFMAX = ONE / SAFMIN;
       ULPINV = ONE / ULP;
@@ -219,10 +219,10 @@
                         Z[JR, JC] = ZLARND( 3, ISEED );
                      } // 30
                      zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, (Q( JC, JC )).toDouble() );
+                     WORK[2*N+JC] = sign( ONE, (Q( JC, JC )).toDouble() );
                      Q[JC, JC] = CONE;
                      zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, (Z( JC, JC )).toDouble() );
+                     WORK[3*N+JC] = sign( ONE, (Z( JC, JC )).toDouble() );
                      Z[JC, JC] = CONE;
                   } // 40
                   CTEMP = ZLARND( 3, ISEED );

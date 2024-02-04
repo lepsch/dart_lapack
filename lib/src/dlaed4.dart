@@ -61,7 +61,7 @@
 
       // Compute machine epsilon
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       RHOINV = ONE / RHO;
 
       // The case I = N

@@ -109,8 +109,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN = sqrt( SMLNUM );

@@ -46,7 +46,7 @@
 
       // Use the same block size for all matrices.
 
-      NB = max( 8, ILAENV( 1, 'CTRSYL', '', M, N, -1, -1) );
+      NB = max( 8, ilaenv( 1, 'CTRSYL', '', M, N, -1, -1) );
 
       // Compute number of blocks in A and B
 

@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          zlarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), (A( J, J )).toDouble() ) );
+            A[J, J] = A( J, J ) + DCMPLX( sign( DZASUM( M, A( 1, J ), 1 ), (A( J, J )).toDouble() ) );
          }
       } // 10
 
@@ -53,9 +53,9 @@
 
       if ( SCALE != 1 ) {
          NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY );
-         SMLNUM = DLAMCH( 'Safe minimum' );
+         SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
-         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' );
+         SMLNUM = SMLNUM / dlamch( 'Epsilon' );
          BIGNUM = ONE / SMLNUM;
 
          if ( SCALE == 2 ) {

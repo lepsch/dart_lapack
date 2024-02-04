@@ -75,7 +75,7 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
 
       // Estimate the norm of inv(A).
 
@@ -123,7 +123,7 @@
             if ( LNOTI ) {
                for (J = N - 1; J >= 1; J--) { // 30
                   LM = min( KL, N-J );
-                  WORK[J] = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
+                  WORK[J] = WORK( J ) - ddot( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                   JP = IPIV( J );
                   if ( JP != J ) {
                      T = WORK( JP );

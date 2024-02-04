@@ -85,7 +85,7 @@
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
 
-      SAFE1 = DLAMCH( 'Safe minimum' );
+      SAFE1 = dlamch( 'Safe minimum' );
       SAFE1 = (N+1)*SAFE1;
 
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
@@ -115,7 +115,7 @@
                      Y[IY] = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
-                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + sign( SAFE1, Y( IY ) );
 
                IY = IY + INCY;
             }
@@ -138,7 +138,7 @@
                      Y[IY] = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
-                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + sign( SAFE1, Y( IY ) );
 
                IY = IY + INCY;
             }
@@ -165,7 +165,7 @@
                      JX = JX + INCX;
                   }
                }
-                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + sign( SAFE1, Y( IY ) );
 
                IY = IY + INCY;
             }
@@ -190,7 +190,7 @@
                      JX = JX + INCX;
                   }
                }
-                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + sign( SAFE1, Y( IY ) );
 
                IY = IY + INCY;
             }

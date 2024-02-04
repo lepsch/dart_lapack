@@ -65,7 +65,7 @@
 
       // Answer the query
 
-      NB = ILAENV( 1, 'SSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'SSYTRF_AA_2STAGE', UPLO, N, -1, -1, -1 );
       if ( INFO == 0 ) {
          if ( TQUERY ) {
             TB[1] = SROUNDUP_LWORK( max( 1, (3*NB+1)*N ) );

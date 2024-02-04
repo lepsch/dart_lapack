@@ -114,7 +114,7 @@
 
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
-      NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 );
+      NB = ilaenv( 1, 'SSTEBZ', ' ', N, -1, -1, -1 );
       if (NB <= 1) NB = 0;
 
       // Find global spectral radius

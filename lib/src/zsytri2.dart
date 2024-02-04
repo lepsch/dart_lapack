@@ -35,7 +35,7 @@
       UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
       // Get blocksize
-      NBMAX = ILAENV( 1, 'ZSYTRI2', UPLO, N, -1, -1, -1 );
+      NBMAX = ilaenv( 1, 'ZSYTRI2', UPLO, N, -1, -1, -1 );
       if ( NBMAX >= N ) {
          MINSIZE = N;
       } else {

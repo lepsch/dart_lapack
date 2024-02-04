@@ -43,7 +43,7 @@
       // ..
       // .. Executable Statements ..
 
-      HUGEVAL = DLAMCH( 'Overflow' );
+      HUGEVAL = dlamch( 'Overflow' );
 
       // Test the input parameters.
 
@@ -80,7 +80,7 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
 
       // Estimate the norm of inv(A).
 

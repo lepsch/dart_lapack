@@ -53,7 +53,7 @@
       }
 
       MN = min( M, N );
-      TOL3Z = sqrt(DLAMCH('Epsilon'));
+      TOL3Z = sqrt(dlamch('Epsilon'));
 
       // Move initial columns up front
 

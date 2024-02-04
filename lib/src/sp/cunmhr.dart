@@ -70,9 +70,9 @@
 
       if ( INFO == 0 ) {
          if ( LEFT ) {
-            NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, NH, N, NH, -1 );
+            NB = ilaenv( 1, 'CUNMQR', SIDE + TRANS, NH, N, NH, -1 );
          } else {
-            NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, M, NH, NH, -1 );
+            NB = ilaenv( 1, 'CUNMQR', SIDE + TRANS, M, NH, NH, -1 );
          }
          LWKOPT = NW*NB;
          WORK[1] = SROUNDUP_LWORK(LWKOPT);

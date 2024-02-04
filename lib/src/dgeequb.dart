@@ -60,9 +60,9 @@
 
       // Get machine constants.  Assume SMLNUM is a power of the radix.
 
-      SMLNUM = DLAMCH( 'S' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
-      RADIX = DLAMCH( 'B' );
+      RADIX = dlamch( 'B' );
       LOGRDX = LOG( RADIX );
 
       // Compute row scale factors.

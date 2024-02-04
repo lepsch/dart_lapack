@@ -39,7 +39,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'P' );
+      EPS = dlamch( 'P' );
       RMAX = ZERO;
       LMAX = 0;
       KNT = 0;
@@ -115,7 +115,7 @@
 
          // 2 by 2 block
 
-         if( T2( LOC, LOC+1 ) == ZERO || T2( LOC, LOC ) != T2( LOC+1, LOC+1 ) || SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS;
+         if( T2( LOC, LOC+1 ) == ZERO || T2( LOC, LOC ) != T2( LOC+1, LOC+1 ) || sign( ONE, T2( LOC, LOC+1 ) ) == sign( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS;
          for (I = LOC + 2; I <= N; I++) { // 80
             if( T2( I, LOC ) != ZERO ) RES = RES + ONE / RES;
             IF( T2( I, LOC+1 ) != ZERO ) RES = RES + ONE / RES;

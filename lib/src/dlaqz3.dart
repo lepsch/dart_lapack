@@ -54,9 +54,9 @@
       }
 
       // Get machine constants
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
-      ULP = DLAMCH( 'PRECISION' );
+      ULP = dlamch( 'PRECISION' );
       SMLNUM = SAFMIN*( N.toDouble()/ULP );
 
       if ( IHI == KWTOP ) {

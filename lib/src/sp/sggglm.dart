@@ -58,10 +58,10 @@
             LWKMIN = 1;
             LWKOPT = 1;
          } else {
-            NB1 = ILAENV( 1, 'SGEQRF', ' ', N, M, -1, -1 );
-            NB2 = ILAENV( 1, 'SGERQF', ' ', N, M, -1, -1 );
-            NB3 = ILAENV( 1, 'SORMQR', ' ', N, M, P, -1 );
-            NB4 = ILAENV( 1, 'SORMRQ', ' ', N, M, P, -1 );
+            NB1 = ilaenv( 1, 'SGEQRF', ' ', N, M, -1, -1 );
+            NB2 = ilaenv( 1, 'SGERQF', ' ', N, M, -1, -1 );
+            NB3 = ilaenv( 1, 'SORMQR', ' ', N, M, P, -1 );
+            NB4 = ilaenv( 1, 'SORMRQ', ' ', N, M, P, -1 );
             NB = max( NB1, NB2, NB3, NB4 );
             LWKMIN = M + N + P;
             LWKOPT = M + NP + max( N, P )*NB;

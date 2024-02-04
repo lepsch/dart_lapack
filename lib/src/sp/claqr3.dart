@@ -130,7 +130,7 @@
       ccopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
       claset('A', JW, JW, ZERO, ONE, V, LDV );
-      NMIN = ILAENV( 12, 'CLAQR3', 'SV', JW, 1, JW, LWORK );
+      NMIN = ilaenv( 12, 'CLAQR3', 'SV', JW, 1, JW, LWORK );
       if ( JW > NMIN ) {
          claqr4( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {

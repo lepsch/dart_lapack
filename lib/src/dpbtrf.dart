@@ -62,7 +62,7 @@
 
       // Determine the block size for this environment
 
-      NB = ILAENV( 1, 'DPBTRF', UPLO, N, KD, -1, -1 );
+      NB = ilaenv( 1, 'DPBTRF', UPLO, N, KD, -1, -1 );
 
       // The block size must not exceed the semi-bandwidth KD, and must not
       // exceed the limit set by the size of the local array WORK.

@@ -53,8 +53,8 @@
 
          // general case
 
-         BETA = -SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
-         SAFMIN = DLAMCH( 'S' ) / DLAMCH( 'E' );
+         BETA = -sign( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+         SAFMIN = dlamch( 'S' ) / dlamch( 'E' );
          RSAFMN = ONE / SAFMIN;
 
          KNT = 0;
@@ -74,7 +74,7 @@
 
             XNORM = DZNRM2( N-1, X, INCX );
             ALPHA = DCMPLX( ALPHR, ALPHI );
-            BETA = -SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+            BETA = -sign( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          }
          TAU = DCMPLX( ( BETA-ALPHR ) / BETA, -ALPHI / BETA );
          ALPHA = ZLADIV( DCMPLX( ONE ), ALPHA-BETA );

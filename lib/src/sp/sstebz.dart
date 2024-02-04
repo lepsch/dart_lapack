@@ -111,7 +111,7 @@
       SAFEMN = SLAMCH( 'S' );
       ULP = SLAMCH( 'P' );
       RTOLI = ULP*RELFAC;
-      NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 );
+      NB = ilaenv( 1, 'SSTEBZ', ' ', N, -1, -1, -1 );
       if (NB <= 1) NB = 0;
 
       // Special Case when N=1

@@ -51,7 +51,7 @@
 
          // Determine the block size
 
-         NB = ILAENV( 1, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 );
+         NB = ilaenv( 1, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, N*NB );
          WORK[1] = LWKOPT;
       }
@@ -69,7 +69,7 @@
          IWS = LDWORK*NB;
          if ( LWORK < IWS ) {
             NB = max( LWORK / LDWORK, 1 );
-            NBMIN = max( 2, ILAENV( 2, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 ) );
+            NBMIN = max( 2, ilaenv( 2, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 ) );
          }
       } else {
          IWS = 1;

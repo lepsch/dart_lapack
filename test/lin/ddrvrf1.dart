@@ -62,8 +62,8 @@
          ISEED[I] = ISEEDY( I );
       } // 10
 
-      EPS = DLAMCH( 'Precision' );
-      SMALL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
+      SMALL = dlamch( 'Safe minimum' );
       LARGE = ONE / SMALL;
       SMALL = SMALL * LDA * LDA;
       LARGE = LARGE / LDA / LDA;

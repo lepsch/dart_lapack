@@ -138,12 +138,12 @@
       // ... and the machine dependent parameters are
 // [!]  (Make sure that SLAMCH() works properly on the target machine.)
 
-      EPSLN = DLAMCH( 'Epsilon' );
+      EPSLN = dlamch( 'Epsilon' );
       ROOTEPS = sqrt( EPSLN );
-      SFMIN = DLAMCH( 'SafeMinimum' );
+      SFMIN = dlamch( 'SafeMinimum' );
       ROOTSFMIN = sqrt( SFMIN );
       SMALL = SFMIN / EPSLN;
-      BIG = DLAMCH( 'Overflow' );
+      BIG = dlamch( 'Overflow' );
       // BIG         = ONE    / SFMIN
       ROOTBIG = ONE / ROOTSFMIN;
        // LARGE = BIG / sqrt( (M*N).toDouble() )
@@ -565,7 +565,7 @@
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ1 );
+                                    THSIGN = -sign( ONE, AAPQ1 );
                                     T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
                                     CS = sqrt( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
@@ -743,7 +743,7 @@
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ1 );
+                                    THSIGN = -sign( ONE, AAPQ1 );
                                     if (AAQQ > AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
                                     CS = sqrt( ONE / ( ONE+T*T ) );

@@ -343,8 +343,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = sqrt( DLAMCH( 'S' ) ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = sqrt( dlamch( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

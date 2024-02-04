@@ -54,8 +54,8 @@
       // .. Executable Statements ..
 
       if (INFO != 0) return;
-      EPS = DLAMCH( 'Epsilon' );
-      HUGEVAL = DLAMCH( 'Overflow' );
+      EPS = dlamch( 'Epsilon' );
+      HUGEVAL = dlamch( 'Overflow' );
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.

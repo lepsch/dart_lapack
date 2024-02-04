@@ -33,7 +33,7 @@
 
       INFO = 0;
       K = min( M, N );
-      NB = ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 );
+      NB = ilaenv( 1, 'DGELQF', ' ', M, N, -1, -1 );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -71,7 +71,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = max( 0, ILAENV( 3, 'DGELQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( 3, 'DGELQF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -84,7 +84,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = max( 2, ILAENV( 2, 'DGELQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'DGELQF', ' ', M, N, -1, -1 ) );
             }
          }
       }

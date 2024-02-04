@@ -37,7 +37,7 @@
       // Test the input parameters.
 
       INFO = 0;
-      NB = ILAENV( 1, 'ZGETRI', ' ', N, -1, -1, -1 );
+      NB = ilaenv( 1, 'ZGETRI', ' ', N, -1, -1, -1 );
       LWKOPT = max( 1, N*NB );
       WORK[1] = LWKOPT;
       LQUERY = ( LWORK == -1 );
@@ -71,7 +71,7 @@
          IWS = max( LDWORK*NB, 1 );
          if ( LWORK < IWS ) {
             NB = LWORK / LDWORK;
-            NBMIN = max( 2, ILAENV( 2, 'ZGETRI', ' ', N, -1, -1, -1 ) );
+            NBMIN = max( 2, ilaenv( 2, 'ZGETRI', ' ', N, -1, -1, -1 ) );
          }
       } else {
          IWS = N;

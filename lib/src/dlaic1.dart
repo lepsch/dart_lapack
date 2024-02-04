@@ -32,8 +32,8 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
-      ALPHA = DDOT( J, X, 1, W, 1 );
+      EPS = dlamch( 'Epsilon' );
+      ALPHA = ddot( J, X, 1, W, 1 );
 
       ABSALP = ( ALPHA ).abs();
       ABSGAM = ( GAMMA ).abs();
@@ -89,13 +89,13 @@
                S = sqrt( ONE+TMP*TMP );
                SESTPR = S2*S;
                C = ( GAMMA / S2 ) / S;
-               S = SIGN( ONE, ALPHA ) / S;
+               S = sign( ONE, ALPHA ) / S;
             } else {
                TMP = S2 / S1;
                C = sqrt( ONE+TMP*TMP );
                SESTPR = S1*C;
                S = ( ALPHA / S1 ) / C;
-               C = SIGN( ONE, GAMMA ) / C;
+               C = sign( ONE, GAMMA ) / C;
             }
             return;
          } else {
@@ -170,13 +170,13 @@
                C = sqrt( ONE+TMP*TMP );
                SESTPR = ABSEST*( TMP / C );
                S = -( GAMMA / S2 ) / C;
-               C = SIGN( ONE, ALPHA ) / C;
+               C = sign( ONE, ALPHA ) / C;
             } else {
                TMP = S2 / S1;
                S = sqrt( ONE+TMP*TMP );
                SESTPR = ABSEST / S;
                C = ( ALPHA / S1 ) / S;
-               S = -SIGN( ONE, GAMMA ) / S;
+               S = -sign( ONE, GAMMA ) / S;
             }
             return;
          } else {

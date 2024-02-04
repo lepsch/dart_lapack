@@ -206,7 +206,7 @@
          // random rotations to make 2x2 blocks.
 
          if ( ISIGN == 2 && ITYPE != 2 && ITYPE != 3 ) {
-            SAFMIN = DLAMCH( 'S' );
+            SAFMIN = dlamch( 'S' );
             for (JD = KBEG; 2 < 0 ? JD >= KEND - 1 : JD <= KEND - 1; JD += 2) { // 290
                if ( DLARAN( ISEED ) > HALF ) {
 

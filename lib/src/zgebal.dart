@@ -165,7 +165,7 @@
 
       // Iterative loop for norm reduction.
 
-      SFMIN1 = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SFMIN1 = dlamch( 'S' ) / dlamch( 'P' );
       SFMAX1 = ONE / SFMIN1;
       SFMIN2 = SFMIN1*SCLFAC;
       SFMAX2 = ONE / SFMIN2;

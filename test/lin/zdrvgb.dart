@@ -400,7 +400,7 @@
 
                            // Check the error code from ZGBSVX.
 
-                           if (INFO != IZERO) alaerh( PATH, 'ZGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) alaerh( PATH, 'ZGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            // Compare RWORK(2*NRHS+1) from ZGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
 
@@ -425,7 +425,7 @@
                                  RPVGRW = ZLANGB( 'M', N, KL, KU, A, LDA, RDUM ) / RPVGRW;
                               }
                            }
-                           RESULT[7] = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
+                           RESULT[7] = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / dlamch( 'E' );
 
                            if ( !PREFAC ) {
 

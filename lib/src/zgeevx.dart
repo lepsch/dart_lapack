@@ -90,7 +90,7 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = N + N*ilaenv( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
 
             if ( WANTVL ) {
                ztrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
@@ -120,7 +120,7 @@
                MINWRK = 2*N;
                if( !( WNTSNN || WNTSNE ) ) MINWRK = max( MINWRK, N*N + 2*N );
                MAXWRK = max( MAXWRK, HSWORK );
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 2*N );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 2*N );
                MAXWRK = max( MAXWRK, 2*N );
             }
             MAXWRK = max( MAXWRK, MINWRK );
@@ -145,8 +145,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

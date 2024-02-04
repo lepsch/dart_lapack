@@ -39,7 +39,7 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       ULPINV = REALONE / ULP;
 
       // The first half of the routine checks the 2-by-2 CSD

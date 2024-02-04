@@ -61,7 +61,7 @@
          if ( NH <= 1 ) {
             LWKOPT = 1;
          } else {
-            NB = min( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
+            NB = min( NBMAX, ilaenv( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
             LWKOPT = N*NB + TSIZE;
          }
          WORK[1] = SROUNDUP_LWORK( LWKOPT );
@@ -92,14 +92,14 @@
 
       // Determine the block size
 
-      NB = min( NBMAX, ILAENV( 1, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
+      NB = min( NBMAX, ilaenv( 1, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
       NBMIN = 2;
       if ( NB > 1 && NB < NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)
 
-         NX = max( NB, ILAENV( 3, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
+         NX = max( NB, ilaenv( 3, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code
@@ -110,7 +110,7 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code
 
-               NBMIN = max( 2, ILAENV( 2, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'CGEHRD', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= (N*NBMIN+TSIZE) ) {
                   NB = (LWORK-TSIZE) / N;
                } else {

@@ -131,7 +131,7 @@
 
                   // Check error code from CTRTRI.
 
-                  if (INFO != 0) alaerh( PATH, 'CTRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CTRTRI', INFO, 0, UPLO + DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the infinity-norm condition number of A.
 
@@ -191,7 +191,7 @@
 
                         // Check error code from CTRTRS.
 
-                        if (INFO != 0) alaerh( PATH, 'CTRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'CTRTRS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 
@@ -213,7 +213,7 @@
 
                         // Check error code from CTRRFS.
 
-                        if (INFO != 0) alaerh( PATH, 'CTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'CTRRFS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         ctrt05(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -248,7 +248,7 @@
 
                         // Check error code from CTRCON.
 
-                     if (INFO != 0) alaerh( PATH, 'CTRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'CTRCON', INFO, 0, NORM + UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ctrt06(RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RESULT( 7 ) );
 
@@ -298,7 +298,7 @@
 
                   // Check error code from CLATRS.
 
-                  if (INFO != 0) alaerh( PATH, 'CLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CLATRS', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -310,7 +310,7 @@
 
                   // Check error code from CLATRS.
 
-                  if (INFO != 0) alaerh( PATH, 'CLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CLATRS', INFO, 0, UPLO + TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
@@ -325,7 +325,7 @@
 
                   // Check error code from CLATRS3.
 
-                  if (INFO != 0) alaerh( PATH, 'CLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CLATRS3', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   csscal(N, BIGNUM, X, 1 );
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );

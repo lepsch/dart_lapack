@@ -45,7 +45,7 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'CHEEVR', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'CHEEVR', 'N', 1, 2, 3, 4 );
 
       LOWER = lsame( UPLO, 'L' );
       WANTZ = lsame( JOBZ, 'V' );

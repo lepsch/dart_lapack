@@ -86,7 +86,7 @@
          daxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
+      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*dlamch( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
       return;
       }

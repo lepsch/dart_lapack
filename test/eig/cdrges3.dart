@@ -108,7 +108,7 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 3*NMAX*NMAX;
-         NB = max( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
+         NB = max( 1, ilaenv( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ilaenv( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ilaenv( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( NMAX+NMAX*NB, 3*NMAX*NMAX);
          WORK[1] = MAXWRK;
       }
@@ -234,10 +234,10 @@
                         Z[JR, JC] = CLARND( 3, ISEED );
                      } // 40
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, double( Q( JC, JC ) ) );
+                     WORK[2*N+JC] = sign( ONE, double( Q( JC, JC ) ) );
                      Q[JC, JC] = CONE;
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, double( Z( JC, JC ) ) );
+                     WORK[3*N+JC] = sign( ONE, double( Z( JC, JC ) ) );
                      Z[JC, JC] = CONE;
                   } // 50
                   CTEMP = CLARND( 3, ISEED );

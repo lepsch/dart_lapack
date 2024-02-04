@@ -96,7 +96,7 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = max( 10*( NMAX+1 ), 3*NMAX*NMAX );
-         NB = max( 1, ILAENV( 1, 'SGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'SORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'SORGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
+         NB = max( 1, ilaenv( 1, 'SGEQRF', ' ', NMAX, NMAX, -1, -1 ), ilaenv( 1, 'SORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ilaenv( 1, 'SORGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
          MAXWRK = max( 10*( NMAX+1 ), 2*NMAX+NMAX*NB, 3*NMAX*NMAX );
          WORK[1] = MAXWRK;
       }
@@ -224,18 +224,18 @@
                         Z[JR, JC] = SLARND( 3, ISEED );
                      } // 40
                      slarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, Q( JC, JC ) );
+                     WORK[2*N+JC] = sign( ONE, Q( JC, JC ) );
                      Q[JC, JC] = ONE;
                      slarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, Z( JC, JC ) );
+                     WORK[3*N+JC] = sign( ONE, Z( JC, JC ) );
                      Z[JC, JC] = ONE;
                   } // 50
                   Q[N, N] = ONE;
                   WORK[N] = ZERO;
-                  WORK[3*N] = SIGN( ONE, SLARND( 2, ISEED ) );
+                  WORK[3*N] = sign( ONE, SLARND( 2, ISEED ) );
                   Z[N, N] = ONE;
                   WORK[2*N] = ZERO;
-                  WORK[4*N] = SIGN( ONE, SLARND( 2, ISEED ) );
+                  WORK[4*N] = sign( ONE, SLARND( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 

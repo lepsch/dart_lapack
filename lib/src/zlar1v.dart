@@ -39,7 +39,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
 
       if ( R == 0 ) {

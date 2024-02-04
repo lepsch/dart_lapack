@@ -45,7 +45,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = DLANSP( '1', UPLO, N, A, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
@@ -60,7 +60,7 @@
 
             // Compute the (K,K) element of the result.
 
-            T = DDOT( K, AFAC( KC ), 1, AFAC( KC ), 1 );
+            T = ddot( K, AFAC( KC ), 1, AFAC( KC ), 1 );
             AFAC[KC+K-1] = T;
 
             // Compute the rest of column K.

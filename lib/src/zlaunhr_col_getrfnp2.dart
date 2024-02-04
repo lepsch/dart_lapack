@@ -92,7 +92,7 @@
 
          // Determine machine safe minimum
 
-         SFMIN = DLAMCH('S');
+         SFMIN = dlamch('S');
 
          // Construct the subdiagonal elements of L
 

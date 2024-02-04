@@ -49,8 +49,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
-      UNFLEP = DLAMCH( 'Safe minimum' ) / EPS;
+      EPS = dlamch( 'Epsilon' )*dlamch( 'Base' );
+      UNFLEP = dlamch( 'Safe minimum' ) / EPS;
       EPS = TOL*EPS;
 
       // Compute maximum absolute eigenvalue, error tolerance

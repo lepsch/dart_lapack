@@ -180,9 +180,9 @@
          LWORK        = -1;
          SUBNAM[1:1] = PREC;
          SUBNAM[2:6] = 'GEQRF';
-         QROPTNB      = ILAENV( 1, SUBNAM, ' ', NI, NBI, -1, -1 );
+         QROPTNB      = ilaenv( 1, SUBNAM, ' ', NI, NBI, -1, -1 );
          SUBNAM[2:6] = 'GELQF';
-         LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 );
+         LQOPTNB      = ilaenv( 1, SUBNAM, ' ', NBI, NI, -1, -1 );
          // Could be QR or LQ for TRD and the max for BRD
          FACTOPTNB    = max(QROPTNB, LQOPTNB);
          if ( ALGO == 'TRD' ) {

@@ -323,7 +323,7 @@
                      // Check the error code from DPOSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'DPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'DPOSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 
@@ -408,7 +408,7 @@
 
                      if (INFO == N+1) GOTO 90;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'DPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'DPOSVXX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

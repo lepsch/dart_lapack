@@ -42,8 +42,8 @@
          return;
       }
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      UNFL = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
 
       WNORM = ZERO;
       for (J = 1; J <= N; J++) { // 10

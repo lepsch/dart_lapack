@@ -48,7 +48,7 @@
 
       // Compute machine safe minimum
 
-      SFMIN = DLAMCH( 'S' );
+      SFMIN = dlamch( 'S' );
 
       if ( lsame( UPLO, 'U' ) ) {
 

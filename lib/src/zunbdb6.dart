@@ -60,7 +60,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       // Compute the Euclidean norm of X
 

@@ -82,7 +82,7 @@
 
       if ( INFO == 0 ) {
          LWKMIN = max( 1, 8*N );
-         NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
+         NB = ilaenv( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( LWKMIN, ( NB + 3 )*N );
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
 

@@ -37,9 +37,9 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       ULPINV = ONE / ULP;
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 

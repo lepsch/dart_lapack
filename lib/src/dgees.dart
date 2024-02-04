@@ -79,7 +79,7 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = 2*N + N*ilaenv( 1, 'DGEHRD', ' ', N, 1, N, 0 );
             MINWRK = 3*N;
 
             dhseqr('S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL );
@@ -88,7 +88,7 @@
             if ( !WANTVS ) {
                MAXWRK = max( MAXWRK, N + HSWORK );
             } else {
-               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
                MAXWRK = max( MAXWRK, N + HSWORK );
             }
          }
@@ -115,8 +115,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

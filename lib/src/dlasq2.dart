@@ -41,8 +41,8 @@
       // (in case DLASQ2 is not called by DLASQ1)
 
       INFO = 0;
-      EPS = DLAMCH( 'Precision' );
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
       TOL = EPS*HUNDRD;
       TOL2 = TOL**2;
 
@@ -156,7 +156,7 @@
 
       // Check whether the machine is IEEE conformable.
 
-      IEEE = ( ILAENV( 10, 'DLASQ2', 'N', 1, 2, 3, 4 ) == 1 );
+      IEEE = ( ilaenv( 10, 'DLASQ2', 'N', 1, 2, 3, 4 ) == 1 );
 
       // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
 

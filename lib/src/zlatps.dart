@@ -77,9 +77,9 @@
 
       // Determine machine dependent parameters to control overflow.
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM / DLAMCH( 'Precision' );
+      SMLNUM = SMLNUM / dlamch( 'Precision' );
       BIGNUM = ONE / SMLNUM;
       SCALE = ONE;
 

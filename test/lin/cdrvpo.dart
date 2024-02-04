@@ -328,7 +328,7 @@
                      // Check the error code from CPOSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'CPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'CPOSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

@@ -76,8 +76,8 @@
             // generate random reflection
 
             dlarnv(3, ISEED, M-I+1, WORK );
-            WN = DNRM2( M-I+1, WORK, 1 );
-            WA = SIGN( WN, WORK( 1 ) );
+            WN = dnrm2( M-I+1, WORK, 1 );
+            WA = sign( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -97,8 +97,8 @@
             // generate random reflection
 
             dlarnv(3, ISEED, N-I+1, WORK );
-            WN = DNRM2( N-I+1, WORK, 1 );
-            WA = SIGN( WN, WORK( 1 ) );
+            WN = dnrm2( N-I+1, WORK, 1 );
+            WA = sign( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -127,8 +127,8 @@
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
-               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = SIGN( WN, A( KL+I, I ) );
+               WN = dnrm2( M-KL-I+1, A( KL+I, I ), 1 );
+               WA = sign( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -149,8 +149,8 @@
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
-               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = SIGN( WN, A( I, KU+I ) );
+               WN = dnrm2( N-KU-I+1, A( I, KU+I ), LDA );
+               WA = sign( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -175,8 +175,8 @@
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
-               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = SIGN( WN, A( I, KU+I ) );
+               WN = dnrm2( N-KU-I+1, A( I, KU+I ), LDA );
+               WA = sign( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -197,8 +197,8 @@
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
-               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = SIGN( WN, A( KL+I, I ) );
+               WN = dnrm2( M-KL-I+1, A( KL+I, I ), 1 );
+               WA = sign( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {

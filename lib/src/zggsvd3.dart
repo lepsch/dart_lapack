@@ -97,8 +97,8 @@
       // Get machine precision and set up threshold for determining
       // the effective numerical rank of the matrices A and B.
 
-      ULP = DLAMCH( 'Precision' );
-      UNFL = DLAMCH( 'Safe Minimum' );
+      ULP = dlamch( 'Precision' );
+      UNFL = dlamch( 'Safe Minimum' );
       TOLA = max( M, N )*max( ANORM, UNFL )*ULP;
       TOLB = max( P, N )*max( BNORM, UNFL )*ULP;
 

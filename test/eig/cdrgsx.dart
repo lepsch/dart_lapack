@@ -91,12 +91,12 @@
 
          // workspace for cggesx
 
-         MAXWRK = NSIZE*( 1+ILAENV( 1, 'CGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = max( MAXWRK, NSIZE*( 1+ILAENV( 1, 'CUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) );
+         MAXWRK = NSIZE*( 1+ilaenv( 1, 'CGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = max( MAXWRK, NSIZE*( 1+ilaenv( 1, 'CUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) );
 
          // workspace for cgesvd
 
          BDSPAC = 3*NSIZE*NSIZE / 2;
-         MAXWRK = max( MAXWRK, NSIZE*NSIZE* ( 1+ILAENV( 1, 'CGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) );
+         MAXWRK = max( MAXWRK, NSIZE*NSIZE* ( 1+ilaenv( 1, 'CGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) );
          MAXWRK = max( MAXWRK, BDSPAC );
 
          MAXWRK = max( MAXWRK, MINWRK );

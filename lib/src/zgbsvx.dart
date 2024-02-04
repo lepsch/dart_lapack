@@ -54,7 +54,7 @@
       } else {
          ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
          COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
-         SMLNUM = DLAMCH( 'Safe minimum' );
+         SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
       }
 
@@ -250,7 +250,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
+      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
 
       RWORK[1] = RPVGRW;
       return;

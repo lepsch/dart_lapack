@@ -107,9 +107,9 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       ULPINV = ONE / ULP;
       RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;

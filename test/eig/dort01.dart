@@ -43,7 +43,7 @@
 
       if (M <= 0 || N <= 0) return;
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;
@@ -80,7 +80,7 @@
                } else {
                   TMP = ONE;
                }
-               TMP = TMP - DDOT( M, U( 1, I ), 1, U( 1, J ), 1 );
+               TMP = TMP - ddot( M, U( 1, I ), 1, U( 1, J ), 1 );
                RESID = max( RESID, ( TMP ).abs() );
             } // 10
          } // 20
@@ -96,7 +96,7 @@
                } else {
                   TMP = ONE;
                }
-               TMP = TMP - DDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
+               TMP = TMP - ddot( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
                RESID = max( RESID, ( TMP ).abs() );
             } // 30
          } // 40

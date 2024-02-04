@@ -55,7 +55,7 @@
 
       TESTZEROS = false;
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       K = min( M, N );
       L = max( M, N, 1);
 

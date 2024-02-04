@@ -41,7 +41,7 @@
       LASTRK = min( M, N+OFFSET );
       LSTICC = 0;
       K = 0;
-      TOL3Z = sqrt(DLAMCH('Epsilon'));
+      TOL3Z = sqrt(dlamch('Epsilon'));
 
       // Beginning of while loop.
 
@@ -166,7 +166,7 @@
 
          // NOTE: The computation of VN1( LSTICC ) relies on the fact that
          // SNRM2 does not fail on vectors with norm below the value of
-         // sqrt(DLAMCH('S'))
+         // sqrt(dlamch('S'))
 
          VN2[LSTICC] = VN1( LSTICC );
          LSTICC = ITEMP;

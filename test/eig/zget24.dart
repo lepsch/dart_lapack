@@ -90,8 +90,8 @@
 
       // Important constants
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Precision' );
+      SMLNUM = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Precision' );
       ULPINV = ONE / ULP;
 
       // Perform tests (1)-(13)

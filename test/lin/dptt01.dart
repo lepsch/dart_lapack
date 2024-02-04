@@ -38,7 +38,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Construct the difference L*D*L' - A.
 

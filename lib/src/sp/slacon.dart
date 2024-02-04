@@ -65,7 +65,7 @@
       EST = SASUM( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
-         X[I] = SIGN( ONE, X( I ) );
+         X[I] = sign( ONE, X( I ) );
          ISGN[I] = NINT( X( I ) );
       } // 30
       KASE = 2;
@@ -98,7 +98,7 @@
       ESTOLD = EST;
       EST = SASUM( N, V, 1 );
       for (I = 1; I <= N; I++) { // 80
-         if( NINT( SIGN( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90;
+         if( NINT( sign( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90;
       } // 80
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120;
@@ -108,7 +108,7 @@
       if (EST <= ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
-         X[I] = SIGN( ONE, X( I ) );
+         X[I] = sign( ONE, X( I ) );
          ISGN[I] = NINT( X( I ) );
       } // 100
       KASE = 2;

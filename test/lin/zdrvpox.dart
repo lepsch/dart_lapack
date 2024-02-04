@@ -328,7 +328,7 @@
                      // Check the error code from ZPOSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'ZPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'ZPOSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 
@@ -413,7 +413,7 @@
 
                      if (INFO == N+1) GOTO 90;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'ZPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'ZPOSVXX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

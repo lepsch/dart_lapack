@@ -42,8 +42,8 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
       UPPER = lsame( UPLO, 'U' );
       NZ = 2*max( KD, N-1 ) + 1;

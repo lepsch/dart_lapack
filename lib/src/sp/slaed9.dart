@@ -89,7 +89,7 @@
          } // 60
       } // 70
       for (I = 1; I <= K; I++) { // 80
-         W[I] = SIGN( sqrt( -W( I ) ), S( I, 1 ) );
+         W[I] = sign( sqrt( -W( I ) ), S( I, 1 ) );
       } // 80
 
       // Compute eigenvectors of the modified rank-1 modification.

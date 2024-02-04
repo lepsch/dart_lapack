@@ -71,7 +71,7 @@
 
             // Scale supplied initial vector.
 
-            VNORM = DNRM2( N, VR, 1 );
+            VNORM = dnrm2( N, VR, 1 );
             dscal(N, ( EPS3*ROOTN ) / max( VNORM, NRMSML ), VR, 1 );
          }
 
@@ -198,7 +198,7 @@
 
             // Scale supplied initial vector.
 
-            NORM = DLAPY2( DNRM2( N, VR, 1 ), DNRM2( N, VI, 1 ) );
+            NORM = dlapy2( dnrm2( N, VR, 1 ), dnrm2( N, VI, 1 ) );
             REC = ( EPS3*ROOTN ) / max( NORM, NRMSML );
             dscal(N, REC, VR, 1 );
             dscal(N, REC, VI, 1 );
@@ -218,7 +218,7 @@
             } // 140
 
             for (I = 1; I <= N - 1; I++) { // 170
-               ABSBII = DLAPY2( B( I, I ), B( I+1, I ) );
+               ABSBII = dlapy2( B( I, I ), B( I+1, I ) );
                EI = H( I+1, I );
                if ( ABSBII < ( EI ).abs() ) {
 
@@ -282,7 +282,7 @@
 
             for (J = N; J >= 2; J--) { // 210
                EJ = H( J, J-1 );
-               ABSBJJ = DLAPY2( B( J, J ), B( J+1, J ) );
+               ABSBJJ = dlapy2( B( J, J ), B( J+1, J ) );
                if ( ABSBJJ < ( EJ ).abs() ) {
 
                   // Interchange columns and eliminate

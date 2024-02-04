@@ -39,19 +39,19 @@
       // .. Executable Statements ..
 
       // IF( FIRST ) THEN
-         SAFMIN = DLAMCH( 'S' );
-         EPS = DLAMCH( 'E' );
-         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO );
+         SAFMIN = dlamch( 'S' );
+         EPS = dlamch( 'E' );
+         SAFMN2 = dlamch( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( dlamch( 'B' ) ) / TWO );
          SAFMX2 = ONE / SAFMN2;
          // FIRST = false;
       // END IF
       if ( G == ZERO ) {
-         CS = SIGN( ONE, F );
+         CS = sign( ONE, F );
          SN = ZERO;
          R = ( F ).abs();
       } else if ( F == ZERO ) {
          CS = ZERO;
-         SN = SIGN( ONE, G );
+         SN = sign( ONE, G );
          R = ( G ).abs();
       } else {
          F1 = F;

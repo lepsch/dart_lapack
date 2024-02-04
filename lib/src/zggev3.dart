@@ -140,8 +140,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'E' )*DLAMCH( 'B' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'E' )*dlamch( 'B' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

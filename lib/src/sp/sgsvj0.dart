@@ -247,7 +247,7 @@
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ );
+                                    THSIGN = -sign( ONE, AAPQ );
                                     T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
                                     CS = sqrt( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
@@ -465,7 +465,7 @@
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ );
+                                    THSIGN = -sign( ONE, AAPQ );
                                     if (AAQQ > AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
                                     CS = sqrt( ONE / ( ONE+T*T ) );

@@ -218,7 +218,7 @@
 
                if ( K > 2 ) {
 
-                  D = DLAPY2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
+                  D = dlapy2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
                   D22 = (A( K-1, K-1 )).toDouble() / D;
                   D11 = (A( K, K )).toDouble() / D;
                   TT = ONE / ( D11*D22-ONE );
@@ -407,7 +407,7 @@
                   // where L(k) and L(k+1) are the k-th and (k+1)-th
                   // columns of L
 
-                  D = DLAPY2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
+                  D = dlapy2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
                   D11 = (A( K+1, K+1 )).toDouble() / D;
                   D22 = (A( K, K )).toDouble() / D;
                   TT = ONE / ( D11*D22-ONE );

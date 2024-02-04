@@ -75,13 +75,13 @@
       // Quick return if possible
 
       if (N == 0) return;
-      SMLSIZ = ILAENV( 9, 'SBDSDC', ' ', 0, 0, 0, 0 );
+      SMLSIZ = ilaenv( 9, 'SBDSDC', ' ', 0, 0, 0, 0 );
       if ( N == 1 ) {
          if ( ICOMPQ == 1 ) {
-            Q[1] = SIGN( ONE, D( 1 ) );
+            Q[1] = sign( ONE, D( 1 ) );
             Q[1+SMLSIZ*N] = ONE;
          } else if ( ICOMPQ == 2 ) {
-            U[1, 1] = SIGN( ONE, D( 1 ) );
+            U[1, 1] = sign( ONE, D( 1 ) );
             VT[1, 1] = ONE;
          }
          D[1] = ( D( 1 ) ).abs();
@@ -180,7 +180,7 @@
 
       for (I = 1; I <= N; I++) { // 20
          if ( ( D( I ) ).abs() < EPS ) {
-            D[I] = SIGN( EPS, D( I ) );
+            D[I] = sign( EPS, D( I ) );
          }
       } // 20
 
@@ -211,10 +211,10 @@
 
                NSIZE = I - START + 1;
                if ( ICOMPQ == 2 ) {
-                  U[N, N] = SIGN( ONE, D( N ) );
+                  U[N, N] = sign( ONE, D( N ) );
                   VT[N, N] = ONE;
                } else if ( ICOMPQ == 1 ) {
-                  Q[N+( QSTART-1 )*N] = SIGN( ONE, D( N ) );
+                  Q[N+( QSTART-1 )*N] = sign( ONE, D( N ) );
                   Q[N+( SMLSIZ+QSTART-1 )*N] = ONE;
                }
                D[N] = ( D( N ) ).abs();

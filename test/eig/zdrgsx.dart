@@ -92,12 +92,12 @@
 
          // workspace for cggesx
 
-         MAXWRK = NSIZE*( 1+ILAENV( 1, 'ZGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = max( MAXWRK, NSIZE*( 1+ILAENV( 1, 'ZUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) );
+         MAXWRK = NSIZE*( 1+ilaenv( 1, 'ZGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = max( MAXWRK, NSIZE*( 1+ilaenv( 1, 'ZUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) );
 
          // workspace for zgesvd
 
          BDSPAC = 3*NSIZE*NSIZE / 2;
-         MAXWRK = max( MAXWRK, NSIZE*NSIZE* ( 1+ILAENV( 1, 'ZGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) );
+         MAXWRK = max( MAXWRK, NSIZE*NSIZE* ( 1+ilaenv( 1, 'ZGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) );
          MAXWRK = max( MAXWRK, BDSPAC );
 
          MAXWRK = max( MAXWRK, MINWRK );
@@ -114,9 +114,9 @@
 
       // Important constants
 
-      ULP = DLAMCH( 'P' );
+      ULP = dlamch( 'P' );
       ULPINV = ONE / ULP;
-      SMLNUM = DLAMCH( 'S' ) / ULP;
+      SMLNUM = dlamch( 'S' ) / ULP;
       BIGNUM = ONE / SMLNUM;
       THRSH2 = TEN*THRESH;
       NTESTT = 0;

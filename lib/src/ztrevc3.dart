@@ -74,7 +74,7 @@
       }
 
       INFO = 0;
-      NB = ILAENV( 1, 'ZTREVC', SIDE // HOWMNY, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'ZTREVC', SIDE + HOWMNY, N, -1, -1, -1 );
       MAXWRK = max( 1, N + 2*N*NB );
       WORK[1] = MAXWRK;
       RWORK[1] = max( 1, N );
@@ -122,9 +122,9 @@
 
       // Set the constants to control overflow.
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       SMLNUM = UNFL*( N / ULP );
 
       // Store the diagonal elements of T in working array WORK.

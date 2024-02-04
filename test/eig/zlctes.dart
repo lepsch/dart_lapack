@@ -28,9 +28,9 @@ bool zlctes(Z, D) {
     ZLCTES = (Z.toDouble() < ZERO);
   } else {
     if ((Z).toDouble() == ZERO || D.toDouble() == ZERO) {
-      ZLCTES = (SIGN(ONE, DIMAG(Z)) != SIGN(ONE, DIMAG(D)));
+      ZLCTES = (sign(ONE, DIMAG(Z)) != sign(ONE, DIMAG(D)));
     } else if (DIMAG(Z) == ZERO || DIMAG(D) == ZERO) {
-      ZLCTES = (SIGN(ONE, (Z).toDouble()) != SIGN(ONE, D.toDouble()));
+      ZLCTES = (sign(ONE, (Z).toDouble()) != sign(ONE, D.toDouble()));
     } else {
       ZMAX = max((Z.toDouble()).abs(), (DIMAG(Z))).abs();
       ZLCTES = (((Z).toDouble() / ZMAX) * D.toDouble() +

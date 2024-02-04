@@ -57,7 +57,7 @@
          return;
       }
 
-      BASE = DLAMCH( 'B' );
+      BASE = dlamch( 'B' );
       TMP = -0.5 / LOG ( BASE );
 
       // Find the minimum and maximum diagonal elements.

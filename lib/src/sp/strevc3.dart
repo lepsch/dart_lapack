@@ -56,7 +56,7 @@
       SOMEV = lsame( HOWMNY, 'S' );
 
       INFO = 0;
-      NB = ILAENV( 1, 'STREVC', SIDE // HOWMNY, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'STREVC', SIDE + HOWMNY, N, -1, -1, -1 );
       MAXWRK = max( 1, N + 2*N*NB );
       WORK[1] = MAXWRK;
       LQUERY = ( LWORK == -1 );

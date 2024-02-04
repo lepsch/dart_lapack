@@ -128,14 +128,14 @@
          }
       }
       // ... and the machine dependent parameters are
-// [!]  (Make sure that DLAMCH() works properly on the target machine.)
+// [!]  (Make sure that dlamch() works properly on the target machine.)
 
-      EPSLN = DLAMCH( 'Epsilon' );
+      EPSLN = dlamch( 'Epsilon' );
       ROOTEPS = DSQRT( EPSLN );
-      SFMIN = DLAMCH( 'SafeMinimum' );
+      SFMIN = dlamch( 'SafeMinimum' );
       ROOTSFMIN = DSQRT( SFMIN );
       SMALL = SFMIN / EPSLN;
-      BIG = DLAMCH( 'Overflow' );
+      BIG = dlamch( 'Overflow' );
       // BIG         = ONE    / SFMIN
       ROOTBIG = ONE / ROOTSFMIN;
       LARGE = BIG / DSQRT( (M*N).toDouble() );
@@ -472,17 +472,17 @@
          // Column norms are periodically updated by explicit
          // norm computation.
          // Caveat:
-         // Unfortunately, some BLAS implementations compute DNRM2(M,A(1,p),1)
-         // as DSQRT(DDOT(M,A(1,p),1,A(1,p),1)), which may cause the result to
+         // Unfortunately, some BLAS implementations compute dnrm2(M,A(1,p),1)
+         // as DSQRT(ddot(M,A(1,p),1,A(1,p),1)), which may cause the result to
          // overflow for ||A(:,p)||_2 > DSQRT(overflow_threshold), and to
          // underflow for ||A(:,p)||_2 < DSQRT(underflow_threshold).
          // Hence, DNRM2 cannot be trusted, not even in the case when
          // the true norm is far from the under(over)flow boundaries.
          // If properly implemented DNRM2 is available, the IF-THEN-ELSE
-         // below should read "AAPP = DNRM2( M, A(1,p), 1 ) * WORK(p)".
+         // below should read "AAPP = dnrm2( M, A(1,p), 1 ) * WORK(p)".
 
                      if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ) > ROOTSFMIN ) ) {
-                        SVA[p] = DNRM2( M, A( 1, p ), 1 )*WORK( p );
+                        SVA[p] = dnrm2( M, A( 1, p ), 1 )*WORK( p );
                      } else {
                         TEMP1 = ZERO;
                         AAPP = ONE;
@@ -508,20 +508,20 @@
                            if ( AAQQ >= ONE ) {
                               ROTOK = ( SMALL*AAPP ) <= AAQQ;
                               if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                  dlascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
+                                 AAPQ = ddot( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
                               }
                            } else {
                               ROTOK = AAPP <= ( AAQQ / SMALL );
                               if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                  dlascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
+                                 AAPQ = ddot( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
                               }
                            }
 
@@ -641,7 +641,7 @@
 
                               if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
                                  if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA[q] = DNRM2( M, A( 1, q ), 1 )* WORK( q );
+                                    SVA[q] = dnrm2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -651,7 +651,7 @@
                               }
                               if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
                                  if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
-                                    AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
+                                    AAPP = dnrm2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -733,11 +733,11 @@
                                  ROTOK = ( SMALL*AAQQ ) <= AAPP;
                               }
                               if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                  dlascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
+                                 AAPQ = ddot( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
                               }
                            } else {
                               if ( AAPP >= AAQQ ) {
@@ -746,11 +746,11 @@
                                  ROTOK = AAQQ <= ( AAPP / SMALL );
                               }
                               if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                  dlascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
+                                 AAPQ = ddot( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
                               }
                            }
 
@@ -875,7 +875,7 @@
             // .. recompute SVA(q)
                               if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
                                  if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA[q] = DNRM2( M, A( 1, q ), 1 )* WORK( q );
+                                    SVA[q] = dnrm2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -885,7 +885,7 @@
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
                                  if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
-                                    AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p );
+                                    AAPP = dnrm2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -946,7 +946,7 @@
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
-            SVA[N] = DNRM2( M, A( 1, N ), 1 )*WORK( N );
+            SVA[N] = dnrm2( M, A( 1, N ), 1 )*WORK( N );
          } else {
             T = ZERO;
             AAPP = ONE;
@@ -1023,7 +1023,7 @@
             } // 2398
          } else {
             for (p = 1; p <= N; p++) { // 2399
-               TEMP1 = ONE / DNRM2( MVL, V( 1, p ), 1 );
+               TEMP1 = ONE / dnrm2( MVL, V( 1, p ), 1 );
                dscal(MVL, TEMP1, V( 1, p ), 1 );
             } // 2399
          }

@@ -112,9 +112,9 @@
 
       // Set the constants to control overflow.
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       SMLNUM = UNFL*( N / ULP );
       BIGNUM = ( ONE-ULP ) / SMLNUM;
 
@@ -500,7 +500,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+N] = WORK( J+N ) - DDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - ddot( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
 
                      // Solve (T(J,J)-WR)**T*X = WORK
 
@@ -528,9 +528,9 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+N] = WORK( J+N ) - DDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - ddot( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 );
 
-                     WORK[J+1+N] = WORK( J+1+N ) - DDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 );
+                     WORK[J+1+N] = WORK( J+1+N ) - ddot( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 );
 
                      // Solve
                        // [T(J,J)-WR   T(J,J+1)     ]**T * X = SCALE*( WORK1 )
@@ -632,7 +632,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+N] = WORK( J+N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 )                      WORK( J+N2 ) = WORK( J+N2 ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+N] = WORK( J+N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 )                      WORK( J+N2 ) = WORK( J+N2 ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
 
                      // Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 
@@ -665,13 +665,13 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+N] = WORK( J+N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 );
+                     WORK[J+N] = WORK( J+N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 );
 
-                     WORK[J+N2] = WORK( J+N2 ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+N2] = WORK( J+N2 ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 );
 
-                     WORK[J+1+N] = WORK( J+1+N ) - DDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N ), 1 );
+                     WORK[J+1+N] = WORK( J+1+N ) - ddot( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N ), 1 );
 
-                     WORK[J+1+N2] = WORK( J+1+N2 ) - DDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 );
+                     WORK[J+1+N2] = WORK( J+1+N2 ) - ddot( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 );
 
                      // Solve 2-by-2 complex linear equation
                        // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B

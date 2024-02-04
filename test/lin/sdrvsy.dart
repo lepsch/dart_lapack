@@ -336,7 +336,7 @@
                   // Check the error code from SSYSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'SSYSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'SSYSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

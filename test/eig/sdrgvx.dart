@@ -70,7 +70,7 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 2*NMAX*NMAX + 12*NMAX + 16;
-         MAXWRK = 6*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 );
+         MAXWRK = 6*NMAX + NMAX*ilaenv( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 );
          MAXWRK = max( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 );
          WORK[1] = MAXWRK;
       }

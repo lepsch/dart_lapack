@@ -98,9 +98,9 @@
       // SMINV2, EPS are not SAVEd anymore between one call to the
       // others but recomputed at each call
 
-      EPS = DLAMCH( 'Epsilon' );
-      BASE = DLAMCH( 'Base' );
-      SMALL1 = BASE**( INT( LOG( DLAMCH( 'SafMin' ) ) / LOG( BASE ) / THREE ) );
+      EPS = dlamch( 'Epsilon' );
+      BASE = dlamch( 'Base' );
+      SMALL1 = BASE**( INT( LOG( dlamch( 'SafMin' ) ) / LOG( BASE ) / THREE ) );
       SMINV1 = ONE / SMALL1;
       SMALL2 = SMALL1*SMALL1;
       SMINV2 = SMINV1*SMINV1;

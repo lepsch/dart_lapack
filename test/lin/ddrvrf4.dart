@@ -63,7 +63,7 @@
       for (I = 1; I <= 4; I++) { // 10
          ISEED[I] = ISEEDY( I );
       } // 10
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       for (IIN = 1; IIN <= NN; IIN++) { // 150
 

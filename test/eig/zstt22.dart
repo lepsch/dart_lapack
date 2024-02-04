@@ -41,8 +41,8 @@
       RESULT[2] = ZERO;
       if (N <= 0 || M <= 0) return;
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' );
 
       // Do Test 1
 

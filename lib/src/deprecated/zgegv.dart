@@ -102,9 +102,9 @@
       }
 
       if ( INFO == 0 ) {
-         NB1 = ILAENV( 1, 'ZGEQRF', ' ', N, N, -1, -1 );
-         NB2 = ILAENV( 1, 'ZUNMQR', ' ', N, N, N, -1 );
-         NB3 = ILAENV( 1, 'ZUNGQR', ' ', N, N, N, -1 );
+         NB1 = ilaenv( 1, 'ZGEQRF', ' ', N, N, -1, -1 );
+         NB2 = ilaenv( 1, 'ZUNMQR', ' ', N, N, N, -1 );
+         NB3 = ilaenv( 1, 'ZUNGQR', ' ', N, N, N, -1 );
          NB = max( NB1, NB2, NB3 );
          LOPT = max( 2*N, N*( NB+1 ) );
          WORK[1] = LOPT;
@@ -123,8 +123,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'E' )*DLAMCH( 'B' );
-      SAFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'E' )*dlamch( 'B' );
+      SAFMIN = dlamch( 'S' );
       SAFMIN = SAFMIN + SAFMIN;
       SAFMAX = ONE / SAFMIN;
 

@@ -61,7 +61,7 @@
 
       // Get block size
 
-      NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'DPOTRF', UPLO, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
@@ -96,7 +96,7 @@
       // Compute stopping value if not supplied
 
          if ( TOL < ZERO ) {
-            DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ;
+            DSTOP = N * dlamch( 'Epsilon' ) * AJJ;
          } else {
             DSTOP = TOL;
          }

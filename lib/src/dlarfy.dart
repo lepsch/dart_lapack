@@ -37,7 +37,7 @@
 
       dsymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
-      ALPHA = -HALF*TAU*DDOT( N, WORK, 1, V, INCV );
+      ALPHA = -HALF*TAU*ddot( N, WORK, 1, V, INCV );
       daxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'

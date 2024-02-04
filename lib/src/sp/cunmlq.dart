@@ -78,7 +78,7 @@
          if ( M == 0 || N == 0 || K == 0 ) {
             LWKOPT = 1;
          } else {
-            NB = min( NBMAX, ILAENV( 1, 'CUNMLQ', SIDE // TRANS, M, N, K, -1 ) );
+            NB = min( NBMAX, ilaenv( 1, 'CUNMLQ', SIDE + TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
@@ -104,7 +104,7 @@
       if ( NB > 1 && NB < K ) {
          if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK;
-            NBMIN = max( 2, ILAENV( 2, 'CUNMLQ', SIDE // TRANS, M, N, K, -1 ) );
+            NBMIN = max( 2, ilaenv( 2, 'CUNMLQ', SIDE + TRANS, M, N, K, -1 ) );
          }
       }
 

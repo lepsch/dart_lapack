@@ -118,7 +118,7 @@
                daxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
-            THETA[I] = ATAN2( DNRM2( M-P-I+1, X21(I,I), 1 ), DNRM2( P-I+1, X11(I,I), 1 ) );
+            THETA[I] = ATAN2( dnrm2( M-P-I+1, X21(I,I), 1 ), dnrm2( P-I+1, X11(I,I), 1 ) );
 
             if ( P > I ) {
                dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
@@ -153,7 +153,7 @@
             dscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
             daxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
 
-            if (I < Q) PHI(I) = ATAN2( DNRM2( Q-I, X11(I,I+1), LDX11 ), DNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
+            if (I < Q) PHI(I) = ATAN2( dnrm2( Q-I, X11(I,I+1), LDX11 ), dnrm2( M-Q-I+1, X12(I,I), LDX12 ) );
 
             if ( I < Q ) {
                if ( Q-I == 1 ) {
@@ -240,7 +240,7 @@
                daxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
-            THETA[I] = ATAN2( DNRM2( M-P-I+1, X21(I,I), LDX21 ), DNRM2( P-I+1, X11(I,I), LDX11 ) );
+            THETA[I] = ATAN2( dnrm2( M-P-I+1, X21(I,I), LDX21 ), dnrm2( P-I+1, X11(I,I), LDX11 ) );
 
             dlarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
             X11[I,I] = ONE;
@@ -271,7 +271,7 @@
             dscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), 1 );
             daxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), 1, X12(I,I), 1 );
 
-            if (I < Q) PHI(I) = ATAN2( DNRM2( Q-I, X11(I+1,I), 1 ), DNRM2( M-Q-I+1, X12(I,I), 1 ) );
+            if (I < Q) PHI(I) = ATAN2( dnrm2( Q-I, X11(I+1,I), 1 ), dnrm2( M-Q-I+1, X12(I,I), 1 ) );
 
             if ( I < Q ) {
                if ( Q-I == 1) {

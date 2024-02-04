@@ -51,7 +51,7 @@
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'DORGQR', ' ', NH, NH, NH, -1 );
+         NB = ilaenv( 1, 'DORGQR', ' ', NH, NH, NH, -1 );
          LWKOPT = max( 1, NH )*NB;
          WORK[1] = LWKOPT;
       }

@@ -43,7 +43,7 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'CHEEVR', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'CHEEVR', 'N', 1, 2, 3, 4 );
 
       LOWER = lsame( UPLO, 'L' );
       WANTZ = lsame( JOBZ, 'V' );
@@ -92,8 +92,8 @@
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
-         NB = max( NB, ILAENV( 1, 'CUNMTR', UPLO, N, -1, -1, -1 ) );
+         NB = ilaenv( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
+         NB = max( NB, ilaenv( 1, 'CUNMTR', UPLO, N, -1, -1, -1 ) );
          LWKOPT = max( ( NB+1 )*N, LWMIN );
          WORK[1] = SROUNDUP_LWORK( LWKOPT );
          RWORK[1] = SROUNDUP_LWORK( LRWMIN );

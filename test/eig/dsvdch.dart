@@ -40,9 +40,9 @@
 
       INFO = 0;
       if (N <= 0) return;
-      UNFL = DLAMCH( 'Safe minimum' );
-      OVFL = DLAMCH( 'Overflow' );
-      EPS = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      UNFL = dlamch( 'Safe minimum' );
+      OVFL = dlamch( 'Overflow' );
+      EPS = dlamch( 'Epsilon' )*dlamch( 'Base' );
 
       // UNFLEP is chosen so that when an eigenvalue is multiplied by the
       // scale factor sqrt(OVFL)*sqrt(sqrt(UNFL))/MX in DSVDCT, it exceeds

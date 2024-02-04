@@ -96,9 +96,9 @@
 
       if ( INFO == 0 ) {
          MINWRK = max( 1, 8*N );
-         MAXWRK = max( 1, N*( 7 + ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = max( MAXWRK, N*( 7 + ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) ) );
+         MAXWRK = max( 1, N*( 7 + ilaenv( 1, 'DGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = max( MAXWRK, N*( 7 + ilaenv( 1, 'DORMQR', ' ', N, 1, N, 0 ) ) );
          if ( ILVL ) {
-            MAXWRK = max( MAXWRK, N*( 7 + ILAENV( 1, 'DORGQR', ' ', N, 1, N, -1 ) ) );
+            MAXWRK = max( MAXWRK, N*( 7 + ilaenv( 1, 'DORGQR', ' ', N, 1, N, -1 ) ) );
          }
          WORK[1] = MAXWRK;
 
@@ -118,8 +118,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

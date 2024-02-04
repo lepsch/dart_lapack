@@ -42,7 +42,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Copy the matrix U to WORK.
 

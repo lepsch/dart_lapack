@@ -68,7 +68,7 @@
 
       // Get machine constants.
 
-      SMLNUM = DLAMCH( 'S' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
 
       // Compute row scale factors.

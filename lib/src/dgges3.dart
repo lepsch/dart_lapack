@@ -143,8 +143,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SAFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SAFMIN = dlamch( 'S' );
       SAFMAX = ONE / SAFMIN;
       SMLNUM = sqrt( SAFMIN ) / EPS;
       BIGNUM = ONE / SMLNUM;

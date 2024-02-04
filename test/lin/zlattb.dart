@@ -45,8 +45,8 @@
 
       PATH[1: 1] = 'Zomplex precision';
       PATH[2: 3] = 'TB';
-      UNFL = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      UNFL = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SMLNUM = UNFL;
       BIGNUM = ( ONE-ULP ) / SMLNUM;
       if ( ( IMAT >= 6 && IMAT <= 9 ) || IMAT == 17 ) {

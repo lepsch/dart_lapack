@@ -69,7 +69,7 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = AP( JJ ) - DDOT( J-1, AP( JC ), 1, AP( JC ), 1 );
+            AJJ = AP( JJ ) - ddot( J-1, AP( JC ), 1, AP( JC ), 1 );
             if ( AJJ <= ZERO ) {
                AP[JJ] = AJJ;
                GO TO 30;

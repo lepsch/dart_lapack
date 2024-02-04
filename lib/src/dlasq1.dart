@@ -73,8 +73,8 @@
       // Copy D and E into WORK (in the Z format) and scale (squaring the
       // input data makes scaling by a power of the radix pointless).
 
-      EPS = DLAMCH( 'Precision' );
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
       SCALE = sqrt( EPS / SAFMIN );
       dcopy(N, D, 1, WORK( 1 ), 2 );
       dcopy(N-1, E, 1, WORK( 2 ), 2 );

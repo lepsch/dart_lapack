@@ -181,10 +181,10 @@
                                  ROTOK = ( SMALL*AAQQ ) <= AAPP;
                               }
                               if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, p ), 1, WORK, 1 );
-                                 CALL DLASCL( 'G', 0, 0, AAPP, D( p ), M, 1, WORK, LDA, IERR )                                  AAPQ = DDOT( M, WORK, 1, A( 1, q ), 1 )*D( q ) / AAQQ;
+                                 CALL DLASCL( 'G', 0, 0, AAPP, D( p ), M, 1, WORK, LDA, IERR )                                  AAPQ = ddot( M, WORK, 1, A( 1, q ), 1 )*D( q ) / AAQQ;
                               }
                            } else {
                               if ( AAPP >= AAQQ ) {
@@ -193,10 +193,10 @@
                                  ROTOK = AAQQ <= ( AAPP / SMALL );
                               }
                               if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
+                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
                               } else {
                                  dcopy(M, A( 1, q ), 1, WORK, 1 );
-                                 CALL DLASCL( 'G', 0, 0, AAQQ, D( q ), M, 1, WORK, LDA, IERR )                                  AAPQ = DDOT( M, WORK, 1, A( 1, p ), 1 )*D( p ) / AAPP;
+                                 CALL DLASCL( 'G', 0, 0, AAQQ, D( q ), M, 1, WORK, LDA, IERR )                                  AAPQ = ddot( M, WORK, 1, A( 1, p ), 1 )*D( p ) / AAPP;
                               }
                            }
 
@@ -317,7 +317,7 @@
             // .. recompute SVA(q)
                               if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
                                  if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA[q] = DNRM2( M, A( 1, q ), 1 )* D( q );
+                                    SVA[q] = dnrm2( M, A( 1, q ), 1 )* D( q );
                                  } else {
                                     T = ZERO;
                                     AAQQ = ONE;
@@ -327,7 +327,7 @@
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
                                  if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
-                                    AAPP = DNRM2( M, A( 1, p ), 1 )* D( p );
+                                    AAPP = dnrm2( M, A( 1, p ), 1 )* D( p );
                                  } else {
                                     T = ZERO;
                                     AAPP = ONE;
@@ -389,7 +389,7 @@
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
-            SVA[N] = DNRM2( M, A( 1, N ), 1 )*D( N );
+            SVA[N] = dnrm2( M, A( 1, N ), 1 )*D( N );
          } else {
             T = ZERO;
             AAPP = ONE;

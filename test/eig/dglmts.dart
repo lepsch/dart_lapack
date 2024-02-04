@@ -35,8 +35,8 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
       ANORM = max( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
       BNORM = max( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 

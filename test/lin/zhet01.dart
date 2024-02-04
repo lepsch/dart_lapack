@@ -49,7 +49,7 @@
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
 
       // Check the imaginary parts of the diagonal elements and return with

@@ -58,7 +58,7 @@
       if ( NRHS == 1 ) {
          NB = 1;
       } else {
-         NB = max( 1, ILAENV( 1, 'CPTTRS', UPLO, N, NRHS, -1, -1 ) );
+         NB = max( 1, ilaenv( 1, 'CPTTRS', UPLO, N, NRHS, -1, -1 ) );
       }
 
       // Decode UPLO

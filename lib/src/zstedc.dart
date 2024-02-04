@@ -65,7 +65,7 @@
 
          // Compute the workspace requirements
 
-         SMLSIZ = ILAENV( 9, 'ZSTEDC', ' ', 0, 0, 0, 0 );
+         SMLSIZ = ilaenv( 9, 'ZSTEDC', ' ', 0, 0, 0, 0 );
          if ( N <= 1 || ICOMPZ == 0 ) {
             LWMIN = 1;
             LIWMIN = 1;
@@ -161,7 +161,7 @@
          ORGNRM = DLANST( 'M', N, D, E );
          if (ORGNRM == ZERO) GO TO 70;
 
-         EPS = DLAMCH( 'Epsilon' );
+         EPS = dlamch( 'Epsilon' );
 
          START = 1;
 

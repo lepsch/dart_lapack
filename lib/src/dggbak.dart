@@ -1,141 +1,155 @@
-      void dggbak(JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, V, LDV, INFO ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/blas/dswap.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void dggbak(
+  final String JOB,
+  final String SIDE,
+  final int N,
+  final int ILO,
+  final int IHI,
+  final Array<double> LSCALE,
+  final Array<double> RSCALE,
+  final int M,
+  final Matrix<double> V,
+  final int LDV,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      String             JOB, SIDE;
-      int                IHI, ILO, INFO, LDV, M, N;
-      // ..
-      // .. Array Arguments ..
-      double             LSCALE( * ), RSCALE( * ), V( LDV, * );
-      // ..
+  // .. Scalar Arguments ..
+  // String             JOB, SIDE;
+  // int                IHI, ILO, INFO.value, LDV, M, N;
+  // // ..
+  // // .. Array Arguments ..
+  // double             LSCALE( * ), RSCALE( * ), V( LDV, * );
+  // ..
 
 // =====================================================================
 
-      // .. Local Scalars ..
-      bool               LEFTV, RIGHTV;
-      int                I, K;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSCAL, DSWAP, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, INT
-      // ..
-      // .. Executable Statements ..
+  // .. Local Scalars ..
+  bool LEFTV, RIGHTV;
+  int I, K;
+  // ..
+  // .. External Functions ..
+  //- bool               lsame;
+  // EXTERNAL lsame
+  // ..
+  // .. External Subroutines ..
+  // EXTERNAL DSCAL, DSWAP, XERBLA
+  // ..
+  // .. Intrinsic Functions ..
+  // INTRINSIC MAX, INT
+  // ..
+  // .. Executable Statements ..
 
-      // Test the input parameters
+  // Test the input parameters
 
-      RIGHTV = lsame( SIDE, 'R' );
-      LEFTV = lsame( SIDE, 'L' );
+  RIGHTV = lsame(SIDE, 'R');
+  LEFTV = lsame(SIDE, 'L');
 
-      INFO = 0;
-      if ( !lsame( JOB, 'N' ) && !lsame( JOB, 'P' ) && !lsame( JOB, 'S' ) && !lsame( JOB, 'B' ) ) {
-         INFO = -1;
-      } else if ( !RIGHTV && !LEFTV ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( ILO < 1 ) {
-         INFO = -4;
-      } else if ( N == 0 && IHI == 0 && ILO != 1 ) {
-         INFO = -4;
-      } else if ( N > 0 && ( IHI < ILO || IHI > max( 1, N ) ) ) {
-         INFO = -5;
-      } else if ( N == 0 && ILO == 1 && IHI != 0 ) {
-         INFO = -5;
-      } else if ( M < 0 ) {
-         INFO = -8;
-      } else if ( LDV < max( 1, N ) ) {
-         INFO = -10;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DGGBAK', -INFO );
-         return;
-      }
+  INFO.value = 0;
+  if (!lsame(JOB, 'N') &&
+      !lsame(JOB, 'P') &&
+      !lsame(JOB, 'S') &&
+      !lsame(JOB, 'B')) {
+    INFO.value = -1;
+  } else if (!RIGHTV && !LEFTV) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (ILO < 1) {
+    INFO.value = -4;
+  } else if (N == 0 && IHI == 0 && ILO != 1) {
+    INFO.value = -4;
+  } else if (N > 0 && (IHI < ILO || IHI > max(1, N))) {
+    INFO.value = -5;
+  } else if (N == 0 && ILO == 1 && IHI != 0) {
+    INFO.value = -5;
+  } else if (M < 0) {
+    INFO.value = -8;
+  } else if (LDV < max(1, N)) {
+    INFO.value = -10;
+  }
+  if (INFO.value != 0) {
+    xerbla('DGGBAK', -INFO.value);
+    return;
+  }
 
-      // Quick return if possible
+  // Quick return if possible
 
-      if (N == 0) return;
-      if( M == 0 ) return;
-      IF( lsame( JOB, 'N' ) ) return;
+  if (N == 0) return;
+  if (M == 0) return;
+  if (lsame(JOB, 'N')) return;
 
-      if (ILO == IHI) GO TO 30;
+  if (ILO != IHI) {
+    // Backward balance
 
-      // Backward balance
+    if (lsame(JOB, 'S') || lsame(JOB, 'B')) {
+      // Backward transformation on right eigenvectors
 
-      if ( lsame( JOB, 'S' ) || lsame( JOB, 'B' ) ) {
-
-         // Backward transformation on right eigenvectors
-
-         if ( RIGHTV ) {
-            for (I = ILO; I <= IHI; I++) { // 10
-               dscal(M, RSCALE( I ), V( I, 1 ), LDV );
-            } // 10
-         }
-
-         // Backward transformation on left eigenvectors
-
-         if ( LEFTV ) {
-            for (I = ILO; I <= IHI; I++) { // 20
-               dscal(M, LSCALE( I ), V( I, 1 ), LDV );
-            } // 20
-         }
+      if (RIGHTV) {
+        for (I = ILO; I <= IHI; I++) {
+          dscal(M, RSCALE[I], V(I, 1).asArray(), LDV);
+        }
       }
 
-      // Backward permutation
+      // Backward transformation on left eigenvectors
 
-      } // 30
-      if ( lsame( JOB, 'P' ) || lsame( JOB, 'B' ) ) {
+      if (LEFTV) {
+        for (I = ILO; I <= IHI; I++) {
+          dscal(M, LSCALE[I], V(I, 1).asArray(), LDV);
+        }
+      }
+    }
+  }
 
-         // Backward permutation on right eigenvectors
+  // Backward permutation
+  if (lsame(JOB, 'P') || lsame(JOB, 'B')) {
+    // Backward permutation on right eigenvectors
 
-         if ( RIGHTV ) {
-            if (ILO == 1) GO TO 50;
+    if (RIGHTV) {
+      if (ILO != 1) {
+        for (I = ILO - 1; I >= 1; I--) {
+          K = RSCALE[I].toInt();
+          if (K == I) continue;
+          dswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
+        }
+      }
+      if (IHI != N) {
+        for (I = IHI + 1; I <= N; I++) {
+          K = RSCALE[I].toInt();
+          if (K == I) continue;
+          dswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
+        }
+      }
+    }
 
-            for (I = ILO - 1; I >= 1; I--) { // 40
-               K = INT(RSCALE( I ));
-               if (K == I) GO TO 40;
-               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-            } // 40
+    // Backward permutation on left eigenvectors
 
-            } // 50
-            if (IHI == N) GO TO 70;
-            for (I = IHI + 1; I <= N; I++) { // 60
-               K = INT(RSCALE( I ));
-               if (K == I) GO TO 60;
-               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-            } // 60
-         }
-
-         // Backward permutation on left eigenvectors
-
-         } // 70
-         if ( LEFTV ) {
-            if (ILO == 1) GO TO 90;
-            for (I = ILO - 1; I >= 1; I--) { // 80
-               K = INT(LSCALE( I ));
-               if (K == I) GO TO 80;
-               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-            } // 80
-
-            } // 90
-            if (IHI == N) GO TO 110;
-            for (I = IHI + 1; I <= N; I++) { // 100
-               K = INT(LSCALE( I ));
-               if (K == I) GO TO 100;
-               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-            } // 100
-         }
+    if (LEFTV) {
+      if (ILO != 1) {
+        for (I = ILO - 1; I >= 1; I--) {
+          K = LSCALE[I].toInt();
+          if (K == I) continue;
+          dswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
+        }
       }
 
-      } // 110
-
-      return;
+      if (IHI != N) {
+        for (I = IHI + 1; I <= N; I++) {
+          K = LSCALE[I].toInt();
+          if (K == I) continue;
+          dswap(M, V(I, 1).asArray(), LDV, V(K, 1).asArray(), LDV);
+        }
       }
+    }
+  }
+}

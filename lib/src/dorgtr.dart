@@ -52,9 +52,9 @@
 
       if ( INFO == 0 ) {
          if ( UPPER ) {
-            NB = ILAENV( 1, 'DORGQL', ' ', N-1, N-1, N-1, -1 );
+            NB = ilaenv( 1, 'DORGQL', ' ', N-1, N-1, N-1, -1 );
          } else {
-            NB = ILAENV( 1, 'DORGQR', ' ', N-1, N-1, N-1, -1 );
+            NB = ilaenv( 1, 'DORGQR', ' ', N-1, N-1, N-1, -1 );
          }
          LWKOPT = max( 1, N-1 )*NB;
          WORK[1] = LWKOPT;

@@ -56,7 +56,7 @@
       SOMEV = lsame( HOWMNY, 'S' );
 
       INFO = 0;
-      NB = ILAENV( 1, 'DTREVC', SIDE // HOWMNY, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'DTREVC', SIDE + HOWMNY, N, -1, -1, -1 );
       MAXWRK = max( 1, N + 2*N*NB );
       WORK[1] = MAXWRK;
       LQUERY = ( LWORK == -1 );
@@ -135,9 +135,9 @@
 
       // Set the constants to control overflow.
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       SMLNUM = UNFL*( N / ULP );
       BIGNUM = ( ONE-ULP ) / SMLNUM;
 
@@ -628,7 +628,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+IV*N] = WORK( J+IV*N ) - DDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 );
+                     WORK[J+IV*N] = WORK( J+IV*N ) - ddot( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 );
 
                      // Solve [ T(J,J) - WR ]**T * X = WORK
 
@@ -656,9 +656,9 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+IV*N] = WORK( J+IV*N ) - DDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 );
+                     WORK[J+IV*N] = WORK( J+IV*N ) - ddot( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 );
 
-                     WORK[J+1+IV*N] = WORK( J+1+IV*N ) - DDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+IV*N ), 1 );
+                     WORK[J+1+IV*N] = WORK( J+1+IV*N ) - ddot( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+IV*N ), 1 );
 
                      // Solve
                      // [ T(J,J)-WR   T(J,J+1)      ]**T * X = SCALE*( WORK1 )
@@ -773,7 +773,7 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J+(IV  )*N] = WORK( J+(IV)*N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 )                      WORK( J+(IV+1)*N ) = WORK( J+(IV+1)*N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 );
+                     WORK[J+(IV  )*N] = WORK( J+(IV)*N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 )                      WORK( J+(IV+1)*N ) = WORK( J+(IV+1)*N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 );
 
                      // Solve [ T(J,J)-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
 
@@ -806,13 +806,13 @@
                         VCRIT = BIGNUM;
                      }
 
-                     WORK[J  +(IV  )*N] = WORK( J+(IV)*N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 );
+                     WORK[J  +(IV  )*N] = WORK( J+(IV)*N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 );
 
-                     WORK[J  +(IV+1)*N] = WORK( J+(IV+1)*N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 );
+                     WORK[J  +(IV+1)*N] = WORK( J+(IV+1)*N ) - ddot( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 );
 
-                     WORK[J+1+(IV  )*N] = WORK( J+1+(IV)*N ) - DDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV)*N ), 1 );
+                     WORK[J+1+(IV  )*N] = WORK( J+1+(IV)*N ) - ddot( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV)*N ), 1 );
 
-                     WORK[J+1+(IV+1)*N] = WORK( J+1+(IV+1)*N ) - DDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV+1)*N ), 1 );
+                     WORK[J+1+(IV+1)*N] = WORK( J+1+(IV+1)*N ) - ddot( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV+1)*N ), 1 );
 
                      // Solve 2-by-2 complex linear equation
                      // [ (T(j,j)   T(j,j+1)  )**T - (wr-i*wi)*I ]*X = SCALE*B

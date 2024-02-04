@@ -88,7 +88,7 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = N + N*ilaenv( 1, 'SGEHRD', ' ', N, 1, N, 0 );
 
             if ( WANTVL ) {
                strevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
@@ -118,7 +118,7 @@
                MINWRK = 3*N;
                if( ( !WNTSNN ) && ( !WNTSNE ) ) MINWRK = max( MINWRK, N*N + 6*N );
                MAXWRK = max( MAXWRK, HSWORK );
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( !WNTSNN ) && ( !WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 6*N );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( !WNTSNN ) && ( !WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 6*N );
                MAXWRK = max( MAXWRK, 3*N );
             }
             MAXWRK = max( MAXWRK, MINWRK );

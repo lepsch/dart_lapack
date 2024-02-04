@@ -37,10 +37,10 @@
       if ( SELOPT == 0 ) {
          DSLECT = ( ZR < ZERO );
       } else {
-         RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) );
+         RMIN = dlapy2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) );
          DSLECT = SELVAL( 1 );
          for (I = 2; I <= SELDIM; I++) { // 10
-            X = DLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) );
+            X = dlapy2( ZR-SELWR( I ), ZI-SELWI( I ) );
             if ( X <= RMIN ) {
                RMIN = X;
                DSLECT = SELVAL( I );

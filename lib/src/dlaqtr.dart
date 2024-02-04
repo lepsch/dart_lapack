@@ -51,8 +51,8 @@
 
       // Set constants to control overflow
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       XNORM = DLANGE( 'M', N, N, T, LDT, D );
@@ -228,7 +228,7 @@
                      }
                   }
 
-                  X[J1] = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 );
+                  X[J1] = X( J1 ) - ddot( J1-1, T( 1, J1 ), 1, X, 1 );
 
                   XJ = ( X( J1 ) ).abs();
                   TJJ = ( T( J1, J1 ) ).abs();
@@ -267,7 +267,7 @@
                      }
                   }
 
-                  D[1, 1] = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - DDOT( J1-1, T( 1, J2 ), 1, X, 1 );
+                  D[1, 1] = X( J1 ) - ddot( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - ddot( J1-1, T( 1, J2 ), 1, X, 1 );
 
                   dlaln2( true , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
@@ -446,8 +446,8 @@
                      }
                   }
 
-                  X[J1] = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 );
-                  X[N+J1] = X( N+J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 );
+                  X[J1] = X( J1 ) - ddot( J1-1, T( 1, J1 ), 1, X, 1 );
+                  X[N+J1] = X( N+J1 ) - ddot( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 );
                   if ( J1 > 1 ) {
                      X[J1] = X( J1 ) - B( J1 )*X( N+1 );
                      X[N+J1] = X( N+J1 ) + B( J1 )*X( 1 );
@@ -498,7 +498,7 @@
                      }
                   }
 
-                  D[1, 1] = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - DDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - DDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
+                  D[1, 1] = X( J1 ) - ddot( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - ddot( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - ddot( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - ddot( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
                   D[1, 1] = D( 1, 1 ) - B( J1 )*X( N+1 );
                   D[2, 1] = D( 2, 1 ) - B( J2 )*X( N+1 );
                   D[1, 2] = D( 1, 2 ) + B( J1 )*X( 1 );

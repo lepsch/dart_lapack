@@ -111,7 +111,7 @@
                   TEMP = Y( K );
                }
                AK = A( K );
-               PERT = SIGN( TOL, AK );
+               PERT = sign( TOL, AK );
                } // 40
                ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {
@@ -174,7 +174,7 @@
                   TEMP = Y( K );
                }
                AK = A( K );
-               PERT = SIGN( TOL, AK );
+               PERT = sign( TOL, AK );
                } // 70
                ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {

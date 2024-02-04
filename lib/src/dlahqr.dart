@@ -65,9 +65,9 @@
 
       // Set machine-dependent constants for the stopping criterion.
 
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = ONE / SAFMIN;
-      ULP = DLAMCH( 'PRECISION' );
+      ULP = dlamch( 'PRECISION' );
       SMLNUM = SAFMIN*( NH.toDouble() / ULP );
 
       // I1 and I2 are the indices of the first row and last column of H

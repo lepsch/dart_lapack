@@ -39,7 +39,7 @@
       }
 
       // Get machine constants
-      EPS = DLAMCH( 'P' );
+      EPS = dlamch( 'P' );
 
       TNORM = max( ( GL ).abs(), ( GU ).abs() );
       RTOLI = RELTOL;

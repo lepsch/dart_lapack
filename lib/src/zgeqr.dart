@@ -50,8 +50,8 @@
       // Determine the block size
 
       if ( min( M, N ) > 0 ) {
-        MB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 1, -1 );
-        NB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 2, -1 );
+        MB = ilaenv( 1, 'ZGEQR ', ' ', M, N, 1, -1 );
+        NB = ilaenv( 1, 'ZGEQR ', ' ', M, N, 2, -1 );
       } else {
         MB = M;
         NB = 1;

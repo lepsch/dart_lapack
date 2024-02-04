@@ -42,8 +42,8 @@
          return;
       }
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      UNFL = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       OVFL = ONE / UNFL;
       SMLNUM = UNFL*N / EPS;
 

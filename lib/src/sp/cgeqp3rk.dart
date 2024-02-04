@@ -93,7 +93,7 @@
 
             // Assign to NB optimal block size.
 
-            NB = ILAENV( INB, 'CGEQP3RK', ' ', M, N, -1, -1 );
+            NB = ilaenv( INB, 'CGEQP3RK', ' ', M, N, -1, -1 );
 
             // A formula for the optimal workspace size in case of using
             // both unblocked BLAS 2 in CLAQP2RK and blocked BLAS 3 code
@@ -300,7 +300,7 @@
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
-         NX = max( 0, ILAENV( IXOVER, 'CGEQP3RK', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( IXOVER, 'CGEQP3RK', ' ', M, N, -1, -1 ) );
 
          if ( NX < MINMN ) {
 
@@ -313,7 +313,7 @@
                // Reduce NB and determine the minimum value of NB.
 
                NB = ( LWORK-2*N ) / ( N+1 );
-               NBMIN = max( 2, ILAENV( INBMIN, 'CGEQP3RK', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ilaenv( INBMIN, 'CGEQP3RK', ' ', M, N, -1, -1 ) );
 
             }
          }

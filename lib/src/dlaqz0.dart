@@ -107,19 +107,19 @@
       JBCMPZ[2:2] = WANTQ;
       JBCMPZ[3:3] = WANTZ;
 
-      NMIN = ILAENV( 12, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
+      NMIN = ilaenv( 12, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
 
-      NWR = ILAENV( 13, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
+      NWR = ilaenv( 13, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
       NWR = max( 2, NWR );
       NWR = min( IHI-ILO+1, ( N-1 ) / 3, NWR );
 
-      NIBBLE = ILAENV( 14, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
+      NIBBLE = ilaenv( 14, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
 
-      NSR = ILAENV( 15, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
+      NSR = ilaenv( 15, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
       NSR = min( NSR, ( N+6 ) / 9, IHI-ILO );
       NSR = max( 2, NSR-(NSR % 2) );
 
-      RCOST = ILAENV( 17, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
+      RCOST = ilaenv( 17, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
       ITEMP1 = INT( NSR/sqrt( 1+2*NSR/( RCOST.toDouble()/100*N ) ) );
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4;
       NBR = NSR+ITEMP1;
@@ -159,9 +159,9 @@
       if (IWANTZ == 3) dlaset( 'FULL', N, N, ZERO, ONE, Z, LDZ );
 
       // Get machine constants
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
-      ULP = DLAMCH( 'PRECISION' );
+      ULP = dlamch( 'PRECISION' );
       SMLNUM = SAFMIN*( N.toDouble()/ULP );
 
       BNORM = DLANHS( 'F', IHI-ILO+1, B( ILO, ILO ), LDB, WORK );

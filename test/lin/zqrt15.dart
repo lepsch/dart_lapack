@@ -47,9 +47,9 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       SMLNUM = ( SMLNUM / EPS ) / EPS;
       BIGNUM = ONE / SMLNUM;
 

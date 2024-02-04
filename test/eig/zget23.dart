@@ -94,8 +94,8 @@
 
       // More Important constants
 
-      ULP = DLAMCH( 'Precision' );
-      SMLNUM = DLAMCH( 'S' );
+      ULP = dlamch( 'Precision' );
+      SMLNUM = dlamch( 'S' );
       ULPINV = ONE / ULP;
 
       // Compute eigenvalues and eigenvectors, and test them

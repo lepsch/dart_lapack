@@ -117,8 +117,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       KS = 0;
@@ -156,19 +156,19 @@
 
                // Real eigenvalue.
 
-               PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
-               RNRM = DNRM2( N, VR( 1, KS ), 1 );
-               LNRM = DNRM2( N, VL( 1, KS ), 1 );
+               PROD = ddot( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
+               RNRM = dnrm2( N, VR( 1, KS ), 1 );
+               LNRM = dnrm2( N, VL( 1, KS ), 1 );
                S[KS] = ( PROD ).abs() / ( RNRM*LNRM );
             } else {
 
                // Complex eigenvalue.
 
-               PROD1 = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
-               PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 );
-               PROD2 = DDOT( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 );
-               PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) );
-               COND = DLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM );
+               PROD1 = ddot( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
+               PROD1 = PROD1 + ddot( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 );
+               PROD2 = ddot( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 );
+               PROD2 = PROD2 - ddot( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = dlapy2( dnrm2( N, VR( 1, KS ), 1 ), dnrm2( N, VR( 1, KS+1 ), 1 ) )                LNRM = dlapy2( dnrm2( N, VL( 1, KS ), 1 ), dnrm2( N, VL( 1, KS+1 ), 1 ) );
+               COND = dlapy2( PROD1, PROD2 ) / ( RNRM*LNRM );
                S[KS] = COND;
                S[KS+1] = COND;
             }
@@ -217,7 +217,7 @@
                   // with negative imaginary  part.
 
                   MU = sqrt( ( WORK( 1, 2 ) ) ).abs()* sqrt( ( WORK( 2, 1 ) ) ).abs();
-                  DELTA = DLAPY2( MU, WORK( 2, 1 ) );
+                  DELTA = dlapy2( MU, WORK( 2, 1 ) );
                   CS = MU / DELTA;
                   SN = -WORK( 2, 1 ) / DELTA;
 

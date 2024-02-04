@@ -337,7 +337,7 @@
 
                      // Check the error code from CGESVX.
 
-                     if (INFO != IZERO) alaerh( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'CGESVX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from CGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
@@ -482,7 +482,7 @@
 
                      if (INFO == N+1) GOTO 50;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'CGESVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'CGESVXX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 50;
                      }
 

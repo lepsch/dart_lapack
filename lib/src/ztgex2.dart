@@ -62,8 +62,8 @@
 
       // Compute the threshold for testing the acceptance of swapping.
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       SCALE = CZERO.toDouble();
       SUM = CONE.toDouble();
       zlacpy('Full', M, M, S, LDST, WORK, M );

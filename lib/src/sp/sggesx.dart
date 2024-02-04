@@ -119,9 +119,9 @@
       if ( INFO == 0 ) {
          if ( N > 0) {
             MINWRK = max( 8*N, 6*N + 16 );
-            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
+            MAXWRK = MINWRK - N + N*ilaenv( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = max( MAXWRK, MINWRK - N + N*ilaenv( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
             if ( ILVSL ) {
-               MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, MINWRK - N + N*ilaenv( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
             }
             LWRK = MAXWRK;
             if (IJOB >= 1) LWRK = max( LWRK, N*N/2 );

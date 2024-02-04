@@ -56,7 +56,7 @@
             LWKOPT = 1;
          } else {
             IWS = N + 1;
-            NB = ILAENV( INB, 'ZGEQRF', ' ', M, N, -1, -1 );
+            NB = ilaenv( INB, 'ZGEQRF', ' ', M, N, -1, -1 );
             LWKOPT = ( N + 1 )*NB;
          }
          WORK[1] = DCMPLX( LWKOPT );
@@ -123,7 +123,7 @@
 
          // Determine the block size.
 
-         NB = ILAENV( INB, 'ZGEQRF', ' ', SM, SN, -1, -1 );
+         NB = ilaenv( INB, 'ZGEQRF', ' ', SM, SN, -1, -1 );
          NBMIN = 2;
          NX = 0;
 
@@ -131,7 +131,7 @@
 
             // Determine when to cross over from blocked to unblocked code.
 
-            NX = max( 0, ILAENV( IXOVER, 'ZGEQRF', ' ', SM, SN, -1, -1 ) );
+            NX = max( 0, ilaenv( IXOVER, 'ZGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
             if ( NX < SMINMN ) {
@@ -146,7 +146,7 @@
                   // determine the minimum value of NB.
 
                   NB = LWORK / ( SN+1 );
-                  NBMIN = max( 2, ILAENV( INBMIN, 'ZGEQRF', ' ', SM, SN, -1, -1 ) );
+                  NBMIN = max( 2, ilaenv( INBMIN, 'ZGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
                }

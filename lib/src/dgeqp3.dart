@@ -55,7 +55,7 @@
             LWKOPT = 1;
          } else {
             IWS = 3*N + 1;
-            NB = ILAENV( INB, 'DGEQRF', ' ', M, N, -1, -1 );
+            NB = ilaenv( INB, 'DGEQRF', ' ', M, N, -1, -1 );
             LWKOPT = 2*N + ( N + 1 )*NB;
          }
          WORK[1] = LWKOPT;
@@ -121,7 +121,7 @@
 
          // Determine the block size.
 
-         NB = ILAENV( INB, 'DGEQRF', ' ', SM, SN, -1, -1 );
+         NB = ilaenv( INB, 'DGEQRF', ' ', SM, SN, -1, -1 );
          NBMIN = 2;
          NX = 0;
 
@@ -129,7 +129,7 @@
 
             // Determine when to cross over from blocked to unblocked code.
 
-            NX = max( 0, ILAENV( IXOVER, 'DGEQRF', ' ', SM, SN, -1, -1 ) );
+            NX = max( 0, ilaenv( IXOVER, 'DGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
             if ( NX < SMINMN ) {
@@ -144,7 +144,7 @@
                   // determine the minimum value of NB.
 
                   NB = ( LWORK-2*SN ) / ( SN+1 );
-                  NBMIN = max( 2, ILAENV( INBMIN, 'DGEQRF', ' ', SM, SN, -1, -1 ) );
+                  NBMIN = max( 2, ilaenv( INBMIN, 'DGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
                }
@@ -155,7 +155,7 @@
          // store the exact column norms.
 
          for (J = NFXD + 1; J <= N; J++) { // 20
-            WORK[J] = DNRM2( SM, A( NFXD+1, J ), 1 );
+            WORK[J] = dnrm2( SM, A( NFXD+1, J ), 1 );
             WORK[N+J] = WORK( J );
          } // 20
 

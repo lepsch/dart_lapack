@@ -704,7 +704,7 @@
                 // [[The optimal ratio N/NR for using QRF instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
-                // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = max( OPTRATIO, 2 )
                 OPTRATIO = 2;
                 if ( OPTRATIO*NR > N ) {
@@ -810,7 +810,7 @@
                 // [[The optimal ratio N/NR for using LQ instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
-                // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = max( OPTRATIO, 2 )
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {

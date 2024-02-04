@@ -42,7 +42,7 @@
       // ..
       // .. Executable Statements ..
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMIN = dlamch( 'Safe minimum' );
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
             X[I] = DCMPLX( ONE / N.toDouble() );

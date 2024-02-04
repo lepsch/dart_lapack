@@ -67,8 +67,8 @@
          // generate random reflection
 
          dlarnv(3, ISEED, N-I+1, WORK );
-         WN = DNRM2( N-I+1, WORK, 1 );
-         WA = SIGN( WN, WORK( 1 ) );
+         WN = dnrm2( N-I+1, WORK, 1 );
+         WA = sign( WN, WORK( 1 ) );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {
@@ -87,7 +87,7 @@
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
-         ALPHA = -HALF*TAU*DDOT( N-I+1, WORK( N+1 ), 1, WORK, 1 );
+         ALPHA = -HALF*TAU*ddot( N-I+1, WORK( N+1 ), 1, WORK, 1 );
          daxpy(N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 );
 
          // apply the transformation as a rank-2 update to A(i:n,i:n)
@@ -101,8 +101,8 @@
 
          // generate reflection to annihilate A(k+i+1:n,i)
 
-         WN = DNRM2( N-K-I+1, A( K+I, I ), 1 );
-         WA = SIGN( WN, A( K+I, I ) );
+         WN = dnrm2( N-K-I+1, A( K+I, I ), 1 );
+         WA = sign( WN, A( K+I, I ) );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {
@@ -125,7 +125,7 @@
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
-         ALPHA = -HALF*TAU*DDOT( N-K-I+1, WORK, 1, A( K+I, I ), 1 );
+         ALPHA = -HALF*TAU*ddot( N-K-I+1, WORK, 1, A( K+I, I ), 1 );
          daxpy(N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 );
 
          // apply symmetric rank-2 update to A(k+i:n,k+i:n)

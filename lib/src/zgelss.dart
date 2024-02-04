@@ -74,7 +74,7 @@
          MAXWRK = 1;
          if ( MINMN > 0 ) {
             MM = M;
-            MNTHR = ILAENV( 6, 'ZGELSS', ' ', M, N, NRHS, -1 );
+            MNTHR = ilaenv( 6, 'ZGELSS', ' ', M, N, NRHS, -1 );
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
@@ -87,7 +87,7 @@
                zunmqr('L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_ZUNMQR = INT( DUM(1) );
                MM = N;
-               MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, N + NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, N + NRHS*ilaenv( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
             }
             if ( M >= N ) {
 
@@ -184,8 +184,8 @@
 
       // Get machine parameters
 
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
       SMLNUM = SFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
 

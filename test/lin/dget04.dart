@@ -41,7 +41,7 @@
 
       // Exit with RESID = 1/EPS if RCOND is invalid.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       if ( RCOND < ZERO ) {
          RESID = 1.0 / EPS;
          return;

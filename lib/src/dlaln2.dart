@@ -52,7 +52,7 @@
 
       // Compute BIGNUM
 
-      SMLNUM = TWO*DLAMCH( 'Safe minimum' );
+      SMLNUM = TWO*dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
       SMINI = max( SMIN, SMLNUM );
 

@@ -49,8 +49,8 @@
       NINFO = 0;
       KNT = 0;
       RMAX = ZERO;
-      EPS = DLAMCH( 'E' );
-      SAFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'E' );
+      SAFMIN = dlamch( 'S' );
 
       } // 10
 

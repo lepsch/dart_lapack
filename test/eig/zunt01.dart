@@ -52,7 +52,7 @@
 
       if (M <= 0 || N <= 0) return;
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       if ( M < N || ( M == N && lsame( ROWCOL, 'R' ) ) ) {
          TRANSU = 'N';
          K = N;

@@ -70,7 +70,7 @@
                LIWMIN = 1;
                LWMIN = 2*N + 1;
             }
-            LOPT = max( LWMIN, 2*N + N*ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 ) );
+            LOPT = max( LWMIN, 2*N + N*ilaenv( 1, 'SSYTRD', UPLO, N, -1, -1, -1 ) );
             LIOPT = LIWMIN;
          }
          WORK[1] = SROUNDUP_LWORK( LOPT );

@@ -46,12 +46,12 @@
          // FIRST = false;
       // END IF
       if ( G == ZERO ) {
-         CS = SIGN( ONE, F );
+         CS = sign( ONE, F );
          SN = ZERO;
          R = ( F ).abs();
       } else if ( F == ZERO ) {
          CS = ZERO;
-         SN = SIGN( ONE, G );
+         SN = sign( ONE, G );
          R = ( G ).abs();
       } else {
          F1 = F;

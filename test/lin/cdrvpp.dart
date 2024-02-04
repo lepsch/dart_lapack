@@ -326,7 +326,7 @@
                      // Check the error code from CPPSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'CPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'CPPSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

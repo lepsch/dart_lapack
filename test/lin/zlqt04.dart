@@ -42,7 +42,7 @@
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       K = min(M,N);
       LL = max(M,N);
       LWORK = max(2,LL)*max(2,LL)*NB;

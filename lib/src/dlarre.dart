@@ -69,8 +69,8 @@
       }
 
       // Get machine constants
-      SAFMIN = DLAMCH( 'S' );
-      EPS = DLAMCH( 'P' );
+      SAFMIN = dlamch( 'S' );
+      EPS = dlamch( 'P' );
 
       // Set parameters
       RTL = sqrt(EPS);

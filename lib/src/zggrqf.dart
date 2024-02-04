@@ -32,9 +32,9 @@
       // Test the input parameters
 
       INFO = 0;
-      NB1 = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 );
-      NB2 = ILAENV( 1, 'ZGEQRF', ' ', P, N, -1, -1 );
-      NB3 = ILAENV( 1, 'ZUNMRQ', ' ', M, N, P, -1 );
+      NB1 = ilaenv( 1, 'ZGERQF', ' ', M, N, -1, -1 );
+      NB2 = ilaenv( 1, 'ZGEQRF', ' ', P, N, -1, -1 );
+      NB3 = ilaenv( 1, 'ZUNMRQ', ' ', M, N, P, -1 );
       NB = max( NB1, NB2, NB3 );
       LWKOPT = max( 1, max( N, M, P )*NB );
       WORK[1] = LWKOPT;

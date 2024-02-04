@@ -28,9 +28,9 @@ bool clctes(Z, D) {
     CLCTES = (REAL(Z) < ZERO);
   } else {
     if (REAL(Z) == ZERO || REAL(D) == ZERO) {
-      CLCTES = (SIGN(ONE, AIMAG(Z)) != SIGN(ONE, AIMAG(D)));
+      CLCTES = (sign(ONE, AIMAG(Z)) != sign(ONE, AIMAG(D)));
     } else if (AIMAG(Z) == ZERO || AIMAG(D) == ZERO) {
-      CLCTES = (SIGN(ONE, REAL(Z)) != SIGN(ONE, double(D)));
+      CLCTES = (sign(ONE, REAL(Z)) != sign(ONE, double(D)));
     } else {
       ZMAX = max((double(Z)).abs(), (AIMAG(Z))).abs();
       CLCTES =

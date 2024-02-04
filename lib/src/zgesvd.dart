@@ -92,7 +92,7 @@
 
             // Space needed for ZBDSQR is BDSPAC = 5*N
 
-            MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'ZGESVD', JOBU + JOBVT, M, N, 0, 0 );
             // Compute space needed for ZGEQRF
             zgeqrf(M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
             LWORK_ZGEQRF = INT( CDUM(1) );
@@ -234,7 +234,7 @@
 
             // Space needed for ZBDSQR is BDSPAC = 5*M
 
-            MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'ZGESVD', JOBU + JOBVT, M, N, 0, 0 );
             // Compute space needed for ZGELQF
             zgelqf(M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
             LWORK_ZGELQF = INT( CDUM(1) );
@@ -397,8 +397,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = sqrt( DLAMCH( 'S' ) ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = sqrt( dlamch( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

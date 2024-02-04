@@ -33,8 +33,8 @@
 
       PATH[1: 1] = 'double          ';
       PATH[2: 3] = 'EC';
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
 
       // Print header information
 

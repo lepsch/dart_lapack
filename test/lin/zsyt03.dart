@@ -50,7 +50,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZLANSY( '1', UPLO, N, A, LDA, RWORK );
       AINVNM = ZLANSY( '1', UPLO, N, AINV, LDAINV, RWORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {

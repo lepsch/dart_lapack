@@ -59,8 +59,8 @@
             // Look-ahead for L-part RHS(1:N-1) = + or -1, SPLUS and
             // SMIN computed more efficiently than in BSOLVE [1].
 
-            SPLUS = SPLUS + DDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 );
-            SMINU = DDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 );
+            SPLUS = SPLUS + ddot( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 );
+            SMINU = ddot( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 );
             SPLUS = SPLUS*RHS( J );
             if ( SPLUS > SMINU ) {
                RHS[J] = BP;
@@ -126,7 +126,7 @@
          // Compute RHS
 
          dlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-         TEMP = ONE / sqrt( DDOT( N, XM, 1, XM, 1 ) );
+         TEMP = ONE / sqrt( ddot( N, XM, 1, XM, 1 ) );
          dscal(N, TEMP, XM, 1 );
          dcopy(N, XM, 1, XP, 1 );
          daxpy(N, ONE, RHS, 1, XP, 1 );

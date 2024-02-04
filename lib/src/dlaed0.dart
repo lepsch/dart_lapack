@@ -58,7 +58,7 @@
 
       if (N == 0) return;
 
-      SMLSIZ = ILAENV( 9, 'DLAED0', ' ', 0, 0, 0, 0 );
+      SMLSIZ = ilaenv( 9, 'DLAED0', ' ', 0, 0, 0, 0 );
 
       // Determine the size and placement of the submatrices, and save in
       // the leading elements of IWORK.

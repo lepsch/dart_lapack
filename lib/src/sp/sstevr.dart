@@ -43,7 +43,7 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'SSTEVR', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'SSTEVR', 'N', 1, 2, 3, 4 );
 
       WANTZ = lsame( JOBZ, 'V' );
       ALLEIG = lsame( RANGE, 'A' );

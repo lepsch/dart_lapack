@@ -33,7 +33,7 @@
 
       if( ( N0-I0-1 ) <= 0 ) return;
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMIN = dlamch( 'Safe minimum' );
       J4 = 4*I0 + PP - 3;
       EMIN = Z( J4+4 );
       D = Z( J4 );

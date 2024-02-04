@@ -48,7 +48,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;

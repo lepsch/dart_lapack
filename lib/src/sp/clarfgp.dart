@@ -68,7 +68,7 @@
 
          // general case
 
-         BETA = SIGN( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+         BETA = sign( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'E' );
          BIGNUM = ONE / SMLNUM;
 
@@ -89,7 +89,7 @@
 
             XNORM = SCNRM2( N-1, X, INCX );
             ALPHA = CMPLX( ALPHR, ALPHI );
-            BETA = SIGN( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+            BETA = sign( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          }
          SAVEALPHA = ALPHA;
          ALPHA = ALPHA + BETA;

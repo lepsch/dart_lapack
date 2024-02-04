@@ -71,7 +71,7 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 2*NMAX*( NMAX+1 );
-         MAXWRK = NMAX*( 1+ILAENV( 1, 'ZGEQRF', ' ', NMAX, 1, NMAX, 0 ) );
+         MAXWRK = NMAX*( 1+ilaenv( 1, 'ZGEQRF', ' ', NMAX, 1, NMAX, 0 ) );
          MAXWRK = max( MAXWRK, 2*NMAX*( NMAX+1 ) );
          WORK[1] = MAXWRK;
       }
@@ -84,7 +84,7 @@
       }
 
       N = 5;
-      ULP = DLAMCH( 'P' );
+      ULP = dlamch( 'P' );
       ULPINV = ONE / ULP;
       THRSH2 = TEN*THRESH;
       NERRS = 0;

@@ -342,7 +342,7 @@
 
             } else {
 
-               if ( SIGN( ONE, B( K, K ) ) < ZERO ) {
+               if ( sign( ONE, B( K, K ) ) < ZERO ) {
 
                   // If B(K,K) is negative, make it positive
 

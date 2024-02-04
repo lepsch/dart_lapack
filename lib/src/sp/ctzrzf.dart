@@ -54,7 +54,7 @@
 
             // Determine the block size.
 
-            NB = ILAENV( 1, 'CGERQF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'CGERQF', ' ', M, N, -1, -1 );
             LWKOPT = M*NB;
             LWKMIN = max( 1, M );
          }
@@ -90,7 +90,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = max( 0, ILAENV( 3, 'CGERQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( 3, 'CGERQF', ' ', M, N, -1, -1 ) );
          if ( NX < M ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -103,7 +103,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = max( 2, ILAENV( 2, 'CGERQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'CGERQF', ' ', M, N, -1, -1 ) );
             }
          }
       }

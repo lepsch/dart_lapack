@@ -92,7 +92,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
 
       CFROMC = CFROM;

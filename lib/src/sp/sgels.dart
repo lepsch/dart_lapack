@@ -69,18 +69,18 @@
          if( lsame( TRANS, 'N' ) ) TPSD = false;
 
          if ( M >= N ) {
-            NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'SGEQRF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = max( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) );
+               NB = max( NB, ilaenv( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) );
             } else {
-               NB = max( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
+               NB = max( NB, ilaenv( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
             }
          } else {
-            NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'SGELQF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = max( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
+               NB = max( NB, ilaenv( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
             } else {
-               NB = max( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) );
+               NB = max( NB, ilaenv( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) );
             }
          }
 

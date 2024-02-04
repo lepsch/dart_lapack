@@ -53,7 +53,7 @@
 
       // 1) Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZLANSY( '1', UPLO, N, A, LDA, RWORK );
 
       // 2) Initialize C to the identity matrix.

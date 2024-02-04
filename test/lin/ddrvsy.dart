@@ -336,7 +336,7 @@
                   // Check the error code from DSYSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'DSYSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'DSYSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

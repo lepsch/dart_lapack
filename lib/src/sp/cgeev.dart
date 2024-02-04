@@ -81,16 +81,16 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = N + N*ilaenv( 1, 'CGEHRD', ' ', N, 1, N, 0 );
             MINWRK = 2*N;
             if ( WANTVL ) {
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
                ctrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + LWORK_TREVC );
                chseqr('S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
                ctrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + LWORK_TREVC );

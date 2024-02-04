@@ -102,8 +102,8 @@
 
       if (NSIZES == 0 || NTYPES == 0) return;
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SAFMIN = SAFMIN / ULP;
       SAFMAX = ONE / SAFMIN;
       ULPINV = ONE / ULP;
@@ -212,18 +212,18 @@
                         V[JR, JC] = DLARND( 3, ISEED );
                      } // 40
                      dlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, U( JC, JC ) );
+                     WORK[2*N+JC] = sign( ONE, U( JC, JC ) );
                      U[JC, JC] = ONE;
                      dlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, V( JC, JC ) );
+                     WORK[3*N+JC] = sign( ONE, V( JC, JC ) );
                      V[JC, JC] = ONE;
                   } // 50
                   U[N, N] = ONE;
                   WORK[N] = ZERO;
-                  WORK[3*N] = SIGN( ONE, DLARND( 2, ISEED ) );
+                  WORK[3*N] = sign( ONE, DLARND( 2, ISEED ) );
                   V[N, N] = ONE;
                   WORK[2*N] = ZERO;
-                  WORK[4*N] = SIGN( ONE, DLARND( 2, ISEED ) );
+                  WORK[4*N] = sign( ONE, DLARND( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 

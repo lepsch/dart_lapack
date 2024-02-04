@@ -38,8 +38,8 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
       ANORM = max( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
       BNORM = max( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 

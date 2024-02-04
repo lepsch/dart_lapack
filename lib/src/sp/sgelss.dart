@@ -70,7 +70,7 @@
          MAXWRK = 1;
          if ( MINMN > 0 ) {
             MM = M;
-            MNTHR = ILAENV( 6, 'SGELSS', ' ', M, N, NRHS, -1 );
+            MNTHR = ilaenv( 6, 'SGELSS', ' ', M, N, NRHS, -1 );
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
@@ -135,7 +135,7 @@
                   sormlq('L', 'T', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_SORMLQ = INT( DUM(1) );
                   // Compute total workspace needed
-                  MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
+                  MAXWRK = M + M*ilaenv( 1, 'SGELQF', ' ', M, N, -1, -1 );
                   MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SGEBRD );
                   MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SORMBR );
                   MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SORGBR );

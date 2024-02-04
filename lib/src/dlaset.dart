@@ -1,70 +1,53 @@
-      void dlaset(UPLO, M, N, ALPHA, BETA, A, LDA ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dlaset(
+  final String UPLO,
+  final int M,
+  final int N,
+  final double ALPHA,
+  final double BETA,
+  final Matrix<double> A,
+  final int LDA,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  int I, J;
 
-      // .. Scalar Arguments ..
-      String             UPLO;
-      int                LDA, M, N;
-      double             ALPHA, BETA;
-      // ..
-      // .. Array Arguments ..
-      double             A( LDA, * );
-      // ..
+  if (lsame(UPLO, 'U')) {
+    // Set the strictly upper triangular or trapezoidal part of the
+    // array to ALPHA.
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, J;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
-      // ..
-      // .. Executable Statements ..
-
-      if ( lsame( UPLO, 'U' ) ) {
-
-         // Set the strictly upper triangular or trapezoidal part of the
-         // array to ALPHA.
-
-         for (J = 2; J <= N; J++) { // 20
-            for (I = 1; I <= min( J-1, M ); I++) { // 10
-               A[I, J] = ALPHA;
-            } // 10
-         } // 20
-
-      } else if ( lsame( UPLO, 'L' ) ) {
-
-         // Set the strictly lower triangular or trapezoidal part of the
-         // array to ALPHA.
-
-         for (J = 1; J <= min( M, N ); J++) { // 40
-            for (I = J + 1; I <= M; I++) { // 30
-               A[I, J] = ALPHA;
-            } // 30
-         } // 40
-
-      } else {
-
-         // Set the leading m-by-n submatrix to ALPHA.
-
-         for (J = 1; J <= N; J++) { // 60
-            for (I = 1; I <= M; I++) { // 50
-               A[I, J] = ALPHA;
-            } // 50
-         } // 60
+    for (J = 2; J <= N; J++) {
+      for (I = 1; I <= min(J - 1, M); I++) {
+        A[I][J] = ALPHA;
       }
+    }
+  } else if (lsame(UPLO, 'L')) {
+    // Set the strictly lower triangular or trapezoidal part of the
+    // array to ALPHA.
 
-      // Set the first min(M,N) diagonal elements to BETA.
-
-      for (I = 1; I <= min( M, N ); I++) { // 70
-         A[I, I] = BETA;
-      } // 70
-
-      return;
+    for (J = 1; J <= min(M, N); J++) {
+      for (I = J + 1; I <= M; I++) {
+        A[I][J] = ALPHA;
       }
+    }
+  } else {
+    // Set the leading m-by-n submatrix to ALPHA.
+
+    for (J = 1; J <= N; J++) {
+      for (I = 1; I <= M; I++) {
+        A[I][J] = ALPHA;
+      }
+    }
+  }
+
+  // Set the first min(M,N) diagonal elements to BETA.
+
+  for (I = 1; I <= min(M, N); I++) {
+    A[I][I] = BETA;
+  }
+}

@@ -76,7 +76,7 @@
          GASMAL = true;
          if ( GA > FA ) {
             PMAX = 2;
-            if ( ( FA / GA ) < DLAMCH( 'EPS' ) ) {
+            if ( ( FA / GA ) < dlamch( 'EPS' ) ) {
 
                // Case of very large GA
 
@@ -142,9 +142,9 @@
                // Note that M is very tiny
 
                if ( L == ZERO ) {
-                  T = SIGN( TWO, FT )*SIGN( ONE, GT );
+                  T = sign( TWO, FT )*sign( ONE, GT );
                } else {
-                  T = GT / SIGN( D, FT ) + M / T;
+                  T = GT / sign( D, FT ) + M / T;
                }
             } else {
                T = ( M / ( S+T )+M / ( R+L ) )*( ONE+A );
@@ -170,10 +170,10 @@
 
       // Correct signs of SSMAX and SSMIN
 
-      if (PMAX == 1) TSIGN = SIGN( ONE, CSR )*SIGN( ONE, CSL )*SIGN( ONE, F );
-      if( PMAX == 2 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, CSL )*SIGN( ONE, G );
-      IF( PMAX == 3 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, SNL )*SIGN( ONE, H );
-      SSMAX = SIGN( SSMAX, TSIGN );
-      SSMIN = SIGN( SSMIN, TSIGN*SIGN( ONE, F )*SIGN( ONE, H ) );
+      if (PMAX == 1) TSIGN = sign( ONE, CSR )*sign( ONE, CSL )*sign( ONE, F );
+      if( PMAX == 2 ) TSIGN = sign( ONE, SNR )*sign( ONE, CSL )*sign( ONE, G );
+      IF( PMAX == 3 ) TSIGN = sign( ONE, SNR )*sign( ONE, SNL )*sign( ONE, H );
+      SSMAX = sign( SSMAX, TSIGN );
+      SSMIN = sign( SSMIN, TSIGN*sign( ONE, F )*sign( ONE, H ) );
       return;
       }

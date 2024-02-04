@@ -116,56 +116,56 @@
          MAXWRK = 1;
          if ( MINMN > 0 ) {
             if ( M >= N ) {
-               MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+               MNTHR = ilaenv( 6, 'SGESVD', JOBU + JOBVT, M, N, 0, 0 );
                if ( M >= MNTHR ) {
 
                   // Path 1 (M much larger than N)
 
-                  MAXWRK = N + N*ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, N*(N+5) + 2*N* ILAENV( 1, 'SGEBRD', ' ', N, N, -1, -1 ) );
+                  MAXWRK = N + N*ilaenv( 1, 'SGEQRF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, N*(N+5) + 2*N* ilaenv( 1, 'SGEBRD', ' ', N, N, -1, -1 ) );
                   if (WANTU) {
-                      MAXWRK = max(MAXWRK,N*(N*3+6)+N* ILAENV( 1, 'SORMQR', ' ', N, N, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,N*(N*3+6)+N* ilaenv( 1, 'SORMQR', ' ', N, N, -1, -1 ) );
                   }
                   if (WANTVT) {
-                      MAXWRK = max(MAXWRK,N*(N*3+6)+N* ILAENV( 1, 'SORMLQ', ' ', N, N, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,N*(N*3+6)+N* ilaenv( 1, 'SORMLQ', ' ', N, N, -1, -1 ) );
                   }
                   MINWRK = N*(N*3+20);
                } else {
 
                   // Path 2 (M at least N, but not much larger)
 
-                  MAXWRK = 4*N + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 );
+                  MAXWRK = 4*N + ( M+N )* ilaenv( 1, 'SGEBRD', ' ', M, N, -1, -1 );
                   if (WANTU) {
-                      MAXWRK = max(MAXWRK,N*(N*2+5)+N* ILAENV( 1, 'SORMQR', ' ', N, N, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,N*(N*2+5)+N* ilaenv( 1, 'SORMQR', ' ', N, N, -1, -1 ) );
                   }
                   if (WANTVT) {
-                      MAXWRK = max(MAXWRK,N*(N*2+5)+N* ILAENV( 1, 'SORMLQ', ' ', N, N, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,N*(N*2+5)+N* ilaenv( 1, 'SORMLQ', ' ', N, N, -1, -1 ) );
                   }
                   MINWRK = max(N*(N*2+19),4*N+M);
                }
             } else {
-               MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+               MNTHR = ilaenv( 6, 'SGESVD', JOBU + JOBVT, M, N, 0, 0 );
                if ( N >= MNTHR ) {
 
                   // Path 1t (N much larger than M)
 
-                  MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*(M+5) + 2*M* ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) );
+                  MAXWRK = M + M*ilaenv( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*(M+5) + 2*M* ilaenv( 1, 'SGEBRD', ' ', M, M, -1, -1 ) );
                   if (WANTU) {
-                      MAXWRK = max(MAXWRK,M*(M*3+6)+M* ILAENV( 1, 'SORMQR', ' ', M, M, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,M*(M*3+6)+M* ilaenv( 1, 'SORMQR', ' ', M, M, -1, -1 ) );
                   }
                   if (WANTVT) {
-                      MAXWRK = max(MAXWRK,M*(M*3+6)+M* ILAENV( 1, 'SORMLQ', ' ', M, M, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,M*(M*3+6)+M* ilaenv( 1, 'SORMLQ', ' ', M, M, -1, -1 ) );
                   }
                   MINWRK = M*(M*3+20);
                } else {
 
                   // Path 2t (N at least M, but not much larger)
 
-                  MAXWRK = 4*M + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 );
+                  MAXWRK = 4*M + ( M+N )* ilaenv( 1, 'SGEBRD', ' ', M, N, -1, -1 );
                   if (WANTU) {
-                      MAXWRK = max(MAXWRK,M*(M*2+5)+M* ILAENV( 1, 'SORMQR', ' ', M, M, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,M*(M*2+5)+M* ilaenv( 1, 'SORMQR', ' ', M, M, -1, -1 ) );
                   }
                   if (WANTVT) {
-                      MAXWRK = max(MAXWRK,M*(M*2+5)+M* ILAENV( 1, 'SORMLQ', ' ', M, M, -1, -1 ) );
+                      MAXWRK = max(MAXWRK,M*(M*2+5)+M* ilaenv( 1, 'SORMLQ', ' ', M, M, -1, -1 ) );
                   }
                   MINWRK = max(M*(M*2+19),4*M+N);
                }

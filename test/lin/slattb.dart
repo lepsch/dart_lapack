@@ -132,14 +132,14 @@
 
          if ( KD == 1 ) {
             if ( UPPER ) {
-               AB[1, 2] = SIGN( TNORM, SLARND( 2, ISEED ) );
+               AB[1, 2] = sign( TNORM, SLARND( 2, ISEED ) );
                LENJ = ( N-3 ) / 2;
                slarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 90
                   AB[1, 2*( J+1 )] = TNORM*WORK( J );
                } // 90
             } else {
-               AB[2, 1] = SIGN( TNORM, SLARND( 2, ISEED ) );
+               AB[2, 1] = sign( TNORM, SLARND( 2, ISEED ) );
                LENJ = ( N-3 ) / 2;
                slarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 100
@@ -164,9 +164,9 @@
 
          // The two offdiagonals of T are stored in WORK.
 
-            STAR1 = SIGN( TNORM, SLARND( 2, ISEED ) );
+            STAR1 = sign( TNORM, SLARND( 2, ISEED ) );
             SFAC = sqrt( TNORM );
-            PLUS1 = SIGN( SFAC, SLARND( 2, ISEED ) );
+            PLUS1 = sign( SFAC, SLARND( 2, ISEED ) );
             for (J = 1; J <= N; J += 2) { // 110
                PLUS2 = STAR1 / PLUS1;
                WORK[J] = PLUS1;
@@ -213,13 +213,13 @@
             for (J = 1; J <= N; J++) { // 120
                LENJ = min( J, KD+1 );
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               AB[KD+1, J] = SIGN( TWO, AB( KD+1, J ) );
+               AB[KD+1, J] = sign( TWO, AB( KD+1, J ) );
             } // 120
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = min( N-J+1, KD+1 );
                if (LENJ > 0) slarnv( 2, ISEED, LENJ, AB( 1, J ) );
-               AB[1, J] = SIGN( TWO, AB( 1, J ) );
+               AB[1, J] = sign( TWO, AB( 1, J ) );
             } // 130
          }
 
@@ -244,7 +244,7 @@
                LENJ = min( J, KD+1 );
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                sscal(LENJ-1, TSCAL, AB( KD+2-LENJ, J ), 1 );
-               AB[KD+1, J] = SIGN( ONE, AB( KD+1, J ) );
+               AB[KD+1, J] = sign( ONE, AB( KD+1, J ) );
             } // 140
             AB[KD+1, N] = SMLNUM*AB( KD+1, N );
          } else {
@@ -252,7 +252,7 @@
                LENJ = min( N-J+1, KD+1 );
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                if (LENJ > 1) sscal( LENJ-1, TSCAL, AB( 2, J ), 1 );
-               AB[1, J] = SIGN( ONE, AB( 1, J ) );
+               AB[1, J] = sign( ONE, AB( 1, J ) );
             } // 150
             AB[1, 1] = SMLNUM*AB( 1, 1 );
          }
@@ -268,14 +268,14 @@
             for (J = 1; J <= N; J++) { // 160
                LENJ = min( J, KD+1 );
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               AB[KD+1, J] = SIGN( ONE, AB( KD+1, J ) );
+               AB[KD+1, J] = sign( ONE, AB( KD+1, J ) );
             } // 160
             AB[KD+1, N] = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = min( N-J+1, KD+1 );
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
-               AB[1, J] = SIGN( ONE, AB( 1, J ) );
+               AB[1, J] = sign( ONE, AB( 1, J ) );
             } // 170
             AB[1, 1] = SMLNUM*AB( 1, 1 );
          }
@@ -371,7 +371,7 @@
                LENJ = min( J, KD+1 );
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J != IY ) {
-                  AB[KD+1, J] = SIGN( TWO, AB( KD+1, J ) );
+                  AB[KD+1, J] = sign( TWO, AB( KD+1, J ) );
                } else {
                   AB[KD+1, J] = ZERO;
                }
@@ -381,7 +381,7 @@
                LENJ = min( N-J+1, KD+1 );
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                if ( J != IY ) {
-                  AB[1, J] = SIGN( TWO, AB( 1, J ) );
+                  AB[1, J] = sign( TWO, AB( 1, J ) );
                } else {
                   AB[1, J] = ZERO;
                }
@@ -487,7 +487,7 @@
                LENJ = min( J, KD+1 );
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                for (I = KD + 2 - LENJ; I <= KD + 1; I++) { // 390
-                  AB[I, J] = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J );
+                  AB[I, J] = sign( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J );
                } // 390
             } // 400
          } else {
@@ -495,7 +495,7 @@
                LENJ = min( N-J+1, KD+1 );
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                for (I = 1; I <= LENJ; I++) { // 410
-                  AB[I, J] = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J );
+                  AB[I, J] = sign( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J );
                } // 410
             } // 420
          }

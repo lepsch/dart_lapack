@@ -48,7 +48,7 @@
       PATH[1: 1] = 'Zomplex precision';
       PATH[2: 3] = 'EQ';
 
-      EPS = DLAMCH( 'P' );
+      EPS = dlamch( 'P' );
       for (I = 1; I <= 5; I++) { // 10
          RESLTS[I] = ZERO;
       } // 10

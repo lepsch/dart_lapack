@@ -341,7 +341,7 @@
                   // Check the error code from CHESVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'CHESVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'CHESVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 
@@ -425,7 +425,7 @@
                   // Check the error code from CHESVXX.
 
                   if ( INFO != K && INFO <= N ) {
-                     alaerh(PATH, 'CHESVXX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'CHESVXX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

@@ -33,8 +33,8 @@
 
       PATH[1: 1] = 'Zomplex precision';
       PATH[2: 3] = 'EC';
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
       WRITE( NOUT, FMT = 9994 );
       WRITE( NOUT, FMT = 9993 )EPS, SFMIN;
       WRITE( NOUT, FMT = 9992 )THRESH;

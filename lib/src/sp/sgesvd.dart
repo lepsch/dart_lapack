@@ -87,7 +87,7 @@
 
             // Compute space needed for SBDSQR
 
-            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'SGESVD', JOBU + JOBVT, M, N, 0, 0 );
             BDSPAC = 5*N;
             // Compute space needed for SGEQRF
             sgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
@@ -241,7 +241,7 @@
 
             // Compute space needed for SBDSQR
 
-            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'SGESVD', JOBU + JOBVT, M, N, 0, 0 );
             BDSPAC = 5*M;
             // Compute space needed for SGELQF
             sgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );

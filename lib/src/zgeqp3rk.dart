@@ -93,7 +93,7 @@
 
             // Assign to NB optimal block size.
 
-            NB = ILAENV( INB, 'ZGEQP3RK', ' ', M, N, -1, -1 );
+            NB = ilaenv( INB, 'ZGEQP3RK', ' ', M, N, -1, -1 );
 
             // A formula for the optimal workspace size in case of using
             // both unblocked BLAS 2 in ZLAQP2RK and blocked BLAS 3 code
@@ -213,7 +213,7 @@
 
       // ===================================================================
 
-      HUGEVAL = DLAMCH( 'Overflow' );
+      HUGEVAL = dlamch( 'Overflow' );
 
       if ( MAXC2NRM > HUGEVAL ) {
 
@@ -243,12 +243,12 @@
 
       // ==================================================================
 
-      EPS = DLAMCH('Epsilon');
+      EPS = dlamch('Epsilon');
 
       // Adjust ABSTOL
 
       if ( ABSTOL >= ZERO ) {
-         SAFMIN = DLAMCH('Safe minimum');
+         SAFMIN = dlamch('Safe minimum');
          ABSTOL = max( ABSTOL, TWO*SAFMIN );
       }
 
@@ -300,7 +300,7 @@
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
-         NX = max( 0, ILAENV( IXOVER, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( IXOVER, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
 
          if ( NX < MINMN ) {
 
@@ -313,7 +313,7 @@
                // Reduce NB and determine the minimum value of NB.
 
                NB = ( LWORK-2*N ) / ( N+1 );
-               NBMIN = max( 2, ILAENV( INBMIN, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ilaenv( INBMIN, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
 
             }
          }

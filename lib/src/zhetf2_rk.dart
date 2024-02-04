@@ -72,7 +72,7 @@
 
       // Compute machine safe minimum
 
-      SFMIN = DLAMCH( 'S' );
+      SFMIN = dlamch( 'S' );
 
       if ( UPPER ) {
 
@@ -353,7 +353,7 @@
 
                if ( K > 2 ) {
                   // D = |A12|
-                  D = DLAPY2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
+                  D = dlapy2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
                   D11 = (A( K, K ) / D).toDouble();
                   D22 = (A( K-1, K-1 ) / D).toDouble();
                   D12 = A( K-1, K ) / D;
@@ -694,7 +694,7 @@
 
                if ( K < N-1 ) {
                   // D = |A21|
-                  D = DLAPY2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
+                  D = dlapy2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
                   D11 = (A( K+1, K+1 )).toDouble() / D;
                   D22 = (A( K, K )).toDouble() / D;
                   D21 = A( K+1, K ) / D;

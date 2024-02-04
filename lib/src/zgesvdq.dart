@@ -298,7 +298,7 @@
          return;
       }
 
-      BIG = DLAMCH('O');
+      BIG = dlamch('O');
       ASCALED = false;
       if ( ROWPRM ) {
             // .. reordering the rows in decreasing sequence in the
@@ -393,8 +393,8 @@
 // computed upper triangular factor, the matrix R is examined and,
 // if possible, replaced with its leading upper trapezoidal part.
 
-      EPSLN = DLAMCH('E');
-      SFMIN = DLAMCH('S');
+      EPSLN = dlamch('E');
+      SFMIN = dlamch('S');
       // SMALL = SFMIN / EPSLN
       NR = N;
 
@@ -415,7 +415,7 @@
       } else if ( ACCLM ) {
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R is used as the criterion for being
-         // close-to-rank-deficient. The threshold is set to EPSLN=DLAMCH('E').
+         // close-to-rank-deficient. The threshold is set to EPSLN=dlamch('E').
          // [[This can be made more flexible by replacing this hard-coded value
          // with a user specified threshold.]] Also, the values that underflow
          // will be truncated.
@@ -702,7 +702,7 @@
                 // [[The optimal ratio N/NR for using QRF instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
-                // OPTRATIO = ILAENV(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = ilaenv(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = max( OPTRATIO, 2 )
                 OPTRATIO = 2;
                 if ( OPTRATIO*NR > N ) {
@@ -808,7 +808,7 @@
                 // [[The optimal ratio N/NR for using LQ instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
-                // OPTRATIO = ILAENV(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = ilaenv(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = max( OPTRATIO, 2 )
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {

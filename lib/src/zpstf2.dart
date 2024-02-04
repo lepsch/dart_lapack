@@ -84,7 +84,7 @@
       // Compute stopping value if not supplied
 
       if ( TOL < ZERO ) {
-         DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ;
+         DSTOP = N * dlamch( 'Epsilon' ) * AJJ;
       } else {
          DSTOP = TOL;
       }

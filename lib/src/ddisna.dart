@@ -79,7 +79,7 @@
       // Compute reciprocal condition numbers
 
       if ( K == 1 ) {
-         SEP[1] = DLAMCH( 'O' );
+         SEP[1] = dlamch( 'O' );
       } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) );
          SEP[1] = OLDGAP;
@@ -100,8 +100,8 @@
       // Ensure that reciprocal condition numbers are not less than
       // threshold, in order to limit the size of the error bound
 
-      EPS = DLAMCH( 'E' );
-      SAFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'E' );
+      SAFMIN = dlamch( 'S' );
       ANORM = max( ( D( 1 ) ).abs(), ( D( K ) ) ).abs();
       if ( ANORM == ZERO ) {
          THRESH = EPS;

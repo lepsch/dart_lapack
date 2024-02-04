@@ -324,14 +324,14 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 180
                slarnv(2, ISEED, J, A( JC ) );
-               A[JC+J-1] = SIGN( TWO, A( JC+J-1 ) );
+               A[JC+J-1] = sign( TWO, A( JC+J-1 ) );
                JC = JC + J;
             } // 180
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 190
                slarnv(2, ISEED, N-J+1, A( JC ) );
-               A[JC] = SIGN( TWO, A( JC ) );
+               A[JC] = sign( TWO, A( JC ) );
                JC = JC + N - J + 1;
             } // 190
          }
@@ -357,7 +357,7 @@
             for (J = 1; J <= N; J++) { // 200
                slarnv(2, ISEED, J-1, A( JC ) );
                sscal(J-1, TSCAL, A( JC ), 1 );
-               A[JC+J-1] = SIGN( ONE, SLARND( 2, ISEED ) );
+               A[JC+J-1] = sign( ONE, SLARND( 2, ISEED ) );
                JC = JC + J;
             } // 200
             A[N*( N+1 ) / 2] = SMLNUM;
@@ -366,7 +366,7 @@
             for (J = 1; J <= N; J++) { // 210
                slarnv(2, ISEED, N-J, A( JC+1 ) );
                sscal(N-J, TSCAL, A( JC+1 ), 1 );
-               A[JC] = SIGN( ONE, SLARND( 2, ISEED ) );
+               A[JC] = sign( ONE, SLARND( 2, ISEED ) );
                JC = JC + N - J + 1;
             } // 210
             A[1] = SMLNUM;
@@ -383,7 +383,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 220
                slarnv(2, ISEED, J-1, A( JC ) );
-               A[JC+J-1] = SIGN( ONE, SLARND( 2, ISEED ) );
+               A[JC+J-1] = sign( ONE, SLARND( 2, ISEED ) );
                JC = JC + J;
             } // 220
             A[N*( N+1 ) / 2] = SMLNUM;
@@ -391,7 +391,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 230
                slarnv(2, ISEED, N-J, A( JC+1 ) );
-               A[JC] = SIGN( ONE, SLARND( 2, ISEED ) );
+               A[JC] = sign( ONE, SLARND( 2, ISEED ) );
                JC = JC + N - J + 1;
             } // 230
             A[1] = SMLNUM;
@@ -496,7 +496,7 @@
             for (J = 1; J <= N; J++) { // 340
                slarnv(2, ISEED, J, A( JC ) );
                if ( J != IY ) {
-                  A[JC+J-1] = SIGN( TWO, A( JC+J-1 ) );
+                  A[JC+J-1] = sign( TWO, A( JC+J-1 ) );
                } else {
                   A[JC+J-1] = ZERO;
                }
@@ -507,7 +507,7 @@
             for (J = 1; J <= N; J++) { // 350
                slarnv(2, ISEED, N-J+1, A( JC ) );
                if ( J != IY ) {
-                  A[JC] = SIGN( TWO, A( JC ) );
+                  A[JC] = sign( TWO, A( JC ) );
                } else {
                   A[JC] = ZERO;
                }
@@ -603,7 +603,7 @@
             for (J = 1; J <= N; J++) { // 420
                slarnv(2, ISEED, J, A( JC ) );
                for (I = 1; I <= J; I++) { // 410
-                  A[JC+I-1] = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 );
+                  A[JC+I-1] = sign( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 );
                } // 410
                JC = JC + J;
             } // 420
@@ -612,7 +612,7 @@
             for (J = 1; J <= N; J++) { // 440
                slarnv(2, ISEED, N-J+1, A( JC ) );
                for (I = J; I <= N; I++) { // 430
-                  A[JC+I-J] = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J );
+                  A[JC+I-J] = sign( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J );
                } // 430
                JC = JC + N - J + 1;
             } // 440

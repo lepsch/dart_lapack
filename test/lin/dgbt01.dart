@@ -42,7 +42,7 @@
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       KD = KU + 1;
       ANORM = ZERO;
       for (J = 1; J <= N; J++) { // 10

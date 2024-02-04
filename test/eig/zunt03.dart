@@ -77,7 +77,7 @@
 
       // Machine constants
 
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
 
       if ( IRC == 0 ) {
 

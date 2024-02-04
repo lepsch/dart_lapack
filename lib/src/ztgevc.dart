@@ -139,9 +139,9 @@
 
       // Machine Constants
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMIN = dlamch( 'Safe minimum' );
       BIG = ONE / SAFMIN;
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SMALL = SAFMIN*N / ULP;
       BIG = ONE / SMALL;
       BIGNUM = ONE / ( SAFMIN*N );

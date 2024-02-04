@@ -17,7 +17,7 @@
       //- double          , EXTERNAL :: DLAMCH;
       //- bool   , EXTERNAL :: DISNAN;
 
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
 
       // Calculate first shifted vector

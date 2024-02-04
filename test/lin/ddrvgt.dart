@@ -329,7 +329,7 @@
 
                   // Check the error code from DGTSVX.
 
-                  if (INFO != IZERO) alaerh( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'DGTSVX', INFO, IZERO, FACT + TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT >= 2 ) {
 

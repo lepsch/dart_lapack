@@ -69,7 +69,7 @@
 
          // Compute machine safe minimum
 
-         SFMIN = DLAMCH('S');
+         SFMIN = dlamch('S');
 
          // Find pivot and test for singularity
 

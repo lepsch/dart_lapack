@@ -77,7 +77,7 @@
 
             slarnv(3, ISEED, M-I+1, WORK );
             WN = SNRM2( M-I+1, WORK, 1 );
-            WA = SIGN( WN, WORK( 1 ) );
+            WA = sign( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -98,7 +98,7 @@
 
             slarnv(3, ISEED, N-I+1, WORK );
             WN = SNRM2( N-I+1, WORK, 1 );
-            WA = SIGN( WN, WORK( 1 ) );
+            WA = sign( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -128,7 +128,7 @@
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = SNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = SIGN( WN, A( KL+I, I ) );
+               WA = sign( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -150,7 +150,7 @@
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = SNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = SIGN( WN, A( I, KU+I ) );
+               WA = sign( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -176,7 +176,7 @@
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = SNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = SIGN( WN, A( I, KU+I ) );
+               WA = sign( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -198,7 +198,7 @@
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = SNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = SIGN( WN, A( KL+I, I ) );
+               WA = sign( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {

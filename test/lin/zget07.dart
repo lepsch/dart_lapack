@@ -51,8 +51,8 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
       NOTRAN = lsame( TRANS, 'N' );
 

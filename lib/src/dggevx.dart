@@ -37,8 +37,8 @@ void dggevx(
   final int LDVL,
   final Matrix<double> VR,
   final int LDVR,
-  final int ILO,
-  final int IHI,
+  final Box<int> ILO,
+  final Box<int> IHI,
   final Array<double> LSCALE,
   final Array<double> RSCALE,
   final Box<double> ABNRM,
@@ -54,17 +54,6 @@ void dggevx(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  // String             BALANC, JOBVL, JOBVR, SENSE;
-  // int                IHI, ILO, INFO.value, LDA, LDB, LDVL, LDVR, LWORK, N;
-  // double             ABNRM.value, BBNRM.value;
-  // ..
-  // .. Array Arguments ..
-  // bool               BWORK( * );
-  // int                IWORK( * );
-  // double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-
   const ZERO = 0.0, ONE = 1.0;
   bool ILASCL,
       ILBSCL,
@@ -83,7 +72,6 @@ void dggevx(
       ICOLS,
       IJOBVL,
       IJOBVR,
-      IN,
       IROWS,
       ITAU,
       IWRK,
@@ -91,12 +79,11 @@ void dggevx(
       J,
       JC,
       JR,
-      M,
       MAXWRK = 0,
       MINWRK,
       MM;
   double ANRM, ANRMTO = 0, BIGNUM, BNRM, BNRMTO = 0, EPS, SMLNUM, TEMP;
-  final IERR = Box(0);
+  final IERR = Box(0), IN = Box(0), M = Box(0);
   final LDUMMA = Array<bool>(1);
 
   // Decode the input arguments
@@ -163,7 +150,7 @@ void dggevx(
   // as well as the preferred amount for good performance.
   // NB refers to the optimal block size for the immediately
   // following subroutine, as returned by ilaenv. The workspace is
-  // computed assuming ILO = 1 and IHI = N, the worst case.)
+  // computed assuming ILO.value = 1 and IHI.value = N, the worst case.)
 
   if (INFO.value == 0) {
     if (N == 0) {
@@ -225,7 +212,7 @@ void dggevx(
     ANRMTO = BIGNUM;
     ILASCL = true;
   }
-  if (ILASCL) dlascl('G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR.value);
+  if (ILASCL) dlascl('G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR);
 
   // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -238,35 +225,35 @@ void dggevx(
     BNRMTO = BIGNUM;
     ILBSCL = true;
   }
-  if (ILBSCL) dlascl('G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR.value);
+  if (ILBSCL) dlascl('G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR);
 
   // Permute and/or balance the matrix pair (A,B)
   // (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 
-  dggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR.value);
+  dggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR);
 
-  // Compute ABNRM.value and BBNRM.value
+  // Compute ABNRM and BBNRM
 
   ABNRM.value = dlange('1', N, N, A, LDA, WORK(1));
   if (ILASCL) {
     WORK[1] = ABNRM.value;
-    dlascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK(1), 1, IERR.value);
+    dlascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK.asMatrix(1), 1, IERR);
     ABNRM.value = WORK[1];
   }
 
   BBNRM.value = dlange('1', N, N, B, LDB, WORK(1));
   if (ILBSCL) {
     WORK[1] = BBNRM.value;
-    dlascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK(1), 1, IERR.value);
+    dlascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK.asMatrix(1), 1, IERR);
     BBNRM.value = WORK[1];
   }
 
   // Reduce B to triangular form (QR decomposition of B)
   // (Workspace: need N, prefer N*NB )
 
-  IROWS = IHI + 1 - ILO;
+  IROWS = IHI.value + 1 - ILO.value;
   if (ILV || !WANTSN) {
-    ICOLS = N + 1 - ILO;
+    ICOLS = N + 1 - ILO.value;
   } else {
     ICOLS = IROWS;
   }
@@ -275,12 +262,12 @@ void dggevx(
   dgeqrf(
     IROWS,
     ICOLS,
-    B(ILO, ILO),
+    B(ILO.value, ILO.value),
     LDB,
     WORK(ITAU),
     WORK(IWRK),
     LWORK + 1 - IWRK,
-    IERR.value,
+    IERR,
   );
 
   // Apply the orthogonal transformation to A
@@ -292,14 +279,14 @@ void dggevx(
     IROWS,
     ICOLS,
     IROWS,
-    B(ILO, ILO),
+    B(ILO.value, ILO.value),
     LDB,
     WORK(ITAU),
-    A(ILO, ILO),
+    A(ILO.value, ILO.value),
     LDA,
     WORK(IWRK),
     LWORK + 1 - IWRK,
-    IERR.value,
+    IERR,
   );
 
   // Initialize VL and/or VR
@@ -312,9 +299,9 @@ void dggevx(
         'L',
         IROWS - 1,
         IROWS - 1,
-        B(ILO + 1, ILO),
+        B(ILO.value + 1, ILO.value),
         LDB,
-        VL(ILO + 1, ILO),
+        VL(ILO.value + 1, ILO.value),
         LDVL,
       );
     }
@@ -322,12 +309,12 @@ void dggevx(
       IROWS,
       IROWS,
       IROWS,
-      VL(ILO, ILO),
+      VL(ILO.value, ILO.value),
       LDVL,
       WORK(ITAU),
       WORK(IWRK),
       LWORK + 1 - IWRK,
-      IERR.value,
+      IERR,
     );
   }
 
@@ -343,8 +330,8 @@ void dggevx(
       JOBVL,
       JOBVR,
       N,
-      ILO,
-      IHI,
+      ILO.value,
+      IHI.value,
       A,
       LDA,
       B,
@@ -353,7 +340,7 @@ void dggevx(
       LDVL,
       VR,
       LDVR,
-      IERR.value,
+      IERR,
     );
   } else {
     dgghrd(
@@ -362,15 +349,15 @@ void dggevx(
       IROWS,
       1,
       IROWS,
-      A(ILO, ILO),
+      A(ILO.value, ILO.value),
       LDA,
-      B(ILO, ILO),
+      B(ILO.value, ILO.value),
       LDB,
       VL,
       LDVL,
       VR,
       LDVR,
-      IERR.value,
+      IERR,
     );
   }
 
@@ -389,8 +376,8 @@ void dggevx(
       JOBVL,
       JOBVR,
       N,
-      ILO,
-      IHI,
+      ILO.value,
+      IHI.value,
       A,
       LDA,
       B,
@@ -404,7 +391,7 @@ void dggevx(
       LDVR,
       WORK,
       LWORK,
-      IERR.value,
+      IERR,
     );
     if (IERR.value != 0) {
       if (IERR.value > 0 && IERR.value <= N) {
@@ -449,7 +436,7 @@ void dggevx(
           N,
           IN,
           WORK,
-          IERR.value,
+          IERR,
         );
         if (IERR.value != 0) {
           INFO.value = N + 2;
@@ -474,7 +461,7 @@ void dggevx(
           }
           MM = 1;
           if (I < N) {
-            if (A(I + 1, I) != ZERO) {
+            if (A[I + 1][I] != ZERO) {
               PAIR = true;
               MM = 2;
             }
@@ -506,14 +493,14 @@ void dggevx(
               LDA,
               B,
               LDB,
-              WORK(1),
+              WORK.asMatrix(N),
               N,
-              WORK(IWRK),
+              WORK(IWRK).asMatrix(N),
               N,
               MM,
               M,
               WORK(IWRK1),
-              IERR.value,
+              IERR,
             );
             if (IERR.value != 0) {
               INFO.value = N + 2;
@@ -532,7 +519,7 @@ void dggevx(
             LDB,
             WORK.asMatrix(N),
             N,
-            WORK[IWRK],
+            WORK(IWRK).asMatrix(N),
             N,
             RCONDE(I),
             RCONDV(I),
@@ -541,7 +528,7 @@ void dggevx(
             WORK(IWRK1),
             LWORK - IWRK1 + 1,
             IWORK,
-            IERR.value,
+            IERR,
           );
         }
       }
@@ -551,7 +538,19 @@ void dggevx(
     // (Workspace: none needed)
 
     if (ILVL) {
-      dggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR.value);
+      dggbak(
+        BALANC,
+        'L',
+        N,
+        ILO.value,
+        IHI.value,
+        LSCALE,
+        RSCALE,
+        N,
+        VL,
+        LDVL,
+        IERR,
+      );
 
       for (JC = 1; JC <= N; JC++) {
         if (ALPHAI[JC] < ZERO) continue;
@@ -580,7 +579,19 @@ void dggevx(
       }
     }
     if (ILVR) {
-      dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR.value);
+      dggbak(
+        BALANC,
+        'R',
+        N,
+        ILO.value,
+        IHI.value,
+        LSCALE,
+        RSCALE,
+        N,
+        VR,
+        LDVR,
+        IERR,
+      );
       for (JC = 1; JC <= N; JC++) {
         if (ALPHAI[JC] < ZERO) continue;
         TEMP = ZERO;
@@ -611,12 +622,12 @@ void dggevx(
     // Undo scaling if necessary
 
     if (ILASCL) {
-      dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR.value);
-      dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR.value);
+      dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR.asMatrix(N), N, IERR);
+      dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI.asMatrix(N), N, IERR);
     }
 
     if (ILBSCL) {
-      dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR.value);
+      dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA.asMatrix(N), N, IERR);
     }
 
     WORK[1] = MAXWRK.toDouble();

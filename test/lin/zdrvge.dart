@@ -339,7 +339,7 @@
 
                      // Check the error code from ZGESVX.
 
-                     if (INFO != IZERO) alaerh( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'ZGESVX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from ZGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
@@ -359,7 +359,7 @@
                            RPVGRW = ZLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW;
                         }
                      }
-                     RESULT[7] = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
+                     RESULT[7] = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / dlamch( 'E' );
 
                      if ( !PREFAC ) {
 

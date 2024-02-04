@@ -99,7 +99,7 @@
             }
          }
          if ( WANTZ ) {
-            Z[1, 1] = SIGN( ONE, D( 1 ) );
+            Z[1, 1] = sign( ONE, D( 1 ) );
             Z[2, 1] = ONE;
          }
          return;

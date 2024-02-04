@@ -51,7 +51,7 @@
       MN = min( M, N );
       if (MN <= ZERO) return;
 
-      NRMSVL = DNRM2( MN, S, 1 );
+      NRMSVL = dnrm2( MN, S, 1 );
 
       // Copy upper triangle of A into work
 
@@ -64,7 +64,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
       BIGNUM = ONE / SMLNUM;
 
       // Scale work if max entry outside range [SMLNUM,BIGNUM]
@@ -111,7 +111,7 @@
       // Compare s and singular values of work
 
       daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
-      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*(max( M, N )).toDouble() );
+      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
 
       if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 

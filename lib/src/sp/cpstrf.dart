@@ -65,7 +65,7 @@
 
       // Get block size
 
-      NB = ILAENV( 1, 'CPOTRF', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'CPOTRF', UPLO, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code

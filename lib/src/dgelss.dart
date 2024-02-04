@@ -70,7 +70,7 @@
          MAXWRK = 1;
          if ( MINMN > 0 ) {
             MM = M;
-            MNTHR = ILAENV( 6, 'DGELSS', ' ', M, N, NRHS, -1 );
+            MNTHR = ilaenv( 6, 'DGELSS', ' ', M, N, NRHS, -1 );
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
@@ -192,8 +192,8 @@
 
       // Get machine parameters
 
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
       SMLNUM = SFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
 

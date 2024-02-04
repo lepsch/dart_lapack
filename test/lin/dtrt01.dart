@@ -46,7 +46,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = DLANTR( '1', UPLO, DIAG, N, N, A, LDA, WORK );
       AINVNM = DLANTR( '1', UPLO, DIAG, N, N, AINV, LDAINV, WORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {

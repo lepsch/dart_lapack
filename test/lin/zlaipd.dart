@@ -26,7 +26,7 @@
       // ..
       // .. Executable Statements ..
 
-      BIGNUM = DLAMCH( 'Epsilon' ) / DLAMCH( 'Safe minimum' );
+      BIGNUM = dlamch( 'Epsilon' ) / dlamch( 'Safe minimum' );
       IA = 1;
       IXA = INDA;
       for (I = 1; I <= N; I++) { // 10

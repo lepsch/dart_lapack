@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
 
-      NB = ILAENV( 1, 'ZLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 );
+      NB = ilaenv( 1, 'ZLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 );
 
       if ( NB <= 1 || NB >= min( M, N ) ) {
 

@@ -76,7 +76,7 @@
                LRWMIN = N;
                LIWMIN = 1;
             }
-            LOPT = max( LWMIN, N + N*ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 ) );
+            LOPT = max( LWMIN, N + N*ilaenv( 1, 'CHETRD', UPLO, N, -1, -1, -1 ) );
             LROPT = LRWMIN;
             LIOPT = LIWMIN;
          }

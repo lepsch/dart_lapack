@@ -83,7 +83,7 @@
 
       // Get machine constants.
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       // Initialize seed for random number generator DLARNV.
 
@@ -197,7 +197,7 @@
             IF( ( XJ-XJM ).abs() > ORTOL ) GPIND = J;
             if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 80
-                  ZTR = -DDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 );
+                  ZTR = -ddot( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 );
                   daxpy(BLKSIZ, ZTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 );
                } // 80
             }
@@ -227,7 +227,7 @@
             // Accept iterate as jth eigenvector.
 
             } // 110
-            SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            SCL = ONE / dnrm2( BLKSIZ, WORK( INDRV1+1 ), 1 );
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             if( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );

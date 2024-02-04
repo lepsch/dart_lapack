@@ -46,7 +46,7 @@
       }
 
       FACT = (2**KTRYMAX).toDouble();
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       SHIFT = 0;
       FORCER = false;
 
@@ -88,7 +88,7 @@
 
       // Initialize the record of the best representation found
 
-      S = DLAMCH( 'S' );
+      S = dlamch( 'S' );
       SMLGROWTH = ONE / S;
       FAIL = (N-1).toDouble()*MINGAP/(SPDIAM*EPS);
       FAIL2 = (N-1).toDouble()*MINGAP/(SPDIAM*sqrt(EPS));

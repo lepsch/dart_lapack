@@ -103,7 +103,7 @@
          // .    (In fact, there is enough subdiagonal space for
          // .    NWR >= 4.) ====
 
-         NWR = ILAENV( 13, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
+         NWR = ilaenv( 13, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          NWR = max( 2, NWR );
          NWR = min( IHI-ILO+1, ( N-1 ) / 3, NWR );
 
@@ -112,7 +112,7 @@
          // .    enough subdiagonal workspace for NSR to be even
          // .    and greater than or equal to two as required. ====
 
-         NSR = ILAENV( 15, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
+         NSR = ilaenv( 15, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          NSR = min( NSR, ( N-3 ) / 6, IHI-ILO );
          NSR = max( 2, NSR-(NSR % 2) );
 
@@ -135,18 +135,18 @@
 
          // ==== DLAHQR/DLAQR0 crossover point ====
 
-         NMIN = ILAENV( 12, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
+         NMIN = ilaenv( 12, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          NMIN = max( NTINY, NMIN );
 
          // ==== Nibble crossover point ====
 
-         NIBBLE = ILAENV( 14, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
+         NIBBLE = ilaenv( 14, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          NIBBLE = max( 0, NIBBLE );
 
          // ==== Accumulate reflections during ttswp?  Use block
          // .    2-by-2 structure during matrix-matrix multiply? ====
 
-         KACC22 = ILAENV( 16, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
+         KACC22 = ilaenv( 16, 'DLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          KACC22 = max( 0, KACC22 );
          KACC22 = min( 2, KACC22 );
 

@@ -49,7 +49,7 @@
          B = -C;
          C = ZERO;
 
-      } else if ( (A-D) == ZERO && SIGN( ONE, B ) != SIGN( ONE, C ) ) {
+      } else if ( (A-D) == ZERO && sign( ONE, B ) != sign( ONE, C ) ) {
          CS = ONE;
          SN = ZERO;
 
@@ -58,7 +58,7 @@
          TEMP = A - D;
          P = HALF*TEMP;
          BCMAX = max( ( B ).abs(), ( C ).abs() );
-         BCMIS = min( ( B ).abs(), ( C ).abs() )*SIGN( ONE, B )*SIGN( ONE, C );
+         BCMIS = min( ( B ).abs(), ( C ).abs() )*sign( ONE, B )*sign( ONE, C );
          SCALE = max( ( P ).abs(), BCMAX );
          Z = ( P / SCALE )*P + ( BCMAX / SCALE )*BCMIS;
 
@@ -69,7 +69,7 @@
 
             // Real eigenvalues. Compute A and D.
 
-            Z = P + SIGN( sqrt( SCALE )*sqrt( Z ), P );
+            Z = P + sign( sqrt( SCALE )*sqrt( Z ), P );
             A = D + Z;
             D = D - ( BCMAX / Z )*BCMIS;
 
@@ -104,7 +104,7 @@
             P = HALF*TEMP;
             TAU = SLAPY2( SIGMA, TEMP );
             CS = sqrt( HALF*( ONE+( SIGMA ).abs() / TAU ) );
-            SN = -( P / ( TAU*CS ) )*SIGN( ONE, SIGMA );
+            SN = -( P / ( TAU*CS ) )*sign( ONE, SIGMA );
 
             // Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
                     // [ CC  DD ]   [ C  D ] [ SN  CS ]
@@ -128,13 +128,13 @@
 
             if ( C != ZERO ) {
                if ( B != ZERO ) {
-                  if ( SIGN( ONE, B ) == SIGN( ONE, C ) ) {
+                  if ( sign( ONE, B ) == sign( ONE, C ) ) {
 
                      // Real eigenvalues: reduce to upper triangular form
 
                      SAB = sqrt( ( B ).abs() );
                      SAC = sqrt( ( C ).abs() );
-                     P = SIGN( SAB*SAC, C );
+                     P = sign( SAB*SAC, C );
                      TAU = ONE / sqrt( ( B+C ).abs() );
                      A = TEMP + P;
                      D = TEMP - P;

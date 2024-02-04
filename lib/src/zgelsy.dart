@@ -50,10 +50,10 @@
       // Test the input arguments.
 
       INFO = 0;
-      NB1 = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
-      NB2 = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 );
-      NB3 = ILAENV( 1, 'ZUNMQR', ' ', M, N, NRHS, -1 );
-      NB4 = ILAENV( 1, 'ZUNMRQ', ' ', M, N, NRHS, -1 );
+      NB1 = ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
+      NB2 = ilaenv( 1, 'ZGERQF', ' ', M, N, -1, -1 );
+      NB3 = ilaenv( 1, 'ZUNMQR', ' ', M, N, NRHS, -1 );
+      NB4 = ilaenv( 1, 'ZUNMRQ', ' ', M, N, NRHS, -1 );
       NB = max( NB1, NB2, NB3, NB4 );
       LWKOPT = max( 1, MN+2*N+NB*( N+1 ), 2*MN+NB*NRHS );
       WORK[1] = DCMPLX( LWKOPT );
@@ -88,7 +88,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
       BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max entries outside range [SMLNUM,BIGNUM]

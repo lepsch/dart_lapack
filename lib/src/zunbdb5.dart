@@ -61,7 +61,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       // Project X onto the orthogonal complement of Q if X is nonzero
 

@@ -240,7 +240,7 @@
 
       } // 250
 
-      GAMMA = DDOT( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) + DDOT( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 );
+      GAMMA = ddot( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) + ddot( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 );
 
       EW = ZERO;
       EWC = ZERO;
@@ -298,7 +298,7 @@
          WORK[J+3*N] = KOUNT.toDouble()*WORK( J ) + SUM;
       } // 330
 
-      SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 );
+      SUM = ddot( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + ddot( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 );
       ALPHA = GAMMA / SUM;
 
       // Determine correction to current iteration
@@ -324,7 +324,7 @@
       // End generalized conjugate gradient iteration
 
       } // 350
-      SFMIN = DLAMCH( 'S' );
+      SFMIN = dlamch( 'S' );
       SFMAX = ONE / SFMIN;
       LSFMIN = INT( LOG10( SFMIN ) / BASL+ONE );
       LSFMAX = INT( LOG10( SFMAX ) / BASL );
@@ -334,7 +334,7 @@
          IRAB = IZAMAX( N-ILO+1, B( I, ILO ), LDB );
          RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ) ).abs();
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
-         IR = INT(LSCALE( I ) + SIGN( HALF, LSCALE( I ) ));
+         IR = INT(LSCALE( I ) + sign( HALF, LSCALE( I ) ));
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
          LSCALE[I] = SCLFAC**IR;
          ICAB = IZAMAX( IHI, A( 1, I ), 1 );
@@ -342,7 +342,7 @@
          ICAB = IZAMAX( IHI, B( 1, I ), 1 );
          CAB = max( CAB, ( B( ICAB, I ) ) ).abs();
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
-         JC = INT(RSCALE( I ) + SIGN( HALF, RSCALE( I ) ));
+         JC = INT(RSCALE( I ) + sign( HALF, RSCALE( I ) ));
          JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );
          RSCALE[I] = SCLFAC**JC;
       } // 360

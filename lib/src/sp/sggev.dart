@@ -96,9 +96,9 @@
 
       if ( INFO == 0 ) {
          MINWRK = max( 1, 8*N );
-         MAXWRK = max( 1, N*( 7 + ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = max( MAXWRK, N*( 7 + ILAENV( 1, 'SORMQR', ' ', N, 1, N, 0 ) ) );
+         MAXWRK = max( 1, N*( 7 + ilaenv( 1, 'SGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = max( MAXWRK, N*( 7 + ilaenv( 1, 'SORMQR', ' ', N, 1, N, 0 ) ) );
          if ( ILVL ) {
-            MAXWRK = max( MAXWRK, N*( 7 + ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) ) );
+            MAXWRK = max( MAXWRK, N*( 7 + ilaenv( 1, 'SORGQR', ' ', N, 1, N, -1 ) ) );
          }
          WORK[1] = SROUNDUP_LWORK(MAXWRK);
 

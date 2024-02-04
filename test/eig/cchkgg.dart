@@ -215,10 +215,10 @@
                         V[JR, JC] = CLARND( 3, ISEED );
                      } // 40
                      clarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, double( U( JC, JC ) ) );
+                     WORK[2*N+JC] = sign( ONE, double( U( JC, JC ) ) );
                      U[JC, JC] = CONE;
                      clarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, double( V( JC, JC ) ) );
+                     WORK[3*N+JC] = sign( ONE, double( V( JC, JC ) ) );
                      V[JC, JC] = CONE;
                   } // 50
                   CTEMP = CLARND( 3, ISEED );

@@ -78,10 +78,10 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = 2*N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = 2*N + N*ilaenv( 1, 'SGEHRD', ' ', N, 1, N, 0 );
             if ( WANTVL ) {
                MINWRK = 4*N;
-               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
                shseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
@@ -91,7 +91,7 @@
                MAXWRK = max( MAXWRK, 4*N );
             } else if ( WANTVR ) {
                MINWRK = 4*N;
-               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
                shseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + 1, N + HSWORK );

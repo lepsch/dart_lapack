@@ -350,7 +350,7 @@
                   // Check the error code from ZHPSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'ZHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'ZHPSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

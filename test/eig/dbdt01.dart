@@ -116,7 +116,7 @@
       // Compute norm(A - Q * B * P**T) / ( n * norm(A) * EPS )
 
       ANORM = DLANGE( '1', M, N, A, LDA, WORK );
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;

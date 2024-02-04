@@ -60,7 +60,7 @@
 
          // Transfer the sign
 
-         D[1] = -SIGN( ONE, A( 1, 1 ) );
+         D[1] = -sign( ONE, A( 1, 1 ) );
 
          // Construct the row of U
 
@@ -73,7 +73,7 @@
 
          // Transfer the sign
 
-         D[1] = -SIGN( ONE, A( 1, 1 ) );
+         D[1] = -sign( ONE, A( 1, 1 ) );
 
          // Construct the row of U
 

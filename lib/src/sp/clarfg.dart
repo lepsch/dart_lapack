@@ -53,7 +53,7 @@
 
          // general case
 
-         BETA = -SIGN( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+         BETA = -sign( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          SAFMIN = SLAMCH( 'S' ) / SLAMCH( 'E' );
          RSAFMN = ONE / SAFMIN;
 
@@ -74,7 +74,7 @@
 
             XNORM = SCNRM2( N-1, X, INCX );
             ALPHA = CMPLX( ALPHR, ALPHI );
-            BETA = -SIGN( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
+            BETA = -sign( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR );
          }
          TAU = CMPLX( ( BETA-ALPHR ) / BETA, -ALPHI / BETA );
          ALPHA = CLADIV( CMPLX( ONE ), ALPHA-BETA );

@@ -83,8 +83,8 @@
             LWKOPT = 1;
          } else {
             LWKMIN = 8*N;
-            NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
-            NB = max( NB, ILAENV( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) );
+            NB = ilaenv( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+            NB = max( NB, ilaenv( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) );
             LWKOPT = max( LWKMIN, ( NB + 3 )*N );
          }
          WORK[1] = LWKOPT;
@@ -122,8 +122,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN = sqrt( SMLNUM );

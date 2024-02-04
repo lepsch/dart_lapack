@@ -70,7 +70,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
       BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max elements outside range [SMLNUM,BIGNUM]

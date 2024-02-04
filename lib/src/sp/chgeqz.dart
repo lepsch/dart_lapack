@@ -384,7 +384,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         if ( ( IITER / 10 )*10 != IITER ) {
+         if ( ( IITER ~/ 10 )*10 != IITER ) {
 
             // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
             // the bottom-right 2x2 block of A inv(B) which is nearest to

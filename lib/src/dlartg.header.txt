@@ -107,4 +107,3 @@
 !>
 !> \endverbatim
 !
-subroutine DLARTG( f, g, c, s, r )

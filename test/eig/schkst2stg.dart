@@ -73,7 +73,7 @@
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
-      NBLOCK = ILAENV( 1, 'SSYTRD', 'L', NMAX, -1, -1, -1 );
+      NBLOCK = ilaenv( 1, 'SSYTRD', 'L', NMAX, -1, -1, -1 );
       NBLOCK = min( NMAX, max( 1, NBLOCK ) );
 
       // Check for errors
@@ -911,7 +911,7 @@
 
             // Only test SSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ILAENV( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
+            if ( ilaenv( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ilaenv( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call SSTEMR, do test 27 (relative eigenvalue accuracy)
 

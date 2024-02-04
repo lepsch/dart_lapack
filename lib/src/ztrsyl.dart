@@ -77,8 +77,8 @@
 
       // Set constants to control overflow
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = SMLNUM*(M*N).toDouble() / EPS;
       BIGNUM = ONE / SMLNUM;

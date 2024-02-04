@@ -33,8 +33,8 @@
 
       // Get machine constants
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      OVFL = DLAMCH( 'Overflow' );
+      UNFL = dlamch( 'Safe minimum' );
+      OVFL = dlamch( 'Overflow' );
 
       // Find largest entry
 

@@ -93,7 +93,7 @@
 
        zlaset('Full', N, ZUSEDW, CZERO, CZERO, Z(1,ZUSEDL), LDZ );
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       RQTOL = TWO * EPS;
 
       // Set expert flags for standard code.

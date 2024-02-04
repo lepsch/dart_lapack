@@ -59,7 +59,7 @@
 
       if ( INFO == 0 ) {
          LWKMIN = max( 1, 3*N - 1 );
-         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+         NB = ilaenv( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( LWKMIN, ( NB + 2 )*N );
          WORK[1] = LWKOPT;
 

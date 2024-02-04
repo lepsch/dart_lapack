@@ -95,9 +95,9 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      OVFL = DLAMCH( 'Overflow' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      UNFL = dlamch( 'Safe minimum' );
+      OVFL = dlamch( 'Overflow' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       ULPINV = ONE / ULP;
       RTUNFL = sqrt( UNFL );
       RTOVFL = sqrt( OVFL );

@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= N; p++) { // 4949
-                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) ) A(p,q) = sign( TEMP1, A(p,q) );
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= NR; p++) { // 1949
-                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) );
+                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) ) A(p,q) = sign( TEMP1, A(p,q) );
                   } // 1949
                } // 1947
             } else {
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*( V(q,q) ).abs();
                   for (p = 1; p <= N; p++) { // 2968
-                     if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
+                     if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = sign( TEMP1, V(p,q) );
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -793,7 +793,7 @@
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
                         TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q))).abs();
-                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
+                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = sign( TEMP1, V(q,p) );
                      } // 3958
                   } // 3959
                }
@@ -829,7 +829,7 @@
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
                         TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q))).abs();
-                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
+                        if ( (V(q,p)).abs() <= TEMP1 ) V(q,p) = sign( TEMP1, V(q,p) );
                      } // 3968
                   } // 3969
                }
@@ -841,7 +841,7 @@
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
                         TEMP1 = XSC * min((V(p,p)).abs(),(V(q,q))).abs();
-                        V[p,q] = - SIGN( TEMP1, V(q,p) );
+                        V[p,q] = - sign( TEMP1, V(q,p) );
                      } // 8971
                   } // 8970
                } else {
@@ -875,8 +875,8 @@
                for (q = 2; q <= NR; q++) { // 4968
                   TEMP1 = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
-                     // V(p,q) = - SIGN( TEMP1, V(q,p) )
-                     V[p,q] = - SIGN( TEMP1, V(p,q) );
+                     // V(p,q) = - sign( TEMP1, V(q,p) )
+                     V[p,q] = - sign( TEMP1, V(p,q) );
                   } // 4969
                } // 4968
             } else {
@@ -1039,7 +1039,7 @@
                for (p = 2; p <= N; p++) { // 5970
                   TEMP1 = XSC * WORK( N + (p-1)*N + p );
                   for (q = 1; q <= p - 1; q++) { // 5971
-                     WORK(N+(q-1)*N+p)=-SIGN(TEMP1,WORK(N+(p-1)*N+q));
+                     WORK(N+(q-1)*N+p)=-sign(TEMP1,WORK(N+(p-1)*N+q));
                   } // 5971
                } // 5970
             } else {
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*( V(q,q) ).abs();
                for (p = 1; p <= N; p++) { // 5968
-                  if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) );
+                  if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) ) V(p,q) = sign( TEMP1, V(p,q) );
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1127,7 +1127,7 @@
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
                   TEMP1 = XSC * min((U(p,p)).abs(),(U(q,q))).abs();
-                  U[p,q] = - SIGN( TEMP1, U(q,p) );
+                  U[p,q] = - sign( TEMP1, U(q,p) );
                } // 9971
             } // 9970
          } else {

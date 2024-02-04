@@ -106,7 +106,7 @@
 
             if ( K > 1 ) {
                dcopy(K-1, AP( KC ), 1, WORK, 1 );
-               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - DDOT( K-1, WORK, 1, AP( KC ), 1 );
+               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - ddot( K-1, WORK, 1, AP( KC ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -128,9 +128,9 @@
 
             if ( K > 1 ) {
                dcopy(K-1, AP( KC ), 1, WORK, 1 );
-               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - DDOT( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - DDOT( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
+               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - ddot( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ddot( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
                dcopy(K-1, AP( KCNEXT ), 1, WORK, 1 );
-               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K] = AP( KCNEXT+K ) - DDOT( K-1, WORK, 1, AP( KCNEXT ), 1 );
+               dspmv[UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K] = AP( KCNEXT+K ) - ddot( K-1, WORK, 1, AP( KCNEXT ), 1 );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT + K + 1;
@@ -196,7 +196,7 @@
             if ( K < N ) {
                dcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
                dspmv(UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 );
-               AP[KC] = AP( KC ) - DDOT( N-K, WORK, 1, AP( KC+1 ), 1 );
+               AP[KC] = AP( KC ) - ddot( N-K, WORK, 1, AP( KC+1 ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -219,10 +219,10 @@
             if ( K < N ) {
                dcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
                dspmv(UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 );
-               AP[KC] = AP( KC ) - DDOT( N-K, WORK, 1, AP( KC+1 ), 1 );
-               AP[KCNEXT+1] = AP( KCNEXT+1 ) - DDOT( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
+               AP[KC] = AP( KC ) - ddot( N-K, WORK, 1, AP( KC+1 ), 1 );
+               AP[KCNEXT+1] = AP( KCNEXT+1 ) - ddot( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
                dcopy(N-K, AP( KCNEXT+2 ), 1, WORK, 1 );
-               dspmv[UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT] = AP( KCNEXT ) - DDOT( N-K, WORK, 1, AP( KCNEXT+2 ), 1 );
+               dspmv[UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT] = AP( KCNEXT ) - ddot( N-K, WORK, 1, AP( KCNEXT+2 ), 1 );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT - ( N-K+3 );

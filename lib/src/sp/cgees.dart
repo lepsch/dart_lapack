@@ -80,7 +80,7 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = N + N*ilaenv( 1, 'CGEHRD', ' ', N, 1, N, 0 );
             MINWRK = 2*N;
 
             chseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL );
@@ -89,7 +89,7 @@
             if ( !WANTVS ) {
                MAXWRK = max( MAXWRK, HSWORK );
             } else {
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
                MAXWRK = max( MAXWRK, HSWORK );
             }
          }

@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       RMAX = max( RCOND, RCONDC );
       RMIN = min( RCOND, RCONDC );
 
@@ -63,7 +63,7 @@
          // estimate multiplied by BIGNUM/TMAX, where TMAX is the maximum
          // element in absolute value in A.
 
-         SMLNUM = DLAMCH( 'Safe minimum' );
+         SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
          ANORM = DLANTR( 'M', UPLO, DIAG, N, N, A, LDA, WORK );
 

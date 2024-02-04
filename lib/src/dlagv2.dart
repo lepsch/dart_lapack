@@ -33,8 +33,8 @@
       // ..
       // .. Executable Statements ..
 
-      SAFMIN = DLAMCH( 'S' );
-      ULP = DLAMCH( 'P' );
+      SAFMIN = dlamch( 'S' );
+      ULP = dlamch( 'P' );
 
       // Scale A
 
@@ -103,8 +103,8 @@
             H2 = SCALE1*A( 1, 2 ) - WR1*B( 1, 2 );
             H3 = SCALE1*A( 2, 2 ) - WR1*B( 2, 2 );
 
-            RR = DLAPY2( H1, H2 );
-            QQ = DLAPY2( SCALE1*A( 2, 1 ), H3 );
+            RR = dlapy2( H1, H2 );
+            QQ = dlapy2( SCALE1*A( 2, 1 ), H3 );
 
             if ( RR > QQ ) {
 

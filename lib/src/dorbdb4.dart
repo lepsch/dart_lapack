@@ -114,7 +114,7 @@
          dlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          dlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          if ( I < M-Q ) {
-            S = sqrt( DNRM2( P-I, X11(I+1,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 );
+            S = sqrt( dnrm2( P-I, X11(I+1,I), 1 )**2 + dnrm2( M-P-I, X21(I+1,I), 1 )**2 );
             PHI[I] = ATAN2( S, C );
          }
 

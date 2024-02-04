@@ -97,9 +97,9 @@
 
       // Set the constants to control overflow.
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       SMLNUM = UNFL*( N / ULP );
 
       // Store the diagonal elements of T in working array WORK.

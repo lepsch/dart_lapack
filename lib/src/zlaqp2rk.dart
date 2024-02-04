@@ -57,8 +57,8 @@
       MINMNFACT = min( M-IOFFSET, N );
       MINMNUPDT = min( M-IOFFSET, N+NRHS );
       KMAX = min( KMAX, MINMNFACT );
-      TOL3Z = sqrt( DLAMCH( 'Epsilon' ) );
-      HUGEVAL = DLAMCH( 'Overflow' );
+      TOL3Z = sqrt( dlamch( 'Epsilon' ) );
+      HUGEVAL = dlamch( 'Overflow' );
 
       // Compute the factorization, KK is the lomn loop index.
 

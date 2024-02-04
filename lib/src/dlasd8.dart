@@ -71,7 +71,7 @@
 
       // Normalize Z.
 
-      RHO = DNRM2( K, Z, 1 );
+      RHO = dnrm2( K, Z, 1 );
       dlascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
       RHO = RHO*RHO;
 
@@ -104,7 +104,7 @@
       // Compute updated Z.
 
       for (I = 1; I <= K; I++) { // 50
-         Z[I] = SIGN( sqrt( ( WORK( IWK3I+I ) ) ).abs(), Z( I ) );
+         Z[I] = sign( sqrt( ( WORK( IWK3I+I ) ) ).abs(), Z( I ) );
       } // 50
 
       // Update VF and VL.
@@ -129,9 +129,9 @@
          for (I = J + 1; I <= K; I++) { // 70
             WORK[I] = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ );
          } // 70
-         TEMP = DNRM2( K, WORK, 1 );
-         WORK[IWK2I+J] = DDOT( K, WORK, 1, VF, 1 ) / TEMP;
-         WORK[IWK3I+J] = DDOT( K, WORK, 1, VL, 1 ) / TEMP;
+         TEMP = dnrm2( K, WORK, 1 );
+         WORK[IWK2I+J] = ddot( K, WORK, 1, VF, 1 ) / TEMP;
+         WORK[IWK3I+J] = ddot( K, WORK, 1, VL, 1 ) / TEMP;
          if ( ICOMPQ == 1 ) {
             DIFR[J, 2] = TEMP;
          }

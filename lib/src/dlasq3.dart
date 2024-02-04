@@ -39,7 +39,7 @@
       // .. Executable Statements ..
 
       N0IN = N0;
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       TOL = EPS*HUNDRD;
       TOL2 = TOL**2;
 

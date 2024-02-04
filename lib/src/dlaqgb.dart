@@ -41,7 +41,7 @@
 
       // Initialize LARGE and SMALL.
 
-      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      SMALL = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       LARGE = ONE / SMALL;
 
       if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {

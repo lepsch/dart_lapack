@@ -51,7 +51,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       TL = max( TOL, EPS );
       SCALE1 = ( A( 1 ) ).abs() + ( B( 1 ) ).abs();

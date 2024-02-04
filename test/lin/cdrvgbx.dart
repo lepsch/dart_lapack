@@ -399,7 +399,7 @@
 
                            // Check the error code from CGBSVX.
 
-                           if (INFO != IZERO) alaerh( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) alaerh( PATH, 'CGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare RWORK(2*NRHS+1) from CGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
@@ -550,7 +550,7 @@
 
                      if (INFO == N+1) GOTO 90;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'CGBSVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'CGBSVXX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 90;
                      }
 

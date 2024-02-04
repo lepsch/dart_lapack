@@ -382,7 +382,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         if ( ( IITER / 10 )*10 == IITER ) {
+         if ( ( IITER ~/ 10 )*10 == IITER ) {
 
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)

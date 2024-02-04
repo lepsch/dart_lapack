@@ -119,9 +119,9 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'S' );
+      UNFL = dlamch( 'S' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'E' );
+      ULP = dlamch( 'E' );
       ULPINV = ONE / ULP;
       RTUNFL = sqrt( UNFL );
 
@@ -276,7 +276,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), dlamch( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 80
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -367,7 +367,7 @@
                   // Compare S
 
                   DIF = ZERO;
-                  DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                  DIV = max( MNMIN.toDouble()*ULP*S( 1 ), dlamch( 'Safe minimum' ) );
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
                      if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -592,7 +592,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), dlamch( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 150
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;

@@ -347,7 +347,7 @@
                   // Check the error code from CSYSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'CSYSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'CSYSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 
@@ -431,7 +431,7 @@
                   // Check the error code from CSYSVXX.
 
                   if ( INFO != K && INFO <= N ) {
-                     alaerh(PATH, 'CSYSVXX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'CSYSVXX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

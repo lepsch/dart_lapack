@@ -76,7 +76,7 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
 
       // Estimate the 1-norm of the inverse.
 

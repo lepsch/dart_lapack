@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          clarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + CMPLX( SIGN( SCASUM( M, A( 1, J ), 1 ), double( A( J, J ) ) ) );
+            A[J, J] = A( J, J ) + CMPLX( sign( SCASUM( M, A( 1, J ), 1 ), double( A( J, J ) ) ) );
          }
       } // 10
 

@@ -62,7 +62,7 @@
 
       // Compute machine epsilon
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       RHOINV = ONE / RHO;
       TAU2= ZERO;
 

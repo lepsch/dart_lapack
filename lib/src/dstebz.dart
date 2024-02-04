@@ -108,10 +108,10 @@
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
 
-      SAFEMN = DLAMCH( 'S' );
-      ULP = DLAMCH( 'P' );
+      SAFEMN = dlamch( 'S' );
+      ULP = dlamch( 'P' );
       RTOLI = ULP*RELFAC;
-      NB = ILAENV( 1, 'DSTEBZ', ' ', N, -1, -1, -1 );
+      NB = ilaenv( 1, 'DSTEBZ', ' ', N, -1, -1, -1 );
       if (NB <= 1) NB = 0;
 
       // Special Case when N=1

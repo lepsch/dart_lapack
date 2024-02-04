@@ -43,7 +43,7 @@
       // Decode and test the input parameters.
 
       INFO = 0;
-      NB = ILAENV( 1, 'SGGHD3', ' ', N, ILO, IHI, -1 );
+      NB = ilaenv( 1, 'SGGHD3', ' ', N, ILO, IHI, -1 );
       NH = IHI - ILO + 1;
       if ( NH <= 1 ) {
          LWKOPT = 1;
@@ -103,12 +103,12 @@
 
       // Determine the blocksize.
 
-      NBMIN = ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 );
+      NBMIN = ilaenv( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 );
       if ( NB > 1 && NB < NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 
-         NX = max( NB, ILAENV( 3, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
+         NX = max( NB, ilaenv( 3, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -119,7 +119,7 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code.
 
-               NBMIN = max( 2, ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
+               NBMIN = max( 2, ilaenv( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= 6*N*NBMIN ) {
                   NB = LWORK / ( 6*N );
                } else {
@@ -139,7 +139,7 @@
 
          // Use blocked code
 
-         KACC22 = ILAENV( 16, 'SGGHD3', ' ', N, ILO, IHI, -1 );
+         KACC22 = ilaenv( 16, 'SGGHD3', ' ', N, ILO, IHI, -1 );
          BLK22 = KACC22 == 2;
          for (JCOL = ILO; NB < 0 ? JCOL >= IHI-2 : JCOL <= IHI-2; JCOL += NB) {
             NNB = min( NB, IHI-JCOL-1 );

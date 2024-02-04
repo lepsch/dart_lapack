@@ -71,8 +71,8 @@
          LIWORK = 1;
          LRWORK = 1;
          if ( MINMN > 0 ) {
-            SMLSIZ = ILAENV( 9, 'ZGELSD', ' ', 0, 0, 0, 0 );
-            MNTHR = ILAENV( 6, 'ZGELSD', ' ', M, N, NRHS, -1 );
+            SMLSIZ = ilaenv( 9, 'ZGELSD', ' ', 0, 0, 0, 0 );
+            MNTHR = ilaenv( 6, 'ZGELSD', ' ', M, N, NRHS, -1 );
             NLVL = max( INT( LOG( MINMN.toDouble() / (SMLSIZ + 1).toDouble() ) / LOG( TWO ) ) + 1, 0 );
             LIWORK = 3*MINMN*NLVL + 11*MINMN;
             MM = M;
@@ -82,13 +82,13 @@
                          // columns.
 
                MM = N;
-               MAXWRK = max( MAXWRK, N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
+               MAXWRK = max( MAXWRK, N*ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, NRHS*ilaenv( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
             }
             if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined.
 
-               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + max( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = max( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'ZGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = max( MAXWRK, 2*N + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, N, -1 ) );
+               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + max( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = max( MAXWRK, 2*N + ( MM + N )*ilaenv( 1, 'ZGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = max( MAXWRK, 2*N + NRHS*ilaenv( 1, 'ZUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'ZUNMBR', 'PLN', N, NRHS, N, -1 ) );
                MAXWRK = max( MAXWRK, 2*N + N*NRHS );
                MINWRK = max( 2*N + MM, 2*N + N*NRHS );
             }
@@ -99,7 +99,7 @@
                   // Path 2a - underdetermined, with many more columns
                             // than rows.
 
-                  MAXWRK = M + M*ILAENV( 1, 'ZGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'ZGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) );
+                  MAXWRK = M + M*ilaenv( 1, 'ZGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ilaenv( 1, 'ZGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ilaenv( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ilaenv( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) );
                   if ( NRHS > 1 ) {
                      MAXWRK = max( MAXWRK, M*M + M + M*NRHS );
                   } else {
@@ -113,7 +113,7 @@
 
                   // Path 2 - underdetermined.
 
-                  MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, 2*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, 2*M + M*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, M, -1 ) );
+                  MAXWRK = 2*M + ( N + M )*ilaenv( 1, 'ZGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, 2*M + NRHS*ilaenv( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, 2*M + M*ilaenv( 1, 'ZUNMBR', 'PLN', N, NRHS, M, -1 ) );
                   MAXWRK = max( MAXWRK, 2*M + M*NRHS );
                }
                MINWRK = max( 2*M + N, 2*M + M*NRHS );
@@ -145,8 +145,8 @@
 
       // Get machine parameters.
 
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
       SMLNUM = SFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
 

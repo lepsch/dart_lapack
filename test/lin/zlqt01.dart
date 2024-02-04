@@ -43,7 +43,7 @@
       // .. Executable Statements ..
 
       MINMN = min( M, N );
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
 

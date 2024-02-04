@@ -49,7 +49,7 @@
       NOFACT = lsame( FACT, 'N' );
       EQUIL = lsame( FACT, 'E' );
       NOTRAN = lsame( TRANS, 'N' );
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
          EQUED = 'N';

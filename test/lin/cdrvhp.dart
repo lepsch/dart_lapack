@@ -350,7 +350,7 @@
                   // Check the error code from CHPSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'CHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'CHPSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

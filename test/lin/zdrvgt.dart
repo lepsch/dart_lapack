@@ -330,7 +330,7 @@
 
                   // Check the error code from ZGTSVX.
 
-                  if (INFO != IZERO) alaerh( PATH, 'ZGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'ZGTSVX', INFO, IZERO, FACT + TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT >= 2 ) {
 

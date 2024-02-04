@@ -45,7 +45,7 @@
 
 
       // Get machine constants
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
 
       if ( ILO >= IHI ) {

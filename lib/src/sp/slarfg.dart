@@ -50,7 +50,7 @@
 
          // general case
 
-         BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA );
+         BETA = -sign( SLAPY2( ALPHA, XNORM ), ALPHA );
          SAFMIN = SLAMCH( 'S' ) / SLAMCH( 'E' );
          KNT = 0;
          if ( ( BETA ).abs() < SAFMIN ) {
@@ -68,7 +68,7 @@
             // New BETA is at most 1, at least SAFMIN
 
             XNORM = SNRM2( N-1, X, INCX );
-            BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA );
+            BETA = -sign( SLAPY2( ALPHA, XNORM ), ALPHA );
          }
          TAU = ( BETA-ALPHA ) / BETA;
          sscal(N-1, ONE / ( ALPHA-BETA ), X, INCX );

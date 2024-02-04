@@ -40,7 +40,7 @@
 
       // Determine the block size
 
-      NB = max( 1, ILAENV( 1, 'ZHETRI_3', UPLO, N, -1, -1, -1 ) );
+      NB = max( 1, ilaenv( 1, 'ZHETRI_3', UPLO, N, -1, -1, -1 ) );
       LWKOPT = ( N+NB+1 ) * ( NB+3 );
 
       if ( !UPPER && !lsame( UPLO, 'L' ) ) {

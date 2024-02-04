@@ -38,8 +38,8 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = DLAMCH( 'Precision' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = dlamch( 'Precision' );
+      UNFL = dlamch( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 

@@ -43,8 +43,8 @@
 
       // Get machine parameters
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Set up test case parameters

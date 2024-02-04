@@ -72,8 +72,8 @@
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
       NZ = 4;
-      EPS = DLAMCH( 'Epsilon' );
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      SAFMIN = dlamch( 'Safe minimum' );
       SAFE1 = NZ*SAFMIN;
       SAFE2 = SAFE1 / EPS;
 

@@ -41,7 +41,7 @@
       RESID = ZERO;
       if( min( M, N ) <= 0 || NS <= 0 ) return;
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
       ANORM = DLANGE( 'M', M, N, A, LDA, WORK );
 
       // Compute U' * A * V.

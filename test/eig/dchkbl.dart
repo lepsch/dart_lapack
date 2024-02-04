@@ -43,8 +43,8 @@
       KNT = 0;
       RMAX = ZERO;
       VMAX = ZERO;
-      SFMIN = DLAMCH( 'S' );
-      MEPS = DLAMCH( 'E' );
+      SFMIN = dlamch( 'S' );
+      MEPS = dlamch( 'E' );
 
       } // 10
 

@@ -52,7 +52,7 @@
 
       // Partition A and X into blocks.
 
-      NB = max( NBMIN, ILAENV( 1, 'CLATRS', '', N, N, -1, -1 ) );
+      NB = max( NBMIN, ilaenv( 1, 'CLATRS', '', N, N, -1, -1 ) );
       NB = min( NBMAX, NB );
       NBA = max( 1, (N + NB - 1) / NB );
       NBX = max( 1, (NRHS + NBRHS - 1) / NBRHS );

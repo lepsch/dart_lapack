@@ -59,8 +59,8 @@
 
       // Set constants to control overflow
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       SGN = ISGN;
 
       K = N1 + N1 + N2 - 2;

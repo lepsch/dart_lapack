@@ -50,7 +50,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Copy the last k rows of the factorization to the array Q
 

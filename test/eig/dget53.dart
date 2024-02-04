@@ -40,8 +40,8 @@
 
       // Machine constants and norms
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       ABSW = ( WRS ).abs() + ( WIS ).abs();
       ANORM = max( ( A( 1, 1 ) ).abs()+( A( 2, 1 ) ).abs(), ( A( 1, 2 ) ).abs()+( A( 2, 2 ) ).abs(), SAFMIN )       BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 1, 2 ) ).abs()+( B( 2, 2 ) ).abs(), SAFMIN );
 

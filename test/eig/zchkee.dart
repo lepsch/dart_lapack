@@ -617,11 +617,11 @@
       // Calculate and print the machine dependent constants.
 
       WRITE( NOUT, FMT = * );
-      EPS = DLAMCH( 'Underflow threshold' );
+      EPS = dlamch( 'Underflow threshold' );
       WRITE( NOUT, FMT = 9981 )'underflow', EPS;
-      EPS = DLAMCH( 'Overflow threshold' );
+      EPS = dlamch( 'Overflow threshold' );
       WRITE( NOUT, FMT = 9981 )'overflow ', EPS;
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       WRITE( NOUT, FMT = 9981 )'precision', EPS;
 
       // Read the threshold value for the test ratios.

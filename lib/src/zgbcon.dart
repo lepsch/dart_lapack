@@ -84,7 +84,7 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
 
       // Estimate the norm of inv(A).
 

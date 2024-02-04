@@ -25,7 +25,7 @@
       // ..
       // .. Executable Statements ..
 
-      HUGEVAL = DLAMCH( 'Overflow' );
+      HUGEVAL = dlamch( 'Overflow' );
       XABS = ( X ).abs();
       YABS = ( Y ).abs();
       ZABS = ( Z ).abs();

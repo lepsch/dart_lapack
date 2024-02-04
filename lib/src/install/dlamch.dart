@@ -1,32 +1,11 @@
-// > \ingroup lamch
+import 'package:lapack/src/blas/lsame.dart';
 
-// =====================================================================
-double dlamch(CMACH) {
+double dlamch(final String CMACH) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  String CMACH;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double ONE, ZERO;
   const ONE = 1.0, ZERO = 0.0;
-  // ..
-  // .. Local Scalars ..
   double RND, EPS, SFMIN, SMALL, RMACH;
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  // EXTERNAL lsame
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DIGITS, EPSILON, HUGE, MAXEXPONENT, MINEXPONENT, RADIX, TINY
-  // ..
-  // .. Executable Statements ..
 
   // Assume rounding, not chopping. Always.
 
@@ -39,39 +18,35 @@ double dlamch(CMACH) {
   }
 
   if (lsame(CMACH, 'E')) {
-    RMACH = EPS;
+    return EPS;
   } else if (lsame(CMACH, 'S')) {
     SFMIN = TINY(ZERO);
     SMALL = ONE / HUGE(ZERO);
     if (SMALL >= SFMIN) {
       // Use SMALL plus a bit, to avoid the possibility of rounding
       // causing overflow when computing  1/sfmin.
-
       SFMIN = SMALL * (ONE + EPS);
     }
-    RMACH = SFMIN;
+    return SFMIN;
   } else if (lsame(CMACH, 'B')) {
-    RMACH = RADIX(ZERO);
+    return RADIX(ZERO);
   } else if (lsame(CMACH, 'P')) {
-    RMACH = EPS * RADIX(ZERO);
+    return EPS * RADIX(ZERO);
   } else if (lsame(CMACH, 'N')) {
-    RMACH = DIGITS(ZERO);
+    return DIGITS(ZERO);
   } else if (lsame(CMACH, 'R')) {
-    RMACH = RND;
+    return RND;
   } else if (lsame(CMACH, 'M')) {
-    RMACH = MINEXPONENT(ZERO);
+    return MINEXPONENT(ZERO);
   } else if (lsame(CMACH, 'U')) {
-    RMACH = tiny(zero);
+    return TINY(ZERO);
   } else if (lsame(CMACH, 'L')) {
-    RMACH = MAXEXPONENT(ZERO);
+    return MAXEXPONENT(ZERO);
   } else if (lsame(CMACH, 'O')) {
-    RMACH = HUGE(ZERO);
+    return HUGE(ZERO);
   } else {
-    RMACH = ZERO;
+    return ZERO;
   }
-
-  DLAMCH = RMACH;
-  return;
 }
 
 // ***********************************************************************
@@ -97,20 +72,8 @@ double dlamch(CMACH) {
 // >
 // > \ingroup lamc3
 // >
-double dlamc3(A, B) {
+double dlamc3(final double A, final double B) {
 // -- LAPACK auxiliary routine --
-  // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-  // .. Scalar Arguments ..
-  double A, B;
-  // ..
-// =====================================================================
-
-  // .. Executable Statements ..
-
-  DLAMC3 = A + B;
-
-  return;
+// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  return A + B;
 }
-
-// ***********************************************************************

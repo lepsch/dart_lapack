@@ -223,7 +223,7 @@
                db1nrm2(N,INCX,THRESH);
                // Test with hardcoded mid range entries
                STEMP[1] = DTRUE1(NP1);
-               stest1(DNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC);
+               stest1(dnrm2(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE == 8) {
                // .. DASUM ..
                STEMP[1] = DTRUE3(NP1);
@@ -341,7 +341,7 @@
 
             if (ICASE == 1) {
                // .. DDOT ..
-               stest1(DDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC);
+               stest1(ddot(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC);
             } else if (ICASE == 2) {
                // .. DAXPY ..
                daxpy(N,SA,SX,INCX,SY,INCY);
@@ -889,7 +889,7 @@
 
             // Call DNRM2 to compute the 2-norm
 
-            SNRM = DNRM2(N,X,INCX);
+            SNRM = dnrm2(N,X,INCX);
 
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.

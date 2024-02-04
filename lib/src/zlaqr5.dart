@@ -64,9 +64,9 @@
 
       // ==== Machine constants for deflation ====
 
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
-      ULP = DLAMCH( 'PRECISION' );
+      ULP = dlamch( 'PRECISION' );
       SMLNUM = SAFMIN*( N.toDouble() / ULP );
 
       // ==== Use accumulated reflections to update far-from-diagonal

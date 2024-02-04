@@ -377,7 +377,7 @@
                         // Check the error code from ZPBSVX.
 
                         if ( INFO != IZERO ) {
-                           alaerh(PATH, 'ZPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           alaerh(PATH, 'ZPBSVX', INFO, IZERO, FACT + UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 60;
                         }
 

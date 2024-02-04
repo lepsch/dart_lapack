@@ -417,7 +417,7 @@
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates
 
-            F = ( ( D( LL ) ).abs()-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) );
+            F = ( ( D( LL ) ).abs()-SHIFT )* ( sign( ONE, D( LL ) )+SHIFT / D( LL ) );
             G = E( LL );
             for (I = LL; I <= M - 1; I++) { // 140
                slartg(F, G, COSR, SINR, R );
@@ -456,7 +456,7 @@
             // Chase bulge from bottom to top
             // Save cosines and sines for later singular vector updates
 
-            F = ( ( D( M ) ).abs()-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) );
+            F = ( ( D( M ) ).abs()-SHIFT )*( sign( ONE, D( M ) )+SHIFT / D( M ) );
             G = E( M-1 );
             for (I = M; I >= LL + 1; I--) { // 150
                slartg(F, G, COSR, SINR, R );

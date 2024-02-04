@@ -43,8 +43,8 @@
          RESID = ZERO;
          return;
       }
-      EPS = DLAMCH( 'Epsilon' );
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      SMLNUM = dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
 
       // Compute the norm of the triangular matrix A using the column

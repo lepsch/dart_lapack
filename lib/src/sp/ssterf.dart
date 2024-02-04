@@ -155,7 +155,7 @@
          RTE = sqrt( E( L ) );
          SIGMA = ( D( L+1 )-P ) / ( TWO*RTE );
          R = SLAPY2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );
+         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
 
          C = ONE;
          S = ZERO;
@@ -234,7 +234,7 @@
          RTE = sqrt( E( L-1 ) );
          SIGMA = ( D( L-1 )-P ) / ( TWO*RTE );
          R = SLAPY2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );
+         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
 
          C = ONE;
          S = ZERO;

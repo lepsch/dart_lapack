@@ -141,7 +141,7 @@
 
       // Get machine constant
 
-      SAFMIN = DLAMCH( 'S' );
+      SAFMIN = dlamch( 'S' );
 
       // Collect the selected blocks at the top-left corner of (A, B).
 

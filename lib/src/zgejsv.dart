@@ -325,12 +325,12 @@
 
       // Set numerical parameters
 
-// !    NOTE: Make sure DLAMCH() does not fail on the target architecture.
+// !    NOTE: Make sure dlamch() does not fail on the target architecture.
 
-      EPSLN = DLAMCH('Epsilon');
-      SFMIN = DLAMCH('SafeMinimum');
+      EPSLN = dlamch('Epsilon');
+      SFMIN = dlamch('SafeMinimum');
       SMALL = SFMIN / EPSLN;
-      BIG   = DLAMCH('O');
+      BIG   = dlamch('O');
       // BIG   = ONE / SFMIN
 
       // Initialize SVA(1:N) = diag( ||A e_i||_2 )_1^N

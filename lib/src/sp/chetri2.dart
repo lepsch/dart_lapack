@@ -38,7 +38,7 @@
 
       // Get blocksize
 
-      NBMAX = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 );
+      NBMAX = ilaenv( 1, 'CHETRF', UPLO, N, -1, -1, -1 );
       if ( N == 0 ) {
          MINSIZE = 1;
       } else if ( NBMAX >= N ) {

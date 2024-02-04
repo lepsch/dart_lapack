@@ -73,7 +73,7 @@
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
-      NBLOCK = ILAENV( 1, 'DSYTRD', 'L', NMAX, -1, -1, -1 );
+      NBLOCK = ilaenv( 1, 'DSYTRD', 'L', NMAX, -1, -1, -1 );
       NBLOCK = min( NMAX, max( 1, NBLOCK ) );
 
       // Check for errors
@@ -103,9 +103,9 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       ULPINV = ONE / ULP;
       LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
       RTUNFL = sqrt( UNFL );
@@ -851,7 +851,7 @@
 
             // Only test DSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'DSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ILAENV( 11, 'DSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
+            if ( ilaenv( 10, 'DSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ilaenv( 11, 'DSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call DSTEMR, do test 27 (relative eigenvalue accuracy)
 

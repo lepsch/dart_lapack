@@ -49,9 +49,9 @@
       RESULT[2] = ZERO;
       if (N <= 0) return;
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMIN = dlamch( 'Safe minimum' );
       SAFMAX = ONE / SAFMIN;
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
 
       if ( LEFT ) {
          TRANS = 'C';

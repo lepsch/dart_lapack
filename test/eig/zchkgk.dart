@@ -56,7 +56,7 @@
       KNT = 0;
       RMAX = ZERO;
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       } // 10
       READ( NIN, FMT = * )N, M;

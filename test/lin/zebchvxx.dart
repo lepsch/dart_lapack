@@ -49,7 +49,7 @@
       UPLO = 'U';
       TRANS = 'N';
       EQUED = 'N';
-      EPS = DLAMCH('Epsilon');
+      EPS = dlamch('Epsilon');
       NFAIL = 0;
       N_AUX_TESTS = 0;
       LDA = NMAX;
@@ -201,13 +201,13 @@
                if (INVHILB(I,K) != 0.0) {
                   CWISE_ERR = max(CABS1(X(I,K) - INVHILB(I,K)) /CABS1(INVHILB(I,K)), CWISE_ERR);
                } else if (X(I, K) != 0.0) {
-                  CWISE_ERR = DLAMCH('OVERFLOW');
+                  CWISE_ERR = dlamch('OVERFLOW');
                }
             }
             if (NORMT != 0.0) {
                NWISE_ERR = NORMDIF / NORMT;
             } else if (NORMDIF != 0.0) {
-               NWISE_ERR = DLAMCH('OVERFLOW');
+               NWISE_ERR = dlamch('OVERFLOW');
             } else {
                NWISE_ERR = 0.0;
             }

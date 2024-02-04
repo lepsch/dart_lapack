@@ -42,7 +42,7 @@
       INFO = 0;
       MINMN = min( M, N );
       MAXMN = max( M, N );
-      MNTHR = ILAENV( 6, 'DGELSD', ' ', M, N, NRHS, -1 );
+      MNTHR = ilaenv( 6, 'DGELSD', ' ', M, N, NRHS, -1 );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -56,7 +56,7 @@
          INFO = -7;
       }
 
-      SMLSIZ = ILAENV( 9, 'DGELSD', ' ', 0, 0, 0, 0 );
+      SMLSIZ = ilaenv( 9, 'DGELSD', ' ', 0, 0, 0, 0 );
 
       // Compute workspace.
       // (Note: Comments in the code beginning "Workspace:" describe the
@@ -79,13 +79,13 @@
             // Path 1a - overdetermined, with many more rows than columns.
 
             MM = N;
-            MAXWRK = max( MAXWRK, N+N*ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 ) )             MAXWRK = max( MAXWRK, N+NRHS* ILAENV( 1, 'DORMQR', 'LT', M, NRHS, N, -1 ) );
+            MAXWRK = max( MAXWRK, N+N*ilaenv( 1, 'DGEQRF', ' ', M, N, -1, -1 ) )             MAXWRK = max( MAXWRK, N+NRHS* ilaenv( 1, 'DORMQR', 'LT', M, NRHS, N, -1 ) );
          }
          if ( M >= N ) {
 
             // Path 1 - overdetermined or exactly determined.
 
-            MAXWRK = max( MAXWRK, 3*N+( MM+N )* ILAENV( 1, 'DGEBRD', ' ', MM, N, -1, -1 ) )             MAXWRK = max( MAXWRK, 3*N+NRHS* ILAENV( 1, 'DORMBR', 'QLT', MM, NRHS, N, -1 ) )             MAXWRK = max( MAXWRK, 3*N+( N-1 )* ILAENV( 1, 'DORMBR', 'PLN', N, NRHS, N, -1 ) );
+            MAXWRK = max( MAXWRK, 3*N+( MM+N )* ilaenv( 1, 'DGEBRD', ' ', MM, N, -1, -1 ) )             MAXWRK = max( MAXWRK, 3*N+NRHS* ilaenv( 1, 'DORMBR', 'QLT', MM, NRHS, N, -1 ) )             MAXWRK = max( MAXWRK, 3*N+( N-1 )* ilaenv( 1, 'DORMBR', 'PLN', N, NRHS, N, -1 ) );
             WLALSD = 9*N+2*N*SMLSIZ+8*N*NLVL+N*NRHS+(SMLSIZ+1)**2;
             MAXWRK = max( MAXWRK, 3*N+WLALSD );
             MINWRK = max( 3*N+MM, 3*N+NRHS, 3*N+WLALSD );
@@ -97,14 +97,14 @@
                // Path 2a - underdetermined, with many more columns
                // than rows.
 
-               MAXWRK = M + M*ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 );
-               MAXWRK = max( MAXWRK, M*M+4*M+2*M* ILAENV( 1, 'DGEBRD', ' ', M, M, -1, -1 ) )                MAXWRK = max( MAXWRK, M*M+4*M+NRHS* ILAENV( 1, 'DORMBR', 'QLT', M, NRHS, M, -1 ) )                MAXWRK = max( MAXWRK, M*M+4*M+( M-1 )* ILAENV( 1, 'DORMBR', 'PLN', M, NRHS, M, -1 ) );
+               MAXWRK = M + M*ilaenv( 1, 'DGELQF', ' ', M, N, -1, -1 );
+               MAXWRK = max( MAXWRK, M*M+4*M+2*M* ilaenv( 1, 'DGEBRD', ' ', M, M, -1, -1 ) )                MAXWRK = max( MAXWRK, M*M+4*M+NRHS* ilaenv( 1, 'DORMBR', 'QLT', M, NRHS, M, -1 ) )                MAXWRK = max( MAXWRK, M*M+4*M+( M-1 )* ilaenv( 1, 'DORMBR', 'PLN', M, NRHS, M, -1 ) );
                if ( NRHS > 1 ) {
                   MAXWRK = max( MAXWRK, M*M+M+M*NRHS );
                } else {
                   MAXWRK = max( MAXWRK, M*M+2*M );
                }
-               MAXWRK = max( MAXWRK, M+NRHS* ILAENV( 1, 'DORMLQ', 'LT', N, NRHS, M, -1 ) );
+               MAXWRK = max( MAXWRK, M+NRHS* ilaenv( 1, 'DORMLQ', 'LT', N, NRHS, M, -1 ) );
                MAXWRK = max( MAXWRK, M*M+4*M+WLALSD );
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
       // calculation should use queries for all routines eventually.
@@ -113,7 +113,7 @@
 
                // Path 2 - remaining underdetermined cases.
 
-               MAXWRK = 3*M + ( N+M )*ILAENV( 1, 'DGEBRD', ' ', M, N, -1, -1 )                MAXWRK = max( MAXWRK, 3*M+NRHS* ILAENV( 1, 'DORMBR', 'QLT', M, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 3*M+M* ILAENV( 1, 'DORMBR', 'PLN', N, NRHS, M, -1 ) );
+               MAXWRK = 3*M + ( N+M )*ilaenv( 1, 'DGEBRD', ' ', M, N, -1, -1 )                MAXWRK = max( MAXWRK, 3*M+NRHS* ilaenv( 1, 'DORMBR', 'QLT', M, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 3*M+M* ilaenv( 1, 'DORMBR', 'PLN', N, NRHS, M, -1 ) );
                MAXWRK = max( MAXWRK, 3*M+WLALSD );
             }
             MINWRK = max( 3*M+NRHS, 3*M+M, 3*M+WLALSD );
@@ -143,8 +143,8 @@
 
       // Get machine parameters.
 
-      EPS = DLAMCH( 'P' );
-      SFMIN = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SFMIN = dlamch( 'S' );
       SMLNUM = SFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
 

@@ -59,7 +59,7 @@
       if (M <= 0 || N <= 0 || NRHS <= 0) return;
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       ISCL = 0;
 
       // compute residual and scale it
@@ -90,6 +90,6 @@
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*(max( M, N, NRHS )).toDouble() );
+      ZQRT17 = ERR / ( dlamch( 'Epsilon' )*(max( M, N, NRHS )).toDouble() );
       return;
       }

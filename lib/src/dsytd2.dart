@@ -80,7 +80,7 @@
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
-               ALPHA = -HALF*TAUI*DDOT( I, TAU, 1, A( 1, I+1 ), 1 );
+               ALPHA = -HALF*TAUI*ddot( I, TAU, 1, A( 1, I+1 ), 1 );
                daxpy(I, ALPHA, A( 1, I+1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
@@ -118,7 +118,7 @@
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
-               ALPHA = -HALF*TAUI*DDOT( N-I, TAU( I ), 1, A( I+1, I ), 1 );
+               ALPHA = -HALF*TAUI*ddot( N-I, TAU( I ), 1, A( I+1, I ), 1 );
                daxpy(N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:

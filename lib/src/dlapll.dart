@@ -43,7 +43,7 @@
       A11 = X( 1 );
       X[1] = ONE;
 
-      C = -TAU*DDOT( N, X, INCX, Y, INCY );
+      C = -TAU*ddot( N, X, INCX, Y, INCY );
       daxpy(N, C, X, INCX, Y, INCY );
 
       dlarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );

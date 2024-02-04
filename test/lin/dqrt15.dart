@@ -44,9 +44,9 @@
          return;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       SMLNUM = ( SMLNUM / EPS ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
@@ -82,7 +82,7 @@
          // Generate 'rank' columns of a random orthogonal matrix in A
 
          dlarnv(2, ISEED, M, WORK );
-         dscal(M, ONE / DNRM2( M, WORK, 1 ), WORK, 1 );
+         dscal(M, ONE / dnrm2( M, WORK, 1 ), WORK, 1 );
          dlaset('Full', M, RANK, ZERO, ONE, A, LDA );
          dlarf('Left', M, RANK, WORK, 1, TWO, A, LDA, WORK( M+1 ) );
 

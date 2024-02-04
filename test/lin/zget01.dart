@@ -49,7 +49,7 @@
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
 
       // Compute the product L*U and overwrite AFAC with the result.

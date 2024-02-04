@@ -69,7 +69,7 @@
 
          // Transfer the sign
 
-         D[1] = CMPLX( -SIGN( ONE, double( A( 1, 1 ) ) ) );
+         D[1] = CMPLX( -sign( ONE, double( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 
@@ -82,7 +82,7 @@
 
          // Transfer the sign
 
-         D[1] = CMPLX( -SIGN( ONE, double( A( 1, 1 ) ) ) );
+         D[1] = CMPLX( -sign( ONE, double( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 

@@ -87,7 +87,7 @@
 
             // Compute space needed for DBDSQR
 
-            MNTHR = ILAENV( 6, 'DGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'DGESVD', JOBU + JOBVT, M, N, 0, 0 );
             BDSPAC = 5*N;
             // Compute space needed for DGEQRF
             dgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
@@ -241,7 +241,7 @@
 
             // Compute space needed for DBDSQR
 
-            MNTHR = ILAENV( 6, 'DGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'DGESVD', JOBU + JOBVT, M, N, 0, 0 );
             BDSPAC = 5*M;
             // Compute space needed for DGELQF
             dgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
@@ -415,8 +415,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = sqrt( DLAMCH( 'S' ) ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = sqrt( dlamch( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

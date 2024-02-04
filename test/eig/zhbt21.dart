@@ -56,8 +56,8 @@
          CUPLO = 'L';
       }
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      UNFL = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
 
       // Some Error Checks
 

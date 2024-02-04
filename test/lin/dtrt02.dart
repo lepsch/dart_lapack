@@ -53,7 +53,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
          return;

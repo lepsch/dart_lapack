@@ -69,7 +69,7 @@
 
       PATH[1: 1] = 'Zomplex precision';
       PATH[2: 3] = 'TR';
-      BIGNUM = DLAMCH('Overflow') / DLAMCH('Precision');
+      BIGNUM = dlamch('Overflow') / dlamch('Precision');
       NRUN = 0;
       NFAIL = 0;
       NERRS = 0;
@@ -131,7 +131,7 @@
 
                   // Check error code from ZTRTRI.
 
-                  if (INFO != 0) alaerh( PATH, 'ZTRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'ZTRTRI', INFO, 0, UPLO + DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the infinity-norm condition number of A.
 
@@ -191,7 +191,7 @@
 
                         // Check error code from ZTRTRS.
 
-                        if (INFO != 0) alaerh( PATH, 'ZTRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'ZTRTRS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 
@@ -213,7 +213,7 @@
 
                         // Check error code from ZTRRFS.
 
-                        if (INFO != 0) alaerh( PATH, 'ZTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'ZTRRFS', INFO, 0, UPLO + TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         ztrt05(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -248,7 +248,7 @@
 
                         // Check error code from ZTRCON.
 
-                     if (INFO != 0) alaerh( PATH, 'ZTRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'ZTRCON', INFO, 0, NORM + UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ztrt06(RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RESULT( 7 ) );
 
@@ -298,7 +298,7 @@
 
                   // Check error code from ZLATRS.
 
-                  if (INFO != 0) alaerh( PATH, 'ZLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'ZLATRS', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ztrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -310,7 +310,7 @@
 
                   // Check error code from ZLATRS.
 
-                  if (INFO != 0) alaerh( PATH, 'ZLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'ZLATRS', INFO, 0, UPLO + TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ztrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
@@ -325,7 +325,7 @@
 
                   // Check error code from ZLATRS3.
 
-                  if (INFO != 0) alaerh( PATH, 'ZLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'ZLATRS3', INFO, 0, UPLO + TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   ztrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   zdscal(N, BIGNUM, X, 1 );
                   ztrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );

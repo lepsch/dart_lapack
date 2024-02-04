@@ -106,7 +106,7 @@
 
       IMAX = idamax( N, Z, 1 );
       JMAX = idamax( N, D, 1 );
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       TOL = EIGHT*EPS*( D( JMAX ) ).abs();
 
       // If the rank-1 modifier is small enough, no more needs to be done
@@ -163,7 +163,7 @@
          // Find sqrt(a**2+b**2) without overflow or
          // destructive underflow.
 
-         TAU = DLAPY2( C, S );
+         TAU = dlapy2( C, S );
          T = D( J ) - D( JLAM );
          C = C / TAU;
          S = -S / TAU;

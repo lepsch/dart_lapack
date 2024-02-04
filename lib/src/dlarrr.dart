@@ -43,8 +43,8 @@
       // As a default, do NOT go for relative-accuracy preserving computations.
       INFO = 1;
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       RMIN = sqrt( SMLNUM );
 

@@ -90,7 +90,7 @@
 
       // Normalize Z.
 
-      RHO = DNRM2( K, Z, 1 );
+      RHO = dnrm2( K, Z, 1 );
       dlascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
       RHO = RHO*RHO;
 
@@ -116,7 +116,7 @@
          for (J = I; J <= K - 1; J++) { // 50
             Z[I] = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) );
          } // 50
-         Z[I] = SIGN( sqrt( ( Z( I ) ) ).abs(), Q( I, 1 ) );
+         Z[I] = sign( sqrt( ( Z( I ) ) ).abs(), Q( I, 1 ) );
       } // 60
 
       // Compute left singular vectors of the modified diagonal matrix,
@@ -129,7 +129,7 @@
             VT[J, I] = Z( J ) / U( J, I ) / VT( J, I );
             U[J, I] = DSIGMA( J )*VT( J, I );
          } // 70
-         TEMP = DNRM2( K, U( 1, I ), 1 );
+         TEMP = dnrm2( K, U( 1, I ), 1 );
          Q[1, I] = U( 1, I ) / TEMP;
          for (J = 2; J <= K; J++) { // 80
             JC = IDXC( J );
@@ -164,7 +164,7 @@
 
       } // 100
       for (I = 1; I <= K; I++) { // 120
-         TEMP = DNRM2( K, VT( 1, I ), 1 );
+         TEMP = dnrm2( K, VT( 1, I ), 1 );
          Q[I, 1] = VT( 1, I ) / TEMP;
          for (J = 2; J <= K; J++) { // 110
             JC = IDXC( J );

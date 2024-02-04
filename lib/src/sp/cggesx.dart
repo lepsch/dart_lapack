@@ -122,10 +122,10 @@
       if ( INFO == 0 ) {
          if ( N > 0) {
             MINWRK = 2*N;
-            MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
-            MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) );
+            MAXWRK = N*(1 + ilaenv( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
+            MAXWRK = max( MAXWRK, N*( 1 + ilaenv( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) );
             if ( ILVSL ) {
-               MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) );
+               MAXWRK = max( MAXWRK, N*( 1 + ilaenv( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) );
             }
             LWRK = MAXWRK;
             if (IJOB >= 1) LWRK = max( LWRK, N*N/2 );

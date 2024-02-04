@@ -93,7 +93,7 @@
             S = X21(I,I+1);
             X21[I,I+1] = ONE;
             dlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
-            dlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = sqrt( DNRM2( P-I, X11(I+1,I+1), 1 )**2 + DNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
+            dlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = sqrt( dnrm2( P-I, X11(I+1,I+1), 1 )**2 + dnrm2( M-P-I, X21(I+1,I+1), 1 )**2 );
             PHI[I] = ATAN2( S, C );
             dorbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }

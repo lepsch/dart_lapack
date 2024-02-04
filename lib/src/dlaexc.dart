@@ -92,8 +92,8 @@
          // Compute machine-dependent threshold for test for accepting
          // swap.
 
-         EPS = DLAMCH( 'P' );
-         SMLNUM = DLAMCH( 'S' ) / EPS;
+         EPS = dlamch( 'P' );
+         SMLNUM = dlamch( 'S' ) / EPS;
          THRESH = max( TEN*EPS*DNORM, SMLNUM );
 
          // Solve T11*X - X*T22 = scale*T12 for X.

@@ -36,7 +36,7 @@
       Y_IS_NAN = DISNAN( Y );
       if (X_IS_NAN) DLAPY2 = X;
       if (Y_IS_NAN) DLAPY2 = Y;
-      HUGEVAL = DLAMCH( 'Overflow' );
+      HUGEVAL = dlamch( 'Overflow' );
 
       if ( !( X_IS_NAN || Y_IS_NAN ) ) {
          XABS = ( X ).abs();

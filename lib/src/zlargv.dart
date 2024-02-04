@@ -51,9 +51,9 @@
 
       // IF( FIRST ) THEN
          // FIRST = false;
-         SAFMIN = DLAMCH( 'S' );
-         EPS = DLAMCH( 'E' );
-         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO );
+         SAFMIN = dlamch( 'S' );
+         EPS = dlamch( 'E' );
+         SAFMN2 = dlamch( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( dlamch( 'B' ) ) / TWO );
          SAFMX2 = ONE / SAFMN2;
       // END IF
       IX = 1;
@@ -98,14 +98,14 @@
 
             if ( F == CZERO ) {
                CS = ZERO;
-               R = DLAPY2( G.toDouble(), DIMAG( G ) );
+               R = dlapy2( G.toDouble(), DIMAG( G ) );
                // Do complex/real division explicitly with two real
                // divisions
-               D = DLAPY2( GS.toDouble(), DIMAG( GS ) );
+               D = dlapy2( GS.toDouble(), DIMAG( GS ) );
                SN = DCMPLX( GS.toDouble() / D, -DIMAG( GS ) / D );
                GO TO 50;
             }
-            F2S = DLAPY2( FS.toDouble(), DIMAG( FS ) );
+            F2S = dlapy2( FS.toDouble(), DIMAG( FS ) );
             // G2 and G2S are accurate
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
             G2S = sqrt( G2 );
@@ -120,12 +120,12 @@
             // Make sure abs(FF) = 1
             // Do complex/real division explicitly with 2 real divisions
             if ( ABS1( F ) > ONE ) {
-               D = DLAPY2( F.toDouble(), DIMAG( F ) );
+               D = dlapy2( F.toDouble(), DIMAG( F ) );
                FF = DCMPLX( F.toDouble() / D, DIMAG( F ) / D );
             } else {
                DR = SAFMX2*F.toDouble();
                DI = SAFMX2*DIMAG( F );
-               D = DLAPY2( DR, DI );
+               D = dlapy2( DR, DI );
                FF = DCMPLX( DR / D, DI / D );
             }
             SN = FF*DCMPLX( GS.toDouble() / G2S, -DIMAG( GS ) / G2S );

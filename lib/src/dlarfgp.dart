@@ -39,8 +39,8 @@
          return;
       }
 
-      EPS = DLAMCH( 'Precision' );
-      XNORM = DNRM2( N-1, X, INCX );
+      EPS = dlamch( 'Precision' );
+      XNORM = dnrm2( N-1, X, INCX );
 
       if ( XNORM <= EPS*(ALPHA).abs() ) {
 
@@ -64,8 +64,8 @@
 
          // general case
 
-         BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA );
-         SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' );
+         BETA = sign( dlapy2( ALPHA, XNORM ), ALPHA );
+         SMLNUM = dlamch( 'S' ) / dlamch( 'E' );
          KNT = 0;
          if ( ( BETA ).abs() < SMLNUM ) {
 
@@ -81,8 +81,8 @@
 
             // New BETA is at most 1, at least SMLNUM
 
-            XNORM = DNRM2( N-1, X, INCX );
-            BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA );
+            XNORM = dnrm2( N-1, X, INCX );
+            BETA = sign( dlapy2( ALPHA, XNORM ), ALPHA );
          }
          SAVEALPHA = ALPHA;
          ALPHA = ALPHA + BETA;

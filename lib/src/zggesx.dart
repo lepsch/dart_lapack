@@ -122,10 +122,10 @@
       if ( INFO == 0 ) {
          if ( N > 0) {
             MINWRK = 2*N;
-            MAXWRK = N*(1 + ILAENV( 1, 'ZGEQRF', ' ', N, 1, N, 0 ) );
-            MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'ZUNMQR', ' ', N, 1, N, -1 ) ) );
+            MAXWRK = N*(1 + ilaenv( 1, 'ZGEQRF', ' ', N, 1, N, 0 ) );
+            MAXWRK = max( MAXWRK, N*( 1 + ilaenv( 1, 'ZUNMQR', ' ', N, 1, N, -1 ) ) );
             if ( ILVSL ) {
-               MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'ZUNGQR', ' ', N, 1, N, -1 ) ) );
+               MAXWRK = max( MAXWRK, N*( 1 + ilaenv( 1, 'ZUNGQR', ' ', N, 1, N, -1 ) ) );
             }
             LWRK = MAXWRK;
             if (IJOB >= 1) LWRK = max( LWRK, N*N/2 );
@@ -165,8 +165,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

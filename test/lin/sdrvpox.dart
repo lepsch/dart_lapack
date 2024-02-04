@@ -323,7 +323,7 @@
                      // Check the error code from SPOSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'SPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'SPOSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 
@@ -408,7 +408,7 @@
 
                      if (INFO == N+1) GOTO 90;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'SPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'SPOSVXX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

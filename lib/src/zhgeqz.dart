@@ -141,8 +141,8 @@
       // Machine Constants
 
       IN = IHI + 1 - ILO;
-      SAFMIN = DLAMCH( 'S' );
-      ULP = DLAMCH( 'E' )*DLAMCH( 'B' );
+      SAFMIN = dlamch( 'S' );
+      ULP = dlamch( 'E' )*dlamch( 'B' );
       ANORM = ZLANHS( 'F', IN, H( ILO, ILO ), LDH, RWORK );
       BNORM = ZLANHS( 'F', IN, T( ILO, ILO ), LDT, RWORK );
       ATOL = max( SAFMIN, ULP*ANORM );
@@ -384,7 +384,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         if ( ( IITER / 10 )*10 != IITER ) {
+         if ( ( IITER ~/ 10 )*10 != IITER ) {
 
             // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
             // the bottom-right 2x2 block of A inv(B) which is nearest to

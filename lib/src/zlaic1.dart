@@ -35,7 +35,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ALPHA = ZDOTC( J, X, 1, W, 1 );
 
       ABSALP = ( ALPHA ).abs();

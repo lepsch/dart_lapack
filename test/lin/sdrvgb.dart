@@ -399,7 +399,7 @@
 
                            // Check the error code from SGBSVX.
 
-                           if (INFO != IZERO) alaerh( PATH, 'SGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) alaerh( PATH, 'SGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare WORK(1) from SGBSVX with the computed
                            // reciprocal pivot growth factor RPVGRW

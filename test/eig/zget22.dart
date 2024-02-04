@@ -46,8 +46,8 @@
       RESULT[2] = ZERO;
       if (N <= 0) return;
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Precision' );
+      UNFL = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Precision' );
 
       ITRNSE = 0;
       ITRNSW = 0;

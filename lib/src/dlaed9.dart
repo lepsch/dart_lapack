@@ -89,7 +89,7 @@
          } // 60
       } // 70
       for (I = 1; I <= K; I++) { // 80
-         W[I] = SIGN( sqrt( -W( I ) ), S( I, 1 ) );
+         W[I] = sign( sqrt( -W( I ) ), S( I, 1 ) );
       } // 80
 
       // Compute eigenvectors of the modified rank-1 modification.
@@ -98,7 +98,7 @@
          for (I = 1; I <= K; I++) { // 90
             Q[I, J] = W( I ) / Q( I, J );
          } // 90
-         TEMP = DNRM2( K, Q( 1, J ), 1 );
+         TEMP = dnrm2( K, Q( 1, J ), 1 );
          for (I = 1; I <= K; I++) { // 100
             S[I, J] = Q( I, J ) / TEMP;
          } // 100

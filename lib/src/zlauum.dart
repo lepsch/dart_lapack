@@ -59,7 +59,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 );
 
       if ( NB <= 1 || NB >= N ) {
 

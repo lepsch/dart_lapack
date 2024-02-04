@@ -68,7 +68,7 @@
       if ( INFO == 0 ) {
          LWKOPT = max( 1, 2*N );
          if ( NOFACT ) {
-            NB = ILAENV( 1, 'CSYTRF', UPLO, N, -1, -1, -1 );
+            NB = ilaenv( 1, 'CSYTRF', UPLO, N, -1, -1, -1 );
             LWKOPT = max( LWKOPT, N*NB );
          }
          WORK[1] = SROUNDUP_LWORK(LWKOPT);

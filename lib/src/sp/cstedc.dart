@@ -65,7 +65,7 @@
 
          // Compute the workspace requirements
 
-         SMLSIZ = ILAENV( 9, 'CSTEDC', ' ', 0, 0, 0, 0 );
+         SMLSIZ = ilaenv( 9, 'CSTEDC', ' ', 0, 0, 0, 0 );
          if ( N <= 1 || ICOMPZ == 0 ) {
             LWMIN = 1;
             LIWMIN = 1;

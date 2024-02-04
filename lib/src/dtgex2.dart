@@ -72,8 +72,8 @@
 
       // Compute threshold for testing acceptance of swapping.
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       DSCALE = ZERO;
       DSUM = ONE;
       dlacpy('Full', M, M, S, LDST, WORK, M );

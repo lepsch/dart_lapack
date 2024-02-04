@@ -43,7 +43,7 @@
       if ( N == 0 ) {
          LWKOPT = 1;
       } else {
-         NB = max( 1, ILAENV( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) );
+         NB = max( 1, ilaenv( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) );
          LWKOPT = ( N+NB+1 ) * ( NB+3 );
       }
       WORK[1] = LWKOPT;

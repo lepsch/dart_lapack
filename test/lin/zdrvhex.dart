@@ -341,7 +341,7 @@
                   // Check the error code from ZHESVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'ZHESVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'ZHESVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 
@@ -425,7 +425,7 @@
                   // Check the error code from ZHESVXX.
 
                   if ( INFO != K && INFO <= N) {
-                     alaerh(PATH, 'ZHESVXX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'ZHESVXX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

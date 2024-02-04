@@ -131,7 +131,7 @@
                   }
                } // 40
                RWORK[1] = NEGONE;
-               TEMP = DNRM2( K, RWORK, 1 );
+               TEMP = dnrm2( K, RWORK, 1 );
 
                // Since B and BX are complex, the following call to DGEMV
                // is performed in two steps (real and imaginary parts).

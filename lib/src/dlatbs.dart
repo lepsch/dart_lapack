@@ -72,7 +72,7 @@
 
       // Determine machine dependent parameters to control overflow.
 
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       BIGNUM = ONE / SMLNUM;
 
       if ( lsame( NORMIN, 'N' ) ) {
@@ -444,10 +444,10 @@
 
                   if ( UPPER ) {
                      JLEN = min( KD, J-1 );
-                     SUMJ = DDOT( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
+                     SUMJ = ddot( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
                   } else {
                      JLEN = min( KD, N-J );
-                     if (JLEN > 0) SUMJ = DDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
+                     if (JLEN > 0) SUMJ = ddot( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
                   }
                } else {
 

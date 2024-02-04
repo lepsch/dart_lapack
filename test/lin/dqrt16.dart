@@ -53,7 +53,7 @@
          N2 = N;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
 

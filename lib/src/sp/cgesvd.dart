@@ -92,7 +92,7 @@
 
             // Space needed for ZBDSQR is BDSPAC = 5*N
 
-            MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'CGESVD', JOBU + JOBVT, M, N, 0, 0 );
             // Compute space needed for CGEQRF
             cgeqrf(M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEQRF = INT( CDUM(1) );
@@ -110,7 +110,7 @@
             cungbr('Q', N, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_Q = INT( CDUM(1) );
 
-            MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'CGESVD', JOBU + JOBVT, M, N, 0, 0 );
             if ( M >= MNTHR ) {
                if ( WNTUN ) {
 
@@ -235,7 +235,7 @@
 
             // Space needed for CBDSQR is BDSPAC = 5*M
 
-            MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            MNTHR = ilaenv( 6, 'CGESVD', JOBU + JOBVT, M, N, 0, 0 );
             // Compute space needed for CGELQF
             cgelqf(M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGELQF = INT( CDUM(1) );

@@ -113,8 +113,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
       KS = 0;
       for (K = 1; K <= N; K++) { // 20
@@ -139,7 +139,7 @@
             YHAX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 );
             zgemv('N', N, N, DCMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 );
             YHBX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 );
-            COND = DLAPY2( ( YHAX ).abs(), ( YHBX ).abs() );
+            COND = dlapy2( ( YHAX ).abs(), ( YHBX ).abs() );
             if ( COND == ZERO ) {
                S[KS] = -ONE;
             } else {
@@ -149,7 +149,7 @@
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF[KS] = DLAPY2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
+               DIF[KS] = dlapy2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
             } else {
 
                // Estimate the reciprocal condition number of the k-th

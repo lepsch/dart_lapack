@@ -55,7 +55,7 @@
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+         NB = ilaenv( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, ( NB+2 )*N );
          WORK[1] = LWKOPT;
 
@@ -84,8 +84,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN = sqrt( SMLNUM );

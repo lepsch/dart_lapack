@@ -74,7 +74,7 @@
       }
 
       INFO = 0;
-      NB = ILAENV( 1, 'CTREVC', SIDE // HOWMNY, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'CTREVC', SIDE + HOWMNY, N, -1, -1, -1 );
       MAXWRK = max( 1, N + 2*N*NB );
       WORK[1] = SROUNDUP_LWORK(MAXWRK);
       RWORK[1] = max( 1, N );

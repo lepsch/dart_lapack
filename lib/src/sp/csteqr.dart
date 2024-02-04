@@ -192,7 +192,7 @@
 
          G = ( D( L+1 )-P ) / ( TWO*E( L ) );
          R = SLAPY2( G, ONE );
-         G = D( M ) - P + ( E( L ) / ( G+SIGN( R, G ) ) );
+         G = D( M ) - P + ( E( L ) / ( G+sign( R, G ) ) );
 
          S = ONE;
          C = ONE;
@@ -290,7 +290,7 @@
 
          G = ( D( L-1 )-P ) / ( TWO*E( L-1 ) );
          R = SLAPY2( G, ONE );
-         G = D( M ) - P + ( E( L-1 ) / ( G+SIGN( R, G ) ) );
+         G = D( M ) - P + ( E( L-1 ) / ( G+sign( R, G ) ) );
 
          S = ONE;
          C = ONE;

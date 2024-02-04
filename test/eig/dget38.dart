@@ -45,8 +45,8 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // EPSIN = 2**(-24) = precision to which input data computed

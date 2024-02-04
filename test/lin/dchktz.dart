@@ -68,7 +68,7 @@
       for (I = 1; I <= 4; I++) { // 10
          ISEED[I] = ISEEDY( I );
       } // 10
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Test the error exits
 

@@ -398,7 +398,7 @@
 
                            // Check the error code from DGBSVX.
 
-                           if (INFO != IZERO) alaerh( PATH, 'DGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) alaerh( PATH, 'DGBSVX', INFO, IZERO, FACT + TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare WORK(1) from DGBSVX with the computed
                            // reciprocal pivot growth factor RPVGRW
@@ -424,7 +424,7 @@
                                  RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW;
                               }
                            }
-                           RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
+                           RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / dlamch( 'E' );
 
                            if ( !PREFAC ) {
 
@@ -549,7 +549,7 @@
 
                      if (INFO == N+1) GOTO 90;
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'DGBSVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'DGBSVXX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 90;
                      }
 
@@ -562,7 +562,7 @@
                      } else {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB);
                      }
-                      RESULT[7] = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / DLAMCH( 'E' );
+                      RESULT[7] = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / dlamch( 'E' );
 
                      if ( !PREFAC ) {
 

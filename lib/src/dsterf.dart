@@ -50,13 +50,13 @@
 
       // Determine the unit roundoff for this environment.
 
-      EPS = DLAMCH( 'E' );
+      EPS = dlamch( 'E' );
       EPS2 = EPS**2;
-      SAFMIN = DLAMCH( 'S' );
+      SAFMIN = dlamch( 'S' );
       SAFMAX = ONE / SAFMIN;
       SSFMAX = sqrt( SAFMAX ) / THREE;
       SSFMIN = sqrt( SAFMIN ) / EPS2;
-      RMAX = DLAMCH( 'O' );
+      RMAX = dlamch( 'O' );
 
       // Compute the eigenvalues of the tridiagonal matrix.
 
@@ -155,8 +155,8 @@
 
          RTE = sqrt( E( L ) );
          SIGMA = ( D( L+1 )-P ) / ( TWO*RTE );
-         R = DLAPY2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );
+         R = dlapy2( SIGMA, ONE );
+         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
 
          C = ONE;
          S = ZERO;
@@ -234,8 +234,8 @@
 
          RTE = sqrt( E( L-1 ) );
          SIGMA = ( D( L-1 )-P ) / ( TWO*RTE );
-         R = DLAPY2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );
+         R = dlapy2( SIGMA, ONE );
+         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
 
          C = ONE;
          S = ZERO;

@@ -57,7 +57,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'DPOTRF', UPLO, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.

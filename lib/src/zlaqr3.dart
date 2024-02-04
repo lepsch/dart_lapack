@@ -89,9 +89,9 @@
 
       // ==== Machine constants ====
 
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMIN = dlamch( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
-      ULP = DLAMCH( 'PRECISION' );
+      ULP = dlamch( 'PRECISION' );
       SMLNUM = SAFMIN*( N.toDouble() / ULP );
 
       // ==== Setup deflation window ====
@@ -130,7 +130,7 @@
       zcopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
       zlaset('A', JW, JW, ZERO, ONE, V, LDV );
-      NMIN = ILAENV( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK );
+      NMIN = ilaenv( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK );
       if ( JW > NMIN ) {
          zlaqr4( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {

@@ -135,7 +135,7 @@
          } // 40
          for (I = 1; I <= N - 1; I++) { // 50
             if ( H( I+1, I ) != ZERO ) {
-               if( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV;
+               if( H( I, I ) != H( I+1, I+1 ) || H( I, I+1 ) == ZERO || sign( ONE, H( I+1, I ) ) == sign( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV;
             }
          } // 50
 

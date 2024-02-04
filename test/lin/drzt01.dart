@@ -70,7 +70,7 @@
 
       DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*(max( M, N )).toDouble() );
+      DRZT01 = DRZT01 / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
       return;

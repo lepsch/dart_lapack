@@ -73,7 +73,7 @@
 
       // Determine machine dependent parameters to control overflow.
 
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       BIGNUM = ONE / SMLNUM;
 
       if ( lsame( NORMIN, 'N' ) ) {
@@ -110,7 +110,7 @@
          // Avoid NaN generation if entries in CNORM exceed the
          // overflow threshold
 
-         if ( TMAX <= DLAMCH('Overflow') ) {
+         if ( TMAX <= dlamch('Overflow') ) {
             // Case 1: All entries in CNORM are valid floating-point numbers
             TSCAL = ONE / ( SMLNUM*TMAX );
             dscal(N, TSCAL, CNORM, 1 );
@@ -136,10 +136,10 @@
                }
             }
 
-            if ( TMAX <= DLAMCH('Overflow') ) {
+            if ( TMAX <= dlamch('Overflow') ) {
                TSCAL = ONE / ( SMLNUM*TMAX );
                for (J = 1; J <= N; J++) {
-                  if ( CNORM( J ) <= DLAMCH('Overflow') ) {
+                  if ( CNORM( J ) <= dlamch('Overflow') ) {
                      CNORM[J] = CNORM( J )*TSCAL;
                   } else {
                      // Recompute the 1-norm without introducing Infinity
@@ -488,9 +488,9 @@
                   // call DDOT to perform the dot product.
 
                   if ( UPPER ) {
-                     SUMJ = DDOT( J-1, A( 1, J ), 1, X, 1 );
+                     SUMJ = ddot( J-1, A( 1, J ), 1, X, 1 );
                   } else if ( J < N ) {
-                     SUMJ = DDOT( N-J, A( J+1, J ), 1, X( J+1 ), 1 );
+                     SUMJ = ddot( N-J, A( J+1, J ), 1, X( J+1 ), 1 );
                   }
                } else {
 

@@ -53,8 +53,8 @@
       MINMNFACT = min( M-IOFFSET, N );
       MINMNUPDT = min( M-IOFFSET, N+NRHS );
       KMAX = min( KMAX, MINMNFACT );
-      TOL3Z = sqrt( DLAMCH( 'Epsilon' ) );
-      HUGEVAL = DLAMCH( 'Overflow' );
+      TOL3Z = sqrt( dlamch( 'Epsilon' ) );
+      HUGEVAL = dlamch( 'Overflow' );
 
       // Compute the factorization, KK is the lomn loop index.
 
@@ -303,7 +303,7 @@
                      // and store it in both partial 2-norm vector VN1
                      // and exact column 2-norm vector VN2.
 
-                     VN1[J] = DNRM2( M-I, A( I+1, J ), 1 );
+                     VN1[J] = dnrm2( M-I, A( I+1, J ), 1 );
                      VN2[J] = VN1( J );
 
                   } else {

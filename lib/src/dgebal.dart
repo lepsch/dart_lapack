@@ -164,7 +164,7 @@
 
       // Iterative loop for norm reduction.
 
-      SFMIN1 = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SFMIN1 = dlamch( 'S' ) / dlamch( 'P' );
       SFMAX1 = ONE / SFMIN1;
       SFMIN2 = SFMIN1*SCLFAC;
       SFMAX2 = ONE / SFMIN2;
@@ -175,8 +175,8 @@
 
          for (I = K; I <= L; I++) {
 
-            C = DNRM2( L-K+1, A( K, I ), 1 );
-            R = DNRM2( L-K+1, A( I, K ), LDA );
+            C = dnrm2( L-K+1, A( K, I ), 1 );
+            R = dnrm2( L-K+1, A( I, K ), LDA );
             ICA = idamax( L, A( 1, I ), 1 );
             CA = ( A( ICA, I ) ).abs();
             IRA = idamax( N-K+1, A( I, K ), LDA );

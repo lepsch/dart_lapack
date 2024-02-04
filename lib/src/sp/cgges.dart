@@ -106,10 +106,10 @@
 
       if ( INFO == 0 ) {
          LWKMIN = max( 1, 2*N );
-         LWKOPT = max( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
-         LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) );
+         LWKOPT = max( 1, N + N*ilaenv( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
+         LWKOPT = max( LWKOPT, N + N*ilaenv( 1, 'CUNMQR', ' ', N, 1, N, -1 ) );
          if ( ILVSL ) {
-            LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
+            LWKOPT = max( LWKOPT, N + N*ilaenv( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
          }
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
 

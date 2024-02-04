@@ -73,7 +73,7 @@
                LIWMIN = 1;
                LWMIN = 2*N + 1;
             }
-            LOPT = max( LWMIN, 2*N + N*ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
+            LOPT = max( LWMIN, 2*N + N*ilaenv( 1, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
             LIOPT = LIWMIN;
          }
          WORK[1] = LOPT;
@@ -105,8 +105,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN = sqrt( SMLNUM );

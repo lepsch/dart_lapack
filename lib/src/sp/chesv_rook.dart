@@ -55,7 +55,7 @@
          if ( N == 0 ) {
             LWKOPT = 1;
          } else {
-            NB = ILAENV( 1, 'CHETRF_ROOK', UPLO, N, -1, -1, -1 );
+            NB = ilaenv( 1, 'CHETRF_ROOK', UPLO, N, -1, -1, -1 );
             LWKOPT = N*NB;
          }
          WORK[1] = SROUNDUP_LWORK(LWKOPT);

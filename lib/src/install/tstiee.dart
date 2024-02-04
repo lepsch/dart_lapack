@@ -15,7 +15,7 @@
       WRITE( 6, FMT = * )'can be trusted.  If this test hangs, set';
       WRITE( 6, FMT = * ) 'ILAENV = 0 for ISPEC = 11 in LAPACK/SRC/ilaenv.f';
 
-      IEEEOK = ILAENV( 11, 'ILAENV', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 11, 'ILAENV', 'N', 1, 2, 3, 4 );
       WRITE( 6, FMT = * );
 
       if ( IEEEOK == 0 ) {
@@ -25,12 +25,12 @@
       }
 
       WRITE( 6, FMT = * );
-      // ILAENV( 10, ...) checks both infinity and NaN arithmetic
+      // ilaenv( 10, ...) checks both infinity and NaN arithmetic
       // infinity has already been checked so checking NaN now
       WRITE( 6, FMT = * ) 'We are about to check whether NaN arithmetic';
       WRITE( 6, FMT = * )'can be trusted.  If this test hangs, set';
       WRITE( 6, FMT = * ) 'ILAENV = 0 for ISPEC = 10 in LAPACK/SRC/ilaenv.f';
-      IEEEOK = ILAENV( 10, 'ILAENV', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'ILAENV', 'N', 1, 2, 3, 4 );
 
       WRITE( 6, FMT = * );
       if ( IEEEOK == 0 ) {

@@ -52,7 +52,7 @@
 
       // Partition A and X into blocks.
 
-      NB = max( NBMIN, ILAENV( 1, 'ZLATRS', '', N, N, -1, -1 ) );
+      NB = max( NBMIN, ilaenv( 1, 'ZLATRS', '', N, N, -1, -1 ) );
       NB = min( NBMAX, NB );
       NBA = max( 1, (N + NB - 1) / NB );
       NBX = max( 1, (NRHS + NBRHS - 1) / NBRHS );
@@ -124,8 +124,8 @@
 
       // Determine machine dependent constant to control overflow.
 
-      BIGNUM = DLAMCH( 'Overflow' );
-      SMLNUM = DLAMCH( 'Safe Minimum' );
+      BIGNUM = dlamch( 'Overflow' );
+      SMLNUM = dlamch( 'Safe Minimum' );
 
       // Use unblocked code for small problems
 
@@ -168,7 +168,7 @@
          }
       }
 
-      if ( !TMAX <= DLAMCH('Overflow') ) {
+      if ( !TMAX <= dlamch('Overflow') ) {
 
          // Some matrix entries have huge absolute value. At least one upper
          // bound norm( A(I1:I2-1, J1:J2-1), 'I') is not a valid floating-point

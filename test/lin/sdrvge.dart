@@ -338,7 +338,7 @@
 
                      // Check the error code from SGESVX.
 
-                     if (INFO != IZERO) alaerh( PATH, 'SGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'SGESVX', INFO, IZERO, FACT + TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare WORK(1) from SGESVX with the computed
                      // reciprocal pivot growth factor RPVGRW

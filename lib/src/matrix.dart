@@ -35,7 +35,7 @@ class Matrix<T> {
   final int _ld;
   final ({int x, int y}) offset;
 
-  Matrix({required int m, required int n, this.offset = (x: 0, y: 0)})
+  Matrix(int m, int n, {this.offset = (x: 0, y: 0)})
       : _ld = m,
         _entries = _Array<T>(m * n, offset: offset.x, ld: m);
 

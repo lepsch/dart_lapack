@@ -34,7 +34,7 @@
       RESULT[1] = ZERO;
       if (N <= 0) return;
 
-      ULP = DLAMCH( 'Epsilon' );
+      ULP = dlamch( 'Epsilon' );
 
       // Compute product of 1-norms of A and Z.
 

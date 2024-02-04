@@ -76,9 +76,9 @@
 
       // Determine the unit roundoff and over/underflow thresholds.
 
-      EPS = DLAMCH( 'E' );
+      EPS = dlamch( 'E' );
       EPS2 = EPS**2;
-      SAFMIN = DLAMCH( 'S' );
+      SAFMIN = dlamch( 'S' );
       SAFMAX = ONE / SAFMIN;
       SSFMAX = sqrt( SAFMAX ) / THREE;
       SSFMIN = sqrt( SAFMIN ) / EPS2;
@@ -191,8 +191,8 @@
          // Form shift.
 
          G = ( D( L+1 )-P ) / ( TWO*E( L ) );
-         R = DLAPY2( G, ONE );
-         G = D( M ) - P + ( E( L ) / ( G+SIGN( R, G ) ) );
+         R = dlapy2( G, ONE );
+         G = D( M ) - P + ( E( L ) / ( G+sign( R, G ) ) );
 
          S = ONE;
          C = ONE;
@@ -289,8 +289,8 @@
          // Form shift.
 
          G = ( D( L-1 )-P ) / ( TWO*E( L-1 ) );
-         R = DLAPY2( G, ONE );
-         G = D( M ) - P + ( E( L-1 ) / ( G+SIGN( R, G ) ) );
+         R = dlapy2( G, ONE );
+         G = D( M ) - P + ( E( L-1 ) / ( G+sign( R, G ) ) );
 
          S = ONE;
          C = ONE;

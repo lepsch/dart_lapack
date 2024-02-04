@@ -51,7 +51,7 @@
       }
 
       MN = min( M, N );
-      TOL3Z = sqrt(DLAMCH('Epsilon'));
+      TOL3Z = sqrt(dlamch('Epsilon'));
 
       // Move initial columns up front
 
@@ -88,7 +88,7 @@
          // work store the exact column norms.
 
          for (I = ITEMP + 1; I <= N; I++) { // 20
-            WORK[I] = DNRM2( M-ITEMP, A( ITEMP+1, I ), 1 );
+            WORK[I] = dnrm2( M-ITEMP, A( ITEMP+1, I ), 1 );
             WORK[N+I] = WORK( I );
          } // 20
 
@@ -140,7 +140,7 @@
                   TEMP2 = TEMP*( WORK( J ) / WORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
-                        WORK[J] = DNRM2( M-I, A( I+1, J ), 1 );
+                        WORK[J] = dnrm2( M-I, A( I+1, J ), 1 );
                         WORK[N+J] = WORK( J );
                      } else {
                         WORK[J] = ZERO;

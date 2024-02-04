@@ -45,7 +45,7 @@
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = ZERO;
       if ( lsame( TRANS, 'N' ) ) {
 

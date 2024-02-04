@@ -86,7 +86,7 @@
 
       // Get machine constants.
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       // Initialize seed for random number generator DLARNV.
 
@@ -235,7 +235,7 @@
             // Accept iterate as jth eigenvector.
 
             } // 130
-            SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            SCL = ONE / dnrm2( BLKSIZ, WORK( INDRV1+1 ), 1 );
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             if( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );

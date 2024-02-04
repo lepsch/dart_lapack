@@ -43,7 +43,7 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 );
 
       LOWER = lsame( UPLO, 'L' );
       WANTZ = lsame( JOBZ, 'V' );
@@ -92,8 +92,8 @@
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
-         NB = max( NB, ILAENV( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) );
+         NB = ilaenv( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
+         NB = max( NB, ilaenv( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) );
          LWKOPT = max( ( NB+1 )*N, LWMIN );
          WORK[1] = LWKOPT;
          RWORK[1] = LRWMIN;
@@ -144,8 +144,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN = sqrt( SMLNUM );

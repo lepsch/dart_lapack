@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          dlarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + SIGN( DASUM( M, A( 1, J ), 1 ), A( J, J ) );
+            A[J, J] = A( J, J ) + sign( DASUM( M, A( 1, J ), 1 ), A( J, J ) );
          }
       } // 10
 
@@ -53,9 +53,9 @@
 
       if ( SCALE != 1 ) {
          NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY );
-         SMLNUM = DLAMCH( 'Safe minimum' );
+         SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
-         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' );
+         SMLNUM = SMLNUM / dlamch( 'Epsilon' );
          BIGNUM = ONE / SMLNUM;
 
          if ( SCALE == 2 ) {

@@ -71,18 +71,18 @@
          if( lsame( TRANS, 'N' ) ) TPSD = false;
 
          if ( M >= N ) {
-            NB = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = max( NB, ILAENV( 1, 'ZUNMQR', 'LN', M, NRHS, N, -1 ) );
+               NB = max( NB, ilaenv( 1, 'ZUNMQR', 'LN', M, NRHS, N, -1 ) );
             } else {
-               NB = max( NB, ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
+               NB = max( NB, ilaenv( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
             }
          } else {
-            NB = ILAENV( 1, 'ZGELQF', ' ', M, N, -1, -1 );
+            NB = ilaenv( 1, 'ZGELQF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = max( NB, ILAENV( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) );
+               NB = max( NB, ilaenv( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) );
             } else {
-               NB = max( NB, ILAENV( 1, 'ZUNMLQ', 'LN', N, NRHS, M, -1 ) );
+               NB = max( NB, ilaenv( 1, 'ZUNMLQ', 'LN', N, NRHS, M, -1 ) );
             }
          }
 
@@ -107,7 +107,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
       BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max element outside range [SMLNUM,BIGNUM]

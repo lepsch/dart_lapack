@@ -43,7 +43,7 @@
          LWKOPT = 1;
       } else {
          LWKMIN = max( M, N );
-         NB = max( 1, ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 ) );
+         NB = max( 1, ilaenv( 1, 'SGEBRD', ' ', M, N, -1, -1 ) );
          LWKOPT = ( M+N )*NB;
       }
       WORK[1] = SROUNDUP_LWORK( LWKOPT );
@@ -79,7 +79,7 @@
 
          // Set the crossover point NX.
 
-         NX = max( NB, ILAENV( 3, 'SGEBRD', ' ', M, N, -1, -1 ) );
+         NX = max( NB, ilaenv( 3, 'SGEBRD', ' ', M, N, -1, -1 ) );
 
          // Determine when to switch from blocked to unblocked code.
 
@@ -90,7 +90,7 @@
                // Not enough work space for the optimal NB, consider using
                // a smaller block size.
 
-               NBMIN = ILAENV( 2, 'SGEBRD', ' ', M, N, -1, -1 );
+               NBMIN = ilaenv( 2, 'SGEBRD', ' ', M, N, -1, -1 );
                if ( LWORK >= ( M+N )*NBMIN ) {
                   NB = LWORK / ( M+N );
                } else {

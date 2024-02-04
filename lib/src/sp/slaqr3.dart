@@ -122,7 +122,7 @@
       scopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
       slaset('A', JW, JW, ZERO, ONE, V, LDV );
-      NMIN = ILAENV( 12, 'SLAQR3', 'SV', JW, 1, JW, LWORK );
+      NMIN = ilaenv( 12, 'SLAQR3', 'SV', JW, 1, JW, LWORK );
       if ( JW > NMIN ) {
          slaqr4( true , true , JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {

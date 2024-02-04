@@ -155,7 +155,7 @@
 
       // Check whether the machine is IEEE conformable.
 
-      // IEEE = ( ILAENV( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ) == 1 )
+      // IEEE = ( ilaenv( 10, 'SLASQ2', 'N', 1, 2, 3, 4 ) == 1 )
 
       // [11/15/2008] The case IEEE= true has a problem in single precision with
       // some the test matrices of type 16. The double precision code is fine.

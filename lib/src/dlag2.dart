@@ -49,8 +49,8 @@
       B12 = B( 1, 2 );
       B22 = B( 2, 2 );
       BMIN = RTMIN*max( ( B11 ).abs(), ( B12 ).abs(), ( B22 ).abs(), RTMIN );
-      if( ( B11 ).abs() < BMIN ) B11 = SIGN( BMIN, B11 );
-      IF( ( B22 ).abs() < BMIN ) B22 = SIGN( BMIN, B22 );
+      if( ( B11 ).abs() < BMIN ) B11 = sign( BMIN, B11 );
+      IF( ( B22 ).abs() < BMIN ) B22 = sign( BMIN, B22 );
 
       // Scale B
 
@@ -105,8 +105,8 @@
             // threshold correctly, it would not be necessary.
 
       if ( DISCR >= ZERO || R == ZERO ) {
-         SUM = PP + SIGN( R, PP );
-         DIFF = PP - SIGN( R, PP );
+         SUM = PP + sign( R, PP );
+         DIFF = PP - sign( R, PP );
          WBIG = SHIFT + SUM;
 
          // Compute smaller eigenvalue

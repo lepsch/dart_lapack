@@ -76,7 +76,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = N.toDouble() * DLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = N.toDouble() * dlamch( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -201,7 +201,7 @@
          }
       }
 
-      ERR_LBND = max( 10.0, sqrt( N.toDouble() ) ) * DLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( N.toDouble() ) ) * dlamch( 'Epsilon' );
       if ( N_ERR_BNDS >= 1 && N_NORMS >= 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).
@@ -248,7 +248,7 @@
       // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
-         CWISE_WRONG = sqrt( DLAMCH( 'Epsilon' ) );
+         CWISE_WRONG = sqrt( dlamch( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
             if ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) {
                RCOND_TMP = DLA_GERCOND( TRANS, N, A, LDA, AF, LDAF, IPIV, 1, X(1,J), INFO, WORK, IWORK );

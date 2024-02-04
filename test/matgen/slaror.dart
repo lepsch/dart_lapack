@@ -95,8 +95,8 @@
          // Generate a Householder transformation from the random vector X
 
          XNORM = SNRM2( IXFRM, X( KBEG ), 1 );
-         XNORMS = SIGN( XNORM, X( KBEG ) );
-         X[KBEG+NXFRM] = SIGN( ONE, -X( KBEG ) );
+         XNORMS = sign( XNORM, X( KBEG ) );
+         X[KBEG+NXFRM] = sign( ONE, -X( KBEG ) );
          FACTOR = XNORMS*( XNORMS+X( KBEG ) );
          if ( ( FACTOR ).abs() < TOOSML ) {
             INFO = 1;
@@ -128,7 +128,7 @@
          }
       } // 30
 
-      X[2*NXFRM] = SIGN( ONE, SLARND( 3, ISEED ) );
+      X[2*NXFRM] = sign( ONE, SLARND( 3, ISEED ) );
 
       // Scale the matrix A by D.
 

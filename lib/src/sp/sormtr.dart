@@ -69,15 +69,15 @@
       if ( INFO == 0 ) {
          if ( UPPER ) {
             if ( LEFT ) {
-               NB = ILAENV( 1, 'SORMQL', SIDE // TRANS, M-1, N, M-1, -1 );
+               NB = ilaenv( 1, 'SORMQL', SIDE + TRANS, M-1, N, M-1, -1 );
             } else {
-               NB = ILAENV( 1, 'SORMQL', SIDE // TRANS, M, N-1, N-1, -1 );
+               NB = ilaenv( 1, 'SORMQL', SIDE + TRANS, M, N-1, N-1, -1 );
             }
          } else {
             if ( LEFT ) {
-               NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M-1, N, M-1, -1 );
+               NB = ilaenv( 1, 'SORMQR', SIDE + TRANS, M-1, N, M-1, -1 );
             } else {
-               NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M, N-1, N-1, -1 );
+               NB = ilaenv( 1, 'SORMQR', SIDE + TRANS, M, N-1, N-1, -1 );
             }
          }
          LWKOPT = NW*NB;

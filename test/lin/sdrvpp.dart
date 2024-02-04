@@ -317,7 +317,7 @@
                      // Check the error code from SPPSVX.
 
                      if ( INFO != IZERO ) {
-                        alaerh(PATH, 'SPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        alaerh(PATH, 'SPPSVX', INFO, IZERO, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90;
                      }
 

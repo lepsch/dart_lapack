@@ -78,10 +78,10 @@
             MINWRK = 1;
             MAXWRK = 1;
          } else {
-            MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = 2*N + N*ilaenv( 1, 'DGEHRD', ' ', N, 1, N, 0 );
             if ( WANTVL ) {
                MINWRK = 4*N;
-               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
                dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
@@ -91,7 +91,7 @@
                MAXWRK = max( MAXWRK, 4*N );
             } else if ( WANTVR ) {
                MINWRK = 4*N;
-               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ilaenv( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
                dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
                MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
@@ -127,8 +127,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
@@ -238,10 +238,10 @@
 
          for (I = 1; I <= N; I++) { // 20
             if ( WI( I ) == ZERO ) {
-               SCL = ONE / DNRM2( N, VL( 1, I ), 1 );
+               SCL = ONE / dnrm2( N, VL( 1, I ), 1 );
                dscal(N, SCL, VL( 1, I ), 1 );
             } else if ( WI( I ) > ZERO ) {
-               SCL = ONE / DLAPY2( DNRM2( N, VL( 1, I ), 1 ), DNRM2( N, VL( 1, I+1 ), 1 ) );
+               SCL = ONE / dlapy2( dnrm2( N, VL( 1, I ), 1 ), dnrm2( N, VL( 1, I+1 ), 1 ) );
                dscal(N, SCL, VL( 1, I ), 1 );
                dscal(N, SCL, VL( 1, I+1 ), 1 );
                for (K = 1; K <= N; K++) { // 10
@@ -266,10 +266,10 @@
 
          for (I = 1; I <= N; I++) { // 40
             if ( WI( I ) == ZERO ) {
-               SCL = ONE / DNRM2( N, VR( 1, I ), 1 );
+               SCL = ONE / dnrm2( N, VR( 1, I ), 1 );
                dscal(N, SCL, VR( 1, I ), 1 );
             } else if ( WI( I ) > ZERO ) {
-               SCL = ONE / DLAPY2( DNRM2( N, VR( 1, I ), 1 ), DNRM2( N, VR( 1, I+1 ), 1 ) );
+               SCL = ONE / dlapy2( dnrm2( N, VR( 1, I ), 1 ), dnrm2( N, VR( 1, I+1 ), 1 ) );
                dscal(N, SCL, VR( 1, I ), 1 );
                dscal(N, SCL, VR( 1, I+1 ), 1 );
                for (K = 1; K <= N; K++) { // 30

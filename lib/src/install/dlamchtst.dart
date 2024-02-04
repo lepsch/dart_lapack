@@ -6,16 +6,16 @@
       // ..
       // .. Executable Statements ..
 
-      EPS   = DLAMCH( 'Epsilon' );
-      SFMIN = DLAMCH( 'Safe minimum' );
-      BASE  = DLAMCH( 'Base' );
-      PREC  = DLAMCH( 'Precision' );
-      T     = DLAMCH( 'Number of digits in mantissa' );
-      RND   = DLAMCH( 'Rounding mode' );
-      EMIN  = DLAMCH( 'Minimum exponent' );
-      RMIN  = DLAMCH( 'Underflow threshold' );
-      EMAX  = DLAMCH( 'Largest exponent' );
-      RMAX  = DLAMCH( 'Overflow threshold' );
+      EPS   = dlamch( 'Epsilon' );
+      SFMIN = dlamch( 'Safe minimum' );
+      BASE  = dlamch( 'Base' );
+      PREC  = dlamch( 'Precision' );
+      T     = dlamch( 'Number of digits in mantissa' );
+      RND   = dlamch( 'Rounding mode' );
+      EMIN  = dlamch( 'Minimum exponent' );
+      RMIN  = dlamch( 'Underflow threshold' );
+      EMAX  = dlamch( 'Largest exponent' );
+      RMAX  = dlamch( 'Overflow threshold' );
 
       WRITE( 6, * )' Epsilon                      = ', EPS;
       WRITE( 6, * )' Safe minimum                 = ', SFMIN;

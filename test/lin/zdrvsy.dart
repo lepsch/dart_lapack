@@ -347,7 +347,7 @@
                   // Check the error code from ZSYSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'ZSYSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'ZSYSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

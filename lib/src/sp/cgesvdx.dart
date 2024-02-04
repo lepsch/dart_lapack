@@ -119,38 +119,38 @@
          MAXWRK = 1;
          if ( MINMN > 0 ) {
             if ( M >= N ) {
-               MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 );
+               MNTHR = ilaenv( 6, 'CGESVD', JOBU + JOBVT, M, N, 0, 0 );
                if ( M >= MNTHR ) {
 
                   // Path 1 (M much larger than N)
 
                   MINWRK = N*(N+5);
-                  MAXWRK = N + N*ILAENV(1,'CGEQRF',' ',M,N,-1,-1);
-                  MAXWRK = max(MAXWRK, N*N+2*N+2*N*ILAENV(1,'CGEBRD',' ',N,N,-1,-1));
+                  MAXWRK = N + N*ilaenv(1,'CGEQRF',' ',M,N,-1,-1);
+                  MAXWRK = max(MAXWRK, N*N+2*N+2*N*ilaenv(1,'CGEBRD',' ',N,N,-1,-1));
                   if (WANTU || WANTVT) {
-                     MAXWRK = max(MAXWRK, N*N+2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1));
+                     MAXWRK = max(MAXWRK, N*N+2*N+N*ilaenv(1,'CUNMQR','LN',N,N,N,-1));
                   }
                } else {
 
                   // Path 2 (M at least N, but not much larger)
 
                   MINWRK = 3*N + M;
-                  MAXWRK = 2*N + (M+N)*ILAENV(1,'CGEBRD',' ',M,N,-1,-1);
+                  MAXWRK = 2*N + (M+N)*ilaenv(1,'CGEBRD',' ',M,N,-1,-1);
                   if (WANTU || WANTVT) {
-                     MAXWRK = max(MAXWRK, 2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1));
+                     MAXWRK = max(MAXWRK, 2*N+N*ilaenv(1,'CUNMQR','LN',N,N,N,-1));
                   }
                }
             } else {
-               MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 );
+               MNTHR = ilaenv( 6, 'CGESVD', JOBU + JOBVT, M, N, 0, 0 );
                if ( N >= MNTHR ) {
 
                   // Path 1t (N much larger than M)
 
                   MINWRK = M*(M+5);
-                  MAXWRK = M + M*ILAENV(1,'CGELQF',' ',M,N,-1,-1);
-                  MAXWRK = max(MAXWRK, M*M+2*M+2*M*ILAENV(1,'CGEBRD',' ',M,M,-1,-1));
+                  MAXWRK = M + M*ilaenv(1,'CGELQF',' ',M,N,-1,-1);
+                  MAXWRK = max(MAXWRK, M*M+2*M+2*M*ilaenv(1,'CGEBRD',' ',M,M,-1,-1));
                   if (WANTU || WANTVT) {
-                     MAXWRK = max(MAXWRK, M*M+2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1));
+                     MAXWRK = max(MAXWRK, M*M+2*M+M*ilaenv(1,'CUNMQR','LN',M,M,M,-1));
                   }
                } else {
 
@@ -158,9 +158,9 @@
 
 
                   MINWRK = 3*M + N;
-                  MAXWRK = 2*M + (M+N)*ILAENV(1,'CGEBRD',' ',M,N,-1,-1);
+                  MAXWRK = 2*M + (M+N)*ilaenv(1,'CGEBRD',' ',M,N,-1,-1);
                   if (WANTU || WANTVT) {
-                     MAXWRK = max(MAXWRK, 2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1));
+                     MAXWRK = max(MAXWRK, 2*M+M*ilaenv(1,'CUNMQR','LN',M,M,M,-1));
                   }
                }
             }

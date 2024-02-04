@@ -45,7 +45,7 @@
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
 
       // Compute the product L*U and overwrite AFAC with the result.
@@ -67,7 +67,7 @@
 
             // Compute the (K,K) element
 
-            AFAC[K, K] = T + DDOT( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
+            AFAC[K, K] = T + ddot( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
 
             // Compute elements (1:K-1,K)
 

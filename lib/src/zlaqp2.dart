@@ -39,7 +39,7 @@
       // .. Executable Statements ..
 
       MN = min( M-OFFSET, N );
-      TOL3Z = sqrt(DLAMCH('Epsilon'));
+      TOL3Z = sqrt(dlamch('Epsilon'));
 
       // Compute factorization.
 

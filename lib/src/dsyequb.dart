@@ -184,12 +184,12 @@
 
       } // 999
 
-      SMLNUM = DLAMCH( 'SAFEMIN' );
+      SMLNUM = dlamch( 'SAFEMIN' );
       BIGNUM = ONE / SMLNUM;
       SMIN = BIGNUM;
       SMAX = ZERO;
       T = ONE / sqrt( AVG );
-      BASE = DLAMCH( 'B' );
+      BASE = dlamch( 'B' );
       U = ONE / LOG( BASE );
       for (I = 1; I <= N; I++) {
          S[I] = BASE ** INT( U * LOG( S( I ) * T ) );

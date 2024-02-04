@@ -106,8 +106,8 @@
 
       if (NSIZES == 0 || NTYPES == 0) return;
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SAFMIN = SAFMIN / ULP;
       SAFMAX = ONE / SAFMIN;
       ULPINV = ONE / ULP;
@@ -215,10 +215,10 @@
                         V[JR, JC] = ZLARND( 3, ISEED );
                      } // 40
                      zlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, (U( JC, JC )).toDouble() );
+                     WORK[2*N+JC] = sign( ONE, (U( JC, JC )).toDouble() );
                      U[JC, JC] = CONE;
                      zlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, (V( JC, JC )).toDouble() );
+                     WORK[3*N+JC] = sign( ONE, (V( JC, JC )).toDouble() );
                      V[JC, JC] = CONE;
                   } // 50
                   CTEMP = ZLARND( 3, ISEED );

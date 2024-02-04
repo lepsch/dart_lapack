@@ -91,7 +91,7 @@
             MINWRK = 1;
             LWRK = 1;
          } else {
-            MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
+            MAXWRK = N + N*ilaenv( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
             MINWRK = 2*N;
 
             zhseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL );
@@ -100,7 +100,7 @@
             if ( !WANTVS ) {
                MAXWRK = max( MAXWRK, HSWORK );
             } else {
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
                MAXWRK = max( MAXWRK, HSWORK );
             }
             LWRK = MAXWRK;
@@ -129,8 +129,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;

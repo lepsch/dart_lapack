@@ -45,10 +45,10 @@
 
       if ( FIRST ) {
          FIRST = false;
-         EPS = DLAMCH( 'Precision' );
+         EPS = dlamch( 'Precision' );
          BADC2 = TENTH / EPS;
          BADC1 = sqrt( BADC2 );
-         SMALL = DLAMCH( 'Safe minimum' );
+         SMALL = dlamch( 'Safe minimum' );
          LARGE = ONE / SMALL;
          SMALL = SHRINK*( SMALL / EPS );
          LARGE = ONE / SMALL;

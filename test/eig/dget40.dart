@@ -39,7 +39,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'P' );
+      EPS = dlamch( 'P' );
       RMAX = ZERO;
       LMAX = 0;
       KNT = 0;

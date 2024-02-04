@@ -74,7 +74,7 @@
 
          // Compute the workspace requirements
 
-         NB = min( NBMAX, ILAENV( 1, 'CUNMQR', SIDE // TRANS, M, N, K, -1 ) );
+         NB = min( NBMAX, ilaenv( 1, 'CUNMQR', SIDE + TRANS, M, N, K, -1 ) );
          LWKOPT = NW*NB + TSIZE;
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
       }
@@ -98,7 +98,7 @@
       if ( NB > 1 && NB < K ) {
          if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK;
-            NBMIN = max( 2, ILAENV( 2, 'CUNMQR', SIDE // TRANS, M, N, K, -1 ) );
+            NBMIN = max( 2, ilaenv( 2, 'CUNMQR', SIDE + TRANS, M, N, K, -1 ) );
          }
       }
 

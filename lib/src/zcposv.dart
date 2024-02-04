@@ -91,7 +91,7 @@
       // Compute some constants.
 
       ANRM = ZLANHE( 'I', UPLO, N, A, LDA, RWORK );
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
 
       // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.

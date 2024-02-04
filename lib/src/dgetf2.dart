@@ -56,7 +56,7 @@
 
       // Compute machine safe minimum
 
-      SFMIN = DLAMCH('S');
+      SFMIN = dlamch('S');
 
       for (J = 1; J <= min( M, N ); J++) { // 10
 

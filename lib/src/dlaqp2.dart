@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       MN = min( M-OFFSET, N );
-      TOL3Z = sqrt(DLAMCH('Epsilon'));
+      TOL3Z = sqrt(dlamch('Epsilon'));
 
       // Compute factorization.
 
@@ -88,7 +88,7 @@
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                if ( TEMP2 <= TOL3Z ) {
                   if ( OFFPI < M ) {
-                     VN1[J] = DNRM2( M-OFFPI, A( OFFPI+1, J ), 1 );
+                     VN1[J] = dnrm2( M-OFFPI, A( OFFPI+1, J ), 1 );
                      VN2[J] = VN1( J );
                   } else {
                      VN1[J] = ZERO;

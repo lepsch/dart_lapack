@@ -44,8 +44,8 @@
 
       // Get machine parameters
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
 
       // Set up test case parameters
@@ -161,13 +161,13 @@
 
 
                         dcopy(2*N, D, 1, Y, 1 );
-                        Y[1] = DDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 );
+                        Y[1] = ddot( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 );
                         for (I = 2; I <= N; I++) { // 50
                            Y[I] = W*X( I+N ) + SCALE*Y( I );
                         } // 50
                         dgemv('No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 );
 
-                        Y[1+N] = DDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N );
+                        Y[1+N] = ddot( N, B, 1, X, 1 ) - SCALE*Y( 1+N );
                         for (I = 2; I <= N; I++) { // 60
                            Y[I+N] = W*X( I ) - SCALE*Y( I+N );
                         } // 60

@@ -335,7 +335,7 @@
                   // Check the error code from SSPSVX.
 
                   if ( INFO != K ) {
-                     alaerh(PATH, 'SSPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     alaerh(PATH, 'SSPSVX', INFO, K, FACT + UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150;
                   }
 

@@ -369,7 +369,7 @@
                         // Check the error code from DPBSVX.
 
                         if ( INFO != IZERO ) {
-                           alaerh(PATH, 'DPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           alaerh(PATH, 'DPBSVX', INFO, IZERO, FACT + UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 60;
                         }
 

@@ -68,7 +68,7 @@
          TPSD = true;
          if( lsame( TRANS, 'N' ) ) TPSD = false;
 
-         NB = ILAENV( 1, 'SGELST', ' ', M, N, -1, -1 );
+         NB = ilaenv( 1, 'SGELST', ' ', M, N, -1, -1 );
 
          MNNRHS = max( MN, NRHS );
          LWOPT = max( 1, (MN+MNNRHS)*NB );
@@ -103,7 +103,7 @@
 
       // The minimum value of NB, when blocked code is used
 
-      NBMIN = max( 2, ILAENV( 2, 'SGELST', ' ', M, N, -1, -1 ) );
+      NBMIN = max( 2, ilaenv( 2, 'SGELST', ' ', M, N, -1, -1 ) );
 
       if ( NB < NBMIN ) {
          NB = 1;

@@ -55,8 +55,8 @@
          CUPLO = 'L';
       }
 
-      UNFL = DLAMCH( 'Safe minimum' );
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      UNFL = dlamch( 'Safe minimum' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
 
       // Some Error Checks
 
@@ -116,7 +116,7 @@
                if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP+J+1 );
                   VP[JP+J+1] = ONE;
-                  dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
+                  dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ddot( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
                   daxpy(N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 );
                   dspr2('L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
                   VP[JP+J+1] = VSAVE;
@@ -138,7 +138,7 @@
                if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP1+J );
                   VP[JP1+J] = ONE;
-                  dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
+                  dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ddot( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
                   daxpy(J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 );
                   dspr2('U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP[JP1+J] = VSAVE;

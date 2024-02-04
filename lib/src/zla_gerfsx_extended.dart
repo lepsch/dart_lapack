@@ -60,8 +60,8 @@
 
       if (INFO != 0) return;
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE);
-      EPS = DLAMCH( 'Epsilon' );
-      HUGEVAL = DLAMCH( 'Overflow' );
+      EPS = dlamch( 'Epsilon' );
+      HUGEVAL = dlamch( 'Overflow' );
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.

@@ -40,7 +40,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
 
       // Initialize the denominator to SA and the numerator to 1.

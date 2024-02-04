@@ -35,13 +35,13 @@
       NX = 0;
       IWS = N;
       K = min( M, N );
-      NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
+      NB = ilaenv( 1, 'SGEQRF', ' ', M, N, -1, -1 );
 
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = max( 0, ILAENV( 3, 'SGEQRF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ilaenv( 3, 'SGEQRF', ' ', M, N, -1, -1 ) );
       }
 
       // Get NT, the size of the very last T, which is the left-over from in-between K-NX and K to K, eg.:
@@ -133,7 +133,7 @@
                } else {
                     NB = (LWORK-NT*NT)/(LBWORK+LLWORK);
                }
-                NBMIN = max( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) );
+                NBMIN = max( 2, ilaenv( 2, 'SGEQRF', ' ', M, N, -1, -1 ) );
             }
          }
       }

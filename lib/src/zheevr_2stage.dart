@@ -45,7 +45,7 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 );
+      IEEEOK = ilaenv( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 );
 
       LOWER = lsame( UPLO, 'L' );
       WANTZ = lsame( JOBZ, 'V' );
@@ -148,8 +148,8 @@
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
-      EPS    = DLAMCH( 'Precision' );
+      SAFMIN = dlamch( 'Safe minimum' );
+      EPS    = dlamch( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
       RMIN   = sqrt( SMLNUM );

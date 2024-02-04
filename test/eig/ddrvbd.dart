@@ -117,9 +117,9 @@
       PATH[2: 3] = 'BD';
       NFAIL = 0;
       NTEST = 0;
-      UNFL = DLAMCH( 'Safe minimum' );
+      UNFL = dlamch( 'Safe minimum' );
       OVFL = ONE / UNFL;
-      ULP = DLAMCH( 'Precision' );
+      ULP = dlamch( 'Precision' );
       RTUNFL = sqrt( UNFL );
       ULPINV = ONE / ULP;
       INFOT = 0;

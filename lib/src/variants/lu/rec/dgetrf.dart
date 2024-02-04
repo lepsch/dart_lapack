@@ -59,7 +59,7 @@
 
       // Compute machine safe minimum
 
-      SFMIN = DLAMCH( 'S' );
+      SFMIN = dlamch( 'S' );
 
       NSTEP = min( M, N );
       for (J = 1; J <= NSTEP; J++) {

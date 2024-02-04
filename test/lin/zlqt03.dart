@@ -50,7 +50,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Copy the first k rows of the factorization to the array Q
 

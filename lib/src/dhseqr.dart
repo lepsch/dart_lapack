@@ -24,7 +24,7 @@
 
       // ==== NL allocates some local workspace to help small matrices
       // .    through a rare DLAHQR failure.  NL > NTINY = 15 is
-      // .    required and NL <= NMIN = ILAENV(ISPEC=12,...) is recom-
+      // .    required and NL <= NMIN = ilaenv(ISPEC=12,...) is recom-
       // .    mended.  (The default value of NMIN is 75.)  Using NL = 49
       // .    allows up to six simultaneous shifts and a 16-by-16
       // .    deflation window.  ====
@@ -130,7 +130,7 @@
 
          // ==== DLAHQR/DLAQR0 crossover point ====
 
-         NMIN = ILAENV( 12, 'DHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
+         NMIN = ilaenv( 12, 'DHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
          NMIN = max( NTINY, NMIN );
 
          // ==== DLAQR0 for big matrices; DLAHQR for small ones ====

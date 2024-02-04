@@ -67,8 +67,8 @@
          MAXWRK = 1;
          LIWORK = 1;
          if ( MINMN > 0 ) {
-            SMLSIZ = ILAENV( 9, 'SGELSD', ' ', 0, 0, 0, 0 );
-            MNTHR = ILAENV( 6, 'SGELSD', ' ', M, N, NRHS, -1 );
+            SMLSIZ = ilaenv( 9, 'SGELSD', ' ', 0, 0, 0, 0 );
+            MNTHR = ilaenv( 6, 'SGELSD', ' ', M, N, NRHS, -1 );
             NLVL = max( INT( LOG( double( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
             LIWORK = 3*MINMN*NLVL + 11*MINMN;
             MM = M;
@@ -78,13 +78,13 @@
                          // columns.
 
                MM = N;
-               MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, N + NRHS*ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'SGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, N + NRHS*ilaenv( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
             }
             if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined.
 
-               MAXWRK = max( MAXWRK, 3*N + ( MM + N )*ILAENV( 1, 'SGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = max( MAXWRK, 3*N + NRHS*ILAENV( 1, 'SORMBR', 'QLT', MM, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 3*N + ( N - 1 )*ILAENV( 1, 'SORMBR', 'PLN', N, NRHS, N, -1 ) )                WLALSD = 9*N + 2*N*SMLSIZ + 8*N*NLVL + N*NRHS + ( SMLSIZ + 1 )**2;
+               MAXWRK = max( MAXWRK, 3*N + ( MM + N )*ilaenv( 1, 'SGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = max( MAXWRK, 3*N + NRHS*ilaenv( 1, 'SORMBR', 'QLT', MM, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 3*N + ( N - 1 )*ilaenv( 1, 'SORMBR', 'PLN', N, NRHS, N, -1 ) )                WLALSD = 9*N + 2*N*SMLSIZ + 8*N*NLVL + N*NRHS + ( SMLSIZ + 1 )**2;
                MAXWRK = max( MAXWRK, 3*N + WLALSD );
                MINWRK = max( 3*N + MM, 3*N + NRHS, 3*N + WLALSD );
             }
@@ -95,13 +95,13 @@
                   // Path 2a - underdetermined, with many more columns
                             // than rows.
 
-                  MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'SORMBR', 'QLT', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'SORMBR', 'PLN', M, NRHS, M, -1 ) );
+                  MAXWRK = M + M*ilaenv( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ilaenv( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ilaenv( 1, 'SORMBR', 'QLT', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ilaenv( 1, 'SORMBR', 'PLN', M, NRHS, M, -1 ) );
                   if ( NRHS > 1 ) {
                      MAXWRK = max( MAXWRK, M*M + M + M*NRHS );
                   } else {
                      MAXWRK = max( MAXWRK, M*M + 2*M );
                   }
-                  MAXWRK = max( MAXWRK, M + NRHS*ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
+                  MAXWRK = max( MAXWRK, M + NRHS*ilaenv( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
                   MAXWRK = max( MAXWRK, M*M + 4*M + WLALSD );
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
       // calculation should use queries for all routines eventually.
@@ -110,7 +110,7 @@
 
                   // Path 2 - remaining underdetermined cases.
 
-                  MAXWRK = 3*M + ( N + M )*ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, 3*M + NRHS*ILAENV( 1, 'SORMBR', 'QLT', M, NRHS, N, -1 ) )                   MAXWRK = max( MAXWRK, 3*M + M*ILAENV( 1, 'SORMBR', 'PLN', N, NRHS, M, -1 ) );
+                  MAXWRK = 3*M + ( N + M )*ilaenv( 1, 'SGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, 3*M + NRHS*ilaenv( 1, 'SORMBR', 'QLT', M, NRHS, N, -1 ) )                   MAXWRK = max( MAXWRK, 3*M + M*ilaenv( 1, 'SORMBR', 'PLN', N, NRHS, M, -1 ) );
                   MAXWRK = max( MAXWRK, 3*M + WLALSD );
                }
                MINWRK = max( 3*M + NRHS, 3*M + M, 3*M + WLALSD );

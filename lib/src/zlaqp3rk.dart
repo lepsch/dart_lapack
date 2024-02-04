@@ -53,8 +53,8 @@
       MINMNFACT = min( M-IOFFSET, N );
       MINMNUPDT = min( M-IOFFSET, N+NRHS );
       NB = min( NB, MINMNFACT );
-      TOL3Z = sqrt( DLAMCH( 'Epsilon' ) );
-      HUGEVAL = DLAMCH( 'Overflow' );
+      TOL3Z = sqrt( dlamch( 'Epsilon' ) );
+      HUGEVAL = dlamch( 'Overflow' );
 
       // Compute factorization in a while loop over NB columns,
       // K is the column index in the block A(1:M,1:N).
@@ -511,7 +511,7 @@
 
          // NOTE: The computation of VN1( LSTICC ) relies on the fact that
          // DZNRM2 does not fail on vectors with norm below the value of
-         // sqrt(DLAMCH('S'))
+         // sqrt(dlamch('S'))
 
          VN1[LSTICC] = DZNRM2( M-IF, A( IF+1, LSTICC ), 1 );
          VN2[LSTICC] = VN1( LSTICC );

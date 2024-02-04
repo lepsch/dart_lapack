@@ -104,7 +104,7 @@
 
       // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;

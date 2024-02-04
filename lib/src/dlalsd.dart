@@ -53,7 +53,7 @@
          return;
       }
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
 
       // Set up the tolerance.
 
@@ -182,7 +182,7 @@
 
       for (I = 1; I <= N; I++) { // 50
          if ( ( D( I ) ).abs() < EPS ) {
-            D[I] = SIGN( EPS, D( I ) );
+            D[I] = sign( EPS, D( I ) );
          }
       } // 50
 

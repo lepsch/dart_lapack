@@ -57,10 +57,10 @@
             LWKMIN = 1;
             LWKOPT = 1;
          } else {
-            NB1 = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
-            NB2 = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 );
-            NB3 = ILAENV( 1, 'ZUNMQR', ' ', M, N, P, -1 );
-            NB4 = ILAENV( 1, 'ZUNMRQ', ' ', M, N, P, -1 );
+            NB1 = ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
+            NB2 = ilaenv( 1, 'ZGERQF', ' ', M, N, -1, -1 );
+            NB3 = ilaenv( 1, 'ZUNMQR', ' ', M, N, P, -1 );
+            NB4 = ilaenv( 1, 'ZUNMRQ', ' ', M, N, P, -1 );
             NB = max( NB1, NB2, NB3, NB4 );
             LWKMIN = M + N + P;
             LWKOPT = P + MN + max( M, N )*NB;

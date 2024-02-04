@@ -42,7 +42,7 @@
       RESID = ZERO;
       if (N <= 0 || NS <= 0) return;
 
-      EPS = DLAMCH( 'Precision' );
+      EPS = dlamch( 'Precision' );
 
       // Compute S - U' * B * V.
 

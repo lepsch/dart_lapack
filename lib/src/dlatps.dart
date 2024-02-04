@@ -67,7 +67,7 @@
 
       // Determine machine dependent parameters to control overflow.
 
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       BIGNUM = ONE / SMLNUM;
       SCALE = ONE;
 
@@ -445,9 +445,9 @@
                   // call DDOT to perform the dot product.
 
                   if ( UPPER ) {
-                     SUMJ = DDOT( J-1, AP( IP-J+1 ), 1, X, 1 );
+                     SUMJ = ddot( J-1, AP( IP-J+1 ), 1, X, 1 );
                   } else if ( J < N ) {
-                     SUMJ = DDOT( N-J, AP( IP+1 ), 1, X( J+1 ), 1 );
+                     SUMJ = ddot( N-J, AP( IP+1 ), 1, X( J+1 ), 1 );
                   }
                } else {
 

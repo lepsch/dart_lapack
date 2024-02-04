@@ -54,8 +54,8 @@
          // generate random reflection
 
          dlarnv(3, ISEED, N-I+1, WORK );
-         WN = DNRM2( N-I+1, WORK, 1 );
-         WA = SIGN( WN, WORK( 1 ) );
+         WN = dnrm2( N-I+1, WORK, 1 );
+         WA = sign( WN, WORK( 1 ) );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {

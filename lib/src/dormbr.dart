@@ -72,15 +72,15 @@
       if ( INFO == 0 ) {
          if ( APPLYQ ) {
             if ( LEFT ) {
-               NB = ILAENV( 1, 'DORMQR', SIDE // TRANS, M-1, N, M-1, -1 );
+               NB = ilaenv( 1, 'DORMQR', SIDE + TRANS, M-1, N, M-1, -1 );
             } else {
-               NB = ILAENV( 1, 'DORMQR', SIDE // TRANS, M, N-1, N-1, -1 );
+               NB = ilaenv( 1, 'DORMQR', SIDE + TRANS, M, N-1, N-1, -1 );
             }
          } else {
             if ( LEFT ) {
-               NB = ILAENV( 1, 'DORMLQ', SIDE // TRANS, M-1, N, M-1, -1 );
+               NB = ilaenv( 1, 'DORMLQ', SIDE + TRANS, M-1, N, M-1, -1 );
             } else {
-               NB = ILAENV( 1, 'DORMLQ', SIDE // TRANS, M, N-1, N-1, -1 );
+               NB = ilaenv( 1, 'DORMLQ', SIDE + TRANS, M, N-1, N-1, -1 );
             }
          }
          LWKOPT = NW*NB;

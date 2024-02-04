@@ -49,7 +49,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       MINMN = min( M, N );
 
       // Quick return if possible

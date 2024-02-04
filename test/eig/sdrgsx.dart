@@ -82,12 +82,12 @@
 
          // workspace for sggesx
 
-         MAXWRK = 9*( NSIZE+1 ) + NSIZE* ILAENV( 1, 'SGEQRF', ' ', NSIZE, 1, NSIZE, 0 )          MAXWRK = max( MAXWRK, 9*( NSIZE+1 )+NSIZE* ILAENV( 1, 'SORGQR', ' ', NSIZE, 1, NSIZE, -1 ) );
+         MAXWRK = 9*( NSIZE+1 ) + NSIZE* ilaenv( 1, 'SGEQRF', ' ', NSIZE, 1, NSIZE, 0 )          MAXWRK = max( MAXWRK, 9*( NSIZE+1 )+NSIZE* ilaenv( 1, 'SORGQR', ' ', NSIZE, 1, NSIZE, -1 ) );
 
          // workspace for sgesvd
 
          BDSPAC = 5*NSIZE*NSIZE / 2;
-         MAXWRK = max( MAXWRK, 3*NSIZE*NSIZE / 2+NSIZE*NSIZE* ILAENV( 1, 'SGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) );
+         MAXWRK = max( MAXWRK, 3*NSIZE*NSIZE / 2+NSIZE*NSIZE* ilaenv( 1, 'SGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) );
          MAXWRK = max( MAXWRK, BDSPAC );
 
          MAXWRK = max( MAXWRK, MINWRK );

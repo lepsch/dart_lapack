@@ -106,8 +106,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'Epsilon' );
-      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = dlamch( 'Epsilon' );
+      UNFL = dlamch( 'Safe minimum' );
       TOLMUL = max( TEN, min( HUNDRED, EPS**MEIGHTH ) );
       TOL = TOLMUL*EPS;
       THRESH = max( TOL, MAXITR*Q*Q*UNFL );

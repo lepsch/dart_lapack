@@ -377,7 +377,7 @@
                         // Check the error code from CPBSVX.
 
                         if ( INFO != IZERO ) {
-                           alaerh(PATH, 'CPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           alaerh(PATH, 'CPBSVX', INFO, IZERO, FACT + UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 60;
                         }
 

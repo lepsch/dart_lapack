@@ -47,7 +47,7 @@
          RCEQU = false;
       } else {
          RCEQU = lsame( EQUED, 'Y' );
-         SMLNUM = DLAMCH( 'Safe minimum' );
+         SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
       }
 
@@ -183,7 +183,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
+      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
 
       return;
       }

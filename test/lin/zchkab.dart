@@ -149,11 +149,11 @@
       WRITE( NOUT, FMT = 9991 )'(single precision) precision', SEPS;
       WRITE( NOUT, FMT = * );
 
-      EPS = DLAMCH( 'Underflow threshold' );
+      EPS = dlamch( 'Underflow threshold' );
       WRITE( NOUT, FMT = 9991 )'(double          ) underflow', EPS;
-      EPS = DLAMCH( 'Overflow threshold' );
+      EPS = dlamch( 'Overflow threshold' );
       WRITE( NOUT, FMT = 9991 )'(double          ) overflow ', EPS;
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * );
 

@@ -119,7 +119,7 @@
 
       // Estimate the norm of inv(op(A)).
 
-      SMLNUM = DLAMCH( 'Safe minimum' );
+      SMLNUM = dlamch( 'Safe minimum' );
       AINVNM = 0.0;
       NORMIN = 'N';
 

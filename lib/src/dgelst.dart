@@ -68,7 +68,7 @@
          TPSD = true;
          if( lsame( TRANS, 'N' ) ) TPSD = false;
 
-         NB = ILAENV( 1, 'DGELST', ' ', M, N, -1, -1 );
+         NB = ilaenv( 1, 'DGELST', ' ', M, N, -1, -1 );
 
          MNNRHS = max( MN, NRHS );
          LWOPT = max( 1, (MN+MNNRHS)*NB );
@@ -103,7 +103,7 @@
 
       // The minimum value of NB, when blocked code is used
 
-      NBMIN = max( 2, ILAENV( 2, 'DGELST', ' ', M, N, -1, -1 ) );
+      NBMIN = max( 2, ilaenv( 2, 'DGELST', ' ', M, N, -1, -1 ) );
 
       if ( NB < NBMIN ) {
          NB = 1;
@@ -111,7 +111,7 @@
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
       BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max element outside range [SMLNUM,BIGNUM]

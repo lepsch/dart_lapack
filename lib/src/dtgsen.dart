@@ -69,8 +69,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       IERR = 0;
 
       WANTP = IJOB == 1 || IJOB >= 4;
@@ -342,7 +342,7 @@
 
             } else {
 
-               if ( SIGN( ONE, B( K, K ) ) < ZERO ) {
+               if ( sign( ONE, B( K, K ) ) < ZERO ) {
 
                   // If B(K,K) is negative, make it positive
 

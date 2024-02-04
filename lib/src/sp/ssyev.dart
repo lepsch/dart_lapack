@@ -55,7 +55,7 @@
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
+         NB = ilaenv( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, ( NB+2 )*N );
          WORK[1] = SROUNDUP_LWORK(LWKOPT);
 

@@ -40,9 +40,9 @@
 
       // Get machine parameters
 
-      SAFMIN = DLAMCH( 'S' );
+      SAFMIN = dlamch( 'S' );
       SAFMAX = ONE / SAFMIN;
-      OV   = DLAMCH( 'O' );
+      OV   = dlamch( 'O' );
 
       // Initialize constants related to A.
 

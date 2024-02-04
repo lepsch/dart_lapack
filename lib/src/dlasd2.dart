@@ -122,7 +122,7 @@
 
       // Calculate the allowable deflation tolerance
 
-      EPS = DLAMCH( 'Epsilon' );
+      EPS = dlamch( 'Epsilon' );
       TOL = max( ( ALPHA ).abs(), ( BETA ).abs() );
       TOL = EIGHT*EPS*max( ( D( N ) ).abs(), TOL );
 
@@ -187,7 +187,7 @@
             // Find sqrt(a**2+b**2) without overflow or
             // destructive underflow.
 
-            TAU = DLAPY2( C, S );
+            TAU = dlapy2( C, S );
             C = C / TAU;
             S = -S / TAU;
             Z[J] = TAU;
@@ -289,7 +289,7 @@
       HLFTOL = TOL / TWO;
       if( ( DSIGMA( 2 ) ).abs() <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
-         Z[1] = DLAPY2( Z1, Z( M ) );
+         Z[1] = dlapy2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {
             C = ONE;
             S = ZERO;

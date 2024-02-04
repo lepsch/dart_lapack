@@ -92,9 +92,9 @@
       }
 
       if ( INFO == 0 ) {
-         NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 );
-         NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 );
-         NB3 = ILAENV( 1, 'SORGQR', ' ', N, N, N, -1 );
+         NB1 = ilaenv( 1, 'SGEQRF', ' ', N, N, -1, -1 );
+         NB2 = ilaenv( 1, 'SORMQR', ' ', N, N, N, -1 );
+         NB3 = ilaenv( 1, 'SORGQR', ' ', N, N, N, -1 );
          NB = max( NB1, NB2, NB3 );
          LOPT = 2*N + max( 6*N, N*(NB+1) );
          WORK[1] = LOPT;
