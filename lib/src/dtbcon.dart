@@ -31,9 +31,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLANTB;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH, DLANTB
+      // EXTERNAL LSAME, idamax, DLAMCH, DLANTB
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLACN2, DLATBS, DRSCL, XERBLA
@@ -115,7 +115,7 @@
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
             if ( SCALE != ONE ) {
-               IX = IDAMAX( N, WORK, 1 );
+               IX = idamax( N, WORK, 1 );
                XNORM = ( WORK( IX ) ).abs();
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                drscl(N, SCALE, WORK, 1 );

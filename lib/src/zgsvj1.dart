@@ -34,9 +34,9 @@
       // .. External Functions ..
       //- double             DZNRM2;
       //- Complex         ZDOTC;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- bool               LSAME;
-      // EXTERNAL IDAMAX, LSAME, ZDOTC, DZNRM2
+      // EXTERNAL idamax, LSAME, ZDOTC, DZNRM2
       // ..
       // .. External Subroutines ..
       // .. from BLAS
@@ -391,7 +391,7 @@
 
       // Sort the vector SVA() of column norms.
       for (p = 1; p <= N - 1; p++) { // 5991
-         q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+         q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
             TEMP1 = SVA( p );
             SVA[p] = SVA( q );

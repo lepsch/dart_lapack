@@ -28,9 +28,9 @@
       double             D( 2, 2 ), V( 2, 2 );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DDOT, DLAMCH, DLANGE;
-      // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
+      // EXTERNAL idamax, DASUM, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DLADIV, DLALN2, DSCAL
@@ -76,7 +76,7 @@
       N2 = 2*N;
       N1 = N;
       if ( !LREAL) N1 = N2;
-      K = IDAMAX( N1, X, 1 );
+      K = idamax( N1, X, 1 );
       XMAX = ( X( K ) ).abs();
       SCALE = ONE;
 
@@ -146,7 +146,7 @@
                   }
                   if ( J1 > 1 ) {
                      daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
-                     K = IDAMAX( J1-1, X, 1 );
+                     K = idamax( J1-1, X, 1 );
                      XMAX = ( X( K ) ).abs();
                   }
 
@@ -186,7 +186,7 @@
                   if ( J1 > 1 ) {
                      daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      daxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
-                     K = IDAMAX( J1-1, X, 1 );
+                     K = idamax( J1-1, X, 1 );
                      XMAX = ( X( K ) ).abs();
                   }
 

@@ -26,9 +26,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DDOT, DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
+      // EXTERNAL LSAME, idamax, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DSCAL, DSWAP, XERBLA
@@ -313,17 +313,17 @@
       LSFMIN = INT( LOG10( SFMIN ) / BASL+ONE );
       LSFMAX = INT( LOG10( SFMAX ) / BASL );
       for (I = ILO; I <= IHI; I++) { // 360
-         IRAB = IDAMAX( N-ILO+1, A( I, ILO ), LDA );
+         IRAB = idamax( N-ILO+1, A( I, ILO ), LDA );
          RAB = ( A( I, IRAB+ILO-1 ) ).abs();
-         IRAB = IDAMAX( N-ILO+1, B( I, ILO ), LDB );
+         IRAB = idamax( N-ILO+1, B( I, ILO ), LDB );
          RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ) ).abs();
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT(LSCALE( I ) + SIGN( HALF, LSCALE( I ) ));
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
          LSCALE[I] = SCLFAC**IR;
-         ICAB = IDAMAX( IHI, A( 1, I ), 1 );
+         ICAB = idamax( IHI, A( 1, I ), 1 );
          CAB = ( A( ICAB, I ) ).abs();
-         ICAB = IDAMAX( IHI, B( 1, I ), 1 );
+         ICAB = idamax( IHI, B( 1, I ), 1 );
          CAB = max( CAB, ( B( ICAB, I ) ) ).abs();
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT(RSCALE( I ) + SIGN( HALF, RSCALE( I ) ));

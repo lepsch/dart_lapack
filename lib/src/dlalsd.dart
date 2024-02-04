@@ -25,9 +25,9 @@
       double             CS, EPS, ORGNRM, R, RCND, SN, TOL;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLANST;
-      // EXTERNAL IDAMAX, DLAMCH, DLANST
+      // EXTERNAL idamax, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DLACPY, DLALSA, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET, DLASRT, DROT, XERBLA
@@ -128,7 +128,7 @@
          if ( INFO != 0 ) {
             return;
          }
-         TOL = RCND*ABS( D( IDAMAX( N, D, 1 ) ) );
+         TOL = RCND*ABS( D( idamax( N, D, 1 ) ) );
          for (I = 1; I <= N; I++) { // 40
             if ( D( I ) <= TOL ) {
                dlaset('A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
@@ -256,7 +256,7 @@
 
       // Apply the singular values and treat the tiny ones as zero.
 
-      TOL = RCND*ABS( D( IDAMAX( N, D, 1 ) ) );
+      TOL = RCND*ABS( D( idamax( N, D, 1 ) ) );
 
       for (I = 1; I <= N; I++) { // 70
 

@@ -28,9 +28,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLARND;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH, DLARND
+      // EXTERNAL LSAME, idamax, DLAMCH, DLARND
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARNV, DLATB4, DLATMS, DROT, DROTG, DSCAL
@@ -339,7 +339,7 @@
          // Set the right hand side so that the largest value is BIGNUM.
 
          dlarnv(2, ISEED, N, B );
-         IY = IDAMAX( N, B, 1 );
+         IY = idamax( N, B, 1 );
          BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
@@ -585,7 +585,7 @@
          // Set the right hand side so that the largest value is BIGNUM.
 
          dlarnv(2, ISEED, N, B );
-         IY = IDAMAX( N, B, 1 );
+         IY = idamax( N, B, 1 );
          BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );

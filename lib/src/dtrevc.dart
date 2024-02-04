@@ -26,9 +26,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DDOT, DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
+      // EXTERNAL LSAME, idamax, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA
@@ -254,7 +254,7 @@
                if ( !OVER ) {
                   dcopy(KI, WORK( 1+N ), 1, VR( 1, IS ), 1 );
 
-                  II = IDAMAX( KI, VR( 1, IS ), 1 );
+                  II = idamax( KI, VR( 1, IS ), 1 );
                   REMAX = ONE / ( VR( II, IS ) ).abs();
                   dscal(KI, REMAX, VR( 1, IS ), 1 );
 
@@ -264,7 +264,7 @@
                } else {
                   if (KI > 1) dgemv( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
 
-                  II = IDAMAX( N, VR( 1, KI ), 1 );
+                  II = idamax( N, VR( 1, KI ), 1 );
                   REMAX = ONE / ( VR( II, KI ) ).abs();
                   dscal(N, REMAX, VR( 1, KI ), 1 );
                }
@@ -555,7 +555,7 @@
                if ( !OVER ) {
                   dcopy(N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 );
 
-                  II = IDAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1;
+                  II = idamax( N-KI+1, VL( KI, IS ), 1 ) + KI - 1;
                   REMAX = ONE / ( VL( II, IS ) ).abs();
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
@@ -567,7 +567,7 @@
 
                   if (KI < N) dgemv( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 );
 
-                  II = IDAMAX( N, VL( 1, KI ), 1 );
+                  II = idamax( N, VL( 1, KI ), 1 );
                   REMAX = ONE / ( VL( II, KI ) ).abs();
                   dscal(N, REMAX, VL( 1, KI ), 1 );
 

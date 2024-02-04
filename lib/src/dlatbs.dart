@@ -26,9 +26,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DDOT, DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DASUM, DDOT, DLAMCH
+      // EXTERNAL LSAME, idamax, DASUM, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DSCAL, DTBSV, XERBLA
@@ -105,7 +105,7 @@
       // Scale the column norms by TSCAL if the maximum element in CNORM is
       // greater than BIGNUM.
 
-      IMAX = IDAMAX( N, CNORM, 1 );
+      IMAX = idamax( N, CNORM, 1 );
       TMAX = CNORM( IMAX );
       if ( TMAX <= BIGNUM ) {
          TSCAL = ONE;
@@ -117,7 +117,7 @@
       // Compute a bound on the computed solution vector to see if the
       // Level 2 BLAS routine DTBSV can be used.
 
-      J = IDAMAX( N, X, 1 );
+      J = idamax( N, X, 1 );
       XMAX = ( X( J ) ).abs();
       XBND = XMAX;
       if ( NOTRAN ) {
@@ -383,7 +383,7 @@
 
                      JLEN = min( KD, J-1 );
                      daxpy(JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
-                     I = IDAMAX( J-1, X, 1 );
+                     I = idamax( J-1, X, 1 );
                      XMAX = ( X( I ) ).abs();
                   }
                } else if ( J < N ) {
@@ -394,7 +394,7 @@
 
                   JLEN = min( KD, N-J );
                   if (JLEN > 0) daxpy( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
-                  I = J + IDAMAX( N-J, X( J+1 ), 1 );
+                  I = J + idamax( N-J, X( J+1 ), 1 );
                   XMAX = ( X( I ) ).abs();
                }
             } // 110

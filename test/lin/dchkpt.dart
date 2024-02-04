@@ -37,9 +37,9 @@
       double             RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DGET06, DLANST;
-      // EXTERNAL IDAMAX, DASUM, DGET06, DLANST
+      // EXTERNAL idamax, DASUM, DGET06, DLANST
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRGT, DGET04, DLACPY, DLAPTM, DLARNV, DLATB4, DLATMS, DPTCON, DPTRFS, DPTT01, DPTT02, DPTT05, DPTTRF, DPTTRS, DSCAL
@@ -146,7 +146,7 @@
 
                   // Scale D and E so the maximum element is ANORM.
 
-                  IX = IDAMAX( N, D, 1 );
+                  IX = idamax( N, D, 1 );
                   DMAX = D( IX );
                   dscal(N, ANORM / DMAX, D, 1 );
                   dscal(N-1, ANORM / DMAX, E, 1 );

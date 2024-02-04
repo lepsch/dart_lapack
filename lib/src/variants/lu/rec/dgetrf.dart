@@ -26,9 +26,9 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- bool               DISNAN;
-      // EXTERNAL DLAMCH, IDAMAX, DISNAN
+      // EXTERNAL DLAMCH, idamax, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL DTRSM, DSCAL, XERBLA, DLASWP
@@ -69,7 +69,7 @@
 
          // Find pivot.
 
-         JP = J - 1 + IDAMAX( M-J+1, A( J, J ), 1 );
+         JP = J - 1 + idamax( M-J+1, A( J, J ), 1 );
          IPIV[J] = JP;
 
          // Permute just this column.

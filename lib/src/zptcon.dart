@@ -24,8 +24,8 @@
       double             AINVNM;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
-      // EXTERNAL IDAMAX
+      //- int                idamax;
+      // EXTERNAL idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -87,7 +87,7 @@
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.
 
-      IX = IDAMAX( N, RWORK, 1 );
+      IX = idamax( N, RWORK, 1 );
       AINVNM = ( RWORK( IX ) ).abs();
 
       // Compute the reciprocal condition number.

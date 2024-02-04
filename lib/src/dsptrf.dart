@@ -28,8 +28,8 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
-      // EXTERNAL LSAME, IDAMAX
+      //- int                idamax;
+      // EXTERNAL LSAME, idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSPR, DSWAP, XERBLA
@@ -83,7 +83,7 @@
          // column K, and COLMAX is its absolute value
 
          if ( K > 1 ) {
-            IMAX = IDAMAX( K-1, AP( KC ), 1 );
+            IMAX = idamax( K-1, AP( KC ), 1 );
             COLMAX = ( AP( KC+IMAX-1 ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -115,7 +115,7 @@
                } // 20
                KPC = ( IMAX-1 )*IMAX / 2 + 1;
                if ( IMAX > 1 ) {
-                  JMAX = IDAMAX( IMAX-1, AP( KPC ), 1 );
+                  JMAX = idamax( IMAX-1, AP( KPC ), 1 );
                   ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-1 ) ) ).abs();
                }
 
@@ -263,7 +263,7 @@
          // column K, and COLMAX is its absolute value
 
          if ( K < N ) {
-            IMAX = K + IDAMAX( N-K, AP( KC+1 ), 1 );
+            IMAX = K + idamax( N-K, AP( KC+1 ), 1 );
             COLMAX = ( AP( KC+IMAX-K ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -297,7 +297,7 @@
                } // 70
                KPC = NPP - ( N-IMAX+1 )*( N-IMAX+2 ) / 2 + 1;
                if ( IMAX < N ) {
-                  JMAX = IMAX + IDAMAX( N-IMAX, AP( KPC+1 ), 1 );
+                  JMAX = IMAX + idamax( N-IMAX, AP( KPC+1 ), 1 );
                   ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-IMAX ) ) ).abs();
                }
 

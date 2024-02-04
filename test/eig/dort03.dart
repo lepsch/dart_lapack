@@ -25,9 +25,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SIGN
@@ -82,7 +82,7 @@
 
          RES1 = ZERO;
          for (I = 1; I <= K; I++) { // 20
-            LMX = IDAMAX( N, U( I, 1 ), LDU );
+            LMX = idamax( N, U( I, 1 ), LDU );
             S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) );
             for (J = 1; J <= N; J++) { // 10
                RES1 = max( RES1, ABS( U( I, J )-S*V( I, J ) ) );
@@ -100,7 +100,7 @@
 
          RES1 = ZERO;
          for (I = 1; I <= K; I++) { // 40
-            LMX = IDAMAX( N, U( 1, I ), 1 );
+            LMX = idamax( N, U( 1, I ), 1 );
             S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) );
             for (J = 1; J <= N; J++) { // 30
                RES1 = max( RES1, ABS( U( J, I )-S*V( J, I ) ) );

@@ -37,9 +37,9 @@
       // ..
       // .. External Functions ..
       //- bool               DISNAN;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DZNRM2;
-      // EXTERNAL DISNAN, DLAMCH, IDAMAX, DZNRM2
+      // EXTERNAL DISNAN, DLAMCH, idamax, DZNRM2
       // ..
       // .. Executable Statements ..
 
@@ -81,7 +81,7 @@
             // of the column with the maximum 2-norm in the
             // submatrix A(I:M,K:N).
 
-            KP = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 );
+            KP = ( K-1 ) + idamax( N-K+1, VN1( K ), 1 );
 
             // Determine the maximum column 2-norm and the relative maximum
             // column 2-norm of the submatrix A(I:M,K:N) in step K.

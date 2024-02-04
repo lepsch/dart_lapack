@@ -31,9 +31,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DDOT, DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
+      // EXTERNAL LSAME, idamax, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DLACN2, DLATBS, DRSCL, XERBLA
@@ -138,7 +138,7 @@
 
          NORMIN = 'Y';
          if ( SCALE != ONE ) {
-            IX = IDAMAX( N, WORK, 1 );
+            IX = idamax( N, WORK, 1 );
             if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 40;
             drscl(N, SCALE, WORK, 1 );
          }

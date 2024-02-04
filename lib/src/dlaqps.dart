@@ -29,9 +29,9 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, NINT, SQRT
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DNRM2;
-      // EXTERNAL IDAMAX, DLAMCH, DNRM2
+      // EXTERNAL idamax, DLAMCH, DNRM2
       // ..
       // .. Executable Statements ..
 
@@ -49,7 +49,7 @@
 
          // Determine ith pivot column and swap if necessary
 
-         PVT = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 );
+         PVT = ( K-1 ) + idamax( N-K+1, VN1( K ), 1 );
          if ( PVT != K ) {
             dswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
             dswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );

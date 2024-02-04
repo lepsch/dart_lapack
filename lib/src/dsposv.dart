@@ -36,10 +36,10 @@
       // EXTERNAL DAXPY, DSYMM, DLACPY, DLAT2S, DLAG2S, SLAG2D, SPOTRF, SPOTRS, DPOTRF, DPOTRS, XERBLA
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLANSY;
       //- bool               LSAME;
-      // EXTERNAL IDAMAX, DLAMCH, DLANSY, LSAME
+      // EXTERNAL idamax, DLAMCH, DLANSY, LSAME
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT
@@ -139,8 +139,8 @@
       // stopping criterion. If yes, set ITER=0 and return.
 
       for (I = 1; I <= NRHS; I++) {
-         XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) );
-         RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) );
+         XNRM = ABS( X( idamax( N, X( 1, I ), 1 ), I ) );
+         RNRM = ABS( WORK( idamax( N, WORK( 1, I ), 1 ), I ) );
          if (RNRM > XNRM*CTE) GO TO 10;
       }
 
@@ -187,8 +187,8 @@
          // stopping criterion. If yes, set ITER=IITER>0 and return.
 
          for (I = 1; I <= NRHS; I++) {
-            XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) );
-            RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) );
+            XNRM = ABS( X( idamax( N, X( 1, I ), 1 ), I ) );
+            RNRM = ABS( WORK( idamax( N, WORK( 1, I ), 1 ), I ) );
             if (RNRM > XNRM*CTE) GO TO 20;
          }
 

@@ -2,6 +2,9 @@
 
 ## Regex Helpers
 
+### Quick
+ - Array -> (\b[XV])\(([^()]+)\)
+
 ### Line continuations
 ```
 ^\s     (.+)(\n\s    [^\s]\s*(.*))$

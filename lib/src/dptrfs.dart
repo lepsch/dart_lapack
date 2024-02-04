@@ -36,9 +36,9 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL IDAMAX, DLAMCH
+      // EXTERNAL idamax, DLAMCH
       // ..
       // .. Executable Statements ..
 
@@ -177,7 +177,7 @@
                WORK[I] = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 50
-         IX = IDAMAX( N, WORK, 1 );
+         IX = idamax( N, WORK, 1 );
          FERR[J] = WORK( IX );
 
          // Estimate the norm of inv(A).
@@ -205,7 +205,7 @@
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
-         IX = IDAMAX( N, WORK, 1 );
+         IX = idamax( N, WORK, 1 );
          FERR[J] = FERR( J )*( WORK( IX ) ).abs();
 
          // Normalize error.

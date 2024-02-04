@@ -27,9 +27,9 @@
       double             C, EPS, S, T, TAU, TOL;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLAPY2;
-      // EXTERNAL IDAMAX, DLAMCH, DLAPY2
+      // EXTERNAL idamax, DLAMCH, DLAPY2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DLACPY, DLAMRG, DROT, DSCAL, XERBLA
@@ -94,8 +94,8 @@
 
       // Calculate the allowable deflation tolerance
 
-      IMAX = IDAMAX( N, Z, 1 );
-      JMAX = IDAMAX( N, D, 1 );
+      IMAX = idamax( N, Z, 1 );
+      JMAX = idamax( N, D, 1 );
       EPS = DLAMCH( 'Epsilon' );
       TOL = EIGHT*EPS*max( ( D( JMAX ) ).abs(), ( Z( IMAX ) ) ).abs();
 

@@ -25,9 +25,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH
+      // EXTERNAL LSAME, idamax, DASUM, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV
@@ -98,7 +98,7 @@
             WORK[J] = WORK( J ) + D( J );
             RESID = max( RESID, DASUM( N, WORK, 1 ) );
          } // 60
-         J = IDAMAX( N, D, 1 );
+         J = idamax( N, D, 1 );
          BNORM = ( D( J ) ).abs();
       }
 

@@ -25,9 +25,9 @@
       double             ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DLAPY2, DNRM2;
-      // EXTERNAL IDAMAX, DASUM, DLAPY2, DNRM2
+      // EXTERNAL idamax, DASUM, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLADIV, DLATRS, DSCAL
@@ -180,7 +180,7 @@
 
          // Normalize eigenvector.
 
-         I = IDAMAX( N, VR, 1 );
+         I = idamax( N, VR, 1 );
          dscal(N, ONE / ( VR( I ) ).abs(), VR, 1 );
       } else {
 

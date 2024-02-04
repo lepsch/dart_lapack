@@ -22,8 +22,8 @@
       int                I, J, JP, JU, KM, KV;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
-      // EXTERNAL IDAMAX
+      //- int                idamax;
+      // EXTERNAL idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGER, DSCAL, DSWAP, XERBLA
@@ -90,7 +90,7 @@
          // subdiagonal elements in the current column.
 
          KM = min( KL, M-J );
-         JP = IDAMAX( KM+1, AB( KV+1, J ), 1 );
+         JP = idamax( KM+1, AB( KV+1, J ), 1 );
          IPIV[J] = JP + J - 1;
          if ( AB( KV+JP, J ) != ZERO ) {
             JU = max( JU, min( J+KU+JP-1, N ) );

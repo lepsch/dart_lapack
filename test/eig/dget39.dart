@@ -22,9 +22,9 @@
       double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DDOT, DLAMCH, DLANGE;
-      // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
+      // EXTERNAL idamax, DASUM, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMV, DLAQTR
@@ -112,7 +112,7 @@
                         } // 40
 
                         NORM = DLANGE( '1', N, N, T, LDT, WORK );
-                        K = IDAMAX( N, B, 1 );
+                        K = idamax( N, B, 1 );
                         NORMTB = NORM + ( B( K ) ).abs() + ( W ).abs();
 
                         dcopy(N, D, 1, X, 1 );

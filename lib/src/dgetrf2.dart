@@ -24,8 +24,8 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- int                IDAMAX;
-      // EXTERNAL DLAMCH, IDAMAX
+      //- int                idamax;
+      // EXTERNAL DLAMCH, idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DSCAL, DLASWP, DTRSM, XERBLA
@@ -73,7 +73,7 @@
 
          // Find pivot and test for singularity
 
-         I = IDAMAX( M, A( 1, 1 ), 1 );
+         I = idamax( M, A( 1, 1 ), 1 );
          IPIV[1] = I;
          if ( A( I, 1 ) != ZERO ) {
 

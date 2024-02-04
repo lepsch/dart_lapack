@@ -32,9 +32,9 @@
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DZNRM2;
-      // EXTERNAL IDAMAX, DLAMCH, DZNRM2
+      // EXTERNAL idamax, DLAMCH, DZNRM2
       // ..
       // .. Executable Statements ..
 
@@ -52,7 +52,7 @@
 
          // Determine ith pivot column and swap if necessary
 
-         PVT = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 );
+         PVT = ( K-1 ) + idamax( N-K+1, VN1( K ), 1 );
          if ( PVT != K ) {
             zswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
             zswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );

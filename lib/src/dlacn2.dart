@@ -26,9 +26,9 @@
       double             ALTSGN, ESTOLD, TEMP, XS;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM;
-      // EXTERNAL IDAMAX, DASUM
+      // EXTERNAL idamax, DASUM
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY
@@ -77,7 +77,7 @@
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
       } // 40
-      ISAVE[2] = IDAMAX( N, X, 1 );
+      ISAVE[2] = idamax( N, X, 1 );
       ISAVE[3] = 2;
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
@@ -130,7 +130,7 @@
 
       } // 110
       JLAST = ISAVE( 2 );
-      ISAVE[2] = IDAMAX( N, X, 1 );
+      ISAVE[2] = idamax( N, X, 1 );
       if ( ( X( JLAST ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
          ISAVE[3] = ISAVE( 3 ) + 1;
          GO TO 50;

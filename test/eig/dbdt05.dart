@@ -24,9 +24,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DASUM, DLAMCH, DLANGE;
-      // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
+      // EXTERNAL LSAME, idamax, DASUM, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM

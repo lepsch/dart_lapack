@@ -40,8 +40,8 @@
       double             DZNRM2;
       Complex         ZDOTC;
       // EXTERNAL ZDOTC, DZNRM2
-      int                IDAMAX;
-      // EXTERNAL IDAMAX
+      int                idamax;
+      // EXTERNAL idamax
       // from LAPACK
       double             DLAMCH;
       // EXTERNAL DLAMCH
@@ -456,7 +456,7 @@
 
       // .. de Rijk's pivoting
 
-                  q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+                  q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) zswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
@@ -894,7 +894,7 @@
       N2 = 0;
       N4 = 0;
       for (p = 1; p <= N - 1; p++) { // 5991
-         q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+         q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
             TEMP1 = SVA( p );
             SVA[p] = SVA( q );

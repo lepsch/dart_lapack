@@ -29,9 +29,9 @@
       // ..
       // .. External Functions ..
       //- bool               DISNAN, LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DNRM2;
-      // EXTERNAL DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2
+      // EXTERNAL DISNAN, LSAME, idamax, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSWAP, XERBLA
@@ -177,9 +177,9 @@
 
             C = DNRM2( L-K+1, A( K, I ), 1 );
             R = DNRM2( L-K+1, A( I, K ), LDA );
-            ICA = IDAMAX( L, A( 1, I ), 1 );
+            ICA = idamax( L, A( 1, I ), 1 );
             CA = ( A( ICA, I ) ).abs();
-            IRA = IDAMAX( N-K+1, A( I, K ), LDA );
+            IRA = idamax( N-K+1, A( I, K ), LDA );
             RA = ( A( I, IRA+K-1 ) ).abs();
 
             // Guard against zero C or R due to underflow.

@@ -36,9 +36,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX, ILAENV;
+      //- int                idamax, ILAENV;
       //- double             DLAMCH, DZNRM2, ZLANGE;
-      // EXTERNAL LSAME, IDAMAX, ILAENV, DLAMCH, DZNRM2, ZLANGE
+      // EXTERNAL LSAME, idamax, ILAENV, DLAMCH, DZNRM2, ZLANGE
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, CONJG, AIMAG, MAX, SQRT
@@ -246,7 +246,7 @@
             for (K = 1; K <= N; K++) { // 10
                RWORK[IRWORK+K-1] = (VL( K, I )).toDouble()**2 + AIMAG( VL( K, I ) )**2;
             } // 10
-            K = IDAMAX( N, RWORK( IRWORK ), 1 );
+            K = idamax( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VL( 1, I ), 1 );
             VL[K, I] = DCMPLX( (VL( K, I )).toDouble(), ZERO );
@@ -269,7 +269,7 @@
             for (K = 1; K <= N; K++) { // 30
                RWORK[IRWORK+K-1] = (VR( K, I )).toDouble()**2 + AIMAG( VR( K, I ) )**2;
             } // 30
-            K = IDAMAX( N, RWORK( IRWORK ), 1 );
+            K = idamax( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VR( 1, I ), 1 );
             VR[K, I] = DCMPLX( (VR( K, I )).toDouble(), ZERO );

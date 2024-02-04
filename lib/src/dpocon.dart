@@ -31,9 +31,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLACN2, DLATRS, DRSCL, XERBLA
@@ -106,7 +106,7 @@
 
          SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
-            IX = IDAMAX( N, WORK, 1 );
+            IX = idamax( N, WORK, 1 );
             if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 20;
             drscl(N, SCALE, WORK, 1 );
          }

@@ -28,8 +28,8 @@
       double             WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX, ILAENV;
-      // EXTERNAL IDAMAX, ILAENV
+      //- int                idamax, ILAENV;
+      // EXTERNAL idamax, ILAENV
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL, DSWAP, DTRSM, XERBLA
@@ -152,7 +152,7 @@
                // subdiagonal elements in the current column.
 
                KM = min( KL, M-JJ );
-               JP = IDAMAX( KM+1, AB( KV+1, JJ ), 1 );
+               JP = idamax( KM+1, AB( KV+1, JJ ), 1 );
                IPIV[JJ] = JP + JJ - J;
                if ( AB( KV+JP, JJ ) != ZERO ) {
                   JU = max( JU, min( JJ+KU+JP-1, N ) );

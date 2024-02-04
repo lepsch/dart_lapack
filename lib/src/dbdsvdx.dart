@@ -30,9 +30,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DDOT, DLAMCH, DNRM2;
-      // EXTERNAL IDAMAX, LSAME, DAXPY, DDOT, DLAMCH, DNRM2
+      // EXTERNAL idamax, LSAME, DAXPY, DDOT, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSTEVX, DCOPY, DLASET, DSCAL, DSWAP, XERBLA
@@ -120,9 +120,9 @@
 
       // Compute approximate maximum, minimum singular values.
 
-      I = IDAMAX( N, D, 1 );
+      I = idamax( N, D, 1 );
       SMAX = ( D( I ) ).abs();
-      I = IDAMAX( N-1, E, 1 );
+      I = idamax( N-1, E, 1 );
       SMAX = max( SMAX, ( E( I ) ) ).abs();
 
       // Compute threshold for neglecting D's and E's.

@@ -72,7 +72,7 @@
       DATA             L(7)/'DNRM2 '/;
       DATA             L(8)/'DASUM '/;
       DATA             L(9)/'DSCAL '/;
-      DATA             L(10)/'IDAMAX'/;
+      DATA             L(10)/'idamax'/;
       DATA             L(11)/'DROTMG'/;
       DATA             L(12)/'DROTM '/;
       DATA             L(13)/'DSDOT '/;
@@ -189,8 +189,8 @@
       int               ITRUE2(5), ITRUEC(5);
       // .. External Functions ..
       //- double            DASUM, DNRM2;
-      //- int               IDAMAX;
-      // EXTERNAL DASUM, DNRM2, IDAMAX
+      //- int               idamax;
+      // EXTERNAL DASUM, DNRM2, idamax
       // .. External Subroutines ..
       // EXTERNAL ITEST1, DB1NRM2, DSCAL, STEST, STEST1
       // .. Intrinsic Functions ..
@@ -236,12 +236,12 @@
                } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE == 10) {
-               // .. IDAMAX ..
-               itest1(IDAMAX(N,SX,INCX),ITRUE2(NP1));
+               // .. idamax ..
+               itest1(idamax(N,SX,INCX),ITRUE2(NP1));
                for (I = 1; I <= LEN; I++) { // 100
                   SX[I] = 42.0;
                } // 100
-               itest1(IDAMAX(N,SX,INCX),ITRUEC(NP1));
+               itest1(idamax(N,SX,INCX),ITRUEC(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1';
                STOP;
@@ -254,7 +254,7 @@
                SXR[IX] = DVR(I);
                IX = IX + INCX;
             } // 120
-            itest1(IDAMAX(N,SXR,INCX),3);
+            itest1(idamax(N,SXR,INCX),3);
          }
       } // 80
       return;

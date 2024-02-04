@@ -30,9 +30,9 @@
       // ..
       // .. External Functions ..
       //- double            DLAMCH, DNRM2;
-      //- int       IDAMAX;
+      //- int       idamax;
       //- bool      LSAME;
-      // EXTERNAL IDAMAX, LSAME, DLAMCH, DNRM2
+      // EXTERNAL idamax, LSAME, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY,  DGELQF, DGEQP3, DGEQRF, DLACPY, DLASCL, DLASET, DLASSQ, DLASWP, DORGQR, DORMLQ, DORMQR, DPOCON, DSCAL,  DSWAP,  DTRSM,  XERBLA
@@ -261,7 +261,7 @@
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
-               WORK[M+N+p] = SCALEM*( A(p,IDAMAX(N,A(p,1),LDA)) ).abs();
+               WORK[M+N+p] = SCALEM*( A(p,idamax(N,A(p,1),LDA)) ).abs();
                AATMAX = max( AATMAX, WORK(M+N+p) );
                AATMIN = min( AATMIN, WORK(M+N+p) );
             } // 1904
@@ -410,7 +410,7 @@
          // has similar effect as Powell-Reid complete pivoting.
          // The ell-infinity norms of A are made nonincreasing.
          for (p = 1; p <= M - 1; p++) { // 1952
-            q = IDAMAX( M-p+1, WORK(M+N+p), 1 ) + p - 1;
+            q = idamax( M-p+1, WORK(M+N+p), 1 ) + p - 1;
             IWORK[2*N+p] = q;
             if ( p != q ) {
                TEMP1       = WORK(M+N+p);

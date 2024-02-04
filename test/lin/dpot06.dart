@@ -25,9 +25,9 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLANSY;
-      // EXTERNAL IDAMAX, DLAMCH, DLANSY
+      // EXTERNAL idamax, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSYMM
@@ -63,8 +63,8 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = ABS(B(IDAMAX( N, B( 1, J ), 1 ),J));
-         XNORM = ABS(X(IDAMAX( N, X( 1, J ), 1 ),J));
+         BNORM = ABS(B(idamax( N, B( 1, J ), 1 ),J));
+         XNORM = ABS(X(idamax( N, X( 1, J ), 1 ),J));
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

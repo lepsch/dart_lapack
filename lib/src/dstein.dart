@@ -28,9 +28,9 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DDOT, DLAMCH, DNRM2;
-      // EXTERNAL IDAMAX, DDOT, DLAMCH, DNRM2
+      // EXTERNAL idamax, DDOT, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DLAGTF, DLAGTS, DLARNV, DSCAL, XERBLA
@@ -182,7 +182,7 @@
 
             // Normalize and scale the righthand side vector Pb.
 
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ) ).abs() / ( WORK( INDRV1+JMAX ) ).abs();
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
@@ -205,7 +205,7 @@
             // Check the infinity norm of the iterate.
 
             } // 90
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             NRM = ( WORK( INDRV1+JMAX ) ).abs();
 
             // Continue for additional iterations after norm reaches
@@ -228,7 +228,7 @@
 
             } // 110
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             if( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 120

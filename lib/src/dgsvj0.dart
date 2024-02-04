@@ -32,9 +32,9 @@
       // ..
       // .. External Functions ..
       //- double             DDOT, DNRM2;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- bool               LSAME;
-      // EXTERNAL IDAMAX, LSAME, DDOT, DNRM2
+      // EXTERNAL idamax, LSAME, DDOT, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
@@ -144,7 +144,7 @@
                for (p = igl; p <= min( igl+KBL-1, N-1 ); p++) { // 2001
 
       // .. de Rijk's pivoting
-                  q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+                  q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      dswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) dswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
@@ -656,7 +656,7 @@
 
       // Sort the vector D.
       for (p = 1; p <= N - 1; p++) { // 5991
-         q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+         q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
             TEMP1 = SVA( p );
             SVA[p] = SVA( q );

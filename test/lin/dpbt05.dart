@@ -25,9 +25,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
@@ -54,7 +54,7 @@
 
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
-         IMAX = IDAMAX( N, X( 1, J ), 1 );
+         IMAX = idamax( N, X( 1, J ), 1 );
          XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10

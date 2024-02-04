@@ -32,9 +32,9 @@
       // ..
       // .. External Functions ..
       //- double             DDOT, DNRM2;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- bool               LSAME;
-      // EXTERNAL IDAMAX, LSAME, DDOT, DNRM2
+      // EXTERNAL idamax, LSAME, DDOT, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
@@ -424,7 +424,7 @@
       // Sort the vector D
 
       for (p = 1; p <= N - 1; p++) { // 5991
-         q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
+         q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
             TEMP1 = SVA( p );
             SVA[p] = SVA( q );

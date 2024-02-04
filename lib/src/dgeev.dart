@@ -34,9 +34,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX, ILAENV;
+      //- int                idamax, ILAENV;
       //- double             DLAMCH, DLANGE, DLAPY2, DNRM2;
-      // EXTERNAL LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
+      // EXTERNAL LSAME, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
@@ -247,7 +247,7 @@
                for (K = 1; K <= N; K++) { // 10
                   WORK[IWRK+K-1] = VL( K, I )**2 + VL( K, I+1 )**2;
                } // 10
-               K = IDAMAX( N, WORK( IWRK ), 1 );
+               K = idamax( N, WORK( IWRK ), 1 );
                dlartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
                drot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
                VL[K, I+1] = ZERO;
@@ -275,7 +275,7 @@
                for (K = 1; K <= N; K++) { // 30
                   WORK[IWRK+K-1] = VR( K, I )**2 + VR( K, I+1 )**2;
                } // 30
-               K = IDAMAX( N, WORK( IWRK ), 1 );
+               K = idamax( N, WORK( IWRK ), 1 );
                dlartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
                drot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
                VR[K, I+1] = ZERO;

@@ -42,9 +42,9 @@
       // ..
       // .. External Functions ..
       //- double                DLAMCH, DZNRM2;
-      //- int       IDAMAX, IZAMAX;
+      //- int       idamax, IZAMAX;
       //- bool      LSAME;
-      // EXTERNAL IDAMAX, IZAMAX, LSAME, DLAMCH, DZNRM2
+      // EXTERNAL idamax, IZAMAX, LSAME, DLAMCH, DZNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASSQ, ZCOPY,  ZGELQF, ZGEQP3, ZGEQRF, ZLACPY, ZLAPMR, ZLASCL, DLASCL, ZLASET, ZLASSQ, ZLASWP, ZUNGQR, ZUNMLQ, ZUNMQR, ZPOCON, DSCAL,  ZDSCAL, ZSWAP,  ZTRSM,  ZLACGV, XERBLA
@@ -641,7 +641,7 @@
               IWOFF = N;
          }
          for (p = 1; p <= M - 1; p++) { // 1952
-            q = IDAMAX( M-p+1, RWORK(M+p), 1 ) + p - 1;
+            q = idamax( M-p+1, RWORK(M+p), 1 ) + p - 1;
             IWORK[IWOFF+p] = q;
             if ( p != q ) {
                TEMP1      = RWORK(M+p);

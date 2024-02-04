@@ -25,9 +25,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DSCAL, DTBMV
@@ -73,15 +73,15 @@
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 40
          dcopy(N, X( 1, J ), 1, WORK, 1 );
-         IX = IDAMAX( N, WORK, 1 );
+         IX = idamax( N, WORK, 1 );
          XNORM = max( ONE, ( X( IX, J ) ) ).abs();
          XSCAL = ( ONE / XNORM ) / (KD+1).toDouble();
          dscal(N, XSCAL, WORK, 1 );
          dtbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
          daxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );
-         IX = IDAMAX( N, WORK, 1 );
+         IX = idamax( N, WORK, 1 );
          ERR = TSCAL*( WORK( IX ) ).abs();
-         IX = IDAMAX( N, X( 1, J ), 1 );
+         IX = idamax( N, X( 1, J ), 1 );
          XNORM = ( X( IX, J ) ).abs();
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;

@@ -28,9 +28,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DGEMV, DSCAL, DSWAP
@@ -92,7 +92,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K > 1 ) {
-            IMAX = IDAMAX( K-1, W( 1, KW ), 1 );
+            IMAX = idamax( K-1, W( 1, KW ), 1 );
             COLMAX = ( W( IMAX, KW ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -148,14 +148,14 @@
                   // Determine both ROWMAX and JMAX.
 
                   if ( IMAX != K ) {
-                     JMAX = IMAX + IDAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 );
+                     JMAX = IMAX + idamax( K-IMAX, W( IMAX+1, KW-1 ), 1 );
                      ROWMAX = ( W( JMAX, KW-1 ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX > 1 ) {
-                     ITEMP = IDAMAX( IMAX-1, W( 1, KW-1 ), 1 );
+                     ITEMP = idamax( IMAX-1, W( 1, KW-1 ), 1 );
                      DTEMP = ( W( ITEMP, KW-1 ) ).abs();
                      if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP;
@@ -393,7 +393,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K < N ) {
-            IMAX = K + IDAMAX( N-K, W( K+1, K ), 1 );
+            IMAX = K + idamax( N-K, W( K+1, K ), 1 );
             COLMAX = ( W( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -447,14 +447,14 @@
                   // Determine both ROWMAX and JMAX.
 
                   if ( IMAX != K ) {
-                     JMAX = K - 1 + IDAMAX( IMAX-K, W( K, K+1 ), 1 );
+                     JMAX = K - 1 + idamax( IMAX-K, W( K, K+1 ), 1 );
                      ROWMAX = ( W( JMAX, K+1 ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX < N ) {
-                     ITEMP = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1);
+                     ITEMP = IMAX + idamax( N-IMAX, W( IMAX+1, K+1 ), 1);
                      DTEMP = ( W( ITEMP, K+1 ) ).abs();
                      if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP;

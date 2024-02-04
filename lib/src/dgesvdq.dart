@@ -27,9 +27,9 @@
       // ..
       // .. External Functions (BLAS, LAPACK)
       //- bool       LSAME;
-      //- int        IDAMAX;
+      //- int        idamax;
       //- double            DLANGE, DNRM2, DLAMCH;
-      // EXTERNAL DLANGE, LSAME, IDAMAX, DNRM2, DLAMCH
+      // EXTERNAL DLANGE, LSAME, idamax, DNRM2, DLAMCH
       // ..
       // .. Intrinsic Functions ..
 
@@ -319,7 +319,7 @@
                 }
             } // 1904
             for (p = 1; p <= M - 1; p++) { // 1952
-            q = IDAMAX( M-p+1, RWORK(p), 1 ) + p - 1;
+            q = idamax( M-p+1, RWORK(p), 1 ) + p - 1;
             IWORK[N+p] = q;
             if ( p != q ) {
                RTMP     = RWORK(p);

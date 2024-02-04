@@ -23,9 +23,9 @@
       double             DIFFNM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL IDAMAX, DLAMCH
+      // EXTERNAL idamax, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
@@ -53,7 +53,7 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 20
-         IX = IDAMAX( N, XACT( 1, J ), 1 );
+         IX = idamax( N, XACT( 1, J ), 1 );
          XNORM = ( XACT( IX, J ) ).abs();
          DIFFNM = ZERO;
          for (I = 1; I <= N; I++) { // 10

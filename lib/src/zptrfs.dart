@@ -35,9 +35,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH
+      // EXTERNAL LSAME, idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZPTTRS
@@ -219,7 +219,7 @@
                RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 60
-         IX = IDAMAX( N, RWORK, 1 );
+         IX = idamax( N, RWORK, 1 );
          FERR[J] = RWORK( IX );
 
          // Estimate the norm of inv(A).
@@ -247,7 +247,7 @@
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
-         IX = IDAMAX( N, RWORK, 1 );
+         IX = idamax( N, RWORK, 1 );
          FERR[J] = FERR( J )*( RWORK( IX ) ).abs();
 
          // Normalize error.

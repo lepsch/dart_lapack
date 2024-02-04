@@ -25,9 +25,9 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH, DLANGE;
-      // EXTERNAL LSAME, IDAMAX, DLAMCH, DLANGE
+      // EXTERNAL LSAME, idamax, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM
@@ -70,8 +70,8 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = ABS(B(IDAMAX( N1, B( 1, J ), 1 ),J));
-         XNORM = ABS(X(IDAMAX( N2, X( 1, J ), 1 ),J));
+         BNORM = ABS(B(idamax( N1, B( 1, J ), 1 ),J));
+         XNORM = ABS(X(idamax( N2, X( 1, J ), 1 ),J));
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

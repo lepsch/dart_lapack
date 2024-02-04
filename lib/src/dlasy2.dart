@@ -32,9 +32,9 @@
       double             BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL IDAMAX, DLAMCH
+      // EXTERNAL idamax, DLAMCH
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DSWAP
@@ -127,7 +127,7 @@
       // Solve 2 by 2 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.
 
-      IPIV = IDAMAX( 4, TMP, 1 );
+      IPIV = idamax( 4, TMP, 1 );
       U11 = TMP( IPIV );
       if ( ( U11 ).abs() <= SMIN ) {
          INFO = 1;

@@ -28,10 +28,10 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX, IZAMAX;
+      //- int                idamax, IZAMAX;
       //- double             DLAMCH, DZASUM;
       //- Complex         ZDOTC, ZDOTU, ZLADIV;
-      // EXTERNAL LSAME, IDAMAX, IZAMAX, DLAMCH, DZASUM, ZDOTC, ZDOTU, ZLADIV
+      // EXTERNAL LSAME, idamax, IZAMAX, DLAMCH, DZASUM, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, XERBLA, ZAXPY, ZDSCAL, ZTBSV
@@ -115,7 +115,7 @@
       // Scale the column norms by TSCAL if the maximum element in CNORM is
       // greater than BIGNUM/2.
 
-      IMAX = IDAMAX( N, CNORM, 1 );
+      IMAX = idamax( N, CNORM, 1 );
       TMAX = CNORM( IMAX );
       if ( TMAX <= BIGNUM*HALF ) {
          TSCAL = ONE;

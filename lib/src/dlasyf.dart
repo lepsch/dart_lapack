@@ -27,8 +27,8 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX;
-      // EXTERNAL LSAME, IDAMAX
+      //- int                idamax;
+      // EXTERNAL LSAME, idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DGEMV, DSCAL, DSWAP
@@ -79,7 +79,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K > 1 ) {
-            IMAX = IDAMAX( K-1, W( 1, KW ), 1 );
+            IMAX = idamax( K-1, W( 1, KW ), 1 );
             COLMAX = ( W( IMAX, KW ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -107,10 +107,10 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = IMAX + IDAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 );
+               JMAX = IMAX + idamax( K-IMAX, W( IMAX+1, KW-1 ), 1 );
                ROWMAX = ( W( JMAX, KW-1 ) ).abs();
                if ( IMAX > 1 ) {
-                  JMAX = IDAMAX( IMAX-1, W( 1, KW-1 ), 1 );
+                  JMAX = idamax( IMAX-1, W( 1, KW-1 ), 1 );
                   ROWMAX = max( ROWMAX, ( W( JMAX, KW-1 ) ) ).abs();
                }
 
@@ -355,7 +355,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K < N ) {
-            IMAX = K + IDAMAX( N-K, W( K+1, K ), 1 );
+            IMAX = K + idamax( N-K, W( K+1, K ), 1 );
             COLMAX = ( W( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -384,10 +384,10 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = K - 1 + IDAMAX( IMAX-K, W( K, K+1 ), 1 );
+               JMAX = K - 1 + idamax( IMAX-K, W( K, K+1 ), 1 );
                ROWMAX = ( W( JMAX, K+1 ) ).abs();
                if ( IMAX < N ) {
-                  JMAX = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 );
+                  JMAX = IMAX + idamax( N-IMAX, W( IMAX+1, K+1 ), 1 );
                   ROWMAX = max( ROWMAX, ( W( JMAX, K+1 ) ) ).abs();
                }
 

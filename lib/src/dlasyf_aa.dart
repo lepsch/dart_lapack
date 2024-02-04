@@ -26,8 +26,8 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME;
-      //- int                IDAMAX, ILAENV;
-      // EXTERNAL LSAME, ILAENV, IDAMAX
+      //- int                idamax, ILAENV;
+      // EXTERNAL LSAME, ILAENV, idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DAXPY, DCOPY, DSWAP, DSCAL, DLASET, XERBLA
@@ -111,7 +111,7 @@
 
             // Find max(|WORK(2:M)|)
 
-            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1;
+            I2 = idamax( M-J, WORK( 2 ), 1 ) + 1;
             PIV = WORK( I2 );
 
             // Apply symmetric pivot
@@ -251,7 +251,7 @@
 
             // Find max(|WORK(2:M)|)
 
-            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1;
+            I2 = idamax( M-J, WORK( 2 ), 1 ) + 1;
             PIV = WORK( I2 );
 
             // Apply symmetric pivot

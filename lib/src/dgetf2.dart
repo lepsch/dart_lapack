@@ -24,8 +24,8 @@
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
-      //- int                IDAMAX;
-      // EXTERNAL DLAMCH, IDAMAX
+      //- int                idamax;
+      // EXTERNAL DLAMCH, idamax
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGER, DSCAL, DSWAP, XERBLA
@@ -62,7 +62,7 @@
 
          // Find pivot and test for singularity.
 
-         JP = J - 1 + IDAMAX( M-J+1, A( J, J ), 1 );
+         JP = J - 1 + idamax( M-J+1, A( J, J ), 1 );
          IPIV[J] = JP;
          if ( A( JP, J ) != ZERO ) {
 

@@ -27,9 +27,9 @@
       // EXTERNAL DLASWP, DSCAL
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DLAMCH;
-      // EXTERNAL IDAMAX, DLAMCH
+      // EXTERNAL idamax, DLAMCH
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -60,7 +60,7 @@
 
       // Check for scaling
 
-      I = IDAMAX( N, RHS, 1 );
+      I = idamax( N, RHS, 1 );
       if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
          TEMP = ( ONE / TWO ) / ( RHS( I ) ).abs();
          dscal(N, TEMP, RHS( 1 ), 1 );

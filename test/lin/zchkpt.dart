@@ -40,9 +40,9 @@
       Complex         Z( 3 );
       // ..
       // .. External Functions ..
-      //- int                IDAMAX;
+      //- int                idamax;
       //- double             DGET06, DZASUM, ZLANHT;
-      // EXTERNAL IDAMAX, DGET06, DZASUM, ZLANHT
+      // EXTERNAL idamax, DGET06, DZASUM, ZLANHT
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DLARNV, DSCAL, ZCOPY, ZDSCAL, ZERRGT, ZGET04, ZLACPY, ZLAPTM, ZLARNV, ZLATB4, ZLATMS, ZPTCON, ZPTRFS, ZPTT01, ZPTT02, ZPTT05, ZPTTRF, ZPTTRS
@@ -149,7 +149,7 @@
 
                   // Scale D and E so the maximum element is ANORM.
 
-                  IX = IDAMAX( N, D, 1 );
+                  IX = idamax( N, D, 1 );
                   DMAX = D( IX );
                   dscal(N, ANORM / DMAX, D, 1 );
                   zdscal(N-1, ANORM / DMAX, E, 1 );

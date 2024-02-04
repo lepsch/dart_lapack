@@ -35,9 +35,9 @@
       // ..
       // .. External Functions ..
       //- bool               DISNAN;
-      //- int                IDAMAX, ILAENV;
+      //- int                idamax, ILAENV;
       //- double             DLAMCH, DZNRM2;
-      // EXTERNAL DISNAN, DLAMCH, DZNRM2, IDAMAX, ILAENV
+      // EXTERNAL DISNAN, DLAMCH, DZNRM2, idamax, ILAENV
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
@@ -167,7 +167,7 @@
       // Compute the pivot column index and the maximum column 2-norm
       // for the whole original matrix stored in A(1:M,1:N).
 
-      KP1 = IDAMAX( N, RWORK( 1 ), 1 );
+      KP1 = idamax( N, RWORK( 1 ), 1 );
 
       // ==================================================================.
 
@@ -458,7 +458,7 @@
             // 2) Set TAU(K+1:MINMN) to ZERO.
 
          if ( K < MINMN ) {
-            JMAXC2NRM = K + IDAMAX( N-K, RWORK( K+1 ), 1 );
+            JMAXC2NRM = K + idamax( N-K, RWORK( K+1 ), 1 );
             MAXC2NRMK = RWORK( JMAXC2NRM );
             if ( K == 0 ) {
                RELMAXC2NRMK = ONE;

@@ -28,8 +28,8 @@
       // ..
       // .. External Functions ..
       //- bool               LSAME, DISNAN;
-      //- int                IDAMAX;
-      // EXTERNAL LSAME, IDAMAX, DISNAN
+      //- int                idamax;
+      // EXTERNAL LSAME, idamax, DISNAN
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSWAP, DSYR, XERBLA
@@ -84,7 +84,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K > 1 ) {
-            IMAX = IDAMAX( K-1, A( 1, K ), 1 );
+            IMAX = idamax( K-1, A( 1, K ), 1 );
             COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -108,10 +108,10 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = IMAX + IDAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA );
+               JMAX = IMAX + idamax( K-IMAX, A( IMAX, IMAX+1 ), LDA );
                ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX > 1 ) {
-                  JMAX = IDAMAX( IMAX-1, A( 1, IMAX ), 1 );
+                  JMAX = idamax( IMAX-1, A( 1, IMAX ), 1 );
                   ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
                }
 
@@ -250,7 +250,7 @@
          // Determine both COLMAX and IMAX.
 
          if ( K < N ) {
-            IMAX = K + IDAMAX( N-K, A( K+1, K ), 1 );
+            IMAX = K + idamax( N-K, A( K+1, K ), 1 );
             COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
@@ -274,10 +274,10 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = K - 1 + IDAMAX( IMAX-K, A( IMAX, K ), LDA );
+               JMAX = K - 1 + idamax( IMAX-K, A( IMAX, K ), LDA );
                ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX < N ) {
-                  JMAX = IMAX + IDAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
+                  JMAX = IMAX + idamax( N-IMAX, A( IMAX+1, IMAX ), 1 );
                   ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
                }
 
