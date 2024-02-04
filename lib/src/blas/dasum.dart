@@ -7,7 +7,7 @@ double dasum(final int N, Array<double> DX, final int INCX) {
   double DTEMP;
   int I, M, MP1, NINCX;
   DTEMP = 0.0;
-  
+
   if (N <= 0 || INCX <= 0) return 0.0;
   if (INCX == 1) {
     // code for increment equal to 1
