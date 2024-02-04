@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
+      Complex            A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CLACGV, CLARFG, CSCAL

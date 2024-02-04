@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       REAL               RWORK( * );
-      COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
+      Complex            A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       const              ONEHALF = 0.5 ;
       REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 10 ;
@@ -43,7 +43,7 @@
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 ), IDUMMY( 1 );
       REAL               RESULT( NTESTS );
-      COMPLEX            BLOCK( 2, 2 ), CDUMMY( 1 );
+      Complex            BLOCK( 2, 2 ), CDUMMY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, CLANHE, SGET06;

@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCV, LDC, N;
-      COMPLEX            TAU;
+      Complex            TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX            C( LDC, * ), V( * ), WORK( * );
+      Complex            C( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO, HALF;
+      Complex            ONE, ZERO, HALF;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CHEMV, CHER2

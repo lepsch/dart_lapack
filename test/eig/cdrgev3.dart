@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), NN( * );
       REAL               RESULT( * ), RWORK( * );
-      COMPLEX            A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
+      Complex            A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
@@ -29,7 +29,7 @@
       bool               BADNN;
       int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT;
       REAL               SAFMAX, SAFMIN, ULP, ULPINV;
-      COMPLEX            CTEMP;
+      Complex            CTEMP;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );

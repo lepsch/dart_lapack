@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
       REAL               DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), RWORK( * ), Z( * );
-      COMPLEX            B( LDB, * ), BX( LDBX, * );
+      Complex            B( LDB, * ), BX( LDBX, * );
       // ..
 
 // =====================================================================

@@ -17,21 +17,21 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            AB( LDAB, * ), HOUS( * ), WORK( * );
+      Complex            AB( LDAB, * ), HOUS( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       REAL               RZERO;
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              RZERO = 0.0, ZERO = ( 0.0, 0.0 ), ONE  = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SICEV, SIZETAU, LDV, LHMIN, LWMIN;
       REAL               ABSTMP;
-      COMPLEX            TMP;
+      Complex            TMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHB2ST_KERNELS, CLACPY, CLASET, XERBLA

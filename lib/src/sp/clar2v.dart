@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       REAL               C( * );
-      COMPLEX            S( * ), X( * ), Y( * ), Z( * );
+      Complex            S( * ), X( * ), Y( * ), Z( * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       int                I, IC, IX;
       REAL               CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII, ZIR;
-      COMPLEX            SI, T2, T3, T4, ZI;
+      Complex            SI, T2, T3, T4, ZI;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, CONJG, REAL

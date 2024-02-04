@@ -14,12 +14,12 @@
       String   (3)       NGUAR, CGUAR;
       bool               printed_guide;
       REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
 
       // .. Local Arrays ..
       REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
       int                IPIV(NMAX);
-      COMPLEX            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX );
+      Complex            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX );
 
       // .. External Functions ..
       //- REAL               SLAMCH;

@@ -24,7 +24,7 @@
       // .. Local Arrays ..
       bool               SEL( NMAX );
       REAL               RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
-      COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX );
+      Complex            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, CTREXC, CTRSEN, CTRSNA, CTRSYL, CTRSYL3

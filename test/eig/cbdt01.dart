@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * ), RWORK( * );
-      COMPLEX            A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
+      Complex            A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================

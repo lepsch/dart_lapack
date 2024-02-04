@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX            B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * );
+      Complex            B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -31,7 +31,7 @@
       String             TRANSN, TRANST;
       int                COUNT, I, J, KASE, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

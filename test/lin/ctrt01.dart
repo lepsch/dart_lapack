@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), AINV( LDAINV, * );
+      Complex            A( LDA, * ), AINV( LDAINV, * );
       // ..
 
 // =====================================================================

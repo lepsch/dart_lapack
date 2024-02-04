@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               S( * );
-      COMPLEX            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * );
+      Complex            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

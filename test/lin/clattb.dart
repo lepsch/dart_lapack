@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               RWORK( * );
-      COMPLEX            AB( LDAB, * ), B( * ), WORK( * );
+      Complex            AB( LDAB, * ), B( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE;
       REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
-      COMPLEX            PLUS1, PLUS2, STAR1;
+      Complex            PLUS1, PLUS2, STAR1;
       // ..
       // .. External Functions ..
       //- bool               lsame;

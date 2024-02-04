@@ -14,13 +14,13 @@
 
       // ..
       // .. Local allocatable arrays
-      COMPLEX         , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:);
+      Complex         , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:);
       REAL            , ALLOCATABLE :: RWORK(:);
 
       // .. Parameters ..
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -30,7 +30,7 @@
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
-      COMPLEX            WORKQUERY( 1 );
+      Complex            WORKQUERY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, CLANGE, CLANSY;

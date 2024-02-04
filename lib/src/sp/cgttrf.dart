@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            D( * ), DL( * ), DU( * ), DU2( * );
+      Complex            D( * ), DL( * ), DU( * ), DU2( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX            FACT, TEMP, ZDUM;
+      Complex            FACT, TEMP, ZDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA

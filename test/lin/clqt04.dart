@@ -14,12 +14,12 @@
 
       // ..
       // .. Local allocatable arrays
-      COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), L(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
+      Complex, ALLOCATABLE :: AF(:,:), Q(:,:), L(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
       REAL, ALLOCATABLE :: RWORK(:);
 
       // .. Parameters ..
       REAL       ZERO;
-      COMPLEX    ONE, CZERO;
+      Complex    ONE, CZERO;
       const    ZERO = 0.0;
       const    ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..

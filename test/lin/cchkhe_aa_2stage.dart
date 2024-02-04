@@ -16,7 +16,7 @@
       bool         DOTYPE( * );
       int          IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       REAL         RWORK( * );
-      COMPLEX      A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex      A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       // .. Parameters ..
       REAL         ZERO;
       const        ZERO = 0.0 ;
-      COMPLEX      CZERO;
+      Complex      CZERO;
       const        CZERO = ( 0.0, 0.0 ) ;
       int          NTYPES;
       const        NTYPES = 10 ;

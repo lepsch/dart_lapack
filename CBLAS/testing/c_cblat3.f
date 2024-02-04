@@ -49,7 +49,7 @@
       const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
       const              NSUBS = 9 ;
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO, RHALF, RONE;
       const              RZERO = 0.0, RHALF = 0.5, RONE = 1.0 ;
@@ -65,7 +65,7 @@
       String             SNAMET;
       String             SNAPS;
       // .. Local Arrays ..
-      COMPLEX            AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
+      Complex            AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDMAX );
       bool               LTEST( NSUBS );
@@ -368,7 +368,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RZERO;
       const              RZERO = 0.0 ;
@@ -378,11 +378,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX            ALPHA, ALS, BETA, BLS;
+      Complex            ALPHA, ALS, BETA, BLS;
       REAL               ERR, ERRMAX;
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS;
       bool               NULL, RESET, SAME, TRANA, TRANB;
@@ -611,7 +611,7 @@
 
       void cprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
-      COMPLEX          ALPHA, BETA;
+      Complex          ALPHA, BETA;
       String           TRANSA, TRANSB;
       String           SNAME;
       String           CRC, CTA,CTB;
@@ -655,7 +655,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RZERO;
       const              RZERO = 0.0 ;
@@ -665,11 +665,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX            ALPHA, ALS, BETA, BLS;
+      Complex            ALPHA, ALS, BETA, BLS;
       REAL               ERR, ERRMAX;
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS;
       bool               CONJ, LEFT, NULL, RESET, SAME;
@@ -889,7 +889,7 @@
 
       void cprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
-      COMPLEX          ALPHA, BETA;
+      Complex          ALPHA, BETA;
       String           SIDE, UPLO;
       String           SNAME;
       String           CRC, CS,CU;
@@ -929,7 +929,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO;
       const              RZERO = 0.0 ;
@@ -939,11 +939,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX );
+      Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX            ALPHA, ALS;
+      Complex            ALPHA, ALS;
       REAL               ERR, ERRMAX;
       int               I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
@@ -1179,7 +1179,7 @@
 
       void cprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
-      COMPLEX          ALPHA;
+      Complex          ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
       String           SNAME;
       String           CRC, CS, CU, CA, CD;
@@ -1231,7 +1231,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RONE, RZERO;
       const              RONE = 1.0, RZERO = 0.0 ;
@@ -1241,11 +1241,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX            ALPHA, ALS, BETA, BETS;
+      Complex            ALPHA, ALS, BETA, BETS;
       REAL               ERR, ERRMAX, RALPHA, RALS, RBETA, RBETS;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
@@ -1507,7 +1507,7 @@
 
       void cprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
-      COMPLEX          ALPHA, BETA;
+      Complex          ALPHA, BETA;
       String           UPLO, TRANSA;
       String           SNAME;
       String           CRC, CU, CA;
@@ -1581,7 +1581,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RONE, RZERO;
       const              RONE = 1.0, RZERO = 0.0 ;
@@ -1591,11 +1591,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX            AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
+      Complex            AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
       REAL               G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX            ALPHA, ALS, BETA, BETS;
+      Complex            ALPHA, ALS, BETA, BETS;
       REAL               ERR, ERRMAX, RBETA, RBETS;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
@@ -1882,7 +1882,7 @@
 
       void cprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
-      COMPLEX          ALPHA, BETA;
+      Complex          ALPHA, BETA;
       String           UPLO, TRANSA;
       String           SNAME;
       String           CRC, CU, CA;
@@ -1914,7 +1914,7 @@
 
       void cprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
-      COMPLEX          ALPHA;
+      Complex          ALPHA;
       REAL             BETA;
       String           UPLO, TRANSA;
       String           SNAME;
@@ -1961,22 +1961,22 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      COMPLEX            ROGUE;
+      Complex            ROGUE;
       const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       REAL               RZERO;
       const              RZERO = 0.0 ;
       REAL               RROGUE;
       const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
-      COMPLEX            TRANSL;
+      Complex            TRANSL;
       int                LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX            A( NMAX, * ), AA( * );
+      Complex            A( NMAX, * ), AA( * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
@@ -2079,21 +2079,21 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
-      COMPLEX            ALPHA, BETA;
+      Complex            ALPHA, BETA;
       REAL               EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * );
       REAL               G( * );
       // .. Local Scalars ..
-      COMPLEX            CL;
+      Complex            CL;
       REAL               ERRI;
       int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
@@ -2250,7 +2250,7 @@
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
-      COMPLEX            RI( * ), RJ( * );
+      Complex            RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
@@ -2285,7 +2285,7 @@
       String             UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX            AA( LDA, * ), AS( LDA, * );
+      Complex            AA( LDA, * ), AS( LDA, * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
@@ -2325,7 +2325,7 @@
       // End of LCERES.
 
       }
-      COMPLEX cbeg(RESET ) {
+      Complex cbeg(RESET ) {
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.

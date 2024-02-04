@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      COMPLEX            ALPHA, TAU;
+      Complex            ALPHA, TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX            X( * );
+      Complex            X( * );
       // ..
 
 // =====================================================================

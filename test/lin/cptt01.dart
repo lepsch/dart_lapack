@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), DF( * );
-      COMPLEX            E( * ), EF( * ), WORK( * );
+      Complex            E( * ), EF( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I;
       REAL               ANORM, EPS;
-      COMPLEX            DE;
+      Complex            DE;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

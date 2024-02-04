@@ -10,7 +10,7 @@
       REAL               RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

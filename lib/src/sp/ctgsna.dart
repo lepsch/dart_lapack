@@ -12,7 +12,7 @@
       bool               SELECT( * );
       int                IWORK( * );
       REAL               DIF( * ), S( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,10 +26,10 @@
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2;
       REAL               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
-      COMPLEX            YHAX, YHBX;
+      Complex            YHAX, YHBX;
       // ..
       // .. Local Arrays ..
-      COMPLEX            DUMMY( 1 ), DUMMY1( 1 );
+      Complex            DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

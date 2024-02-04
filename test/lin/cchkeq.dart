@@ -14,9 +14,9 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e1 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       int                NSZ, NSZB;
       const              NSZ = 5, NSZB = 3*NSZ-2 ;
@@ -31,7 +31,7 @@
       // ..
       // .. Local Arrays ..
       REAL               C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
-      COMPLEX            A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP );
+      Complex            A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

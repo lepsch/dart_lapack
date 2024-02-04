@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // ======================================================================
@@ -25,7 +25,7 @@
       bool               DONE, UPPER;
       int                I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP, P;
       REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, STEMP, ROWMAX, TT, SFMIN;
-      COMPLEX            D12, D21, T, WK, WKM1, WKP1, Z;
+      Complex            D12, D21, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
 

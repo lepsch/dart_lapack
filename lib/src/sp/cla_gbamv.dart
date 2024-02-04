@@ -9,21 +9,21 @@
       int                INCX, INCY, LDAB, M, N, KL, KU, TRANS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AB( LDAB, * ), X( * );
+      Complex            AB( LDAB, * ), X( * );
       REAL               Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
       REAL               TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE;
-      COMPLEX            CDUM;
+      Complex            CDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH

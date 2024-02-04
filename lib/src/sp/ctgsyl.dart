@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = (0.0, 0.0) ;
       // ..
       // .. Local Scalars ..

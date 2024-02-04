@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX            A, B, C, CS1, EVSCAL, RT1, RT2, SN1;
+      Complex            A, B, C, CS1, EVSCAL, RT1, RT2, SN1;
       // ..
 
 // =====================================================================
@@ -15,7 +15,7 @@
       const              ZERO = 0.0 ;
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       REAL               HALF;
       const              HALF = 0.5 ;
@@ -24,7 +24,7 @@
       // ..
       // .. Local Scalars ..
       REAL               BABS, EVNORM, TABS, Z;
-      COMPLEX            S, T, TMP;
+      Complex            S, T, TMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT

@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       REAL               BERR( * ), D( * ), FERR( * ), RESLTS( * );
-      COMPLEX            B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * );
+      Complex            B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       int                I, IMAX, J, K, NZ;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. External Functions ..
       //- int                ICAMAX;

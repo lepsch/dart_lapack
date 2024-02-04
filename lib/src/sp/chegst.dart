@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * );
+      Complex            A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE, HALF;
+      Complex            CONE, HALF;
       const              CONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..

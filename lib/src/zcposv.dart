@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX            SWORK( * );
+      Complex            SWORK( * );
       Complex         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 

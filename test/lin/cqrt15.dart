@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               S( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( LWORK );
+      Complex            A( LDA, * ), B( LDB, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, SVMIN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

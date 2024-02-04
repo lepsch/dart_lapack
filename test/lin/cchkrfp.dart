@@ -26,20 +26,20 @@
       // ..
       // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
-      COMPLEX            WORKA( NMAX, NMAX );
-      COMPLEX            WORKASAV( NMAX, NMAX );
-      COMPLEX            WORKB( NMAX, MAXRHS );
-      COMPLEX            WORKXACT( NMAX, MAXRHS );
-      COMPLEX            WORKBSAV( NMAX, MAXRHS );
-      COMPLEX            WORKX( NMAX, MAXRHS );
-      COMPLEX            WORKAFAC( NMAX, NMAX );
-      COMPLEX            WORKAINV( NMAX, NMAX );
-      COMPLEX            WORKARF( (NMAX*(NMAX+1))/2 );
-      COMPLEX            WORKAP( (NMAX*(NMAX+1))/2 );
-      COMPLEX            WORKARFINV( (NMAX*(NMAX+1))/2 );
-      COMPLEX            C_WORK_CLATMS( 3 * NMAX );
-      COMPLEX            C_WORK_CPOT02( NMAX, MAXRHS );
-      COMPLEX            C_WORK_CPOT03( NMAX, NMAX );
+      Complex            WORKA( NMAX, NMAX );
+      Complex            WORKASAV( NMAX, NMAX );
+      Complex            WORKB( NMAX, MAXRHS );
+      Complex            WORKXACT( NMAX, MAXRHS );
+      Complex            WORKBSAV( NMAX, MAXRHS );
+      Complex            WORKX( NMAX, MAXRHS );
+      Complex            WORKAFAC( NMAX, NMAX );
+      Complex            WORKAINV( NMAX, NMAX );
+      Complex            WORKARF( (NMAX*(NMAX+1))/2 );
+      Complex            WORKAP( (NMAX*(NMAX+1))/2 );
+      Complex            WORKARFINV( (NMAX*(NMAX+1))/2 );
+      Complex            C_WORK_CLATMS( 3 * NMAX );
+      Complex            C_WORK_CPOT02( NMAX, MAXRHS );
+      Complex            C_WORK_CPOT03( NMAX, NMAX );
       REAL               S_WORK_CLATMS( NMAX );
       REAL               S_WORK_CLANHE( NMAX );
       REAL               S_WORK_CPOT01( NMAX );

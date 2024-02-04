@@ -8,13 +8,13 @@
       int                INFO, K, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

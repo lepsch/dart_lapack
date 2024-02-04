@@ -8,13 +8,13 @@
       int                M, N, LDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX          ZERO;
+      Complex          ZERO;
       const     ZERO = (0.0, 0.0) ;
       // ..
       // .. Local Scalars ..

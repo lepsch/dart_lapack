@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, P;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * );
+      Complex            A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * );
       // ..
 
 // ===================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

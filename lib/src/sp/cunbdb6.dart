@@ -8,7 +8,7 @@
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
+      Complex            Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
       // ..
 
 // =====================================================================
@@ -16,7 +16,7 @@
       // .. Parameters ..
       REAL               ALPHA, REALONE, REALZERO;
       const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
-      COMPLEX            NEGONE, ONE, ZERO;
+      Complex            NEGONE, ONE, ZERO;
       const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..

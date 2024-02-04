@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * );
+      Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================

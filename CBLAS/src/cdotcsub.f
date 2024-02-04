@@ -1,9 +1,9 @@
       void cdotcsub(n,x,incx,y,incy,dotc) {
 
       // external cdotc
-      complex cdotc,dotc;
+      Complex cdotc,dotc;
       int     n,incx,incy;
-      complex x(*),y(*);
+      Complex x(*),y(*);
 
       dotc=cdotc(n,x,incx,y,incy);
       return;

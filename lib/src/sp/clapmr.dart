@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                K( * );
-      COMPLEX            X( LDX, * );
+      Complex            X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IN, J, JJ;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. Executable Statements ..
 

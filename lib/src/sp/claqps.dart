@@ -10,20 +10,20 @@
       // .. Array Arguments ..
       int                JPVT( * );
       REAL               VN1( * ), VN2( * );
-      COMPLEX            A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
+      Complex            A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              ZERO = 0.0, ONE = 1.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
       REAL               TEMP, TEMP2, TOL3Z;
-      COMPLEX            AKK;
+      Complex            AKK;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CGEMV, CLARFG, CSWAP

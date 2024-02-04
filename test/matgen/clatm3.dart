@@ -1,4 +1,4 @@
-      COMPLEX clatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
+      Complex clatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       // .. Array Arguments ..
 
       int                ISEED( 4 ), IWORK( * );
-      COMPLEX            D( * ), DL( * ), DR( * );
+      Complex            D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
@@ -22,19 +22,19 @@
 
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
 
       // .. Local Scalars ..
 
-      COMPLEX            CTEMP;
+      Complex            CTEMP;
       // ..
 
       // .. External Functions ..
 
       REAL               SLARAN;
-      COMPLEX            CLARND;
+      Complex            CLARND;
       // EXTERNAL SLARAN, CLARND
       // ..
 

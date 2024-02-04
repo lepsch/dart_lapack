@@ -20,7 +20,7 @@
       int                I, INFO, J, MB, NB;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX);
+      Complex            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CGEQR, CGEMQR, CGELQ, CGEMLQ

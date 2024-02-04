@@ -14,7 +14,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               D( * ), D2( * ), RESULT( * ), RWORK( * );
-      COMPLEX            A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), WORK( * ), Z( LDZ, * );
+      Complex            A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 21 ;

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       REAL               WORK( * );
-      COMPLEX            A( LDA, * ), ARF( * );
+      Complex            A( LDA, * ), ARF( * );
       // ..
 
 // =====================================================================

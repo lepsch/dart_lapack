@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( * );
-      COMPLEX            X( * );
+      Complex            X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            EYE;
+      Complex            EYE;
       const              EYE = ( 0.0, 1.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J, JJ, N5;
       REAL               ALPHA, ALPHA3, BETA;
-      COMPLEX            A, B, C, R;
+      Complex            A, B, C, R;
       // ..
       // .. External Functions ..
       //- COMPLEX            CLARND;

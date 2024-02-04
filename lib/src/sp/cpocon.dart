@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       String             NORMIN;
       int                IX, KASE;
       REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

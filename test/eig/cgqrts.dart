@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * ), RESULT( 4 );
-      COMPLEX            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK );
+      Complex            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
@@ -17,9 +17,9 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      COMPLEX            CROGUE;
+      Complex            CROGUE;
       const              CROGUE = ( -1.0e+10, 0.0 ) ;
       // ..
       // .. Local Scalars ..

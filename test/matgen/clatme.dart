@@ -8,12 +8,12 @@
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
       REAL               ANORM, COND, CONDS;
-      COMPLEX            DMAX;
+      Complex            DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               DS( * );
-      COMPLEX            A( LDA, * ), D( * ), WORK( * );
+      Complex            A( LDA, * ), D( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -23,16 +23,16 @@
       const              ZERO = 0.0 ;
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
       REAL               RALPHA, TEMP;
-      COMPLEX            ALPHA, TAU, XNORMS;
+      Complex            ALPHA, TAU, XNORMS;
       // ..
       // .. Local Arrays ..
       REAL               TEMPA( 1 );

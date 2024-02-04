@@ -10,7 +10,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       REAL               RESULT( 15 ), RWORK( * ), THETA( * );
-      COMPLEX            U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * );
+      Complex            U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               REALONE, REALZERO;
       const              REALONE = 1.0, REALZERO = 0.0 ;
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = (0.0,0.0), ONE = (1.0,0.0) ;
       REAL               PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;

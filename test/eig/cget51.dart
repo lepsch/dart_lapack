@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

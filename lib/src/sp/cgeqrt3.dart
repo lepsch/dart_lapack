@@ -8,13 +8,13 @@
       int       INFO, LDA, M, N, LDT;
       // ..
       // .. Array Arguments ..
-      COMPLEX   A( LDA, * ), T( LDT, * );
+      Complex   A( LDA, * ), T( LDT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX   ONE;
+      Complex   ONE;
       const     ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..

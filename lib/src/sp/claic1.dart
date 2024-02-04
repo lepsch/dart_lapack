@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       int                J, JOB;
       REAL               SEST, SESTPR;
-      COMPLEX            C, GAMMA, S;
+      Complex            C, GAMMA, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX            W( J ), X( J );
+      Complex            W( J ), X( J );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       // ..
       // .. Local Scalars ..
       REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
-      COMPLEX            ALPHA, COSINE, SINE;
+      Complex            ALPHA, COSINE, SINE;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, SQRT

@@ -35,7 +35,7 @@
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             RWORK(NMAX);
       Complex         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 );
-      COMPLEX            SWORK(NMAX*(NMAX+MAXRHS));
+      Complex            SWORK(NMAX*(NMAX+MAXRHS));
       // ..
       // .. External Functions ..
       //- double             DLAMCH, DSECND;

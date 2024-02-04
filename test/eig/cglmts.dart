@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
+      Complex            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
 
 // ====================================================================
 
       // .. Parameters ..
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..

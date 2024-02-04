@@ -9,7 +9,7 @@
       int                LDA, LDX, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), WORK( LWORK ), X( LDX, * );
+      Complex            A( LDA, * ), WORK( LWORK ), X( LDX, * );
       // ..
 
 // =====================================================================

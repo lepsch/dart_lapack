@@ -14,7 +14,7 @@
       // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests;
       double            X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N);
-      double complex    Y, cInf( nInf ), cNaN( nNaN );
+      Complex    Y, cInf( nInf ), cNaN( nNaN );
 
       // .. Intrinsic Functions ..
       // intrinsic ABS, DBLE, RADIX, CEILING, TINY, DIGITS, SQRT, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON

@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               D( * );
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       const              ZERO = 0.0 ;
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       REAL               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
@@ -31,7 +31,7 @@
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       REAL               ALPHA, ANGLE, REALC, TEMP;
-      COMPLEX            C, CT, CTEMP, DUMMY, EXTRA, S, ST;
+      Complex            C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       // ..
       // .. External Functions ..
       //- bool               lsame;

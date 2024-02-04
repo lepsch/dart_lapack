@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * );
+      Complex            A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -19,13 +19,13 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I1, I2, J, KD, N1;
       REAL               ANORM, BNORM, EPS, TEMP, XNORM;
-      COMPLEX            CDUM;
+      Complex            CDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

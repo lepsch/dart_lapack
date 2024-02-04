@@ -18,18 +18,18 @@
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       REAL               LARGE;
       const              LARGE = 1.0e6 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N;
       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM;
-      COMPLEX            RMUL;
+      Complex            RMUL;
       // ..
       // .. Local Arrays ..
       REAL               DUM( 1 ), VM1( 3 ), VM2( 3 );
-      COMPLEX            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT );
+      Complex            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;

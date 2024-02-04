@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), WORK( N+NB+1,* );
+      Complex            A( LDA, * ), WORK( N+NB+1,* );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX              ONE, ZERO;
+      Complex              ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -25,9 +25,9 @@
       int                COUNT;
       int                J, U11, INVD;
 
-      COMPLEX   AK, AKKP1, AKP1, D, T;
-      COMPLEX   U01_I_J, U01_IP1_J;
-      COMPLEX   U11_I_J, U11_IP1_J;
+      Complex   AK, AKKP1, AKP1, D, T;
+      Complex   U01_I_J, U01_IP1_J;
+      Complex   U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       //- bool               lsame;

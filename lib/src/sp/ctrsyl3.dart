@@ -7,20 +7,20 @@
       REAL               SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDC, * );
       REAL               SWORK( LDSWORK, * );
       // ..
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB;
       REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
-      COMPLEX            CSGN;
+      Complex            CSGN;
       // ..
       // .. Local Arrays ..
       REAL               WNRM( max( M, N ) );

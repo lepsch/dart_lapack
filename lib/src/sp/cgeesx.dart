@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * );
+      Complex            A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * );
       // ..
       // .. Function Arguments ..
       bool               SELECT;

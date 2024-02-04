@@ -8,7 +8,7 @@
       int                N, NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), AF( LDAF, * );
+      Complex            A( LDA, * ), AF( LDAF, * );
       // ..
 
 // =====================================================================
@@ -16,7 +16,7 @@
       // .. Local Scalars ..
       int                I, J;
       REAL               AMAX, UMAX, RPVGRW;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, ABS, REAL, AIMAG

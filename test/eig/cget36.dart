@@ -14,7 +14,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                LDT, LWORK;
       const              LDT = 10, LWORK = 2*LDT*LDT ;
@@ -22,11 +22,11 @@
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;
       REAL               EPS, RES;
-      COMPLEX            CTEMP;
+      Complex            CTEMP;
       // ..
       // .. Local Arrays ..
       REAL               RESULT( 2 ), RWORK( LDT );
-      COMPLEX            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
+      Complex            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

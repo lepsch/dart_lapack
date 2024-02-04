@@ -3,7 +3,7 @@
       // external dzasum
       double           dzasum,asum;
       int     n,incx;
-      double complex x(*);
+      Complex x(*);
 
       asum=dzasum(n,x,incx);
       return;

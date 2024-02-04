@@ -12,19 +12,19 @@
       // ..
       // .. Array Arguments ..
       int          IPIV( * );
-      COMPLEX      A( LDA, * ), WORK( * );
+      Complex      A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      COMPLEX      ZERO, ONE;
+      Complex      ZERO, ONE;
       const        ZERO = (0.0, 0.0), ONE = (1.0, 0.0) ;
 
       // .. Local Scalars ..
       bool         LQUERY, UPPER;
       int          J, LWKMIN, LWKOPT;
       int          NB, MJ, NJ, K1, K2, J1, J2, J3, JB;
-      COMPLEX      ALPHA;
+      Complex      ALPHA;
       // ..
       // .. External Functions ..
       //- bool         lsame;

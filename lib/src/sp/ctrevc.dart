@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       REAL               RWORK( * );
-      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      Complex            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -19,14 +19,14 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CMZERO, CMONE;
+      Complex            CMZERO, CMONE;
       const              CMZERO = ( 0.0, 0.0 ), CMONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI;
       REAL               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
-      COMPLEX            CDUM;
+      Complex            CDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -8,11 +8,11 @@
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
       REAL               ANORM, COND, CONDL, CONDR, SPARSE;
-      COMPLEX            DMAX;
+      Complex            DMAX;
       // ..
       // .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
-      COMPLEX            A( LDA, * ), D( * ), DL( * ), DR( * );
+      Complex            A( LDA, * ), D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
@@ -22,16 +22,16 @@
       const              ZERO = 0.0 ;
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
       REAL               ONORM, TEMP;
-      COMPLEX            CALPHA, CTEMP;
+      Complex            CALPHA, CTEMP;
       // ..
       // .. Local Arrays ..
       REAL               TEMPA( 1 );

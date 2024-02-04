@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * );
-      COMPLEX            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       String             CUPLO;
       int                IINFO, J, JCOL, JR, JROW;
       REAL               ANORM, ULP, UNFL, WNORM;
-      COMPLEX            VSAVE;
+      Complex            VSAVE;
       // ..
       // .. External Functions ..
       //- bool               lsame;

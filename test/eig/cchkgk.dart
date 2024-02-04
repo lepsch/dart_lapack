@@ -17,18 +17,18 @@
       const              LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 ;
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;
       REAL               ANORM, BNORM, EPS, RMAX, VMAX;
-      COMPLEX            CDUM;
+      Complex            CDUM;
       // ..
       // .. Local Arrays ..
       int                LMAX( 4 );
       REAL               LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK );
-      COMPLEX            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
+      Complex            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;

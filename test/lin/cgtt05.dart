@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * );
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * ), XACT( LDXACT, * );
+      Complex            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       bool               NOTRAN;
       int                I, IMAX, J, K, NZ;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

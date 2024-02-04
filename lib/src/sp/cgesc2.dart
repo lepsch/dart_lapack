@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      COMPLEX            A( LDA, * ), RHS( * );
+      Complex            A( LDA, * ), RHS( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, J;
       REAL               BIGNUM, EPS, SMLNUM;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASWP, CSCAL

@@ -8,14 +8,14 @@
       String             TRANSR, UPLO;
       int                INFO, N;
       // .. Array Arguments ..
-      COMPLEX            A( 0: * );
+      Complex            A( 0: * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       REAL               ONE;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

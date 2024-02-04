@@ -9,7 +9,7 @@
       REAL               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       REAL               S( * );
       // ..
 

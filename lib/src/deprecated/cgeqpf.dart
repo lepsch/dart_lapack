@@ -10,7 +10,7 @@
       // .. Array Arguments ..
       int                JPVT( * );
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
       REAL               TEMP, TEMP2, TOL3Z;
-      COMPLEX            AII;
+      Complex            AII;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEQR2, CLARF, CLARFG, CSWAP, CUNM2R, XERBLA

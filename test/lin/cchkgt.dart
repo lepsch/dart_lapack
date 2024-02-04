@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * );
       REAL               RWORK( * );
-      COMPLEX            A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex            A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -37,7 +37,7 @@
       String             TRANSS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS );
-      COMPLEX            Z( 3 );
+      Complex            Z( 3 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGT, SCASUM, SGET06;

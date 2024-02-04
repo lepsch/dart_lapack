@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), E( * );
+      Complex            A( LDA, * ), E( * );
       // ..
 
 // ======================================================================
@@ -20,14 +20,14 @@
       const              ZERO = 0.0, ONE = 1.0 ;
       REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               DONE, UPPER;
       int                I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP, P;
       REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, STEMP, ROWMAX, TT, SFMIN;
-      COMPLEX            D12, D21, T, WK, WKM1, WKP1, Z;
+      Complex            D12, D21, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
 

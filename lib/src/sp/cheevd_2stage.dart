@@ -13,7 +13,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       REAL               RWORK( * ), W( * );
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

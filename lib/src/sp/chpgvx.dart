@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       REAL               RWORK( * ), W( * );
-      COMPLEX            AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
+      Complex            AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================

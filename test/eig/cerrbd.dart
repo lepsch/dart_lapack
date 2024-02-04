@@ -21,7 +21,7 @@
       // ..
       // .. Local Arrays ..
       REAL               D( NMAX ), E( NMAX ), RW( 4*NMAX );
-      COMPLEX            A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW );
+      Complex            A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

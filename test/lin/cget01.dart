@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * );
+      Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
@@ -19,13 +19,13 @@
       // .. Parameters ..
       REAL               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, EPS;
-      COMPLEX            T;
+      Complex            T;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;

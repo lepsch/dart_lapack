@@ -9,20 +9,20 @@
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW;
       REAL               C;
-      COMPLEX            CTEMP, S;
+      Complex            CTEMP, S;
       // ..
       // .. External Functions ..
       //- bool               lsame;

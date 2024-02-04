@@ -22,7 +22,7 @@
       // ..
       // .. Local Arrays ..
       int                LMAX( 3 );
-      REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )       COMPLEX            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
+      REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )       Complex            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;

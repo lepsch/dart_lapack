@@ -10,7 +10,7 @@
       String             DIST, PACK, SYM;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       REAL               D( * );
       int                ISEED( 4 );
       // ..
@@ -22,13 +22,13 @@
       const              ZERO = 0.0 ;
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       REAL               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX            C, CT, CTEMP, DUMMY, EXTRA, S, ST;
+      Complex            C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       REAL               ALPHA, ANGLE, REALC, TEMP;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;

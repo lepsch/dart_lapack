@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       REAL               S_WORK_CLANGE( * );
-      COMPLEX            A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
+      Complex            A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
       // ..
 
 // =====================================================================

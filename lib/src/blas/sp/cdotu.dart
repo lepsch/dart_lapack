@@ -1,4 +1,4 @@
-      COMPLEX cdotu(N,CX,INCX,CY,INCY) {
+      Complex cdotu(N,CX,INCX,CY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*),CY(*);
+      Complex CX(*),CY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX CTEMP;
+      Complex CTEMP;
       int     I,IX,IY;
       // ..
       CTEMP = (0.0,0.0);

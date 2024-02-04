@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            D( * );
+      Complex            D( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I;
       REAL               ALPHA, TEMP;
-      COMPLEX            CTEMP;
+      Complex            CTEMP;
       // ..
       // .. External Functions ..
       //- REAL               SLARAN;

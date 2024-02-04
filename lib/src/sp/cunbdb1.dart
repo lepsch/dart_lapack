@@ -28,13 +28,13 @@
       // ..
       // .. Array Arguments ..
       REAL               PHI(*), THETA(*);
-      COMPLEX            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
+      Complex            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE;
+      Complex            ONE;
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..

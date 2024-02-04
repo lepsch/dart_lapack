@@ -13,13 +13,13 @@
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * );
       REAL               RESULT( 17 ), RWORK( * );
-      COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
+      Complex            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -30,7 +30,7 @@
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1;
       REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
-      COMPLEX            CTMP;
+      Complex            CTMP;
       // ..
       // .. Local Arrays ..
       int                IPNT( 20 );

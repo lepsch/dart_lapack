@@ -36,8 +36,8 @@
       // .. Allocatable Arrays ..
       int     AllocateStatus;
       REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S;
-      COMPLEX, DIMENSION(:), ALLOCATABLE :: E;
-      COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
+      Complex, DIMENSION(:), ALLOCATABLE :: E;
+      Complex, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
       //- bool               lsame, LSAMEN;

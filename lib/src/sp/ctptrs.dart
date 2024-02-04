@@ -9,13 +9,13 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * ), B( LDB, * );
+      Complex            AP( * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

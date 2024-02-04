@@ -23,7 +23,7 @@
       // .. Local Arrays ..
       int                IP( NMAX );
       REAL               RW( NMAX ), S( NMAX );
-      COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), W( NMAX );
+      Complex            A( NMAX, NMAX ), B( NMAX, NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

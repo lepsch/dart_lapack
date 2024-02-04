@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * ), S( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

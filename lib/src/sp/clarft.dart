@@ -9,13 +9,13 @@
       int                K, LDT, LDV, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            T( LDT, * ), TAU( * ), V( LDV, * );
+      Complex            T( LDT, * ), TAU( * ), V( LDV, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

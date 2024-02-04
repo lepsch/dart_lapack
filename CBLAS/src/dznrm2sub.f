@@ -3,7 +3,7 @@
       // external dznrm2
       double           dznrm2,nrm2;
       int     n,incx;
-      double complex x(*);
+      Complex x(*);
 
       nrm2=dznrm2(n,x,incx);
       return;

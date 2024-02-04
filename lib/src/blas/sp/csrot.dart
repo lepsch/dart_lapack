@@ -9,14 +9,14 @@
       REAL              C, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX           CX( * ), CY( * );
+      Complex           CX( * ), CY( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int               I, IX, IY;
-      COMPLEX           CTEMP;
+      Complex           CTEMP;
       // ..
       // .. Executable Statements ..
 

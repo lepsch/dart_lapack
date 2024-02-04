@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * );
       REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * );
-      COMPLEX            Q( LDQ, * ), Q2( LDQ2, * );
+      Complex            Q( LDQ, * ), Q2( LDQ2, * );
       // ..
 
 // =====================================================================

@@ -9,7 +9,7 @@
       int                INFO, ITYPE, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * ), BP( * );
+      Complex            AP( * ), BP( * );
       // ..
 
 // =====================================================================
@@ -17,14 +17,14 @@
       // .. Parameters ..
       REAL               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK;
       REAL               AJJ, AKK, BJJ, BKK;
-      COMPLEX            CT;
+      Complex            CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CHPMV, CHPR2, CSSCAL, CTPMV, CTPSV, XERBLA

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            U( LDU, * ), WORK( * );
+      Complex            U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       REAL               EPS;
-      COMPLEX            TMP, ZDUM;
+      Complex            TMP, ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

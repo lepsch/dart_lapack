@@ -8,7 +8,7 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            SA( LDSA, * );
+      Complex            SA( LDSA, * );
       Complex         A( LDA, * );
       // ..
 

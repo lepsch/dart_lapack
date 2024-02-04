@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, M, N;
-      COMPLEX            ALPHA, BETA;
+      Complex            ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================

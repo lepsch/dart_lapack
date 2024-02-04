@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * ), RWORK( * );
-      COMPLEX            C( LDC, * ), U( LDU, * ), VT( LDVT, * );
+      Complex            C( LDC, * ), U( LDU, * ), VT( LDVT, * );
       // ..
 
 // =====================================================================

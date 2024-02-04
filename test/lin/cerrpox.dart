@@ -23,7 +23,7 @@
       // ..
       // .. Local Arrays ..
       REAL               S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX );
+      Complex            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

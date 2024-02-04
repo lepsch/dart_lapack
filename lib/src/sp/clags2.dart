@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       bool               UPPER;
       REAL               A1, A3, B1, B3, CSQ, CSU, CSV;
-      COMPLEX            A2, B2, SNQ, SNU, SNV;
+      Complex            A2, B2, SNQ, SNU, SNV;
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // ..
       // .. Local Scalars ..
       REAL               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
-      COMPLEX            B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22;
+      Complex            B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARTG, SLASV2

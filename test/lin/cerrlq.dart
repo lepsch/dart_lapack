@@ -19,7 +19,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
+      Complex            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CGELQ2, CGELQF, CHKXER, CUNGL2, CUNGLQ, CUNML2, CUNMLQ

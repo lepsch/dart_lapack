@@ -8,18 +8,18 @@
       int                K, LDA, LDT, LDY, N, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
+      Complex            A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX            EI;
+      Complex            EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGEMV, CLACGV, CLARFG, CSCAL, CTRMV

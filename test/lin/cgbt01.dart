@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), WORK( * );
+      Complex            A( LDA, * ), AFAC( LDAFAC, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ;
       REAL               ANORM, EPS;
-      COMPLEX            T;
+      Complex            T;
       // ..
       // .. External Functions ..
       //- REAL               SCASUM, SLAMCH;

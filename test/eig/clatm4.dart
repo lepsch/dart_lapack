@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
@@ -19,13 +19,13 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       REAL               ALPHA;
-      COMPLEX            CTEMP;
+      Complex            CTEMP;
       // ..
       // .. External Functions ..
       //- REAL               SLARAN;

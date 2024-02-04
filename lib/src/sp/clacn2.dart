@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISAVE( 3 );
-      COMPLEX            V( * ), X( * );
+      Complex            V( * ), X( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       const              ITMAX = 5 ;
       REAL                 ONE,         TWO;
       const              ONE = 1.0, TWO = 2.0 ;
-      COMPLEX              CZERO, CONE;
+      Complex              CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

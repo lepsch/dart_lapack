@@ -1,4 +1,4 @@
-      COMPLEX clarnd(IDIST, ISEED ) {
+      Complex clarnd(IDIST, ISEED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, N;
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * ), X( * );
+      Complex            AP( * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IX, J, JX, K, KK, KX;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -19,7 +19,7 @@
       int                I, INFO, J, RANK;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX );
+      Complex            A( NMAX, NMAX );
       REAL               RWORK( 2*NMAX );
       int                PIV( NMAX );
       // ..

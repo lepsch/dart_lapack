@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               DIF( * ), DIFTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * ), STRU( * )       COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
+      REAL               DIF( * ), DIFTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * ), STRU( * )       Complex            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
       // ..
       // .. Local Arrays ..
-      COMPLEX            WEIGHT( 5 );
+      Complex            WEIGHT( 5 );
       // ..
       // .. External Functions ..
       //- int                ILAENV;

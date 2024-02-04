@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
       int                LDA, NL;
-      COMPLEX            C, S, XLEFT, XRIGHT;
+      Complex            C, S, XLEFT, XRIGHT;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( * );
+      Complex            A( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                IINC, INEXT, IX, IY, IYT, J, NT;
-      COMPLEX            TEMPX;
+      Complex            TEMPX;
       // ..
       // .. Local Arrays ..
-      COMPLEX            XT( 2 ), YT( 2 );
+      Complex            XT( 2 ), YT( 2 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA

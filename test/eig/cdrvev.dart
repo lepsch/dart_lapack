@@ -12,15 +12,15 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               RESULT( 7 ), RWORK( * );
-      COMPLEX            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
+      Complex            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -38,7 +38,7 @@
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       REAL               RES( 2 );
-      COMPLEX            DUM( 1 );
+      Complex            DUM( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SCNRM2, SLAMCH;

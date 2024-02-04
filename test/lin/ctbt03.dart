@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               CNORM( * );
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

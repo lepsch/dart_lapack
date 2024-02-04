@@ -9,7 +9,7 @@
       int                INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * );
+      Complex            A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * );
       // ..
 
 // =====================================================================

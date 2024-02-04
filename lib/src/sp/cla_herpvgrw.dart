@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * );
+      Complex            A( LDA, * ), AF( LDAF, * );
       REAL               WORK( * );
       // ..
 
@@ -20,7 +20,7 @@
       int                NCOLS, I, J, K, KP;
       REAL               AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER, lsame;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. External Functions ..
       // EXTERNAL lsame

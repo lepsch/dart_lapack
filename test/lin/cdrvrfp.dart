@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
-      COMPLEX            A( * );
-      COMPLEX            AINV( * );
-      COMPLEX            ASAV( * );
-      COMPLEX            B( * );
-      COMPLEX            BSAV( * );
-      COMPLEX            AFAC( * );
-      COMPLEX            ARF( * );
-      COMPLEX            ARFINV( * );
-      COMPLEX            XACT( * );
-      COMPLEX            X( * );
-      COMPLEX            C_WORK_CLATMS( * );
-      COMPLEX            C_WORK_CPOT02( * );
-      COMPLEX            C_WORK_CPOT03( * );
+      Complex            A( * );
+      Complex            AINV( * );
+      Complex            ASAV( * );
+      Complex            B( * );
+      Complex            BSAV( * );
+      Complex            AFAC( * );
+      Complex            ARF( * );
+      Complex            ARFINV( * );
+      Complex            XACT( * );
+      Complex            X( * );
+      Complex            C_WORK_CLATMS( * );
+      Complex            C_WORK_CPOT02( * );
+      Complex            C_WORK_CPOT03( * );
       REAL               S_WORK_CLATMS( * );
       REAL               S_WORK_CLANHE( * );
       REAL               S_WORK_CPOT01( * );

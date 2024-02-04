@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * ), S( * );
-      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      Complex            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -29,7 +29,7 @@
       // ..
       // .. Local Arrays ..
       REAL               DUM( 1 );
-      COMPLEX            CDUM( 1 );
+      Complex            CDUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CBDSQR, CGEBRD, CGELQF, CGEMM, CGEQRF, CLACPY, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SLASCL, XERBLA

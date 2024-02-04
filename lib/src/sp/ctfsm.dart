@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N;
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( 0: * ), B( 0: LDB-1, 0: * );
+      Complex            A( 0: * ), B( 0: LDB-1, 0: * );
       // ..
 
 // =====================================================================
       // ..
       // .. Parameters ..
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

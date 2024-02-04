@@ -611,7 +611,7 @@
 
       void zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
-      DOUBLE COMPLEX   ALPHA, BETA;
+      Complex   ALPHA, BETA;
       String           TRANSA, TRANSB;
       String           SNAME;
       String           CRC, CTA,CTB;
@@ -889,7 +889,7 @@
 
       void zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
-      DOUBLE COMPLEX   ALPHA, BETA;
+      Complex   ALPHA, BETA;
       String           SIDE, UPLO;
       String           SNAME;
       String           CRC, CS,CU;
@@ -1179,7 +1179,7 @@
 
       void zprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
-      DOUBLE COMPLEX   ALPHA;
+      Complex   ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
       String           SNAME;
       String           CRC, CS, CU, CA, CD;
@@ -1507,7 +1507,7 @@
 
       void zprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
-      DOUBLE COMPLEX   ALPHA, BETA;
+      Complex   ALPHA, BETA;
       String           UPLO, TRANSA;
       String           SNAME;
       String           CRC, CU, CA;
@@ -1882,7 +1882,7 @@
 
       void zprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
-      DOUBLE COMPLEX   ALPHA, BETA;
+      Complex   ALPHA, BETA;
       String           UPLO, TRANSA;
       String           SNAME;
       String           CRC, CU, CA;
@@ -1914,7 +1914,7 @@
 
       void zprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
-      DOUBLE COMPLEX   ALPHA;
+      Complex   ALPHA;
       double           BETA;
       String           UPLO, TRANSA;
       String           SNAME;

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex            U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       int                I, IRC, J, LMX;
       REAL               RES1, RES2, ULP;
-      COMPLEX            S, SU, SV;
+      Complex            S, SU, SV;
       // ..
       // .. External Functions ..
       //- bool               lsame;

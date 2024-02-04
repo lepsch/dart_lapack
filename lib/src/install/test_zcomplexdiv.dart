@@ -10,13 +10,13 @@
       const           N = 4, nNaN = 3, nInf = 5 ;
       double            threeFourth, fiveFourth;
       const           threeFourth = 3.0 / 4, fiveFourth = 5.0 / 4 ;
-      double complex    czero, cone;
+      Complex    czero, cone;
       const           czero = DCMPLX( 0.0, 0.0 ), cone  = DCMPLX( 1.0, 0.0 ) ;
       // ..
       // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests;
       double            X( N ), aInf, aNaN, b, eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N);
-      double complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN );
+      Complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN );
 
       // .. Intrinsic Functions ..
       // intrinsic DCONJG, DBLE, RADIX, CEILING, TINY, DIGITS, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
@@ -301,9 +301,9 @@
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails;
       if (nFailingTests > 0) {
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex division,", nFailingTests," fail.";
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for Complex division,", nFailingTests," fail.";
       } else {
-         print *, "# All tests pass for complex division.";
+         print *, "# All tests pass for Complex division.";
       }
 
       // If anything was written to stderr, print the message

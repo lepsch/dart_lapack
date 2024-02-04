@@ -3,7 +3,7 @@
       // external icamax
       int      icamax,iamax;
       int     n,incx;
-      complex x(*);
+      Complex x(*);
 
       iamax=icamax(n,x,incx);
       return;

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            A( LDA, * ), X( * );
+      Complex            A( LDA, * ), X( * );
       // ..
 
 // =====================================================================
@@ -18,13 +18,13 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TOOSML;
       const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       REAL               FACTOR, XABS, XNORM;
-      COMPLEX            CSIGN, XNORMS;
+      Complex            CSIGN, XNORMS;
       // ..
       // .. External Functions ..
       //- bool               lsame;

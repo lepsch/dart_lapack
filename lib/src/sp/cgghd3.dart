@@ -12,13 +12,13 @@
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ;
       REAL               C;
-      COMPLEX            C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
+      Complex            C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
       //- bool               lsame;

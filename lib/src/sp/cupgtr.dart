@@ -9,13 +9,13 @@
       int                INFO, LDQ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * ), Q( LDQ, * ), TAU( * ), WORK( * );
+      Complex            AP( * ), Q( LDQ, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

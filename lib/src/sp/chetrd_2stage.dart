@@ -12,7 +12,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
       // ..
 
 // =====================================================================

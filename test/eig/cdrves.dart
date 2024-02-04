@@ -12,15 +12,15 @@
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               RESULT( 13 ), RWORK( * );
-      COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * );
+      Complex            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;

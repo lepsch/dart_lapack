@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * ), S( * );
-      COMPLEX            U( LDU, * ), VT( LDVT, * ), WORK( * );
+      Complex            U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================

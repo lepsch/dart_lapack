@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N;
-      COMPLEX            TAU;
+      Complex            TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX            C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
+      Complex            C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. External Subroutines ..

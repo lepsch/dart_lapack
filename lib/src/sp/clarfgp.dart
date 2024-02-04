@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      COMPLEX            ALPHA, TAU;
+      Complex            ALPHA, TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX            X( * );
+      Complex            X( * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       int                J, KNT;
       REAL               ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM;
-      COMPLEX            SAVEALPHA;
+      Complex            SAVEALPHA;
       // ..
       // .. External Functions ..
       //- REAL               SCNRM2, SLAMCH, SLAPY3, SLAPY2;

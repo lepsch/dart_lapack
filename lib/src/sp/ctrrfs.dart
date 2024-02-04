@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex            A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            ONE;
+      Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       String             TRANSN, TRANST;
       int                I, J, K, KASE, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

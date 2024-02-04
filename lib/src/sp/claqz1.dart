@@ -4,17 +4,17 @@
       // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;
-      COMPLEX :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      Complex :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
 
       // Parameters
-      COMPLEX         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local variables
       REAL :: C;
-      COMPLEX :: S, TEMP;
+      Complex :: S, TEMP;
 
       // External Functions
       // EXTERNAL :: CLARTG, CROT

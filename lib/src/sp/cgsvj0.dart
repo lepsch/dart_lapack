@@ -11,7 +11,7 @@
       String             JOBV;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
+      Complex            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
       REAL               SVA( N );
       // ..
 
@@ -20,11 +20,11 @@
       // .. Local Parameters ..
       REAL               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
-      COMPLEX      CZERO,                  CONE;
+      Complex      CZERO,                  CONE;
       const      CZERO = (0.0, 0.0), CONE = (1.0, 0.0) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX            AAPQ, OMPQ;
+      Complex            AAPQ, OMPQ;
       REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;

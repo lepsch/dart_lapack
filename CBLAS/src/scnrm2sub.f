@@ -3,7 +3,7 @@
       // external scnrm2
       real scnrm2,nrm2;
       int     n,incx;
-      complex x(*);
+      Complex x(*);
 
       nrm2=scnrm2(n,x,incx);
       return;

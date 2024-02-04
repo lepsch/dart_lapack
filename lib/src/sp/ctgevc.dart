@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       REAL               RWORK( * );
-      COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      Complex            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 
@@ -20,14 +20,14 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR;
       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
-      COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
+      Complex            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
       // ..
       // .. External Functions ..
       //- bool               lsame;

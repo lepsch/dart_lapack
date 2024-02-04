@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               C( * ), S( * );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, INFO, J;
       REAL               CTEMP, STEMP;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX

@@ -10,7 +10,7 @@
       REAL               SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
       REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
-      COMPLEX            A11, SUML, SUMR, VEC, X11;
+      Complex            A11, SUML, SUMR, VEC, X11;
       // ..
       // .. Local Arrays ..
       REAL               DUM( 1 );

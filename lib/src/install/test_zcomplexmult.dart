@@ -6,13 +6,13 @@
       // .. Constants ..
       int               nNaN, nInf;
       const           nNaN = 3, nInf = 5 ;
-      double complex    czero, cone;
+      Complex    czero, cone;
       const           czero = DCMPLX( 0.0, 0.0 ), cone  = DCMPLX( 1.0, 0.0 ) ;
       // ..
       // .. Local Variables ..
       int               i, nFailingTests, nTests;
       double            aInf, aNaN, OV;
-      double complex    Y, R, cInf( nInf ), cNaN( nNaN );
+      Complex    Y, R, cInf( nInf ), cNaN( nNaN );
 
       // .. Intrinsic Functions ..
       // intrinsic HUGE, DCMPLX
@@ -95,9 +95,9 @@
       } // 20
 
       if (nFailingTests > 0) {
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail.";
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for Complex multiplication,", nFailingTests," fail.";
       } else {
-         print *, "# All tests pass for complex multiplication.";
+         print *, "# All tests pass for Complex multiplication.";
       }
 
       // .. Formats ..

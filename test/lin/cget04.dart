@@ -9,7 +9,7 @@
       REAL               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      COMPLEX            X( LDX, * ), XACT( LDXACT, * );
+      Complex            X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       int                I, IX, J;
       REAL               DIFFNM, EPS, XNORM;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. External Functions ..
       //- int                ICAMAX;

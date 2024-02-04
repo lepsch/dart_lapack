@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
+      Complex            A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CUNHR_COL

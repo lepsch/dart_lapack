@@ -87,11 +87,11 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX           CA;
+      Complex           CA;
       REAL              SA;
       int               I, IX, J, LEN, NP1;
       // .. Local Arrays ..
-      COMPLEX           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5);
+      Complex           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5);
       REAL              STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5);
       // .. External Functions ..
@@ -218,10 +218,10 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX           CA;
+      Complex           CA;
       int               I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
       // .. Local Arrays ..
-      COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
+      Complex           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
       //- COMPLEX           CDOTC, CDOTU;
@@ -417,7 +417,7 @@
       REAL             SFAC;
       int              LEN;
       // .. Array Arguments ..
-      COMPLEX          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
+      Complex          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
       // .. Local Scalars ..
       int              I;
       // .. Local Arrays ..
@@ -512,12 +512,12 @@
       REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       const             BIGNUM=0.1014120480e+32, SAFMAX=0.8507059173e+38, SAFMIN=0.1175494351e-37, SMLNUM=0.9860761315e-31, ULP=0.1192092896e-06;
       // .. Local Scalars ..
-      COMPLEX           ROGUE;
+      Complex           ROGUE;
       REAL              SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX, KS;
       bool              FIRST;
       // .. Local Arrays ..
-      COMPLEX           X(NMAX), Z(NMAX);
+      Complex           X(NMAX), Z(NMAX);
       REAL              VALUES(NV), WORK(NMAX);
       // .. Executable Statements ..
       VALUES[1] = ZERO;

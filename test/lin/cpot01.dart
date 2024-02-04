@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * );
+      Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, EPS, TR;
-      COMPLEX            TC;
+      Complex            TC;
       // ..
       // .. External Functions ..
       //- bool               lsame;

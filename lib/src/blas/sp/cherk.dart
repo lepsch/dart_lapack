@@ -10,7 +10,7 @@
       String    TRANS,UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX A(LDA,*),C(LDC,*);
+      Complex A(LDA,*),C(LDC,*);
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       // INTRINSIC CMPLX,CONJG,MAX,REAL
       // ..
       // .. Local Scalars ..
-      COMPLEX TEMP;
+      Complex TEMP;
       REAL RTEMP;
       int     I,INFO,J,L,NROWA;
       bool    UPPER;

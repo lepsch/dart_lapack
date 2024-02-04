@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), E( * ), WORK( N+NB+1, * );
+      Complex            A( LDA, * ), E( * ), WORK( N+NB+1, * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11;
       REAL               AK, AKP1, T;
-      COMPLEX            AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
+      Complex            AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       REAL               ALPHA( * ), BETA( * ), RWORK( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================

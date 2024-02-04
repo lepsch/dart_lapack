@@ -10,7 +10,7 @@
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * );
+      Complex            A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * );
       REAL               RWORK( * );
       int                PIV( * );
       // ..
@@ -20,11 +20,11 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX            TC;
+      Complex            TC;
       REAL               ANORM, EPS, TR;
       int                I, J, K;
       // ..

@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * );
       double             RWORK( * );
-      COMPLEX            SWORK(*);
+      Complex            SWORK(*);
       Complex         A( * ), AFAC( * ), B( * ), WORK( * ), X( * );
       // ..
 

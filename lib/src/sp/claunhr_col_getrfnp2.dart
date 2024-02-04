@@ -9,7 +9,7 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX         A( LDA, * ), D( * );
+      Complex         A( LDA, * ), D( * );
       // ..
 
 // =====================================================================
@@ -17,13 +17,13 @@
       // .. Parameters ..
       REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       REAL               SFMIN;
       int                I, IINFO, N1, N2;
-      COMPLEX            Z;
+      Complex            Z;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
       REAL               RWORK( * );
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       const              INB = 1, INBMIN = 2, IXOVER = 3 ;
       REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

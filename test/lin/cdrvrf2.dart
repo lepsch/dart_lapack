@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      COMPLEX            A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
+      Complex            A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
       // ..
 
 // =====================================================================

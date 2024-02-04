@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), E( * );
+      Complex            A( LDA, * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = (0.0,0.0) ;
       // ..
       // .. External Functions ..
@@ -28,7 +28,7 @@
       // .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP, J;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. Executable Statements ..
 

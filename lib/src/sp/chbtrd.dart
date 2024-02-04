@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            AB( LDAB, * ), Q( LDQ, * ), WORK( * );
+      Complex            AB( LDAB, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT;
       REAL               ABST;
-      COMPLEX            T, TEMP;
+      Complex            T, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA

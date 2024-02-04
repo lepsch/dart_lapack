@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
+      Complex            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE;
+      Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

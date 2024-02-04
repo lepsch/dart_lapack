@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               CNORM( * );
-      COMPLEX            AB( LDAB, * ), X( * );
+      Complex            AB( LDAB, * ), X( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND;
       REAL               BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
-      COMPLEX            CSUMJ, TJJS, USCAL, ZDUM;
+      Complex            CSUMJ, TJJS, USCAL, ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

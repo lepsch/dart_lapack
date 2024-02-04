@@ -19,7 +19,7 @@
 // =====================================================================
       // ..
       // .. Parameters ..
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       REAL               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -30,16 +30,16 @@
       String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N;
       REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
-      COMPLEX            RMUL;
+      Complex            RMUL;
       // ..
       // .. Local Arrays ..
-      COMPLEX            DUML( MAXM ), DUMR( MAXN ), D( max( MAXM, MAXN ) );
+      Complex            DUML( MAXM ), DUMR( MAXN ), D( max( MAXM, MAXN ) );
       REAL               DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
       // ..
       // .. Allocatable Arrays ..
       int                AllocateStatus;
-      COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X;
+      Complex, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X;
       REAL,    DIMENSION(:,:), ALLOCATABLE :: SWORK;
       // ..
       // .. External Functions ..

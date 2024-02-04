@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
       REAL               S( * ), RWORK( * );
-      COMPLEX            A( * ), COPYA( * ), TAU( * ), WORK( * );
+      Complex            A( * ), COPYA( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       int                NTESTS;
       const              NTESTS = 3 ;
       REAL               ONE, ZERO;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

@@ -21,7 +21,7 @@
       Complex         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
       double             RWORK( NMAX );
       Complex         WORK(NMAX*NMAX);
-      COMPLEX            SWORK(NMAX*NMAX);
+      Complex            SWORK(NMAX*NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, ZCPOSV

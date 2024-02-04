@@ -10,7 +10,7 @@
       REAL               ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
+      Complex            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
       // ..
 
 // =====================================================================

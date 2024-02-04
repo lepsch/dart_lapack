@@ -8,18 +8,18 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * );
+      Complex            B( LDB, * ), D( * ), DL( * ), DU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J, K;
-      COMPLEX            MULT, TEMP, ZDUM;
+      Complex            MULT, TEMP, ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL

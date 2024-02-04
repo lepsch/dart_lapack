@@ -9,14 +9,14 @@
       // ..
       // .. Array Arguments ..
       REAL               C( * );
-      COMPLEX            S( * ), X( * ), Y( * );
+      Complex            S( * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IC, IX, IY;
-      COMPLEX            XI, YI;
+      Complex            XI, YI;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG

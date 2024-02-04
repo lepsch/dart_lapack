@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), RWORK( * );
-      COMPLEX            B( LDB, * ), WORK( * );
+      Complex            B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      COMPLEX            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

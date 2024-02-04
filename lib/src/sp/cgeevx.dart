@@ -11,7 +11,7 @@
       REAL               ABNRM;
       // ..
       // .. Array Arguments ..
-      REAL               RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       COMPLEX            A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      REAL               RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       Complex            A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       String             JOB, SIDE;
       int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       REAL               ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
-      COMPLEX            TMP;
+      Complex            TMP;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );

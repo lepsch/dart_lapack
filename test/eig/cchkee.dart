@@ -43,13 +43,13 @@
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN );
       REAL               ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 );
-      COMPLEX            DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
+      Complex            DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
       // ..
       // .. Allocatable Arrays ..
       int     AllocateStatus;
       REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S;
-      COMPLEX, DIMENSION(:), ALLOCATABLE :: WORK;
-      COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
+      Complex, DIMENSION(:), ALLOCATABLE :: WORK;
+      Complex, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

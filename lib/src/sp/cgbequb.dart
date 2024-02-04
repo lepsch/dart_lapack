@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               C( * ), R( * );
-      COMPLEX            AB( LDAB, * );
+      Complex            AB( LDAB, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, J, KD;
       REAL               BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

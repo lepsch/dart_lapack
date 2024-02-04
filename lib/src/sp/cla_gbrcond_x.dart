@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * );
+      Complex            AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * );
       REAL               RWORK( * );
       // ..
 
@@ -20,7 +20,7 @@
       bool               NOTRANS;
       int                KASE, I, J;
       REAL               AINVNM, ANORM, TMP;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

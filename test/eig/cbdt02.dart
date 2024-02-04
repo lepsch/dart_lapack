@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
+      Complex            B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
       // ..
 
 // ======================================================================

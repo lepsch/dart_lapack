@@ -12,7 +12,7 @@
       // ..
       // .. Array Arguments
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
+      Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE;
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;

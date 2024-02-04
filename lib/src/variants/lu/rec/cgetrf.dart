@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, NEGONE;
+      Complex            ONE, NEGONE;
       REAL               ZERO;
       const              ONE = (1.0, 0.0) ;
       const              NEGONE = (-1.0, 0.0) ;
@@ -23,7 +23,7 @@
       // ..
       // .. Local Scalars ..
       REAL               SFMIN, PIVMAG;
-      COMPLEX            TMP;
+      Complex            TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
       // ..

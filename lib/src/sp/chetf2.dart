@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KK, KP, KSTEP;
       REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
-      COMPLEX            D12, D21, T, WK, WKM1, WKP1, ZDUM;
+      Complex            D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

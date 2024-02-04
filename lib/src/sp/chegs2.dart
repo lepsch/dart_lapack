@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * );
+      Complex            A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
@@ -17,14 +17,14 @@
       // .. Parameters ..
       REAL               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                K;
       REAL               AKK, BKK;
-      COMPLEX            CT;
+      Complex            CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CHER2, CLACGV, CSSCAL, CTRMV, CTRSV, XERBLA

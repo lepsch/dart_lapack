@@ -10,18 +10,18 @@
       // ..
       // .. Array Arguments ..
       REAL               E( * );
-      COMPLEX            A( LDA, * ), TAU( * ), W( LDW, * );
+      Complex            A( LDA, * ), TAU( * ), W( LDW, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE, HALF;
+      Complex            ZERO, ONE, HALF;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IW;
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CGEMV, CHEMV, CLACGV, CLARFG, CSCAL

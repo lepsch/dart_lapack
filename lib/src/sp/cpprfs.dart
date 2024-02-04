@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // ====================================================================
@@ -20,7 +20,7 @@
       const              ITMAX = 5 ;
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       REAL               TWO;
       const              TWO = 2.0 ;
@@ -31,7 +31,7 @@
       bool               UPPER;
       int                COUNT, I, IK, J, K, KASE, KK, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -9,14 +9,14 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       REAL               ONE;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

@@ -9,7 +9,7 @@
       int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * );
       // ..
 
 // =====================================================================

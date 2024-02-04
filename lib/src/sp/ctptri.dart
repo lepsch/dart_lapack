@@ -9,19 +9,19 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * );
+      Complex            AP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J, JC, JCLAST, JJ;
-      COMPLEX            AJJ;
+      Complex            AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;

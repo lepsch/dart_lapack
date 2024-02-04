@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), E( * ), WORK( * );
+      Complex            A( LDA, * ), B( LDB, * ), E( * ), WORK( * );
       // ..
 
 // =====================================================================

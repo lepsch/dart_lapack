@@ -5,11 +5,11 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX CA;
+      Complex CA;
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*);
+      Complex CX(*);
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       int     I,NINCX;
       // ..
       // .. Parameters ..
-      COMPLEX ONE;
+      Complex ONE;
       const     ONE= (1.0,0.0);
       // ..
       if (N <= 0 || INCX <= 0 || CA == ONE) return;

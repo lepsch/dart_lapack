@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*),CY(*);
+      Complex CX(*),CY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX CTEMP;
+      Complex CTEMP;
       int     I,IX,IY;
       // ..
       if (N <= 0) return;

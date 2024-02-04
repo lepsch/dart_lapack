@@ -1,9 +1,9 @@
       void zdotusub(n,x,incx,y,incy,dotu) {
 
       // external zdotu
-      double complex zdotu,dotu;
+      Complex zdotu,dotu;
       int     n,incx,incy;
-      double complex x(*),y(*);
+      Complex x(*),y(*);
 
       dotu=zdotu(n,x,incx,y,incy);
       return;

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            A( * ), AINV( * ), WORK( LDW, * );
+      Complex            A( * ), AINV( * ), WORK( LDW, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL;
       REAL               AINVNM, ANORM, EPS;
-      COMPLEX            T;
+      Complex            T;
       // ..
       // .. External Functions ..
       //- bool               lsame;

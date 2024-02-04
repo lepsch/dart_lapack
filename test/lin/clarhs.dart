@@ -11,13 +11,13 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * );
+      Complex            A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

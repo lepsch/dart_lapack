@@ -8,11 +8,11 @@
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
       REAL               EPS3, SMLNUM;
-      COMPLEX            W;
+      Complex            W;
       // ..
       // .. Array Arguments ..
       REAL               RWORK( * );
-      COMPLEX            B( LDB, * ), H( LDH, * ), V( * );
+      Complex            B( LDB, * ), H( LDH, * ), V( * );
       // ..
 
 // =====================================================================
@@ -20,14 +20,14 @@
       // .. Parameters ..
       REAL               ONE, TENTH;
       const              ONE = 1.0, TENTH = 1.0e-1 ;
-      COMPLEX            ZERO;
+      Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J;
       REAL               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
-      COMPLEX            CDUM, EI, EJ, TEMP, X;
+      Complex            CDUM, EI, EJ, TEMP, X;
       // ..
       // .. External Functions ..
       //- int                ICAMAX;

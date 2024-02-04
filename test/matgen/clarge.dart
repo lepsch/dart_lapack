@@ -9,19 +9,19 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
       REAL               WN;
-      COMPLEX            TAU, WA, WB;
+      Complex            TAU, WA, WB;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CGERC, CLARNV, CSCAL, XERBLA

@@ -9,7 +9,7 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -30,7 +30,7 @@
       bool               UPPER;
       int                COUNT, I, IX, J, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
-      COMPLEX            BI, CX, DX, EX, ZDUM;
+      Complex            BI, CX, DX, EX, ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

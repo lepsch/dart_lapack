@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                JPIV( * );
       REAL               VN1( * ), VN2( * );
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
+      Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -20,13 +20,13 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE;
+      Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT;
       REAL               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
-      COMPLEX            AIKK;
+      Complex            AIKK;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARF, CLARFG, CSWAP

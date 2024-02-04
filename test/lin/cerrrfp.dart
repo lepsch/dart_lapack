@@ -13,11 +13,11 @@
       // ..
       // .. Local Scalars ..
       int                INFO;
-      COMPLEX            ALPHACMPLX;
+      Complex            ALPHACMPLX;
       REAL               ALPHA, BETA;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( 1, 1), B( 1, 1);
+      Complex            A( 1, 1), B( 1, 1);
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, CTFSM, CTFTRI, CHFRK, CTFTTP, CTFTTR, CPFTRI, CPFTRF, CPFTRS, CTPTTF, CTPTTR, CTRTTF, CTRTTP

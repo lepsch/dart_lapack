@@ -1,9 +1,9 @@
       void zdotcsub(n,x,incx,y,incy,dotc) {
 
       // external zdotc
-      double complex zdotc,dotc;
+      Complex zdotc,dotc;
       int     n,incx,incy;
-      double complex x(*),y(*);
+      Complex x(*),y(*);
 
       dotc=zdotc(n,x,incx,y,incy);
       return;

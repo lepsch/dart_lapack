@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

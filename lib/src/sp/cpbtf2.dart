@@ -9,7 +9,7 @@
       int                INFO, KD, LDAB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AB( LDAB, * );
+      Complex            AB( LDAB, * );
       // ..
 
 // =====================================================================

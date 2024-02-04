@@ -11,14 +11,14 @@
       int                INFO, LDA, LDAB, LWORK, N, KD;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
+      Complex            A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       REAL               RONE;
-      COMPLEX            ZERO, ONE, HALF;
+      Complex            ZERO, ONE, HALF;
       const              RONE = 1.0, ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..

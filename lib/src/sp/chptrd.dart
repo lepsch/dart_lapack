@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       REAL               D( * ), E( * );
-      COMPLEX            AP( * ), TAU( * );
+      Complex            AP( * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO, HALF;
+      Complex            ONE, ZERO, HALF;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, I1, I1I1, II;
-      COMPLEX            ALPHA, TAUI;
+      Complex            ALPHA, TAUI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CHPMV, CHPR2, CLARFG, XERBLA

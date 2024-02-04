@@ -12,14 +12,14 @@
       // .. Array Arguments ..
       REAL               RWORK(*);
       REAL               THETA(*);
-      COMPLEX            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
+      Complex            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO;
+      Complex            ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
@@ -28,7 +28,7 @@
       // ..
       // .. Local Arrays ..
       REAL               DUM( 1 );
-      COMPLEX            CDUM( 1, 1 );
+      Complex            CDUM( 1, 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CBBCSD, CCOPY, CLACPY, CLAPMR, CLAPMT, CUNBDB1, CUNBDB2, CUNBDB3, CUNBDB4, CUNGLQ, CUNGQR, XERBLA

@@ -9,14 +9,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * );
+      Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;
-      COMPLEX            TEMP;
+      Complex            TEMP;
       // ..
       // .. Executable Statements ..
 

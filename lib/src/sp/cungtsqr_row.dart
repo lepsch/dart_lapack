@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX           A( LDA, * ), T( LDT, * ), WORK( * );
+      Complex           A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -23,7 +23,7 @@
       int                NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1;
       // ..
       // .. Local Arrays ..
-      COMPLEX            DUMMY( 1, 1 );
+      Complex            DUMMY( 1, 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARFB_GETT, CLASET, XERBLA

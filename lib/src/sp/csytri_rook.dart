@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), WORK( * );
+      Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CONE, CZERO;
+      Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                K, KP, KSTEP;
-      COMPLEX            AK, AKKP1, AKP1, D, T, TEMP;
+      Complex            AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

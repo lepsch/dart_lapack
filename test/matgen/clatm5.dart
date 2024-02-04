@@ -9,18 +9,18 @@
       REAL               ALPHA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
+      Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, TWO, ZERO, HALF, TWENTY;
+      Complex            ONE, TWO, ZERO, HALF, TWENTY;
       const              ONE = ( 1.0, 0.0 ), TWO = ( 2.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), TWENTY = ( 2.0e+1, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      COMPLEX            IMEPS, REEPS;
+      Complex            IMEPS, REEPS;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MOD, SIN

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * );
+      Complex            A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * );
       REAL               RWORK( * );
       // ..
 
@@ -21,7 +21,7 @@
       REAL               AINVNM, ANORM, TMP;
       int                I, J;
       bool               UP, UPPER;
-      COMPLEX            ZDUM;
+      Complex            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

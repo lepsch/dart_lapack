@@ -12,17 +12,17 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), H( LDH, * ), WORK( * );
+      Complex            A( LDA, * ), H( LDH, * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       int                J, K, K1, I1, I2, MJ;
-      COMPLEX            PIV, ALPHA;
+      Complex            PIV, ALPHA;
       // ..
       // .. External Functions ..
       //- bool               lsame;

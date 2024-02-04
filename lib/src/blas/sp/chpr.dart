@@ -10,17 +10,17 @@
       String    UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX AP(*),X(*);
+      Complex AP(*),X(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX ZERO;
+      Complex ZERO;
       const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
-      COMPLEX TEMP;
+      Complex TEMP;
       int     I,INFO,IX,J,JX,K,KK,KX;
       // ..
       // .. External Functions ..

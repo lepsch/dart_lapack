@@ -9,7 +9,7 @@
       int                INFO, KD, LDAB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AB( LDAB, * );
+      Complex            AB( LDAB, * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       int                NBMAX, LDWORK;
       const              NBMAX = 32, LDWORK = NBMAX+1 ;
@@ -26,7 +26,7 @@
       int                I, I2, I3, IB, II, J, JJ, NB;
       // ..
       // .. Local Arrays ..
-      COMPLEX            WORK( LDWORK, NBMAX );
+      Complex            WORK( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
       //- bool               lsame;

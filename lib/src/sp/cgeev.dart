@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       REAL   RWORK( * );
-      COMPLEX         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      Complex         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       String             SIDE;
       int                HSWORK, I, IBAL, IERR, IHI, ILO, IRWORK, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       REAL   ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
-      COMPLEX         TMP;
+      Complex         TMP;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );

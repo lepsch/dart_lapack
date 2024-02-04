@@ -9,7 +9,7 @@
       REAL               SSMIN;
       // ..
       // .. Array Arguments ..
-      COMPLEX            X( * ), Y( * );
+      Complex            X( * ), Y( * );
       // ..
 
 // =====================================================================
@@ -17,12 +17,12 @@
       // .. Parameters ..
       REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       REAL               SSMAX;
-      COMPLEX            A11, A12, A22, C, TAU;
+      Complex            A11, A12, A22, C, TAU;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG

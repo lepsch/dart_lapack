@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      COMPLEX            RHS( * ), Z( LDZ, * );
+      Complex            RHS( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -20,17 +20,17 @@
       const              MAXDIM = 2 ;
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K;
       REAL               RTEMP, SCALE, SMINU, SPLUS;
-      COMPLEX            BM, BP, PMONE, TEMP;
+      Complex            BM, BP, PMONE, TEMP;
       // ..
       // .. Local Arrays ..
       REAL               RWORK( MAXDIM );
-      COMPLEX            WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
+      Complex            WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP, CSCAL

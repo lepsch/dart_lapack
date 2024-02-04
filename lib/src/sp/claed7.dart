@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * );
       REAL               D( * ), GIVNUM( 2, * ), QSTORE( * ), RWORK( * );
-      COMPLEX            Q( LDQ, * ), WORK( * );
+      Complex            Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================

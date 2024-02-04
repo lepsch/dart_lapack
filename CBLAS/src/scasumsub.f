@@ -3,7 +3,7 @@
       // external scasum
       real scasum,asum;
       int     n,incx;
-      complex x(*);
+      Complex x(*);
 
       asum=scasum(n,x,incx);
       return;

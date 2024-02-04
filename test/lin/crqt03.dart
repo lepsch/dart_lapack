@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * );
-      COMPLEX            AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
+      Complex            AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            ROGUE;
+      Complex            ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..

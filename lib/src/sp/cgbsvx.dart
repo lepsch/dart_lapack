@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      REAL               BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       Complex            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

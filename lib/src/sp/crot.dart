@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
       REAL               C;
-      COMPLEX            S;
+      Complex            S;
       // ..
       // .. Array Arguments ..
-      COMPLEX            CX( * ), CY( * );
+      Complex            CX( * ), CY( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IX, IY;
-      COMPLEX            STEMP;
+      Complex            STEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG

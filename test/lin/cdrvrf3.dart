@@ -11,14 +11,14 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       REAL               S_WORK_CLANGE( * );
-      COMPLEX            A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * );
-      COMPLEX            C_WORK_CGEQRF( * ), TAU( * );
+      Complex            A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * );
+      Complex            C_WORK_CGEQRF( * ), TAU( * );
       // ..
 
 // =====================================================================
       // ..
       // .. Parameters ..
-      COMPLEX            ZERO, ONE;
+      Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ) , ONE  = ( 1.0, 0.0 ) ;
       int                NTESTS;
       const              NTESTS = 1 ;
@@ -26,7 +26,7 @@
       // .. Local Scalars ..
       String             UPLO, CFORM, DIAG, TRANS, SIDE;
       int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS;
-      COMPLEX            ALPHA;
+      Complex            ALPHA;
       REAL               EPS;
       // ..
       // .. Local Arrays ..

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            AP( * );
+      Complex            AP( * );
       // ..
 
 // =====================================================================
@@ -20,14 +20,14 @@
       const              ZERO = 0.0, ONE = 1.0 ;
       REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX            CONE;
+      Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP;
       REAL               ABSAKK, ALPHA, COLMAX, ROWMAX;
-      COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM;
+      Complex            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

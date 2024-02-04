@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       REAL               AYB( N, NRHS ), BERR( NRHS );
-      COMPLEX            RES( N, NRHS );
+      Complex            RES( N, NRHS );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       REAL               TMP;
       int                I, J;
-      COMPLEX            CDUM;
+      Complex            CDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX
@@ -28,7 +28,7 @@
       REAL               SAFE1;
       // ..
       // .. Statement Functions ..
-      COMPLEX            CABS1;
+      Complex            CABS1;
       // ..
       // .. Statement Function Definitions ..
       CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
