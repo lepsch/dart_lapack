@@ -46,13 +46,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRPO, ZGET04, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOCON, ZPORFS, ZPOT01, ZPOT02, ZPOT03, ZPOT05, ZPOTRF, ZPOTRI, ZPOTRS
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -77,7 +77,7 @@
       // Test the error exits
 
       if (TSTERR) zerrpo( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -110,7 +110,7 @@
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -172,7 +172,7 @@
                   // Compute the L*L' or U'*U factorization of the matrix.
 
                   zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'ZPOTRF';
+                 srnamc.SRNAMT = 'ZPOTRF';
                   zpotrf(UPLO, N, AFAC, LDA, INFO );
 
                   // Check error code from ZPOTRF.
@@ -196,7 +196,7 @@
                   // Form the inverse and compute the residual.
 
                   zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                  SRNAMT = 'ZPOTRI';
+                 srnamc.SRNAMT = 'ZPOTRI';
                   zpotri(UPLO, N, AINV, LDA, INFO );
 
                   // Check error code from ZPOTRI.
@@ -228,11 +228,11 @@
 // +    TEST 3
                   // Solve and compute residual for A * X = B .
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'ZPOTRS';
+                    srnamc.SRNAMT = 'ZPOTRS';
                      zpotrs(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                   // Check error code from ZPOTRS.
@@ -250,7 +250,7 @@
 // +    TESTS 5, 6, and 7
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'ZPORFS';
+                    srnamc.SRNAMT = 'ZPORFS';
                      zporfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check error code from ZPORFS.
@@ -277,7 +277,7 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'ZPOCON';
+                 srnamc.SRNAMT = 'ZPOCON';
                   zpocon(UPLO, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO );
 
                   // Check error code from ZPOCON.

@@ -114,7 +114,7 @@
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = DLANGE( '1', N, N, WORK, LDWORK, RWORK );
+      RESID = dlange( '1', N, N, WORK, LDWORK, RWORK );
 
       RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
 

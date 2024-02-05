@@ -36,12 +36,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -78,7 +78,7 @@
 
          // CHETRF
 
-         SRNAMT = 'CHETRF';
+        srnamc.SRNAMT = 'CHETRF';
          INFOT = 1;
          chetrf('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('CHETRF', INFOT, NOUT, LERR, OK );
@@ -97,7 +97,7 @@
 
          // CHETF2
 
-         SRNAMT = 'CHETF2';
+        srnamc.SRNAMT = 'CHETF2';
          INFOT = 1;
          chetf2('/', 0, A, 1, IP, INFO );
          chkxer('CHETF2', INFOT, NOUT, LERR, OK );
@@ -110,7 +110,7 @@
 
          // CHETRI
 
-         SRNAMT = 'CHETRI';
+        srnamc.SRNAMT = 'CHETRI';
          INFOT = 1;
          chetri('/', 0, A, 1, IP, W, INFO );
          chkxer('CHETRI', INFOT, NOUT, LERR, OK );
@@ -123,7 +123,7 @@
 
          // CHETRI2
 
-         SRNAMT = 'CHETRI2';
+        srnamc.SRNAMT = 'CHETRI2';
          INFOT = 1;
          chetri2('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('CHETRI2', INFOT, NOUT, LERR, OK );
@@ -136,7 +136,7 @@
 
          // CHETRI2X
 
-         SRNAMT = 'CHETRI2X';
+        srnamc.SRNAMT = 'CHETRI2X';
          INFOT = 1;
          chetri2x('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('CHETRI2X', INFOT, NOUT, LERR, OK );
@@ -149,7 +149,7 @@
 
          // CHETRS
 
-         SRNAMT = 'CHETRS';
+        srnamc.SRNAMT = 'CHETRS';
          INFOT = 1;
          chetrs('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CHETRS', INFOT, NOUT, LERR, OK );
@@ -168,7 +168,7 @@
 
          // CHERFS
 
-         SRNAMT = 'CHERFS';
+        srnamc.SRNAMT = 'CHERFS';
          INFOT = 1;
          cherfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CHERFS', INFOT, NOUT, LERR, OK );
@@ -193,7 +193,7 @@
 
          // CHECON
 
-         SRNAMT = 'CHECON';
+        srnamc.SRNAMT = 'CHECON';
          INFOT = 1;
          checon('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
          chkxer('CHECON', INFOT, NOUT, LERR, OK );
@@ -211,7 +211,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'CHERFSX';
+        srnamc.SRNAMT = 'CHERFSX';
          INFOT = 1;
          cherfsx('/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
          chkxer('CHERFSX', INFOT, NOUT, LERR, OK );
@@ -246,7 +246,7 @@
 
          // CHETRF_ROOK
 
-         SRNAMT = 'CHETRF_ROOK';
+        srnamc.SRNAMT = 'CHETRF_ROOK';
          INFOT = 1;
          chetrf_rook('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
@@ -265,7 +265,7 @@
 
          // CHETF2_ROOK
 
-         SRNAMT = 'CHETF2_ROOK';
+        srnamc.SRNAMT = 'CHETF2_ROOK';
          INFOT = 1;
          chetf2_rook('/', 0, A, 1, IP, INFO );
          chkxer('CHETF2_ROOK', INFOT, NOUT, LERR, OK );
@@ -278,7 +278,7 @@
 
          // CHETRI_ROOK
 
-         SRNAMT = 'CHETRI_ROOK';
+        srnamc.SRNAMT = 'CHETRI_ROOK';
          INFOT = 1;
          chetri_rook('/', 0, A, 1, IP, W, INFO );
          chkxer('CHETRI_ROOK', INFOT, NOUT, LERR, OK );
@@ -291,7 +291,7 @@
 
          // CHETRS_ROOK
 
-         SRNAMT = 'CHETRS_ROOK';
+        srnamc.SRNAMT = 'CHETRS_ROOK';
          INFOT = 1;
          chetrs_rook('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
@@ -310,7 +310,7 @@
 
          // CHECON_ROOK
 
-         SRNAMT = 'CHECON_ROOK';
+        srnamc.SRNAMT = 'CHECON_ROOK';
          INFOT = 1;
          checon_rook('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
          chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
@@ -336,7 +336,7 @@
 
          // CHETRF_RK
 
-         SRNAMT = 'CHETRF_RK';
+        srnamc.SRNAMT = 'CHETRF_RK';
          INFOT = 1;
          chetrf_rk('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
@@ -355,7 +355,7 @@
 
          // CHETF2_RK
 
-         SRNAMT = 'CHETF2_RK';
+        srnamc.SRNAMT = 'CHETF2_RK';
          INFOT = 1;
          chetf2_rk('/', 0, A, 1, E, IP, INFO );
          chkxer('CHETF2_RK', INFOT, NOUT, LERR, OK );
@@ -368,7 +368,7 @@
 
          // CHETRI_3
 
-         SRNAMT = 'CHETRI_3';
+        srnamc.SRNAMT = 'CHETRI_3';
          INFOT = 1;
          chetri_3('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
@@ -387,7 +387,7 @@
 
          // CHETRI_3X
 
-         SRNAMT = 'CHETRI_3X';
+        srnamc.SRNAMT = 'CHETRI_3X';
          INFOT = 1;
          chetri_3x('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('CHETRI_3X', INFOT, NOUT, LERR, OK );
@@ -400,7 +400,7 @@
 
          // CHETRS_3
 
-         SRNAMT = 'CHETRS_3';
+        srnamc.SRNAMT = 'CHETRS_3';
          INFOT = 1;
          chetrs_3('/', 0, 0, A, 1, E, IP, B, 1, INFO );
          chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
@@ -419,7 +419,7 @@
 
          // CHECON_3
 
-         SRNAMT = 'CHECON_3';
+        srnamc.SRNAMT = 'CHECON_3';
          INFOT = 1;
          checon_3('/', 0, A, 1,  E, IP, ANRM, RCOND, W, INFO );
          chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
@@ -441,7 +441,7 @@
 
          // CHPTRF
 
-         SRNAMT = 'CHPTRF';
+        srnamc.SRNAMT = 'CHPTRF';
          INFOT = 1;
          chptrf('/', 0, A, IP, INFO );
          chkxer('CHPTRF', INFOT, NOUT, LERR, OK );
@@ -451,7 +451,7 @@
 
          // CHPTRI
 
-         SRNAMT = 'CHPTRI';
+        srnamc.SRNAMT = 'CHPTRI';
          INFOT = 1;
          chptri('/', 0, A, IP, W, INFO );
          chkxer('CHPTRI', INFOT, NOUT, LERR, OK );
@@ -461,7 +461,7 @@
 
          // CHPTRS
 
-         SRNAMT = 'CHPTRS';
+        srnamc.SRNAMT = 'CHPTRS';
          INFOT = 1;
          chptrs('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('CHPTRS', INFOT, NOUT, LERR, OK );
@@ -477,7 +477,7 @@
 
          // CHPRFS
 
-         SRNAMT = 'CHPRFS';
+        srnamc.SRNAMT = 'CHPRFS';
          INFOT = 1;
          chprfs('/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
@@ -496,7 +496,7 @@
 
          // CHPCON
 
-         SRNAMT = 'CHPCON';
+        srnamc.SRNAMT = 'CHPCON';
          INFOT = 1;
          chpcon('/', 0, A, IP, ANRM, RCOND, W, INFO );
          chkxer('CHPCON', INFOT, NOUT, LERR, OK );

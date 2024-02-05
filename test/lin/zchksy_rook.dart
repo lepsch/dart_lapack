@@ -56,13 +56,13 @@
       // INTRINSIC MAX, MIN, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -94,7 +94,7 @@
       // Test the error exits
 
       if (TSTERR) zerrsy( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -141,7 +141,7 @@
 
                   // Generate a matrix with ZLATMS.
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS and handle error.
@@ -258,7 +258,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'ZSYTRF_ROOK';
+                 srnamc.SRNAMT = 'ZSYTRF_ROOK';
                   zsytrf_rook(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -304,7 +304,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'ZSYTRI_ROOK';
+                    srnamc.SRNAMT = 'ZSYTRI_ROOK';
                      zsytri_rook(UPLO, N, AINV, LDA, IWORK, WORK, INFO );
 
                      // Check error code from ZSYTRI_ROOK and handle error.
@@ -532,11 +532,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'ZSYTRS_ROOK';
+                    srnamc.SRNAMT = 'ZSYTRS_ROOK';
                      zsytrs_rook(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from ZSYTRS_ROOK and handle error.
@@ -575,7 +575,7 @@
 
                   } // 230
                   ANORM = ZLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'ZSYCON_ROOK';
+                 srnamc.SRNAMT = 'ZSYCON_ROOK';
                   zsycon_rook(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from ZSYCON_ROOK and handle error.

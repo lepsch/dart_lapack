@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkpo(DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -45,13 +47,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, DERRPO, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPOCON, DPORFS, DPOT01, DPOT02, DPOT03, DPOT05, DPOTRF, DPOTRI, DPOTRS, XLAENV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -76,7 +78,7 @@
       // Test the error exits
 
       if (TSTERR) derrpo( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
@@ -110,7 +112,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -168,7 +170,7 @@
                   // Compute the L*L' or U'*U factorization of the matrix.
 
                   dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'DPOTRF';
+                  srnamc.SRNAMT = 'DPOTRF';
                   dpotrf(UPLO, N, AFAC, LDA, INFO );
 
                   // Check error code from DPOTRF.
@@ -192,7 +194,7 @@
                   // Form the inverse and compute the residual.
 
                   dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                  SRNAMT = 'DPOTRI';
+                  srnamc.SRNAMT = 'DPOTRI';
                   dpotri(UPLO, N, AINV, LDA, INFO );
 
                   // Check error code from DPOTRI.
@@ -224,11 +226,11 @@
 // +    TEST 3
                   // Solve and compute residual for A * X = B .
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'DPOTRS';
+                     srnamc.SRNAMT = 'DPOTRS';
                      dpotrs(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                   // Check error code from DPOTRS.
@@ -246,7 +248,7 @@
 // +    TESTS 5, 6, and 7
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'DPORFS';
+                     srnamc.SRNAMT = 'DPORFS';
                      dporfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                   // Check error code from DPORFS.
@@ -273,7 +275,7 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'DPOCON';
+                  srnamc.SRNAMT = 'DPOCON';
                   dpocon(UPLO, N, AFAC, LDA, ANORM, RCOND, WORK, IWORK, INFO );
 
                   // Check error code from DPOCON.

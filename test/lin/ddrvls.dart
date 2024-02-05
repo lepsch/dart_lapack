@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvls(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A, COPYA, B, COPYB, C, S, COPYS, NOUT ) {
 
 // -- LAPACK test routine --
@@ -50,13 +52,13 @@
       // INTRINSIC DBLE, INT, MAX, MIN, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -88,7 +90,7 @@
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
       if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) alahd( NOUT, PATH );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
       xlaenv(9, SMLSIZ );
 
@@ -246,7 +248,7 @@
                                  dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'DGELS ';
+                              srnamc.SRNAMT = 'DGELS ';
                               dgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 1: Check correctness of results
@@ -335,7 +337,7 @@
                                  dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'DGELST';
+                              srnamc.SRNAMT = 'DGELST';
                               dgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 3: Check correctness of results
@@ -431,7 +433,7 @@
                                     dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                     dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
-                                 SRNAMT = 'DGETSLS';
+                                 srnamc.SRNAMT = 'DGETSLS';
                                  dgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO != 0 ) CALL ALAERH( PATH, 'DGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 5: Check correctness of results
@@ -510,7 +512,7 @@
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         dlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
-                        SRNAMT = 'DGELSY';
+                        srnamc.SRNAMT = 'DGELSY';
                         dgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 7:  Compute relative error in svd
@@ -545,7 +547,7 @@
 
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         dlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
-                        SRNAMT = 'DGELSS';
+                        srnamc.SRNAMT = 'DGELSS';
                         dgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
@@ -590,7 +592,7 @@
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         dlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
-                        SRNAMT = 'DGELSD';
+                        srnamc.SRNAMT = 'DGELSD';
                         dgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, IWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 15:  Compute relative error in svd

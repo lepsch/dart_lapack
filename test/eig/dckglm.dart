@@ -105,7 +105,7 @@
             // Generate random left hand side vector of GLM
 
             for (I = 1; I <= N; I++) { // 20
-               X[I] = DLARND( 2, ISEED );
+               X[I] = dlarnd( 2, ISEED );
             } // 20
 
             dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );

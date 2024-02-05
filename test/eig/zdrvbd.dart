@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
       void zdrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, A, LDA, U, LDU, VT, LDVT, ASAV, USAV, VTSAV, S, SSAV, E, WORK, LWORK, RWORK, IWORK, NOUNIT, INFO ) {
 
 // -- LAPACK test routine --
@@ -52,10 +56,10 @@
       // INTRINSIC ABS, DBLE, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      // String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / srnamc / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const CJOB = [ 'N', 'O', 'S', 'A' ];
@@ -207,7 +211,7 @@
                // Factorize A
 
                if (IWSPC > 1) zlacpy( 'F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'ZGESVD';
+               srnamc.SRNAMT = 'ZGESVD';
                zgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -242,7 +246,7 @@
                      JOBU = CJOB( IJU+1 );
                      JOBVT = CJOB( IJVT+1 );
                      zlacpy('F', M, N, ASAV, LDA, A, LDA );
-                     SRNAMT = 'ZGESVD';
+                     srnamc.SRNAMT = 'ZGESVD';
                      zgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO );
 
                      // Compare U
@@ -297,7 +301,7 @@
                // Factorize A
 
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'ZGESDD';
+               srnamc.SRNAMT = 'ZGESDD';
                zgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -329,7 +333,7 @@
                for (IJQ = 0; IJQ <= 2; IJQ++) { // 130
                   JOBQ = CJOB( IJQ+1 );
                   zlacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'ZGESDD';
+                  srnamc.SRNAMT = 'ZGESDD';
                   zgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
 
                   // Compare U
@@ -392,7 +396,7 @@
                   if (IWSPC == 4) LSWORK = LWORK;
 
                   zlacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'ZGESVDQ';
+                  srnamc.SRNAMT = 'ZGESVDQ';
 
                   LRWORK = max(2, M, 5*N);
                   LIWORK = max( N, 1 );
@@ -438,7 +442,7 @@
                   if (IWSPC == 4) LSWORK = LWORK;
 
                   zlacpy('F', M, N, ASAV, LDA, USAV, LDA );
-                  SRNAMT = 'ZGESVJ';
+                  srnamc.SRNAMT = 'ZGESVJ';
                   zgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   // ZGESVJ returns V not VH
@@ -488,7 +492,7 @@
                   LRWORK = max( 7, N + 2*M);
 
                   zlacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
-                  SRNAMT = 'ZGEJSV';
+                  srnamc.SRNAMT = 'ZGEJSV';
                   zgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO );
 
                   // ZGEJSV returns V not VH
@@ -527,7 +531,7 @@
                // Factorize A
 
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'ZGESVDX';
+               srnamc.SRNAMT = 'ZGESVDX';
                zgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -566,7 +570,7 @@
                      JOBVT = CJOBV( IJVT+1 );
                      RANGE = CJOBR( 1 );
                      zlacpy('F', M, N, ASAV, LDA, A, LDA );
-                     SRNAMT = 'ZGESVDX';
+                     srnamc.SRNAMT = 'ZGESVDX';
                      zgesvdx(JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
 
                      // Compare U
@@ -611,8 +615,8 @@
                   IL = 1;
                   IU = max( 1, MNMIN );
                } else {
-                  IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
-                  IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
+                  IL = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
+                  IU = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
                   if ( IU < IL ) {
                      ITEMP = IU;
                      IU = IL;
@@ -620,7 +624,7 @@
                   }
                }
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'ZGESVDX';
+               srnamc.SRNAMT = 'ZGESVDX';
                zgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -658,7 +662,7 @@
                   VU = ONE;
                }
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'ZGESVDX';
+               srnamc.SRNAMT = 'ZGESVDX';
                zgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;

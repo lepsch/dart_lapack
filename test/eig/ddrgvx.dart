@@ -128,7 +128,7 @@
 
                      dlacpy('Full', N, N, AI, LDA, WORK, N );
                      dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
-                     ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK );
+                     ABNORM = dlange( 'Fro', N, 2*N, WORK, N, WORK );
 
                      // Tests (1) and (2)
 
@@ -256,7 +256,7 @@
 
       dlacpy('Full', N, N, AI, LDA, WORK, N );
       dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
-      ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK );
+      ABNORM = dlange( 'Fro', N, 2*N, WORK, N, WORK );
 
       // Tests (1) and (2)
 

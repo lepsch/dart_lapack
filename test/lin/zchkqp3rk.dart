@@ -48,13 +48,13 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, MOD
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT, ZUNMQR_LWORK;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, IOUNIT, ZUNMQR_LWORK;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -72,7 +72,7 @@
          ISEED[I] = ISEEDY( I );
       }
       EPS = dlamch( 'Epsilon' );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) {
 
@@ -100,7 +100,7 @@
 
                   zlatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS.
@@ -161,7 +161,7 @@
 
                   zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS.
@@ -278,7 +278,7 @@
 
                   zlatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
 
                   IND_OFFSET_GEN = NB_ZERO * LDA;
 
@@ -389,7 +389,7 @@
 
                   // Compute ZGEQP3RK factorization of A.
 
-                  SRNAMT = 'ZGEQP3RK';
+                 srnamc.SRNAMT = 'ZGEQP3RK';
                   zgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, RWORK, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from ZGEQP3RK.

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, A, LDA, U, LDU, VT, LDVT, ASAV, USAV, VTSAV, S, SSAV, E, WORK, LWORK, IWORK, NOUT, INFO ) {
 
       // IMPLICIT NONE
@@ -53,13 +55,13 @@
       // INTRINSIC ABS, DBLE, INT, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / infoc / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / srnamc / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const CJOB = [ 'N', 'O', 'S', 'A' ];
@@ -122,7 +124,7 @@
       ULP = dlamch( 'Precision' );
       RTUNFL = sqrt( UNFL );
       ULPINV = ONE / ULP;
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Loop over sizes, types
 
@@ -195,7 +197,7 @@
                if (IWS == 4) LSWORK = LWORK;
 
                if (IWS > 1) dlacpy( 'F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'DGESVD';
+               srnamc.SRNAMT = 'DGESVD';
                dgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -230,7 +232,7 @@
                      JOBU = CJOB( IJU+1 );
                      JOBVT = CJOB( IJVT+1 );
                      dlacpy('F', M, N, ASAV, LDA, A, LDA );
-                     SRNAMT = 'DGESVD';
+                     srnamc.SRNAMT = 'DGESVD';
                      dgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IINFO );
 
                      // Compare U
@@ -283,7 +285,7 @@
                if (IWS == 4) LSWORK = LWORK;
 
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'DGESDD';
+               srnamc.SRNAMT = 'DGESDD';
                dgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -315,7 +317,7 @@
                for (IJQ = 0; IJQ <= 2; IJQ++) { // 110
                   JOBQ = CJOB( IJQ+1 );
                   dlacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'DGESDD';
+                  srnamc.SRNAMT = 'DGESDD';
                   dgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK, IINFO );
 
                   // Compare U
@@ -378,7 +380,7 @@
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'DGESVDQ';
+                  srnamc.SRNAMT = 'DGESVDQ';
 
                   LRWORK = 2;
                   LIWORK = max( N, 1 );
@@ -423,7 +425,7 @@
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, USAV, LDA );
-                  SRNAMT = 'DGESVJ';
+                  srnamc.SRNAMT = 'DGESVJ';
                   dgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, INFO );
 
                   // DGESVJ returns V not VT
@@ -472,7 +474,7 @@
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
-                  SRNAMT = 'DGEJSV';
+                  srnamc.SRNAMT = 'DGEJSV';
                   dgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, IWORK, INFO );
 
                   // DGEJSV returns V not VT
@@ -591,8 +593,8 @@
                   IL = 1;
                   IU = max( 1, MNMIN );
                } else {
-                  IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
-                  IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
+                  IL = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
+                  IU = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
                   if ( IU < IL ) {
                      ITEMP = IU;
                      IU = IL;

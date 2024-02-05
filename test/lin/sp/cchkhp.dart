@@ -51,12 +51,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -116,7 +116,7 @@
 
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
@@ -205,7 +205,7 @@
 
                NPP = N*( N+1 ) / 2;
                ccopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'CHPTRF';
+              srnamc.SRNAMT = 'CHPTRF';
                chptrf(UPLO, N, AFAC, IWORK, INFO );
 
                // Adjust the expected value of INFO to account for
@@ -245,7 +245,7 @@
 
                if ( !TRFCON ) {
                   ccopy(NPP, AFAC, 1, AINV, 1 );
-                  SRNAMT = 'CHPTRI';
+                 srnamc.SRNAMT = 'CHPTRI';
                   chptri(UPLO, N, AINV, IWORK, WORK, INFO );
 
                // Check error code from CHPTRI.
@@ -281,12 +281,12 @@
 // +    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'CLARHS';
+                 srnamc.SRNAMT = 'CLARHS';
                   clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
                   clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'CHPTRS';
+                 srnamc.SRNAMT = 'CHPTRS';
                   chptrs(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                // Check error code from CHPTRS.
@@ -304,7 +304,7 @@
 // +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'CHPRFS';
+                 srnamc.SRNAMT = 'CHPRFS';
                   chprfs(UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CHPRFS.
@@ -332,7 +332,7 @@
 
                } // 140
                ANORM = CLANHP( '1', UPLO, N, A, RWORK );
-               SRNAMT = 'CHPCON';
+              srnamc.SRNAMT = 'CHPCON';
                chpcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, INFO );
 
                // Check error code from CHPCON.

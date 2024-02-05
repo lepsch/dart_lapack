@@ -70,8 +70,8 @@
 
       // Compute the Frobenius norm of matrices A and B
 
-      ANORM = DLANGE( '1', M, N, A, LDA, WORK );
-      BNORM = DLANGE( '1', P, N, B, LDB, WORK );
+      ANORM = dlange( '1', M, N, A, LDA, WORK );
+      BNORM = dlange( '1', P, N, B, LDB, WORK );
 
       // Get machine precision and set up threshold for determining
       // the effective numerical rank of the matrices A and B.

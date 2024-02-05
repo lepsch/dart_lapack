@@ -1,11 +1,11 @@
-      void zerrps(PATH, NUNIT ) {
+      void zerrps(PATH, infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      int                NUNIT;
+      int                infoc.NUNIT;
       String             PATH;
       // ..
 
@@ -27,20 +27,20 @@
       // EXTERNAL ALAESM, CHKXER, ZPSTF2, ZPSTRF
       // ..
       // .. Scalars in Common ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -55,7 +55,7 @@
          RWORK[NMAX+J] = 0.0;
 
       } // 110
-      OK = true;
+      infoc.OK = true;
 
 
          // Test error exits of the routines that use the Cholesky
@@ -63,34 +63,34 @@
 
          // ZPSTRF
 
-      SRNAMT = 'ZPSTRF';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZPSTRF';
+      infoc.INFOT = 1;
       zpstrf('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zpstrf('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zpstrf('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
+      chkxer('ZPSTRF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZPSTF2
 
-      SRNAMT = 'ZPSTF2';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZPSTF2';
+      infoc.INFOT = 1;
       zpstf2('/', 0, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zpstf2('U', -1, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zpstf2('U', 2, A, 1, PIV, RANK, -1.0, RWORK, INFO );
-      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
+      chkxer('ZPSTF2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, NOUT );
 
       return;
       }

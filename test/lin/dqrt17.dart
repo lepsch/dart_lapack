@@ -60,7 +60,7 @@
          return;
       }
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
+      NORMA = dlange( 'One-norm', M, N, A, LDA, RWORK );
       SMLNUM = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
       ISCL = 0;
 
@@ -68,7 +68,7 @@
 
       dlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
       dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB );
-      NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK );
+      NORMRS = dlange( 'Max', NROWS, NRHS, C, LDB, RWORK );
       if ( NORMRS > SMLNUM ) {
          ISCL = 1;
          dlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
@@ -80,13 +80,13 @@
 
       // compute and properly scale error
 
-      ERR = DLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK );
+      ERR = dlange( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK );
       if (NORMA != ZERO) ERR = ERR / NORMA;
 
       if (ISCL == 1) ERR = ERR*NORMRS;
 
       if ( IRESID == 1 ) {
-         NORMB = DLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK );
+         NORMB = dlange( 'One-norm', NROWS, NRHS, B, LDB, RWORK );
          if (NORMB != ZERO) ERR = ERR / NORMB;
       } else {
          if (NORMRS != ZERO) ERR = ERR / NORMRS;

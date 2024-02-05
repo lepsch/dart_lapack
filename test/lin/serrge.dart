@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -73,7 +73,7 @@
 
          // SGETRF
 
-         SRNAMT = 'SGETRF';
+        srnamc.SRNAMT = 'SGETRF';
          INFOT = 1;
          sgetrf(-1, 0, A, 1, IP, INFO );
          chkxer('SGETRF', INFOT, NOUT, LERR, OK );
@@ -86,7 +86,7 @@
 
          // SGETF2
 
-         SRNAMT = 'SGETF2';
+        srnamc.SRNAMT = 'SGETF2';
          INFOT = 1;
          sgetf2(-1, 0, A, 1, IP, INFO );
          chkxer('SGETF2', INFOT, NOUT, LERR, OK );
@@ -99,7 +99,7 @@
 
          // SGETRI
 
-         SRNAMT = 'SGETRI';
+        srnamc.SRNAMT = 'SGETRI';
          INFOT = 1;
          sgetri(-1, A, 1, IP, W, LW, INFO );
          chkxer('SGETRI', INFOT, NOUT, LERR, OK );
@@ -109,7 +109,7 @@
 
          // SGETRS
 
-         SRNAMT = 'SGETRS';
+        srnamc.SRNAMT = 'SGETRS';
          INFOT = 1;
          sgetrs('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SGETRS', INFOT, NOUT, LERR, OK );
@@ -128,7 +128,7 @@
 
          // SGERFS
 
-         SRNAMT = 'SGERFS';
+        srnamc.SRNAMT = 'SGERFS';
          INFOT = 1;
          sgerfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SGERFS', INFOT, NOUT, LERR, OK );
@@ -153,7 +153,7 @@
 
          // SGECON
 
-         SRNAMT = 'SGECON';
+        srnamc.SRNAMT = 'SGECON';
          INFOT = 1;
          sgecon('/', 0, A, 1, ANRM, RCOND, W, IW, INFO );
          chkxer('SGECON', INFOT, NOUT, LERR, OK );
@@ -166,7 +166,7 @@
 
          // SGEEQU
 
-         SRNAMT = 'SGEEQU';
+        srnamc.SRNAMT = 'SGEEQU';
          INFOT = 1;
          sgeequ(-1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('SGEEQU', INFOT, NOUT, LERR, OK );
@@ -184,7 +184,7 @@
 
          // SGBTRF
 
-         SRNAMT = 'SGBTRF';
+        srnamc.SRNAMT = 'SGBTRF';
          INFOT = 1;
          sgbtrf(-1, 0, 0, 0, A, 1, IP, INFO );
          chkxer('SGBTRF', INFOT, NOUT, LERR, OK );
@@ -203,7 +203,7 @@
 
          // SGBTF2
 
-         SRNAMT = 'SGBTF2';
+        srnamc.SRNAMT = 'SGBTF2';
          INFOT = 1;
          sgbtf2(-1, 0, 0, 0, A, 1, IP, INFO );
          chkxer('SGBTF2', INFOT, NOUT, LERR, OK );
@@ -222,7 +222,7 @@
 
          // SGBTRS
 
-         SRNAMT = 'SGBTRS';
+        srnamc.SRNAMT = 'SGBTRS';
          INFOT = 1;
          sgbtrs('/', 0, 0, 0, 1, A, 1, IP, B, 1, INFO );
          chkxer('SGBTRS', INFOT, NOUT, LERR, OK );
@@ -247,7 +247,7 @@
 
          // SGBRFS
 
-         SRNAMT = 'SGBRFS';
+        srnamc.SRNAMT = 'SGBRFS';
          INFOT = 1;
          sgbrfs('/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SGBRFS', INFOT, NOUT, LERR, OK );
@@ -278,7 +278,7 @@
 
          // SGBCON
 
-         SRNAMT = 'SGBCON';
+        srnamc.SRNAMT = 'SGBCON';
          INFOT = 1;
          sgbcon('/', 0, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SGBCON', INFOT, NOUT, LERR, OK );
@@ -297,7 +297,7 @@
 
          // SGBEQU
 
-         SRNAMT = 'SGBEQU';
+        srnamc.SRNAMT = 'SGBEQU';
          INFOT = 1;
          sgbequ(-1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('SGBEQU', INFOT, NOUT, LERR, OK );

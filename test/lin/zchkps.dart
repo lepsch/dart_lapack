@@ -38,13 +38,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRPS, ZLACPY, ZLATB5, ZLATMT, ZPST01, ZPSTRF
       // ..
       // .. Scalars in Common ..
-      int                INFOT, NUNIT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, CEILING
@@ -69,7 +69,7 @@
       // Test the error exits
 
       if (TSTERR) zerrps( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -108,7 +108,7 @@
 
                   zlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'ZLATMT';
+                 srnamc.SRNAMT = 'ZLATMT';
                   zlatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMT.
@@ -128,7 +128,7 @@
                   // of the matrix.
 
                      zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     SRNAMT = 'ZPSTRF';
+                    srnamc.SRNAMT = 'ZPSTRF';
 
                   // Use default tolerance
 

@@ -31,12 +31,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -57,7 +57,7 @@
 
          // STZRZF
 
-         SRNAMT = 'STZRZF';
+        srnamc.SRNAMT = 'STZRZF';
          INFOT = 1;
          stzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );

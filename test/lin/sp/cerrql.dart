@@ -26,12 +26,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -58,7 +58,7 @@
 
       // CGEQLF
 
-      SRNAMT = 'CGEQLF';
+     srnamc.SRNAMT = 'CGEQLF';
       INFOT = 1;
       cgeqlf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('CGEQLF', INFOT, NOUT, LERR, OK );
@@ -74,7 +74,7 @@
 
       // CGEQL2
 
-      SRNAMT = 'CGEQL2';
+     srnamc.SRNAMT = 'CGEQL2';
       INFOT = 1;
       cgeql2(-1, 0, A, 1, B, W, INFO );
       chkxer('CGEQL2', INFOT, NOUT, LERR, OK );
@@ -87,7 +87,7 @@
 
       // CGEQLS
 
-      SRNAMT = 'CGEQLS';
+     srnamc.SRNAMT = 'CGEQLS';
       INFOT = 1;
       cgeqls(-1, 0, 0, A, 1, X, B, 1, W, 1, INFO );
       chkxer('CGEQLS', INFOT, NOUT, LERR, OK );
@@ -112,7 +112,7 @@
 
       // CUNGQL
 
-      SRNAMT = 'CUNGQL';
+     srnamc.SRNAMT = 'CUNGQL';
       INFOT = 1;
       cungql(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('CUNGQL', INFOT, NOUT, LERR, OK );
@@ -137,7 +137,7 @@
 
       // CUNG2L
 
-      SRNAMT = 'CUNG2L';
+     srnamc.SRNAMT = 'CUNG2L';
       INFOT = 1;
       cung2l(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('CUNG2L', INFOT, NOUT, LERR, OK );
@@ -159,7 +159,7 @@
 
       // CUNMQL
 
-      SRNAMT = 'CUNMQL';
+     srnamc.SRNAMT = 'CUNMQL';
       INFOT = 1;
       cunmql('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('CUNMQL', INFOT, NOUT, LERR, OK );
@@ -199,7 +199,7 @@
 
       // CUNM2L
 
-      SRNAMT = 'CUNM2L';
+     srnamc.SRNAMT = 'CUNM2L';
       INFOT = 1;
       cunm2l('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('CUNM2L', INFOT, NOUT, LERR, OK );

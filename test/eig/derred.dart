@@ -1,399 +1,385 @@
-      void derred(PATH, NUNIT ) {
+import 'dart:ffi';
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgees.dart';
+import 'package:lapack/src/dgeev.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/lsamen.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import '../blas/sp/sblat3.dart';
+import 'common.dart';
+
+      void derred(final String PATH, final int NUNIT, ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
-      String             PATH;
-      int                NUNIT;
-      // ..
-
-// =====================================================================
-
-      // .. Parameters ..
-      int                NMAX;
-      double             ONE, ZERO;
       const              NMAX = 4, ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       String             C2;
-      int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
+      int                I, IHI, ILO, J, NS, NT, SDIM;
       double             ABNRM;
-      // ..
-      // .. Local Arrays ..
-      bool               B( NMAX );
-      int                IW( 2*NMAX );
-      double             A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL CHKXER, DGEES, DGEESX, DGEEV, DGEEVX, DGEJSV, DGESDD, DGESVD, DGESVDX, DGESVDQ
-      // ..
-      // .. External Functions ..
-      //- bool               DSLECT, LSAMEN;
-      // EXTERNAL DSLECT, LSAMEN
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN_TRIM
-      // ..
-      // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT, SELDIM, SELOPT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-      // ..
-      // .. Executable Statements ..
+      final               B = Array<bool>( NMAX );
+      final                IW=Array<int>( 2*NMAX );
+      final
+        A=Matrix<double>( NMAX, NMAX ),
+        U=Matrix<double>( NMAX, NMAX ),
+        VL=Matrix<double>( NMAX, NMAX ),
+        VR=Matrix<double>( NMAX, NMAX ),
+        VT=Matrix<double>( NMAX, NMAX );
+       final R1=Array<double>( NMAX ),
+        R2=Array<double>( NMAX ),
+        S=Array<double>( NMAX ),
+        W=Array<double>( 10*NMAX ),
+        WI=Array<double>( NMAX ),
+         WR=Array<double>( NMAX );
+         final INFO=Box(0);
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
-      C2 = PATH( 2: 3 );
+      infoc.NOUT = NUNIT;
+      print('');
+      C2 = PATH.substring( 1, 3 );
 
       // Initialize A
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I, J] = ZERO;
+            A[I][J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= NMAX; I++) { // 30
-         A[I, I] = ONE;
+         A[I][I] = ONE;
       } // 30
-      OK = true;
+      infoc.OK.value = true;
       NT = 0;
 
       if ( lsamen( 2, C2, 'EV' ) ) {
 
          // Test DGEEV
 
-         SRNAMT = 'DGEEV ';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEEV ';
+         infoc.INFOT = 1;
          dgeev('X', 'N', 0, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeev('N', 'X', 0, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgeev('N', 'N', -1, A, 1, WR, WI, VL, 1, VR, 1, W, 1, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgeev('N', 'N', 2, A, 1, WR, WI, VL, 1, VR, 1, W, 6, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          dgeev('V', 'N', 2, A, 2, WR, WI, VL, 1, VR, 1, W, 8, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          dgeev('N', 'V', 2, A, 2, WR, WI, VL, 1, VR, 1, W, 8, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          dgeev('V', 'V', 1, A, 1, WR, WI, VL, 1, VR, 1, W, 3, INFO );
-         chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
+         chkxer('DGEEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 7;
 
       } else if ( lsamen( 2, C2, 'ES' ) ) {
 
          // Test DGEES
 
-         SRNAMT = 'DGEES ';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEES ';
+         infoc.INFOT = 1;
          dgees('X', 'N', DSLECT, 0, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgees('N', 'X', DSLECT, 0, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgees('N', 'S', DSLECT, -1, A, 1, SDIM, WR, WI, VL, 1, W, 1, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgees('N', 'S', DSLECT, 2, A, 1, SDIM, WR, WI, VL, 1, W, 6, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          dgees('V', 'S', DSLECT, 2, A, 2, SDIM, WR, WI, VL, 1, W, 6, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          dgees('N', 'S', DSLECT, 1, A, 1, SDIM, WR, WI, VL, 1, W, 2, B, INFO );
-         chkxer('DGEES ', INFOT, NOUT, LERR, OK );
+         chkxer('DGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 6;
 
       } else if ( lsamen( 2, C2, 'VX' ) ) {
 
          // Test DGEEVX
 
-         SRNAMT = 'DGEEVX';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEEVX';
+         infoc.INFOT = 1;
          dgeevx('X', 'N', 'N', 'N', 0, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeevx('N', 'X', 'N', 'N', 0, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgeevx('N', 'N', 'X', 'N', 0, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgeevx('N', 'N', 'N', 'X', 0, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgeevx('N', 'N', 'N', 'N', -1, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgeevx('N', 'N', 'N', 'N', 2, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          dgeevx('N', 'V', 'N', 'N', 2, A, 2, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 6, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          dgeevx('N', 'N', 'V', 'N', 2, A, 2, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 6, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 21;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 21;
          dgeevx('N', 'N', 'N', 'N', 1, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 21;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 21;
          dgeevx('N', 'V', 'N', 'N', 1, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 2, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
-         INFOT = 21;
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 21;
          dgeevx('N', 'N', 'V', 'V', 1, A, 1, WR, WI, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 3, IW, INFO );
-         chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
+         chkxer('DGEEVX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 11;
 
       } else if ( lsamen( 2, C2, 'SX' ) ) {
 
          // Test DGEESX
 
-         SRNAMT = 'DGEESX';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEESX';
+         infoc.INFOT = 1;
          dgeesx('X', 'N', DSLECT, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 1, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeesx('N', 'X', DSLECT, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 1, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgeesx('N', 'N', DSLECT, 'X', 0, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 1, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgeesx('N', 'N', DSLECT, 'N', -1, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 1, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgeesx('N', 'N', DSLECT, 'N', 2, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 6, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgeesx('V', 'N', DSLECT, 'N', 2, A, 2, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 6, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
-         INFOT = 16;
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 16;
          dgeesx('N', 'N', DSLECT, 'N', 1, A, 1, SDIM, WR, WI, VL, 1, R1( 1 ), R2( 1 ), W, 2, IW, 1, B, INFO );
-         chkxer('DGEESX', INFOT, NOUT, LERR, OK );
+         chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 7;
 
       } else if ( lsamen( 2, C2, 'BD' ) ) {
 
          // Test DGESVD
 
-         SRNAMT = 'DGESVD';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGESVD';
+         infoc.INFOT = 1;
          dgesvd('X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgesvd('N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgesvd('O', 'O', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgesvd('N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgesvd('N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgesvd('N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          dgesvd('A', 'N', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          dgesvd('N', 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, INFO );
-         chkxer('DGESVD', INFOT, NOUT, LERR, OK );
+         chkxer('DGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 8;
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
 
          // Test DGESDD
 
-         SRNAMT = 'DGESDD';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGESDD';
+         infoc.INFOT = 1;
          dgesdd('X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgesdd('N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgesdd('N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgesdd('N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgesdd('A', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgesdd('A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, IW, INFO );
-         chkxer('DGESDD', INFOT, NOUT, LERR, OK );
+         chkxer('DGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 6;
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
 
          // Test DGEJSV
 
-         SRNAMT = 'DGEJSV';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEJSV';
+         infoc.INFOT = 1;
          dgejsv('X', 'U', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgejsv('G', 'X', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgejsv('G', 'U', 'X', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgejsv('G', 'U', 'V', 'X', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgejsv('G', 'U', 'V', 'R', 'X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgejsv('G', 'U', 'V', 'R', 'N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgejsv('G', 'U', 'V', 'R', 'N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgejsv('G', 'U', 'V', 'R', 'N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          dgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 1, VT, 2, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
-         INFOT = 15;
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 15;
          dgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 2, VT, 1, W, 1, IW, INFO);
-         chkxer('DGEJSV', INFOT, NOUT, LERR, OK );
+         chkxer('DGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 11;
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
 
          // Test DGESVDX
 
-         SRNAMT = 'DGESVDX';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGESVDX';
+         infoc.INFOT = 1;
          dgesvdx('X', 'N', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgesvdx('N', 'X', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgesvdx('N', 'N', 'X', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgesvdx('N', 'N', 'A', -1, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgesvdx('N', 'N', 'A', 0, -1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgesvdx('N', 'N', 'A', 2, 1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgesvdx('N', 'N', 'V', 2, 1, A, 2, -ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          dgesvdx('N', 'N', 'V', 2, 1, A, 2, ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgesvdx('N', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 0, 1, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          dgesvdx('V', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 1, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 15;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 15;
          dgesvdx('V', 'N', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
-         INFOT = 17;
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 17;
          dgesvdx('N', 'V', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, IW, INFO );
-         chkxer('DGESVDX', INFOT, NOUT, LERR, OK );
+         chkxer('DGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 12;
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
 
          // Test DGESVDQ
 
-         SRNAMT = 'DGESVDQ';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGESVDQ';
+         infoc.INFOT = 1;
          dgesvdq('X', 'P', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgesvdq('A', 'X', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgesvdq('A', 'P', 'X', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgesvdq('A', 'P', 'T', 'X', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgesvdq('A', 'P', 'T', 'A', 'X', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgesvdq('A', 'P', 'T', 'A', 'A', -1, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgesvdq('A', 'P', 'T', 'A', 'A', 0, 1, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          dgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 0, S, U, 0, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, -1, VT, 0, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          dgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, -1, NS, IW, 1, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
-         INFOT = 17;
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 17;
          dgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, 1, NS, IW, -5, W, 1, W, 1, INFO );
-         chkxer('DGESVDQ', INFOT, NOUT, LERR, OK );
+         chkxer('DGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 11;
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
       }
 
       // Print a summary line.
 
       if ( !lsamen( 2, C2, 'BD' ) ) {
-         if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+         if ( infoc.OK ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
          } else {
-            WRITE( NOUT, FMT = 9998 );
+            WRITE( infoc.NOUT, FMT = 9998 );
          }
       }
 

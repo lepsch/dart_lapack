@@ -226,7 +226,7 @@
 
                // Hermitian banded, eigenvalues specified
 
-               IHBW = INT( ( N-1 )*DLARND( 1, ISEED3 ) );
+               IHBW = INT( ( N-1 )*dlarnd( 1, ISEED3 ) );
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO );
 
                // Store as dense matrix for most routines.
@@ -258,8 +258,8 @@
                IL = 1;
                IU = N;
             } else {
-               IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
-               IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
+               IL = 1 + INT( ( N-1 )*dlarnd( 1, ISEED2 ) );
+               IU = 1 + INT( ( N-1 )*dlarnd( 1, ISEED2 ) );
                if ( IL > IU ) {
                   ITEMP = IL;
                   IL = IU;
@@ -430,8 +430,8 @@
 
                // Do test 9.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -483,8 +483,8 @@
 
                // Do test 12.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -755,8 +755,8 @@
 
                // Do test 21.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -841,8 +841,8 @@
 
                // Do test 24.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -1076,8 +1076,8 @@
 
                // Do test 33.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -1155,8 +1155,8 @@
 
                // Do test 36.
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
@@ -1475,8 +1475,8 @@
 
                // Do test 50 (or +??)
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
                } // 1180
 
@@ -1523,8 +1523,8 @@
 
                // Do test 52 (or +??)
 
-               TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-               TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+               TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+               TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
                   TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {

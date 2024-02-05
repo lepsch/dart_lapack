@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
@@ -101,7 +101,7 @@
                // Types 1-6:  generate matrices of known condition number.
 
                KOFF = max( 2-KU, 3-max( 1, N ) );
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from SLATMS.
@@ -181,7 +181,7 @@
                // norm(L*U - A) / (n * norm(A) * EPS )
 
             scopy(N+2*M, A, 1, AF, 1 );
-            SRNAMT = 'SGTTRF';
+           srnamc.SRNAMT = 'SGTTRF';
             sgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from SGTTRF.
@@ -245,7 +245,7 @@
                // Estimate the reciprocal of the condition number of the
                // matrix.
 
-               SRNAMT = 'SGTCON';
+              srnamc.SRNAMT = 'SGTCON';
                sgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                // Check error code from SGTCON.
@@ -295,7 +295,7 @@
                   // Solve op(A) * X = B and compute the residual.
 
                   slacpy('Full', N, NRHS, B, LDA, X, LDA );
-                  SRNAMT = 'SGTTRS';
+                 srnamc.SRNAMT = 'SGTTRS';
                   sgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                   // Check error code from SGTTRS.
@@ -313,7 +313,7 @@
 // +    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'SGTRFS';
+                 srnamc.SRNAMT = 'SGTRFS';
                   sgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from SGTRFS.

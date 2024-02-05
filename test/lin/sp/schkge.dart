@@ -51,12 +51,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -111,7 +111,7 @@
 
                slatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
@@ -159,7 +159,7 @@
                   // Compute the LU factorization of the matrix.
 
                   slacpy('Full', M, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'SGETRF';
+                 srnamc.SRNAMT = 'SGETRF';
                   sgetrf(M, N, AFAC, LDA, IWORK, INFO );
 
                   // Check error code from SGETRF.
@@ -180,7 +180,7 @@
 
                   if ( M == N && INFO == 0 ) {
                      slacpy('Full', N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'SGETRI';
+                    srnamc.SRNAMT = 'SGETRI';
                      NRHS = NSVAL( 1 );
                      LWORK = NMAX*max( 3, NRHS );
                      sgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
@@ -251,12 +251,12 @@
 // +    TEST 3
                         // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'SLARHS';
+                       srnamc.SRNAMT = 'SLARHS';
                         slarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
 
                         slacpy('Full', N, NRHS, B, LDA, X, LDA );
-                        SRNAMT = 'SGETRS';
+                       srnamc.SRNAMT = 'SGETRS';
                         sgetrs(TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from SGETRS.
@@ -275,7 +275,7 @@
                         // Use iterative refinement to improve the
                         // solution.
 
-                        SRNAMT = 'SGERFS';
+                       srnamc.SRNAMT = 'SGERFS';
                         sgerfs(TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                         // Check error code from SGERFS.
@@ -313,7 +313,7 @@
                         RCONDC = RCONDI;
                         NORM = 'I';
                      }
-                     SRNAMT = 'SGECON';
+                    srnamc.SRNAMT = 'SGECON';
                      sgecon(NORM, N, AFAC, LDA, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                         // Check error code from SGECON.

@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -57,7 +57,7 @@
 
          // CTRTRI
 
-         SRNAMT = 'CTRTRI';
+        srnamc.SRNAMT = 'CTRTRI';
          INFOT = 1;
          ctrtri('/', 'N', 0, A, 1, INFO );
          chkxer('CTRTRI', INFOT, NOUT, LERR, OK );
@@ -73,7 +73,7 @@
 
          // CTRTI2
 
-         SRNAMT = 'CTRTI2';
+        srnamc.SRNAMT = 'CTRTI2';
          INFOT = 1;
          ctrti2('/', 'N', 0, A, 1, INFO );
          chkxer('CTRTI2', INFOT, NOUT, LERR, OK );
@@ -90,7 +90,7 @@
 
          // CTRTRS
 
-         SRNAMT = 'CTRTRS';
+        srnamc.SRNAMT = 'CTRTRS';
          INFOT = 1;
          ctrtrs('/', 'N', 'N', 0, 0, A, 1, X, 1, INFO );
          chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
@@ -110,7 +110,7 @@
 
          // CTRRFS
 
-         SRNAMT = 'CTRRFS';
+        srnamc.SRNAMT = 'CTRRFS';
          INFOT = 1;
          ctrrfs('/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
@@ -138,7 +138,7 @@
 
          // CTRCON
 
-         SRNAMT = 'CTRCON';
+        srnamc.SRNAMT = 'CTRCON';
          INFOT = 1;
          ctrcon('/', 'U', 'N', 0, A, 1, RCOND, W, RW, INFO );
          chkxer('CTRCON', INFOT, NOUT, LERR, OK );
@@ -157,7 +157,7 @@
 
          // CLATRS
 
-         SRNAMT = 'CLATRS';
+        srnamc.SRNAMT = 'CLATRS';
          INFOT = 1;
          clatrs('/', 'N', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO );
          chkxer('CLATRS', INFOT, NOUT, LERR, OK );
@@ -179,7 +179,7 @@
 
          // CLATRS3
 
-         SRNAMT = 'CLATRS3';
+        srnamc.SRNAMT = 'CLATRS3';
          INFOT = 1;
          clatrs3('/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
          chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
@@ -214,7 +214,7 @@
 
          // CTPTRI
 
-         SRNAMT = 'CTPTRI';
+        srnamc.SRNAMT = 'CTPTRI';
          INFOT = 1;
          ctptri('/', 'N', 0, A, INFO );
          chkxer('CTPTRI', INFOT, NOUT, LERR, OK );
@@ -227,7 +227,7 @@
 
          // CTPTRS
 
-         SRNAMT = 'CTPTRS';
+        srnamc.SRNAMT = 'CTPTRS';
          INFOT = 1;
          ctptrs('/', 'N', 'N', 0, 0, A, X, 1, INFO );
          chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
@@ -249,7 +249,7 @@
 
          // CTPRFS
 
-         SRNAMT = 'CTPRFS';
+        srnamc.SRNAMT = 'CTPRFS';
          INFOT = 1;
          ctprfs('/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
@@ -274,7 +274,7 @@
 
          // CTPCON
 
-         SRNAMT = 'CTPCON';
+        srnamc.SRNAMT = 'CTPCON';
          INFOT = 1;
          ctpcon('/', 'U', 'N', 0, A, RCOND, W, RW, INFO );
          chkxer('CTPCON', INFOT, NOUT, LERR, OK );
@@ -290,7 +290,7 @@
 
          // CLATPS
 
-         SRNAMT = 'CLATPS';
+        srnamc.SRNAMT = 'CLATPS';
          INFOT = 1;
          clatps('/', 'N', 'N', 'N', 0, A, X, SCALE, RW, INFO );
          chkxer('CLATPS', INFOT, NOUT, LERR, OK );
@@ -313,7 +313,7 @@
 
          // CTBTRS
 
-         SRNAMT = 'CTBTRS';
+        srnamc.SRNAMT = 'CTBTRS';
          INFOT = 1;
          ctbtrs('/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO );
          chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
@@ -341,7 +341,7 @@
 
          // CTBRFS
 
-         SRNAMT = 'CTBRFS';
+        srnamc.SRNAMT = 'CTBRFS';
          INFOT = 1;
          ctbrfs('/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
@@ -372,7 +372,7 @@
 
          // CTBCON
 
-         SRNAMT = 'CTBCON';
+        srnamc.SRNAMT = 'CTBCON';
          INFOT = 1;
          ctbcon('/', 'U', 'N', 0, 0, A, 1, RCOND, W, RW, INFO );
          chkxer('CTBCON', INFOT, NOUT, LERR, OK );
@@ -394,7 +394,7 @@
 
          // CLATBS
 
-         SRNAMT = 'CLATBS';
+        srnamc.SRNAMT = 'CLATBS';
          INFOT = 1;
          clatbs('/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO );
          chkxer('CLATBS', INFOT, NOUT, LERR, OK );

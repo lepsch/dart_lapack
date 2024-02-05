@@ -47,13 +47,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -82,7 +82,7 @@
       // Test the error exits
 
       if (TSTERR) zerrsy( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -133,7 +133,7 @@
 
                // Generate a matrix with ZLATMS.
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS and handle error.
@@ -239,7 +239,7 @@
                   // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
-                  SRNAMT = 'ZSYTRF_AA_2STAGE';
+                 srnamc.SRNAMT = 'ZSYTRF_AA_2STAGE';
                   LWORK = min(N*NB, 3*NMAX*NMAX);
                   zsytrf_aa_2stage(UPLO, N, AFAC, LDA,  AINV, (3*NB+1)*N, IWORK, IWORK( 1+N ), WORK, LWORK, INFO );
 
@@ -307,11 +307,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'ZSYTRS_AA_2STAGE';
+                    srnamc.SRNAMT = 'ZSYTRS_AA_2STAGE';
                      LWORK = max( 1, 3*N-2 );
                      zsytrs_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, (3*NB+1)*N, IWORK, IWORK( 1+N ), X, LDA, INFO );
 

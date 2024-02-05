@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvgt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, AF, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -48,13 +50,13 @@
       // INTRINSIC MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
@@ -73,7 +75,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
 
@@ -101,7 +103,7 @@
                // Types 1-6:  generate matrices of known condition number.
 
                KOFF = max( 2-KU, 3-max( 1, N ) );
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from DLATMS.
@@ -276,7 +278,7 @@
                      dcopy(N+2*M, A, 1, AF, 1 );
                      dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'DGTSV ';
+                     srnamc.SRNAMT = 'DGTSV ';
                      dgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
 
                      // Check error code from DGTSV .
@@ -324,7 +326,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using DGTSVX.
 
-                  SRNAMT = 'DGTSVX';
+                  srnamc.SRNAMT = 'DGTSVX';
                   dgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check the error code from DGTSVX.

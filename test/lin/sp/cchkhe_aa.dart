@@ -50,12 +50,12 @@
       // ..
       // .. Scalars in Common ..
       bool         LERR, OK;
-      String       SRNAMT;
+      String      srnamc.SRNAMT;
       int          INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -130,7 +130,7 @@
 
                // Generate a matrix with CLATMS.
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS and handle error.
@@ -241,7 +241,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 1, ( NB+1 )*LDA );
-                  SRNAMT = 'CHETRF_AA';
+                 srnamc.SRNAMT = 'CHETRF_AA';
                   chetrf_aa(UPLO, N, AFAC, LDA, IWORK, AINV,  LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -306,11 +306,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CHETRS_AA';
+                    srnamc.SRNAMT = 'CHETRS_AA';
                      LWORK = max( 1, 3*N-2 );
                      chetrs_aa(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void main() {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -37,12 +39,12 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
-      String             SRNAMT;
+      // int                infoc.INFOT, infoc.NOUTC;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
-      // COMMON /SRNAMC/SRNAMT
+      // COMMON /infoc/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
+      // COMMON /srnamc/srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['DGEMM ', 'DSYMM ', 'DTRMM ', 'DTRSM ', 'DSYRK ', 'DSYR2K'];
       // .. Executable Statements ..
@@ -52,7 +54,7 @@
       READ( NIN, FMT = * )SUMMRY;
       READ( NIN, FMT = * )NOUT;
       OPEN( NOUT, FILE = SUMMRY, STATUS = 'UNKNOWN' );
-      NOUTC = NOUT;
+      infoc.NOUTC = NOUT;
 
       // Read name and unit number for snapshot output file and open file.
 
@@ -201,15 +203,15 @@
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM );
          } else {
-            SRNAMT = SNAMES( ISNUM );
+            srnamc.SRNAMT = SNAMES( ISNUM );
             // Test error exits.
             if ( TSTERR ) {
                dchke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * );
             }
             // Test computations.
-            INFOT = 0;
-            OK = true;
+            infoc.INFOT = 0;
+            infoc.OK = true;
             FATAL = false;
             GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM;
             // Test DGEMM, 01.
@@ -302,10 +304,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'NTC';
       // .. Executable Statements ..
@@ -418,7 +420,7 @@
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( !OK ) {
+                           if ( !infoc.OK ) {
                               WRITE( NOUT, FMT = 9994 );
                               FATAL = true;
                               GO TO 120;
@@ -544,10 +546,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHS = 'LR', ICHU = 'UL';
       // .. Executable Statements ..
@@ -646,7 +648,7 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( !OK ) {
+                        if ( !infoc.OK ) {
                            WRITE( NOUT, FMT = 9994 );
                            FATAL = true;
                            GO TO 110;
@@ -774,10 +776,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN', ICHS = 'LR';
       // .. Executable Statements ..
@@ -876,7 +878,7 @@
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( !OK ) {
+                           if ( !infoc.OK ) {
                               WRITE( NOUT, FMT = 9994 );
                               FATAL = true;
                               GO TO 150;
@@ -1023,10 +1025,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHT = 'NTC', ICHU = 'UL';
       // .. Executable Statements ..
@@ -1111,7 +1113,7 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( !OK ) {
+                        if ( !infoc.OK ) {
                            WRITE( NOUT, FMT = 9993 );
                            FATAL = true;
                            GO TO 120;
@@ -1256,10 +1258,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHT = 'NTC', ICHU = 'UL';
       // .. Executable Statements ..
@@ -1362,7 +1364,7 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( !OK ) {
+                        if ( !infoc.OK ) {
                            WRITE( NOUT, FMT = 9993 );
                            FATAL = true;
                            GO TO 150;
@@ -1477,7 +1479,7 @@
  9994 FORMAT( 1X, I6, ': ', A6, '(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', C,', I3, ')   ', ' .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
       }
-      void dchke(ISNUM, SRNAMT, NOUT ) {
+      void dchke(ISNUM, srnamc.SRNAMT, NOUT ) {
 
 // Tests the error exits from the Level 3 Blas.
 // Requires a special version of the error-handling routine XERBLA.
@@ -1492,14 +1494,14 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
 // 3-19-92:  Initialize ALPHA and BETA  (eca)
-// 3-19-92:  Fix argument 12 in calls to SSYMM with INFOT = 9  (eca)
+// 3-19-92:  Fix argument 12 in calls to SSYMM with infoc.INFOT = 9  (eca)
 
       // .. Scalar Arguments ..
       int                ISNUM, NOUT;
-      String             SRNAMT;
+      String             srnamc.SRNAMT;
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Parameters ..
       double             ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
@@ -1510,14 +1512,14 @@
       // .. External Subroutines ..
       // EXTERNAL CHKXER, DGEMM, DSYMM, DSYR2K, DSYRK, DTRMM, DTRSM
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Executable Statements ..
-      // OK is set to false by the special version of XERBLA or by CHKXER
+      // infoc.OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
-      OK = true;
-      // LERR is set to true by the special version of XERBLA each time
+      infoc.OK = true;
+      // infoc.LERR is set to true by the special version of XERBLA each time
       // it is called, and is then tested and re-set by CHKXER.
-      LERR = false;
+      infoc.LERR = false;
 
       // Initialize ALPHA and BETA.
 
@@ -1525,502 +1527,502 @@
       BETA = TWO;
 
       GO TO ( 10, 20, 30, 40, 50, 60 )ISNUM;
-   10 INFOT = 1;
+   10 infoc.INFOT = 1;
       dgemm('/', 'N', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 1;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 1;
       dgemm('/', 'T', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgemm('N', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgemm('T', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dgemm('N', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dgemm('N', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dgemm('T', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dgemm('T', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgemm('N', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgemm('N', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgemm('T', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgemm('T', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dgemm('N', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dgemm('N', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dgemm('T', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dgemm('T', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dgemm('N', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dgemm('N', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dgemm('T', 'N', 0, 0, 2, ALPHA, A, 1, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dgemm('T', 'T', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dgemm('N', 'N', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dgemm('T', 'N', 0, 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dgemm('N', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dgemm('T', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dgemm('N', 'N', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dgemm('N', 'T', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dgemm('T', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dgemm('T', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 70;
-   20 INFOT = 1;
+   20 infoc.INFOT = 1;
       dsymm('/', 'U', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dsymm('L', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsymm('L', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsymm('R', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsymm('L', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsymm('R', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsymm('L', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsymm('R', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsymm('L', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsymm('R', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsymm('L', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsymm('R', 'U', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsymm('L', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsymm('R', 'L', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsymm('L', 'U', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsymm('R', 'U', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsymm('L', 'L', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsymm('R', 'L', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsymm('L', 'U', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsymm('R', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsymm('L', 'L', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsymm('R', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 70;
-   30 INFOT = 1;
+   30 infoc.INFOT = 1;
       dtrmm('/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrmm('L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtrmm('L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrmm('L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrmm('R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrmm('R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrmm('R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrmm('R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 70;
-   40 INFOT = 1;
+   40 infoc.INFOT = 1;
       dtrsm('/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrsm('L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtrsm('L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrsm('L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsm('R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsm('R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsm('R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsm('R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 70;
-   50 INFOT = 1;
+   50 infoc.INFOT = 1;
       dsyrk('/', 'N', 0, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dsyrk('U', '/', 0, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyrk('U', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyrk('U', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyrk('L', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyrk('L', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyrk('U', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyrk('U', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyrk('L', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyrk('L', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyrk('U', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyrk('U', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyrk('L', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyrk('L', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dsyrk('U', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dsyrk('U', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dsyrk('L', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dsyrk('L', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 70;
-   60 INFOT = 1;
+   60 infoc.INFOT = 1;
       dsyr2k('/', 'N', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dsyr2k('U', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyr2k('U', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyr2k('U', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyr2k('L', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsyr2k('L', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyr2k('U', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyr2k('U', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyr2k('L', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsyr2k('L', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyr2k('U', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyr2k('U', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyr2k('L', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsyr2k('L', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsyr2k('U', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsyr2k('U', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsyr2k('L', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsyr2k('L', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsyr2k('U', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsyr2k('U', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsyr2k('L', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dsyr2k('L', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-   70 IF( OK )THEN;
-         WRITE( NOUT, FMT = 9999 )SRNAMT;
+   70 IF( infoc.OK )THEN;
+         WRITE( NOUT, FMT = 9999 )srnamc.SRNAMT;
       } else {
-         WRITE( NOUT, FMT = 9998 )SRNAMT;
+         WRITE( NOUT, FMT = 9998 )srnamc.SRNAMT;
       }
       return;
 
@@ -2385,7 +2387,7 @@
       DDIFF = X - Y;
       return;
       }
-      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
+      void chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK ) {
 
 // Tests whether XERBLA has detected an error when it should.
 
@@ -2398,15 +2400,15 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Scalar Arguments ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
       // .. Executable Statements ..
-      if ( !LERR ) {
-         WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT;
-         OK = false;
+      if ( !infoc.LERR ) {
+         WRITE( NOUT, FMT = 9999 )infoc.INFOT, srnamc.SRNAMT;
+         infoc.OK = false;
       }
-      LERR = false;
+      infoc.LERR = false;
       return;
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' );
@@ -2434,25 +2436,25 @@
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUT, OK, LERR
-      // COMMON /SRNAMC/SRNAMT
+      // COMMON /INFOC/infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON /SRNAMC/srnamc.SRNAMT
       // .. Executable Statements ..
-      LERR = true;
-      if ( INFO != INFOT ) {
-         if ( INFOT != 0 ) {
-            WRITE( NOUT, FMT = 9999 )INFO, INFOT;
+      infoc.LERR = true;
+      if ( INFO != infoc.INFOT ) {
+         if ( infoc.INFOT != 0 ) {
+            WRITE( NOUT, FMT = 9999 )INFO, infoc.INFOT;
          } else {
             WRITE( NOUT, FMT = 9997 )INFO;
          }
-         OK = false;
+         infoc.OK = false;
       }
-      if ( SRNAME != SRNAMT ) {
-         WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT;
-         OK = false;
+      if ( SRNAME != srnamc.SRNAMT ) {
+         WRITE( NOUT, FMT = 9998 )SRNAME, srnamc.SRNAMT;
+         infoc.OK = false;
       }
       return;
 

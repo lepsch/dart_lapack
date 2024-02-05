@@ -75,7 +75,7 @@
 
       // Scale A, B if max elements outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, WORK );
+      ANRM = dlange( 'M', M, N, A, LDA, WORK );
       IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
@@ -98,7 +98,7 @@
          GO TO 100;
       }
 
-      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK );
+      BNRM = dlange( 'M', M, NRHS, B, LDB, WORK );
       IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 

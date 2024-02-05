@@ -31,12 +31,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX
@@ -60,7 +60,7 @@
 
          // CTZRZF
 
-         SRNAMT = 'CTZRZF';
+        srnamc.SRNAMT = 'CTZRZF';
          INFOT = 1;
          ctzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('CTZRZF', INFOT, NOUT, LERR, OK );

@@ -43,8 +43,8 @@
       dlacpy('Full', M, N, A, LDA, AF, LDA );
       dlacpy('Full', P, N, B, LDB, BF, LDB );
 
-      ANORM = max( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
-      BNORM = max( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
+      ANORM = max( dlange( '1', M, N, A, LDA, RWORK ), UNFL );
+      BNORM = max( dlange( '1', P, N, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -86,7 +86,7 @@
 
       // Compute norm( U'*A*Q - D1*R ) / ( max(1,M,N)*norm(A)*ULP ) .
 
-      RESID = DLANGE( '1', M, N, A, LDA, RWORK );
+      RESID = dlange( '1', M, N, A, LDA, RWORK );
 
       if ( ANORM > ZERO ) {
          RESULT[1] = ( ( RESID / (max( 1, M, N )).toDouble() ) / ANORM ) / ULP;
@@ -108,7 +108,7 @@
 
       // Compute norm( V'*B*Q - D2*R ) / ( max(P,N)*norm(B)*ULP ) .
 
-      RESID = DLANGE( '1', P, N, B, LDB, RWORK );
+      RESID = dlange( '1', P, N, B, LDB, RWORK );
       if ( BNORM > ZERO ) {
          RESULT[2] = ( ( RESID / (max( 1, P, N )).toDouble() ) / BNORM ) / ULP;
       } else {

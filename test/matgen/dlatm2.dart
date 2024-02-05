@@ -85,7 +85,7 @@
       if ( ISUB == JSUB ) {
          TEMP = D( ISUB );
       } else {
-         TEMP = DLARND( IDIST, ISEED );
+         TEMP = dlarnd( IDIST, ISEED );
       }
       if ( IGRADE == 1 ) {
          TEMP = TEMP*DL( ISUB );

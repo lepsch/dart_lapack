@@ -37,12 +37,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -77,7 +77,7 @@
 
          // CGESV
 
-         SRNAMT = 'CGESV ';
+        srnamc.SRNAMT = 'CGESV ';
          INFOT = 1;
          cgesv(-1, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGESV ', INFOT, NOUT, LERR, OK );
@@ -93,7 +93,7 @@
 
          // CGESVX
 
-         SRNAMT = 'CGESVX';
+        srnamc.SRNAMT = 'CGESVX';
          INFOT = 1;
          cgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
@@ -135,7 +135,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 1;
-         SRNAMT = 'CGESVXX';
+        srnamc.SRNAMT = 'CGESVXX';
          INFOT = 1;
          cgesvxx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
@@ -177,7 +177,7 @@
 
          // CGBSV
 
-         SRNAMT = 'CGBSV ';
+        srnamc.SRNAMT = 'CGBSV ';
          INFOT = 1;
          cgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
@@ -199,7 +199,7 @@
 
          // CGBSVX
 
-         SRNAMT = 'CGBSVX';
+        srnamc.SRNAMT = 'CGBSVX';
          INFOT = 1;
          cgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
@@ -247,7 +247,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 1;
-         SRNAMT = 'CGBSVXX';
+        srnamc.SRNAMT = 'CGBSVXX';
          INFOT = 1;
          cgbsvxx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
@@ -295,7 +295,7 @@
 
          // CGTSV
 
-         SRNAMT = 'CGTSV ';
+        srnamc.SRNAMT = 'CGTSV ';
          INFOT = 1;
          cgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
          chkxer('CGTSV ', INFOT, NOUT, LERR, OK );
@@ -308,7 +308,7 @@
 
          // CGTSVX
 
-         SRNAMT = 'CGTSVX';
+        srnamc.SRNAMT = 'CGTSVX';
          INFOT = 1;
          cgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
@@ -332,7 +332,7 @@
 
          // CPOSV
 
-         SRNAMT = 'CPOSV ';
+        srnamc.SRNAMT = 'CPOSV ';
          INFOT = 1;
          cposv('/', 0, 0, A, 1, B, 1, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
@@ -351,7 +351,7 @@
 
          // CPOSVX
 
-         SRNAMT = 'CPOSVX';
+        srnamc.SRNAMT = 'CPOSVX';
          INFOT = 1;
          cposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
@@ -389,7 +389,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 1;
-         SRNAMT = 'CPOSVXX';
+        srnamc.SRNAMT = 'CPOSVXX';
          INFOT = 1;
          cposvxx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
@@ -427,7 +427,7 @@
 
          // CPPSV
 
-         SRNAMT = 'CPPSV ';
+        srnamc.SRNAMT = 'CPPSV ';
          INFOT = 1;
          cppsv('/', 0, 0, A, B, 1, INFO );
          chkxer('CPPSV ', INFOT, NOUT, LERR, OK );
@@ -443,7 +443,7 @@
 
          // CPPSVX
 
-         SRNAMT = 'CPPSVX';
+        srnamc.SRNAMT = 'CPPSVX';
          INFOT = 1;
          cppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
@@ -475,7 +475,7 @@
 
          // CPBSV
 
-         SRNAMT = 'CPBSV ';
+        srnamc.SRNAMT = 'CPBSV ';
          INFOT = 1;
          cpbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
@@ -497,7 +497,7 @@
 
          // CPBSVX
 
-         SRNAMT = 'CPBSVX';
+        srnamc.SRNAMT = 'CPBSVX';
          INFOT = 1;
          cpbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
@@ -538,7 +538,7 @@
 
          // CPTSV
 
-         SRNAMT = 'CPTSV ';
+        srnamc.SRNAMT = 'CPTSV ';
          INFOT = 1;
          cptsv(-1, 0, R, A( 1, 1 ), B, 1, INFO );
          chkxer('CPTSV ', INFOT, NOUT, LERR, OK );
@@ -551,7 +551,7 @@
 
          // CPTSVX
 
-         SRNAMT = 'CPTSVX';
+        srnamc.SRNAMT = 'CPTSVX';
          INFOT = 1;
          cptsvx('/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
@@ -572,7 +572,7 @@
 
          // CHESV
 
-         SRNAMT = 'CHESV ';
+        srnamc.SRNAMT = 'CHESV ';
          INFOT = 1;
          chesv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
@@ -597,7 +597,7 @@
 
          // CHESVX
 
-         SRNAMT = 'CHESVX';
+        srnamc.SRNAMT = 'CHESVX';
          INFOT = 1;
          chesvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
@@ -630,7 +630,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 1;
-         SRNAMT = 'CHESVXX';
+        srnamc.SRNAMT = 'CHESVXX';
          INFOT = 1;
          chesvxx('/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
@@ -668,7 +668,7 @@
 
          // CHESV_ROOK
 
-         SRNAMT = 'CHESV_ROOK';
+        srnamc.SRNAMT = 'CHESV_ROOK';
          INFOT = 1;
          chesv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
@@ -700,7 +700,7 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'CHESV_RK';
+        srnamc.SRNAMT = 'CHESV_RK';
          INFOT = 1;
          chesv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
@@ -727,7 +727,7 @@
 
          // CHPSV
 
-         SRNAMT = 'CHPSV ';
+        srnamc.SRNAMT = 'CHPSV ';
          INFOT = 1;
          chpsv('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('CHPSV ', INFOT, NOUT, LERR, OK );
@@ -743,7 +743,7 @@
 
          // CHPSVX
 
-         SRNAMT = 'CHPSVX';
+        srnamc.SRNAMT = 'CHPSVX';
          INFOT = 1;
          chpsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
@@ -767,7 +767,7 @@
 
          // CSYSV
 
-         SRNAMT = 'CSYSV ';
+        srnamc.SRNAMT = 'CSYSV ';
          INFOT = 1;
          csysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
@@ -789,7 +789,7 @@
 
          // CSYSVX
 
-         SRNAMT = 'CSYSVX';
+        srnamc.SRNAMT = 'CSYSVX';
          INFOT = 1;
          csysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
@@ -822,7 +822,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 1;
-         SRNAMT = 'CSYSVXX';
+        srnamc.SRNAMT = 'CSYSVXX';
          INFOT = 1;
          EQ = 'N';
          csysvxx('/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
@@ -868,7 +868,7 @@
 
          // CSYSV_ROOK
 
-         SRNAMT = 'CSYSV_ROOK';
+        srnamc.SRNAMT = 'CSYSV_ROOK';
          INFOT = 1;
          csysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
@@ -900,7 +900,7 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'CSYSV_RK';
+        srnamc.SRNAMT = 'CSYSV_RK';
          INFOT = 1;
          csysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
@@ -927,7 +927,7 @@
 
          // CSPSV
 
-         SRNAMT = 'CSPSV ';
+        srnamc.SRNAMT = 'CSPSV ';
          INFOT = 1;
          cspsv('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('CSPSV ', INFOT, NOUT, LERR, OK );
@@ -943,7 +943,7 @@
 
          // CSPSVX
 
-         SRNAMT = 'CSPSVX';
+        srnamc.SRNAMT = 'CSPSVX';
          INFOT = 1;
          cspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );

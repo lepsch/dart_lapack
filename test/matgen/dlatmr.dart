@@ -592,7 +592,7 @@
       // 5)      Scaling the norm
 
       if ( IPACK == 0 ) {
-         ONORM = DLANGE( 'M', M, N, A, LDA, TEMPA );
+         ONORM = dlange( 'M', M, N, A, LDA, TEMPA );
       } else if ( IPACK == 1 ) {
          ONORM = DLANSY( 'M', 'U', N, A, LDA, TEMPA );
       } else if ( IPACK == 2 ) {

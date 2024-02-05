@@ -46,12 +46,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -125,7 +125,7 @@
                   // Call STZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
-                  SRNAMT = 'STZRZF';
+                 srnamc.SRNAMT = 'STZRZF';
                   stzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))

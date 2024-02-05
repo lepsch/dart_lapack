@@ -55,13 +55,13 @@
       // INTRINSIC DBLE, MAX, MIN, INT, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -92,7 +92,7 @@
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
       if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) alahd( NOUT, PATH );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Compute maximal workspace needed for all routines
 
@@ -256,7 +256,7 @@
                                  zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'ZGELS ';
+                             srnamc.SRNAMT = 'ZGELS ';
                               zgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
                               if (INFO != 0) alaerh( PATH, 'ZGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -346,7 +346,7 @@
                                  zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'ZGELST';
+                             srnamc.SRNAMT = 'ZGELST';
                               zgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
                               if (INFO != 0) alaerh( PATH, 'ZGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -442,7 +442,7 @@
                                     zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                     zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
-                                 SRNAMT = 'ZGETSLS ';
+                                srnamc.SRNAMT = 'ZGETSLS ';
                                  zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 5: Check correctness of results
@@ -521,7 +521,7 @@
                            IWORK[J] = 0;
                         } // 70
 
-                        SRNAMT = 'ZGELSY';
+                       srnamc.SRNAMT = 'ZGELSY';
                         zgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 2*MNMIN+NB*NB+NB*max(N,NRHS)
@@ -558,7 +558,7 @@
 
                         zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         zlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
-                        SRNAMT = 'ZGELSS';
+                       srnamc.SRNAMT = 'ZGELSS';
                         zgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, INFO );
 
                         if (INFO != 0) alaerh( PATH, 'ZGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -601,7 +601,7 @@
                         zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         zlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
-                        SRNAMT = 'ZGELSD';
+                       srnamc.SRNAMT = 'ZGELSD';
                         zgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, IWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'ZGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 15:  Compute relative error in svd

@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT, CUNMQR_LWORK;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -100,7 +100,7 @@
 
                   clatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
@@ -161,7 +161,7 @@
 
                   clatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
@@ -278,7 +278,7 @@
 
                   clatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
 
                   IND_OFFSET_GEN = NB_ZERO * LDA;
 
@@ -389,7 +389,7 @@
 
                   // Compute CGEQP3RK factorization of A.
 
-                  SRNAMT = 'CGEQP3RK';
+                 srnamc.SRNAMT = 'CGEQP3RK';
                   cgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, RWORK, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from CGEQP3RK.

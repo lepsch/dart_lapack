@@ -52,12 +52,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -125,7 +125,7 @@
 
                // Generate a matrix with CLATMS.
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS and handle error.
@@ -236,7 +236,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'CHETRF';
+                 srnamc.SRNAMT = 'CHETRF';
                   chetrf(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -282,7 +282,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'CHETRI2';
+                    srnamc.SRNAMT = 'CHETRI2';
                      LWORK = (N+NB+1)*(NB+3);
                      chetri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
@@ -332,11 +332,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CHETRS';
+                    srnamc.SRNAMT = 'CHETRS';
                      chetrs(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from CHETRS and handle error.
@@ -355,11 +355,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CHETRS2';
+                    srnamc.SRNAMT = 'CHETRS2';
                      chetrs2(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO );
 
                      // Check error code from CHETRS2 and handle error.
@@ -380,7 +380,7 @@
 // +    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'CHERFS';
+                    srnamc.SRNAMT = 'CHERFS';
                      cherfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from CHERFS and handle error.
@@ -411,7 +411,7 @@
 
                   } // 140
                   ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'CHECON';
+                 srnamc.SRNAMT = 'CHECON';
                   checon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from CHECON and handle error.

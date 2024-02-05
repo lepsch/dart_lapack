@@ -1,144 +1,220 @@
-      void dchkec(THRESH, TSTERR, NIN, NOUT ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
 
+import 'derrec.dart';
+import 'dget31.dart';
+import 'dget32.dart';
+import 'dget33.dart';
+import 'dget34.dart';
+import 'dget35.dart';
+import 'dget36.dart';
+import 'dget37.dart';
+import 'dget38.dart';
+import 'dget39.dart';
+import 'dget40.dart';
+import 'dsyl01.dart';
+
+void dchkec(
+  final double THRESH,
+  final bool TSTERR,
+  final int NIN,
+  final int NOUT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  bool OK;
+  String PATH;
+  int NTESTS;
+  double EPS, SFMIN = 0;
+  final FTRSYL = Array<int>(3),
+      ITRSYL = Array<int>(2),
+      LTRSEN = Array<int>(3),
+      LTRSNA = Array<int>(3),
+      NLAEXC = Array<int>(2),
+      NLALN2 = Array<int>(2),
+      NTGEXC = Array<int>(2),
+      NTREXC = Array<int>(3),
+      NTRSEN = Array<int>(3),
+      NTRSNA = Array<int>(3);
+  final RTRSEN = Array<double>(3),
+      RTRSNA = Array<double>(3),
+      RTRSYL = Array<double>(2);
+  final RLALN2 = Box(0.0),
+      RLASY2 = Box(0.0),
+      RLAEXC = Box(0.0),
+      RTREXC = Box(0.0),
+      RLANV2 = Box(0.0),
+      RLAQTR = Box(0.0),
+      RTGEXC = Box(0.0);
+  final LLALN2 = Box(0),
+      KLALN2 = Box(0),
+      LLASY2 = Box(0),
+      NLASY2 = Box(0),
+      KLASY2 = Box(0),
+      LLAEXC = Box(0),
+      KLAEXC = Box(0),
+      LTRSYL = Box(0),
+      NTRSYL = Box(0),
+      KTRSYL = Box(0),
+      KTRSYL3 = Box(0),
+      LTREXC = Box(0),
+      KTREXC = Box(0),
+      KTRSNA = Box(0),
+      KTRSEN = Box(0),
+      LLANV2 = Box(0),
+      NLANV2 = Box(0),
+      KLANV2 = Box(0),
+      LLAQTR = Box(0),
+      NLAQTR = Box(0),
+      KLAQTR = Box(0),
+      LTGEXC = Box(0),
+      KTGEXC = Box(0);
 
-      // .. Scalar Arguments ..
-      bool               TSTERR;
-      int                NIN, NOUT;
-      double             THRESH;
-      // ..
+  PATH = '${'Double precision'[0]}EC';
+  EPS = dlamch('P');
+  SFMIN = dlamch('S');
 
-// =====================================================================
+  // Print header information
 
-      // .. Local Scalars ..
-      bool               OK;
-      String             PATH;
-      int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC;
-      double             EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC;
-      // ..
-      // .. Local Arrays ..
-      int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
-      double             RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DERREC, DGET31, DGET32, DGET33, DGET34, DGET35, DGET36, DGET37, DGET38, DGET39, DGET40, DSYL01
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. Executable Statements ..
+  print(
+    ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n DLALN2, DLASY2, DLANV2, DLAEXC, DTRSYL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC',
+  );
+  print(
+    ' Relative machine precision (EPS) = ${EPS.d16_6}\n Safe minimum (SFMIN)             = ${SFMIN.d16_6}',
+  );
+  print(
+    ' Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n',
+  );
 
-      PATH[1: 1] = 'double          ';
-      PATH[2: 3] = 'EC';
-      EPS = dlamch( 'P' );
-      SFMIN = dlamch( 'S' );
+  // Test error exits if TSTERR is true;
 
-      // Print header information
+  if (TSTERR) derrec(PATH, NOUT);
 
-      WRITE( NOUT, FMT = 9989 );
-      WRITE( NOUT, FMT = 9988 )EPS, SFMIN;
-      WRITE( NOUT, FMT = 9987 )THRESH;
+  OK = true;
+  dget31(RLALN2, LLALN2, NLALN2, KLALN2);
+  if (RLALN2.value > THRESH || NLALN2[1] != 0) {
+    OK = false;
+    print(
+      ' Error in DLALN2: RMAX =${RLALN2.value.d12_3}\n LMAX = ${LLALN2.value.i8} NINFO=${NLALN2.i8(2)} KNT=${KLALN2.value.i8}',
+    );
+  }
 
-      // Test error exits if TSTERR is true;
+  dget32(RLASY2, LLASY2, NLASY2, KLASY2);
+  if (RLASY2.value > THRESH) {
+    OK = false;
+    print(
+      ' Error in DLASY2: RMAX =${RLASY2.value.d12_3}\n LMAX = ${LLASY2.value.i8} NINFO=${NLASY2.value.i8} KNT=${KLASY2.value.i8}',
+    );
+  }
 
-      if (TSTERR) derrec( PATH, NOUT );
+  dget33(RLANV2, LLANV2, NLANV2, KLANV2);
+  if (RLANV2.value > THRESH || NLANV2.value != 0) {
+    OK = false;
+    print(
+      ' Error in DLANV2: RMAX =${RLANV2.value.d12_3}\n LMAX = ${LLANV2.value.i8} NINFO=${NLANV2.value.i8} KNT=${KLANV2.value.i8}',
+    );
+  }
 
-      OK = true;
-      dget31(RLALN2, LLALN2, NLALN2, KLALN2 );
-      if ( RLALN2 > THRESH || NLALN2( 1 ) != 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9999 )RLALN2, LLALN2, NLALN2, KLALN2;
-      }
+  dget34(RLAEXC, LLAEXC, NLAEXC, KLAEXC);
+  if (RLAEXC.value > THRESH || NLAEXC[2] != 0) {
+    OK = false;
+    print(
+      ' Error in DLAEXC: RMAX =${RLAEXC.value.d12_3}\n LMAX = ${LLAEXC.value.i8} NINFO=${NLAEXC.i8(2)} KNT=${KLAEXC.value.i8}',
+    );
+  }
 
-      dget32(RLASY2, LLASY2, NLASY2, KLASY2 );
-      if ( RLASY2 > THRESH ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9998 )RLASY2, LLASY2, NLASY2, KLASY2;
-      }
+  dget35(RTRSYL.box(1), LTRSYL, NTRSYL, KTRSYL);
+  if (RTRSYL[1] > THRESH) {
+    OK = false;
+    print(
+      ' Error in DTRSYL: RMAX =${RTRSYL[1].d12_3}\n LMAX = ${LTRSYL.value.i8} NINFO=${NTRSYL.value.i8} KNT=${KTRSYL.value.i8}',
+    );
+  }
 
-      dget33(RLANV2, LLANV2, NLANV2, KLANV2 );
-      if ( RLANV2 > THRESH || NLANV2 != 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9997 )RLANV2, LLANV2, NLANV2, KLANV2;
-      }
+  dsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3);
+  if (FTRSYL[1] > 0) {
+    OK = false;
+    print(
+      'Error in DTRSYL: ${FTRSYL[1].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[1].d12_3} threshold =${THRESH.d12_3}',
+    );
+  }
+  if (FTRSYL[2] > 0) {
+    OK = false;
+    print(
+      'Error in DTRSYL3: ${FTRSYL[2].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[2].d12_3} threshold =${THRESH.d12_3}',
+    );
+  }
+  if (FTRSYL[3] > 0) {
+    OK = false;
+    print(
+      'DTRSYL and DTRSYL3 compute an inconsistent result factor in ${FTRSYL[3].i8} tests.',
+    );
+  }
 
-      dget34(RLAEXC, LLAEXC, NLAEXC, KLAEXC );
-      if ( RLAEXC > THRESH || NLAEXC( 2 ) != 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9996 )RLAEXC, LLAEXC, NLAEXC, KLAEXC;
-      }
+  dget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN);
+  if (RTREXC.value > THRESH || NTREXC[3] > 0) {
+    OK = false;
+    print(
+      ' Error in DTREXC: RMAX =${RTREXC.value.d12_3}\n LMAX = ${LTREXC.value.i8} NINFO=${NTREXC.i8(3)} KNT=${KTREXC.value.i8}',
+    );
+  }
 
-      dget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL );
-      if ( RTRSYL( 1 ) > THRESH ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9995 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL;
-      }
+  dget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN);
+  if (RTRSNA[1] > THRESH ||
+      RTRSNA[2] > THRESH ||
+      NTRSNA[1] != 0 ||
+      NTRSNA[2] != 0 ||
+      NTRSNA[3] != 0) {
+    OK = false;
+    print(
+      ' Error in DTRSNA: RMAX =${RTRSNA.d12_3(3)}\n LMAX = ${LTRSNA.i8(3)} NINFO=${NTRSNA.i8(3)} KNT=${KTRSNA.value.i8}',
+    );
+  }
 
-      dsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 );
-      if ( FTRSYL( 1 ) > 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9970 )FTRSYL( 1 ), RTRSYL( 1 ), THRESH;
-      }
-      if ( FTRSYL( 2 ) > 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9971 )FTRSYL( 2 ), RTRSYL( 2 ), THRESH;
-      }
-      if ( FTRSYL( 3 ) > 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9972 )FTRSYL( 3 );
-      }
+  dget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN);
+  if (RTRSEN[1] > THRESH ||
+      RTRSEN[2] > THRESH ||
+      NTRSEN[1] != 0 ||
+      NTRSEN[2] != 0 ||
+      NTRSEN[3] != 0) {
+    OK = false;
+    print(
+      ' Error in DTRSEN: RMAX =${RTRSEN.d12_3(3)}\n LMAX = ${LTRSEN.i8(3)} NINFO=${NTRSEN.i8(3)} KNT=${KTRSEN.value.i8}',
+    );
+  }
 
-      dget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN );
-      if ( RTREXC > THRESH || NTREXC( 3 ) > 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9994 )RTREXC, LTREXC, NTREXC, KTREXC;
-      }
+  dget39(RLAQTR, LLAQTR, NLAQTR, KLAQTR);
+  if (RLAQTR.value > THRESH) {
+    OK = false;
+    print(
+      ' Error in DLAQTR: RMAX =${RLAQTR.value.d12_3}\n LMAX = ${LLAQTR.value.i8} NINFO=${NLAQTR.value.i8} KNT=${KLAQTR.value.i8}',
+    );
+  }
 
-      dget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
-      if ( RTRSNA( 1 ) > THRESH || RTRSNA( 2 ) > THRESH || NTRSNA( 1 ) != 0 || NTRSNA( 2 ) != 0 || NTRSNA( 3 ) != 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9993 )RTRSNA, LTRSNA, NTRSNA, KTRSNA;
-      }
+  dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN);
+  if (RTGEXC.value > THRESH) {
+    OK = false;
+    print(
+      ' Error in DTGEXC: RMAX =${RTGEXC.value.d12_3}\n LMAX = ${LTGEXC.value.i8} NINFO=${NTGEXC.i8(2)} KNT=${KTGEXC.value.i8}',
+    );
+  }
 
-      dget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
-      if ( RTRSEN( 1 ) > THRESH || RTRSEN( 2 ) > THRESH || NTRSEN( 1 ) != 0 || NTRSEN( 2 ) != 0 || NTRSEN( 3 ) != 0 ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9992 )RTRSEN, LTRSEN, NTRSEN, KTRSEN;
-      }
-
-      dget39(RLAQTR, LLAQTR, NLAQTR, KLAQTR );
-      if ( RLAQTR > THRESH ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9991 )RLAQTR, LLAQTR, NLAQTR, KLAQTR;
-      }
-
-      dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN );
-      if ( RTGEXC > THRESH ) {
-         OK = false;
-         WRITE( NOUT, FMT = 9986 )RTGEXC, LTGEXC, NTGEXC, KTGEXC;
-      }
-
-      NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR + KTGEXC       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS;
-
-      return;
- 9999 FORMAT( ' Error in DLALN2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9998 FORMAT( ' Error in DLASY2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9997 FORMAT( ' Error in DLANV2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9996 FORMAT( ' Error in DLAEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9995 FORMAT( ' Error in DTRSYL: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9994 FORMAT( ' Error in DTREXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 3I8, ' KNT=', I8 );
- 9993 FORMAT( ' Error in DTRSNA: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9992 FORMAT( ' Error in DTRSEN: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9991 FORMAT( ' Error in DLAQTR: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9990 FORMAT( / 1X, 'All tests for ', A3, ' routines passed the thresh', 'old ( ', I6, ' tests run)' );
- 9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estim', 'ation routines', / ' DLALN2, DLASY2, DLANV2, DLAEXC, DTRS', 'YL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC', / );
- 9988 FORMAT( ' Relative machine precision (EPS) = ', D16.6, / ' Safe ', 'minimum (SFMIN)             = ', D16.6, / );
- 9987 FORMAT( ' Routines pass computational tests if test ratio is les', 's than', F8.2, / / );
- 9986 FORMAT( ' Error in DTGEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9972 FORMAT( 'DTRSYL and DTRSYL3 compute an inconsistent result ', 'factor in ', I8, ' tests.');
- 9971 FORMAT( 'Error in DTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9970 FORMAT( 'Error in DTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
-      }
+  NTESTS = KLALN2.value +
+      KLASY2.value +
+      KLANV2.value +
+      KLAEXC.value +
+      KTRSYL.value +
+      KTREXC.value +
+      KTRSNA.value +
+      KTRSEN.value +
+      KLAQTR.value +
+      KTGEXC.value;
+  if (OK) {
+    print(
+      ' All tests for ${PATH.a3} routines passed the thresh old ( ${NTESTS.i6} tests run',
+    );
+  }
+}

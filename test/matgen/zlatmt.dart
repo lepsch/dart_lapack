@@ -295,7 +295,7 @@
 
                   for (JR = 1; JR <= min( M+JKU, N ) + JKL - 1; JR++) { // 150
                      EXTRA = CZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      ICOL = max( 1, JR-JKL );
@@ -311,7 +311,7 @@
                      for (JCH = JR - JKL; -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1; JCH += -JKL - JKU) { // 140
                         if ( IR < M ) {
                            zlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
-                           DUMMY = DLARND( 5, ISEED );
+                           DUMMY = dlarnd( 5, ISEED );
                            C = DCONJG( REALC*DUMMY );
                            S = DCONJG( -S*DUMMY );
                         }
@@ -344,7 +344,7 @@
 
                   for (JC = 1; JC <= min( N+JKL, M ) + JKU - 1; JC++) { // 180
                      EXTRA = CZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      IROW = max( 1, JC-JKU );
@@ -400,7 +400,7 @@
                   IENDCH = min( M, N+JKL ) - 1;
                   for (JC = min( M+JKU, N ) - 1; JC >= 1 - JKL; JC--) { // 210
                      EXTRA = CZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      IROW = max( 1, JC-JKU+1 );
@@ -450,7 +450,7 @@
                   IENDCH = min( N, M+JKU ) - 1;
                   for (JR = min( N+JKL, M ) - 1; JR >= 1 - JKU; JR--) { // 240
                      EXTRA = CZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      ICOL = max( 1, JR-JKL+1 );
@@ -520,7 +520,7 @@
                      IL = min( JC+1, K+2 );
                      EXTRA = CZERO;
                      ZTEMP = A( JC-ISKEW*( JC+1 )+IOFFG, JC+1 );
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      if ( CSYM ) {
@@ -610,7 +610,7 @@
                      IL = min( N+1-JC, K+2 );
                      EXTRA = CZERO;
                      ZTEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE )*ZLARND( 5, ISEED );
                      S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      if ( CSYM ) {

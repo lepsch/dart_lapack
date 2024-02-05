@@ -27,12 +27,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -58,7 +58,7 @@
 
       // SGELQT
 
-      SRNAMT = 'SGELQT';
+     srnamc.SRNAMT = 'SGELQT';
       INFOT = 1;
       sgelqt(-1, 0, 1, A, 1, T, 1, W, INFO );
       chkxer('SGELQT', INFOT, NOUT, LERR, OK );
@@ -77,7 +77,7 @@
 
       // SGELQT3
 
-      SRNAMT = 'SGELQT3';
+     srnamc.SRNAMT = 'SGELQT3';
       INFOT = 1;
       sgelqt3(-1, 0, A, 1, T, 1, INFO );
       chkxer('SGELQT3', INFOT, NOUT, LERR, OK );
@@ -93,7 +93,7 @@
 
       // SGEMLQT
 
-      SRNAMT = 'SGEMLQT';
+     srnamc.SRNAMT = 'SGEMLQT';
       INFOT = 1;
       sgemlqt('/', 'N', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO );
       chkxer('SGEMLQT', INFOT, NOUT, LERR, OK );

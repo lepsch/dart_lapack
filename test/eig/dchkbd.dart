@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkbd(NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, IWORK, NOUT, INFO ) {
 
 // -- LAPACK test routine --
@@ -44,13 +46,13 @@
       // INTRINSIC ABS, EXP, INT, LOG, MAX, MIN, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / infoc / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / srnamc / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const KTYPE = [ 1, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 9, 9, 9, 10 ];
@@ -120,7 +122,7 @@
       LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
       RTUNFL = sqrt( UNFL );
       RTOVFL = sqrt( OVFL );
-      INFOT = 0;
+      infoc.INFOT = 0;
       ABSTOL = 2*UNFL;
 
       // Loop over sizes, types
@@ -250,8 +252,8 @@
 
                TEMP1 = -TWO*LOG( ULP );
                for (J = 1; J <= MNMIN; J++) { // 90
-                  BD[J] = EXP( TEMP1*DLARND( 2, ISEED ) );
-                  if (J < MNMIN) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
+                  BD[J] = EXP( TEMP1*dlarnd( 2, ISEED ) );
+                  if (J < MNMIN) BE( J ) = EXP( TEMP1*dlarnd( 2, ISEED ) );
                } // 90
 
                IINFO = 0;
@@ -654,8 +656,8 @@
                IL = 1;
                IU = MNMIN;
             } else {
-               IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
-               IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
+               IL = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
+               IU = 1 + INT( ( MNMIN-1 )*dlarnd( 1, ISEED2 ) );
                if ( IU < IL ) {
                   ITEMP = IU;
                   IU = IL;

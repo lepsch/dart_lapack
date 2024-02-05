@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkge(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -50,13 +52,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -78,7 +80,7 @@
 
       xlaenv(1, 1 );
       if (TSTERR) derrge( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       // Do for each value of M in MVAL
@@ -111,7 +113,7 @@
 
                dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -147,8 +149,8 @@
                // These lines, if used in place of the calls in the DO 60
                // loop, cause the code to bomb on a Sun SPARCstation.
 
-                // ANORMO = DLANGE( 'O', M, N, A, LDA, RWORK )
-                // ANORMI = DLANGE( 'I', M, N, A, LDA, RWORK )
+                // ANORMO = dlange( 'O', M, N, A, LDA, RWORK )
+                // ANORMI = dlange( 'I', M, N, A, LDA, RWORK )
 
                // Do for each blocksize in NBVAL
 
@@ -159,7 +161,7 @@
                   // Compute the LU factorization of the matrix.
 
                   dlacpy('Full', M, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'DGETRF';
+                  srnamc.SRNAMT = 'DGETRF';
                   dgetrf(M, N, AFAC, LDA, IWORK, INFO );
 
                   // Check error code from DGETRF.
@@ -180,7 +182,7 @@
 
                   if ( M == N && INFO == 0 ) {
                      dlacpy('Full', N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'DGETRI';
+                     srnamc.SRNAMT = 'DGETRI';
                      NRHS = NSVAL( 1 );
                      LWORK = NMAX*max( 3, NRHS );
                      dgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
@@ -194,12 +196,12 @@
                      // of A.
 
                      dget03(N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) );
-                     ANORMO = DLANGE( 'O', M, N, A, LDA, RWORK );
+                     ANORMO = dlange( 'O', M, N, A, LDA, RWORK );
 
                      // Compute the infinity-norm condition number of A.
 
-                     ANORMI = DLANGE( 'I', M, N, A, LDA, RWORK );
-                     AINVNM = DLANGE( 'I', N, N, AINV, LDA, RWORK );
+                     ANORMI = dlange( 'I', M, N, A, LDA, RWORK );
+                     AINVNM = dlange( 'I', N, N, AINV, LDA, RWORK );
                      if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                         RCONDI = ONE;
                      } else {
@@ -211,8 +213,8 @@
                      // Do only the condition estimate if INFO > 0.
 
                      TRFCON = true;
-                     ANORMO = DLANGE( 'O', M, N, A, LDA, RWORK );
-                     ANORMI = DLANGE( 'I', M, N, A, LDA, RWORK );
+                     ANORMO = dlange( 'O', M, N, A, LDA, RWORK );
+                     ANORMI = dlange( 'I', M, N, A, LDA, RWORK );
                      RCONDO = ZERO;
                      RCONDI = ZERO;
                   }
@@ -251,12 +253,12 @@
 // +    TEST 3
                         // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'DLARHS';
+                        srnamc.SRNAMT = 'DLARHS';
                         dlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
 
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
-                        SRNAMT = 'DGETRS';
+                        srnamc.SRNAMT = 'DGETRS';
                         dgetrs(TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from DGETRS.
@@ -275,7 +277,7 @@
                         // Use iterative refinement to improve the
                         // solution.
 
-                        SRNAMT = 'DGERFS';
+                        srnamc.SRNAMT = 'DGERFS';
                         dgerfs(TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                         // Check error code from DGERFS.
@@ -313,7 +315,7 @@
                         RCONDC = RCONDI;
                         NORM = 'I';
                      }
-                     SRNAMT = 'DGECON';
+                     srnamc.SRNAMT = 'DGECON';
                      dgecon(NORM, N, AFAC, LDA, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                         // Check error code from DGECON.

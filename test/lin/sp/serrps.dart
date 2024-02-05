@@ -28,11 +28,11 @@
       // .. Scalars in Common ..
       int                INFOT, NOUT;
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -62,7 +62,7 @@
 
          // SPSTRF
 
-      SRNAMT = 'SPSTRF';
+     srnamc.SRNAMT = 'SPSTRF';
       INFOT = 1;
       spstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
@@ -75,7 +75,7 @@
 
          // SPSTF2
 
-      SRNAMT = 'SPSTF2';
+     srnamc.SRNAMT = 'SPSTF2';
       INFOT = 1;
       spstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTF2', INFOT, NOUT, LERR, OK );

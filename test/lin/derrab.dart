@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrab(NUNIT ) {
 
 // -- LAPACK test routine --
@@ -27,21 +29,21 @@
       // EXTERNAL CHKXER, DSGESV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -59,31 +61,31 @@
          R[J] = 0.0;
          IP[J] = J;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
-      SRNAMT = 'DSGESV';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DSGESV';
+      infoc.INFOT = 1;
       dsgesv(-1,0,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DSGESV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dsgesv(0,-1,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DSGESV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dsgesv(2,1,A,1,IP,B,2,X,2,WORK,SWORK,ITER,INFO);
-      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DSGESV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsgesv(2,1,A,2,IP,B,1,X,2,WORK,SWORK,ITER,INFO);
-      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DSGESV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsgesv(2,1,A,2,IP,B,2,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
+      chkxer('DSGESV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )'DSGESV';
+      if ( infoc.OK ) {
+         WRITE( infoc.NOUT, FMT = 9999 )'DSGESV';
       } else {
-         WRITE( NOUT, FMT = 9998 )'DSGESV';
+         WRITE( infoc.NOUT, FMT = 9998 )'DSGESV';
       }
 
  9999 FORMAT( 1X, A6, ' drivers passed the tests of the error exits' );

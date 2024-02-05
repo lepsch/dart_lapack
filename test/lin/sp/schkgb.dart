@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -177,7 +177,7 @@
                         for (I = 1; I <= KOFF - 1; I++) { // 20
                            A[I] = ZERO;
                         } // 20
-                        SRNAMT = 'SLATMS';
+                       srnamc.SRNAMT = 'SLATMS';
                         slatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
                         // Check the error code from SLATMS.
@@ -244,7 +244,7 @@
                         // Compute the LU factorization of the band matrix.
 
                         if (M > 0 && N > 0) slacpy( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
-                        SRNAMT = 'SGBTRF';
+                       srnamc.SRNAMT = 'SGBTRF';
                         sgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from SGBTRF.
@@ -283,7 +283,7 @@
 
                            LDB = max( 1, N );
                            slaset('Full', N, N, ZERO, ONE, WORK, LDB );
-                           SRNAMT = 'SGBTRS';
+                          srnamc.SRNAMT = 'SGBTRS';
                            sgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
@@ -334,12 +334,12 @@
 // +    TEST 2:
                               // Solve and compute residual for op(A) * X = B.
 
-                              SRNAMT = 'SLARHS';
+                             srnamc.SRNAMT = 'SLARHS';
                               slarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                               XTYPE = 'C';
                               slacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                              SRNAMT = 'SGBTRS';
+                             srnamc.SRNAMT = 'SGBTRS';
                               sgbtrs(TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO );
 
                               // Check error code from SGBTRS.
@@ -359,7 +359,7 @@
                               // Use iterative refinement to improve the
                               // solution.
 
-                              SRNAMT = 'SGBRFS';
+                             srnamc.SRNAMT = 'SGBRFS';
                               sgbrfs(TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from SGBRFS.
@@ -393,7 +393,7 @@
                               RCONDC = RCONDI;
                               NORM = 'I';
                            }
-                           SRNAMT = 'SGBCON';
+                          srnamc.SRNAMT = 'SGBCON';
                            sgbcon(NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from SGBCON.

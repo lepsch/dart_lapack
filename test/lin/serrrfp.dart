@@ -23,12 +23,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -39,7 +39,7 @@
       ALPHA     = 1.0;
       BETA      = 1.0;
 
-      SRNAMT = 'SPFTRF';
+     srnamc.SRNAMT = 'SPFTRF';
       INFOT = 1;
       spftrf('/', 'U', 0, A, INFO );
       chkxer('SPFTRF', INFOT, NOUT, LERR, OK );
@@ -50,7 +50,7 @@
       spftrf('N', 'U', -1, A, INFO );
       chkxer('SPFTRF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'SPFTRS';
+     srnamc.SRNAMT = 'SPFTRS';
       INFOT = 1;
       spftrs('/', 'U', 0, 0, A, B, 1, INFO );
       chkxer('SPFTRS', INFOT, NOUT, LERR, OK );
@@ -67,7 +67,7 @@
       spftrs('N', 'U', 0, 0, A, B, 0, INFO );
       chkxer('SPFTRS', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'SPFTRI';
+     srnamc.SRNAMT = 'SPFTRI';
       INFOT = 1;
       spftri('/', 'U', 0, A, INFO );
       chkxer('SPFTRI', INFOT, NOUT, LERR, OK );
@@ -78,7 +78,7 @@
       spftri('N', 'U', -1, A, INFO );
       chkxer('SPFTRI', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STFSM ';
+     srnamc.SRNAMT = 'STFSM ';
       INFOT = 1;
       stfsm('/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 );
       chkxer('STFSM ', INFOT, NOUT, LERR, OK );
@@ -104,7 +104,7 @@
       stfsm('N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 0 );
       chkxer('STFSM ', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STFTRI';
+     srnamc.SRNAMT = 'STFTRI';
       INFOT = 1;
       stftri('/', 'L', 'N', 0, A, INFO );
       chkxer('STFTRI', INFOT, NOUT, LERR, OK );
@@ -118,7 +118,7 @@
       stftri('N', 'L', 'N', -1, A, INFO );
       chkxer('STFTRI', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STFTTR';
+     srnamc.SRNAMT = 'STFTTR';
       INFOT = 1;
       stfttr('/', 'U', 0, A, B, 1, INFO );
       chkxer('STFTTR', INFOT, NOUT, LERR, OK );
@@ -132,7 +132,7 @@
       stfttr('N', 'U', 0, A, B, 0, INFO );
       chkxer('STFTTR', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STRTTF';
+     srnamc.SRNAMT = 'STRTTF';
       INFOT = 1;
       strttf('/', 'U', 0, A, 1, B, INFO );
       chkxer('STRTTF', INFOT, NOUT, LERR, OK );
@@ -146,7 +146,7 @@
       strttf('N', 'U', 0, A, 0, B, INFO );
       chkxer('STRTTF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STFTTP';
+     srnamc.SRNAMT = 'STFTTP';
       INFOT = 1;
       stfttp('/', 'U', 0, A, B, INFO );
       chkxer('STFTTP', INFOT, NOUT, LERR, OK );
@@ -157,7 +157,7 @@
       stfttp('N', 'U', -1, A, B, INFO );
       chkxer('STFTTP', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STPTTF';
+     srnamc.SRNAMT = 'STPTTF';
       INFOT = 1;
       stpttf('/', 'U', 0, A, B, INFO );
       chkxer('STPTTF', INFOT, NOUT, LERR, OK );
@@ -168,7 +168,7 @@
       stpttf('N', 'U', -1, A, B, INFO );
       chkxer('STPTTF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STRTTP';
+     srnamc.SRNAMT = 'STRTTP';
       INFOT = 1;
       strttp('/', 0, A, 1,  B, INFO );
       chkxer('STRTTP', INFOT, NOUT, LERR, OK );
@@ -179,7 +179,7 @@
       strttp('U', 0, A, 0,  B, INFO );
       chkxer('STRTTP', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'STPTTR';
+     srnamc.SRNAMT = 'STPTTR';
       INFOT = 1;
       stpttr('/', 0, A, B, 1,  INFO );
       chkxer('STPTTR', INFOT, NOUT, LERR, OK );
@@ -190,7 +190,7 @@
       stpttr('U', 0, A, B, 0, INFO );
       chkxer('STPTTR', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'SSFRK ';
+     srnamc.SRNAMT = 'SSFRK ';
       INFOT = 1;
       ssfrk('/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B );
       chkxer('SSFRK ', INFOT, NOUT, LERR, OK );

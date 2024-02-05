@@ -48,13 +48,13 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -75,7 +75,7 @@
       // Test the error exits
 
       if (TSTERR) zerrpo( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       KDVAL[1] = 0;
 
       // Do for each value of N in NVAL
@@ -135,7 +135,7 @@
 
                      zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'ZLATMS';
+                    srnamc.SRNAMT = 'ZLATMS';
                      zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from ZLATMS.
@@ -219,7 +219,7 @@
                      // matrix.
 
                      zlacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
-                     SRNAMT = 'ZPBTRF';
+                    srnamc.SRNAMT = 'ZPBTRF';
                      zpbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from ZPBTRF.
@@ -257,7 +257,7 @@
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                      zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
-                     SRNAMT = 'ZPBTRS';
+                    srnamc.SRNAMT = 'ZPBTRS';
                      zpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
@@ -276,11 +276,11 @@
 // +    TEST 2
                      // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'ZLARHS';
+                       srnamc.SRNAMT = 'ZLARHS';
                         zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'ZPBTRS';
+                       srnamc.SRNAMT = 'ZPBTRS';
                         zpbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from ZPBTRS.
@@ -298,7 +298,7 @@
 // +    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
-                        SRNAMT = 'ZPBRFS';
+                       srnamc.SRNAMT = 'ZPBRFS';
                         zpbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from ZPBRFS.
@@ -324,7 +324,7 @@
 // +    TEST 7
                      // Get an estimate of RCOND = 1/CNDNUM.
 
-                     SRNAMT = 'ZPBCON';
+                    srnamc.SRNAMT = 'ZPBCON';
                      zpbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from ZPBCON.

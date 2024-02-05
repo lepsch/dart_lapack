@@ -160,7 +160,7 @@ import 'package:lapack/src/xerbla.dart';
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ICOND = 0;
-      ANRM = DLANGE( 'M', N, N, A, LDA, DUM );
+      ANRM = dlange( 'M', N, N, A, LDA, DUM );
       SCALEA = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
@@ -174,7 +174,7 @@ import 'package:lapack/src/xerbla.dart';
       // Balance the matrix and compute ABNRM
 
       dgebal(BALANC, N, A, LDA, ILO, IHI, SCALE, IERR );
-      ABNRM = DLANGE( '1', N, N, A, LDA, DUM );
+      ABNRM = dlange( '1', N, N, A, LDA, DUM );
       if ( SCALEA ) {
          DUM[1] = ABNRM;
          dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );

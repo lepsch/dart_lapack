@@ -1,124 +1,138 @@
-      void dbdt03(UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK, RESID ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dbdt03(
+  final String UPLO,
+  final int N,
+  final int KD,
+  final Array<double> D,
+  final Array<double> E,
+  final Matrix<double> U,
+  final int LDU,
+  final Array<double> S,
+  final Matrix<double> VT,
+  final int LDVT,
+  final Array<double> WORK,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ZERO = 0.0, ONE = 1.0;
+  int I, J;
+  double BNORM, EPS;
 
-      // .. Scalar Arguments ..
-      String             UPLO;
-      int                KD, LDU, LDVT, N;
-      double             RESID;
-      // ..
-      // .. Array Arguments ..
-      double             D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-      // ..
+  // Quick return if possible
 
-// ======================================================================
+  RESID.value = ZERO;
+  if (N <= 0) return;
 
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
-      int                I, J;
-      double             BNORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax;
-      //- double             DASUM, DLAMCH;
-      // EXTERNAL lsame, idamax, DASUM, DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, MIN
-      // ..
-      // .. Executable Statements ..
+  // Compute B - U * S * V' one column at a time.
 
-      // Quick return if possible
+  BNORM = ZERO;
+  if (KD >= 1) {
+    // B is bidiagonal.
 
-      RESID = ZERO;
-      if (N <= 0) return;
+    if (lsame(UPLO, 'U')) {
+      // B is upper bidiagonal.
 
-      // Compute B - U * S * V' one column at a time.
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= N; I++) {
+          WORK[N + I] = S[I] * VT[I][J];
+        }
+        dgemv(
+          'No transpose',
+          N,
+          N,
+          -ONE,
+          U,
+          LDU,
+          WORK(N + 1),
+          1,
+          ZERO,
+          WORK,
+          1,
+        );
+        WORK[J] = WORK[J] + D[J];
+        if (J > 1) {
+          WORK[J - 1] = WORK[J - 1] + E[J - 1];
+          BNORM = max(BNORM, (D[J]).abs() + (E[J - 1])).abs();
+        } else {
+          BNORM = max(BNORM, (D[J])).abs();
+        }
+        RESID.value = max(RESID.value, dasum(N, WORK, 1));
+      }
+    } else {
+      // B is lower bidiagonal.
 
-      BNORM = ZERO;
-      if ( KD >= 1 ) {
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= N; I++) {
+          WORK[N + I] = S[I] * VT[I][J];
+        }
+        dgemv(
+          'No transpose',
+          N,
+          N,
+          -ONE,
+          U,
+          LDU,
+          WORK(N + 1),
+          1,
+          ZERO,
+          WORK,
+          1,
+        );
+        WORK[J] = WORK[J] + D[J];
+        if (J < N) {
+          WORK[J + 1] = WORK[J + 1] + E[J];
+          BNORM = max(BNORM, (D[J]).abs() + (E[J])).abs();
+        } else {
+          BNORM = max(BNORM, (D[J])).abs();
+        }
+        RESID.value = max(RESID.value, dasum(N, WORK, 1));
+      }
+    }
+  } else {
+    // B is diagonal.
 
-         // B is bidiagonal.
+    for (J = 1; J <= N; J++) {
+      for (I = 1; I <= N; I++) {
+        WORK[N + I] = S[I] * VT[I][J];
+      }
+      dgemv('No transpose', N, N, -ONE, U, LDU, WORK(N + 1), 1, ZERO, WORK, 1);
+      WORK[J] = WORK[J] + D[J];
+      RESID.value = max(RESID.value, dasum(N, WORK, 1));
+    }
+    J = idamax(N, D, 1);
+    BNORM = (D[J]).abs();
+  }
 
-         if ( lsame( UPLO, 'U' ) ) {
+  // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
 
-            // B is upper bidiagonal.
+  EPS = dlamch('Precision');
 
-            for (J = 1; J <= N; J++) { // 20
-               for (I = 1; I <= N; I++) { // 10
-                  WORK[N+I] = S( I )*VT( I, J );
-               } // 10
-               dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-               WORK[J] = WORK( J ) + D( J );
-               if ( J > 1 ) {
-                  WORK[J-1] = WORK( J-1 ) + E( J-1 );
-                  BNORM = max( BNORM, ( D( J ) ).abs()+( E( J-1 ) ) ).abs();
-               } else {
-                  BNORM = max( BNORM, ( D( J ) ) ).abs();
-               }
-               RESID = max( RESID, dasum( N, WORK, 1 ) );
-            } // 20
-         } else {
-
-            // B is lower bidiagonal.
-
-            for (J = 1; J <= N; J++) { // 40
-               for (I = 1; I <= N; I++) { // 30
-                  WORK[N+I] = S( I )*VT( I, J );
-               } // 30
-               dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-               WORK[J] = WORK( J ) + D( J );
-               if ( J < N ) {
-                  WORK[J+1] = WORK( J+1 ) + E( J );
-                  BNORM = max( BNORM, ( D( J ) ).abs()+( E( J ) ) ).abs();
-               } else {
-                  BNORM = max( BNORM, ( D( J ) ) ).abs();
-               }
-               RESID = max( RESID, dasum( N, WORK, 1 ) );
-            } // 40
-         }
+  if (BNORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    if (BNORM >= RESID.value) {
+      RESID.value = (RESID.value / BNORM) / (N.toDouble() * EPS);
+    } else {
+      if (BNORM < ONE) {
+        RESID.value = (min(RESID.value, (N).toDouble() * BNORM) / BNORM) /
+            (N.toDouble() * EPS);
       } else {
-
-         // B is diagonal.
-
-         for (J = 1; J <= N; J++) { // 60
-            for (I = 1; I <= N; I++) { // 50
-               WORK[N+I] = S( I )*VT( I, J );
-            } // 50
-            dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
-            WORK[J] = WORK( J ) + D( J );
-            RESID = max( RESID, dasum( N, WORK, 1 ) );
-         } // 60
-         J = idamax( N, D, 1 );
-         BNORM = ( D( J ) ).abs();
+        RESID.value =
+            min(RESID.value / BNORM, (N).toDouble()) / (N.toDouble() * EPS);
       }
+    }
+  }
 
-      // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
-
-      EPS = dlamch( 'Precision' );
-
-      if ( BNORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
-      } else {
-         if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( N.toDouble()*EPS );
-         } else {
-            if ( BNORM < ONE ) {
-               RESID = ( min( RESID, (N).toDouble()*BNORM ) / BNORM ) / ( N.toDouble()*EPS );
-            } else {
-               RESID = min( RESID / BNORM, (N).toDouble() ) / ( N.toDouble()*EPS );
-            }
-         }
-      }
-
-      return;
-      }
+  return;
+}

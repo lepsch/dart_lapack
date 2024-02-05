@@ -193,7 +193,7 @@ import 'package:lapack/src/xerbla.dart';
       } else {
          NORM = '1';
       }
-      ANORM = DLANGE( NORM, N, N, A, LDA, WORK );
+      ANORM = dlange( NORM, N, N, A, LDA, WORK );
       dgecon(NORM, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side

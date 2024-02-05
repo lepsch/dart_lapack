@@ -54,9 +54,9 @@
 
       // Norm of A, B, and E:
 
-      ANORM = max( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
-      BNORM = max( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
-      ENORM = max( DLANGE( 'O', N, N, E, LDE, WORK ), ULP );
+      ANORM = max( dlange( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
+      BNORM = max( dlange( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
+      ENORM = max( dlange( 'O', N, N, E, LDE, WORK ), ULP );
       ALFMAX = SAFMAX / max( ONE, BNORM );
       BETMAX = SAFMAX / max( ONE, ANORM );
 
@@ -124,7 +124,7 @@
          }
       } // 10
 
-      ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM;
+      ERRNRM = dlange( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM;
 
       // Compute RESULT(1)
 

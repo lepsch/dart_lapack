@@ -49,13 +49,13 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -76,7 +76,7 @@
       // Test the error exits
 
       if (TSTERR) zerrge( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Initialize the first value for the lower and upper bandwidths.
 
@@ -177,7 +177,7 @@
                         for (I = 1; I <= KOFF - 1; I++) { // 20
                            A[I] = ZERO;
                         } // 20
-                        SRNAMT = 'ZLATMS';
+                       srnamc.SRNAMT = 'ZLATMS';
                         zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
                         // Check the error code from ZLATMS.
@@ -244,7 +244,7 @@
                         // Compute the LU factorization of the band matrix.
 
                         if (M > 0 && N > 0) zlacpy( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
-                        SRNAMT = 'ZGBTRF';
+                       srnamc.SRNAMT = 'ZGBTRF';
                         zgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from ZGBTRF.
@@ -283,7 +283,7 @@
 
                            LDB = max( 1, N );
                            zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDB );
-                           SRNAMT = 'ZGBTRS';
+                          srnamc.SRNAMT = 'ZGBTRS';
                            zgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
@@ -334,12 +334,12 @@
 // +    TEST 2:
                               // Solve and compute residual for op(A) * X = B.
 
-                              SRNAMT = 'ZLARHS';
+                             srnamc.SRNAMT = 'ZLARHS';
                               zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                               XTYPE = 'C';
                               zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                              SRNAMT = 'ZGBTRS';
+                             srnamc.SRNAMT = 'ZGBTRS';
                               zgbtrs(TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO );
 
                               // Check error code from ZGBTRS.
@@ -359,7 +359,7 @@
                               // Use iterative refinement to improve the
                               // solution.
 
-                              SRNAMT = 'ZGBRFS';
+                             srnamc.SRNAMT = 'ZGBRFS';
                               zgbrfs(TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                               // Check error code from ZGBRFS.
@@ -397,7 +397,7 @@
                               RCONDC = RCONDI;
                               NORM = 'I';
                            }
-                           SRNAMT = 'ZGBCON';
+                          srnamc.SRNAMT = 'ZGBCON';
                            zgbcon(NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, RWORK, INFO );
 
                               // Check error code from ZGBCON.

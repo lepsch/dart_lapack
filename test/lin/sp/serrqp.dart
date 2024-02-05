@@ -32,12 +32,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -57,7 +57,7 @@
 
          // SGEQP3
 
-         SRNAMT = 'SGEQP3';
+        srnamc.SRNAMT = 'SGEQP3';
          INFOT = 1;
          sgeqp3(-1, 0, A, 1, IP, TAU, W, LW, INFO );
          chkxer('SGEQP3', INFOT, NOUT, LERR, OK );

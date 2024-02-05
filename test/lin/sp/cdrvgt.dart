@@ -50,12 +50,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
@@ -102,7 +102,7 @@
                // Types 1-6:  generate matrices of known condition number.
 
                KOFF = max( 2-KU, 3-max( 1, N ) );
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from CLATMS.
@@ -277,7 +277,7 @@
                      ccopy(N+2*M, A, 1, AF, 1 );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CGTSV ';
+                    srnamc.SRNAMT = 'CGTSV ';
                      cgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
 
                      // Check error code from CGTSV .
@@ -325,7 +325,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using CGTSVX.
 
-                  SRNAMT = 'CGTSVX';
+                 srnamc.SRNAMT = 'CGTSVX';
                   cgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check the error code from CGTSVX.

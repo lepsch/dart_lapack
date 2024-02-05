@@ -60,7 +60,7 @@
       } // 30
       READ( NIN, FMT = * )( SCALIN( I ), I = 1, N );
 
-      ANORM = DLANGE( 'M', N, N, A, LDA, DUMMY );
+      ANORM = dlange( 'M', N, N, A, LDA, DUMMY );
       KNT = KNT + 1;
 
       dgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO );

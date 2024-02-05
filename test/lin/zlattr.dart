@@ -188,7 +188,7 @@
                WORK[J+1] = PLUS2;
                WORK[N+J+1] = ZERO;
                PLUS1 = STAR1 / PLUS2;
-               REXP = DLARND( 2, ISEED );
+               REXP = dlarnd( 2, ISEED );
                if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )*ZLARND( 5, ISEED );
                } else {

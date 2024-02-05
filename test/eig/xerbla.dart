@@ -1,46 +1,29 @@
-      void xerbla(SRNAME, INFO ) {
+import 'package:lapack/src/format_extensions.dart';
 
+import 'common.dart';
+
+void xerbla(final String SRNAME, final int INFO) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      List<String>         SRNAME;
-      int                INFO;
-      // ..
-
-// =====================================================================
-
-      // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN_TRIM
-      // ..
-      // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
-      // ..
-      // .. Executable Statements ..
-
-      LERR = true;
-      if ( INFO != INFOT ) {
-         if ( INFOT != 0 ) {
-            WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT;
-         } else {
-            WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO;
-         }
-         OK = false;
-      }
-      if ( SRNAME != SRNAMT ) {
-         WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) );
-         OK = false;
-      }
-      return;
-
- 9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6, ' instead of ', I2, ' ***' );
- 9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A, ' instead of ', A6, ' ***' );
- 9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6, ' had an illegal value ***' );
-      }
+  infoc.LERR.value = true;
+  if (INFO != infoc.INFOT) {
+    if (infoc.INFOT != 0) {
+      print(
+        ' *** XERBLA was called from ${srnamc.SRNAMT} with INFO = ${INFO.i6} instead of ${infoc.INFOT.i2} ***',
+      );
+    } else {
+      print(
+        ' *** On entry to $SRNAME parameter number ${INFO.i6} had an illegal value ***',
+      );
+    }
+    infoc.OK.value = false;
+  }
+  if (SRNAME != srnamc.SRNAMT) {
+    print(
+      ' *** XERBLA was called with SRNAME = $SRNAME instead of ${srnamc.SRNAMT.a6} ***',
+    );
+    infoc.OK.value = false;
+  }
+}

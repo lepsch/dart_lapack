@@ -1,3 +1,5 @@
+import 'common.dart';
+
       bool dlctsx(AR, AI, BETA ) {
 
 // -- LAPACK test routine --
@@ -11,38 +13,38 @@
 // =====================================================================
 
       // .. Scalars in Common ..
-      bool               FS;
-      int                I, M, MPLUSN, N;
+      // bool               mn.FS;
+      // int                mn.I, mn.M, mn.MPLUSN, mn.N;
       // ..
       // .. Common blocks ..
-      // COMMON / MN / M, N, MPLUSN, I, FS
+      // COMMON / mn / mn.M, mn.N, mn.MPLUSN, mn.I, mn.FS
       // ..
       // .. Save statement ..
       SAVE;
       // ..
       // .. Executable Statements ..
 
-      if ( FS ) {
-         I = I + 1;
-         if ( I <= M ) {
+      if ( mn.FS ) {
+         mn.I = mn.I + 1;
+         if ( mn.I <= mn.M ) {
             DLCTSX = false;
          } else {
             DLCTSX = true;
          }
-         if ( I == MPLUSN ) {
-            FS = false;
-            I = 0;
+         if ( mn.I == mn.MPLUSN ) {
+            mn.FS = false;
+            mn.I = 0;
          }
       } else {
-         I = I + 1;
-         if ( I <= N ) {
+         mn.I = mn.I + 1;
+         if ( mn.I <= mn.N ) {
             DLCTSX = true;
          } else {
             DLCTSX = false;
          }
-         if ( I == MPLUSN ) {
-            FS = true;
-            I = 0;
+         if ( mn.I == mn.MPLUSN ) {
+            mn.FS = true;
+            mn.I = 0;
          }
       }
 
@@ -51,6 +53,4 @@
         // ELSE
            // DLCTSX = false;
         // END IF
-
-      return;
       }

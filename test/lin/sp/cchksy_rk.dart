@@ -57,12 +57,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -141,7 +141,7 @@
 
                   // Generate a matrix with CLATMS.
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS and handle error.
@@ -258,7 +258,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'CSYTRF_RK';
+                 srnamc.SRNAMT = 'CSYTRF_RK';
                   csytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -304,7 +304,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'CSYTRI_3';
+                    srnamc.SRNAMT = 'CSYTRI_3';
 
                      // Another reason that we need to compute the inverse
                      // is that CSYT03 produces RCONDC which is used later
@@ -538,11 +538,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CSYTRS_3';
+                    srnamc.SRNAMT = 'CSYTRS_3';
                      csytrs_3(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO );
 
                      // Check error code from CSYTRS_3 and handle error.
@@ -581,7 +581,7 @@
 
                   } // 230
                   ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'CSYCON_3';
+                 srnamc.SRNAMT = 'CSYCON_3';
                   csycon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from CSYCON_3 and handle error.

@@ -46,12 +46,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -109,7 +109,7 @@
 
                slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
@@ -162,7 +162,7 @@
 
                NPP = N*( N+1 ) / 2;
                scopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'SPPTRF';
+              srnamc.SRNAMT = 'SPPTRF';
                spptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from SPPTRF.
@@ -186,7 +186,7 @@
                // Form the inverse and compute the residual.
 
                scopy(NPP, AFAC, 1, AINV, 1 );
-               SRNAMT = 'SPPTRI';
+              srnamc.SRNAMT = 'SPPTRI';
                spptri(UPLO, N, AINV, INFO );
 
                // Check error code from SPPTRI.
@@ -213,11 +213,11 @@
 // +    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'SLARHS';
+                 srnamc.SRNAMT = 'SLARHS';
                   slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'SPPTRS';
+                 srnamc.SRNAMT = 'SPPTRS';
                   spptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from SPPTRS.
@@ -235,7 +235,7 @@
 // +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'SPPRFS';
+                 srnamc.SRNAMT = 'SPPRFS';
                   spprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                // Check error code from SPPRFS.
@@ -262,7 +262,7 @@
                // Get an estimate of RCOND = 1/CNDNUM.
 
                ANORM = SLANSP( '1', UPLO, N, A, RWORK );
-               SRNAMT = 'SPPCON';
+              srnamc.SRNAMT = 'SPPCON';
                sppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, IWORK, INFO );
 
                // Check error code from SPPCON.

@@ -1,4 +1,4 @@
-      void zerrvx(PATH, NUNIT ) {
+      void zerrvx(PATH, infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -34,20 +34,20 @@
       // EXTERNAL CHKXER, ZGBSV, ZGBSVX, ZGESV, ZGESVX, ZGTSV, ZGTSVX, ZHESV, ZHESV_RK, ZHESV_ROOK, ZHESVX, ZHPSV, ZHPSVX, ZPBSV, ZPBSVX, ZPOSV, ZPOSVX, ZPPSV, ZPPSVX, ZPTSV, ZPTSVX, ZSPSV, ZSPSVX, ZSYSV, ZSYSV_AA, ZSYSV_RK, ZSYSV_ROOK, ZSYSVX, ZHESV_AA_2STAGE
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
       C2 = PATH( 2: 3 );
 
@@ -68,459 +68,459 @@
          IP[J] = J;
       } // 20
       EQ = ' ';
-      OK = true;
+      infoc.OK = true;
 
       if ( lsamen( 2, C2, 'GE' ) ) {
 
          // ZGESV
 
-         SRNAMT = 'ZGESV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGESV ';
+         infoc.INFOT = 1;
          zgesv(-1, 0, A, 1, IP, B, 1, INFO );
-         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgesv(0, -1, A, 1, IP, B, 1, INFO );
-         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgesv(2, 1, A, 1, IP, B, 2, INFO );
-         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zgesv(2, 1, A, 2, IP, B, 1, INFO );
-         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZGESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZGESVX
 
-         SRNAMT = 'ZGESVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGESVX';
+         infoc.INFOT = 1;
          zgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgesvx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zgesvx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgesvx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zgesvx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zgesvx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          EQ = '/';
          zgesvx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          EQ = 'R';
          zgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          EQ = 'C';
          zgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          zgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16;
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 16;
          zgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZGESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // ZGBSV
 
-         SRNAMT = 'ZGBSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGBSV ';
+         infoc.INFOT = 1;
          zgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgbsv(1, -1, 0, 0, A, 1, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zgbsv(1, 0, -1, 0, A, 1, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgbsv(0, 0, 0, -1, A, 1, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zgbsv(1, 1, 1, 0, A, 3, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zgbsv(2, 0, 0, 0, A, 1, IP, B, 1, INFO );
-         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZGBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZGBSVX
 
-         SRNAMT = 'ZGBSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGBSVX';
+         infoc.INFOT = 1;
          zgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgbsvx('N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zgbsvx('N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgbsvx('N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zgbsvx('N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zgbsvx('N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zgbsvx('N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zgbsvx('N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          EQ = '/';
          zgbsvx('F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          EQ = 'R';
          zgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          EQ = 'C';
          zgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 16;
          zgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18;
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 18;
          zgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZGBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // ZGTSV
 
-         SRNAMT = 'ZGTSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGTSV ';
+         infoc.INFOT = 1;
          zgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
-         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgtsv(0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
-         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zgtsv(2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
-         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZGTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZGTSVX
 
-         SRNAMT = 'ZGTSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZGTSVX';
+         infoc.INFOT = 1;
          zgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgtsvx('N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zgtsvx('N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgtsvx('N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          zgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16;
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 16;
          zgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZGTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // ZPOSV
 
-         SRNAMT = 'ZPOSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPOSV ';
+         infoc.INFOT = 1;
          zposv('/', 0, 0, A, 1, B, 1, INFO );
-         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zposv('U', -1, 0, A, 1, B, 1, INFO );
-         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zposv('U', 0, -1, A, 1, B, 1, INFO );
-         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zposv('U', 2, 0, A, 1, B, 2, INFO );
-         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zposv('U', 2, 0, A, 2, B, 1, INFO );
-         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZPOSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZPOSVX
 
-         SRNAMT = 'ZPOSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPOSVX';
+         infoc.INFOT = 1;
          zposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zposvx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zposvx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zposvx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zposvx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zposvx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          EQ = '/';
          zposvx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          EQ = 'Y';
          zposvx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          zposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          zposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZPOSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // ZPPSV
 
-         SRNAMT = 'ZPPSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPPSV ';
+         infoc.INFOT = 1;
          zppsv('/', 0, 0, A, B, 1, INFO );
-         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zppsv('U', -1, 0, A, B, 1, INFO );
-         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zppsv('U', 0, -1, A, B, 1, INFO );
-         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zppsv('U', 2, 0, A, B, 1, INFO );
-         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZPPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZPPSVX
 
-         SRNAMT = 'ZPPSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPPSVX';
+         infoc.INFOT = 1;
          zppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zppsvx('N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zppsvx('N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zppsvx('N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          EQ = '/';
          zppsvx('F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          EQ = 'Y';
          zppsvx('F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          zppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZPPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // ZPBSV
 
-         SRNAMT = 'ZPBSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPBSV ';
+         infoc.INFOT = 1;
          zpbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zpbsv('U', -1, 0, 0, A, 1, B, 1, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zpbsv('U', 1, -1, 0, A, 1, B, 1, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zpbsv('U', 0, 0, -1, A, 1, B, 1, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zpbsv('U', 1, 1, 0, A, 1, B, 2, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zpbsv('U', 2, 0, 0, A, 1, B, 1, INFO );
-         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZPBSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZPBSVX
 
-         SRNAMT = 'ZPBSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPBSVX';
+         infoc.INFOT = 1;
          zpbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zpbsvx('N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zpbsvx('N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zpbsvx('N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zpbsvx('N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zpbsvx('N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zpbsvx('N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          EQ = '/';
          zpbsvx('F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          EQ = 'Y';
          zpbsvx('F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 15;
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 15;
          zpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZPBSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // ZPTSV
 
-         SRNAMT = 'ZPTSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPTSV ';
+         infoc.INFOT = 1;
          zptsv(-1, 0, R, A( 1, 1 ), B, 1, INFO );
-         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zptsv(0, -1, R, A( 1, 1 ), B, 1, INFO );
-         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zptsv(2, 0, R, A( 1, 1 ), B, 1, INFO );
-         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZPTSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZPTSVX
 
-         SRNAMT = 'ZPTSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZPTSVX';
+         infoc.INFOT = 1;
          zptsvx('/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZPTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zptsvx('N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZPTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zptsvx('N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZPTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZPTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZPTSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'HE' ) ) {
 
          // ZHESV
 
-         SRNAMT = 'ZHESV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESV ';
+         infoc.INFOT = 1;
          zhesv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zhesv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zhesv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zhesv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zhesv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
-         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZHESVX
 
-         SRNAMT = 'ZHESVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESVX';
+         infoc.INFOT = 1;
          zhesvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zhesvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zhesvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zhesvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18;
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 18;
          zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
-         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // ZHESV_ROOK
 
-         SRNAMT = 'ZHESV_ROOK';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESV_ROOK';
+         infoc.INFOT = 1;
          zhesv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zhesv_rook('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zhesv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zhesv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zhesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
-         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'HK' ) ) {
 
@@ -534,253 +534,253 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'ZHESV_RK';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESV_RK';
+         infoc.INFOT = 1;
          zhesv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zhesv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zhesv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zhesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zhesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
-         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'HA' ) ) {
 
          // ZHESV_AASEN
 
-         SRNAMT = 'ZHESV_AA';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESV_AA';
+         infoc.INFOT = 1;
          zhesv_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesv_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesv_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zhesv_aa('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zhesv_aa('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zhesv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
-         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'H2' ) ) {
 
          // ZHESV_AASEN_2STAGE
 
-         SRNAMT = 'ZHESV_AA_2STAGE';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHESV_AA_2STAGE';
+         infoc.INFOT = 1;
          zhesv_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhesv_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhesv_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zhesv_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zhesv_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zhesv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zhesv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
-         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
+         chkxer('ZHESV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'SA' ) ) {
 
          // ZSYSV_AASEN
 
-         SRNAMT = 'ZSYSV_AA';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSV_AA';
+         infoc.INFOT = 1;
          zsysv_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysv_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysv_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zsysv_aa('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zsysv_aa('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zsysv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
-         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
+         chkxer('ZSYSV_AA', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'S2' ) ) {
 
          // ZSYSV_AASEN_2STAGE
 
-         SRNAMT = 'ZSYSV_AA_2STAGE';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSV_AA_2STAGE';
+         infoc.INFOT = 1;
          zsysv_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysv_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysv_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zsysv_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zsysv_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zsysv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zsysv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
+         chkxer('ZSYSV_AA_2STAGE', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // ZHPSV
 
-         SRNAMT = 'ZHPSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHPSV ';
+         infoc.INFOT = 1;
          zhpsv('/', 0, 0, A, IP, B, 1, INFO );
-         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhpsv('U', -1, 0, A, IP, B, 1, INFO );
-         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhpsv('U', 0, -1, A, IP, B, 1, INFO );
-         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zhpsv('U', 2, 0, A, IP, B, 1, INFO );
-         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZHPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZHPSVX
 
-         SRNAMT = 'ZHPSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZHPSVX';
+         infoc.INFOT = 1;
          zhpsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zhpsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zhpsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zhpsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zhpsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zhpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZHPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // ZSYSV
 
-         SRNAMT = 'ZSYSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSV ';
+         infoc.INFOT = 1;
          zsysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zsysv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zsysv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zsysv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zsysv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
-         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZSYSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZSYSVX
 
-         SRNAMT = 'ZSYSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSVX';
+         infoc.INFOT = 1;
          zsysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zsysvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zsysvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zsysvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18;
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 18;
          zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
-         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZSYSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // ZSYSV_ROOK
 
-         SRNAMT = 'ZSYSV_ROOK';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSV_ROOK';
+         infoc.INFOT = 1;
          zsysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zsysv_rook('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zsysv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
-         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZSYSV_ROOK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
 
       } else if ( lsamen( 2, C2, 'SK' ) ) {
@@ -795,73 +795,73 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'ZSYSV_RK';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSYSV_RK';
+         infoc.INFOT = 1;
          zsysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zsysv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zsysv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zsysv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zsysv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
-         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
+         chkxer('ZSYSV_RK', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // ZSPSV
 
-         SRNAMT = 'ZSPSV ';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSPSV ';
+         infoc.INFOT = 1;
          zspsv('/', 0, 0, A, IP, B, 1, INFO );
-         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zspsv('U', -1, 0, A, IP, B, 1, INFO );
-         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zspsv('U', 0, -1, A, IP, B, 1, INFO );
-         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          zspsv('U', 2, 0, A, IP, B, 1, INFO );
-         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
+         chkxer('ZSPSV ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
          // ZSPSVX
 
-         SRNAMT = 'ZSPSVX';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZSPSVX';
+         infoc.INFOT = 1;
          zspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zspsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zspsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zspsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zspsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zspsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
-         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
+         chkxer('ZSPSVX', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       }
 
       // Print a summary line.
 
-      if ( OK ) {
+      if ( infoc.OK ) {
          WRITE( NOUT, FMT = 9999 )PATH;
       } else {
          WRITE( NOUT, FMT = 9998 )PATH;

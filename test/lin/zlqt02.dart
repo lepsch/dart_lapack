@@ -35,10 +35,10 @@
       // INTRINSIC DBLE, DCMPLX, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -51,7 +51,7 @@
 
       // Generate the first n columns of the matrix Q
 
-      SRNAMT = 'ZUNGLQ';
+     srnamc.SRNAMT = 'ZUNGLQ';
       zunglq(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L(1:k,1:m)

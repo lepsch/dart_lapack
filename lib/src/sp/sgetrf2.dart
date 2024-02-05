@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE SGETRF2( M, N, A, LDA, IPIV, INFO );
+      void sgetrf2( M, N, A, LDA, IPIV, INFO );
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

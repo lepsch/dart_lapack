@@ -34,12 +34,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -75,7 +75,7 @@
 
          // CGETRF
 
-         SRNAMT = 'CGETRF';
+        srnamc.SRNAMT = 'CGETRF';
          INFOT = 1;
          cgetrf(-1, 0, A, 1, IP, INFO );
          chkxer('CGETRF', INFOT, NOUT, LERR, OK );
@@ -88,7 +88,7 @@
 
          // CGETF2
 
-         SRNAMT = 'CGETF2';
+        srnamc.SRNAMT = 'CGETF2';
          INFOT = 1;
          cgetf2(-1, 0, A, 1, IP, INFO );
          chkxer('CGETF2', INFOT, NOUT, LERR, OK );
@@ -101,7 +101,7 @@
 
          // CGETRI
 
-         SRNAMT = 'CGETRI';
+        srnamc.SRNAMT = 'CGETRI';
          INFOT = 1;
          cgetri(-1, A, 1, IP, W, 1, INFO );
          chkxer('CGETRI', INFOT, NOUT, LERR, OK );
@@ -114,7 +114,7 @@
 
          // CGETRS
 
-         SRNAMT = 'CGETRS';
+        srnamc.SRNAMT = 'CGETRS';
          INFOT = 1;
          cgetrs('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGETRS', INFOT, NOUT, LERR, OK );
@@ -133,7 +133,7 @@
 
          // CGERFS
 
-         SRNAMT = 'CGERFS';
+        srnamc.SRNAMT = 'CGERFS';
          INFOT = 1;
          cgerfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CGERFS', INFOT, NOUT, LERR, OK );
@@ -160,7 +160,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'CGERFSX';
+        srnamc.SRNAMT = 'CGERFSX';
          INFOT = 1;
          cgerfsx('/', EQ, 0, 0, A, 1, AF, 1, IP, RS, CS, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
          chkxer('CGERFSX', INFOT, NOUT, LERR, OK );
@@ -191,7 +191,7 @@
 
          // CGECON
 
-         SRNAMT = 'CGECON';
+        srnamc.SRNAMT = 'CGECON';
          INFOT = 1;
          cgecon('/', 0, A, 1, ANRM, RCOND, W, R, INFO );
          chkxer('CGECON', INFOT, NOUT, LERR, OK );
@@ -204,7 +204,7 @@
 
          // CGEEQU
 
-         SRNAMT = 'CGEEQU';
+        srnamc.SRNAMT = 'CGEEQU';
          INFOT = 1;
          cgeequ(-1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('CGEEQU', INFOT, NOUT, LERR, OK );
@@ -217,7 +217,7 @@
 
          // CGEEQUB
 
-         SRNAMT = 'CGEEQUB';
+        srnamc.SRNAMT = 'CGEEQUB';
          INFOT = 1;
          cgeequb(-1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('CGEEQUB', INFOT, NOUT, LERR, OK );
@@ -235,7 +235,7 @@
 
          // CGBTRF
 
-         SRNAMT = 'CGBTRF';
+        srnamc.SRNAMT = 'CGBTRF';
          INFOT = 1;
          cgbtrf(-1, 0, 0, 0, A, 1, IP, INFO );
          chkxer('CGBTRF', INFOT, NOUT, LERR, OK );
@@ -254,7 +254,7 @@
 
          // CGBTF2
 
-         SRNAMT = 'CGBTF2';
+        srnamc.SRNAMT = 'CGBTF2';
          INFOT = 1;
          cgbtf2(-1, 0, 0, 0, A, 1, IP, INFO );
          chkxer('CGBTF2', INFOT, NOUT, LERR, OK );
@@ -273,7 +273,7 @@
 
          // CGBTRS
 
-         SRNAMT = 'CGBTRS';
+        srnamc.SRNAMT = 'CGBTRS';
          INFOT = 1;
          cgbtrs('/', 0, 0, 0, 1, A, 1, IP, B, 1, INFO );
          chkxer('CGBTRS', INFOT, NOUT, LERR, OK );
@@ -298,7 +298,7 @@
 
          // CGBRFS
 
-         SRNAMT = 'CGBRFS';
+        srnamc.SRNAMT = 'CGBRFS';
          INFOT = 1;
          cgbrfs('/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CGBRFS', INFOT, NOUT, LERR, OK );
@@ -331,7 +331,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'CGBRFSX';
+        srnamc.SRNAMT = 'CGBRFSX';
          INFOT = 1;
          cgbrfsx('/', EQ, 0, 0, 0, 0, A, 1, AF, 1, IP, RS, CS, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS,  W, R, INFO );
          chkxer('CGBRFSX', INFOT, NOUT, LERR, OK );
@@ -370,7 +370,7 @@
 
          // CGBCON
 
-         SRNAMT = 'CGBCON';
+        srnamc.SRNAMT = 'CGBCON';
          INFOT = 1;
          cgbcon('/', 0, 0, 0, A, 1, IP, ANRM, RCOND, W, R, INFO );
          chkxer('CGBCON', INFOT, NOUT, LERR, OK );
@@ -389,7 +389,7 @@
 
          // CGBEQU
 
-         SRNAMT = 'CGBEQU';
+        srnamc.SRNAMT = 'CGBEQU';
          INFOT = 1;
          cgbequ(-1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('CGBEQU', INFOT, NOUT, LERR, OK );
@@ -408,7 +408,7 @@
 
          // CGBEQUB
 
-         SRNAMT = 'CGBEQUB';
+        srnamc.SRNAMT = 'CGBEQUB';
          INFOT = 1;
          cgbequb(-1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('CGBEQUB', INFOT, NOUT, LERR, OK );

@@ -56,12 +56,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -256,7 +256,7 @@
                                  clacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'CGELS ';
+                             srnamc.SRNAMT = 'CGELS ';
                               cgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
                               if (INFO != 0) alaerh( PATH, 'CGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -346,7 +346,7 @@
                                  clacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
-                              SRNAMT = 'CGELST';
+                             srnamc.SRNAMT = 'CGELST';
                               cgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
                               if (INFO != 0) alaerh( PATH, 'CGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -442,7 +442,7 @@
                                     clacpy('Full', M, N, COPYA, LDA, A, LDA );
                                     clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
-                                 SRNAMT = 'CGETSLS ';
+                                srnamc.SRNAMT = 'CGETSLS ';
                                  cgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO != 0 ) CALL ALAERH( PATH, 'CGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 5: Check correctness of results
@@ -521,7 +521,7 @@
                            IWORK[J] = 0;
                         } // 70
 
-                        SRNAMT = 'CGELSY';
+                       srnamc.SRNAMT = 'CGELSY';
                         cgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'CGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 2*MNMIN+NB*NB+NB*max(N,NRHS)
@@ -558,7 +558,7 @@
 
                         clacpy('Full', M, N, COPYA, LDA, A, LDA );
                         clacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
-                        SRNAMT = 'CGELSS';
+                       srnamc.SRNAMT = 'CGELSS';
                         cgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, INFO );
 
                         if (INFO != 0) alaerh( PATH, 'CGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -601,7 +601,7 @@
                         clacpy('Full', M, N, COPYA, LDA, A, LDA );
                         clacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
-                        SRNAMT = 'CGELSD';
+                       srnamc.SRNAMT = 'CGELSD';
                         cgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, IWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'CGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 15:  Compute relative error in svd

@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -121,7 +121,7 @@
 
                // Generate a matrix with SLATMS.
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS and handle error.
@@ -228,7 +228,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'SSYTRF';
+                 srnamc.SRNAMT = 'SSYTRF';
                   ssytrf(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -274,7 +274,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'SSYTRI2';
+                    srnamc.SRNAMT = 'SSYTRI2';
                      LWORK = (N+NB+1)*(NB+3);
                      ssytri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
@@ -324,11 +324,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'SSYTRS';
+                    srnamc.SRNAMT = 'SSYTRS';
                      ssytrs(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from SSYTRS and handle error.
@@ -347,11 +347,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'DSYTRS2';
+                    srnamc.SRNAMT = 'DSYTRS2';
                      ssytrs2(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO );
 
                      // Check error code from SSYTRS2 and handle error.
@@ -372,7 +372,7 @@
 // +    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'SSYRFS';
+                    srnamc.SRNAMT = 'SSYRFS';
                      ssyrfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check error code from SSYRFS and handle error.
@@ -403,7 +403,7 @@
 
                   } // 140
                   ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'SSYCON';
+                 srnamc.SRNAMT = 'SSYCON';
                   ssycon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from SSYCON and handle error.

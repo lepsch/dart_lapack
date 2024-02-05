@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrql(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -25,21 +27,21 @@
       // EXTERNAL ALAESM, CHKXER, DGEQL2, DGEQLF, DGEQLS, DORG2L, DORGQL, DORM2L, DORMQL
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -52,188 +54,188 @@
          W[J] = 0.0;
          X[J] = 0.0;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for QL factorization
 
       // DGEQLF
 
-      SRNAMT = 'DGEQLF';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DGEQLF';
+      infoc.INFOT = 1;
       dgeqlf(-1, 0, A, 1, B, W, 1, INFO );
-      chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DGEQLF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgeqlf(0, -1, A, 1, B, W, 1, INFO );
-      chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DGEQLF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgeqlf(2, 1, A, 1, B, W, 1, INFO );
-      chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DGEQLF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dgeqlf(1, 2, A, 1, B, W, 1, INFO );
-      chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
+      chkxer('DGEQLF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DGEQL2
 
-      SRNAMT = 'DGEQL2';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DGEQL2';
+      infoc.INFOT = 1;
       dgeql2(-1, 0, A, 1, B, W, INFO );
-      chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DGEQL2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgeql2(0, -1, A, 1, B, W, INFO );
-      chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DGEQL2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dgeql2(2, 1, A, 1, B, W, INFO );
-      chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
+      chkxer('DGEQL2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DGEQLS
 
-      SRNAMT = 'DGEQLS';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DGEQLS';
+      infoc.INFOT = 1;
       dgeqls(-1, 0, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgeqls(0, -1, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dgeqls(1, 2, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dgeqls(0, 0, -1, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dgeqls(2, 1, 0, A, 1, X, B, 2, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dgeqls(2, 1, 0, A, 2, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dgeqls(1, 1, 2, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
+      chkxer('DGEQLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DORGQL
 
-      SRNAMT = 'DORGQL';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DORGQL';
+      infoc.INFOT = 1;
       dorgql(-1, 0, 0, A, 1, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dorgql(0, -1, 0, A, 1, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dorgql(1, 2, 0, A, 1, X, W, 2, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dorgql(0, 0, -1, A, 1, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dorgql(1, 1, 2, A, 1, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dorgql(2, 1, 0, A, 1, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dorgql(2, 2, 0, A, 2, X, W, 1, INFO );
-      chkxer('DORGQL', INFOT, NOUT, LERR, OK );
+      chkxer('DORGQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DORG2L
 
-      SRNAMT = 'DORG2L';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DORG2L';
+      infoc.INFOT = 1;
       dorg2l(-1, 0, 0, A, 1, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dorg2l(0, -1, 0, A, 1, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dorg2l(1, 2, 0, A, 1, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dorg2l(0, 0, -1, A, 1, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dorg2l(2, 1, 2, A, 2, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dorg2l(2, 1, 0, A, 1, X, W, INFO );
-      chkxer('DORG2L', INFOT, NOUT, LERR, OK );
+      chkxer('DORG2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DORMQL
 
-      SRNAMT = 'DORMQL';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DORMQL';
+      infoc.INFOT = 1;
       dormql('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dormql('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dormql('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dormql('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dormql('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dormql('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dormql('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dormql('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dormql('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dormql('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dormql('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       dormql('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
-      chkxer('DORMQL', INFOT, NOUT, LERR, OK );
+      chkxer('DORMQL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DORM2L
 
-      SRNAMT = 'DORM2L';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DORM2L';
+      infoc.INFOT = 1;
       dorm2l('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dorm2l('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dorm2l('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dorm2l('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dorm2l('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dorm2l('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dorm2l('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dorm2l('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dorm2l('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dorm2l('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
-      chkxer('DORM2L', INFOT, NOUT, LERR, OK );
+      chkxer('DORM2L', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

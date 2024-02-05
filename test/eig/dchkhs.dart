@@ -13,6 +13,7 @@ import 'package:lapack/src/dorghr.dart';
 import 'package:lapack/src/dormhr.dart';
 import 'package:lapack/src/dtrevc.dart';
 import 'package:lapack/src/dtrevc3.dart';
+import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
@@ -1175,7 +1176,7 @@ void print9999(
   final Array<int> iseed,
 ) {
   print(
-    ' DCHKHS: $s returned INFO=${info.toString().padLeft(6)}.\n         N=${n.toString().padLeft(6)}, JTYPE=${ntype.toString().padLeft(6)}, ISEED=(${iseed[1].toString().padLeft(5)},${iseed[2].toString().padLeft(5)},${iseed[3].toString().padLeft(5)},${iseed[4].toString().padLeft(5)})',
+    ' DCHKHS: $s returned INFO=${info.i6}.\n         N=${n.i6}, JTYPE=${ntype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }
 
@@ -1187,7 +1188,7 @@ void print9997(
   final Array<int> iseed,
 ) {
   print(
-    ' DCHKHS: Selected $s1 Eigenvectors from $s2 do not match other eigenvectors          N=${n.toString().padLeft(6)}, JTYPE=${jtype.toString().padLeft(6)}, ISEED=(${iseed[1].toString().padLeft(5)},${iseed[2].toString().padLeft(5)},${iseed[3].toString().padLeft(5)},${iseed[4].toString().padLeft(5)})',
+    ' DCHKHS: Selected $s1 Eigenvectors from $s2 do not match other eigenvectors          N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }
 
@@ -1200,6 +1201,6 @@ void print9998(
   final Array<int> iseed,
 ) {
   print(
-    ' DCHKHS: $s1 Eigenvectors from $s2 incorrectly normalized.\n Bits of error=${error.toStringAsFixed(3).padLeft(10)},         N=${n.toString().padLeft(6)}, JTYPE=${jtype.toString().padLeft(6)}, ISEED=(${iseed[1].toString().padLeft(5)},${iseed[2].toString().padLeft(5)},${iseed[3].toString().padLeft(5)},${iseed[4].toString().padLeft(5)})',
+    ' DCHKHS: $s1 Eigenvectors from $s2 incorrectly normalized.\n Bits of error=${error.g10_3},         N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }

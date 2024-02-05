@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchksp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -49,13 +51,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -77,7 +79,7 @@
       // Test the error exits
 
       if (TSTERR) derrsy( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -115,7 +117,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -196,7 +198,7 @@
 
                NPP = N*( N+1 ) / 2;
                dcopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'DSPTRF';
+               srnamc.SRNAMT = 'DSPTRF';
                dsptrf(UPLO, N, AFAC, IWORK, INFO );
 
                // Adjust the expected value of INFO to account for
@@ -236,7 +238,7 @@
 
                if ( !TRFCON ) {
                   dcopy(NPP, AFAC, 1, AINV, 1 );
-                  SRNAMT = 'DSPTRI';
+                  srnamc.SRNAMT = 'DSPTRI';
                   dsptri(UPLO, N, AINV, IWORK, WORK, INFO );
 
                // Check error code from DSPTRI.
@@ -272,11 +274,11 @@
 // +    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'DLARHS';
+                  srnamc.SRNAMT = 'DLARHS';
                   dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'DSPTRS';
+                  srnamc.SRNAMT = 'DSPTRS';
                   dsptrs(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                // Check error code from DSPTRS.
@@ -294,7 +296,7 @@
 // +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'DSPRFS';
+                  srnamc.SRNAMT = 'DSPRFS';
                   dsprfs(UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                // Check error code from DSPRFS.
@@ -322,7 +324,7 @@
 
                } // 140
                ANORM = DLANSP( '1', UPLO, N, A, RWORK );
-               SRNAMT = 'DSPCON';
+               srnamc.SRNAMT = 'DSPCON';
                dspcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                // Check error code from DSPCON.

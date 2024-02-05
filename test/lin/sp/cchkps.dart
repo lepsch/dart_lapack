@@ -40,11 +40,11 @@
       // .. Scalars in Common ..
       int                INFOT, NUNIT;
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, CEILING
@@ -108,7 +108,7 @@
 
                   clatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'CLATMT';
+                 srnamc.SRNAMT = 'CLATMT';
                   clatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMT.
@@ -128,7 +128,7 @@
                   // of the matrix.
 
                      clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     SRNAMT = 'CPSTRF';
+                    srnamc.SRNAMT = 'CPSTRF';
 
                   // Use default tolerance
 

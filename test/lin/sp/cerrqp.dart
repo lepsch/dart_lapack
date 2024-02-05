@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX
@@ -61,7 +61,7 @@
 
          // CGEQP3
 
-         SRNAMT = 'CGEQP3';
+        srnamc.SRNAMT = 'CGEQP3';
          INFOT = 1;
          cgeqp3(-1, 0, A, 1, IP, TAU, W, LW, RW, INFO );
          chkxer('CGEQP3', INFOT, NOUT, LERR, OK );

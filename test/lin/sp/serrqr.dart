@@ -26,12 +26,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -58,7 +58,7 @@
 
       // SGEQRF
 
-      SRNAMT = 'SGEQRF';
+     srnamc.SRNAMT = 'SGEQRF';
       INFOT = 1;
       sgeqrf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('SGEQRF', INFOT, NOUT, LERR, OK );
@@ -74,7 +74,7 @@
 
       // SGEQRFP
 
-      SRNAMT = 'SGEQRFP';
+     srnamc.SRNAMT = 'SGEQRFP';
       INFOT = 1;
       sgeqrfp(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('SGEQRFP', INFOT, NOUT, LERR, OK );
@@ -90,7 +90,7 @@
 
       // SGEQR2
 
-      SRNAMT = 'SGEQR2';
+     srnamc.SRNAMT = 'SGEQR2';
       INFOT = 1;
       sgeqr2(-1, 0, A, 1, B, W, INFO );
       chkxer('SGEQR2', INFOT, NOUT, LERR, OK );
@@ -103,7 +103,7 @@
 
       // SGEQR2P
 
-      SRNAMT = 'SGEQR2P';
+     srnamc.SRNAMT = 'SGEQR2P';
       INFOT = 1;
       sgeqr2p(-1, 0, A, 1, B, W, INFO );
       chkxer('SGEQR2P', INFOT, NOUT, LERR, OK );
@@ -116,7 +116,7 @@
 
       // SORGQR
 
-      SRNAMT = 'SORGQR';
+     srnamc.SRNAMT = 'SORGQR';
       INFOT = 1;
       sorgqr(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('SORGQR', INFOT, NOUT, LERR, OK );
@@ -141,7 +141,7 @@
 
       // SORG2R
 
-      SRNAMT = 'SORG2R';
+     srnamc.SRNAMT = 'SORG2R';
       INFOT = 1;
       sorg2r(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('SORG2R', INFOT, NOUT, LERR, OK );
@@ -163,7 +163,7 @@
 
       // SORMQR
 
-      SRNAMT = 'SORMQR';
+     srnamc.SRNAMT = 'SORMQR';
       INFOT = 1;
       sormqr('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('SORMQR', INFOT, NOUT, LERR, OK );
@@ -203,7 +203,7 @@
 
       // SORM2R
 
-      SRNAMT = 'SORM2R';
+     srnamc.SRNAMT = 'SORM2R';
       INFOT = 1;
       sorm2r('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('SORM2R', INFOT, NOUT, LERR, OK );

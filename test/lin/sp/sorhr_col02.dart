@@ -40,10 +40,10 @@
       // INTRINSIC CEILING, REAL, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRMNAMC / SRNAMT
+      // COMMON / SRMNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -106,7 +106,7 @@
 
       // Factor the matrix A in the array AF.
 
-      SRNAMT = 'SGETSQRHRT';
+     srnamc.SRNAMT = 'SGETSQRHRT';
       sgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO );
 
       // End Householder reconstruction routines.
@@ -116,7 +116,7 @@
 
       slaset('Full', M, M, ZERO, ONE, Q, M );
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
@@ -156,7 +156,7 @@
 
       // Apply Q to C as Q*C = CF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
@@ -176,7 +176,7 @@
 
       // Apply Q to C as (Q**T)*C = CF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
@@ -200,7 +200,7 @@
 
       // Apply Q to D as D*Q = DF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
@@ -220,7 +220,7 @@
 
       // Apply Q to D as D*QT = DF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6

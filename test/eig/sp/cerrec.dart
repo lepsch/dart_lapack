@@ -31,12 +31,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -59,7 +59,7 @@
 
       // Test CTRSYL
 
-      SRNAMT = 'CTRSYL';
+     srnamc.SRNAMT = 'CTRSYL';
       INFOT = 1;
       ctrsyl('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
       chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
@@ -88,7 +88,7 @@
 
       // Test CTRSYL3
 
-      SRNAMT = 'CTRSYL3';
+     srnamc.SRNAMT = 'CTRSYL3';
       INFOT = 1;
       ctrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
       chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
@@ -117,7 +117,7 @@
 
       // Test CTREXC
 
-      SRNAMT = 'CTREXC';
+     srnamc.SRNAMT = 'CTREXC';
       IFST = 1;
       ILST = 1;
       INFOT = 1;
@@ -155,7 +155,7 @@
 
       // Test CTRSNA
 
-      SRNAMT = 'CTRSNA';
+     srnamc.SRNAMT = 'CTRSNA';
       INFOT = 1;
       ctrsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO );
       chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
@@ -188,7 +188,7 @@
       // Test CTRSEN
 
       SEL[1] = false;
-      SRNAMT = 'CTRSEN';
+     srnamc.SRNAMT = 'CTRSEN';
       INFOT = 1;
       ctrsen('X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
       chkxer('CTRSEN', INFOT, NOUT, LERR, OK );

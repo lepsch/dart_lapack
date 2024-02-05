@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkgb(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, A, LA, AFAC, LAFAC, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -48,13 +50,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -75,7 +77,7 @@
       // Test the error exits
 
       if (TSTERR) derrge( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       // Initialize the first value for the lower and upper bandwidths.
@@ -177,7 +179,7 @@
                         for (I = 1; I <= KOFF - 1; I++) { // 20
                            A[I] = ZERO;
                         } // 20
-                        SRNAMT = 'DLATMS';
+                        srnamc.SRNAMT = 'DLATMS';
                         dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
                         // Check the error code from DLATMS.
@@ -244,7 +246,7 @@
                         // Compute the LU factorization of the band matrix.
 
                         if (M > 0 && N > 0) dlacpy( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
-                        SRNAMT = 'DGBTRF';
+                        srnamc.SRNAMT = 'DGBTRF';
                         dgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from DGBTRF.
@@ -283,12 +285,12 @@
 
                            LDB = max( 1, N );
                            dlaset('Full', N, N, ZERO, ONE, WORK, LDB );
-                           SRNAMT = 'DGBTRS';
+                           srnamc.SRNAMT = 'DGBTRS';
                            dgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = DLANGE( 'O', N, N, WORK, LDB, RWORK );
+                           AINVNM = dlange( 'O', N, N, WORK, LDB, RWORK );
                            if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                               RCONDO = ONE;
                            } else {
@@ -298,7 +300,7 @@
                            // Compute the infinity-norm condition number of
                            // A.
 
-                           AINVNM = DLANGE( 'I', N, N, WORK, LDB, RWORK );
+                           AINVNM = dlange( 'I', N, N, WORK, LDB, RWORK );
                            if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                               RCONDI = ONE;
                            } else {
@@ -334,12 +336,12 @@
 // +    TEST 2:
                               // Solve and compute residual for op(A) * X = B.
 
-                              SRNAMT = 'DLARHS';
+                              srnamc.SRNAMT = 'DLARHS';
                               dlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                               XTYPE = 'C';
                               dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                              SRNAMT = 'DGBTRS';
+                              srnamc.SRNAMT = 'DGBTRS';
                               dgbtrs(TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO );
 
                               // Check error code from DGBTRS.
@@ -359,7 +361,7 @@
                               // Use iterative refinement to improve the
                               // solution.
 
-                              SRNAMT = 'DGBRFS';
+                              srnamc.SRNAMT = 'DGBRFS';
                               dgbrfs(TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from DGBRFS.
@@ -393,7 +395,7 @@
                               RCONDC = RCONDI;
                               NORM = 'I';
                            }
-                           SRNAMT = 'DGBCON';
+                           srnamc.SRNAMT = 'DGBCON';
                            dgbcon(NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from DGBCON.

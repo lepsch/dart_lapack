@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool         LERR, OK;
-      String       SRNAMT;
+      String      srnamc.SRNAMT;
       int          INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -133,7 +133,7 @@
 
                // Generate a matrix with SLATMS.
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS and handle error.
@@ -239,7 +239,7 @@
                   // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
-                  SRNAMT = 'SSYTRF_AA';
+                 srnamc.SRNAMT = 'SSYTRF_AA';
                   LWORK = max( 1, N*NB + N );
                   ssytrf_aa(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
@@ -305,11 +305,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'SSYTRS_AA';
+                    srnamc.SRNAMT = 'SSYTRS_AA';
                      LWORK = max( 1, 3*N-2 );
                      ssytrs_aa(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 

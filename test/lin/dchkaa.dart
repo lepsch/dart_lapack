@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void main() {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -48,17 +50,17 @@
       // EXTERNAL ALAREQ, DCHKEQ, DCHKGB, DCHKGE, DCHKGT, DCHKLQ, DCHKORHR_COL, DCHKPB, DCHKPO, DCHKPS, DCHKPP, DCHKPT, DCHKQ3, DCHKQP3RK, DCHKQL, DCHKQR, DCHKRQ, DCHKSP, DCHKSY, DCHKSY_ROOK, DCHKSY_RK, DCHKSY_AA, DCHKTB, DCHKTP, DCHKTR, DCHKTZ, DDRVGB, DDRVGE, DDRVGT, DDRVLS, DDRVPB, DDRVPO, DDRVPP, DDRVPT, DDRVSP, DDRVSY, DDRVSY_ROOK, DDRVSY_RK, DDRVSY_AA, ILAVER, DCHKLQTP, DCHKQRT, DCHKQRTP, DCHKLQT,DCHKTSQR
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
-      // ..
-      // .. Arrays in Common ..
-      int                IPARMS( 100 );
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
+      // // ..
+      // // .. Arrays in Common ..
+      // int                claenv.IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
-      // COMMON / CLAENV / IPARMS
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
+      // COMMON / CLAENV / claenv.IPARMS
       // ..
       // .. Data statements ..
       const THREQ = 2.0, INTSTR = '0123456789';

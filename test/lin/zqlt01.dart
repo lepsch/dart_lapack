@@ -35,10 +35,10 @@
       // INTRINSIC DBLE, DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -51,7 +51,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'ZGEQLF';
+     srnamc.SRNAMT = 'ZGEQLF';
       zgeqlf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -66,7 +66,7 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'ZUNGQL';
+     srnamc.SRNAMT = 'ZUNGQL';
       zungql(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L

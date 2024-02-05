@@ -50,12 +50,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -145,7 +145,7 @@
 
                      slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'SLATMS';
+                    srnamc.SRNAMT = 'SLATMS';
                      slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from SLATMS.
@@ -272,7 +272,7 @@
                            // Form the inverse of A.
 
                            slaset('Full', N, N, ZERO, ONE, A, LDA );
-                           SRNAMT = 'SPBTRS';
+                          srnamc.SRNAMT = 'SPBTRS';
                            spbtrs(UPLO, N, KD, N, AFAC, LDAB, A, LDA, INFO );
 
                            // Compute the 1-norm condition number of A.
@@ -292,7 +292,7 @@
                         // Form an exact solution and set the right hand
                         // side.
 
-                        SRNAMT = 'SLARHS';
+                       srnamc.SRNAMT = 'SLARHS';
                         slarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -307,7 +307,7 @@
                            slacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
                            slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                           SRNAMT = 'SPBSV ';
+                          srnamc.SRNAMT = 'SPBSV ';
                            spbsv(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                            // Check error code from SPBSV .
@@ -363,7 +363,7 @@
                         // Solve the system and compute the condition
                         // number and error bounds using SPBSVX.
 
-                        SRNAMT = 'SPBSVX';
+                       srnamc.SRNAMT = 'SPBSVX';
                         spbsvx(FACT, UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                         // Check the error code from SPBSVX.

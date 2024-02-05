@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void main() {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -40,12 +42,12 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
-      String             SRNAMT;
+      // int                infoc.INFOT, infoc.NOUTC;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
-      // COMMON /SRNAMC/SRNAMT
+      // COMMON /infoc/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
+      // COMMON /srnamc/srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['ZGEMV ', 'ZGBMV ', 'ZHEMV ', 'ZHBMV ', 'ZHPMV ', 'ZTRMV ', 'ZTBMV ', 'ZTPMV ', 'ZTRSV ', 'ZTBSV ', 'ZTPSV ', 'ZGERC ', 'ZGERU ', 'ZHER  ', 'ZHPR  ', 'ZHER2 ', 'ZHPR2 '];
       // .. Executable Statements ..
@@ -55,7 +57,7 @@
       READ( NIN, FMT = * )SUMMRY;
       READ( NIN, FMT = * )NOUT;
       OPEN( NOUT, FILE = SUMMRY, STATUS = 'UNKNOWN' );
-      NOUTC = NOUT;
+      infoc.NOUTC = NOUT;
 
       // Read name and unit number for snapshot output file and open file.
 
@@ -208,15 +210,15 @@
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9983 )SNAMES( ISNUM );
          } else {
-            SRNAMT = SNAMES( ISNUM );
+            srnamc.SRNAMT = SNAMES( ISNUM );
             // Test error exits.
             if ( TSTERR ) {
                zchke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * );
             }
             // Test computations.
-            INFOT = 0;
-            OK = true;
+            infoc.INFOT = 0;
+            infoc.OK = true;
             FATAL = false;
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 170, 180, 180, 190, 190 )ISNUM;
             // Test ZGEMV, 01, and ZGBMV, 02.
@@ -318,10 +320,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'NTC';
       // .. Executable Statements ..
@@ -455,7 +457,7 @@
 
                               // Check if error-exit was taken incorrectly.
 
-                              if ( !OK ) {
+                              if ( !infoc.OK ) {
                                  WRITE( NOUT, FMT = 9993 );
                                  FATAL = true;
                                  GO TO 130;
@@ -628,10 +630,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
       // .. Executable Statements ..
@@ -758,7 +760,7 @@
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( !OK ) {
+                           if ( !infoc.OK ) {
                               WRITE( NOUT, FMT = 9992 );
                               FATAL = true;
                               GO TO 120;
@@ -923,10 +925,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN';
       // .. Executable Statements ..
@@ -1059,7 +1061,7 @@
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( !OK ) {
+                        if ( !infoc.OK ) {
                            WRITE( NOUT, FMT = 9992 );
                            FATAL = true;
                            GO TO 120;
@@ -1219,10 +1221,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, MIN
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Executable Statements ..
       CONJ = SNAME( 5: 5 ) == 'C';
       // Define the number of arguments.
@@ -1315,7 +1317,7 @@
 
                      // Check if error-exit was taken incorrectly.
 
-                     if ( !OK ) {
+                     if ( !infoc.OK ) {
                         WRITE( NOUT, FMT = 9993 );
                         FATAL = true;
                         GO TO 140;
@@ -1458,10 +1460,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
       // .. Executable Statements ..
@@ -1548,7 +1550,7 @@
 
                   // Check if error-exit was taken incorrectly.
 
-                  if ( !OK ) {
+                  if ( !infoc.OK ) {
                      WRITE( NOUT, FMT = 9992 );
                      FATAL = true;
                      GO TO 120;
@@ -1706,10 +1708,10 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
       // .. Executable Statements ..
@@ -1812,7 +1814,7 @@
 
                      // Check if error-exit was taken incorrectly.
 
-                     if ( !OK ) {
+                     if ( !infoc.OK ) {
                         WRITE( NOUT, FMT = 9992 );
                         FATAL = true;
                         GO TO 160;
@@ -1942,7 +1944,7 @@
  9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',', F4.1, '), X,', I2, ', Y,', I2, ', A,', I3, ')             ', '            .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
       }
-      void zchke(ISNUM, SRNAMT, NOUT ) {
+      void zchke(ISNUM, srnamc.SRNAMT, NOUT ) {
 
 // Tests the error exits from the Level 2 Blas.
 // Requires a special version of the error-handling routine XERBLA.
@@ -1956,10 +1958,10 @@
 
       // .. Scalar Arguments ..
       int                ISNUM, NOUT;
-      String             SRNAMT;
+      String             srnamc.SRNAMT;
       // .. Scalars in Common ..
-      int                INFOT, NOUTC;
-      bool               LERR, OK;
+      int                infoc.INFOT, infoc.NOUTC;
+      bool               infoc.LERR, infoc.OK;
       // .. Local Scalars ..
       Complex         ALPHA, BETA;
       double             RALPHA;
@@ -1968,309 +1970,309 @@
       // .. External Subroutines ..
       // EXTERNAL CHKXER, ZGBMV, ZGEMV, ZGERC, ZGERU, ZHBMV, ZHEMV, ZHER, ZHER2, ZHPMV, ZHPR, ZHPR2, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUTC, OK, LERR
+      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Executable Statements ..
-      // OK is set to false by the special version of XERBLA or by CHKXER
+      // infoc.OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
-      OK = true;
-      // LERR is set to true by the special version of XERBLA each time
+      infoc.OK = true;
+      // infoc.LERR is set to true by the special version of XERBLA each time
       // it is called, and is then tested and re-set by CHKXER.
-      LERR = false;
+      infoc.LERR = false;
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 )ISNUM;
-   10 INFOT = 1;
+   10 infoc.INFOT = 1;
       zgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgemv('N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zgemv('N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zgemv('N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zgemv('N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       zgemv('N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   20 INFOT = 1;
+   20 infoc.INFOT = 1;
       zgbmv('/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgbmv('N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zgbmv('N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgbmv('N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgbmv('N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zgbmv('N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   30 INFOT = 1;
+   30 infoc.INFOT = 1;
       zhemv('/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zhemv('U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zhemv('U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zhemv('U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zhemv('U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   40 INFOT = 1;
+   40 infoc.INFOT = 1;
       zhbmv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zhbmv('U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zhbmv('U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zhbmv('U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zhbmv('U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       zhbmv('U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   50 INFOT = 1;
+   50 infoc.INFOT = 1;
       zhpmv('/', 0, ALPHA, A, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zhpmv('U', -1, ALPHA, A, X, 1, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zhpmv('U', 0, ALPHA, A, X, 0, BETA, Y, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zhpmv('U', 0, ALPHA, A, X, 1, BETA, Y, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   60 INFOT = 1;
+   60 infoc.INFOT = 1;
       ztrmv('/', 'N', 'N', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztrmv('U', '/', 'N', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztrmv('U', 'N', '/', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztrmv('U', 'N', 'N', -1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       ztrmv('U', 'N', 'N', 2, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       ztrmv('U', 'N', 'N', 0, A, 1, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   70 INFOT = 1;
+   70 infoc.INFOT = 1;
       ztbmv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztbmv('U', '/', 'N', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztbmv('U', 'N', '/', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztbmv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       ztbmv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       ztbmv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       ztbmv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   80 INFOT = 1;
+   80 infoc.INFOT = 1;
       ztpmv('/', 'N', 'N', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztpmv('U', '/', 'N', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztpmv('U', 'N', '/', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztpmv('U', 'N', 'N', -1, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       ztpmv('U', 'N', 'N', 0, A, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-   90 INFOT = 1;
+   90 infoc.INFOT = 1;
       ztrsv('/', 'N', 'N', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztrsv('U', '/', 'N', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztrsv('U', 'N', '/', 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztrsv('U', 'N', 'N', -1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       ztrsv('U', 'N', 'N', 2, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       ztrsv('U', 'N', 'N', 0, A, 1, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  100 INFOT = 1;
+  100 infoc.INFOT = 1;
       ztbsv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztbsv('U', '/', 'N', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztbsv('U', 'N', '/', 0, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztbsv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       ztbsv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       ztbsv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       ztbsv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  110 INFOT = 1;
+  110 infoc.INFOT = 1;
       ztpsv('/', 'N', 'N', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       ztpsv('U', '/', 'N', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       ztpsv('U', 'N', '/', 0, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ztpsv('U', 'N', 'N', -1, A, X, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       ztpsv('U', 'N', 'N', 0, A, X, 0 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  120 INFOT = 1;
+  120 infoc.INFOT = 1;
       zgerc(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgerc(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgerc(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zgerc(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgerc(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  130 INFOT = 1;
+  130 infoc.INFOT = 1;
       zgeru(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeru(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgeru(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zgeru(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgeru(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  140 INFOT = 1;
+  140 infoc.INFOT = 1;
       zher('/', 0, RALPHA, X, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zher('U', -1, RALPHA, X, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zher('U', 0, RALPHA, X, 0, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zher('U', 2, RALPHA, X, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  150 INFOT = 1;
+  150 infoc.INFOT = 1;
       zhpr('/', 0, RALPHA, X, 1, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zhpr('U', -1, RALPHA, X, 1, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zhpr('U', 0, RALPHA, X, 0, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  160 INFOT = 1;
+  160 infoc.INFOT = 1;
       zher2('/', 0, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zher2('U', -1, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zher2('U', 0, ALPHA, X, 0, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zher2('U', 0, ALPHA, X, 1, Y, 0, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zher2('U', 2, ALPHA, X, 1, Y, 1, A, 1 );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       GO TO 180;
-  170 INFOT = 1;
+  170 infoc.INFOT = 1;
       zhpr2('/', 0, ALPHA, X, 1, Y, 1, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zhpr2('U', -1, ALPHA, X, 1, Y, 1, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zhpr2('U', 0, ALPHA, X, 0, Y, 1, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zhpr2('U', 0, ALPHA, X, 1, Y, 0, A );
-      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
+      chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-  180 IF( OK )THEN;
-         WRITE( NOUT, FMT = 9999 )SRNAMT;
+  180 IF( infoc.OK )THEN;
+         WRITE( NOUT, FMT = 9999 )srnamc.SRNAMT;
       } else {
-         WRITE( NOUT, FMT = 9998 )SRNAMT;
+         WRITE( NOUT, FMT = 9998 )srnamc.SRNAMT;
       }
       return;
 
@@ -2721,7 +2723,7 @@
       DDIFF = X - Y;
       return;
       }
-      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
+      void chkxer(srnamc.SRNAMT, infoc.INFOT, NOUT, infoc.LERR, infoc.OK ) {
 
 // Tests whether XERBLA has detected an error when it should.
 
@@ -2732,15 +2734,15 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Scalar Arguments ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
       // .. Executable Statements ..
-      if ( !LERR ) {
-         WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT;
-         OK = false;
+      if ( !infoc.LERR ) {
+         WRITE( NOUT, FMT = 9999 )infoc.INFOT, srnamc.SRNAMT;
+         infoc.OK = false;
       }
-      LERR = false;
+      infoc.LERR = false;
       return;
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' );
@@ -2798,25 +2800,25 @@
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
       // .. Common blocks ..
-      // COMMON /INFOC/INFOT, NOUT, OK, LERR
-      // COMMON /SRNAMC/SRNAMT
+      // COMMON /INFOC/infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON /SRNAMC/srnamc.SRNAMT
       // .. Executable Statements ..
-      LERR = true;
-      if ( INFO != INFOT ) {
-         if ( INFOT != 0 ) {
-            WRITE( NOUT, FMT = 9999 )INFO, INFOT;
+      infoc.LERR = true;
+      if ( INFO != infoc.INFOT ) {
+         if ( infoc.INFOT != 0 ) {
+            WRITE( NOUT, FMT = 9999 )INFO, infoc.INFOT;
          } else {
             WRITE( NOUT, FMT = 9997 )INFO;
          }
-         OK = false;
+         infoc.OK = false;
       }
-      if ( SRNAME != SRNAMT ) {
-         WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT;
-         OK = false;
+      if ( SRNAME != srnamc.SRNAMT ) {
+         WRITE( NOUT, FMT = 9998 )SRNAME, srnamc.SRNAMT;
+         infoc.OK = false;
       }
       return;
 

@@ -48,13 +48,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZCOPY, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLASET, ZLATBS, ZLATTB, ZTBCON, ZTBRFS, ZTBSV, ZTBT02, ZTBT03, ZTBT05, ZTBT06, ZTBTRS
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
@@ -79,7 +79,7 @@
       // Test the error exits
 
       if (TSTERR) zerrtr( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
 
@@ -126,7 +126,7 @@
 
                   // Call ZLATTB to generate a triangular test matrix.
 
-                  SRNAMT = 'ZLATTB';
+                 srnamc.SRNAMT = 'ZLATTB';
                   zlattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, RWORK, INFO );
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -189,12 +189,12 @@
 // +    TEST 1
                      // Solve and compute residual for op(A)*x = b.
 
-                        SRNAMT = 'ZLARHS';
+                       srnamc.SRNAMT = 'ZLARHS';
                         zlarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'ZTBTRS';
+                       srnamc.SRNAMT = 'ZTBTRS';
                         ztbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
 
                      // Check error code from ZTBTRS.
@@ -212,7 +212,7 @@
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
-                        SRNAMT = 'ZTBRFS';
+                       srnamc.SRNAMT = 'ZTBRFS';
                         ztbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from ZTBRFS.
@@ -247,7 +247,7 @@
                         NORM = 'I';
                         RCONDC = RCONDI;
                      }
-                     SRNAMT = 'ZTBCON';
+                    srnamc.SRNAMT = 'ZTBCON';
                      ztbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from ZTBCON.
@@ -289,13 +289,13 @@
 
                      // Call ZLATTB to generate a triangular test matrix.
 
-                     SRNAMT = 'ZLATTB';
+                    srnamc.SRNAMT = 'ZLATTB';
                      zlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, RWORK, INFO );
 
 // +    TEST 7
                      // Solve the system op(A)*x = b
 
-                     SRNAMT = 'ZLATBS';
+                    srnamc.SRNAMT = 'ZLATBS';
                      zcopy(N, X, 1, B, 1 );
                      zlatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 

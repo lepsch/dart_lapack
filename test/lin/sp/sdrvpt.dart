@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
@@ -100,7 +100,7 @@
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from SLATMS.
@@ -273,7 +273,7 @@
 
                   // Factor A as L*D*L' and solve the system A*X = B.
 
-                  SRNAMT = 'SPTSV ';
+                 srnamc.SRNAMT = 'SPTSV ';
                   sptsv(N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                   // Check error code from SPTSV .
@@ -329,7 +329,7 @@
                // Solve the system and compute the condition number and
                // error bounds using SPTSVX.
 
-               SRNAMT = 'SPTSVX';
+              srnamc.SRNAMT = 'SPTSVX';
                sptsvx(FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO );
 
                // Check the error code from SPTSVX.

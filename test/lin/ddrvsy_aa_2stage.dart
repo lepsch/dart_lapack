@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvsy_aa_2stage(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -46,13 +48,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, DERRVX, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DSYSV_AA_2STAGE, DPOT02, DSYTRF_AA_2STAGE
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
@@ -85,7 +87,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -128,7 +130,7 @@
 
                // Generate a matrix with DLATMS.
 
-                  SRNAMT = 'DLATMS';
+                  srnamc.SRNAMT = 'DLATMS';
                   dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from DLATMS and handle error.
@@ -218,7 +220,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'DLARHS';
+                  srnamc.SRNAMT = 'DLARHS';
                   dlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -230,7 +232,7 @@
 
                      // Factor the matrix and solve the system using DSYSV_AA.
 
-                     SRNAMT = 'DSYSV_AA_2STAGE ';
+                     srnamc.SRNAMT = 'DSYSV_AA_2STAGE ';
                      LWORK = min( max( 1, N*NB ), 3*NMAX*NMAX );
                      dsysv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, max( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
 

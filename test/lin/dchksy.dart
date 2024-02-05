@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchksy(DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -48,13 +50,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -76,7 +78,7 @@
       // Test the error exits
 
       if (TSTERR) derrsy( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -122,7 +124,7 @@
 
                // Generate a matrix with DLATMS.
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS and handle error.
@@ -228,7 +230,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'DSYTRF';
+                  srnamc.SRNAMT = 'DSYTRF';
                   dsytrf(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -274,7 +276,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'DSYTRI2';
+                     srnamc.SRNAMT = 'DSYTRI2';
                      LWORK = (N+NB+1)*(NB+3);
                      dsytri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
@@ -324,11 +326,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'DSYTRS';
+                     srnamc.SRNAMT = 'DSYTRS';
                      dsytrs(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from DSYTRS and handle error.
@@ -348,11 +350,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'DSYTRS2';
+                     srnamc.SRNAMT = 'DSYTRS2';
                      dsytrs2(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO );
 
                      // Check error code from DSYTRS2 and handle error.
@@ -373,7 +375,7 @@
 // +    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'DSYRFS';
+                     srnamc.SRNAMT = 'DSYRFS';
                      dsyrfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check error code from DSYRFS and handle error.
@@ -404,7 +406,7 @@
 
                   } // 140
                   ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'DSYCON';
+                  srnamc.SRNAMT = 'DSYCON';
                   dsycon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from DSYCON and handle error.

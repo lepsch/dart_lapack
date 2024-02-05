@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void main() {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -9,56 +11,56 @@
       int              NOUT;
       const            NOUT=6;
       // .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N;
-      bool             PASS;
+      // int              combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      // bool             combla.PASS;
       // .. Local Scalars ..
       double           SFAC;
       int              IC;
       // .. External Subroutines ..
       // EXTERNAL CHECK1, CHECK2, HEADER
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /combla/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Data statements ..
       const SFAC = 9.765625e-4;
       // .. Executable Statements ..
       WRITE (NOUT,99999);
       for (IC = 1; IC <= 10; IC++) { // 20
-         ICASE = IC;
+         combla.ICASE = IC;
          header();
 
-         // Initialize PASS, INCX, INCY, and MODE for a new case.
-         // The value 9999 for INCX, INCY or MODE will appear in the
+         // Initialize combla.PASS, combla.INCX, combla.INCY, and combla.MODE for a new case.
+         // The value 9999 for combla.INCX, combla.INCY or combla.MODE will appear in the
          // detailed  output, if any, for cases that do not involve
          // these parameters.
 
-         PASS = true;
-         INCX = 9999;
-         INCY = 9999;
-         MODE = 9999;
-         if (ICASE <= 5) {
+         combla.PASS = true;
+         combla.INCX = 9999;
+         combla.INCY = 9999;
+         combla.MODE = 9999;
+         if (combla.ICASE <= 5) {
             check2(SFAC);
-         } else if (ICASE >= 6) {
+         } else if (combla.ICASE >= 6) {
             check1(SFAC);
          }
          // -- Print
-         if (PASS) WRITE (NOUT,99998);
+         if (combla.PASS) WRITE (NOUT,99998);
       } // 20
       STOP;
 
 99999 FORMAT (' Complex BLAS Test Program Results',/1X)
-99998 FORMAT ('                                    ----- PASS -----')
+99998 FORMAT ('                                    ----- combla.PASS -----')
       }
       void header() {
       // .. Parameters ..
       int              NOUT;
       const            NOUT=6;
       // .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N;
-      bool             PASS;
+      int              combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      bool             combla.PASS;
       // .. Local Arrays ..
       String           L(10);
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Data statements ..
       DATA             L(1)/'ZDOTC '/;
       DATA             L(2)/'ZDOTU '/;
@@ -71,7 +73,7 @@
       DATA             L(9)/'ZDSCAL'/;
       DATA             L(10)/'IZAMAX'/;
       // .. Executable Statements ..
-      WRITE (NOUT,99999) ICASE, L(ICASE);
+      WRITE (NOUT,99999) combla.ICASE, L(combla.ICASE);
       return;
 
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
@@ -84,8 +86,8 @@
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N;
-      bool              PASS;
+      int               combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      bool              combla.PASS;
       // .. Local Scalars ..
       Complex        CA;
       double            SA;
@@ -103,7 +105,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Data statements ..
       final (SA, CA) = (0.3, (0.4,-0.7));
       DATA              ((CV(I,J,1),I=1,8),J=1,5)/(0.1,0.1), (1.0,2.0), (1.0,2.0), (1.0,2.0), (1.0,2.0), (1.0,2.0), (1.0,2.0), (1.0,2.0), (0.3,-0.4), (3.0,4.0), (3.0,4.0), (3.0,4.0), (3.0,4.0), (3.0,4.0), (3.0,4.0), (3.0,4.0), (0.1,-0.3), (0.5,-0.1), (5.0,6.0), (5.0,6.0), (5.0,6.0), (5.0,6.0), (5.0,6.0), (5.0,6.0), (0.1,0.1), (-0.6,0.1), (0.1,-0.3), (7.0,8.0), (7.0,8.0), (7.0,8.0), (7.0,8.0), (7.0,8.0), (0.3,0.1), (0.5,0.0), (0.0,0.5), (0.0,0.2), (2.0,3.0), (2.0,3.0), (2.0,3.0), (2.0,3.0)/;
@@ -118,58 +120,58 @@
       const ITRUE3 = [0, 1, 2, 2, 2];
       const ITRUEC = [0, 1, 1, 1, 1];
       // .. Executable Statements ..
-      for (INCX = 1; INCX <= 2; INCX++) { // 60
+      for (combla.INCX = 1; combla.INCX <= 2; combla.INCX++) { // 60
          for (NP1 = 1; NP1 <= 5; NP1++) { // 40
-            N = NP1 - 1;
-            LEN = 2*max(N,1);
+            combla.N = NP1 - 1;
+            LEN = 2*max(combla.N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
-               CX[I] = CV(I,NP1,INCX);
+               CX[I] = CV(I,NP1,combla.INCX);
             } // 20
-            if (ICASE == 6) {
+            if (combla.ICASE == 6) {
                // .. DZNRM2 ..
                // Test scaling when some entries are tiny or huge
-               zb1nrm2(N,(INCX-2)*2,THRESH);
-               zb1nrm2(N,INCX,THRESH);
+               zb1nrm2(combla.N,(combla.INCX-2)*2,THRESH);
+               zb1nrm2(combla.N,combla.INCX,THRESH);
                // Test with hardcoded mid range entries
-               stest1(DZNRM2(N,CX,INCX),STRUE2(NP1),STRUE2(NP1), SFAC);
-            } else if (ICASE == 7) {
+               stest1(DZNRM2(combla.N,CX,combla.INCX),STRUE2(NP1),STRUE2(NP1), SFAC);
+            } else if (combla.ICASE == 7) {
                // .. DZASUM ..
-               stest1(DZASUM(N,CX,INCX),STRUE4(NP1),STRUE4(NP1), SFAC);
-            } else if (ICASE == 8) {
+               stest1(DZASUM(combla.N,CX,combla.INCX),STRUE4(NP1),STRUE4(NP1), SFAC);
+            } else if (combla.ICASE == 8) {
                // .. ZSCAL ..
-               zscal(N,CA,CX,INCX);
-               ctest(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC);
-            } else if (ICASE == 9) {
+               zscal(combla.N,CA,CX,combla.INCX);
+               ctest(LEN,CX,CTRUE5(1,NP1,combla.INCX),CTRUE5(1,NP1,combla.INCX), SFAC);
+            } else if (combla.ICASE == 9) {
                // .. ZDSCAL ..
-               zdscal(N,SA,CX,INCX);
-               ctest(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC);
-            } else if (ICASE == 10) {
+               zdscal(combla.N,SA,CX,combla.INCX);
+               ctest(LEN,CX,CTRUE6(1,NP1,combla.INCX),CTRUE6(1,NP1,combla.INCX), SFAC);
+            } else if (combla.ICASE == 10) {
                // .. IZAMAX ..
-               itest1(IZAMAX(N,CX,INCX),ITRUE3(NP1));
+               itest1(IZAMAX(combla.N,CX,combla.INCX),ITRUE3(NP1));
                for (I = 1; I <= LEN; I++) { // 160
                   CX[I] = (42.0,43.0);
                } // 160
-               itest1(IZAMAX(N,CX,INCX),ITRUEC(NP1));
+               itest1(IZAMAX(combla.N,CX,combla.INCX),ITRUEC(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1';
                STOP;
             }
 
          } // 40
-         if (ICASE == 10) {
-            N = 8;
+         if (combla.ICASE == 10) {
+            combla.N = 8;
             IX = 1;
-            for (I = 1; I <= N; I++) { // 180
+            for (I = 1; I <= combla.N; I++) { // 180
                CXR[IX] = CVR(I);
-               IX = IX + INCX;
+               IX = IX + combla.INCX;
             } // 180
-            itest1(IZAMAX(N,CXR,INCX),3);
+            itest1(IZAMAX(combla.N,CXR,combla.INCX),3);
          }
       } // 60
 
-      INCX = 1;
-      if (ICASE == 8) {
+      combla.INCX = 1;
+      if (combla.ICASE == 8) {
          // ZSCAL
          // Add a test for alpha equal to zero.
          CA = (0.0,0.0);
@@ -177,9 +179,9 @@
             MWPCT[I] = (0.0,0.0);
             MWPCS[I] = (1.0,1.0);
          } // 80
-         zscal(5,CA,CX,INCX);
+         zscal(5,CA,CX,combla.INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
-      } else if (ICASE == 9) {
+      } else if (combla.ICASE == 9) {
          // ZDSCAL
          // Add a test for alpha equal to zero.
          SA = 0.0;
@@ -187,7 +189,7 @@
             MWPCT[I] = (0.0,0.0);
             MWPCS[I] = (1.0,1.0);
          } // 100
-         zdscal(5,SA,CX,INCX);
+         zdscal(5,SA,CX,combla.INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
          SA = 1.0;
@@ -195,7 +197,7 @@
             MWPCT[I] = CX(I);
             MWPCS[I] = CX(I);
          } // 120
-         zdscal(5,SA,CX,INCX);
+         zdscal(5,SA,CX,combla.INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
          SA = -1.0;
@@ -203,7 +205,7 @@
             MWPCT[I] = -CX(I);
             MWPCS[I] = -CX(I);
          } // 140
-         zdscal(5,SA,CX,INCX);
+         zdscal(5,SA,CX,combla.INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
       }
       return;
@@ -215,8 +217,8 @@
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N;
-      bool              PASS;
+      int               combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      bool              combla.PASS;
       // .. Local Scalars ..
       Complex        CA;
       int               I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
@@ -231,7 +233,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Data statements ..
       const CA = [(0.4,-0.7)];
       const INCXS = [1, 2, -2, -1];
@@ -259,13 +261,13 @@
       const CSIZE2 = [(0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54)];
       // .. Executable Statements ..
       for (KI = 1; KI <= 4; KI++) { // 60
-         INCX = INCXS(KI);
-         INCY = INCYS(KI);
-         MX = (INCX).abs();
-         MY = (INCY).abs();
+         combla.INCX = INCXS(KI);
+         combla.INCY = INCYS(KI);
+         MX = (combla.INCX).abs();
+         MY = (combla.INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 40
-            N = NS(KN);
+            combla.N = NS(KN);
             KSIZE = min(2,KN);
             LENX = LENS(KN,MX);
             LENY = LENS(KN,MY);
@@ -274,42 +276,42 @@
                CX[I] = CX1(I);
                CY[I] = CY1(I);
             } // 20
-            if (ICASE == 1) {
+            if (combla.ICASE == 1) {
                // .. ZDOTC ..
-               CDOT[1] = ZDOTC(N,CX,INCX,CY,INCY);
+               CDOT[1] = ZDOTC(combla.N,CX,combla.INCX,CY,combla.INCY);
                ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE == 2) {
+            } else if (combla.ICASE == 2) {
                // .. ZDOTU ..
-               CDOT[1] = ZDOTU(N,CX,INCX,CY,INCY);
+               CDOT[1] = ZDOTU(combla.N,CX,combla.INCX,CY,combla.INCY);
                ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
-            } else if (ICASE == 3) {
+            } else if (combla.ICASE == 3) {
                // .. ZAXPY ..
-               zaxpy(N,CA,CX,INCX,CY,INCY);
+               zaxpy(combla.N,CA,CX,combla.INCX,CY,combla.INCY);
                ctest(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC);
-            } else if (ICASE == 4) {
+            } else if (combla.ICASE == 4) {
                // .. ZCOPY ..
-               zcopy(N,CX,INCX,CY,INCY);
+               zcopy(combla.N,CX,combla.INCX,CY,combla.INCY);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0);
                if (KI == 1) {
                   CX0[1] = (42.0,43.0);
                   CY0[1] = (44.0,45.0);
-                  if (N == 0) {
+                  if (combla.N == 0) {
                      CTY0[1] = CY0(1);
                   } else {
                      CTY0[1] = CX0(1);
                   }
-                  LINCX = INCX;
-                  INCX = 0;
-                  LINCY = INCY;
-                  INCY = 0;
-                  zcopy(N,CX0,INCX,CY0,INCY);
+                  LINCX = combla.INCX;
+                  combla.INCX = 0;
+                  LINCY = combla.INCY;
+                  combla.INCY = 0;
+                  zcopy(combla.N,CX0,combla.INCX,CY0,combla.INCY);
                   ctest(1,CY0,CTY0,CSIZE3,1.0);
-                  INCX = LINCX;
-                  INCY = LINCY;
+                  combla.INCX = LINCX;
+                  combla.INCY = LINCY;
                }
-            } else if (ICASE == 5) {
+            } else if (combla.ICASE == 5) {
                // .. ZSWAP ..
-               zswap(N,CX,INCX,CY,INCY);
+               zswap(combla.N,CX,combla.INCX,CY,combla.INCY);
                ctest(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0);
             } else {
@@ -340,8 +342,8 @@
       // .. Array Arguments ..
       double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
       // .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N;
-      bool             PASS;
+      int              combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      bool             combla.PASS;
       // .. Local Scalars ..
       double           SD;
       int              I;
@@ -351,7 +353,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Executable Statements ..
 
       for (I = 1; I <= LEN; I++) { // 40
@@ -360,17 +362,17 @@
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
-         if ( !PASS) GO TO 20;
+         if ( !combla.PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-         PASS = false;
+         combla.PASS = false;
          WRITE (NOUT,99999);
          WRITE (NOUT,99998);
-   20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
+   20    WRITE (NOUT,99997) combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
       } // 40
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
       void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
@@ -452,38 +454,38 @@
       // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
       // .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N;
-      bool              PASS;
+      int               combla.ICASE, combla.INCX, combla.INCY, combla.MODE, combla.N;
+      bool              combla.PASS;
       // .. Local Scalars ..
       int               ID;
       // .. Common blocks ..
-      // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
+      // COMMON /COMBLA/combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, combla.PASS
       // .. Executable Statements ..
       if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 
-      if ( !PASS) GO TO 20;
+      if ( !combla.PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
-      PASS = false;
+      combla.PASS = false;
       WRITE (NOUT,99999);
       WRITE (NOUT,99998);
    20 ID = ICOMP - ITRUE;
-      WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID;
+      WRITE (NOUT,99997) combla.ICASE, combla.N, combla.INCX, combla.INCY, combla.MODE, ICOMP, ITRUE, ID;
       } // 40
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
+99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
       }
-      void zb1nrm2(N,INCX,THRESH) {
+      void zb1nrm2(combla.N,combla.INCX,THRESH) {
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
 
       // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
 
-      // one of these values is used to initialize x(1) and x(2:N) is
+      // one of these values is used to initialize x(1) and x(2:combla.N) is
       // filled with random values from [-1,1] scaled by another of
       // these values.
 
@@ -494,7 +496,7 @@
       // https://doi.org/10.1145/3061665
 
       // .. Scalar Arguments ..
-      int               INCX, N;
+      int               combla.INCX, combla.N;
       double            THRESH;
 
 // =====================================================================
@@ -535,19 +537,19 @@
 
       // Check that the arrays are large enough
 
-      if (N*(INCX).abs() > NMAX) {
-         WRITE (NOUT,99) "DZNRM2", NMAX, INCX, N, N*(INCX).abs();
+      if (combla.N*(combla.INCX).abs() > NMAX) {
+         WRITE (NOUT,99) "DZNRM2", NMAX, combla.INCX, combla.N, combla.N*(combla.INCX).abs();
          return;
       }
 
       // Zero-sized inputs are tested in STEST1.
-      if (N <= 0) {
+      if (combla.N <= 0) {
          return;
       }
 
-      // Generate 2*(N-1) values in (-1,1).
+      // Generate 2*(combla.N-1) values in (-1,1).
 
-      KS = 2*(N-1);
+      KS = 2*(combla.N-1);
       for (I = 1; I <= KS; I++) {
          random_number(WORK(I));
          WORK[I] = ONE - TWO*WORK(I);
@@ -576,14 +578,14 @@
             if ((V1).abs() > ONE) {
                V1 = (V1*HALF) / sqrt((KS+1).toDouble());
             }
-            for (I = 1; I <= N-1; I++) {
+            for (I = 1; I <= combla.N-1; I++) {
                Z[I+1] = DCMPLX(V1*WORK(2*I-1),V1*WORK(2*I));
             }
 
             // Compute the expected value of the 2-norm
 
             Y1 = (V0).abs() * sqrt(10.0);
-            if (N > 1) {
+            if (combla.N > 1) {
                Y2 = (V1).abs()*sqrt(WORKSSQ);
             } else {
                Y2 = ZERO;
@@ -608,24 +610,24 @@
 
             // Fill the input array to DZNRM2 with steps of incx
 
-            for (I = 1; I <= N; I++) {
+            for (I = 1; I <= combla.N; I++) {
                X[I] = ROGUE;
             }
             IX = 1;
-            if (INCX < 0) IX = 1 - (N-1)*INCX;
-            for (I = 1; I <= N; I++) {
+            if (combla.INCX < 0) IX = 1 - (combla.N-1)*combla.INCX;
+            for (I = 1; I <= combla.N; I++) {
                X[IX] = Z(I);
-               IX = IX + INCX;
+               IX = IX + combla.INCX;
             }
 
             // Call DZNRM2 to compute the 2-norm
 
-            SNRM = DZNRM2(N,X,INCX);
+            SNRM = DZNRM2(combla.N,X,combla.INCX);
 
             // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
             // in this implementation so we scale the test ratio accordingly.
 
-            if (INCX == 0) {
+            if (combla.INCX == 0) {
                Y1 = ABS((X(1))).toDouble();
                Y2 = ABS(AIMAG(X(1)));
                YMIN = min(Y1, Y2);
@@ -656,20 +658,20 @@
             } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP;
             } else {
-               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (TWO*N.toDouble()*ULP);
+               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (TWO*combla.N.toDouble()*ULP);
             }
             if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {
                   FIRST = false;
                   WRITE(NOUT,99999);
                }
-               WRITE (NOUT,98) "DZNRM2", N, INCX, IV, IW, TRAT;
+               WRITE (NOUT,98) "DZNRM2", combla.N, combla.INCX, IV, IW, TRAT;
             }
          }
       }
 99999 FORMAT ('                                       FAIL')
-   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 );
-   98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
+   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', combla.INCX = ',I6,/,'   combla.N = ',I6,', must be at least ',I6 );
+   98 FORMAT( 1X, A6, ': combla.N=', I6,', combla.INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
       return;
       CONTAINS;
       double dxvals(XX,K) {

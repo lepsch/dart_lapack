@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, A, LDA, B, AI, BI, Z, Q, ALPHAR, ALPHAI, BETA, C, LDC, S, WORK, LWORK, IWORK, LIWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -42,11 +44,11 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               FS;
-      int                K, M, MPLUSN, N;
+      // bool               mn.FS;
+      // int                mn.K, mn.M, mn.MPLUSN, mn.N;
       // ..
       // .. Common blocks ..
-      // COMMON / MN / M, N, MPLUSN, K, FS
+      // COMMON / mn / mn.M, mn.N, mn.MPLUSN, mn.K, mn.FS
       // ..
       // .. Executable Statements ..
 
@@ -127,21 +129,21 @@
 
       for (IFUNC = 0; IFUNC <= 3; IFUNC++) { // 60
          for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) { // 50
-            for (M = 1; M <= NSIZE - 1; M++) { // 40
-               for (N = 1; N <= NSIZE - M; N++) { // 30
+            for (mn.M = 1; mn.M <= NSIZE - 1; mn.M++) { // 40
+               for (mn.N = 1; mn.N <= NSIZE - mn.M; mn.N++) { // 30
 
                   WEIGHT = ONE / WEIGHT;
-                  MPLUSN = M + N;
+                  mn.MPLUSN = mn.M + mn.N;
 
                   // Generate test matrices
 
-                  FS = true;
-                  K = 0;
+                  mn.FS = true;
+                  mn.K = 0;
 
-                  dlaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA );
-                  dlaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, BI, LDA );
+                  dlaset('Full', mn.MPLUSN, mn.MPLUSN, ZERO, ZERO, AI, LDA );
+                  dlaset('Full', mn.MPLUSN, mn.MPLUSN, ZERO, ZERO, BI, LDA );
 
-                  dlatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
+                  dlatm5(PRTYPE, mn.M, mn.N, AI, LDA, AI( mn.M+1, mn.M+1 ), LDA, AI( 1, mn.M+1 ), LDA, BI, LDA, BI( mn.M+1, mn.M+1 ), LDA, BI( 1, mn.M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
                   // Compute the Schur factorization and swapping the
                   // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -149,7 +151,7 @@
                   // which is supplied below.
 
                   if ( IFUNC == 0 ) {
-                     SENSE = 'N';
+                     SENSE = 'mn.N';
                   } else if ( IFUNC == 1 ) {
                      SENSE = 'E';
                   } else if ( IFUNC == 2 ) {
@@ -158,29 +160,30 @@
                      SENSE = 'B';
                   }
 
-                  dlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
-                  dlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
+                  dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, A, LDA );
+                  dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, B, LDA );
 
-                  dggesx('V', 'V', 'S', DLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
+                  dggesx('V', 'V', 'S', DLCTSX, SENSE, mn.MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
-                  if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
+                  if ( LINFO != 0 && LINFO != mn.MPLUSN+2 ) {
                      RESULT[1] = ULPINV;
-                     WRITE( NOUT, FMT = 9999 )'DGGESX', LINFO, MPLUSN, PRTYPE;
+                     WRITE( NOUT, FMT = 9999 )'DGGESX', LINFO, mn.MPLUSN, PRTYPE;
                      INFO = LINFO;
                      GO TO 30;
                   }
 
                   // Compute the norm(A, B)
 
-                  dlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
-                  dlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = DLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK );
+                  dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK, mn.MPLUSN );
+                  dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, WORK( mn.MPLUSN*mn.MPLUSN+1 ), mn.MPLUSN )                   ;
+                  ABNRM = dlange( 'Fro', mn.MPLUSN, 2*mn.MPLUSN, WORK, mn.MPLUSN, WORK );
 
                   // Do tests (1) to (4)
 
-                  dget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) );
-                  dget51(1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) );
-                  dget51(3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) );
-                  dget51(3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
+                  dget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) );
+                  dget51(1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) );
+                  dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) );
+                  dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
                   NTEST = 4;
 
                   // Do tests (5) and (6): check Schur form of A and
@@ -190,11 +193,11 @@
                   RESULT[5] = ZERO;
                   RESULT[6] = ZERO;
 
-                  for (J = 1; J <= MPLUSN; J++) { // 10
+                  for (J = 1; J <= mn.MPLUSN; J++) { // 10
                      ILABAD = false;
                      if ( ALPHAI( J ) == ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
-                        if ( J < MPLUSN ) {
+                        if ( J < mn.MPLUSN ) {
                            if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
                               RESULT[5] = ULPINV;
@@ -212,9 +215,9 @@
                         } else {
                            I1 = J - 1;
                         }
-                        if ( I1 <= 0 || I1 >= MPLUSN ) {
+                        if ( I1 <= 0 || I1 >= mn.MPLUSN ) {
                            ILABAD = true;
-                        } else if ( I1 < MPLUSN-1 ) {
+                        } else if ( I1 < mn.MPLUSN-1 ) {
                            if ( AI( I1+2, I1+1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT[5] = ULPINV;
@@ -228,7 +231,7 @@
                         if ( !ILABAD ) {
                            dget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                            if ( IINFO >= 3 ) {
-                              WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE;
+                              WRITE( NOUT, FMT = 9997 )IINFO, J, mn.MPLUSN, PRTYPE;
                               INFO = ( IINFO ).abs();
                            }
                         } else {
@@ -237,7 +240,7 @@
                      }
                      TEMP1 = max( TEMP1, TEMP2 );
                      if ( ILABAD ) {
-                        WRITE( NOUT, FMT = 9996 )J, MPLUSN, PRTYPE;
+                        WRITE( NOUT, FMT = 9996 )J, mn.MPLUSN, PRTYPE;
                      }
                   } // 10
                   RESULT[6] = TEMP1;
@@ -246,9 +249,9 @@
                   // Test (7) (if sorting worked)
 
                   RESULT[7] = ZERO;
-                  if ( LINFO == MPLUSN+3 ) {
+                  if ( LINFO == mn.MPLUSN+3 ) {
                      RESULT[7] = ULPINV;
-                  } else if ( MM != N ) {
+                  } else if ( MM != mn.N ) {
                      RESULT[7] = ULPINV;
                   }
                   NTEST = NTEST + 1;
@@ -257,13 +260,13 @@
                   // value. first, compute the exact DIF.
 
                   RESULT[8] = ZERO;
-                  MN2 = MM*( MPLUSN-MM )*2;
+                  MN2 = MM*( mn.MPLUSN-MM )*2;
                   if ( IFUNC >= 2 && MN2 <= NCMAX*NCMAX ) {
 
                      // Note: for either following two causes, there are
                      // almost same number of test cases fail the test.
 
-                     dlakf2(MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
+                     dlakf2(MM, mn.MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
 
                      dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, INFO );
                      DIFTRU = S( MN2 );
@@ -281,7 +284,7 @@
                   // Test (9)
 
                   RESULT[9] = ZERO;
-                  if ( LINFO == ( MPLUSN+2 ) ) {
+                  if ( LINFO == ( mn.MPLUSN+2 ) ) {
                      if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
                      if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -312,9 +315,9 @@
                         }
                         NERRS = NERRS + 1;
                         if ( RESULT( J ) < 10000.0 ) {
-                           WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J );
+                           WRITE( NOUT, FMT = 9991 )mn.MPLUSN, PRTYPE, WEIGHT, mn.M, J, RESULT( J );
                         } else {
-                           WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J );
+                           WRITE( NOUT, FMT = 9990 )mn.MPLUSN, PRTYPE, WEIGHT, mn.M, J, RESULT( J );
                         }
                      }
                   } // 20
@@ -334,46 +337,49 @@
       NPTKNT = 0;
 
       } // 80
-      READ( NIN, FMT = *, END = 140 )MPLUSN;
-      if (MPLUSN == 0) GO TO 140;
-      READ( NIN, FMT = *, END = 140 )N;
-      for (I = 1; I <= MPLUSN; I++) { // 90
-         READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN );
+      READ( NIN, FMT = *, END = 140 )mn.MPLUSN;
+      if (mn.MPLUSN == 0) GO TO 140;
+      READ( NIN, FMT = *, END = 140 )mn.N;
+      for (I = 1; I <= mn.MPLUSN; I++) { // 90
+         READ( NIN, FMT = * )( AI( I, J ), J = 1, mn.MPLUSN );
       } // 90
-      for (I = 1; I <= MPLUSN; I++) { // 100
-         READ( NIN, FMT = * )( BI( I, J ), J = 1, MPLUSN );
+      for (I = 1; I <= mn.MPLUSN; I++) { // 100
+         READ( NIN, FMT = * )( BI( I, J ), J = 1, mn.MPLUSN );
       } // 100
       READ( NIN, FMT = * )PLTRU, DIFTRU;
 
       NPTKNT = NPTKNT + 1;
-      FS = true;
-      K = 0;
-      M = MPLUSN - N;
+      mn.FS = true;
+      mn.K = 0;
+      mn.M = mn.MPLUSN - mn.N;
 
-      dlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
-      dlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, A, LDA );
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, B, LDA );
 
       // Compute the Schur factorization while swapping the
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
-      dggesx('V', 'V', 'S', DLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
+      dggesx('V', 'V', 'S', DLCTSX, 'B', mn.MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
-      if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
+      if ( LINFO != 0 && LINFO != mn.MPLUSN+2 ) {
          RESULT[1] = ULPINV;
-         WRITE( NOUT, FMT = 9998 )'DGGESX', LINFO, MPLUSN, NPTKNT;
+         WRITE( NOUT, FMT = 9998 )'DGGESX', LINFO, mn.MPLUSN, NPTKNT;
          GO TO 130;
       }
 
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
 
-      dlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
-      dlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );
-      ABNRM = DLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK );
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK, mn.MPLUSN );
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, WORK( mn.MPLUSN*mn.MPLUSN+1 ), mn.MPLUSN );
+      ABNRM = dlange( 'Fro', mn.MPLUSN, 2*mn.MPLUSN, WORK, mn.MPLUSN, WORK );
 
       // Do tests (1) to (4)
 
-      dget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )       CALL DGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )       CALL DGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )       CALL DGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
+      dget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )       ;
+      CALL DGET51( 1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )       ;
+      CALL DGET51( 3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )       ;
+      CALL DGET51( 3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -383,11 +389,11 @@
       RESULT[5] = ZERO;
       RESULT[6] = ZERO;
 
-      for (J = 1; J <= MPLUSN; J++) { // 110
+      for (J = 1; J <= mn.MPLUSN; J++) { // 110
          ILABAD = false;
          if ( ALPHAI( J ) == ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
-            if ( J < MPLUSN ) {
+            if ( J < mn.MPLUSN ) {
                if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;
                   RESULT[5] = ULPINV;
@@ -405,9 +411,9 @@
             } else {
                I1 = J - 1;
             }
-            if ( I1 <= 0 || I1 >= MPLUSN ) {
+            if ( I1 <= 0 || I1 >= mn.MPLUSN ) {
                ILABAD = true;
-            } else if ( I1 < MPLUSN-1 ) {
+            } else if ( I1 < mn.MPLUSN-1 ) {
                if ( AI( I1+2, I1+1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT[5] = ULPINV;
@@ -421,7 +427,7 @@
             if ( !ILABAD ) {
                dget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                if ( IINFO >= 3 ) {
-                  WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT;
+                  WRITE( NOUT, FMT = 9997 )IINFO, J, mn.MPLUSN, NPTKNT;
                   INFO = ( IINFO ).abs();
                }
             } else {
@@ -430,7 +436,7 @@
          }
          TEMP1 = max( TEMP1, TEMP2 );
          if ( ILABAD ) {
-            WRITE( NOUT, FMT = 9996 )J, MPLUSN, NPTKNT;
+            WRITE( NOUT, FMT = 9996 )J, mn.MPLUSN, NPTKNT;
          }
       } // 110
       RESULT[6] = TEMP1;
@@ -439,7 +445,7 @@
 
       NTEST = 7;
       RESULT[7] = ZERO;
-      if (LINFO == MPLUSN+3) RESULT( 7 ) = ULPINV;
+      if (LINFO == mn.MPLUSN+3) RESULT( 7 ) = ULPINV;
 
       // Test (8): compare the estimated value of DIF and its true value.
 
@@ -457,7 +463,7 @@
 
       NTEST = 9;
       RESULT[9] = ZERO;
-      if ( LINFO == ( MPLUSN+2 ) ) {
+      if ( LINFO == ( mn.MPLUSN+2 ) ) {
          if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
          if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -499,9 +505,9 @@
             }
             NERRS = NERRS + 1;
             if ( RESULT( J ) < 10000.0 ) {
-               WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J );
+               WRITE( NOUT, FMT = 9989 )NPTKNT, mn.MPLUSN, J, RESULT( J );
             } else {
-               WRITE( NOUT, FMT = 9988 )NPTKNT, MPLUSN, J, RESULT( J );
+               WRITE( NOUT, FMT = 9988 )NPTKNT, mn.MPLUSN, J, RESULT( J );
             }
          }
 

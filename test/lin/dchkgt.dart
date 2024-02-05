@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkgt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, AF, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -48,13 +50,13 @@
       // INTRINSIC MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
@@ -73,7 +75,7 @@
       // Test the error exits
 
       if (TSTERR) derrge( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 110
 
@@ -101,7 +103,7 @@
                // Types 1-6:  generate matrices of known condition number.
 
                KOFF = max( 2-KU, 3-max( 1, N ) );
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from DLATMS.
@@ -181,7 +183,7 @@
                // norm(L*U - A) / (n * norm(A) * EPS )
 
             dcopy(N+2*M, A, 1, AF, 1 );
-            SRNAMT = 'DGTTRF';
+            srnamc.SRNAMT = 'DGTTRF';
             dgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from DGTTRF.
@@ -245,7 +247,7 @@
                // Estimate the reciprocal of the condition number of the
                // matrix.
 
-               SRNAMT = 'DGTCON';
+               srnamc.SRNAMT = 'DGTCON';
                dgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                // Check error code from DGTCON.
@@ -295,7 +297,7 @@
                   // Solve op(A) * X = B and compute the residual.
 
                   dlacpy('Full', N, NRHS, B, LDA, X, LDA );
-                  SRNAMT = 'DGTTRS';
+                  srnamc.SRNAMT = 'DGTTRS';
                   dgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                   // Check error code from DGTTRS.
@@ -313,7 +315,7 @@
 // +    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'DGTRFS';
+                  srnamc.SRNAMT = 'DGTRFS';
                   dgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from DGTRFS.

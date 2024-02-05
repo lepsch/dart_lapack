@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrac(NUNIT ) {
 
 // -- LAPACK test routine --
@@ -26,21 +28,21 @@
       // EXTERNAL CHKXER, DSPOSV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -57,34 +59,34 @@
          C[J] = 0.0;
          R[J] = 0.0;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
-      SRNAMT = 'DSPOSV';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DSPOSV';
+      infoc.INFOT = 1;
       dsposv('/',0,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dsposv('U',-1,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dsposv('U',0,-1,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dsposv('U',2,1,A,1,B,2,X,2,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dsposv('U',2,1,A,2,B,1,X,2,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dsposv('U',2,1,A,2,B,2,X,1,WORK,SWORK,ITER,INFO);
-      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
+      chkxer('DSPOSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )'DSPOSV';
+      if ( infoc.OK ) {
+         WRITE( infoc.NOUT, FMT = 9999 )'DSPOSV';
       } else {
-         WRITE( NOUT, FMT = 9998 )'DSPOSV';
+         WRITE( infoc.NOUT, FMT = 9998 )'DSPOSV';
       }
 
  9999 FORMAT( 1X, A6, ' drivers passed the tests of the error exits' );

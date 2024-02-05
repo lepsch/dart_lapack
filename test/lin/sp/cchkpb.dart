@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -135,7 +135,7 @@
 
                      clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'CLATMS';
+                    srnamc.SRNAMT = 'CLATMS';
                      clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from CLATMS.
@@ -219,7 +219,7 @@
                      // matrix.
 
                      clacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
-                     SRNAMT = 'CPBTRF';
+                    srnamc.SRNAMT = 'CPBTRF';
                      cpbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from CPBTRF.
@@ -257,7 +257,7 @@
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                      claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), AINV, LDA );
-                     SRNAMT = 'CPBTRS';
+                    srnamc.SRNAMT = 'CPBTRS';
                      cpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
@@ -276,11 +276,11 @@
 // +    TEST 2
                      // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'CLARHS';
+                       srnamc.SRNAMT = 'CLARHS';
                         clarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'CPBTRS';
+                       srnamc.SRNAMT = 'CPBTRS';
                         cpbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from CPBTRS.
@@ -298,7 +298,7 @@
 // +    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
-                        SRNAMT = 'CPBRFS';
+                       srnamc.SRNAMT = 'CPBRFS';
                         cpbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from CPBRFS.
@@ -324,7 +324,7 @@
 // +    TEST 7
                      // Get an estimate of RCOND = 1/CNDNUM.
 
-                     SRNAMT = 'CPBCON';
+                    srnamc.SRNAMT = 'CPBCON';
                      cpbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from CPBCON.

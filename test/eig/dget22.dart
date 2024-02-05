@@ -131,11 +131,11 @@
 
       // Norm of A:
 
-      ANORM = max( DLANGE( NORMA, N, N, A, LDA, WORK ), UNFL );
+      ANORM = max( dlange( NORMA, N, N, A, LDA, WORK ), UNFL );
 
       // Norm of E:
 
-      ENORM = max( DLANGE( NORME, N, N, E, LDE, WORK ), ULP );
+      ENORM = max( dlange( NORME, N, N, E, LDE, WORK ), ULP );
 
       // Norm of error:
 
@@ -176,7 +176,7 @@
 
       dgemm(TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE, WORK, N );
 
-      ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N*N+1 ) ) / ENORM;
+      ERRNRM = dlange( 'One', N, N, WORK, N, WORK( N*N+1 ) ) / ENORM;
 
       // Compute RESULT(1) (avoiding under/overflow)
 

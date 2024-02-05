@@ -1,4 +1,4 @@
-      void zerrunhr_col(PATH, NUNIT ) {
+      void zerrunhr_col(PATH, infoc.NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --
@@ -7,7 +7,7 @@
 
       // .. Scalar Arguments ..
       String   (LEN=3)   PATH;
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -26,20 +26,20 @@
       // EXTERNAL ALAESM, CHKXER, ZUNHR_COL
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String   (LEN=32)  SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String   (LEN=32) srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -51,54 +51,54 @@
          }
          D[J] = ( 0.0, 0.0 );
       }
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for Householder reconstruction
 
       // ZUNHR_COL
 
-      SRNAMT = 'ZUNHR_COL';
+     srnamc.SRNAMT = 'ZUNHR_COL';
 
-      INFOT = 1;
+      infoc.INFOT = 1;
       zunhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 2;
+      infoc.INFOT = 2;
       zunhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       zunhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 3;
+      infoc.INFOT = 3;
       zunhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 5;
+      infoc.INFOT = 5;
       zunhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 1, A, 0, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 7;
+      infoc.INFOT = 7;
       zunhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(0, 0, 1, A, 1, T, 0, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       zunhr_col(4, 3, 2, A, 4, T, 1, D, INFO );
-      chkxer('ZUNHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNHR_COL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, NOUT );
 
       return;
       }

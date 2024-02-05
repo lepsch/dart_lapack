@@ -50,7 +50,7 @@
 
       if (M <= 0 || N <= 0) return;
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
+      NORMA = dlange( 'One-norm', M, N, A, LDA, RWORK );
 
       for (J = 1; J <= K; J++) {
 
@@ -86,7 +86,7 @@
          daxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*dlamch( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
+      DQPT01 = dlange( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*dlamch( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
       return;
       }

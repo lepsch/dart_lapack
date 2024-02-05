@@ -34,12 +34,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -78,7 +78,7 @@
 
          // SSYTRF
 
-         SRNAMT = 'SSYTRF';
+        srnamc.SRNAMT = 'SSYTRF';
          INFOT = 1;
          ssytrf('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
@@ -97,7 +97,7 @@
 
          // SSYTF2
 
-         SRNAMT = 'SSYTF2';
+        srnamc.SRNAMT = 'SSYTF2';
          INFOT = 1;
          ssytf2('/', 0, A, 1, IP, INFO );
          chkxer('SSYTF2', INFOT, NOUT, LERR, OK );
@@ -110,7 +110,7 @@
 
          // SSYTRI
 
-         SRNAMT = 'SSYTRI';
+        srnamc.SRNAMT = 'SSYTRI';
          INFOT = 1;
          ssytri('/', 0, A, 1, IP, W, INFO );
          chkxer('SSYTRI', INFOT, NOUT, LERR, OK );
@@ -123,7 +123,7 @@
 
          // SSYTRI2
 
-         SRNAMT = 'SSYTRI2';
+        srnamc.SRNAMT = 'SSYTRI2';
          INFOT = 1;
          ssytri2('/', 0, A, 1, IP, W, IW, INFO );
          chkxer('SSYTRI', INFOT, NOUT, LERR, OK );
@@ -136,7 +136,7 @@
 
          // SSYTRI2X
 
-         SRNAMT = 'SSYTRI2X';
+        srnamc.SRNAMT = 'SSYTRI2X';
          INFOT = 1;
          ssytri2x('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRI2X', INFOT, NOUT, LERR, OK );
@@ -149,7 +149,7 @@
 
          // SSYTRS
 
-         SRNAMT = 'SSYTRS';
+        srnamc.SRNAMT = 'SSYTRS';
          INFOT = 1;
          ssytrs('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
@@ -168,7 +168,7 @@
 
          // SSYRFS
 
-         SRNAMT = 'SSYRFS';
+        srnamc.SRNAMT = 'SSYRFS';
          INFOT = 1;
          ssyrfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
@@ -195,7 +195,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'SSYRFSX';
+        srnamc.SRNAMT = 'SSYRFSX';
          INFOT = 1;
          ssyrfsx('/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
          chkxer('SSYRFSX', INFOT, NOUT, LERR, OK );
@@ -224,7 +224,7 @@
 
          // SSYCON
 
-         SRNAMT = 'SSYCON';
+        srnamc.SRNAMT = 'SSYCON';
          INFOT = 1;
          ssycon('/', 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
@@ -246,7 +246,7 @@
 
          // SSYTRF_ROOK
 
-         SRNAMT = 'SSYTRF_ROOK';
+        srnamc.SRNAMT = 'SSYTRF_ROOK';
          INFOT = 1;
          ssytrf_rook('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
@@ -265,7 +265,7 @@
 
          // SSYTF2_ROOK
 
-         SRNAMT = 'SSYTF2_ROOK';
+        srnamc.SRNAMT = 'SSYTF2_ROOK';
          INFOT = 1;
          ssytf2_rook('/', 0, A, 1, IP, INFO );
          chkxer('SSYTF2_ROOK', INFOT, NOUT, LERR, OK );
@@ -278,7 +278,7 @@
 
          // SSYTRI_ROOK
 
-         SRNAMT = 'SSYTRI_ROOK';
+        srnamc.SRNAMT = 'SSYTRI_ROOK';
          INFOT = 1;
          ssytri_rook('/', 0, A, 1, IP, W, INFO );
          chkxer('SSYTRI_ROOK', INFOT, NOUT, LERR, OK );
@@ -291,7 +291,7 @@
 
          // SSYTRS_ROOK
 
-         SRNAMT = 'SSYTRS_ROOK';
+        srnamc.SRNAMT = 'SSYTRS_ROOK';
          INFOT = 1;
          ssytrs_rook('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
@@ -310,7 +310,7 @@
 
          // SSYCON_ROOK
 
-         SRNAMT = 'SSYCON_ROOK';
+        srnamc.SRNAMT = 'SSYCON_ROOK';
          INFOT = 1;
          ssycon_rook('/', 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
@@ -336,7 +336,7 @@
 
          // SSYTRF_RK
 
-         SRNAMT = 'SSYTRF_RK';
+        srnamc.SRNAMT = 'SSYTRF_RK';
          INFOT = 1;
          ssytrf_rk('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
@@ -355,7 +355,7 @@
 
          // SSYTF2_RK
 
-         SRNAMT = 'SSYTF2_RK';
+        srnamc.SRNAMT = 'SSYTF2_RK';
          INFOT = 1;
          ssytf2_rk('/', 0, A, 1, E, IP, INFO );
          chkxer('SSYTF2_RK', INFOT, NOUT, LERR, OK );
@@ -368,7 +368,7 @@
 
          // SSYTRI_3
 
-         SRNAMT = 'SSYTRI_3';
+        srnamc.SRNAMT = 'SSYTRI_3';
          INFOT = 1;
          ssytri_3('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
@@ -387,7 +387,7 @@
 
          // SSYTRI_3X
 
-         SRNAMT = 'SSYTRI_3X';
+        srnamc.SRNAMT = 'SSYTRI_3X';
          INFOT = 1;
          ssytri_3x('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3X', INFOT, NOUT, LERR, OK );
@@ -400,7 +400,7 @@
 
          // SSYTRS_3
 
-         SRNAMT = 'SSYTRS_3';
+        srnamc.SRNAMT = 'SSYTRS_3';
          INFOT = 1;
          ssytrs_3('/', 0, 0, A, 1, E, IP, B, 1, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
@@ -419,7 +419,7 @@
 
          // SSYCON_3
 
-         SRNAMT = 'SSYCON_3';
+        srnamc.SRNAMT = 'SSYCON_3';
          INFOT = 1;
          ssycon_3('/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
@@ -441,7 +441,7 @@
 
          // SSPTRF
 
-         SRNAMT = 'SSPTRF';
+        srnamc.SRNAMT = 'SSPTRF';
          INFOT = 1;
          ssptrf('/', 0, A, IP, INFO );
          chkxer('SSPTRF', INFOT, NOUT, LERR, OK );
@@ -451,7 +451,7 @@
 
          // SSPTRI
 
-         SRNAMT = 'SSPTRI';
+        srnamc.SRNAMT = 'SSPTRI';
          INFOT = 1;
          ssptri('/', 0, A, IP, W, INFO );
          chkxer('SSPTRI', INFOT, NOUT, LERR, OK );
@@ -461,7 +461,7 @@
 
          // SSPTRS
 
-         SRNAMT = 'SSPTRS';
+        srnamc.SRNAMT = 'SSPTRS';
          INFOT = 1;
          ssptrs('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('SSPTRS', INFOT, NOUT, LERR, OK );
@@ -477,7 +477,7 @@
 
          // SSPRFS
 
-         SRNAMT = 'SSPRFS';
+        srnamc.SRNAMT = 'SSPRFS';
          INFOT = 1;
          ssprfs('/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
@@ -496,7 +496,7 @@
 
          // SSPCON
 
-         SRNAMT = 'SSPCON';
+        srnamc.SRNAMT = 'SSPCON';
          INFOT = 1;
          sspcon('/', 0, A, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSPCON', INFOT, NOUT, LERR, OK );

@@ -27,12 +27,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -58,7 +58,7 @@
 
       // SGEQR
 
-      SRNAMT = 'SGEQR';
+     srnamc.SRNAMT = 'SGEQR';
       INFOT = 1;
       sgeqr(-1, 0, A, 1, TAU, 1, W, 1, INFO );
       chkxer('SGEQR', INFOT, NOUT, LERR, OK );
@@ -79,7 +79,7 @@
 
       MB = 1;
       NB = 1;
-      SRNAMT = 'SLATSQR';
+     srnamc.SRNAMT = 'SLATSQR';
       INFOT = 1;
       slatsqr(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
       chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
@@ -110,7 +110,7 @@
       TAU(2)=1;
       TAU(3)=1;
       TAU(4)=1;
-      SRNAMT = 'SGEMQR';
+     srnamc.SRNAMT = 'SGEMQR';
       NB=1;
       INFOT = 1;
       sgemqr('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
@@ -148,7 +148,7 @@
 
       // SGELQ
 
-      SRNAMT = 'SGELQ';
+     srnamc.SRNAMT = 'SGELQ';
       INFOT = 1;
       sgelq(-1, 0, A, 1, TAU, 1, W, 1, INFO );
       chkxer('SGELQ', INFOT, NOUT, LERR, OK );
@@ -169,7 +169,7 @@
 
       MB = 1;
       NB = 1;
-      SRNAMT = 'SLASWLQ';
+     srnamc.SRNAMT = 'SLASWLQ';
       INFOT = 1;
       slaswlq(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
       chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
@@ -200,7 +200,7 @@
 
       TAU(1)=1;
       TAU(2)=1;
-      SRNAMT = 'SGEMLQ';
+     srnamc.SRNAMT = 'SGEMLQ';
       NB=1;
       INFOT = 1;
       sgemlq('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);

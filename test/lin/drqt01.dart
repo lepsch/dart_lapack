@@ -34,10 +34,10 @@
       // INTRINSIC DBLE, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -50,7 +50,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'DGERQF';
+     srnamc.SRNAMT = 'DGERQF';
       dgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -65,7 +65,7 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'DORGRQ';
+     srnamc.SRNAMT = 'DORGRQ';
       dorgrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
@@ -84,8 +84,8 @@
 
       // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 
-      ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
-      RESID = DLANGE( '1', M, N, R, LDA, RWORK );
+      ANORM = dlange( '1', M, N, A, LDA, RWORK );
+      RESID = dlange( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = ( ( RESID / (max( 1, N )).toDouble() ) / ANORM ) / EPS;
       } else {

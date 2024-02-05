@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -57,7 +57,7 @@
 
          // STRTRI
 
-         SRNAMT = 'STRTRI';
+        srnamc.SRNAMT = 'STRTRI';
          INFOT = 1;
          strtri('/', 'N', 0, A, 1, INFO );
          chkxer('STRTRI', INFOT, NOUT, LERR, OK );
@@ -73,7 +73,7 @@
 
          // STRTI2
 
-         SRNAMT = 'STRTI2';
+        srnamc.SRNAMT = 'STRTI2';
          INFOT = 1;
          strti2('/', 'N', 0, A, 1, INFO );
          chkxer('STRTI2', INFOT, NOUT, LERR, OK );
@@ -89,7 +89,7 @@
 
          // STRTRS
 
-         SRNAMT = 'STRTRS';
+        srnamc.SRNAMT = 'STRTRS';
          INFOT = 1;
          strtrs('/', 'N', 'N', 0, 0, A, 1, X, 1, INFO );
          chkxer('STRTRS', INFOT, NOUT, LERR, OK );
@@ -114,7 +114,7 @@
 
          // STRRFS
 
-         SRNAMT = 'STRRFS';
+        srnamc.SRNAMT = 'STRRFS';
          INFOT = 1;
          strrfs('/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('STRRFS', INFOT, NOUT, LERR, OK );
@@ -142,7 +142,7 @@
 
          // STRCON
 
-         SRNAMT = 'STRCON';
+        srnamc.SRNAMT = 'STRCON';
          INFOT = 1;
          strcon('/', 'U', 'N', 0, A, 1, RCOND, W, IW, INFO );
          chkxer('STRCON', INFOT, NOUT, LERR, OK );
@@ -161,7 +161,7 @@
 
          // SLATRS
 
-         SRNAMT = 'SLATRS';
+        srnamc.SRNAMT = 'SLATRS';
          INFOT = 1;
          slatrs('/', 'N', 'N', 'N', 0, A, 1, X, SCALE, W, INFO );
          chkxer('SLATRS', INFOT, NOUT, LERR, OK );
@@ -183,7 +183,7 @@
 
          // SLATRS3
 
-         SRNAMT = 'SLATRS3';
+        srnamc.SRNAMT = 'SLATRS3';
          INFOT = 1;
          slatrs3('/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO );
          chkxer('SLATRS3', INFOT, NOUT, LERR, OK );
@@ -218,7 +218,7 @@
 
          // STPTRI
 
-         SRNAMT = 'STPTRI';
+        srnamc.SRNAMT = 'STPTRI';
          INFOT = 1;
          stptri('/', 'N', 0, A, INFO );
          chkxer('STPTRI', INFOT, NOUT, LERR, OK );
@@ -231,7 +231,7 @@
 
          // STPTRS
 
-         SRNAMT = 'STPTRS';
+        srnamc.SRNAMT = 'STPTRS';
          INFOT = 1;
          stptrs('/', 'N', 'N', 0, 0, A, X, 1, INFO );
          chkxer('STPTRS', INFOT, NOUT, LERR, OK );
@@ -253,7 +253,7 @@
 
          // STPRFS
 
-         SRNAMT = 'STPRFS';
+        srnamc.SRNAMT = 'STPRFS';
          INFOT = 1;
          stprfs('/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('STPRFS', INFOT, NOUT, LERR, OK );
@@ -278,7 +278,7 @@
 
          // STPCON
 
-         SRNAMT = 'STPCON';
+        srnamc.SRNAMT = 'STPCON';
          INFOT = 1;
          stpcon('/', 'U', 'N', 0, A, RCOND, W, IW, INFO );
          chkxer('STPCON', INFOT, NOUT, LERR, OK );
@@ -294,7 +294,7 @@
 
          // SLATPS
 
-         SRNAMT = 'SLATPS';
+        srnamc.SRNAMT = 'SLATPS';
          INFOT = 1;
          slatps('/', 'N', 'N', 'N', 0, A, X, SCALE, W, INFO );
          chkxer('SLATPS', INFOT, NOUT, LERR, OK );
@@ -317,7 +317,7 @@
 
          // STBTRS
 
-         SRNAMT = 'STBTRS';
+        srnamc.SRNAMT = 'STBTRS';
          INFOT = 1;
          stbtrs('/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO );
          chkxer('STBTRS', INFOT, NOUT, LERR, OK );
@@ -345,7 +345,7 @@
 
          // STBRFS
 
-         SRNAMT = 'STBRFS';
+        srnamc.SRNAMT = 'STBRFS';
          INFOT = 1;
          stbrfs('/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('STBRFS', INFOT, NOUT, LERR, OK );
@@ -376,7 +376,7 @@
 
          // STBCON
 
-         SRNAMT = 'STBCON';
+        srnamc.SRNAMT = 'STBCON';
          INFOT = 1;
          stbcon('/', 'U', 'N', 0, 0, A, 1, RCOND, W, IW, INFO );
          chkxer('STBCON', INFOT, NOUT, LERR, OK );
@@ -398,7 +398,7 @@
 
          // SLATBS
 
-         SRNAMT = 'SLATBS';
+        srnamc.SRNAMT = 'SLATBS';
          INFOT = 1;
          slatbs('/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, W, INFO );
          chkxer('SLATBS', INFOT, NOUT, LERR, OK );

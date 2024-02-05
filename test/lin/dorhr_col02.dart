@@ -40,10 +40,10 @@
       // INTRINSIC CEILING, DBLE, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRMNAMC / SRNAMT
+      // COMMON / SRMNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -107,7 +107,7 @@
 
       // Factor the matrix A in the array AF.
 
-      SRNAMT = 'DGETSQRHRT';
+     srnamc.SRNAMT = 'DGETSQRHRT';
       dgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO );
 
       // End Householder reconstruction routines.
@@ -117,7 +117,7 @@
 
       dlaset('Full', M, M, ZERO, ONE, Q, M );
 
-      SRNAMT = 'DGEMQRT';
+     srnamc.SRNAMT = 'DGEMQRT';
       dgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
@@ -131,8 +131,8 @@
 
       dgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
 
-      ANORM = DLANGE( '1', M, N, A, M, RWORK );
-      RESID = DLANGE( '1', M, N, R, M, RWORK );
+      ANORM = dlange( '1', M, N, A, M, RWORK );
+      RESID = dlange( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = RESID / ( EPS * max( 1, M ) * ANORM );
       } else {
@@ -152,19 +152,19 @@
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, C( 1, J ) );
       }
-      CNORM = DLANGE( '1', M, N, C, M, RWORK );
+      CNORM = dlange( '1', M, N, C, M, RWORK );
       dlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C = CF
 
-      SRNAMT = 'DGEMQRT';
+     srnamc.SRNAMT = 'DGEMQRT';
       dgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
       // Compute |CF - Q*C| / ( eps *  m * |C| )
 
       dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = DLANGE( '1', M, N, CF, M, RWORK );
+      RESID = dlange( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[3] = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
@@ -177,14 +177,14 @@
 
       // Apply Q to C as (Q**T)*C = CF
 
-      SRNAMT = 'DGEMQRT';
+     srnamc.SRNAMT = 'DGEMQRT';
       dgemqrt('L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
       // Compute |CF - (Q**T)*C| / ( eps * m * |C|)
 
       dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = DLANGE( '1', M, N, CF, M, RWORK );
+      RESID = dlange( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[4] = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
@@ -196,19 +196,19 @@
       for (J = 1; J <= M; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
       }
-      DNORM = DLANGE( '1', N, M, D, N, RWORK );
+      DNORM = dlange( '1', N, M, D, N, RWORK );
       dlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q = DF
 
-      SRNAMT = 'DGEMQRT';
+     srnamc.SRNAMT = 'DGEMQRT';
       dgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
       // Compute |DF - D*Q| / ( eps * m * |D| )
 
       dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
          RESULT[5] = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {
@@ -221,14 +221,14 @@
 
       // Apply Q to D as D*QT = DF
 
-      SRNAMT = 'DGEMQRT';
+     srnamc.SRNAMT = 'DGEMQRT';
       dgemqrt('R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6
       // Compute |DF - D*(Q**T)| / ( eps * m * |D| )
 
       dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
          RESULT[6] = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {

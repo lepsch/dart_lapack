@@ -56,13 +56,13 @@
       // INTRINSIC DCONJG, MAX, MIN, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -94,7 +94,7 @@
       // Test the error exits
 
       if (TSTERR) zerrhe( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -139,7 +139,7 @@
 
                   // Generate a matrix with ZLATMS.
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS and handle error.
@@ -246,7 +246,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'ZHETRF_RK';
+                 srnamc.SRNAMT = 'ZHETRF_RK';
                   zhetrf_rk(UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -292,7 +292,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'ZHETRI_3';
+                    srnamc.SRNAMT = 'ZHETRI_3';
 
                      // Another reason that we need to compute the inverse
                      // is that ZPOT03 produces RCONDC which is used later
@@ -530,11 +530,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'ZHETRS_3';
+                    srnamc.SRNAMT = 'ZHETRS_3';
                      zhetrs_3(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO );
 
                      // Check error code from ZHETRS_3 and handle error.
@@ -573,7 +573,7 @@
 
                   } // 230
                   ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'ZHECON_3';
+                 srnamc.SRNAMT = 'ZHECON_3';
                   zhecon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from ZHECON_3 and handle error.

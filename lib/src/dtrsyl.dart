@@ -89,7 +89,7 @@ import 'package:lapack/src/xerbla.dart';
       SMLNUM = SMLNUM*(M*N).toDouble() / EPS;
       BIGNUM = ONE / SMLNUM;
 
-      SMIN = max( SMLNUM, EPS*DLANGE( 'M', M, M, A, LDA, DUM ), EPS*DLANGE( 'M', N, N, B, LDB, DUM ) );
+      SMIN = max( SMLNUM, EPS*dlange( 'M', M, M, A, LDA, DUM ), EPS*dlange( 'M', N, N, B, LDB, DUM ) );
 
       SGN = ISGN;
 

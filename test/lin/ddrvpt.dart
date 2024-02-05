@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvpt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -48,13 +50,13 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
@@ -73,7 +75,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
 
@@ -100,7 +102,7 @@
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from DLATMS.
@@ -273,7 +275,7 @@
 
                   // Factor A as L*D*L' and solve the system A*X = B.
 
-                  SRNAMT = 'DPTSV ';
+                  srnamc.SRNAMT = 'DPTSV ';
                   dptsv(N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                   // Check error code from DPTSV .
@@ -329,7 +331,7 @@
                // Solve the system and compute the condition number and
                // error bounds using DPTSVX.
 
-               SRNAMT = 'DPTSVX';
+               srnamc.SRNAMT = 'DPTSVX';
                dptsvx(FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO );
 
                // Check the error code from DPTSVX.

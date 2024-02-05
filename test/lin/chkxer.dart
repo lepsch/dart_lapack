@@ -1,4 +1,4 @@
-      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
+      void chkxer(srnamc.SRNAMT, INFOT, NOUT, LERR, OK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       bool               LERR, OK;
-      List<String>         SRNAMT;
+      List<String>        srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Intrinsic Functions ..
@@ -14,7 +14,7 @@
       // ..
       // .. Executable Statements ..
       if ( !LERR ) {
-         WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) );
+         WRITE( NOUT, FMT = 9999 )INFOT,srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) );
          OK = false;
       }
       LERR = false;

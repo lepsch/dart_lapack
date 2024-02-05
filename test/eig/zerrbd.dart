@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
       void zerrbd(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -31,21 +35,21 @@
       // EXTERNAL CHKXER, ZBDSQR, ZGEBD2, ZGEBRD, ZUNGBR, ZUNMBR
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / infoc / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / srnamc / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
       C2 = PATH( 2: 3 );
 
       // Set the variables to innocuous values.
@@ -55,7 +59,7 @@
             A[I, J] = 1.0 / (I+J).toDouble();
          } // 10
       } // 20
-      OK = true;
+      infoc.OK = true;
       NT = 0;
 
       // Test error exits of the SVD routines.
@@ -64,150 +68,150 @@
 
          // ZGEBRD
 
-         SRNAMT = 'ZGEBRD';
-         INFOT = 1;
+         srnamc.SRNAMT = 'ZGEBRD';
+         infoc.INFOT = 1;
          zgebrd(-1, 0, A, 1, D, E, TQ, TP, W, 1, INFO );
-         chkxer('ZGEBRD', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgebrd(0, -1, A, 1, D, E, TQ, TP, W, 1, INFO );
-         chkxer('ZGEBRD', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgebrd(2, 1, A, 1, D, E, TQ, TP, W, 2, INFO );
-         chkxer('ZGEBRD', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('ZGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          zgebrd(2, 1, A, 2, D, E, TQ, TP, W, 1, INFO );
-         chkxer('ZGEBRD', INFOT, NOUT, LERR, OK );
+         chkxer('ZGEBRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 4;
 
          // ZGEBD2
 
-         SRNAMT = 'ZGEBD2';
-         INFOT = 1;
+         srnamc.SRNAMT = 'ZGEBD2';
+         infoc.INFOT = 1;
          zgebd2(-1, 0, A, 1, D, E, TQ, TP, W, INFO );
-         chkxer('ZGEBD2', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZGEBD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zgebd2(0, -1, A, 1, D, E, TQ, TP, W, INFO );
-         chkxer('ZGEBD2', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZGEBD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zgebd2(2, 1, A, 1, D, E, TQ, TP, W, INFO );
-         chkxer('ZGEBD2', INFOT, NOUT, LERR, OK );
+         chkxer('ZGEBD2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 3;
 
          // ZUNGBR
 
-         SRNAMT = 'ZUNGBR';
-         INFOT = 1;
+         srnamc.SRNAMT = 'ZUNGBR';
+         infoc.INFOT = 1;
          zungbr('/', 0, 0, 0, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zungbr('Q', -1, 0, 0, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zungbr('Q', 0, -1, 0, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zungbr('Q', 0, 1, 0, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zungbr('Q', 1, 0, 1, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zungbr('P', 1, 0, 0, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zungbr('P', 0, 1, 1, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zungbr('Q', 0, 0, -1, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zungbr('Q', 2, 1, 1, A, 1, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zungbr('Q', 2, 2, 1, A, 2, TQ, W, 1, INFO );
-         chkxer('ZUNGBR', INFOT, NOUT, LERR, OK );
+         chkxer('ZUNGBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 10;
 
          // ZUNMBR
 
-         SRNAMT = 'ZUNMBR';
-         INFOT = 1;
+         srnamc.SRNAMT = 'ZUNMBR';
+         infoc.INFOT = 1;
          zunmbr('/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zunmbr('Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zunmbr('Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zunmbr('Q', 'L', 'C', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zunmbr('Q', 'L', 'C', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          zunmbr('Q', 'L', 'C', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zunmbr('Q', 'L', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zunmbr('Q', 'R', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zunmbr('P', 'L', 'C', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          zunmbr('P', 'R', 'C', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zunmbr('Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zunmbr('Q', 'L', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 0, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zunmbr('Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO );
-         chkxer('ZUNMBR', INFOT, NOUT, LERR, OK );
+         chkxer('ZUNMBR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 13;
 
          // ZBDSQR
 
-         SRNAMT = 'ZBDSQR';
-         INFOT = 1;
+         srnamc.SRNAMT = 'ZBDSQR';
+         infoc.INFOT = 1;
          zbdsqr('/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          zbdsqr('U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          zbdsqr('U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          zbdsqr('U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          zbdsqr('U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          zbdsqr('U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 11;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 11;
          zbdsqr('U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          zbdsqr('U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW, INFO );
-         chkxer('ZBDSQR', INFOT, NOUT, LERR, OK );
+         chkxer('ZBDSQR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 8;
       }
 
       // Print a summary line.
 
-      if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )PATH, NT;
+      if ( infoc.OK ) {
+         WRITE( infoc.NOUT, FMT = 9999 )PATH, NT;
       } else {
-         WRITE( NOUT, FMT = 9998 )PATH;
+         WRITE( infoc.NOUT, FMT = 9998 )PATH;
       }
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (', I3, ' tests done)' );

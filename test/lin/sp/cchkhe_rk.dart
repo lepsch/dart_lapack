@@ -57,12 +57,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -139,7 +139,7 @@
 
                   // Generate a matrix with CLATMS.
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS and handle error.
@@ -246,7 +246,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'CHETRF_RK';
+                 srnamc.SRNAMT = 'CHETRF_RK';
                   chetrf_rk(UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -292,7 +292,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'CHETRI_3';
+                    srnamc.SRNAMT = 'CHETRI_3';
 
                      // Another reason that we need to compute the inverse
                      // is that CPOT03 produces RCONDC which is used later
@@ -530,11 +530,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CHETRS_3';
+                    srnamc.SRNAMT = 'CHETRS_3';
                      chetrs_3(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO );
 
                      // Check error code from CHETRS_3 and handle error.
@@ -573,7 +573,7 @@
 
                   } // 230
                   ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'CHECON_3';
+                 srnamc.SRNAMT = 'CHECON_3';
                   checon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from CHECON_3 and handle error.

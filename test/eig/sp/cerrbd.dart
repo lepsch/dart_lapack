@@ -32,12 +32,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -64,7 +64,7 @@
 
          // CGEBRD
 
-         SRNAMT = 'CGEBRD';
+        srnamc.SRNAMT = 'CGEBRD';
          INFOT = 1;
          cgebrd(-1, 0, A, 1, D, E, TQ, TP, W, 1, INFO );
          chkxer('CGEBRD', INFOT, NOUT, LERR, OK );
@@ -81,7 +81,7 @@
 
          // CGEBD2
 
-         SRNAMT = 'CGEBD2';
+        srnamc.SRNAMT = 'CGEBD2';
          INFOT = 1;
          cgebd2(-1, 0, A, 1, D, E, TQ, TP, W, INFO );
          chkxer('CGEBD2', INFOT, NOUT, LERR, OK );
@@ -95,7 +95,7 @@
 
          // CUNGBR
 
-         SRNAMT = 'CUNGBR';
+        srnamc.SRNAMT = 'CUNGBR';
          INFOT = 1;
          cungbr('/', 0, 0, 0, A, 1, TQ, W, 1, INFO );
          chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
@@ -130,7 +130,7 @@
 
          // CUNMBR
 
-         SRNAMT = 'CUNMBR';
+        srnamc.SRNAMT = 'CUNMBR';
          INFOT = 1;
          cunmbr('/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
          chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
@@ -174,7 +174,7 @@
 
          // CBDSQR
 
-         SRNAMT = 'CBDSQR';
+        srnamc.SRNAMT = 'CBDSQR';
          INFOT = 1;
          cbdsqr('/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
          chkxer('CBDSQR', INFOT, NOUT, LERR, OK );

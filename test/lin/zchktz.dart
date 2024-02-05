@@ -46,13 +46,13 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -74,7 +74,7 @@
       // Test the error exits
 
       if (TSTERR) zerrtz( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) { // 70
 
@@ -126,7 +126,7 @@
                   // Call ZTZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
-                  SRNAMT = 'ZTZRZF';
+                 srnamc.SRNAMT = 'ZTZRZF';
                   ztzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))

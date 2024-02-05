@@ -115,8 +115,8 @@
       // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
       dgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
-      ANORM = DLANGE( '1', M, N, A, M, RWORK );
-      RESID = DLANGE( '1', M, N, R, M, RWORK );
+      ANORM = dlange( '1', M, N, A, M, RWORK );
+      RESID = dlange( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = RESID / (EPS*max(1,M)*ANORM);
       } else {
@@ -135,7 +135,7 @@
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, C( 1, J ) );
       }
-      CNORM = DLANGE( '1', M, N, C, M, RWORK);
+      CNORM = dlange( '1', M, N, C, M, RWORK);
       dlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C
@@ -146,7 +146,7 @@
       // Compute |Q*C - Q*C| / |C|
 
       dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = DLANGE( '1', M, N, CF, M, RWORK );
+      RESID = dlange( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[3] = RESID / (EPS*max(1,M)*CNORM);
       } else {
@@ -165,7 +165,7 @@
       // Compute |QT*C - QT*C| / |C|
 
       dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
-      RESID = DLANGE( '1', M, N, CF, M, RWORK );
+      RESID = dlange( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[4] = RESID / (EPS*max(1,M)*CNORM);
       } else {
@@ -177,7 +177,7 @@
       for (J = 1; J <= M; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
       }
-      DNORM = DLANGE( '1', N, M, D, N, RWORK);
+      DNORM = dlange( '1', N, M, D, N, RWORK);
       dlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q
@@ -188,7 +188,7 @@
       // Compute |D*Q - D*Q| / |D|
 
       dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
          RESULT[5] = RESID / (EPS*max(1,M)*DNORM);
       } else {
@@ -206,7 +206,7 @@
       // Compute |D*QT - D*QT| / |D|
 
       dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[6] = RESID / (EPS*max(1,M)*DNORM);
       } else {
@@ -249,8 +249,8 @@
       // Compute |L - A*Q'| / |A| and store in RESULT(1)
 
       dgemm('N', 'T', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L );
-      ANORM = DLANGE( '1', M, N, A, M, RWORK );
-      RESID = DLANGE( '1', M, N, LQ, L, RWORK );
+      ANORM = dlange( '1', M, N, A, M, RWORK );
+      RESID = dlange( '1', M, N, LQ, L, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = RESID / (EPS*max(1,N)*ANORM);
       } else {
@@ -269,7 +269,7 @@
       for (J = 1; J <= M; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
       }
-      DNORM = DLANGE( '1', N, M, D, N, RWORK);
+      DNORM = dlange( '1', N, M, D, N, RWORK);
       dlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to C as Q*C
@@ -279,7 +279,7 @@
       // Compute |Q*D - Q*D| / |D|
 
       dgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
          RESULT[3] = RESID / (EPS*max(1,N)*DNORM);
       } else {
@@ -297,7 +297,7 @@
       // Compute |QT*D - QT*D| / |D|
 
       dgemm('T', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
          RESULT[4] = RESID / (EPS*max(1,N)*DNORM);
       } else {
@@ -309,7 +309,7 @@
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, C( 1, J ) );
       }
-      CNORM = DLANGE( '1', M, N, C, M, RWORK);
+      CNORM = dlange( '1', M, N, C, M, RWORK);
       dlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as C*Q
@@ -319,7 +319,7 @@
       // Compute |C*Q - C*Q| / |C|
 
       dgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
-      RESID = DLANGE( '1', N, M, DF, N, RWORK );
+      RESID = dlange( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[5] = RESID / (EPS*max(1,N)*CNORM);
       } else {
@@ -337,7 +337,7 @@
       // Compute |C*QT - C*QT| / |C|
 
       dgemm('N', 'T', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
-      RESID = DLANGE( '1', M, N, CF, M, RWORK );
+      RESID = dlange( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[6] = RESID / (EPS*max(1,N)*CNORM);
       } else {

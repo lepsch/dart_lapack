@@ -266,8 +266,8 @@
                IL = 1;
                IU = N;
             } else {
-               IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
-               IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
+               IL = 1 + INT( ( N-1 )*dlarnd( 1, ISEED2 ) );
+               IU = 1 + INT( ( N-1 )*dlarnd( 1, ISEED2 ) );
                if ( IL > IU ) {
                   ITEMP = IL;
                   IL = IU;

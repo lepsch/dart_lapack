@@ -43,10 +43,10 @@
       // INTRINSIC CEILING, DBLE, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRMNAMC / SRNAMT
+      // COMMON / SRMNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -110,7 +110,7 @@
 
       // Factor the matrix A in the array AF.
 
-      SRNAMT = 'ZGETSQRHRT';
+     srnamc.SRNAMT = 'ZGETSQRHRT';
       zgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO );
 
       // End Householder reconstruction routines.
@@ -120,7 +120,7 @@
 
       zlaset('Full', M, M, CZERO, CONE, Q, M );
 
-      SRNAMT = 'ZGEMQRT';
+     srnamc.SRNAMT = 'ZGEMQRT';
       zgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
@@ -160,7 +160,7 @@
 
       // Apply Q to C as Q*C = CF
 
-      SRNAMT = 'ZGEMQRT';
+     srnamc.SRNAMT = 'ZGEMQRT';
       zgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
@@ -180,7 +180,7 @@
 
       // Apply Q to C as (Q**T)*C = CF
 
-      SRNAMT = 'ZGEMQRT';
+     srnamc.SRNAMT = 'ZGEMQRT';
       zgemqrt('L', 'C', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
@@ -204,7 +204,7 @@
 
       // Apply Q to D as D*Q = DF
 
-      SRNAMT = 'ZGEMQRT';
+     srnamc.SRNAMT = 'ZGEMQRT';
       zgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
@@ -224,7 +224,7 @@
 
       // Apply Q to D as D*QT = DF
 
-      SRNAMT = 'ZGEMQRT';
+     srnamc.SRNAMT = 'ZGEMQRT';
       zgemqrt('R', 'C', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6

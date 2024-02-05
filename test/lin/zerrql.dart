@@ -1,4 +1,4 @@
-      void zerrql(PATH, NUNIT ) {
+      void zerrql(PATH, infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -25,20 +25,20 @@
       // EXTERNAL ALAESM, CHKXER, ZGEQL2, ZGEQLF, ZGEQLS, ZUNG2L, ZUNGQL, ZUNM2L, ZUNMQL
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -51,188 +51,188 @@
          W[J] = 0.0;
          X[J] = 0.0;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for QL factorization
 
       // ZGEQLF
 
-      SRNAMT = 'ZGEQLF';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZGEQLF';
+      infoc.INFOT = 1;
       zgeqlf(-1, 0, A, 1, B, W, 1, INFO );
-      chkxer('ZGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEQLF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeqlf(0, -1, A, 1, B, W, 1, INFO );
-      chkxer('ZGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGEQLF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgeqlf(2, 1, A, 1, B, W, 1, INFO );
-      chkxer('ZGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZGEQLF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zgeqlf(1, 2, A, 1, B, W, 1, INFO );
-      chkxer('ZGEQLF', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEQLF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZGEQL2
 
-      SRNAMT = 'ZGEQL2';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZGEQL2';
+      infoc.INFOT = 1;
       zgeql2(-1, 0, A, 1, B, W, INFO );
-      chkxer('ZGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEQL2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeql2(0, -1, A, 1, B, W, INFO );
-      chkxer('ZGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGEQL2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgeql2(2, 1, A, 1, B, W, INFO );
-      chkxer('ZGEQL2', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEQL2', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZGEQLS
 
-      SRNAMT = 'ZGEQLS';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZGEQLS';
+      infoc.INFOT = 1;
       zgeqls(-1, 0, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeqls(0, -1, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeqls(1, 2, 0, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zgeqls(0, 0, -1, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgeqls(2, 1, 0, A, 1, X, B, 2, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zgeqls(2, 1, 0, A, 2, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zgeqls(1, 1, 2, A, 1, X, B, 1, W, 1, INFO );
-      chkxer('ZGEQLS', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEQLS', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZUNGQL
 
-      SRNAMT = 'ZUNGQL';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZUNGQL';
+      infoc.INFOT = 1;
       zungql(-1, 0, 0, A, 1, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zungql(0, -1, 0, A, 1, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zungql(1, 2, 0, A, 1, X, W, 2, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zungql(0, 0, -1, A, 1, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zungql(1, 1, 2, A, 1, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zungql(2, 1, 0, A, 1, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zungql(2, 2, 0, A, 2, X, W, 1, INFO );
-      chkxer('ZUNGQL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNGQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZUNG2L
 
-      SRNAMT = 'ZUNG2L';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZUNG2L';
+      infoc.INFOT = 1;
       zung2l(-1, 0, 0, A, 1, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zung2l(0, -1, 0, A, 1, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zung2l(1, 2, 0, A, 1, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zung2l(0, 0, -1, A, 1, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zung2l(2, 1, 2, A, 2, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zung2l(2, 1, 0, A, 1, X, W, INFO );
-      chkxer('ZUNG2L', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNG2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZUNMQL
 
-      SRNAMT = 'ZUNMQL';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZUNMQL';
+      infoc.INFOT = 1;
       zunmql('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zunmql('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zunmql('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zunmql('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunmql('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunmql('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunmql('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zunmql('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zunmql('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zunmql('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       zunmql('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12;
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 12;
       zunmql('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
-      chkxer('ZUNMQL', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNMQL', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZUNM2L
 
-      SRNAMT = 'ZUNM2L';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZUNM2L';
+      infoc.INFOT = 1;
       zunm2l('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zunm2l('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zunm2l('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zunm2l('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunm2l('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunm2l('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zunm2l('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zunm2l('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zunm2l('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zunm2l('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
-      chkxer('ZUNM2L', INFOT, NOUT, LERR, OK );
+      chkxer('ZUNM2L', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, NOUT );
 
       return;
       }

@@ -47,10 +47,10 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -152,7 +152,7 @@
                                  // The case IUPLO == 1 is when SIDE == 'U'
                                  // -> QR factorization.
 
-                                 SRNAMT = 'CGEQRF';
+                                srnamc.SRNAMT = 'CGEQRF';
                                  cgeqrf(NA, NA, A, LDA, TAU, C_WORK_CGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
@@ -172,7 +172,7 @@
                                  // The case IUPLO == 2 is when SIDE == 'L'
                                  // -> QL factorization.
 
-                                 SRNAMT = 'CGELQF';
+                                srnamc.SRNAMT = 'CGELQF';
                                  cgelqf(NA, NA, A, LDA, TAU, C_WORK_CGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
@@ -200,7 +200,7 @@
 
                               // Store a copy of A in RFP format (in ARF).
 
-                              SRNAMT = 'CTRTTF';
+                             srnamc.SRNAMT = 'CTRTTF';
                               ctrttf(CFORM, UPLO, NA, A, LDA, ARF, INFO );
 
                               // Generate B1 our M--by--N right-hand side
@@ -216,13 +216,13 @@
                               // Solve op( A ) X = B or X op( A ) = B
                               // with CTRSM
 
-                              SRNAMT = 'CTRSM';
+                             srnamc.SRNAMT = 'CTRSM';
                               ctrsm(SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA );
 
                               // Solve op( A ) X = B or X op( A ) = B
                               // with CTFSM
 
-                              SRNAMT = 'CTFSM';
+                             srnamc.SRNAMT = 'CTFSM';
                               ctfsm(CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA );
 
                               // Check that the result agrees.

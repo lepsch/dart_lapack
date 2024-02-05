@@ -36,12 +36,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -67,7 +67,7 @@
 
          // SGEBAL
 
-         SRNAMT = 'SGEBAL';
+        srnamc.SRNAMT = 'SGEBAL';
          INFOT = 1;
          sgebal('/', 0, A, 1, ILO, IHI, S, INFO );
          chkxer('SGEBAL', INFOT, NOUT, LERR, OK );
@@ -81,7 +81,7 @@
 
          // SGEBAK
 
-         SRNAMT = 'SGEBAK';
+        srnamc.SRNAMT = 'SGEBAK';
          INFOT = 1;
          sgebak('/', 'R', 0, 1, 0, S, 0, A, 1, INFO );
          chkxer('SGEBAK', INFOT, NOUT, LERR, OK );
@@ -113,7 +113,7 @@
 
          // SGEHRD
 
-         SRNAMT = 'SGEHRD';
+        srnamc.SRNAMT = 'SGEHRD';
          INFOT = 1;
          sgehrd(-1, 1, 1, A, 1, TAU, W, 1, INFO );
          chkxer('SGEHRD', INFOT, NOUT, LERR, OK );
@@ -139,7 +139,7 @@
 
          // SGEHD2
 
-         SRNAMT = 'SGEHD2';
+        srnamc.SRNAMT = 'SGEHD2';
          INFOT = 1;
          sgehd2(-1, 1, 1, A, 1, TAU, W, INFO );
          chkxer('SGEHD2', INFOT, NOUT, LERR, OK );
@@ -162,7 +162,7 @@
 
          // SORGHR
 
-         SRNAMT = 'SORGHR';
+        srnamc.SRNAMT = 'SORGHR';
          INFOT = 1;
          sorghr(-1, 1, 1, A, 1, TAU, W, 1, INFO );
          chkxer('SORGHR', INFOT, NOUT, LERR, OK );
@@ -188,7 +188,7 @@
 
          // SORMHR
 
-         SRNAMT = 'SORMHR';
+        srnamc.SRNAMT = 'SORMHR';
          INFOT = 1;
          sormhr('/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO );
          chkxer('SORMHR', INFOT, NOUT, LERR, OK );
@@ -241,7 +241,7 @@
 
          // SHSEQR
 
-         SRNAMT = 'SHSEQR';
+        srnamc.SRNAMT = 'SHSEQR';
          INFOT = 1;
          shseqr('/', 'N', 0, 1, 0, A, 1, WR, WI, C, 1, W, 1, INFO );
          chkxer('SHSEQR', INFOT, NOUT, LERR, OK );
@@ -276,7 +276,7 @@
 
          // SHSEIN
 
-         SRNAMT = 'SHSEIN';
+        srnamc.SRNAMT = 'SHSEIN';
          INFOT = 1;
          shsein('/', 'N', 'N', SEL, 0, A, 1, WR, WI, VL, 1, VR, 1, 0, M, W, IFAILL, IFAILR, INFO );
          chkxer('SHSEIN', INFOT, NOUT, LERR, OK );
@@ -305,7 +305,7 @@
 
          // STREVC
 
-         SRNAMT = 'STREVC';
+        srnamc.SRNAMT = 'STREVC';
          INFOT = 1;
          strevc('/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, INFO );
          chkxer('STREVC', INFOT, NOUT, LERR, OK );
@@ -331,7 +331,7 @@
 
          // STREVC3
 
-         SRNAMT = 'STREVC3';
+        srnamc.SRNAMT = 'STREVC3';
          INFOT = 1;
          strevc3('/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, INFO );
          chkxer('STREVC3', INFOT, NOUT, LERR, OK );

@@ -195,7 +195,7 @@
                WORK[J+1] = PLUS2;
                WORK[N+J+1] = ZERO;
                PLUS1 = STAR1 / PLUS2;
-               REXP = DLARND( 2, ISEED );
+               REXP = dlarnd( 2, ISEED );
                STAR1 = STAR1*( SFAC**REXP );
                if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP );
@@ -357,7 +357,7 @@
             for (J = 1; J <= N; J++) { // 200
                dlarnv(2, ISEED, J-1, A( JC ) );
                dscal(J-1, TSCAL, A( JC ), 1 );
-               A[JC+J-1] = sign( ONE, DLARND( 2, ISEED ) );
+               A[JC+J-1] = sign( ONE, dlarnd( 2, ISEED ) );
                JC = JC + J;
             } // 200
             A[N*( N+1 ) / 2] = SMLNUM;
@@ -366,7 +366,7 @@
             for (J = 1; J <= N; J++) { // 210
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
                dscal(N-J, TSCAL, A( JC+1 ), 1 );
-               A[JC] = sign( ONE, DLARND( 2, ISEED ) );
+               A[JC] = sign( ONE, dlarnd( 2, ISEED ) );
                JC = JC + N - J + 1;
             } // 210
             A[1] = SMLNUM;
@@ -383,7 +383,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 220
                dlarnv(2, ISEED, J-1, A( JC ) );
-               A[JC+J-1] = sign( ONE, DLARND( 2, ISEED ) );
+               A[JC+J-1] = sign( ONE, dlarnd( 2, ISEED ) );
                JC = JC + J;
             } // 220
             A[N*( N+1 ) / 2] = SMLNUM;
@@ -391,7 +391,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 230
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
-               A[JC] = sign( ONE, DLARND( 2, ISEED ) );
+               A[JC] = sign( ONE, dlarnd( 2, ISEED ) );
                JC = JC + N - J + 1;
             } // 230
             A[1] = SMLNUM;

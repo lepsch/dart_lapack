@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dget24(COMP, JTYPE, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, LWORK, IWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -32,14 +34,14 @@
       int                IPNT( 20 );
       // ..
       // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
+      // bool               sslct.SELVAL( 20 );
+      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
+      // // ..
+      // // .. Scalars in Common ..
+      // int                sslct.SELDIM, sslct.SELOPT;
       // ..
       // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. External Functions ..
       //- bool               DSLECT;
@@ -92,7 +94,7 @@
 
       // Perform tests (1)-(13)
 
-      SELOPT = 0;
+      sslct.SELOPT = 0;
       LIWORK = N*N;
       for (ISORT = 0; ISORT <= 1; ISORT++) { // 120
          if ( ISORT == 0 ) {
@@ -153,8 +155,8 @@
 
          dgemm('No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE, VS1, LDVS );
 
-         ANORM = max( DLANGE( '1', N, N, A, LDA, WORK ), SMLNUM );
-         WNORM = DLANGE( '1', N, N, VS1, LDVS, WORK );
+         ANORM = max( dlange( '1', N, N, A, LDA, WORK ), SMLNUM );
+         WNORM = dlange( '1', N, N, VS1, LDVS, WORK );
 
          if ( ANORM > WNORM ) {
             RESULT[2+RSUB] = ( WNORM / ANORM ) / ( N*ULP );
@@ -433,14 +435,14 @@
          // the logical function DSLECT selects the eigenvalues specified
          // by NSLCT and ISLCT.
 
-         SELDIM = N;
-         SELOPT = 1;
+         sslct.SELDIM = N;
+         sslct.SELOPT = 1;
          EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 260
             IPNT[I] = I;
-            SELVAL[I] = false;
-            SELWR[I] = WRTMP( I );
-            SELWI[I] = WITMP( I );
+            sslct.SELVAL[I] = false;
+            sslct.SELWR[I] = WRTMP( I );
+            sslct.SELWI[I] = WITMP( I );
          } // 260
          for (I = 1; I <= N - 1; I++) { // 280
             KMIN = I;
@@ -462,7 +464,7 @@
             IPNT[KMIN] = ITMP;
          } // 280
          for (I = 1; I <= NSLCT; I++) { // 290
-            SELVAL[IPNT( ISLCT( I ) )] = true;
+            sslct.SELVAL[IPNT( ISLCT( I ) )] = true;
          } // 290
 
          // Compute condition numbers
@@ -480,7 +482,7 @@
          // Compare condition number for average of selected eigenvalues
          // taking its condition number into account
 
-         ANORM = DLANGE( '1', N, N, A, LDA, WORK );
+         ANORM = dlange( '1', N, N, A, LDA, WORK );
          V = max( N.toDouble()*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {

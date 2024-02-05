@@ -50,12 +50,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -118,7 +118,7 @@
 
                slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
@@ -246,7 +246,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -261,7 +261,7 @@
                         slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                         slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'SPOSV ';
+                       srnamc.SRNAMT = 'SPOSV ';
                         sposv(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                         // Check error code from SPOSV .
@@ -317,7 +317,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using SPOSVX.
 
-                     SRNAMT = 'SPOSVX';
+                    srnamc.SRNAMT = 'SPOSVX';
                      sposvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check the error code from SPOSVX.
@@ -400,7 +400,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using SPOSVXX.
 
-                     SRNAMT = 'SPOSVXX';
+                    srnamc.SRNAMT = 'SPOSVXX';
                      N_ERR_BNDS = 3;
                      sposvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK, INFO );
 

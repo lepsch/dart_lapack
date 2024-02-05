@@ -41,10 +41,10 @@
       // EXTERNAL ZTRTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -116,7 +116,7 @@
 
                   CFORM = FORMS( IFORM );
 
-                  SRNAMT = 'ZTRTTF';
+                 srnamc.SRNAMT = 'ZTRTTF';
                   ztrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                   // Check error code from ZTRTTF
@@ -126,7 +126,7 @@
                         WRITE( NOUT, * );
                         WRITE( NOUT, FMT = 9999 );
                      }
-                     WRITE( NOUT, FMT = 9998 ) SRNAMT, UPLO, CFORM, N;
+                     WRITE( NOUT, FMT = 9998 )srnamc.SRNAMT, UPLO, CFORM, N;
                      NERRS = NERRS + 1;
                      GO TO 100;
                   }

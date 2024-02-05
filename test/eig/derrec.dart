@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrec(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -29,18 +31,18 @@
       // EXTERNAL CHKXER, DTREXC, DTRSEN, DTRSNA, DTRSYL, DTRSYL3
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / infoc / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / srnamc / srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      OK = true;
+      infoc.NOUT = NUNIT;
+      infoc.OK = true;
       NT = 0;
 
       // Initialize A, B and SEL
@@ -58,174 +60,174 @@
 
       // Test DTRSYL
 
-      SRNAMT = 'DTRSYL';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTRSYL';
+      infoc.INFOT = 1;
       dtrsyl('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrsyl('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtrsyl('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrsyl('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsyl('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dtrsyl('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsyl('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsyl('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO );
-      chkxer('DTRSYL', INFOT, NOUT, LERR, OK );
+      chkxer('DTRSYL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       NT = NT + 8;
 
       // Test DTRSYL3
 
-      SRNAMT = 'DTRSYL3';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTRSYL3';
+      infoc.INFOT = 1;
       dtrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dtrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
-      chkxer('DTRSYL3', INFOT, NOUT, LERR, OK );
+      chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       NT = NT + 8;
 
       // Test DTREXC
 
-      SRNAMT = 'DTREXC';
+      srnamc.SRNAMT = 'DTREXC';
       IFST = 1;
       ILST = 1;
-      INFOT = 1;
+      infoc.INFOT = 1;
       dtrexc('X', 1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrexc('N', -1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       ILST = 2;
       dtrexc('N', 2, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrexc('V', 2, A, 2, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       IFST = 0;
       ILST = 1;
       dtrexc('V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       IFST = 2;
       dtrexc('V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       IFST = 1;
       ILST = 0;
       dtrexc('V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       ILST = 2;
       dtrexc('V', 1, A, 1, B, 1, IFST, ILST, WORK, INFO );
-      chkxer('DTREXC', INFOT, NOUT, LERR, OK );
+      chkxer('DTREXC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       NT = NT + 8;
 
       // Test DTRSNA
 
-      SRNAMT = 'DTRSNA';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTRSNA';
+      infoc.INFOT = 1;
       dtrsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrsna('B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrsna('B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsna('V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dtrsna('B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dtrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dtrsna('B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dtrsna('B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 2, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
-      INFOT = 16;
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 16;
       dtrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, IWORK, INFO );
-      chkxer('DTRSNA', INFOT, NOUT, LERR, OK );
+      chkxer('DTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       NT = NT + 9;
 
       // Test DTRSEN
 
       SEL[1] = false;
-      SRNAMT = 'DTRSEN';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTRSEN';
+      infoc.INFOT = 1;
       dtrsen('X', 'N', SEL, 0, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtrsen('N', 'X', SEL, 0, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtrsen('N', 'N', SEL, -1, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtrsen('N', 'N', SEL, 2, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 2, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dtrsen('N', 'V', SEL, 2, A, 2, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 15;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 15;
       dtrsen('N', 'V', SEL, 2, A, 2, B, 2, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 0, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 15;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 15;
       dtrsen('E', 'V', SEL, 3, A, 3, B, 3, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 15;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 15;
       dtrsen('V', 'V', SEL, 3, A, 3, B, 3, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 3, IWORK, 2, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 17;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 17;
       dtrsen('E', 'V', SEL, 2, A, 2, B, 2, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 0, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
-      INFOT = 17;
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 17;
       dtrsen('V', 'V', SEL, 3, A, 3, B, 3, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 4, IWORK, 1, INFO );
-      chkxer('DTRSEN', INFOT, NOUT, LERR, OK );
+      chkxer('DTRSEN', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       NT = NT + 10;
 
       // Print a summary line.
 
-      if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )PATH, NT;
+      if ( infoc.OK ) {
+         WRITE( infoc.NOUT, FMT = 9999 )PATH, NT;
       } else {
-         WRITE( NOUT, FMT = 9998 )PATH;
+         WRITE( infoc.NOUT, FMT = 9998 )PATH;
       }
 
       return;

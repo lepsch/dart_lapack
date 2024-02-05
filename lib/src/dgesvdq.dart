@@ -318,7 +318,7 @@ import 'package:lapack/src/xerbla.dart';
             for (p = 1; p <= M; p++) { // 1904
                 // RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
                 // [[DLANGE will return NaN if an entry of the p-th row is Nan]]
-                RWORK[p] = DLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY );
+                RWORK[p] = dlange( 'M', 1, N, A(p,1), LDA, RDUMMY );
                 // .. check for NaN's and Inf's
                 if ( ( RWORK(p) != RWORK(p) ) || ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = -8;
@@ -375,7 +375,7 @@ import 'package:lapack/src/xerbla.dart';
 // underflows. That depends on the SVD procedure.
 
       if ( !ROWPRM ) {
-          RTMP = DLANGE( 'M', M, N, A, LDA, RDUMMY );
+          RTMP = dlange( 'M', M, N, A, LDA, RDUMMY );
           if ( ( RTMP != RTMP ) || ( (RTMP*ZERO) != ZERO ) ) {
                INFO = -8;
                xerbla('DGESVDQ', -INFO );

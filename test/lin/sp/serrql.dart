@@ -26,12 +26,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -58,7 +58,7 @@
 
       // SGEQLF
 
-      SRNAMT = 'SGEQLF';
+     srnamc.SRNAMT = 'SGEQLF';
       INFOT = 1;
       sgeqlf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('SGEQLF', INFOT, NOUT, LERR, OK );
@@ -74,7 +74,7 @@
 
       // SGEQL2
 
-      SRNAMT = 'SGEQL2';
+     srnamc.SRNAMT = 'SGEQL2';
       INFOT = 1;
       sgeql2(-1, 0, A, 1, B, W, INFO );
       chkxer('SGEQL2', INFOT, NOUT, LERR, OK );
@@ -87,7 +87,7 @@
 
       // SGEQLS
 
-      SRNAMT = 'SGEQLS';
+     srnamc.SRNAMT = 'SGEQLS';
       INFOT = 1;
       sgeqls(-1, 0, 0, A, 1, X, B, 1, W, 1, INFO );
       chkxer('SGEQLS', INFOT, NOUT, LERR, OK );
@@ -112,7 +112,7 @@
 
       // SORGQL
 
-      SRNAMT = 'SORGQL';
+     srnamc.SRNAMT = 'SORGQL';
       INFOT = 1;
       sorgql(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('SORGQL', INFOT, NOUT, LERR, OK );
@@ -137,7 +137,7 @@
 
       // SORG2L
 
-      SRNAMT = 'SORG2L';
+     srnamc.SRNAMT = 'SORG2L';
       INFOT = 1;
       sorg2l(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('SORG2L', INFOT, NOUT, LERR, OK );
@@ -159,7 +159,7 @@
 
       // SORMQL
 
-      SRNAMT = 'SORMQL';
+     srnamc.SRNAMT = 'SORMQL';
       INFOT = 1;
       sormql('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('SORMQL', INFOT, NOUT, LERR, OK );
@@ -199,7 +199,7 @@
 
       // SORM2L
 
-      SRNAMT = 'SORM2L';
+     srnamc.SRNAMT = 'SORM2L';
       INFOT = 1;
       sorm2l('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('SORM2L', INFOT, NOUT, LERR, OK );

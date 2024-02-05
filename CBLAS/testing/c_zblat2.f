@@ -99,10 +99,10 @@
       // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
-      // COMMON /SRNAMC/SRNAMT
+      // COMMON /SRNAMC(srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['cblas_zgemv ', 'cblas_zgbmv ', 'cblas_zhemv ','cblas_zhbmv ','cblas_zhpmv ', 'cblas_ztrmv ','cblas_ztbmv ','cblas_ztpmv ', 'cblas_ztrsv ','cblas_ztbsv ','cblas_ztpsv ', 'cblas_zgerc ','cblas_zgeru ','cblas_zher  ', 'cblas_zhpr  ','cblas_zher2 ','cblas_zhpr2 '];
       // .. Executable Statements ..
@@ -282,7 +282,7 @@
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9983 )SNAMES( ISNUM );
          } else {
-            SRNAMT = SNAMES( ISNUM );
+           srnamc.SRNAMT = SNAMES( ISNUM );
             // Test error exits.
             if ( TSTERR ) {
                cz2chke(SNAMES( ISNUM ) );

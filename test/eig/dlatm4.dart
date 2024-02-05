@@ -157,7 +157,7 @@
 
          } // 200
          for (JD = KBEG; JD <= KEND; JD++) { // 210
-            A[JD, JD] = DLARND( IDIST, ISEED );
+            A[JD, JD] = dlarnd( IDIST, ISEED );
          } // 210
 
          } // 220
@@ -248,13 +248,13 @@
          } else {
             IOFF = 2;
             for (JR = 1; JR <= N - 1; JR++) { // 300
-               if( A( JR+1, JR ) == ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED );
+               if( A( JR+1, JR ) == ZERO ) A( JR, JR+1 ) = TRIANG*dlarnd( IDIST, ISEED );
             } // 300
          }
 
          for (JC = 2; JC <= N; JC++) { // 320
             for (JR = 1; JR <= JC - IOFF; JR++) { // 310
-               A[JR, JC] = TRIANG*DLARND( IDIST, ISEED );
+               A[JR, JC] = TRIANG*dlarnd( IDIST, ISEED );
             } // 310
          } // 320
       }

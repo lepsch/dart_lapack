@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -51,13 +53,13 @@
       // INTRINSIC DBLE, MAX, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -77,7 +79,7 @@
          ISEED[I] = ISEEDY( I );
       } // 10
 
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in MVAL
 
@@ -108,7 +110,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -163,13 +165,13 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'DLARHS';
+                  srnamc.SRNAMT = 'DLARHS';
                   dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                   // Compute the L*L' or U'*U factorization of the
                   // matrix and solve the system.
 
-                  SRNAMT = 'DSPOSV ';
+                  srnamc.SRNAMT = 'DSPOSV ';
                   KASE = KASE + 1;
 
                   dlacpy('All', N, N, A, LDA, AFAC, LDA);

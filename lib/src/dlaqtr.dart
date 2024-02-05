@@ -63,8 +63,8 @@ import 'package:lapack/src/xerbla.dart';
       SMLNUM = dlamch( 'S' ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
-      XNORM = DLANGE( 'M', N, N, T, LDT, D );
-      if ( !LREAL) XNORM = max( XNORM, ( W ).abs(), DLANGE( 'M', N, 1, B, N, D ) );
+      XNORM = dlange( 'M', N, N, T, LDT, D );
+      if ( !LREAL) XNORM = max( XNORM, ( W ).abs(), dlange( 'M', N, 1, B, N, D ) );
       SMIN = max( SMLNUM, EPS*XNORM );
 
       // Compute 1-norm of each column of strictly upper triangular

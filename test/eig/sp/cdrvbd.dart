@@ -52,10 +52,10 @@
       // INTRINSIC ABS, REAL, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const CJOB = [ 'N', 'O', 'S', 'A' ];
@@ -207,7 +207,7 @@
                // Factorize A
 
                if (IWSPC > 1) clacpy( 'F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'CGESVD';
+              srnamc.SRNAMT = 'CGESVD';
                cgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -242,7 +242,7 @@
                      JOBU = CJOB( IJU+1 );
                      JOBVT = CJOB( IJVT+1 );
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
-                     SRNAMT = 'CGESVD';
+                    srnamc.SRNAMT = 'CGESVD';
                      cgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO );
 
                      // Compare U
@@ -297,7 +297,7 @@
                // Factorize A
 
                clacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'CGESDD';
+              srnamc.SRNAMT = 'CGESDD';
                cgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -329,7 +329,7 @@
                for (IJQ = 0; IJQ <= 2; IJQ++) { // 130
                   JOBQ = CJOB( IJQ+1 );
                   clacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'CGESDD';
+                 srnamc.SRNAMT = 'CGESDD';
                   cgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
 
                   // Compare U
@@ -393,7 +393,7 @@
                   if (IWSPC == 4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, A, LDA );
-                  SRNAMT = 'CGESVDQ';
+                 srnamc.SRNAMT = 'CGESVDQ';
 
                   LRWORK = max(2, M, 5*N);
                   LIWORK = max( N, 1 );
@@ -439,7 +439,7 @@
                   if (IWSPC == 4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, USAV, LDA );
-                  SRNAMT = 'CGESVJ';
+                 srnamc.SRNAMT = 'CGESVJ';
                   cgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   // CGESVJ returns V not VH
@@ -489,7 +489,7 @@
                   LRWORK = max( 7, N + 2*M);
 
                   clacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
-                  SRNAMT = 'CGEJSV';
+                 srnamc.SRNAMT = 'CGEJSV';
                   cgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO );
 
                   // CGEJSV returns V not VH
@@ -528,7 +528,7 @@
                // Factorize A
 
                clacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'CGESVDX';
+              srnamc.SRNAMT = 'CGESVDX';
                cgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -567,7 +567,7 @@
                      JOBVT = CJOBV( IJVT+1 );
                      RANGE = CJOBR( 1 );
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
-                     SRNAMT = 'CGESVDX';
+                    srnamc.SRNAMT = 'CGESVDX';
                      cgesvdx(JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
 
                      // Compare U
@@ -621,7 +621,7 @@
                   }
                }
                clacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'CGESVDX';
+              srnamc.SRNAMT = 'CGESVDX';
                cgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
@@ -659,7 +659,7 @@
                   VU = ONE;
                }
                clacpy('F', M, N, ASAV, LDA, A, LDA );
-               SRNAMT = 'CGESVDX';
+              srnamc.SRNAMT = 'CGESVDX';
                cgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;

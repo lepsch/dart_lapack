@@ -1,3 +1,4 @@
+import 'common.dart';
       void derrqp(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -31,25 +32,25 @@
       // EXTERNAL ALAESM, CHKXER, DGEQP3
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
       C2 = PATH( 2: 3 );
       LW = 3*NMAX + 1;
       A[1, 1] = 1.0;
       A[1, 2] = 2.0;
       A[2, 2] = 3.0;
       A[2, 1] = 4.0;
-      OK = true;
+      infoc.OK = true;
 
       if ( lsamen( 2, C2, 'QP' ) ) {
 
@@ -57,24 +58,24 @@
 
          // DGEQP3
 
-         SRNAMT = 'DGEQP3';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEQP3';
+         infoc.INFOT = 1;
          dgeqp3(-1, 0, A, 1, IP, TAU, W, LW, INFO );
-         chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEQP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeqp3(1, -1, A, 1, IP, TAU, W, LW, INFO );
-         chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEQP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgeqp3(2, 3, A, 1, IP, TAU, W, LW, INFO );
-         chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGEQP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgeqp3(2, 2, A, 2, IP, TAU, W, LW-10, INFO );
-         chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
+         chkxer('DGEQP3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       }
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

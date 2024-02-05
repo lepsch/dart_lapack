@@ -52,7 +52,7 @@
       // scaled versions
 
       if ( SCALE != 1 ) {
-         NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY );
+         NORMA = dlange( 'Max', M, N, A, LDA, DUMMY );
          SMLNUM = dlamch( 'Safe minimum' );
          BIGNUM = ONE / SMLNUM;
          SMLNUM = SMLNUM / dlamch( 'Epsilon' );
@@ -71,6 +71,6 @@
          }
       }
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, DUMMY );
+      NORMA = dlange( 'One-norm', M, N, A, LDA, DUMMY );
       return;
       }

@@ -182,7 +182,7 @@
                   // Generate a new *-value with norm between sqrt(TNORM)
                   // and TNORM.
 
-                  REXP = DLARND( 2, ISEED );
+                  REXP = dlarnd( 2, ISEED );
                   if ( REXP < ZERO ) {
                      STAR1 = -SFAC**( ONE-REXP )*ZLARND( 5, ISEED );
                   } else {

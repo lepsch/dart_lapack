@@ -44,12 +44,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT, SELDIM, SELOPT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Executable Statements ..
@@ -75,7 +75,7 @@
 
          // Test CGEEV
 
-         SRNAMT = 'CGEEV ';
+        srnamc.SRNAMT = 'CGEEV ';
          INFOT = 1;
          cgeev('X', 'N', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO );
          chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
@@ -103,7 +103,7 @@
 
          // Test CGEES
 
-         SRNAMT = 'CGEES ';
+        srnamc.SRNAMT = 'CGEES ';
          INFOT = 1;
          cgees('X', 'N', CSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
          chkxer('CGEES ', INFOT, NOUT, LERR, OK );
@@ -128,7 +128,7 @@
 
          // Test CGEEVX
 
-         SRNAMT = 'CGEEVX';
+        srnamc.SRNAMT = 'CGEEVX';
          INFOT = 1;
          cgeevx('X', 'N', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
          chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
@@ -165,7 +165,7 @@
 
          // Test CGEESX
 
-         SRNAMT = 'CGEESX';
+        srnamc.SRNAMT = 'CGEESX';
          INFOT = 1;
          cgeesx('X', 'N', CSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('CGEESX', INFOT, NOUT, LERR, OK );
@@ -193,7 +193,7 @@
 
          // Test CGESVD
 
-         SRNAMT = 'CGESVD';
+        srnamc.SRNAMT = 'CGESVD';
          INFOT = 1;
          cgesvd('X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
          chkxer('CGESVD', INFOT, NOUT, LERR, OK );
@@ -220,14 +220,14 @@
          chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          NT = NT + 8;
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }
 
          // Test CGESDD
 
-         SRNAMT = 'CGESDD';
+        srnamc.SRNAMT = 'CGESDD';
          INFOT = 1;
          cgesdd('X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
          chkxer('CGESDD', INFOT, NOUT, LERR, OK );
@@ -248,14 +248,14 @@
          chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          NT = NT - 2;
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }
 
          // Test CGEJSV
 
-         SRNAMT = 'CGEJSV';
+        srnamc.SRNAMT = 'CGEJSV';
          INFOT = 1;
          cgejsv('X', 'U', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
          chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
@@ -291,14 +291,14 @@
          chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          NT = 11;
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }
 
          // Test CGESVDX
 
-         SRNAMT = 'CGESVDX';
+        srnamc.SRNAMT = 'CGESVDX';
          INFOT = 1;
          cgesvdx('X', 'N', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
          chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
@@ -337,14 +337,14 @@
          chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          NT = 12;
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }
 
          // Test CGESVDQ
 
-         SRNAMT = 'CGESVDQ';
+        srnamc.SRNAMT = 'CGESVDQ';
          INFOT = 1;
          cgesvdq('X', 'P', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
          chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
@@ -380,7 +380,7 @@
          chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          NT = 11;
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }
@@ -390,7 +390,7 @@
 
       if ( !lsamen( 2, C2, 'BD' ) ) {
          if ( OK ) {
-            WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
+            WRITE( NOUT, FMT = 9999 srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), NT;
          } else {
             WRITE( NOUT, FMT = 9998 );
          }

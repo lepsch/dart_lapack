@@ -668,8 +668,8 @@
                IL = 1;
                IU = N;
             } else {
-               IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
-               IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
+               IL = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
+               IU = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
                if ( IU < IL ) {
                   ITEMP = IU;
                   IU = IL;
@@ -727,8 +727,8 @@
 
             // Do test 19
 
-            TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
-            TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
+            TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
+            TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
             if ( N > 0 ) {
                TEMP3 = max( ( WA1( N ) ).abs(), ( WA1( 1 ) ) ).abs();
             } else {
@@ -896,8 +896,8 @@
 
                   RESULT[27] = TEMP1 / TEMP2;
 
-                  IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
-                  IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
+                  IL = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
+                  IU = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
                   if ( IU < IL ) {
                      ITEMP = IU;
                      IU = IL;
@@ -949,8 +949,8 @@
 
                if ( CRANGE ) {
                   NTEST = 29;
-                  IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
-                  IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) );
+                  IL = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
+                  IU = 1 + ( N-1 )*INT( dlarnd( 1, ISEED2 ) );
                   if ( IU < IL ) {
                      ITEMP = IU;
                      IU = IL;

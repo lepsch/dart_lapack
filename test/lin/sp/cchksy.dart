@@ -52,12 +52,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -126,7 +126,7 @@
 
                   // Generate a matrix with CLATMS.
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'N', A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS and handle error.
@@ -243,7 +243,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'CSYTRF';
+                 srnamc.SRNAMT = 'CSYTRF';
                   csytrf(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -289,7 +289,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'CSYTRI2';
+                    srnamc.SRNAMT = 'CSYTRI2';
                      LWORK = (N+NB+1)*(NB+3);
                      csytri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
@@ -339,11 +339,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CSYTRS';
+                    srnamc.SRNAMT = 'CSYTRS';
                      csytrs(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from CSYTRS and handle error.
@@ -362,11 +362,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CSYTRS2';
+                    srnamc.SRNAMT = 'CSYTRS2';
                      csytrs2(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO );
 
                      // Check error code from CSYTRS2 and handle error.
@@ -387,7 +387,7 @@
 // +    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'CSYRFS';
+                    srnamc.SRNAMT = 'CSYRFS';
                      csyrfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from CSYRFS and handle error.
@@ -418,7 +418,7 @@
 
                   } // 140
                   ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'CSYCON';
+                 srnamc.SRNAMT = 'CSYCON';
                   csycon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from CSYCON and handle error.

@@ -24,7 +24,7 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Intrinsic Functions ..
@@ -32,7 +32,7 @@
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -44,7 +44,7 @@
       ALPHA = 1.0;
       BETA = 1.0;
 
-      SRNAMT = 'CPFTRF';
+     srnamc.SRNAMT = 'CPFTRF';
       INFOT = 1;
       cpftrf('/', 'U', 0, A, INFO );
       chkxer('CPFTRF', INFOT, NOUT, LERR, OK );
@@ -55,7 +55,7 @@
       cpftrf('N', 'U', -1, A, INFO );
       chkxer('CPFTRF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CPFTRS';
+     srnamc.SRNAMT = 'CPFTRS';
       INFOT = 1;
       cpftrs('/', 'U', 0, 0, A, B, 1, INFO );
       chkxer('CPFTRS', INFOT, NOUT, LERR, OK );
@@ -72,7 +72,7 @@
       cpftrs('N', 'U', 0, 0, A, B, 0, INFO );
       chkxer('CPFTRS', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CPFTRI';
+     srnamc.SRNAMT = 'CPFTRI';
       INFOT = 1;
       cpftri('/', 'U', 0, A, INFO );
       chkxer('CPFTRI', INFOT, NOUT, LERR, OK );
@@ -83,7 +83,7 @@
       cpftri('N', 'U', -1, A, INFO );
       chkxer('CPFTRI', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTFSM ';
+     srnamc.SRNAMT = 'CTFSM ';
       INFOT = 1;
       ctfsm('/', 'L', 'U', 'C', 'U', 0, 0, ALPHACMPLX, A, B, 1 );
       chkxer('CTFSM ', INFOT, NOUT, LERR, OK );
@@ -109,7 +109,7 @@
       ctfsm('N', 'L', 'U', 'C', 'U', 0, 0, ALPHACMPLX, A, B, 0 );
       chkxer('CTFSM ', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTFTRI';
+     srnamc.SRNAMT = 'CTFTRI';
       INFOT = 1;
       ctftri('/', 'L', 'N', 0, A, INFO );
       chkxer('CTFTRI', INFOT, NOUT, LERR, OK );
@@ -123,7 +123,7 @@
       ctftri('N', 'L', 'N', -1, A, INFO );
       chkxer('CTFTRI', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTFTTR';
+     srnamc.SRNAMT = 'CTFTTR';
       INFOT = 1;
       ctfttr('/', 'U', 0, A, B, 1, INFO );
       chkxer('CTFTTR', INFOT, NOUT, LERR, OK );
@@ -137,7 +137,7 @@
       ctfttr('N', 'U', 0, A, B, 0, INFO );
       chkxer('CTFTTR', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTRTTF';
+     srnamc.SRNAMT = 'CTRTTF';
       INFOT = 1;
       ctrttf('/', 'U', 0, A, 1, B, INFO );
       chkxer('CTRTTF', INFOT, NOUT, LERR, OK );
@@ -151,7 +151,7 @@
       ctrttf('N', 'U', 0, A, 0, B, INFO );
       chkxer('CTRTTF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTFTTP';
+     srnamc.SRNAMT = 'CTFTTP';
       INFOT = 1;
       ctfttp('/', 'U', 0, A, B, INFO );
       chkxer('CTFTTP', INFOT, NOUT, LERR, OK );
@@ -162,7 +162,7 @@
       ctfttp('N', 'U', -1, A, B, INFO );
       chkxer('CTFTTP', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTPTTF';
+     srnamc.SRNAMT = 'CTPTTF';
       INFOT = 1;
       ctpttf('/', 'U', 0, A, B, INFO );
       chkxer('CTPTTF', INFOT, NOUT, LERR, OK );
@@ -173,7 +173,7 @@
       ctpttf('N', 'U', -1, A, B, INFO );
       chkxer('CTPTTF', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTRTTP';
+     srnamc.SRNAMT = 'CTRTTP';
       INFOT = 1;
       ctrttp('/', 0, A, 1,  B, INFO );
       chkxer('CTRTTP', INFOT, NOUT, LERR, OK );
@@ -184,7 +184,7 @@
       ctrttp('U', 0, A, 0,  B, INFO );
       chkxer('CTRTTP', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CTPTTR';
+     srnamc.SRNAMT = 'CTPTTR';
       INFOT = 1;
       ctpttr('/', 0, A, B, 1,  INFO );
       chkxer('CTPTTR', INFOT, NOUT, LERR, OK );
@@ -195,7 +195,7 @@
       ctpttr('U', 0, A, B, 0, INFO );
       chkxer('CTPTTR', INFOT, NOUT, LERR, OK );
 
-      SRNAMT = 'CHFRK ';
+     srnamc.SRNAMT = 'CHFRK ';
       INFOT = 1;
       chfrk('/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B );
       chkxer('CHFRK ', INFOT, NOUT, LERR, OK );

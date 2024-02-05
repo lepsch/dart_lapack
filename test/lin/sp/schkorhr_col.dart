@@ -35,12 +35,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 

@@ -27,12 +27,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC FLOAT
@@ -58,7 +58,7 @@
 
       // STPQRT
 
-      SRNAMT = 'STPQRT';
+     srnamc.SRNAMT = 'STPQRT';
       INFOT = 1;
       stpqrt(-1, 1, 0, 1, A, 1, B, 1, T, 1, W, INFO );
       chkxer('STPQRT', INFOT, NOUT, LERR, OK );
@@ -89,7 +89,7 @@
 
       // STPQRT2
 
-      SRNAMT = 'STPQRT2';
+     srnamc.SRNAMT = 'STPQRT2';
       INFOT = 1;
       stpqrt2(-1, 0, 0, A, 1, B, 1, T, 1, INFO );
       chkxer('STPQRT2', INFOT, NOUT, LERR, OK );
@@ -111,7 +111,7 @@
 
       // STPMQRT
 
-      SRNAMT = 'STPMQRT';
+     srnamc.SRNAMT = 'STPMQRT';
       INFOT = 1;
       stpmqrt('/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
       chkxer('STPMQRT', INFOT, NOUT, LERR, OK );

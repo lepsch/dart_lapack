@@ -73,7 +73,7 @@
          S[1] = ONE;
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
-            TEMP = DLARND( 1, ISEED );
+            TEMP = dlarnd( 1, ISEED );
             if ( TEMP > SVMIN ) {
                S[J] = ( TEMP ).abs();
             } else {

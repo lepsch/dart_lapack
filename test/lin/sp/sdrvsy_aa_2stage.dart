@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
@@ -128,7 +128,7 @@
 
                // Generate a matrix with SLATMS.
 
-                  SRNAMT = 'SLATMS';
+                 srnamc.SRNAMT = 'SLATMS';
                   slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from SLATMS and handle error.
@@ -218,7 +218,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'SLARHS';
+                 srnamc.SRNAMT = 'SLARHS';
                   slarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -230,7 +230,7 @@
 
                      // Factor the matrix and solve the system using SSYSV_AA.
 
-                     SRNAMT = 'SSYSV_AA_2STAGE ';
+                    srnamc.SRNAMT = 'SSYSV_AA_2STAGE ';
                      LWORK = min( max( 1, N*NB ), 3*NMAX*NMAX );
                      ssysv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, max( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
 

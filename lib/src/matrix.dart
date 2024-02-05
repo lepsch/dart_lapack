@@ -167,3 +167,50 @@ class _ArrayElementBox<T> implements Box<T> {
   @override
   String toString() => value.toString();
 }
+
+class Matrix3d<T> {
+  final Array<T> _entries;
+  final int _ld;
+  final ({int x, int y, int z}) offset;
+
+  Matrix3d(int m, int n, int o, {this.offset = (x: 0, y: 0, z: 0)})
+      : _ld = m,
+        _entries = _Array<T>(m * n * o, offset: offset.x, ld: m);
+
+  Matrix3d.fromList(List<List<T>> list, {this.offset = (x: 0, y: 0, z: 0)})
+      : _entries = _Array<T>.fromList(
+          [
+            for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
+              for (var i = 0; i < list.length; i++) list[i][j],
+            ],
+          ],
+          ld: list.length,
+        ),
+        _ld = list.length;
+
+  Matrix3d.fromSlice(this._entries, this._ld,
+      {this.offset = (x: 0, y: 0, z: 0)});
+
+  Matrix3d<T> call(int i, int j, int k,
+      [({int x, int y, int z}) offset = (x: 0, y: 0, z: 0)]) {
+    return Matrix3d.fromSlice(
+      _entries,
+      _ld,
+      offset: (x: offset.x + j - 1, y: offset.y + i - 1, z: offset.z + k - 1),
+    );
+  }
+
+  Matrix<T> operator [](int i) {
+    return Matrix(1, 1);
+    // _entries(1 + offset.x, offset: offset.y + i - 1);
+  }
+
+  List<T> toRawList() {
+    return _entries.toRawList();
+  }
+
+  Box<T> box(int i, int j, int k) => this[i][j].box(k);
+
+  Array<T> asArray() =>
+      _Array.fromSlice(_entries.toRawList(), offset: offset.x * _ld + offset.y);
+}

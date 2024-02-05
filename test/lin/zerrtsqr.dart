@@ -1,4 +1,4 @@
-      void zerrtsqr(PATH, NUNIT ) {
+      void zerrtsqr(PATH, infoc.NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --
@@ -7,7 +7,7 @@
 
       // .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -26,20 +26,20 @@
       // EXTERNAL ALAESM, CHKXER, ZGEQR, ZGEMQR, ZGELQ, ZGEMLQ
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -52,191 +52,191 @@
          }
          W[J] = 0.0;
       }
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for TS factorization
 
       // ZGEQR
 
-      SRNAMT = 'ZGEQR';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZGEQR';
+      infoc.INFOT = 1;
       zgeqr(-1, 0, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZGEQR', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgeqr(0, -1, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZGEQR', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGEQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgeqr(1, 1, A, 0, TAU, 1, W, 1, INFO );
-      chkxer('ZGEQR', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('ZGEQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zgeqr(3, 2, A, 3, TAU, 1, W, 1, INFO );
-      chkxer('ZGEQR', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZGEQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zgeqr(3, 2, A, 3, TAU, 8, W, 0, INFO );
-      chkxer('ZGEQR', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZLATSQR
 
       MB = 1;
       NB = 1;
-      SRNAMT = 'ZLATSQR';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZLATSQR';
+      infoc.INFOT = 1;
       zlatsqr(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zlatsqr(1, 2, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       zlatsqr(0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zlatsqr(2, 1, -1, NB, A, 2, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zlatsqr(2, 1, MB, 2, A, 2, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zlatsqr(2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zlatsqr(2, 1, MB, NB, A, 2, TAU, 0, W, 1, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zlatsqr(2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO );
-      chkxer('ZLATSQR', INFOT, NOUT, LERR, OK );
+      chkxer('ZLATSQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZGEMQR
 
       TAU(1)=1;
       TAU(2)=1;
-      SRNAMT = 'ZGEMQR';
+     srnamc.SRNAMT = 'ZGEMQR';
       NB=1;
-      INFOT = 1;
+      infoc.INFOT = 1;
       zgemqr('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgemqr('L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zgemqr('L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgemqr('L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgemqr('L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgemqr('R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zgemqr('L', 'N', 2, 1, 0, A, 0, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgemqr('R', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgemqr('L', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       zgemqr('L', 'N', 2, 1, 1, A, 2, TAU, 6, C, 0, W, 1,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       zgemqr('L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO);
-      chkxer('ZGEMQR', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEMQR', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZGELQ
 
-      SRNAMT = 'ZGELQ';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZGELQ';
+      infoc.INFOT = 1;
       zgelq(-1, 0, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZGELQ', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGELQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgelq(0, -1, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZGELQ', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGELQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgelq(1, 1, A, 0, TAU, 1, W, 1, INFO );
-      chkxer('ZGELQ', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('ZGELQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zgelq(2, 3, A, 3, TAU, 1, W, 1, INFO );
-      chkxer('ZGELQ', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZGELQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zgelq(2, 3, A, 3, TAU, 8, W, 0, INFO );
-      chkxer('ZGELQ', INFOT, NOUT, LERR, OK );
+      chkxer('ZGELQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZLASWLQ
 
       MB = 1;
       NB = 1;
-      SRNAMT = 'ZLASWLQ';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZLASWLQ';
+      infoc.INFOT = 1;
       zlaswlq(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zlaswlq(2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       zlaswlq(0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zlaswlq(1, 2, -1, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       zlaswlq(1, 1, 2, NB, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zlaswlq(1, 2, MB, -1, A, 1, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       zlaswlq(1, 2, MB, NB, A, 0, TAU, 1, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       zlaswlq(1, 2, MB, NB, A, 1, TAU, 0, W, 1, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       zlaswlq(1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO );
-      chkxer('ZLASWLQ', INFOT, NOUT, LERR, OK );
+      chkxer('ZLASWLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // ZGEMLQ
 
       TAU(1)=1;
       TAU(2)=1;
-      SRNAMT = 'ZGEMLQ';
+     srnamc.SRNAMT = 'ZGEMLQ';
       NB=1;
-      INFOT = 1;
+      infoc.INFOT = 1;
       zgemlq('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zgemlq('L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zgemlq('L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zgemlq('L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgemlq('L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zgemlq('R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zgemlq('L', 'N', 1, 2, 0, A, 0, TAU, 1, C, 1, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgemlq('R', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zgemlq('L', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       zgemlq('L', 'N', 1, 2, 1, A, 1, TAU, 6, C, 0, W, 1,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       zgemlq('L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO);
-      chkxer('ZGEMLQ', INFOT, NOUT, LERR, OK );
+      chkxer('ZGEMLQ', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, NOUT );
 
       return;
       }

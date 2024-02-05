@@ -280,7 +280,7 @@
 
                   for (JR = 1; JR <= min( M+JKU, N ) + JKL - 1; JR++) { // 40
                      EXTRA = ZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = SIN( ANGLE );
                      ICOL = max( 1, JR-JKL );
@@ -322,7 +322,7 @@
 
                   for (JC = 1; JC <= min( N+JKL, M ) + JKU - 1; JC++) { // 70
                      EXTRA = ZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = SIN( ANGLE );
                      IROW = max( 1, JC-JKU );
@@ -372,7 +372,7 @@
                   IENDCH = min( M, N+JKL ) - 1;
                   for (JC = min( M+JKU, N ) - 1; JC >= 1 - JKL; JC--) { // 100
                      EXTRA = ZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = SIN( ANGLE );
                      IROW = max( 1, JC-JKU+1 );
@@ -416,7 +416,7 @@
                   IENDCH = min( N, M+JKU ) - 1;
                   for (JR = min( N+JKL, M ) - 1; JR >= 1 - JKU; JR--) { // 130
                      EXTRA = ZERO;
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = SIN( ANGLE );
                      ICOL = max( 1, JR-JKL+1 );
@@ -475,7 +475,7 @@
                      IL = min( JC+1, K+2 );
                      EXTRA = ZERO;
                      TEMP = A( JC-ISKEW*( JC+1 )+IOFFG, JC+1 );
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = SIN( ANGLE );
                      dlarot( false , JC > K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
@@ -537,7 +537,7 @@
                      IL = min( N+1-JC, K+2 );
                      EXTRA = ZERO;
                      TEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
-                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     ANGLE = TWOPI*dlarnd( 1, ISEED );
                      C = COS( ANGLE );
                      S = -SIN( ANGLE );
                      dlarot( false , true , N-JC > K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, EXTRA );

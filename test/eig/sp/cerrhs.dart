@@ -37,12 +37,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -67,7 +67,7 @@
 
          // CGEBAL
 
-         SRNAMT = 'CGEBAL';
+        srnamc.SRNAMT = 'CGEBAL';
          INFOT = 1;
          cgebal('/', 0, A, 1, ILO, IHI, S, INFO );
          chkxer('CGEBAL', INFOT, NOUT, LERR, OK );
@@ -81,7 +81,7 @@
 
          // CGEBAK
 
-         SRNAMT = 'CGEBAK';
+        srnamc.SRNAMT = 'CGEBAK';
          INFOT = 1;
          cgebak('/', 'R', 0, 1, 0, S, 0, A, 1, INFO );
          chkxer('CGEBAK', INFOT, NOUT, LERR, OK );
@@ -113,7 +113,7 @@
 
          // CGEHRD
 
-         SRNAMT = 'CGEHRD';
+        srnamc.SRNAMT = 'CGEHRD';
          INFOT = 1;
          cgehrd(-1, 1, 1, A, 1, TAU, W, 1, INFO );
          chkxer('CGEHRD', INFOT, NOUT, LERR, OK );
@@ -139,7 +139,7 @@
 
          // CGEHD2
 
-         SRNAMT = 'CGEHD2';
+        srnamc.SRNAMT = 'CGEHD2';
          INFOT = 1;
          cgehd2(-1, 1, 1, A, 1, TAU, W, INFO );
          chkxer('CGEHD2', INFOT, NOUT, LERR, OK );
@@ -162,7 +162,7 @@
 
          // CUNGHR
 
-         SRNAMT = 'CUNGHR';
+        srnamc.SRNAMT = 'CUNGHR';
          INFOT = 1;
          cunghr(-1, 1, 1, A, 1, TAU, W, 1, INFO );
          chkxer('CUNGHR', INFOT, NOUT, LERR, OK );
@@ -188,7 +188,7 @@
 
          // CUNMHR
 
-         SRNAMT = 'CUNMHR';
+        srnamc.SRNAMT = 'CUNMHR';
          INFOT = 1;
          cunmhr('/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO );
          chkxer('CUNMHR', INFOT, NOUT, LERR, OK );
@@ -241,7 +241,7 @@
 
          // CHSEQR
 
-         SRNAMT = 'CHSEQR';
+        srnamc.SRNAMT = 'CHSEQR';
          INFOT = 1;
          chseqr('/', 'N', 0, 1, 0, A, 1, X, C, 1, W, 1, INFO );
          chkxer('CHSEQR', INFOT, NOUT, LERR, OK );
@@ -273,7 +273,7 @@
 
          // CHSEIN
 
-         SRNAMT = 'CHSEIN';
+        srnamc.SRNAMT = 'CHSEIN';
          INFOT = 1;
          chsein('/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO );
          chkxer('CHSEIN', INFOT, NOUT, LERR, OK );
@@ -302,7 +302,7 @@
 
          // CTREVC
 
-         SRNAMT = 'CTREVC';
+        srnamc.SRNAMT = 'CTREVC';
          INFOT = 1;
          ctrevc('/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO );
          chkxer('CTREVC', INFOT, NOUT, LERR, OK );
@@ -328,7 +328,7 @@
 
          // CTREVC3
 
-         SRNAMT = 'CTREVC3';
+        srnamc.SRNAMT = 'CTREVC3';
          INFOT = 1;
          ctrevc3('/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO );
          chkxer('CTREVC3', INFOT, NOUT, LERR, OK );

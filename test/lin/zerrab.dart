@@ -1,11 +1,11 @@
-      void zerrab(NUNIT ) {
+      void zerrab(infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -30,20 +30,20 @@
       // EXTERNAL CHKXER, ZCGESV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -62,28 +62,28 @@
          R[J] = 0.0;
          IP[J] = J;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
-      SRNAMT = 'ZCGESV';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZCGESV';
+      infoc.INFOT = 1;
       zcgesv(-1,0,A,1,IP,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZCGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zcgesv(0,-1,A,1,IP,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('ZCGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       zcgesv(2,1,A,1,IP,B,2,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZCGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zcgesv(2,1,A,2,IP,B,1,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCGESV', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZCGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zcgesv(2,1,A,2,IP,B,2,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCGESV', INFOT, NOUT, LERR, OK );
+      chkxer('ZCGESV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      if ( OK ) {
+      if ( infoc.OK ) {
          WRITE( NOUT, FMT = 9999 )'ZCGESV';
       } else {
          WRITE( NOUT, FMT = 9998 )'ZCGESV';

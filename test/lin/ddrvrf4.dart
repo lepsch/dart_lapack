@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvrf4(NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, D_WORK_DLANGE ) {
 
 // -- LAPACK test routine --
@@ -42,10 +44,10 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      // String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -97,8 +99,8 @@
                            ALPHA = ZERO;
                            BETA = ONE;
                         } else {
-                           ALPHA = DLARND( 2, ISEED );
-                           BETA = DLARND( 2, ISEED );
+                           ALPHA = dlarnd( 2, ISEED );
+                           BETA = dlarnd( 2, ISEED );
                         }
 
                         // All the parameters are set:
@@ -114,11 +116,11 @@
 
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
-                                 A[I, J] = DLARND( 2, ISEED );
+                                 A[I, J] = dlarnd( 2, ISEED );
                               }
                            }
 
-                           NORMA = DLANGE( 'I', N, K, A, LDA, D_WORK_DLANGE );
+                           NORMA = dlange( 'I', N, K, A, LDA, D_WORK_DLANGE );
 
 
                         } else {
@@ -127,11 +129,11 @@
 
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
-                                 A[I, J] = DLARND( 2, ISEED );
+                                 A[I, J] = dlarnd( 2, ISEED );
                               }
                            }
 
-                           NORMA = DLANGE( 'I', K, N, A, LDA, D_WORK_DLANGE );
+                           NORMA = dlange( 'I', K, N, A, LDA, D_WORK_DLANGE );
 
                         }
 
@@ -142,7 +144,7 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1[I, J] = DLARND( 2, ISEED );
+                              C1[I, J] = dlarnd( 2, ISEED );
                               C2[I,J] = C1(I,J);
                            }
                         }
@@ -150,24 +152,24 @@
                         // (See comment later on for why we use DLANGE and
                         // not DLANSY for C1.)
 
-                        NORMC = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE );
+                        NORMC = dlange( 'I', N, N, C1, LDC, D_WORK_DLANGE );
 
-                        SRNAMT = 'DTRTTF';
+                        srnamc.SRNAMT = 'DTRTTF';
                         dtrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call dsyrk the BLAS routine -> gives C1
 
-                        SRNAMT = 'DSYRK ';
+                        srnamc.SRNAMT = 'DSYRK ';
                         dsyrk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call dsfrk the RFP routine -> gives CRF
 
-                        SRNAMT = 'DSFRK ';
+                        srnamc.SRNAMT = 'DSFRK ';
                         dsfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
-                        SRNAMT = 'DTFTTR';
+                        srnamc.SRNAMT = 'DTFTTR';
                         dtfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2
@@ -183,7 +185,7 @@
                         // supposed to be unchanged and the diagonal that
                         // is supposed to be real -> DLANGE
 
-                        RESULT[1] = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / max( ( ALPHA ).abs() * NORMA + ( BETA ).abs() , ONE ) / max( N , 1 ) / EPS;
+                        RESULT[1] = dlange( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / max( ( ALPHA ).abs() * NORMA + ( BETA ).abs() , ONE ) / max( N , 1 ) / EPS;
 
                         if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {

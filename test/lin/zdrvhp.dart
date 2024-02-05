@@ -46,13 +46,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZCOPY, ZERRVX, ZGET04, ZHPSV, ZHPSVX, ZHPT01, ZHPTRF, ZHPTRI, ZLACPY, ZLAIPD, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZPPT02, ZPPT05
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
@@ -77,7 +77,7 @@
       // Test the error exits
 
       if (TSTERR) zerrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -123,7 +123,7 @@
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -249,7 +249,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -261,7 +261,7 @@
 
                      // Factor the matrix and solve the system using ZHPSV.
 
-                     SRNAMT = 'ZHPSV ';
+                    srnamc.SRNAMT = 'ZHPSV ';
                      zhpsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
@@ -327,7 +327,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using ZHPSVX.
 
-                  SRNAMT = 'ZHPSVX';
+                 srnamc.SRNAMT = 'ZHPSVX';
                   zhpsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for

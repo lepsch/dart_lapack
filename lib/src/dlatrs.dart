@@ -133,14 +133,14 @@ import 'package:lapack/src/xerbla.dart';
                // A is upper triangular.
 
                for (J = 2; J <= N; J++) {
-                  TMAX = max( DLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX );
+                  TMAX = max( dlange( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX );
                }
             } else {
 
                // A is lower triangular.
 
                for (J = 1; J <= N - 1; J++) {
-                  TMAX = max( DLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX );
+                  TMAX = max( dlange( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX );
                }
             }
 

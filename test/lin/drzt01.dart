@@ -47,7 +47,7 @@
 
       if (M <= 0 || N <= 0) return;
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
+      NORMA = dlange( 'One-norm', M, N, A, LDA, RWORK );
 
       // Copy upper triangle R
 
@@ -68,7 +68,7 @@
          daxpy(M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
       } // 30
 
-      DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK );
+      DRZT01 = dlange( 'One-norm', M, N, WORK, M, RWORK );
 
       DRZT01 = DRZT01 / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;

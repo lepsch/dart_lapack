@@ -47,7 +47,7 @@
       dlaset('Full', M, M, ZERO, ONE, WORK, LDX );
       dsyrk('Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX );
       if (M > 0) {
-         EPS2 = max( ULP, DLANGE( '1', M, M, WORK, LDX, RWORK ) / M.toDouble() );
+         EPS2 = max( ULP, dlange( '1', M, M, WORK, LDX, RWORK ) / M.toDouble() );
       } else {
          EPS2 = ULP;
       }
@@ -111,22 +111,22 @@
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', P, Q, XF, LDX, RWORK );
+      RESID = dlange( '1', P, Q, XF, LDX, RWORK );
       RESULT[1] = ( RESID / (max(1,P,Q))).toDouble() / EPS2;
 
       // Compute norm( U1'*X12*V2 - D12 ) / ( max(1,P,M-Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', P, M-Q, XF(1,Q+1), LDX, RWORK );
+      RESID = dlange( '1', P, M-Q, XF(1,Q+1), LDX, RWORK );
       RESULT[2] = ( RESID / (max(1,P,M-Q))).toDouble() / EPS2;
 
       // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', M-P, Q, XF(P+1,1), LDX, RWORK );
+      RESID = dlange( '1', M-P, Q, XF(P+1,1), LDX, RWORK );
       RESULT[3] = ( RESID / (max(1,M-P,Q))).toDouble() / EPS2;
 
       // Compute norm( U2'*X22*V2 - D22 ) / ( max(1,M-P,M-Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', M-P, M-Q, XF(P+1,Q+1), LDX, RWORK );
+      RESID = dlange( '1', M-P, M-Q, XF(P+1,Q+1), LDX, RWORK );
       RESULT[4] = ( RESID / (max(1,M-P,M-Q))).toDouble() / EPS2;
 
       // Compute I - U1'*U1
@@ -188,7 +188,7 @@
       dlaset('Full', Q, Q, ZERO, ONE, WORK, LDX );
       dsyrk('Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX );
       if ( M > 0 ) {
-         EPS2 = max( ULP, DLANGE( '1', Q, Q, WORK, LDX, RWORK ) / M.toDouble() );
+         EPS2 = max( ULP, dlange( '1', Q, Q, WORK, LDX, RWORK ) / M.toDouble() );
       } else {
          EPS2 = ULP;
       }
@@ -228,12 +228,12 @@
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', P, Q, X, LDX, RWORK );
+      RESID = dlange( '1', P, Q, X, LDX, RWORK );
       RESULT[10] = ( RESID / (max(1,P,Q))).toDouble() / EPS2;
 
       // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
-      RESID = DLANGE( '1', M-P, Q, X(P+1,1), LDX, RWORK );
+      RESID = dlange( '1', M-P, Q, X(P+1,1), LDX, RWORK );
       RESULT[11] = ( RESID / (max(1,M-P,Q))).toDouble() / EPS2;
 
       // Compute I - U1'*U1

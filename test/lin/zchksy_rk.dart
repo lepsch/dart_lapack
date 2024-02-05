@@ -1,66 +1,4 @@
-// > \param[out] AFAC
-// > \verbatim
-// >          AFAC is Complex array, dimension (NMAX*NMAX)
-// > \endverbatim
-// >
-// > \param[out] E
-// > \verbatim
-// >          E is Complex array, dimension (NMAX)
-// > \endverbatim
-// >
-// > \param[out] AINV
-// > \verbatim
-// >          AINV is Complex array, dimension (NMAX*NMAX)
-// > \endverbatim
-// >
-// > \param[out] B
-// > \verbatim
-// >          B is Complex array, dimension (NMAX*NSMAX)
-// >          where NSMAX is the largest entry in NSVAL.
-// > \endverbatim
-// >
-// > \param[out] X
-// > \verbatim
-// >          X is Complex array, dimension (NMAX*NSMAX)
-// > \endverbatim
-// >
-// > \param[out] XACT
-// > \verbatim
-// >          XACT is Complex array, dimension (NMAX*NSMAX)
-// > \endverbatim
-// >
-// > \param[out] WORK
-// > \verbatim
-// >          WORK is Complex array, dimension (NMAX*max(3,NSMAX))
-// > \endverbatim
-// >
-// > \param[out] RWORK
-// > \verbatim
-// >          RWORK is DOUBLE PRECISION array, dimension (max(NMAX,2*NSMAX))
-// > \endverbatim
-// >
-// > \param[out] IWORK
-// > \verbatim
-// >          IWORK is INTEGER array, dimension (2*NMAX)
-// > \endverbatim
-// >
-// > \param[in] NOUT
-// > \verbatim
-// >          NOUT is INTEGER
-// >          The unit number for output.
-// > \endverbatim
 
-// Authors:
-// ========
-
-// > \author Univ. of Tennessee
-// > \author Univ. of California Berkeley
-// > \author Univ. of Colorado Denver
-// > \author NAG Ltd.
-
-// > \ingroup complex16_lin
-
-// =====================================================================
       void zchksy_rk(DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, E, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -120,12 +58,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -204,7 +142,7 @@
 
                   // Generate a matrix with ZLATMS.
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS and handle error.
@@ -321,7 +259,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = max( 2, NB )*LDA;
-                  SRNAMT = 'ZSYTRF_RK';
+                 srnamc.SRNAMT = 'ZSYTRF_RK';
                   zsytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -367,7 +305,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'ZSYTRI_3';
+                    srnamc.SRNAMT = 'ZSYTRI_3';
 
                      // Another reason that we need to compute the inverse
                      // is that ZSYT03 produces RCONDC which is used later
@@ -601,11 +539,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'ZSYTRS_3';
+                    srnamc.SRNAMT = 'ZSYTRS_3';
                      zsytrs_3(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO );
 
                      // Check error code from ZSYTRS_3 and handle error.
@@ -644,7 +582,7 @@
 
                   } // 230
                   ANORM = ZLANSY( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'ZSYCON_3';
+                 srnamc.SRNAMT = 'ZSYCON_3';
                   zsycon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from ZSYCON_3 and handle error.

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvpb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -49,13 +51,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -78,7 +80,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       KDVAL[1] = 0;
 
       // Set the block size and minimum block size for testing.
@@ -145,7 +147,7 @@
 
                      dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'DLATMS';
+                     srnamc.SRNAMT = 'DLATMS';
                      dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from DLATMS.
@@ -272,12 +274,12 @@
                            // Form the inverse of A.
 
                            dlaset('Full', N, N, ZERO, ONE, A, LDA );
-                           SRNAMT = 'DPBTRS';
+                           srnamc.SRNAMT = 'DPBTRS';
                            dpbtrs(UPLO, N, KD, N, AFAC, LDAB, A, LDA, INFO );
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = DLANGE( '1', N, N, A, LDA, RWORK );
+                           AINVNM = dlange( '1', N, N, A, LDA, RWORK );
                            if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                               RCONDC = ONE;
                            } else {
@@ -292,7 +294,7 @@
                         // Form an exact solution and set the right hand
                         // side.
 
-                        SRNAMT = 'DLARHS';
+                        srnamc.SRNAMT = 'DLARHS';
                         dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -307,7 +309,7 @@
                            dlacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
                            dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                           SRNAMT = 'DPBSV ';
+                           srnamc.SRNAMT = 'DPBSV ';
                            dpbsv(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                            // Check error code from DPBSV .
@@ -363,7 +365,7 @@
                         // Solve the system and compute the condition
                         // number and error bounds using DPBSVX.
 
-                        SRNAMT = 'DPBSVX';
+                        srnamc.SRNAMT = 'DPBSVX';
                         dpbsvx(FACT, UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                         // Check the error code from DPBSVX.

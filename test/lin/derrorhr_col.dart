@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrorhr_col(PATH, NUNIT ) {
       // IMPLICIT NONE
 
@@ -26,21 +28,21 @@
       // EXTERNAL ALAESM, CHKXER, DORHR_COL
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String   (LEN=32)  SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String   (LEN=32)  srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -51,54 +53,54 @@
          }
          D[J] = 0.0;
       }
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for Householder reconstruction
 
       // DORHR_COL
 
-      SRNAMT = 'DORHR_COL';
+      srnamc.SRNAMT = 'DORHR_COL';
 
-      INFOT = 1;
+      infoc.INFOT = 1;
       dorhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 2;
+      infoc.INFOT = 2;
       dorhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       dorhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 3;
+      infoc.INFOT = 3;
       dorhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       dorhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 5;
+      infoc.INFOT = 5;
       dorhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       dorhr_col(0, 0, 1, A, 0, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       dorhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
-      INFOT = 7;
+      infoc.INFOT = 7;
       dorhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       dorhr_col(0, 0, 1, A, 1, T, 0, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       dorhr_col(4, 3, 2, A, 4, T, 1, D, INFO );
-      chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
+      chkxer('DORHR_COL', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

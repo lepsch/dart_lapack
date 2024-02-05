@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvsp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -18,11 +20,8 @@
 // =====================================================================
 
       // .. Parameters ..
-      double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      int                NTYPES, NTESTS;
       const              NTYPES = 10, NTESTS = 6 ;
-      int                NFACT;
       const              NFACT = 2 ;
       // ..
       // .. Local Scalars ..
@@ -45,13 +44,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPPT02, DPPT05, DSPSV, DSPSVX, DSPT01, DSPTRF, DSPTRI
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -77,7 +76,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -116,7 +115,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -234,7 +233,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'DLARHS';
+                  srnamc.SRNAMT = 'DLARHS';
                   dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -246,7 +245,7 @@
 
                      // Factor the matrix and solve the system using DSPSV.
 
-                     SRNAMT = 'DSPSV ';
+                     srnamc.SRNAMT = 'DSPSV ';
                      dspsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
@@ -312,7 +311,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using DSPSVX.
 
-                  SRNAMT = 'DSPSVX';
+                  srnamc.SRNAMT = 'DSPSVX';
                   dspsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for

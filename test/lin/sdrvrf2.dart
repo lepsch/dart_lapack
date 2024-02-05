@@ -31,10 +31,10 @@
       // EXTERNAL STFTTR, STFTTP, STRTTF, STRTTP, STPTTR, STPTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -78,13 +78,13 @@
                   }
                }
 
-               SRNAMT = 'DTRTTF';
+              srnamc.SRNAMT = 'DTRTTF';
                strttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
-               SRNAMT = 'DTFTTP';
+              srnamc.SRNAMT = 'DTFTTP';
                stfttp(CFORM, UPLO, N, ARF, AP, INFO );
 
-               SRNAMT = 'DTPTTR';
+              srnamc.SRNAMT = 'DTPTTR';
                stpttr(UPLO, N, AP, ASAV, LDA, INFO );
 
                OK1 = true;
@@ -108,13 +108,13 @@
 
                NRUN = NRUN + 1;
 
-               SRNAMT = 'DTRTTP';
+              srnamc.SRNAMT = 'DTRTTP';
                strttp(UPLO, N, A, LDA, AP, INFO );
 
-               SRNAMT = 'DTPTTF';
+              srnamc.SRNAMT = 'DTPTTF';
                stpttf(CFORM, UPLO, N, AP, ARF, INFO );
 
-               SRNAMT = 'DTFTTR';
+              srnamc.SRNAMT = 'DTFTTR';
                stfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
 
                OK2 = true;

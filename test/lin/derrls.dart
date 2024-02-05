@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrls(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -32,24 +34,24 @@
       // EXTERNAL ALAESM, CHKXER, DGELS, DGELSD, DGELSS, DGELST, DGELSY, DGETSLS
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
       C2 = PATH( 2: 3 );
       A[1, 1] = 1.0;
       A[1, 2] = 2.0;
       A[2, 2] = 3.0;
       A[2, 1] = 4.0;
-      OK = true;
+      infoc.OK = true;
 
       if ( lsamen( 2, C2, 'LS' ) ) {
 
@@ -57,152 +59,152 @@
 
          // DGELS
 
-         SRNAMT = 'DGELS ';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGELS ';
+         infoc.INFOT = 1;
          dgels('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgels('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgels('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgels('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgels('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgels('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgels('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
-         chkxer('DGELS', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGELS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgels('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELS ', INFOT, NOUT, LERR, OK );
+         chkxer('DGELS ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGELST
 
-         SRNAMT = 'DGELST';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGELST';
+         infoc.INFOT = 1;
          dgelst('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgelst('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgelst('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgelst('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgelst('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgelst('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgelst('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgelst('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGELST', INFOT, NOUT, LERR, OK );
+         chkxer('DGELST', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGETSLS
 
-         SRNAMT = 'DGETSLS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGETSLS';
+         infoc.INFOT = 1;
          dgetsls('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgetsls('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgetsls('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgetsls('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgetsls('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgetsls('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgetsls('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
-         chkxer('DGETSLS', INFOT, NOUT, LERR, OK );
+         chkxer('DGETSLS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGELSS
 
-         SRNAMT = 'DGELSS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGELSS';
+         infoc.INFOT = 1;
          dgelss(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
-         chkxer('DGELSS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGELSS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgelss(0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
-         chkxer('DGELSS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGELSS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgelss(0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
-         chkxer('DGELSS', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGELSS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgelss(2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 2, INFO );
-         chkxer('DGELSS', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGELSS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgelss(2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, INFO );
-         chkxer('DGELSS', INFOT, NOUT, LERR, OK );
+         chkxer('DGELSS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGELSY
 
-         SRNAMT = 'DGELSY';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGELSY';
+         infoc.INFOT = 1;
          dgelsy(-1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgelsy(0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgelsy(0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgelsy(2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgelsy(2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgelsy(2, 2, 1, A, 2, B, 2, IP, RCOND, IRNK, W, 1, INFO );
-         chkxer('DGELSY', INFOT, NOUT, LERR, OK );
+         chkxer('DGELSY', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGELSD
 
-         SRNAMT = 'DGELSD';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGELSD';
+         infoc.INFOT = 1;
          dgelsd(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgelsd(0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgelsd(0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgelsd(2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgelsd(2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgelsd(2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP, INFO );
-         chkxer('DGELSD', INFOT, NOUT, LERR, OK );
+         chkxer('DGELSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       }
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

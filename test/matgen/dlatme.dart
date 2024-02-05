@@ -343,7 +343,7 @@
       // Scale the matrix to have norm ANORM
 
       if ( ANORM >= ZERO ) {
-         TEMP = DLANGE( 'M', N, N, A, LDA, TEMPA );
+         TEMP = dlange( 'M', N, N, A, LDA, TEMPA );
          if ( TEMP > ZERO ) {
             ALPHA = ANORM / TEMP;
             for (J = 1; J <= N; J++) { // 110

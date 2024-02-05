@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
       void zdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, A, LDA, B, AI, BI, Z, Q, ALPHA, BETA, C, LDC, S, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -43,11 +47,11 @@
       // EXTERNAL ALASVM, XERBLA, ZGESVD, ZGET51, ZGGESX, ZLACPY, ZLAKF2, ZLASET, ZLATM5
       // ..
       // .. Scalars in Common ..
-      bool               FS;
-      int                K, M, MPLUSN, N;
+      // bool               mn.FS;
+      // int                mn.K, mn.M, mn.MPLUSN, mn.N;
       // ..
       // .. Common blocks ..
-      // COMMON / MN / M, N, MPLUSN, K, FS
+      // COMMON / mn / mn.M, mn.N, mn.MPLUSN, mn.K, mn.FS
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
@@ -129,7 +133,7 @@
 
       // Test the built-in matrix pairs.
       // Loop over different functions (IFUNC) of ZGGESX, types (PRTYPE)
-      // of test matrices, different size (M+N)
+      // of test matrices, different size (mn.M+mn.N)
 
       PRTYPE = 0;
       QBA = 3;
@@ -138,21 +142,21 @@
 
       for (IFUNC = 0; IFUNC <= 3; IFUNC++) { // 60
          for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) { // 50
-            for (M = 1; M <= NSIZE - 1; M++) { // 40
-               for (N = 1; N <= NSIZE - M; N++) { // 30
+            for (mn.M = 1; mn.M <= NSIZE - 1; mn.M++) { // 40
+               for (mn.N = 1; mn.N <= NSIZE - mn.M; mn.N++) { // 30
 
                   WEIGHT = ONE / WEIGHT;
-                  MPLUSN = M + N;
+                  mn.MPLUSN = mn.M + mn.N;
 
                   // Generate test matrices
 
-                  FS = true;
-                  K = 0;
+                  mn.FS = true;
+                  mn.K = 0;
 
-                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA );
-                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA );
+                  zlaset('Full', mn.MPLUSN, mn.MPLUSN, CZERO, CZERO, AI, LDA );
+                  zlaset('Full', mn.MPLUSN, mn.MPLUSN, CZERO, CZERO, BI, LDA );
 
-                  zlatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
+                  zlatm5(PRTYPE, mn.M, mn.N, AI, LDA, AI( mn.M+1, mn.M+1 ), LDA, AI( 1, mn.M+1 ), LDA, BI, LDA, BI( mn.M+1, mn.M+1 ), LDA, BI( 1, mn.M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
                   // Compute the Schur factorization and swapping the
                   // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -160,7 +164,7 @@
                   // which is supplied below.
 
                   if ( IFUNC == 0 ) {
-                     SENSE = 'N';
+                     SENSE = 'mn.N';
                   } else if ( IFUNC == 1 ) {
                      SENSE = 'E';
                   } else if ( IFUNC == 2 ) {
@@ -169,30 +173,30 @@
                      SENSE = 'B';
                   }
 
-                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
-                  zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
+                  zlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, A, LDA );
+                  zlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, B, LDA );
 
-                  zggesx('V', 'V', 'S', ZLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
+                  zggesx('V', 'V', 'S', ZLCTSX, SENSE, mn.MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-                  if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
+                  if ( LINFO != 0 && LINFO != mn.MPLUSN+2 ) {
                      RESULT[1] = ULPINV;
-                     WRITE( NOUT, FMT = 9999 )'ZGGESX', LINFO, MPLUSN, PRTYPE;
+                     WRITE( NOUT, FMT = 9999 )'ZGGESX', LINFO, mn.MPLUSN, PRTYPE;
                      INFO = LINFO;
                      GO TO 30;
                   }
 
                   // Compute the norm(A, B)
 
-                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
-                  zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
+                  zlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK, mn.MPLUSN );
+                  zlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, WORK( mn.MPLUSN*mn.MPLUSN+1 ), mn.MPLUSN )                   ABNRM = ZLANGE( 'Fro', mn.MPLUSN, 2*mn.MPLUSN, WORK, mn.MPLUSN, RWORK );
 
                   // Do tests (1) to (4)
 
                   RESULT[2] = ZERO;
-                  zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) );
-                  zget51(1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) );
-                  zget51(3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) );
-                  zget51(3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
+                  zget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) );
+                  zget51(1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) );
+                  zget51(3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) );
+                  zget51(3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
                   NTEST = 4;
 
                   // Do tests (5) and (6): check Schur form of A and
@@ -202,10 +206,10 @@
                   RESULT[5] = ZERO;
                   RESULT[6] = ZERO;
 
-                  for (J = 1; J <= MPLUSN; J++) { // 10
+                  for (J = 1; J <= mn.MPLUSN; J++) { // 10
                      ILABAD = false;
                      TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / max( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP;
-                     if ( J < MPLUSN ) {
+                     if ( J < mn.MPLUSN ) {
                         if ( AI( J+1, J ) != ZERO ) {
                            ILABAD = true;
                            RESULT[5] = ULPINV;
@@ -219,7 +223,7 @@
                      }
                      TEMP1 = max( TEMP1, TEMP2 );
                      if ( ILABAD ) {
-                        WRITE( NOUT, FMT = 9997 )J, MPLUSN, PRTYPE;
+                        WRITE( NOUT, FMT = 9997 )J, mn.MPLUSN, PRTYPE;
                      }
                   } // 10
                   RESULT[6] = TEMP1;
@@ -228,9 +232,9 @@
                   // Test (7) (if sorting worked)
 
                   RESULT[7] = ZERO;
-                  if ( LINFO == MPLUSN+3 ) {
+                  if ( LINFO == mn.MPLUSN+3 ) {
                      RESULT[7] = ULPINV;
-                  } else if ( MM != N ) {
+                  } else if ( MM != mn.N ) {
                      RESULT[7] = ULPINV;
                   }
                   NTEST = NTEST + 1;
@@ -239,15 +243,15 @@
                   // value. first, compute the exact DIF.
 
                   RESULT[8] = ZERO;
-                  MN2 = MM*( MPLUSN-MM )*2;
+                  MN2 = MM*( mn.MPLUSN-MM )*2;
                   if ( IFUNC >= 2 && MN2 <= NCMAX*NCMAX ) {
 
                      // Note: for either following two cases, there are
                      // almost same number of test cases fail the test.
 
-                     zlakf2(MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
+                     zlakf2(MM, mn.MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
 
-                     zgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO );
+                     zgesvd('mn.N', 'mn.N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO );
                      DIFTRU = S( MN2 );
 
                      if ( DIFEST( 2 ) == ZERO ) {
@@ -263,7 +267,7 @@
                   // Test (9)
 
                   RESULT[9] = ZERO;
-                  if ( LINFO == ( MPLUSN+2 ) ) {
+                  if ( LINFO == ( mn.MPLUSN+2 ) ) {
                      if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
                      if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -294,9 +298,9 @@
                         }
                         NERRS = NERRS + 1;
                         if ( RESULT( J ) < 10000.0 ) {
-                           WRITE( NOUT, FMT = 9992 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J );
+                           WRITE( NOUT, FMT = 9992 )mn.MPLUSN, PRTYPE, WEIGHT, mn.M, J, RESULT( J );
                         } else {
-                           WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J );
+                           WRITE( NOUT, FMT = 9991 )mn.MPLUSN, PRTYPE, WEIGHT, mn.M, J, RESULT( J );
                         }
                      }
                   } // 20
@@ -311,51 +315,51 @@
       } // 70
 
       // Read in data from file to check accuracy of condition estimation
-      // Read input data until N=0
+      // Read input data until mn.N=0
 
       NPTKNT = 0;
 
       } // 80
-      READ( NIN, FMT = *, END = 140 )MPLUSN;
-      if (MPLUSN == 0) GO TO 140;
-      READ( NIN, FMT = *, END = 140 )N;
-      for (I = 1; I <= MPLUSN; I++) { // 90
-         READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN );
+      READ( NIN, FMT = *, END = 140 )mn.MPLUSN;
+      if (mn.MPLUSN == 0) GO TO 140;
+      READ( NIN, FMT = *, END = 140 )mn.N;
+      for (I = 1; I <= mn.MPLUSN; I++) { // 90
+         READ( NIN, FMT = * )( AI( I, J ), J = 1, mn.MPLUSN );
       } // 90
-      for (I = 1; I <= MPLUSN; I++) { // 100
-         READ( NIN, FMT = * )( BI( I, J ), J = 1, MPLUSN );
+      for (I = 1; I <= mn.MPLUSN; I++) { // 100
+         READ( NIN, FMT = * )( BI( I, J ), J = 1, mn.MPLUSN );
       } // 100
       READ( NIN, FMT = * )PLTRU, DIFTRU;
 
       NPTKNT = NPTKNT + 1;
-      FS = true;
-      K = 0;
-      M = MPLUSN - N;
+      mn.FS = true;
+      mn.K = 0;
+      mn.M = mn.MPLUSN - mn.N;
 
-      zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
-      zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
+      zlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, A, LDA );
+      zlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, B, LDA );
 
       // Compute the Schur factorization while swapping the
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
-      zggesx('V', 'V', 'S', ZLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
+      zggesx('V', 'V', 'S', ZLCTSX, 'B', mn.MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-      if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
+      if ( LINFO != 0 && LINFO != mn.MPLUSN+2 ) {
          RESULT[1] = ULPINV;
-         WRITE( NOUT, FMT = 9998 )'ZGGESX', LINFO, MPLUSN, NPTKNT;
+         WRITE( NOUT, FMT = 9998 )'ZGGESX', LINFO, mn.MPLUSN, NPTKNT;
          GO TO 130;
       }
 
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
 
-      zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
-      zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );
-      ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
+      zlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK, mn.MPLUSN );
+      zlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, WORK( mn.MPLUSN*mn.MPLUSN+1 ), mn.MPLUSN );
+      ABNRM = ZLANGE( 'Fro', mn.MPLUSN, 2*mn.MPLUSN, WORK, mn.MPLUSN, RWORK );
 
       // Do tests (1) to (4)
 
-      zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
+      zget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL ZGET51( 1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL ZGET51( 3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL ZGET51( 3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -365,10 +369,10 @@
       RESULT[5] = ZERO;
       RESULT[6] = ZERO;
 
-      for (J = 1; J <= MPLUSN; J++) { // 110
+      for (J = 1; J <= mn.MPLUSN; J++) { // 110
          ILABAD = false;
          TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / max( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP;
-         if ( J < MPLUSN ) {
+         if ( J < mn.MPLUSN ) {
             if ( AI( J+1, J ) != ZERO ) {
                ILABAD = true;
                RESULT[5] = ULPINV;
@@ -382,7 +386,7 @@
          }
          TEMP1 = max( TEMP1, TEMP2 );
          if ( ILABAD ) {
-            WRITE( NOUT, FMT = 9997 )J, MPLUSN, NPTKNT;
+            WRITE( NOUT, FMT = 9997 )J, mn.MPLUSN, NPTKNT;
          }
       } // 110
       RESULT[6] = TEMP1;
@@ -391,7 +395,7 @@
 
       NTEST = 7;
       RESULT[7] = ZERO;
-      if (LINFO == MPLUSN+3) RESULT( 7 ) = ULPINV;
+      if (LINFO == mn.MPLUSN+3) RESULT( 7 ) = ULPINV;
 
       // Test (8): compare the estimated value of DIF and its true value.
 
@@ -409,7 +413,7 @@
 
       NTEST = 9;
       RESULT[9] = ZERO;
-      if ( LINFO == ( MPLUSN+2 ) ) {
+      if ( LINFO == ( mn.MPLUSN+2 ) ) {
          if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV;
          if( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
@@ -451,9 +455,9 @@
             }
             NERRS = NERRS + 1;
             if ( RESULT( J ) < 10000.0 ) {
-               WRITE( NOUT, FMT = 9990 )NPTKNT, MPLUSN, J, RESULT( J );
+               WRITE( NOUT, FMT = 9990 )NPTKNT, mn.MPLUSN, J, RESULT( J );
             } else {
-               WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J );
+               WRITE( NOUT, FMT = 9989 )NPTKNT, mn.MPLUSN, J, RESULT( J );
             }
          }
 
@@ -473,11 +477,11 @@
 
       return;
 
- 9999 FORMAT( ' ZDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
+ 9999 FORMAT( ' ZDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'mn.N=', I6, ', JTYPE=', I6, ')' );
 
- 9998 FORMAT( ' ZDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', Input Example #', I2, ')' );
+ 9998 FORMAT( ' ZDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'mn.N=', I6, ', Input Example #', I2, ')' );
 
- 9997 FORMAT( ' ZDRGSX: S not in Schur form at eigenvalue ', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
+ 9997 FORMAT( ' ZDRGSX: S not in Schur form at eigenvalue ', I6, '.', / 9X, 'mn.N=', I6, ', JTYPE=', I6, ')' );
 
  9996 FORMAT( / 1X, A3, ' -- Complex Expert Generalized Schur form', ' problem driver' );
 

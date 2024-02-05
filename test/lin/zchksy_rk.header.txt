@@ -107,3 +107,66 @@
 *> \verbatim
 *>          A is COMPLEX*16 array, dimension (NMAX*NMAX)
 *> \endverbatim
+*> \param[out] AFAC
+*> \verbatim
+*>          AFAC is Complex array, dimension (NMAX*NMAX)
+*> \endverbatim
+*>
+*> \param[out] E
+*> \verbatim
+*>          E is Complex array, dimension (NMAX)
+*> \endverbatim
+*>
+*> \param[out] AINV
+*> \verbatim
+*>          AINV is Complex array, dimension (NMAX*NMAX)
+*> \endverbatim
+*>
+*> \param[out] B
+*> \verbatim
+*>          B is Complex array, dimension (NMAX*NSMAX)
+*>          where NSMAX is the largest entry in NSVAL.
+*> \endverbatim
+*>
+*> \param[out] X
+*> \verbatim
+*>          X is Complex array, dimension (NMAX*NSMAX)
+*> \endverbatim
+*>
+*> \param[out] XACT
+*> \verbatim
+*>          XACT is Complex array, dimension (NMAX*NSMAX)
+*> \endverbatim
+*>
+*> \param[out] WORK
+*> \verbatim
+*>          WORK is Complex array, dimension (NMAX*max(3,NSMAX))
+*> \endverbatim
+*>
+*> \param[out] RWORK
+*> \verbatim
+*>          RWORK is DOUBLE PRECISION array, dimension (max(NMAX,2*NSMAX))
+*> \endverbatim
+*>
+*> \param[out] IWORK
+*> \verbatim
+*>          IWORK is INTEGER array, dimension (2*NMAX)
+*> \endverbatim
+*>
+*> \param[in] NOUT
+*> \verbatim
+*>          NOUT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+
+*Authors:
+*========
+
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+
+*> \ingroup complex16_lin
+
+*=====================================================================

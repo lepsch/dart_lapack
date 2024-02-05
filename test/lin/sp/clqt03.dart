@@ -40,10 +40,10 @@
       // INTRINSIC CMPLX, MAX, REAL
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -59,7 +59,7 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'CUNGLQ';
+     srnamc.SRNAMT = 'CUNGLQ';
       cunglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
@@ -94,7 +94,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'CUNMLQ';
+           srnamc.SRNAMT = 'CUNMLQ';
             cunmlq(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract

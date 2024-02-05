@@ -48,12 +48,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -103,7 +103,7 @@
 
                // Call SLATTP to generate a triangular test matrix.
 
-               SRNAMT = 'SLATTP';
+              srnamc.SRNAMT = 'SLATTP';
                slattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, INFO );
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -118,7 +118,7 @@
                // Form the inverse of A.
 
                if (N > 0) scopy( LAP, AP, 1, AINVP, 1 );
-               SRNAMT = 'STPTRI';
+              srnamc.SRNAMT = 'STPTRI';
                stptri(UPLO, DIAG, N, AINVP, INFO );
 
                // Check error code from STPTRI.
@@ -169,12 +169,12 @@
 // +    TEST 2
                   // Solve and compute residual for op(A)*x = b.
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'STPTRS';
+                    srnamc.SRNAMT = 'STPTRS';
                      stptrs(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO );
 
                   // Check error code from STPTRS.
@@ -192,7 +192,7 @@
                   // Use iterative refinement to improve the solution and
                   // compute error bounds.
 
-                     SRNAMT = 'STPRFS';
+                    srnamc.SRNAMT = 'STPRFS';
                      stprfs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                   // Check error code from STPRFS.
@@ -228,7 +228,7 @@
                      RCONDC = RCONDI;
                   }
 
-                  SRNAMT = 'STPCON';
+                 srnamc.SRNAMT = 'STPCON';
                   stpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO );
 
                   // Check error code from STPCON.
@@ -270,13 +270,13 @@
 
                   // Call SLATTP to generate a triangular test matrix.
 
-                  SRNAMT = 'SLATTP';
+                 srnamc.SRNAMT = 'SLATTP';
                   slattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, INFO );
 
 // +    TEST 8
                   // Solve the system op(A)*x = b.
 
-                  SRNAMT = 'SLATPS';
+                 srnamc.SRNAMT = 'SLATPS';
                   scopy(N, X, 1, B, 1 );
                   slatps(UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO );
 

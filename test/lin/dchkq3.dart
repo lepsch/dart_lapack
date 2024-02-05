@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkq3(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, S, TAU, WORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -44,13 +46,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -68,7 +70,7 @@
          ISEED[I] = ISEEDY( I );
       } // 10
       EPS = dlamch( 'Epsilon' );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) { // 90
 
@@ -154,7 +156,7 @@
 
                   // Compute the QP3 factorization of A
 
-                  SRNAMT = 'DGEQP3';
+                  srnamc.SRNAMT = 'DGEQP3';
                   dgeqp3(M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, INFO );
 
                   // Compute norm(svd(a) - svd(r))

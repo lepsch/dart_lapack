@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -72,7 +72,7 @@
 
          // SSYTRD
 
-         SRNAMT = 'SSYTRD';
+        srnamc.SRNAMT = 'SSYTRD';
          INFOT = 1;
          ssytrd('/', 0, A, 1, D, E, TAU, W, 1, INFO );
          chkxer('SSYTRD', INFOT, NOUT, LERR, OK );
@@ -89,7 +89,7 @@
 
          // SSYTD2
 
-         SRNAMT = 'SSYTD2';
+        srnamc.SRNAMT = 'SSYTD2';
          INFOT = 1;
          ssytd2('/', 0, A, 1, D, E, TAU, INFO );
          chkxer('SSYTD2', INFOT, NOUT, LERR, OK );
@@ -103,7 +103,7 @@
 
          // SSYTRD_2STAGE
 
-         SRNAMT = 'SSYTRD_2STAGE';
+        srnamc.SRNAMT = 'SSYTRD_2STAGE';
          INFOT = 1;
          ssytrd_2stage('/', 'U', 0, A, 1, D, E, TAU,  C, 1, W, 1, INFO );
          chkxer('SSYTRD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -129,7 +129,7 @@
 
          // SSYTRD_SY2SB
 
-         SRNAMT = 'SSYTRD_SY2SB';
+        srnamc.SRNAMT = 'SSYTRD_SY2SB';
          INFOT = 1;
          ssytrd_sy2sb('/', 0, 0, A, 1, C, 1, TAU, W, 1, INFO );
          chkxer('SSYTRD_SY2SB', INFOT, NOUT, LERR, OK );
@@ -152,7 +152,7 @@
 
          // SSYTRD_SB2ST
 
-         SRNAMT = 'SSYTRD_SB2ST';
+        srnamc.SRNAMT = 'SSYTRD_SB2ST';
          INFOT = 1;
          ssytrd_sb2st('/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO );
          chkxer('SSYTRD_SB2ST', INFOT, NOUT, LERR, OK );
@@ -184,7 +184,7 @@
 
          // SORGTR
 
-         SRNAMT = 'SORGTR';
+        srnamc.SRNAMT = 'SORGTR';
          INFOT = 1;
          sorgtr('/', 0, A, 1, TAU, W, 1, INFO );
          chkxer('SORGTR', INFOT, NOUT, LERR, OK );
@@ -201,7 +201,7 @@
 
          // SORMTR
 
-         SRNAMT = 'SORMTR';
+        srnamc.SRNAMT = 'SORMTR';
          INFOT = 1;
          sormtr('/', 'U', 'N', 0, 0, A, 1, TAU, C, 1, W, 1, INFO );
          chkxer('SORMTR', INFOT, NOUT, LERR, OK );
@@ -236,7 +236,7 @@
 
          // SSPTRD
 
-         SRNAMT = 'SSPTRD';
+        srnamc.SRNAMT = 'SSPTRD';
          INFOT = 1;
          ssptrd('/', 0, A, D, E, TAU, INFO );
          chkxer('SSPTRD', INFOT, NOUT, LERR, OK );
@@ -247,7 +247,7 @@
 
          // SOPGTR
 
-         SRNAMT = 'SOPGTR';
+        srnamc.SRNAMT = 'SOPGTR';
          INFOT = 1;
          sopgtr('/', 0, A, TAU, Z, 1, W, INFO );
          chkxer('SOPGTR', INFOT, NOUT, LERR, OK );
@@ -261,7 +261,7 @@
 
          // SOPMTR
 
-         SRNAMT = 'SOPMTR';
+        srnamc.SRNAMT = 'SOPMTR';
          INFOT = 1;
          sopmtr('/', 'U', 'N', 0, 0, A, TAU, C, 1, W, INFO );
          chkxer('SOPMTR', INFOT, NOUT, LERR, OK );
@@ -284,7 +284,7 @@
 
          // SPTEQR
 
-         SRNAMT = 'SPTEQR';
+        srnamc.SRNAMT = 'SPTEQR';
          INFOT = 1;
          spteqr('/', 0, D, E, Z, 1, W, INFO );
          chkxer('SPTEQR', INFOT, NOUT, LERR, OK );
@@ -298,7 +298,7 @@
 
          // SSTEBZ
 
-         SRNAMT = 'SSTEBZ';
+        srnamc.SRNAMT = 'SSTEBZ';
          INFOT = 1;
          sstebz('/', 'E', 0, 0.0, 1.0, 1, 0, 0.0, D, E, M, NSPLIT, X, I1, I2, W, IW, INFO );
          chkxer('SSTEBZ', INFOT, NOUT, LERR, OK );
@@ -327,7 +327,7 @@
 
          // SSTEIN
 
-         SRNAMT = 'SSTEIN';
+        srnamc.SRNAMT = 'SSTEIN';
          INFOT = 1;
          sstein(-1, D, E, 0, X, I1, I2, Z, 1, W, IW, I3, INFO );
          chkxer('SSTEIN', INFOT, NOUT, LERR, OK );
@@ -344,7 +344,7 @@
 
          // SSTEQR
 
-         SRNAMT = 'SSTEQR';
+        srnamc.SRNAMT = 'SSTEQR';
          INFOT = 1;
          ssteqr('/', 0, D, E, Z, 1, W, INFO );
          chkxer('SSTEQR', INFOT, NOUT, LERR, OK );
@@ -358,7 +358,7 @@
 
          // SSTERF
 
-         SRNAMT = 'SSTERF';
+        srnamc.SRNAMT = 'SSTERF';
          INFOT = 1;
          ssterf(-1, D, E, INFO );
          chkxer('SSTERF', INFOT, NOUT, LERR, OK );
@@ -366,7 +366,7 @@
 
          // SSTEDC
 
-         SRNAMT = 'SSTEDC';
+        srnamc.SRNAMT = 'SSTEDC';
          INFOT = 1;
          sstedc('/', 0, D, E, Z, 1, W, 1, IW, 1, INFO );
          chkxer('SSTEDC', INFOT, NOUT, LERR, OK );
@@ -398,7 +398,7 @@
 
          // SSTEVD
 
-         SRNAMT = 'SSTEVD';
+        srnamc.SRNAMT = 'SSTEVD';
          INFOT = 1;
          sstevd('/', 0, D, E, Z, 1, W, 1, IW, 1, INFO );
          chkxer('SSTEVD', INFOT, NOUT, LERR, OK );
@@ -424,7 +424,7 @@
 
          // SSTEV
 
-         SRNAMT = 'SSTEV ';
+        srnamc.SRNAMT = 'SSTEV ';
          INFOT = 1;
          sstev('/', 0, D, E, Z, 1, W, INFO );
          chkxer('SSTEV ', INFOT, NOUT, LERR, OK );
@@ -438,7 +438,7 @@
 
          // SSTEVX
 
-         SRNAMT = 'SSTEVX';
+        srnamc.SRNAMT = 'SSTEVX';
          INFOT = 1;
          sstevx('/', 'A', 0, D, E, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO );
          chkxer('SSTEVX', INFOT, NOUT, LERR, OK );
@@ -471,7 +471,7 @@
          // SSTEVR
 
          N = 1;
-         SRNAMT = 'SSTEVR';
+        srnamc.SRNAMT = 'SSTEVR';
          INFOT = 1;
          sstevr('/', 'A', 0, D, E, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, X, 20*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSTEVR', INFOT, NOUT, LERR, OK );
@@ -505,7 +505,7 @@
 
          // SSYEVD
 
-         SRNAMT = 'SSYEVD';
+        srnamc.SRNAMT = 'SSYEVD';
          INFOT = 1;
          ssyevd('/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO );
          chkxer('SSYEVD', INFOT, NOUT, LERR, OK );
@@ -540,7 +540,7 @@
 
          // SSYEVD_2STAGE
 
-         SRNAMT = 'SSYEVD_2STAGE';
+        srnamc.SRNAMT = 'SSYEVD_2STAGE';
          INFOT = 1;
          ssyevd_2stage('/', 'U', 0, A, 1, X, W, 1, IW, 1, INFO );
          chkxer('SSYEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -578,7 +578,7 @@
 
          // SSYEVR
 
-         SRNAMT = 'SSYEVR';
+        srnamc.SRNAMT = 'SSYEVR';
          N = 1;
          INFOT = 1;
          ssyevr('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
@@ -618,7 +618,7 @@
 
          // SSYEVR_2STAGE
 
-         SRNAMT = 'SSYEVR_2STAGE';
+        srnamc.SRNAMT = 'SSYEVR_2STAGE';
          N = 1;
          INFOT = 1;
          ssyevr_2stage('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
@@ -660,7 +660,7 @@
 
          // SSYEV
 
-         SRNAMT = 'SSYEV ';
+        srnamc.SRNAMT = 'SSYEV ';
          INFOT = 1;
          ssyev('/', 'U', 0, A, 1, X, W, 1, INFO );
          chkxer('SSYEV ', INFOT, NOUT, LERR, OK );
@@ -680,7 +680,7 @@
 
          // SSYEV_2STAGE
 
-         SRNAMT = 'SSYEV_2STAGE ';
+        srnamc.SRNAMT = 'SSYEV_2STAGE ';
          INFOT = 1;
          ssyev_2stage('/', 'U', 0, A, 1, X, W, 1, INFO );
          chkxer('SSYEV_2STAGE ', INFOT, NOUT, LERR, OK );
@@ -703,7 +703,7 @@
 
          // SSYEVX
 
-         SRNAMT = 'SSYEVX';
+        srnamc.SRNAMT = 'SSYEVX';
          INFOT = 1;
          ssyevx('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX', INFOT, NOUT, LERR, OK );
@@ -743,7 +743,7 @@
 
          // SSYEVX_2STAGE
 
-         SRNAMT = 'SSYEVX_2STAGE';
+        srnamc.SRNAMT = 'SSYEVX_2STAGE';
          INFOT = 1;
          ssyevx_2stage('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
@@ -786,7 +786,7 @@
 
          // SSPEVD
 
-         SRNAMT = 'SSPEVD';
+        srnamc.SRNAMT = 'SSPEVD';
          INFOT = 1;
          sspevd('/', 'U', 0, A, X, Z, 1, W, 1, IW, 1, INFO );
          chkxer('SSPEVD', INFOT, NOUT, LERR, OK );
@@ -821,7 +821,7 @@
 
          // SSPEV
 
-         SRNAMT = 'SSPEV ';
+        srnamc.SRNAMT = 'SSPEV ';
          INFOT = 1;
          sspev('/', 'U', 0, A, W, Z, 1, X, INFO );
          chkxer('SSPEV ', INFOT, NOUT, LERR, OK );
@@ -838,7 +838,7 @@
 
          // SSPEVX
 
-         SRNAMT = 'SSPEVX';
+        srnamc.SRNAMT = 'SSPEVX';
          INFOT = 1;
          sspevx('/', 'A', 'U', 0, A, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO );
          chkxer('SSPEVX', INFOT, NOUT, LERR, OK );
@@ -876,7 +876,7 @@
 
          // SSBTRD
 
-         SRNAMT = 'SSBTRD';
+        srnamc.SRNAMT = 'SSBTRD';
          INFOT = 1;
          ssbtrd('/', 'U', 0, 0, A, 1, D, E, Z, 1, W, INFO );
          chkxer('SSBTRD', INFOT, NOUT, LERR, OK );
@@ -899,7 +899,7 @@
 
          // SSYTRD_SB2ST
 
-         SRNAMT = 'SSYTRD_SB2ST';
+        srnamc.SRNAMT = 'SSYTRD_SB2ST';
          INFOT = 1;
          ssytrd_sb2st('/', 'N', 'U', 0, 0, A, 1, D, E,  C, 1, W, 1, INFO );
          chkxer('SSYTRD_SB2ST', INFOT, NOUT, LERR, OK );
@@ -931,7 +931,7 @@
 
          // SSBEVD
 
-         SRNAMT = 'SSBEVD';
+        srnamc.SRNAMT = 'SSBEVD';
          INFOT = 1;
          ssbevd('/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO );
          chkxer('SSBEVD', INFOT, NOUT, LERR, OK );
@@ -969,7 +969,7 @@
 
          // SSBEVD_2STAGE
 
-         SRNAMT = 'SSBEVD_2STAGE';
+        srnamc.SRNAMT = 'SSBEVD_2STAGE';
          INFOT = 1;
          ssbevd_2stage('/', 'U', 0, 0, A, 1, X, Z, 1, W, 1, IW, 1, INFO );
          chkxer('SSBEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -1014,7 +1014,7 @@
 
          // SSBEV
 
-         SRNAMT = 'SSBEV ';
+        srnamc.SRNAMT = 'SSBEV ';
          INFOT = 1;
          ssbev('/', 'U', 0, 0, A, 1, X, Z, 1, W, INFO );
          chkxer('SSBEV ', INFOT, NOUT, LERR, OK );
@@ -1037,7 +1037,7 @@
 
          // SSBEV_2STAGE
 
-         SRNAMT = 'SSBEV_2STAGE ';
+        srnamc.SRNAMT = 'SSBEV_2STAGE ';
          INFOT = 1;
          ssbev_2stage('/', 'U', 0, 0, A, 1, X, Z, 1, W, 0, INFO );
          chkxer('SSBEV_2STAGE ', INFOT, NOUT, LERR, OK );
@@ -1066,7 +1066,7 @@
 
          // SSBEVX
 
-         SRNAMT = 'SSBEVX';
+        srnamc.SRNAMT = 'SSBEVX';
          INFOT = 1;
          ssbevx('/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, IW, I3, INFO );
          chkxer('SSBEVX', INFOT, NOUT, LERR, OK );
@@ -1110,7 +1110,7 @@
 
          // SSBEVX_2STAGE
 
-         SRNAMT = 'SSBEVX_2STAGE';
+        srnamc.SRNAMT = 'SSBEVX_2STAGE';
          INFOT = 1;
          ssbevx_2stage('/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );

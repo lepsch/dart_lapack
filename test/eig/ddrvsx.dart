@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvsx(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RESULT, WORK, LWORK, IWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -33,14 +35,14 @@
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISLCT( 20 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       // ..
       // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
+      // bool               sslct.SELVAL( 20 );
+      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
+      // // ..
+      // // .. Scalars in Common ..
+      // int                sslct.SELDIM, sslct.SELOPT;
       // ..
       // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. External Functions ..
       //- double             DLAMCH;

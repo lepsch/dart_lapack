@@ -49,7 +49,7 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Arrays in Common ..
@@ -58,7 +58,7 @@
       // .. Common blocks ..
       // COMMON / CLAENV / IPARMS
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const THREQ = 2.0, INTSTR = '0123456789';

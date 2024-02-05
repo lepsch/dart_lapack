@@ -1,3 +1,4 @@
+import 'common.dart';
       void xlaenv(ISPEC, NVALUE ) {
 
 // -- LAPACK test routine --
@@ -11,18 +12,18 @@
 // =====================================================================
 
       // .. Arrays in Common ..
-      int                IPARMS( 100 );
+      int                claenv.IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      // COMMON / CLAENV / IPARMS
+      // COMMON / CLAENV / claenv.IPARMS
       // ..
       // .. Save statement ..
-      SAVE               / CLAENV /;
+      // SAVE               / CLAENV /;
       // ..
       // .. Executable Statements ..
 
       if ( ISPEC >= 1 && ISPEC <= 9 ) {
-         IPARMS[ISPEC] = NVALUE;
+         claenv.IPARMS[ISPEC] = NVALUE;
       }
 
       return;

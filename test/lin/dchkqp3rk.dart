@@ -1,28 +1,39 @@
-      void dchkqp3rk(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, B, COPYB, S, TAU, WORK, IWORK, NOUT ) {
-      // IMPLICIT NONE
+import 'package:lapack/src/matrix.dart';
 
+import 'common.dart';
+
+      void dchkqp3rk(final Array<bool> DOTYPE, final int NM,
+        final Array<int> MVAL, final int NN,
+        final Array<int> NVAL, final int NNS,
+        final Array<int> NSVAL, final int NNB,
+        final Array<int> NBVAL,
+        final Array<int> NXVAL, final double THRESH,
+        final Array<double> A,
+        final Array<double> COPYA,
+        final Array<double> B,
+        final Array<double> COPYB,
+        final Array<double> S,
+        final Array<double> TAU,
+        final Array<double> WORK,
+        final Array<int> IWORK, final int NOUT ,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      int                NM, NN, NNB, NNS, NOUT;
-      double             THRESH;
+      // int                NM, NN, NNB, NNS, NOUT;
+      // double             THRESH;
       // ..
       // .. Array Arguments ..
-      bool               DOTYPE( * );
-      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * );
-      double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
+      // final                IWORK=Array<int>)(), NBVAL=Array<int>)(), MVAL=Array<int>)(), NVAL=Array<int>)(), NSVAL=Array<int>)(), NXVAL=Array<int>)();
+      // double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      int                NTYPES;
       const              NTYPES = 19 ;
-      int                NTESTS;
       const              NTESTS = 5 ;
-      double             ONE, ZERO, BIGNUM;
       const              ONE = 1.0, ZERO = 0.0, BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..
@@ -46,13 +57,13 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, MOD
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -70,7 +81,7 @@
          ISEED[I] = ISEEDY( I );
       }
       EPS = dlamch( 'Epsilon' );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) {
 
@@ -98,7 +109,7 @@
 
                   dlatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS';
+                  srnamc.SRNAMT = 'DLATMS';
                   dlatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
 
@@ -161,7 +172,7 @@
 
                   dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS';
+                  srnamc.SRNAMT = 'DLATMS';
                   dlatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from DLATMS.
@@ -278,7 +289,7 @@
 
                   dlatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS';
+                  srnamc.SRNAMT = 'DLATMS';
 
                   IND_OFFSET_GEN = NB_ZERO * LDA;
 
@@ -387,7 +398,7 @@
 
                   // Compute DGEQP3RK factorization of A.
 
-                  SRNAMT = 'DGEQP3RK';
+                  srnamc.SRNAMT = 'DGEQP3RK';
                   dgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from DGEQP3RK.
@@ -515,7 +526,7 @@
                         daxpy(M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      }
 
-                   RESULT[5] = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) ) );
+                   RESULT[5] = ABS( dlange( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

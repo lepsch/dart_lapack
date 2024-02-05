@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 ) {
 
 // -- LAPACK test routine --
@@ -57,10 +59,10 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY, DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS, DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      // String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -116,7 +118,7 @@
 
                      dlatb4('DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'DLATMS';
+                     srnamc.SRNAMT = 'DLATMS';
                      dlatms(N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO );
 
                      // Check error code from DLATMS.
@@ -204,7 +206,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs('DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
@@ -214,9 +216,9 @@
                      dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                     SRNAMT = 'DTRTTF';
+                     srnamc.SRNAMT = 'DTRTTF';
                      dtrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     SRNAMT = 'DPFTRF';
+                     srnamc.SRNAMT = 'DPFTRF';
                      dpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from DPFTRF.
@@ -237,10 +239,10 @@
                         GO TO 100;
                      }
 
-                     SRNAMT = 'DPFTRS';
+                     srnamc.SRNAMT = 'DPFTRS';
                      dpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
-                     SRNAMT = 'DTFTTR';
+                     srnamc.SRNAMT = 'DTFTTR';
                      dtfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
@@ -258,10 +260,10 @@
                         dlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                      }
 
-                     SRNAMT = 'DPFTRI';
+                     srnamc.SRNAMT = 'DPFTRI';
                      dpftri(CFORM, UPLO, N, ARFINV , INFO );
 
-                     SRNAMT = 'DTFTTR';
+                     srnamc.SRNAMT = 'DTFTTR';
                      dtfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from DPFTRI.

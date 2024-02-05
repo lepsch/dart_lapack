@@ -51,7 +51,7 @@
          WNORM = max( WNORM, dasum( N, WORK, 1 ) );
       } // 10
 
-      ANORM = max( DLANGE( '1', M, N, A, LDA, WORK ), UNFL );
+      ANORM = max( dlange( '1', M, N, A, LDA, WORK ), UNFL );
 
       if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS );

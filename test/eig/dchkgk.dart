@@ -72,8 +72,8 @@
 
       KNT = KNT + 1;
 
-      ANORM = DLANGE( 'M', N, N, A, LDA, WORK );
-      BNORM = DLANGE( 'M', N, N, B, LDB, WORK );
+      ANORM = dlange( 'M', N, N, A, LDA, WORK );
+      BNORM = dlange( 'M', N, N, B, LDB, WORK );
 
       dlacpy('FULL', N, N, A, LDA, AF, LDA );
       dlacpy('FULL', N, N, B, LDB, BF, LDB );

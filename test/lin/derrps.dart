@@ -1,3 +1,4 @@
+import 'common.dart';
       void derrps(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -26,21 +27,21 @@
       // EXTERNAL ALAESM, CHKXER, DPSTF2, DPSTRF
       // ..
       // .. Scalars in Common ..
-      int                INFOT, NOUT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      int                infoc.INFOT, infoc.NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -54,7 +55,7 @@
          WORK[NMAX+J] = 0.0;
 
       } // 110
-      OK = true;
+      infoc.OK = true;
 
 
          // Test error exits of the routines that use the Cholesky
@@ -62,34 +63,34 @@
 
          // DPSTRF
 
-      SRNAMT = 'DPSTRF';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DPSTRF';
+      infoc.INFOT = 1;
       dpstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dpstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dpstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
+      chkxer('DPSTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DPSTF2
 
-      SRNAMT = 'DPSTF2';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DPSTF2';
+      infoc.INFOT = 1;
       dpstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dpstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dpstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
-      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
+      chkxer('DPSTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

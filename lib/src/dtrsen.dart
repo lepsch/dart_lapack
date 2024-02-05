@@ -131,7 +131,7 @@ import 'package:lapack/src/xerbla.dart';
 
       if ( M == N || M == 0 ) {
          if (WANTS) S = ONE;
-         IF( WANTSP ) SEP = DLANGE( '1', N, N, T, LDT, WORK );
+         IF( WANTSP ) SEP = dlange( '1', N, N, T, LDT, WORK );
          GO TO 40;
       }
 
@@ -184,7 +184,7 @@ import 'package:lapack/src/xerbla.dart';
          // Estimate the reciprocal of the condition number of the cluster
          // of eigenvalues.
 
-         RNORM = DLANGE( 'F', N1, N2, WORK, N1, WORK );
+         RNORM = dlange( 'F', N1, N2, WORK, N1, WORK );
          if ( RNORM == ZERO ) {
             S = ONE;
          } else {

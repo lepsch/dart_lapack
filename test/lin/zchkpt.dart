@@ -51,13 +51,13 @@
       // INTRINSIC ABS, DBLE, MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, UPLOS = 'U', 'L';
@@ -76,7 +76,7 @@
       // Test the error exits
 
       if (TSTERR) zerrgt( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
 
@@ -103,7 +103,7 @@
                // Type 1-6:  generate a Hermitian tridiagonal matrix of
                // known condition number in lower triangular band storage.
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from ZLATMS.
@@ -299,7 +299,7 @@
 // +    TESTS 4, 5, and 6
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'ZPTRFS';
+                 srnamc.SRNAMT = 'ZPTRFS';
                   zptrfs(UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZPTRFS.
@@ -329,7 +329,7 @@
             // matrix.
 
             } // 100
-            SRNAMT = 'ZPTCON';
+           srnamc.SRNAMT = 'ZPTCON';
             zptcon(N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO );
 
             // Check error code from ZPTCON.

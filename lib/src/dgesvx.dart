@@ -174,7 +174,7 @@ import 'package:lapack/src/xerbla.dart';
             if ( RPVGRW == ZERO ) {
                RPVGRW = ONE;
             } else {
-               RPVGRW = DLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW;
+               RPVGRW = dlange( 'M', N, INFO, A, LDA, WORK ) / RPVGRW;
             }
             WORK[1] = RPVGRW;
             RCOND = ZERO;
@@ -190,12 +190,12 @@ import 'package:lapack/src/xerbla.dart';
       } else {
          NORM = 'I';
       }
-      ANORM = DLANGE( NORM, N, N, A, LDA, WORK );
+      ANORM = dlange( NORM, N, N, A, LDA, WORK );
       RPVGRW = DLANTR( 'M', 'U', 'N', N, N, AF, LDAF, WORK );
       if ( RPVGRW == ZERO ) {
          RPVGRW = ONE;
       } else {
-         RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
+         RPVGRW = dlange( 'M', N, N, A, LDA, WORK ) / RPVGRW;
       }
 
       // Compute the reciprocal of the condition number of A.

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrge(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
@@ -33,21 +35,21 @@
       // EXTERNAL ALAESM, CHKXER, DGBCON, DGBEQU, DGBRFS, DGBTF2, DGBTRF, DGBTRS, DGECON, DGEEQU, DGERFS, DGETF2, DGETRF, DGETRI, DGETRS, DGEEQUB, DGERFSX, DGBEQUB, DGBRFSX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
       C2 = PATH( 2: 3 );
 
       // Set the variables to innocuous values.
@@ -67,7 +69,7 @@
          IP[J] = J;
          IW[J] = J;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
       if ( lsamen( 2, C2, 'GE' ) ) {
 
@@ -76,155 +78,155 @@
 
          // DGETRF
 
-         SRNAMT = 'DGETRF';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGETRF';
+         infoc.INFOT = 1;
          dgetrf(-1, 0, A, 1, IP, INFO );
-         chkxer('DGETRF', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGETRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgetrf(0, -1, A, 1, IP, INFO );
-         chkxer('DGETRF', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGETRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgetrf(2, 1, A, 1, IP, INFO );
-         chkxer('DGETRF', INFOT, NOUT, LERR, OK );
+         chkxer('DGETRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGETF2
 
-         SRNAMT = 'DGETF2';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGETF2';
+         infoc.INFOT = 1;
          dgetf2(-1, 0, A, 1, IP, INFO );
-         chkxer('DGETF2', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGETF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgetf2(0, -1, A, 1, IP, INFO );
-         chkxer('DGETF2', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGETF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgetf2(2, 1, A, 1, IP, INFO );
-         chkxer('DGETF2', INFOT, NOUT, LERR, OK );
+         chkxer('DGETF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGETRI
 
-         SRNAMT = 'DGETRI';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGETRI';
+         infoc.INFOT = 1;
          dgetri(-1, A, 1, IP, W, LW, INFO );
-         chkxer('DGETRI', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGETRI', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgetri(2, A, 1, IP, W, LW, INFO );
-         chkxer('DGETRI', INFOT, NOUT, LERR, OK );
+         chkxer('DGETRI', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGETRS
 
-         SRNAMT = 'DGETRS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGETRS';
+         infoc.INFOT = 1;
          dgetrs('/', 0, 0, A, 1, IP, B, 1, INFO );
-         chkxer('DGETRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGETRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgetrs('N', -1, 0, A, 1, IP, B, 1, INFO );
-         chkxer('DGETRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGETRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgetrs('N', 0, -1, A, 1, IP, B, 1, INFO );
-         chkxer('DGETRS', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGETRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgetrs('N', 2, 1, A, 1, IP, B, 2, INFO );
-         chkxer('DGETRS', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGETRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgetrs('N', 2, 1, A, 2, IP, B, 1, INFO );
-         chkxer('DGETRS', INFOT, NOUT, LERR, OK );
+         chkxer('DGETRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGERFS
 
-         SRNAMT = 'DGERFS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGERFS';
+         infoc.INFOT = 1;
          dgerfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgerfs('N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgerfs('N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgerfs('N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgerfs('N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgerfs('N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgerfs('N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGERFS', INFOT, NOUT, LERR, OK );
+         chkxer('DGERFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGERFSX
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'DGERFSX';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGERFSX';
+         infoc.INFOT = 1;
          dgerfsx('/', EQ, 0, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          EQ = '/';
          dgerfsx('N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          EQ = 'R';
          dgerfsx('N', EQ, -1, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgerfsx('N', EQ, 0, -1, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgerfsx('N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgerfsx('N', EQ, 2, 1, A, 2, AF, 1, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          EQ = 'C';
          dgerfsx('N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 15;
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 15;
          dgerfsx('N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGERFSX', INFOT, NOUT, LERR, OK );
+         chkxer('DGERFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGECON
 
-         SRNAMT = 'DGECON';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGECON';
+         infoc.INFOT = 1;
          dgecon('/', 0, A, 1, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGECON', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGECON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgecon('1', -1, A, 1, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGECON', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGECON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgecon('1', 2, A, 1, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGECON', INFOT, NOUT, LERR, OK );
+         chkxer('DGECON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGEEQU
 
-         SRNAMT = 'DGEEQU';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEEQU';
+         infoc.INFOT = 1;
          dgeequ(-1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeequ(0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgeequ(2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQU', INFOT, NOUT, LERR, OK );
+         chkxer('DGEEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGEEQUB
 
-         SRNAMT = 'DGEEQUB';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGEEQUB';
+         infoc.INFOT = 1;
          dgeequb(-1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGEEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgeequb(0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGEEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgeequb(2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGEEQUB', INFOT, NOUT, LERR, OK );
+         chkxer('DGEEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       } else if ( lsamen( 2, C2, 'GB' ) ) {
 
@@ -233,200 +235,200 @@
 
          // DGBTRF
 
-         SRNAMT = 'DGBTRF';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBTRF';
+         infoc.INFOT = 1;
          dgbtrf(-1, 0, 0, 0, A, 1, IP, INFO );
-         chkxer('DGBTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbtrf(0, -1, 0, 0, A, 1, IP, INFO );
-         chkxer('DGBTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbtrf(1, 1, -1, 0, A, 1, IP, INFO );
-         chkxer('DGBTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbtrf(1, 1, 0, -1, A, 1, IP, INFO );
-         chkxer('DGBTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbtrf(2, 2, 1, 1, A, 3, IP, INFO );
-         chkxer('DGBTRF', INFOT, NOUT, LERR, OK );
+         chkxer('DGBTRF', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBTF2
 
-         SRNAMT = 'DGBTF2';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBTF2';
+         infoc.INFOT = 1;
          dgbtf2(-1, 0, 0, 0, A, 1, IP, INFO );
-         chkxer('DGBTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbtf2(0, -1, 0, 0, A, 1, IP, INFO );
-         chkxer('DGBTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbtf2(1, 1, -1, 0, A, 1, IP, INFO );
-         chkxer('DGBTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbtf2(1, 1, 0, -1, A, 1, IP, INFO );
-         chkxer('DGBTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbtf2(2, 2, 1, 1, A, 3, IP, INFO );
-         chkxer('DGBTF2', INFOT, NOUT, LERR, OK );
+         chkxer('DGBTF2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBTRS
 
-         SRNAMT = 'DGBTRS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBTRS';
+         infoc.INFOT = 1;
          dgbtrs('/', 0, 0, 0, 1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbtrs('N', -1, 0, 0, 1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbtrs('N', 1, -1, 0, 1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbtrs('N', 1, 0, -1, 1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgbtrs('N', 1, 0, 0, -1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgbtrs('N', 2, 1, 1, 1, A, 3, IP, B, 2, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgbtrs('N', 2, 0, 0, 1, A, 1, IP, B, 1, INFO );
-         chkxer('DGBTRS', INFOT, NOUT, LERR, OK );
+         chkxer('DGBTRS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBRFS
 
-         SRNAMT = 'DGBRFS';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBRFS';
+         infoc.INFOT = 1;
          dgbrfs('/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbrfs('N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbrfs('N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbrfs('N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          dgbrfs('N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          dgbrfs('N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 9;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 9;
          dgbrfs('N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 12;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 12;
          dgbrfs('N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 14;
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 14;
          dgbrfs('N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, IW, INFO );
-         chkxer('DGBRFS', INFOT, NOUT, LERR, OK );
+         chkxer('DGBRFS', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBRFSX
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'DGBRFSX';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBRFSX';
+         infoc.INFOT = 1;
          dgbrfsx('/', EQ, 0, 0, 0, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS,  W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          EQ = '/';
          dgbrfsx('N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          EQ = 'R';
          dgbrfsx('N', EQ, -1, 1, 1, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          EQ = 'R';
          dgbrfsx('N', EQ, 2, -1, 1, 1, A, 3, AF, 4, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 5;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 5;
          EQ = 'R';
          dgbrfsx('N', EQ, 2, 1, -1, 1, A, 3, AF, 4, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbrfsx('N', EQ, 0, 0, 0, -1, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 8;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 8;
          dgbrfsx('N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 10;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 10;
          dgbrfsx('N', EQ, 2, 1, 1, 1, A, 3, AF, 3, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 13;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 13;
          EQ = 'C';
          dgbrfsx('N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
-         INFOT = 15;
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 15;
          dgbrfsx('N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
-         chkxer('DGBRFSX', INFOT, NOUT, LERR, OK );
+         chkxer('DGBRFSX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBCON
 
-         SRNAMT = 'DGBCON';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBCON';
+         infoc.INFOT = 1;
          dgbcon('/', 0, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGBCON', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBCON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbcon('1', -1, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGBCON', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBCON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbcon('1', 1, -1, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGBCON', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBCON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbcon('1', 1, 0, -1, A, 1, IP, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGBCON', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBCON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbcon('1', 2, 1, 1, A, 3, IP, ANRM, RCOND, W, IW, INFO );
-         chkxer('DGBCON', INFOT, NOUT, LERR, OK );
+         chkxer('DGBCON', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBEQU
 
-         SRNAMT = 'DGBEQU';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBEQU';
+         infoc.INFOT = 1;
          dgbequ(-1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbequ(0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbequ(1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbequ(1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQU', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbequ(2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQU', INFOT, NOUT, LERR, OK );
+         chkxer('DGBEQU', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
          // DGBEQUB
 
-         SRNAMT = 'DGBEQUB';
-         INFOT = 1;
+         srnamc.SRNAMT = 'DGBEQUB';
+         infoc.INFOT = 1;
          dgbequb(-1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('DGBEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          dgbequb(0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 3;
+         chkxer('DGBEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 3;
          dgbequb(1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('DGBEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          dgbequb(1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQUB', INFOT, NOUT, LERR, OK );
-         INFOT = 6;
+         chkxer('DGBEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 6;
          dgbequb(2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO );
-         chkxer('DGBEQUB', INFOT, NOUT, LERR, OK );
+         chkxer('DGBEQUB', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
       }
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

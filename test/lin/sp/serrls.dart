@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -57,7 +57,7 @@
 
          // SGELS
 
-         SRNAMT = 'SGELS ';
+        srnamc.SRNAMT = 'SGELS ';
          INFOT = 1;
          sgels('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
          chkxer('SGELS ', INFOT, NOUT, LERR, OK );
@@ -85,7 +85,7 @@
 
          // SGELST
 
-         SRNAMT = 'SGELST';
+        srnamc.SRNAMT = 'SGELST';
          INFOT = 1;
          sgelst('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
          chkxer('SGELST', INFOT, NOUT, LERR, OK );
@@ -113,7 +113,7 @@
 
          // SGETSLS
 
-         SRNAMT = 'SGETSLS';
+        srnamc.SRNAMT = 'SGETSLS';
          INFOT = 1;
          sgetsls('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
          chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
@@ -138,7 +138,7 @@
 
          // SGELSS
 
-         SRNAMT = 'SGELSS';
+        srnamc.SRNAMT = 'SGELSS';
          INFOT = 1;
          sgelss(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
          chkxer('SGELSS', INFOT, NOUT, LERR, OK );
@@ -157,7 +157,7 @@
 
          // SGELSY
 
-         SRNAMT = 'SGELSY';
+        srnamc.SRNAMT = 'SGELSY';
          INFOT = 1;
          sgelsy(-1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
          chkxer('SGELSY', INFOT, NOUT, LERR, OK );
@@ -179,7 +179,7 @@
 
          // SGELSD
 
-         SRNAMT = 'SGELSD';
+        srnamc.SRNAMT = 'SGELSD';
          INFOT = 1;
          sgelsd(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
          chkxer('SGELSD', INFOT, NOUT, LERR, OK );

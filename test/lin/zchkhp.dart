@@ -50,13 +50,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -78,7 +78,7 @@
       // Test the error exits
 
       if (TSTERR) zerrsy( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -116,7 +116,7 @@
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -205,7 +205,7 @@
 
                NPP = N*( N+1 ) / 2;
                zcopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'ZHPTRF';
+              srnamc.SRNAMT = 'ZHPTRF';
                zhptrf(UPLO, N, AFAC, IWORK, INFO );
 
                // Adjust the expected value of INFO to account for
@@ -245,7 +245,7 @@
 
                if ( !TRFCON ) {
                   zcopy(NPP, AFAC, 1, AINV, 1 );
-                  SRNAMT = 'ZHPTRI';
+                 srnamc.SRNAMT = 'ZHPTRI';
                   zhptri(UPLO, N, AINV, IWORK, WORK, INFO );
 
                // Check error code from ZHPTRI.
@@ -281,12 +281,12 @@
 // +    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
                   zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'ZHPTRS';
+                 srnamc.SRNAMT = 'ZHPTRS';
                   zhptrs(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                // Check error code from ZHPTRS.
@@ -304,7 +304,7 @@
 // +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'ZHPRFS';
+                 srnamc.SRNAMT = 'ZHPRFS';
                   zhprfs(UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZHPRFS.
@@ -332,7 +332,7 @@
 
                } // 140
                ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
-               SRNAMT = 'ZHPCON';
+              srnamc.SRNAMT = 'ZHPCON';
                zhpcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, INFO );
 
                // Check error code from ZHPCON.

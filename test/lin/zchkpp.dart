@@ -46,13 +46,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, ZCOPY, ZERRPO, ZGET04, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPPCON, ZPPRFS, ZPPT01, ZPPT02, ZPPT03, ZPPT05, ZPPTRF, ZPPTRI, ZPPTRS
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -77,7 +77,7 @@
       // Test the error exits
 
       if (TSTERR) zerrpo( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in NVAL
 
@@ -110,7 +110,7 @@
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -171,7 +171,7 @@
 
                NPP = N*( N+1 ) / 2;
                zcopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'ZPPTRF';
+              srnamc.SRNAMT = 'ZPPTRF';
                zpptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from ZPPTRF.
@@ -195,7 +195,7 @@
                // Form the inverse and compute the residual.
 
                zcopy(NPP, AFAC, 1, AINV, 1 );
-               SRNAMT = 'ZPPTRI';
+              srnamc.SRNAMT = 'ZPPTRI';
                zpptri(UPLO, N, AINV, INFO );
 
                // Check error code from ZPPTRI.
@@ -222,11 +222,11 @@
 // +    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'ZPPTRS';
+                 srnamc.SRNAMT = 'ZPPTRS';
                   zpptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from ZPPTRS.
@@ -244,7 +244,7 @@
 // +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'ZPPRFS';
+                 srnamc.SRNAMT = 'ZPPRFS';
                   zpprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZPPRFS.
@@ -271,7 +271,7 @@
                // Get an estimate of RCOND = 1/CNDNUM.
 
                ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
-               SRNAMT = 'ZPPCON';
+              srnamc.SRNAMT = 'ZPPCON';
                zppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO );
 
                // Check error code from ZPPCON.

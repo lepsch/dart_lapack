@@ -1,4 +1,4 @@
-      void zerrtz(PATH, NUNIT ) {
+      void zerrtz(PATH, infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -30,20 +30,20 @@
       // EXTERNAL ALAESM, CHKXER, ZTZRZF
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       C2 = PATH( 2: 3 );
       A[1, 1] = DCMPLX( 1.0, -1.0 );
       A[1, 2] = DCMPLX( 2.0, -2.0 );
@@ -51,7 +51,7 @@
       A[2, 1] = DCMPLX( 4.0, -4.0 );
       W[1] = DCMPLX( 0.0, 0.0 );
       W[2] = DCMPLX( 0.0, 0.0 );
-      OK = true;
+      infoc.OK = true;
 
       // Test error exits for the trapezoidal routines.
       WRITE( NOUT, FMT = * );
@@ -60,27 +60,27 @@
 
          // ZTZRZF
 
-         SRNAMT = 'ZTZRZF';
-         INFOT = 1;
+        srnamc.SRNAMT = 'ZTZRZF';
+         infoc.INFOT = 1;
          ztzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
-         chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 2;
+         chkxer('ZTZRZF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 2;
          ztzrzf(1, 0, A, 1, TAU, W, 1, INFO );
-         chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 4;
+         chkxer('ZTZRZF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 4;
          ztzrzf(2, 2, A, 1, TAU, W, 1, INFO );
-         chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZTZRZF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          ztzrzf(2, 2, A, 2, TAU, W, 0, INFO );
-         chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7;
+         chkxer('ZTZRZF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+         infoc.INFOT = 7;
          ztzrzf(2, 3, A, 2, TAU, W, 1, INFO );
-         chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
+         chkxer('ZTZRZF', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
       }
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, NOUT );
 
       return;
       }

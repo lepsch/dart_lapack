@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvrf2(NOUT, NN, NVAL, A, LDA, ARF, AP, ASAV  ) {
 
 // -- LAPACK test routine --
@@ -31,10 +33,10 @@
       // EXTERNAL DTFTTR, DTFTTP, DTRTTF, DTRTTP, DTPTTR, DTPTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -74,17 +76,17 @@
 
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A[I, J] = DLARND( 2, ISEED );
+                     A[I, J] = dlarnd( 2, ISEED );
                   }
                }
 
-               SRNAMT = 'DTRTTF';
+               srnamc.SRNAMT = 'DTRTTF';
                dtrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
-               SRNAMT = 'DTFTTP';
+               srnamc.SRNAMT = 'DTFTTP';
                dtfttp(CFORM, UPLO, N, ARF, AP, INFO );
 
-               SRNAMT = 'DTPTTR';
+               srnamc.SRNAMT = 'DTPTTR';
                dtpttr(UPLO, N, AP, ASAV, LDA, INFO );
 
                OK1 = true;
@@ -108,13 +110,13 @@
 
                NRUN = NRUN + 1;
 
-               SRNAMT = 'DTRTTP';
+               srnamc.SRNAMT = 'DTRTTP';
                dtrttp(UPLO, N, A, LDA, AP, INFO );
 
-               SRNAMT = 'DTPTTF';
+               srnamc.SRNAMT = 'DTPTTF';
                dtpttf(CFORM, UPLO, N, AP, ARF, INFO );
 
-               SRNAMT = 'DTFTTR';
+               srnamc.SRNAMT = 'DTFTTR';
                dtfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
 
                OK2 = true;

@@ -30,12 +30,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -58,7 +58,7 @@
 
       // Test STRSYL
 
-      SRNAMT = 'STRSYL';
+     srnamc.SRNAMT = 'STRSYL';
       INFOT = 1;
       strsyl('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
       chkxer('STRSYL', INFOT, NOUT, LERR, OK );
@@ -87,7 +87,7 @@
 
       // Test STRSYL3
 
-      SRNAMT = 'STRSYL3';
+     srnamc.SRNAMT = 'STRSYL3';
       INFOT = 1;
       strsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX, INFO );
       chkxer('STRSYL3', INFOT, NOUT, LERR, OK );
@@ -116,7 +116,7 @@
 
       // Test STREXC
 
-      SRNAMT = 'STREXC';
+     srnamc.SRNAMT = 'STREXC';
       IFST = 1;
       ILST = 1;
       INFOT = 1;
@@ -154,7 +154,7 @@
 
       // Test STRSNA
 
-      SRNAMT = 'STRSNA';
+     srnamc.SRNAMT = 'STRSNA';
       INFOT = 1;
       strsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, IWORK, INFO );
       chkxer('STRSNA', INFOT, NOUT, LERR, OK );
@@ -187,7 +187,7 @@
       // Test STRSEN
 
       SEL[1] = false;
-      SRNAMT = 'STRSEN';
+     srnamc.SRNAMT = 'STRSEN';
       INFOT = 1;
       strsen('X', 'N', SEL, 0, A, 1, B, 1, WR, WI, M, S( 1 ), SEP( 1 ), WORK, 1, IWORK, 1, INFO );
       chkxer('STRSEN', INFOT, NOUT, LERR, OK );

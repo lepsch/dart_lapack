@@ -34,12 +34,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -74,7 +74,7 @@
 
          // SGESV
 
-         SRNAMT = 'SGESV ';
+        srnamc.SRNAMT = 'SGESV ';
          INFOT = 1;
          sgesv(-1, 0, A, 1, IP, B, 1, INFO );
          chkxer('SGESV ', INFOT, NOUT, LERR, OK );
@@ -90,7 +90,7 @@
 
          // SGESVX
 
-         SRNAMT = 'SGESVX';
+        srnamc.SRNAMT = 'SGESVX';
          INFOT = 1;
          sgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SGESVX', INFOT, NOUT, LERR, OK );
@@ -132,7 +132,7 @@
 
          // SGBSV
 
-         SRNAMT = 'SGBSV ';
+        srnamc.SRNAMT = 'SGBSV ';
          INFOT = 1;
          sgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SGBSV ', INFOT, NOUT, LERR, OK );
@@ -154,7 +154,7 @@
 
          // SGBSVX
 
-         SRNAMT = 'SGBSVX';
+        srnamc.SRNAMT = 'SGBSVX';
          INFOT = 1;
          sgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SGBSVX', INFOT, NOUT, LERR, OK );
@@ -202,7 +202,7 @@
 
          // SGTSV
 
-         SRNAMT = 'SGTSV ';
+        srnamc.SRNAMT = 'SGTSV ';
          INFOT = 1;
          sgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
          chkxer('SGTSV ', INFOT, NOUT, LERR, OK );
@@ -215,7 +215,7 @@
 
          // SGTSVX
 
-         SRNAMT = 'SGTSVX';
+        srnamc.SRNAMT = 'SGTSVX';
          INFOT = 1;
          sgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SGTSVX', INFOT, NOUT, LERR, OK );
@@ -239,7 +239,7 @@
 
          // SPOSV
 
-         SRNAMT = 'SPOSV ';
+        srnamc.SRNAMT = 'SPOSV ';
          INFOT = 1;
          sposv('/', 0, 0, A, 1, B, 1, INFO );
          chkxer('SPOSV ', INFOT, NOUT, LERR, OK );
@@ -258,7 +258,7 @@
 
          // SPOSVX
 
-         SRNAMT = 'SPOSVX';
+        srnamc.SRNAMT = 'SPOSVX';
          INFOT = 1;
          sposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SPOSVX', INFOT, NOUT, LERR, OK );
@@ -296,7 +296,7 @@
 
          // SPPSV
 
-         SRNAMT = 'SPPSV ';
+        srnamc.SRNAMT = 'SPPSV ';
          INFOT = 1;
          sppsv('/', 0, 0, A, B, 1, INFO );
          chkxer('SPPSV ', INFOT, NOUT, LERR, OK );
@@ -312,7 +312,7 @@
 
          // SPPSVX
 
-         SRNAMT = 'SPPSVX';
+        srnamc.SRNAMT = 'SPPSVX';
          INFOT = 1;
          sppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SPPSVX', INFOT, NOUT, LERR, OK );
@@ -344,7 +344,7 @@
 
          // SPBSV
 
-         SRNAMT = 'SPBSV ';
+        srnamc.SRNAMT = 'SPBSV ';
          INFOT = 1;
          spbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
          chkxer('SPBSV ', INFOT, NOUT, LERR, OK );
@@ -366,7 +366,7 @@
 
          // SPBSVX
 
-         SRNAMT = 'SPBSVX';
+        srnamc.SRNAMT = 'SPBSVX';
          INFOT = 1;
          spbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SPBSVX', INFOT, NOUT, LERR, OK );
@@ -407,7 +407,7 @@
 
          // SPTSV
 
-         SRNAMT = 'SPTSV ';
+        srnamc.SRNAMT = 'SPTSV ';
          INFOT = 1;
          sptsv(-1, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO );
          chkxer('SPTSV ', INFOT, NOUT, LERR, OK );
@@ -420,7 +420,7 @@
 
          // SPTSVX
 
-         SRNAMT = 'SPTSVX';
+        srnamc.SRNAMT = 'SPTSVX';
          INFOT = 1;
          sptsvx('/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO );
          chkxer('SPTSVX', INFOT, NOUT, LERR, OK );
@@ -441,7 +441,7 @@
 
          // SSYSV
 
-         SRNAMT = 'SSYSV ';
+        srnamc.SRNAMT = 'SSYSV ';
          INFOT = 1;
          ssysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYSV ', INFOT, NOUT, LERR, OK );
@@ -466,7 +466,7 @@
 
          // SSYSVX
 
-         SRNAMT = 'SSYSVX';
+        srnamc.SRNAMT = 'SSYSVX';
          INFOT = 1;
          ssysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO );
          chkxer('SSYSVX', INFOT, NOUT, LERR, OK );
@@ -500,7 +500,7 @@
 
          // SSYSV_ROOK
 
-         SRNAMT = 'SSYSV_ROOK';
+        srnamc.SRNAMT = 'SSYSV_ROOK';
          INFOT = 1;
          ssysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYSV_ROOK', INFOT, NOUT, LERR, OK );
@@ -535,7 +535,7 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'SSYSV_RK';
+        srnamc.SRNAMT = 'SSYSV_RK';
          INFOT = 1;
          ssysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('SSYSV_RK', INFOT, NOUT, LERR, OK );
@@ -562,7 +562,7 @@
 
          // SSYSV_AASEN
 
-         SRNAMT = 'SSYSV_AA';
+        srnamc.SRNAMT = 'SSYSV_AA';
          INFOT = 1;
          ssysv_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYSV_AA', INFOT, NOUT, LERR, OK );
@@ -586,7 +586,7 @@
 
          // SSYSV_AASEN_2STAGE
 
-         SRNAMT = 'SSYSV_AA_2STAGE';
+        srnamc.SRNAMT = 'SSYSV_AA_2STAGE';
          INFOT = 1;
          ssysv_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
          chkxer('SSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
@@ -613,7 +613,7 @@
 
          // SSPSV
 
-         SRNAMT = 'SSPSV ';
+        srnamc.SRNAMT = 'SSPSV ';
          INFOT = 1;
          sspsv('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('SSPSV ', INFOT, NOUT, LERR, OK );
@@ -629,7 +629,7 @@
 
          // SSPSVX
 
-         SRNAMT = 'SSPSVX';
+        srnamc.SRNAMT = 'SSPSVX';
          INFOT = 1;
          sspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
          chkxer('SSPSVX', INFOT, NOUT, LERR, OK );

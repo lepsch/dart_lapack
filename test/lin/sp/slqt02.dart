@@ -34,10 +34,10 @@
       // INTRINSIC MAX, REAL
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -50,7 +50,7 @@
 
       // Generate the first n columns of the matrix Q
 
-      SRNAMT = 'SORGLQ';
+     srnamc.SRNAMT = 'SORGLQ';
       sorglq(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L(1:k,1:m)

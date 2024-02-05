@@ -44,10 +44,10 @@
       // INTRINSIC DABS, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -99,8 +99,8 @@
                            ALPHA = ZERO;
                            BETA = ONE;
                         } else {
-                           ALPHA = DLARND( 2, ISEED );
-                           BETA = DLARND( 2, ISEED );
+                           ALPHA = dlarnd( 2, ISEED );
+                           BETA = dlarnd( 2, ISEED );
                         }
 
                         // All the parameters are set:
@@ -154,22 +154,22 @@
 
                         NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE );
 
-                        SRNAMT = 'ZTRTTF';
+                       srnamc.SRNAMT = 'ZTRTTF';
                         ztrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call zherk the BLAS routine -> gives C1
 
-                        SRNAMT = 'ZHERK ';
+                       srnamc.SRNAMT = 'ZHERK ';
                         zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call zhfrk the RFP routine -> gives CRF
 
-                        SRNAMT = 'ZHFRK ';
+                       srnamc.SRNAMT = 'ZHFRK ';
                         zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
-                        SRNAMT = 'ZTFTTR';
+                       srnamc.SRNAMT = 'ZTFTTR';
                         ztfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2

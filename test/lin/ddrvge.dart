@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvge(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -51,13 +53,13 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -81,7 +83,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -116,7 +118,7 @@
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
             RCONDC = ONE / CNDNUM;
 
-            SRNAMT = 'DLATMS';
+            srnamc.SRNAMT = 'DLATMS';
             dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from DLATMS.
@@ -214,24 +216,24 @@
 
                      // Compute the 1-norm and infinity-norm of A.
 
-                     ANORMO = DLANGE( '1', N, N, AFAC, LDA, RWORK );
-                     ANORMI = DLANGE( 'I', N, N, AFAC, LDA, RWORK );
+                     ANORMO = dlange( '1', N, N, AFAC, LDA, RWORK );
+                     ANORMI = dlange( 'I', N, N, AFAC, LDA, RWORK );
 
                      // Factor the matrix A.
 
-                     SRNAMT = 'DGETRF';
+                     srnamc.SRNAMT = 'DGETRF';
                      dgetrf(N, N, AFAC, LDA, IWORK, INFO );
 
                      // Form the inverse of A.
 
                      dlacpy('Full', N, N, AFAC, LDA, A, LDA );
                      LWORK = NMAX*max( 3, NRHS );
-                     SRNAMT = 'DGETRI';
+                     srnamc.SRNAMT = 'DGETRI';
                      dgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Compute the 1-norm condition number of A.
 
-                     AINVNM = DLANGE( '1', N, N, A, LDA, RWORK );
+                     AINVNM = dlange( '1', N, N, A, LDA, RWORK );
                      if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                         RCONDO = ONE;
                      } else {
@@ -240,7 +242,7 @@
 
                      // Compute the infinity-norm condition number of A.
 
-                     AINVNM = DLANGE( 'I', N, N, A, LDA, RWORK );
+                     AINVNM = dlange( 'I', N, N, A, LDA, RWORK );
                      if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                         RCONDI = ONE;
                      } else {
@@ -265,7 +267,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -280,7 +282,7 @@
                         dlacpy('Full', N, N, A, LDA, AFAC, LDA );
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'DGESV ';
+                        srnamc.SRNAMT = 'DGESV ';
                         dgesv(N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from DGESV .
@@ -333,7 +335,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using DGESVX.
 
-                     SRNAMT = 'DGESVX';
+                     srnamc.SRNAMT = 'DGESVX';
                      dgesvx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check the error code from DGESVX.
@@ -348,14 +350,14 @@
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE;
                         } else {
-                           RPVGRW = DLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW;
+                           RPVGRW = dlange( 'M', N, INFO, A, LDA, WORK ) / RPVGRW;
                         }
                      } else {
                         RPVGRW = DLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, WORK );
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE;
                         } else {
-                           RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
+                           RPVGRW = dlange( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
                      RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / dlamch( 'E' );

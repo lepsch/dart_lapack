@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
@@ -119,7 +119,7 @@
 
                   clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'CLATMS';
+                 srnamc.SRNAMT = 'CLATMS';
                   clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
@@ -246,7 +246,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'CLARHS';
+                 srnamc.SRNAMT = 'CLARHS';
                   clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -258,7 +258,7 @@
 
                      // Factor the matrix and solve the system using CSYSV.
 
-                     SRNAMT = 'CSYSV ';
+                    srnamc.SRNAMT = 'CSYSV ';
                      csysv(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
@@ -324,7 +324,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using CSYSVX.
 
-                  SRNAMT = 'CSYSVX';
+                 srnamc.SRNAMT = 'CSYSVX';
                   csysvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, LWORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -406,7 +406,7 @@
                   // Solve the system and compute the condition number
                   // and error bounds using CSYSVXX.
 
-                  SRNAMT = 'CSYSVXX';
+                 srnamc.SRNAMT = 'CSYSVXX';
                   N_ERR_BNDS = 3;
                   EQUED = 'N';
                   csysvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, WORK( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK, INFO );

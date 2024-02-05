@@ -35,10 +35,10 @@
       // INTRINSIC CMPLX, MAX, REAL
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -51,7 +51,7 @@
 
       // Generate the first n columns of the matrix Q
 
-      SRNAMT = 'CUNGQR';
+     srnamc.SRNAMT = 'CUNGQR';
       cungqr(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R(1:n,1:k)

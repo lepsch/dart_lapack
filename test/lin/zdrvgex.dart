@@ -52,13 +52,13 @@
       // INTRINSIC ABS, DCMPLX, MAX, DBLE, DIMAG
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -82,7 +82,7 @@
       // Test the error exits
 
       if (TSTERR) zerrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -117,7 +117,7 @@
             zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
             RCONDC = ONE / CNDNUM;
 
-            SRNAMT = 'ZLATMS';
+           srnamc.SRNAMT = 'ZLATMS';
             zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from ZLATMS.
@@ -264,7 +264,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      zlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -279,7 +279,7 @@
                         zlacpy('Full', N, N, A, LDA, AFAC, LDA );
                         zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'ZGESV ';
+                       srnamc.SRNAMT = 'ZGESV ';
                         zgesv(N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from ZGESV .
@@ -332,7 +332,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using ZGESVX.
 
-                     SRNAMT = 'ZGESVX';
+                    srnamc.SRNAMT = 'ZGESVX';
                      zgesvx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from ZGESVX.
@@ -474,7 +474,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using ZGESVXX.
 
-                     SRNAMT = 'ZGESVXX';
+                    srnamc.SRNAMT = 'ZGESVXX';
                      N_ERR_BNDS = 3;
                      zgesvxx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK, INFO );
 

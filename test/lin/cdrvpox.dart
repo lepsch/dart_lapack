@@ -48,12 +48,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX
@@ -119,7 +119,7 @@
 
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
@@ -251,7 +251,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -266,7 +266,7 @@
                         clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                         clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'CPOSV ';
+                       srnamc.SRNAMT = 'CPOSV ';
                         cposv(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                         // Check error code from CPOSV .
@@ -322,7 +322,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using CPOSVX.
 
-                     SRNAMT = 'CPOSVX';
+                    srnamc.SRNAMT = 'CPOSVX';
                      cposvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CPOSVX.
@@ -405,7 +405,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using CPOSVXX.
 
-                     SRNAMT = 'CPOSVXX';
+                    srnamc.SRNAMT = 'CPOSVXX';
                      N_ERR_BNDS = 3;
                     cposvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK( 2*NRHS+1 ), INFO );
 

@@ -40,10 +40,10 @@
       // INTRINSIC CEILING, REAL, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRMNAMC / SRNAMT
+      // COMMON / SRMNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -112,23 +112,23 @@
 
       // Factor the matrix A in the array AF.
 
-      SRNAMT = 'SLATSQR';
+     srnamc.SRNAMT = 'SLATSQR';
       slatsqr(M, N, MB1, NB1_UB, AF, M, T1, NB1, WORK, LWORK, INFO );
 
       // Copy the factor R into the array R.
 
-      SRNAMT = 'SLACPY';
+     srnamc.SRNAMT = 'SLACPY';
       slacpy('U', N, N, AF, M, R, M );
 
       // Reconstruct the orthogonal matrix Q.
 
-      SRNAMT = 'SORGTSQR';
+     srnamc.SRNAMT = 'SORGTSQR';
       sorgtsqr(M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK, INFO );
 
       // Perform the Householder reconstruction, the result is stored
       // the arrays AF and T2.
 
-      SRNAMT = 'SORHR_COL';
+     srnamc.SRNAMT = 'SORHR_COL';
       sorhr_col(M, N, NB2, AF, M, T2, NB2, DIAG, INFO );
 
       // Compute the factor R_hr corresponding to the Householder
@@ -138,7 +138,7 @@
       // according to sign of of I-th diagonal element DIAG(I) of the
       // matrix S.
 
-      SRNAMT = 'SLACPY';
+     srnamc.SRNAMT = 'SLACPY';
       slacpy('U', N, N, R, M, AF, M );
 
       for (I = 1; I <= N; I++) {
@@ -154,7 +154,7 @@
 
       slaset('Full', M, M, ZERO, ONE, Q, M );
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
@@ -194,7 +194,7 @@
 
       // Apply Q to C as Q*C = CF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
@@ -214,7 +214,7 @@
 
       // Apply Q to C as (Q**T)*C = CF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
@@ -238,7 +238,7 @@
 
       // Apply Q to D as D*Q = DF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
@@ -258,7 +258,7 @@
 
       // Apply Q to D as D*QT = DF
 
-      SRNAMT = 'SGEMQRT';
+     srnamc.SRNAMT = 'SGEMQRT';
       sgemqrt('R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6

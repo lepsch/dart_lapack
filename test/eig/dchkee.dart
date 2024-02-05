@@ -2,12 +2,14 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/ilaver.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 
 import 'alareq.dart';
+import 'common.dart';
 import 'dchkbb.dart';
 import 'dchkbd.dart';
 import 'dchkbk.dart';
@@ -141,21 +143,6 @@ void main() {
       TAUB = Array<double>(NMAX),
       X = Array<double>(5 * NMAX);
   final INFO = Box(0);
-
-  // bool               LERR, OK;
-  // String             SRNAMT;
-  // int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
-  // final               SELVAL=Array<bool>( 20 );
-  // final                IPARMS=Array<int>( 100 );
-  // final             SELWI=Array<double>( 20 ), SELWR=Array<double>( 20 );
-  // ..
-  // .. Common blocks ..
-  // COMMON / CENVIR / NPROC, NSHIFT, MAXB
-  // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-  // COMMON / SRNAMC / SRNAMT
-  // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-  // COMMON / CLAENV / IPARMS
-
   const INTSTR = '0123456789';
   final IOLDSD = Array.fromList([0, 0, 0, 1]);
 
@@ -164,13 +151,9 @@ void main() {
       C = Matrix<double>(NCMAX * NCMAX, NCMAX * NCMAX),
       WORK = Array<double>(LWORK);
 
-  // A = 0.0;
-  // B = 0.0;
-  // C = 0.0;
-  // D = 0.0;
   final S1 = Stopwatch()..start();
   FATAL = false;
-  // NUNIT = NOUT;
+  infoc.NUNIT = NOUT;
 
   try {
     String readLine() {
@@ -311,27 +294,22 @@ void main() {
         print(' Tests of the Linear Least Squares routines');
       } else if (DBL) {
         // DGEBAL:  Balancing
-
         dchkbl(NIN, NOUT);
         continue;
       } else if (DBK) {
         // DGEBAK:  Back transformation
-
         dchkbk(NIN, NOUT);
         continue;
       } else if (DGL) {
         // DGGBAL:  Balancing
-
         dchkgl(NIN, NOUT);
         continue;
       } else if (DGK) {
         // DGGBAK:  Back transformation
-
         dchkgk(NIN, NOUT);
         continue;
       } else if (lsamen(3, PATH, 'DEC')) {
         // DEC:  Eigencondition estimation
-
         THRESH = readDouble();
         xlaenv(1, 1);
         xlaenv(12, 11);
@@ -833,372 +811,119 @@ void main() {
       // of test matrix types must be the first nonblank item in columns
       // 4-80.
 
-      // } // 190
-
-      if (!(DGX || DXV)) {
-        nextLine:
-        while (true) {
-          // 200
-          LINE = readLine();
-          C3 = LINE.substring(0, 3);
-          LENP = LINE.length;
-          I = 3;
-          ITMP = 0;
-          I1 = 0;
-          nextDigit:
+      do {
+        // } // 190
+        if (!(DGX || DXV)) {
+          nextLine:
           while (true) {
-            // 210
-            I = I + 1;
-            if (I > LENP) {
-              if (I1 > 0) {
-                break;
-              } else {
-                NTYPES = MAXT;
-                break;
-              }
-            }
-            if (LINE.substring(I - 1, I) != ' ' &&
-                LINE.substring(I - 1, I) != ',') {
-              I1 = I;
-              C1 = LINE.substring(I1 - 1, I1);
-
-              // Check that a valid integer was read
-              var isValidDigit = false;
-              for (K = 1; K <= 10; K++) {
-                if (C1 == INTSTR.substring(K - 1, K)) {
-                  IC = K - 1;
-                  isValidDigit = true;
+            // 200
+            LINE = readLine();
+            C3 = LINE.substring(0, 3);
+            LENP = LINE.length;
+            I = 3;
+            ITMP = 0;
+            I1 = 0;
+            nextDigit:
+            while (true) {
+              // 210
+              I = I + 1;
+              if (I > LENP) {
+                if (I1 > 0) {
+                  break;
+                } else {
+                  NTYPES = MAXT;
                   break;
                 }
               }
-              if (!isValidDigit) {
-                print(
-                  ' *** Invalid integer value in column $I of input line:\n$LINE',
-                );
-                continue nextLine;
+              if (LINE.substring(I - 1, I) != ' ' &&
+                  LINE.substring(I - 1, I) != ',') {
+                I1 = I;
+                C1 = LINE.substring(I1 - 1, I1);
+
+                // Check that a valid integer was read
+                var isValidDigit = false;
+                for (K = 1; K <= 10; K++) {
+                  if (C1 == INTSTR.substring(K - 1, K)) {
+                    IC = K - 1;
+                    isValidDigit = true;
+                    break;
+                  }
+                }
+                if (!isValidDigit) {
+                  print(
+                    ' *** Invalid integer value in column $I of input line:\n$LINE',
+                  );
+                  continue nextLine;
+                }
+
+                ITMP = 10 * ITMP + IC;
+                continue nextDigit;
+              } else if (I1 > 0) {
+                break;
               }
+            } // 210
 
-              ITMP = 10 * ITMP + IC;
-              continue nextDigit;
-            } else if (I1 > 0) {
-              break;
+            NTYPES = ITMP;
+
+            // Skip the tests if NTYPES is <= 0.
+
+            if (!(DEV || DES || DVX || DSX || DGV || DGS) && NTYPES <= 0) {
+              print9990(C3);
+              continue;
             }
-          } // 210
-
-          NTYPES = ITMP;
-
-          // Skip the tests if NTYPES is <= 0.
-
-          if (!(DEV || DES || DVX || DSX || DGV || DGS) && NTYPES <= 0) {
-            print9990(C3);
-            continue;
-          }
-          break;
-        } // 200
-      } else {
-        if (DXV) C3 = 'DXV';
-        if (DGX) C3 = 'DGX';
-      }
-
-      // Reset the random number seed.
-
-      if (NEWSD == 0) {
-        for (K = 1; K <= 4; K++) {
-          // 250
-          ISEED[K] = IOLDSD[K];
-        } // 250
-      }
-
-      if (lsamen(3, C3, 'DHS') || lsamen(3, C3, 'NEP')) {
-        // -------------------------------------
-        // NEP:  Nonsymmetric Eigenvalue Problem
-        // -------------------------------------
-        // Vary the parameters
-        // NB    = block size
-        // NBMIN = minimum block size
-        // NX    = crossover point
-        // NS    = number of shifts
-        // MAXB  = minimum submatrix size
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        xlaenv(1, 1);
-        if (TSTERR) derrhs('DHSEQR', NOUT);
-        for (I = 1; I <= NPARMS; I++) {
-          // 270
-          xlaenv(1, NBVAL[I]);
-          xlaenv(2, NBMIN[I]);
-          xlaenv(3, NXVAL[I]);
-          xlaenv(12, max(11, INMIN[I]));
-          xlaenv(13, INWIN[I]);
-          xlaenv(14, INIBL[I]);
-          xlaenv(15, ISHFTS[I]);
-          xlaenv(16, IACC22[I]);
-
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 260
-              ISEED[K] = IOLDSD[K];
-            } // 260
-          }
-          print(
-            ' $C3:  NB = ${NBVAL[I].toString().padRight(4)}, NBMIN = ${NBMIN[I].toString().padRight(4)}, NX = ${NXVAL[I].toString().padRight(4)}, INMIN= ${max(11, INMIN(I)).toString().padRight(4)}, INWIN = ${INWIN[I].toString().padRight(4)}, INIBL = ${INIBL[I].toString().padRight(4)}, ISHFTS = ${ISHFTS[I].toString().padRight(4)}, IACC22 = ${IACC22[I].toString().padRight(4)}',
-          );
-          dchkhs(
-            NN,
-            NVAL,
-            MAXTYP,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            NMAX,
-            A(1, 6),
-            A(1, 7),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            D(1, 5),
-            D(1, 6),
-            A(1, 8),
-            A(1, 9),
-            A(1, 10),
-            A(1, 11),
-            A(1, 12),
-            D(1, 7),
-            WORK,
-            LWORK,
-            IWORK,
-            LOGWRK,
-            RESULT,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DCHKHS', INFO.value);
-        } // 270
-      } else if (lsamen(3, C3, 'DST') ||
-          lsamen(3, C3, 'SEP') ||
-          lsamen(3, C3, 'SE2')) {
-        // ----------------------------------
-        // SEP:  Symmetric Eigenvalue Problem
-        // ----------------------------------
-        // Vary the parameters
-        // NB    = block size
-        // NBMIN = minimum block size
-        // NX    = crossover point
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        xlaenv(1, 1);
-        xlaenv(9, 25);
-        if (TSTERR) {
-// #if defined(_OPENMP)
-          // N_THREADS = OMP_GET_MAX_THREADS();
-          // ONE_THREAD = 1;
-          // omp_set_num_threads(ONE_THREAD);
-// #endif
-          derrst('DST', NOUT);
-// #if defined(_OPENMP)
-          // omp_set_num_threads(N_THREADS);
-// #endif
+            break;
+          } // 200
+        } else {
+          if (DXV) C3 = 'DXV';
+          if (DGX) C3 = 'DGX';
         }
-        for (I = 1; I <= NPARMS; I++) {
-          // 290
-          xlaenv(1, NBVAL[I]);
-          xlaenv(2, NBMIN[I]);
-          xlaenv(3, NXVAL[I]);
 
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 280
-              ISEED[K] = IOLDSD[K];
-            } // 280
-          }
-          print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
-          if (TSTCHK) {
-            if (lsamen(3, C3, 'SE2')) {
-              dchkst2stg(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                D(1, 1),
-                D(1, 2),
-                D(1, 3),
-                D(1, 4),
-                D(1, 5),
-                D(1, 6),
-                D(1, 7),
-                D(1, 8),
-                D(1, 9),
-                D(1, 10),
-                D(1, 11),
-                A(1, 3),
-                NMAX,
-                A(1, 4),
-                A(1, 5),
-                D(1, 12),
-                A(1, 6),
-                WORK,
-                LWORK,
-                IWORK,
-                LIWORK,
-                RESULT,
-                INFO.value,
-              );
-            } else {
-              dchkst(
-                NN,
-                NVAL,
-                MAXTYP,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                A(1, 2),
-                D(1, 1),
-                D(1, 2),
-                D(1, 3),
-                D(1, 4),
-                D(1, 5),
-                D(1, 6),
-                D(1, 7),
-                D(1, 8),
-                D(1, 9),
-                D(1, 10),
-                D(1, 11),
-                A(1, 3),
-                NMAX,
-                A(1, 4),
-                A(1, 5),
-                D(1, 12),
-                A(1, 6),
-                WORK,
-                LWORK,
-                IWORK,
-                LIWORK,
-                RESULT,
-                INFO.value,
-              );
+        // Reset the random number seed.
+
+        if (NEWSD == 0) {
+          for (K = 1; K <= 4; K++) {
+            // 250
+            ISEED[K] = IOLDSD[K];
+          } // 250
+        }
+
+        if (lsamen(3, C3, 'DHS') || lsamen(3, C3, 'NEP')) {
+          // -------------------------------------
+          // NEP:  Nonsymmetric Eigenvalue Problem
+          // -------------------------------------
+          // Vary the parameters
+          // NB    = block size
+          // NBMIN = minimum block size
+          // NX    = crossover point
+          // NS    = number of shifts
+          // MAXB  = minimum submatrix size
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          if (TSTERR) derrhs('DHSEQR', NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 270
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+            xlaenv(12, max(11, INMIN[I]));
+            xlaenv(13, INWIN[I]);
+            xlaenv(14, INIBL[I]);
+            xlaenv(15, ISHFTS[I]);
+            xlaenv(16, IACC22[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 260
+                ISEED[K] = IOLDSD[K];
+              } // 260
             }
-            if (INFO.value != 0) print9980('DCHKST', INFO.value);
-          }
-          if (TSTDRV) {
-            if (lsamen(3, C3, 'SE2')) {
-              ddrvst2stg(
-                NN,
-                NVAL,
-                18,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                D(1, 3),
-                D(1, 4),
-                D(1, 5),
-                D(1, 6),
-                D(1, 8),
-                D(1, 9),
-                D(1, 10),
-                D(1, 11),
-                A(1, 2),
-                NMAX,
-                A(1, 3),
-                D(1, 12),
-                A(1, 4),
-                WORK,
-                LWORK,
-                IWORK,
-                LIWORK,
-                RESULT,
-                INFO.value,
-              );
-            } else {
-              ddrvst(
-                NN,
-                NVAL,
-                18,
-                DOTYPE,
-                ISEED,
-                THRESH,
-                NOUT,
-                A(1, 1),
-                NMAX,
-                D(1, 3),
-                D(1, 4),
-                D(1, 5),
-                D(1, 6),
-                D(1, 8),
-                D(1, 9),
-                D(1, 10),
-                D(1, 11),
-                A(1, 2),
-                NMAX,
-                A(1, 3),
-                D(1, 12),
-                A(1, 4),
-                WORK,
-                LWORK,
-                IWORK,
-                LIWORK,
-                RESULT,
-                INFO.value,
-              );
-            }
-            if (INFO.value != 0) print9980('DDRVST', INFO.value);
-          }
-        } // 290
-      } else if (lsamen(3, C3, 'DSG')) {
-        // ----------------------------------------------
-        // DSG:  Symmetric Generalized Eigenvalue Problem
-        // ----------------------------------------------
-        // Vary the parameters
-        // NB    = block size
-        // NBMIN = minimum block size
-        // NX    = crossover point
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        xlaenv(9, 25);
-        for (I = 1; I <= NPARMS; I++) {
-          // 310
-          xlaenv(1, NBVAL[I]);
-          xlaenv(2, NBMIN[I]);
-          xlaenv(3, NXVAL[I]);
-
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 300
-              ISEED[K] = IOLDSD[K];
-            } // 300
-          }
-          print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
-          if (TSTCHK) {
-            // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-            // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-            // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
-            // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
-            // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
-            ddrvsg2stg(
+            print(
+              ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN(I)).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}',
+            );
+            dchkhs(
               NN,
               NVAL,
               MAXTYP,
@@ -1209,882 +934,1136 @@ void main() {
               A(1, 1),
               NMAX,
               A(1, 2),
-              NMAX,
-              D(1, 3),
-              D(1, 3),
               A(1, 3),
-              NMAX,
               A(1, 4),
               A(1, 5),
+              NMAX,
               A(1, 6),
               A(1, 7),
+              D(1, 1).asArray(),
+              D(1, 2).asArray(),
+              D(1, 3).asArray(),
+              D(1, 4).asArray(),
+              D(1, 5).asArray(),
+              D(1, 6).asArray(),
+              A(1, 8),
+              A(1, 9),
+              A(1, 10),
+              A(1, 11),
+              A(1, 12),
+              D(1, 7).asArray(),
               WORK,
               LWORK,
               IWORK,
-              LIWORK,
+              LOGWRK,
               RESULT,
-              INFO.value,
+              INFO,
             );
-            if (INFO.value != 0) print9980('DDRVSG', INFO.value);
+            if (INFO.value != 0) print9980('DCHKHS', INFO.value);
+          } // 270
+        } else if (lsamen(3, C3, 'DST') ||
+            lsamen(3, C3, 'SEP') ||
+            lsamen(3, C3, 'SE2')) {
+          // ----------------------------------
+          // SEP:  Symmetric Eigenvalue Problem
+          // ----------------------------------
+          // Vary the parameters
+          // NB    = block size
+          // NBMIN = minimum block size
+          // NX    = crossover point
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          xlaenv(9, 25);
+          if (TSTERR) {
+// #if defined(_OPENMP)
+            // N_THREADS = OMP_GET_MAX_THREADS();
+            // ONE_THREAD = 1;
+            // omp_set_num_threads(ONE_THREAD);
+// #endif
+            derrst('DST', NOUT);
+// #if defined(_OPENMP)
+            // omp_set_num_threads(N_THREADS);
+// #endif
           }
-        } // 310
-      } else if (lsamen(3, C3, 'DBD') || lsamen(3, C3, 'SVD')) {
-        // ----------------------------------
-        // SVD:  Singular Value Decomposition
-        // ----------------------------------
-        // Vary the parameters
-        // NB    = block size
-        // NBMIN = minimum block size
-        // NX    = crossover point
-        // NRHS  = number of right hand sides
+          for (I = 1; I <= NPARMS; I++) {
+            // 290
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
 
-        MAXTYP = 16;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        xlaenv(1, 1);
-        xlaenv(9, 25);
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 280
+                ISEED[K] = IOLDSD[K];
+              } // 280
+            }
+            print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            if (TSTCHK) {
+              if (lsamen(3, C3, 'SE2')) {
+                dchkst2stg(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  D(1, 1),
+                  D(1, 2),
+                  D(1, 3),
+                  D(1, 4),
+                  D(1, 5),
+                  D(1, 6),
+                  D(1, 7),
+                  D(1, 8),
+                  D(1, 9),
+                  D(1, 10),
+                  D(1, 11),
+                  A(1, 3),
+                  NMAX,
+                  A(1, 4),
+                  A(1, 5),
+                  D(1, 12),
+                  A(1, 6),
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  LIWORK,
+                  RESULT,
+                  INFO.value,
+                );
+              } else {
+                dchkst(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  D(1, 1),
+                  D(1, 2),
+                  D(1, 3),
+                  D(1, 4),
+                  D(1, 5),
+                  D(1, 6),
+                  D(1, 7),
+                  D(1, 8),
+                  D(1, 9),
+                  D(1, 10),
+                  D(1, 11),
+                  A(1, 3),
+                  NMAX,
+                  A(1, 4),
+                  A(1, 5),
+                  D(1, 12),
+                  A(1, 6),
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  LIWORK,
+                  RESULT,
+                  INFO.value,
+                );
+              }
+              if (INFO.value != 0) print9980('DCHKST', INFO.value);
+            }
+            if (TSTDRV) {
+              if (lsamen(3, C3, 'SE2')) {
+                ddrvst2stg(
+                  NN,
+                  NVAL,
+                  18,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  D(1, 3),
+                  D(1, 4),
+                  D(1, 5),
+                  D(1, 6),
+                  D(1, 8),
+                  D(1, 9),
+                  D(1, 10),
+                  D(1, 11),
+                  A(1, 2),
+                  NMAX,
+                  A(1, 3),
+                  D(1, 12),
+                  A(1, 4),
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  LIWORK,
+                  RESULT,
+                  INFO.value,
+                );
+              } else {
+                ddrvst(
+                  NN,
+                  NVAL,
+                  18,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  D(1, 3),
+                  D(1, 4),
+                  D(1, 5),
+                  D(1, 6),
+                  D(1, 8),
+                  D(1, 9),
+                  D(1, 10),
+                  D(1, 11),
+                  A(1, 2),
+                  NMAX,
+                  A(1, 3),
+                  D(1, 12),
+                  A(1, 4),
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  LIWORK,
+                  RESULT,
+                  INFO.value,
+                );
+              }
+              if (INFO.value != 0) print9980('DDRVST', INFO.value);
+            }
+          } // 290
+        } else if (lsamen(3, C3, 'DSG')) {
+          // ----------------------------------------------
+          // DSG:  Symmetric Generalized Eigenvalue Problem
+          // ----------------------------------------------
+          // Vary the parameters
+          // NB    = block size
+          // NBMIN = minimum block size
+          // NX    = crossover point
 
-        // Test the error exits
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(9, 25);
+          for (I = 1; I <= NPARMS; I++) {
+            // 310
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
 
-        if (TSTERR && TSTCHK) derrbd('DBD', NOUT);
-        if (TSTERR && TSTDRV) derred('DBD', NOUT);
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 300
+                ISEED[K] = IOLDSD[K];
+              } // 300
+            }
+            print9997(C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            if (TSTCHK) {
+              // CALL DDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+              // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
+              // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
+              // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
+              // $                      LWORK, IWORK, LIWORK, RESULT, INFO.value )
+              ddrvsg2stg(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                NMAX,
+                D(1, 3),
+                D(1, 3),
+                A(1, 3),
+                NMAX,
+                A(1, 4),
+                A(1, 5),
+                A(1, 6),
+                A(1, 7),
+                WORK,
+                LWORK,
+                IWORK,
+                LIWORK,
+                RESULT,
+                INFO.value,
+              );
+              if (INFO.value != 0) print9980('DDRVSG', INFO.value);
+            }
+          } // 310
+        } else if (lsamen(3, C3, 'DBD') || lsamen(3, C3, 'SVD')) {
+          // ----------------------------------
+          // SVD:  Singular Value Decomposition
+          // ----------------------------------
+          // Vary the parameters
+          // NB    = block size
+          // NBMIN = minimum block size
+          // NX    = crossover point
+          // NRHS  = number of right hand sides
 
-        for (I = 1; I <= NPARMS; I++) {
-          // 330
-          NRHS = NSVAL[I];
-          xlaenv(1, NBVAL[I]);
-          xlaenv(2, NBMIN[I]);
-          xlaenv(3, NXVAL[I]);
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 320
-              ISEED[K] = IOLDSD[K];
-            } // 320
-          }
-          print(
-            ' $C3:  NB = ${NBVAL[I].toString().padRight(4)}, NBMIN = ${NBMIN[I].toString().padRight(4)}, NX = ${NXVAL[I].toString().padRight(4)}, NRHS = $NRHS',
-          );
-          if (TSTCHK) {
-            dchkbd(
+          MAXTYP = 16;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          xlaenv(9, 25);
+
+          // Test the error exits
+
+          if (TSTERR && TSTCHK) derrbd('DBD', NOUT);
+          if (TSTERR && TSTDRV) derred('DBD', NOUT);
+
+          for (I = 1; I <= NPARMS; I++) {
+            // 330
+            NRHS = NSVAL[I];
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 320
+                ISEED[K] = IOLDSD[K];
+              } // 320
+            }
+            print(
+              ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS = $NRHS',
+            );
+            if (TSTCHK) {
+              dchkbd(
+                NN,
+                MVAL,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                NRHS,
+                ISEED,
+                THRESH,
+                A(1, 1),
+                NMAX,
+                D(1, 1),
+                D(1, 2),
+                D(1, 3),
+                D(1, 4),
+                A(1, 2),
+                NMAX,
+                A(1, 3),
+                A(1, 4),
+                A(1, 5),
+                NMAX,
+                A(1, 6),
+                NMAX,
+                A(1, 7),
+                A(1, 8),
+                WORK,
+                LWORK,
+                IWORK,
+                NOUT,
+                INFO.value,
+              );
+              if (INFO.value != 0) print9980('DCHKBD', INFO.value);
+            }
+            if (TSTDRV) {
+              ddrvbd(
+                NN,
+                MVAL,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                NMAX,
+                A(1, 3),
+                NMAX,
+                A(1, 4),
+                A(1, 5),
+                A(1, 6),
+                D(1, 1),
+                D(1, 2),
+                D(1, 3),
+                WORK,
+                LWORK,
+                IWORK,
+                NOUT,
+                INFO.value,
+              );
+            }
+          } // 330
+        } else if (lsamen(3, C3, 'DEV')) {
+          // --------------------------------------------
+          // DEV:  Nonsymmetric Eigenvalue Problem Driver
+          // DGEEV (eigenvalues and eigenvectors)
+          // --------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derred(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrvev(
               NN,
-              MVAL,
               NVAL,
-              MAXTYP,
+              NTYPES,
               DOTYPE,
-              NRHS,
               ISEED,
               THRESH,
+              NOUT,
               A(1, 1),
               NMAX,
+              A(1, 2),
               D(1, 1),
               D(1, 2),
               D(1, 3),
               D(1, 4),
-              A(1, 2),
-              NMAX,
               A(1, 3),
+              NMAX,
               A(1, 4),
+              NMAX,
               A(1, 5),
               NMAX,
-              A(1, 6),
-              NMAX,
-              A(1, 7),
-              A(1, 8),
+              RESULT,
               WORK,
               LWORK,
               IWORK,
-              NOUT,
               INFO.value,
             );
-            if (INFO.value != 0) print9980('DCHKBD', INFO.value);
+            if (INFO.value != 0) print9980('DGEEV', INFO.value);
           }
-          if (TSTDRV)
-            ddrvbd(
+          print(' ${'-' * 71}');
+          continue;
+        } else if (lsamen(3, C3, 'DES')) {
+          // --------------------------------------------
+          // DES:  Nonsymmetric Eigenvalue Problem Driver
+          // DGEES (Schur form)
+          // --------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derred(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrves(
               NN,
-              MVAL,
               NVAL,
-              MAXTYP,
+              NTYPES,
               DOTYPE,
               ISEED,
               THRESH,
+              NOUT,
               A(1, 1),
               NMAX,
               A(1, 2),
-              NMAX,
               A(1, 3),
-              NMAX,
-              A(1, 4),
-              A(1, 5),
-              A(1, 6),
               D(1, 1),
               D(1, 2),
               D(1, 3),
+              D(1, 4),
+              A(1, 4),
+              NMAX,
+              RESULT,
               WORK,
               LWORK,
               IWORK,
-              NOUT,
+              LOGWRK,
               INFO.value,
             );
-        } // 330
-      } else if (lsamen(3, C3, 'DEV')) {
-        // --------------------------------------------
-        // DEV:  Nonsymmetric Eigenvalue Problem Driver
-        // DGEEV (eigenvalues and eigenvectors)
-        // --------------------------------------------
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES <= 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derred(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrvev(
-            NN,
-            NVAL,
-            NTYPES,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            A(1, 3),
-            NMAX,
-            A(1, 4),
-            NMAX,
-            A(1, 5),
-            NMAX,
-            RESULT,
-            WORK,
-            LWORK,
-            IWORK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DGEEV', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DES')) {
-        // --------------------------------------------
-        // DES:  Nonsymmetric Eigenvalue Problem Driver
-        // DGEES (Schur form)
-        // --------------------------------------------
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES <= 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derred(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrves(
-            NN,
-            NVAL,
-            NTYPES,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            A(1, 4),
-            NMAX,
-            RESULT,
-            WORK,
-            LWORK,
-            IWORK,
-            LOGWRK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DGEES', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DVX')) {
-        // --------------------------------------------------------------
-        // DVX:  Nonsymmetric Eigenvalue Problem Expert Driver
-        // DGEEVX (eigenvalues, eigenvectors and condition numbers)
-        // --------------------------------------------------------------
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES < 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derred(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrvvx(
-            NN,
-            NVAL,
-            NTYPES,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NIN,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            A(1, 3),
-            NMAX,
-            A(1, 4),
-            NMAX,
-            A(1, 5),
-            NMAX,
-            D(1, 5),
-            D(1, 6),
-            D(1, 7),
-            D(1, 8),
-            D(1, 9),
-            D(1, 10),
-            D(1, 11),
-            D(1, 12),
-            RESULT,
-            WORK,
-            LWORK,
-            IWORK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DGEEVX', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DSX')) {
-        // ---------------------------------------------------
-        // DSX:  Nonsymmetric Eigenvalue Problem Expert Driver
-        // DGEESX (Schur form and condition numbers)
-        // ---------------------------------------------------
-
-        MAXTYP = 21;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES < 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derred(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrvsx(
-            NN,
-            NVAL,
-            NTYPES,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NIN,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            D(1, 5),
-            D(1, 6),
-            A(1, 4),
-            NMAX,
-            A(1, 5),
-            RESULT,
-            WORK,
-            LWORK,
-            IWORK,
-            LOGWRK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DGEESX', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DGG')) {
-        // -------------------------------------------------
-        // DGG:  Generalized Nonsymmetric Eigenvalue Problem
-        // -------------------------------------------------
-        // Vary the parameters
-        // NB    = block size
-        // NBMIN = minimum block size
-        // NS    = number of shifts
-        // MAXB  = minimum submatrix size
-        // IACC22: structured matrix multiply
-        // NBCOL = minimum column dimension for blocks
-
-        MAXTYP = 26;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        xlaenv(1, 1);
-        if (TSTCHK && TSTERR) derrgg(C3, NOUT);
-        for (I = 1; I <= NPARMS; I++) {
-          // 350
-          xlaenv(1, NBVAL[I]);
-          xlaenv(2, NBMIN[I]);
-          xlaenv(4, NSVAL[I]);
-          xlaenv(8, MXBVAL[I]);
-          xlaenv(16, IACC22[I]);
-          xlaenv(5, NBCOL[I]);
-
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 340
-              ISEED[K] = IOLDSD[K];
-            } // 340
+            if (INFO.value != 0) print9980('DGEES', INFO.value);
           }
-          print(
-            ' $C3:  NB = ${NBVAL[I].toString().padRight(4)}, NBMIN = ${NBMIN[I].toString().padRight(4)}, NS = ${NSVAL[I].toString().padRight(4)}, MAXB = ${MXBVAL[I].toString().padRight(4)}, IACC22 = ${IACC22[I].toString().padRight(4)}, NBCOL = ${NBCOL[I].toString().padRight(4)}',
-          );
-          TSTDIF = false;
-          THRSHN = 10.0;
-          if (TSTCHK) {
-            dchkgg(
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (lsamen(3, C3, 'DVX')) {
+          // --------------------------------------------------------------
+          // DVX:  Nonsymmetric Eigenvalue Problem Expert Driver
+          // DGEEVX (eigenvalues, eigenvectors and condition numbers)
+          // --------------------------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES < 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derred(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrvvx(
               NN,
               NVAL,
-              MAXTYP,
+              NTYPES,
               DOTYPE,
               ISEED,
               THRESH,
-              TSTDIF,
-              THRSHN,
+              NIN,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              D(1, 4),
+              A(1, 3),
+              NMAX,
+              A(1, 4),
+              NMAX,
+              A(1, 5),
+              NMAX,
+              D(1, 5),
+              D(1, 6),
+              D(1, 7),
+              D(1, 8),
+              D(1, 9),
+              D(1, 10),
+              D(1, 11),
+              D(1, 12),
+              RESULT,
+              WORK,
+              LWORK,
+              IWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DGEEVX', INFO.value);
+          }
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (lsamen(3, C3, 'DSX')) {
+          // ---------------------------------------------------
+          // DSX:  Nonsymmetric Eigenvalue Problem Expert Driver
+          // DGEESX (Schur form and condition numbers)
+          // ---------------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES < 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derred(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrvsx(
+              NN,
+              NVAL,
+              NTYPES,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NIN,
               NOUT,
               A(1, 1),
               NMAX,
               A(1, 2),
               A(1, 3),
-              A(1, 4),
-              A(1, 5),
-              A(1, 6),
-              A(1, 7),
-              A(1, 8),
-              A(1, 9),
-              NMAX,
-              A(1, 10),
-              A(1, 11),
-              A(1, 12),
               D(1, 1),
               D(1, 2),
               D(1, 3),
               D(1, 4),
               D(1, 5),
               D(1, 6),
-              A(1, 13),
-              A(1, 14),
+              A(1, 4),
+              NMAX,
+              A(1, 5),
+              RESULT,
               WORK,
               LWORK,
+              IWORK,
               LOGWRK,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DGEESX', INFO.value);
+          }
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (lsamen(3, C3, 'DGG')) {
+          // -------------------------------------------------
+          // DGG:  Generalized Nonsymmetric Eigenvalue Problem
+          // -------------------------------------------------
+          // Vary the parameters
+          // NB    = block size
+          // NBMIN = minimum block size
+          // NS    = number of shifts
+          // MAXB  = minimum submatrix size
+          // IACC22: structured matrix multiply
+          // NBCOL = minimum column dimension for blocks
+
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          if (TSTCHK && TSTERR) derrgg(C3, NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 350
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(4, NSVAL[I]);
+            xlaenv(8, MXBVAL[I]);
+            xlaenv(16, IACC22[I]);
+            xlaenv(5, NBCOL[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 340
+                ISEED[K] = IOLDSD[K];
+              } // 340
+            }
+            print(
+              ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}',
+            );
+            TSTDIF = false;
+            THRSHN = 10.0;
+            if (TSTCHK) {
+              dchkgg(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                TSTDIF,
+                THRSHN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 5),
+                A(1, 6),
+                A(1, 7),
+                A(1, 8),
+                A(1, 9),
+                NMAX,
+                A(1, 10),
+                A(1, 11),
+                A(1, 12),
+                D(1, 1),
+                D(1, 2),
+                D(1, 3),
+                D(1, 4),
+                D(1, 5),
+                D(1, 6),
+                A(1, 13),
+                A(1, 14),
+                WORK,
+                LWORK,
+                LOGWRK,
+                RESULT,
+                INFO.value,
+              );
+              if (INFO.value != 0) print9980('DCHKGG', INFO.value);
+            }
+          } // 350
+        } else if (lsamen(3, C3, 'DGS')) {
+          // -------------------------------------------------
+          // DGS:  Generalized Nonsymmetric Eigenvalue Problem
+          // DGGES (Schur form)
+          // -------------------------------------------------
+
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derrgg(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrges(
+              NN,
+              NVAL,
+              MAXTYP,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              A(1, 7),
+              NMAX,
+              A(1, 8),
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              WORK,
+              LWORK,
+              RESULT,
+              LOGWRK,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DDRGES', INFO.value);
+
+            // Blocked version
+
+            xlaenv(16, 2);
+            ddrges3(
+              NN,
+              NVAL,
+              MAXTYP,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              A(1, 7),
+              NMAX,
+              A(1, 8),
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              WORK,
+              LWORK,
+              RESULT,
+              LOGWRK,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DDRGES3', INFO.value);
+          }
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (DGX) {
+          // -------------------------------------------------
+          // DGX:  Generalized Nonsymmetric Eigenvalue Problem
+          // DGGESX (Schur form and condition numbers)
+          // -------------------------------------------------
+
+          MAXTYP = 5;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derrgg(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            xlaenv(5, 2);
+            ddrgsx(
+              NN,
+              NCMAX,
+              THRESH,
+              NIN,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              A(1, 5),
+              A(1, 6),
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              C(1, 1),
+              NCMAX * NCMAX,
+              A(1, 12),
+              WORK,
+              LWORK,
+              IWORK,
+              LIWORK,
+              LOGWRK,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DDRGSX', INFO.value);
+          }
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (lsamen(3, C3, 'DGV')) {
+          // -------------------------------------------------
+          // DGV:  Generalized Nonsymmetric Eigenvalue Problem
+          // DGGEV (Eigenvalue/vector form)
+          // -------------------------------------------------
+
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derrgg(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrgev(
+              NN,
+              NVAL,
+              MAXTYP,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              A(1, 7),
+              NMAX,
+              A(1, 8),
+              A(1, 9),
+              NMAX,
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              D(1, 4),
+              D(1, 5),
+              D(1, 6),
+              WORK,
+              LWORK,
               RESULT,
               INFO.value,
             );
-            if (INFO.value != 0) print9980('DCHKGG', INFO.value);
+            if (INFO.value != 0) print9980('DDRGEV', INFO.value);
+
+            // Blocked version
+
+            ddrgev3(
+              NN,
+              NVAL,
+              MAXTYP,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              A(1, 7),
+              NMAX,
+              A(1, 8),
+              A(1, 9),
+              NMAX,
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              D(1, 4),
+              D(1, 5),
+              D(1, 6),
+              WORK,
+              LWORK,
+              RESULT,
+              INFO.value,
+            );
+            if (INFO.value != 0) print9980('DDRGEV3', INFO.value);
           }
-        } // 350
-      } else if (lsamen(3, C3, 'DGS')) {
-        // -------------------------------------------------
-        // DGS:  Generalized Nonsymmetric Eigenvalue Problem
-        // DGGES (Schur form)
-        // -------------------------------------------------
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (DXV) {
+          // -------------------------------------------------
+          // DXV:  Generalized Nonsymmetric Eigenvalue Problem
+          // DGGEVX (eigenvalue/vector with condition numbers)
+          // -------------------------------------------------
 
-        MAXTYP = 26;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES <= 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derrgg(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrges(
-            NN,
-            NVAL,
-            MAXTYP,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 7),
-            NMAX,
-            A(1, 8),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            WORK,
-            LWORK,
-            RESULT,
-            LOGWRK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DDRGES', INFO.value);
+          MAXTYP = 2;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            print9990(C3);
+          } else {
+            if (TSTERR) derrgg(C3, NOUT);
+            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            ddrgvx(
+              NN,
+              THRESH,
+              NIN,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              A(1, 3),
+              A(1, 4),
+              D(1, 1),
+              D(1, 2),
+              D(1, 3),
+              A(1, 5),
+              A(1, 6),
+              IWORK[1],
+              IWORK(2),
+              D(1, 4),
+              D(1, 5),
+              D(1, 6),
+              D(1, 7),
+              D(1, 8),
+              D(1, 9),
+              WORK,
+              LWORK,
+              IWORK(3),
+              LIWORK - 2,
+              RESULT,
+              LOGWRK,
+              INFO.value,
+            );
 
-          // Blocked version
-
-          xlaenv(16, 2);
-          ddrges3(
-            NN,
-            NVAL,
-            MAXTYP,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 7),
-            NMAX,
-            A(1, 8),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            WORK,
-            LWORK,
-            RESULT,
-            LOGWRK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DDRGES3', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (DGX) {
-        // -------------------------------------------------
-        // DGX:  Generalized Nonsymmetric Eigenvalue Problem
-        // DGGESX (Schur form and condition numbers)
-        // -------------------------------------------------
-
-        MAXTYP = 5;
-        NTYPES = MAXTYP;
-        if (NN < 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derrgg(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          xlaenv(5, 2);
-          ddrgsx(
-            NN,
-            NCMAX,
-            THRESH,
-            NIN,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 5),
-            A(1, 6),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            C(1, 1),
-            NCMAX * NCMAX,
-            A(1, 12),
-            WORK,
-            LWORK,
-            IWORK,
-            LIWORK,
-            LOGWRK,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DDRGSX', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DGV')) {
-        // -------------------------------------------------
-        // DGV:  Generalized Nonsymmetric Eigenvalue Problem
-        // DGGEV (Eigenvalue/vector form)
-        // -------------------------------------------------
-
-        MAXTYP = 26;
-        NTYPES = min(MAXTYP, NTYPES);
-        if (NTYPES <= 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derrgg(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrgev(
-            NN,
-            NVAL,
-            MAXTYP,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 7),
-            NMAX,
-            A(1, 8),
-            A(1, 9),
-            NMAX,
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            D(1, 5),
-            D(1, 6),
-            WORK,
-            LWORK,
-            RESULT,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DDRGEV', INFO.value);
-
-          // Blocked version
-
-          ddrgev3(
-            NN,
-            NVAL,
-            MAXTYP,
-            DOTYPE,
-            ISEED,
-            THRESH,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            A(1, 7),
-            NMAX,
-            A(1, 8),
-            A(1, 9),
-            NMAX,
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            D(1, 4),
-            D(1, 5),
-            D(1, 6),
-            WORK,
-            LWORK,
-            RESULT,
-            INFO.value,
-          );
-          if (INFO.value != 0) print9980('DDRGEV3', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (DXV) {
-        // -------------------------------------------------
-        // DXV:  Generalized Nonsymmetric Eigenvalue Problem
-        // DGGEVX (eigenvalue/vector with condition numbers)
-        // -------------------------------------------------
-
-        MAXTYP = 2;
-        NTYPES = MAXTYP;
-        if (NN < 0) {
-          print9990(C3);
-        } else {
-          if (TSTERR) derrgg(C3, NOUT);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-          ddrgvx(
-            NN,
-            THRESH,
-            NIN,
-            NOUT,
-            A(1, 1),
-            NMAX,
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
-            D(1, 1),
-            D(1, 2),
-            D(1, 3),
-            A(1, 5),
-            A(1, 6),
-            IWORK[1],
-            IWORK(2),
-            D(1, 4),
-            D(1, 5),
-            D(1, 6),
-            D(1, 7),
-            D(1, 8),
-            D(1, 9),
-            WORK,
-            LWORK,
-            IWORK(3),
-            LIWORK - 2,
-            RESULT,
-            LOGWRK,
-            INFO.value,
-          );
-
-          if (INFO.value != 0) print9980('DDRGVX', INFO.value);
-        }
-        print(' ${Iterable.generate(71, (_) => '-').join()}');
-        continue;
-      } else if (lsamen(3, C3, 'DSB')) {
-        // ------------------------------
-        // DSB:  Symmetric Band Reduction
-        // ------------------------------
-
-        MAXTYP = 15;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        if (TSTERR) derrst('DSB', NOUT);
-        // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-        // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
-        // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
-        dchksb2stg(
-          NN,
-          NVAL,
-          NK,
-          KVAL,
-          MAXTYP,
-          DOTYPE,
-          ISEED,
-          THRESH,
-          NOUT,
-          A(1, 1),
-          NMAX,
-          D(1, 1),
-          D(1, 2),
-          D(1, 3),
-          D(1, 4),
-          D(1, 5),
-          A(1, 2),
-          NMAX,
-          WORK,
-          LWORK,
-          RESULT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCHKSB', INFO.value);
-      } else if (lsamen(3, C3, 'DBB')) {
-        // ------------------------------
-        // DBB:  General Band Reduction
-        // ------------------------------
-
-        MAXTYP = 15;
-        NTYPES = min(MAXTYP, NTYPES);
-        alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
-        for (I = 1; I <= NPARMS; I++) {
-          // 370
-          NRHS = NSVAL[I];
-
-          if (NEWSD == 0) {
-            for (K = 1; K <= 4; K++) {
-              // 360
-              ISEED[K] = IOLDSD[K];
-            } // 360
+            if (INFO.value != 0) print9980('DDRGVX', INFO.value);
           }
-          print(' $C3:  NRHS =$NRHS');
-          dchkbb(
+          print(' ${Iterable.generate(71, (_) => '-').join()}');
+          continue;
+        } else if (lsamen(3, C3, 'DSB')) {
+          // ------------------------------
+          // DSB:  Symmetric Band Reduction
+          // ------------------------------
+
+          MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          if (TSTERR) derrst('DSB', NOUT);
+          // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+          // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
+          // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO.value )
+          dchksb2stg(
             NN,
-            MVAL,
             NVAL,
             NK,
             KVAL,
             MAXTYP,
             DOTYPE,
-            NRHS,
             ISEED,
             THRESH,
             NOUT,
             A(1, 1),
             NMAX,
-            A(1, 2),
-            2 * NMAX,
             D(1, 1),
             D(1, 2),
-            A(1, 4),
+            D(1, 3),
+            D(1, 4),
+            D(1, 5),
+            A(1, 2),
             NMAX,
-            A(1, 5),
-            NMAX,
-            A(1, 6),
-            NMAX,
-            A(1, 7),
             WORK,
             LWORK,
             RESULT,
             INFO.value,
           );
-          if (INFO.value != 0) print9980('DCHKBB', INFO.value);
-        } // 370
-      } else if (lsamen(3, C3, 'GLM')) {
-        // -----------------------------------------
-        // GLM:  Generalized Linear Regression Model
-        // -----------------------------------------
+          if (INFO.value != 0) print9980('DCHKSB', INFO.value);
+        } else if (lsamen(3, C3, 'DBB')) {
+          // ------------------------------
+          // DBB:  General Band Reduction
+          // ------------------------------
 
-        xlaenv(1, 1);
-        if (TSTERR) derrgg('GLM', NOUT);
-        dckglm(
-          NN,
-          MVAL,
-          PVAL,
-          NVAL,
-          NTYPES,
-          ISEED,
-          THRESH,
-          NMAX,
-          A(1, 1),
-          A(1, 2),
-          B(1, 1),
-          B(1, 2),
-          X,
-          WORK,
-          D(1, 1),
-          NIN,
-          NOUT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCKGLM', INFO.value);
-      } else if (lsamen(3, C3, 'GQR')) {
-        // ------------------------------------------
-        // GQR:  Generalized QR and RQ factorizations
-        // ------------------------------------------
+          MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 370
+            NRHS = NSVAL[I];
 
-        xlaenv(1, 1);
-        if (TSTERR) derrgg('GQR', NOUT);
-        dckgqr(
-          NN,
-          MVAL,
-          NN,
-          PVAL,
-          NN,
-          NVAL,
-          NTYPES,
-          ISEED,
-          THRESH,
-          NMAX,
-          A(1, 1),
-          A(1, 2),
-          A(1, 3),
-          A(1, 4),
-          TAUA,
-          B(1, 1),
-          B(1, 2),
-          B(1, 3),
-          B(1, 4),
-          B(1, 5),
-          TAUB,
-          WORK,
-          D(1, 1),
-          NIN,
-          NOUT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCKGQR', INFO.value);
-      } else if (lsamen(3, C3, 'GSV')) {
-        // ----------------------------------------------
-        // GSV:  Generalized Singular Value Decomposition
-        // ----------------------------------------------
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 360
+                ISEED[K] = IOLDSD[K];
+              } // 360
+            }
+            print(' $C3:  NRHS =$NRHS');
+            dchkbb(
+              NN,
+              MVAL,
+              NVAL,
+              NK,
+              KVAL,
+              MAXTYP,
+              DOTYPE,
+              NRHS,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              A(1, 2),
+              2 * NMAX,
+              D(1, 1).asArray(),
+              D(1, 2).asArray(),
+              A(1, 4),
+              NMAX,
+              A(1, 5),
+              NMAX,
+              A(1, 6),
+              NMAX,
+              A(1, 7),
+              WORK,
+              LWORK,
+              RESULT,
+              INFO,
+            );
+            if (INFO.value != 0) print9980('DCHKBB', INFO.value);
+          } // 370
+        } else if (lsamen(3, C3, 'GLM')) {
+          // -----------------------------------------
+          // GLM:  Generalized Linear Regression Model
+          // -----------------------------------------
 
-        xlaenv(1, 1);
-        if (TSTERR) derrgg('GSV', NOUT);
-        dckgsv(
-          NN,
-          MVAL,
-          PVAL,
-          NVAL,
-          NTYPES,
-          ISEED,
-          THRESH,
-          NMAX,
-          A(1, 1),
-          A(1, 2),
-          B(1, 1),
-          B(1, 2),
-          A(1, 3),
-          B(1, 3),
-          A(1, 4),
-          TAUA,
-          TAUB,
-          B(1, 4),
-          IWORK,
-          WORK,
-          D(1, 1),
-          NIN,
-          NOUT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCKGSV', INFO.value);
-      } else if (lsamen(3, C3, 'CSD')) {
-        // ----------------------------------------------
-        // CSD:  CS Decomposition
-        // ----------------------------------------------
+          xlaenv(1, 1);
+          if (TSTERR) derrgg('GLM', NOUT);
+          dckglm(
+            NN,
+            MVAL,
+            PVAL,
+            NVAL,
+            NTYPES,
+            ISEED,
+            THRESH,
+            NMAX,
+            A(1, 1),
+            A(1, 2),
+            B(1, 1),
+            B(1, 2),
+            X,
+            WORK,
+            D(1, 1),
+            NIN,
+            NOUT,
+            INFO.value,
+          );
+          if (INFO.value != 0) print9980('DCKGLM', INFO.value);
+        } else if (lsamen(3, C3, 'GQR')) {
+          // ------------------------------------------
+          // GQR:  Generalized QR and RQ factorizations
+          // ------------------------------------------
 
-        xlaenv(1, 1);
-        if (TSTERR) derrgg('CSD', NOUT);
-        dckcsd(
-          NN,
-          MVAL,
-          PVAL,
-          NVAL,
-          NTYPES,
-          ISEED,
-          THRESH,
-          NMAX,
-          A(1, 1),
-          A(1, 2),
-          A(1, 3),
-          A(1, 4),
-          A(1, 5),
-          A(1, 6),
-          A(1, 7),
-          IWORK,
-          WORK,
-          D(1, 1),
-          NIN,
-          NOUT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCKCSD', INFO.value);
-      } else if (lsamen(3, C3, 'LSE')) {
-        // --------------------------------------
-        // LSE:  Constrained Linear Least Squares
-        // --------------------------------------
+          xlaenv(1, 1);
+          if (TSTERR) derrgg('GQR', NOUT);
+          dckgqr(
+            NN,
+            MVAL,
+            NN,
+            PVAL,
+            NN,
+            NVAL,
+            NTYPES,
+            ISEED,
+            THRESH,
+            NMAX,
+            A(1, 1),
+            A(1, 2),
+            A(1, 3),
+            A(1, 4),
+            TAUA,
+            B(1, 1),
+            B(1, 2),
+            B(1, 3),
+            B(1, 4),
+            B(1, 5),
+            TAUB,
+            WORK,
+            D(1, 1),
+            NIN,
+            NOUT,
+            INFO.value,
+          );
+          if (INFO.value != 0) print9980('DCKGQR', INFO.value);
+        } else if (lsamen(3, C3, 'GSV')) {
+          // ----------------------------------------------
+          // GSV:  Generalized Singular Value Decomposition
+          // ----------------------------------------------
 
-        xlaenv(1, 1);
-        if (TSTERR) derrgg('LSE', NOUT);
-        dcklse(
-          NN,
-          MVAL,
-          PVAL,
-          NVAL,
-          NTYPES,
-          ISEED,
-          THRESH,
-          NMAX,
-          A(1, 1),
-          A(1, 2),
-          B(1, 1),
-          B(1, 2),
-          X,
-          WORK,
-          D(1, 1),
-          NIN,
-          NOUT,
-          INFO.value,
-        );
-        if (INFO.value != 0) print9980('DCKLSE', INFO.value);
-      } else {
-        print('');
-        print('');
-        print(' $C3:  Unrecognized path name');
-      }
-      if (!(DGX || DXV)) GOTO190;
+          xlaenv(1, 1);
+          if (TSTERR) derrgg('GSV', NOUT);
+          dckgsv(
+            NN,
+            MVAL,
+            PVAL,
+            NVAL,
+            NTYPES,
+            ISEED,
+            THRESH,
+            NMAX,
+            A(1, 1),
+            A(1, 2),
+            B(1, 1),
+            B(1, 2),
+            A(1, 3),
+            B(1, 3),
+            A(1, 4),
+            TAUA,
+            TAUB,
+            B(1, 4),
+            IWORK,
+            WORK,
+            D(1, 1),
+            NIN,
+            NOUT,
+            INFO.value,
+          );
+          if (INFO.value != 0) print9980('DCKGSV', INFO.value);
+        } else if (lsamen(3, C3, 'CSD')) {
+          // ----------------------------------------------
+          // CSD:  CS Decomposition
+          // ----------------------------------------------
+
+          xlaenv(1, 1);
+          if (TSTERR) derrgg('CSD', NOUT);
+          dckcsd(
+            NN,
+            MVAL,
+            PVAL,
+            NVAL,
+            NTYPES,
+            ISEED,
+            THRESH,
+            NMAX,
+            A(1, 1),
+            A(1, 2),
+            A(1, 3),
+            A(1, 4),
+            A(1, 5),
+            A(1, 6),
+            A(1, 7),
+            IWORK,
+            WORK,
+            D(1, 1),
+            NIN,
+            NOUT,
+            INFO.value,
+          );
+          if (INFO.value != 0) print9980('DCKCSD', INFO.value);
+        } else if (lsamen(3, C3, 'LSE')) {
+          // --------------------------------------
+          // LSE:  Constrained Linear Least Squares
+          // --------------------------------------
+
+          xlaenv(1, 1);
+          if (TSTERR) derrgg('LSE', NOUT);
+          dcklse(
+            NN,
+            MVAL,
+            PVAL,
+            NVAL,
+            NTYPES,
+            ISEED,
+            THRESH,
+            NMAX,
+            A(1, 1),
+            A(1, 2),
+            B(1, 1),
+            B(1, 2),
+            X,
+            WORK,
+            D(1, 1),
+            NIN,
+            NOUT,
+            INFO.value,
+          );
+          if (INFO.value != 0) print9980('DCKLSE', INFO.value);
+        } else {
+          print('');
+          print('');
+          print(' $C3:  Unrecognized path name');
+        }
+      } while (!(DGX || DXV));
       break;
     }
   } // 380
@@ -2093,7 +2072,7 @@ void main() {
   }
   print(' End of tests');
   print(
-    ' Total time used = ${(S1.elapsed.inMicroseconds / 100).toStringAsFixed(2)} seconds',
+    ' Total time used =${(S1.elapsed.inMicroseconds / 100).toStringAsFixed(2)} seconds',
   );
 }
 
@@ -2103,7 +2082,7 @@ void print9980(final String s, final int v) {
 
 void print9997(final String s, final int nb, final int nbmin, final int nx) {
   print(
-    ' $s:  NB = ${nb.toString().padRight(4)}, NBMIN = ${nbmin.toString().padRight(4)}, NX = ${nx.toString().padRight(4)}',
+    ' $s:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}',
   );
 }
 

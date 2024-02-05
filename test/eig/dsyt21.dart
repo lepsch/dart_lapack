@@ -162,7 +162,7 @@
             WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 100
 
-         WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) );
+         WNORM = dlange( '1', N, N, WORK, N, WORK( N**2+1 ) );
       }
 
       if ( ANORM > WNORM ) {
@@ -186,7 +186,7 @@
             WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 110
 
-         RESULT[2] = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), N.toDouble() ) / ( N*ULP );
+         RESULT[2] = min( dlange( '1', N, N, WORK, N, WORK( N**2+1 ) ), N.toDouble() ) / ( N*ULP );
       }
 
       return;

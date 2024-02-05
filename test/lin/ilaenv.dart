@@ -1,3 +1,5 @@
+import 'common.dart';
+
       int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
 
 // -- LAPACK test routine --
@@ -19,13 +21,13 @@
       // EXTERNAL IEEECK
       // ..
       // .. Arrays in Common ..
-      int                IPARMS( 100 );
+      // int                claenv.IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      // COMMON / CLAENV / IPARMS
+      // COMMON / CLAENV / claenv.IPARMS
       // ..
       // .. Save statement ..
-      SAVE               / CLAENV /;
+      // SAVE               / CLAENV /;
       // ..
       // .. Executable Statements ..
 
@@ -35,18 +37,18 @@
 
          if ( NAME(2:6) == 'GEQR ' ) {
             if (N3 == 2) {
-               ILAENV = IPARMS ( 2 );
+               ILAENV = claenv.IPARMS ( 2 );
             } else {
-               ILAENV = IPARMS ( 1 );
+               ILAENV = claenv.IPARMS ( 1 );
             }
          } else if ( NAME(2:6) == 'GELQ ' ) {
             if (N3 == 2) {
-               ILAENV = IPARMS ( 2 );
+               ILAENV = claenv.IPARMS ( 2 );
             } else {
-               ILAENV = IPARMS ( 1 );
+               ILAENV = claenv.IPARMS ( 1 );
             }
          } else {
-            ILAENV = IPARMS( ISPEC );
+            ILAENV = claenv.IPARMS( ISPEC );
          }
 
       } else if ( ISPEC == 6 ) {
@@ -59,7 +61,7 @@
 
          // Return a value from the common block.
 
-         ILAENV = IPARMS( ISPEC );
+         ILAENV = claenv.IPARMS( ISPEC );
 
       } else if ( ISPEC == 10 ) {
 
@@ -105,10 +107,10 @@
       // EXTERNAL IPARAM2STAGE
       // ..
       // .. Arrays in Common ..
-      int                IPARMS( 100 );
+      int                claenv.IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      // COMMON / CLAENV / IPARMS
+      // COMMON / CLAENV / claenv.IPARMS
       // ..
       // .. Save statement ..
       SAVE               / CLAENV /;
@@ -120,7 +122,7 @@
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
          if ( ISPEC == 1 ) {
-             ILAENV2STAGE = IPARMS( 1 );
+             ILAENV2STAGE = claenv.IPARMS( 1 );
          } else {
              IISPEC = 16 + ISPEC;
              ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 );

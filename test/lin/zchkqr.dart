@@ -47,13 +47,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -74,7 +74,7 @@
       // Test the error exits
 
       if (TSTERR) zerrqr( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       LDA = NMAX;
@@ -101,7 +101,7 @@
 
                zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -180,7 +180,7 @@
                            // Generate a solution and set the right
                            // hand side.
 
-                           SRNAMT = 'ZLARHS';
+                          srnamc.SRNAMT = 'ZLARHS';
                            zlarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
                            zlacpy('Full', M, NRHS, B, LDA, X, LDA );
@@ -190,7 +190,7 @@
 
                            zlacpy('Full', M, N, A, LDA, AF, LDA );
 
-                           SRNAMT = 'ZGELS';
+                          srnamc.SRNAMT = 'ZGELS';
                            zgels('No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from ZGELS.

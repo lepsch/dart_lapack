@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void main() {
 // #if defined(_OPENMP)
       use omp_lib;
@@ -63,21 +65,21 @@
       // INTRINSIC LEN, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
-      // ..
-      // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      int                IPARMS( 100 );
-      double               SELWI( 20 ), SELWR( 20 );
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, cenvir.MAXB, cenvir.NPROC, cenvir.NSHIFT, infoc.NUNIT, sslct.SELDIM, sslct.SELOPT;
+      // // ..
+      // // .. Arrays in Common ..
+      // bool               sslct.SELVAL( 20 );
+      // int                claenv.IPARMS( 100 );
+      // double               sslct.SELWI( 20 ), sslct.SELWR( 20 );
       // ..
       // .. Common blocks ..
-      // COMMON / CENVIR / NPROC, NSHIFT, MAXB
-      // COMMON / CLAENV / IPARMS
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / cenvir / cenvir.NPROC, cenvir.NSHIFT, cenvir.MAXB
+      // COMMON / claenv / claenv.IPARMS
+      // COMMON / infoc / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / srnamc / srnamc.SRNAMT
+      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. Data statements ..
       const INTSTR = '0123456789';
@@ -106,7 +108,7 @@
       DC = 0.0;
       S1 = SECOND( );
       FATAL = false;
-      NUNIT = NOUT;
+      infoc.NUNIT = NOUT;
 
       // Return to here to read multiple sets of data
 
@@ -382,7 +384,7 @@
             WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2;
             FATAL = true;
          } else if ( MXBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( 1 ), 1;
+            WRITE( NOUT, FMT = 9989 )' cenvir.MAXB ', MXBVAL( 1 ), 1;
             FATAL = true;
          }
          xlaenv(1, NBVAL( 1 ) );
@@ -394,7 +396,7 @@
          WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 );
          WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 );
          WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'cenvir.MAXB: ', MXBVAL( 1 );
       } else if ( !CHB && !GLM && !GQR && !GSV && !CSD && !LSE ) {
 
          // For the other paths, the number of parameters can be varied
@@ -467,7 +469,7 @@
             } // 110
          }
 
-         // Read the values of NSHIFT (if CGG) or NRHS (if SVD
+         // Read the values of cenvir.NSHIFT (if CGG) or NRHS (if SVD
          // or CBB).
 
          if ( SVD || CBB || CGG ) {
@@ -488,20 +490,20 @@
             } // 130
          }
 
-         // Read the values for MAXB.
+         // Read the values for cenvir.MAXB.
 
          if ( CGG ) {
             READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 140
                if ( MXBVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0;
+                  WRITE( NOUT, FMT = 9989 )' cenvir.MAXB ', MXBVAL( I ), 0;
                   FATAL = true;
                } else if ( MXBVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX;
+                  WRITE( NOUT, FMT = 9988 )' cenvir.MAXB ', MXBVAL( I ), NMAX;
                   FATAL = true;
                }
             } // 140
-            WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS );
+            WRITE( NOUT, FMT = 9983 )'cenvir.MAXB: ', ( MXBVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 150
                MXBVAL[I] = 1;
@@ -741,7 +743,7 @@
             // NBMIN = minimum block size
             // NX    = crossover point
             // NS    = number of shifts
-            // MAXB  = minimum submatrix size
+            // cenvir.MAXB  = minimum submatrix size
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -989,7 +991,7 @@
             // NB    = block size
             // NBMIN = minimum block size
             // NS    = number of shifts
-            // MAXB  = minimum submatrix size
+            // cenvir.MAXB  = minimum submatrix size
             // IACC22: structured matrix multiply
             // NBCOL = minimum column dimension for blocks
 
@@ -1240,7 +1242,7 @@
 
  9999 FORMAT( / ' Execution not attempted due to input errors' );
  9997 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4 );
- 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4, ', MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 );
+ 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4, ', cenvir.MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 );
  9995 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', NRHS =', I4 );
  9994 FORMAT( / / ' End of tests' );
  9993 FORMAT( ' Total time used = ', F12.2, ' seconds', / );

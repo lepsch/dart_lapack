@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -49,13 +51,13 @@
       // INTRINSIC MAX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -79,7 +81,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -118,7 +120,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -246,7 +248,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'DLARHS';
+                     srnamc.SRNAMT = 'DLARHS';
                      dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -261,7 +263,7 @@
                         dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'DPOSV ';
+                        srnamc.SRNAMT = 'DPOSV ';
                         dposv(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                         // Check error code from DPOSV .
@@ -317,7 +319,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using DPOSVX.
 
-                     SRNAMT = 'DPOSVX';
+                     srnamc.SRNAMT = 'DPOSVX';
                      dposvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check the error code from DPOSVX.
@@ -400,7 +402,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using DPOSVXX.
 
-                     SRNAMT = 'DPOSVXX';
+                     srnamc.SRNAMT = 'DPOSVXX';
                      N_ERR_BNDS = 3;
                      dposvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK, INFO );
 

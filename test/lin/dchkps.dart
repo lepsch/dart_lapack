@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkps(DOTYPE, NN, NVAL, NNB, NBVAL, NRANK, RANKVAL, THRESH, TSTERR, NMAX, A, AFAC, PERM, PIV, WORK, RWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -37,13 +39,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, DERRPS, DLACPY, DLATB5, DLATMT, DPST01, DPSTRF, XLAENV
       // ..
       // .. Scalars in Common ..
-      int                INFOT, NUNIT;
-      bool               LERR, OK;
-      String             SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, CEILING
@@ -68,7 +70,7 @@
       // Test the error exits
 
       if (TSTERR) derrps( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
@@ -108,7 +110,7 @@
 
                   dlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMT';
+                  srnamc.SRNAMT = 'DLATMT';
                   dlatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMT.
@@ -128,7 +130,7 @@
                   // of the matrix.
 
                      dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     SRNAMT = 'DPSTRF';
+                     srnamc.SRNAMT = 'DPSTRF';
 
                   // Use default tolerance
 

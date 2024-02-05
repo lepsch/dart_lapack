@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrves(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, HT, WR, WI, WRT, WIT, VS, LDVS, RESULT, WORK, NWORK, IWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -35,14 +37,14 @@
       double             RES( 2 );
       // ..
       // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
+      // bool               sslct.SELVAL( 20 );
+      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
+      // // ..
+      // // .. Scalars in Common ..
+      // int                sslct.SELDIM, sslct.SELOPT;
       // ..
       // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. External Functions ..
       //- bool               DSLECT;
@@ -71,7 +73,7 @@
       NTESTT = 0;
       NTESTF = 0;
       INFO = 0;
-      SELOPT = 0;
+      sslct.SELOPT = 0;
 
       // Important constants
 

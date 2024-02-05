@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
@@ -123,7 +123,7 @@
 
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
@@ -249,7 +249,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'CLARHS';
+                 srnamc.SRNAMT = 'CLARHS';
                   clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -261,7 +261,7 @@
 
                      // Factor the matrix and solve the system using CHPSV.
 
-                     SRNAMT = 'CHPSV ';
+                    srnamc.SRNAMT = 'CHPSV ';
                      chpsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
@@ -327,7 +327,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using CHPSVX.
 
-                  SRNAMT = 'CHPSVX';
+                 srnamc.SRNAMT = 'CHPSVX';
                   chpsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for

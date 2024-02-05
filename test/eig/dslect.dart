@@ -1,51 +1,27 @@
-      bool dslect(ZR, ZI ) {
+import 'package:lapack/src/dlapy2.dart';
 
+import 'common.dart';
+
+bool dslect(final double ZR, final double ZI) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  int I;
+  double RMIN, X;
+  const ZERO = 0.0;
 
-      // .. Scalar Arguments ..
-      double             ZI, ZR;
-      // ..
+  if (sslct.SELOPT == 0) {
+    return (ZR < ZERO);
+  }
+  RMIN = dlapy2(ZR - sslct.SELWR[1], ZI - sslct.SELWI[1]);
+  var result = sslct.SELVAL[1];
+  for (I = 2; I <= sslct.SELDIM; I++) {
+    X = dlapy2(ZR - sslct.SELWR[I], ZI - sslct.SELWI[I]);
+    if (X <= RMIN) {
+      RMIN = X;
+      result = sslct.SELVAL[I];
+    }
+  }
 
-// =====================================================================
-
-      // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-      // ..
-      // .. Local Scalars ..
-      int                I;
-      double             RMIN, X;
-      // ..
-      // .. Parameters ..
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      // ..
-      // .. External Functions ..
-      //- double             DLAPY2;
-      // EXTERNAL DLAPY2
-      // ..
-      // .. Executable Statements ..
-
-      if ( SELOPT == 0 ) {
-         DSLECT = ( ZR < ZERO );
-      } else {
-         RMIN = dlapy2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) );
-         DSLECT = SELVAL( 1 );
-         for (I = 2; I <= SELDIM; I++) { // 10
-            X = dlapy2( ZR-SELWR( I ), ZI-SELWI( I ) );
-            if ( X <= RMIN ) {
-               RMIN = X;
-               DSLECT = SELVAL( I );
-            }
-         } // 10
-      }
-      return;
-      }
+  return result;
+}

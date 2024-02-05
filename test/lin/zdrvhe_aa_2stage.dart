@@ -46,13 +46,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZHESV_AA_2STAGE, ZHET01_AA, ZPOT02, ZHETRF_AA_2STAGE
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
@@ -85,7 +85,7 @@
       // Test the error exits
 
       if (TSTERR) zerrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -128,7 +128,7 @@
 
                // Generate a matrix with ZLATMS.
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS and handle error.
@@ -218,7 +218,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -230,7 +230,7 @@
 
                      // Factor the matrix and solve the system using ZHESV_AA.
 
-                     SRNAMT = 'ZHESV_AA_2STAGE ';
+                    srnamc.SRNAMT = 'ZHESV_AA_2STAGE ';
                      LWORK = min( max( 1, N*NB ), 3*NMAX*NMAX );
                      zhesv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, max( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
 

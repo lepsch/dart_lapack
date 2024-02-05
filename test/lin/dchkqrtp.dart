@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkqrtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
       // IMPLICIT NONE
 
@@ -17,7 +19,6 @@
 // =====================================================================
 
       // .. Parameters ..
-      int                NTESTS;
       const              NTESTS = 6 ;
       // ..
       // .. Local Scalars ..
@@ -31,13 +32,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, DERRQRTP
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -52,7 +53,7 @@
       // Test the error exits
 
       if (TSTERR) derrqrtp( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of M
 

@@ -34,12 +34,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -74,7 +74,7 @@
 
          // CPOTRF
 
-         SRNAMT = 'CPOTRF';
+        srnamc.SRNAMT = 'CPOTRF';
          INFOT = 1;
          cpotrf('/', 0, A, 1, INFO );
          chkxer('CPOTRF', INFOT, NOUT, LERR, OK );
@@ -87,7 +87,7 @@
 
          // CPOTF2
 
-         SRNAMT = 'CPOTF2';
+        srnamc.SRNAMT = 'CPOTF2';
          INFOT = 1;
          cpotf2('/', 0, A, 1, INFO );
          chkxer('CPOTF2', INFOT, NOUT, LERR, OK );
@@ -100,7 +100,7 @@
 
          // CPOTRI
 
-         SRNAMT = 'CPOTRI';
+        srnamc.SRNAMT = 'CPOTRI';
          INFOT = 1;
          cpotri('/', 0, A, 1, INFO );
          chkxer('CPOTRI', INFOT, NOUT, LERR, OK );
@@ -113,7 +113,7 @@
 
          // CPOTRS
 
-         SRNAMT = 'CPOTRS';
+        srnamc.SRNAMT = 'CPOTRS';
          INFOT = 1;
          cpotrs('/', 0, 0, A, 1, B, 1, INFO );
          chkxer('CPOTRS', INFOT, NOUT, LERR, OK );
@@ -132,7 +132,7 @@
 
          // CPORFS
 
-         SRNAMT = 'CPORFS';
+        srnamc.SRNAMT = 'CPORFS';
          INFOT = 1;
          cporfs('/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CPORFS', INFOT, NOUT, LERR, OK );
@@ -159,7 +159,7 @@
 
          N_ERR_BNDS = 3;
          NPARAMS = 0;
-         SRNAMT = 'CPORFSX';
+        srnamc.SRNAMT = 'CPORFSX';
          INFOT = 1;
          cporfsx('/', EQ, 0, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
          chkxer('CPORFSX', INFOT, NOUT, LERR, OK );
@@ -188,7 +188,7 @@
 
          // CPOCON
 
-         SRNAMT = 'CPOCON';
+        srnamc.SRNAMT = 'CPOCON';
          INFOT = 1;
          cpocon('/', 0, A, 1, ANRM, RCOND, W, R, INFO );
          chkxer('CPOCON', INFOT, NOUT, LERR, OK );
@@ -204,7 +204,7 @@
 
          // CPOEQU
 
-         SRNAMT = 'CPOEQU';
+        srnamc.SRNAMT = 'CPOEQU';
          INFOT = 1;
          cpoequ(-1, A, 1, R1, RCOND, ANRM, INFO );
          chkxer('CPOEQU', INFOT, NOUT, LERR, OK );
@@ -214,7 +214,7 @@
 
          // CPOEQUB
 
-         SRNAMT = 'CPOEQUB';
+        srnamc.SRNAMT = 'CPOEQUB';
          INFOT = 1;
          cpoequb(-1, A, 1, R1, RCOND, ANRM, INFO );
          chkxer('CPOEQUB', INFOT, NOUT, LERR, OK );
@@ -229,7 +229,7 @@
 
          // CPPTRF
 
-         SRNAMT = 'CPPTRF';
+        srnamc.SRNAMT = 'CPPTRF';
          INFOT = 1;
          cpptrf('/', 0, A, INFO );
          chkxer('CPPTRF', INFOT, NOUT, LERR, OK );
@@ -239,7 +239,7 @@
 
          // CPPTRI
 
-         SRNAMT = 'CPPTRI';
+        srnamc.SRNAMT = 'CPPTRI';
          INFOT = 1;
          cpptri('/', 0, A, INFO );
          chkxer('CPPTRI', INFOT, NOUT, LERR, OK );
@@ -249,7 +249,7 @@
 
          // CPPTRS
 
-         SRNAMT = 'CPPTRS';
+        srnamc.SRNAMT = 'CPPTRS';
          INFOT = 1;
          cpptrs('/', 0, 0, A, B, 1, INFO );
          chkxer('CPPTRS', INFOT, NOUT, LERR, OK );
@@ -265,7 +265,7 @@
 
          // CPPRFS
 
-         SRNAMT = 'CPPRFS';
+        srnamc.SRNAMT = 'CPPRFS';
          INFOT = 1;
          cpprfs('/', 0, 0, A, AF, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CPPRFS', INFOT, NOUT, LERR, OK );
@@ -284,7 +284,7 @@
 
          // CPPCON
 
-         SRNAMT = 'CPPCON';
+        srnamc.SRNAMT = 'CPPCON';
          INFOT = 1;
          cppcon('/', 0, A, ANRM, RCOND, W, R, INFO );
          chkxer('CPPCON', INFOT, NOUT, LERR, OK );
@@ -297,7 +297,7 @@
 
          // CPPEQU
 
-         SRNAMT = 'CPPEQU';
+        srnamc.SRNAMT = 'CPPEQU';
          INFOT = 1;
          cppequ('/', 0, A, R1, RCOND, ANRM, INFO );
          chkxer('CPPEQU', INFOT, NOUT, LERR, OK );
@@ -312,7 +312,7 @@
 
          // CPBTRF
 
-         SRNAMT = 'CPBTRF';
+        srnamc.SRNAMT = 'CPBTRF';
          INFOT = 1;
          cpbtrf('/', 0, 0, A, 1, INFO );
          chkxer('CPBTRF', INFOT, NOUT, LERR, OK );
@@ -328,7 +328,7 @@
 
          // CPBTF2
 
-         SRNAMT = 'CPBTF2';
+        srnamc.SRNAMT = 'CPBTF2';
          INFOT = 1;
          cpbtf2('/', 0, 0, A, 1, INFO );
          chkxer('CPBTF2', INFOT, NOUT, LERR, OK );
@@ -344,7 +344,7 @@
 
          // CPBTRS
 
-         SRNAMT = 'CPBTRS';
+        srnamc.SRNAMT = 'CPBTRS';
          INFOT = 1;
          cpbtrs('/', 0, 0, 0, A, 1, B, 1, INFO );
          chkxer('CPBTRS', INFOT, NOUT, LERR, OK );
@@ -366,7 +366,7 @@
 
          // CPBRFS
 
-         SRNAMT = 'CPBRFS';
+        srnamc.SRNAMT = 'CPBRFS';
          INFOT = 1;
          cpbrfs('/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO );
          chkxer('CPBRFS', INFOT, NOUT, LERR, OK );
@@ -394,7 +394,7 @@
 
          // CPBCON
 
-         SRNAMT = 'CPBCON';
+        srnamc.SRNAMT = 'CPBCON';
          INFOT = 1;
          cpbcon('/', 0, 0, A, 1, ANRM, RCOND, W, R, INFO );
          chkxer('CPBCON', INFOT, NOUT, LERR, OK );
@@ -413,7 +413,7 @@
 
          // CPBEQU
 
-         SRNAMT = 'CPBEQU';
+        srnamc.SRNAMT = 'CPBEQU';
          INFOT = 1;
          cpbequ('/', 0, 0, A, 1, R1, RCOND, ANRM, INFO );
          chkxer('CPBEQU', INFOT, NOUT, LERR, OK );

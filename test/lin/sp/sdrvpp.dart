@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -112,7 +112,7 @@
                slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                RCONDC = ONE / CNDNUM;
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
@@ -240,7 +240,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -255,7 +255,7 @@
                         scopy(NPP, A, 1, AFAC, 1 );
                         slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'SPPSV ';
+                       srnamc.SRNAMT = 'SPPSV ';
                         sppsv(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                         // Check error code from SPPSV .
@@ -311,7 +311,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using SPPSVX.
 
-                     SRNAMT = 'SPPSVX';
+                    srnamc.SRNAMT = 'SPPSVX';
                      sppsvx(FACT, UPLO, N, NRHS, A, AFAC, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check the error code from SPPSVX.

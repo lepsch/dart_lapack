@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
 bool zlctsx(ALPHA, BETA) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -16,38 +20,38 @@ bool zlctsx(ALPHA, BETA) {
   // PARAMETER          ( CZERO = ( 0.0, 0.0 ) )
   // ..
   // .. Scalars in Common ..
-  bool FS;
-  int I, M, MPLUSN, N;
+  // bool mn.FS;
+  // int mn.I, mn.M, mn.MPLUSN, mn.N;
   // ..
   // .. Common blocks ..
-  // COMMON / MN / M, N, MPLUSN, I, FS
+  // COMMON / MN / mn.M, mn.N, mn.MPLUSN, mn.I, mn.FS
   // ..
   // .. Save statement ..
-  SAVE;
+  // SAVE;
   // ..
   // .. Executable Statements ..
 
-  if (FS) {
-    I = I + 1;
-    if (I <= M) {
+  if (mn.FS) {
+    mn.I = mn.I + 1;
+    if (mn.I <= mn.M) {
       ZLCTSX = false;
     } else {
       ZLCTSX = true;
     }
-    if (I == MPLUSN) {
-      FS = false;
-      I = 0;
+    if (mn.I == mn.MPLUSN) {
+      mn.FS = false;
+      mn.I = 0;
     }
   } else {
-    I = I + 1;
-    if (I <= N) {
+    mn.I = mn.I + 1;
+    if (mn.I <= mn.N) {
       ZLCTSX = true;
     } else {
       ZLCTSX = false;
     }
-    if (I == MPLUSN) {
-      FS = true;
-      I = 0;
+    if (mn.I == mn.MPLUSN) {
+      mn.FS = true;
+      mn.I = 0;
     }
   }
 

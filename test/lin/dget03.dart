@@ -45,8 +45,8 @@
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANGE( '1', N, N, A, LDA, RWORK );
-      AINVNM = DLANGE( '1', N, N, AINV, LDAINV, RWORK );
+      ANORM = dlange( '1', N, N, A, LDA, RWORK );
+      AINVNM = dlange( '1', N, N, AINV, LDAINV, RWORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
          RCOND = ZERO;
          RESID = ONE / EPS;
@@ -63,7 +63,7 @@
 
       // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = DLANGE( '1', N, N, WORK, LDWORK, RWORK );
+      RESID = dlange( '1', N, N, WORK, LDWORK, RWORK );
 
       RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
 

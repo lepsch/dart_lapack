@@ -1,3 +1,4 @@
+import 'common.dart';
       void xerbla(SRNAME, INFO ) {
 
 // -- LAPACK test routine --
@@ -12,31 +13,31 @@
 // =====================================================================
 
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
-      LERR = true;
-      if ( INFO != INFOT ) {
-         if ( INFOT != 0 ) {
-            WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT;
+      infoc.LERR = true;
+      if ( INFO != infoc.INFOT ) {
+         if ( infoc.INFOT != 0 ) {
+            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) ), INFO, infoc.INFOT;
          } else {
-            WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO;
+            WRITE( infoc.NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO;
          }
-         OK = false;
+         infoc.OK = false;
       }
-      if ( SRNAME != SRNAMT ) {
-         WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) );
-         OK = false;
+      if ( SRNAME !=srnamc.SRNAMT ) {
+         WRITE( infoc.NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ),srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) );
+         infoc.OK = false;
       }
       return;
 

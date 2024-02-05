@@ -89,7 +89,7 @@
          // Generate independent normal( 0, 1 ) random numbers
 
          for (J = KBEG; J <= NXFRM; J++) { // 20
-            X[J] = DLARND( 3, ISEED );
+            X[J] = dlarnd( 3, ISEED );
          } // 20
 
          // Generate a Householder transformation from the random vector X
@@ -128,7 +128,7 @@
          }
       } // 30
 
-      X[2*NXFRM] = sign( ONE, DLARND( 3, ISEED ) );
+      X[2*NXFRM] = sign( ONE, dlarnd( 3, ISEED ) );
 
       // Scale the matrix A by D.
 

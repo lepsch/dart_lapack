@@ -26,12 +26,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -58,7 +58,7 @@
 
       // CGELQF
 
-      SRNAMT = 'CGELQF';
+     srnamc.SRNAMT = 'CGELQF';
       INFOT = 1;
       cgelqf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('CGELQF', INFOT, NOUT, LERR, OK );
@@ -74,7 +74,7 @@
 
       // CGELQ2
 
-      SRNAMT = 'CGELQ2';
+     srnamc.SRNAMT = 'CGELQ2';
       INFOT = 1;
       cgelq2(-1, 0, A, 1, B, W, INFO );
       chkxer('CGELQ2', INFOT, NOUT, LERR, OK );
@@ -87,7 +87,7 @@
 
       // CUNGLQ
 
-      SRNAMT = 'CUNGLQ';
+     srnamc.SRNAMT = 'CUNGLQ';
       INFOT = 1;
       cunglq(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
@@ -112,7 +112,7 @@
 
       // CUNGL2
 
-      SRNAMT = 'CUNGL2';
+     srnamc.SRNAMT = 'CUNGL2';
       INFOT = 1;
       cungl2(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
@@ -134,7 +134,7 @@
 
       // CUNMLQ
 
-      SRNAMT = 'CUNMLQ';
+     srnamc.SRNAMT = 'CUNMLQ';
       INFOT = 1;
       cunmlq('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
@@ -174,7 +174,7 @@
 
       // CUNML2
 
-      SRNAMT = 'CUNML2';
+     srnamc.SRNAMT = 'CUNML2';
       INFOT = 1;
       cunml2('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('CUNML2', INFOT, NOUT, LERR, OK );

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvrf3(NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, D_WORK_DLANGE, D_WORK_DGEQRF, TAU ) {
 
 // -- LAPACK test routine --
@@ -43,10 +45,10 @@
       // INTRINSIC MAX, SQRT
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      // String             srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -103,7 +105,7 @@
                               } else if ( IALPHA == 2 ) {
                                  ALPHA = ONE;
                               } else {
-                                 ALPHA = DLARND( 2, ISEED );
+                                 ALPHA = dlarnd( 2, ISEED );
                               }
 
                               // All the parameters are set:
@@ -139,7 +141,7 @@
 
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
-                                    A[I, J] = DLARND( 2, ISEED );
+                                    A[I, J] = dlarnd( 2, ISEED );
                                  }
                               }
 
@@ -148,7 +150,7 @@
                                  // The case IUPLO == 1 is when SIDE == 'U'
                                  // -> QR factorization.
 
-                                 SRNAMT = 'DGEQRF';
+                                 srnamc.SRNAMT = 'DGEQRF';
                                  dgeqrf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
@@ -168,7 +170,7 @@
                                  // The case IUPLO == 2 is when SIDE == 'L'
                                  // -> QL factorization.
 
-                                 SRNAMT = 'DGELQF';
+                                 srnamc.SRNAMT = 'DGELQF';
                                  dgelqf(NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
@@ -187,7 +189,7 @@
 
                               // Store a copy of A in RFP format (in ARF).
 
-                              SRNAMT = 'DTRTTF';
+                              srnamc.SRNAMT = 'DTRTTF';
                               dtrttf(CFORM, UPLO, NA, A, LDA, ARF, INFO );
 
                               // Generate B1 our M--by--N right-hand side
@@ -195,7 +197,7 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = DLARND( 2, ISEED );
+                                    B1[I, J] = dlarnd( 2, ISEED );
                                     B2[I, J] = B1( I, J );
                                  }
                               }
@@ -203,13 +205,13 @@
                               // Solve op( A ) X = B or X op( A ) = B
                               // with DTRSM
 
-                              SRNAMT = 'DTRSM';
+                              srnamc.SRNAMT = 'DTRSM';
                               dtrsm(SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA );
 
                               // Solve op( A ) X = B or X op( A ) = B
                               // with DTFSM
 
-                              SRNAMT = 'DTFSM';
+                              srnamc.SRNAMT = 'DTFSM';
                               dtfsm(CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA );
 
                               // Check that the result agrees.
@@ -220,7 +222,7 @@
                                  }
                               }
 
-                              RESULT[1] = DLANGE( 'I', M, N, B1, LDA, D_WORK_DLANGE );
+                              RESULT[1] = dlange( 'I', M, N, B1, LDA, D_WORK_DLANGE );
 
                               RESULT[1] = RESULT( 1 ) / sqrt( EPS ) / max( max( M, N ), 1 );
 

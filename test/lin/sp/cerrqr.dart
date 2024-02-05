@@ -26,12 +26,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
@@ -58,7 +58,7 @@
 
       // CGEQRF
 
-      SRNAMT = 'CGEQRF';
+     srnamc.SRNAMT = 'CGEQRF';
       INFOT = 1;
       cgeqrf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('CGEQRF', INFOT, NOUT, LERR, OK );
@@ -74,7 +74,7 @@
 
       // CGEQRFP
 
-      SRNAMT = 'CGEQRFP';
+     srnamc.SRNAMT = 'CGEQRFP';
       INFOT = 1;
       cgeqrfp(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('CGEQRFP', INFOT, NOUT, LERR, OK );
@@ -90,7 +90,7 @@
 
       // CGEQR2
 
-      SRNAMT = 'CGEQR2';
+     srnamc.SRNAMT = 'CGEQR2';
       INFOT = 1;
       cgeqr2(-1, 0, A, 1, B, W, INFO );
       chkxer('CGEQR2', INFOT, NOUT, LERR, OK );
@@ -103,7 +103,7 @@
 
       // CGEQR2P
 
-      SRNAMT = 'CGEQR2P';
+     srnamc.SRNAMT = 'CGEQR2P';
       INFOT = 1;
       cgeqr2p(-1, 0, A, 1, B, W, INFO );
       chkxer('CGEQR2P', INFOT, NOUT, LERR, OK );
@@ -116,7 +116,7 @@
 
       // CUNGQR
 
-      SRNAMT = 'CUNGQR';
+     srnamc.SRNAMT = 'CUNGQR';
       INFOT = 1;
       cungqr(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
@@ -141,7 +141,7 @@
 
       // CUNG2R
 
-      SRNAMT = 'CUNG2R';
+     srnamc.SRNAMT = 'CUNG2R';
       INFOT = 1;
       cung2r(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
@@ -163,7 +163,7 @@
 
       // CUNMQR
 
-      SRNAMT = 'CUNMQR';
+     srnamc.SRNAMT = 'CUNMQR';
       INFOT = 1;
       cunmqr('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
@@ -203,7 +203,7 @@
 
       // CUNM2R
 
-      SRNAMT = 'CUNM2R';
+     srnamc.SRNAMT = 'CUNM2R';
       INFOT = 1;
       cunm2r('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('CUNM2R', INFOT, NOUT, LERR, OK );

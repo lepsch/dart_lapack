@@ -43,12 +43,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -96,7 +96,7 @@
 
                slatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'SLATMS';
+              srnamc.SRNAMT = 'SLATMS';
                slatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
@@ -169,11 +169,11 @@
                            // Generate a solution and set the right
                            // hand side.
 
-                           SRNAMT = 'SLARHS';
+                          srnamc.SRNAMT = 'SLARHS';
                            slarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
                            slacpy('Full', M, NRHS, B, LDA, X, LDA );
-                           SRNAMT = 'SGEQLS';
+                          srnamc.SRNAMT = 'SGEQLS';
                            sgeqls(M, N, NRHS, AF, LDA, TAU, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from SGEQLS.

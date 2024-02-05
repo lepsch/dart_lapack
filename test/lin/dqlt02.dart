@@ -34,10 +34,10 @@
       // INTRINSIC DBLE, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -59,7 +59,7 @@
 
       // Generate the last n columns of the matrix Q
 
-      SRNAMT = 'DORGQL';
+     srnamc.SRNAMT = 'DORGQL';
       dorgql(M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO );
 
       // Copy L(m-n+1:m,n-k+1:n)
@@ -73,8 +73,8 @@
 
       // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 
-      ANORM = DLANGE( '1', M, K, A( 1, N-K+1 ), LDA, RWORK );
-      RESID = DLANGE( '1', N, K, L( M-N+1, N-K+1 ), LDA, RWORK );
+      ANORM = dlange( '1', M, K, A( 1, N-K+1 ), LDA, RWORK );
+      RESID = dlange( '1', N, K, L( M-N+1, N-K+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = ( ( RESID / (max( 1, M )).toDouble() ) / ANORM ) / EPS;
       } else {

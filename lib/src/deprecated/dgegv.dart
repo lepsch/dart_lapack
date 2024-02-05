@@ -121,7 +121,7 @@
 
       // Scale A
 
-      ANRM = DLANGE( 'M', N, N, A, LDA, WORK );
+      ANRM = dlange( 'M', N, N, A, LDA, WORK );
       ANRM1 = ANRM;
       ANRM2 = ONE;
       if ( ANRM < ONE ) {
@@ -141,7 +141,7 @@
 
       // Scale B
 
-      BNRM = DLANGE( 'M', N, N, B, LDB, WORK );
+      BNRM = dlange( 'M', N, N, B, LDB, WORK );
       BNRM1 = BNRM;
       BNRM2 = ONE;
       if ( BNRM < ONE ) {

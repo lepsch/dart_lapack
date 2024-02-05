@@ -89,18 +89,18 @@
             } else if ( IMAT == 2 ) {
                R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R; I++) {
-                  THETA[I] = PIOVER2 * DLARND( 1, ISEED );
+                  THETA[I] = PIOVER2 * dlarnd( 1, ISEED );
                }
                zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
                for (I = 1; I <= M; I++) {
                   for (J = 1; J <= M; J++) {
-                     X[I+(J-1)*LDX] = X(I+(J-1)*LDX) + ORTH*DLARND(2,ISEED);
+                     X[I+(J-1)*LDX] = X(I+(J-1)*LDX) + ORTH*dlarnd(2,ISEED);
                   }
                }
             } else if ( IMAT == 3 ) {
                R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R+1; I++) {
-                  THETA[I] = TEN**(-DLARND(1,ISEED)*GAPDIGIT);
+                  THETA[I] = TEN**(-dlarnd(1,ISEED)*GAPDIGIT);
                }
                for (I = 2; I <= R+1; I++) {
                   THETA[I] = THETA(I-1) + THETA(I);

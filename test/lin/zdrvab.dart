@@ -47,13 +47,13 @@
       // INTRINSIC DCMPLX, DBLE, MAX, MIN, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 2006, 2007, 2008, 2009 ];
@@ -72,7 +72,7 @@
          ISEED[I] = ISEEDY( I );
       } // 10
 
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of M in MVAL
 
@@ -100,7 +100,7 @@
 
             zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-            SRNAMT = 'ZLATMS';
+           srnamc.SRNAMT = 'ZLATMS';
             zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from ZLATMS.
@@ -138,10 +138,10 @@
                XTYPE = 'N';
                TRANS = 'N';
 
-               SRNAMT = 'ZLARHS';
+              srnamc.SRNAMT = 'ZLARHS';
                zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
-               SRNAMT = 'ZCGESV';
+              srnamc.SRNAMT = 'ZCGESV';
 
                KASE = KASE + 1;
 

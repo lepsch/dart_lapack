@@ -68,8 +68,8 @@
       READ( NIN, FMT = * )( LSCLIN( I ), I = 1, N );
       READ( NIN, FMT = * )( RSCLIN( I ), I = 1, N );
 
-      ANORM = DLANGE( 'M', N, N, A, LDA, WORK );
-      BNORM = DLANGE( 'M', N, N, B, LDB, WORK );
+      ANORM = dlange( 'M', N, N, A, LDA, WORK );
+      BNORM = dlange( 'M', N, N, B, LDB, WORK );
 
       KNT = KNT + 1;
 

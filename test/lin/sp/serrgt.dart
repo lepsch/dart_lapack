@@ -33,12 +33,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -62,14 +62,14 @@
 
          // SGTTRF
 
-         SRNAMT = 'SGTTRF';
+        srnamc.SRNAMT = 'SGTTRF';
          INFOT = 1;
          sgttrf(-1, C, D, E, F, IP, INFO );
          chkxer('SGTTRF', INFOT, NOUT, LERR, OK );
 
          // SGTTRS
 
-         SRNAMT = 'SGTTRS';
+        srnamc.SRNAMT = 'SGTTRS';
          INFOT = 1;
          sgttrs('/', 0, 0, C, D, E, F, IP, X, 1, INFO );
          chkxer('SGTTRS', INFOT, NOUT, LERR, OK );
@@ -85,7 +85,7 @@
 
          // SGTRFS
 
-         SRNAMT = 'SGTRFS';
+        srnamc.SRNAMT = 'SGTRFS';
          INFOT = 1;
          sgtrfs('/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
@@ -104,7 +104,7 @@
 
          // SGTCON
 
-         SRNAMT = 'SGTCON';
+        srnamc.SRNAMT = 'SGTCON';
          INFOT = 1;
          sgtcon('/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO );
          chkxer('SGTCON', INFOT, NOUT, LERR, OK );
@@ -122,14 +122,14 @@
 
          // SPTTRF
 
-         SRNAMT = 'SPTTRF';
+        srnamc.SRNAMT = 'SPTTRF';
          INFOT = 1;
          spttrf(-1, D, E, INFO );
          chkxer('SPTTRF', INFOT, NOUT, LERR, OK );
 
          // SPTTRS
 
-         SRNAMT = 'SPTTRS';
+        srnamc.SRNAMT = 'SPTTRS';
          INFOT = 1;
          spttrs(-1, 0, D, E, X, 1, INFO );
          chkxer('SPTTRS', INFOT, NOUT, LERR, OK );
@@ -142,7 +142,7 @@
 
          // SPTRFS
 
-         SRNAMT = 'SPTRFS';
+        srnamc.SRNAMT = 'SPTRFS';
          INFOT = 1;
          sptrfs(-1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO );
          chkxer('SPTRFS', INFOT, NOUT, LERR, OK );
@@ -158,7 +158,7 @@
 
          // SPTCON
 
-         SRNAMT = 'SPTCON';
+        srnamc.SRNAMT = 'SPTCON';
          INFOT = 1;
          sptcon(-1, D, E, ANORM, RCOND, W, INFO );
          chkxer('SPTCON', INFOT, NOUT, LERR, OK );

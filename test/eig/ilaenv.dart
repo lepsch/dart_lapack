@@ -1,231 +1,161 @@
-      int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
+import 'dart:math';
 
+import 'package:lapack/src/f2c/nint.dart';
+import 'package:lapack/src/ieeeck.dart';
+import 'package:lapack/src/iparam2stage.dart';
+
+import 'common.dart';
+
+int ilaenv(
+  final int ISPEC,
+  final String NAME,
+  final String OPTS,
+  final int N1,
+  final int N2,
+  final int N3,
+  final int N4,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4;
-      // ..
+  if (ISPEC >= 1 && ISPEC <= 5) {
+    // Return a value from the common block.
+    return claenv.IPARMS[ISPEC];
+  }
 
-// =====================================================================
+  if (ISPEC == 6) {
+    // Compute SVD crossover point.
+    return (min(N1, N2) * 1.6).toInt();
+  }
 
-      // .. Intrinsic Functions ..
-      // INTRINSIC INT, MIN, REAL
-      // ..
-      // .. External Functions ..
-      //- int                IEEECK, IPARAM2STAGE;
-      // EXTERNAL IEEECK, IPARAM2STAGE
-      // ..
-      // .. Arrays in Common ..
-      int                IPARMS( 100 );
-      // ..
-      // .. Common blocks ..
-      // COMMON / CLAENV / IPARMS
-      // ..
-      // .. Save statement ..
-      SAVE               / CLAENV /;
-      // ..
-      // .. Executable Statements ..
+  if (ISPEC >= 7 && ISPEC <= 9) {
+    // Return a value from the common block.
+    return claenv.IPARMS[ISPEC];
+  }
 
-      if ( ISPEC >= 1 && ISPEC <= 5 ) {
+  if (ISPEC == 10) {
+    // IEEE NaN arithmetic can be trusted not to trap
+    return ieeeck(1, 0.0, 1.0) ? 1 : 0;
+  }
 
-         // Return a value from the common block.
+  if (ISPEC == 11) {
+    // Infinity arithmetic can be trusted not to trap
+    return ieeeck(0, 0.0, 1.0) ? 1 : 0;
+  }
 
-         ILAENV = IPARMS( ISPEC );
+  if ((ISPEC >= 12) && (ISPEC <= 16)) {
+    // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
+    return claenv.IPARMS[ISPEC];
+    // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
+    // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+  }
 
-      } else if ( ISPEC == 6 ) {
+  if ((ISPEC >= 17) && (ISPEC <= 21)) {
+    // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
+    if (ISPEC == 17) {
+      return claenv.IPARMS[1];
+    }
+    return iparam2stage(ISPEC, NAME, OPTS, N1, N2, N3, N4);
+  }
 
-         // Compute SVD crossover point.
+  // Invalid value for ISPEC
+  return -1;
+}
 
-         ILAENV = INT( double( min( N1, N2 ) )*1.6 );
+int ilaenv2stage(
+  final int ISPEC,
+  final String NAME,
+  final String OPTS,
+  final int N1,
+  final int N2,
+  final int N3,
+  final int N4,
+) {
+  int IISPEC;
 
-      } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
+  if ((ISPEC >= 1) && (ISPEC <= 5)) {
+    // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
-         // Return a value from the common block.
+    if (ISPEC == 1) {
+      return claenv.IPARMS[1];
+    }
+    IISPEC = 16 + ISPEC;
+    return iparam2stage(IISPEC, NAME, OPTS, N1, N2, N3, N4);
+  }
+  
+  // Invalid value for ISPEC
+  return -1;
+}
 
-         ILAENV = IPARMS( ISPEC );
+int iparmq(
+  final int ISPEC,
+  final String NAME,
+  final String OPTS,
+  final int N,
+  final int ILO,
+  final int IHI,
+  final int LWORK,
+) {
+  const INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16;
+  const NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500;
+  const TWO = 2.0;
+  int NH = 0, NS = 0;
 
-      } else if ( ISPEC == 10 ) {
+  if ((ISPEC == ISHFTS) || (ISPEC == INWIN) || (ISPEC == IACC22)) {
+    // ==== Set the number simultaneous shifts ====
 
-         // IEEE NaN arithmetic can be trusted not to trap
+    NH = IHI - ILO + 1;
+    NS = 2;
+    if (NH >= 30) NS = 4;
+    if (NH >= 60) NS = 10;
+    if (NH >= 150) NS = max(10, NH ~/ nint(log(NH) / log(TWO)));
+    if (NH >= 590) NS = 64;
+    if (NH >= 3000) NS = 128;
+    if (NH >= 6000) NS = 256;
+    NS = max(2, NS - (NS % 2));
+  }
 
-         // ILAENV = 0
-         ILAENV = 1;
-         if ( ILAENV == 1 ) {
-            ILAENV = IEEECK( 1, 0.0, 1.0 );
-         }
+  if (ISPEC == INMIN) {
+    // ===== Matrices of order smaller than NMIN get sent
+    // .     to LAHQR, the classic double shift algorithm.
+    // .     This must be at least 11. ====
+    return NMIN;
+  }
 
-      } else if ( ISPEC == 11 ) {
+  if (ISPEC == INIBL) {
+    // ==== INIBL: skip a multi-shift qr iteration and
+    // .    whenever aggressive early deflation finds
+    // .    at least (NIBBLE*(window size)/100) deflations. ====
+    return NIBBLE;
+  }
 
-         // Infinity arithmetic can be trusted not to trap
+  if (ISPEC == ISHFTS) {
+    // ==== NSHFTS: The number of simultaneous shifts =====
+    return NS;
+  }
 
-         // ILAENV = 0
-         ILAENV = 1;
-         if ( ILAENV == 1 ) {
-            ILAENV = IEEECK( 0, 0.0, 1.0 );
-         }
+  if (ISPEC == INWIN) {
+    // ==== NW: deflation window size.  ====
 
-      } else if (( ISPEC >= 12 ) && (ISPEC <= 16)) {
+    if (NH <= KNWSWP) {
+      return NS;
+    }
+    return 3 * NS ~/ 2;
+  }
 
-      // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
+  if (ISPEC == IACC22) {
+    // ==== IACC22: Whether to accumulate reflections
+    // .     before updating the far-from-diagonal elements
+    // .     and whether to use 2-by-2 block structure while
+    // .     doing it.  A small amount of work could be saved
+    // .     by making this choice dependent also upon the
+    // .     NH=IHI-ILO+1.
+    if (NS >= KACMIN) return 1;
+    if (NS >= K22MIN) return 2;
+    return 0;
+  }
 
-         ILAENV = IPARMS( ISPEC );
-          // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
-          // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
-
-      } else if (( ISPEC >= 17 ) && (ISPEC <= 21)) {
-
-      // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
-
-         if ( ISPEC == 17 ) {
-             ILAENV = IPARMS( 1 );
-         } else {
-             ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
-         }
-
-      } else {
-
-         // Invalid value for ISPEC
-
-         ILAENV = -1;
-      }
-
-      return;
-      }
-      int ilaenv2stage(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
-      // .. Scalar Arguments ..
-      List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4;
-      // ..
-
-// =====================================================================
-
-      // .. Local variables ..
-      int                IISPEC;
-      // .. External Functions ..
-      //- int                IPARAM2STAGE;
-      // EXTERNAL IPARAM2STAGE
-      // ..
-      // .. Arrays in Common ..
-      int                IPARMS( 100 );
-      // ..
-      // .. Common blocks ..
-      // COMMON / CLAENV / IPARMS
-      // ..
-      // .. Save statement ..
-      SAVE               / CLAENV /;
-      // ..
-      // .. Executable Statements ..
-
-      if (( ISPEC >= 1 ) && (ISPEC <= 5)) {
-
-      // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
-
-         if ( ISPEC == 1 ) {
-             ILAENV2STAGE = IPARMS( 1 );
-         } else {
-             IISPEC = 16 + ISPEC;
-             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 );
-         }
-
-      } else {
-
-         // Invalid value for ISPEC
-
-         ILAENV2STAGE = -1;
-      }
-
-      return;
-      }
-      int iparmq(ISPEC, NAME, OPTS, N, ILO, IHI, LWORK ) {
-
-      int                INMIN, INWIN, INIBL, ISHFTS, IACC22;
-      const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 ;
-      int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP;
-      const              NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 ;
-      double               TWO;
-      const              TWO = 2.0 ;
-      // ..
-      // .. Scalar Arguments ..
-      int                IHI, ILO, ISPEC, LWORK, N;
-      String             NAME*( * ), OPTS*( * );
-      // ..
-      // .. Local Scalars ..
-      int                NH, NS;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LOG, MAX, MOD, NINT, REAL
-      // ..
-      // .. Executable Statements ..
-      if ( ( ISPEC == ISHFTS ) || ( ISPEC == INWIN ) || ( ISPEC == IACC22 ) ) {
-
-         // ==== Set the number simultaneous shifts ====
-
-         NH = IHI - ILO + 1;
-         NS = 2;
-         if (NH >= 30) NS = 4;
-         if( NH >= 60 ) NS = 10;
-         if( NH >= 150 ) NS = max( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) );
-         if( NH >= 590 ) NS = 64;
-         if( NH >= 3000 ) NS = 128;
-         IF( NH >= 6000 ) NS = 256;
-         NS = max( 2, NS-(NS % 2) );
-      }
-
-      if ( ISPEC == INMIN ) {
-
-
-         // ===== Matrices of order smaller than NMIN get sent
-         // .     to LAHQR, the classic double shift algorithm.
-         // .     This must be at least 11. ====
-
-         IPARMQ = NMIN;
-
-      } else if ( ISPEC == INIBL ) {
-
-         // ==== INIBL: skip a multi-shift qr iteration and
-         // .    whenever aggressive early deflation finds
-         // .    at least (NIBBLE*(window size)/100) deflations. ====
-
-         IPARMQ = NIBBLE;
-
-      } else if ( ISPEC == ISHFTS ) {
-
-         // ==== NSHFTS: The number of simultaneous shifts =====
-
-         IPARMQ = NS;
-
-      } else if ( ISPEC == INWIN ) {
-
-         // ==== NW: deflation window size.  ====
-
-         if ( NH <= KNWSWP ) {
-            IPARMQ = NS;
-         } else {
-            IPARMQ = 3*NS / 2;
-         }
-
-      } else if ( ISPEC == IACC22 ) {
-
-         // ==== IACC22: Whether to accumulate reflections
-         // .     before updating the far-from-diagonal elements
-         // .     and whether to use 2-by-2 block structure while
-         // .     doing it.  A small amount of work could be saved
-         // .     by making this choice dependent also upon the
-         // .     NH=IHI-ILO+1.
-
-         IPARMQ = 0;
-         if (NS >= KACMIN) IPARMQ = 1;
-         IF( NS >= K22MIN ) IPARMQ = 2;
-
-      } else {
-         // ===== invalid value of ispec =====
-         IPARMQ = -1;
-
-      }
-
-      // ==== End of IPARMQ ====
-
-      }
+  // ===== invalid value of ispec =====
+  return -1;
+}

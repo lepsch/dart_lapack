@@ -132,14 +132,14 @@
 
          if ( KD == 1 ) {
             if ( UPPER ) {
-               AB[1, 2] = sign( TNORM, DLARND( 2, ISEED ) );
+               AB[1, 2] = sign( TNORM, dlarnd( 2, ISEED ) );
                LENJ = ( N-3 ) / 2;
                dlarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 90
                   AB[1, 2*( J+1 )] = TNORM*WORK( J );
                } // 90
             } else {
-               AB[2, 1] = sign( TNORM, DLARND( 2, ISEED ) );
+               AB[2, 1] = sign( TNORM, dlarnd( 2, ISEED ) );
                LENJ = ( N-3 ) / 2;
                dlarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 100
@@ -164,9 +164,9 @@
 
          // The two offdiagonals of T are stored in WORK.
 
-            STAR1 = sign( TNORM, DLARND( 2, ISEED ) );
+            STAR1 = sign( TNORM, dlarnd( 2, ISEED ) );
             SFAC = sqrt( TNORM );
-            PLUS1 = sign( SFAC, DLARND( 2, ISEED ) );
+            PLUS1 = sign( SFAC, dlarnd( 2, ISEED ) );
             for (J = 1; J <= N; J += 2) { // 110
                PLUS2 = STAR1 / PLUS1;
                WORK[J] = PLUS1;
@@ -179,7 +179,7 @@
                   // Generate a new *-value with norm between sqrt(TNORM)
                   // and TNORM.
 
-                  REXP = DLARND( 2, ISEED );
+                  REXP = dlarnd( 2, ISEED );
                   if ( REXP < ZERO ) {
                      STAR1 = -SFAC**( ONE-REXP );
                   } else {

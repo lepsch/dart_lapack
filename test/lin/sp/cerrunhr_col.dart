@@ -27,12 +27,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String   (LEN=32)  SRNAMT;
+      String   (LEN=32) srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX
@@ -57,7 +57,7 @@
 
       // CUNHR_COL
 
-      SRNAMT = 'CUNHR_COL';
+     srnamc.SRNAMT = 'CUNHR_COL';
 
       INFOT = 1;
       cunhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );

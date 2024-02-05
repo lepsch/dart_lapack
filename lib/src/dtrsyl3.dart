@@ -207,9 +207,9 @@ import 'package:lapack/src/xerbla.dart';
             L1 = IWORK( L );
             L2 = IWORK( L + 1 );
             if ( NOTRNA ) {
-               SWORK[K, AWRK + L] = DLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[K, AWRK + L] = dlange( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             } else {
-               SWORK[L, AWRK + K] = DLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[L, AWRK + K] = dlange( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             }
          }
       }
@@ -221,9 +221,9 @@ import 'package:lapack/src/xerbla.dart';
             L1 = IWORK( PC + L );
             L2 = IWORK( PC + L + 1 );
             if ( NOTRNB ) {
-               SWORK[K, BWRK + L] = DLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[K, BWRK + L] = dlange( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             } else {
-               SWORK[L, BWRK + K] = DLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[L, BWRK + K] = dlange( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             }
          }
       }
@@ -287,7 +287,7 @@ import 'package:lapack/src/xerbla.dart';
                   }
                }
                SWORK[K, L] = SCALOC * SWORK( K, L );
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
+               XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K - 1; I >= 1; I--) {
 
@@ -299,7 +299,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -355,7 +355,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -458,7 +458,7 @@ import 'package:lapack/src/xerbla.dart';
                   }
                }
                SWORK[K, L] = SCALOC * SWORK( K, L );
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
+               XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K + 1; I <= NBA; I++) {
 
@@ -470,7 +470,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -525,7 +525,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -628,7 +628,7 @@ import 'package:lapack/src/xerbla.dart';
                      }
                   }
                }
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
+               XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K + 1; I <= NBA; I++) {
 
@@ -640,7 +640,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -695,7 +695,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -798,7 +798,7 @@ import 'package:lapack/src/xerbla.dart';
                   }
                }
                SWORK[K, L] = SCALOC * SWORK( K, L );
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
+               XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = 1; I <= K - 1; I++) {
 
@@ -810,7 +810,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
@@ -866,7 +866,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
+                  CNRM = dlange( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
                   SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );

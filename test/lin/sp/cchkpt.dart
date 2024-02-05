@@ -52,12 +52,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, UPLOS = 'U', 'L';
@@ -103,7 +103,7 @@
                // Type 1-6:  generate a Hermitian tridiagonal matrix of
                // known condition number in lower triangular band storage.
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from CLATMS.
@@ -299,7 +299,7 @@
 // +    TESTS 4, 5, and 6
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'CPTRFS';
+                 srnamc.SRNAMT = 'CPTRFS';
                   cptrfs(UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CPTRFS.
@@ -329,7 +329,7 @@
             // matrix.
 
             } // 100
-            SRNAMT = 'CPTCON';
+           srnamc.SRNAMT = 'CPTCON';
             cptcon(N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO );
 
             // Check error code from CPTCON.

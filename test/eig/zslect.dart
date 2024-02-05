@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
       bool zslect(Z ) {
 
 // -- LAPACK test routine --
@@ -11,7 +15,6 @@
 // =====================================================================
 
       // .. Parameters ..
-      double             ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -19,30 +22,30 @@
       double             RMIN, X;
       // ..
       // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
-      // ..
-      // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
+      // int                sslct.SELDIM, sslct.SELOPT;
+      // // ..
+      // // .. Arrays in Common ..
+      // bool               sslct.SELVAL( 20 );
+      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
       // ..
       // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / SSLCT / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX
       // ..
       // .. Executable Statements ..
 
-      if ( SELOPT == 0 ) {
+      if ( sslct.SELOPT == 0 ) {
          ZSLECT = ( Z.toDouble() < ZERO );
       } else {
-         RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) );
-         ZSLECT = SELVAL( 1 );
-         for (I = 2; I <= SELDIM; I++) { // 10
-            X = ABS( Z-DCMPLX( SELWR( I ), SELWI( I ) ) );
+         RMIN = ABS( Z-DCMPLX( sslct.SELWR( 1 ), sslct.SELWI( 1 ) ) );
+         ZSLECT = sslct.SELVAL( 1 );
+         for (I = 2; I <= sslct.SELDIM; I++) { // 10
+            X = ABS( Z-DCMPLX( sslct.SELWR( I ), sslct.SELWI( I ) ) );
             if ( X <= RMIN ) {
                RMIN = X;
-               ZSLECT = SELVAL( I );
+               ZSLECT = sslct.SELVAL( I );
             }
          } // 10
       }

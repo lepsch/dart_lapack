@@ -48,17 +48,17 @@
       // EXTERNAL ALAREQ, ZCHKEQ, ZCHKGB, ZCHKGE, ZCHKGT, ZCHKHE, ZCHKHE_ROOK, ZCHKHE_RK, ZCHKHE_AA, ZCHKHP, ZCHKLQ, ZCHKUNHR_COL, ZCHKPB, ZCHKPO, ZCHKPS, ZCHKPP, ZCHKPT, ZCHKQ3, ZCHKQP3RK, ZCHKQL, ZCHKQR, ZCHKRQ, ZCHKSP, ZCHKSY, ZCHKSY_ROOK, ZCHKSY_RK, ZCHKSY_AA, ZCHKTB, ZCHKTP, ZCHKTR, ZCHKTZ, ZDRVGB, ZDRVGE, ZDRVGT, ZDRVHE, ZDRVHE_ROOK, ZDRVHE_RK, ZDRVHE_AA, ZDRVHE_AA_2STAGE, ZDRVHP, ZDRVLS, ZDRVPB, ZDRVPO, ZDRVPP, ZDRVPT, ZDRVSP, ZDRVSY, ZDRVSY_ROOK, ZDRVSY_RK, ZDRVSY_AA, ZDRVSY_AA_2STAGE, ILAVER, ZCHKQRT, ZCHKQRTP, ZCHKLQT, ZCHKLQTP, ZCHKTSQR
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Arrays in Common ..
-      int                IPARMS( 100 );
+      // int                claenv.IPARMS( 100 );
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
-      // COMMON / CLAENV / IPARMS
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
+      // COMMON / CLAENV / claenv.IPARMS
       // ..
       // .. Data statements ..
       const THREQ = 2.0, INTSTR = '0123456789';

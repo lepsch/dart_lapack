@@ -70,7 +70,7 @@
          S[1] = ONE;
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
-            TEMP = DLARND( 1, ISEED );
+            TEMP = dlarnd( 1, ISEED );
             if ( TEMP > SVMIN ) {
                S[J] = ( TEMP ).abs();
             } else {
@@ -120,7 +120,7 @@
       // Scale the matrix
 
       if ( SCALE != 1 ) {
-         NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY );
+         NORMA = dlange( 'Max', M, N, A, LDA, DUMMY );
          if ( NORMA != ZERO ) {
             if ( SCALE == 2 ) {
 
@@ -144,7 +144,7 @@
       }
 
       NORMA = dasum( MN, S, 1 );
-      NORMB = DLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
+      NORMB = dlange( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
       return;
       }

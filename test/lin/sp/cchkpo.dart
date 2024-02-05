@@ -47,12 +47,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -110,7 +110,7 @@
 
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
@@ -172,7 +172,7 @@
                   // Compute the L*L' or U'*U factorization of the matrix.
 
                   clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'CPOTRF';
+                 srnamc.SRNAMT = 'CPOTRF';
                   cpotrf(UPLO, N, AFAC, LDA, INFO );
 
                   // Check error code from CPOTRF.
@@ -196,7 +196,7 @@
                   // Form the inverse and compute the residual.
 
                   clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                  SRNAMT = 'CPOTRI';
+                 srnamc.SRNAMT = 'CPOTRI';
                   cpotri(UPLO, N, AINV, LDA, INFO );
 
                   // Check error code from CPOTRI.
@@ -228,11 +228,11 @@
 // +    TEST 3
                   // Solve and compute residual for A * X = B .
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CPOTRS';
+                    srnamc.SRNAMT = 'CPOTRS';
                      cpotrs(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                   // Check error code from CPOTRS.
@@ -250,7 +250,7 @@
 // +    TESTS 5, 6, and 7
                   // Use iterative refinement to improve the solution.
 
-                     SRNAMT = 'CPORFS';
+                    srnamc.SRNAMT = 'CPORFS';
                      cporfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check error code from CPORFS.
@@ -277,7 +277,7 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK );
-                  SRNAMT = 'CPOCON';
+                 srnamc.SRNAMT = 'CPOCON';
                   cpocon(UPLO, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO );
 
                   // Check error code from CPOCON.

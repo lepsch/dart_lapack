@@ -1,3 +1,7 @@
+import 'package:lapack/src/complex.dart';
+
+import 'common.dart';
+
       void zget24(COMP, JTYPE, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO ) {
 
 // -- LAPACK test routine --
@@ -47,14 +51,14 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
       // ..
       // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      double             SELWI( 20 ), SELWR( 20 );
-      // ..
-      // .. Scalars in Common ..
-      int                SELDIM, SELOPT;
+      // bool               sslct.SELVAL( 20 );
+      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
+      // // ..
+      // // .. Scalars in Common ..
+      // int                sslct.SELDIM, sslct.SELOPT;
       // ..
       // .. Common blocks ..
-      // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
+      // COMMON / SSLCT / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
       // ..
       // .. Executable Statements ..
 
@@ -96,7 +100,7 @@
 
       // Perform tests (1)-(13)
 
-      SELOPT = 0;
+      sslct.SELOPT = 0;
       for (ISORT = 0; ISORT <= 1; ISORT++) { // 90
          if ( ISORT == 0 ) {
             SORT = 'N';
@@ -412,18 +416,18 @@
 
       if ( COMP ) {
 
-         // First set up SELOPT, SELDIM, SELVAL, SELWR and SELWI so that
+         // First set up sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR and sslct.SELWI so that
          // the logical function ZSLECT selects the eigenvalues specified
          // by NSLCT, ISLCT and ISRT.
 
-         SELDIM = N;
-         SELOPT = 1;
+         sslct.SELDIM = N;
+         sslct.SELOPT = 1;
          EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 230
             IPNT[I] = I;
-            SELVAL[I] = false;
-            SELWR[I] = (WTMP( I )).toDouble();
-            SELWI[I] = DIMAG( WTMP( I ) );
+            sslct.SELVAL[I] = false;
+            sslct.SELWR[I] = (WTMP( I )).toDouble();
+            sslct.SELWI[I] = DIMAG( WTMP( I ) );
          } // 230
          for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I;
@@ -451,7 +455,7 @@
             IPNT[KMIN] = ITMP;
          } // 250
          for (I = 1; I <= NSLCT; I++) { // 260
-            SELVAL[IPNT( ISLCT( I ) )] = true;
+            sslct.SELVAL[IPNT( ISLCT( I ) )] = true;
          } // 260
 
          // Compute condition numbers

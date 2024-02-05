@@ -150,7 +150,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', N, N, A, LDA, DUM );
+      ANRM = dlange( 'M', N, N, A, LDA, DUM );
       SCALEA = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;

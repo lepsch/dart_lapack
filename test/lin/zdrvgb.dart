@@ -52,13 +52,13 @@
       // INTRINSIC ABS, DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -82,7 +82,7 @@
       // Test the error exits
 
       if (TSTERR) zerrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -171,7 +171,7 @@
                   zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                   RCONDC = ONE / CNDNUM;
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO );
 
                   // Check the error code from ZLATMS.
@@ -284,7 +284,7 @@
                            // Form the inverse of A.
 
                            zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDB );
-                           SRNAMT = 'ZGBTRS';
+                          srnamc.SRNAMT = 'ZGBTRS';
                            zgbtrs('No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
@@ -325,7 +325,7 @@
                            // Form an exact solution and set the right hand
                            // side.
 
-                           SRNAMT = 'ZLARHS';
+                          srnamc.SRNAMT = 'ZLARHS';
                            zlarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                            XTYPE = 'C';
                            zlacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
@@ -340,7 +340,7 @@
                               zlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB );
                               zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                              SRNAMT = 'ZGBSV ';
+                             srnamc.SRNAMT = 'ZGBSV ';
                               zgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
 
                               // Check error code from ZGBSV .
@@ -395,7 +395,7 @@
                            // Solve the system and compute the condition
                            // number and error bounds using ZGBSVX.
 
-                           SRNAMT = 'ZGBSVX';
+                          srnamc.SRNAMT = 'ZGBSVX';
                            zgbsvx(FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( LDB+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                            // Check the error code from ZGBSVX.

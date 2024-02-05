@@ -44,10 +44,10 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -154,22 +154,22 @@
 
                         NORMC = CLANGE( 'I', N, N, C1, LDC, S_WORK_CLANGE );
 
-                        SRNAMT = 'CTRTTF';
+                       srnamc.SRNAMT = 'CTRTTF';
                         ctrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call zherk the BLAS routine -> gives C1
 
-                        SRNAMT = 'CHERK ';
+                       srnamc.SRNAMT = 'CHERK ';
                         cherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call zhfrk the RFP routine -> gives CRF
 
-                        SRNAMT = 'CHFRK ';
+                       srnamc.SRNAMT = 'CHFRK ';
                         chfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
-                        SRNAMT = 'CTFTTR';
+                       srnamc.SRNAMT = 'CTFTTR';
                         ctfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2

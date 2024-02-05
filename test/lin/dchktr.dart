@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchktr(DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -47,13 +49,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLAMCH, DSCAL, DLARHS, DLATRS, DLATRS3, DLATTR, DTRCON, DTRRFS, DTRT01, DTRT02, DTRT03, DTRT05, DTRT06, DTRTRI, DTRTRS, XLAENV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -79,7 +81,7 @@
       // Test the error exits
 
       if (TSTERR) derrtr( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -104,7 +106,7 @@
 
                // Call DLATTR to generate a triangular test matrix.
 
-               SRNAMT = 'DLATTR';
+               srnamc.SRNAMT = 'DLATTR';
                dlattr(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, A, LDA, X, WORK, INFO );
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -126,7 +128,7 @@
                   // Form the inverse of A.
 
                   dlacpy(UPLO, N, N, A, LDA, AINV, LDA );
-                  SRNAMT = 'DTRTRI';
+                  srnamc.SRNAMT = 'DTRTRI';
                   dtrtri(UPLO, DIAG, N, AINV, LDA, INFO );
 
                   // Check error code from DTRTRI.
@@ -182,12 +184,12 @@
 // +    TEST 2
                         // Solve and compute residual for op(A)*x = b.
 
-                        SRNAMT = 'DLARHS';
+                        srnamc.SRNAMT = 'DLARHS';
                         dlarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'DTRTRS';
+                        srnamc.SRNAMT = 'DTRTRS';
                         dtrtrs(UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, INFO );
 
                         // Check error code from DTRTRS.
@@ -209,7 +211,7 @@
                         // Use iterative refinement to improve the solution
                         // and compute error bounds.
 
-                        SRNAMT = 'DTRRFS';
+                        srnamc.SRNAMT = 'DTRRFS';
                         dtrrfs(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                         // Check error code from DTRRFS.
@@ -244,7 +246,7 @@
                         NORM = 'I';
                         RCONDC = RCONDI;
                      }
-                     SRNAMT = 'DTRCON';
+                     srnamc.SRNAMT = 'DTRCON';
                      dtrcon(NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO );
 
                         // Check error code from DTRCON.
@@ -287,13 +289,13 @@
 
                   // Call DLATTR to generate a triangular test matrix.
 
-                  SRNAMT = 'DLATTR';
+                  srnamc.SRNAMT = 'DLATTR';
                   dlattr(IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, X, WORK, INFO );
 
 // +    TEST 8
                   // Solve the system op(A)*x = b.
 
-                  SRNAMT = 'DLATRS';
+                  srnamc.SRNAMT = 'DLATRS';
                   dcopy(N, X, 1, B, 1 );
                   dlatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, B, SCALE, RWORK, INFO );
 
@@ -318,7 +320,7 @@
 // +    TEST 10
                   // Solve op(A)*X = B
 
-                  SRNAMT = 'DLATRS3';
+                  srnamc.SRNAMT = 'DLATRS3';
                   dcopy(N, X, 1, B, 1 );
                   dcopy(N, X, 1, B( N+1 ), 1 );
                   dscal(N, BIGNUM, B( N+1 ), 1 );

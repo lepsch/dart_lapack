@@ -89,8 +89,8 @@
       // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
       dgemm('T', 'N', M2, N, M2, -ONE, Q, M2, A, M2, ONE, R, M2 );
-      ANORM = DLANGE( '1', M2, N, A, M2, RWORK );
-      RESID = DLANGE( '1', M2, N, R, M2, RWORK );
+      ANORM = dlange( '1', M2, N, A, M2, RWORK );
+      RESID = dlange( '1', M2, N, R, M2, RWORK );
       if ( ANORM > ZERO ) {
          RESULT[1] = RESID / (EPS*ANORM*max(1,M2));
       } else {
@@ -109,7 +109,7 @@
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M2, C( 1, J ) );
       }
-      CNORM = DLANGE( '1', M2, N, C, M2, RWORK);
+      CNORM = dlange( '1', M2, N, C, M2, RWORK);
       dlacpy('Full', M2, N, C, M2, CF, M2 );
 
       // Apply Q to C as Q*C
@@ -119,7 +119,7 @@
       // Compute |Q*C - Q*C| / |C|
 
       dgemm('N', 'N', M2, N, M2, -ONE, Q, M2, C, M2, ONE, CF, M2 );
-      RESID = DLANGE( '1', M2, N, CF, M2, RWORK );
+      RESID = dlange( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[3] = RESID / (EPS*max(1,M2)*CNORM);
       } else {
@@ -137,7 +137,7 @@
       // Compute |QT*C - QT*C| / |C|
 
       dgemm('T','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2);
-      RESID = DLANGE( '1', M2, N, CF, M2, RWORK );
+      RESID = dlange( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[4] = RESID / (EPS*max(1,M2)*CNORM);
       } else {
@@ -149,7 +149,7 @@
       for (J = 1; J <= M2; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
       }
-      DNORM = DLANGE( '1', N, M2, D, N, RWORK);
+      DNORM = dlange( '1', N, M2, D, N, RWORK);
       dlacpy('Full', N, M2, D, N, DF, N );
 
       // Apply Q to D as D*Q
@@ -159,7 +159,7 @@
       // Compute |D*Q - D*Q| / |D|
 
       dgemm('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N);
-      RESID = DLANGE('1',N, M2,DF,N,RWORK );
+      RESID = dlange('1',N, M2,DF,N,RWORK );
       if ( CNORM > ZERO ) {
          RESULT[5] = RESID / (EPS*max(1,M2)*DNORM);
       } else {
@@ -178,7 +178,7 @@
       // Compute |D*QT - D*QT| / |D|
 
       dgemm('N', 'T', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N );
-      RESID = DLANGE( '1', N, M2, DF, N, RWORK );
+      RESID = dlange( '1', N, M2, DF, N, RWORK );
       if ( CNORM > ZERO ) {
          RESULT[6] = RESID / (EPS*max(1,M2)*DNORM);
       } else {

@@ -58,10 +58,10 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, ZGET04, ZTFTTR, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPFTRI, ZPFTRF, ZPFTRS, ZPOT01, ZPOT02, ZPOT03, ZPOTRI, ZPOTRF, ZTRTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -117,7 +117,7 @@
 
                      zlatb4('ZPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'ZLATMS';
+                    srnamc.SRNAMT = 'ZLATMS';
                      zlatms(N, N, DIST, ISEED, CTYPE, D_WORK_ZLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, Z_WORK_ZLATMS, INFO );
 
                      // Check error code from ZLATMS.
@@ -209,7 +209,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'ZLARHS';
+                    srnamc.SRNAMT = 'ZLARHS';
                      zlarhs('ZPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
@@ -219,9 +219,9 @@
                      zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                     SRNAMT = 'ZTRTTF';
+                    srnamc.SRNAMT = 'ZTRTTF';
                      ztrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     SRNAMT = 'ZPFTRF';
+                    srnamc.SRNAMT = 'ZPFTRF';
                      zpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from ZPFTRF.
@@ -242,10 +242,10 @@
                         GO TO 100;
                      }
 
-                     SRNAMT = 'ZPFTRS';
+                    srnamc.SRNAMT = 'ZPFTRS';
                      zpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
-                     SRNAMT = 'ZTFTTR';
+                    srnamc.SRNAMT = 'ZTFTTR';
                      ztfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
@@ -263,10 +263,10 @@
                        zlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                     }
 
-                     SRNAMT = 'ZPFTRI';
+                    srnamc.SRNAMT = 'ZPFTRI';
                      zpftri(CFORM, UPLO, N, ARFINV , INFO );
 
-                     SRNAMT = 'ZTFTTR';
+                    srnamc.SRNAMT = 'ZTFTTR';
                      ztfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from ZPFTRI.

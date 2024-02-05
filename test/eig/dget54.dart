@@ -48,7 +48,7 @@
 
       dlacpy('Full', N, N, A, LDA, WORK, N );
       dlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = max( DLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
+      ABNORM = max( dlange( '1', N, 2*N, WORK, N, DUM ), UNFL );
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
@@ -66,7 +66,7 @@
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      WNORM = DLANGE( '1', N, 2*N, WORK, N, DUM );
+      WNORM = dlange( '1', N, 2*N, WORK, N, DUM );
 
       if ( ABNORM > WNORM ) {
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );

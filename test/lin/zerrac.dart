@@ -1,11 +1,11 @@
-      void zerrac(NUNIT ) {
+      void zerrac(infoc.NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      int                NUNIT;
+      int                infoc.NUNIT;
       // ..
 
 // =====================================================================
@@ -27,20 +27,20 @@
       // EXTERNAL CHKXER, ZCPOSV
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
+      NOUT = infoc.NUNIT;
       WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
@@ -58,31 +58,31 @@
          C[J] = 0.0;
          R[J] = 0.0;
       } // 20
-      OK = true;
+      infoc.OK = true;
 
-      SRNAMT = 'ZCPOSV';
-      INFOT = 1;
+     srnamc.SRNAMT = 'ZCPOSV';
+      infoc.INFOT = 1;
       zcposv('/',0,0,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       zcposv('U',-1,0,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       zcposv('U',0,-1,A,1,B,1,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       zcposv('U',2,1,A,1,B,2,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       zcposv('U',2,1,A,2,B,1,X,2,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       zcposv('U',2,1,A,2,B,2,X,1,WORK,SWORK,RWORK,ITER,INFO);
-      chkxer('ZCPOSV', INFOT, NOUT, LERR, OK );
+      chkxer('ZCPOSV', infoc.INFOT, NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      if ( OK ) {
+      if ( infoc.OK ) {
          WRITE( NOUT, FMT = 9999 )'ZCPOSV';
       } else {
          WRITE( NOUT, FMT = 9998 )'ZCPOSV';

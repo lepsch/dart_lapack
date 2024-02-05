@@ -45,12 +45,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -154,7 +154,7 @@
 
                   // Compute the QP3 factorization of A
 
-                  SRNAMT = 'SGEQP3';
+                 srnamc.SRNAMT = 'SGEQP3';
                   sgeqp3(M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, INFO );
 
                   // Compute norm(svd(a) - svd(r))

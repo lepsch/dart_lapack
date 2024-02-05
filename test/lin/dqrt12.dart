@@ -68,7 +68,7 @@
 
       // Scale work if max entry outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, WORK, M, DUMMY );
+      ANRM = dlange( 'M', M, N, WORK, M, DUMMY );
       ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 

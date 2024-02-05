@@ -48,12 +48,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX
@@ -113,7 +113,7 @@
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                RCONDC = ONE / CNDNUM;
 
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
@@ -249,7 +249,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -264,7 +264,7 @@
                         ccopy(NPP, A, 1, AFAC, 1 );
                         clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'CPPSV ';
+                       srnamc.SRNAMT = 'CPPSV ';
                         cppsv(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                         // Check error code from CPPSV .
@@ -320,7 +320,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using CPPSVX.
 
-                     SRNAMT = 'CPPSVX';
+                    srnamc.SRNAMT = 'CPPSVX';
                      cppsvx(FACT, UPLO, N, NRHS, A, AFAC, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CPPSVX.

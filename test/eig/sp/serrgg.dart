@@ -36,12 +36,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -84,7 +84,7 @@
 
          // SGGHRD
 
-         SRNAMT = 'SGGHRD';
+        srnamc.SRNAMT = 'SGGHRD';
          INFOT = 1;
          sgghrd('/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, INFO );
          chkxer('SGGHRD', INFOT, NOUT, LERR, OK );
@@ -116,7 +116,7 @@
 
          // SGGHD3
 
-         SRNAMT = 'SGGHD3';
+        srnamc.SRNAMT = 'SGGHD3';
          INFOT = 1;
          sgghd3('/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO );
          chkxer('SGGHD3', INFOT, NOUT, LERR, OK );
@@ -148,7 +148,7 @@
 
          // SHGEQZ
 
-         SRNAMT = 'SHGEQZ';
+        srnamc.SRNAMT = 'SHGEQZ';
          INFOT = 1;
          shgeqz('/', 'N', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO );
          chkxer('SHGEQZ', INFOT, NOUT, LERR, OK );
@@ -183,7 +183,7 @@
 
          // STGEVC
 
-         SRNAMT = 'STGEVC';
+        srnamc.SRNAMT = 'STGEVC';
          INFOT = 1;
          stgevc('/', 'A', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W, INFO );
          chkxer('STGEVC', INFOT, NOUT, LERR, OK );
@@ -216,7 +216,7 @@
 
          // SGGSVD3
 
-         SRNAMT = 'SGGSVD3';
+        srnamc.SRNAMT = 'SGGSVD3';
          INFOT = 1;
          sggsvd3('/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO );
          chkxer('SGGSVD3', INFOT, NOUT, LERR, OK );
@@ -254,7 +254,7 @@
 
          // SGGSVP3
 
-         SRNAMT = 'SGGSVP3';
+        srnamc.SRNAMT = 'SGGSVP3';
          INFOT = 1;
          sggsvp3('/', 'N', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO );
          chkxer('SGGSVP3', INFOT, NOUT, LERR, OK );
@@ -292,7 +292,7 @@
 
          // STGSJA
 
-         SRNAMT = 'STGSJA';
+        srnamc.SRNAMT = 'STGSJA';
          INFOT = 1;
          stgsja('/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO );
          chkxer('STGSJA', INFOT, NOUT, LERR, OK );
@@ -334,7 +334,7 @@
 
          // SGGGLM
 
-         SRNAMT = 'SGGGLM';
+        srnamc.SRNAMT = 'SGGGLM';
          INFOT = 1;
          sggglm(-1, 0, 0, A, 1, B, 1, R1, R2, R3, W, LW, INFO );
          chkxer('SGGGLM', INFOT, NOUT, LERR, OK );
@@ -367,7 +367,7 @@
 
          // SGGLSE
 
-         SRNAMT = 'SGGLSE';
+        srnamc.SRNAMT = 'SGGLSE';
          INFOT = 1;
          sgglse(-1, 0, 0, A, 1, B, 1, R1, R2, R3, W, LW, INFO );
          chkxer('SGGLSE', INFOT, NOUT, LERR, OK );
@@ -400,7 +400,7 @@
 
          // SORCSD
 
-         SRNAMT = 'SORCSD';
+        srnamc.SRNAMT = 'SORCSD';
          INFOT = 7;
          sorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', -1, 0, 0, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO );
          chkxer('SORCSD', INFOT, NOUT, LERR, OK );
@@ -433,7 +433,7 @@
 
          // SGGQRF
 
-         SRNAMT = 'SGGQRF';
+        srnamc.SRNAMT = 'SGGQRF';
          INFOT = 1;
          sggqrf(-1, 0, 0, A, 1, R1, B, 1, R2, W, LW, INFO );
          chkxer('SGGQRF', INFOT, NOUT, LERR, OK );
@@ -456,7 +456,7 @@
 
          // SGGRQF
 
-         SRNAMT = 'SGGRQF';
+        srnamc.SRNAMT = 'SGGRQF';
          INFOT = 1;
          sggrqf(-1, 0, 0, A, 1, R1, B, 1, R2, W, LW, INFO );
          chkxer('SGGRQF', INFOT, NOUT, LERR, OK );
@@ -483,7 +483,7 @@
 
          // SGGES
 
-         SRNAMT = 'SGGES ';
+        srnamc.SRNAMT = 'SGGES ';
          INFOT = 1;
          sgges('/', 'N', 'S', SLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO );
          chkxer('SGGES ', INFOT, NOUT, LERR, OK );
@@ -521,7 +521,7 @@
 
          // SGGES3
 
-         SRNAMT = 'SGGES3';
+        srnamc.SRNAMT = 'SGGES3';
          INFOT = 1;
          sgges3('/', 'N', 'S', SLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO );
          chkxer('SGGES3 ', INFOT, NOUT, LERR, OK );
@@ -559,7 +559,7 @@
 
          // SGGESX
 
-         SRNAMT = 'SGGESX';
+        srnamc.SRNAMT = 'SGGESX';
          INFOT = 1;
          sggesx('/', 'N', 'S', SLCTSX, 'N', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO );
          chkxer('SGGESX', INFOT, NOUT, LERR, OK );
@@ -603,7 +603,7 @@
 
          // SGGEV
 
-         SRNAMT = 'SGGEV ';
+        srnamc.SRNAMT = 'SGGEV ';
          INFOT = 1;
          sggev('/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO );
          chkxer('SGGEV ', INFOT, NOUT, LERR, OK );
@@ -638,7 +638,7 @@
 
          // SGGEV3
 
-         SRNAMT = 'SGGEV3 ';
+        srnamc.SRNAMT = 'SGGEV3 ';
          INFOT = 1;
          sggev3('/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO );
          chkxer('SGGEV3 ', INFOT, NOUT, LERR, OK );
@@ -673,7 +673,7 @@
 
          // SGGEVX
 
-         SRNAMT = 'SGGEVX';
+        srnamc.SRNAMT = 'SGGEVX';
          INFOT = 1;
          sggevx('/', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO );
          chkxer('SGGEVX', INFOT, NOUT, LERR, OK );
@@ -714,7 +714,7 @@
 
          // STGEXC
 
-         SRNAMT = 'STGEXC';
+        srnamc.SRNAMT = 'STGEXC';
          INFOT = 3;
          stgexc( true , true , -1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 1, INFO );
          chkxer('STGEXC', INFOT, NOUT, LERR, OK );
@@ -743,7 +743,7 @@
 
          // STGSEN
 
-         SRNAMT = 'STGSEN';
+        srnamc.SRNAMT = 'STGSEN';
          INFOT = 1;
          stgsen(-1, true , true , SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO );
          chkxer('STGSEN', INFOT, NOUT, LERR, OK );
@@ -784,7 +784,7 @@
 
          // STGSNA
 
-         SRNAMT = 'STGSNA';
+        srnamc.SRNAMT = 'STGSNA';
          INFOT = 1;
          stgsna('/', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO );
          chkxer('STGSNA', INFOT, NOUT, LERR, OK );
@@ -816,7 +816,7 @@
 
          // STGSYL
 
-         SRNAMT = 'STGSYL';
+        srnamc.SRNAMT = 'STGSYL';
          INFOT = 1;
          stgsyl('/', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO );
          chkxer('STGSYL', INFOT, NOUT, LERR, OK );

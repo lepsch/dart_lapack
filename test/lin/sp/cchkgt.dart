@@ -51,12 +51,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
@@ -103,7 +103,7 @@
                // Types 1-6:  generate matrices of known condition number.
 
                KOFF = max( 2-KU, 3-max( 1, N ) );
-               SRNAMT = 'CLATMS';
+              srnamc.SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from CLATMS.
@@ -184,7 +184,7 @@
                // norm(L*U - A) / (n * norm(A) * EPS )
 
             ccopy(N+2*M, A, 1, AF, 1 );
-            SRNAMT = 'CGTTRF';
+           srnamc.SRNAMT = 'CGTTRF';
             cgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from CGTTRF.
@@ -247,7 +247,7 @@
                // Estimate the reciprocal of the condition number of the
                // matrix.
 
-               SRNAMT = 'CGTCON';
+              srnamc.SRNAMT = 'CGTCON';
                cgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, INFO );
 
                // Check error code from CGTCON.
@@ -297,7 +297,7 @@
                // Solve op(A) * X = B and compute the residual.
 
                   clacpy('Full', N, NRHS, B, LDA, X, LDA );
-                  SRNAMT = 'CGTTRS';
+                 srnamc.SRNAMT = 'CGTTRS';
                   cgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                // Check error code from CGTTRS.
@@ -315,7 +315,7 @@
 // +    TESTS 4, 5, and 6
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'CGTRFS';
+                 srnamc.SRNAMT = 'CGTRFS';
                   cgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CGTRFS.

@@ -62,7 +62,7 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
       // ..
       // .. Arrays in Common ..
@@ -74,7 +74,7 @@
       // COMMON / CENVIR / NPROC, NSHIFT, MAXB
       // COMMON / CLAENV / IPARMS
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Data statements ..

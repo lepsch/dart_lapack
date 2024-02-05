@@ -46,13 +46,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -70,7 +70,7 @@
          ISEED[I] = ISEEDY( I );
       } // 10
       EPS = dlamch( 'Epsilon' );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) { // 90
 
@@ -154,7 +154,7 @@
 
                   LW = NB*( N+1 );
 
-                  SRNAMT = 'ZGEQP3';
+                 srnamc.SRNAMT = 'ZGEQP3';
                   zgeqp3(M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, RWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))

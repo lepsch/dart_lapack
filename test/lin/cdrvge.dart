@@ -53,12 +53,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -117,7 +117,7 @@
             clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
             RCONDC = ONE / CNDNUM;
 
-            SRNAMT = 'CLATMS';
+           srnamc.SRNAMT = 'CLATMS';
             clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from CLATMS.
@@ -220,14 +220,14 @@
 
                      // Factor the matrix A.
 
-                     SRNAMT = 'CGETRF';
+                    srnamc.SRNAMT = 'CGETRF';
                      cgetrf(N, N, AFAC, LDA, IWORK, INFO );
 
                      // Form the inverse of A.
 
                      clacpy('Full', N, N, AFAC, LDA, A, LDA );
                      LWORK = NMAX*max( 3, NRHS );
-                     SRNAMT = 'CGETRI';
+                    srnamc.SRNAMT = 'CGETRI';
                      cgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Compute the 1-norm condition number of A.
@@ -266,7 +266,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
@@ -281,7 +281,7 @@
                         clacpy('Full', N, N, A, LDA, AFAC, LDA );
                         clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'CGESV ';
+                       srnamc.SRNAMT = 'CGESV ';
                         cgesv(N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from CGESV .
@@ -334,7 +334,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using CGESVX.
 
-                     SRNAMT = 'CGESVX';
+                    srnamc.SRNAMT = 'CGESVX';
                      cgesvx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CGESVX.

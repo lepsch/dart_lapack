@@ -86,7 +86,7 @@
       if ( I == J ) {
          TEMP = D( I );
       } else {
-         TEMP = DLARND( IDIST, ISEED );
+         TEMP = dlarnd( IDIST, ISEED );
       }
       if ( IGRADE == 1 ) {
          TEMP = TEMP*DL( I );

@@ -46,7 +46,7 @@
       // Determine EPS and the norm of A.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
+      ANORM = dlange( '1', M, N, A, LDA, RWORK );
 
       // Compute the product L*U and overwrite AFAC with the result.
       // A column at a time of the product is obtained, starting with
@@ -86,7 +86,7 @@
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 
-      RESID = DLANGE( '1', M, N, AFAC, LDAFAC, RWORK );
+      RESID = dlange( '1', M, N, AFAC, LDAFAC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;

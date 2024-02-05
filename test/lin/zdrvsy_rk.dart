@@ -47,13 +47,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZLATSY, ZSYSV_RK, ZSYT01_3, ZSYT02, ZSYTRF_RK, ZSYTRI_3
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -87,7 +87,7 @@
       // Test the error exits
 
       if (TSTERR) zerrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for which the block
       // routine should be used, which will be later returned by ILAENV.
@@ -133,7 +133,7 @@
 
                // Generate a matrix with ZLATMS.
 
-                  SRNAMT = 'ZLATMS';
+                 srnamc.SRNAMT = 'ZLATMS';
                   zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS and handle error.
@@ -265,7 +265,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -278,7 +278,7 @@
                      // Factor the matrix and solve the system using
                      // ZSYSV_RK.
 
-                     SRNAMT = 'ZSYSV_RK';
+                    srnamc.SRNAMT = 'ZSYSV_RK';
                      zsysv_rk(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for

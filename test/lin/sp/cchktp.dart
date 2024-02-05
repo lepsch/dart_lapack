@@ -49,12 +49,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
@@ -104,7 +104,7 @@
 
                // Call CLATTP to generate a triangular test matrix.
 
-               SRNAMT = 'CLATTP';
+              srnamc.SRNAMT = 'CLATTP';
                clattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -119,7 +119,7 @@
                // Form the inverse of A.
 
                if (N > 0) ccopy( LAP, AP, 1, AINVP, 1 );
-               SRNAMT = 'CTPTRI';
+              srnamc.SRNAMT = 'CTPTRI';
                ctptri(UPLO, DIAG, N, AINVP, INFO );
 
                // Check error code from CTPTRI.
@@ -170,12 +170,12 @@
 // +    TEST 2
                   // Solve and compute residual for op(A)*x = b.
 
-                     SRNAMT = 'CLARHS';
+                    srnamc.SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C';
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CTPTRS';
+                    srnamc.SRNAMT = 'CTPTRS';
                      ctptrs(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO );
 
                   // Check error code from CTPTRS.
@@ -193,7 +193,7 @@
                   // Use iterative refinement to improve the solution and
                   // compute error bounds.
 
-                     SRNAMT = 'CTPRFS';
+                    srnamc.SRNAMT = 'CTPRFS';
                      ctprfs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check error code from CTPRFS.
@@ -228,7 +228,7 @@
                      NORM = 'I';
                      RCONDC = RCONDI;
                   }
-                  SRNAMT = 'CTPCON';
+                 srnamc.SRNAMT = 'CTPCON';
                   ctpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK, INFO );
 
                   // Check error code from CTPCON.
@@ -270,13 +270,13 @@
 
                   // Call CLATTP to generate a triangular test matrix.
 
-                  SRNAMT = 'CLATTP';
+                 srnamc.SRNAMT = 'CLATTP';
                   clattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
 
 // +    TEST 8
                   // Solve the system op(A)*x = b.
 
-                  SRNAMT = 'CLATPS';
+                 srnamc.SRNAMT = 'CLATPS';
                   ccopy(N, X, 1, B, 1 );
                   clatps(UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO );
 

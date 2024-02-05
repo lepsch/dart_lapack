@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkql(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AL, AC, B, X, XACT, TAU, WORK, RWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -42,13 +44,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String             srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -69,7 +71,7 @@
       // Test the error exits
 
       if (TSTERR) derrql( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       LDA = NMAX;
@@ -96,7 +98,7 @@
 
                dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -169,11 +171,11 @@
                            // Generate a solution and set the right
                            // hand side.
 
-                           SRNAMT = 'DLARHS';
+                           srnamc.SRNAMT = 'DLARHS';
                            dlarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
                            dlacpy('Full', M, NRHS, B, LDA, X, LDA );
-                           SRNAMT = 'DGEQLS';
+                           srnamc.SRNAMT = 'DGEQLS';
                            dgeqls(M, N, NRHS, AF, LDA, TAU, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from DGEQLS.

@@ -48,13 +48,13 @@
       // INTRINSIC DBLE, MAX, SQRT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -74,7 +74,7 @@
          ISEED[I] = ISEEDY( I );
       } // 10
 
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Do for each value of N in MVAL
 
@@ -105,7 +105,7 @@
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -164,13 +164,13 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'ZLARHS';
+                 srnamc.SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                   // Compute the L*L' or U'*U factorization of the
                   // matrix and solve the system.
 
-                  SRNAMT = 'ZCPOSV ';
+                 srnamc.SRNAMT = 'ZCPOSV ';
                   KASE = KASE + 1;
 
                   zlacpy('All', N, N, A, LDA, AFAC, LDA);

@@ -44,11 +44,11 @@
       }
 
       if ( lsame( TRANS, 'T' ) || lsame( TRANS, 'C' ) ) {
-         ANORM = DLANGE( 'I', M, N, A, LDA, RWORK );
+         ANORM = dlange( 'I', M, N, A, LDA, RWORK );
          N1 = N;
          N2 = M;
       } else {
-         ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
+         ANORM = dlange( '1', M, N, A, LDA, RWORK );
          N1 = M;
          N2 = N;
       }

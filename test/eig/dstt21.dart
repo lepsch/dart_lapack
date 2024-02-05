@@ -96,7 +96,7 @@
          WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
       } // 40
 
-      RESULT[2] = min( N.toDouble(), DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
+      RESULT[2] = min( N.toDouble(), dlange( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
 
       return;
       }

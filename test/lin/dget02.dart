@@ -55,9 +55,9 @@
 
       EPS = dlamch( 'Epsilon' );
       if ( lsame( TRANS, 'N' ) ) {
-         ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
+         ANORM = dlange( '1', M, N, A, LDA, RWORK );
       } else {
-         ANORM = DLANGE( 'I', M, N, A, LDA, RWORK );
+         ANORM = dlange( 'I', M, N, A, LDA, RWORK );
       }
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;

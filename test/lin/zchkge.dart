@@ -51,13 +51,13 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      bool               infoc.LERR, infoc.OK;
+      String            srnamc.SRNAMT;
+      int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
@@ -79,7 +79,7 @@
 
       xlaenv(1, 1 );
       if (TSTERR) zerrge( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
 
       // Do for each value of M in MVAL
@@ -112,7 +112,7 @@
 
                zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS';
+              srnamc.SRNAMT = 'ZLATMS';
                zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
@@ -160,7 +160,7 @@
                   // Compute the LU factorization of the matrix.
 
                   zlacpy('Full', M, N, A, LDA, AFAC, LDA );
-                  SRNAMT = 'ZGETRF';
+                 srnamc.SRNAMT = 'ZGETRF';
                   zgetrf(M, N, AFAC, LDA, IWORK, INFO );
 
                   // Check error code from ZGETRF.
@@ -181,7 +181,7 @@
 
                   if ( M == N && INFO == 0 ) {
                      zlacpy('Full', N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'ZGETRI';
+                    srnamc.SRNAMT = 'ZGETRI';
                      NRHS = NSVAL( 1 );
                      LWORK = NMAX*max( 3, NRHS );
                      zgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
@@ -252,12 +252,12 @@
 // +    TEST 3
                         // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'ZLARHS';
+                       srnamc.SRNAMT = 'ZLARHS';
                         zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
 
                         zlacpy('Full', N, NRHS, B, LDA, X, LDA );
-                        SRNAMT = 'ZGETRS';
+                       srnamc.SRNAMT = 'ZGETRS';
                         zgetrs(TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from ZGETRS.
@@ -276,7 +276,7 @@
                         // Use iterative refinement to improve the
                         // solution.
 
-                        SRNAMT = 'ZGERFS';
+                       srnamc.SRNAMT = 'ZGERFS';
                         zgerfs(TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                         // Check error code from ZGERFS.
@@ -314,7 +314,7 @@
                         RCONDC = RCONDI;
                         NORM = 'I';
                      }
-                     SRNAMT = 'ZGECON';
+                    srnamc.SRNAMT = 'ZGECON';
                      zgecon(NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO );
 
                         // Check error code from ZGECON.

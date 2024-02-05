@@ -35,10 +35,10 @@
       // INTRINSIC CMPLX, MAX, MIN, REAL
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Executable Statements ..
 
@@ -51,7 +51,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'CGERQF';
+     srnamc.SRNAMT = 'CGERQF';
       cgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -66,7 +66,7 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'CUNGRQ';
+     srnamc.SRNAMT = 'CUNGRQ';
       cungrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R

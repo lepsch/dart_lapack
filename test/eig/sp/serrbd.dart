@@ -34,12 +34,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
@@ -66,7 +66,7 @@
 
          // SGEBRD
 
-         SRNAMT = 'SGEBRD';
+        srnamc.SRNAMT = 'SGEBRD';
          INFOT = 1;
          sgebrd(-1, 0, A, 1, D, E, TQ, TP, W, 1, INFO );
          chkxer('SGEBRD', INFOT, NOUT, LERR, OK );
@@ -83,7 +83,7 @@
 
          // SGEBD2
 
-         SRNAMT = 'SGEBD2';
+        srnamc.SRNAMT = 'SGEBD2';
          INFOT = 1;
          sgebd2(-1, 0, A, 1, D, E, TQ, TP, W, INFO );
          chkxer('SGEBD2', INFOT, NOUT, LERR, OK );
@@ -97,7 +97,7 @@
 
          // SORGBR
 
-         SRNAMT = 'SORGBR';
+        srnamc.SRNAMT = 'SORGBR';
          INFOT = 1;
          sorgbr('/', 0, 0, 0, A, 1, TQ, W, 1, INFO );
          chkxer('SORGBR', INFOT, NOUT, LERR, OK );
@@ -132,7 +132,7 @@
 
          // SORMBR
 
-         SRNAMT = 'SORMBR';
+        srnamc.SRNAMT = 'SORMBR';
          INFOT = 1;
          sormbr('/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
          chkxer('SORMBR', INFOT, NOUT, LERR, OK );
@@ -176,7 +176,7 @@
 
          // SBDSQR
 
-         SRNAMT = 'SBDSQR';
+        srnamc.SRNAMT = 'SBDSQR';
          INFOT = 1;
          sbdsqr('/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
          chkxer('SBDSQR', INFOT, NOUT, LERR, OK );
@@ -205,7 +205,7 @@
 
          // SBDSDC
 
-         SRNAMT = 'SBDSDC';
+        srnamc.SRNAMT = 'SBDSDC';
          INFOT = 1;
          sbdsdc('/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO );
          chkxer('SBDSDC', INFOT, NOUT, LERR, OK );
@@ -225,7 +225,7 @@
 
          // SBDSVDX
 
-         SRNAMT = 'SBDSVDX';
+        srnamc.SRNAMT = 'SBDSVDX';
          INFOT = 1;
          sbdsvdx('X', 'N', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO);
          chkxer('SBDSVDX', INFOT, NOUT, LERR, OK );

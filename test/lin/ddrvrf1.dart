@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvrf1(NOUT, NN, NVAL, THRESH, A, LDA, ARF, WORK ) {
 
 // -- LAPACK test routine --
@@ -30,21 +32,7 @@
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANSY, DLANSF, DLARND;
-      // EXTERNAL DLAMCH, DLANSY, DLANSF, DLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DTRTTF
-      // ..
-      // .. Scalars in Common ..
-      String             SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
-      // ..
-      // .. Data statements ..
+
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
       const UPLOS = [ 'U', 'L' ];
       const FORMS = [ 'N', 'T' ];
@@ -82,7 +70,7 @@
 
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
-                  A[I, J] = DLARND( 2, ISEED );
+                  A[I, J] = dlarnd( 2, ISEED );
                }
             }
 
@@ -114,7 +102,7 @@
 
                   CFORM = FORMS( IFORM );
 
-                  SRNAMT = 'DTRTTF';
+                  srnamc.SRNAMT = 'DTRTTF';
                   dtrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                   // Check error code from DTRTTF
@@ -124,7 +112,7 @@
                         WRITE( NOUT, * );
                         WRITE( NOUT, FMT = 9999 );
                      }
-                     WRITE( NOUT, FMT = 9998 ) SRNAMT, UPLO, CFORM, N;
+                     WRITE( NOUT, FMT = 9998 ) srnamc.SRNAMT, UPLO, CFORM, N;
                      NERRS = NERRS + 1;
                      GO TO 100;
                   }

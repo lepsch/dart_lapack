@@ -207,7 +207,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, WORK );
+      ANRM = dlange( 'M', M, N, A, LDA, WORK );
       IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
@@ -233,7 +233,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK );
+      BNRM = dlange( 'M', M, NRHS, B, LDB, WORK );
       IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 

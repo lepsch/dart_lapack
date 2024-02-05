@@ -162,10 +162,10 @@ import 'package:lapack/src/xerbla.dart';
             // Compute upper bound of A( I1:I2-1, J1:J2-1 ).
 
             if ( NOTRAN ) {
-               ANRM = DLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
+               ANRM = dlange( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
                WORK[AWRK + I+(J-1)*NBA] = ANRM;
             } else {
-               ANRM = DLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
+               ANRM = dlange( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
                WORK[AWRK + J+(I-1)*NBA] = ANRM;
             }
             TMAX = max( TMAX, ANRM );
@@ -257,7 +257,7 @@ import 'package:lapack/src/xerbla.dart';
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
                // growth in the linear updates.
-               XNRM[KK] = DLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W );
+               XNRM[KK] = dlange( 'I', J2-J1, 1, X( J1, RHS ), LDX, W );
 
                if ( SCALOC == ZERO ) {
                   // LATRS found that A is singular through A(j,j) = 0.
@@ -360,7 +360,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  BNRM = DLANGE( 'I', I2-I1, 1, X( I1, RHS ), LDX, W );
+                  BNRM = dlange( 'I', I2-I1, 1, X( I1, RHS ), LDX, W );
                   BNRM = BNRM*( SCAMIN / WORK( I+KK*LDS ) );
                   XNRM[KK] = XNRM( KK )*(SCAMIN / WORK( J+KK*LDS ));
                   ANRM = WORK( AWRK + I+(J-1)*NBA );

@@ -57,10 +57,10 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, SGET04, STFTTR, SLACPY, SLARHS, SLATB4, SLATMS, SPFTRI, SPFTRF, SPFTRS, SPOT01, SPOT02, SPOT03, SPOTRI, SPOTRF, STRTTF
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -116,7 +116,7 @@
 
                      slatb4('SPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'SLATMS';
+                    srnamc.SRNAMT = 'SLATMS';
                      slatms(N, N, DIST, ISEED, CTYPE, S_WORK_SLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, S_WORK_SLATMS, INFO );
 
                      // Check error code from SLATMS.
@@ -204,7 +204,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'SLARHS';
+                    srnamc.SRNAMT = 'SLARHS';
                      slarhs('SPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
@@ -214,9 +214,9 @@
                      slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      slacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                     SRNAMT = 'STRTTF';
+                    srnamc.SRNAMT = 'STRTTF';
                      strttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     SRNAMT = 'SPFTRF';
+                    srnamc.SRNAMT = 'SPFTRF';
                      spftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from SPFTRF.
@@ -237,10 +237,10 @@
                         GO TO 100;
                      }
 
-                     SRNAMT = 'SPFTRS';
+                    srnamc.SRNAMT = 'SPFTRS';
                      spftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
-                     SRNAMT = 'STFTTR';
+                    srnamc.SRNAMT = 'STFTTR';
                      stfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
@@ -258,10 +258,10 @@
                         slacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                      }
 
-                     SRNAMT = 'SPFTRI';
+                    srnamc.SRNAMT = 'SPFTRI';
                      spftri(CFORM, UPLO, N, ARFINV , INFO );
 
-                     SRNAMT = 'STFTTR';
+                    srnamc.SRNAMT = 'STFTTR';
                      stfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from SPFTRI.

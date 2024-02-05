@@ -53,7 +53,7 @@
 
          // Tests scaled by the norm(A)
 
-         ANORM = max( DLANGE( '1', N, N, A, LDA, WORK ), UNFL );
+         ANORM = max( dlange( '1', N, N, A, LDA, WORK ), UNFL );
 
          if ( ITYPE == 1 ) {
 
@@ -79,7 +79,7 @@
 
          // Compute norm(W)/ ( ulp*norm(A) )
 
-         WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) );
+         WNORM = dlange( '1', N, N, WORK, N, WORK( N**2+1 ) );
 
          if ( ANORM > WNORM ) {
             RESULT = ( WNORM / ANORM ) / ( N*ULP );
@@ -103,7 +103,7 @@
             WORK[( N+1 )*( JDIAG-1 )+1] = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE;
          } // 30
 
-         RESULT = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), N.toDouble() ) / ( N*ULP );
+         RESULT = min( dlange( '1', N, N, WORK, N, WORK( N**2+1 ) ), N.toDouble() ) / ( N*ULP );
       }
 
       return;

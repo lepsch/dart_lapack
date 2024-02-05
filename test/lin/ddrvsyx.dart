@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvsy(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -45,13 +47,13 @@
       // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGET04, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPOT02, DPOT05, DSYSV, DSYSVX, DSYT01, DSYTRF, DSYTRI2, XLAENV, DSYSVXX
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -77,7 +79,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -116,7 +118,7 @@
 
                dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'DLATMS';
+               srnamc.SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
@@ -235,7 +237,7 @@
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'DLARHS';
+                  srnamc.SRNAMT = 'DLARHS';
                   dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C';
 
@@ -247,7 +249,7 @@
 
                      // Factor the matrix and solve the system using DSYSV.
 
-                     SRNAMT = 'DSYSV ';
+                     srnamc.SRNAMT = 'DSYSV ';
                      dsysv(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
@@ -313,7 +315,7 @@
                   // Solve the system and compute the condition number and
                   // error bounds using DSYSVX.
 
-                  SRNAMT = 'DSYSVX';
+                  srnamc.SRNAMT = 'DSYSVX';
                   dsysvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, LWORK, IWORK( N+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -395,7 +397,7 @@
                   // Solve the system and compute the condition number
                   // and error bounds using DSYSVXX.
 
-                  SRNAMT = 'DSYSVXX';
+                  srnamc.SRNAMT = 'DSYSVXX';
                   N_ERR_BNDS = 3;
                   EQUED = 'N';
                   dsysvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, WORK( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK( N+1 ), INFO );

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void derrlqtp(PATH, NUNIT ) {
       // IMPLICIT NONE
 
@@ -26,21 +28,21 @@
       // EXTERNAL ALAESM, CHKXER, DTPLQT2, DTPLQT, DTPMLQT
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NOUT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NOUT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NOUT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT;
-      WRITE( NOUT, FMT = * );
+      infoc.NOUT = NUNIT;
+      WRITE( infoc.NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
@@ -52,102 +54,102 @@
          }
          W[J] = 0.0;
       }
-      OK = true;
+      infoc.OK = true;
 
       // Error exits for TPLQT factorization
 
       // DTPLQT
 
-      SRNAMT = 'DTPLQT';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTPLQT';
+      infoc.INFOT = 1;
       dtplqt(-1, 1, 0, 1, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtplqt(1, -1, 0, 1, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtplqt(0, 1, -1, 1, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtplqt(0, 1, 1, 1, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtplqt(0, 1, 0, 0, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtplqt(1, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 6;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 6;
       dtplqt(2, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 8;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 8;
       dtplqt(2, 1, 0, 1, A, 2, B, 1, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 10;
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 10;
       dtplqt(2, 2, 1, 2, A, 2, B, 2, T, 1, W, INFO );
-      chkxer('DTPLQT', INFOT, NOUT, LERR, OK );
+      chkxer('DTPLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DTPLQT2
 
-      SRNAMT = 'DTPLQT2';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTPLQT2';
+      infoc.INFOT = 1;
       dtplqt2(-1, 0, 0, A, 1, B, 1, T, 1, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtplqt2(0, -1, 0, A, 1, B, 1, T, 1, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtplqt2(0, 0, -1, A, 1, B, 1, T, 1, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtplqt2(2, 2, 0, A, 1, B, 2, T, 2, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dtplqt2(2, 2, 0, A, 2, B, 1, T, 2, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtplqt2(2, 2, 0, A, 2, B, 2, T, 1, INFO );
-      chkxer('DTPLQT2', INFOT, NOUT, LERR, OK );
+      chkxer('DTPLQT2', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // DTPMLQT
 
-      SRNAMT = 'DTPMLQT';
-      INFOT = 1;
+      srnamc.SRNAMT = 'DTPMLQT';
+      infoc.INFOT = 1;
       dtpmlqt('/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 2;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 2;
       dtpmlqt('L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 3;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 3;
       dtpmlqt('L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 4;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 4;
       dtpmlqt('L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 5;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 5;
       dtpmlqt('L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      INFOT = 6;
+      infoc.INFOT = 6;
       dtpmlqt('L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 7;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 7;
       dtpmlqt('L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 9;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 9;
       dtpmlqt('R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 11;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 11;
       dtpmlqt('R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 13;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 13;
       dtpmlqt('L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
-      INFOT = 15;
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
+      infoc.INFOT = 15;
       dtpmlqt('L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO );
-      chkxer('DTPMLQT', INFOT, NOUT, LERR, OK );
+      chkxer('DTPMLQT', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
 
       // Print a summary line.
 
-      alaesm(PATH, OK, NOUT );
+      alaesm(PATH, infoc.OK, infoc.NOUT );
 
       return;
       }

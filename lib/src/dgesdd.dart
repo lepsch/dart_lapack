@@ -357,7 +357,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, DUM );
+      ANRM = dlange( 'M', M, N, A, LDA, DUM );
       if ( disnan( ANRM ) ) {
           INFO = -4;
           return;

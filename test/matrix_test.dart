@@ -98,6 +98,14 @@ void main() {
       expect(m[3][2], 7);
       // expect(m[3][3], 0);
     });
+
+    test('offset (zero indexed)', () {
+      final a = Array.fromList([1, 2, 3, 4], offset: 1);
+      expect(a[0], 1);
+      expect(a[1], 2);
+      expect(a[2], 3);
+      expect(a[3], 4);
+    });
   });
 
   group('Matrix', () {
@@ -436,4 +444,27 @@ Output:
  --------------------
            4           7           2           5           8           3           6           9           0
 ```
+ */
+
+/*
+program test
+  INTEGER            IPIVOT( 3, 3, 3 )
+  DATA               IPIVOT / 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 /
+
+  DO I = 1, 3
+    DO J = 1, 3
+      print *, (IPIVOT(I,J, K),K=1,3)
+    END DO
+  END DO
+endprogram
+
+           1          10          19
+           4          13          22
+           7          16          25
+           2          11          20
+           5          14          23
+           8          17          26
+           3          12          21
+           6          15          24
+           9          18          27
  */

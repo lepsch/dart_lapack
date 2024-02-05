@@ -39,10 +39,10 @@
       // INTRINSIC DBLE, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -70,7 +70,7 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'DORGQL';
+     srnamc.SRNAMT = 'DORGQL';
       dorgql(M, M, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
@@ -89,7 +89,7 @@
          for (J = 1; J <= NC; J++) { // 10
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
-         CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK );
+         CNORM = dlange( '1', MC, NC, C, LDA, RWORK );
          if (CNORM == 0.0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
@@ -105,7 +105,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'DORMQL';
+           srnamc.SRNAMT = 'DORMQL';
             if (K > 0) dormql( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
@@ -118,7 +118,7 @@
 
             // Compute error in the difference
 
-            RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK );
+            RESID = dlange( '1', MC, NC, CC, LDA, RWORK );
             RESULT[( ISIDE-1 )*2+ITRANS] = RESID / ( (max( 1, M )).toDouble()*CNORM*EPS );
 
          } // 20

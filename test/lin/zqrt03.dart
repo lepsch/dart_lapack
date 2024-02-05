@@ -40,10 +40,10 @@
       // INTRINSIC DBLE, DCMPLX, MAX
       // ..
       // .. Scalars in Common ..
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       // ..
       // .. Common blocks ..
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
@@ -59,7 +59,7 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'ZUNGQR';
+     srnamc.SRNAMT = 'ZUNGQR';
       zungqr(M, M, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
@@ -94,7 +94,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'ZUNMQR';
+           srnamc.SRNAMT = 'ZUNMQR';
             zunmqr(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract

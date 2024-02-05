@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchkpb(DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -47,13 +49,13 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -74,7 +76,7 @@
       // Test the error exits
 
       if (TSTERR) derrpo( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
       xlaenv(2, 2 );
       KDVAL[1] = 0;
 
@@ -135,7 +137,7 @@
 
                      dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'DLATMS';
+                     srnamc.SRNAMT = 'DLATMS';
                      dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from DLATMS.
@@ -211,7 +213,7 @@
                      // matrix.
 
                      dlacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
-                     SRNAMT = 'DPBTRF';
+                     srnamc.SRNAMT = 'DPBTRF';
                      dpbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from DPBTRF.
@@ -249,13 +251,13 @@
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
                      dlaset('Full', N, N, ZERO, ONE, AINV, LDA );
-                     SRNAMT = 'DPBTRS';
+                     srnamc.SRNAMT = 'DPBTRS';
                      dpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 
                      ANORM = DLANSB( '1', UPLO, N, KD, A, LDAB, RWORK );
-                     AINVNM = DLANGE( '1', N, N, AINV, LDA, RWORK );
+                     AINVNM = dlange( '1', N, N, AINV, LDA, RWORK );
                      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                         RCONDC = ONE;
                      } else {
@@ -268,11 +270,11 @@
 // +    TEST 2
                      // Solve and compute residual for A * X = B.
 
-                        SRNAMT = 'DLARHS';
+                        srnamc.SRNAMT = 'DLARHS';
                         dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'DPBTRS';
+                        srnamc.SRNAMT = 'DPBTRS';
                         dpbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from DPBTRS.
@@ -290,7 +292,7 @@
 // +    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
-                        SRNAMT = 'DPBRFS';
+                        srnamc.SRNAMT = 'DPBRFS';
                         dpbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check error code from DPBRFS.
@@ -316,7 +318,7 @@
 // +    TEST 7
                      // Get an estimate of RCOND = 1/CNDNUM.
 
-                     SRNAMT = 'DPBCON';
+                     srnamc.SRNAMT = 'DPBCON';
                      dpbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, IWORK, INFO );
 
                      // Check error code from DPBCON.

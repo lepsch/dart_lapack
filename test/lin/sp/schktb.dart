@@ -48,12 +48,12 @@
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;
-      String             SRNAMT;
+      String            srnamc.SRNAMT;
       int                INFOT, IOUNIT;
       // ..
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / SRNAMC /srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -125,7 +125,7 @@
 
                   // Call SLATTB to generate a triangular test matrix.
 
-                  SRNAMT = 'SLATTB';
+                 srnamc.SRNAMT = 'SLATTB';
                   slattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -188,12 +188,12 @@
 // +    TEST 1
                      // Solve and compute residual for op(A)*x = b.
 
-                        SRNAMT = 'SLARHS';
+                       srnamc.SRNAMT = 'SLARHS';
                         slarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'STBTRS';
+                       srnamc.SRNAMT = 'STBTRS';
                         stbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
 
                      // Check error code from STBTRS.
@@ -211,7 +211,7 @@
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
-                        SRNAMT = 'STBRFS';
+                       srnamc.SRNAMT = 'STBRFS';
                         stbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check error code from STBRFS.
@@ -246,7 +246,7 @@
                         NORM = 'I';
                         RCONDC = RCONDI;
                      }
-                     SRNAMT = 'STBCON';
+                    srnamc.SRNAMT = 'STBCON';
                      stbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO );
 
                      // Check error code from STBCON.
@@ -289,13 +289,13 @@
 
                      // Call SLATTB to generate a triangular test matrix.
 
-                     SRNAMT = 'SLATTB';
+                    srnamc.SRNAMT = 'SLATTB';
                      slattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
 // +    TEST 7
                      // Solve the system op(A)*x = b
 
-                     SRNAMT = 'SLATBS';
+                    srnamc.SRNAMT = 'SLATBS';
                      scopy(N, X, 1, B, 1 );
                      slatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 

@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void ddrvgb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, LA, AFB, LAFB, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -50,13 +52,13 @@
       // INTRINSIC ABS, MAX, MIN
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, NUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.NUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, NUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
@@ -80,7 +82,7 @@
       // Test the error exits
 
       if (TSTERR) derrvx( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
@@ -169,7 +171,7 @@
                   dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                   RCONDC = ONE / CNDNUM;
 
-                  SRNAMT = 'DLATMS';
+                  srnamc.SRNAMT = 'DLATMS';
                   dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO );
 
                   // Check the error code from DLATMS.
@@ -282,12 +284,12 @@
                            // Form the inverse of A.
 
                            dlaset('Full', N, N, ZERO, ONE, WORK, LDB );
-                           SRNAMT = 'DGBTRS';
+                           srnamc.SRNAMT = 'DGBTRS';
                            dgbtrs('No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = DLANGE( '1', N, N, WORK, LDB, RWORK );
+                           AINVNM = dlange( '1', N, N, WORK, LDB, RWORK );
                            if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                               RCONDO = ONE;
                            } else {
@@ -297,7 +299,7 @@
                            // Compute the infinity-norm condition number
                            // of A.
 
-                           AINVNM = DLANGE( 'I', N, N, WORK, LDB, RWORK );
+                           AINVNM = dlange( 'I', N, N, WORK, LDB, RWORK );
                            if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                               RCONDI = ONE;
                            } else {
@@ -323,7 +325,7 @@
                            // Form an exact solution and set the right hand
                            // side.
 
-                           SRNAMT = 'DLARHS';
+                           srnamc.SRNAMT = 'DLARHS';
                            dlarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                            XTYPE = 'C';
                            dlacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
@@ -338,7 +340,7 @@
                               dlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB );
                               dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                              SRNAMT = 'DGBSV ';
+                              srnamc.SRNAMT = 'DGBSV ';
                               dgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
 
                               // Check error code from DGBSV .
@@ -393,7 +395,7 @@
                            // Solve the system and compute the condition
                            // number and error bounds using DGBSVX.
 
-                           SRNAMT = 'DGBSVX';
+                           srnamc.SRNAMT = 'DGBSVX';
                            dgbsvx(FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                            // Check the error code from DGBSVX.
@@ -541,7 +543,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using DGBSVXX.
 
-                     SRNAMT = 'DGBSVXX';
+                     srnamc.SRNAMT = 'DGBSVXX';
                      N_ERR_BNDS = 3;
                      dgbsvxx(FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK( N+1 ), INFO );
 

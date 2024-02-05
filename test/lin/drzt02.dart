@@ -64,6 +64,6 @@
          WORK[( I-1 )*N+I] = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
+      DRZT02 = dlange( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
       return;
       }

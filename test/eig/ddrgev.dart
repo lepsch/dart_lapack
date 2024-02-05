@@ -211,8 +211,8 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
-                        Q[JR, JC] = DLARND( 3, ISEED );
-                        Z[JR, JC] = DLARND( 3, ISEED );
+                        Q[JR, JC] = dlarnd( 3, ISEED );
+                        Z[JR, JC] = dlarnd( 3, ISEED );
                      } // 30
                      dlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK[2*N+JC] = sign( ONE, Q( JC, JC ) );
@@ -223,10 +223,10 @@
                   } // 40
                   Q[N, N] = ONE;
                   WORK[N] = ZERO;
-                  WORK[3*N] = sign( ONE, DLARND( 2, ISEED ) );
+                  WORK[3*N] = sign( ONE, dlarnd( 2, ISEED ) );
                   Z[N, N] = ONE;
                   WORK[2*N] = ZERO;
-                  WORK[4*N] = sign( ONE, DLARND( 2, ISEED ) );
+                  WORK[4*N] = sign( ONE, dlarnd( 2, ISEED ) );
 
                   // Apply the diagonal matrices
 
@@ -246,7 +246,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
-                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED );
+                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* dlarnd( 2, ISEED );
                   } // 70
                } // 80
             }

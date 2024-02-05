@@ -1,3 +1,5 @@
+import 'common.dart';
+
       void dchktb(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AB, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT ) {
 
 // -- LAPACK test routine --
@@ -47,13 +49,13 @@
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLASET, DLATBS, DLATTB, DTBCON, DTBRFS, DTBSV, DTBT02, DTBT03, DTBT05, DTBT06, DTBTRS
       // ..
       // .. Scalars in Common ..
-      bool               LERR, OK;
-      String             SRNAMT;
-      int                INFOT, IOUNIT;
+      // bool               infoc.LERR, infoc.OK;
+      // String             srnamc.SRNAMT;
+      // int                infoc.INFOT, infoc.IOUNIT;
       // ..
       // .. Common blocks ..
-      // COMMON / INFOC / INFOT, IOUNIT, OK, LERR
-      // COMMON / SRNAMC / SRNAMT
+      // COMMON / INFOC / infoc.INFOT, infoc.IOUNIT, infoc.OK, infoc.LERR
+      // COMMON / SRNAMC / srnamc.SRNAMT
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
@@ -78,7 +80,7 @@
       // Test the error exits
 
       if (TSTERR) derrtr( PATH, NOUT );
-      INFOT = 0;
+      infoc.INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
 
@@ -125,7 +127,7 @@
 
                   // Call DLATTB to generate a triangular test matrix.
 
-                  SRNAMT = 'DLATTB';
+                  srnamc.SRNAMT = 'DLATTB';
                   dlattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
@@ -188,12 +190,12 @@
 // +    TEST 1
                      // Solve and compute residual for op(A)*x = b.
 
-                        SRNAMT = 'DLARHS';
+                        srnamc.SRNAMT = 'DLARHS';
                         dlarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C';
                         dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'DTBTRS';
+                        srnamc.SRNAMT = 'DTBTRS';
                         dtbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
 
                      // Check error code from DTBTRS.
@@ -211,7 +213,7 @@
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
-                        SRNAMT = 'DTBRFS';
+                        srnamc.SRNAMT = 'DTBRFS';
                         dtbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check error code from DTBRFS.
@@ -246,7 +248,7 @@
                         NORM = 'I';
                         RCONDC = RCONDI;
                      }
-                     SRNAMT = 'DTBCON';
+                     srnamc.SRNAMT = 'DTBCON';
                      dtbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO );
 
                      // Check error code from DTBCON.
@@ -289,13 +291,13 @@
 
                      // Call DLATTB to generate a triangular test matrix.
 
-                     SRNAMT = 'DLATTB';
+                     srnamc.SRNAMT = 'DLATTB';
                      dlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
 // +    TEST 7
                      // Solve the system op(A)*x = b
 
-                     SRNAMT = 'DLATBS';
+                     srnamc.SRNAMT = 'DLATBS';
                      dcopy(N, X, 1, B, 1 );
                      dlatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 
