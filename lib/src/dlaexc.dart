@@ -133,7 +133,7 @@ import 'package:lapack/src/xerbla.dart';
 
          // Test whether to reject swap.
 
-         if( max( ( D( 3, 1 ) ).abs(), ( D( 3, 2 ) ).abs(), ( D( 3, 3 )-T11 ) ).abs() > THRESH )GO TO 50;
+         if( max( ( D( 3, 1 ) ).abs(), ( D( 3, 2 ) ).abs(), ( D( 3, 3 )-T11 ).abs() ) > THRESH )GO TO 50;
 
          // Accept swap: apply transformation to the entire matrix T.
 
@@ -174,7 +174,7 @@ import 'package:lapack/src/xerbla.dart';
 
          // Test whether to reject swap.
 
-         if( max( ( D( 2, 1 ) ).abs(), ( D( 3, 1 ) ).abs(), ( D( 1, 1 )-T33 ) ).abs() > THRESH )GO TO 50;
+         if( max( ( D( 2, 1 ) ).abs(), ( D( 3, 1 ) ).abs(), ( D( 1, 1 )-T33 ).abs() ) > THRESH )GO TO 50;
 
          // Accept swap: apply transformation to the entire matrix T.
 

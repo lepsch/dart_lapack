@@ -122,7 +122,7 @@
                                  DEN = max( SMIN*( X( 1, 1 ) ).abs(), SMLNUM );
                               }
                               RES = RES / DEN;
-                              if( ( X( 1, 1 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs() <= SMLNUM* ( CA*A( 1, 1 )-WR*D1 ) ).abs()RES = ZERO;
+                              if( ( X( 1, 1 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs() <= SMLNUM* ( CA*A( 1, 1 )-WR*D1 ).abs() ) RES = ZERO;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
                               RES = RES + ABS( XNORM-( X( 1, 1 ) ).abs() ) / max( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                               KNT = KNT + 1;
@@ -163,7 +163,7 @@
                                     DEN = max( SMIN*( ( X( 1, 1 ) ).abs()+( X( 1, 2 ) ).abs() ), SMLNUM );
                                  }
                                  RES = RES / DEN;
-                                 if( ( X( 1, 1 ) ).abs() < UNFL && ( X( 1, 2 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs() <= SMLNUM* ( CA*A( 1, 1 )-WR*D1 ) ).abs() RES = ZERO;
+                                 if( ( X( 1, 1 ) ).abs() < UNFL && ( X( 1, 2 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs() <= SMLNUM* ( CA*A( 1, 1 )-WR*D1 ).abs() ) RES = ZERO;
                                  if (SCALE > ONE) RES = RES + ONE / EPS;
                                  RES = RES + ABS( XNORM- ( X( 1, 1 ) ).abs()- ( X( 1, 2 ) ).abs() ) / max( SMLNUM, XNORM ) / EPS;
                                  if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
@@ -204,12 +204,12 @@
                               }
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )-SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )-SCALE*B( 2, 1 ) );
                               if ( INFO == 0 ) {
-                                 DEN = max( EPS*( max( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs(), ( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ) ).abs()*max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() ) ), SMLNUM );
+                                 DEN = max( EPS*( max( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs(), ( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ).abs() )*max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() ) ), SMLNUM );
                               } else {
-                                 DEN = max( EPS*( max( SMIN / EPS, max( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs(), ( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ) ).abs() )*max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() ) ), SMLNUM );
+                                 DEN = max( EPS*( max( SMIN / EPS, max( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs(), ( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ).abs() ) )*max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() ) ), SMLNUM );
                               }
                               RES = RES / DEN;
-                              if( ( X( 1, 1 ) ).abs() < UNFL && ( X( 2, 1 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs()+( B( 2, 1 ) ).abs() <= SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs()+( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ) ).abs() ) RES = ZERO;
+                              if( ( X( 1, 1 ) ).abs() < UNFL && ( X( 2, 1 ) ).abs() < UNFL && ( B( 1, 1 ) ).abs()+( B( 2, 1 ) ).abs() <= SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+( CA*A( 1, 2 ) ).abs()+( CA*A( 2, 1 ) ).abs()+( CA*A( 2, 2 )-WR*D2 ).abs() ) ) RES = ZERO;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
                               RES = RES + ABS( XNORM- max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() ) ) / max( SMLNUM, XNORM ) / EPS;
                               if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;

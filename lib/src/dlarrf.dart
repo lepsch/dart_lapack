@@ -221,7 +221,7 @@ import 'package:lapack/src/xerbla.dart';
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = max( TMP, ( DPLUS( I ) * PROD )).abs();
+            TMP = max( TMP, ( DPLUS( I ) * PROD ).abs());
          } // 15
          RRR1 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR1 <= MAXGROWTH2) {
@@ -242,7 +242,7 @@ import 'package:lapack/src/xerbla.dart';
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = max( TMP, ( WORK( I ) * PROD )).abs();
+            TMP = max( TMP, ( WORK( I ) * PROD ).abs());
          } // 16
          RRR2 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR2 <= MAXGROWTH2) {
