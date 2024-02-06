@@ -157,8 +157,8 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
- 9999 FORMAT( ' DLATMS in DCKGQR:    INFO = ', I5 );
- 9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
- 9997 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
+ 9999 FORMAT( ' DLATMS in DCKGQR:    INFO = ${.i5}');
+ 9998 FORMAT( ' M=${.i4} P=${.i4}, N=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
+ 9997 FORMAT( ' N=${.i4} M=${.i4}, P=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
       return;
       }

@@ -163,7 +163,7 @@ Future<void> dchkec(
     );
   }
 
-  dget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN);
+  await dget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN);
   if (RTRSNA[1] > THRESH ||
       RTRSNA[2] > THRESH ||
       NTRSNA[1] != 0 ||
@@ -175,7 +175,7 @@ Future<void> dchkec(
     );
   }
 
-  dget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN);
+  await dget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN);
   if (RTRSEN[1] > THRESH ||
       RTRSEN[2] > THRESH ||
       NTRSEN[1] != 0 ||
@@ -195,7 +195,7 @@ Future<void> dchkec(
     );
   }
 
-  dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN);
+  await dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN);
   if (RTGEXC.value > THRESH) {
     OK = false;
     NOUT.println(

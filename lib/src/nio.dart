@@ -60,10 +60,28 @@ class Nin {
     return (a[1], a[2], a[3]);
   }
 
+  Future<(int, int, int, int)> readInt4() async {
+    final a = Array<int>(4);
+    await readArray(a, 4);
+    return (a[1], a[2], a[3], a[4]);
+  }
+
   Future<double> readDouble() async {
     final a = Array<double>(1);
     await readArray(a, 1);
     return a[1];
+  }
+
+  Future<(double, double)> readDouble2() async {
+    final a = Array<double>(2);
+    await readArray(a, 2);
+    return (a[1], a[2]);
+  }
+
+  Future<(double, double, double, double)> readDouble4() async {
+    final a = Array<double>(4);
+    await readArray(a, 4);
+    return (a[1], a[2], a[3], a[4]);
   }
 
   Future<bool> readBool() async {

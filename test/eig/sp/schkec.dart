@@ -118,21 +118,21 @@
       NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS;
 
       return;
- 9999 FORMAT( ' Error in SLALN2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9998 FORMAT( ' Error in SLASY2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9997 FORMAT( ' Error in SLANV2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9996 FORMAT( ' Error in SLAEXC: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9995 FORMAT( ' Error in STRSYL: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9994 FORMAT( ' Error in STREXC: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', 3I8, ' KNT=', I8 );
- 9993 FORMAT( ' Error in STRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9992 FORMAT( ' Error in STRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9991 FORMAT( ' Error in SLAQTR: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
- 9990 FORMAT( / 1X, 'All tests for ', A3, ' routines passed the thresh', 'old ( ', I6, ' tests run)' );
- 9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estim', 'ation routines', / ' SLALN2, SLASY2, SLANV2, SLAEXC, STRS', 'YL, STREXC, STRSNA, STRSEN, SLAQTR', / );
- 9988 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe ', 'minimum (SFMIN)             = ', E16.6, / );
- 9987 FORMAT( ' Routines pass computational tests if test ratio is les', 's than', F8.2, / / );
- 9986 FORMAT( ' Error in STGEXC: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
- 9972 FORMAT( 'STRSYL and STRSYL3 compute an inconsistent result ', 'factor in ', I8, ' tests.');
- 9971 FORMAT( 'Error in STRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9970 FORMAT( 'Error in STRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9999 FORMAT( ' Error in SLALN2: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=', 2I8, ' KNT=${.i8}');
+ 9998 FORMAT( ' Error in SLASY2: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9997 FORMAT( ' Error in SLANV2: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9996 FORMAT( ' Error in SLAEXC: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=', 2I8, ' KNT=${.i8}');
+ 9995 FORMAT( ' Error in STRSYL: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9994 FORMAT( ' Error in STREXC: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=', 3I8, ' KNT=${.i8}');
+ 9993 FORMAT( ' Error in STRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
+ 9992 FORMAT( ' Error in STRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
+ 9991 FORMAT( ' Error in SLAQTR: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9990 FORMAT( / 1X, 'All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
+ 9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n SLALN2, SLASY2, SLANV2, SLAEXC, STRSYL, STREXC, STRSNA, STRSEN, SLAQTR', / );
+ 9988 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe minimum (SFMIN)             = ', E16.6, / );
+ 9987 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
+ 9986 FORMAT( ' Error in STGEXC: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=', 2I8, ' KNT=${.i8}');
+ 9972 FORMAT( 'STRSYL and STRSYL3 compute an inconsistent result factor in ${.i8} tests.');
+ 9971 FORMAT( 'Error in STRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9970 FORMAT( 'Error in STRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
       }

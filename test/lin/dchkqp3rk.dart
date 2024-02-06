@@ -559,5 +559,5 @@ import 'common.dart';
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9999 FORMAT( 1X, A, ' M =${.i5}, N =${.i5}, NRHS =${.i5}, KMAX =${.i5}, ABSTOL =${.g12_5}, RELTOL =${.g12_5}, NB =${.i4}, NX =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
       }

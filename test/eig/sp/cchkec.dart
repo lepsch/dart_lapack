@@ -79,16 +79,16 @@
       NTESTS = KTRSYL + KTREXC + KTRSNA + KTRSEN;
       if (OK) WRITE( NOUT, FMT = 9995 )PATH, NTESTS;
 
- 9999 FORMAT( ' Error in CTRSYL: RMAX =', E12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 );
- 9998 FORMAT( ' Error in CTREXC: RMAX =', E12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 );
- 9997 FORMAT( ' Error in CTRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9996 FORMAT( ' Error in CTRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 );
- 9995 FORMAT( / 1X, 'All tests for ', A3, ' routines passed the threshold ( ', I6, ' tests run)' );
- 9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition', ' estimation routines', / ' CTRSYL, CTREXC, CTRSNA, CTRSEN', / );
+ 9999 FORMAT( ' Error in CTRSYL: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9998 FORMAT( ' Error in CTREXC: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
+ 9997 FORMAT( ' Error in CTRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
+ 9996 FORMAT( ' Error in CTRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
+ 9995 FORMAT( / 1X, 'All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
+ 9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n CTRSYL, CTREXC, CTRSNA, CTRSEN', / );
  9993 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe minimum (SFMIN)             = ', E16.6, / );
- 9992 FORMAT( ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / / );
- 9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale ', 'factor in ', I8, ' tests.');
- 9971 FORMAT( 'Error in CTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9970 FORMAT( 'Error in CTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9992 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
+ 9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale factor in ${.i8} tests.');
+ 9971 FORMAT( 'Error in CTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9970 FORMAT( 'Error in CTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
       return;
       }

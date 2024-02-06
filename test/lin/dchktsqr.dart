@@ -130,7 +130,7 @@ import 'common.dart';
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 'TS: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 );
- 9998 FORMAT( 'SW: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 );
+ 9999 FORMAT( 'TS: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
+ 9998 FORMAT( 'SW: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
       return;
       }

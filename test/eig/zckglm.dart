@@ -118,8 +118,8 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
- 9999 FORMAT( ' ZLATMS in ZCKGLM INFO = ', I5 );
- 9998 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
- 9997 FORMAT( ' *** Invalid input  for GLM:  M = ', I6, ', P = ', I6, ', N = ', I6, ';', / '     must satisfy M <= N <= M+P  ', '(this set of values will be skipped)' )
+ 9999 FORMAT( ' ZLATMS in ZCKGLM INFO = ${.i5}');
+ 9998 FORMAT( ' N=${.i4} M=${.i4}, P=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
+ 9997 FORMAT( ' *** Invalid input  for GLM:  M = ${.i6}, P = ${.i6}, N = ${.i6};\n     must satisfy M <= N <= M+P  (this set of values will be skipped)' )
       return;
       }

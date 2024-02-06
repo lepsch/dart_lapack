@@ -330,7 +330,7 @@
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
       void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
@@ -428,6 +428,6 @@
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE                                COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
       }

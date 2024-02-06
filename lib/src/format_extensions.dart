@@ -15,7 +15,9 @@ extension IntFormatExtension on int {
 extension DoubleFormatExtension on double {
   String get f4_2 => toStringAsFixed(2).padLeft(4);
   String get f8_2 => toStringAsFixed(2).padLeft(8);
+  String get f12_2 => toStringAsFixed(2).padLeft(12);
 
+  String get d10_3 => toStringAsFixed(3).padLeft(10);
   String get d12_3 => toStringAsFixed(3).padLeft(12);
   String get d12_4 => toStringAsFixed(4).padLeft(12);
   String get d16_6 => toStringAsFixed(6).padLeft(16);
@@ -39,6 +41,8 @@ extension IntArrayFormatExtension on Array<int> {
       [for (var i = 1; i <= x; i++) this[i]].map((n) => n.i4).join(separator);
   String i5(int x, [String separator = '']) =>
       [for (var i = 1; i <= x; i++) this[i]].map((n) => n.i5).join(separator);
+  String i6(int x, [String separator = '']) =>
+      [for (var i = 1; i <= x; i++) this[i]].map((n) => n.i6).join(separator);
   String i8(int x, [String separator = '']) =>
       [for (var i = 1; i <= x; i++) this[i]].map((n) => n.i8).join(separator);
 }

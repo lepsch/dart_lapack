@@ -644,123 +644,123 @@
 
       // First line of header
 
- 9999 FORMAT( / 1X, A3, ':  General dense matrices' );
- 9998 FORMAT( / 1X, A3, ':  General band matrices' );
- 9997 FORMAT( / 1X, A3, ':  General tridiagonal' );
- 9996 FORMAT( / 1X, A3, ':  ', A9, ' positive definite matrices' );
- 9995 FORMAT( / 1X, A3, ':  ', A9, ' positive definite packed matrices' );
- 9994 FORMAT( / 1X, A3, ':  ', A9, ' positive definite band matrices' );
- 9993 FORMAT( / 1X, A3, ':  ', A9, ' positive definite tridiagonal' );
- 9992 FORMAT( / 1X, A3, ':  ', A9, ' indefinite matrices', ', partial (Bunch-Kaufman) pivoting' );
- 9991 FORMAT( / 1X, A3, ':  ', A9, ' indefinite packed matrices', ', partial (Bunch-Kaufman) pivoting' );
- 9892 FORMAT( / 1X, A3, ':  ', A9, ' indefinite matrices', ', "rook" (bounded Bunch-Kaufman) pivoting' );
- 9891 FORMAT( / 1X, A3, ':  ', A9, ' indefinite packed matrices', ', "rook" (bounded Bunch-Kaufman) pivoting' );
- 9990 FORMAT( / 1X, A3, ':  Triangular matrices' );
- 9989 FORMAT( / 1X, A3, ':  Triangular packed matrices' );
- 9988 FORMAT( / 1X, A3, ':  Triangular band matrices' );
- 9987 FORMAT( / 1X, A3, ':  ', A2, ' factorization of general matrices' );
- 9986 FORMAT( / 1X, A3, ':  QR factorization with column pivoting' );
- 9985 FORMAT( / 1X, A3, ':  RQ factorization of trapezoidal matrix' );
- 9984 FORMAT( / 1X, A3, ':  Least squares driver routines' );
- 9983 FORMAT( / 1X, A3, ':  LU factorization variants' );
- 9982 FORMAT( / 1X, A3, ':  Cholesky factorization variants' );
- 9981 FORMAT( / 1X, A3, ':  QR factorization variants' );
- 9980 FORMAT( / 1X, A3, ':  No header available' );
- 8000 FORMAT( / 1X, A3, ':  QRT factorization for general matrices' );
- 8001 FORMAT( / 1X, A3, ':  QRT factorization for ', 'triangular-pentagonal matrices' );
- 8002 FORMAT( / 1X, A3, ':  LQT factorization for general matrices' );
- 8003 FORMAT( / 1X, A3, ':  LQT factorization for ', 'triangular-pentagonal matrices' );
- 8004 FORMAT( / 1X, A3, ':  TS factorization for ', 'tall-skinny or short-wide matrices' );
- 8005 FORMAT( / 1X, A3, ':  Householder reconstruction from TSQR', ' factorization output ', /,' for tall-skinny matrices.' );
- 8006 FORMAT( / 1X, A3, ':  truncated QR factorization', ' with column pivoting' );
+ 9999 FORMAT( / 1X, '${.a3}:  General dense matrices' );
+ 9998 FORMAT( / 1X, '${.a3}:  General band matrices' );
+ 9997 FORMAT( / 1X, '${.a3}:  General tridiagonal' );
+ 9996 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite matrices' );
+ 9995 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite packed matrices' );
+ 9994 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite band matrices' );
+ 9993 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite tridiagonal' );
+ 9992 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite matrices, partial (Bunch-Kaufman) pivoting' );
+ 9991 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting' );
+ 9892 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9891 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9990 FORMAT( / 1X, '${.a3}:  Triangular matrices' );
+ 9989 FORMAT( / 1X, '${.a3}:  Triangular packed matrices' );
+ 9988 FORMAT( / 1X, '${.a3}:  Triangular band matrices' );
+ 9987 FORMAT( / 1X, '${.a3}:  ${.a2} factorization of general matrices' );
+ 9986 FORMAT( / 1X, '${.a3}:  QR factorization with column pivoting' );
+ 9985 FORMAT( / 1X, '${.a3}:  RQ factorization of trapezoidal matrix' );
+ 9984 FORMAT( / 1X, '${.a3}:  Least squares driver routines' );
+ 9983 FORMAT( / 1X, '${.a3}:  LU factorization variants' );
+ 9982 FORMAT( / 1X, '${.a3}:  Cholesky factorization variants' );
+ 9981 FORMAT( / 1X, '${.a3}:  QR factorization variants' );
+ 9980 FORMAT( / 1X, '${.a3}:  No header available' );
+ 8000 FORMAT( / 1X, '${.a3}:  QRT factorization for general matrices' );
+ 8001 FORMAT( / 1X, '${.a3}:  QRT factorization for triangular-pentagonal matrices' );
+ 8002 FORMAT( / 1X, '${.a3}:  LQT factorization for general matrices' );
+ 8003 FORMAT( / 1X, '${.a3}:  LQT factorization for triangular-pentagonal matrices' );
+ 8004 FORMAT( / 1X, '${.a3}:  TS factorization for tall-skinny or short-wide matrices' );
+ 8005 FORMAT( / 1X, '${.a3}:  Householder reconstruction from TSQR factorization output ', /,' for tall-skinny matrices.' );
+ 8006 FORMAT( / 1X, '${.a3}:  truncated QR factorization with column pivoting' );
 
       // GE matrix types
 
- 9979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' );
+ 9979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n${' ' * 4}2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n${' ' * 4}5. First column zero${' ' * 14}11. Scaled near overflow\n${' ' * 4}6. Last column zero' );
 
       // GB matrix types
 
- 9978 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X, '5. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '2. First column zero', 15X, '6. Random, CNDNUM = .01/EPS', / 4X, '3. Last column zero', 16X, '7. Scaled near underflow', / 4X, '4. Last n/2 columns zero', 11X, '8. Scaled near overflow' );
+ 9978 FORMAT('    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. First column zero${' ' * 15}6. Random, CNDNUM = .01/EPS\n${' ' * 4}3. Last column zero${' ' * 16}7. Scaled near underflow\n${' ' * 4}4. Last n/2 columns zero${' ' * 11}8. Scaled near overflow' );
 
       // GT matrix types
 
- 9977 FORMAT( ' Matrix types (1-6 have specified condition numbers):', / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM', / 4X, '2. Random, CNDNUM = 2', 14X, '8. First column zero', / 4X, '3. Random, CNDNUM = sqrt(0.1/EPS)', 2X, '9. Last column zero', / 4X, '4. Random, CNDNUM = 0.1/EPS', 7X, '10. Last n/2 columns zero', / 4X, '5. Scaled near underflow', 10X, '11. Scaled near underflow', / 4X, '6. Scaled near overflow', 11X, '12. Scaled near overflow' );
+ 9977 FORMAT( ' Matrix types (1-6 have specified condition numbers):\n${' ' * 4}1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. First column zero\n${' ' * 4}3. Random, CNDNUM = sqrt(0.1/EPS)${' ' * 2}9. Last column zero\n${' ' * 4}4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Last n/2 columns zero\n${' ' * 4}5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n${' ' * 4}6. Scaled near overflow${' ' * 11}12. Scaled near overflow' );
 
       // PT matrix types
 
- 9976 FORMAT( ' Matrix types (1-6 have specified condition numbers):', / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM', / 4X, '2. Random, CNDNUM = 2', 14X, '8. First row and column zero', / 4X, '3. Random, CNDNUM = sqrt(0.1/EPS)', 2X, '9. Last row and column zero', / 4X, '4. Random, CNDNUM = 0.1/EPS', 7X, '10. Middle row and column zero', / 4X, '5. Scaled near underflow', 10X, '11. Scaled near underflow', / 4X, '6. Scaled near overflow', 11X, '12. Scaled near overflow' );
+ 9976 FORMAT( ' Matrix types (1-6 have specified condition numbers):\n${' ' * 4}1. Diagonal${' ' * 24}7. Random, unspecified CNDNUM\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. First row and column zero\n${' ' * 4}3. Random, CNDNUM = sqrt(0.1/EPS)${' ' * 2}9. Last row and column zero\n${' ' * 4}4. Random, CNDNUM = 0.1/EPS${' ' * 7}10. Middle row and column zero\n${' ' * 4}5. Scaled near underflow${' ' * 10}11. Scaled near underflow\n${' ' * 4}6. Scaled near overflow${' ' * 11}12. Scaled near overflow' );
 
       // PO, PP matrix types
 
- 9975 FORMAT( 4X, '1. Diagonal', 24X, '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '2. Random, CNDNUM = 2', 14X, '7. Random, CNDNUM = 0.1/EPS', / 3X, '*3. First row and column zero', 7X, '8. Scaled near underflow', / 3X, '*4. Last row and column zero', 8X, '9. Scaled near overflow', / 3X, '*5. Middle row and column zero', / 3X, '(* - tests error exits from ', A3, 'TRF, no test ratios are computed)' );
+ 9975 FORMAT('    1. Diagonal${' ' * 24}6. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = 0.1/EPS\n${' ' * 3}*3. First row and column zero${' ' * 7}8. Scaled near underflow\n${' ' * 3}*4. Last row and column zero${' ' * 8}9. Scaled near overflow\n${' ' * 3}*5. Middle row and column zero\n${' ' * 3}(* - tests error exits from ${.a3}TRF, no test ratios are computed)' );
 
       // CH matrix types
 
- 9974 FORMAT( 4X, '1. Diagonal', 24X, '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '2. Random, CNDNUM = 2', 14X, '7. Random, CNDNUM = 0.1/EPS', / 3X, '*3. First row and column zero', 7X, '8. Scaled near underflow', / 3X, '*4. Last row and column zero', 8X, '9. Scaled near overflow', / 3X, '*5. Middle row and column zero', / 3X, '(* - tests error exits, no test ratios are computed)' );
+ 9974 FORMAT('    1. Diagonal${' ' * 24}6. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = 0.1/EPS\n${' ' * 3}*3. First row and column zero${' ' * 7}8. Scaled near underflow\n${' ' * 3}*4. Last row and column zero${' ' * 8}9. Scaled near overflow\n${' ' * 3}*5. Middle row and column zero\n${' ' * 3}(* - tests error exits, no test ratios are computed)' );
 
       // PS matrix types
 
- 8973 FORMAT( 4X, '1. Diagonal', / 4X, '2. Random, CNDNUM = 2', 14X, / 3X, '*3. Nonzero eigenvalues of: D(1:RANK-1)=1 and ', 'D(RANK) = 1.0/', A4, / 3X, '*4. Nonzero eigenvalues of: D(1)=1 and ', ' D(2:RANK) = 1.0/', A4, / 3X, '*5. Nonzero eigenvalues of: D(I) = ', A4, '**(-(I-1)/(RANK-1)) ', ' I=1:RANK', / 4X, '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '7. Random, CNDNUM = 0.1/EPS', / 4X, '8. Scaled near underflow', / 4X, '9. Scaled near overflow', / 3X, '(* - Semi-definite tests )' );
- 8972 FORMAT( 3X, 'RANK minus computed rank, returned by ', A, 'PSTRF' );
+ 8973 FORMAT('    1. Diagonal\n${' ' * 4}2. Random, CNDNUM = 2', 14X, / 3X, '*3. Nonzero eigenvalues of: D(1:RANK-1)=1 and D(RANK) = 1.0/', A4, / 3X, '*4. Nonzero eigenvalues of: D(1)=1 and  D(2:RANK) = 1.0/', A4, / 3X, '*5. Nonzero eigenvalues of: D(I) = ${.a4}**(-(I-1)/(RANK-1))  I=1:RANK\n${' ' * 4}6. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}7. Random, CNDNUM = 0.1/EPS\n${' ' * 4}8. Scaled near underflow\n${' ' * 4}9. Scaled near overflow\n${' ' * 3}(* - Semi-definite tests )' );
+ 8972 FORMAT('   RANK minus computed rank, returned by ${}PSTRF' );
 
       // PB matrix types
 
- 9973 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X, '5. Random, CNDNUM = sqrt(0.1/EPS)', / 3X, '*2. First row and column zero', 7X, '6. Random, CNDNUM = 0.1/EPS', / 3X, '*3. Last row and column zero', 8X, '7. Scaled near underflow', / 3X, '*4. Middle row and column zero', 6X, '8. Scaled near overflow', / 3X, '(* - tests error exits from ', A3, 'TRF, no test ratios are computed)' );
+ 9973 FORMAT('    1. Random, CNDNUM = 2${' ' * 14}5. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 3}*2. First row and column zero${' ' * 7}6. Random, CNDNUM = 0.1/EPS\n${' ' * 3}*3. Last row and column zero${' ' * 8}7. Scaled near underflow\n${' ' * 3}*4. Middle row and column zero${' ' * 6}8. Scaled near overflow\n${' ' * 3}(* - tests error exits from ${.a3}TRF, no test ratios are computed)' );
 
       // SSY, SSR, SSP, CHE, CHR, CHP matrix types
 
- 9972 FORMAT( 4X, '1. Diagonal', 24X, '6. Last n/2 rows and columns zero', / 4X, '2. Random, CNDNUM = 2', 14X, '7. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. First row and column zero', 7X, '8. Random, CNDNUM = 0.1/EPS', / 4X, '4. Last row and column zero', 8X, '9. Scaled near underflow', / 4X, '5. Middle row and column zero', 5X, '10. Scaled near overflow' );
+ 9972 FORMAT('    1. Diagonal${' ' * 24}6. Last n/2 rows and columns zero\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. First row and column zero${' ' * 7}8. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Last row and column zero${' ' * 8}9. Scaled near underflow\n${' ' * 4}5. Middle row and column zero${' ' * 5}10. Scaled near overflow' );
 
       // CSY, CSR, CSP matrix types
 
- 9971 FORMAT( 4X, '1. Diagonal', 24X, '7. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '2. Random, CNDNUM = 2', 14X, '8. Random, CNDNUM = 0.1/EPS', / 4X, '3. First row and column zero', 7X, '9. Scaled near underflow', / 4X, '4. Last row and column zero', 7X, '10. Scaled near overflow', / 4X, '5. Middle row and column zero', 5X, '11. Block diagonal matrix', / 4X, '6. Last n/2 rows and columns zero' );
+ 9971 FORMAT('    1. Diagonal${' ' * 24}7. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}8. Random, CNDNUM = 0.1/EPS\n${' ' * 4}3. First row and column zero${' ' * 7}9. Scaled near underflow\n${' ' * 4}4. Last row and column zero${' ' * 7}10. Scaled near overflow\n${' ' * 4}5. Middle row and column zero${' ' * 5}11. Block diagonal matrix\n${' ' * 4}6. Last n/2 rows and columns zero' );
 
       // QR matrix types
 
- 9970 FORMAT( 4X, '1. Diagonal', 24X, '5. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '2. Upper triangular', 16X, '6. Random, CNDNUM = 0.1/EPS', / 4X, '3. Lower triangular', 16X, '7. Scaled near underflow', / 4X, '4. Random, CNDNUM = 2', 14X, '8. Scaled near overflow' );
+ 9970 FORMAT('    1. Diagonal${' ' * 24}5. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}2. Upper triangular${' ' * 16}6. Random, CNDNUM = 0.1/EPS\n${' ' * 4}3. Lower triangular${' ' * 16}7. Scaled near underflow\n${' ' * 4}4. Random, CNDNUM = 2${' ' * 14}8. Scaled near overflow' );
 
       // QP matrix types
 
- 9969 FORMAT( ' Matrix types (2-6 have condition 1/EPS):', / 4X, '1. Zero matrix', 21X, '4. First n/2 columns fixed', / 4X, '2. One small eigenvalue', 12X, '5. Last n/2 columns fixed', / 4X, '3. Geometric distribution', 10X, '6. Every second column fixed' );
+ 9969 FORMAT( ' Matrix types (2-6 have condition 1/EPS):\n${' ' * 4}1. Zero matrix${' ' * 21}4. First n/2 columns fixed\n${' ' * 4}2. One small eigenvalue${' ' * 12}5. Last n/2 columns fixed\n${' ' * 4}3. Geometric distribution${' ' * 10}6. Every second column fixed' );
 
       // QK matrix types
 
- 9871 FORMAT( 4X, ' 1. Zero matrix', / 4X, ' 2. Random, Diagonal, CNDNUM = 2', / 4X, ' 3. Random, Upper triangular, CNDNUM = 2', / 4X, ' 4. Random, Lower triangular, CNDNUM = 2', / 4X, ' 5. Random, First column is zero, CNDNUM = 2', / 4X, ' 6. Random, Last MINMN column is zero, CNDNUM = 2', / 4X, ' 7. Random, Last N column is zero, CNDNUM = 2', / 4X, ' 8. Random, Middle column in MINMN is zero,', ' CNDNUM = 2', / 4X, ' 9. Random, First half of MINMN columns are zero,', ' CNDNUM = 2', / 4X, '10. Random, Last columns are zero starting from', ' MINMN/2+1, CNDNUM = 2', / 4X, '11. Random, Half MINMN columns in the middle are', ' zero starting from MINMN/2-(MINMN/2)/2+1,', ' CNDNUM = 2', / 4X, '12. Random, Odd columns are ZERO, CNDNUM = 2', / 4X, '13. Random, Even columns are ZERO, CNDNUM = 2', / 4X, '14. Random, CNDNUM = 2', / 4X, '15. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '16. Random, CNDNUM = 0.1/EPS', / 4X, '17. Random, CNDNUM = 0.1/EPS,', ' one small singular value S(N)=1/CNDNUM', /  4X, '18. Random, CNDNUM = 2, scaled near underflow,',           ' NORM = SMALL = SAFMIN', /  4X, '19. Random, CNDNUM = 2, scaled near overflow,',      ' NORM = LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )' );
+ 9871 FORMAT('     1. Zero matrix\n${' ' * 4} 2. Random, Diagonal, CNDNUM = 2\n${' ' * 4} 3. Random, Upper triangular, CNDNUM = 2\n${' ' * 4} 4. Random, Lower triangular, CNDNUM = 2\n${' ' * 4} 5. Random, First column is zero, CNDNUM = 2\n${' ' * 4} 6. Random, Last MINMN column is zero, CNDNUM = 2\n${' ' * 4} 7. Random, Last N column is zero, CNDNUM = 2\n${' ' * 4} 8. Random, Middle column in MINMN is zero, CNDNUM = 2\n${' ' * 4} 9. Random, First half of MINMN columns are zero, CNDNUM = 2\n${' ' * 4}10. Random, Last columns are zero starting from MINMN/2+1, CNDNUM = 2\n${' ' * 4}11. Random, Half MINMN columns in the middle are zero starting from MINMN/2-(MINMN/2)/2+1, CNDNUM = 2\n${' ' * 4}12. Random, Odd columns are ZERO, CNDNUM = 2\n${' ' * 4}13. Random, Even columns are ZERO, CNDNUM = 2\n${' ' * 4}14. Random, CNDNUM = 2\n${' ' * 4}15. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}16. Random, CNDNUM = 0.1/EPS\n${' ' * 4}17. Random, CNDNUM = 0.1/EPS, one small singular value S(N)=1/CNDNUM', /  4X, '18. Random, CNDNUM = 2, scaled near underflow,',           ' NORM = SMALL = SAFMIN', /  4X, '19. Random, CNDNUM = 2, scaled near overflow,',      ' NORM = LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )' );
 
       // TZ matrix types
 
- 9968 FORMAT( ' Matrix types (2-3 have condition 1/EPS):', / 4X, '1. Zero matrix', / 4X, '2. One small eigenvalue', / 4X, '3. Geometric distribution' );
+ 9968 FORMAT( ' Matrix types (2-3 have condition 1/EPS):\n${' ' * 4}1. Zero matrix\n${' ' * 4}2. One small eigenvalue\n${' ' * 4}3. Geometric distribution' );
 
       // LS matrix types
 
- 9967 FORMAT( ' Matrix types (1-3: full rank, 4-6: rank deficient):', / 4X, '1 and 4. Normal scaling', / 4X, '2 and 5. Scaled near overflow', / 4X, '3 and 6. Scaled near underflow' );
+ 9967 FORMAT( ' Matrix types (1-3: full rank, 4-6: rank deficient):\n${' ' * 4}1 and 4. Normal scaling\n${' ' * 4}2 and 5. Scaled near overflow\n${' ' * 4}3 and 6. Scaled near underflow' );
 
       // TR, TP matrix types
 
- 9966 FORMAT( ' Matrix types for ', A3, ' routines:', / 4X, '1. Diagonal', 24X, '6. Scaled near overflow', / 4X, '2. Random, CNDNUM = 2', 14X, '7. Identity', / 4X, '3. Random, CNDNUM = sqrt(0.1/EPS)  ', '8. Unit triangular, CNDNUM = 2', / 4X, '4. Random, CNDNUM = 0.1/EPS', 8X, '9. Unit, CNDNUM = sqrt(0.1/EPS)', / 4X, '5. Scaled near underflow', 10X, '10. Unit, CNDNUM = 0.1/EPS' );
- 9965 FORMAT( ' Special types for testing ', A, ':', / 3X, '11. Matrix elements are O(1), large right hand side', / 3X, '12. First diagonal causes overflow,', ' offdiagonal column norms < 1', / 3X, '13. First diagonal causes overflow,', ' offdiagonal column norms > 1', / 3X, '14. Growth factor underflows, solution does not overflow', / 3X, '15. Small diagonal causes gradual overflow', / 3X, '16. One zero diagonal element', / 3X, '17. Large offdiagonals cause overflow when adding a column' , / 3X, '18. Unit triangular with large right hand side' );
+ 9966 FORMAT( ' Matrix types for ${.a3} routines:\n${' ' * 4}1. Diagonal${' ' * 24}6. Scaled near overflow\n${' ' * 4}2. Random, CNDNUM = 2${' ' * 14}7. Identity\n${' ' * 4}3. Random, CNDNUM = sqrt(0.1/EPS)  8. Unit triangular, CNDNUM = 2\n${' ' * 4}4. Random, CNDNUM = 0.1/EPS${' ' * 8}9. Unit, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}5. Scaled near underflow${' ' * 10}10. Unit, CNDNUM = 0.1/EPS' );
+ 9965 FORMAT( ' Special types for testing ${}:\n${' ' * 3}11. Matrix elements are O(1), large right hand side\n${' ' * 3}12. First diagonal causes overflow, offdiagonal column norms < 1\n${' ' * 3}13. First diagonal causes overflow, offdiagonal column norms > 1\n${' ' * 3}14. Growth factor underflows, solution does not overflow\n${' ' * 3}15. Small diagonal causes gradual overflow\n${' ' * 3}16. One zero diagonal element\n${' ' * 3}17. Large offdiagonals cause overflow when adding a column' , / 3X, '18. Unit triangular with large right hand side' );
 
       // TB matrix types
 
- 9964 FORMAT( ' Matrix types for ', A3, ' routines:', / 4X, '1. Random, CNDNUM = 2', 14X, '6. Identity', / 4X, '2. Random, CNDNUM = sqrt(0.1/EPS)  ', '7. Unit triangular, CNDNUM = 2', / 4X, '3. Random, CNDNUM = 0.1/EPS', 8X, '8. Unit, CNDNUM = sqrt(0.1/EPS)', / 4X, '4. Scaled near underflow', 11X, '9. Unit, CNDNUM = 0.1/EPS', / 4X, '5. Scaled near overflow' );
- 9963 FORMAT( ' Special types for testing ', A, ':', / 3X, '10. Matrix elements are O(1), large right hand side', / 3X, '11. First diagonal causes overflow,', ' offdiagonal column norms < 1', / 3X, '12. First diagonal causes overflow,', ' offdiagonal column norms > 1', / 3X, '13. Growth factor underflows, solution does not overflow', / 3X, '14. Small diagonal causes gradual overflow', / 3X, '15. One zero diagonal element', / 3X, '16. Large offdiagonals cause overflow when adding a column' , / 3X, '17. Unit triangular with large right hand side' );
+ 9964 FORMAT( ' Matrix types for ${.a3} routines:\n${' ' * 4}1. Random, CNDNUM = 2${' ' * 14}6. Identity\n${' ' * 4}2. Random, CNDNUM = sqrt(0.1/EPS)  7. Unit triangular, CNDNUM = 2\n${' ' * 4}3. Random, CNDNUM = 0.1/EPS${' ' * 8}8. Unit, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}4. Scaled near underflow${' ' * 11}9. Unit, CNDNUM = 0.1/EPS\n${' ' * 4}5. Scaled near overflow' );
+ 9963 FORMAT( ' Special types for testing ${}:\n${' ' * 3}10. Matrix elements are O(1), large right hand side\n${' ' * 3}11. First diagonal causes overflow, offdiagonal column norms < 1\n${' ' * 3}12. First diagonal causes overflow, offdiagonal column norms > 1\n${' ' * 3}13. Growth factor underflows, solution does not overflow\n${' ' * 3}14. Small diagonal causes gradual overflow\n${' ' * 3}15. One zero diagonal element\n${' ' * 3}16. Large offdiagonals cause overflow when adding a column' , / 3X, '17. Unit triangular with large right hand side' );
 
       // Test ratios
 
  9962 FORMAT( 3X, I2, ': norm( L * U - A )  / ( N * norm(A) * EPS )' );
- 9961 FORMAT( 3X, I2, ': norm( I - A*AINV ) / ', '( N * norm(A) * norm(AINV) * EPS )' );
- 9960 FORMAT( 3X, I2, ': norm( B - A * X )  / ', '( norm(A) * norm(X) * EPS )' );
+ 9961 FORMAT( 3X, I2, ': norm( I - A*AINV ) / ( N * norm(A) * norm(AINV) * EPS )' );
+ 9960 FORMAT( 3X, I2, ': norm( B - A * X )  / ( norm(A) * norm(X) * EPS )' );
  6660 FORMAT( 3X, I2, ': diagonal is not non-negative');
- 9959 FORMAT( 3X, I2, ': norm( X - XACT )   / ', '( norm(XACT) * CNDNUM * EPS )' );
- 9958 FORMAT( 3X, I2, ': norm( X - XACT )   / ', '( norm(XACT) * CNDNUM * EPS ), refined' );
- 9957 FORMAT( 3X, I2, ': norm( X - XACT )   / ', '( norm(XACT) * (error bound) )' );
+ 9959 FORMAT( 3X, I2, ': norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS )' );
+ 9958 FORMAT( 3X, I2, ': norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS ), refined' );
+ 9957 FORMAT( 3X, I2, ': norm( X - XACT )   / ( norm(XACT) * (error bound) )' );
  9956 FORMAT( 3X, I2, ': (backward error)   / EPS' );
  9955 FORMAT( 3X, I2, ': RCOND * CNDNUM - 1.0' );
- 9954 FORMAT( 3X, I2, ': norm( U'' * U - A ) / ( N * norm(A) * EPS )', ', or', / 7X, 'norm( L * L'' - A ) / ( N * norm(A) * EPS )' );
- 8950 FORMAT( 3X, 'norm( P * U'' * U * P'' - A ) / ( N * norm(A) * EPS )', ', or', / 3X, 'norm( P * L * L'' * P'' - A ) / ( N * norm(A) * EPS )' );
- 9953 FORMAT( 3X, I2, ': norm( U*D*U'' - A ) / ( N * norm(A) * EPS )', ', or', / 7X, 'norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
- 9952 FORMAT( 3X, I2, ': norm( U''*D*U - A ) / ( N * norm(A) * EPS )', ', or', / 7X, 'norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
- 9951 FORMAT( ' Test ratio for ', A, ':', / 3X, I2, ': norm( s*b - A*x )  / ( norm(A) * norm(x) * EPS )' );
+ 9954 FORMAT( 3X, I2, ': norm( U'' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L'' - A ) / ( N * norm(A) * EPS )' );
+ 8950 FORMAT('   norm( P * U'' * U * P'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 3}norm( P * L * L'' * P'' - A ) / ( N * norm(A) * EPS )' );
+ 9953 FORMAT( 3X, I2, ': norm( U*D*U'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
+ 9952 FORMAT( 3X, I2, ': norm( U''*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
+ 9951 FORMAT( ' Test ratio for ${}:', / 3X, I2, ': norm( s*b - A*x )  / ( norm(A) * norm(x) * EPS )' );
  9950 FORMAT( 3X, I2, ': norm( R - Q'' * A ) / ( M * norm(A) * EPS )' );
  6950 FORMAT( 3X, I2, ': norm( R - Q'' * A ) / ( M * norm(A) * EPS ) [RFPG]' );
  9949 FORMAT( 3X, I2, ': norm( L - A * Q'' ) / ( N * norm(A) * EPS )' );
@@ -768,26 +768,26 @@
  9947 FORMAT( 3X, I2, ': norm( R - A * Q'' ) / ( N * norm(A) * EPS )' );
  9946 FORMAT( 3X, I2, ': norm( I - Q''*Q )   / ( M * EPS )' );
  9945 FORMAT( 3X, I2, ': norm( I - Q*Q'' )   / ( N * EPS )' );
- 9944 FORMAT( 3X, I2, ': norm( Q*C - Q*C )  / ', '( ', A1, ' * norm(C) * EPS )' );
- 9943 FORMAT( 3X, I2, ': norm( C*Q - C*Q )  / ', '( ', A1, ' * norm(C) * EPS )' );
- 9942 FORMAT( 3X, I2, ': norm( Q''*C - Q''*C )/ ', '( ', A1, ' * norm(C) * EPS )' );
- 9941 FORMAT( 3X, I2, ': norm( C*Q'' - C*Q'' )/ ', '( ', A1, ' * norm(C) * EPS )' );
- 9940 FORMAT( 3X, I2, ': norm(svd(A) - svd(R)) / ', '( M * norm(svd(R)) * EPS )' );
+ 9944 FORMAT( 3X, I2, ': norm( Q*C - Q*C )  / ( ${.a1} * norm(C) * EPS )' );
+ 9943 FORMAT( 3X, I2, ': norm( C*Q - C*Q )  / ( ${.a1} * norm(C) * EPS )' );
+ 9942 FORMAT( 3X, I2, ': norm( Q''*C - Q''*C )/ ( ${.a1} * norm(C) * EPS )' );
+ 9941 FORMAT( 3X, I2, ': norm( C*Q'' - C*Q'' )/ ( ${.a1} * norm(C) * EPS )' );
+ 9940 FORMAT( 3X, I2, ': norm(svd(A) - svd(R)) / ( M * norm(svd(R)) * EPS )' );
  9939 FORMAT( 3X, I2, ': norm( A*P - Q*R ) / ( M * norm(A) * EPS )');
  9938 FORMAT( 3X, I2, ': norm( I - Q''*Q ) / ( M * EPS )' );
  9937 FORMAT( 3X, I2, ': norm( A - R*Q )       / ( M * norm(A) * EPS )' );
- 9935 FORMAT( 3X, I2, ': norm( B - A * X )   / ', '( max(M,N) * norm(A) * norm(X) * EPS )' );
- 9934 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ', '( max(M,N,NRHS) * norm(A) * norm(B) * EPS )' );
- 9933 FORMAT( 3X, I2, ': norm(svd(A)-svd(R)) / ', '( min(M,N) * norm(svd(R)) * EPS )' );
+ 9935 FORMAT( 3X, I2, ': norm( B - A * X )   / ( max(M,N) * norm(A) * norm(X) * EPS )' );
+ 9934 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )' );
+ 9933 FORMAT( 3X, I2, ': norm(svd(A)-svd(R)) / ( min(M,N) * norm(svd(R)) * EPS )' );
  9932 FORMAT( 3X, I2, ': Check if X is in the row space of A or A''' );
- 9931 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ', '( max(M,N,NRHS) * norm(A) * norm(B) * EPS )', / 7X, 'if TRANS=''N'' and M >= N or TRANS=''T'' and M < N, ', 'otherwise', / 7X, 'check if X is in the row space of A or A'' ', '(overdetermined case)' );
- 9929 FORMAT( ' Test ratios (1-3: ', A1, 'TZRZF):' );
- 9919 FORMAT( 3X, ' 3-4: same as 1-2', 3X, ' 5-6: same as 1-2' );
- 9920 FORMAT( 3X, ' 11-14: same as 7-10', 3X, ' 15-18: same as 7-10' );
- 9921 FORMAT( ' Test ratios:', / '    (1-2: ', A1, 'GELS, 3-4: ', A1, 'GELST, 5-6: ', A1, 'GETSLS, 7-10: ', A1, 'GELSY, 11-14: ', A1, 'GETSS, 15-18: ', A1, 'GELSD)' );
- 9928 FORMAT( 7X, 'where ALPHA = ( 1 + sqrt( 17 ) ) / 8' );
- 9927 FORMAT( 3X, I2, ': ( Largest element in L ).abs()', / 12X, ' - ( 1 / ( 1 - ALPHA ) ) + THRESH' );
- 9926 FORMAT( 3X, I2, ': Largest 2-Norm of 2-by-2 pivots', / 12X, ' - ( ( 1 + ALPHA ) / ( 1 - ALPHA ) ) + THRESH' );
+ 9931 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )\n${' ' * 7}if TRANS=''N'' and M >= N or TRANS=''T'' and M < N, otherwise\n${' ' * 7}check if X is in the row space of A or A'' (overdetermined case)' );
+ 9929 FORMAT( ' Test ratios (1-3: ${.a1}TZRZF):' );
+ 9919 FORMAT('    3-4: same as 1-2${' ' * 3} 5-6: same as 1-2' );
+ 9920 FORMAT('    11-14: same as 7-10${' ' * 3} 15-18: same as 7-10' );
+ 9921 FORMAT( ' Test ratios:\n    (1-2: ${.a1}GELS, 3-4: ${.a1}GELST, 5-6: ${.a1}GETSLS, 7-10: ${.a1}GELSY, 11-14: ${.a1}GETSS, 15-18: ${.a1}GELSD)' );
+ 9928 FORMAT('${' ' * 7}where ALPHA = ( 1 + sqrt( 17 ) ) / 8' );
+ 9927 FORMAT( 3X, I2, ': ( Largest element in L ).abs()\n${' ' * 12} - ( 1 / ( 1 - ALPHA ) ) + THRESH' );
+ 9926 FORMAT( 3X, I2, ': Largest 2-Norm of 2-by-2 pivots\n${' ' * 12} - ( ( 1 + ALPHA ) / ( 1 - ALPHA ) ) + THRESH' );
  8011 FORMAT(3X,I2,': norm( R - Q''*A ) / ( M * norm(A) * EPS )' );
  8012 FORMAT(3X,I2,': norm( I - Q''*Q ) / ( M * EPS )' );
  8013 FORMAT(3X,I2,': norm( Q*C - Q*C ) / ( M * norm(C) * EPS )' );
@@ -826,10 +826,10 @@
  8054 FORMAT(3X,I2,': norm( C*Q - C*Q ) / ( M * norm(C) * EPS )' );
  8055 FORMAT(3X,I2,': norm( C*Q'' - C*Q'' ) / ( M * norm(C) * EPS )');
 
- 8060 FORMAT( 3X, I2, ': 2-norm(svd(A) - svd(R)) / ', '( max(M,N) * 2-norm(svd(R)) * EPS )' );
- 8061 FORMAT( 3X, I2, ': 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A)', ' * EPS )');
+ 8060 FORMAT( 3X, I2, ': 2-norm(svd(A) - svd(R)) / ( max(M,N) * 2-norm(svd(R)) * EPS )' );
+ 8061 FORMAT( 3X, I2, ': 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A) * EPS )');
  8062 FORMAT( 3X, I2, ': 1-norm( I - Q''*Q ) / ( M * EPS )' );
- 8063 FORMAT( 3X, I2, ': Returns 1.0e+100, if abs(R(K+1,K+1))', ' > abs(R(K,K)), where K=1:KFACT-1' );
+ 8063 FORMAT( 3X, I2, ': Returns 1.0e+100, if abs(R(K+1,K+1)) > abs(R(K,K)), where K=1:KFACT-1' );
  8064 FORMAT( 3X, I2, ': 1-norm(Q**T * B - Q**T * B ) / ( M * EPS )');
 
 

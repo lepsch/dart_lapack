@@ -11,21 +11,22 @@ import 'package:lapack/src/dtrevc.dart';
 import 'package:lapack/src/dtrsna.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
-void dget37(
+Future<void> dget37(
   final Array<double> RMAX,
   final Array<int> LMAX,
   final Array<int> NINFO,
   final Box<int> KNT,
-  final int NIN,
-) {
+  final Nin NIN,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const EPSIN = 5.9605e-8;
   const LDT = 20, LWORK = 2 * LDT * (10 + LDT);
-  int I, ICMP, IFND, ISCL, J, KMIN, M = 0, N = 0;
+  int I, ICMP, IFND, ISCL, J, KMIN, N = 0;
   double BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
   final SELECT = Array<bool>(LDT);
   final IWORK = Array<int>(2 * LDT), LCMP = Array<int>(3);
@@ -34,7 +35,7 @@ void dget37(
       T = Matrix<double>(LDT, LDT),
       TMP = Matrix<double>(LDT, LDT);
 
-  final DUM = Array<double>(1),
+  var DUM = Array<double>(1),
       S = Array<double>(LDT),
       SEP = Array<double>(LDT),
       SEPIN = Array<double>(LDT),
@@ -49,7 +50,7 @@ void dget37(
       WR = Array<double>(LDT),
       WRIN = Array<double>(LDT),
       WRTMP = Array<double>(LDT);
-  final INFO = Box(0);
+  final INFO = Box(0), M = Box(0);
 
   EPS = dlamch('P');
   SMLNUM = dlamch('S') / EPS;
@@ -78,20 +79,21 @@ void dget37(
   // imaginary part)
 
   while (true) {
-    READ( NIN, FMT = * )N;
+    N = await NIN.readInt();
     if (N == 0) return;
+    await NIN.readMatrix(TMP, N, N);
     for (I = 1; I <= N; I++) {
-       READ( NIN, FMT = * )( TMP[ I][ J ], J = 1, N );
-    }
-    for (I = 1; I <= N; I++) {
-       READ( NIN, FMT = * )WRIN[ I ], WIIN[ I ], SIN[ I ], SEPIN[ I ];
+      final (f1, f2, f3, f4) = await NIN.readDouble4();
+      WRIN[I] = f1;
+      WIIN[I] = f2;
+      SIN[I] = f3;
+      SEPIN[I] = f4;
     }
     TNRM = dlange('M', N, N, TMP, LDT, WORK);
 
     // Begin test
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
-
       KNT.value = KNT.value + 1;
       dlacpy('F', N, N, TMP, LDT, T, LDT);
       VMUL = VAL[ISCL];
@@ -101,7 +103,6 @@ void dget37(
       if (TNRM == ZERO) VMUL = ONE;
 
       // Compute eigenvalues and eigenvectors
-
       dgehrd(N, 1, N, T, LDT, WORK(1), WORK(N + 1), LWORK - N, INFO);
       if (INFO.value != 0) {
         LMAX[1] = KNT.value;
@@ -174,7 +175,7 @@ void dget37(
         SEP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
         INFO,
@@ -352,10 +353,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -386,10 +387,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -423,10 +424,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -457,10 +458,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -491,10 +492,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -573,10 +574,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -608,10 +609,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
@@ -643,10 +644,10 @@ void dget37(
         SEPTMP,
         N,
         M,
-        WORK,
+        WORK.asMatrix(N),
         N,
         IWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;

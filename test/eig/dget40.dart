@@ -4,16 +4,17 @@ import 'package:lapack/src/dlaset.dart';
 import 'package:lapack/src/dtgexc.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 import 'dget51.dart';
 
-void dget40(
+Future<void> dget40(
   final Box<double> RMAX,
   final Box<int> LMAX,
   final Array<int> NINFO,
   final Box<int> KNT,
-  final int NIN,
-) {
+  final Nin NIN,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -53,18 +54,14 @@ void dget40(
   // Read input data until N=0
 
   while (true) {
-    READ( NIN, FMT = * )N, IFST, ILST;
+    (N, IFST, ILST) = await NIN.readInt3();
     if (N == 0) return;
     KNT.value = KNT.value + 1;
-    for (I = 1; I <= N; I++) {
-       READ( NIN, FMT = * )( TMP[ I][ J ], J = 1, N );
-    }
+    await NIN.readMatrix(TMP, N, N);
     dlacpy('F', N, N, TMP, LDT, T, LDT);
     dlacpy('F', N, N, TMP, LDT, T1, LDT);
     dlacpy('F', N, N, TMP, LDT, T2, LDT);
-    for (I = 1; I <= N; I++) {
-       READ( NIN, FMT = * )( TMP[ I][ J ], J = 1, N );
-    }
+    await NIN.readMatrix(TMP, N, N);
     dlacpy('F', N, N, TMP, LDT, S, LDT);
     dlacpy('F', N, N, TMP, LDT, S1, LDT);
     dlacpy('F', N, N, TMP, LDT, S2, LDT);
@@ -80,8 +77,24 @@ void dget40(
 
     dlaset('Full', N, N, ZERO, ONE, Q, LDT);
     dlaset('Full', N, N, ZERO, ONE, Z, LDT);
-    dtgexc(false, false, N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1,
-        WORK, LWORK, NINFO(1));
+    dtgexc(
+      false,
+      false,
+      N,
+      T1,
+      LDT,
+      S1,
+      LDT,
+      Q,
+      LDT,
+      Z,
+      LDT,
+      IFST1,
+      ILST1,
+      WORK,
+      LWORK,
+      NINFO(1),
+    );
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
         if (I == J && Q[I][J] != ONE) RES = RES + ONE / EPS;
@@ -95,8 +108,24 @@ void dget40(
 
     dlaset('Full', N, N, ZERO, ONE, Q, LDT);
     dlaset('Full', N, N, ZERO, ONE, Z, LDT);
-    dtgexc(true, true, N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK,
-        LWORK, NINFO(2));
+    dtgexc(
+      true,
+      true,
+      N,
+      T2,
+      LDT,
+      S2,
+      LDT,
+      Q,
+      LDT,
+      Z,
+      LDT,
+      IFST2,
+      ILST2,
+      WORK,
+      LWORK,
+      NINFO(2),
+    );
 
     // Compare T1 with T2 and S1 with S2
 

@@ -296,6 +296,6 @@
       slasum('SBB', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' SCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' );
- 9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
+ 9999 FORMAT( ' SCHKBB: ${} returned INFO=${.i5}.\n${' ' * 9}M=${.i5} N=${.i5} K=${.i5}, JTYPE=${.i5}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9998 FORMAT( ' M =${.i4} N=${.i4}, K=${.i3}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
       }

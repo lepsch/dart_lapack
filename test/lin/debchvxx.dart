@@ -337,11 +337,11 @@
       } else {
          WRITE(*,9997) C2;
       }
- 9999 FORMAT( ' D', A2, 'SVXX: N =', I2, ', RHS = ', I2, ', NWISE GUAR. = ', A, ', CWISE GUAR. = ', A, ' test(',I1,') =', G12.5 );
- 9998 FORMAT( ' D', A2, 'SVXX: ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
- 9997 FORMAT( ' D', A2, 'SVXX passed the tests of error bounds' );
+ 9999 FORMAT( ' D${.a2}SVXX: N =${.i2}, RHS = ${.i2}, NWISE GUAR. = ${}, CWISE GUAR. = ${} test(',I1,') =${.g12_5};
+ 9998 FORMAT( ' D${.a2}SVXX: ${.i6} out of ${.i6} tests failed to pass the threshold' );
+ 9997 FORMAT( ' D${.a2}SVXX passed the tests of error bounds' );
       // Test ratios.
- 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X, 'Guaranteed case: if norm ( abs( Xc - Xt )', ' / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then', / 5X, 'ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
+ 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error\n${' ' * 5}Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n${' ' * 5}ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
  9995 FORMAT( 3X, I2, ': Componentwise guaranteed forward error' );
  9994 FORMAT( 3X, I2, ': Backwards error' );
  9993 FORMAT( 3X, I2, ': Reciprocal condition number' );
@@ -350,5 +350,5 @@
  9990 FORMAT( 3X, I2, ': Reciprocal componentwise condition number' );
  9989 FORMAT( 3X, I2, ': Raw componentwise error estimate' );
 
- 8000 FORMAT( ' D', A2, 'SVXX: N =', I2, ', INFO = ', I3, ', ORCOND = ', G12.5, ', real RCOND = ', G12.5 );
+ 8000 FORMAT( ' D${.a2}SVXX: N =${.i2}, INFO = ${.i3}, ORCOND = ${.g12_5}, real RCOND = ${.g12_5};
       }

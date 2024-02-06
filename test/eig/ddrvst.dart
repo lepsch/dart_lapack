@@ -3,11 +3,20 @@ import 'dart:math';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dsbev.dart';
+import 'package:lapack/src/dsbevd.dart';
+import 'package:lapack/src/dsbevx.dart';
+import 'package:lapack/src/dspev.dart';
+import 'package:lapack/src/dspevd.dart';
+import 'package:lapack/src/dspevx.dart';
 import 'package:lapack/src/dstev.dart';
 import 'package:lapack/src/dstevd.dart';
 import 'package:lapack/src/dstevr.dart';
 import 'package:lapack/src/dstevx.dart';
 import 'package:lapack/src/dsyev.dart';
+import 'package:lapack/src/dsyevd.dart';
+import 'package:lapack/src/dsyevr.dart';
+import 'package:lapack/src/dsyevx.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
@@ -17,11 +26,14 @@ import 'package:lapack/src/xerbla.dart';
 import '../matgen/dlarnd.dart';
 import '../matgen/dlatmr.dart';
 import '../matgen/dlatms.dart';
+import 'alasvm.dart';
 import 'common.dart';
-import 'ddrvst2stg.dart';
+import 'dlafts.dart';
 import 'dstt21.dart';
 import 'dstt22.dart';
 import 'dsxt1.dart';
+import 'dsyt21.dart';
+import 'dsyt22.dart';
 
 void ddrvst(
   final int NSIZES,
@@ -63,7 +75,7 @@ void ddrvst(
   String UPLO;
   int I,
       IDIAG,
-      IHBW,
+      IHBW = 0,
       IL,
       IMODE,
       INDX,
@@ -150,10 +162,9 @@ void ddrvst(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   // Check for errors
 
@@ -192,16 +203,14 @@ void ddrvst(
   // Loop over sizes, types
 
   for (I = 1; I <= 4; I++) {
-    // 20
     ISEED2[I] = ISEED[I];
     ISEED3[I] = ISEED[I];
-  } // 20
+  }
 
   NERRS = 0;
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 1740
     N = NN[JSIZE];
     if (N > 0) {
       LGN = (log(N.toDouble()) ~/ log(TWO));
@@ -224,16 +233,13 @@ void ddrvst(
     }
 
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-      // 1730
-
       if (!DOTYPE[JTYPE]) continue;
       NMATS = NMATS + 1;
       NTEST = 0;
 
       for (J = 1; J <= 4; J++) {
-        // 30
         IOLDSD[J] = ISEED[J];
-      } // 30
+      }
 
       // 2)      Compute "A"
       //
@@ -283,9 +289,8 @@ void ddrvst(
           // Identity
 
           for (JCOL = 1; JCOL <= N; JCOL++) {
-            // 80
             A[JCOL][JCOL] = ANORM;
-          } // 80
+          }
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
@@ -423,16 +428,14 @@ void ddrvst(
 
           dlaset('Full', LDA, N, ZERO, ZERO, A, LDA);
           for (IDIAG = -IHBW; IDIAG <= IHBW; IDIAG++) {
-            // 100
             IROW = IHBW - IDIAG + 1;
             J1 = max(1, IDIAG + 1);
             J2 = min(N, N + IDIAG);
             for (J = J1; J <= J2; J++) {
-              // 90
               I = J - IDIAG;
               A[I][J] = U[IROW][J];
-            } // 90
-          } // 100
+            }
+          }
         } else {
           IINFO.value = 1;
         }
@@ -464,13 +467,11 @@ void ddrvst(
         while (true) {
           NTEST = 1;
           for (I = 1; I <= N; I++) {
-            // 120
             D1[I] = (A[I][I]).toDouble();
-          } // 120
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 130
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 130
+          }
           srnamc.SRNAMT = 'DSTEV';
           dstev('V', N, D1, D2, Z, LDU, WORK, IINFO.value);
           if (IINFO.value != 0) {
@@ -489,20 +490,17 @@ void ddrvst(
           // Do tests 1 and 2.
 
           for (I = 1; I <= N; I++) {
-            // 140
             D3[I] = (A[I][I]).toDouble();
-          } // 140
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 150
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 150
+          }
           dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT[1]);
 
           NTEST = 3;
           for (I = 1; I <= N - 1; I++) {
-            // 160
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 160
+          }
           srnamc.SRNAMT = 'DSTEV';
           dstev('N', N, D3, D4, Z, LDU, WORK, IINFO.value);
           if (IINFO.value != 0) {
@@ -521,26 +519,23 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 170
-            TEMP1 = max(TEMP1, max(max((D1[J]).abs(), (D3[J]).abs())));
+            TEMP1 = max(TEMP1, max(D1[J].abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, (D1[J] - D3[J]).abs());
-          } // 170
+          }
           RESULT[3] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 180
+        }
 
         while (true) {
           NTEST = 4;
           for (I = 1; I <= N; I++) {
-            // 190
             EVEIGS[I] = D3[I];
             D1[I] = (A[I][I]).toDouble();
-          } // 190
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 200
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 200
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'V',
@@ -583,20 +578,17 @@ void ddrvst(
           // Do tests 4 and 5.
 
           for (I = 1; I <= N; I++) {
-            // 210
             D3[I] = (A[I][I]).toDouble();
-          } // 210
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 220
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 220
+          }
           dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT[4]);
 
           NTEST = 6;
           for (I = 1; I <= N - 1; I++) {
-            // 230
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 230
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'N',
@@ -634,25 +626,22 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 240
             TEMP1 = max(TEMP1, max((WA2[J]).abs(), (EVEIGS[J]).abs()));
             TEMP2 = max(TEMP2, (WA2[J] - EVEIGS[J]).abs());
-          } // 240
+          }
           RESULT[6] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 250
+        }
 
         while (true) {
           NTEST = 7;
           for (I = 1; I <= N; I++) {
-            // 260
             D1[I] = (A[I][I]).toDouble();
-          } // 260
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 270
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 270
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'V',
@@ -696,20 +685,17 @@ void ddrvst(
           // Do tests 7 and 8.
 
           for (I = 1; I <= N; I++) {
-            // 280
             D3[I] = (A[I][I]).toDouble();
-          } // 280
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 290
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 290
+          }
           dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT[7]);
 
           NTEST = 9;
           for (I = 1; I <= N - 1; I++) {
-            // 300
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 300
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'N',
@@ -749,24 +735,21 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 310
             TEMP1 = max(TEMP1, max((WA2[J]).abs(), (EVEIGS[J]).abs()));
             TEMP2 = max(TEMP2, (WA2[J] - EVEIGS[J]).abs());
-          } // 310
+          }
           RESULT[9] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           break;
-        } // 320
+        }
 
         while (true) {
           NTEST = 10;
           for (I = 1; I <= N; I++) {
-            // 330
             D1[I] = (A[I][I]).toDouble();
-          } // 330
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 340
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 340
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'V',
@@ -803,13 +786,11 @@ void ddrvst(
           // Do tests 10 and 11.
 
           for (I = 1; I <= N; I++) {
-            // 350
             D3[I] = (A[I][I]).toDouble();
-          } // 350
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 360
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 360
+          }
           dstt22(
             N,
             M2,
@@ -827,9 +808,8 @@ void ddrvst(
 
           NTEST = 12;
           for (I = 1; I <= N - 1; I++) {
-            // 370
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 370
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'N',
@@ -905,13 +885,11 @@ void ddrvst(
           }
 
           for (I = 1; I <= N; I++) {
-            // 390
             D1[I] = (A[I][I]).toDouble();
-          } // 390
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 400
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 400
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'V',
@@ -956,13 +934,11 @@ void ddrvst(
           // Do tests 13 and 14.
 
           for (I = 1; I <= N; I++) {
-            // 410
             D3[I] = (A[I][I]).toDouble();
-          } // 410
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 420
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 420
+          }
           dstt22(
             N,
             M2,
@@ -980,9 +956,8 @@ void ddrvst(
 
           NTEST = 15;
           for (I = 1; I <= N - 1; I++) {
-            // 430
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 430
+          }
           srnamc.SRNAMT = 'DSTEVX';
           dstevx(
             'N',
@@ -1022,18 +997,16 @@ void ddrvst(
           RESULT[15] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 440
+        }
 
         while (true) {
           NTEST = 16;
           for (I = 1; I <= N; I++) {
-            // 450
             D1[I] = (A[I][I]).toDouble();
-          } // 450
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 460
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 460
+          }
           srnamc.SRNAMT = 'DSTEVD';
           dstevd(
             'V',
@@ -1064,20 +1037,17 @@ void ddrvst(
           // Do tests 16 and 17.
 
           for (I = 1; I <= N; I++) {
-            // 470
             D3[I] = (A[I][I]).toDouble();
-          } // 470
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 480
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 480
+          }
           dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT[16]);
 
           NTEST = 18;
           for (I = 1; I <= N - 1; I++) {
-            // 490
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 490
+          }
           srnamc.SRNAMT = 'DSTEVD';
           dstevd(
             'N',
@@ -1108,24 +1078,21 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 500
             TEMP1 = max(TEMP1, max((EVEIGS[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, (EVEIGS[J] - D3[J]).abs());
-          } // 500
+          }
           RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           break;
-        } // 510
+        }
 
         while (true) {
           NTEST = 19;
           for (I = 1; I <= N; I++) {
-            // 520
             D1[I] = (A[I][I]).toDouble();
-          } // 520
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 530
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 530
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'V',
@@ -1165,13 +1132,11 @@ void ddrvst(
           // DO tests 19 and 20.
 
           for (I = 1; I <= N; I++) {
-            // 540
             D3[I] = (A[I][I]).toDouble();
-          } // 540
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 550
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 550
+          }
           dstt22(
             N,
             M2,
@@ -1189,9 +1154,8 @@ void ddrvst(
 
           NTEST = 21;
           for (I = 1; I <= N - 1; I++) {
-            // 560
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 560
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'N',
@@ -1232,7 +1196,7 @@ void ddrvst(
           TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
           RESULT[21] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
-        } // 570
+        }
 
         while (true) {
           NTEST = 21;
@@ -1269,13 +1233,11 @@ void ddrvst(
           }
 
           for (I = 1; I <= N; I++) {
-            // 580
             D1[I] = (A[I][I]).toDouble();
-          } // 580
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 590
             D2[I] = (A[I + 1][I]).toDouble();
-          } // 590
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'V',
@@ -1322,13 +1284,11 @@ void ddrvst(
           // Do tests 22 and 23.
 
           for (I = 1; I <= N; I++) {
-            // 600
             D3[I] = (A[I][I]).toDouble();
-          } // 600
+          }
           for (I = 1; I <= N - 1; I++) {
-            // 610
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 610
+          }
           dstt22(
             N,
             M2,
@@ -1346,9 +1306,8 @@ void ddrvst(
 
           NTEST = 24;
           for (I = 1; I <= N - 1; I++) {
-            // 620
             D4[I] = (A[I + 1][I]).toDouble();
-          } // 620
+          }
           srnamc.SRNAMT = 'DSTEVR';
           dstevr(
             'N',
@@ -1390,12 +1349,11 @@ void ddrvst(
           RESULT[24] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 630
+        }
       } else {
         for (I = 1; I <= 24; I++) {
-          // 640
           RESULT[I] = ZERO;
-        } // 640
+        }
         NTEST = 24;
       }
 
@@ -1403,7 +1361,6 @@ void ddrvst(
       // part of matrix.
 
       for (IUPLO = 0; IUPLO <= 1; IUPLO++) {
-        // 1720
         if (IUPLO == 0) {
           UPLO = 'L';
         } else {
@@ -1472,14 +1429,13 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 650
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 650
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 660
+        }
         dlacpy(' ', N, N, V, LDU, A, LDA);
 
         while (true) {
@@ -1631,14 +1587,13 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 670
             TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
-            TEMP2 = max(TEMP2, ABS(WA1[J] - WA2[J]));
-          } // 670
+            TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 680
+        }
 
         while (true) {
           NTEST = NTEST + 1;
@@ -1758,7 +1713,7 @@ void ddrvst(
           TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
-        } // 690
+        }
 
         while (true) {
           NTEST = NTEST + 1;
@@ -1889,7 +1844,7 @@ void ddrvst(
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 700
+        }
 
         while (true) {
           // 5)      Call DSPEV and DSPEVX.
@@ -1902,23 +1857,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 720
               for (I = 1; I <= J; I++) {
-                // 710
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 710
-            } // 720
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 740
               for (I = J; I <= N; I++) {
-                // 730
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 730
-            } // 740
+              }
+            }
           }
 
           NTEST = NTEST + 1;
@@ -1960,23 +1911,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 760
               for (I = 1; I <= J; I++) {
-                // 750
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 750
-            } // 760
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 780
               for (I = J; I <= N; I++) {
-                // 770
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 770
-            } // 780
+              }
+            }
           }
 
           NTEST = NTEST + 2;
@@ -1998,37 +1945,32 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 790
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 790
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           // Load array WORK with the upper or lower triangular part
           // of the matrix in packed form.
 
           break;
-        } // 800
+        }
         if (IUPLO == 1) {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 820
             for (I = 1; I <= J; I++) {
-              // 810
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 810
-          } // 820
+            }
+          }
         } else {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 840
             for (I = J; I <= N; I++) {
-              // 830
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 830
-          } // 840
+            }
+          }
         }
 
         while (true) {
@@ -2134,23 +2076,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 860
               for (I = 1; I <= J; I++) {
-                // 850
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 850
-            } // 860
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 880
               for (I = J; I <= N; I++) {
-                // 870
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 870
-            } // 880
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSPEVX';
@@ -2197,35 +2135,30 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 890
-            TEMP1 = max(TEMP1, (WA1[J]).abs(), (WA2[J]).abs());
-            TEMP2 = max(TEMP2, ABS(WA1[J] - WA2[J]));
-          } // 890
+            TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
+            TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 900
+        }
 
         if (IUPLO == 1) {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 920
             for (I = 1; I <= J; I++) {
-              // 910
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 910
-          } // 920
+            }
+          }
         } else {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 940
             for (I = J; I <= N; I++) {
-              // 930
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 930
-          } // 940
+            }
+          }
         }
 
         while (true) {
@@ -2298,23 +2231,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 960
               for (I = 1; I <= J; I++) {
-                // 950
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 950
-            } // 960
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 980
               for (I = J; I <= N; I++) {
-                // 970
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 970
-            } // 980
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSPEVX';
@@ -2373,27 +2302,23 @@ void ddrvst(
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 990
+        }
         if (IUPLO == 1) {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 1010
             for (I = 1; I <= J; I++) {
-              // 1000
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 1000
-          } // 1010
+            }
+          }
         } else {
           INDX = 1;
           for (J = 1; J <= N; J++) {
-            // 1030
             for (I = J; I <= N; I++) {
-              // 1020
               WORK[INDX] = A[I][J];
               INDX = INDX + 1;
-            } // 1020
-          } // 1030
+            }
+          }
         }
 
         while (true) {
@@ -2466,23 +2391,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1050
               for (I = 1; I <= J; I++) {
-                // 1040
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1040
-            } // 1050
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1070
               for (I = J; I <= N; I++) {
-                // 1060
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1060
-            } // 1070
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSPEVX';
@@ -2541,7 +2462,7 @@ void ddrvst(
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 1080
+        }
 
         // 6)      Call DSBEV and DSBEVX.
 
@@ -2558,20 +2479,16 @@ void ddrvst(
 
         if (IUPLO == 1) {
           for (J = 1; J <= N; J++) {
-            // 1100
             for (I = max(1, J - KD); I <= J; I++) {
-              // 1090
               V[KD + 1 + I - J][J] = A[I][J];
-            } // 1090
-          } // 1100
+            }
+          }
         } else {
           for (J = 1; J <= N; J++) {
-            // 1120
             for (I = J; I <= min(N, J + KD); I++) {
-              // 1110
               V[1 + I - J][J] = A[I][J];
-            } // 1110
-          } // 1120
+            }
+          }
         }
 
         while (true) {
@@ -2613,20 +2530,16 @@ void ddrvst(
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1140
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1130
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1130
-            } // 1140
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1160
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1150
                 V[1 + I - J][J] = A[I][J];
-              } // 1150
-            } // 1160
+              }
+            }
           }
 
           NTEST = NTEST + 2;
@@ -2648,33 +2561,28 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1170
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 1170
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           break;
-        } // 1180
+        }
 
         // Load array V with the upper or lower triangular part
         // of the matrix in band form.
 
         if (IUPLO == 1) {
           for (J = 1; J <= N; J++) {
-            // 1200
             for (I = max(1, J - KD); I <= J; I++) {
-              // 1190
               V[KD + 1 + I - J][J] = A[I][J];
-            } // 1190
-          } // 1200
+            }
+          }
         } else {
           for (J = 1; J <= N; J++) {
-            // 1220
             for (I = J; I <= min(N, J + KD); I++) {
-              // 1210
               V[1 + I - J][J] = A[I][J];
-            } // 1210
-          } // 1220
+            }
+          }
         }
 
         while (true) {
@@ -2748,20 +2656,16 @@ void ddrvst(
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1240
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1230
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1230
-            } // 1240
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1260
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1250
                 V[1 + I - J][J] = A[I][J];
-              } // 1250
-            } // 1260
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSBEVX';
@@ -2812,33 +2716,28 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1270
-            TEMP1 = max(TEMP1, (WA2[J]).abs(), (WA3[J]).abs());
-            TEMP2 = max(TEMP2, ABS(WA2[J] - WA3[J]));
-          } // 1270
+            TEMP1 = max(TEMP1, max((WA2[J]).abs(), (WA3[J]).abs()));
+            TEMP2 = max(TEMP2, (WA2[J] - WA3[J]).abs());
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 1280
+        }
 
         while (true) {
           NTEST = NTEST + 1;
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1300
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1290
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1290
-            } // 1300
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1320
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1310
                 V[1 + I - J][J] = A[I][J];
-              } // 1310
-            } // 1320
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSBEVX';
@@ -2911,20 +2810,16 @@ void ddrvst(
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1340
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1330
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1330
-            } // 1340
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1360
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1350
                 V[1 + I - J][J] = A[I][J];
-              } // 1350
-            } // 1360
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSBEVX';
@@ -2982,26 +2877,22 @@ void ddrvst(
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 1370
+        }
 
         while (true) {
           NTEST = NTEST + 1;
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1390
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1380
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1380
-            } // 1390
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1410
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1400
                 V[1 + I - J][J] = A[I][J];
-              } // 1400
-            } // 1410
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSBEVX';
@@ -3074,20 +2965,16 @@ void ddrvst(
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1430
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1420
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1420
-            } // 1430
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1450
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1440
                 V[1 + I - J][J] = A[I][J];
-              } // 1440
-            } // 1450
+              }
+            }
           }
 
           srnamc.SRNAMT = 'DSBEVX';
@@ -3150,7 +3037,7 @@ void ddrvst(
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
-        } // 1460
+        }
 
         while (true) {
           // 7)      Call DSYEVD
@@ -3238,14 +3125,13 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1470
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 1470
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 1480
+        }
 
         while (true) {
           // 8)      Call DSPEVD.
@@ -3258,23 +3144,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1500
               for (I = 1; I <= J; I++) {
-                // 1490
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1490
-            } // 1500
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1520
               for (I = J; I <= N; I++) {
-                // 1510
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1510
-            } // 1520
+              }
+            }
           }
 
           NTEST = NTEST + 1;
@@ -3329,24 +3211,19 @@ void ddrvst(
           if (IUPLO == 1) {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1540
               for (I = 1; I <= J; I++) {
-                // 1530
-
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1530
-            } // 1540
+              }
+            }
           } else {
             INDX = 1;
             for (J = 1; J <= N; J++) {
-              // 1560
               for (I = J; I <= N; I++) {
-                // 1550
                 WORK[INDX] = A[I][J];
                 INDX = INDX + 1;
-              } // 1550
-            } // 1560
+              }
+            }
           }
 
           NTEST = NTEST + 2;
@@ -3381,13 +3258,12 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1570
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 1570
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           break;
-        } // 1580
+        }
 
         // 9)      Call DSBEVD.
 
@@ -3404,20 +3280,16 @@ void ddrvst(
 
         if (IUPLO == 1) {
           for (J = 1; J <= N; J++) {
-            // 1600
             for (I = max(1, J - KD); I <= J; I++) {
-              // 1590
               V[KD + 1 + I - J][J] = A[I][J];
-            } // 1590
-          } // 1600
+            }
+          }
         } else {
           for (J = 1; J <= N; J++) {
-            // 1620
             for (I = J; I <= min(N, J + KD); I++) {
-              // 1610
               V[1 + I - J][J] = A[I][J];
-            } // 1610
-          } // 1620
+            }
+          }
         }
         while (true) {
           NTEST = NTEST + 1;
@@ -3473,20 +3345,16 @@ void ddrvst(
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
-              // 1640
               for (I = max(1, J - KD); I <= J; I++) {
-                // 1630
                 V[KD + 1 + I - J][J] = A[I][J];
-              } // 1630
-            } // 1640
+              }
+            }
           } else {
             for (J = 1; J <= N; J++) {
-              // 1660
               for (I = J; I <= min(N, J + KD); I++) {
-                // 1650
                 V[1 + I - J][J] = A[I][J];
-              } // 1650
-            } // 1660
+              }
+            }
           }
 
           NTEST = NTEST + 2;
@@ -3523,14 +3391,13 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1670
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D3[J]).abs()));
             TEMP2 = max(TEMP2, ((D1[J] - D3[J])).abs());
-          } // 1670
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 1680
+        }
 
         while (true) {
           dlacpy(' ', N, N, A, LDA, V, LDU);
@@ -3649,14 +3516,13 @@ void ddrvst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 1690
-            TEMP1 = max(TEMP1, (WA1[J]).abs(), (WA2[J]).abs());
-            TEMP2 = max(TEMP2, ABS(WA1[J] - WA2[J]));
-          } // 1690
+            TEMP1 = max(TEMP1, max((WA1[J]).abs(), (WA2[J]).abs()));
+            TEMP2 = max(TEMP2, (WA1[J] - WA2[J]).abs());
+          }
           RESULT[NTEST] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
 
           break;
-        } // 1700
+        }
 
         while (true) {
           NTEST = NTEST + 1;
@@ -3778,7 +3644,8 @@ void ddrvst(
           TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
-        } // 1710
+        }
+
         while (true) {
           NTEST = NTEST + 1;
           dlacpy(' ', N, N, V, LDU, A, LDA);
@@ -3822,7 +3689,7 @@ void ddrvst(
               RESULT[NTEST] = ULPINV;
               RESULT[NTEST + 1] = ULPINV;
               RESULT[NTEST + 2] = ULPINV;
-              GOTO700;
+              break;
             }
           }
 
@@ -3889,13 +3756,13 @@ void ddrvst(
               return;
             } else {
               RESULT[NTEST] = ULPINV;
-              GOTO700;
+              break;
             }
           }
 
           if (M3 == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
-            GOTO700;
+            break;
           }
 
           // Do test 78 (or +54)
@@ -3912,15 +3779,15 @@ void ddrvst(
           dlacpy(' ', N, N, V, LDU, A, LDA);
           break;
         }
-      } // 1720
+      }
 
       // End of Loop -- Check for RESULT[j] > THRESH
 
       NTESTT = NTESTT + NTEST;
 
       dlafts('DST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS);
-    } // 1730
-  } // 1740
+    }
+  }
 
   // Summary
   alasvm('DST', NOUNIT, NERRS, NTESTT, 0);

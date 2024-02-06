@@ -312,5 +312,5 @@
       // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16e3,SP,ES24.16e3,"*I"), ' * ', (ES24.16e3,SP,ES24.16e3,"*I"), ' = ', (ES24.16e3,SP,ES24.16e3,"*I"), ' differs from ', A10 );
 
- 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16e3, ' : ', A15, ' = ', (ES24.16e3,SP,ES24.16e3,"*I"), ' differs from ', (ES24.16e3,SP,ES24.16e3,"*I") );
+ 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16e3, ' : ${.a15} = ', (ES24.16e3,SP,ES24.16e3,"*I"), ' differs from ', (ES24.16e3,SP,ES24.16e3,"*I") );
       }

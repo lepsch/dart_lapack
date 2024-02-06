@@ -810,16 +810,16 @@
       DEALLOCATE (WORK, STAT = AllocateStatus);
       DEALLOCATE (RWORK,  STAT = AllocateStatus);
 
- 9999 FORMAT( / ' Execution not attempted due to input errors' );
- 9998 FORMAT( / ' End of tests' );
- 9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
- 9996 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be >=', I6 )
- 9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
- 9994 FORMAT( ' Tests of the REAL LAPACK routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
- 9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
- 9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
- 9991 FORMAT( ' Relative machine ', A, ' is taken to be', E16.6 );
- 9990 FORMAT( / 1X, A3, ':  Unrecognized path name' );
- 9989 FORMAT( / 1X, A3, ' routines were not tested' );
- 9988 FORMAT( / 1X, A3, ' driver routines were not tested' );
+ 9999 FORMAT('\n Execution not attempted due to input errors' );
+ 9998 FORMAT('\n End of tests' );
+ 9997 FORMAT( ' Total time used = ${.f12_2} seconds', / );
+ 9996 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be >=', I6 )
+ 9995 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
+ 9994 FORMAT( ' Tests of the REAL LAPACK routines \n LAPACK VERSION ${.i1}.${.i1}.', I1, / / ' The following parameter values will be used:' );
+ 9993 FORMAT('    ${.a4}:  ', 10I6, / 11X, 10I6 );
+ 9992 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
+ 9991 FORMAT( ' Relative machine ${} is taken to be', E16.6 );
+ 9990 FORMAT( / 1X, '${.a3}:  Unrecognized path name' );
+ 9989 FORMAT( / 1X, '${.a3} routines were not tested' );
+ 9988 FORMAT( / 1X, '${.a3} driver routines were not tested' );
       }

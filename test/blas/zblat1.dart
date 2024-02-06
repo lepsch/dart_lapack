@@ -369,7 +369,7 @@ import 'common.dart';
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
       void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
@@ -467,7 +467,7 @@ import 'common.dart';
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
+99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE                                COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
       }
       void zb1nrm2(combla.N,combla.INCX,THRESH) {
@@ -659,8 +659,8 @@ import 'common.dart';
          }
       }
 99999 FORMAT ('                                       FAIL')
-   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', combla.INCX = ',I6,/,'   combla.N = ',I6,', must be at least ',I6 );
-   98 FORMAT( 1X, A6, ': combla.N=', I6,', combla.INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
+   99 FORMAT ( ' Not enough space to test ${.a6}: NMAX = ',I6, ', combla.INCX = ',I6,/,'   combla.N = ',I6,', must be at least ',I6 );
+   98 FORMAT(' ${.a6}: combla.N=', I6,', combla.INCX=${.i4}, IV=${.i2}, IW=${.i2}, test=', E15.8 );
       return;
       CONTAINS;
       double dxvals(XX,K) {

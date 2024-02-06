@@ -18,7 +18,7 @@
          WRITE( NOUT, FMT = 9998 )PATH;
       }
 
- 9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits' );
- 9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ', 'exits ***' );
+ 9999 FORMAT(' ${.a3} routines passed the tests of the error exits' );
+ 9998 FORMAT( ' *** ${.a3} routines failed the tests of the error exits ***' );
       return;
       }

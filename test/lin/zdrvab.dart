@@ -207,20 +207,20 @@
          WRITE( NOUT, FMT = 9994 )NERRS;
       }
 
- 9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 );
- 9996 FORMAT( 1X, A6, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
- 9995 FORMAT( /1X, 'All tests for ', A6, ' routines passed the threshold ( ', I6, ' tests run)' );
+ 9998 FORMAT( ' TRANS=''${.a1}'', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
+ 9996 FORMAT(' ${.a6}: ${.i6} out of ${.i6} tests failed to pass the threshold' );
+ 9995 FORMAT( /1X, 'All tests for ${.a6} routines passed the threshold ( ${.i6} tests run)' );
  9994 FORMAT( 6X, I6, ' error messages recorded' );
 
       // SUBNAM, INFO, INFOE, M, IMAT
 
- 9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ', I5, / ' ==> M =', I5, ', type ', I2 );
+ 9988 FORMAT( ' *** ${.a6} returned with INFO =${.i5} instead of ', I5, / ' ==> M =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, M, IMAT
 
- 9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5, ', type ', I2 );
- 8999 FORMAT( / 1X, A3, ':  General dense matrices' );
- 8979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' );
- 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
+ 9975 FORMAT( ' *** Error code from ${.a6}=${.i5} for M=${.i5}, type ${.i2}');
+ 8999 FORMAT( / 1X, '${.a3}:  General dense matrices' );
+ 8979 FORMAT('    1. Diagonal${' ' * 24}7. Last n/2 columns zero\n${' ' * 4}2. Upper triangular${' ' * 16}8. Random, CNDNUM = sqrt(0.1/EPS)\n${' ' * 4}3. Lower triangular${' ' * 16}9. Random, CNDNUM = 0.1/EPS\n${' ' * 4}4. Random, CNDNUM = 2${' ' * 13}10. Scaled near underflow\n${' ' * 4}5. First column zero${' ' * 14}11. Scaled near overflow\n${' ' * 4}6. Last column zero' );
+ 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF\n${' ' * 4}or norm_1( B - A * X )  / ( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
       return;
       }

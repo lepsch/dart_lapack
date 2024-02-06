@@ -34,6 +34,6 @@
       IF( lsame( '/', 'o' ) ) WRITE( *, 9998 )'/', 'o';
       WRITE( *, * )' Tests completed';
 
- 9999 FORMAT( ' *** Error:  lsame( ', A1, ', ', A1, ') is false ' );
- 9998 FORMAT( ' *** Error:  lsame( ', A1, ', ', A1, ') is true ' );
+ 9999 FORMAT( ' *** Error:  lsame( ', A1, , '${.a1}) is false ' );
+ 9998 FORMAT( ' *** Error:  lsame( ', A1, , '${.a1}) is true ' );
       }

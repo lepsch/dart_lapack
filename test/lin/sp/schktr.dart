@@ -348,9 +348,9 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', NB=', I4, ', type ', I2, ', test(', I2, ')= ', G12.5 );
- 9998 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', NB=', I4, ', type ', I2, ', test(', I2, ')= ', G12.5 );
- 9997 FORMAT( ' NORM=''', A1, ''', UPLO =''', A1, ''', N=', I5, ',', 11X, ' type ', I2, ', test(', I2, ')=', G12.5 );
- 9996 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 );
+ 9999 FORMAT( ' UPLO=''${.a1}'', DIAG=''${.a1}'', N=${.i5}, NB=${.i4}, type ${.i2}, test(${.i2})= ${.g12_5};
+ 9998 FORMAT( ' UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', N=${.i5}, NB=${.i4}, type ${.i2}, test(${.i2})= ${.g12_5};
+ 9997 FORMAT( ' NORM=''${.a1}'', UPLO =''${.a1}'', N=${.i5},${' ' * 11} type ${.i2}, test(${.i2})=${.g12_5};
+ 9996 FORMAT( 1X, A, '( ''${.a1}''${.a1}''${.a1}''${.a1}'',${.i5}, ... ), type ${.i2}, test(${.i2})=${.g12_5};
       return;
       }

@@ -132,22 +132,22 @@
       } // 100
 
       WRITE( NOUT, FMT = 9999 );
- 9999 FORMAT( 1X, '.. test output of SGGBAK .. ' );
+ 9999 FORMAT(' .. test output of SGGBAK .. ' );
 
       WRITE( NOUT, FMT = 9998 )RMAX;
  9998 FORMAT( ' value of largest test error                  =', E12.3 );
       WRITE( NOUT, FMT = 9997 )LMAX( 1 );
- 9997 FORMAT( ' example number where SGGBAL info is not 0    =', I4 );
+ 9997 FORMAT( ' example number where SGGBAL info is not 0    =${.i4}');
       WRITE( NOUT, FMT = 9996 )LMAX( 2 );
- 9996 FORMAT( ' example number where SGGBAK(L) info is not 0 =', I4 );
+ 9996 FORMAT( ' example number where SGGBAK(L) info is not 0 =${.i4}');
       WRITE( NOUT, FMT = 9995 )LMAX( 3 );
- 9995 FORMAT( ' example number where SGGBAK(R) info is not 0 =', I4 );
+ 9995 FORMAT( ' example number where SGGBAK(R) info is not 0 =${.i4}');
       WRITE( NOUT, FMT = 9994 )LMAX( 4 );
- 9994 FORMAT( ' example number having largest error          =', I4 );
+ 9994 FORMAT( ' example number having largest error          =${.i4}');
       WRITE( NOUT, FMT = 9992 )NINFO;
- 9992 FORMAT( ' number of examples where info is not 0       =', I4 );
+ 9992 FORMAT( ' number of examples where info is not 0       =${.i4}');
       WRITE( NOUT, FMT = 9991 )KNT;
- 9991 FORMAT( ' total number of examples tested              =', I4 );
+ 9991 FORMAT( ' total number of examples tested              =${.i4}');
 
       return;
       }

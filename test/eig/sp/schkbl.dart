@@ -92,20 +92,20 @@
       } // 70
 
       WRITE( NOUT, FMT = 9999 );
- 9999 FORMAT( 1X, '.. test output of SGEBAL .. ' );
+ 9999 FORMAT(' .. test output of SGEBAL .. ' );
 
       WRITE( NOUT, FMT = 9998 )RMAX;
- 9998 FORMAT( 1X, 'value of largest test error            = ', E12.3 );
+ 9998 FORMAT(' value of largest test error            = ', E12.3 );
       WRITE( NOUT, FMT = 9997 )LMAX( 1 );
- 9997 FORMAT( 1X, 'example number where info is not zero  = ', I4 );
+ 9997 FORMAT(' example number where info is not zero  = ${.i4}');
       WRITE( NOUT, FMT = 9996 )LMAX( 2 );
- 9996 FORMAT( 1X, 'example number where ILO or IHI wrong  = ', I4 );
+ 9996 FORMAT(' example number where ILO or IHI wrong  = ${.i4}');
       WRITE( NOUT, FMT = 9995 )LMAX( 3 );
- 9995 FORMAT( 1X, 'example number having largest error    = ', I4 );
+ 9995 FORMAT(' example number having largest error    = ${.i4}');
       WRITE( NOUT, FMT = 9994 )NINFO;
- 9994 FORMAT( 1X, 'number of examples where info is not 0 = ', I4 );
+ 9994 FORMAT(' number of examples where info is not 0 = ${.i4}');
       WRITE( NOUT, FMT = 9993 )KNT;
- 9993 FORMAT( 1X, 'total number of examples tested        = ', I4 );
+ 9993 FORMAT(' total number of examples tested        = ${.i4}');
 
       return;
       }

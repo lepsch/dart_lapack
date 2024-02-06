@@ -211,7 +211,7 @@ import 'common.dart';
          WRITE( infoc.NOUT, FMT = 9998 );
       }
 
- 9999 FORMAT( 1X, 'double           RFP routines passed the tests of ',; 'the error exits' )
- 9998 FORMAT( ' *** RFP routines failed the tests of the error ', 'exits ***' );
+ 9999 FORMAT(' double           RFP routines passed the tests of ',; 'the error exits' )
+ 9998 FORMAT( ' *** RFP routines failed the tests of the error exits ***' );
       return;
       }

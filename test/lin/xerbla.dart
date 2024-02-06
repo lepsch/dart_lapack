@@ -37,7 +37,7 @@ import 'common.dart';
       }
       return;
 
- 9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6, ' instead of ', I2, ' ***' );
- 9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A, ' instead of ', A9, ' ***' );
- 9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6, ' had an illegal value ***' );
+ 9999 FORMAT( ' *** XERBLA was called from ${} with INFO = ${.i6} instead of ${.i2} ***' );
+ 9998 FORMAT( ' *** XERBLA was called with SRNAME = ${} instead of ${.a9} ***' );
+ 9997 FORMAT( ' *** On entry to ${} parameter number ${.i6} had an illegal value ***' );
       }

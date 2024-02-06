@@ -1,25 +1,40 @@
-      void dchksb(NSIZES, NN, NWDTHS, KK, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, SD, SE, U, LDU, WORK, LWORK, RESULT, INFO ) {
+      import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void dchksb(final int NSIZES,
+          final Array<int> NN, final int NWDTHS,
+          final Array<int> KK, final int NTYPES,
+          final Array<bool> DOTYPE,
+          final Array<int> ISEED, final int THRESH, final int NOUNIT,
+          final Matrix<double> A, final int LDA,
+          final Array<double> SD,
+          final Array<double> SE,
+          final Matrix<double> U, final int LDU,
+          final Array<double> WORK, final int LWORK,
+          final Array<double> RESULT, final Box<int> INFO, ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                ISEED( 4 ), KK( * ), NN( * );
-      double             A( LDA, * ), RESULT( * ), SD( * ), SE( * ), U( LDU, * ), WORK( * );
+      // int                INFO.value, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
+      // double             THRESH;
+      // bool               DOTYPE[ * ];
+      // int                ISEED[ 4 ], KK[ * ], NN[ * ];
+      // double             A[ LDA][ * ], RESULT[ * ], SD[ * ], SE[ * ], U[ LDU][ * ], WORK[ * ];
       // ..
 
-      double             ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      double             HALF;
       const              HALF = ONE / TWO ;
-      int                MAXTYP;
       const              MAXTYP = 15 ;
       bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       double             ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL;
-      int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
+      final                IDUMMA=Array<int>( 1 ), IOLDSD=Array<int>( 4 );
       // ..
       // .. External Functions ..
       //- double             DLAMCH;
@@ -32,54 +47,57 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      const KTYPE = [ 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8,];
-      const KMAGN = [ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 ];
-      const KMODE = [ 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 ];
+      final KTYPE = Array.fromList([ 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, //
+      ]);
+      final KMAGN = Array.fromList([ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 //
+      ]);
+      final KMODE = Array.fromList([ 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 //
+      ]);
 
       // Check for errors
 
       NTESTT = 0;
-      INFO = 0;
+      INFO.value = 0;
 
       // Important constants
 
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = max( NMAX, NN( J ) );
-         if( NN( J ) < 0 ) BADNN = true;
+         NMAX = max( NMAX, NN[ J ] );
+         if( NN[ J ] < 0 ) BADNN = true;
       } // 10
 
       BADNNB = false;
       KMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 20
-         KMAX = max( KMAX, KK( J ) );
-         if( KK( J ) < 0 ) BADNNB = true;
+         KMAX = max( KMAX, KK[ J ] );
+         if( KK[ J ] < 0 ) BADNNB = true;
       } // 20
       KMAX = min( NMAX-1, KMAX );
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( BADNN ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NWDTHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( BADNNB ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( NTYPES < 0 ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDA < KMAX+1 ) {
-         INFO = -11;
+         INFO.value = -11;
       } else if ( LDU < NMAX ) {
-         INFO = -15;
+         INFO.value = -15;
       } else if ( ( max( LDA, NMAX )+1 )*NMAX > LWORK ) {
-         INFO = -17;
+         INFO.value = -17;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DCHKSB', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DCHKSB', -INFO.value );
          return;
       }
 
@@ -102,12 +120,12 @@
       NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
-         N = NN( JSIZE );
+         N = NN[ JSIZE ];
          ANINV = ONE / (max( 1, N )).toDouble();
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
-            K = KK( JWIDTH );
-            if (K > N) GO TO 180;
+            K = KK[ JWIDTH ];
+            if (K > N) continue;
             K = max( 0, min( N-1, K ) );
 
             if ( NSIZES != 1 ) {
@@ -117,20 +135,20 @@
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-               if( !DOTYPE( JTYPE ) ) GO TO 170;
+               if( !DOTYPE[ JTYPE ] ) continue;
                NMATS = NMATS + 1;
                NTEST = 0;
 
                for (J = 1; J <= 4; J++) { // 30
-                  IOLDSD[J] = ISEED( J );
+                  IOLDSD[J] = ISEED[ J ];
                } // 30
 
                // Compute "A".
                // Store as "Upper"; later, we will copy to other format.
-
+               //
                // Control parameters:
-
-                   // KMAGN  KMODE        KTYPE
+               //
+               //     KMAGN  KMODE        KTYPE
                // =1  O(1)   clustered 1  zero
                // =2  large  clustered 2  identity
                // =3  small  exponential  (none)
@@ -142,28 +160,29 @@
                // =9                      positive definite
                // =10                     diagonally dominant tridiagonal
 
-               if (MTYPES > MAXTYP) GO TO 100;
+               if (MTYPES > MAXTYP) GOTO100;
 
-               ITYPE = KTYPE( JTYPE );
-               IMODE = KMODE( JTYPE );
+               ITYPE = KTYPE[ JTYPE ];
+               IMODE = KMODE[ JTYPE ];
 
                // Compute norm
 
-               GO TO ( 40, 50, 60 )KMAGN( JTYPE );
+              //  GOTO( 40, 50, 60 )KMAGN[ JTYPE ];
+              switch(KMAGN[ JTYPE ]){
 
-               } // 40
+               case 1:
                ANORM = ONE;
-               GO TO 70;
+               break;
 
-               } // 50
+               case 2:
                ANORM = ( RTOVFL*ULP )*ANINV;
-               GO TO 70;
+               break;
 
-               } // 60
+               case 3:
                ANORM = RTUNFL*N*ULPINV;
-               GO TO 70;
+               break;
 
-               } // 70
+               }
 
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                IINFO = 0;
@@ -185,49 +204,49 @@
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A[K+1, JCOL] = ANORM;
+                     A[K+1][JCOL] = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
 
                   // Diagonal Matrix, [Eigen]values Specified
 
-                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO );
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A[ K+1][ 1 ], LDA, WORK[ N+1 ], IINFO );
 
                } else if ( ITYPE == 5 ) {
 
                   // Symmetric, eigenvalues specified
 
-                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK[ N+1 ], IINFO );
 
                } else if ( ITYPE == 7 ) {
 
                   // Diagonal, random eigenvalues
 
-                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO );
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK[ N+1 ], 1, ONE, WORK[ 2*N+1 ], 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A[ K+1][ 1 ], LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE == 8 ) {
 
                   // Symmetric, random eigenvalues
 
-                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK[ N+1 ], 1, ONE, WORK[ 2*N+1 ], 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE == 9 ) {
 
                   // Positive definite, eigenvalues specified.
 
-                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
+                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK[ N+1 ], IINFO );
 
                } else if ( ITYPE == 10 ) {
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
                   if (N > 1) K = max( 1, K );
-                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
+                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A[ K][ 1 ], LDA, WORK[ N+1 ], IINFO );
                   for (I = 2; I <= N; I++) { // 90
-                     TEMP1 = ( A( K, I ) ).abs() / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                     TEMP1 = ( A[ K][ I ] ).abs() / sqrt( ABS( A[ K+1][ I-1 ]*A[ K+1][ I ] ) );
                      if ( TEMP1 > HALF ) {
-                        A[K][I] = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                        A[K][I] = HALF*sqrt( ABS( A[ K+1][ I-1 ]*A[ K+1][ I ] ) );
                      }
                   } // 90
 
@@ -238,7 +257,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
+                  INFO.value = ( IINFO ).abs();
                   return;
                }
 
@@ -249,29 +268,29 @@
                dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 1;
-               dsbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
+               dsbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK[ LDA*N+1 ], IINFO );
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
+                  INFO.value = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
                      RESULT[1] = ULPINV;
-                     GO TO 150;
+                     GOTO150;
                   }
                }
 
                // Do tests 1 and 2
 
-               dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) );
+               dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[ 1 ] );
 
                // Convert A from Upper-Triangle-Only storage to
                // Lower-Triangle-Only storage.
 
                for (JC = 1; JC <= N; JC++) { // 120
                   for (JR = 0; JR <= min( K, N-JC ); JR++) { // 110
-                     A[JR+1, JC] = A( K+1-JR, JC+JR );
+                     A[JR+1, JC] = A[ K+1-JR][ JC+JR ];
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
@@ -285,25 +304,25 @@
                dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 3;
-               dsbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
+               dsbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK[ LDA*N+1 ], IINFO );
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
+                  INFO.value = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
                      RESULT[3] = ULPINV;
-                     GO TO 150;
+                     GOTO150;
                   }
                }
                NTEST = 4;
 
                // Do tests 3 and 4
 
-               dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) );
+               dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[ 3 ] );
 
-               // End of Loop -- Check for RESULT(j) > THRESH
+               // End of Loop -- Check for RESULT[j] > THRESH
 
                } // 150
                NTESTT = NTESTT + NTEST;
@@ -311,7 +330,7 @@
                // Print out tests which fail.
 
                for (JR = 1; JR <= NTEST; JR++) { // 160
-                  if ( RESULT( JR ) >= THRESH ) {
+                  if ( RESULT[ JR ] >= THRESH ) {
 
                      // If this is the first test to fail,
                      // print a header to the data file.
@@ -324,7 +343,7 @@
                         WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 4 );
                      }
                      NERRS = NERRS + 1;
-                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR );
+                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT[ JR ];
                   }
                } // 160
 
@@ -337,14 +356,14 @@
       dlasum('DSB', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' DCHKSB: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+ 9999 FORMAT( ' DCHKSB: ${} returned INFO.value=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
- 9998 FORMAT( / 1X, A3, ' -- Real Symmetric Banded Tridiagonal Reduction Routines' );
+ 9998 FORMAT( / 1X, '${.a3} -- Real Symmetric Banded Tridiagonal Reduction Routines' );
  9997 FORMAT( ' Matrix types (see DCHKSB for details): ' );
 
- 9996 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.                        ', '  5=Diagonal: clustered entries.', / '  2=Identity matrix.                    ', '  6=Diagonal: large, evenly spaced.', / '  3=Diagonal: evenly spaced entries.    ', '  7=Diagonal: small, evenly spaced.', / '  4=Diagonal: geometr. spaced entries.' );
- 9995 FORMAT( ' Dense ', A, ' Banded Matrices:', / '  8=Evenly spaced eigenvals.            ', ' 12=Small, evenly spaced eigenvals.', / '  9=Geometrically spaced eigenvals.     ', ' 13=Matrix with random O(1) entries.', / ' 10=Clustered eigenvalues.              ', ' 14=Matrix with large random entries.', / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix with small random entries.' );
+ 9996 FORMAT('\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.' );
+ 9995 FORMAT( ' Dense ${} Banded Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.' );
 
- 9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',', / 20X, A, ' means ', A, '.', / ' UPLO=''U'':', / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':', / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  4= | I - U U', A1, ' | / ( n ulp )' );
- 9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
+ 9994 FORMAT('\n Tests performed:   (S is Tridiag,  U is ${},', / 20X, A, ' means ${}.\n UPLO=''U'':\n  1= | A - U S U${.a1} | / ( |A| n ulp )       2= | I - U U${.a1} | / ( n ulp )\n UPLO=''L'':\n  3= | A - U S U${.a1} | / ( |A| n ulp )       4= | I - U U${.a1} | / ( n ulp )' );
+ 9993 FORMAT( ' N=${.i5}, K=${.i4}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
       }

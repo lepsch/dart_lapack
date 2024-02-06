@@ -161,6 +161,6 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', RANK =', I3, ', Diff =', I5, ', NB =', I4, ', type ', I2, ', Ratio =', G12.5 );
+ 9999 FORMAT( ' UPLO = ''${.a1}'', N =${.i5}, RANK =${.i3}, Diff =${.i5}, NB =${.i4}, type ${.i2}, Ratio =${.g12_5};
       return;
       }

@@ -413,11 +413,11 @@ import 'common.dart';
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' *** In DCHKGB, LA=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LA to at least ', I5 );
- 9998 FORMAT( ' *** In DCHKGB, LAFAC=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LAFAC to at least ', I5 );
- 9997 FORMAT( ' M =', I5, ', N =', I5, ', KL=', I5, ', KU=', I5, ', NB =', I4, ', type ', I1, ', test(', I1, ')=', G12.5 );
- 9996 FORMAT( ' TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ', NRHS=', I3, ', type ', I1, ', test(', I1, ')=', G12.5 );
- 9995 FORMAT( ' NORM =''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ',', 10X, ' type ', I1, ', test(', I1, ')=', G12.5 );
+ 9999 FORMAT( ' *** In DCHKGB, LA=${.i5} is too small for M=${.i5}, N=${.i5}, KL=${.i4}, KU=', I4, / ' ==> Increase LA to at least ${.i5}');
+ 9998 FORMAT( ' *** In DCHKGB, LAFAC=${.i5} is too small for M=${.i5}, N=${.i5}, KL=${.i4}, KU=', I4, / ' ==> Increase LAFAC to at least ${.i5}');
+ 9997 FORMAT( ' M =${.i5}, N =${.i5}, KL=${.i5}, KU=${.i5}, NB =${.i4}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9996 FORMAT( ' TRANS=''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i3}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9995 FORMAT( ' NORM =''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5},${' ' * 10} type ${.i1}, test(${.i1})=${.g12_5};
 
       return;
       }

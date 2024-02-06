@@ -514,7 +514,7 @@
 
       return;
 
- 9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-', '  EMIN = ', I8, / ' If, after inspection, the value EMIN looks', ' acceptable please comment out ', / ' the IF block as marked within the code of routine', ' SLAMC2,', / ' otherwise supply EMIN explicitly.', / );
+ 9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-  EMIN = ', I8, / ' If, after inspection, the value EMIN looks acceptable please comment out \n the IF block as marked within the code of routine SLAMC2,\n otherwise supply EMIN explicitly.', / );
       }
 
 // ***********************************************************************

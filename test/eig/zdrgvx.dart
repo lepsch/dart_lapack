@@ -334,31 +334,31 @@
 
       return;
 
- 9999 FORMAT( ' ZDRGVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
+ 9999 FORMAT( ' ZDRGVX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6})' );
 
- 9998 FORMAT( ' ZDRGVX: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', IWA=', I5, ', IWB=', I5, ', IWX=', I5, ', IWY=', I5 );
+ 9998 FORMAT( ' ZDRGVX: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, IWA=${.i5}, IWB=${.i5}, IWX=${.i5}, IWY=${.i5}');
 
- 9997 FORMAT( / 1X, A3, ' -- Complex Expert Eigenvalue/vector', ' problem driver' );
+ 9997 FORMAT( / 1X, '${.a3} -- Complex Expert Eigenvalue/vector problem driver' );
 
  9996 FORMAT( 'Input Example' );
 
  9995 FORMAT( ' Matrix types: ', / );
 
- 9994 FORMAT( ' TYPE 1: Da is diagonal, Db is identity, ', / '     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) ', / '     YH and X are left and right eigenvectors. ', / );
+ 9994 FORMAT( ' TYPE 1: Da is diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors. ', / );
 
- 9993 FORMAT( ' TYPE 2: Da is quasi-diagonal, Db is identity, ', / '     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) ', / '     YH and X are left and right eigenvectors. ', / );
+ 9993 FORMAT( ' TYPE 2: Da is quasi-diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors. ', / );
 
- 9992 FORMAT( / ' Tests performed:  ', / 4X, ' a is alpha, b is beta, l is a left eigenvector, ', / 4X, ' r is a right eigenvector and ', A, ' means ', A, '.', / ' 1 = max | ( b A - a B )', A, ' l | / const.', / ' 2 = max | ( b A - a B ) r | / const.', / ' 3 = max ( Sest/Stru, Stru/Sest ) ', ' over all eigenvalues', / ' 4 = max( DIFest/DIFtru, DIFtru/DIFest ) ', ' over the 1st and 5th eigenvectors', / );
+ 9992 FORMAT('\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and ${} means ${}.\n 1 = max | ( b A - a B )${} l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors', / );
 
- 9991 FORMAT( ' Type=', I2, ',', ' IWA=', I2, ', IWB=', I2, ', IWX=', I2, ', IWY=', I2, ', result ', I2, ' is', 0P, F8.2 );
+ 9991 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is' F8.2 );
 
- 9990 FORMAT( ' Type=', I2, ',', ' IWA=', I2, ', IWB=', I2, ', IWX=', I2, ', IWY=', I2, ', result ', I2, ' is', 1P, D10.3 );
+ 9990 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is', 1P, D10.3 );
 
- 9989 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 0P, F8.2 );
+ 9989 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is' F8.2 );
 
- 9988 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 1P, D10.3 );
+ 9988 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is', 1P, D10.3 );
 
- 9987 FORMAT( ' ZDRGVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', Input example #', I2, ')' );
+ 9987 FORMAT( ' ZDRGVX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, Input example #${.i2})' );
 
- 9986 FORMAT( ' ZDRGVX: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', Input Example #', I2, ')' );
+ 9986 FORMAT( ' ZDRGVX: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, Input Example #${.i2})' );
       }

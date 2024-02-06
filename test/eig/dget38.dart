@@ -11,16 +11,17 @@ import 'package:lapack/src/dorghr.dart';
 import 'package:lapack/src/dtrsen.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 import 'dhst01.dart';
 
-void dget38(
+Future<void> dget38(
   final Array<double> RMAX,
   final Array<int> LMAX,
   final Array<int> NINFO,
   final Box<int> KNT,
-  final int NIN,
-) {
+  final Nin NIN,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -96,13 +97,12 @@ void dget38(
   // imaginary part)
 
   while (true) {
-    READ( NIN, FMT = * )N, NDIM;
+    (N, NDIM) = await NIN.readInt2();
     if (N == 0) return;
-    READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM );
-    for (I = 1; I <= N; I++) {
-       READ( NIN, FMT = * )( TMP[ I][ J ], J = 1, N );
-    }
-    READ( NIN, FMT = * )SIN, SEPIN;
+    await NIN.readArray(ISELEC, NDIM);
+    await NIN.readMatrix(TMP, N, N);
+    for (I = 1; I <= N; I++) {}
+    (SIN, SEPIN) = await NIN.readDouble2();
 
     TNRM = dlange('M', N, N, TMP, LDT, WORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {

@@ -765,8 +765,8 @@
          WRITE( NOUT, FMT = 9998 )PATH;
       }
 
- 9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' );
- 9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ', 'exits ***' );
+ 9999 FORMAT(' ${.a3} drivers passed the tests of the error exits' );
+ 9998 FORMAT( ' *** ${.a3} drivers failed the tests of the error exits ***' );
 
       return;
       }

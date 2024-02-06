@@ -478,7 +478,7 @@
       alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
       return;
- 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 );
- 9998 FORMAT( ' CCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+ 9999 FORMAT( ' M=${.i5}, N=${.i5}, type ${.i2}, seed=${i4(4, ',')}', ' test(${.i2})=${.g11_4};
+ 9998 FORMAT( ' CCHKBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
       }

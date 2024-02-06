@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:lapack/src/blas/dcopy.dart';
@@ -480,7 +479,7 @@ void dchkhs(
         }
 
         if (IINFO.value != 0) {
-          print9999('Generator', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           return;
         }
@@ -496,11 +495,11 @@ void dchkhs(
         ILO = 1;
         IHI = N;
 
-        dgehrd(N, ILO, IHI, H, LDA, WORK, WORK(N + 1), NWORK - N, IINFO.value);
+        dgehrd(N, ILO, IHI, H, LDA, WORK, WORK(N + 1), NWORK - N, IINFO);
 
         if (IINFO.value != 0) {
           RESULT[1] = ULPINV;
-          print9999('DGEHRD', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DGEHRD', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           break;
         }
@@ -514,10 +513,10 @@ void dchkhs(
           }
         }
         dcopy(N - 1, WORK, 1, TAU, 1);
-        dorghr(N, ILO, IHI, U, LDU, WORK, WORK(N + 1), NWORK - N, IINFO.value);
+        dorghr(N, ILO, IHI, U, LDU, WORK, WORK(N + 1), NWORK - N, IINFO);
         NTEST = 2;
 
-        dhst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT[1]);
+        dhst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT(1));
 
         // Call DHSEQR to compute T1, T2 and Z, do tests.
 
@@ -544,7 +543,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DHSEQR(E)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DHSEQR(E)', IINFO.value, N, JTYPE, IOLDSD);
           if (IINFO.value <= N + 2) {
             INFO.value = (IINFO.value).abs();
             break;
@@ -572,7 +571,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0 && IINFO.value <= N + 2) {
-          print9999('DHSEQR(S)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DHSEQR(S)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -600,7 +599,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0 && IINFO.value <= N + 2) {
-          print9999('DHSEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DHSEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -613,16 +612,16 @@ void dchkhs(
         // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
         // and 4: | I - Z Z' | / ( n ulp )
 
-        dhst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT[3]);
+        dhst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT(3));
 
         // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
         // and 6: | I - UZ (UZ)' | / ( n ulp )
 
-        dhst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT[5]);
+        dhst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT(5));
 
         // Do Test 7: | T2 - T1 | / ( |T| n ulp )
 
-        dget10(N, N, T2, LDA, T1, LDA, WORK, RESULT[7]);
+        dget10(N, N, T2, LDA, T1, LDA, WORK, RESULT.box(7));
 
         // Do Test 8: | W2 - W1 | / ( max(|W1|,|W2|) ulp )
 
@@ -689,7 +688,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC(R,A)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC(R,A)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -699,7 +698,7 @@ void dchkhs(
         dget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA);
         RESULT[9] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
-          print9998('Right', 'DTREVC', DUMMA[2], N, JTYPE, IOLDSD);
+          print9998(NOUNIT, 'Right', 'DTREVC', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // Compute selected right eigenvectors and confirm that
@@ -722,7 +721,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC(R,S)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC(R,S)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -751,7 +750,7 @@ void dchkhs(
           }
         }
 
-        if (!MATCH) print9997('Right', 'DTREVC', N, JTYPE, IOLDSD);
+        if (!MATCH) print9997(NOUNIT, 'Right', 'DTREVC', N, JTYPE, IOLDSD);
 
         // Compute the Left eigenvector Matrix:
 
@@ -774,7 +773,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC(L,A)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC(L,A)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -797,7 +796,7 @@ void dchkhs(
         );
         RESULT[10] = DUMMA[3];
         if (DUMMA[4] > THRESH) {
-          print9998('Left', 'DTREVC', DUMMA[4], N, JTYPE, IOLDSD);
+          print9998(NOUNIT, 'Left', 'DTREVC', DUMMA[4], N, JTYPE, IOLDSD);
         }
 
         // Compute selected left eigenvectors and confirm that
@@ -820,7 +819,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC(L,S)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC(L,S)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -849,7 +848,7 @@ void dchkhs(
           }
         }
 
-        if (!MATCH) print9997('Left', 'DTREVC', N, JTYPE, IOLDSD);
+        if (!MATCH) print9997(NOUNIT, 'Left', 'DTREVC', N, JTYPE, IOLDSD);
 
         // Call DHSEIN for Right eigenvectors of H, do test 11
 
@@ -881,7 +880,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DHSEIN(R)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DHSEIN(R)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) break;
         } else {
@@ -905,7 +904,7 @@ void dchkhs(
           );
           if (DUMMA[1] < ULPINV) RESULT[11] = DUMMA[1] * ANINV;
           if (DUMMA[2] > THRESH) {
-            print9998('Right', 'DHSEIN', DUMMA[2], N, JTYPE, IOLDSD);
+            print9998(NOUNIT, 'Right', 'DHSEIN', DUMMA[2], N, JTYPE, IOLDSD);
           }
         }
 
@@ -939,7 +938,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DHSEIN(L)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DHSEIN(L)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) break;
         } else {
@@ -963,7 +962,7 @@ void dchkhs(
           );
           if (DUMMA[3] < ULPINV) RESULT[12] = DUMMA[3] * ANINV;
           if (DUMMA[4] > THRESH) {
-            print9998('Left', 'DHSEIN', DUMMA[4], N, JTYPE, IOLDSD);
+            print9998(NOUNIT, 'Left', 'DHSEIN', DUMMA[4], N, JTYPE, IOLDSD);
           }
         }
 
@@ -989,7 +988,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DORMHR(R)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DORMHR(R)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) break;
         } else {
@@ -1036,7 +1035,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DORMHR(L)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DORMHR(L)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) break;
         } else {
@@ -1088,7 +1087,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC3(R,B)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC3(R,B)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -1100,7 +1099,7 @@ void dchkhs(
         dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA[1]);
         RESULT[15] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
-          print9998('Right', 'DTREVC3', DUMMA[2], N, JTYPE, IOLDSD);
+          print9998(NOUNIT, 'Right', 'DTREVC3', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // Compute a Left eigenvector matrix:
@@ -1128,7 +1127,7 @@ void dchkhs(
           IINFO.value,
         );
         if (IINFO.value != 0) {
-          print9999('DTREVC3(L,B)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DTREVC3(L,B)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
@@ -1153,7 +1152,7 @@ void dchkhs(
         );
         RESULT[16] = DUMMA[3];
         if (DUMMA[4] > THRESH) {
-          print9998('Left', 'DTREVC3', DUMMA[4], N, JTYPE, IOLDSD);
+          print9998(NOUNIT, 'Left', 'DTREVC3', DUMMA[4], N, JTYPE, IOLDSD);
         }
 
         break;
@@ -1170,30 +1169,33 @@ void dchkhs(
 }
 
 void print9999(
+  final Nout NOUNIT,
   final String s,
   final int info,
   final int n,
   final int ntype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUNIT.println(
     ' DCHKHS: $s returned INFO=${info.i6}.\n         N=${n.i6}, JTYPE=${ntype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }
 
 void print9997(
+  final Nout NOUNIT,
   final String s1,
   final String s2,
   final int n,
   final int jtype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUNIT.println(
     ' DCHKHS: Selected $s1 Eigenvectors from $s2 do not match other eigenvectors          N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }
 
 void print9998(
+  final Nout NOUNIT,
   final String s1,
   final String s2,
   final double error,
@@ -1201,7 +1203,7 @@ void print9998(
   final int jtype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUNIT.println(
     ' DCHKHS: $s1 Eigenvectors from $s2 incorrectly normalized.\n Bits of error=${error.g10_3},         N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }

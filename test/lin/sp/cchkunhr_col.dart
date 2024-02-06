@@ -168,7 +168,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 'CUNGTSQR and CUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
- 9998 FORMAT( 'CUNGTSQR_ROW and CUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
+ 9999 FORMAT( 'CUNGTSQR and CUNHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
+ 9998 FORMAT( 'CUNGTSQR_ROW and CUNHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
       return;
       }

@@ -367,7 +367,7 @@
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
       }
       void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
@@ -465,7 +465,7 @@
       return;
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE                                COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
       }
       void cb1nrm2(N,INCX,THRESH) {
@@ -657,8 +657,8 @@
          }
       }
 99999 FORMAT ('                                       FAIL')
-   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 );
-   98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
+   99 FORMAT ( ' Not enough space to test ${.a6}: NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 );
+   98 FORMAT(' ${.a6}: N=', I6,', INCX=${.i4}, IV=${.i2}, IW=${.i2}, test=', E15.8 );
       return;
       CONTAINS;
       double sxvals(XX,K) {

@@ -66,12 +66,12 @@
 
       if(( AVG > 0.0 ) && ( TNOSEC > 0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC;
 
- 9999 FORMAT( ' Time for ', G10.3,' DAXPY ops = ', G10.3, ' seconds' );
- 9998 FORMAT( ' DAXPY performance rate        = ', G10.3, ' mflops ' );
- 9997 FORMAT( ' Including DSECND, time        = ', G10.3, ' seconds' );
- 9996 FORMAT( ' Average time for DSECND       = ', G10.3, ' milliseconds' );
- 9995 FORMAT( ' Equivalent floating point ops = ', G10.3, ' ops' );
- 9994 FORMAT( ' *** Warning:  Time for operations was less or equal', ' than zero => timing in TESTING might be dubious' );
+ 9999 FORMAT( ' Time for ', G10.3,' DAXPY ops = ${.g10_3} seconds' );
+ 9998 FORMAT( ' DAXPY performance rate        = ${.g10_3} mflops ' );
+ 9997 FORMAT( ' Including DSECND, time        = ${.g10_3} seconds' );
+ 9996 FORMAT( ' Average time for DSECND       = ${.g10_3} milliseconds' );
+ 9995 FORMAT( ' Equivalent floating point ops = ${.g10_3} ops' );
+ 9994 FORMAT( ' *** Warning:  Time for operations was less or equal than zero => timing in TESTING might be dubious' );
       mysub(NMAX,X,Y);
       }
       void mysub(N,X,Y) {

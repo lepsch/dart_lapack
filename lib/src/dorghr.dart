@@ -2,105 +2,98 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dorgqr.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dorghr(N, ILO, IHI, A, LDA, TAU, WORK, LWORK, INFO ) {
-
+void dorghr(
+  final int N,
+  final int ILO,
+  final int IHI,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> TAU,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IHI, ILO, INFO, LDA, LWORK, N;
-      double             A( LDA, * ), TAU( * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool LQUERY;
+  int I, J, LWKOPT = 0, NB, NH;
+  final IINFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               LQUERY;
-      int                I, IINFO, J, LWKOPT, NB, NH;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DORGQR, XERBLA
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  NH = IHI - ILO;
+  LQUERY = (LWORK == -1);
+  if (N < 0) {
+    INFO.value = -1;
+  } else if (ILO < 1 || ILO > max(1, N)) {
+    INFO.value = -2;
+  } else if (IHI < min(ILO, N) || IHI > N) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LWORK < max(1, NH) && !LQUERY) {
+    INFO.value = -8;
+  }
 
-      INFO = 0;
-      NH = IHI - ILO;
-      LQUERY = ( LWORK == -1 );
-      if ( N < 0 ) {
-         INFO = -1;
-      } else if ( ILO < 1 || ILO > max( 1, N ) ) {
-         INFO = -2;
-      } else if ( IHI < min( ILO, N ) || IHI > N ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LWORK < max( 1, NH ) && !LQUERY ) {
-         INFO = -8;
-      }
+  if (INFO.value == 0) {
+    NB = ilaenv(1, 'DORGQR', ' ', NH, NH, NH, -1);
+    LWKOPT = max(1, NH) * NB;
+    WORK[1] = LWKOPT.toDouble();
+  }
 
-      if ( INFO == 0 ) {
-         NB = ilaenv( 1, 'DORGQR', ' ', NH, NH, NH, -1 );
-         LWKOPT = max( 1, NH )*NB;
-         WORK[1] = LWKOPT;
-      }
+  if (INFO.value != 0) {
+    xerbla('DORGHR', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DORGHR', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) {
+    WORK[1] = 1;
+    return;
+  }
 
-      if ( N == 0 ) {
-         WORK[1] = 1;
-         return;
-      }
+  // Shift the vectors which define the elementary reflectors one
+  // column to the right, and set the first ilo and the last n-ihi
+  // rows and columns to those of the unit matrix
 
-      // Shift the vectors which define the elementary reflectors one
-      // column to the right, and set the first ilo and the last n-ihi
-      // rows and columns to those of the unit matrix
+  for (J = IHI; J >= ILO + 1; J--) {
+    for (I = 1; I <= J - 1; I++) {
+      A[I][J] = ZERO;
+    }
+    for (I = J + 1; I <= IHI; I++) {
+      A[I][J] = A[I][J - 1];
+    }
+    for (I = IHI + 1; I <= N; I++) {
+      A[I][J] = ZERO;
+    }
+  }
+  for (J = 1; J <= ILO; J++) {
+    for (I = 1; I <= N; I++) {
+      A[I][J] = ZERO;
+    }
+    A[J][J] = ONE;
+  }
+  for (J = IHI + 1; J <= N; J++) {
+    for (I = 1; I <= N; I++) {
+      A[I][J] = ZERO;
+    }
+    A[J][J] = ONE;
+  }
 
-      for (J = IHI; J >= ILO + 1; J--) { // 40
-         for (I = 1; I <= J - 1; I++) { // 10
-            A[I][J] = ZERO;
-         } // 10
-         for (I = J + 1; I <= IHI; I++) { // 20
-            A[I][J] = A( I, J-1 );
-         } // 20
-         for (I = IHI + 1; I <= N; I++) { // 30
-            A[I][J] = ZERO;
-         } // 30
-      } // 40
-      for (J = 1; J <= ILO; J++) { // 60
-         for (I = 1; I <= N; I++) { // 50
-            A[I][J] = ZERO;
-         } // 50
-         A[J][J] = ONE;
-      } // 60
-      for (J = IHI + 1; J <= N; J++) { // 80
-         for (I = 1; I <= N; I++) { // 70
-            A[I][J] = ZERO;
-         } // 70
-         A[J][J] = ONE;
-      } // 80
-
-      if ( NH > 0 ) {
-
-         // Generate Q(ilo+1:ihi,ilo+1:ihi)
-
-         dorgqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
-      }
-      WORK[1] = LWKOPT;
-      return;
-      }
+  if (NH > 0) {
+    // Generate Q(ilo+1:ihi,ilo+1:ihi)
+    dorgqr(NH, NH, NH, A(ILO + 1, ILO + 1), LDA, TAU(ILO), WORK, LWORK, IINFO);
+  }
+  WORK[1] = LWKOPT.toDouble();
+}
