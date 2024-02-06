@@ -159,7 +159,7 @@
          // This is for a 1x1 block
          if ( IBEGIN == IEND ) {
             DONE = DONE+1;
-            Z[IBEGIN, WBEGIN] = CMPLX( ONE, ZERO );
+            Z[IBEGIN][WBEGIN] = CMPLX( ONE, ZERO );
             ISUPPZ[2*WBEGIN-1] = IBEGIN;
             ISUPPZ[2*WBEGIN] = IBEGIN;
             W[WBEGIN] = W( WBEGIN ) + SIGMA;
@@ -401,7 +401,7 @@
                      for (K = 1; K <= IN-1; K++) { // 56
                         Z[IBEGIN+K-1, NEWFTT] = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO );
                      } // 56
-                     Z[IEND, NEWFTT] = CMPLX( WORK( INDIN1+IN-1 ), ZERO );
+                     Z[IEND][NEWFTT] = CMPLX( WORK( INDIN1+IN-1 ), ZERO );
                      if ( IINFO == 0 ) {
                         // a new RRR for the cluster was found by SLARRF
                         // update shift and store it
@@ -630,12 +630,12 @@
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN < ZFROM) {
                         for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
-                           Z[II, WINDEX] = ZERO;
+                           Z[II][WINDEX] = ZERO;
                         } // 122
                      }
                      if (ISUPMX > ZTO) {
                         for (II = ZTO+1; II <= ISUPMX; II++) { // 123
-                           Z[II, WINDEX] = ZERO;
+                           Z[II][WINDEX] = ZERO;
                         } // 123
                      }
                      csscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );

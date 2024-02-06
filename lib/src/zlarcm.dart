@@ -43,7 +43,7 @@
       dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK, M, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 40
          for (I = 1; I <= M; I++) { // 30
-            C[I, J] = RWORK( L+( J-1 )*M+I-1 );
+            C[I][J] = RWORK( L+( J-1 )*M+I-1 );
          } // 30
       } // 40
 
@@ -55,7 +55,7 @@
       dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK, M, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 80
          for (I = 1; I <= M; I++) { // 70
-            C[I, J] = DCMPLX( (C( I, J )).toDouble(), RWORK( L+( J-1 )*M+I-1 ) );
+            C[I][J] = DCMPLX( (C( I, J )).toDouble(), RWORK( L+( J-1 )*M+I-1 ) );
          } // 70
       } // 80
 

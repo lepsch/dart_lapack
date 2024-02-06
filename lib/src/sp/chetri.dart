@@ -98,7 +98,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / REAL( A( K, K ) );
+            A[K][K] = ONE / REAL( A( K, K ) );
 
             // Compute column K of the inverse.
 
@@ -118,7 +118,7 @@
             AKP1 = double( A( K+1, K+1 ) ) / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
-            A[K, K] = AKP1 / D;
+            A[K][K] = AKP1 / D;
             A[K+1, K+1] = AK / D;
             A[K, K+1] = -AKKP1 / D;
 
@@ -142,13 +142,13 @@
             cswap(KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
             for (J = KP + 1; J <= K - 1; J++) { // 40
                TEMP = CONJG( A( J, K ) );
-               A[J, K] = CONJG( A( KP, J ) );
-               A[KP, J] = TEMP;
+               A[J][K] = CONJG( A( KP, J ) );
+               A[KP][J] = TEMP;
             } // 40
-            A[KP, K] = CONJG( A( KP, K ) );
+            A[KP][K] = CONJG( A( KP, K ) );
             TEMP = A( K, K );
-            A[K, K] = A( KP, KP );
-            A[KP, KP] = TEMP;
+            A[K][K] = A( KP, KP );
+            A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K+1 );
                A[K, K+1] = A( KP, K+1 );
@@ -180,7 +180,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / REAL( A( K, K ) );
+            A[K][K] = ONE / REAL( A( K, K ) );
 
             // Compute column K of the inverse.
 
@@ -201,7 +201,7 @@
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K-1, K-1] = AKP1 / D;
-            A[K, K] = AK / D;
+            A[K][K] = AK / D;
             A[K, K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
@@ -224,13 +224,13 @@
             if (KP < N) cswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             for (J = K + 1; J <= KP - 1; J++) { // 70
                TEMP = CONJG( A( J, K ) );
-               A[J, K] = CONJG( A( KP, J ) );
-               A[KP, J] = TEMP;
+               A[J][K] = CONJG( A( KP, J ) );
+               A[KP][J] = TEMP;
             } // 70
-            A[KP, K] = CONJG( A( KP, K ) );
+            A[KP][K] = CONJG( A( KP, K ) );
             TEMP = A( K, K );
-            A[K, K] = A( KP, KP );
-            A[KP, KP] = TEMP;
+            A[K][K] = A( KP, KP );
+            A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K-1 );
                A[K, K-1] = A( KP, K-1 );

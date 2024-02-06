@@ -67,7 +67,7 @@
       if ( K == 1 || K == 2 ) {
          for (I = 1; I <= K; I++) { // 40
             for (J = 1; J <= K; J++) { // 30
-               S[J, I] = Q( J, I );
+               S[J][I] = Q( J, I );
             } // 30
          } // 40
          GO TO 120;
@@ -96,11 +96,11 @@
 
       for (J = 1; J <= K; J++) { // 110
          for (I = 1; I <= K; I++) { // 90
-            Q[I, J] = W( I ) / Q( I, J );
+            Q[I][J] = W( I ) / Q( I, J );
          } // 90
          TEMP = SNRM2( K, Q( 1, J ), 1 );
          for (I = 1; I <= K; I++) { // 100
-            S[I, J] = Q( I, J ) / TEMP;
+            S[I][J] = Q( I, J ) / TEMP;
          } // 100
       } // 110
 

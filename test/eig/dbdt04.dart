@@ -1,113 +1,103 @@
-      void dbdt04(UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dbdt04(
+  final String UPLO,
+  final int N,
+  final Array<double> D,
+  final Array<double> E,
+  final Array<double> S,
+  final int NS,
+  final Matrix<double> U,
+  final int LDU,
+  final Matrix<double> VT,
+  final int LDVT,
+  final Array<double> WORK,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ZERO = 0.0, ONE = 1.0;
+  int I, J, K;
+  double BNORM, EPS;
 
-      // .. Scalar Arguments ..
-      String             UPLO;
-      int                LDU, LDVT, N, NS;
-      double             RESID;
-      // ..
-      // .. Array Arguments ..
-      double             D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-      // ..
+  // Quick return if possible.
 
-// ======================================================================
+  RESID.value = ZERO;
+  if (N <= 0 || NS <= 0) return;
 
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
-      int                I, J, K;
-      double             BNORM, EPS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax;
-      //- double             DASUM, DLAMCH;
-      // EXTERNAL lsame, idamax, DASUM, DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, MIN
-      // ..
-      // .. Executable Statements ..
+  EPS = dlamch('Precision');
 
-      // Quick return if possible.
+  // Compute S - U' * B * V.
 
-      RESID = ZERO;
-      if (N <= 0 || NS <= 0) return;
+  BNORM = ZERO;
 
-      EPS = dlamch( 'Precision' );
+  if (lsame(UPLO, 'U')) {
+    // B is upper bidiagonal.
 
-      // Compute S - U' * B * V.
+    K = 0;
+    for (I = 1; I <= NS; I++) {
+      for (J = 1; J <= N - 1; J++) {
+        K = K + 1;
+        WORK[K] = D[J] * VT[I][J] + E[J] * VT[I][J + 1];
+      }
+      K = K + 1;
+      WORK[K] = D[N] * VT[I][N];
+    }
+    BNORM = (D[1]).abs();
+    for (I = 2; I <= N; I++) {
+      BNORM = max(BNORM, (D[I]).abs() + (E[I - 1])).abs();
+    }
+  } else {
+    // B is lower bidiagonal.
 
-      BNORM = ZERO;
+    K = 0;
+    for (I = 1; I <= NS; I++) {
+      K = K + 1;
+      WORK[K] = D[1] * VT[I][1];
+      for (J = 1; J <= N - 1; J++) {
+        K = K + 1;
+        WORK[K] = E[J] * VT[I][J] + D[J + 1] * VT[I][J + 1];
+      }
+    }
+    BNORM = (D[N]).abs();
+    for (I = 1; I <= N - 1; I++) {
+      BNORM = max(BNORM, (D[I]).abs() + (E[I])).abs();
+    }
+  }
 
-      if ( lsame( UPLO, 'U' ) ) {
+  dgemm('T', 'N', NS, NS, N, -ONE, U, LDU, WORK(1).asMatrix(N), N, ZERO,
+      WORK(1 + N * NS).asMatrix(NS), NS);
 
-         // B is upper bidiagonal.
+  // norm(S - U' * B * V)
 
-         K = 0;
-         for (I = 1; I <= NS; I++) { // 20
-            for (J = 1; J <= N-1; J++) { // 10
-               K = K + 1;
-               WORK[K] = D( J )*VT( I, J ) + E( J )*VT( I, J+1 );
-            } // 10
-            K = K + 1;
-            WORK[K] = D( N )*VT( I, N );
-         } // 20
-         BNORM = ( D( 1 ) ).abs();
-         for (I = 2; I <= N; I++) { // 30
-            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I-1 ) ) ).abs();
-         } // 30
+  K = N * NS;
+  for (I = 1; I <= NS; I++) {
+    WORK[K + I] = WORK[K + I] + S[I];
+    RESID.value = max(RESID.value, dasum(NS, WORK(K + 1), 1));
+    K = K + NS;
+  }
+
+  if (BNORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    if (BNORM >= RESID.value) {
+      RESID.value = (RESID.value / BNORM) / (N.toDouble() * EPS);
+    } else {
+      if (BNORM < ONE) {
+        RESID.value = (min(RESID.value, (N).toDouble() * BNORM) / BNORM) /
+            (N.toDouble() * EPS);
       } else {
-
-         // B is lower bidiagonal.
-
-         K = 0;
-         for (I = 1; I <= NS; I++) { // 50
-            K = K + 1;
-            WORK[K] = D( 1 )*VT( I, 1 );
-            for (J = 1; J <= N-1; J++) { // 40
-               K = K + 1;
-               WORK[K] = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 );
-            } // 40
-         } // 50
-         BNORM = ( D( N ) ).abs();
-         for (I = 1; I <= N-1; I++) { // 60
-            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I ) ) ).abs();
-         } // 60
+        RESID.value =
+            min(RESID.value / BNORM, (N).toDouble()) / (N.toDouble() * EPS);
       }
-
-      dgemm('T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS );
-
-      // norm(S - U' * B * V)
-
-      K = N*NS;
-      for (I = 1; I <= NS; I++) { // 70
-         WORK[K+I] = WORK( K+I ) + S( I );
-         RESID = max( RESID, dasum( NS, WORK( K+1 ), 1 ) );
-         K = K + NS;
-      } // 70
-
-      if ( BNORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
-      } else {
-         if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( N.toDouble()*EPS );
-         } else {
-            if ( BNORM < ONE ) {
-               RESID = ( min( RESID, (N).toDouble()*BNORM ) / BNORM ) / ( N.toDouble()*EPS );
-            } else {
-               RESID = min( RESID / BNORM, (N).toDouble() ) / ( N.toDouble()*EPS );
-            }
-         }
-      }
-
-      return;
-      }
+    }
+  }
+}

@@ -248,7 +248,7 @@
 
                // Copy non-updated column KK to column KP
 
-               A[KP, K] = A( KK, K );
+               A[KP][K] = A( KK, K );
                zcopy(K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                zcopy(KP, A( 1, KK ), 1, A( 1, KP ), 1 );
 
@@ -276,7 +276,7 @@
                      zscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ) != CZERO ) {
                      for (II = 1; II <= K - 1; II++) { // 14
-                        A[II, K] = A( II, K ) / A( K, K );
+                        A[II][K] = A( II, K ) / A( K, K );
                      } // 14
                   }
 
@@ -315,7 +315,7 @@
 
                A[K-1, K-1] = W( K-1, KW-1 );
                A[K-1, K] = CZERO;
-               A[K, K] = W( K, KW );
+               A[K][K] = W( K, KW );
                E[K] = W( K-1, KW );
                E[K-1] = CZERO;
 
@@ -543,7 +543,7 @@
 
                // Copy non-updated column KK to column KP
 
-               A[KP, K] = A( KK, K );
+               A[KP][K] = A( KK, K );
                zcopy(KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA );
                zcopy(N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 );
 
@@ -570,7 +570,7 @@
                      zscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ) != CZERO ) {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A[II, K] = A( II, K ) / A( K, K );
+                        A[II][K] = A( II, K ) / A( K, K );
                      } // 74
                   }
 
@@ -598,7 +598,7 @@
                   D22 = W( K, K ) / D21;
                   T = CONE / ( D11*D22-CONE );
                   for (J = K + 2; J <= N; J++) { // 80
-                     A[J, K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
+                     A[J][K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
@@ -606,7 +606,7 @@
                // copy subdiagonal element of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
 
-               A[K, K] = W( K, K );
+               A[K][K] = W( K, K );
                A[K+1, K] = CZERO;
                A[K+1, K+1] = W( K+1, K+1 );
                E[K] = W( K+1, K );

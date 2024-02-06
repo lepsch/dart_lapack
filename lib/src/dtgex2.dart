@@ -116,8 +116,8 @@ import 'package:lapack/src/xerbla.dart';
          SA = ( S( 2, 2 ) ).abs() * ( T( 1, 1 ) ).abs();
          SB = ( S( 1, 1 ) ).abs() * ( T( 2, 2 ) ).abs();
          dlartg(F, G, IR( 1, 2 ), IR( 1, 1 ), DDUM );
-         IR[2, 1] = -IR( 1, 2 );
-         IR[2, 2] = IR( 1, 1 );
+         IR[2][1] = -IR( 1, 2 );
+         IR[2][2] = IR( 1, 1 );
          drot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          drot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          if ( SA >= SB ) {
@@ -127,8 +127,8 @@ import 'package:lapack/src/xerbla.dart';
          }
          drot(2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
          drot(2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
-         LI[2, 2] = LI( 1, 1 );
-         LI[1, 2] = -LI( 2, 1 );
+         LI[2][2] = LI( 1, 1 );
+         LI[1][2] = -LI( 2, 1 );
 
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
                             // and  |T21| <= O(EPS F-norm((B)))
@@ -333,23 +333,23 @@ import 'package:lapack/src/xerbla.dart';
 
          dlaset('Full', M, M, ZERO, ZERO, WORK, M );
          WORK[1] = ONE;
-         T[1, 1] = ONE;
+         T[1][1] = ONE;
          IDUM = LWORK - M*M - 2;
          if ( N2 > 1 ) {
             dlagv2(A( J1, J1 ), LDA, B( J1, J1 ), LDB, AR, AI, BE, WORK( 1 ), WORK( 2 ), T( 1, 1 ), T( 2, 1 ) );
             WORK[M+1] = -WORK( 2 );
             WORK[M+2] = WORK( 1 );
-            T[N2, N2] = T( 1, 1 );
-            T[1, 2] = -T( 2, 1 );
+            T[N2][N2] = T( 1, 1 );
+            T[1][2] = -T( 2, 1 );
          }
          WORK[M*M] = ONE;
-         T[M, M] = ONE;
+         T[M][M] = ONE;
 
          if ( N1 > 1 ) {
             dlagv2(A( J1+N2, J1+N2 ), LDA, B( J1+N2, J1+N2 ), LDB, TAUR, TAUL, WORK( M*M+1 ), WORK( N2*M+N2+1 ), WORK( N2*M+N2+2 ), T( N2+1, N2+1 ), T( M, M-1 ) );
             WORK[M*M] = WORK( N2*M+N2+1 );
             WORK[M*M-1] = -WORK( N2*M+N2+2 );
-            T[M, M] = T( N2+1, N2+1 );
+            T[M][M] = T( N2+1, N2+1 );
             T[M-1, M] = -T( M, M-1 );
          }
          dgemm('T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 );

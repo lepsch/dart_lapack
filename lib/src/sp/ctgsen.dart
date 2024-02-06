@@ -292,12 +292,12 @@
          if ( DSCALE > SAFMIN ) {
             TEMP1 = CONJG( B( K, K ) / DSCALE );
             TEMP2 = B( K, K ) / DSCALE;
-            B[K, K] = DSCALE;
+            B[K][K] = DSCALE;
             cscal(N-K, TEMP1, B( K, K+1 ), LDB );
             cscal(N-K+1, TEMP1, A( K, K ), LDA );
             if (WANTQ) cscal( N, TEMP2, Q( 1, K ), 1 );
          } else {
-            B[K, K] = CMPLX( ZERO, ZERO );
+            B[K][K] = CMPLX( ZERO, ZERO );
          }
 
          ALPHA[K] = A( K, K );

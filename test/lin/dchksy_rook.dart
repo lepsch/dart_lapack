@@ -416,10 +416,10 @@ import 'common.dart';
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK[1, 1] = AFAC( ( K-2 )*LDA+K-1 );
-                        BLOCK[1, 2] = AFAC( (K-1)*LDA+K-1 );
-                        BLOCK[2, 1] = BLOCK( 1, 2 );
-                        BLOCK[2, 2] = AFAC( (K-1)*LDA+K );
+                        BLOCK[1][1] = AFAC( ( K-2 )*LDA+K-1 );
+                        BLOCK[1][2] = AFAC( (K-1)*LDA+K-1 );
+                        BLOCK[2][1] = BLOCK( 1, 2 );
+                        BLOCK[2][2] = AFAC( (K-1)*LDA+K );
 
                         dgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO );
 
@@ -455,10 +455,10 @@ import 'common.dart';
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK[1, 1] = AFAC( ( K-1 )*LDA+K );
-                        BLOCK[2, 1] = AFAC( ( K-1 )*LDA+K+1 );
-                        BLOCK[1, 2] = BLOCK( 2, 1 );
-                        BLOCK[2, 2] = AFAC( K*LDA+K+1 );
+                        BLOCK[1][1] = AFAC( ( K-1 )*LDA+K );
+                        BLOCK[2][1] = AFAC( ( K-1 )*LDA+K+1 );
+                        BLOCK[1][2] = BLOCK( 2, 1 );
+                        BLOCK[2][2] = AFAC( K*LDA+K+1 );
 
                         dgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO );
 

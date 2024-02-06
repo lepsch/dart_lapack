@@ -231,7 +231,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Remove the shift
                dlartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
-               B[KWBOT, KWBOT] = TEMP;
+               B[KWBOT][KWBOT] = TEMP;
                B[KWBOT, KWBOT-1] = ZERO;
                drot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 );
                drot(KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 );

@@ -92,17 +92,17 @@
          JC = 0;
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J - 1; I++) { // 30
-               C[I, J] = C( I, J ) - A( JC+I );
+               C[I][J] = C( I, J ) - A( JC+I );
             } // 30
-            C[J, J] = C( J, J ) - (A( JC+J )).toDouble();
+            C[J][J] = C( J, J ) - (A( JC+J )).toDouble();
             JC = JC + J;
          } // 40
       } else {
          JC = 1;
          for (J = 1; J <= N; J++) { // 60
-            C[J, J] = C( J, J ) - (A( JC )).toDouble();
+            C[J][J] = C( J, J ) - (A( JC )).toDouble();
             for (I = J + 1; I <= N; I++) { // 50
-               C[I, J] = C( I, J ) - A( JC+I-J );
+               C[I][J] = C( I, J ) - A( JC+I-J );
             } // 50
             JC = JC + N - J + 1;
          } // 60

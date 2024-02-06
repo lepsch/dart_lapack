@@ -29,8 +29,8 @@ import 'package:lapack/src/xerbla.dart';
          H = B( IHI-1:IHI, IHI-2:IHI );
          // Make H upper triangular
          dlartg(H( 1, 1 ), H( 2, 1 ), C1, S1, TEMP );
-         H[2, 1] = ZERO;
-         H[1, 1] = TEMP;
+         H[2][1] = ZERO;
+         H[1][1] = TEMP;
          drot(2, H( 1, 2 ), 2, H( 2, 2 ), 2, C1, S1 );
 
          dlartg(H( 2, 3 ), H( 2, 2 ), C1, S1, TEMP );
@@ -58,7 +58,7 @@ import 'package:lapack/src/xerbla.dart';
          }
 
          dlartg(B( IHI, IHI ), B( IHI, IHI-1 ), C1, S1, TEMP );
-         B[IHI, IHI] = TEMP;
+         B[IHI][IHI] = TEMP;
          B[IHI, IHI-1] = ZERO;
          drot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C1, S1 );
          drot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 );
@@ -75,8 +75,8 @@ import 'package:lapack/src/xerbla.dart';
          // Make H upper triangular
 
          dlartg(H( 1, 1 ), H( 2, 1 ), C1, S1, TEMP );
-         H[2, 1] = ZERO;
-         H[1, 1] = TEMP;
+         H[2][1] = ZERO;
+         H[1][1] = TEMP;
          drot(2, H( 1, 2 ), 2, H( 2, 2 ), 2, C1, S1 );
 
          // Calculate Z1 and Z2

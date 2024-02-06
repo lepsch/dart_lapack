@@ -78,9 +78,9 @@ import 'package:lapack/src/xerbla.dart';
             // Apply H(i)**T to A(offset+i:m,i+1:n) from the left.
 
             AII = A( OFFPI, I );
-            A[OFFPI, I] = ONE;
+            A[OFFPI][I] = ONE;
             dlarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
-            A[OFFPI, I] = AII;
+            A[OFFPI][I] = AII;
          }
 
          // Update partial column norms.

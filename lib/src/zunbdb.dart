@@ -128,13 +128,13 @@
             } else if ( P == I ) {
                zlarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
-            X11[I,I] = ONE;
+            X11[I][I] = ONE;
             if ( M-P > I ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
-            X21[I,I] = ONE;
+            X21[I][I] = ONE;
 
             if ( Q > I ) {
                zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK );
@@ -171,7 +171,7 @@
                   zlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( I < Q ) {
                zlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -200,7 +200,7 @@
             } else {
                zlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( P > I ) {
                zlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -250,13 +250,13 @@
             zlacgv(M-P-I+1, X21(I,I), LDX21 );
 
             zlarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
-            X11[I,I] = ONE;
+            X11[I][I] = ONE;
             if ( I == M-P ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
-            X21[I,I] = ONE;
+            X21[I][I] = ONE;
 
             zlarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
             zlarf('R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK );
@@ -280,7 +280,7 @@
                X11[I+1,I] = ONE;
             }
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( I < Q ) {
                zlarf('L', Q-I, P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X11(I+1,I+1), LDX11, WORK );
@@ -299,7 +299,7 @@
 
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0 ), X12(I,I), 1 );
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( P > I ) {
                zlarf('L', M-Q-I+1, P-I, X12(I,I), 1, DCONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );

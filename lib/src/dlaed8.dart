@@ -193,10 +193,10 @@ import 'package:lapack/src/xerbla.dart';
             // Record the appropriate Givens rotation
 
             GIVPTR = GIVPTR + 1;
-            GIVCOL[1, GIVPTR] = INDXQ( INDX( JLAM ) );
-            GIVCOL[2, GIVPTR] = INDXQ( INDX( J ) );
-            GIVNUM[1, GIVPTR] = C;
-            GIVNUM[2, GIVPTR] = S;
+            GIVCOL[1][GIVPTR] = INDXQ( INDX( JLAM ) );
+            GIVCOL[2][GIVPTR] = INDXQ( INDX( J ) );
+            GIVNUM[1][GIVPTR] = C;
+            GIVNUM[2][GIVPTR] = S;
             if ( ICOMPQ == 1 ) {
                drot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
             }

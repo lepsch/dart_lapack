@@ -157,10 +157,10 @@
          if( IPAIR == 0 && WI( JCOL ) != ZERO ) IPAIR = 1;
 
          if ( IPAIR == 1 ) {
-            WMAT[1, 1] = WR( JCOL );
-            WMAT[2, 1] = -WI( JCOL );
-            WMAT[1, 2] = WI( JCOL );
-            WMAT[2, 2] = WR( JCOL );
+            WMAT[1][1] = WR( JCOL );
+            WMAT[2][1] = -WI( JCOL );
+            WMAT[1][2] = WI( JCOL );
+            WMAT[2][2] = WR( JCOL );
             dgemm(TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N );
             IPAIR = 2;
          } else if ( IPAIR == 2 ) {

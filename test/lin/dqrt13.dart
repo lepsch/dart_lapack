@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          dlarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + sign( dasum( M, A( 1, J ), 1 ), A( J, J ) );
+            A[J][J] = A( J, J ) + sign( dasum( M, A( 1, J ), 1 ), A( J, J ) );
          }
       } // 10
 

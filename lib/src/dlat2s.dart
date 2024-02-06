@@ -47,7 +47,7 @@ import 'package:lapack/src/xerbla.dart';
                   INFO = 1;
                   GO TO 50;
                }
-               SA[I, J] = double( A( I, J ) );
+               SA[I][J] = double( A( I, J ) );
             } // 10
          } // 20
       } else {
@@ -57,7 +57,7 @@ import 'package:lapack/src/xerbla.dart';
                   INFO = 1;
                   GO TO 50;
                }
-               SA[I, J] = double( A( I, J ) );
+               SA[I][J] = double( A( I, J ) );
             } // 30
          } // 40
       }

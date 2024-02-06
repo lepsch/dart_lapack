@@ -277,7 +277,7 @@
 
                for (J = K; J <= I2; J++) { // 70
                   SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J );
-                  H[K, J] = H( K, J ) - SUM*T1;
+                  H[K][J] = H( K, J ) - SUM*T1;
                   H[K+1, J] = H( K+1, J ) - SUM*T2;
                   H[K+2, J] = H( K+2, J ) - SUM*T3;
                } // 70
@@ -287,7 +287,7 @@
 
                for (J = I1; J <= min( K+3, I ); J++) { // 80
                   SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 );
-                  H[J, K] = H( J, K ) - SUM*T1;
+                  H[J][K] = H( J, K ) - SUM*T1;
                   H[J, K+1] = H( J, K+1 ) - SUM*T2;
                   H[J, K+2] = H( J, K+2 ) - SUM*T3;
                } // 80
@@ -298,7 +298,7 @@
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 90
                      SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 );
-                     Z[J, K] = Z( J, K ) - SUM*T1;
+                     Z[J][K] = Z( J, K ) - SUM*T1;
                      Z[J, K+1] = Z( J, K+1 ) - SUM*T2;
                      Z[J, K+2] = Z( J, K+2 ) - SUM*T3;
                   } // 90
@@ -310,7 +310,7 @@
 
                for (J = K; J <= I2; J++) { // 100
                   SUM = H( K, J ) + V2*H( K+1, J );
-                  H[K, J] = H( K, J ) - SUM*T1;
+                  H[K][J] = H( K, J ) - SUM*T1;
                   H[K+1, J] = H( K+1, J ) - SUM*T2;
                } // 100
 
@@ -319,7 +319,7 @@
 
                for (J = I1; J <= I; J++) { // 110
                   SUM = H( J, K ) + V2*H( J, K+1 );
-                  H[J, K] = H( J, K ) - SUM*T1;
+                  H[J][K] = H( J, K ) - SUM*T1;
                   H[J, K+1] = H( J, K+1 ) - SUM*T2;
                } // 110
 
@@ -329,7 +329,7 @@
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 120
                      SUM = Z( J, K ) + V2*Z( J, K+1 );
-                     Z[J, K] = Z( J, K ) - SUM*T1;
+                     Z[J][K] = Z( J, K ) - SUM*T1;
                      Z[J, K+1] = Z( J, K+1 ) - SUM*T2;
                   } // 120
                }

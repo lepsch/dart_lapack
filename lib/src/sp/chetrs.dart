@@ -119,7 +119,7 @@
                BKM1 = B( K-1, J ) / AKM1K;
                BK = B( K, J ) / CONJG( AKM1K );
                B[K-1, J] = ( AK*BKM1-BK ) / DENOM;
-               B[K, J] = ( AKM1*BK-BKM1 ) / DENOM;
+               B[K][J] = ( AKM1*BK-BKM1 ) / DENOM;
             } // 20
             K = K - 2;
          }
@@ -245,7 +245,7 @@
             for (J = 1; J <= NRHS; J++) { // 70
                BKM1 = B( K, J ) / CONJG( AKM1K );
                BK = B( K+1, J ) / AKM1K;
-               B[K, J] = ( AK*BKM1-BK ) / DENOM;
+               B[K][J] = ( AK*BKM1-BK ) / DENOM;
                B[K+1, J] = ( AKM1*BK-BKM1 ) / DENOM;
             } // 70
             K = K + 2;

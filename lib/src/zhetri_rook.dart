@@ -98,7 +98,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / (A( K, K )).toDouble();
+            A[K][K] = ONE / (A( K, K )).toDouble();
 
             // Compute column K of the inverse.
 
@@ -118,7 +118,7 @@
             AKP1 = (A( K+1, K+1 )).toDouble() / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
-            A[K, K] = AKP1 / D;
+            A[K][K] = AKP1 / D;
             A[K+1, K+1] = AK / D;
             A[K, K+1] = -AKKP1 / D;
 
@@ -127,7 +127,7 @@
             if ( K > 1 ) {
                zcopy(K-1, A( 1, K ), 1, WORK, 1 );
                zhemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 );
-               A[K, K] = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - ZDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               A[K][K] = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - ZDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                zcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
                zhemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
             }
@@ -146,15 +146,15 @@
 
                for (J = KP + 1; J <= K - 1; J++) { // 40
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
                } // 40
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
             }
          } else {
 
@@ -170,15 +170,15 @@
 
                for (J = KP + 1; J <= K - 1; J++) { // 50
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
                } // 50
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
 
                TEMP = A( K, K+1 );
                A[K, K+1] = A( KP, K+1 );
@@ -195,15 +195,15 @@
 
                for (J = KP + 1; J <= K - 1; J++) { // 60
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
                } // 60
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
             }
          }
 
@@ -231,7 +231,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / (A( K, K )).toDouble();
+            A[K][K] = ONE / (A( K, K )).toDouble();
 
             // Compute column K of the inverse.
 
@@ -252,7 +252,7 @@
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K-1, K-1] = AKP1 / D;
-            A[K, K] = AK / D;
+            A[K][K] = AK / D;
             A[K, K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
@@ -278,15 +278,15 @@
 
                for (J = K + 1; J <= KP - 1; J++) { // 90
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
                } // 90
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
             }
          } else {
 
@@ -302,15 +302,15 @@
 
                for (J = K + 1; J <= KP - 1; J++) { // 100
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
               } // 100
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
 
                TEMP = A( K, K-1 );
                A[K, K-1] = A( KP, K-1 );
@@ -327,15 +327,15 @@
 
                for (J = K + 1; J <= KP - 1; J++) { // 110
                   TEMP = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( KP, J ) );
-                  A[KP, J] = TEMP;
+                  A[J][K] = DCONJG( A( KP, J ) );
+                  A[KP][J] = TEMP;
               } // 110
 
-               A[KP, K] = DCONJG( A( KP, K ) );
+               A[KP][K] = DCONJG( A( KP, K ) );
 
                TEMP = A( K, K );
-               A[K, K] = A( KP, KP );
-               A[KP, KP] = TEMP;
+               A[K][K] = A( KP, KP );
+               A[KP][KP] = TEMP;
             }
          }
 

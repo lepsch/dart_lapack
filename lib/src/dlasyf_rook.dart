@@ -237,7 +237,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Copy non-updated column KK to column KP
 
-               A[KP, K] = A( KK, K );
+               A[KP][K] = A( KK, K );
                dcopy(K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                dcopy(KP, A( 1, KK ), 1, A( 1, KP ), 1 );
 
@@ -265,7 +265,7 @@ import 'package:lapack/src/xerbla.dart';
                      dscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ) != ZERO ) {
                      for (II = 1; II <= K - 1; II++) { // 14
-                        A[II, K] = A( II, K ) / A( K, K );
+                        A[II][K] = A( II, K ) / A( K, K );
                      } // 14
                   }
                }
@@ -297,7 +297,7 @@ import 'package:lapack/src/xerbla.dart';
 
                A[K-1, K-1] = W( K-1, KW-1 );
                A[K-1, K] = W( K-1, KW );
-               A[K, K] = W( K, KW );
+               A[K][K] = W( K, KW );
             }
          }
 
@@ -533,7 +533,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Copy non-updated column KK to column KP
 
-               A[KP, K] = A( KK, K );
+               A[KP][K] = A( KK, K );
                dcopy(KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA );
                dcopy(N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 );
 
@@ -560,7 +560,7 @@ import 'package:lapack/src/xerbla.dart';
                      dscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ) != ZERO ) {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A[II, K] = A( II, K ) / A( K, K );
+                        A[II][K] = A( II, K ) / A( K, K );
                      } // 74
                   }
                }
@@ -583,13 +583,13 @@ import 'package:lapack/src/xerbla.dart';
                   D22 = W( K, K ) / D21;
                   T = ONE / ( D11*D22-ONE );
                   for (J = K + 2; J <= N; J++) { // 80
-                     A[J, K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
+                     A[J][K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
                // Copy D(k) to A
 
-               A[K, K] = W( K, K );
+               A[K][K] = W( K, K );
                A[K+1, K] = W( K+1, K );
                A[K+1, K+1] = W( K+1, K+1 );
             }

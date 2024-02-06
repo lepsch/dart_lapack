@@ -24,7 +24,7 @@
          // Shift is located on the edge of the matrix, remove it
 
          clartg(B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP );
-         B[IHI, IHI] = TEMP;
+         B[IHI][IHI] = TEMP;
          B[IHI, IHI-1] = CZERO;
          crot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S );
          crot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S );

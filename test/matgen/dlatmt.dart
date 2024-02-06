@@ -510,7 +510,7 @@
                   if ( IPACK == 5 ) {
                      for (JC = N - UUB + 1; JC <= N; JC++) { // 300
                         for (JR = N + 2 - JC; JR <= UUB + 1; JR++) { // 290
-                           A[JR, JC] = ZERO;
+                           A[JR][JC] = ZERO;
                         } // 290
                      } // 300
                   }
@@ -572,7 +572,7 @@
                   if ( IPACK == 6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 370
                         for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 360
-                           A[JR, JC] = ZERO;
+                           A[JR][JC] = ZERO;
                         } // 360
                      } // 370
                   }
@@ -621,7 +621,7 @@
 
             for (J = 1; J <= M; J++) { // 390
                for (I = J + 1; I <= M; I++) { // 380
-                  A[I, J] = ZERO;
+                  A[I][J] = ZERO;
                } // 380
             } // 390
 
@@ -631,7 +631,7 @@
 
             for (J = 2; J <= M; J++) { // 410
                for (I = 1; I <= J - 1; I++) { // 400
-                  A[I, J] = ZERO;
+                  A[I][J] = ZERO;
                } // 400
             } // 410
 
@@ -648,7 +648,7 @@
                      IROW = 1;
                      ICOL = ICOL + 1;
                   }
-                  A[IROW, ICOL] = A( I, J );
+                  A[IROW][ICOL] = A( I, J );
                } // 420
             } // 430
 
@@ -665,7 +665,7 @@
                      IROW = 1;
                      ICOL = ICOL + 1;
                   }
-                  A[IROW, ICOL] = A( I, J );
+                  A[IROW][ICOL] = A( I, J );
                } // 440
             } // 450
 
@@ -699,7 +699,7 @@
          if ( IPACK == 3 || IPACK == 4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 510
                for (JR = IROW + 1; JR <= LDA; JR++) { // 500
-                  A[JR, JC] = ZERO;
+                  A[JR][JC] = ZERO;
                } // 500
                IROW = 0;
             } // 510
@@ -716,10 +716,10 @@
             IR2 = UUB + M + 2;
             for (JC = 1; JC <= N; JC++) { // 540
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 520
-                  A[JR, JC] = ZERO;
+                  A[JR][JC] = ZERO;
                } // 520
                for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) { // 530
-                  A[JR, JC] = ZERO;
+                  A[JR][JC] = ZERO;
                } // 530
             } // 540
          }

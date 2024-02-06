@@ -209,7 +209,7 @@ import 'package:lapack/src/xerbla.dart';
             }
          }
          if ( RSVEC ) {
-             V[1,1] = ONE;
+             V[1][1] = ONE;
          }
          if ( SVA(1) < (BIG*SCALEM) ) {
             SVA[1] = SVA(1) / SCALEM;
@@ -325,8 +325,8 @@ import 'package:lapack/src/xerbla.dart';
             for (p = 1; p <= N - 1; p++) { // 1115
                for (q = p + 1; q <= N; q++) { // 1116
                    TEMP1 = A(q,p);
-                  A[q,p] = A(p,q);
-                  A[p,q] = TEMP1;
+                  A[q][p] = A(p,q);
+                  A[p][q] = TEMP1;
                } // 1116
             } // 1115
             for (p = 1; p <= N; p++) { // 1117
@@ -883,7 +883,7 @@ import 'package:lapack/src/xerbla.dart';
                   TEMP1 = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
                      // V(p,q) = - DSIGN( TEMP1, V(q,p) )
-                     V[p,q] = - DSIGN( TEMP1, V(p,q) );
+                     V[p][q] = - DSIGN( TEMP1, V(p,q) );
                   } // 4969
                } // 4968
             } else {
@@ -950,7 +950,7 @@ import 'package:lapack/src/xerbla.dart';
                      WORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 872
                   for (p = 1; p <= NR; p++) { // 874
-                     U[p,q] = WORK(2*N+N*NR+NR+p);
+                     U[p][q] = WORK(2*N+N*NR+NR+p);
                   } // 874
                } // 873
                if ( NR < N ) {
@@ -987,7 +987,7 @@ import 'package:lapack/src/xerbla.dart';
                      WORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 772
                   for (p = 1; p <= NR; p++) { // 774
-                     U[p,q] = WORK(2*N+N*NR+NR+p);
+                     U[p][q] = WORK(2*N+N*NR+NR+p);
                   } // 774
                } // 773
 
@@ -1003,7 +1003,7 @@ import 'package:lapack/src/xerbla.dart';
                   WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 972
                for (p = 1; p <= N; p++) { // 973
-                  V[p,q] = WORK(2*N+N*NR+NR+p);
+                  V[p][q] = WORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / dnrm2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
@@ -1161,7 +1161,7 @@ import 'package:lapack/src/xerbla.dart';
                   WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 8972
                for (p = 1; p <= N; p++) { // 8973
-                  V[p,q] = WORK(2*N+N*NR+NR+p);
+                  V[p][q] = WORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / dnrm2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );

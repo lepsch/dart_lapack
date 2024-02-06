@@ -80,7 +80,7 @@
       if ( N == 0 || M == 0 ) {
          return;
       } else if ( N == 1 ) {
-         Z[1, 1] = CONE;
+         Z[1][1] = CONE;
          return;
       }
 
@@ -241,7 +241,7 @@
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 140
             for (I = 1; I <= N; I++) { // 150
-               Z[I, J] = CZERO;
+               Z[I][J] = CZERO;
             } // 150
             for (I = 1; I <= BLKSIZ; I++) { // 160
                Z[B1+I-1, J] = DCMPLX( WORK( INDRV1+I ), ZERO );

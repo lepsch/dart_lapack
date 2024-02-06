@@ -287,9 +287,9 @@
 
          if ( KK < MINMNUPDT ) {
             AIKK = A( I, KK );
-            A[I, KK] = CONE;
+            A[I][KK] = CONE;
             zlarf('Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, DCONJG( TAU( KK ) ), A( I, KK+1 ), LDA, WORK( 1 ) );
-            A[I, KK] = AIKK;
+            A[I][KK] = AIKK;
          }
 
          if ( KK < MINMNFACT ) {

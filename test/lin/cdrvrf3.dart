@@ -143,7 +143,7 @@
 
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
-                                    A[I, J] = CLARND( 4, ISEED );
+                                    A[I][J] = CLARND( 4, ISEED );
                                  }
                               }
 
@@ -162,7 +162,7 @@
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( J, J ) );
                                        }
                                     }
                                  }
@@ -182,7 +182,7 @@
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( I, I ) );
                                        }
                                     }
                                  }
@@ -195,7 +195,7 @@
                               // value 1.0e+00.
 
                               for (J = 1; J <= NA; J++) {
-                                 A[J, J] = A( J, J ) * CLARND( 5, ISEED );
+                                 A[J][J] = A( J, J ) * CLARND( 5, ISEED );
                               }
 
                               // Store a copy of A in RFP format (in ARF).
@@ -208,8 +208,8 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = CLARND( 4, ISEED );
-                                    B2[I, J] = B1( I, J );
+                                    B1[I][J] = CLARND( 4, ISEED );
+                                    B2[I][J] = B1( I, J );
                                  }
                               }
 
@@ -229,7 +229,7 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = B2( I, J ) - B1( I, J );
+                                    B1[I][J] = B2( I, J ) - B1( I, J );
                                  }
                               }
 

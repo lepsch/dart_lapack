@@ -291,12 +291,12 @@
          if ( DSCALE > SAFMIN ) {
             TEMP1 = DCONJG( B( K, K ) / DSCALE );
             TEMP2 = B( K, K ) / DSCALE;
-            B[K, K] = DSCALE;
+            B[K][K] = DSCALE;
             zscal(N-K, TEMP1, B( K, K+1 ), LDB );
             zscal(N-K+1, TEMP1, A( K, K ), LDA );
             if (WANTQ) zscal( N, TEMP2, Q( 1, K ), 1 );
          } else {
-            B[K, K] = DCMPLX( ZERO, ZERO );
+            B[K][K] = DCMPLX( ZERO, ZERO );
          }
 
          ALPHA[K] = A( K, K );

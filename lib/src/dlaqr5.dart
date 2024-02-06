@@ -165,7 +165,7 @@ import 'package:lapack/src/xerbla.dart';
                   dlarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                } else {
                   BETA = H( K+1, K );
-                  V[2, M22] = H( K+2, K );
+                  V[2][M22] = H( K+2, K );
                   dlarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                   H[K+1, K] = BETA;
                   H[K+2, K] = ZERO;
@@ -281,8 +281,8 @@ import 'package:lapack/src/xerbla.dart';
                   // .    Mth bulge one step. ====
 
                   BETA      = H( K+1, K );
-                  V[2, M] = H( K+2, K );
-                  V[3, M] = H( K+3, K );
+                  V[2][M] = H( K+2, K );
+                  V[3][M] = H( K+3, K );
                   dlarfg(3, BETA, V( 2, M ), 1, V( 1, M ) );
 
                   // ==== A Bulge may collapse because of vigilant
@@ -332,9 +332,9 @@ import 'package:lapack/src/xerbla.dart';
                         H[K+1, K] = H( K+1, K ) - REFSUM*T1;
                         H[K+2, K] = ZERO;
                         H[K+3, K] = ZERO;
-                        V[1, M] = VT( 1 );
-                        V[2, M] = VT( 2 );
-                        V[3, M] = VT( 3 );
+                        V[1][M] = VT( 1 );
+                        V[2][M] = VT( 2 );
+                        V[3][M] = VT( 3 );
                      }
                   }
                }
@@ -372,7 +372,7 @@ import 'package:lapack/src/xerbla.dart';
                // .    is zero (as done here) is traditional but probably
                // .    unnecessary. ====
 
-               if (K < KTOP) CYCLE;
+               if (K < KTOP) continue;
                if ( H( K+1, K ) != ZERO ) {
                   TST1 = ( H( K, K ) ).abs() + ( H( K+1, K+1 ) ).abs();
                   if ( TST1 == ZERO ) {

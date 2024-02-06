@@ -73,7 +73,7 @@
       // Generate the scaled Hilbert matrix in A
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= N; I++) {
-            A[I, J] = double(M) / (I + J - 1);
+            A[I][J] = double(M) / (I + J - 1);
          }
       }
 
@@ -91,7 +91,7 @@
 
       for (J = 1; J <= NRHS; J++) {
          for (I = 1; I <= N; I++) {
-            X[I, J] = (WORK(I)*WORK(J)) / (I + J - 1);
+            X[I][J] = (WORK(I)*WORK(J)) / (I + J - 1);
          }
       }
 

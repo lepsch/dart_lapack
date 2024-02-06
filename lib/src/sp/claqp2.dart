@@ -73,9 +73,9 @@
             // Apply H(i)**H to A(offset+i:m,i+1:n) from the left.
 
             AII = A( OFFPI, I );
-            A[OFFPI, I] = CONE;
+            A[OFFPI][I] = CONE;
             clarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, CONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
-            A[OFFPI, I] = AII;
+            A[OFFPI][I] = AII;
          }
 
          // Update partial column norms.

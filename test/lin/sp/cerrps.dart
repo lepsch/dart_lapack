@@ -47,7 +47,7 @@
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A[I, J] = 1.0 / REAL( I+J );
+            A[I][J] = 1.0 / REAL( I+J );
 
          } // 100
          PIV[J] = J;

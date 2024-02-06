@@ -100,14 +100,14 @@ import 'package:lapack/src/xerbla.dart';
             NS = 1;
             S[1] = ( D( 1 ) ).abs();
          } else {
-            if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ) ).abs() {
+            if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ).abs() ) {
                NS = 1;
                S[1] = ( D( 1 ) ).abs();
             }
          }
          if ( WANTZ ) {
-            Z[1, 1] = sign( ONE, D( 1 ) );
-            Z[2, 1] = ONE;
+            Z[1][1] = sign( ONE, D( 1 ) );
+            Z[2][1] = ONE;
          }
          return;
       }
@@ -140,7 +140,7 @@ import 'package:lapack/src/xerbla.dart';
          for (I = 2; I <= N; I++) {
             MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
             SMIN = min( SMIN, MU );
-            if (SMIN == ZERO) EXIT;
+            if (SMIN == ZERO) break;
          }
       }
       SMIN = SMIN / sqrt( N.toDouble() );

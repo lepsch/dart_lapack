@@ -101,7 +101,7 @@ import 'package:lapack/src/xerbla.dart';
 
                for (J = 1; J <= K; J++) { // 30
                   for (I = 1; I <= N; I++) { // 20
-                     C[J, I] = C( J, I ) - WORK( I, J );
+                     C[J][I] = C( J, I ) - WORK( I, J );
                   } // 20
                } // 30
 
@@ -148,7 +148,7 @@ import 'package:lapack/src/xerbla.dart';
 
                for (J = 1; J <= K; J++) { // 60
                   for (I = 1; I <= M; I++) { // 50
-                     C[I, J] = C( I, J ) - WORK( I, J );
+                     C[I][J] = C( I, J ) - WORK( I, J );
                   } // 50
                } // 60
             }
@@ -307,7 +307,7 @@ import 'package:lapack/src/xerbla.dart';
 
                for (J = 1; J <= K; J++) { // 150
                   for (I = 1; I <= N; I++) { // 140
-                     C[J, I] = C( J, I ) - WORK( I, J );
+                     C[J][I] = C( J, I ) - WORK( I, J );
                   } // 140
                } // 150
 
@@ -354,7 +354,7 @@ import 'package:lapack/src/xerbla.dart';
 
                for (J = 1; J <= K; J++) { // 180
                   for (I = 1; I <= M; I++) { // 170
-                     C[I, J] = C( I, J ) - WORK( I, J );
+                     C[I][J] = C( I, J ) - WORK( I, J );
                   } // 170
                } // 180
 

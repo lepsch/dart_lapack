@@ -61,7 +61,7 @@
 
          // Reduce the upper triangle of A
 
-         A[N, N] = double( A( N, N ) );
+         A[N][N] = double( A( N, N ) );
          for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -92,7 +92,7 @@
                cher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
             } else {
-               A[I, I] = double( A( I, I ) );
+               A[I][I] = double( A( I, I ) );
             }
             A[I, I+1] = E( I );
             D[I+1] = double( A( I+1, I+1 ) );
@@ -103,7 +103,7 @@
 
          // Reduce the lower triangle of A
 
-         A[1, 1] = double( A( 1, 1 ) );
+         A[1][1] = double( A( 1, 1 ) );
          for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**H

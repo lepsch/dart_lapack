@@ -47,7 +47,7 @@ import 'common.dart';
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A[I, J] = 1.0 / (I+J).toDouble();
+            A[I][J] = 1.0 / (I+J).toDouble();
 
          } // 100
          PIV[J] = J;

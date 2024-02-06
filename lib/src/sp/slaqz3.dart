@@ -223,7 +223,7 @@
 
                // Remove the shift
                slartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
-               B[KWBOT, KWBOT] = TEMP;
+               B[KWBOT][KWBOT] = TEMP;
                B[KWBOT, KWBOT-1] = ZERO;
                srot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 );
                srot(KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 );

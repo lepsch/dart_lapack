@@ -173,7 +173,7 @@
             // [ T(1:KI-1,1:KI-1) - T(KI,KI) ]*X = SCALE*WORK.
 
             for (K = 1; K <= KI - 1; K++) { // 50
-               T[K, K] = T( K, K ) - T( KI, KI );
+               T[K][K] = T( K, K ) - T( KI, KI );
                if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 50
 
@@ -194,7 +194,7 @@
                zdscal(KI, REMAX, VR( 1, IS ), 1 );
 
                for (K = KI + 1; K <= N; K++) { // 60
-                  VR[K, IS] = CZERO;
+                  VR[K][IS] = CZERO;
                } // 60
 
             } else if ( NB == 1 ) {
@@ -235,7 +235,7 @@
             // Restore the original diagonal elements of T.
 
             for (K = 1; K <= KI - 1; K++) { // 70
-               T[K, K] = WORK( K );
+               T[K][K] = WORK( K );
             } // 70
 
             IS = IS - 1;
@@ -275,7 +275,7 @@
             // [ T(KI+1:N,KI+1:N) - T(KI,KI) ]**H * X = SCALE*WORK.
 
             for (K = KI + 1; K <= N; K++) { // 100
-               T[K, K] = T( K, K ) - T( KI, KI );
+               T[K][K] = T( K, K ) - T( KI, KI );
                if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 100
 
@@ -296,7 +296,7 @@
                zdscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                for (K = 1; K <= KI - 1; K++) { // 110
-                  VL[K, IS] = CZERO;
+                  VL[K][IS] = CZERO;
                } // 110
 
             } else if ( NB == 1 ) {
@@ -338,7 +338,7 @@
             // Restore the original diagonal elements of T.
 
             for (K = KI + 1; K <= N; K++) { // 120
-               T[K, K] = WORK( K );
+               T[K][K] = WORK( K );
             } // 120
 
             IS = IS + 1;

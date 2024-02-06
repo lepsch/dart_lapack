@@ -118,7 +118,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
                   GO TO 160;
                }
             }
@@ -127,7 +127,7 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A[PVT, PVT] = A( J, J );
+               A[PVT][PVT] = A( J, J );
                sswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                if (PVT < N) sswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                sswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
@@ -143,7 +143,7 @@
             }
 
             AJJ = sqrt( AJJ );
-            A[J, J] = AJJ;
+            A[J][J] = AJJ;
 
             // Compute elements J+1:N of row J
 
@@ -178,7 +178,7 @@
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
                if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
                   GO TO 160;
                }
             }
@@ -187,7 +187,7 @@
 
                // Pivot OK, so can now swap pivot rows and columns
 
-               A[PVT, PVT] = A( J, J );
+               A[PVT][PVT] = A( J, J );
                sswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                if (PVT < N) sswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                sswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
@@ -203,7 +203,7 @@
             }
 
             AJJ = sqrt( AJJ );
-            A[J, J] = AJJ;
+            A[J][J] = AJJ;
 
             // Compute elements J+1:N of column J
 

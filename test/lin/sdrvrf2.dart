@@ -74,7 +74,7 @@
 
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A[I, J] = SLARND( 2, ISEED );
+                     A[I][J] = SLARND( 2, ISEED );
                   }
                }
 

@@ -53,7 +53,7 @@
             clarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D[I] = double( ALPHA );
             if ( I < N ) {
-               A[I, I] = ONE;
+               A[I][I] = ONE;
 
                // Compute Y(i+1:n,i)
 
@@ -114,7 +114,7 @@
             clarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D[I] = double( ALPHA );
             if ( I < M ) {
-               A[I, I] = ONE;
+               A[I][I] = ONE;
 
                // Compute X(i+1:m,i)
 

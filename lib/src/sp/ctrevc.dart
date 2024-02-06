@@ -140,7 +140,7 @@
                // (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 
             for (K = 1; K <= KI - 1; K++) { // 50
-               T[K, K] = T( K, K ) - T( KI, KI );
+               T[K][K] = T( K, K ) - T( KI, KI );
                if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 50
 
@@ -159,7 +159,7 @@
                csscal(KI, REMAX, VR( 1, IS ), 1 );
 
                for (K = KI + 1; K <= N; K++) { // 60
-                  VR[K, IS] = CMZERO;
+                  VR[K][IS] = CMZERO;
                } // 60
             } else {
                if (KI > 1) cgemv( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
@@ -172,7 +172,7 @@
             // Set back the original diagonal elements of T.
 
             for (K = 1; K <= KI - 1; K++) { // 70
-               T[K, K] = WORK( K+N );
+               T[K][K] = WORK( K+N );
             } // 70
 
             IS = IS - 1;
@@ -203,7 +203,7 @@
                // (T(KI+1:N,KI+1:N) - T(KI,KI))**H*X = SCALE*WORK.
 
             for (K = KI + 1; K <= N; K++) { // 100
-               T[K, K] = T( K, K ) - T( KI, KI );
+               T[K][K] = T( K, K ) - T( KI, KI );
                if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
             } // 100
 
@@ -222,7 +222,7 @@
                csscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                for (K = 1; K <= KI - 1; K++) { // 110
-                  VL[K, IS] = CMZERO;
+                  VL[K][IS] = CMZERO;
                } // 110
             } else {
                if (KI < N) cgemv( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
@@ -235,7 +235,7 @@
             // Set back the original diagonal elements of T.
 
             for (K = KI + 1; K <= N; K++) { // 120
-               T[K, K] = WORK( K+N );
+               T[K][K] = WORK( K+N );
             } // 120
 
             IS = IS + 1;

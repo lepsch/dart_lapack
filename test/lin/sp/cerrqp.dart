@@ -48,10 +48,10 @@
       NOUT = NUNIT;
       C2 = PATH( 2: 3 );
       LW = NMAX + 1;
-      A[1, 1] = CMPLX( 1.0, -1.0 );
-      A[1, 2] = CMPLX( 2.0, -2.0 );
-      A[2, 2] = CMPLX( 3.0, -3.0 );
-      A[2, 1] = CMPLX( 4.0, -4.0 );
+      A[1][1] = CMPLX( 1.0, -1.0 );
+      A[1][2] = CMPLX( 2.0, -2.0 );
+      A[2][2] = CMPLX( 3.0, -3.0 );
+      A[2][1] = CMPLX( 4.0, -4.0 );
       OK = true;
       WRITE( NOUT, FMT = * );
 

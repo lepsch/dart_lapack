@@ -77,7 +77,7 @@
       if ( N == 0 || M == 0 ) {
          return;
       } else if ( N == 1 ) {
-         Z[1, 1] = ONE;
+         Z[1][1] = ONE;
          return;
       }
 
@@ -233,7 +233,7 @@
             sscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 120
             for (I = 1; I <= N; I++) { // 130
-               Z[I, J] = ZERO;
+               Z[I][J] = ZERO;
             } // 130
             for (I = 1; I <= BLKSIZ; I++) { // 140
                Z[B1+I-1, J] = WORK( INDRV1+I );

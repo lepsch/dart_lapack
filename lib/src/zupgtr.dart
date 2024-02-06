@@ -65,16 +65,16 @@
          IJ = 2;
          for (J = 1; J <= N - 1; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               Q[I, J] = AP( IJ );
+               Q[I][J] = AP( IJ );
                IJ = IJ + 1;
             } // 10
             IJ = IJ + 2;
-            Q[N, J] = CZERO;
+            Q[N][J] = CZERO;
          } // 20
          for (I = 1; I <= N - 1; I++) { // 30
-            Q[I, N] = CZERO;
+            Q[I][N] = CZERO;
          } // 30
-         Q[N, N] = CONE;
+         Q[N][N] = CONE;
 
          // Generate Q(1:n-1,1:n-1)
 
@@ -88,15 +88,15 @@
          // set the first row and column of Q equal to those of the unit
          // matrix
 
-         Q[1, 1] = CONE;
+         Q[1][1] = CONE;
          for (I = 2; I <= N; I++) { // 40
-            Q[I, 1] = CZERO;
+            Q[I][1] = CZERO;
          } // 40
          IJ = 3;
          for (J = 2; J <= N; J++) { // 60
-            Q[1, J] = CZERO;
+            Q[1][J] = CZERO;
             for (I = J + 1; I <= N; I++) { // 50
-               Q[I, J] = AP( IJ );
+               Q[I][J] = AP( IJ );
                IJ = IJ + 1;
             } // 50
             IJ = IJ + 2;

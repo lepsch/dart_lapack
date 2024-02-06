@@ -57,14 +57,14 @@
 
       for (I = 1; I <= min( K+L, M ); I++) { // 20
          for (J = I; J <= K + L; J++) { // 10
-            R[I, J] = AF( I, N-K-L+J );
+            R[I][J] = AF( I, N-K-L+J );
          } // 10
       } // 20
 
       if ( M-K-L < 0 ) {
          for (I = M + 1; I <= K + L; I++) { // 40
             for (J = I; J <= K + L; J++) { // 30
-               R[I, J] = BF( I-K, N-K-L+J );
+               R[I][J] = BF( I-K, N-K-L+J );
             } // 30
          } // 40
       }

@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          slarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + sign( SASUM( M, A( 1, J ), 1 ), A( J, J ) );
+            A[J][J] = A( J, J ) + sign( SASUM( M, A( 1, J ), 1 ), A( J, J ) );
          }
       } // 10
 

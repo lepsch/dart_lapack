@@ -79,7 +79,7 @@ import 'package:lapack/src/xerbla.dart';
                DU[I+1] = -FACT*DL( I );
                DU[I] = TEMP;
                TEMP = B( I, 1 );
-               B[I, 1] = B( I+1, 1 );
+               B[I][1] = B( I+1, 1 );
                B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
             }
          } // 10
@@ -101,7 +101,7 @@ import 'package:lapack/src/xerbla.dart';
                D[I+1] = DU( I ) - FACT*TEMP;
                DU[I] = TEMP;
                TEMP = B( I, 1 );
-               B[I, 1] = B( I+1, 1 );
+               B[I][1] = B( I+1, 1 );
                B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
             }
          }
@@ -139,7 +139,7 @@ import 'package:lapack/src/xerbla.dart';
                DU[I] = TEMP;
                for (J = 1; J <= NRHS; J++) { // 30
                   TEMP = B( I, J );
-                  B[I, J] = B( I+1, J );
+                  B[I][J] = B( I+1, J );
                   B[I+1, J] = TEMP - FACT*B( I+1, J );
                } // 30
             }
@@ -165,7 +165,7 @@ import 'package:lapack/src/xerbla.dart';
                DU[I] = TEMP;
                for (J = 1; J <= NRHS; J++) { // 60
                   TEMP = B( I, J );
-                  B[I, J] = B( I+1, J );
+                  B[I][J] = B( I+1, J );
                   B[I+1, J] = TEMP - FACT*B( I+1, J );
                } // 60
             }
@@ -181,10 +181,10 @@ import 'package:lapack/src/xerbla.dart';
       if ( NRHS <= 2 ) {
          J = 1;
          } // 70
-         B[N, J] = B( N, J ) / D( N );
+         B[N][J] = B( N, J ) / D( N );
          if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
          for (I = N - 2; I >= 1; I--) { // 80
-            B[I, J] = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
+            B[I][J] = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
          } // 80
          if ( J < NRHS ) {
             J = J + 1;
@@ -192,10 +192,10 @@ import 'package:lapack/src/xerbla.dart';
          }
       } else {
          for (J = 1; J <= NRHS; J++) { // 100
-            B[N, J] = B( N, J ) / D( N );
+            B[N][J] = B( N, J ) / D( N );
             if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
             for (I = N - 2; I >= 1; I--) { // 90
-               B[I, J] = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
+               B[I][J] = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
             } // 90
          } // 100
       }

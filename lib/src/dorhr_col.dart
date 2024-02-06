@@ -168,7 +168,7 @@ import 'package:lapack/src/xerbla.dart';
          JBTEMP2 = JB - 2;
          for (J = JB; J <= JB+JNB-2; J++) {
             for (I = J-JBTEMP2; I <= NB; I++) {
-               T[I, J] = ZERO;
+               T[I][J] = ZERO;
             }
          }
 

@@ -53,7 +53,7 @@
          JPIV[1] = 1;
          if ( ( A( 1, 1 ) ).abs() < SMLNUM ) {
             INFO = 1;
-            A[1, 1] = SMLNUM;
+            A[1][1] = SMLNUM;
          }
          return;
       }
@@ -91,17 +91,17 @@
 
          if ( ( A( I, I ) ).abs() < SMIN ) {
             INFO = I;
-            A[I, I] = SMIN;
+            A[I][I] = SMIN;
          }
          for (J = I + 1; J <= N; J++) { // 30
-            A[J, I] = A( J, I ) / A( I, I );
+            A[J][I] = A( J, I ) / A( I, I );
          } // 30
          sger(N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
       } // 40
 
       if ( ( A( N, N ) ).abs() < SMIN ) {
          INFO = N;
-         A[N, N] = SMIN;
+         A[N][N] = SMIN;
       }
 
       // Set last pivots to N

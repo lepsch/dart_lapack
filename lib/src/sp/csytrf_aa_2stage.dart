@@ -238,8 +238,8 @@
                      if (I2 < N) cswap( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 );
-                     A[I1, I1] = A( I2, I2 );
-                     A[I2, I2] = PIV;
+                     A[I1][I1] = A( I2, I2 );
+                     A[I2][I2] = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
@@ -372,8 +372,8 @@
                      if (I2 < N) cswap( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 );
-                     A[I1, I1] = A( I2, I2 );
-                     A[I2, I2] = PIV;
+                     A[I1][I1] = A( I2, I2 );
+                     A[I2][I2] = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );

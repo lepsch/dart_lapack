@@ -45,10 +45,10 @@
 
       NOUT = infoc.NUNIT;
       C2 = PATH( 2: 3 );
-      A[1, 1] = DCMPLX( 1.0, -1.0 );
-      A[1, 2] = DCMPLX( 2.0, -2.0 );
-      A[2, 2] = DCMPLX( 3.0, -3.0 );
-      A[2, 1] = DCMPLX( 4.0, -4.0 );
+      A[1][1] = DCMPLX( 1.0, -1.0 );
+      A[1][2] = DCMPLX( 2.0, -2.0 );
+      A[2][2] = DCMPLX( 3.0, -3.0 );
+      A[2][1] = DCMPLX( 4.0, -4.0 );
       W[1] = DCMPLX( 0.0, 0.0 );
       W[2] = DCMPLX( 0.0, 0.0 );
       infoc.OK = true;

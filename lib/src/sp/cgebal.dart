@@ -92,7 +92,7 @@
                for (J = 1; J <= L; J++) {
                   if ( I != J && ( double( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
-                     EXIT;
+                     break;
                   }
                }
 
@@ -127,7 +127,7 @@
                for (I = K; I <= L; I++) {
                   if ( I != J && ( double( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
-                     EXIT;
+                     break;
                   }
                }
 
@@ -185,7 +185,7 @@
 
             // Guard against zero C or R due to underflow.
 
-            if (C == ZERO || R == ZERO) CYCLE;
+            if (C == ZERO || R == ZERO) continue;
 
             // Exit if NaN to avoid infinite loop
 
@@ -221,12 +221,12 @@
 
             // Now balance.
 
-            if( ( C+R ) >= FACTOR*S ) CYCLE;
+            if( ( C+R ) >= FACTOR*S ) continue;
             if ( F < ONE && SCALE( I ) < ONE ) {
-               if( F*SCALE( I ) <= SFMIN1 ) CYCLE;
+               if( F*SCALE( I ) <= SFMIN1 ) continue;
             }
             if ( F > ONE && SCALE( I ) > ONE ) {
-               if( SCALE( I ) >= SFMAX1 / F ) CYCLE;
+               if( SCALE( I ) >= SFMAX1 / F ) continue;
             }
             G = ONE / F;
             SCALE[I] = SCALE( I )*F;

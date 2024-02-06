@@ -109,7 +109,7 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 50
-         WORK[I, I] = WORK( I, I ) + ONE;
+         WORK[I][I] = WORK( I, I ) + ONE;
       } // 50
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

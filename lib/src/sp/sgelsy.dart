@@ -210,7 +210,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 40
          for (I = RANK + 1; I <= N; I++) { // 30
-            B[I, J] = ZERO;
+            B[I][J] = ZERO;
          } // 30
       } // 40
 

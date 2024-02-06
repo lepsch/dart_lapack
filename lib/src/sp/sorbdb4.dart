@@ -110,7 +110,7 @@
          srot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
          slarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = X21(I,I);
-         X21[I,I] = ONE;
+         X21[I][I] = ONE;
          slarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          slarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          if ( I < M-Q ) {
@@ -124,7 +124,7 @@
 
       for (I = M - Q + 1; I <= P; I++) {
          slarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
-         X11[I,I] = ONE;
+         X11[I][I] = ONE;
          slarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          slarf('R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
       }

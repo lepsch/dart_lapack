@@ -86,7 +86,7 @@ import 'package:lapack/src/xerbla.dart';
             dcopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
          } else {
             for (I = 1; I <= N; I++) { // 10
-               U[I, 1] = -U2( I, 1 );
+               U[I][1] = -U2( I, 1 );
             } // 10
          }
          return;
@@ -131,17 +131,17 @@ import 'package:lapack/src/xerbla.dart';
       // and store related information for the right singular vectors.
 
       for (I = 1; I <= K; I++) { // 90
-         VT[1, I] = Z( 1 ) / U( 1, I ) / VT( 1, I );
-         U[1, I] = NEGONE;
+         VT[1][I] = Z( 1 ) / U( 1, I ) / VT( 1, I );
+         U[1][I] = NEGONE;
          for (J = 2; J <= K; J++) { // 70
-            VT[J, I] = Z( J ) / U( J, I ) / VT( J, I );
-            U[J, I] = DSIGMA( J )*VT( J, I );
+            VT[J][I] = Z( J ) / U( J, I ) / VT( J, I );
+            U[J][I] = DSIGMA( J )*VT( J, I );
          } // 70
          TEMP = dnrm2( K, U( 1, I ), 1 );
-         Q[1, I] = U( 1, I ) / TEMP;
+         Q[1][I] = U( 1, I ) / TEMP;
          for (J = 2; J <= K; J++) { // 80
             JC = IDXC( J );
-            Q[J, I] = U( JC, I ) / TEMP;
+            Q[J][I] = U( JC, I ) / TEMP;
          } // 80
       } // 90
 
@@ -173,10 +173,10 @@ import 'package:lapack/src/xerbla.dart';
       } // 100
       for (I = 1; I <= K; I++) { // 120
          TEMP = dnrm2( K, VT( 1, I ), 1 );
-         Q[I, 1] = VT( 1, I ) / TEMP;
+         Q[I][1] = VT( 1, I ) / TEMP;
          for (J = 2; J <= K; J++) { // 110
             JC = IDXC( J );
-            Q[I, J] = VT( JC, I ) / TEMP;
+            Q[I][J] = VT( JC, I ) / TEMP;
          } // 110
       } // 120
 
@@ -195,10 +195,10 @@ import 'package:lapack/src/xerbla.dart';
       NRP1 = NR + SQRE;
       if ( KTEMP > 1 ) {
          for (I = 1; I <= K; I++) { // 130
-            Q[I, KTEMP] = Q( I, 1 );
+            Q[I][KTEMP] = Q( I, 1 );
          } // 130
          for (I = NLP2; I <= M; I++) { // 140
-            VT2[KTEMP, I] = VT2( 1, I );
+            VT2[KTEMP][I] = VT2( 1, I );
          } // 140
       }
       CTEMP = 1 + CTOT( 2 ) + CTOT( 3 );

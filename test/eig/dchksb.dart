@@ -240,7 +240,7 @@
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ( A( K, I ) ).abs() / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
-                        A[K, I] = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                        A[K][I] = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
                   } // 90
 

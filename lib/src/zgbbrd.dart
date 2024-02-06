@@ -263,9 +263,9 @@
 
          for (I = 1; I <= min( M-1, N ); I++) { // 100
             zlartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
-            AB[1, I] = RA;
+            AB[1][I] = RA;
             if ( I < N ) {
-               AB[2, I] = RS*AB( 1, I+1 );
+               AB[2][I] = RS*AB( 1, I+1 );
                AB[1, I+1] = RC*AB( 1, I+1 );
             }
             if (WANTQ) zrot( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) );
@@ -287,7 +287,7 @@
                AB[KU+1, I] = RA;
                if ( I > 1 ) {
                   RB = -DCONJG( RS )*AB( KU, I );
-                  AB[KU, I] = RC*AB( KU, I );
+                  AB[KU][I] = RC*AB( KU, I );
                }
                if (WANTPT) zrot( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, DCONJG( RS ) );
             } // 110

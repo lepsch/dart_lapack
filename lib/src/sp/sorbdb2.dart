@@ -82,7 +82,7 @@
          }
          slarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          C = X11(I,I);
-         X11[I,I] = ONE;
+         X11[I][I] = ONE;
          slarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          slarf('R', M-P-I+1, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(I,I), LDX21, WORK(ILARF) )          S = sqrt( SNRM2( P-I, X11(I+1,I), 1 )**2 + SNRM2( M-P-I+1, X21(I,I), 1 )**2 );
          THETA[I] = ATAN2( S, C );
@@ -98,7 +98,7 @@
             X11[I+1,I] = ONE;
             slarf('L', P-I, Q-I, X11(I+1,I), 1, TAUP1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
          }
-         X21[I,I] = ONE;
+         X21[I][I] = ONE;
          slarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
 
       }
@@ -107,7 +107,7 @@
 
       for (I = P + 1; I <= Q; I++) {
          slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         X21[I,I] = ONE;
+         X21[I][I] = ONE;
          slarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
       }
 

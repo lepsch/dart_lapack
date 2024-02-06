@@ -53,9 +53,9 @@
 
       for (J = K + 1; J <= N; J++) { // 20
          for (L = 1; L <= M; L++) { // 10
-            A[L, J] = ZERO;
+            A[L][J] = ZERO;
          } // 10
-         A[J, J] = ONE;
+         A[J][J] = ONE;
       } // 20
 
       for (I = K; I >= 1; I--) { // 40
@@ -63,16 +63,16 @@
          // Apply H(i) to A(i:m,i:n) from the left
 
          if ( I < N ) {
-            A[I, I] = ONE;
+            A[I][I] = ONE;
             zlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
          if (I < M) zscal( M-I, -TAU( I ), A( I+1, I ), 1 );
-         A[I, I] = ONE - TAU( I );
+         A[I][I] = ONE - TAU( I );
 
          // Set A(1:i-1,i) to zero
 
          for (L = 1; L <= I - 1; L++) { // 30
-            A[L, I] = ZERO;
+            A[L][I] = ZERO;
          } // 30
       } // 40
       return;

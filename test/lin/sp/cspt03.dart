@@ -81,7 +81,7 @@
                   KCOL = KCOL + K;
                   JCOL = JCOL + K;
                } // 20
-               WORK[I, J] = -T;
+               WORK[I][J] = -T;
             } // 30
 
             // Code when J > I
@@ -101,7 +101,7 @@
                   KCOL = KCOL + K;
                   JCOL = JCOL + K;
                } // 50
-               WORK[I, J] = -T;
+               WORK[I][J] = -T;
             } // 60
          } // 70
       } else {
@@ -129,7 +129,7 @@
                   T = T + A( KCOL )*AINV( JCOL+K );
                   KCOL = KCOL + N - K;
                } // 90
-               WORK[I, J] = -T;
+               WORK[I][J] = -T;
             } // 100
 
             // Code when J > I
@@ -150,7 +150,7 @@
                   T = T + A( KCOL+K )*AINV( JCOL );
                   JCOL = JCOL + N - K;
                } // 120
-               WORK[I, J] = -T;
+               WORK[I][J] = -T;
             } // 130
          } // 140
       }
@@ -158,7 +158,7 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 150
-         WORK[I, I] = WORK( I, I ) + ONE;
+         WORK[I][I] = WORK( I, I ) + ONE;
       } // 150
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

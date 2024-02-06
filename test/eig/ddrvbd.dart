@@ -432,7 +432,7 @@ import 'common.dart';
 
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= N; I++) {
-                        VTSAV[J,I] = A(I,J);
+                        VTSAV[J][I] = A(I,J);
                      }
                   }
 
@@ -481,7 +481,7 @@ import 'common.dart';
 
                   for (J = 1; J <= N; J++) { // 140
                      for (I = 1; I <= N; I++) { // 130
-                        VTSAV[J,I] = A(I,J);
+                        VTSAV[J][I] = A(I,J);
   130                END DO;
   140             END DO;
 

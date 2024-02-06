@@ -100,7 +100,7 @@ import 'package:lapack/src/xerbla.dart';
             AJJ = AB( 1, J );
             if (AJJ <= ZERO) GO TO 30;
             AJJ = sqrt( AJJ );
-            AB[1, J] = AJJ;
+            AB[1][J] = AJJ;
 
             // Compute elements J+1:J+KN of column J and update the
             // trailing submatrix within the band.

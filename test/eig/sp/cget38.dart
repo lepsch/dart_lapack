@@ -111,7 +111,7 @@
 
          for (J = 1; J <= N - 2; J++) { // 50
             for (I = J + 2; I <= N; I++) { // 40
-               T[I, J] = CZERO;
+               T[I][J] = CZERO;
             } // 40
          } // 50
          chseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO );

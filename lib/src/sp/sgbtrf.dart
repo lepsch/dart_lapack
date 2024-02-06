@@ -89,7 +89,7 @@
 
          for (J = 1; J <= NB; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               WORK13[I, J] = ZERO;
+               WORK13[I][J] = ZERO;
             } // 10
          } // 20
 
@@ -97,7 +97,7 @@
 
          for (J = 1; J <= NB; J++) { // 40
             for (I = J + 1; I <= NB; I++) { // 30
-               WORK31[I, J] = ZERO;
+               WORK31[I][J] = ZERO;
             } // 30
          } // 40
 
@@ -107,7 +107,7 @@
 
          for (J = KU + 2; J <= min( KV, N ); J++) { // 60
             for (I = KV - J + 2; I <= KL; I++) { // 50
-               AB[I, J] = ZERO;
+               AB[I][J] = ZERO;
             } // 50
          } // 60
 
@@ -260,7 +260,7 @@
 
                   for (JJ = 1; JJ <= J3; JJ++) { // 130
                      for (II = JJ; II <= JB; II++) { // 120
-                        WORK13[II, JJ] = AB( II-JJ+1, JJ+J+KV-1 );
+                        WORK13[II][JJ] = AB( II-JJ+1, JJ+J+KV-1 );
                      } // 120
                   } // 130
 

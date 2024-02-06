@@ -372,7 +372,7 @@
          // ===============================================================
 
          AIK = A( I, K );
-         A[I, K] = ONE;
+         A[I][K] = ONE;
 
          // ===============================================================
 
@@ -387,7 +387,7 @@
                // column K in matrix F, i.e elements F(1:K,K).
 
          for (J = 1; J <= K; J++) {
-            F[J, K] = ZERO;
+            F[J][K] = ZERO;
          }
 
           // 3) Incremental updating of the K-th column of F:
@@ -410,7 +410,7 @@
             sgemv('No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA );
          }
 
-         A[I, K] = AIK;
+         A[I][K] = AIK;
 
          // Update the partial column 2-norms for the residual matrix,
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.

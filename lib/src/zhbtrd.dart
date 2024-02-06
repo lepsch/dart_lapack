@@ -95,7 +95,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[KD1, 1] = (AB( KD1, 1 )).toDouble();
+            AB[KD1][1] = (AB( KD1, 1 )).toDouble();
             for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
@@ -279,7 +279,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[1, 1] = (AB( 1, 1 )).toDouble();
+            AB[1][1] = (AB( 1, 1 )).toDouble();
             for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
@@ -412,7 +412,7 @@
                      // band and store it in WORK
 
                      WORK[J+KD] = WORK( J )*AB( KD1, J );
-                     AB[KD1, J] = D( J )*AB( KD1, J );
+                     AB[KD1][J] = D( J )*AB( KD1, J );
                   } // 190
                } // 200
             } // 210
@@ -425,7 +425,7 @@
             for (I = 1; I <= N - 1; I++) { // 220
                T = AB( 2, I );
                ABST = ( T ).abs();
-               AB[2, I] = ABST;
+               AB[2][I] = ABST;
                E[I] = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;

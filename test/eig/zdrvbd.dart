@@ -449,7 +449,7 @@ import 'common.dart';
 
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= N; I++) {
-                        VTSAV[J,I] = CONJG (A(I,J));
+                        VTSAV[J][I] = CONJG (A(I,J));
                      }
                   }
 
@@ -499,7 +499,7 @@ import 'common.dart';
 
                   for (J = 1; J <= N; J++) { // 133
                      for (I = 1; I <= N; I++) { // 132
-                        VTSAV[J,I] = CONJG (A(I,J));
+                        VTSAV[J][I] = CONJG (A(I,J));
   132                END DO;
   133             END DO;
 

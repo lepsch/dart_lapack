@@ -147,7 +147,7 @@ import 'package:lapack/src/xerbla.dart';
                      PVT = ITEMP + J - 1;
                      AJJ = WORK( N+PVT );
                      if ( AJJ <= DSTOP || disnan( AJJ ) ) {
-                        A[J, J] = AJJ;
+                        A[J][J] = AJJ;
                         GO TO 190;
                      }
                   }
@@ -156,7 +156,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Pivot OK, so can now swap pivot rows and columns
 
-                     A[PVT, PVT] = A( J, J );
+                     A[PVT][PVT] = A( J, J );
                      dswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                      if (PVT < N) dswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                      dswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
@@ -172,7 +172,7 @@ import 'package:lapack/src/xerbla.dart';
                   }
 
                   AJJ = sqrt( AJJ );
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
 
                   // Compute elements J+1:N of row J.
 
@@ -228,7 +228,7 @@ import 'package:lapack/src/xerbla.dart';
                      PVT = ITEMP + J - 1;
                      AJJ = WORK( N+PVT );
                      if ( AJJ <= DSTOP || disnan( AJJ ) ) {
-                        A[J, J] = AJJ;
+                        A[J][J] = AJJ;
                         GO TO 190;
                      }
                   }
@@ -237,7 +237,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Pivot OK, so can now swap pivot rows and columns
 
-                     A[PVT, PVT] = A( J, J );
+                     A[PVT][PVT] = A( J, J );
                      dswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                      if (PVT < N) dswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                      dswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
@@ -253,7 +253,7 @@ import 'package:lapack/src/xerbla.dart';
                   }
 
                   AJJ = sqrt( AJJ );
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
 
                   // Compute elements J+1:N of column J.
 

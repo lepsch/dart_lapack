@@ -61,12 +61,12 @@ import 'package:lapack/src/xerbla.dart';
 
             dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D[I] = A( I, I );
-            A[I, I] = ONE;
+            A[I][I] = ONE;
 
             // Apply H(i) to A(i:m,i+1:n) from the left
 
             if (I < N) dlarf( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
-            A[I, I] = D( I );
+            A[I][I] = D( I );
 
             if ( I < N ) {
 
@@ -95,12 +95,12 @@ import 'package:lapack/src/xerbla.dart';
 
             dlarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D[I] = A( I, I );
-            A[I, I] = ONE;
+            A[I][I] = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             if (I < M) dlarf( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
-            A[I, I] = D( I );
+            A[I][I] = D( I );
 
             if ( I < M ) {
 

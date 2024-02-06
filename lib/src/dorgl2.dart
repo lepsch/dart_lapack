@@ -63,7 +63,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N; J++) { // 20
             for (L = K + 1; L <= M; L++) { // 10
-               A[L, J] = ZERO;
+               A[L][J] = ZERO;
             } // 10
             if (J > K && J <= M) A( J, J ) = ONE;
          } // 20
@@ -75,17 +75,17 @@ import 'package:lapack/src/xerbla.dart';
 
          if ( I < N ) {
             if ( I < M ) {
-               A[I, I] = ONE;
+               A[I][I] = ONE;
                dlarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
             }
             dscal(N-I, -TAU( I ), A( I, I+1 ), LDA );
          }
-         A[I, I] = ONE - TAU( I );
+         A[I][I] = ONE - TAU( I );
 
          // Set A(i,1:i-1) to zero
 
          for (L = 1; L <= I - 1; L++) { // 30
-            A[I, L] = ZERO;
+            A[I][L] = ZERO;
          } // 30
       } // 40
       return;

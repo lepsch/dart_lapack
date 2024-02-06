@@ -22,7 +22,7 @@
       INFO = 0;
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            A[I, J] = SA( I, J );
+            A[I][J] = SA( I, J );
          } // 10
       } // 20
       return;

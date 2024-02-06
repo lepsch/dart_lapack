@@ -156,7 +156,7 @@
                } // 80
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 90
-                  B[J, JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
+                  B[J][JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
                } // 90
                clascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
             } // 100
@@ -225,7 +225,7 @@
                } // 160
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 170
-                  BX[J, JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
+                  BX[J][JCOL] = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) );
                } // 170
             } // 180
          }

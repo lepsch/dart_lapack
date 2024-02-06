@@ -164,7 +164,7 @@
             for (JROW = 1; JROW <= N; JROW++) { // 80
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               B[JROW][JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 80
          } // 90
 
@@ -207,7 +207,7 @@
             for (JROW = 1; JROW <= N; JROW++) { // 150
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               B[JROW][JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 150
          } // 160
 
@@ -338,7 +338,7 @@
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 220
                      JREAL = JREAL + 1;
                      JIMAG = JIMAG + 1;
-                     B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+                     B[JROW][JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
                   } // 220
                } // 230
 
@@ -424,7 +424,7 @@
                for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 300
                   JREAL = JREAL + 1;
                   JIMAG = JIMAG + 1;
-                  B[JROW, JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+                  B[JROW][JCOL] = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
                } // 300
             } // 310
          } else {

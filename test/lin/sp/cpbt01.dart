@@ -117,14 +117,14 @@
          for (J = 1; J <= N; J++) { // 60
             MU = max( 1, KD+2-J );
             for (I = MU; I <= KD + 1; I++) { // 50
-               AFAC[I, J] = AFAC( I, J ) - A( I, J );
+               AFAC[I][J] = AFAC( I, J ) - A( I, J );
             } // 50
          } // 60
       } else {
          for (J = 1; J <= N; J++) { // 80
             ML = min( KD+1, N-J+1 );
             for (I = 1; I <= ML; I++) { // 70
-               AFAC[I, J] = AFAC( I, J ) - A( I, J );
+               AFAC[I][J] = AFAC( I, J ) - A( I, J );
             } // 70
          } // 80
       }

@@ -197,10 +197,10 @@
          }
          if ( WANTV1T && Q > 0 ) {
             clacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
-            V1T[1, 1] = ONE;
+            V1T[1][1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T[1,J] = ZERO;
-               V1T[J,1] = ZERO;
+               V1T[1][J] = ZERO;
+               V1T[J][1] = ZERO;
             }
             cunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
@@ -224,10 +224,10 @@
          }
          if ( WANTV1T && Q > 0 ) {
             clacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
-            V1T[1, 1] = ONE;
+            V1T[1][1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T[1,J] = ZERO;
-               V1T[J,1] = ZERO;
+               V1T[1][J] = ZERO;
+               V1T[J][1] = ZERO;
             }
             cungqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }

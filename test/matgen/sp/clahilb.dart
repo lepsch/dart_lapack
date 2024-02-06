@@ -90,13 +90,13 @@
       if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A[I, J] = D1((J % SIZE_D)+1) * (double(M) / (I + J - 1)) * D1((I % SIZE_D)+1);
+               A[I][J] = D1((J % SIZE_D)+1) * (double(M) / (I + J - 1)) * D1((I % SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A[I, J] = D1((J % SIZE_D)+1) * (double(M) / (I + J - 1)) * D2((I % SIZE_D)+1);
+               A[I][J] = D1((J % SIZE_D)+1) * (double(M) / (I + J - 1)) * D2((I % SIZE_D)+1);
             }
          }
       }
@@ -119,13 +119,13 @@
       if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X[I, J] = INVD1((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
+               X[I][J] = INVD1((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X[I, J] = INVD2((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
+               X[I][J] = INVD2((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
             }
          }
       }

@@ -133,13 +133,13 @@ import 'package:lapack/src/xerbla.dart';
             } else if ( P == I ) {
                dlarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
-            X11[I,I] = ONE;
+            X11[I][I] = ONE;
             if ( M-P > I ) {
                dlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                dlarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
-            X21[I,I] = ONE;
+            X21[I][I] = ONE;
 
             if ( Q > I ) {
                dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK );
@@ -178,7 +178,7 @@ import 'package:lapack/src/xerbla.dart';
                   dlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( I < Q ) {
                dlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -203,7 +203,7 @@ import 'package:lapack/src/xerbla.dart';
             } else {
                dlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( P > I ) {
                dlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -251,13 +251,13 @@ import 'package:lapack/src/xerbla.dart';
             THETA[I] = ATAN2( dnrm2( M-P-I+1, X21(I,I), LDX21 ), dnrm2( P-I+1, X11(I,I), LDX11 ) );
 
             dlarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
-            X11[I,I] = ONE;
+            X11[I][I] = ONE;
             if ( I == M-P ) {
                dlarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                dlarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
-            X21[I,I] = ONE;
+            X21[I][I] = ONE;
 
             if ( Q > I ) {
                dlarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
@@ -294,7 +294,7 @@ import 'package:lapack/src/xerbla.dart';
             } else {
                dlarfgp(M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) );
             }
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( I < Q ) {
                dlarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -313,7 +313,7 @@ import 'package:lapack/src/xerbla.dart';
 
             dscal(M-Q-I+1, -Z1*Z4, X12(I,I), 1 );
             dlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12[I,I] = ONE;
+            X12[I][I] = ONE;
 
             if ( P > I ) {
                dlarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );

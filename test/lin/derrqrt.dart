@@ -47,9 +47,9 @@ import 'common.dart';
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A[I, J] = 1.0 / (I+J).toDouble();
-            C[I, J] = 1.0 / (I+J).toDouble();
-            T[I, J] = 1.0 / (I+J).toDouble();
+            A[I][J] = 1.0 / (I+J).toDouble();
+            C[I][J] = 1.0 / (I+J).toDouble();
+            T[I][J] = 1.0 / (I+J).toDouble();
          }
          W[J] = 0.0;
       }

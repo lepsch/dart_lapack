@@ -89,10 +89,10 @@
          // Copy column K of A to column KW of W and update it
 
          if (K > 1) ccopy( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
-         W[K, KW] = double( A( K, K ) );
+         W[K][KW] = double( A( K, K ) );
          if ( K < N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
-            W[K, KW] = double( W( K, KW ) );
+            W[K][KW] = double( W( K, KW ) );
          }
 
          // Determine rows and columns to be interchanged and whether
@@ -117,7 +117,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = double( W( K, KW ) );
+            A[K][K] = double( W( K, KW ) );
             if (K > 1) ccopy( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
 
             // Set E( K ) to zero
@@ -258,7 +258,7 @@
                // K and K-1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = double( A( K, K ) );
+               A[P][P] = double( A( K, K ) );
                ccopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                clacgv(K-1-P, A( P, P+1 ), LDA );
                if (P > 1) ccopy( P-1, A( 1, K ), 1, A( 1, P ), 1 );
@@ -282,7 +282,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = double( A( KK, KK ) );
+               A[KP][KP] = double( A( KK, KK ) );
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                if (KP > 1) ccopy( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
@@ -329,7 +329,7 @@
                      csscal(K-1, R1, A( 1, K ), 1 );
                   } else {
                      for (II = 1; II <= K-1; II++) { // 14
-                        A[II, K] = A( II, K ) / T;
+                        A[II][K] = A( II, K ) / T;
                      } // 14
                   }
 
@@ -427,7 +427,7 @@
 
                A[K-1, K-1] = W( K-1, KW-1 );
                A[K-1, K] = CZERO;
-               A[K, K] = W( K, KW );
+               A[K][K] = W( K, KW );
                E[K] = W( K-1, KW );
                E[K-1] = CZERO;
 
@@ -471,9 +471,9 @@
             // Update the upper triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
-               A[JJ, JJ] = double( A( JJ, JJ ) );
+               A[JJ][JJ] = double( A( JJ, JJ ) );
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-               A[JJ, JJ] = double( A( JJ, JJ ) );
+               A[JJ][JJ] = double( A( JJ, JJ ) );
             } // 40
 
             // Update the rectangular superdiagonal block
@@ -509,11 +509,11 @@
 
          // Copy column K of A to column K of W and update column K of W
 
-         W[K, K] = double( A( K, K ) );
+         W[K][K] = double( A( K, K ) );
          if (K < N) ccopy( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
-            W[K, K] = double( W( K, K ) );
+            W[K][K] = double( W( K, K ) );
          }
 
          // Determine rows and columns to be interchanged and whether
@@ -538,7 +538,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = double( W( K, K ) );
+            A[K][K] = double( W( K, K ) );
             if (K < N) ccopy( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
 
             // Set E( K ) to zero
@@ -676,7 +676,7 @@
                // K and K+1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = double( A( K, K ) );
+               A[P][P] = double( A( K, K ) );
                ccopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                clacgv(P-K-1, A( P, K+1 ), LDA );
                if (P < N) ccopy( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
@@ -700,7 +700,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = double( A( KK, KK ) );
+               A[KP][KP] = double( A( KK, KK ) );
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                if (KP < N) ccopy( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
@@ -747,7 +747,7 @@
                      csscal(N-K, R1, A( K+1, K ), 1 );
                   } else {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A[II, K] = A( II, K ) / T;
+                        A[II][K] = A( II, K ) / T;
                      } // 74
                   }
 
@@ -835,7 +835,7 @@
                   // of D**(-1)
 
                   for (J = K + 2; J <= N; J++) { // 80
-                     A[J, K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / CONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
+                     A[J][K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / CONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
@@ -843,7 +843,7 @@
                // copy subdiagonal element of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
 
-               A[K, K] = W( K, K );
+               A[K][K] = W( K, K );
                A[K+1, K] = CZERO;
                A[K+1, K+1] = W( K+1, K+1 );
                E[K] = W( K+1, K );
@@ -889,9 +889,9 @@
             // Update the lower triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
-               A[JJ, JJ] = double( A( JJ, JJ ) );
+               A[JJ][JJ] = double( A( JJ, JJ ) );
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-               A[JJ, JJ] = double( A( JJ, JJ ) );
+               A[JJ][JJ] = double( A( JJ, JJ ) );
             } // 100
 
             // Update the rectangular subdiagonal block

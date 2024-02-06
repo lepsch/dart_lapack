@@ -267,7 +267,7 @@
             zgemv('N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 );
             zgerc(N, IROWS, -DCONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A[JCR, IC] = XNORMS;
+            A[JCR][IC] = XNORMS;
             zlaset('Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA );
 
             zscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
@@ -296,7 +296,7 @@
             zgemv('C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 );
             zgerc(ICOLS, N, -DCONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A[IR, JCR] = XNORMS;
+            A[IR][JCR] = XNORMS;
             zlaset('Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA );
 
             zscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );

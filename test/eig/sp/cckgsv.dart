@@ -78,7 +78,7 @@
       for (I = 1; I <= L; I++) { // 40
          if ( BETA(I) != BETA(I) ) {
             INFO = -I;
-            EXIT;
+            break;
          }
       } // 40
       if ( INFO < 0 ) {

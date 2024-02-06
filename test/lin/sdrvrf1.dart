@@ -74,10 +74,10 @@
 
          for (IIT = 1; IIT <= 3; IIT++) { // 120
             // Nothing to do for N=0
-            if (N == 0) EXIT;
+            if (N == 0) break;
 
             // Quick Return if possible
-            if (N == 0) EXIT;
+            if (N == 0) break;
 
             // IIT = 1 : random matrix
             // IIT = 2 : random matrix scaled near underflow
@@ -85,14 +85,14 @@
 
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
-                  A[I, J] = SLARND( 2, ISEED );
+                  A[I][J] = SLARND( 2, ISEED );
                }
             }
 
             if ( IIT == 2 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A[I, J] = A( I, J ) * LARGE;
+                     A[I][J] = A( I, J ) * LARGE;
                   }
                }
             }
@@ -100,7 +100,7 @@
             if ( IIT == 3 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
-                     A[I, J] = A( I, J) * SMALL;
+                     A[I][J] = A( I, J) * SMALL;
                   }
                }
             }

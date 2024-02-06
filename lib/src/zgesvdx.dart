@@ -266,7 +266,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     U[J, I] = DCMPLX( RWORK( K ), ZERO );
+                     U[J][I] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -290,7 +290,7 @@
                K = ITGKZ + N;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     VT[I, J] = DCMPLX( RWORK( K ), ZERO );
+                     VT[I][J] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -331,7 +331,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     U[J, I] = DCMPLX( RWORK( K ), ZERO );
+                     U[J][I] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -350,7 +350,7 @@
                K = ITGKZ + N;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= N; J++) {
-                     VT[I, J] = DCMPLX( RWORK( K ), ZERO );
+                     VT[I][J] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + N;
@@ -407,7 +407,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     U[J, I] = DCMPLX( RWORK( K ), ZERO );
+                     U[J][I] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -425,7 +425,7 @@
                K = ITGKZ + M;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     VT[I, J] = DCMPLX( RWORK( K ), ZERO );
+                     VT[I][J] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -472,7 +472,7 @@
                K = ITGKZ;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     U[J, I] = DCMPLX( RWORK( K ), ZERO );
+                     U[J][I] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;
@@ -490,7 +490,7 @@
                K = ITGKZ + M;
                for (I = 1; I <= NS; I++) {
                   for (J = 1; J <= M; J++) {
-                     VT[I, J] = DCMPLX( RWORK( K ), ZERO );
+                     VT[I][J] = DCMPLX( RWORK( K ), ZERO );
                      K = K + 1;
                   }
                   K = K + M;

@@ -59,9 +59,9 @@ import 'package:lapack/src/xerbla.dart';
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= J - 1; I++) { // 10
-            B[I, J] = H( I, J );
+            B[I][J] = H( I, J );
          } // 10
-         B[J, J] = H( J, J ) - WR;
+         B[J][J] = H( J, J ) - WR;
       } // 20
 
       if ( WI == ZERO ) {
@@ -95,11 +95,11 @@ import 'package:lapack/src/xerbla.dart';
                   // Interchange rows and eliminate.
 
                   X = B( I, I ) / EI;
-                  B[I, I] = EI;
+                  B[I][I] = EI;
                   for (J = I + 1; J <= N; J++) { // 40
                      TEMP = B( I+1, J );
                      B[I+1, J] = B( I, J ) - X*TEMP;
-                     B[I, J] = TEMP;
+                     B[I][J] = TEMP;
                   } // 40
                } else {
 
@@ -130,11 +130,11 @@ import 'package:lapack/src/xerbla.dart';
                   // Interchange columns and eliminate.
 
                   X = B( J, J ) / EJ;
-                  B[J, J] = EJ;
+                  B[J][J] = EJ;
                   for (I = 1; I <= J - 1; I++) { // 70
                      TEMP = B( I, J-1 );
                      B[I, J-1] = B( I, J ) - X*TEMP;
-                     B[I, J] = TEMP;
+                     B[I][J] = TEMP;
                   } // 70
                } else {
 
@@ -220,7 +220,7 @@ import 'package:lapack/src/xerbla.dart';
             // The imaginary part of the (i,j)-th element of U is stored in
             // B(j+1,i).
 
-            B[2, 1] = -WI;
+            B[2][1] = -WI;
             for (I = 2; I <= N; I++) { // 140
                B[I+1, 1] = ZERO;
             } // 140
@@ -234,13 +234,13 @@ import 'package:lapack/src/xerbla.dart';
 
                   XR = B( I, I ) / EI;
                   XI = B( I+1, I ) / EI;
-                  B[I, I] = EI;
+                  B[I][I] = EI;
                   B[I+1, I] = ZERO;
                   for (J = I + 1; J <= N; J++) { // 150
                      TEMP = B( I+1, J );
                      B[I+1, J] = B( I, J ) - XR*TEMP;
                      B[J+1, I+1] = B( J+1, I ) - XI*TEMP;
-                     B[I, J] = TEMP;
+                     B[I][J] = TEMP;
                      B[J+1, I] = ZERO;
                   } // 150
                   B[I+2, I] = -WI;
@@ -251,7 +251,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Eliminate without interchanging rows.
 
                   if ( ABSBII == ZERO ) {
-                     B[I, I] = EPS3;
+                     B[I][I] = EPS3;
                      B[I+1, I] = ZERO;
                      ABSBII = EPS3;
                   }
@@ -297,13 +297,13 @@ import 'package:lapack/src/xerbla.dart';
 
                   XR = B( J, J ) / EJ;
                   XI = B( J+1, J ) / EJ;
-                  B[J, J] = EJ;
+                  B[J][J] = EJ;
                   B[J+1, J] = ZERO;
                   for (I = 1; I <= J - 1; I++) { // 190
                      TEMP = B( I, J-1 );
                      B[I, J-1] = B( I, J ) - XR*TEMP;
-                     B[J, I] = B( J+1, I ) - XI*TEMP;
-                     B[I, J] = TEMP;
+                     B[J][I] = B( J+1, I ) - XI*TEMP;
+                     B[I][J] = TEMP;
                      B[J+1, I] = ZERO;
                   } // 190
                   B[J+1, J-1] = WI;
@@ -314,7 +314,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Eliminate without interchange.
 
                   if ( ABSBJJ == ZERO ) {
-                     B[J, J] = EPS3;
+                     B[J][J] = EPS3;
                      B[J+1, J] = ZERO;
                      ABSBJJ = EPS3;
                   }
@@ -323,7 +323,7 @@ import 'package:lapack/src/xerbla.dart';
                   XI = -B( J+1, J )*EJ;
                   for (I = 1; I <= J - 1; I++) { // 200
                      B[I, J-1] = B( I, J-1 ) - XR*B( I, J ) + XI*B( J+1, I );
-                     B[J, I] = -XR*B( J+1, I ) - XI*B( I, J );
+                     B[J][I] = -XR*B( J+1, I ) - XI*B( I, J );
                   } // 200
                   B[J, J-1] = B( J, J-1 ) + WI;
                }

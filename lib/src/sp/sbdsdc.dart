@@ -81,8 +81,8 @@
             Q[1] = sign( ONE, D( 1 ) );
             Q[1+SMLSIZ*N] = ONE;
          } else if ( ICOMPQ == 2 ) {
-            U[1, 1] = sign( ONE, D( 1 ) );
-            VT[1, 1] = ONE;
+            U[1][1] = sign( ONE, D( 1 ) );
+            VT[1][1] = ONE;
          }
          D[1] = ( D( 1 ) ).abs();
          return;
@@ -211,8 +211,8 @@
 
                NSIZE = I - START + 1;
                if ( ICOMPQ == 2 ) {
-                  U[N, N] = sign( ONE, D( N ) );
-                  VT[N, N] = ONE;
+                  U[N][N] = sign( ONE, D( N ) );
+                  VT[N][N] = ONE;
                } else if ( ICOMPQ == 1 ) {
                   Q[N+( QSTART-1 )*N] = sign( ONE, D( N ) );
                   Q[N+( SMLSIZ+QSTART-1 )*N] = ONE;

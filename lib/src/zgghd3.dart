@@ -169,8 +169,8 @@
                for (I = IHI; I >= J+2; I--) {
                   TEMP = A( I-1, J );
                   zlartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
-                  A[I, J] = DCMPLX( C );
-                  B[I, J] = S;
+                  A[I][J] = DCMPLX( C );
+                  B[I][J] = S;
                }
 
                // Accumulate Givens rotations into workspace array.
@@ -229,7 +229,7 @@
                      CTEMP = A( I, J );
                      S = B( I, J );
                      TEMP = B( I, JJ );
-                     B[I, JJ] = CTEMP*TEMP - DCONJG( S )*B( I-1, JJ );
+                     B[I][JJ] = CTEMP*TEMP - DCONJG( S )*B( I-1, JJ );
                      B[I-1, JJ] = S*TEMP + CTEMP*B( I-1, JJ );
                   }
 
@@ -436,9 +436,9 @@
                   JROW = J + N2NB*NNB + 2;
                   for (I = IHI; I >= JROW; I--) {
                      CTEMP = A( I, J );
-                     A[I, J] = CZERO;
+                     A[I][J] = CZERO;
                      S = B( I, J );
-                     B[I, J] = CZERO;
+                     B[I][J] = CZERO;
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                         TEMP = WORK( JJ + NBLST );
                         WORK[JJ + NBLST] = CTEMP*TEMP - DCONJG( S )*WORK( JJ );
@@ -455,9 +455,9 @@
                      LEN  = 2 + J - JCOL;
                      for (I = JROW+NNB-1; I >= JROW; I--) {
                         CTEMP = A( I, J );
-                        A[I, J] = CZERO;
+                        A[I][J] = CZERO;
                         S = B( I, J );
-                        B[I, J] = CZERO;
+                        B[I][J] = CZERO;
                         for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
                            TEMP = WORK( JJ + 2*NNB );
                            WORK[JJ + 2*NNB] = CTEMP*TEMP - DCONJG( S )*WORK( JJ );

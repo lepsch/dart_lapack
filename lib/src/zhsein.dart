@@ -185,7 +185,7 @@
                   IFAILL[KS] = 0;
                }
                for (I = 1; I <= KL - 1; I++) { // 80
-                  VL[I, KS] = ZERO;
+                  VL[I][KS] = ZERO;
                } // 80
             }
             if ( RIGHTV ) {
@@ -200,7 +200,7 @@
                   IFAILR[KS] = 0;
                }
                for (I = KR + 1; I <= N; I++) { // 90
-                  VR[I, KS] = ZERO;
+                  VR[I][KS] = ZERO;
                } // 90
             }
             KS = KS + 1;

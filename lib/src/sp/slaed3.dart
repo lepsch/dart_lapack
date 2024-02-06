@@ -69,9 +69,9 @@
             W[1] = Q( 1, J );
             W[2] = Q( 2, J );
             II = INDX( 1 );
-            Q[1, J] = W( II );
+            Q[1][J] = W( II );
             II = INDX( 2 );
-            Q[2, J] = W( II );
+            Q[2][J] = W( II );
          } // 30
          GO TO 110;
       }
@@ -104,7 +104,7 @@
          TEMP = SNRM2( K, S, 1 );
          for (I = 1; I <= K; I++) { // 90
             II = INDX( I );
-            Q[I, J] = S( II ) / TEMP;
+            Q[I][J] = S( II ) / TEMP;
          } // 90
       } // 100
 

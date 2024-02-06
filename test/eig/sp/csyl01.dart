@@ -108,7 +108,7 @@
                KUA = M - 1;
                clatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                for (I = 1; I <= M; I++) {
-                  A[I, I] = A( I, I ) * VM( J );
+                  A[I][I] = A( I, I ) * VM( J );
                }
                ANRM = CLANGE( 'M', M, M, A, MAXM, DUM );
                for (N = 51; N <= MAXN; N += 29) {
@@ -116,7 +116,7 @@
                   KUB = N - 1;
                   clatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );
                   for (I = 1; I <= N; I++) {
-                     B[I, I] = B( I, I ) * VM ( J );
+                     B[I][I] = B( I, I ) * VM ( J );
                   }
                   BNRM = CLANGE( 'M', N, N, B, MAXN, DUM );
                   TNRM = max( ANRM, BNRM );

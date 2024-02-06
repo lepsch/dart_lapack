@@ -167,7 +167,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = A( KK, KK );
+               A[KP][KP] = A( KK, KK );
                zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )                IF( KP > 1 ) CALL ZCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
@@ -254,7 +254,7 @@
 
                   for (J = 1; J <= K - 2; J++) { // 20
                      A[J, K-1] = D21*( D11*W( J, KW-1 )-W( J, KW ) );
-                     A[J, K] = D21*( D22*W( J, KW )-W( J, KW-1 ) );
+                     A[J][K] = D21*( D22*W( J, KW )-W( J, KW-1 ) );
                   } // 20
                }
 
@@ -262,7 +262,7 @@
 
                A[K-1, K-1] = W( K-1, KW-1 );
                A[K-1, K] = W( K-1, KW );
-               A[K, K] = W( K, KW );
+               A[K][K] = W( K, KW );
 
             }
 
@@ -439,7 +439,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = A( KK, KK );
+               A[KP][KP] = A( KK, KK );
                zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP < N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
@@ -527,14 +527,14 @@
                   // of D**(-1)
 
                   for (J = K + 2; J <= N; J++) { // 80
-                     A[J, K] = D21*( D11*W( J, K )-W( J, K+1 ) );
+                     A[J][K] = D21*( D11*W( J, K )-W( J, K+1 ) );
                      A[J, K+1] = D21*( D22*W( J, K+1 )-W( J, K ) );
                   } // 80
                }
 
                // Copy D(k) to A
 
-               A[K, K] = W( K, K );
+               A[K][K] = W( K, K );
                A[K+1, K] = W( K+1, K );
                A[K+1, K+1] = W( K+1, K+1 );
 

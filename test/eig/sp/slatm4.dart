@@ -65,7 +65,7 @@
 
          } // 10
          for (JD = 1; JD <= N; JD++) { // 20
-            A[JD, JD] = ONE;
+            A[JD][JD] = ONE;
          } // 20
          GO TO 220;
 
@@ -90,7 +90,7 @@
          ISDB = 1;
          ISDE = K;
          for (JD = K + 2; JD <= 2*K + 1; JD++) { // 70
-            A[JD, JD] = ONE;
+            A[JD][JD] = ONE;
          } // 70
          GO TO 220;
 
@@ -98,7 +98,7 @@
 
          } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
-            A[JD, JD] = double( JD-NZ1 );
+            A[JD][JD] = double( JD-NZ1 );
          } // 90
          GO TO 220;
 
@@ -106,24 +106,24 @@
 
          } // 100
          for (JD = KBEG + 1; JD <= KEND; JD++) { // 110
-            A[JD, JD] = RCOND;
+            A[JD][JD] = RCOND;
          } // 110
-         A[KBEG, KBEG] = ONE;
+         A[KBEG][KBEG] = ONE;
          GO TO 220;
 
          // abs(ITYPE) = 6: One small D value:
 
          } // 120
          for (JD = KBEG; JD <= KEND - 1; JD++) { // 130
-            A[JD, JD] = ONE;
+            A[JD][JD] = ONE;
          } // 130
-         A[KEND, KEND] = RCOND;
+         A[KEND][KEND] = RCOND;
          GO TO 220;
 
          // abs(ITYPE) = 7: Exponentially distributed D values:
 
          } // 140
-         A[KBEG, KBEG] = ONE;
+         A[KBEG][KBEG] = ONE;
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) );
             for (I = 2; I <= KLEN; I++) { // 150
@@ -135,7 +135,7 @@
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
          } // 160
-         A[KBEG, KBEG] = ONE;
+         A[KBEG][KBEG] = ONE;
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 );
             for (I = 2; I <= KLEN; I++) { // 170
@@ -149,7 +149,7 @@
          } // 180
          ALPHA = LOG( RCOND );
          for (JD = KBEG; JD <= KEND; JD++) { // 190
-            A[JD, JD] = EXP( ALPHA*SLARAN( ISEED ) );
+            A[JD][JD] = EXP( ALPHA*SLARAN( ISEED ) );
          } // 190
          GO TO 220;
 
@@ -157,7 +157,7 @@
 
          } // 200
          for (JD = KBEG; JD <= KEND; JD++) { // 210
-            A[JD, JD] = SLARND( IDIST, ISEED );
+            A[JD][JD] = SLARND( IDIST, ISEED );
          } // 210
 
          } // 220
@@ -165,7 +165,7 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*double( A( JD, JD ) );
+            A[JD][JD] = AMAGN*double( A( JD, JD ) );
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
             A[JD+1, JD] = AMAGN*double( A( JD+1, JD ) );
@@ -192,7 +192,7 @@
          if ( ITYPE < 0 ) {
             for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                TEMP = A( JD, JD );
-               A[JD, JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
+               A[JD][JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
                A[KBEG+KEND-JD, KBEG+KEND-JD] = TEMP;
             } // 270
             for (JD = 1; JD <= ( N-1 ) / 2; JD++) { // 280
@@ -230,7 +230,7 @@
 
                   SV1 = A( JD, JD );
                   SV2 = A( JD+1, JD+1 );
-                  A[JD, JD] = CL*CR*SV1 + SL*SR*SV2;
+                  A[JD][JD] = CL*CR*SV1 + SL*SR*SV2;
                   A[JD+1, JD] = -SL*CR*SV1 + CL*SR*SV2;
                   A[JD, JD+1] = -CL*SR*SV1 + SL*CR*SV2;
                   A[JD+1, JD+1] = SL*SR*SV1 + CL*CR*SV2;
@@ -254,7 +254,7 @@
 
          for (JC = 2; JC <= N; JC++) { // 320
             for (JR = 1; JR <= JC - IOFF; JR++) { // 310
-               A[JR, JC] = TRIANG*SLARND( IDIST, ISEED );
+               A[JR][JC] = TRIANG*SLARND( IDIST, ISEED );
             } // 310
          } // 320
       }

@@ -46,8 +46,8 @@
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A[I, J] = DCMPLX( 1.0 / (I+J).toDouble() );
-            T[I, J] = DCMPLX( 1.0 / (I+J).toDouble() );
+            A[I][J] = DCMPLX( 1.0 / (I+J).toDouble() );
+            T[I][J] = DCMPLX( 1.0 / (I+J).toDouble() );
          }
          D[J] = ( 0.0, 0.0 );
       }

@@ -104,7 +104,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / A( K, K );
+            A[K][K] = ONE / A( K, K );
 
             // Compute column K of the inverse.
 
@@ -124,7 +124,7 @@ import 'package:lapack/src/xerbla.dart';
             AKP1 = A( K+1, K+1 ) / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
-            A[K, K] = AKP1 / D;
+            A[K][K] = AKP1 / D;
             A[K+1, K+1] = AK / D;
             A[K, K+1] = -AKKP1 / D;
 
@@ -148,8 +148,8 @@ import 'package:lapack/src/xerbla.dart';
             dswap(KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
             dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
             TEMP = A( K, K );
-            A[K, K] = A( KP, KP );
-            A[KP, KP] = TEMP;
+            A[K][K] = A( KP, KP );
+            A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K+1 );
                A[K, K+1] = A( KP, K+1 );
@@ -181,7 +181,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / A( K, K );
+            A[K][K] = ONE / A( K, K );
 
             // Compute column K of the inverse.
 
@@ -202,7 +202,7 @@ import 'package:lapack/src/xerbla.dart';
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K-1, K-1] = AKP1 / D;
-            A[K, K] = AK / D;
+            A[K][K] = AK / D;
             A[K, K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
@@ -225,8 +225,8 @@ import 'package:lapack/src/xerbla.dart';
             if (KP < N) dswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
             TEMP = A( K, K );
-            A[K, K] = A( KP, KP );
-            A[KP, KP] = TEMP;
+            A[K][K] = A( KP, KP );
+            A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K-1 );
                A[K, K-1] = A( KP, K-1 );

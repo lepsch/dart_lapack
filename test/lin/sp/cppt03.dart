@@ -97,7 +97,7 @@
          // Copy AINV
 
          for (I = 1; I <= N - 1; I++) { // 50
-            WORK[1, I] = CONJG( AINV( I+1 ) );
+            WORK[1][I] = CONJG( AINV( I+1 ) );
          } // 50
          JJ = N + 1;
          for (J = 2; J <= N; J++) { // 70
@@ -120,7 +120,7 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 90
-         WORK[I, I] = WORK( I, I ) + CONE;
+         WORK[I][I] = WORK( I, I ) + CONE;
       } // 90
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)

@@ -130,7 +130,7 @@
          clacgv(Q-I+1, X21(I,I), LDX21 );
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = double( X21(I,I) );
-         X21[I,I] = ONE;
+         X21[I][I] = ONE;
          clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X21(I,I), LDX21 );
@@ -146,7 +146,7 @@
       for (I = M - Q + 1; I <= P; I++) {
          clacgv(Q-I+1, X11(I,I), LDX11 );
          clarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
-         X11[I,I] = ONE;
+         X11[I][I] = ONE;
          clarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          clarf('R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X11(I,I), LDX11 );

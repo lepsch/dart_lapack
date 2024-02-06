@@ -155,7 +155,7 @@
       for (I = 1; I <= N; I++) {
          if ( WORK( LWT+N*N+I ) == -ONE ) {
             for (J = I; J <= N; J++) {
-               A[I, J] = -ONE * WORK( LWT+N*(J-1)+I );
+               A[I][J] = -ONE * WORK( LWT+N*(J-1)+I );
             }
          } else {
             scopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );

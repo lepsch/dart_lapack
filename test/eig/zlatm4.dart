@@ -68,7 +68,7 @@
 
          } // 10
          for (JD = 1; JD <= N; JD++) { // 20
-            A[JD, JD] = CONE;
+            A[JD][JD] = CONE;
          } // 20
          GO TO 220;
 
@@ -93,7 +93,7 @@
          ISDB = 1;
          ISDE = K;
          for (JD = K + 2; JD <= 2*K + 1; JD++) { // 70
-            A[JD, JD] = CONE;
+            A[JD][JD] = CONE;
          } // 70
          GO TO 220;
 
@@ -101,7 +101,7 @@
 
          } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
-            A[JD, JD] = DCMPLX( JD-NZ1 );
+            A[JD][JD] = DCMPLX( JD-NZ1 );
          } // 90
          GO TO 220;
 
@@ -109,24 +109,24 @@
 
          } // 100
          for (JD = KBEG + 1; JD <= KEND; JD++) { // 110
-            A[JD, JD] = DCMPLX( RCOND );
+            A[JD][JD] = DCMPLX( RCOND );
          } // 110
-         A[KBEG, KBEG] = CONE;
+         A[KBEG][KBEG] = CONE;
          GO TO 220;
 
          // abs(ITYPE) = 6: One small D value:
 
          } // 120
          for (JD = KBEG; JD <= KEND - 1; JD++) { // 130
-            A[JD, JD] = CONE;
+            A[JD][JD] = CONE;
          } // 130
-         A[KEND, KEND] = DCMPLX( RCOND );
+         A[KEND][KEND] = DCMPLX( RCOND );
          GO TO 220;
 
          // abs(ITYPE) = 7: Exponentially distributed D values:
 
          } // 140
-         A[KBEG, KBEG] = CONE;
+         A[KBEG][KBEG] = CONE;
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / (KLEN-1).toDouble() );
             for (I = 2; I <= KLEN; I++) { // 150
@@ -138,7 +138,7 @@
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
          } // 160
-         A[KBEG, KBEG] = CONE;
+         A[KBEG][KBEG] = CONE;
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / (KLEN-1).toDouble();
             for (I = 2; I <= KLEN; I++) { // 170
@@ -152,7 +152,7 @@
          } // 180
          ALPHA = LOG( RCOND );
          for (JD = KBEG; JD <= KEND; JD++) { // 190
-            A[JD, JD] = EXP( ALPHA*DLARAN( ISEED ) );
+            A[JD][JD] = EXP( ALPHA*DLARAN( ISEED ) );
          } // 190
          GO TO 220;
 
@@ -160,7 +160,7 @@
 
          } // 200
          for (JD = KBEG; JD <= KEND; JD++) { // 210
-            A[JD, JD] = ZLARND( IDIST, ISEED );
+            A[JD][JD] = ZLARND( IDIST, ISEED );
          } // 210
 
          } // 220
@@ -168,7 +168,7 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*(A( JD, JD )).toDouble();
+            A[JD][JD] = AMAGN*(A( JD, JD )).toDouble();
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
             A[JD+1, JD] = AMAGN*(A( JD+1, JD )).toDouble();
@@ -182,7 +182,7 @@
                if ( (A( JD, JD )).toDouble() != ZERO ) {
                   CTEMP = ZLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD, JD] = CTEMP*(A( JD, JD )).toDouble();
+                  A[JD][JD] = CTEMP*(A( JD, JD )).toDouble();
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
@@ -199,7 +199,7 @@
          if ( ITYPE < 0 ) {
             for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                CTEMP = A( JD, JD );
-               A[JD, JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
+               A[JD][JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
                A[KBEG+KEND-JD, KBEG+KEND-JD] = CTEMP;
             } // 270
             for (JD = 1; JD <= ( N-1 ) / 2; JD++) { // 280
@@ -216,7 +216,7 @@
       if ( TRIANG != ZERO ) {
          for (JC = 2; JC <= N; JC++) { // 300
             for (JR = 1; JR <= JC - 1; JR++) { // 290
-               A[JR, JC] = TRIANG*ZLARND( IDIST, ISEED );
+               A[JR][JC] = TRIANG*ZLARND( IDIST, ISEED );
             } // 290
          } // 300
       }

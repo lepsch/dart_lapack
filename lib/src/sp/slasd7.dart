@@ -196,10 +196,10 @@
                if ( IDXJ <= NLP1 ) {
                   IDXJ = IDXJ - 1;
                }
-               GIVCOL[GIVPTR, 2] = IDXJP;
-               GIVCOL[GIVPTR, 1] = IDXJ;
-               GIVNUM[GIVPTR, 2] = C;
-               GIVNUM[GIVPTR, 1] = S;
+               GIVCOL[GIVPTR][2] = IDXJP;
+               GIVCOL[GIVPTR][1] = IDXJ;
+               GIVNUM[GIVPTR][2] = C;
+               GIVNUM[GIVPTR][1] = S;
             }
             srot(1, VF( JPREV ), 1, VF( J ), 1, C, S );
             srot(1, VL( JPREV ), 1, VL( J ), 1, C, S );

@@ -211,11 +211,11 @@ import 'package:lapack/src/xerbla.dart';
                   IFAILL[KSI] = 0;
                }
                for (I = 1; I <= KL - 1; I++) { // 80
-                  VL[I, KSR] = ZERO;
+                  VL[I][KSR] = ZERO;
                } // 80
                if ( PAIR ) {
                   for (I = 1; I <= KL - 1; I++) { // 90
-                     VL[I, KSI] = ZERO;
+                     VL[I][KSI] = ZERO;
                   } // 90
                }
             }
@@ -237,11 +237,11 @@ import 'package:lapack/src/xerbla.dart';
                   IFAILR[KSI] = 0;
                }
                for (I = KR + 1; I <= N; I++) { // 100
-                  VR[I, KSR] = ZERO;
+                  VR[I][KSR] = ZERO;
                } // 100
                if ( PAIR ) {
                   for (I = KR + 1; I <= N; I++) { // 110
-                     VR[I, KSI] = ZERO;
+                     VR[I][KSI] = ZERO;
                   } // 110
                }
             }

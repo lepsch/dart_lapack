@@ -290,7 +290,7 @@
             K = idamax( N, RWORK, 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( K ) );
             zscal(N, TMP, VL( 1, I ), 1 );
-            VL[K, I] = DCMPLX( (VL( K, I )).toDouble(), ZERO );
+            VL[K][I] = DCMPLX( (VL( K, I )).toDouble(), ZERO );
          } // 20
       }
 
@@ -311,7 +311,7 @@
             K = idamax( N, RWORK, 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( K ) );
             zscal(N, TMP, VR( 1, I ), 1 );
-            VR[K, I] = DCMPLX( (VR( K, I )).toDouble(), ZERO );
+            VR[K][I] = DCMPLX( (VR( K, I )).toDouble(), ZERO );
          } // 40
       }
 

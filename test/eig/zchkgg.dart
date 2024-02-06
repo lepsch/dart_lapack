@@ -211,22 +211,22 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
-                        U[JR, JC] = ZLARND( 3, ISEED );
-                        V[JR, JC] = ZLARND( 3, ISEED );
+                        U[JR][JC] = ZLARND( 3, ISEED );
+                        V[JR][JC] = ZLARND( 3, ISEED );
                      } // 40
                      zlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK[2*N+JC] = sign( ONE, (U( JC, JC )).toDouble() );
-                     U[JC, JC] = CONE;
+                     U[JC][JC] = CONE;
                      zlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK[3*N+JC] = sign( ONE, (V( JC, JC )).toDouble() );
-                     V[JC, JC] = CONE;
+                     V[JC][JC] = CONE;
                   } // 50
                   CTEMP = ZLARND( 3, ISEED );
-                  U[N, N] = CONE;
+                  U[N][N] = CONE;
                   WORK[N] = CZERO;
                   WORK[3*N] = CTEMP / ( CTEMP ).abs();
                   CTEMP = ZLARND( 3, ISEED );
-                  V[N, N] = CONE;
+                  V[N][N] = CONE;
                   WORK[2*N] = CZERO;
                   WORK[4*N] = CTEMP / ( CTEMP ).abs();
 
@@ -234,7 +234,7 @@
 
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
-                        A[JR, JC] = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* B( JR, JC );
+                        A[JR][JC] = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* B( JR, JC );
                      } // 60
                   } // 70
                   CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
@@ -248,7 +248,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
-                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED );
+                     A[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED );
                   } // 80
                } // 90
             }

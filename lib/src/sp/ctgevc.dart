@@ -189,9 +189,9 @@
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 50
-                     VL[JR, IEIG] = CZERO;
+                     VL[JR][IEIG] = CZERO;
                   } // 50
-                  VL[IEIG, IEIG] = CONE;
+                  VL[IEIG][IEIG] = CONE;
                   GO TO 140;
                }
 
@@ -309,14 +309,14 @@
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = IBEG; JR <= N; JR++) { // 120
-                     VL[JR, IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VL[JR][IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 120
                } else {
                   IBEG = N + 1;
                }
 
                for (JR = 1; JR <= IBEG - 1; JR++) { // 130
-                  VL[JR, IEIG] = CZERO;
+                  VL[JR][IEIG] = CZERO;
                } // 130
 
             }
@@ -344,9 +344,9 @@
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 150
-                     VR[JR, IEIG] = CZERO;
+                     VR[JR][IEIG] = CZERO;
                   } // 150
-                  VR[IEIG, IEIG] = CONE;
+                  VR[IEIG][IEIG] = CONE;
                   GO TO 250;
                }
 
@@ -463,14 +463,14 @@
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = 1; JR <= IEND; JR++) { // 230
-                     VR[JR, IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VR[JR][IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 230
                } else {
                   IEND = 0;
                }
 
                for (JR = IEND + 1; JR <= N; JR++) { // 240
-                  VR[JR, IEIG] = CZERO;
+                  VR[JR][IEIG] = CZERO;
                } // 240
 
             }

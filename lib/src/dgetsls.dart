@@ -217,7 +217,7 @@ import 'package:lapack/src/xerbla.dart';
 
             for (J = 1; J <= NRHS; J++) { // 20
                for (I = N + 1; I <= M; I++) { // 10
-                  B[I, J] = ZERO;
+                  B[I][J] = ZERO;
                } // 10
             } // 20
 
@@ -253,7 +253,7 @@ import 'package:lapack/src/xerbla.dart';
 
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = M + 1; I <= N; I++) { // 30
-                  B[I, J] = ZERO;
+                  B[I][J] = ZERO;
                } // 30
             } // 40
 

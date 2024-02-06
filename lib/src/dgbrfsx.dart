@@ -156,16 +156,16 @@ import 'package:lapack/src/xerbla.dart';
          for (J = 1; J <= NRHS; J++) {
             BERR[J] = 0.0;
             if ( N_ERR_BNDS >= 1 ) {
-               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
-               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
+               ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 1.0;
+               ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 1.0;
             }
             if ( N_ERR_BNDS >= 2 ) {
-               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 0.0;
-               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 0.0;
+               ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = 0.0;
+               ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 0.0;
             }
             if ( N_ERR_BNDS >= 3 ) {
-               ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = 1.0;
-               ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = 1.0;
+               ERR_BNDS_NORM[J][LA_LINRX_RCOND_I] = 1.0;
+               ERR_BNDS_COMP[J][LA_LINRX_RCOND_I] = 1.0;
             }
          }
          return;
@@ -177,16 +177,16 @@ import 'package:lapack/src/xerbla.dart';
       for (J = 1; J <= NRHS; J++) {
          BERR[J] = 1.0;
          if ( N_ERR_BNDS >= 1 ) {
-            ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
-            ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
+            ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 1.0;
+            ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 1.0;
          }
          if ( N_ERR_BNDS >= 2 ) {
-            ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 1.0;
-            ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 1.0;
+            ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = 1.0;
+            ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
          }
          if ( N_ERR_BNDS >= 3 ) {
-            ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = 0.0;
-            ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = 0.0;
+            ERR_BNDS_NORM[J][LA_LINRX_RCOND_I] = 0.0;
+            ERR_BNDS_COMP[J][LA_LINRX_RCOND_I] = 0.0;
          }
       }
 
@@ -235,18 +235,18 @@ import 'package:lapack/src/xerbla.dart';
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
-               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = 1.0;
-               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 0.0;
+               ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = 1.0;
+               ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 0.0;
                if (INFO <= N) INFO = N + J;
             } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_NORM[J, LA_LINRX_ERR_I] = ERR_LBND;
-               ERR_BNDS_NORM[J, LA_LINRX_TRUST_I] = 1.0;
+               ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = ERR_LBND;
+               ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_NORM[J, LA_LINRX_RCOND_I] = RCOND_TMP;
+               ERR_BNDS_NORM[J][LA_LINRX_RCOND_I] = RCOND_TMP;
             }
 
          }
@@ -277,18 +277,18 @@ import 'package:lapack/src/xerbla.dart';
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
-               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = 1.0;
-               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 0.0;
+               ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
+               ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 0.0;
                if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0 && INFO < N + J ) INFO = N + J;
             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_COMP[J, LA_LINRX_ERR_I] = ERR_LBND;
-               ERR_BNDS_COMP[J, LA_LINRX_TRUST_I] = 1.0;
+               ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = ERR_LBND;
+               ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_COMP[J, LA_LINRX_RCOND_I] = RCOND_TMP;
+               ERR_BNDS_COMP[J][LA_LINRX_RCOND_I] = RCOND_TMP;
             }
 
          }

@@ -390,7 +390,7 @@
                      // band and store it in WORK
 
                      WORK[J+KD] = WORK( J )*AB( KD1, J );
-                     AB[KD1, J] = D( J )*AB( KD1, J );
+                     AB[KD1][J] = D( J )*AB( KD1, J );
                   } // 190
                } // 200
             } // 210

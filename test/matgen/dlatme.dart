@@ -213,7 +213,7 @@
                if ( lsame( EI( J ), 'I' ) ) {
                   A[J-1, J] = A( J, J );
                   A[J, J-1] = -A( J, J );
-                  A[J, J] = A( J-1, J-1 );
+                  A[J][J] = A( J-1, J-1 );
                }
             } // 50
          }
@@ -224,7 +224,7 @@
             if ( DLARAN( ISEED ) > HALF ) {
                A[J-1, J] = A( J, J );
                A[J, J-1] = -A( J, J );
-               A[J, J] = A( J-1, J-1 );
+               A[J][J] = A( J-1, J-1 );
             }
          } // 60
       }
@@ -312,7 +312,7 @@
             dgemv('N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 );
             dger(N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A[JCR, IC] = XNORMS;
+            A[JCR][IC] = XNORMS;
             dlaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
          } // 90
       } else if ( KU < N-1 ) {
@@ -335,7 +335,7 @@
             dgemv('C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 );
             dger(ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A[IR, JCR] = XNORMS;
+            A[IR][JCR] = XNORMS;
             dlaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
          } // 100
       }

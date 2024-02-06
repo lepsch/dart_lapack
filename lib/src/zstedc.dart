@@ -147,7 +147,7 @@
             dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
-                  Z[I, J] = RWORK( ( J-1 )*N+I );
+                  Z[I][J] = RWORK( ( J-1 )*N+I );
                } // 10
             } // 20
             GO TO 70;

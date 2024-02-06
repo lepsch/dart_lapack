@@ -47,10 +47,10 @@ import 'common.dart';
       infoc.NOUT = NUNIT;
       WRITE( infoc.NOUT, FMT = * );
       C2 = PATH( 2: 3 );
-      A[1, 1] = 1.0;
-      A[1, 2] = 2.0;
-      A[2, 2] = 3.0;
-      A[2, 1] = 4.0;
+      A[1][1] = 1.0;
+      A[1][2] = 2.0;
+      A[2][2] = 3.0;
+      A[2][1] = 4.0;
       infoc.OK = true;
 
       if ( lsamen( 2, C2, 'LS' ) ) {

@@ -211,7 +211,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = N + 1; I <= M; I++) {
-                  B[I, J] = ZERO;
+                  B[I][J] = ZERO;
                }
             }
 
@@ -255,7 +255,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = M + 1; I <= N; I++) {
-                  B[I, J] = ZERO;
+                  B[I][J] = ZERO;
                }
             }
 

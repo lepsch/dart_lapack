@@ -71,7 +71,7 @@
                      for (I = 1; I <= N; I++) { // 10
                         TEMP = A( J+1, I );
                         A[J+1, I] = CTEMP*TEMP - STEMP*A( J, I );
-                        A[J, I] = STEMP*TEMP + CTEMP*A( J, I );
+                        A[J][I] = STEMP*TEMP + CTEMP*A( J, I );
                      } // 10
                   }
                } // 20
@@ -83,7 +83,7 @@
                      for (I = 1; I <= N; I++) { // 30
                         TEMP = A( J+1, I );
                         A[J+1, I] = CTEMP*TEMP - STEMP*A( J, I );
-                        A[J, I] = STEMP*TEMP + CTEMP*A( J, I );
+                        A[J][I] = STEMP*TEMP + CTEMP*A( J, I );
                      } // 30
                   }
                } // 40
@@ -96,8 +96,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 50
                         TEMP = A( J, I );
-                        A[J, I] = CTEMP*TEMP - STEMP*A( 1, I );
-                        A[1, I] = STEMP*TEMP + CTEMP*A( 1, I );
+                        A[J][I] = CTEMP*TEMP - STEMP*A( 1, I );
+                        A[1][I] = STEMP*TEMP + CTEMP*A( 1, I );
                      } // 50
                   }
                } // 60
@@ -108,8 +108,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 70
                         TEMP = A( J, I );
-                        A[J, I] = CTEMP*TEMP - STEMP*A( 1, I );
-                        A[1, I] = STEMP*TEMP + CTEMP*A( 1, I );
+                        A[J][I] = CTEMP*TEMP - STEMP*A( 1, I );
+                        A[1][I] = STEMP*TEMP + CTEMP*A( 1, I );
                      } // 70
                   }
                } // 80
@@ -122,8 +122,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 90
                         TEMP = A( J, I );
-                        A[J, I] = STEMP*A( M, I ) + CTEMP*TEMP;
-                        A[M, I] = CTEMP*A( M, I ) - STEMP*TEMP;
+                        A[J][I] = STEMP*A( M, I ) + CTEMP*TEMP;
+                        A[M][I] = CTEMP*A( M, I ) - STEMP*TEMP;
                      } // 90
                   }
                } // 100
@@ -134,8 +134,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 110
                         TEMP = A( J, I );
-                        A[J, I] = STEMP*A( M, I ) + CTEMP*TEMP;
-                        A[M, I] = CTEMP*A( M, I ) - STEMP*TEMP;
+                        A[J][I] = STEMP*A( M, I ) + CTEMP*TEMP;
+                        A[M][I] = CTEMP*A( M, I ) - STEMP*TEMP;
                      } // 110
                   }
                } // 120
@@ -154,7 +154,7 @@
                      for (I = 1; I <= M; I++) { // 130
                         TEMP = A( I, J+1 );
                         A[I, J+1] = CTEMP*TEMP - STEMP*A( I, J );
-                        A[I, J] = STEMP*TEMP + CTEMP*A( I, J );
+                        A[I][J] = STEMP*TEMP + CTEMP*A( I, J );
                      } // 130
                   }
                } // 140
@@ -166,7 +166,7 @@
                      for (I = 1; I <= M; I++) { // 150
                         TEMP = A( I, J+1 );
                         A[I, J+1] = CTEMP*TEMP - STEMP*A( I, J );
-                        A[I, J] = STEMP*TEMP + CTEMP*A( I, J );
+                        A[I][J] = STEMP*TEMP + CTEMP*A( I, J );
                      } // 150
                   }
                } // 160
@@ -179,8 +179,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 170
                         TEMP = A( I, J );
-                        A[I, J] = CTEMP*TEMP - STEMP*A( I, 1 );
-                        A[I, 1] = STEMP*TEMP + CTEMP*A( I, 1 );
+                        A[I][J] = CTEMP*TEMP - STEMP*A( I, 1 );
+                        A[I][1] = STEMP*TEMP + CTEMP*A( I, 1 );
                      } // 170
                   }
                } // 180
@@ -191,8 +191,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 190
                         TEMP = A( I, J );
-                        A[I, J] = CTEMP*TEMP - STEMP*A( I, 1 );
-                        A[I, 1] = STEMP*TEMP + CTEMP*A( I, 1 );
+                        A[I][J] = CTEMP*TEMP - STEMP*A( I, 1 );
+                        A[I][1] = STEMP*TEMP + CTEMP*A( I, 1 );
                      } // 190
                   }
                } // 200
@@ -205,8 +205,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 210
                         TEMP = A( I, J );
-                        A[I, J] = STEMP*A( I, N ) + CTEMP*TEMP;
-                        A[I, N] = CTEMP*A( I, N ) - STEMP*TEMP;
+                        A[I][J] = STEMP*A( I, N ) + CTEMP*TEMP;
+                        A[I][N] = CTEMP*A( I, N ) - STEMP*TEMP;
                      } // 210
                   }
                } // 220
@@ -217,8 +217,8 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 230
                         TEMP = A( I, J );
-                        A[I, J] = STEMP*A( I, N ) + CTEMP*TEMP;
-                        A[I, N] = CTEMP*A( I, N ) - STEMP*TEMP;
+                        A[I][J] = STEMP*A( I, N ) + CTEMP*TEMP;
+                        A[I][N] = CTEMP*A( I, N ) - STEMP*TEMP;
                      } // 230
                   }
                } // 240

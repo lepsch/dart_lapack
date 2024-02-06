@@ -107,7 +107,7 @@
 
       for (I = 2; I <= N; I++) { // 60
          DSIGMA[I] = D( IDXQ( I ) );
-         U2[I, 1] = Z( IDXQ( I ) );
+         U2[I][1] = Z( IDXQ( I ) );
          IDXC[I] = COLTYP( IDXQ( I ) );
       } // 60
 
@@ -215,7 +215,7 @@
             JPREV = J;
          } else {
             K = K + 1;
-            U2[K, 1] = Z( JPREV );
+            U2[K][1] = Z( JPREV );
             DSIGMA[K] = D( JPREV );
             IDXP[K] = JPREV;
             JPREV = J;
@@ -227,7 +227,7 @@
       // Record the last singular value.
 
       K = K + 1;
-      U2[K, 1] = Z( JPREV );
+      U2[K][1] = Z( JPREV );
       DSIGMA[K] = D( JPREV );
       IDXP[K] = JPREV;
 
@@ -314,15 +314,15 @@
       // last row of VT.
 
       slaset('A', N, 1, ZERO, ZERO, U2, LDU2 );
-      U2[NLP1, 1] = ONE;
+      U2[NLP1][1] = ONE;
       if ( M > N ) {
          for (I = 1; I <= NLP1; I++) { // 170
-            VT[M, I] = -S*VT( NLP1, I );
-            VT2[1, I] = C*VT( NLP1, I );
+            VT[M][I] = -S*VT( NLP1, I );
+            VT2[1][I] = C*VT( NLP1, I );
          } // 170
          for (I = NLP2; I <= M; I++) { // 180
-            VT2[1, I] = S*VT( M, I );
-            VT[M, I] = C*VT( M, I );
+            VT2[1][I] = S*VT( M, I );
+            VT[M][I] = C*VT( M, I );
          } // 180
       } else {
          scopy(M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 );

@@ -208,7 +208,7 @@
                // Identity
 
                for (JC = 1; JC <= N; JC++) { // 80
-                  A[JC, JC] = ANORM;
+                  A[JC][JC] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {

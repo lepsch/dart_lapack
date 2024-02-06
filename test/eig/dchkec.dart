@@ -2,6 +2,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 import 'derrec.dart';
 import 'dget31.dart';
@@ -16,12 +17,12 @@ import 'dget39.dart';
 import 'dget40.dart';
 import 'dsyl01.dart';
 
-void dchkec(
+Future<void> dchkec(
   final double THRESH,
   final bool TSTERR,
-  final int NIN,
-  final int NOUT,
-) {
+  final Nin NIN,
+  final Nout NOUT,
+)async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -77,15 +78,15 @@ void dchkec(
   EPS = dlamch('P');
   SFMIN = dlamch('S');
 
-  // Print header information
+  // print header information
 
-  print(
+  NOUT.println(
     ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n DLALN2, DLASY2, DLANV2, DLAEXC, DTRSYL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC',
   );
-  print(
+  NOUT.println(
     ' Relative machine precision (EPS) = ${EPS.d16_6}\n Safe minimum (SFMIN)             = ${SFMIN.d16_6}',
   );
-  print(
+  NOUT.println(
     ' Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n',
   );
 
@@ -97,7 +98,7 @@ void dchkec(
   dget31(RLALN2, LLALN2, NLALN2, KLALN2);
   if (RLALN2.value > THRESH || NLALN2[1] != 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DLALN2: RMAX =${RLALN2.value.d12_3}\n LMAX = ${LLALN2.value.i8} NINFO=${NLALN2.i8(2)} KNT=${KLALN2.value.i8}',
     );
   }
@@ -105,7 +106,7 @@ void dchkec(
   dget32(RLASY2, LLASY2, NLASY2, KLASY2);
   if (RLASY2.value > THRESH) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DLASY2: RMAX =${RLASY2.value.d12_3}\n LMAX = ${LLASY2.value.i8} NINFO=${NLASY2.value.i8} KNT=${KLASY2.value.i8}',
     );
   }
@@ -113,7 +114,7 @@ void dchkec(
   dget33(RLANV2, LLANV2, NLANV2, KLANV2);
   if (RLANV2.value > THRESH || NLANV2.value != 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DLANV2: RMAX =${RLANV2.value.d12_3}\n LMAX = ${LLANV2.value.i8} NINFO=${NLANV2.value.i8} KNT=${KLANV2.value.i8}',
     );
   }
@@ -121,7 +122,7 @@ void dchkec(
   dget34(RLAEXC, LLAEXC, NLAEXC, KLAEXC);
   if (RLAEXC.value > THRESH || NLAEXC[2] != 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DLAEXC: RMAX =${RLAEXC.value.d12_3}\n LMAX = ${LLAEXC.value.i8} NINFO=${NLAEXC.i8(2)} KNT=${KLAEXC.value.i8}',
     );
   }
@@ -129,7 +130,7 @@ void dchkec(
   dget35(RTRSYL.box(1), LTRSYL, NTRSYL, KTRSYL);
   if (RTRSYL[1] > THRESH) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DTRSYL: RMAX =${RTRSYL[1].d12_3}\n LMAX = ${LTRSYL.value.i8} NINFO=${NTRSYL.value.i8} KNT=${KTRSYL.value.i8}',
     );
   }
@@ -137,27 +138,27 @@ void dchkec(
   dsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3);
   if (FTRSYL[1] > 0) {
     OK = false;
-    print(
+    NOUT.println(
       'Error in DTRSYL: ${FTRSYL[1].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[1].d12_3} threshold =${THRESH.d12_3}',
     );
   }
   if (FTRSYL[2] > 0) {
     OK = false;
-    print(
+    NOUT.println(
       'Error in DTRSYL3: ${FTRSYL[2].i8} tests fail the threshold.\nMaximum test ratio =${RTRSYL[2].d12_3} threshold =${THRESH.d12_3}',
     );
   }
   if (FTRSYL[3] > 0) {
     OK = false;
-    print(
+    NOUT.println(
       'DTRSYL and DTRSYL3 compute an inconsistent result factor in ${FTRSYL[3].i8} tests.',
     );
   }
 
-  dget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN);
+  await dget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN);
   if (RTREXC.value > THRESH || NTREXC[3] > 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DTREXC: RMAX =${RTREXC.value.d12_3}\n LMAX = ${LTREXC.value.i8} NINFO=${NTREXC.i8(3)} KNT=${KTREXC.value.i8}',
     );
   }
@@ -169,7 +170,7 @@ void dchkec(
       NTRSNA[2] != 0 ||
       NTRSNA[3] != 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DTRSNA: RMAX =${RTRSNA.d12_3(3)}\n LMAX = ${LTRSNA.i8(3)} NINFO=${NTRSNA.i8(3)} KNT=${KTRSNA.value.i8}',
     );
   }
@@ -181,7 +182,7 @@ void dchkec(
       NTRSEN[2] != 0 ||
       NTRSEN[3] != 0) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DTRSEN: RMAX =${RTRSEN.d12_3(3)}\n LMAX = ${LTRSEN.i8(3)} NINFO=${NTRSEN.i8(3)} KNT=${KTRSEN.value.i8}',
     );
   }
@@ -189,7 +190,7 @@ void dchkec(
   dget39(RLAQTR, LLAQTR, NLAQTR, KLAQTR);
   if (RLAQTR.value > THRESH) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DLAQTR: RMAX =${RLAQTR.value.d12_3}\n LMAX = ${LLAQTR.value.i8} NINFO=${NLAQTR.value.i8} KNT=${KLAQTR.value.i8}',
     );
   }
@@ -197,7 +198,7 @@ void dchkec(
   dget40(RTGEXC, LTGEXC, NTGEXC, KTGEXC, NIN);
   if (RTGEXC.value > THRESH) {
     OK = false;
-    print(
+    NOUT.println(
       ' Error in DTGEXC: RMAX =${RTGEXC.value.d12_3}\n LMAX = ${LTGEXC.value.i8} NINFO=${NTGEXC.i8(2)} KNT=${KTGEXC.value.i8}',
     );
   }
@@ -213,7 +214,7 @@ void dchkec(
       KLAQTR.value +
       KTGEXC.value;
   if (OK) {
-    print(
+    NOUT.println(
       ' All tests for ${PATH.a3} routines passed the thresh old ( ${NTESTS.i6} tests run',
     );
   }

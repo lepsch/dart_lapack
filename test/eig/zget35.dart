@@ -91,23 +91,23 @@
                            TNRM = ZERO;
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50
-                                 A[I, J] = ATMP( I, J )*VM1( IMLA );
+                                 A[I][J] = ATMP( I, J )*VM1( IMLA );
                                  TNRM = max( TNRM, ( A( I, J ) ) ).abs();
                               } // 50
-                              A[I, I] = A( I, I )*VM2( IMLAD );
+                              A[I][I] = A( I, I )*VM2( IMLAD );
                               TNRM = max( TNRM, ( A( I, I ) ) ).abs();
                            } // 60
                            for (I = 1; I <= N; I++) { // 80
                               for (J = 1; J <= N; J++) { // 70
-                                 B[I, J] = BTMP( I, J )*VM1( IMLB );
+                                 B[I][J] = BTMP( I, J )*VM1( IMLB );
                                  TNRM = max( TNRM, ( B( I, J ) ) ).abs();
                               } // 70
                            } // 80
                            if (TNRM == ZERO) TNRM = ONE;
                            for (I = 1; I <= M; I++) { // 100
                               for (J = 1; J <= N; J++) { // 90
-                                 C[I, J] = CTMP( I, J )*VM1( IMLC );
-                                 CSAV[I, J] = C( I, J );
+                                 C[I][J] = CTMP( I, J )*VM1( IMLC );
+                                 CSAV[I][J] = C( I, J );
                               } // 90
                            } // 100
                            KNT = KNT + 1;

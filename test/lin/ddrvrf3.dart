@@ -141,7 +141,7 @@ import 'common.dart';
 
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
-                                    A[I, J] = dlarnd( 2, ISEED );
+                                    A[I][J] = dlarnd( 2, ISEED );
                                  }
                               }
 
@@ -160,7 +160,7 @@ import 'common.dart';
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( J, J ) );
                                        }
                                     }
                                  }
@@ -180,7 +180,7 @@ import 'common.dart';
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( I, I ) );
                                        }
                                     }
                                  }
@@ -197,8 +197,8 @@ import 'common.dart';
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = dlarnd( 2, ISEED );
-                                    B2[I, J] = B1( I, J );
+                                    B1[I][J] = dlarnd( 2, ISEED );
+                                    B2[I][J] = B1( I, J );
                                  }
                               }
 
@@ -218,7 +218,7 @@ import 'common.dart';
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = B2( I, J ) - B1( I, J );
+                                    B1[I][J] = B2( I, J ) - B1( I, J );
                                  }
                               }
 

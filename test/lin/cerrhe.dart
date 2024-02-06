@@ -55,8 +55,8 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I, J] = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
-            AF[I, J] = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
+            A[I][J] = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
+            AF[I][J] = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
          } // 10
          B[J] = 0.0;
          E[J] = 0.0;

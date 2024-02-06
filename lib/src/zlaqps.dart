@@ -68,11 +68,11 @@
 
          if ( K > 1 ) {
             for (J = 1; J <= K - 1; J++) { // 20
-               F[K, J] = DCONJG( F( K, J ) );
+               F[K][J] = DCONJG( F( K, J ) );
             } // 20
             zgemv('No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 );
             for (J = 1; J <= K - 1; J++) { // 30
-               F[K, J] = DCONJG( F( K, J ) );
+               F[K][J] = DCONJG( F( K, J ) );
             } // 30
          }
 
@@ -85,7 +85,7 @@
          }
 
          AKK = A( RK, K );
-         A[RK, K] = CONE;
+         A[RK][K] = CONE;
 
          // Compute Kth column of F:
 
@@ -98,7 +98,7 @@
          // Padding F(1:K,K) with zeros.
 
          for (J = 1; J <= K; J++) { // 40
-            F[J, K] = CZERO;
+            F[J][K] = CZERO;
          } // 40
 
          // Incremental updating of F:
@@ -140,7 +140,7 @@
             } // 50
          }
 
-         A[RK, K] = AKK;
+         A[RK][K] = AKK;
 
          // End of while loop.
 

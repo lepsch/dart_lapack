@@ -70,7 +70,7 @@
       zgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         XF[I,I] = XF(I,I) - ONE;
+         XF[I][I] = XF(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
          XF[min(P,Q)-R+I,min(P,Q)-R+I] = XF(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );
@@ -209,7 +209,7 @@
       zgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         X[I,I] = X(I,I) - ONE;
+         X[I][I] = X(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
          X[min(P,Q)-R+I,min(P,Q)-R+I] = X(min(P,Q)-R+I,min(P,Q)-R+I) - DCMPLX( COS(THETA(I)), 0.0 );

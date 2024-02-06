@@ -47,7 +47,7 @@
 
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               X[I, J] = 0.0;
+               X[I][J] = 0.0;
             } // 10
          } // 20
          N5 = N / 5;
@@ -58,7 +58,7 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X[I, I] = A;
+            X[I][I] = A;
             X[I-2, I] = B;
             X[I-2, I-1] = R;
             X[I-2, I-2] = C;
@@ -80,7 +80,7 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X[I, I] = A;
+            X[I][I] = A;
             X[I-2, I] = B;
             X[I-2, I-1] = R;
             X[I-2, I-2] = C;
@@ -88,7 +88,7 @@
             I = I - 3;
          }
          if ( I > 1 ) {
-            X[I, I] = ZLARND( 2, ISEED );
+            X[I][I] = ZLARND( 2, ISEED );
             X[I-1, I-1] = ZLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ) ).abs() {
                X[I-1, I] = 2.0*X( I, I );
@@ -97,7 +97,7 @@
             }
             I = I - 2;
          } else if ( I == 1 ) {
-            X[I, I] = ZLARND( 2, ISEED );
+            X[I][I] = ZLARND( 2, ISEED );
             I = I - 1;
          }
 
@@ -109,7 +109,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (I = J; I <= N; I++) { // 40
-               X[I, J] = 0.0;
+               X[I][J] = 0.0;
             } // 40
          } // 50
          N5 = N / 5;
@@ -120,7 +120,7 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X[I, I] = A;
+            X[I][I] = A;
             X[I+2, I] = B;
             X[I+2, I+1] = R;
             X[I+2, I+2] = C;
@@ -142,7 +142,7 @@
             B = ZLARND( 5, ISEED ) / ALPHA;
             C = A - 2.0*B*EYE;
             R = C / BETA;
-            X[I, I] = A;
+            X[I][I] = A;
             X[I+2, I] = B;
             X[I+2, I+1] = R;
             X[I+2, I+2] = C;
@@ -150,7 +150,7 @@
             I = I + 3;
          }
          if ( I < N ) {
-            X[I, I] = ZLARND( 2, ISEED );
+            X[I][I] = ZLARND( 2, ISEED );
             X[I+1, I+1] = ZLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ) ).abs() {
                X[I+1, I] = 2.0*X( I, I );
@@ -159,7 +159,7 @@
             }
             I = I + 2;
          } else if ( I == N ) {
-            X[I, I] = ZLARND( 2, ISEED );
+            X[I][I] = ZLARND( 2, ISEED );
             I = I + 1;
          }
       }

@@ -48,12 +48,12 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I, J] = ZERO;
-            B[I, J] = ZERO;
+            A[I][J] = ZERO;
+            B[I][J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= NMAX; I++) { // 30
-         A[I, I] = ONE;
+         A[I][I] = ONE;
          SEL[I] = true;
       } // 30
 

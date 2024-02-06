@@ -157,8 +157,8 @@
                   // Call 2 by 2 linear system solve, to take
                   // care of possible overflow by scaling factor.
 
-                  D[1, 1] = X( J1 );
-                  D[2, 1] = X( J2 );
+                  D[1][1] = X( J1 );
+                  D[2][1] = X( J2 );
                   slaln2( false , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
 
@@ -267,7 +267,7 @@
                      }
                   }
 
-                  D[1, 1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 );
+                  D[1][1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 );
 
                   slaln2( true , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
@@ -364,10 +364,10 @@
 
                   // Meet 2 by 2 diagonal block
 
-                  D[1, 1] = X( J1 );
-                  D[2, 1] = X( J2 );
-                  D[1, 2] = X( N+J1 );
-                  D[2, 2] = X( N+J2 );
+                  D[1][1] = X( J1 );
+                  D[2][1] = X( J2 );
+                  D[1][2] = X( N+J1 );
+                  D[2][2] = X( N+J2 );
                   slaln2( false , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;
 
@@ -498,11 +498,11 @@
                      }
                   }
 
-                  D[1, 1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
-                  D[1, 1] = D( 1, 1 ) - B( J1 )*X( N+1 );
-                  D[2, 1] = D( 2, 1 ) - B( J2 )*X( N+1 );
-                  D[1, 2] = D( 1, 2 ) + B( J1 )*X( 1 );
-                  D[2, 2] = D( 2, 2 ) + B( J2 )*X( 1 );
+                  D[1][1] = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )                   D( 1, 2 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )                   D( 2, 2 ) = X( N+J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X( N+1 ), 1 );
+                  D[1][1] = D( 1, 1 ) - B( J1 )*X( N+1 );
+                  D[2][1] = D( 2, 1 ) - B( J2 )*X( N+1 );
+                  D[1][2] = D( 1, 2 ) + B( J1 )*X( 1 );
+                  D[2][2] = D( 2, 2 ) + B( J2 )*X( 1 );
 
                   slaln2( true , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 2;

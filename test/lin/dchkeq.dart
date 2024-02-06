@@ -60,9 +60,9 @@
             for (J = 1; J <= NSZ; J++) { // 40
                for (I = 1; I <= NSZ; I++) { // 30
                   if ( I <= M && J <= N ) {
-                     A[I, J] = POW( I+J+1 )*( -1 )**( I+J );
+                     A[I][J] = POW( I+J+1 )*( -1 )**( I+J );
                   } else {
-                     A[I, J] = ZERO;
+                     A[I][J] = ZERO;
                   }
                } // 30
             } // 40
@@ -113,7 +113,7 @@
 
                   for (J = 1; J <= NSZ; J++) { // 130
                      for (I = 1; I <= NSZB; I++) { // 120
-                        AB[I, J] = ZERO;
+                        AB[I][J] = ZERO;
                      } // 120
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
@@ -189,9 +189,9 @@
          for (I = 1; I <= NSZ; I++) { // 270
             for (J = 1; J <= NSZ; J++) { // 260
                if ( I <= N && J == I ) {
-                  A[I, J] = POW( I+J+1 )*( -1 )**( I+J );
+                  A[I][J] = POW( I+J+1 )*( -1 )**( I+J );
                } else {
-                  A[I, J] = ZERO;
+                  A[I][J] = ZERO;
                }
             } // 260
          } // 270
@@ -280,7 +280,7 @@
 
             for (J = 1; J <= NSZ; J++) { // 380
                for (I = 1; I <= NSZB; I++) { // 370
-                  AB[I, J] = ZERO;
+                  AB[I][J] = ZERO;
                } // 370
             } // 380
             for (J = 1; J <= N; J++) { // 390
@@ -309,11 +309,11 @@
 
             for (J = 1; J <= NSZ; J++) { // 420
                for (I = 1; I <= NSZB; I++) { // 410
-                  AB[I, J] = ZERO;
+                  AB[I][J] = ZERO;
                } // 410
             } // 420
             for (J = 1; J <= N; J++) { // 430
-               AB[1, J] = POW( 2*J+1 );
+               AB[1][J] = POW( 2*J+1 );
             } // 430
 
             dpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );

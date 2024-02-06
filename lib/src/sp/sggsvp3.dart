@@ -137,7 +137,7 @@
 
       for (J = 1; J <= L - 1; J++) { // 40
          for (I = J + 1; I <= L; I++) { // 30
-            B[I, J] = ZERO;
+            B[I][J] = ZERO;
          } // 30
       } // 40
       if (P > L) slaset( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
@@ -172,7 +172,7 @@
          slaset('Full', L, N-L, ZERO, ZERO, B, LDB );
          for (J = N - L + 1; J <= N; J++) { // 60
             for (I = J - N + L + 1; I <= L; I++) { // 50
-               B[I, J] = ZERO;
+               B[I][J] = ZERO;
             } // 50
          } // 60
 
@@ -223,7 +223,7 @@
 
       for (J = 1; J <= K - 1; J++) { // 100
          for (I = J + 1; I <= K; I++) { // 90
-            A[I, J] = ZERO;
+            A[I][J] = ZERO;
          } // 90
       } // 100
       if (M > K) slaset( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
@@ -246,7 +246,7 @@
          slaset('Full', K, N-L-K, ZERO, ZERO, A, LDA );
          for (J = N - L - K + 1; J <= N - L; J++) { // 120
             for (I = J - N + L + K + 1; I <= K; I++) { // 110
-               A[I, J] = ZERO;
+               A[I][J] = ZERO;
             } // 110
          } // 120
 
@@ -269,7 +269,7 @@
 
          for (J = N - L + 1; J <= N; J++) { // 140
             for (I = J - N + K + L + 1; I <= M; I++) { // 130
-               A[I, J] = ZERO;
+               A[I][J] = ZERO;
             } // 130
          } // 140
 

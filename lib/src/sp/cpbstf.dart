@@ -122,11 +122,11 @@
 
             AJJ = double( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
-               AB[1, J] = AJJ;
+               AB[1][J] = AJJ;
                GO TO 50;
             }
             AJJ = sqrt( AJJ );
-            AB[1, J] = AJJ;
+            AB[1][J] = AJJ;
             KM = min( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th row and update the
@@ -146,11 +146,11 @@
 
             AJJ = double( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
-               AB[1, J] = AJJ;
+               AB[1][J] = AJJ;
                GO TO 50;
             }
             AJJ = sqrt( AJJ );
-            AB[1, J] = AJJ;
+            AB[1][J] = AJJ;
             KM = min( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th column and update the

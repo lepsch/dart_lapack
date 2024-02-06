@@ -63,7 +63,7 @@
          for (I = 1; I <= N; I++) { // 10
             AII = (A( I, I )).toDouble();
             if ( I < N ) {
-               A[I, I] = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
+               A[I][I] = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
                zlacgv(N-I, A( I, I+1 ), LDA );
                zgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, DCMPLX( AII ), A( 1, I ), 1 );
                zlacgv(N-I, A( I, I+1 ), LDA );
@@ -79,7 +79,7 @@
          for (I = 1; I <= N; I++) { // 20
             AII = (A( I, I )).toDouble();
             if ( I < N ) {
-               A[I, I] = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
+               A[I][I] = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
                zlacgv(I-1, A( I, 1 ), LDA );
                zgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, DCMPLX( AII ), A( I, 1 ), LDA );
                zlacgv(I-1, A( I, 1 ), LDA );

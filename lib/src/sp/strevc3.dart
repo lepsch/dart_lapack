@@ -247,7 +247,7 @@
 
                      if ( XNORM > ONE ) {
                         if ( WORK( J ) > BIGNUM / XNORM ) {
-                           X[1, 1] = X( 1, 1 ) / XNORM;
+                           X[1][1] = X( 1, 1 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -273,8 +273,8 @@
                      if ( XNORM > ONE ) {
                         BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
-                           X[1, 1] = X( 1, 1 ) / XNORM;
-                           X[2, 1] = X( 2, 1 ) / XNORM;
+                           X[1][1] = X( 1, 1 ) / XNORM;
+                           X[2][1] = X( 2, 1 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -304,7 +304,7 @@
                   sscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   for (K = KI + 1; K <= N; K++) { // 70
-                     VR[K, IS] = ZERO;
+                     VR[K][IS] = ZERO;
                   } // 70
 
                } else if ( NB == 1 ) {
@@ -379,8 +379,8 @@
 
                      if ( XNORM > ONE ) {
                         if ( WORK( J ) > BIGNUM / XNORM ) {
-                           X[1, 1] = X( 1, 1 ) / XNORM;
-                           X[1, 2] = X( 1, 2 ) / XNORM;
+                           X[1][1] = X( 1, 1 ) / XNORM;
+                           X[1][2] = X( 1, 2 ) / XNORM;
                            SCALE = SCALE / XNORM;
                         }
                      }
@@ -412,10 +412,10 @@
                         BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
                            REC = ONE / XNORM;
-                           X[1, 1] = X( 1, 1 )*REC;
-                           X[1, 2] = X( 1, 2 )*REC;
-                           X[2, 1] = X( 2, 1 )*REC;
-                           X[2, 2] = X( 2, 2 )*REC;
+                           X[1][1] = X( 1, 1 )*REC;
+                           X[1][2] = X( 1, 2 )*REC;
+                           X[2][1] = X( 2, 1 )*REC;
+                           X[2][2] = X( 2, 2 )*REC;
                            SCALE = SCALE*REC;
                         }
                      }
@@ -458,7 +458,7 @@
 
                   for (K = KI + 1; K <= N; K++) { // 110
                      VR[K, IS-1] = ZERO;
-                     VR[K, IS] = ZERO;
+                     VR[K][IS] = ZERO;
                   } // 110
 
                } else if ( NB == 1 ) {
@@ -690,7 +690,7 @@
                   sscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                   for (K = 1; K <= KI - 1; K++) { // 180
-                     VL[K, IS] = ZERO;
+                     VL[K][IS] = ZERO;
                   } // 180
 
                } else if ( NB == 1 ) {
@@ -853,7 +853,7 @@
                   sscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
                   for (K = 1; K <= KI - 1; K++) { // 230
-                     VL[K, IS] = ZERO;
+                     VL[K][IS] = ZERO;
                      VL[K, IS+1] = ZERO;
                   } // 230
 

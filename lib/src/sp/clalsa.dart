@@ -120,7 +120,7 @@
             for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 50
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX[JROW, JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW][JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 50
          } // 60
 
@@ -152,7 +152,7 @@
             for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 110
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX[JROW, JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW][JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 110
          } // 120
 
@@ -283,7 +283,7 @@
             for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 240
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX[JROW, JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW][JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 240
          } // 250
 
@@ -315,7 +315,7 @@
             for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 300
                JREAL = JREAL + 1;
                JIMAG = JIMAG + 1;
-               BX[JROW, JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
+               BX[JROW][JCOL] = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) );
             } // 300
          } // 310
 

@@ -127,7 +127,7 @@
 
       for (J = 1; J <= K - 1; J++) {
          for (I = J + 1; I <= K; I++) {
-            WORK[I, J] = ZERO;
+            WORK[I][J] = ZERO;
          }
       }
 
@@ -174,7 +174,7 @@
 
          for (J = 1; J <= K - 1; J++) {
             for (I = J + 1; I <= K; I++) {
-               A[I, J] = - WORK( I, J );
+               A[I][J] = - WORK( I, J );
             }
          }
 
@@ -184,7 +184,7 @@
 
       for (J = 1; J <= K; J++) {
          for (I = 1; I <= J; I++) {
-            A[I, J] = A( I, J ) - WORK( I, J );
+            A[I][J] = A( I, J ) - WORK( I, J );
          }
       }
 

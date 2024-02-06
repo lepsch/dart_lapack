@@ -1,12 +1,10 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgbbrd.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlaset.dart';
 import 'package:lapack/src/format_extensions.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
@@ -71,7 +69,7 @@ void dchkbb(
       M,
       MMAX,
       MNMAX,
-      MNMIN,
+      // MNMIN,
       MTYPES,
       N,
       NERRS,
@@ -188,7 +186,7 @@ void dchkbb(
     // 160
     M = MVAL[JSIZE];
     N = NVAL[JSIZE];
-    MNMIN = min(M, N);
+    // MNMIN = min(M, N);
     AMNINV = ONE / (max(1, max(M, N))).toDouble();
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
@@ -267,54 +265,51 @@ void dchkbb(
           } else if (ITYPE == 4) {
             // Diagonal Matrix, singular values specified
 
-            dlatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N',
-                A, LDA, WORK[M + 1], IINFO.value);
+            dlatms(
+              M,
+              N,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              IMODE,
+              COND,
+              ANORM,
+              0,
+              0,
+              'N',
+              A,
+              LDA,
+              WORK[M + 1],
+              IINFO.value,
+            );
           } else if (ITYPE == 6) {
             // Nonhermitian, singular values specified
 
-            dlatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, KL, KU, 'N',
-                A, LDA, WORK[M + 1], IINFO.value);
+            dlatms(
+              M,
+              N,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              IMODE,
+              COND,
+              ANORM,
+              KL,
+              KU,
+              'N',
+              A,
+              LDA,
+              WORK[M + 1],
+              IINFO.value,
+            );
           } else if (ITYPE == 9) {
             // Nonhermitian, random entries
 
             dlatmr(
-                M,
-                N,
-                'S',
-                ISEED,
-                'N',
-                WORK,
-                6,
-                ONE,
-                ONE,
-                'T',
-                'N',
-                WORK[N + 1],
-                1,
-                ONE,
-                WORK[2 * N + 1],
-                1,
-                ONE,
-                'N',
-                IDUMMA,
-                KL,
-                KU,
-                ZERO,
-                ANORM,
-                'N',
-                A,
-                LDA,
-                IDUMMA,
-                IINFO.value);
-          } else {
-            IINFO.value = 1;
-          }
-
-          // Generate Right-Hand Side
-
-          dlatmr(
               M,
-              NRHS,
+              N,
               'S',
               ISEED,
               'N',
@@ -324,23 +319,60 @@ void dchkbb(
               ONE,
               'T',
               'N',
-              WORK[M + 1],
+              WORK[N + 1],
               1,
               ONE,
-              WORK[2 * M + 1],
+              WORK[2 * N + 1],
               1,
               ONE,
               'N',
               IDUMMA,
-              M,
-              NRHS,
+              KL,
+              KU,
               ZERO,
-              ONE,
-              'NO',
-              C,
-              LDC,
+              ANORM,
+              'N',
+              A,
+              LDA,
               IDUMMA,
-              IINFO.value);
+              IINFO.value,
+            );
+          } else {
+            IINFO.value = 1;
+          }
+
+          // Generate Right-Hand Side
+
+          dlatmr(
+            M,
+            NRHS,
+            'S',
+            ISEED,
+            'N',
+            WORK,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            WORK[M + 1],
+            1,
+            ONE,
+            WORK[2 * M + 1],
+            1,
+            ONE,
+            'N',
+            IDUMMA,
+            M,
+            NRHS,
+            ZERO,
+            ONE,
+            'NO',
+            C,
+            LDC,
+            IDUMMA,
+            IINFO.value,
+          );
 
           if (IINFO.value != 0) {
             print9999('Generator', IINFO.value, M, N, K, JTYPE, IOLDSD);
@@ -364,8 +396,26 @@ void dchkbb(
 
         // Call DGBBRD to compute B, Q and P, and to update C.
 
-        dgbbrd('B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC,
-            LDC, WORK, IINFO.value);
+        dgbbrd(
+          'B',
+          M,
+          N,
+          NRHS,
+          KL,
+          KU,
+          AB,
+          LDAB,
+          BD,
+          BE,
+          Q,
+          LDQ,
+          P,
+          LDP,
+          CC,
+          LDC,
+          WORK,
+          IINFO.value,
+        );
 
         if (IINFO.value != 0) {
           print9999('DGBBRD', IINFO.value, M, N, K, JTYPE, IOLDSD);
@@ -419,7 +469,8 @@ void print9998(
   final double result,
 ) {
   print(
-      ' M =${m.i4} N=${n.i4}, K=${m.i3}, seed=${seed[1].i4},${seed[2].i4},${seed[3].i4},${seed[4].i4} type ${type.i2}, test(${test.i2})=${result.g10_3}');
+    ' M =${m.i4} N=${n.i4}, K=${m.i3}, seed=${seed[1].i4},${seed[2].i4},${seed[3].i4},${seed[4].i4} type ${type.i2}, test(${test.i2})=${result.g10_3}',
+  );
 }
 
 void print9999(
@@ -432,5 +483,6 @@ void print9999(
   final Array<int> iseed,
 ) {
   print(
-      ' DCHKBB: $s returned INFO=${info.i5}.\n         M=${m.i5} N=${n.i5} K=${k.i5}, JTYPE=${jtype.i5}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})');
+    ' DCHKBB: $s returned INFO=${info.i5}.\n         M=${m.i5} N=${n.i5} K=${k.i5}, JTYPE=${jtype.i5}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
+  );
 }

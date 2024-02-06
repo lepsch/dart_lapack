@@ -8,6 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  async: ^2.11.0
   collection: ^1.18.0
   complex: ^0.7.2
   # path: ^1.8.0

@@ -269,7 +269,7 @@
 
             for (J = K; J <= I2; J++) { // 80
                SUM = DCONJG( T1 )*H( K, J ) + T2*H( K+1, J );
-               H[K, J] = H( K, J ) - SUM;
+               H[K][J] = H( K, J ) - SUM;
                H[K+1, J] = H( K+1, J ) - SUM*V2;
             } // 80
 
@@ -278,7 +278,7 @@
 
             for (J = I1; J <= min( K+2, I ); J++) { // 90
                SUM = T1*H( J, K ) + T2*H( J, K+1 );
-               H[J, K] = H( J, K ) - SUM;
+               H[J][K] = H( J, K ) - SUM;
                H[J, K+1] = H( J, K+1 ) - SUM*DCONJG( V2 );
             } // 90
 
@@ -288,7 +288,7 @@
 
                for (J = ILOZ; J <= IHIZ; J++) { // 100
                   SUM = T1*Z( J, K ) + T2*Z( J, K+1 );
-                  Z[J, K] = Z( J, K ) - SUM;
+                  Z[J][K] = Z( J, K ) - SUM;
                   Z[J, K+1] = Z( J, K+1 ) - SUM*DCONJG( V2 );
                } // 100
             }

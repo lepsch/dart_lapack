@@ -157,7 +157,7 @@
          ABSB = ( T( J, J ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = DCONJG( T( J, J ) / ABSB );
-            T[J, J] = ABSB;
+            T[J][J] = ABSB;
             if ( ILSCHR ) {
                zscal(J-1, SIGNBC, T( 1, J ), 1 );
                zscal(J, SIGNBC, H( 1, J ), 1 );
@@ -166,7 +166,7 @@
             }
             if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
          } else {
-            T[J, J] = CZERO;
+            T[J][J] = CZERO;
          }
          ALPHA[J] = H( J, J );
          BETA[J] = T( J, J );
@@ -227,7 +227,7 @@
          }
 
          if ( ( T( ILAST, ILAST ) ).abs() <= BTOL ) {
-            T[ILAST, ILAST] = CZERO;
+            T[ILAST][ILAST] = CZERO;
             GO TO 50;
          }
 
@@ -251,7 +251,7 @@
             // Test 2: for T(j,j)=0
 
             if ( ( T( J, J ) ).abs() < BTOL ) {
-               T[J, J] = CZERO;
+               T[J][J] = CZERO;
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
@@ -338,7 +338,7 @@
          ABSB = ( T( ILAST, ILAST ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = DCONJG( T( ILAST, ILAST ) / ABSB );
-            T[ILAST, ILAST] = ABSB;
+            T[ILAST][ILAST] = ABSB;
             if ( ILSCHR ) {
                zscal(ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 );
                zscal(ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 );
@@ -347,7 +347,7 @@
             }
             if (ILZ) zscal( N, SIGNBC, Z( 1, ILAST ), 1 );
          } else {
-            T[ILAST, ILAST] = CZERO;
+            T[ILAST][ILAST] = CZERO;
          }
          ALPHA[ILAST] = H( ILAST, ILAST );
          BETA[ILAST] = T( ILAST, ILAST );
@@ -460,16 +460,16 @@
             for (JC = J; JC <= ILASTM; JC++) { // 100
                CTEMP = C*H( J, JC ) + S*H( J+1, JC );
                H[J+1, JC] = -DCONJG( S )*H( J, JC ) + C*H( J+1, JC );
-               H[J, JC] = CTEMP;
+               H[J][JC] = CTEMP;
                CTEMP2 = C*T( J, JC ) + S*T( J+1, JC );
                T[J+1, JC] = -DCONJG( S )*T( J, JC ) + C*T( J+1, JC );
-               T[J, JC] = CTEMP2;
+               T[J][JC] = CTEMP2;
             } // 100
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 110
                   CTEMP = C*Q( JR, J ) + DCONJG( S )*Q( JR, J+1 );
                   Q[JR, J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
-                  Q[JR, J] = CTEMP;
+                  Q[JR][J] = CTEMP;
                } // 110
             }
 
@@ -479,18 +479,18 @@
 
             for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 120
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J );
-               H[JR, J] = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J );
+               H[JR][J] = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J );
                H[JR, J+1] = CTEMP;
             } // 120
             for (JR = IFRSTM; JR <= J; JR++) { // 130
                CTEMP = C*T( JR, J+1 ) + S*T( JR, J );
-               T[JR, J] = -DCONJG( S )*T( JR, J+1 ) + C*T( JR, J );
+               T[JR][J] = -DCONJG( S )*T( JR, J+1 ) + C*T( JR, J );
                T[JR, J+1] = CTEMP;
             } // 130
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 140
                   CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J );
-                  Z[JR, J] = -DCONJG( S )*Z( JR, J+1 ) + C*Z( JR, J );
+                  Z[JR][J] = -DCONJG( S )*Z( JR, J+1 ) + C*Z( JR, J );
                   Z[JR, J+1] = CTEMP;
                } // 140
             }
@@ -516,7 +516,7 @@
          ABSB = ( T( J, J ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = DCONJG( T( J, J ) / ABSB );
-            T[J, J] = ABSB;
+            T[J][J] = ABSB;
             if ( ILSCHR ) {
                zscal(J-1, SIGNBC, T( 1, J ), 1 );
                zscal(J, SIGNBC, H( 1, J ), 1 );
@@ -525,7 +525,7 @@
             }
             if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
          } else {
-            T[J, J] = CZERO;
+            T[J][J] = CZERO;
          }
          ALPHA[J] = H( J, J );
          BETA[J] = T( J, J );

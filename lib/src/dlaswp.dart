@@ -54,8 +54,8 @@ import 'package:lapack/src/xerbla.dart';
                if ( IP != I ) {
                   for (K = J; K <= J + 31; K++) { // 10
                      TEMP = A( I, K );
-                     A[I, K] = A( IP, K );
-                     A[IP, K] = TEMP;
+                     A[I][K] = A( IP, K );
+                     A[IP][K] = TEMP;
                   } // 10
                }
                IX = IX + INCX;
@@ -70,8 +70,8 @@ import 'package:lapack/src/xerbla.dart';
             if ( IP != I ) {
                for (K = N32; K <= N; K++) { // 40
                   TEMP = A( I, K );
-                  A[I, K] = A( IP, K );
-                  A[IP, K] = TEMP;
+                  A[I][K] = A( IP, K );
+                  A[IP][K] = TEMP;
                } // 40
             }
             IX = IX + INCX;

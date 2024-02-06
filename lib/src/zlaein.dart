@@ -63,9 +63,9 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= J - 1; I++) { // 10
-            B[I, J] = H( I, J );
+            B[I][J] = H( I, J );
          } // 10
-         B[J, J] = H( J, J ) - W;
+         B[J][J] = H( J, J ) - W;
       } // 20
 
       if ( NOINIT ) {
@@ -95,11 +95,11 @@
                // Interchange rows and eliminate.
 
                X = ZLADIV( B( I, I ), EI );
-               B[I, I] = EI;
+               B[I][I] = EI;
                for (J = I + 1; J <= N; J++) { // 40
                   TEMP = B( I+1, J );
                   B[I+1, J] = B( I, J ) - X*TEMP;
-                  B[I, J] = TEMP;
+                  B[I][J] = TEMP;
                } // 40
             } else {
 
@@ -130,11 +130,11 @@
                // Interchange columns and eliminate.
 
                X = ZLADIV( B( J, J ), EJ );
-               B[J, J] = EJ;
+               B[J][J] = EJ;
                for (I = 1; I <= J - 1; I++) { // 70
                   TEMP = B( I, J-1 );
                   B[I, J-1] = B( I, J ) - X*TEMP;
-                  B[I, J] = TEMP;
+                  B[I][J] = TEMP;
                } // 70
             } else {
 

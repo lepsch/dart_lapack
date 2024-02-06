@@ -99,8 +99,8 @@
             }
          }
          if ( WANTZ ) {
-            Z[1, 1] = sign( ONE, D( 1 ) );
-            Z[2, 1] = ONE;
+            Z[1][1] = sign( ONE, D( 1 ) );
+            Z[2][1] = ONE;
          }
          return;
       }
@@ -133,7 +133,7 @@
          for (I = 2; I <= N; I++) {
             MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
             SMIN = min( SMIN, MU );
-            if (SMIN == ZERO) EXIT;
+            if (SMIN == ZERO) break;
          }
       }
       SMIN = SMIN / sqrt( REAL( N ) );

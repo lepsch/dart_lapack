@@ -64,7 +64,7 @@ import 'package:lapack/src/xerbla.dart';
          DIFL[1] = D( 1 );
          if ( ICOMPQ == 1 ) {
             DIFL[2] = ONE;
-            DIFR[1, 2] = ONE;
+            DIFR[1][2] = ONE;
          }
          return;
       }
@@ -100,7 +100,7 @@ import 'package:lapack/src/xerbla.dart';
          }
          WORK[IWK3I+J] = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J );
          DIFL[J] = -WORK( J );
-         DIFR[J, 1] = -WORK( J+1 );
+         DIFR[J][1] = -WORK( J+1 );
          for (I = 1; I <= J - 1; I++) { // 20
             WORK[IWK3I+I] = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
          } // 20
@@ -141,7 +141,7 @@ import 'package:lapack/src/xerbla.dart';
          WORK[IWK2I+J] = ddot( K, WORK, 1, VF, 1 ) / TEMP;
          WORK[IWK3I+J] = ddot( K, WORK, 1, VL, 1 ) / TEMP;
          if ( ICOMPQ == 1 ) {
-            DIFR[J, 2] = TEMP;
+            DIFR[J][2] = TEMP;
          }
       } // 80
 

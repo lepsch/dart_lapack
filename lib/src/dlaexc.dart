@@ -76,8 +76,8 @@ import 'package:lapack/src/xerbla.dart';
          if (J3 <= N) drot( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS, SN );
          drot(J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN );
 
-         T[J1, J1] = T22;
-         T[J2, J2] = T11;
+         T[J1][J1] = T22;
+         T[J2][J2] = T11;
 
          if ( WANTQ ) {
 
@@ -140,9 +140,9 @@ import 'package:lapack/src/xerbla.dart';
          dlarfx('L', 3, N-J1+1, U, TAU, T( J1, J1 ), LDT, WORK );
          dlarfx('R', J2, 3, U, TAU, T( 1, J1 ), LDT, WORK );
 
-         T[J3, J1] = ZERO;
-         T[J3, J2] = ZERO;
-         T[J3, J3] = T11;
+         T[J3][J1] = ZERO;
+         T[J3][J2] = ZERO;
+         T[J3][J3] = T11;
 
          if ( WANTQ ) {
 
@@ -181,9 +181,9 @@ import 'package:lapack/src/xerbla.dart';
          dlarfx('R', J3, 3, U, TAU, T( 1, J1 ), LDT, WORK );
          dlarfx('L', 3, N-J1, U, TAU, T( J1, J2 ), LDT, WORK );
 
-         T[J1, J1] = T33;
-         T[J2, J1] = ZERO;
-         T[J3, J1] = ZERO;
+         T[J1][J1] = T33;
+         T[J2][J1] = ZERO;
+         T[J3][J1] = ZERO;
 
          if ( WANTQ ) {
 
@@ -234,10 +234,10 @@ import 'package:lapack/src/xerbla.dart';
          dlarfx('L', 3, N-J1+1, U2, TAU2, T( J2, J1 ), LDT, WORK );
          dlarfx('R', J4, 3, U2, TAU2, T( 1, J2 ), LDT, WORK );
 
-         T[J3, J1] = ZERO;
-         T[J3, J2] = ZERO;
-         T[J4, J1] = ZERO;
-         T[J4, J2] = ZERO;
+         T[J3][J1] = ZERO;
+         T[J3][J2] = ZERO;
+         T[J4][J1] = ZERO;
+         T[J4][J2] = ZERO;
 
          if ( WANTQ ) {
 

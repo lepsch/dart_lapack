@@ -3,13 +3,10 @@ import 'dart:math';
 import 'package:lapack/src/blas/dasum.dart';
 import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/dgemv.dart';
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
 void dbdt02(
   final int M,
@@ -42,7 +39,18 @@ void dbdt02(
   for (J = 1; J <= N; J++) {
     dcopy(M, B(1, J).asArray(), 1, WORK, 1);
     dgemv(
-        'No transpose', M, M, -ONE, U, LDU, C(1, J).asArray(), 1, ONE, WORK, 1);
+      'No transpose',
+      M,
+      M,
+      -ONE,
+      U,
+      LDU,
+      C(1, J).asArray(),
+      1,
+      ONE,
+      WORK,
+      1,
+    );
     RESID.value = max(RESID.value, dasum(M, WORK, 1));
   }
 

@@ -44,8 +44,8 @@
 
             for (II = 1; II <= M; II++) { // 30
                TEMP = X( II, J );
-               X[II, J] = X( II, IN );
-               X[II, IN] = TEMP;
+               X[II][J] = X( II, IN );
+               X[II][IN] = TEMP;
             } // 30
 
             K[IN] = -K( IN );
@@ -72,8 +72,8 @@
 
             for (II = 1; II <= M; II++) { // 90
                TEMP = X( II, I );
-               X[II, I] = X( II, J );
-               X[II, J] = TEMP;
+               X[II][I] = X( II, J );
+               X[II][J] = TEMP;
             } // 90
 
             K[J] = -K( J );

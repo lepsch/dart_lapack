@@ -50,7 +50,7 @@
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
                K = K + 1;
-               A[I, J] = AP( K );
+               A[I][J] = AP( K );
             }
          }
       } else {
@@ -58,7 +58,7 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
                K = K + 1;
-               A[I, J] = AP( K );
+               A[I][J] = AP( K );
             }
          }
       }

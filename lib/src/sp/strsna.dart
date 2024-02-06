@@ -202,7 +202,7 @@
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
                   for (I = 2; I <= N; I++) { // 20
-                     WORK[I, I] = WORK( I, I ) - WORK( 1, 1 );
+                     WORK[I][I] = WORK( I, I ) - WORK( 1, 1 );
                   } // 20
                   N2 = 1;
                   NN = N - 1;
@@ -233,10 +233,10 @@
                   // WORK.
 
                   for (J = 3; J <= N; J++) { // 30
-                     WORK[2, J] = CS*WORK( 2, J );
-                     WORK[J, J] = WORK( J, J ) - WORK( 1, 1 );
+                     WORK[2][J] = CS*WORK( 2, J );
+                     WORK[J][J] = WORK( J, J ) - WORK( 1, 1 );
                   } // 30
-                  WORK[2, 2] = ZERO;
+                  WORK[2][2] = ZERO;
 
                   WORK[1, N+1] = TWO*MU;
                   for (I = 2; I <= N - 1; I++) { // 40

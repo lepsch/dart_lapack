@@ -72,7 +72,7 @@
               } // 10
               CTMP = ( A( OFDPOS, ST ) );
               slarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-              A[OFDPOS, ST] = CTMP;
+              A[OFDPOS][ST] = CTMP;
 
               LM = ED - ST + 1;
               slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);

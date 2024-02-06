@@ -172,7 +172,7 @@
 
          DO 40, J = 1, N;
             DO 30, I = KL+1, 2*KL+KU+1;
-               AFB[I, J] = AB( I-KL, J );
+               AFB[I][J] = AB( I-KL, J );
             } // 30
          } // 40
          sgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO );

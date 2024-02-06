@@ -72,7 +72,7 @@ import 'package:lapack/src/xerbla.dart';
 
          // Construct the row of U
 
-         A[1, 1] = A( 1, 1 ) - D( 1 );
+         A[1][1] = A( 1, 1 ) - D( 1 );
 
       } else if ( N == 1 ) {
 
@@ -85,7 +85,7 @@ import 'package:lapack/src/xerbla.dart';
 
          // Construct the row of U
 
-         A[1, 1] = A( 1, 1 ) - D( 1 );
+         A[1][1] = A( 1, 1 ) - D( 1 );
 
          // Scale the elements 2:M of the column
 
@@ -99,7 +99,7 @@ import 'package:lapack/src/xerbla.dart';
             dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             for (I = 2; I <= M; I++) {
-               A[I, 1] = A( I, 1 ) / A( 1, 1 );
+               A[I][1] = A( I, 1 ) / A( 1, 1 );
             }
          }
 

@@ -60,7 +60,7 @@
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 110
                for (I = RANK + 1; I <= J; I++) { // 100
-                  AFAC[I, J] = ZERO;
+                  AFAC[I][J] = ZERO;
                } // 100
             } // 110
          }
@@ -70,7 +70,7 @@
             // Compute the (K,K) element of the result.
 
             T = ddot( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 );
-            AFAC[K, K] = T;
+            AFAC[K][K] = T;
 
             // Compute the rest of column K.
 
@@ -85,7 +85,7 @@
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 140
                for (I = J; I <= N; I++) { // 130
-                  AFAC[I, J] = ZERO;
+                  AFAC[I][J] = ZERO;
                } // 130
             } // 140
          }
@@ -142,13 +142,13 @@
       if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 210
             for (I = 1; I <= J; I++) { // 200
-               PERM[I, J] = PERM( I, J ) - A( I, J );
+               PERM[I][J] = PERM( I, J ) - A( I, J );
             } // 200
          } // 210
       } else {
          for (J = 1; J <= N; J++) { // 230
             for (I = J; I <= N; I++) { // 220
-               PERM[I, J] = PERM( I, J ) - A( I, J );
+               PERM[I][J] = PERM( I, J ) - A( I, J );
             } // 220
          } // 230
       }

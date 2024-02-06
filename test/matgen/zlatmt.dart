@@ -580,7 +580,7 @@
                   if ( IPACK == 5 ) {
                      for (JC = N - UUB + 1; JC <= N; JC++) { // 340
                         for (JR = N + 2 - JC; JR <= UUB + 1; JR++) { // 330
-                           A[JR, JC] = CZERO;
+                           A[JR][JC] = CZERO;
                         } // 330
                      } // 340
                   }
@@ -670,7 +670,7 @@
                   if ( IPACK == 6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 430
                         for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 420
-                           A[JR, JC] = CZERO;
+                           A[JR][JC] = CZERO;
                         } // 420
                      } // 430
                   }
@@ -687,7 +687,7 @@
             if ( !CSYM ) {
                for (JC = 1; JC <= N; JC++) { // 440
                   IROW = IOFFST + ( 1-ISKEW )*JC;
-                  A[IROW, JC] = DCMPLX( (A( IROW, JC )).toDouble() );
+                  A[IROW][JC] = DCMPLX( (A( IROW, JC )).toDouble() );
                } // 440
             }
 
@@ -734,7 +734,7 @@
 
             for (J = 1; J <= M; J++) { // 460
                for (I = J + 1; I <= M; I++) { // 450
-                  A[I, J] = CZERO;
+                  A[I][J] = CZERO;
                } // 450
             } // 460
 
@@ -744,7 +744,7 @@
 
             for (J = 2; J <= M; J++) { // 480
                for (I = 1; I <= J - 1; I++) { // 470
-                  A[I, J] = CZERO;
+                  A[I][J] = CZERO;
                } // 470
             } // 480
 
@@ -761,7 +761,7 @@
                      IROW = 1;
                      ICOL = ICOL + 1;
                   }
-                  A[IROW, ICOL] = A( I, J );
+                  A[IROW][ICOL] = A( I, J );
                } // 490
             } // 500
 
@@ -778,7 +778,7 @@
                      IROW = 1;
                      ICOL = ICOL + 1;
                   }
-                  A[IROW, ICOL] = A( I, J );
+                  A[IROW][ICOL] = A( I, J );
                } // 510
             } // 520
 
@@ -812,7 +812,7 @@
          if ( IPACK == 3 || IPACK == 4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 580
                for (JR = IROW + 1; JR <= LDA; JR++) { // 570
-                  A[JR, JC] = CZERO;
+                  A[JR][JC] = CZERO;
                } // 570
                IROW = 0;
             } // 580
@@ -829,10 +829,10 @@
             IR2 = UUB + M + 2;
             for (JC = 1; JC <= N; JC++) { // 610
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 590
-                  A[JR, JC] = CZERO;
+                  A[JR][JC] = CZERO;
                } // 590
                for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) { // 600
-                  A[JR, JC] = CZERO;
+                  A[JR][JC] = CZERO;
                } // 600
             } // 610
          }

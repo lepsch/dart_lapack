@@ -21,8 +21,8 @@
          H = B( IHI-1:IHI, IHI-2:IHI );
          // Make H upper triangular
          slartg(H( 1, 1 ), H( 2, 1 ), C1, S1, TEMP );
-         H[2, 1] = ZERO;
-         H[1, 1] = TEMP;
+         H[2][1] = ZERO;
+         H[1][1] = TEMP;
          srot(2, H( 1, 2 ), 2, H( 2, 2 ), 2, C1, S1 );
 
          slartg(H( 2, 3 ), H( 2, 2 ), C1, S1, TEMP );
@@ -50,7 +50,7 @@
          }
 
          slartg(B( IHI, IHI ), B( IHI, IHI-1 ), C1, S1, TEMP );
-         B[IHI, IHI] = TEMP;
+         B[IHI][IHI] = TEMP;
          B[IHI, IHI-1] = ZERO;
          srot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C1, S1 );
          srot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 );
@@ -67,8 +67,8 @@
          // Make H upper triangular
 
          slartg(H( 1, 1 ), H( 2, 1 ), C1, S1, TEMP );
-         H[2, 1] = ZERO;
-         H[1, 1] = TEMP;
+         H[2][1] = ZERO;
+         H[1][1] = TEMP;
          srot(2, H( 1, 2 ), 2, H( 2, 2 ), 2, C1, S1 );
 
          // Calculate Z1 and Z2

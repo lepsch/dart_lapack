@@ -110,7 +110,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = (A( K, K )).toDouble();
+            A[K][K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -217,15 +217,15 @@
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( P, J ) );
-                  A[P, J] = T;
+                  A[J][K] = DCONJG( A( P, J ) );
+                  A[P][J] = T;
                } // 14
                // (3) Swap and conjugate corner elements at row-col intersection
-               A[P, K] = DCONJG( A( P, K ) );
+               A[P][K] = DCONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = (A( K, K )).toDouble();
-               A[K, K] = (A( P, P )).toDouble();
-               A[P, P] = R1;
+               A[K][K] = (A( P, P )).toDouble();
+               A[P][P] = R1;
             }
 
             // For both 1x1 and 2x2 pivots, interchange rows and
@@ -237,27 +237,27 @@
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) );
-                  A[J, KK] = DCONJG( A( KP, J ) );
-                  A[KP, J] = T;
+                  A[J][KK] = DCONJG( A( KP, J ) );
+                  A[KP][J] = T;
                } // 15
                // (3) Swap and conjugate corner elements at row-col intersection
-               A[KP, KK] = DCONJG( A( KP, KK ) );
+               A[KP][KK] = DCONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = (A( KK, KK )).toDouble();
-               A[KK, KK] = (A( KP, KP )).toDouble();
-               A[KP, KP] = R1;
+               A[KK][KK] = (A( KP, KP )).toDouble();
+               A[KP][KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = (A( K, K )).toDouble();
+                  A[K][K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K-1, K );
                   A[K-1, K] = A( KP, K );
-                  A[KP, K] = T;
+                  A[KP][K] = T;
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = (A( K, K )).toDouble();
+               A[K][K] = (A( K, K )).toDouble();
                if (KSTEP == 2) A( K-1, K-1 ) = (A( K-1, K-1 )).toDouble();
             }
 
@@ -294,7 +294,7 @@
 
                      D11 = (A( K, K )).toDouble();
                      for (II = 1; II <= K - 1; II++) { // 16
-                        A[II, K] = A( II, K ) / D11;
+                        A[II][K] = A( II, K ) / D11;
                      } // 16
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -340,15 +340,15 @@
                      // Perform a rank-2 update of A(1:k-2,1:k-2)
 
                      for (I = J; I >= 1; I--) { // 20
-                        A[I, J] = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K-1 ) / D )*DCONJG( WKM1 );
+                        A[I][J] = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K-1 ) / D )*DCONJG( WKM1 );
                      } // 20
 
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
-                     A[J, K] = WK / D;
+                     A[J][K] = WK / D;
                      A[J, K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
+                     A[J][J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
                   } // 30
 
@@ -410,7 +410,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = (A( K, K )).toDouble();
+            A[K][K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -518,15 +518,15 @@
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = DCONJG( A( J, K ) );
-                  A[J, K] = DCONJG( A( P, J ) );
-                  A[P, J] = T;
+                  A[J][K] = DCONJG( A( P, J ) );
+                  A[P][J] = T;
                } // 44
                // (3) Swap and conjugate corner elements at row-col intersection
-               A[P, K] = DCONJG( A( P, K ) );
+               A[P][K] = DCONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = (A( K, K )).toDouble();
-               A[K, K] = (A( P, P )).toDouble();
-               A[P, P] = R1;
+               A[K][K] = (A( P, P )).toDouble();
+               A[P][P] = R1;
             }
 
             // For both 1x1 and 2x2 pivots, interchange rows and
@@ -538,27 +538,27 @@
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = DCONJG( A( J, KK ) );
-                  A[J, KK] = DCONJG( A( KP, J ) );
-                  A[KP, J] = T;
+                  A[J][KK] = DCONJG( A( KP, J ) );
+                  A[KP][J] = T;
                } // 45
                // (3) Swap and conjugate corner elements at row-col intersection
-               A[KP, KK] = DCONJG( A( KP, KK ) );
+               A[KP][KK] = DCONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
                R1 = (A( KK, KK )).toDouble();
-               A[KK, KK] = (A( KP, KP )).toDouble();
-               A[KP, KP] = R1;
+               A[KK][KK] = (A( KP, KP )).toDouble();
+               A[KP][KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = (A( K, K )).toDouble();
+                  A[K][K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K+1, K );
                   A[K+1, K] = A( KP, K );
-                  A[KP, K] = T;
+                  A[KP][K] = T;
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = (A( K, K )).toDouble();
+               A[K][K] = (A( K, K )).toDouble();
                if (KSTEP == 2) A( K+1, K+1 ) = (A( K+1, K+1 )).toDouble();
             }
 
@@ -597,7 +597,7 @@
 
                      D11 = (A( K, K )).toDouble();
                      for (II = K + 1; II <= N; II++) { // 46
-                        A[II, K] = A( II, K ) / D11;
+                        A[II][K] = A( II, K ) / D11;
                      } // 46
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
@@ -644,15 +644,15 @@
                      // Perform a rank-2 update of A(k+2:n,k+2:n)
 
                      for (I = J; I <= N; I++) { // 50
-                        A[I, J] = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K+1 ) / D )*DCONJG( WKP1 );
+                        A[I][J] = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K+1 ) / D )*DCONJG( WKP1 );
                      } // 50
 
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
-                     A[J, K] = WK / D;
+                     A[J][K] = WK / D;
                      A[J, K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
+                     A[J][J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
                   } // 60
 

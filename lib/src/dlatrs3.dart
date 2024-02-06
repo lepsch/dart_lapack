@@ -266,10 +266,10 @@ import 'package:lapack/src/xerbla.dart';
                   // X(J1:J2-1, KK) is set by LATRS.
                   SCALE[RHS] = ZERO;
                   for (II = 1; II <= J1-1; II++) {
-                     X[II, KK] = ZERO;
+                     X[II][KK] = ZERO;
                   }
                   for (II = J2; II <= N; II++) {
-                     X[II, KK] = ZERO;
+                     X[II][KK] = ZERO;
                   }
                   // Discard the local scale factors.
                   for (II = 1; II <= NBA; II++) {
@@ -302,7 +302,7 @@ import 'package:lapack/src/xerbla.dart';
                      // is returned that is not a solution to op(A) * x = b.
                      SCALE[RHS] = ZERO;
                      for (II = 1; II <= N; II++) {
-                        X[II, KK] = ZERO;
+                        X[II][KK] = ZERO;
                      }
                      // Discard the local scale factors.
                      for (II = 1; II <= NBA; II++) {

@@ -97,7 +97,7 @@
 
          // Set A(J, J) = T(J, J)
 
-         A[K, J] = WORK( 1 );
+         A[K][J] = WORK( 1 );
 
          if ( J < M ) {
 
@@ -237,7 +237,7 @@
 
          // Set A(J, J) = T(J, J)
 
-         A[J, K] = WORK( 1 );
+         A[J][K] = WORK( 1 );
 
          if ( J < M ) {
 

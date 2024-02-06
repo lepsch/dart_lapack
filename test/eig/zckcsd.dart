@@ -169,7 +169,7 @@
       zlaset('Full', M, M, ZERO, ZERO, X, LDX );
 
       for (I = 1; I <= min(P,Q)-R; I++) {
-         X[I,I] = ONE;
+         X[I][I] = ONE;
       }
       for (I = 1; I <= R; I++) {
          X[min(P,Q)-R+I,min(P,Q)-R+I] = DCMPLX( COS(THETA(I)), 0.0 );

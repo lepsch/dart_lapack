@@ -43,7 +43,7 @@
                // H(i)  =  I
 
                for (J = 1; J <= I; J++) {
-                  T[J, I] = ZERO;
+                  T[J][I] = ZERO;
                }
             } else {
 
@@ -52,10 +52,10 @@
                if ( lsame( STOREV, 'C' ) ) {
                   // Skip any trailing zeros.
                   for (LASTV = N; LASTV >= I+1; LASTV--) {
-                     if( V( LASTV, I ) != ZERO ) EXIT;
+                     if( V( LASTV, I ) != ZERO ) break;
                   }
                   for (J = 1; J <= I-1; J++) {
-                     T[J, I] = -TAU( I ) * CONJG( V( I , J ) );
+                     T[J][I] = -TAU( I ) * CONJG( V( I , J ) );
                   }
                   J = min( LASTV, PREVLASTV );
 
@@ -65,10 +65,10 @@
                } else {
                   // Skip any trailing zeros.
                   for (LASTV = N; LASTV >= I+1; LASTV--) {
-                     if( V( I, LASTV ) != ZERO ) EXIT;
+                     if( V( I, LASTV ) != ZERO ) break;
                   }
                   for (J = 1; J <= I-1; J++) {
-                     T[J, I] = -TAU( I ) * V( J , I );
+                     T[J][I] = -TAU( I ) * V( J , I );
                   }
                   J = min( LASTV, PREVLASTV );
 
@@ -80,7 +80,7 @@
                // T(1:i-1,i) := T(1:i-1,1:i-1) * T(1:i-1,i)
 
                ztrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
-               T[I, I] = TAU( I );
+               T[I][I] = TAU( I );
                if ( I > 1 ) {
                   PREVLASTV = max( PREVLASTV, LASTV );
                } else {
@@ -96,7 +96,7 @@
                // H(i)  =  I
 
                for (J = I; J <= K; J++) {
-                  T[J, I] = ZERO;
+                  T[J][I] = ZERO;
                }
             } else {
 
@@ -106,10 +106,10 @@
                   if ( lsame( STOREV, 'C' ) ) {
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {
-                        if( V( LASTV, I ) != ZERO ) EXIT;
+                        if( V( LASTV, I ) != ZERO ) break;
                      }
                      for (J = I+1; J <= K; J++) {
-                        T[J, I] = -TAU( I ) * CONJG( V( N-K+I , J ) );
+                        T[J][I] = -TAU( I ) * CONJG( V( N-K+I , J ) );
                      }
                      J = max( LASTV, PREVLASTV );
 
@@ -119,10 +119,10 @@
                   } else {
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {
-                        if( V( I, LASTV ) != ZERO ) EXIT;
+                        if( V( I, LASTV ) != ZERO ) break;
                      }
                      for (J = I+1; J <= K; J++) {
-                        T[J, I] = -TAU( I ) * V( J, N-K+I );
+                        T[J][I] = -TAU( I ) * V( J, N-K+I );
                      }
                      J = max( LASTV, PREVLASTV );
 
@@ -140,7 +140,7 @@
                      PREVLASTV = LASTV;
                   }
                }
-               T[I, I] = TAU( I );
+               T[I][I] = TAU( I );
             }
          }
       }

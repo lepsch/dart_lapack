@@ -112,14 +112,14 @@
             // to those of the unit matrix
 
             for (J = M; J >= 2; J--) { // 20
-               A[1, J] = ZERO;
+               A[1][J] = ZERO;
                for (I = J + 1; I <= M; I++) { // 10
-                  A[I, J] = A( I, J-1 );
+                  A[I][J] = A( I, J-1 );
                } // 10
             } // 20
-            A[1, 1] = ONE;
+            A[1][1] = ONE;
             for (I = 2; I <= M; I++) { // 30
-               A[I, 1] = ZERO;
+               A[I][1] = ZERO;
             } // 30
             if ( M > 1 ) {
 
@@ -147,15 +147,15 @@
             // row downward, and set the first row and column of P**H to
             // those of the unit matrix
 
-            A[1, 1] = ONE;
+            A[1][1] = ONE;
             for (I = 2; I <= N; I++) { // 40
-               A[I, 1] = ZERO;
+               A[I][1] = ZERO;
             } // 40
             for (J = 2; J <= N; J++) { // 60
                for (I = J - 1; I >= 2; I--) { // 50
-                  A[I, J] = A( I-1, J );
+                  A[I][J] = A( I-1, J );
                } // 50
-               A[1, J] = ZERO;
+               A[1][J] = ZERO;
             } // 60
             if ( N > 1 ) {
 

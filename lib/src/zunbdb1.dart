@@ -83,8 +83,8 @@
          THETA[I] = ATAN2( (X21(I,I)).toDouble(), (X11(I,I)).toDouble() );
          C = COS( THETA(I) );
          S = SIN( THETA(I) );
-         X11[I,I] = ONE;
-         X21[I,I] = ONE;
+         X11[I][I] = ONE;
+         X21[I][I] = ONE;
          zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
          zlarf('L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 

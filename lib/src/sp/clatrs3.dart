@@ -261,10 +261,10 @@
                   // set by LATRS.
                   SCALE[RHS] = ZERO;
                   for (II = 1; II <= J1-1; II++) {
-                     X[II, KK] = CZERO;
+                     X[II][KK] = CZERO;
                   }
                   for (II = J2; II <= N; II++) {
-                     X[II, KK] = CZERO;
+                     X[II][KK] = CZERO;
                   }
                   // Discard the local scale factors.
                   for (II = 1; II <= NBA; II++) {
@@ -297,7 +297,7 @@
                      // is returned that is not a solution to op(A) * x = b.
                      SCALE[RHS] = ZERO;
                      for (II = 1; II <= N; II++) {
-                        X[II, KK] = CZERO;
+                        X[II][KK] = CZERO;
                      }
                      // Discard the local scale factors.
                      for (II = 1; II <= NBA; II++) {

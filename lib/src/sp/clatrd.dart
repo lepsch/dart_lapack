@@ -50,14 +50,14 @@
 
                // Update A(1:i,i)
 
-               A[I, I] = double( A( I, I ) );
+               A[I][I] = double( A( I, I ) );
                clacgv(N-I, W( I, IW+1 ), LDW );
                cgemv('No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 );
                clacgv(N-I, W( I, IW+1 ), LDW );
                clacgv(N-I, A( I, I+1 ), LDA );
                cgemv('No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 );
                clacgv(N-I, A( I, I+1 ), LDA );
-               A[I, I] = double( A( I, I ) );
+               A[I][I] = double( A( I, I ) );
             }
             if ( I > 1 ) {
 
@@ -92,14 +92,14 @@
 
             // Update A(i:n,i)
 
-            A[I, I] = double( A( I, I ) );
+            A[I][I] = double( A( I, I ) );
             clacgv(I-1, W( I, 1 ), LDW );
             cgemv('No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 );
             clacgv(I-1, W( I, 1 ), LDW );
             clacgv(I-1, A( I, 1 ), LDA );
             cgemv('No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 );
             clacgv(I-1, A( I, 1 ), LDA );
-            A[I, I] = double( A( I, I ) );
+            A[I][I] = double( A( I, I ) );
             if ( I < N ) {
 
                // Generate elementary reflector H(i) to annihilate

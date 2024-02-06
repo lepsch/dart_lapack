@@ -24,6 +24,7 @@ extension DoubleFormatExtension on double {
   String get e15_8 => toStringAsFixed(8).padLeft(15);
 
   String get g10_3 => toStringAsFixed(3).padLeft(10);
+  String get g11_4 => toStringAsFixed(4).padLeft(11);
 }
 
 extension StringFormatExtension on String {

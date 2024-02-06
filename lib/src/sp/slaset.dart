@@ -34,7 +34,7 @@
 
          for (J = 2; J <= N; J++) { // 20
             for (I = 1; I <= min( J-1, M ); I++) { // 10
-               A[I, J] = ALPHA;
+               A[I][J] = ALPHA;
             } // 10
          } // 20
 
@@ -45,7 +45,7 @@
 
          for (J = 1; J <= min( M, N ); J++) { // 40
             for (I = J + 1; I <= M; I++) { // 30
-               A[I, J] = ALPHA;
+               A[I][J] = ALPHA;
             } // 30
          } // 40
 
@@ -55,7 +55,7 @@
 
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
-               A[I, J] = ALPHA;
+               A[I][J] = ALPHA;
             } // 50
          } // 60
       }
@@ -63,7 +63,7 @@
       // Set the first min(M,N) diagonal elements to BETA.
 
       for (I = 1; I <= min( M, N ); I++) { // 70
-         A[I, I] = BETA;
+         A[I][I] = BETA;
       } // 70
 
       return;

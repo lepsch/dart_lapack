@@ -76,7 +76,7 @@
          }
 
          AKK = A( RK, K );
-         A[RK, K] = ONE;
+         A[RK][K] = ONE;
 
          // Compute Kth column of F:
 
@@ -89,7 +89,7 @@
          // Padding F(1:K,K) with zeros.
 
          for (J = 1; J <= K; J++) { // 20
-            F[J, K] = ZERO;
+            F[J][K] = ZERO;
          } // 20
 
          // Incremental updating of F:
@@ -131,7 +131,7 @@
             } // 30
          }
 
-         A[RK, K] = AKK;
+         A[RK][K] = AKK;
 
          // End of while loop.
 

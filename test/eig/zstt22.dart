@@ -63,15 +63,15 @@
 
       for (I = 1; I <= M; I++) { // 40
          for (J = 1; J <= M; J++) { // 30
-            WORK[I, J] = CZERO;
+            WORK[I][J] = CZERO;
             for (K = 1; K <= N; K++) { // 20
                AUKJ = AD( K )*U( K, J );
                if (K != N) AUKJ = AUKJ + AE( K )*U( K+1, J );
                IF( K != 1 ) AUKJ = AUKJ + AE( K-1 )*U( K-1, J );
-               WORK[I, J] = WORK( I, J ) + U( K, I )*AUKJ;
+               WORK[I][J] = WORK( I, J ) + U( K, I )*AUKJ;
             } // 20
          } // 30
-         WORK[I, I] = WORK( I, I ) - SD( I );
+         WORK[I][I] = WORK( I, I ) - SD( I );
          if ( KBAND == 1 ) {
             if (I != 1) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 );
             IF( I != N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I );
@@ -97,7 +97,7 @@
       zgemm('T', 'N', M, M, N, CONE, U, LDU, U, LDU, CZERO, WORK, M );
 
       for (J = 1; J <= M; J++) { // 50
-         WORK[J, J] = WORK( J, J ) - ONE;
+         WORK[J][J] = WORK( J, J ) - ONE;
       } // 50
 
       RESULT[2] = min( M.toDouble(), ZLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );

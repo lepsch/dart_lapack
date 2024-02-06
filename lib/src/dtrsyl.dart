@@ -152,7 +152,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -166,7 +166,7 @@ import 'package:lapack/src/xerbla.dart';
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 10
@@ -174,17 +174,17 @@ import 'package:lapack/src/xerbla.dart';
                      } // 10
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -195,18 +195,18 @@ import 'package:lapack/src/xerbla.dart';
                      } // 20
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -217,26 +217,26 @@ import 'package:lapack/src/xerbla.dart';
                      } // 30
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( false , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -247,10 +247,10 @@ import 'package:lapack/src/xerbla.dart';
                      } // 40
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 50
@@ -316,7 +316,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -330,7 +330,7 @@ import 'package:lapack/src/xerbla.dart';
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 70
@@ -338,17 +338,17 @@ import 'package:lapack/src/xerbla.dart';
                      } // 70
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -359,18 +359,18 @@ import 'package:lapack/src/xerbla.dart';
                      } // 80
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -381,26 +381,26 @@ import 'package:lapack/src/xerbla.dart';
                      } // 90
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( true , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -411,10 +411,10 @@ import 'package:lapack/src/xerbla.dart';
                      } // 100
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 110
@@ -479,7 +479,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -493,7 +493,7 @@ import 'package:lapack/src/xerbla.dart';
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 130
@@ -501,17 +501,17 @@ import 'package:lapack/src/xerbla.dart';
                      } // 130
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -522,18 +522,18 @@ import 'package:lapack/src/xerbla.dart';
                      } // 140
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -544,26 +544,26 @@ import 'package:lapack/src/xerbla.dart';
                      } // 150
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 );
                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( true , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -574,10 +574,10 @@ import 'package:lapack/src/xerbla.dart';
                      } // 160
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 170
@@ -641,7 +641,7 @@ import 'package:lapack/src/xerbla.dart';
 
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = ddot( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -655,7 +655,7 @@ import 'package:lapack/src/xerbla.dart';
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 190
@@ -663,15 +663,15 @@ import 'package:lapack/src/xerbla.dart';
                      } // 190
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -682,16 +682,16 @@ import 'package:lapack/src/xerbla.dart';
                      } // 200
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = ddot( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 )                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -702,22 +702,22 @@ import 'package:lapack/src/xerbla.dart';
                      } // 210
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = ddot( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = ddot( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = ddot( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( false , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -728,10 +728,10 @@ import 'package:lapack/src/xerbla.dart';
                      } // 220
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 230

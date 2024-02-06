@@ -205,7 +205,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
-                  A[JCOL, JCOL] = ANORM;
+                  A[JCOL][JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {

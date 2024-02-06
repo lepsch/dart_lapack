@@ -422,7 +422,7 @@
             }
          }
          if ( RSVEC ) {
-             V[1,1] = CONE;
+             V[1][1] = CONE;
          }
          if ( SVA(1) < (BIG*SCALEM) ) {
             SVA[1] = SVA(1) / SCALEM;
@@ -536,14 +536,14 @@
             // In an optimal implementation, this trivial transpose
             // should be replaced with faster transpose.
             for (p = 1; p <= N - 1; p++) { // 1115
-               A[p,p] = CONJG(A(p,p));
+               A[p][p] = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1116
                    CTEMP = CONJG(A(q,p));
-                  A[q,p] = CONJG(A(p,q));
-                  A[p,q] = CTEMP;
+                  A[q][p] = CONJG(A(p,q));
+                  A[p][q] = CTEMP;
                } // 1116
             } // 1115
-            A[N,N] = CONJG(A(N,N));
+            A[N][N] = CONJG(A(N,N));
             for (p = 1; p <= N; p++) { // 1117
                RWORK[M+p] = SVA(p);
                SVA[p] = RWORK(p);
@@ -1114,7 +1114,7 @@
                      for (q = 1; q <= p - 1; q++) { // 8971
                         CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
-                        V[p,q] = - CTEMP;
+                        V[p][q] = - CTEMP;
                      } // 8971
                   } // 8970
                } else {
@@ -1150,7 +1150,7 @@
                   CTEMP = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
                       // V(p,q) = - TEMP1*( V(p,q) / ABS(V(p,q)) )
-                     V[p,q] = - CTEMP;
+                     V[p][q] = - CTEMP;
                   } // 4969
                } // 4968
             } else {
@@ -1215,7 +1215,7 @@
                      CWORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 872
                   for (p = 1; p <= NR; p++) { // 874
-                     U[p,q] = CWORK(2*N+N*NR+NR+p);
+                     U[p][q] = CWORK(2*N+N*NR+NR+p);
                   } // 874
                } // 873
                if ( NR < N ) {
@@ -1252,7 +1252,7 @@
                      CWORK[2*N+N*NR+NR+IWORK(N+p)] = U(p,q);
                   } // 772
                   for (p = 1; p <= NR; p++) { // 774
-                     U[p,q] = CWORK(2*N+N*NR+NR+p);
+                     U[p][q] = CWORK(2*N+N*NR+NR+p);
                   } // 774
                } // 773
 
@@ -1268,7 +1268,7 @@
                   CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 972
                for (p = 1; p <= N; p++) { // 973
-                  V[p,q] = CWORK(2*N+N*NR+NR+p);
+                  V[p][q] = CWORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / DZNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) zdscal( N, XSC, V(1,q), 1 );
@@ -1406,7 +1406,7 @@
                for (p = 1; p <= q - 1; p++) { // 9971
                   CTEMP = DCMPLX(XSC * min((U(p,p)).abs(),(U(q,q))).abs(), ZERO);
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
-                  U[p,q] = - CTEMP;
+                  U[p][q] = - CTEMP;
                } // 9971
             } // 9970
          } else {
@@ -1433,7 +1433,7 @@
                   CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
                } // 8972
                for (p = 1; p <= N; p++) { // 8973
-                  V[p,q] = CWORK(2*N+N*NR+NR+p);
+                  V[p][q] = CWORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / DZNRM2( N, V(1,q), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) zdscal( N, XSC, V(1,q), 1 );

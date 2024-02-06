@@ -208,20 +208,20 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 50
                      for (JR = JC; JR <= N; JR++) { // 40
-                        U[JR, JC] = dlarnd( 3, ISEED );
-                        V[JR, JC] = dlarnd( 3, ISEED );
+                        U[JR][JC] = dlarnd( 3, ISEED );
+                        V[JR][JC] = dlarnd( 3, ISEED );
                      } // 40
                      dlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK[2*N+JC] = sign( ONE, U( JC, JC ) );
-                     U[JC, JC] = ONE;
+                     U[JC][JC] = ONE;
                      dlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK[3*N+JC] = sign( ONE, V( JC, JC ) );
-                     V[JC, JC] = ONE;
+                     V[JC][JC] = ONE;
                   } // 50
-                  U[N, N] = ONE;
+                  U[N][N] = ONE;
                   WORK[N] = ZERO;
                   WORK[3*N] = sign( ONE, dlarnd( 2, ISEED ) );
-                  V[N, N] = ONE;
+                  V[N][N] = ONE;
                   WORK[2*N] = ZERO;
                   WORK[4*N] = sign( ONE, dlarnd( 2, ISEED ) );
 
@@ -229,7 +229,7 @@
 
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
-                        A[JR, JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
+                        A[JR][JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
                      } // 60
                   } // 70
                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
@@ -243,7 +243,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
-                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* dlarnd( 2, ISEED );
+                     A[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* dlarnd( 2, ISEED );
                   } // 80
                } // 90
             }

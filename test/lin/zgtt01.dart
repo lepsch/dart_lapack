@@ -50,18 +50,18 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= N; I++) { // 10
-            WORK[I, J] = ZERO;
+            WORK[I][J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= N; I++) { // 30
          if ( I == 1 ) {
-            WORK[I, I] = DF( I );
+            WORK[I][I] = DF( I );
             if (N >= 2) WORK( I, I+1 ) = DUF( I );
             IF( N >= 3 ) WORK( I, I+2 ) = DU2( I );
          } else if ( I == N ) {
-            WORK[I, I] = DF( I );
+            WORK[I][I] = DF( I );
          } else {
-            WORK[I, I] = DF( I );
+            WORK[I][I] = DF( I );
             WORK[I, I+1] = DUF( I );
             if (I < N-1) WORK( I, I+2 ) = DU2( I );
          }
@@ -83,14 +83,14 @@
 
       // Subtract the matrix A.
 
-      WORK[1, 1] = WORK( 1, 1 ) - D( 1 );
+      WORK[1][1] = WORK( 1, 1 ) - D( 1 );
       if ( N > 1 ) {
-         WORK[1, 2] = WORK( 1, 2 ) - DU( 1 );
+         WORK[1][2] = WORK( 1, 2 ) - DU( 1 );
          WORK[N, N-1] = WORK( N, N-1 ) - DL( N-1 );
-         WORK[N, N] = WORK( N, N ) - D( N );
+         WORK[N][N] = WORK( N, N ) - D( N );
          for (I = 2; I <= N - 1; I++) { // 50
             WORK[I, I-1] = WORK( I, I-1 ) - DL( I-1 );
-            WORK[I, I] = WORK( I, I ) - D( I );
+            WORK[I][I] = WORK( I, I ) - D( I );
             WORK[I, I+1] = WORK( I, I+1 ) - DU( I );
          } // 50
       }

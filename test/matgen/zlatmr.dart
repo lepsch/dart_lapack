@@ -345,23 +345,23 @@
                for (J = 1; J <= N; J++) { // 110
                   for (I = 1; I <= J; I++) { // 100
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB, JSUB] = CTEMP;
-                     A[JSUB, ISUB] = DCONJG( CTEMP );
+                     A[ISUB][JSUB] = CTEMP;
+                     A[JSUB][ISUB] = DCONJG( CTEMP );
                   } // 100
                } // 110
             } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 130
                   for (I = 1; I <= M; I++) { // 120
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB, JSUB] = CTEMP;
+                     A[ISUB][JSUB] = CTEMP;
                   } // 120
                } // 130
             } else if ( ISYM == 2 ) {
                for (J = 1; J <= N; J++) { // 150
                   for (I = 1; I <= J; I++) { // 140
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB, JSUB] = CTEMP;
-                     A[JSUB, ISUB] = CTEMP;
+                     A[ISUB][JSUB] = CTEMP;
+                     A[JSUB][ISUB] = CTEMP;
                   } // 140
                } // 150
             }
@@ -374,9 +374,9 @@
                   MNSUB = min( ISUB, JSUB );
                   MXSUB = max( ISUB, JSUB );
                   if ( MXSUB == ISUB && ISYM == 0 ) {
-                     A[MNSUB, MXSUB] = DCONJG( CTEMP );
+                     A[MNSUB][MXSUB] = DCONJG( CTEMP );
                   } else {
-                     A[MNSUB, MXSUB] = CTEMP;
+                     A[MNSUB][MXSUB] = CTEMP;
                   }
                   if (MNSUB != MXSUB) A( MXSUB, MNSUB ) = CZERO;
                } // 160
@@ -390,9 +390,9 @@
                   MNSUB = min( ISUB, JSUB );
                   MXSUB = max( ISUB, JSUB );
                   if ( MXSUB == JSUB && ISYM == 0 ) {
-                     A[MXSUB, MNSUB] = DCONJG( CTEMP );
+                     A[MXSUB][MNSUB] = DCONJG( CTEMP );
                   } else {
-                     A[MXSUB, MNSUB] = CTEMP;
+                     A[MXSUB][MNSUB] = CTEMP;
                   }
                   if (MNSUB != MXSUB) A( MNSUB, MXSUB ) = CZERO;
                } // 180
@@ -417,9 +417,9 @@
                   IISUB = K - LDA*( JJSUB-1 );
 
                   if ( MXSUB == ISUB && ISYM == 0 ) {
-                     A[IISUB, JJSUB] = DCONJG( CTEMP );
+                     A[IISUB][JJSUB] = DCONJG( CTEMP );
                   } else {
-                     A[IISUB, JJSUB] = CTEMP;
+                     A[IISUB][JJSUB] = CTEMP;
                   }
                } // 200
             } // 210
@@ -446,9 +446,9 @@
                   IISUB = K - LDA*( JJSUB-1 );
 
                   if ( MXSUB == JSUB && ISYM == 0 ) {
-                     A[IISUB, JJSUB] = DCONJG( CTEMP );
+                     A[IISUB][JJSUB] = DCONJG( CTEMP );
                   } else {
-                     A[IISUB, JJSUB] = CTEMP;
+                     A[IISUB][JJSUB] = CTEMP;
                   }
                } // 220
             } // 230
@@ -529,21 +529,21 @@
             if ( ISYM == 0 ) {
                for (J = 1; J <= N; J++) { // 330
                   for (I = 1; I <= J; I++) { // 320
-                     A[I, J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[J, I] = DCONJG( A( I, J ) );
+                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[J][I] = DCONJG( A( I, J ) );
                   } // 320
                } // 330
             } else if ( ISYM == 1 ) {
                for (J = 1; J <= N; J++) { // 350
                   for (I = 1; I <= M; I++) { // 340
-                     A[I, J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 340
                } // 350
             } else if ( ISYM == 2 ) {
                for (J = 1; J <= N; J++) { // 370
                   for (I = 1; I <= J; I++) { // 360
-                     A[I, J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[J, I] = A( I, J );
+                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[J][I] = A( I, J );
                   } // 360
                } // 370
             }
@@ -552,7 +552,7 @@
 
             for (J = 1; J <= N; J++) { // 390
                for (I = 1; I <= J; I++) { // 380
-                  A[I, J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = CZERO;
+                  A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = CZERO;
                } // 380
             } // 390
 
@@ -561,9 +561,9 @@
             for (J = 1; J <= N; J++) { // 410
                for (I = 1; I <= J; I++) { // 400
                   if ( ISYM == 0 ) {
-                     A[J, I] = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) );
+                     A[J][I] = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) );
                   } else {
-                     A[J, I] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[J][I] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   }
                   if (I != J) A( I, J ) = CZERO;
                } // 400
@@ -580,7 +580,7 @@
                      ISUB = 1;
                      JSUB = JSUB + 1;
                   }
-                  A[ISUB, JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                  A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                } // 420
             } // 430
 
@@ -603,7 +603,7 @@
                      JSUB = ( K-1 ) / LDA + 1;
                      ISUB = K - LDA*( JSUB-1 );
 
-                     A[ISUB, JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                      if (ISYM == 0) A( ISUB, JSUB ) = DCONJG( A( ISUB, JSUB ) );
                   } // 440
                } // 450
@@ -617,7 +617,7 @@
                         ISUB = 1;
                         JSUB = JSUB + 1;
                      }
-                     A[ISUB, JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+                     A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
                   } // 460
                } // 470
             }

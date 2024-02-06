@@ -136,7 +136,7 @@
 
       for (J = 1; J <= L - 1; J++) { // 40
          for (I = J + 1; I <= L; I++) { // 30
-            B[I, J] = CZERO;
+            B[I][J] = CZERO;
          } // 30
       } // 40
       if (P > L) zlaset( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
@@ -170,7 +170,7 @@
          zlaset('Full', L, N-L, CZERO, CZERO, B, LDB );
          for (J = N - L + 1; J <= N; J++) { // 60
             for (I = J - N + L + 1; I <= L; I++) { // 50
-               B[I, J] = CZERO;
+               B[I][J] = CZERO;
             } // 50
          } // 60
 
@@ -221,7 +221,7 @@
 
       for (J = 1; J <= K - 1; J++) { // 100
          for (I = J + 1; I <= K; I++) { // 90
-            A[I, J] = CZERO;
+            A[I][J] = CZERO;
          } // 90
       } // 100
       if (M > K) zlaset( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
@@ -244,7 +244,7 @@
          zlaset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
          for (J = N - L - K + 1; J <= N - L; J++) { // 120
             for (I = J - N + L + K + 1; I <= K; I++) { // 110
-               A[I, J] = CZERO;
+               A[I][J] = CZERO;
             } // 110
          } // 120
 
@@ -267,7 +267,7 @@
 
          for (J = N - L + 1; J <= N; J++) { // 140
             for (I = J - N + K + L + 1; I <= M; I++) { // 130
-               A[I, J] = CZERO;
+               A[I][J] = CZERO;
             } // 130
          } // 140
 

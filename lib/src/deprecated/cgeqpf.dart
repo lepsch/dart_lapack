@@ -115,16 +115,16 @@
 
             AII = A( I, I );
             clarfg(M-I+1, AII, A( min( I+1, M ), I ), 1, TAU( I ) );
-            A[I, I] = AII;
+            A[I][I] = AII;
 
             if ( I < N ) {
 
                // Apply H(i) to A(i:m,i+1:n) from the left
 
                AII = A( I, I );
-               A[I, I] = CMPLX( ONE );
+               A[I][I] = CMPLX( ONE );
                clarf('Left', M-I+1, N-I, A( I, I ), 1, CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
-               A[I, I] = AII;
+               A[I][I] = AII;
             }
 
             // Update partial column norms

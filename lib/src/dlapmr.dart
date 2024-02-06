@@ -52,8 +52,8 @@ import 'package:lapack/src/xerbla.dart';
 
             for (JJ = 1; JJ <= N; JJ++) { // 30
                TEMP = X( J, JJ );
-               X[J, JJ] = X( IN, JJ );
-               X[IN, JJ] = TEMP;
+               X[J][JJ] = X( IN, JJ );
+               X[IN][JJ] = TEMP;
             } // 30
 
             K[IN] = -K( IN );
@@ -80,8 +80,8 @@ import 'package:lapack/src/xerbla.dart';
 
             for (JJ = 1; JJ <= N; JJ++) { // 70
                TEMP = X( I, JJ );
-               X[I, JJ] = X( J, JJ );
-               X[J, JJ] = TEMP;
+               X[I][JJ] = X( J, JJ );
+               X[J][JJ] = TEMP;
             } // 70
 
             K[J] = -K( J );

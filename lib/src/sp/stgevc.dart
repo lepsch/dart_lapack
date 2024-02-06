@@ -240,9 +240,9 @@
 
                   IEIG = IEIG + 1;
                   for (JR = 1; JR <= N; JR++) { // 60
-                     VL[JR, IEIG] = ZERO;
+                     VL[JR][IEIG] = ZERO;
                   } // 60
-                  VL[IEIG, IEIG] = ONE;
+                  VL[IEIG][IEIG] = ONE;
                   GO TO 220;
                }
             }
@@ -398,20 +398,20 @@
 
                for (JW = 1; JW <= NW; JW++) { // 120
                   for (JA = 1; JA <= NA; JA++) { // 110
-                     SUMS[JA, JW] = ZERO;
-                     SUMP[JA, JW] = ZERO;
+                     SUMS[JA][JW] = ZERO;
+                     SUMP[JA][JW] = ZERO;
 
                      for (JR = JE; JR <= J - 1; JR++) { // 100
-                        SUMS[JA, JW] = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR );
+                        SUMS[JA][JW] = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR );
                      } // 100
                   } // 110
                } // 120
 
                for (JA = 1; JA <= NA; JA++) { // 130
                   if ( ILCPLX ) {
-                     SUM[JA, 1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 );
+                     SUM[JA][1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 );
                   } else {
-                     SUM[JA, 1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 );
+                     SUM[JA][1] = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 );
                   }
                } // 130
 
@@ -521,9 +521,9 @@
 
                   IEIG = IEIG - 1;
                   for (JR = 1; JR <= N; JR++) { // 230
-                     VR[JR, IEIG] = ZERO;
+                     VR[JR][IEIG] = ZERO;
                   } // 230
-                  VR[IEIG, IEIG] = ONE;
+                  VR[IEIG][IEIG] = ONE;
                   GO TO 500;
                }
             }

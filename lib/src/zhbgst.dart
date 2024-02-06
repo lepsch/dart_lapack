@@ -172,7 +172,7 @@
             // Form  inv(S(i))**H * A * inv(S(i))
 
             BII = (BB( KB1, I )).toDouble();
-            AB[KA1, I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
+            AB[KA1][I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 20
                AB[I-J+KA1, J] = AB( I-J+KA1, J ) / BII;
             } // 20
@@ -397,7 +397,7 @@
             // Form  inv(S(i))**H * A * inv(S(i))
 
             BII = (BB( 1, I )).toDouble();
-            AB[1, I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
+            AB[1][I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 250
                AB[J-I+1, I] = AB( J-I+1, I ) / BII;
             } // 250
@@ -671,7 +671,7 @@
             // Form  inv(S(i))**H * A * inv(S(i))
 
             BII = (BB( KB1, I )).toDouble();
-            AB[KA1, I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
+            AB[KA1][I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 500
                AB[J-I+KA1, I] = AB( J-I+KA1, I ) / BII;
             } // 500
@@ -899,7 +899,7 @@
             // Form  inv(S(i))**H * A * inv(S(i))
 
             BII = (BB( 1, I )).toDouble();
-            AB[1, I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
+            AB[1][I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 730
                AB[I-J+1, J] = AB( I-J+1, J ) / BII;
             } // 730

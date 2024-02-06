@@ -84,10 +84,10 @@
          // Copy column K of A to column KW of W and update it
 
          if (K > 1) zcopy( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
-         W[K, KW] = (A( K, K )).toDouble();
+         W[K][KW] = (A( K, K )).toDouble();
          if ( K < N ) {
             zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
-            W[K, KW] = (W( K, KW )).toDouble();
+            W[K][KW] = (W( K, KW )).toDouble();
          }
 
          // Determine rows and columns to be interchanged and whether
@@ -112,7 +112,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = (W( K, KW )).toDouble();
+            A[K][K] = (W( K, KW )).toDouble();
             if (K > 1) zcopy( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
          } else {
 
@@ -248,7 +248,7 @@
                // K and K-1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = (A( K, K )).toDouble();
+               A[P][P] = (A( K, K )).toDouble();
                zcopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                zlacgv(K-1-P, A( P, P+1 ), LDA );
                if (P > 1) zcopy( P-1, A( 1, K ), 1, A( 1, P ), 1 );
@@ -272,7 +272,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = (A( KK, KK )).toDouble();
+               A[KP][KP] = (A( KK, KK )).toDouble();
                zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                zlacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                if (KP > 1) zcopy( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
@@ -319,7 +319,7 @@
                      zdscal(K-1, R1, A( 1, K ), 1 );
                   } else {
                      for (II = 1; II <= K-1; II++) { // 14
-                        A[II, K] = A( II, K ) / T;
+                        A[II][K] = A( II, K ) / T;
                      } // 14
                   }
 
@@ -410,7 +410,7 @@
 
                A[K-1, K-1] = W( K-1, KW-1 );
                A[K-1, K] = W( K-1, KW );
-               A[K, K] = W( K, KW );
+               A[K][K] = W( K, KW );
 
                // (2) Conjugate columns W(kw) and W(kw-1)
 
@@ -450,9 +450,9 @@
             // Update the upper triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
-               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
+               A[JJ][JJ] = (A( JJ, JJ )).toDouble();
                zgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
+               A[JJ][JJ] = (A( JJ, JJ )).toDouble();
             } // 40
 
             // Update the rectangular superdiagonal block
@@ -513,11 +513,11 @@
 
          // Copy column K of A to column K of W and update column K of W
 
-         W[K, K] = (A( K, K )).toDouble();
+         W[K][K] = (A( K, K )).toDouble();
          if (K < N) zcopy( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
-            W[K, K] = (W( K, K )).toDouble();
+            W[K][K] = (W( K, K )).toDouble();
          }
 
          // Determine rows and columns to be interchanged and whether
@@ -542,7 +542,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = (W( K, K )).toDouble();
+            A[K][K] = (W( K, K )).toDouble();
             if (K < N) zcopy( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
          } else {
 
@@ -675,7 +675,7 @@
                // K and K+1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = (A( K, K )).toDouble();
+               A[P][P] = (A( K, K )).toDouble();
                zcopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                zlacgv(P-K-1, A( P, K+1 ), LDA );
                if (P < N) zcopy( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
@@ -699,7 +699,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = (A( KK, KK )).toDouble();
+               A[KP][KP] = (A( KK, KK )).toDouble();
                zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                zlacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                if (KP < N) zcopy( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
@@ -746,7 +746,7 @@
                      zdscal(N-K, R1, A( K+1, K ), 1 );
                   } else {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A[II, K] = A( II, K ) / T;
+                        A[II][K] = A( II, K ) / T;
                      } // 74
                   }
 
@@ -829,13 +829,13 @@
                   // of D**(-1)
 
                   for (J = K + 2; J <= N; J++) { // 80
-                     A[J, K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / DCONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
+                     A[J][K] = T*( ( D11*W( J, K )-W( J, K+1 ) ) / DCONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
                // Copy D(k) to A
 
-               A[K, K] = W( K, K );
+               A[K][K] = W( K, K );
                A[K+1, K] = W( K+1, K );
                A[K+1, K+1] = W( K+1, K+1 );
 
@@ -877,9 +877,9 @@
             // Update the lower triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
-               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
+               A[JJ][JJ] = (A( JJ, JJ )).toDouble();
                zgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
+               A[JJ][JJ] = (A( JJ, JJ )).toDouble();
             } // 100
 
             // Update the rectangular subdiagonal block

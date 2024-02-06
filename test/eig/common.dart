@@ -1,5 +1,7 @@
+import 'package:async/async.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 class _Cenvir {
   int NPROC = 0;
@@ -39,19 +41,19 @@ class _Mn {
 final mn = _Mn();
 
 class _Srnamc {
-  String(srnamc.SRNAMT = '';
+  String SRNAMT = '';
 }
 
 final srnamc = _Srnamc();
 
 class _Infoc {
   int INFOT = 0;
-  int NOUT = 0;
+  Nout NOUT = Nout(NullStreamSink());
   Box<bool> OK = Box(false);
   Box<bool> LERR = Box(false);
 
-  int get NUNIT => NOUT;
-  set NUNIT(int v) => NOUT = v;
+  Nout get NUNIT => NOUT;
+  set NUNIT(Nout v) => NOUT = v;
 }
 
 final infoc = _Infoc();

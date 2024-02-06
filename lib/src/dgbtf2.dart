@@ -75,7 +75,7 @@ import 'package:lapack/src/xerbla.dart';
 
       for (J = KU + 2; J <= min( KV, N ); J++) { // 20
          for (I = KV - J + 2; I <= KL; I++) { // 10
-            AB[I, J] = ZERO;
+            AB[I][J] = ZERO;
          } // 10
       } // 20
 

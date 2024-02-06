@@ -90,7 +90,7 @@
          if (K+2 <= N) zrot( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
          zrot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) );
 
-         T[K, K] = T22;
+         T[K][K] = T22;
          T[K+1, K+1] = T11;
 
          if ( WANTQ ) {

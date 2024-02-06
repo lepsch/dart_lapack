@@ -204,7 +204,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A[JCOL, JCOL] = ANORM;
+                  A[JCOL][JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -249,7 +249,7 @@
                   J2 = min( N, N+IDIAG );
                   for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG;
-                     A[I, J] = U( IROW, J );
+                     A[I][J] = U( IROW, J );
                   } // 90
                } // 100
             } else {

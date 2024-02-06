@@ -58,8 +58,8 @@
       if (N <= 1) return;
 
       STKPNT = 1;
-      STACK[1, 1] = 1;
-      STACK[2, 1] = N;
+      STACK[1][1] = 1;
+      STACK[2][1] = N;
       } // 10
       START = STACK( 1, STKPNT );
       ENDD = STACK( 2, STKPNT );
@@ -151,18 +151,18 @@
             }
             if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = START;
-               STACK[2, STKPNT] = J;
+               STACK[1][STKPNT] = START;
+               STACK[2][STKPNT] = J;
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = J + 1;
-               STACK[2, STKPNT] = ENDD;
+               STACK[1][STKPNT] = J + 1;
+               STACK[2][STKPNT] = ENDD;
             } else {
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = J + 1;
-               STACK[2, STKPNT] = ENDD;
+               STACK[1][STKPNT] = J + 1;
+               STACK[2][STKPNT] = ENDD;
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = START;
-               STACK[2, STKPNT] = J;
+               STACK[1][STKPNT] = START;
+               STACK[2][STKPNT] = J;
             }
          } else {
 
@@ -185,18 +185,18 @@
             }
             if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = START;
-               STACK[2, STKPNT] = J;
+               STACK[1][STKPNT] = START;
+               STACK[2][STKPNT] = J;
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = J + 1;
-               STACK[2, STKPNT] = ENDD;
+               STACK[1][STKPNT] = J + 1;
+               STACK[2][STKPNT] = ENDD;
             } else {
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = J + 1;
-               STACK[2, STKPNT] = ENDD;
+               STACK[1][STKPNT] = J + 1;
+               STACK[2][STKPNT] = ENDD;
                STKPNT = STKPNT + 1;
-               STACK[1, STKPNT] = START;
-               STACK[2, STKPNT] = J;
+               STACK[1][STKPNT] = START;
+               STACK[2][STKPNT] = J;
             }
          }
       }

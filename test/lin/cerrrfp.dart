@@ -38,8 +38,8 @@
 
       NOUT = NUNIT;
       OK = true;
-      A[1, 1] = CMPLX( 1.0 , 1.0 );
-      B[1, 1] = CMPLX( 1.0 , 1.0  );
+      A[1][1] = CMPLX( 1.0 , 1.0 );
+      B[1][1] = CMPLX( 1.0 , 1.0  );
       ALPHACMPLX = CMPLX( 1.0 , 1.0  );
       ALPHA = 1.0;
       BETA = 1.0;

@@ -112,7 +112,7 @@ import 'package:lapack/src/xerbla.dart';
                      BKM1 = B( I-1, J ) / AKM1K;
                      BK = B( I, J ) / AKM1K;
                      B[I-1, J] = ( AK*BKM1-BK ) / DENOM;
-                     B[I, J] = ( AKM1*BK-BKM1 ) / DENOM;
+                     B[I][J] = ( AKM1*BK-BKM1 ) / DENOM;
                  } // 15
                I = I - 1;
                }
@@ -183,7 +183,7 @@ import 'package:lapack/src/xerbla.dart';
                   for (J = 1; J <= NRHS; J++) { // 25
                      BKM1 = B( I, J ) / AKM1K;
                      BK = B( I+1, J ) / AKM1K;
-                     B[I, J] = ( AK*BKM1-BK ) / DENOM;
+                     B[I][J] = ( AK*BKM1-BK ) / DENOM;
                      B[I+1, J] = ( AKM1*BK-BKM1 ) / DENOM;
                  } // 25
                   I = I + 1;

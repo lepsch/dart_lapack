@@ -97,7 +97,7 @@
                         N = IDIM( NDIM );
                         for (I = 1; I <= N; I++) { // 20
                            for (J = 1; J <= N; J++) { // 10
-                              T[I, J] = double( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
+                              T[I][J] = double( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
                            } // 10
                         } // 20
 

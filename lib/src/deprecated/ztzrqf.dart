@@ -58,11 +58,11 @@
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
 
-            A[K, K] = DCONJG( A( K, K ) );
+            A[K][K] = DCONJG( A( K, K ) );
             zlacgv(N-M, A( K, M1 ), LDA );
             ALPHA = A( K, K );
             zlarfg(N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) );
-            A[K, K] = ALPHA;
+            A[K][K] = ALPHA;
             TAU[K] = DCONJG( TAU( K ) );
 
             if ( TAU( K ) != CZERO && K > 1 ) {

@@ -129,7 +129,7 @@
             NZCMIN = 0;
          }
          if ( ZQUERY && INFO == 0 ) {
-            Z[1,1] = NZCMIN;
+            Z[1][1] = NZCMIN;
          } else if ( NZC < NZCMIN && !ZQUERY ) {
             INFO = -14;
          }
@@ -160,7 +160,7 @@
             }
          }
          if ( WANTZ && ( !ZQUERY) ) {
-            Z[1, 1] = ONE;
+            Z[1][1] = ONE;
             ISUPPZ[1] = 1;
             ISUPPZ[2] = 1;
          }
@@ -187,11 +187,11 @@
             W[M] = R2;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z[1, M] = CS;
-                  Z[2, M] = SN;
+                  Z[1][M] = CS;
+                  Z[2][M] = SN;
                } else {
-                  Z[1, M] = -SN;
-                  Z[2, M] = CS;
+                  Z[1][M] = -SN;
+                  Z[2][M] = CS;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {
@@ -213,11 +213,11 @@
             W[M] = R1;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z[1, M] = -SN;
-                  Z[2, M] = CS;
+                  Z[1][M] = -SN;
+                  Z[2][M] = CS;
                } else {
-                  Z[1, M] = CS;
-                  Z[2, M] = SN;
+                  Z[1][M] = CS;
+                  Z[2][M] = SN;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {

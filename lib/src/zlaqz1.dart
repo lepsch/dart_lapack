@@ -24,7 +24,7 @@
          // Shift is located on the edge of the matrix, remove it
 
          zlartg(B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP );
-         B[IHI, IHI] = TEMP;
+         B[IHI][IHI] = TEMP;
          B[IHI, IHI-1] = CZERO;
          zrot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S );
          zrot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S );

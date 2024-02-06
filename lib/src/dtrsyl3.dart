@@ -65,8 +65,8 @@ import 'package:lapack/src/xerbla.dart';
       IWORK[1] = NBA + NBB + 2;
       if ( LQUERY ) {
          LDSWORK = 2;
-         SWORK[1, 1] = max( NBA, NBB );
-         SWORK[2, 1] = 2 * NBB + NBA;
+         SWORK[1][1] = max( NBA, NBB );
+         SWORK[2][1] = 2 * NBB + NBA;
       }
 
       // Test the input arguments
@@ -126,17 +126,17 @@ import 'package:lapack/src/xerbla.dart';
           for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
                 SKIP = false;
-                CYCLE;
+                continue;
              }
              if ( L >= M ) {
                 // A( M, M ) is a 1-by-1 block
-                CYCLE;
+                continue;
              }
              if ( A( L, L+1 ) != ZERO && A( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( K + 1 ) ) {
                    IWORK[K + 1] = IWORK( K + 1 ) + 1;
-                   CYCLE;
+                   continue;
                 }
                 SKIP = true;
              }
@@ -162,17 +162,17 @@ import 'package:lapack/src/xerbla.dart';
           for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
                 SKIP = false;
-                CYCLE;
+                continue;
              }
              if ( L >= N ) {
                 // B( N, N ) is a 1-by-1 block
-                CYCLE;
+                continue;
              }
              if ( B( L, L+1 ) != ZERO && B( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( PC + K + 1 ) ) {
                    IWORK[PC + K + 1] = IWORK( PC + K + 1 ) + 1;
-                   CYCLE;
+                   continue;
                 }
                 SKIP = true;
              }
@@ -188,7 +188,7 @@ import 'package:lapack/src/xerbla.dart';
 
       for (L = 1; L <= NBB; L++) {
          for (K = 1; K <= NBA; K++) {
-            SWORK[K, L] = ONE;
+            SWORK[K][L] = ONE;
          }
       }
 
@@ -282,11 +282,11 @@ import 'package:lapack/src/xerbla.dart';
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK[K, L] = SCALOC * SWORK( K, L );
+               SWORK[K][L] = SCALOC * SWORK( K, L );
                XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K - 1; I >= 1; I--) {
@@ -310,7 +310,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -338,8 +338,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[I, L] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[I][L] = SCAMIN * SCALOC;
 
                   dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
@@ -366,7 +366,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -394,8 +394,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[K, J] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[K][J] = SCAMIN * SCALOC;
 
                   dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
                }
@@ -453,11 +453,11 @@ import 'package:lapack/src/xerbla.dart';
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK[K, L] = SCALOC * SWORK( K, L );
+               SWORK[K][L] = SCALOC * SWORK( K, L );
                XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = K + 1; I <= NBA; I++) {
@@ -481,7 +481,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -509,8 +509,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[I, L] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[I][L] = SCAMIN * SCALOC;
 
                   dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
                }
@@ -536,7 +536,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -564,8 +564,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[K, J] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[K][J] = SCAMIN * SCALOC;
 
                   dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
                }
@@ -607,7 +607,7 @@ import 'package:lapack/src/xerbla.dart';
                dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = max( INFO, IINFO );
 
-               SWORK[K, L] = SCALOC * SWORK( K, L );
+               SWORK[K][L] = SCALOC * SWORK( K, L );
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
                      // The magnitude of the largest entry of X(K1:K2-1, L1:L2-1)
@@ -624,7 +624,7 @@ import 'package:lapack/src/xerbla.dart';
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -651,7 +651,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -679,8 +679,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[I, L] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[I][L] = SCAMIN * SCALOC;
 
                   dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
                }
@@ -706,7 +706,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -734,8 +734,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[K, J] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[K][J] = SCAMIN * SCALOC;
 
                   dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
                }
@@ -793,11 +793,11 @@ import 'package:lapack/src/xerbla.dart';
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
-               SWORK[K, L] = SCALOC * SWORK( K, L );
+               SWORK[K][L] = SCALOC * SWORK( K, L );
                XNRM = dlange( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
                for (I = 1; I <= K - 1; I++) {
@@ -821,7 +821,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -849,8 +849,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[I, L] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[I][L] = SCAMIN * SCALOC;
 
                   dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
@@ -877,7 +877,7 @@ import 'package:lapack/src/xerbla.dart';
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK[LL, JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK[LL][JJ] = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -905,8 +905,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Record current scaling factor
 
-                  SWORK[K, L] = SCAMIN * SCALOC;
-                  SWORK[K, J] = SCAMIN * SCALOC;
+                  SWORK[K][L] = SCAMIN * SCALOC;
+                  SWORK[K][J] = SCAMIN * SCALOC;
 
                   dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
                }
@@ -932,8 +932,8 @@ import 'package:lapack/src/xerbla.dart';
          // zero and give up.
 
          IWORK[1] = NBA + NBB + 2;
-         SWORK[1,1] = max( NBA, NBB );
-         SWORK[2,1] = 2 * NBB + NBA;
+         SWORK[1][1] = max( NBA, NBB );
+         SWORK[2][1] = 2 * NBB + NBA;
          return;
       }
 
@@ -995,8 +995,8 @@ import 'package:lapack/src/xerbla.dart';
       // Restore workspace dimensions
 
       IWORK[1] = NBA + NBB + 2;
-      SWORK[1,1] = max( NBA, NBB );
-      SWORK[2,1] = 2 * NBB + NBA;
+      SWORK[1][1] = max( NBA, NBB );
+      SWORK[2][1] = 2 * NBB + NBA;
 
       return;
       }

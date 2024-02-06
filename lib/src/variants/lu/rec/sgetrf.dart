@@ -75,8 +75,8 @@
          // Permute just this column.
          if (JP != J) {
             TMP = A( J, J );
-            A[J, J] = A( JP, J );
-            A[JP, J] = TMP;
+            A[J][J] = A( JP, J );
+            A[JP][J] = TMP;
          }
 
          // Apply pending permutations to L

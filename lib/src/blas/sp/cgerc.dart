@@ -65,7 +65,7 @@
               if (Y(JY) != ZERO) {
                   TEMP = ALPHA*CONJG(Y(JY));
                   for (I = 1; I <= M; I++) { // 10
-                      A[I,J] = A(I,J) + X(I)*TEMP;
+                      A[I][J] = A(I,J) + X(I)*TEMP;
                   } // 10
               }
               JY = JY + INCY;
@@ -81,7 +81,7 @@
                   TEMP = ALPHA*CONJG(Y(JY));
                   IX = KX;
                   for (I = 1; I <= M; I++) { // 30
-                      A[I,J] = A(I,J) + X(IX)*TEMP;
+                      A[I][J] = A(I,J) + X(IX)*TEMP;
                       IX = IX + INCX;
                   } // 30
               }

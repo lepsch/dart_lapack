@@ -495,7 +495,7 @@ import 'package:lapack/src/xerbla.dart';
             // the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
                for (q = p + 1; q <= N; q++) { // 1147
-                  A[q,p] = A(p,q);
+                  A[q][p] = A(p,q);
                   if (q <= NR) A(p,q) = ZERO;
                } // 1147
             } // 1146
@@ -521,7 +521,7 @@ import 'package:lapack/src/xerbla.dart';
              // vectors of R
             for (p = 1; p <= NR; p++) { // 1192
                for (q = p; q <= N; q++) { // 1193
-                  U[q,p] = A(p,q);
+                  U[q][p] = A(p,q);
                } // 1193
             } // 1192
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU );
@@ -533,8 +533,8 @@ import 'package:lapack/src/xerbla.dart';
                for (p = 1; p <= NR; p++) { // 1119
                    for (q = p + 1; q <= NR; q++) { // 1120
                       RTMP   = U(q,p);
-                      U[q,p] = U(p,q);
-                      U[p,q] = RTMP;
+                      U[q][p] = U(p,q);
+                      U[p][q] = RTMP;
                    } // 1120
                } // 1119
 
@@ -576,7 +576,7 @@ import 'package:lapack/src/xerbla.dart';
              // .. copy R**T into V and overwrite V with the left singular vectors
             for (p = 1; p <= NR; p++) { // 1165
                for (q = p; q <= N; q++) { // 1166
-                  V[q,p] = (A(p,q));
+                  V[q][p] = (A(p,q));
                } // 1166
             } // 1165
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
@@ -588,15 +588,15 @@ import 'package:lapack/src/xerbla.dart';
                for (p = 1; p <= NR; p++) { // 1121
                    for (q = p + 1; q <= NR; q++) { // 1122
                       RTMP   = V(q,p);
-                      V[q,p] = V(p,q);
-                      V[p,q] = RTMP;
+                      V[q][p] = V(p,q);
+                      V[p][q] = RTMP;
                    } // 1122
                } // 1121
 
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       for (q = NR + 1; q <= N; q++) { // 1104
-                          V[p,q] = V(q,p);
+                          V[p][q] = V(q,p);
                       } // 1104
                    } // 1103
                }
@@ -613,8 +613,8 @@ import 'package:lapack/src/xerbla.dart';
                 for (p = 1; p <= N; p++) { // 1123
                    for (q = p + 1; q <= N; q++) { // 1124
                       RTMP   = V(q,p);
-                      V[q,p] = V(p,q);
-                      V[p,q] = RTMP;
+                      V[q][p] = V(p,q);
+                      V[p][q] = RTMP;
                    } // 1124
                 } // 1123
                 dlapmt( false , N, N, V, LDV, IWORK );
@@ -658,7 +658,7 @@ import 'package:lapack/src/xerbla.dart';
              // vectors of R**T
             for (p = 1; p <= NR; p++) { // 1168
                for (q = p; q <= N; q++) { // 1169
-                  V[q,p] = A(p,q);
+                  V[q][p] = A(p,q);
                } // 1169
             } // 1168
             if (NR > 1) dlaset( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
@@ -670,14 +670,14 @@ import 'package:lapack/src/xerbla.dart';
                for (p = 1; p <= NR; p++) { // 1115
                   for (q = p + 1; q <= NR; q++) { // 1116
                      RTMP   = V(q,p);
-                     V[q,p] = V(p,q);
-                     V[p,q] = RTMP;
+                     V[q][p] = V(p,q);
+                     V[p][q] = RTMP;
                   } // 1116
                } // 1115
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       for (q = NR+1; q <= N; q++) { // 1102
-                         V[p,q] = V(q,p);
+                         V[p][q] = V(q,p);
                       } // 1102
                    } // 1101
                }
@@ -686,8 +686,8 @@ import 'package:lapack/src/xerbla.dart';
                 for (p = 1; p <= NR; p++) { // 1117
                    for (q = p + 1; q <= NR; q++) { // 1118
                       RTMP   = U(q,p);
-                      U[q,p] = U(p,q);
-                      U[p,q] = RTMP;
+                      U[q][p] = U(p,q);
+                      U[p][q] = RTMP;
                    } // 1118
                 } // 1117
 
@@ -712,7 +712,7 @@ import 'package:lapack/src/xerbla.dart';
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
-                         V[q,p] = A(p,q);
+                         V[q][p] = A(p,q);
                       } // 1199
                    } // 1198
                    if (NR > 1) dlaset('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV);
@@ -723,8 +723,8 @@ import 'package:lapack/src/xerbla.dart';
                    for (p = 1; p <= N; p++) { // 1113
                       for (q = p + 1; q <= N; q++) { // 1114
                          RTMP   = V(q,p);
-                         V[q,p] = V(p,q);
-                         V[p,q] = RTMP;
+                         V[q][p] = V(p,q);
+                         V[p][q] = RTMP;
                       } // 1114
                    } // 1113
                    dlapmt( false , N, N, V, LDV, IWORK );
@@ -734,8 +734,8 @@ import 'package:lapack/src/xerbla.dart';
                    for (p = 1; p <= N; p++) { // 1111
                       for (q = p + 1; q <= N; q++) { // 1112
                          RTMP   = U(q,p);
-                         U[q,p] = U(p,q);
-                         U[p,q] = RTMP;
+                         U[q][p] = U(p,q);
+                         U[p][q] = RTMP;
                       } // 1112
                    } // 1111
 
@@ -758,7 +758,7 @@ import 'package:lapack/src/xerbla.dart';
                    dgeqrf(N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
-                           V[q,p] = U(p,NR+q);
+                           V[q][p] = U(p,NR+q);
                        } // 1144
                    } // 1143
                   dlaset('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);

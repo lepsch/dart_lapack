@@ -139,7 +139,7 @@
 
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
-                                    A[I, J] = SLARND( 2, ISEED );
+                                    A[I][J] = SLARND( 2, ISEED );
                                  }
                               }
 
@@ -158,7 +158,7 @@
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( J, J ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( J, J ) );
                                        }
                                     }
                                  }
@@ -178,7 +178,7 @@
                                  if ( lsame( DIAG, 'U' ) ) {
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
-                                          A[I, J] = A( I, J ) / ( 2.0 * A( I, I ) );
+                                          A[I][J] = A( I, J ) / ( 2.0 * A( I, I ) );
                                        }
                                     }
                                  }
@@ -195,8 +195,8 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = SLARND( 2, ISEED );
-                                    B2[I, J] = B1( I, J );
+                                    B1[I][J] = SLARND( 2, ISEED );
+                                    B2[I][J] = B1( I, J );
                                  }
                               }
 
@@ -216,7 +216,7 @@
 
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
-                                    B1[I, J] = B2( I, J ) - B1( I, J );
+                                    B1[I][J] = B2( I, J ) - B1( I, J );
                                  }
                               }
 

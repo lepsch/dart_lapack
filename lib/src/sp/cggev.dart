@@ -270,7 +270,7 @@
                if (TEMP < SMLNUM) GO TO 30;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 20
-                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR][JC] = VL( JR, JC )*TEMP;
                } // 20
             } // 30
          }
@@ -284,7 +284,7 @@
                if (TEMP < SMLNUM) GO TO 60;
                TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 50
-                  VR[JR, JC] = VR( JR, JC )*TEMP;
+                  VR[JR][JC] = VR( JR, JC )*TEMP;
                } // 50
             } // 60
          }

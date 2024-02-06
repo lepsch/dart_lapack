@@ -306,11 +306,11 @@
 
          if ( K > 1 ) {
             for (J = 1; J <= K - 1; J++) {
-               F[K, J] = CONJG( F( K, J ) );
+               F[K][J] = CONJG( F( K, J ) );
             }
             cgemv('No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 );
             for (J = 1; J <= K - 1; J++) {
-               F[K, J] = CONJG( F( K, J ) );
+               F[K][J] = CONJG( F( K, J ) );
             }
          }
 
@@ -390,7 +390,7 @@
          // ===============================================================
 
          AIK = A( I, K );
-         A[I, K] = CONE;
+         A[I][K] = CONE;
 
          // ===============================================================
 
@@ -405,7 +405,7 @@
                // column K in matrix F, i.e elements F(1:K,K).
 
          for (J = 1; J <= K; J++) {
-            F[J, K] = CZERO;
+            F[J][K] = CZERO;
          }
 
           // 3) Incremental updating of the K-th column of F:
@@ -428,7 +428,7 @@
             cgemm('No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA );
          }
 
-         A[I, K] = AIK;
+         A[I][K] = AIK;
 
          // Update the partial column 2-norms for the residual matrix,
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.

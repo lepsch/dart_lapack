@@ -116,7 +116,7 @@
 
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
-                                 A[I, J] = ZLARND( 4, ISEED );
+                                 A[I][J] = ZLARND( 4, ISEED );
                               }
                            }
 
@@ -128,7 +128,7 @@
 
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
-                                 A[I, J] = ZLARND( 4, ISEED );
+                                 A[I][J] = ZLARND( 4, ISEED );
                               }
                            }
 
@@ -144,8 +144,8 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1[I, J] = ZLARND( 4, ISEED );
-                              C2[I,J] = C1(I,J);
+                              C1[I][J] = ZLARND( 4, ISEED );
+                              C2[I][J] = C1(I,J);
                            }
                         }
 
@@ -176,7 +176,7 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1[I,J] = C1(I,J)-C2(I,J);
+                              C1[I][J] = C1(I,J)-C2(I,J);
                            }
                         }
 

@@ -153,7 +153,7 @@
          // This is for a 1x1 block
          if ( IBEGIN == IEND ) {
             DONE = DONE+1;
-            Z[IBEGIN, WBEGIN] = ONE;
+            Z[IBEGIN][WBEGIN] = ONE;
             ISUPPZ[2*WBEGIN-1] = IBEGIN;
             ISUPPZ[2*WBEGIN] = IBEGIN;
             W[WBEGIN] = W( WBEGIN ) + SIGMA;
@@ -615,12 +615,12 @@
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN < ZFROM) {
                         for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
-                           Z[II, WINDEX] = ZERO;
+                           Z[II][WINDEX] = ZERO;
                         } // 122
                      }
                      if (ISUPMX > ZTO) {
                         for (II = ZTO+1; II <= ISUPMX; II++) { // 123
-                           Z[II, WINDEX] = ZERO;
+                           Z[II][WINDEX] = ZERO;
                         } // 123
                      }
                      sscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );

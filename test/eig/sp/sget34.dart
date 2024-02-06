@@ -74,10 +74,10 @@
          for (IAM = 1; IAM <= 2; IAM++) { // 30
             for (IB = 1; IB <= 9; IB++) { // 20
                for (IC = 1; IC <= 9; IC++) { // 10
-                  T[1, 1] = VAL( IA )*VM( IAM );
-                  T[2, 2] = VAL( IC );
-                  T[1, 2] = VAL( IB );
-                  T[2, 1] = ZERO;
+                  T[1][1] = VAL( IA )*VM( IAM );
+                  T[2][2] = VAL( IC );
+                  T[1][2] = VAL( IB );
+                  T[2][1] = ZERO;
                   TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 1, 2 ) ) ).abs();
                   scopy(16, T, 1, T1, 1 );
                   scopy(16, VAL( 1 ), 0, Q, 1 );
@@ -106,15 +106,15 @@
                   for (IC12 = 2; IC12 <= 5; IC12++) { // 70
                      for (IC21 = 2; IC21 <= 4; IC21++) { // 60
                         for (IC22 = -1; 2 < 0 ? IC22 >= 1 : IC22 <= 1; IC22 += 2) { // 50
-                           T[1, 1] = VAL( IA )*VM( IAM );
-                           T[1, 2] = VAL( IB );
-                           T[1, 3] = -TWO*VAL( IB );
-                           T[2, 1] = ZERO;
-                           T[2, 2] = VAL( IC11 );
-                           T[2, 3] = VAL( IC12 );
-                           T[3, 1] = ZERO;
-                           T[3, 2] = -VAL( IC21 );
-                           T[3, 3] = VAL( IC11 )*double( IC22 );
+                           T[1][1] = VAL( IA )*VM( IAM );
+                           T[1][2] = VAL( IB );
+                           T[1][3] = -TWO*VAL( IB );
+                           T[2][1] = ZERO;
+                           T[2][2] = VAL( IC11 );
+                           T[2][3] = VAL( IC12 );
+                           T[3][1] = ZERO;
+                           T[3][2] = -VAL( IC21 );
+                           T[3][3] = VAL( IC11 )*double( IC22 );
                            TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ) ).abs();
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
@@ -148,15 +148,15 @@
                   for (ICM = 1; ICM <= 2; ICM++) { // 140
                      for (IB = 1; IB <= 5; IB++) { // 130
                         for (IC = 1; IC <= 5; IC++) { // 120
-                           T[1, 1] = VAL( IA11 );
-                           T[1, 2] = VAL( IA12 );
-                           T[1, 3] = -TWO*VAL( IB );
-                           T[2, 1] = -VAL( IA21 );
-                           T[2, 2] = VAL( IA11 )*double( IA22 );
-                           T[2, 3] = VAL( IB );
-                           T[3, 1] = ZERO;
-                           T[3, 2] = ZERO;
-                           T[3, 3] = VAL( IC )*VM( ICM );
+                           T[1][1] = VAL( IA11 );
+                           T[1][2] = VAL( IA12 );
+                           T[1][3] = -TWO*VAL( IB );
+                           T[2][1] = -VAL( IA21 );
+                           T[2][2] = VAL( IA11 )*double( IA22 );
+                           T[2][3] = VAL( IB );
+                           T[3][1] = ZERO;
+                           T[3][2] = ZERO;
+                           T[3][3] = VAL( IC )*VM( ICM );
                            TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ) ).abs();
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
@@ -194,20 +194,20 @@
                               for (IC22 = -1; 2 < 0 ? IC22 >= 1 : IC22 <= 1; IC22 += 2) { // 220
                                  for (ICM = 5; ICM <= 7; ICM++) { // 210
                                     IAM = 1;
-                                    T[1, 1] = VAL( IA11 )*VM( IAM );
-                                    T[1, 2] = VAL( IA12 )*VM( IAM );
-                                    T[1, 3] = -TWO*VAL( IB );
-                                    T[1, 4] = HALF*VAL( IB );
-                                    T[2, 1] = -T( 1, 2 )*VAL( IA21 );
-                                    T[2, 2] = VAL( IA11 )* double( IA22 )*VM( IAM );
-                                    T[2, 3] = VAL( IB );
-                                    T[2, 4] = THREE*VAL( IB );
-                                    T[3, 1] = ZERO;
-                                    T[3, 2] = ZERO;
-                                    T[3, 3] = VAL( IC11 )* ( VAL( ICM ) ).abs()                                     T( 3, 4 ) = VAL( IC12 )* ( VAL( ICM ) ).abs();
-                                    T[4, 1] = ZERO;
-                                    T[4, 2] = ZERO;
-                                    T[4, 3] = -T( 3, 4 )*VAL( IC21 )* ( VAL( ICM ) ).abs()                                     T( 4, 4 ) = VAL( IC11 )* double( IC22 )* ( VAL( ICM ) ).abs();
+                                    T[1][1] = VAL( IA11 )*VM( IAM );
+                                    T[1][2] = VAL( IA12 )*VM( IAM );
+                                    T[1][3] = -TWO*VAL( IB );
+                                    T[1][4] = HALF*VAL( IB );
+                                    T[2][1] = -T( 1, 2 )*VAL( IA21 );
+                                    T[2][2] = VAL( IA11 )* double( IA22 )*VM( IAM );
+                                    T[2][3] = VAL( IB );
+                                    T[2][4] = THREE*VAL( IB );
+                                    T[3][1] = ZERO;
+                                    T[3][2] = ZERO;
+                                    T[3][3] = VAL( IC11 )* ( VAL( ICM ) ).abs()                                     T( 3, 4 ) = VAL( IC12 )* ( VAL( ICM ) ).abs();
+                                    T[4][1] = ZERO;
+                                    T[4][2] = ZERO;
+                                    T[4][3] = -T( 3, 4 )*VAL( IC21 )* ( VAL( ICM ) ).abs()                                     T( 4, 4 ) = VAL( IC11 )* double( IC22 )* ( VAL( ICM ) ).abs();
                                     TNRM = ZERO;
                                     for (I = 1; I <= 4; I++) { // 200
                                        for (J = 1; J <= 4; J++) { // 190

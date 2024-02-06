@@ -1,102 +1,69 @@
-      void dchkbk(NIN, NOUT ) {
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgebak.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+Future<void> dchkbk(final Nin NIN, final Nout NOUT) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const LDE = 20;
+  const ZERO = 0.0;
+  int I, IHI, ILO, J, KNT, N, NINFO;
+  double EPS, RMAX, SAFMIN, VMAX, X;
+  final LMAX = Array<int>(2);
+  final E = Matrix<double>(LDE, LDE),
+      EIN = Matrix<double>(LDE, LDE),
+      SCALE = Array<double>(LDE);
+  final INFO = Box(0);
 
-      // .. Scalar Arguments ..
-      int                NIN, NOUT;
-      // ..
+  LMAX[1] = 0;
+  LMAX[2] = 0;
+  NINFO = 0;
+  KNT = 0;
+  RMAX = ZERO;
+  EPS = dlamch('E');
+  SAFMIN = dlamch('S');
 
-// ======================================================================
+  while (true) {
+    (N, ILO, IHI) = await NIN.readInt3();
+    if (N == 0) break;
 
-      // .. Parameters ..
-      int                LDE;
-      const              LDE = 20 ;
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
-      int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
-      double             EPS, RMAX, SAFMIN, VMAX, X;
-      // ..
-      // .. Local Arrays ..
-      int                LMAX( 2 );
-      double             E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEBAK
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
+    await NIN.readArray(SCALE, N);
+    await NIN.readMatrix(E, N, N);
+    await NIN.readMatrix(EIN, N, N);
 
-      LMAX[1] = 0;
-      LMAX[2] = 0;
-      NINFO = 0;
-      KNT = 0;
-      RMAX = ZERO;
-      EPS = dlamch( 'E' );
-      SAFMIN = dlamch( 'S' );
+    KNT = KNT + 1;
+    dgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO);
 
-      } // 10
+    if (INFO.value != 0) {
+      NINFO = NINFO + 1;
+      LMAX[1] = KNT;
+    }
 
-      READ( NIN, FMT = * )N, ILO, IHI;
-      if (N == 0) GO TO 60;
-
-      READ( NIN, FMT = * )( SCALE( I ), I = 1, N );
-      for (I = 1; I <= N; I++) { // 20
-         READ( NIN, FMT = * )( E( I, J ), J = 1, N );
-      } // 20
-
-      for (I = 1; I <= N; I++) { // 30
-         READ( NIN, FMT = * )( EIN( I, J ), J = 1, N );
-      } // 30
-
-      KNT = KNT + 1;
-      dgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO );
-
-      if ( INFO != 0 ) {
-         NINFO = NINFO + 1;
-         LMAX[1] = KNT;
+    VMAX = ZERO;
+    for (I = 1; I <= N; I++) {
+      for (J = 1; J <= N; J++) {
+        X = (E[I][J] - EIN[I][J]).abs() / EPS;
+        if ((E[I][J]).abs() > SAFMIN) X = X / (E[I][J]).abs();
+        VMAX = max(VMAX, X);
       }
+    }
 
-      VMAX = ZERO;
-      for (I = 1; I <= N; I++) { // 50
-         for (J = 1; J <= N; J++) { // 40
-            X = ABS( E( I, J )-EIN( I, J ) ) / EPS;
-            if( ( E( I, J ) ).abs() > SAFMIN ) X = X / ( E( I, J ) ).abs();
-            VMAX = max( VMAX, X );
-         } // 40
-      } // 50
+    if (VMAX > RMAX) {
+      LMAX[2] = KNT;
+      RMAX = VMAX;
+    }
+  }
 
-      if ( VMAX > RMAX ) {
-         LMAX[2] = KNT;
-         RMAX = VMAX;
-      }
-
-      GO TO 10;
-
-      } // 60
-
-      WRITE( NOUT, FMT = 9999 );
- 9999 FORMAT( 1X, '.. test output of DGEBAK .. ' );
-
-      WRITE( NOUT, FMT = 9998 )RMAX;
- 9998 FORMAT( 1X, 'value of largest test error             = ', D12.3 );
-      WRITE( NOUT, FMT = 9997 )LMAX( 1 );
- 9997 FORMAT( 1X, 'example number where info is not zero   = ', I4 );
-      WRITE( NOUT, FMT = 9996 )LMAX( 2 );
- 9996 FORMAT( 1X, 'example number having largest error     = ', I4 );
-      WRITE( NOUT, FMT = 9995 )NINFO;
- 9995 FORMAT( 1X, 'number of examples where info is not 0  = ', I4 );
-      WRITE( NOUT, FMT = 9994 )KNT;
- 9994 FORMAT( 1X, 'total number of examples tested         = ', I4 );
-
-      return;
-      }
+  NOUT.println(' .. test output of DGEBAK .. ');
+  NOUT.println(' value of largest test error             = ${RMAX.d12_3}');
+  NOUT.println(' example number where info is not zero   = ${LMAX[1].i4}');
+  NOUT.println(' example number having largest error     = ${LMAX[2].i4}');
+  NOUT.println(' number of examples where info is not 0  = ${NINFO.i4}');
+  NOUT.println(' total number of examples tested         = ${KNT.i4}');
+}

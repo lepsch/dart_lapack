@@ -289,7 +289,7 @@
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VL( 1, I ), 1 );
-            VL[K, I] = CMPLX( double( VL( K, I ) ), ZERO );
+            VL[K][I] = CMPLX( double( VL( K, I ) ), ZERO );
          } // 20
       }
 
@@ -310,7 +310,7 @@
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VR( 1, I ), 1 );
-            VR[K, I] = CMPLX( double( VR( K, I ) ), ZERO );
+            VR[K][I] = CMPLX( double( VR( K, I ) ), ZERO );
          } // 40
       }
 

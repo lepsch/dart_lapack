@@ -64,9 +64,9 @@ import 'package:lapack/src/xerbla.dart';
             // Apply H(i) to A(i:m,i+1:n) from the left
 
             AII = A( I, I );
-            A[I, I] = ONE;
+            A[I][I] = ONE;
             dlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
-            A[I, I] = AII;
+            A[I][I] = AII;
          }
       } // 10
       return;

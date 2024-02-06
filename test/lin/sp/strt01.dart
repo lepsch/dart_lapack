@@ -60,7 +60,7 @@
 
       if ( lsame( DIAG, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            AINV[J, J] = ONE;
+            AINV[J][J] = ONE;
          } // 10
       }
 
@@ -79,7 +79,7 @@
       // Subtract 1 from each diagonal element to form A*AINV - I.
 
       for (J = 1; J <= N; J++) { // 40
-         AINV[J, J] = AINV( J, J ) - ONE;
+         AINV[J][J] = AINV( J, J ) - ONE;
       } // 40
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)

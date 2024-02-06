@@ -7,6 +7,7 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/ilaver.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
 import 'alareq.dart';
 import 'common.dart';
@@ -48,9 +49,7 @@ import 'derrhs.dart';
 import 'derrst.dart';
 import 'xlaenv.dart';
 
-class EOF extends Error {}
-
-void main() {
+void main() async {
 // #if defined(_OPENMP)
   // use omp_lib;
 // #endif
@@ -61,7 +60,7 @@ void main() {
 
 // =====================================================================
 
-  final NIN = stdin, NOUT = stdout;
+  final NIN = Nin(stdin), NOUT = Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
   const NEED = 14;
@@ -156,48 +155,48 @@ void main() {
   infoc.NUNIT = NOUT;
 
   try {
-    String readLine() {
-      final s = NIN.readLineSync()?.trim();
-      if (s == null) throw EOF();
-      return s;
-    }
+    // String readLine() {
+    //   final s = NIN.readLineSync()?.trim();
+    //   if (s == null) throw EOF();
+    //   return s;
+    // }
 
-    void readArray<T>(Array<T> a, int n) {
-      final parts = readLine().split(RegExp(r'\s+'));
-      if (parts.length < n) throw EOF();
-      for (var i = 1; i <= n; i++) {
-        a[i] = switch (T) {
-          int => int.parse(parts[i - 1]),
-          double => double.parse(parts[i - 1]),
-          bool => parts[i - 1].contains(RegExp('Tt')),
-          _ => throw UnimplementedError(),
-        } as T;
-      }
-    }
+    // void readArray<T>(Array<T> a, int n) {
+    //   final parts = readLine().split(RegExp(r'\s+'));
+    //   if (parts.length < n) throw EOF();
+    //   for (var i = 1; i <= n; i++) {
+    //     a[i] = switch (T) {
+    //       int => int.parse(parts[i - 1]),
+    //       double => double.parse(parts[i - 1]),
+    //       bool => parts[i - 1].contains(RegExp('Tt')),
+    //       _ => throw UnimplementedError(),
+    //     } as T;
+    //   }
+    // }
 
-    int readInt() {
-      final a = Array<int>(1);
-      readArray(a, 1);
-      return a[1];
-    }
+    // int readInt() {
+    //   final a = Array<int>(1);
+    //   readArray(a, 1);
+    //   return a[1];
+    // }
 
-    double readDouble() {
-      final a = Array<double>(1);
-      readArray(a, 1);
-      return a[1];
-    }
+    // double readDouble() {
+    //   final a = Array<double>(1);
+    //   readArray(a, 1);
+    //   return a[1];
+    // }
 
-    bool readBool() {
-      final a = Array<bool>(1);
-      readArray(a, 1);
-      return a[1];
-    }
+    // bool readBool() {
+    //   final a = Array<bool>(1);
+    //   readArray(a, 1);
+    //   return a[1];
+    // }
 
     // Return to here to read multiple sets of data
     while (true) {
       // Read the first line and set the 3-character test path
       do {
-        LINE = readLine();
+        LINE = await NIN.readLine();
         PATH = LINE.substring(0, 3);
       } while (PATH.trim().isEmpty);
 
@@ -294,23 +293,23 @@ void main() {
         print(' Tests of the Linear Least Squares routines');
       } else if (DBL) {
         // DGEBAL:  Balancing
-        dchkbl(NIN, NOUT);
+        await dchkbl(NIN, NOUT);
         continue;
       } else if (DBK) {
         // DGEBAK:  Back transformation
-        dchkbk(NIN, NOUT);
+        await dchkbk(NIN, NOUT);
         continue;
       } else if (DGL) {
         // DGGBAL:  Balancing
-        dchkgl(NIN, NOUT);
+        await dchkgl(NIN, NOUT);
         continue;
       } else if (DGK) {
         // DGGBAK:  Back transformation
-        dchkgk(NIN, NOUT);
+        await dchkgk(NIN, NOUT);
         continue;
       } else if (lsamen(3, PATH, 'DEC')) {
         // DEC:  Eigencondition estimation
-        THRESH = readDouble();
+        THRESH = await NIN.readDouble();
         xlaenv(1, 1);
         xlaenv(12, 11);
         xlaenv(13, 2);

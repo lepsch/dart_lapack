@@ -91,7 +91,7 @@ import 'package:lapack/src/xerbla.dart';
 
          dlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = X21(I,I);
-         X21[I,I] = ONE;
+         X21[I][I] = ONE;
          dlarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
          dlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = sqrt( dnrm2( P-I+1, X11(I,I), 1 )**2 + dnrm2( M-P-I, X21(I+1,I), 1 )**2 );
          THETA[I] = ATAN2( S, C );
@@ -106,7 +106,7 @@ import 'package:lapack/src/xerbla.dart';
             X21[I+1,I] = ONE;
             dlarf('L', M-P-I, Q-I, X21(I+1,I), 1, TAUP2(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
          }
-         X11[I,I] = ONE;
+         X11[I][I] = ONE;
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
 
       }
@@ -115,7 +115,7 @@ import 'package:lapack/src/xerbla.dart';
 
       for (I = M-P + 1; I <= Q; I++) {
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-         X11[I,I] = ONE;
+         X11[I][I] = ONE;
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
       }
 

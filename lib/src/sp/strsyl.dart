@@ -144,7 +144,7 @@
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = SDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -158,7 +158,7 @@
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 10
@@ -166,17 +166,17 @@
                      } // 10
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   slaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -187,18 +187,18 @@
                      } // 20
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = SDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = SDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   slaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -209,26 +209,26 @@
                      } // 40
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   slasy2( false , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -239,10 +239,10 @@
                      } // 50
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 60
@@ -308,7 +308,7 @@
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -322,7 +322,7 @@
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 80
@@ -330,17 +330,17 @@
                      } // 80
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   slaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -351,18 +351,18 @@
                      } // 90
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   slaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -373,26 +373,26 @@
                      } // 100
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   slasy2( true , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -403,10 +403,10 @@
                      } // 110
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 120
@@ -471,7 +471,7 @@
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -485,7 +485,7 @@
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 140
@@ -493,17 +493,17 @@
                      } // 140
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   slaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -514,18 +514,18 @@
                      } // 150
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   slaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -536,26 +536,26 @@
                      } // 160
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 );
                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min(L2+1, N ) ), LDB );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   slasy2( true , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -566,10 +566,10 @@
                      } // 170
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 180
@@ -633,7 +633,7 @@
 
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = SDOT( M-K1, A( K1, min(K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
@@ -647,7 +647,7 @@
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
-                  X[1, 1] = ( VEC( 1, 1 )*SCALOC ) / A11;
+                  X[1][1] = ( VEC( 1, 1 )*SCALOC ) / A11;
 
                   if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 200
@@ -655,15 +655,15 @@
                      } // 200
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
+                  C[K1][L1] = X( 1, 1 );
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   slaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -674,16 +674,16 @@
                      } // 210
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K2, L1] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K2][L1] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = SDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
+                  VEC[1][1] = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = SDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
+                  VEC[2][1] = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   slaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -694,22 +694,22 @@
                      } // 220
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 2, 1 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 2, 1 );
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[1, 1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[1][1] = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[1, 2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[1][2] = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
-                  VEC[2, 1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
+                  VEC[2][1] = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = SDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
-                  VEC[2, 2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
+                  VEC[2][2] = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   slasy2( false , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   if (IERR != 0) INFO = 1;
@@ -720,10 +720,10 @@
                      } // 230
                      SCALE = SCALE*SCALOC;
                   }
-                  C[K1, L1] = X( 1, 1 );
-                  C[K1, L2] = X( 1, 2 );
-                  C[K2, L1] = X( 2, 1 );
-                  C[K2, L2] = X( 2, 2 );
+                  C[K1][L1] = X( 1, 1 );
+                  C[K1][L2] = X( 1, 2 );
+                  C[K2][L1] = X( 2, 1 );
+                  C[K2][L2] = X( 2, 2 );
                }
 
             } // 240

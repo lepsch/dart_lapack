@@ -57,7 +57,7 @@ import 'package:lapack/src/xerbla.dart';
             // H(i)  =  I
 
             for (J = I; J <= K; J++) { // 10
-               T[J, I] = ZERO;
+               T[J][I] = ZERO;
             } // 10
          } else {
 
@@ -73,7 +73,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dtrmv('Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 );
             }
-            T[I, I] = TAU( I );
+            T[I][I] = TAU( I );
          }
       } // 20
       return;

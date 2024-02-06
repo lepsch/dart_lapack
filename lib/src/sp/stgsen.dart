@@ -347,8 +347,8 @@
                   // If B(K,K) is negative, make it positive
 
                   for (I = 1; I <= N; I++) { // 80
-                     A[K, I] = -A( K, I );
-                     B[K, I] = -B( K, I );
+                     A[K][I] = -A( K, I );
+                     B[K][I] = -B( K, I );
                      if (WANTQ) Q( I, K ) = -Q( I, K );
                   } // 80
                }

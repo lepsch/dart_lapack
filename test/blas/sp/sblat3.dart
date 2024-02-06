@@ -144,11 +144,11 @@
       N = min( 32, NMAX );
       for (J = 1; J <= N; J++) { // 100
          for (I = 1; I <= N; I++) { // 90
-            AB[I, J] = max( I - J + 1, 0 );
+            AB[I][J] = max( I - J + 1, 0 );
          } // 90
          AB[J, NMAX + 1] = J;
          AB[1, NMAX + J] = J;
-         C[J, 1] = ZERO;
+         C[J][1] = ZERO;
       } // 100
       for (J = 1; J <= N; J++) { // 110
          CC[J] = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
@@ -789,7 +789,7 @@
       // Set up zero matrix for SMMCH.
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            C[I, J] = ZERO;
+            C[I][J] = ZERO;
          } // 10
       } // 20
 
@@ -930,7 +930,7 @@
 
                                  for (J = 1; J <= N; J++) { // 70
                                     for (I = 1; I <= M; I++) { // 60
-                                       C[I, J] = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J );
+                                       C[I][J] = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J );
                                     } // 60
                                  } // 70
 
@@ -2075,14 +2075,14 @@
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
-               A[I, J] = SBEG( RESET ) + TRANSL;
+               A[I][J] = SBEG( RESET ) + TRANSL;
                if ( I != J ) {
                   // Set some elements to zero
                   if (N > 3 && J == N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
-                     A[J, I] = A( I, J );
+                     A[J][I] = A( I, J );
                   } else if ( TRI ) {
-                     A[J, I] = ZERO;
+                     A[J][I] = ZERO;
                   }
                }
             }

@@ -100,7 +100,7 @@
                KUA = M - 1;
                slatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                for (I = 1; I <= M; I++) {
-                  A[I, I] = A( I, I ) * VM( J );
+                  A[I][I] = A( I, I ) * VM( J );
                }
                ANRM = SLANGE( 'M', M, M, A, MAXM, DUM );
                for (N = 51; N <= MAXN; N += 47) {

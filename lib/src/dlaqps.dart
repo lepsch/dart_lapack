@@ -84,7 +84,7 @@ import 'package:lapack/src/xerbla.dart';
          }
 
          AKK = A( RK, K );
-         A[RK, K] = ONE;
+         A[RK][K] = ONE;
 
          // Compute Kth column of F:
 
@@ -97,7 +97,7 @@ import 'package:lapack/src/xerbla.dart';
          // Padding F(1:K,K) with zeros.
 
          for (J = 1; J <= K; J++) { // 20
-            F[J, K] = ZERO;
+            F[J][K] = ZERO;
          } // 20
 
          // Incremental updating of F:
@@ -139,7 +139,7 @@ import 'package:lapack/src/xerbla.dart';
             } // 30
          }
 
-         A[RK, K] = AKK;
+         A[RK][K] = AKK;
 
          // End of while loop.
 

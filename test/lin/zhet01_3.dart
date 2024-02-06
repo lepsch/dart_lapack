@@ -83,15 +83,15 @@
       if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J - 1; I++) {
-               C[I, J] = C( I, J ) - A( I, J );
+               C[I][J] = C( I, J ) - A( I, J );
             }
-            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
+            C[J][J] = C( J, J ) - (A( J, J )).toDouble();
          }
       } else {
          for (J = 1; J <= N; J++) {
-            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
+            C[J][J] = C( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) {
-               C[I, J] = C( I, J ) - A( I, J );
+               C[I][J] = C( I, J ) - A( I, J );
             }
          }
       }

@@ -129,12 +129,12 @@ import 'package:lapack/src/xerbla.dart';
 
          if ( M >= N ) {
             for (J = I; J <= I + NB - 1; J++) { // 10
-               A[J, J] = D( J );
+               A[J][J] = D( J );
                A[J, J+1] = E( J );
             } // 10
          } else {
             for (J = I; J <= I + NB - 1; J++) { // 20
-               A[J, J] = D( J );
+               A[J][J] = D( J );
                A[J+1, J] = E( J );
             } // 20
          }

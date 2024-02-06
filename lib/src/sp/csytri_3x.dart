@@ -59,7 +59,7 @@
       // Workspace got Non-diag elements of D
 
       for (K = 1; K <= N; K++) {
-         WORK[K, 1] = E( K );
+         WORK[K][1] = E( K );
       }
 
       // Check that the diagonal matrix D is nonsingular.
@@ -109,7 +109,7 @@
          while (K <= N) {
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK[K, INVD] = CONE /  A( K, K );
+               WORK[K][INVD] = CONE /  A( K, K );
                WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
@@ -118,7 +118,7 @@
                AKP1 = A( K+1, K+1 ) / T;
                AKKP1 = WORK( K+1, 1 )  / T;
                D = T*( AK*AKP1-CONE );
-               WORK[K, INVD] = AKP1 / D;
+               WORK[K][INVD] = AKP1 / D;
                WORK[K+1, INVD+1] = AK / D;
                WORK[K, INVD+1] = -AKKP1 / D;
                WORK[K+1, INVD] = WORK( K, INVD+1 );
@@ -152,7 +152,7 @@
 
             for (I = 1; I <= CUT; I++) {
                for (J = 1; J <= NNB; J++) {
-                  WORK[I, J] = A( I, CUT+J );
+                  WORK[I][J] = A( I, CUT+J );
                }
             }
 
@@ -174,13 +174,13 @@
             while (I <= CUT) {
                if ( IPIV( I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
-                     WORK[I, J] = WORK( I, INVD ) * WORK( I, J );
+                     WORK[I][J] = WORK( I, INVD ) * WORK( I, J );
                   }
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U01_I_J = WORK( I, J );
                      U01_IP1_J = WORK( I+1, J );
-                     WORK[I, J] = WORK( I, INVD ) * U01_I_J + WORK( I, INVD+1 ) * U01_IP1_J                      WORK( I+1, J ) = WORK( I+1, INVD ) * U01_I_J + WORK( I+1, INVD+1 ) * U01_IP1_J;
+                     WORK[I][J] = WORK( I, INVD ) * U01_I_J + WORK( I, INVD+1 ) * U01_IP1_J                      WORK( I+1, J ) = WORK( I+1, INVD ) * U01_I_J + WORK( I+1, INVD+1 ) * U01_IP1_J;
                   }
                   I = I + 1;
                }
@@ -279,7 +279,7 @@
          while (K >= 1) {
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK[K, INVD] = CONE /  A( K, K );
+               WORK[K][INVD] = CONE /  A( K, K );
                WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
@@ -289,7 +289,7 @@
                AKKP1 = WORK( K-1, 1 ) / T;
                D = T*( AK*AKP1-CONE );
                WORK[K-1, INVD] = AKP1 / D;
-               WORK[K, INVD] = AK / D;
+               WORK[K][INVD] = AK / D;
                WORK[K, INVD+1] = -AKKP1 / D;
                WORK[K-1, INVD+1] = WORK( K, INVD+1 );
                K = K - 1;
@@ -320,7 +320,7 @@
 
             for (I = 1; I <= N-CUT-NNB; I++) {
                for (J = 1; J <= NNB; J++) {
-                 WORK[I, J] = A( CUT+NNB+I, CUT+J );
+                 WORK[I][J] = A( CUT+NNB+I, CUT+J );
                }
             }
 
@@ -342,7 +342,7 @@
             while (I >= 1) {
                if ( IPIV( CUT+NNB+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
-                     WORK[I, J] = WORK( CUT+NNB+I, INVD) * WORK( I, J);
+                     WORK[I][J] = WORK( CUT+NNB+I, INVD) * WORK( I, J);
                   }
                } else {
                   for (J = 1; J <= NNB; J++) {

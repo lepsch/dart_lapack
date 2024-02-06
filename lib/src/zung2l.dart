@@ -53,7 +53,7 @@
 
       for (J = 1; J <= N - K; J++) { // 20
          for (L = 1; L <= M; L++) { // 10
-            A[L, J] = ZERO;
+            A[L][J] = ZERO;
          } // 10
          A[M-N+J, J] = ONE;
       } // 20
@@ -71,7 +71,7 @@
          // Set A(m-k+i+1:m,n-k+i) to zero
 
          for (L = M - N + II + 1; L <= M; L++) { // 30
-            A[L, II] = ZERO;
+            A[L][II] = ZERO;
          } // 30
       } // 40
       return;

@@ -68,7 +68,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N; J++) { // 10
             if ( NOUNIT ) {
-               A[J, J] = ONE / A( J, J );
+               A[J][J] = ONE / A( J, J );
                AJJ = -A( J, J );
             } else {
                AJJ = -ONE;
@@ -85,7 +85,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = N; J >= 1; J--) { // 20
             if ( NOUNIT ) {
-               A[J, J] = ONE / A( J, J );
+               A[J][J] = ONE / A( J, J );
                AJJ = -A( J, J );
             } else {
                AJJ = -ONE;

@@ -82,7 +82,7 @@ import 'package:lapack/src/xerbla.dart';
       if ( ALPHA == ZERO ) {
          for (J = 0; J <= N - 1; J++) { // 20
             for (I = 0; I <= M - 1; I++) { // 10
-               B[I, J] = ZERO;
+               B[I][J] = ZERO;
             } // 10
          } // 20
          return;

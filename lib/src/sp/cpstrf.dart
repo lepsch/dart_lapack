@@ -140,7 +140,7 @@
                      PVT = ITEMP + J - 1;
                      AJJ = WORK( N+PVT );
                      if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                        A[J, J] = AJJ;
+                        A[J][J] = AJJ;
                         GO TO 220;
                      }
                   }
@@ -149,15 +149,15 @@
 
                      // Pivot OK, so can now swap pivot rows and columns
 
-                     A[PVT, PVT] = A( J, J );
+                     A[PVT][PVT] = A( J, J );
                      cswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                      if (PVT < N) cswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                      for (I = J + 1; I <= PVT - 1; I++) { // 140
                         CTEMP = CONJG( A( J, I ) );
-                        A[J, I] = CONJG( A( I, PVT ) );
-                        A[I, PVT] = CTEMP;
+                        A[J][I] = CONJG( A( I, PVT ) );
+                        A[I][PVT] = CTEMP;
                      } // 140
-                     A[J, PVT] = CONJG( A( J, PVT ) );
+                     A[J][PVT] = CONJG( A( J, PVT ) );
 
                      // Swap dot products and PIV
 
@@ -170,7 +170,7 @@
                   }
 
                   AJJ = sqrt( AJJ );
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
 
                   // Compute elements J+1:N of row J.
 
@@ -228,7 +228,7 @@
                      PVT = ITEMP + J - 1;
                      AJJ = WORK( N+PVT );
                      if ( AJJ <= SSTOP || SISNAN( AJJ ) ) {
-                        A[J, J] = AJJ;
+                        A[J][J] = AJJ;
                         GO TO 220;
                      }
                   }
@@ -237,15 +237,15 @@
 
                      // Pivot OK, so can now swap pivot rows and columns
 
-                     A[PVT, PVT] = A( J, J );
+                     A[PVT][PVT] = A( J, J );
                      cswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                      if (PVT < N) cswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                      for (I = J + 1; I <= PVT - 1; I++) { // 190
                         CTEMP = CONJG( A( I, J ) );
-                        A[I, J] = CONJG( A( PVT, I ) );
-                        A[PVT, I] = CTEMP;
+                        A[I][J] = CONJG( A( PVT, I ) );
+                        A[PVT][I] = CTEMP;
                      } // 190
-                     A[PVT, J] = CONJG( A( PVT, J ) );
+                     A[PVT][J] = CONJG( A( PVT, J ) );
 
                      // Swap dot products and PIV
 
@@ -258,7 +258,7 @@
                   }
 
                   AJJ = sqrt( AJJ );
-                  A[J, J] = AJJ;
+                  A[J][J] = AJJ;
 
                   // Compute elements J+1:N of column J.
 

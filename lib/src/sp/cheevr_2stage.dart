@@ -139,7 +139,7 @@
             }
          }
          if ( WANTZ ) {
-            Z[1, 1] = ONE;
+            Z[1][1] = ONE;
             ISUPPZ[1] = 1;
             ISUPPZ[2] = 1;
          }

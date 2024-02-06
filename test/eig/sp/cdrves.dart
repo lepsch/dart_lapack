@@ -201,7 +201,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A[JCOL, JCOL] = CMPLX( ANORM );
+                  A[JCOL][JCOL] = CMPLX( ANORM );
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -209,7 +209,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A[JCOL, JCOL] = CMPLX( ANORM );
+                  A[JCOL][JCOL] = CMPLX( ANORM );
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 

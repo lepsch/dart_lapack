@@ -111,7 +111,7 @@
 
          for (J = 1; J <= N - KK; J++) { // 20
             for (I = M - KK + 1; I <= M; I++) { // 10
-               A[I, J] = ZERO;
+               A[I][J] = ZERO;
             } // 10
          } // 20
       } else {
@@ -148,7 +148,7 @@
 
             for (J = N - K + I; J <= N - K + I + IB - 1; J++) { // 40
                for (L = M - K + I + IB; L <= M; L++) { // 30
-                  A[L, J] = ZERO;
+                  A[L][J] = ZERO;
                } // 30
             } // 40
          } // 50

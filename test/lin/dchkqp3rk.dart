@@ -118,14 +118,14 @@ import 'common.dart';
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
-                     CYCLE;
+                     continue;
                   }
 
                for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               if( !DOTYPE( IMAT ) ) CYCLE;
+               if( !DOTYPE( IMAT ) ) continue;
 
                // The type of distribution used to generate the random
                // eigen-/singular values:
@@ -179,7 +179,7 @@ import 'common.dart';
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     CYCLE;
+                     continue;
                   }
 
                   dlaord('Decreasing', MINMN, S, 1 );
@@ -299,7 +299,7 @@ import 'common.dart';
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     CYCLE;
+                     continue;
                   }
 
                   // 3) Swap the gererated colums from the right side
@@ -352,7 +352,7 @@ import 'common.dart';
 
                      // IF(MINMN < 2) skip this size for this matrix type.
 
-                     CYCLE;
+                     continue;
                }
 
                // Initialize a copy array for a pivot array for DGEQP3RK.

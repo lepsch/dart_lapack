@@ -49,7 +49,7 @@
 
          T1 = ONE - TAU*V( 1 )*V( 1 );
          for (J = 1; J <= N; J++) { // 20
-            C[1, J] = T1*C( 1, J );
+            C[1][J] = T1*C( 1, J );
          } // 20
          GO TO 410;
          } // 30
@@ -62,8 +62,8 @@
          T2 = TAU*V2;
          for (J = 1; J <= N; J++) { // 40
             SUM = V1*C( 1, J ) + V2*C( 2, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
          } // 40
          GO TO 410;
          } // 50
@@ -78,9 +78,9 @@
          T3 = TAU*V3;
          for (J = 1; J <= N; J++) { // 60
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
          } // 60
          GO TO 410;
          } // 70
@@ -97,10 +97,10 @@
          T4 = TAU*V4;
          for (J = 1; J <= N; J++) { // 80
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
          } // 80
          GO TO 410;
          } // 90
@@ -119,11 +119,11 @@
          T5 = TAU*V5;
          for (J = 1; J <= N; J++) { // 100
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
          } // 100
          GO TO 410;
          } // 110
@@ -144,12 +144,12 @@
          T6 = TAU*V6;
          for (J = 1; J <= N; J++) { // 120
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
-            C[6, J] = C( 6, J ) - SUM*T6;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
+            C[6][J] = C( 6, J ) - SUM*T6;
          } // 120
          GO TO 410;
          } // 130
@@ -172,13 +172,13 @@
          T7 = TAU*V7;
          for (J = 1; J <= N; J++) { // 140
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
-            C[6, J] = C( 6, J ) - SUM*T6;
-            C[7, J] = C( 7, J ) - SUM*T7;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
+            C[6][J] = C( 6, J ) - SUM*T6;
+            C[7][J] = C( 7, J ) - SUM*T7;
          } // 140
          GO TO 410;
          } // 150
@@ -203,14 +203,14 @@
          T8 = TAU*V8;
          for (J = 1; J <= N; J++) { // 160
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
-            C[6, J] = C( 6, J ) - SUM*T6;
-            C[7, J] = C( 7, J ) - SUM*T7;
-            C[8, J] = C( 8, J ) - SUM*T8;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
+            C[6][J] = C( 6, J ) - SUM*T6;
+            C[7][J] = C( 7, J ) - SUM*T7;
+            C[8][J] = C( 8, J ) - SUM*T8;
          } // 160
          GO TO 410;
          } // 170
@@ -237,15 +237,15 @@
          T9 = TAU*V9;
          for (J = 1; J <= N; J++) { // 180
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
-            C[6, J] = C( 6, J ) - SUM*T6;
-            C[7, J] = C( 7, J ) - SUM*T7;
-            C[8, J] = C( 8, J ) - SUM*T8;
-            C[9, J] = C( 9, J ) - SUM*T9;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
+            C[6][J] = C( 6, J ) - SUM*T6;
+            C[7][J] = C( 7, J ) - SUM*T7;
+            C[8][J] = C( 8, J ) - SUM*T8;
+            C[9][J] = C( 9, J ) - SUM*T9;
          } // 180
          GO TO 410;
          } // 190
@@ -274,16 +274,16 @@
          T10 = TAU*V10;
          for (J = 1; J <= N; J++) { // 200
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J ) + V10*C( 10, J );
-            C[1, J] = C( 1, J ) - SUM*T1;
-            C[2, J] = C( 2, J ) - SUM*T2;
-            C[3, J] = C( 3, J ) - SUM*T3;
-            C[4, J] = C( 4, J ) - SUM*T4;
-            C[5, J] = C( 5, J ) - SUM*T5;
-            C[6, J] = C( 6, J ) - SUM*T6;
-            C[7, J] = C( 7, J ) - SUM*T7;
-            C[8, J] = C( 8, J ) - SUM*T8;
-            C[9, J] = C( 9, J ) - SUM*T9;
-            C[10, J] = C( 10, J ) - SUM*T10;
+            C[1][J] = C( 1, J ) - SUM*T1;
+            C[2][J] = C( 2, J ) - SUM*T2;
+            C[3][J] = C( 3, J ) - SUM*T3;
+            C[4][J] = C( 4, J ) - SUM*T4;
+            C[5][J] = C( 5, J ) - SUM*T5;
+            C[6][J] = C( 6, J ) - SUM*T6;
+            C[7][J] = C( 7, J ) - SUM*T7;
+            C[8][J] = C( 8, J ) - SUM*T8;
+            C[9][J] = C( 9, J ) - SUM*T9;
+            C[10][J] = C( 10, J ) - SUM*T10;
          } // 200
          GO TO 410;
       } else {
@@ -302,7 +302,7 @@
 
          T1 = ONE - TAU*V( 1 )*V( 1 );
          for (J = 1; J <= M; J++) { // 220
-            C[J, 1] = T1*C( J, 1 );
+            C[J][1] = T1*C( J, 1 );
          } // 220
          GO TO 410;
          } // 230
@@ -315,8 +315,8 @@
          T2 = TAU*V2;
          for (J = 1; J <= M; J++) { // 240
             SUM = V1*C( J, 1 ) + V2*C( J, 2 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
          } // 240
          GO TO 410;
          } // 250
@@ -331,9 +331,9 @@
          T3 = TAU*V3;
          for (J = 1; J <= M; J++) { // 260
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
          } // 260
          GO TO 410;
          } // 270
@@ -350,10 +350,10 @@
          T4 = TAU*V4;
          for (J = 1; J <= M; J++) { // 280
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
          } // 280
          GO TO 410;
          } // 290
@@ -372,11 +372,11 @@
          T5 = TAU*V5;
          for (J = 1; J <= M; J++) { // 300
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
          } // 300
          GO TO 410;
          } // 310
@@ -397,12 +397,12 @@
          T6 = TAU*V6;
          for (J = 1; J <= M; J++) { // 320
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
-            C[J, 6] = C( J, 6 ) - SUM*T6;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
+            C[J][6] = C( J, 6 ) - SUM*T6;
          } // 320
          GO TO 410;
          } // 330
@@ -425,13 +425,13 @@
          T7 = TAU*V7;
          for (J = 1; J <= M; J++) { // 340
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
-            C[J, 6] = C( J, 6 ) - SUM*T6;
-            C[J, 7] = C( J, 7 ) - SUM*T7;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
+            C[J][6] = C( J, 6 ) - SUM*T6;
+            C[J][7] = C( J, 7 ) - SUM*T7;
          } // 340
          GO TO 410;
          } // 350
@@ -456,14 +456,14 @@
          T8 = TAU*V8;
          for (J = 1; J <= M; J++) { // 360
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
-            C[J, 6] = C( J, 6 ) - SUM*T6;
-            C[J, 7] = C( J, 7 ) - SUM*T7;
-            C[J, 8] = C( J, 8 ) - SUM*T8;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
+            C[J][6] = C( J, 6 ) - SUM*T6;
+            C[J][7] = C( J, 7 ) - SUM*T7;
+            C[J][8] = C( J, 8 ) - SUM*T8;
          } // 360
          GO TO 410;
          } // 370
@@ -490,15 +490,15 @@
          T9 = TAU*V9;
          for (J = 1; J <= M; J++) { // 380
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
-            C[J, 6] = C( J, 6 ) - SUM*T6;
-            C[J, 7] = C( J, 7 ) - SUM*T7;
-            C[J, 8] = C( J, 8 ) - SUM*T8;
-            C[J, 9] = C( J, 9 ) - SUM*T9;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
+            C[J][6] = C( J, 6 ) - SUM*T6;
+            C[J][7] = C( J, 7 ) - SUM*T7;
+            C[J][8] = C( J, 8 ) - SUM*T8;
+            C[J][9] = C( J, 9 ) - SUM*T9;
          } // 380
          GO TO 410;
          } // 390
@@ -527,16 +527,16 @@
          T10 = TAU*V10;
          for (J = 1; J <= M; J++) { // 400
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 ) + V10*C( J, 10 );
-            C[J, 1] = C( J, 1 ) - SUM*T1;
-            C[J, 2] = C( J, 2 ) - SUM*T2;
-            C[J, 3] = C( J, 3 ) - SUM*T3;
-            C[J, 4] = C( J, 4 ) - SUM*T4;
-            C[J, 5] = C( J, 5 ) - SUM*T5;
-            C[J, 6] = C( J, 6 ) - SUM*T6;
-            C[J, 7] = C( J, 7 ) - SUM*T7;
-            C[J, 8] = C( J, 8 ) - SUM*T8;
-            C[J, 9] = C( J, 9 ) - SUM*T9;
-            C[J, 10] = C( J, 10 ) - SUM*T10;
+            C[J][1] = C( J, 1 ) - SUM*T1;
+            C[J][2] = C( J, 2 ) - SUM*T2;
+            C[J][3] = C( J, 3 ) - SUM*T3;
+            C[J][4] = C( J, 4 ) - SUM*T4;
+            C[J][5] = C( J, 5 ) - SUM*T5;
+            C[J][6] = C( J, 6 ) - SUM*T6;
+            C[J][7] = C( J, 7 ) - SUM*T7;
+            C[J][8] = C( J, 8 ) - SUM*T8;
+            C[J][9] = C( J, 9 ) - SUM*T9;
+            C[J][10] = C( J, 10 ) - SUM*T10;
          } // 400
          GO TO 410;
       }

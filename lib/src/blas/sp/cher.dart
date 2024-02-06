@@ -76,11 +76,11 @@
                   if (X(J) != ZERO) {
                       TEMP = ALPHA*CONJG(X(J));
                       for (I = 1; I <= J - 1; I++) { // 10
-                          A[I,J] = A(I,J) + X(I)*TEMP;
+                          A[I][J] = A(I,J) + X(I)*TEMP;
                       } // 10
-                      A[J,J] = REAL(A(J,J)) + double(X(J)*TEMP);
+                      A[J][J] = REAL(A(J,J)) + double(X(J)*TEMP);
                   } else {
-                      A[J,J] = double(A(J,J));
+                      A[J][J] = double(A(J,J));
                   }
               } // 20
           } else {
@@ -90,12 +90,12 @@
                       TEMP = ALPHA*CONJG(X(JX));
                       IX = KX;
                       for (I = 1; I <= J - 1; I++) { // 30
-                          A[I,J] = A(I,J) + X(IX)*TEMP;
+                          A[I][J] = A(I,J) + X(IX)*TEMP;
                           IX = IX + INCX;
                       } // 30
-                      A[J,J] = REAL(A(J,J)) + double(X(JX)*TEMP);
+                      A[J][J] = REAL(A(J,J)) + double(X(JX)*TEMP);
                   } else {
-                      A[J,J] = double(A(J,J));
+                      A[J][J] = double(A(J,J));
                   }
                   JX = JX + INCX;
               } // 40
@@ -108,12 +108,12 @@
               for (J = 1; J <= N; J++) { // 60
                   if (X(J) != ZERO) {
                       TEMP = ALPHA*CONJG(X(J));
-                      A[J,J] = REAL(A(J,J)) + double(TEMP*X(J));
+                      A[J][J] = REAL(A(J,J)) + double(TEMP*X(J));
                       for (I = J + 1; I <= N; I++) { // 50
-                          A[I,J] = A(I,J) + X(I)*TEMP;
+                          A[I][J] = A(I,J) + X(I)*TEMP;
                       } // 50
                   } else {
-                      A[J,J] = double(A(J,J));
+                      A[J][J] = double(A(J,J));
                   }
               } // 60
           } else {
@@ -121,14 +121,14 @@
               for (J = 1; J <= N; J++) { // 80
                   if (X(JX) != ZERO) {
                       TEMP = ALPHA*CONJG(X(JX));
-                      A[J,J] = REAL(A(J,J)) + double(TEMP*X(JX));
+                      A[J][J] = REAL(A(J,J)) + double(TEMP*X(JX));
                       IX = JX;
                       for (I = J + 1; I <= N; I++) { // 70
                           IX = IX + INCX;
-                          A[I,J] = A(I,J) + X(IX)*TEMP;
+                          A[I][J] = A(I,J) + X(IX)*TEMP;
                       } // 70
                   } else {
-                      A[J,J] = double(A(J,J));
+                      A[J][J] = double(A(J,J));
                   }
                   JX = JX + INCX;
               } // 80

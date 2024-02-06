@@ -65,7 +65,7 @@
             // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 
             for (J = 1; J <= M-I; J++) {
-               T[M, J] = (A( I+J, I ));
+               T[M][J] = (A( I+J, I ));
             }
             sgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
 
@@ -86,7 +86,7 @@
          ALPHA = -T( 1, I );
 
          for (J = 1; J <= I-1; J++) {
-            T[I, J] = ZERO;
+            T[I][J] = ZERO;
          }
          P = min( I-1, L );
          NP = min( N-L+1, N );
@@ -95,7 +95,7 @@
          // Triangular part of B2
 
          for (J = 1; J <= P; J++) {
-            T[I, J] = ALPHA*B( I, N-L+J );
+            T[I][J] = ALPHA*B( I, N-L+J );
          }
          strmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
 
@@ -113,13 +113,13 @@
 
          // T(I,I) = tau(I)
 
-         T[I, I] = T( 1, I );
-         T[1, I] = ZERO;
+         T[I][I] = T( 1, I );
+         T[1][I] = ZERO;
       }
       for (I = 1; I <= M; I++) {
          for (J = I+1; J <= M; J++) {
             T(I,J)=T(J,I);
-            T[J,I] = ZERO;
+            T[J][I] = ZERO;
          }
       }
 

@@ -79,15 +79,15 @@
       if ( lsame( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= J - 1; I++) { // 20
-               C[I, J] = C( I, J ) - A( I, J );
+               C[I][J] = C( I, J ) - A( I, J );
             } // 20
-            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
+            C[J][J] = C( J, J ) - (A( J, J )).toDouble();
          } // 30
       } else {
          for (J = 1; J <= N; J++) { // 50
-            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
+            C[J][J] = C( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) { // 40
-               C[I, J] = C( I, J ) - A( I, J );
+               C[I][J] = C( I, J ) - A( I, J );
             } // 40
          } // 50
       }

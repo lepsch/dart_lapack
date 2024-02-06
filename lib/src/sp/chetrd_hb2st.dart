@@ -192,7 +192,7 @@
               for (I = 1; I <= N - 1; I++) { // 70
                  TMP = AB( ABOFDPOS, I );
                  ABSTMP = ( TMP ).abs();
-                 AB[ABOFDPOS, I] = ABSTMP;
+                 AB[ABOFDPOS][I] = ABSTMP;
                  E[I] = ABSTMP;
                  if ( ABSTMP != RZERO ) {
                     TMP = TMP / ABSTMP;
@@ -244,7 +244,7 @@
           THED = min( (STT + THGRSIZ -1), (N-1));
           for (I = STT; I <= N-1; I++) { // 110
               ED = min( I, THED );
-              if (STT > ED) EXIT;
+              if (STT > ED) break;
               for (M = 1; M <= STEPERCOL; M++) { // 120
                   ST = STT;
                   for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) { // 130
@@ -294,7 +294,7 @@
 // #endif
                           if ( BLKLASTIND >= (N-1) ) {
                               STT = STT + 1;
-                              EXIT;
+                              break;
                           }
                       } // 140
                   } // 130

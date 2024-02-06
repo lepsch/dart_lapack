@@ -122,9 +122,9 @@
                // Apply H(i) to A(i:m,i+1:n) from the left
 
                AII = A( I, I );
-               A[I, I] = ONE;
+               A[I][I] = ONE;
                dlarf('LEFT', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK( 2*N+1 ) );
-               A[I, I] = AII;
+               A[I][I] = AII;
             }
 
             // Update partial column norms

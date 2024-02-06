@@ -63,7 +63,7 @@ import 'package:lapack/src/xerbla.dart';
 
       if ( N <= 1 ) {
          if ( N == 1 ) {
-            A[0, 0] = ARF( 0 );
+            A[0][0] = ARF( 0 );
          }
          return;
       }
@@ -114,7 +114,7 @@ import 'package:lapack/src/xerbla.dart';
                      IJ = IJ + 1;
                   }
                   for (I = J; I <= N - 1; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -126,7 +126,7 @@ import 'package:lapack/src/xerbla.dart';
                IJ = NT - N;
                for (J = N - 1; J >= N1; J--) {
                   for (I = 0; I <= J; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (L = J - N1; L <= N1 - 1; L++) {
@@ -149,7 +149,7 @@ import 'package:lapack/src/xerbla.dart';
                IJ = 0;
                for (J = 0; J <= N2 - 1; J++) {
                   for (I = 0; I <= J; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (I = N1 + J; I <= N - 1; I++) {
@@ -159,7 +159,7 @@ import 'package:lapack/src/xerbla.dart';
                }
                for (J = N2; J <= N - 1; J++) {
                   for (I = 0; I <= N1 - 1; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -171,13 +171,13 @@ import 'package:lapack/src/xerbla.dart';
                IJ = 0;
                for (J = 0; J <= N1; J++) {
                   for (I = N1; I <= N - 1; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
                for (J = 0; J <= N1 - 1; J++) {
                   for (I = 0; I <= J; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (L = N2 + J; L <= N - 1; L++) {
@@ -209,7 +209,7 @@ import 'package:lapack/src/xerbla.dart';
                      IJ = IJ + 1;
                   }
                   for (I = J; I <= N - 1; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -221,7 +221,7 @@ import 'package:lapack/src/xerbla.dart';
                IJ = NT - N - 1;
                for (J = N - 1; J >= K; J--) {
                   for (I = 0; I <= J; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (L = J - K; L <= K - 1; L++) {
@@ -244,12 +244,12 @@ import 'package:lapack/src/xerbla.dart';
                IJ = 0;
                J = K;
                for (I = K; I <= N - 1; I++) {
-                  A[I, J] = ARF( IJ );
+                  A[I][J] = ARF( IJ );
                   IJ = IJ + 1;
                }
                for (J = 0; J <= K - 2; J++) {
                   for (I = 0; I <= J; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (I = K + 1 + J; I <= N - 1; I++) {
@@ -259,7 +259,7 @@ import 'package:lapack/src/xerbla.dart';
                }
                for (J = K - 1; J <= N - 1; J++) {
                   for (I = 0; I <= K - 1; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -271,13 +271,13 @@ import 'package:lapack/src/xerbla.dart';
                IJ = 0;
                for (J = 0; J <= K; J++) {
                   for (I = K; I <= N - 1; I++) {
-                     A[J, I] = ARF( IJ );
+                     A[J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
                for (J = 0; J <= K - 2; J++) {
                   for (I = 0; I <= J; I++) {
-                     A[I, J] = ARF( IJ );
+                     A[I][J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (L = K + 1 + J; L <= N - 1; L++) {
@@ -287,7 +287,7 @@ import 'package:lapack/src/xerbla.dart';
                }
                // Note that here, on exit of the loop, J = K-1
                for (I = 0; I <= J; I++) {
-                  A[I, J] = ARF( IJ );
+                  A[I][J] = ARF( IJ );
                   IJ = IJ + 1;
                }
 

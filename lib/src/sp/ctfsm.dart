@@ -73,7 +73,7 @@
       if ( ALPHA == CZERO ) {
          for (J = 0; J <= N - 1; J++) { // 20
             for (I = 0; I <= M - 1; I++) { // 10
-               B[I, J] = CZERO;
+               B[I][J] = CZERO;
             } // 10
          } // 20
          return;

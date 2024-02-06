@@ -72,7 +72,7 @@
          // Store A in band format for GB tests
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               AB[I, J] = 0.0;
+               AB[I][J] = 0.0;
             }
          }
          for (J = 1; J <= N; J++) {
@@ -84,7 +84,7 @@
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               ABCOPY[I, J] = 0.0;
+               ABCOPY[I][J] = 0.0;
             }
          }
          slacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
@@ -120,7 +120,7 @@
          // Calculating the difference between S**SVXX's X and the true X.
          for (I = 1; I <= N; I++) {
             for (J = 1; J <= NRHS; J++) {
-               DIFF[I, J] = X( I, J ) - INVHILB( I, J );
+               DIFF[I][J] = X( I, J ) - INVHILB( I, J );
             }
          }
 

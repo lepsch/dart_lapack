@@ -55,7 +55,7 @@ import 'package:lapack/src/xerbla.dart';
             for (JP = 1; JP <= 2; JP++) { // 20
                TMP1 = D( 1 ) - AB( JI, JP );
                if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
-               NAB[JI, JP] = 0;
+               NAB[JI][JP] = 0;
                if (TMP1 <= ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
@@ -136,14 +136,14 @@ import 'package:lapack/src/xerbla.dart';
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
-                     AB[JI, 2] = C( JI );
+                     AB[JI][2] = C( JI );
 
                   } else if ( IWORK( JI ) == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
 
-                     AB[JI, 1] = C( JI );
+                     AB[JI][1] = C( JI );
                   } else {
                      KLNEW = KLNEW + 1;
                      if ( KLNEW <= MMAX ) {
@@ -151,12 +151,12 @@ import 'package:lapack/src/xerbla.dart';
                         // Eigenvalue in both intervals -- add upper to
                         // queue.
 
-                        AB[KLNEW, 2] = AB( JI, 2 );
-                        NAB[KLNEW, 2] = NAB( JI, 2 );
-                        AB[KLNEW, 1] = C( JI );
-                        NAB[KLNEW, 1] = IWORK( JI );
-                        AB[JI, 2] = C( JI );
-                        NAB[JI, 2] = IWORK( JI );
+                        AB[KLNEW][2] = AB( JI, 2 );
+                        NAB[KLNEW][2] = NAB( JI, 2 );
+                        AB[KLNEW][1] = C( JI );
+                        NAB[KLNEW][1] = IWORK( JI );
+                        AB[JI][2] = C( JI );
+                        NAB[JI][2] = IWORK( JI );
                      } else {
                         INFO = MMAX + 1;
                      }
@@ -171,12 +171,12 @@ import 'package:lapack/src/xerbla.dart';
 
                for (JI = KF; JI <= KL; JI++) { // 80
                   if ( IWORK( JI ) <= NVAL( JI ) ) {
-                     AB[JI, 1] = C( JI );
-                     NAB[JI, 1] = IWORK( JI );
+                     AB[JI][1] = C( JI );
+                     NAB[JI][1] = IWORK( JI );
                   }
                   if ( IWORK( JI ) >= NVAL( JI ) ) {
-                     AB[JI, 2] = C( JI );
-                     NAB[JI, 2] = IWORK( JI );
+                     AB[JI][2] = C( JI );
+                     NAB[JI][2] = IWORK( JI );
                   }
                } // 80
             }
@@ -224,25 +224,25 @@ import 'package:lapack/src/xerbla.dart';
                      // No eigenvalue in the upper interval:
                      // just use the lower interval.
 
-                     AB[JI, 2] = TMP1;
+                     AB[JI][2] = TMP1;
 
                   } else if ( ITMP1 == NAB( JI, 1 ) ) {
 
                      // No eigenvalue in the lower interval:
                      // just use the upper interval.
 
-                     AB[JI, 1] = TMP1;
+                     AB[JI][1] = TMP1;
                   } else if ( KLNEW < MMAX ) {
 
                      // Eigenvalue in both intervals -- add upper to queue.
 
                      KLNEW = KLNEW + 1;
-                     AB[KLNEW, 2] = AB( JI, 2 );
-                     NAB[KLNEW, 2] = NAB( JI, 2 );
-                     AB[KLNEW, 1] = TMP1;
-                     NAB[KLNEW, 1] = ITMP1;
-                     AB[JI, 2] = TMP1;
-                     NAB[JI, 2] = ITMP1;
+                     AB[KLNEW][2] = AB( JI, 2 );
+                     NAB[KLNEW][2] = NAB( JI, 2 );
+                     AB[KLNEW][1] = TMP1;
+                     NAB[KLNEW][1] = ITMP1;
+                     AB[JI][2] = TMP1;
+                     NAB[JI][2] = ITMP1;
                   } else {
                      INFO = MMAX + 1;
                      return;
@@ -253,12 +253,12 @@ import 'package:lapack/src/xerbla.dart';
                           // containing  w  s.t. N(w) = NVAL
 
                   if ( ITMP1 <= NVAL( JI ) ) {
-                     AB[JI, 1] = TMP1;
-                     NAB[JI, 1] = ITMP1;
+                     AB[JI][1] = TMP1;
+                     NAB[JI][1] = ITMP1;
                   }
                   if ( ITMP1 >= NVAL( JI ) ) {
-                     AB[JI, 2] = TMP1;
-                     NAB[JI, 2] = ITMP1;
+                     AB[JI][2] = TMP1;
+                     NAB[JI][2] = ITMP1;
                   }
                }
             } // 100
@@ -282,14 +282,14 @@ import 'package:lapack/src/xerbla.dart';
                   TMP2 = AB( JI, 2 );
                   ITMP1 = NAB( JI, 1 );
                   ITMP2 = NAB( JI, 2 );
-                  AB[JI, 1] = AB( KFNEW, 1 );
-                  AB[JI, 2] = AB( KFNEW, 2 );
-                  NAB[JI, 1] = NAB( KFNEW, 1 );
-                  NAB[JI, 2] = NAB( KFNEW, 2 );
-                  AB[KFNEW, 1] = TMP1;
-                  AB[KFNEW, 2] = TMP2;
-                  NAB[KFNEW, 1] = ITMP1;
-                  NAB[KFNEW, 2] = ITMP2;
+                  AB[JI][1] = AB( KFNEW, 1 );
+                  AB[JI][2] = AB( KFNEW, 2 );
+                  NAB[JI][1] = NAB( KFNEW, 1 );
+                  NAB[JI][2] = NAB( KFNEW, 2 );
+                  AB[KFNEW][1] = TMP1;
+                  AB[KFNEW][2] = TMP2;
+                  NAB[KFNEW][1] = ITMP1;
+                  NAB[KFNEW][2] = ITMP2;
                   if ( IJOB == 3 ) {
                      ITMP1 = NVAL( JI );
                      NVAL[JI] = NVAL( KFNEW );

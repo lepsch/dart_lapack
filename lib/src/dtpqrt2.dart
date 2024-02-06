@@ -73,7 +73,7 @@ import 'package:lapack/src/xerbla.dart';
             // W(1:N-I) := C(I:M,I+1:N)^H * C(I:M,I) [use W = T(:,N)]
 
             for (J = 1; J <= N-I; J++) {
-               T[J, N] = (A( I, I+J ));
+               T[J][N] = (A( I, I+J ));
             }
             dgemv('T', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 );
 
@@ -94,7 +94,7 @@ import 'package:lapack/src/xerbla.dart';
          ALPHA = -T( I, 1 );
 
          for (J = 1; J <= I-1; J++) {
-            T[J, I] = ZERO;
+            T[J][I] = ZERO;
          }
          P = min( I-1, L );
          MP = min( M-L+1, M );
@@ -103,7 +103,7 @@ import 'package:lapack/src/xerbla.dart';
          // Triangular part of B2
 
          for (J = 1; J <= P; J++) {
-            T[J, I] = ALPHA*B( M-L+J, I );
+            T[J][I] = ALPHA*B( M-L+J, I );
          }
          dtrmv('U', 'T', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 );
 
@@ -121,8 +121,8 @@ import 'package:lapack/src/xerbla.dart';
 
          // T(I,I) = tau(I)
 
-         T[I, I] = T( I, 1 );
-         T[I, 1] = ZERO;
+         T[I][I] = T( I, 1 );
+         T[I][1] = ZERO;
       }
 
       }

@@ -248,10 +248,10 @@
             zungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T && Q > 0 ) {
-            V1T[1,1] = ONE;
+            V1T[1][1] = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T[1,J] = ZERO;
-               V1T[J,1] = ZERO;
+               V1T[1][J] = ZERO;
+               V1T[J][1] = ZERO;
             }
             zlacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T );
             zunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
@@ -284,10 +284,10 @@
          // Accumulate Householder reflectors
 
          if ( WANTU1 && P > 0 ) {
-            U1[1,1] = ONE;
+            U1[1][1] = ONE;
             for (J = 2; J <= P; J++) {
-               U1[1,J] = ZERO;
-               U1[J,1] = ZERO;
+               U1[1][J] = ZERO;
+               U1[J][1] = ZERO;
             }
             zlacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             zungqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -332,10 +332,10 @@
             zungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
-            U2[1,1] = ONE;
+            U2[1][1] = ONE;
             for (J = 2; J <= M-P; J++) {
-               U2[1,J] = ZERO;
-               U2[J,1] = ZERO;
+               U2[1][J] = ZERO;
+               U2[J][1] = ZERO;
             }
             zlacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             zungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -382,14 +382,14 @@
          if ( WANTU1 && P > 0 ) {
             zcopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
-               U1[1,J] = ZERO;
+               U1[1][J] = ZERO;
             }
             zlacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             zungqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
             for (J = 2; J <= M-P; J++) {
-               U2[1,J] = ZERO;
+               U2[1][J] = ZERO;
             }
             zlacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             zungqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );

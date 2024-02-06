@@ -368,11 +368,11 @@
             TEMP = ONE / TEMP;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
-                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR][JC] = VL( JR, JC )*TEMP;
                } // 50
             } else {
                for (JR = 1; JR <= N; JR++) { // 60
-                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR][JC] = VL( JR, JC )*TEMP;
                   VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
                } // 60
             }
@@ -396,11 +396,11 @@
             TEMP = ONE / TEMP;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100
-                  VR[JR, JC] = VR( JR, JC )*TEMP;
+                  VR[JR][JC] = VR( JR, JC )*TEMP;
                } // 100
             } else {
                for (JR = 1; JR <= N; JR++) { // 110
-                  VR[JR, JC] = VR( JR, JC )*TEMP;
+                  VR[JR][JC] = VR( JR, JC )*TEMP;
                   VR[JR, JC+1] = VR( JR, JC+1 )*TEMP;
                } // 110
             }

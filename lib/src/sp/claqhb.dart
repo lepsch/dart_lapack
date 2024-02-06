@@ -72,7 +72,7 @@
 
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               AB[1, J] = CJ*CJ*double( AB( 1, J ) );
+               AB[1][J] = CJ*CJ*double( AB( 1, J ) );
                for (I = J + 1; I <= min( N, J+KD ); I++) { // 30
                   AB[1+I-J, J] = CJ*S( I )*AB( 1+I-J, J );
                } // 30

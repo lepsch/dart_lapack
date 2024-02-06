@@ -178,7 +178,7 @@
 
       for (I = RANK + 1; I <= N; I++) { // 40
          for (J = 1; J <= NRHS; J++) { // 30
-            B[I, J] = ZERO;
+            B[I][J] = ZERO;
          } // 30
       } // 40
 
@@ -211,7 +211,7 @@
                   K = JPVT( K );
                   T2 = B( JPVT( K ), J );
                   if( JPVT( K ) != I ) GO TO 70;
-                  B[I, J] = T1;
+                  B[I][J] = T1;
                   WORK[2*MN+K] = DONE;
                }
             }

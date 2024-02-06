@@ -68,11 +68,11 @@
 
             AJJ = (A( J, J )).toDouble() - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
             if ( AJJ <= ZERO || disnan( AJJ ) ) {
-               A[J, J] = AJJ;
+               A[J][J] = AJJ;
                GO TO 30;
             }
             AJJ = sqrt( AJJ );
-            A[J, J] = AJJ;
+            A[J][J] = AJJ;
 
             // Compute elements J+1:N of row J.
 
@@ -93,11 +93,11 @@
 
             AJJ = (A( J, J )).toDouble() - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
             if ( AJJ <= ZERO || disnan( AJJ ) ) {
-               A[J, J] = AJJ;
+               A[J][J] = AJJ;
                GO TO 30;
             }
             AJJ = sqrt( AJJ );
-            A[J, J] = AJJ;
+            A[J][J] = AJJ;
 
             // Compute elements J+1:N of column J.
 

@@ -192,7 +192,7 @@
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A[JCOL, JCOL] = ANORM;
+                  A[JCOL][JCOL] = ANORM;
                } // 80
 
             } else if ( ITYPE == 3 ) {
@@ -200,7 +200,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
-                  A[JCOL, JCOL] = ANORM;
+                  A[JCOL][JCOL] = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
@@ -287,9 +287,9 @@
             for (J = 1; J <= N - 1; J++) { // 120
                UU[J+1, J] = CZERO;
                for (I = J + 2; I <= N; I++) { // 110
-                  U[I, J] = H( I, J );
-                  UU[I, J] = H( I, J );
-                  H[I, J] = CZERO;
+                  U[I][J] = H( I, J );
+                  UU[I][J] = H( I, J );
+                  H[I][J] = CZERO;
                } // 110
             } // 120
             zcopy(N-1, WORK, 1, TAU, 1 );

@@ -75,7 +75,7 @@ import 'package:lapack/src/xerbla.dart';
                AKK = A( K, K );
                BKK = B( K, K );
                AKK = AKK / BKK**2;
-               A[K, K] = AKK;
+               A[K][K] = AKK;
                if ( K < N ) {
                   dscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK;
@@ -96,7 +96,7 @@ import 'package:lapack/src/xerbla.dart';
                AKK = A( K, K );
                BKK = B( K, K );
                AKK = AKK / BKK**2;
-               A[K, K] = AKK;
+               A[K][K] = AKK;
                if ( K < N ) {
                   dscal(N-K, ONE / BKK, A( K+1, K ), 1 );
                   CT = -HALF*AKK;
@@ -124,7 +124,7 @@ import 'package:lapack/src/xerbla.dart';
                dsyr2(UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA );
                daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                dscal(K-1, BKK, A( 1, K ), 1 );
-               A[K, K] = AKK*BKK**2;
+               A[K][K] = AKK*BKK**2;
             } // 30
          } else {
 
@@ -142,7 +142,7 @@ import 'package:lapack/src/xerbla.dart';
                dsyr2(UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA );
                daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
                dscal(K-1, BKK, A( K, 1 ), LDA );
-               A[K, K] = AKK*BKK**2;
+               A[K][K] = AKK*BKK**2;
             } // 40
          }
       }

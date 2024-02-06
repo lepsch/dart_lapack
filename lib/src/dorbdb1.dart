@@ -90,8 +90,8 @@ import 'package:lapack/src/xerbla.dart';
          THETA[I] = ATAN2( X21(I,I), X11(I,I) );
          C = COS( THETA(I) );
          S = SIN( THETA(I) );
-         X11[I,I] = ONE;
-         X21[I,I] = ONE;
+         X11[I][I] = ONE;
+         X21[I][I] = ONE;
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
          dlarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
 

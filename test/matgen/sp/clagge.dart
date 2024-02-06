@@ -59,11 +59,11 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            A[I, J] = ZERO;
+            A[I][J] = ZERO;
          } // 10
       } // 20
       for (I = 1; I <= min( M, N ); I++) { // 30
-         A[I, I] = D( I );
+         A[I][I] = D( I );
       } // 30
 
       // Quick exit if the user wants a diagonal matrix
@@ -222,13 +222,13 @@
 
          if (I <= N) {
             for (J = KL + I + 1; J <= M; J++) { // 50
-               A[J, I] = ZERO;
+               A[J][I] = ZERO;
             } // 50
          }
 
          if (I <= M) {
             for (J = KU + I + 1; J <= N; J++) { // 60
-               A[I, J] = ZERO;
+               A[I][J] = ZERO;
             } // 60
          }
       } // 70

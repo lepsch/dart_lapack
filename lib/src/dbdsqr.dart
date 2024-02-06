@@ -140,10 +140,10 @@ import 'package:lapack/src/xerbla.dart';
 
       SMAX = ZERO;
       for (I = 1; I <= N; I++) { // 20
-         SMAX = max( SMAX, ( D( I ) ) ).abs();
+         SMAX = max( SMAX, D( I ).abs() );
       } // 20
       for (I = 1; I <= N - 1; I++) { // 30
-         SMAX = max( SMAX, ( E( I ) ) ).abs();
+         SMAX = max( SMAX, E( I ).abs() );
       } // 30
       SMIN = ZERO;
       if ( TOL >= ZERO ) {
@@ -154,7 +154,7 @@ import 'package:lapack/src/xerbla.dart';
          if (SMINOA == ZERO) GO TO 50;
          MU = SMINOA;
          for (I = 2; I <= N; I++) { // 40
-            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ).abs() );
             SMINOA = min( SMINOA, MU );
             if (SMINOA == ZERO) GO TO 50;
          } // 40
@@ -286,7 +286,7 @@ import 'package:lapack/src/xerbla.dart';
                   E[LLL] = ZERO;
                   GO TO 60;
                }
-               MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
+               MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ) ).abs() );
                SMIN = min( SMIN, MU );
             } // 100
          }
@@ -296,7 +296,7 @@ import 'package:lapack/src/xerbla.dart';
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ) <= THRESH ) ).abs() {
+         if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ) <= THRESH ).abs() ) {
             E[LL] = ZERO;
             GO TO 60;
          }
@@ -313,7 +313,7 @@ import 'package:lapack/src/xerbla.dart';
                   E[LLL] = ZERO;
                   GO TO 60;
                }
-               MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
+               MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ) ).abs() );
                SMIN = min( SMIN, MU );
             } // 110
          }

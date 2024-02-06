@@ -72,7 +72,7 @@
               } // 10
               CTMP = DCONJG( A( OFDPOS, ST ) );
               zlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-              A[OFDPOS, ST] = CTMP;
+              A[OFDPOS][ST] = CTMP;
 
               LM = ED - ST + 1;
               zlarfy(UPLO, LM, V( VPOS ), 1, DCONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);

@@ -179,7 +179,7 @@
          }
          if ( ISTART+1 >= ISTOP ) {
             ISTOP = ISTART;
-            EXIT;
+            break;
          }
 
          // Check deflations at the end
@@ -208,7 +208,7 @@
          }
 
          if ( ISTART+1 >= ISTOP ) {
-            EXIT;
+            break;
          }
 
          // Check interior deflations
@@ -217,7 +217,7 @@
             if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
                A[K, K-1] = ZERO;
                ISTART2 = K;
-               EXIT;
+               break;
             }
          }
 
@@ -264,7 +264,7 @@
 
                if ( ISTART2 < ISTOP ) {
                   slartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
-                  A[ISTART2, ISTART2] = TEMP;
+                  A[ISTART2][ISTART2] = TEMP;
                   A[ISTART2+1, ISTART2] = ZERO;
                    srot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 );
                   srot(ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
@@ -285,7 +285,7 @@
             ISTOP = ISTART2-1;
             LD = 0;
             ESHIFT = ZERO;
-            CYCLE;
+            continue;
          }
 
          NW = NWR;
@@ -317,7 +317,7 @@
           if ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) || ISTOP-ISTART2+1 < NMIN ) {
             // AED has uncovered many eigenvalues. Skip a QZ sweep and run
             // AED again.
-            CYCLE;
+            continue;
          }
 
          LD = LD+1;

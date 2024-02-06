@@ -212,20 +212,20 @@
 
                   for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
-                        Q[JR, JC] = dlarnd( 3, ISEED );
-                        Z[JR, JC] = dlarnd( 3, ISEED );
+                        Q[JR][JC] = dlarnd( 3, ISEED );
+                        Z[JR][JC] = dlarnd( 3, ISEED );
                      } // 30
                      dlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK[2*N+JC] = sign( ONE, Q( JC, JC ) );
-                     Q[JC, JC] = ONE;
+                     Q[JC][JC] = ONE;
                      dlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK[3*N+JC] = sign( ONE, Z( JC, JC ) );
-                     Z[JC, JC] = ONE;
+                     Z[JC][JC] = ONE;
                   } // 40
-                  Q[N, N] = ONE;
+                  Q[N][N] = ONE;
                   WORK[N] = ZERO;
                   WORK[3*N] = sign( ONE, dlarnd( 2, ISEED ) );
-                  Z[N, N] = ONE;
+                  Z[N][N] = ONE;
                   WORK[2*N] = ZERO;
                   WORK[4*N] = sign( ONE, dlarnd( 2, ISEED ) );
 
@@ -233,7 +233,7 @@
 
                   for (JC = 1; JC <= N; JC++) { // 60
                      for (JR = 1; JR <= N; JR++) { // 50
-                        A[JR, JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
+                        A[JR][JC] = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC );
                      } // 50
                   } // 60
                   CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
@@ -247,7 +247,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
-                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* dlarnd( 2, ISEED );
+                     A[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* dlarnd( 2, ISEED );
                   } // 70
                } // 80
             } else {
@@ -256,22 +256,22 @@
 
                for (JC = 1; JC <= N; JC++) { // 81
                   for (JR = 1; JR <= min( JC + 1, N); JR++) { // 71
-                     A[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED );
+                     A[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED );
                   } // 71
                   for (JR = JC + 2; JR <= N; JR++) { // 72
-                     A[JR, JC] = ZERO;
+                     A[JR][JC] = ZERO;
                   } // 72
                } // 81
                for (JC = 1; JC <= N; JC++) { // 82
                   for (JR = 1; JR <= JC; JR++) { // 73
-                     B[JR, JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED );
+                     B[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* dlarnd( 2, ISEED );
                   } // 73
                   for (JR = JC + 1; JR <= N; JR++) { // 74
-                     B[JR, JC] = ZERO;
+                     B[JR][JC] = ZERO;
                   } // 74
                } // 82
                for (JC = 1; JC <= N; JC += 4) { // 83
-                  B[JC, JC] = ZERO;
+                  B[JC][JC] = ZERO;
                } // 83
 
             }

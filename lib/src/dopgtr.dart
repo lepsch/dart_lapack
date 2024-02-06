@@ -73,16 +73,16 @@ import 'package:lapack/src/xerbla.dart';
          IJ = 2;
          for (J = 1; J <= N - 1; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               Q[I, J] = AP( IJ );
+               Q[I][J] = AP( IJ );
                IJ = IJ + 1;
             } // 10
             IJ = IJ + 2;
-            Q[N, J] = ZERO;
+            Q[N][J] = ZERO;
          } // 20
          for (I = 1; I <= N - 1; I++) { // 30
-            Q[I, N] = ZERO;
+            Q[I][N] = ZERO;
          } // 30
-         Q[N, N] = ONE;
+         Q[N][N] = ONE;
 
          // Generate Q(1:n-1,1:n-1)
 
@@ -96,15 +96,15 @@ import 'package:lapack/src/xerbla.dart';
          // set the first row and column of Q equal to those of the unit
          // matrix
 
-         Q[1, 1] = ONE;
+         Q[1][1] = ONE;
          for (I = 2; I <= N; I++) { // 40
-            Q[I, 1] = ZERO;
+            Q[I][1] = ZERO;
          } // 40
          IJ = 3;
          for (J = 2; J <= N; J++) { // 60
-            Q[1, J] = ZERO;
+            Q[1][J] = ZERO;
             for (I = J + 1; I <= N; I++) { // 50
-               Q[I, J] = AP( IJ );
+               Q[I][J] = AP( IJ );
                IJ = IJ + 1;
             } // 50
             IJ = IJ + 2;

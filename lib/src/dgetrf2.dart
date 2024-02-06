@@ -89,8 +89,8 @@ import 'package:lapack/src/xerbla.dart';
 
             if ( I != 1 ) {
                TEMP = A( 1, 1 );
-               A[1, 1] = A( I, 1 );
-               A[I, 1] = TEMP;
+               A[1][1] = A( I, 1 );
+               A[I][1] = TEMP;
             }
 
             // Compute elements 2:M of the column

@@ -110,7 +110,7 @@
         while (K <= N) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
-             WORK[K,INVD] = ONE / REAL ( A( K, K ) );
+             WORK[K][INVD] = ONE / REAL ( A( K, K ) );
              WORK[K,INVD+1] = 0;
             K=K+1;
          } else {
@@ -120,7 +120,7 @@
              AKP1 = double ( A( K+1, K+1 ) ) / T;
              AKKP1 = WORK(K+1,1)  / T;
              D = T*( AK*AKP1-ONE );
-             WORK[K,INVD] = AKP1 / D;
+             WORK[K][INVD] = AKP1 / D;
              WORK[K+1,INVD+1] = AK / D;
              WORK[K,INVD+1] = -AKKP1 / D;
              WORK[K+1,INVD] = CONJG (WORK(K,INVD+1) );
@@ -276,7 +276,7 @@
         while (K >= 1) {
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
-             WORK[K,INVD] = ONE / REAL ( A( K, K ) );
+             WORK[K][INVD] = ONE / REAL ( A( K, K ) );
              WORK[K,INVD+1] = 0;
             K=K-1;
          } else {
@@ -287,7 +287,7 @@
              AKKP1 = WORK(K-1,1) / T;
              D = T*( AK*AKP1-ONE );
              WORK[K-1,INVD] = AKP1 / D;
-             WORK[K,INVD] = AK / D;
+             WORK[K][INVD] = AK / D;
              WORK[K,INVD+1] = -AKKP1 / D;
              WORK[K-1,INVD+1] = CONJG (WORK(K,INVD+1) );
             K=K-2;

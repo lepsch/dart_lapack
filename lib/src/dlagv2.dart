@@ -48,18 +48,18 @@ import 'package:lapack/src/xerbla.dart';
 
       ANORM = max( ( A( 1, 1 ) ).abs()+( A( 2, 1 ) ).abs(), ( A( 1, 2 ) ).abs()+( A( 2, 2 ) ).abs(), SAFMIN );
       ASCALE = ONE / ANORM;
-      A[1, 1] = ASCALE*A( 1, 1 );
-      A[1, 2] = ASCALE*A( 1, 2 );
-      A[2, 1] = ASCALE*A( 2, 1 );
-      A[2, 2] = ASCALE*A( 2, 2 );
+      A[1][1] = ASCALE*A( 1, 1 );
+      A[1][2] = ASCALE*A( 1, 2 );
+      A[2][1] = ASCALE*A( 2, 1 );
+      A[2][2] = ASCALE*A( 2, 2 );
 
       // Scale B
 
       BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 1, 2 ) ).abs()+( B( 2, 2 ) ).abs(), SAFMIN );
       BSCALE = ONE / BNORM;
-      B[1, 1] = BSCALE*B( 1, 1 );
-      B[1, 2] = BSCALE*B( 1, 2 );
-      B[2, 2] = BSCALE*B( 2, 2 );
+      B[1][1] = BSCALE*B( 1, 1 );
+      B[1][2] = BSCALE*B( 1, 2 );
+      B[2][2] = BSCALE*B( 2, 2 );
 
       // Check if A can be deflated
 
@@ -68,8 +68,8 @@ import 'package:lapack/src/xerbla.dart';
          SNL = ZERO;
          CSR = ONE;
          SNR = ZERO;
-         A[2, 1] = ZERO;
-         B[2, 1] = ZERO;
+         A[2][1] = ZERO;
+         B[2][1] = ZERO;
          WI = ZERO;
 
       // Check if B is singular
@@ -80,9 +80,9 @@ import 'package:lapack/src/xerbla.dart';
          SNR = ZERO;
          drot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
          drot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
-         A[2, 1] = ZERO;
-         B[1, 1] = ZERO;
-         B[2, 1] = ZERO;
+         A[2][1] = ZERO;
+         B[1][1] = ZERO;
+         B[2][1] = ZERO;
          WI = ZERO;
 
       } else if ( ( B( 2, 2 ) ).abs() <= ULP ) {
@@ -92,9 +92,9 @@ import 'package:lapack/src/xerbla.dart';
          drot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
          CSL = ONE;
          SNL = ZERO;
-         A[2, 1] = ZERO;
-         B[2, 1] = ZERO;
-         B[2, 2] = ZERO;
+         A[2][1] = ZERO;
+         B[2][1] = ZERO;
+         B[2][2] = ZERO;
          WI = ZERO;
 
       } else {
@@ -155,8 +155,8 @@ import 'package:lapack/src/xerbla.dart';
             drot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
             drot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
 
-            A[2, 1] = ZERO;
-            B[2, 1] = ZERO;
+            A[2][1] = ZERO;
+            B[2][1] = ZERO;
 
          } else {
 
@@ -173,8 +173,8 @@ import 'package:lapack/src/xerbla.dart';
             drot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
             drot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
 
-            B[2, 1] = ZERO;
-            B[1, 2] = ZERO;
+            B[2][1] = ZERO;
+            B[1][2] = ZERO;
 
          }
 
@@ -182,14 +182,14 @@ import 'package:lapack/src/xerbla.dart';
 
       // Unscaling
 
-      A[1, 1] = ANORM*A( 1, 1 );
-      A[2, 1] = ANORM*A( 2, 1 );
-      A[1, 2] = ANORM*A( 1, 2 );
-      A[2, 2] = ANORM*A( 2, 2 );
-      B[1, 1] = BNORM*B( 1, 1 );
-      B[2, 1] = BNORM*B( 2, 1 );
-      B[1, 2] = BNORM*B( 1, 2 );
-      B[2, 2] = BNORM*B( 2, 2 );
+      A[1][1] = ANORM*A( 1, 1 );
+      A[2][1] = ANORM*A( 2, 1 );
+      A[1][2] = ANORM*A( 1, 2 );
+      A[2][2] = ANORM*A( 2, 2 );
+      B[1][1] = BNORM*B( 1, 1 );
+      B[2][1] = BNORM*B( 2, 1 );
+      B[1][2] = BNORM*B( 1, 2 );
+      B[2][2] = BNORM*B( 2, 2 );
 
       if ( WI == ZERO ) {
          ALPHAR[1] = A( 1, 1 );

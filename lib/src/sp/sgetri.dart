@@ -92,7 +92,7 @@
 
             for (I = J + 1; I <= N; I++) { // 10
                WORK[I] = A( I, J );
-               A[I, J] = ZERO;
+               A[I][J] = ZERO;
             } // 10
 
             // Compute current column of inv(A).
@@ -113,7 +113,7 @@
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
                for (I = JJ + 1; I <= N; I++) { // 30
                   WORK[I+( JJ-J )*LDWORK] = A( I, JJ );
-                  A[I, JJ] = ZERO;
+                  A[I][JJ] = ZERO;
                } // 30
             } // 40
 
