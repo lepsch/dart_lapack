@@ -66,7 +66,7 @@
          BETA[KWTOP] = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ).abs() ) {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ).abs() ) ) {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
@@ -107,7 +107,7 @@
                if ( TEMPR == ZERO ) {
                   TEMPR = ( S ).abs();
                }
-               if ( ( ( S*QC( 1, KWBOT-KWTOP+1 ) ) ).abs() <= max( ULP* TEMPR, SMLNUM ) ) {
+               if ( ( ( S*QC( 1, KWBOT-KWTOP+1 ) ).abs() ) <= max( ULP* TEMPR, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1;
                } else {

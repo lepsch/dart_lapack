@@ -207,7 +207,7 @@
 
             GO TO 80;
          } else {
-            if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ) ) ).abs() ) {
+            if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ).abs() ) ) ) {
                H[ILAST, ILAST-1] = ZERO;
                GO TO 80;
             }
@@ -227,7 +227,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ) ) ).abs() ) {
+               if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ).abs() ) ) ) {
                   H[J, J-1] = ZERO;
                   ILAZRO = true;
                } else {
@@ -251,7 +251,7 @@
                      TEMP = TEMP / TEMPR;
                      TEMP2 = TEMP2 / TEMPR;
                   }
-                  if( TEMP*( ASCALE*( H( J+1, J ) ) ).abs() <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
+                  if( TEMP*( ASCALE*( H( J+1, J ) ).abs() ) <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal

@@ -689,7 +689,7 @@
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = sqrt(N.toDouble())*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1))).abs() ) {
+            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1) ).abs() ) ) {
                NR = NR + 1;
             } else {
                GO TO 3002;
@@ -702,7 +702,7 @@
          // close-to-rank-deficient.
          TEMP1 = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1))) ).abs() || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ) ).abs() GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1) ).abs() ) ) || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ).abs() ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -717,7 +717,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ) ).abs() GO TO 3302;
+            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ).abs() ) GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -1060,7 +1060,7 @@
                   XSC = sqrt(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
+                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q) ).abs() ), ZERO);
                         if ( (V(q,p)).abs() <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3958
@@ -1099,7 +1099,7 @@
                   XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
+                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q) ).abs() ), ZERO);
                         if ( (V(q,p)).abs() <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3968
@@ -1112,7 +1112,7 @@
                   XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
+                        CTEMP=DCMPLX(XSC*min((V(p,p)).abs(),(V(q,q) ).abs() ), ZERO);
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
                         V[p][q] = - CTEMP;
                      } // 8971
@@ -1404,7 +1404,7 @@
             XSC = sqrt(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  CTEMP = DCMPLX(XSC * min((U(p,p)).abs(),(U(q,q))).abs(), ZERO);
+                  CTEMP = DCMPLX(XSC * min((U(p,p)).abs(),(U(q,q) ).abs() ), ZERO);
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
                   U[p][q] = - CTEMP;
                } // 9971

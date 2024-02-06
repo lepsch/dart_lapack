@@ -148,7 +148,7 @@
          if (SMINOA == ZERO) GO TO 50;
          MU = SMINOA;
          for (I = 2; I <= N; I++) { // 40
-            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ).abs() ) );
             SMINOA = min( SMINOA, MU );
             if (SMINOA == ZERO) GO TO 50;
          } // 40
@@ -279,7 +279,7 @@
                   E[LLL] = ZERO;
                   GO TO 60;
                }
-               MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
+               MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ).abs() ) );
                SMIN = min( SMIN, MU );
             } // 100
          }
@@ -306,7 +306,7 @@
                   E[LLL] = ZERO;
                   GO TO 60;
                }
-               MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
+               MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ).abs() ) );
                SMIN = min( SMIN, MU );
             } // 110
          }

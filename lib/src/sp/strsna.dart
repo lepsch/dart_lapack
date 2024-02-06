@@ -216,7 +216,7 @@
                   // position of WORK is the complex eigenvalue lambda
                   // with negative imaginary  part.
 
-                  MU = sqrt( ( WORK( 1, 2 ) ) ).abs()* sqrt( ( WORK( 2, 1 ) ) ).abs();
+                  MU = sqrt( ( WORK( 1, 2 ) ).abs() )* sqrt( ( WORK( 2, 1 ) ).abs() );
                   DELTA = SLAPY2( MU, WORK( 2, 1 ) );
                   CS = MU / DELTA;
                   SN = -WORK( 2, 1 ) / DELTA;

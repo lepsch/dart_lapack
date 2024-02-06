@@ -32,7 +32,7 @@ bool zlctes(Z, D) {
     } else if (DIMAG(Z) == ZERO || DIMAG(D) == ZERO) {
       ZLCTES = (sign(ONE, (Z).toDouble()) != sign(ONE, D.toDouble()));
     } else {
-      ZMAX = max((Z.toDouble()).abs(), (DIMAG(Z))).abs();
+      ZMAX = max((Z.toDouble()).abs(), (DIMAG(Z)).abs());
       ZLCTES = (((Z).toDouble() / ZMAX) * D.toDouble() +
               (DIMAG(Z) / ZMAX) * DIMAG(D) <
           ZERO);

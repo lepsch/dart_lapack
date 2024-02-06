@@ -191,7 +191,7 @@ import 'package:lapack/src/xerbla.dart';
             // Normalize and scale the righthand side vector Pb.
 
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ) ).abs() / ( WORK( INDRV1+JMAX ).abs() );
+            SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ).abs() ) / ( WORK( INDRV1+JMAX ).abs() );
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.

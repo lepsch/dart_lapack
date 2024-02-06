@@ -32,7 +32,7 @@ bool clctes(Z, D) {
     } else if (AIMAG(Z) == ZERO || AIMAG(D) == ZERO) {
       CLCTES = (sign(ONE, REAL(Z)) != sign(ONE, double(D)));
     } else {
-      ZMAX = max((double(Z)).abs(), (AIMAG(Z))).abs();
+      ZMAX = max((double(Z)).abs(), (AIMAG(Z)).abs());
       CLCTES =
           ((double(Z) / ZMAX) * REAL(D) + (AIMAG(Z) / ZMAX) * AIMAG(D) < ZERO);
     }

@@ -214,7 +214,7 @@
                         IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
                      }
                      if( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
-                        H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs()                         H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs()                         H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
+                        H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() )                         H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() )                         H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
                         SCL = H11 + H12;
                         TST2 = H22*( H11 / SCL );
 
@@ -305,7 +305,7 @@
                      T3 = T2*VT( 3 );
                      REFSUM = H( K+1, K )+VT( 2 )*H( K+2, K );
 
-                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ( REFSUM*T3 ).abs() > ULP* ( ( H( K, K ) ).abs()+( H( K+1, K+1 ) ).abs()+( H( K+2, K+2 ) ) ).abs() ) {
+                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ( REFSUM*T3 ).abs() > ULP* ( ( H( K, K ) ).abs()+( H( K+1, K+1 ) ).abs()+( H( K+2, K+2 ) ).abs() ) ) {
 
                         // ==== Starting a new bulge here would
                         // .    create non-negligible fill.  Use

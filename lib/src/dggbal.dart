@@ -378,7 +378,7 @@ void dggbal(
     IRAB = idamax(N - ILO.value + 1, A(I, ILO.value).asArray(), LDA);
     RAB = (A[I][IRAB + ILO.value - 1]).abs();
     IRAB = idamax(N - ILO.value + 1, B(I, ILO.value).asArray(), LDB);
-    RAB = max(RAB, (B[I][IRAB + ILO.value - 1])).abs();
+    RAB = max(RAB, (B[I][IRAB + ILO.value - 1]).abs());
     LRAB = (log10(RAB + SFMIN) / BASL + ONE).toInt();
     IR = (LSCALE[I] + sign(HALF, LSCALE[I])).toInt();
     IR = min(min(max(IR, LSFMIN), LSFMAX), LSFMAX - LRAB);
@@ -386,7 +386,7 @@ void dggbal(
     ICAB = idamax(IHI.value, A(1, I).asArray(), 1);
     CAB = (A[ICAB][I]).abs();
     ICAB = idamax(IHI.value, B(1, I).asArray(), 1);
-    CAB = max(CAB, (B[ICAB][I])).abs();
+    CAB = max(CAB, (B[ICAB][I]).abs());
     LCAB = (log10(CAB + SFMIN) / BASL + ONE).toInt();
     JC = (RSCALE[I] + sign(HALF, RSCALE[I])).toInt();
     JC = min(min(max(JC, LSFMIN), LSFMAX), LSFMAX - LCAB);

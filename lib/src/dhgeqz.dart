@@ -1107,8 +1107,8 @@ void dhgeqz(
           // Swap rows to pivot
 
           ILPIVT = false;
-          TEMP.value = max((T[J + 1][J + 1]).abs(), (T[J + 1][J + 2])).abs();
-          TEMP2.value = max((T[J + 2][J + 1]).abs(), (T[J + 2][J + 2])).abs();
+          TEMP.value = max((T[J + 1][J + 1]).abs(), (T[J + 1][J + 2]).abs());
+          TEMP2.value = max((T[J + 2][J + 1]).abs(), (T[J + 2][J + 2]).abs());
           if (max(TEMP.value, TEMP2.value) < SAFMIN) {
             SCALE = ZERO;
             U1 = ONE;

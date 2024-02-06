@@ -349,7 +349,7 @@
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
-                        TMP = sqrt( ( H( I+1, I ) ) ).abs()* sqrt( ( H( I, I+1 ) ) ).abs()                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, UNFL ) );
+                        TMP = sqrt( ( H( I+1, I ) ).abs() )* sqrt( ( H( I, I+1 ) ).abs() )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, UNFL ) );
                      } else if ( I > 1 ) {
                         if( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
                      }

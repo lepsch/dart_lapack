@@ -74,7 +74,7 @@
 
       for (I = 1; I <= NS; I++) {
          // Introduce the shift
-         SCALE = sqrt( ( ALPHA( I ) ) ).abs() * sqrt( ( BETA( I ) ) ).abs();
+         SCALE = sqrt( ( ALPHA( I ) ).abs() ) * sqrt( ( BETA( I ) ).abs() );
          if ( SCALE >= SAFMIN && SCALE <= SAFMAX ) {
             ALPHA[I] = ALPHA( I )/SCALE;
             BETA[I] = BETA( I )/SCALE;

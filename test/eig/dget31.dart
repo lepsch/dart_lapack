@@ -333,7 +333,7 @@ void dget31(
                                   (CA * A[2][2] - WR * D2).abs())) RES = ZERO;
                   if (SCALE.value > ONE) RES = RES + ONE / EPS;
                   RES = RES +
-                      (XNORM.value - max(X[1][1].abs(), X[2][1].abs())).abs() /
+                      (XNORM.value - max(X[1][1].abs(), X[2][1].abs()).abs()) /
                           max(SMLNUM, XNORM.value) /
                           EPS;
                   if (INFO.value != 0 && INFO.value != 1) RES = RES + ONE / EPS;

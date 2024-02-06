@@ -149,7 +149,7 @@
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF[KS] = dlapy2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
+               DIF[KS] = dlapy2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ).abs() );
             } else {
 
                // Estimate the reciprocal condition number of the k-th

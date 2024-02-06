@@ -243,7 +243,7 @@ import 'package:lapack/src/xerbla.dart';
             V[2] = V( 2 ) / S;
             V[3] = V( 3 ) / S;
             if (M == L) GO TO 60;
-            IF( ( H( M, M-1 ) ).abs()*( ( V( 2 ) ).abs()+( V( 3 ) ) ).abs() <= ULP*( V( 1 ) ).abs()*( ( H( M-1, M-1 ) ).abs()+( H( M, M ) ).abs()+( H( M+1, M+1 ) ) ) ).abs()GO TO 60;
+            IF( ( H( M, M-1 ) ).abs()*( ( V( 2 ) ).abs()+( V( 3 ) ).abs() ) <= ULP*( V( 1 ) ).abs()*( ( H( M-1, M-1 ) ).abs()+( H( M, M ) ).abs()+( H( M+1, M+1 ) ).abs() ) )GO TO 60;
          } // 50
          } // 60
 

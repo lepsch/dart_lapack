@@ -121,7 +121,7 @@
       } // 110
       JLAST = J;
       J = ISAMAX( N, X, 1 );
-      if ( ( X( JLAST ) != ( X( J ) ) ).abs() && ( ITER < ITMAX ) ) {
+      if ( ( X( JLAST ) != ( X( J ) ).abs() ) && ( ITER < ITMAX ) ) {
          ITER = ITER + 1;
          GO TO 50;
       }

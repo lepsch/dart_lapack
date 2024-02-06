@@ -73,7 +73,7 @@
       if (L1 > N) GO TO 170;
       IF[L1 > 1 ) E( L1-1] = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
-         if ( ( E( M ) ).abs() <= ( sqrt( ( D( M ) ) ).abs()* sqrt( ( D( M+1 ) ) ) ).abs()*EPS ) {
+         if ( ( E( M ) ).abs() <= ( sqrt( ( D( M ) ).abs() )* sqrt( ( D( M+1 ) ).abs() ) )*EPS ) {
             E[M] = ZERO;
             GO TO 30;
          }

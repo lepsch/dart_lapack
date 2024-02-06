@@ -322,7 +322,7 @@
                for (J = 1; J <= N; J++) { // 130
                   ILABAD = false;
                   if ( ALPHAI( J ) == ZERO ) {
-                     TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / max( SAFMIN, ( ALPHAR( J ) ).abs(), ( S( J, J ) ) ).abs()+ABS( BETA( J )-T( J, J ) ) / max( SAFMIN, ( BETA( J ) ).abs(), ( T( J, J ) ) ) ).abs() / ULP;
+                     TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / max( SAFMIN, ( ALPHAR( J ) ).abs(), ( S( J, J ) ).abs() )+ABS( BETA( J )-T( J, J ) ) / max( SAFMIN, ( BETA( J ) ).abs(), ( T( J, J ) ).abs() ) ) / ULP;
 
                      if ( J < N ) {
                         if ( S( J+1, J ) != ZERO ) {

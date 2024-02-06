@@ -125,7 +125,7 @@
       } // 90
       JLAST = J;
       J = IZMAX1( N, X, 1 );
-      if ( ( ( X( JLAST ) ).abs() != ( X( J ) ) ).abs() && ( ITER < ITMAX ) ) {
+      if ( ( ( X( JLAST ) ).abs() != ( X( J ) ).abs() ) && ( ITER < ITMAX ) ) {
          ITER = ITER + 1;
          GO TO 50;
       }

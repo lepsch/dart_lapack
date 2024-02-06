@@ -56,7 +56,7 @@
 
          clarnv(3, ISEED, N-I+1, WORK );
          WN = SCNRM2( N-I+1, WORK, 1 );
-         WA = ( WN / ( WORK( 1 ) ) ).abs()*WORK( 1 );
+         WA = ( WN / ( WORK( 1 ) ).abs() )*WORK( 1 );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {

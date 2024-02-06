@@ -110,7 +110,7 @@ import 'package:lapack/src/xerbla.dart';
          for (M = L1; M <= NM1; M++) { // 20
             TST = ( E( M ) ).abs();
             if ( TST == ZERO ) GO TO 30;
-            IF( TST <= ( sqrt( ( D( M ) ) ).abs()*sqrt( ( D( M+ 1 ) ) ) ).abs()*EPS ) {
+            IF( TST <= ( sqrt( ( D( M ) ).abs() )*sqrt( ( D( M+ 1 ) ).abs() ) )*EPS ) {
                E[M] = ZERO;
                GO TO 30;
             }
@@ -159,7 +159,7 @@ import 'package:lapack/src/xerbla.dart';
             LENDM1 = LEND - 1;
             for (M = L; M <= LENDM1; M++) { // 50
                TST = ( E( M ) ).abs()**2;
-               if( TST <= ( EPS2*( D( M ) ) ).abs()*( D( M+1 ) ).abs()+ SAFMIN )GO TO 60;
+               if( TST <= ( EPS2*( D( M ) ).abs() )*( D( M+1 ) ).abs()+ SAFMIN )GO TO 60;
             } // 50
          }
 
@@ -257,7 +257,7 @@ import 'package:lapack/src/xerbla.dart';
             LENDP1 = LEND + 1;
             for (M = L; M >= LENDP1; M--) { // 100
                TST = ( E( M-1 ) ).abs()**2;
-               if( TST <= ( EPS2*( D( M ) ) ).abs()*( D( M-1 ) ).abs()+ SAFMIN )GO TO 110;
+               if( TST <= ( EPS2*( D( M ) ).abs() )*( D( M-1 ) ).abs()+ SAFMIN )GO TO 110;
             } // 100
          }
 

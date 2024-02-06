@@ -66,7 +66,7 @@
          BETA[KWTOP] = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ).abs() ) {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ).abs() ) ) {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
@@ -109,11 +109,11 @@
             if ( BULGE ) {
 
                // Try to deflate complex conjugate eigenvalue pair
-               TEMP = ( A( KWBOT, KWBOT ) ).abs()+sqrt( ( A( KWBOT, KWBOT-1 ) ) ).abs()*sqrt( ( A( KWBOT-1, KWBOT ) ) ).abs();
+               TEMP = ( A( KWBOT, KWBOT ) ).abs()+sqrt( ( A( KWBOT, KWBOT-1 ) ).abs() )*sqrt( ( A( KWBOT-1, KWBOT ) ).abs() );
                if ( TEMP == ZERO ) {
                   TEMP = ( S ).abs();
                }
-               if ( max( ( S*QC( 1, KWBOT-KWTOP ) ).abs(), ( S*QC( 1, KWBOT-KWTOP+1 ) ) ).abs() <= max( SMLNUM, ULP*TEMP ) ) {
+               if ( max( ( S*QC( 1, KWBOT-KWTOP ) ).abs(), ( S*QC( 1, KWBOT-KWTOP+1 ) ).abs() ) <= max( SMLNUM, ULP*TEMP ) ) {
                   // Deflatable
                   KWBOT = KWBOT-2;
                } else {
@@ -131,7 +131,7 @@
                if ( TEMP == ZERO ) {
                   TEMP = ( S ).abs();
                }
-               if ( ( ( S*QC( 1, KWBOT-KWTOP+1 ) ) ).abs() <= max( ULP* TEMP, SMLNUM ) ) {
+               if ( ( ( S*QC( 1, KWBOT-KWTOP+1 ) ).abs() ) <= max( ULP* TEMP, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1;
                } else {

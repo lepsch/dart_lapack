@@ -196,7 +196,7 @@ import 'common.dart';
                   for (J = 1; J <= mn.MPLUSN; J++) { // 10
                      ILABAD = false;
                      if ( ALPHAI( J ) == ZERO ) {
-                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
+                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ).abs() )+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ).abs() ) ) / ULP;
                         if ( J < mn.MPLUSN ) {
                            if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
@@ -392,7 +392,7 @@ import 'common.dart';
       for (J = 1; J <= mn.MPLUSN; J++) { // 110
          ILABAD = false;
          if ( ALPHAI( J ) == ZERO ) {
-            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
+            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ).abs() )+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ).abs() ) ) / ULP;
             if ( J < mn.MPLUSN ) {
                if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;

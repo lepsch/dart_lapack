@@ -50,9 +50,9 @@ import 'package:lapack/src/xerbla.dart';
 
          ANORM = ( D( N ) ).abs();
          for (I = 1; I <= N - 1; I++) { // 10
-            if( ANORM < ( DL( I ) ).abs() || disnan( ( DL( I ) ) ) ).abs() ANORM = (DL(I)).abs();
-            if( ANORM < ( D( I ) ).abs() || disnan( ( D( I ) ) ) ).abs() ANORM = (D(I)).abs();
-            IF( ANORM < ( DU( I ) ).abs() || DISNAN (( DU( I ) ) ) ).abs() ANORM = (DU(I)).abs();
+            if( ANORM < ( DL( I ) ).abs() || disnan( ( DL( I ) ).abs() ) ) ANORM = (DL(I)).abs();
+            if( ANORM < ( D( I ) ).abs() || disnan( ( D( I ) ).abs() ) ) ANORM = (D(I)).abs();
+            IF( ANORM < ( DU( I ) ).abs() || DISNAN (( DU( I ) ).abs() ) ) ANORM = (DU(I)).abs();
          } // 10
       } else if ( lsame( NORM, 'O' ) || NORM == '1' ) {
 

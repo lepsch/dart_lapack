@@ -75,11 +75,11 @@ import 'package:lapack/src/xerbla.dart';
 
       YESREL = true;
       OFFDIG = ZERO;
-      TMP = sqrt((D(1))).abs();
+      TMP = sqrt((D(1) ).abs() );
       if (TMP < RMIN) YESREL = false ;
       if ( !YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
-         TMP2 = sqrt((D(I))).abs();
+         TMP2 = sqrt((D(I) ).abs() );
          if (TMP2 < RMIN) YESREL = false ;
          if ( !YESREL) GOTO 11;
          OFFDIG2 = (E(I-1)).abs()/(TMP*TMP2);

@@ -363,7 +363,7 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 130
-               TEMP1 = max( TEMP1, ( WR1( J ) ).abs()+( WI1( J ) ).abs(), ( WR2( J ) ).abs()+( WI2( J ) ) ).abs()                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
+               TEMP1 = max( TEMP1, ( WR1( J ) ).abs()+( WI1( J ) ).abs(), ( WR2( J ) ).abs()+( WI2( J ) ).abs() )                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
             } // 130
 
             RESULT[8] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );

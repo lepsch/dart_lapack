@@ -204,7 +204,7 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = sqrt( ( T( KI, KI-1 ) ) ).abs()* sqrt( ( T( KI-1, KI ) ) ).abs();
+            if (IP != 0) WI = sqrt( ( T( KI, KI-1 ) ).abs() )* sqrt( ( T( KI-1, KI ) ).abs() );
             SMIN = max( ULP*( ( WR ).abs()+( WI ).abs() ), SMLNUM );
 
             if ( IP == 0 ) {
@@ -579,7 +579,7 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = sqrt( ( T( KI, KI+1 ) ) ).abs()* sqrt( ( T( KI+1, KI ) ) ).abs();
+            if (IP != 0) WI = sqrt( ( T( KI, KI+1 ) ).abs() )* sqrt( ( T( KI+1, KI ) ).abs() );
             SMIN = max( ULP*( ( WR ).abs()+( WI ).abs() ), SMLNUM );
 
             if ( IP == 0 ) {

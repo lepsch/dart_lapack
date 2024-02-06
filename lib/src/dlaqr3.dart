@@ -111,7 +111,7 @@ import 'package:lapack/src/xerbla.dart';
          SI[KWTOP] = ZERO;
          NS = 1;
          ND = 0;
-         if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ) ).abs() ) {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ).abs() ) ) {
             NS = 0;
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -183,7 +183,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // ==== Complex conjugate pair ====
 
-            FOO = ( T( NS, NS ) ).abs() + sqrt( ( T( NS, NS-1 ) ) ).abs()* sqrt( ( T( NS-1, NS ) ) ).abs()             IF( FOO == ZERO ) FOO = ( S ).abs()             IF( max( ( S*V( 1, NS ) ).abs(), ( S*V( 1, NS-1 ) ) ).abs() <= max( SMLNUM, ULP*FOO ) ) THEN;
+            FOO = ( T( NS, NS ) ).abs() + sqrt( ( T( NS, NS-1 ) ).abs() )* sqrt( ( T( NS-1, NS ) ).abs() )             IF( FOO == ZERO ) FOO = ( S ).abs()             IF( max( ( S*V( 1, NS ) ).abs(), ( S*V( 1, NS-1 ) ).abs() ) <= max( SMLNUM, ULP*FOO ) ) THEN;
 
                // ==== Deflatable ====
 
@@ -235,7 +235,7 @@ import 'package:lapack/src/xerbla.dart';
             if ( K == I+1 ) {
                EVI = ( T( I, I ) ).abs();
             } else {
-               EVI = ( T( I, I ) ).abs() + sqrt( ( T( I+1, I ) ) ).abs()* sqrt( ( T( I, I+1 ) ) ).abs();
+               EVI = ( T( I, I ) ).abs() + sqrt( ( T( I+1, I ) ).abs() )* sqrt( ( T( I, I+1 ) ).abs() );
             }
 
             if ( K == KEND ) {
@@ -243,7 +243,7 @@ import 'package:lapack/src/xerbla.dart';
             } else if ( T( K+1, K ) == ZERO ) {
                EVK = ( T( K, K ) ).abs();
             } else {
-               EVK = ( T( K, K ) ).abs() + sqrt( ( T( K+1, K ) ) ).abs()* sqrt( ( T( K, K+1 ) ) ).abs();
+               EVK = ( T( K, K ) ).abs() + sqrt( ( T( K+1, K ) ).abs() )* sqrt( ( T( K, K+1 ) ).abs() );
             }
 
             if ( EVI >= EVK ) {

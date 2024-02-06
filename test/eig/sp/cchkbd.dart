@@ -424,7 +424,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ) ).abs() );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ).abs() ) );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 

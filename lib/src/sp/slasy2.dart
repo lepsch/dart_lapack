@@ -91,7 +91,7 @@
 
       } // 20
 
-      SMIN = max( EPS*max( ( TL( 1, 1 ) ).abs(), ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs(), SMLNUM );
+      SMIN = max( EPS*max( ( TL( 1, 1 ) ).abs(), ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ).abs() ), SMLNUM );
       TMP[1] = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP[4] = TL( 1, 1 ) + SGN*TR( 2, 2 );
       if ( LTRANR ) {
@@ -110,7 +110,7 @@
              // [TL21 TL22] [X21]         [X21]         [B21]
 
       } // 30
-      SMIN = max( EPS*max( ( TR( 1, 1 ) ).abs(), ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ) ).abs(), SMLNUM );
+      SMIN = max( EPS*max( ( TR( 1, 1 ) ).abs(), ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ).abs() ), SMLNUM );
       TMP[1] = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP[4] = TL( 2, 2 ) + SGN*TR( 1, 1 );
       if ( LTRANL ) {
@@ -180,7 +180,7 @@
       // Set pivots less than SMIN to SMIN.
 
       } // 50
-      SMIN = max( ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs()       SMIN = max( SMIN, ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ).abs() );
+      SMIN = max( ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ).abs() )       SMIN = max( SMIN, ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ).abs() );
       SMIN = max( EPS*SMIN, SMLNUM );
       BTMP[1] = ZERO;
       scopy(16, BTMP, 0, T16, 1 );

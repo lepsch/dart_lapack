@@ -131,7 +131,7 @@
       if ( SMIN != ZERO ) {
          MU = SMIN;
          for (I = 2; I <= N; I++) {
-            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ).abs() ) );
             SMIN = min( SMIN, MU );
             if (SMIN == ZERO) break;
          }

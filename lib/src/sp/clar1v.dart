@@ -174,7 +174,7 @@
       if ( !SAWNAN1 && !SAWNAN2 ) {
          for (I = R-1; I >= B1; I--) { // 210
             Z[I] = -( WORK( INDLPL+I )*Z( I+1 ) );
-            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1) ).abs() )* (LD(I)).abs() < GAPTOL ) {
                Z[I] = ZERO;
                ISUPPZ[1] = I + 1;
                GOTO 220;
@@ -190,7 +190,7 @@
             } else {
                Z[I] = -( WORK( INDLPL+I )*Z( I+1 ) );
             }
-            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1) ).abs() )* (LD(I)).abs() < GAPTOL ) {
                Z[I] = ZERO;
                ISUPPZ[1] = I + 1;
                GO TO 240;
@@ -204,7 +204,7 @@
       if ( !SAWNAN1 && !SAWNAN2 ) {
          for (I = R; I <= BN-1; I++) { // 250
             Z[I+1] = -( WORK( INDUMN+I )*Z( I ) );
-            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1) ).abs() )* (LD(I)).abs() < GAPTOL ) {
                Z[I+1] = ZERO;
                ISUPPZ[2] = I;
                GO TO 260;
@@ -220,7 +220,7 @@
             } else {
                Z[I+1] = -( WORK( INDUMN+I )*Z( I ) );
             }
-            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1) ).abs() )* (LD(I)).abs() < GAPTOL ) {
                Z[I+1] = ZERO;
                ISUPPZ[2] = I;
                GO TO 280;

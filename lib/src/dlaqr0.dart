@@ -228,7 +228,7 @@ import 'package:lapack/src/xerbla.dart';
                   NW = NH;
                } else {
                   KWTOP = KBOT - NW + 1;
-                  if( ( H( KWTOP, KWTOP-1 ) ).abs() > ( H( KWTOP-1, KWTOP-2 ) ) ).abs()NW = NW + 1;
+                  if( ( H( KWTOP, KWTOP-1 ) ).abs() > ( H( KWTOP-1, KWTOP-2 ) ).abs() )NW = NW + 1;
                }
             }
             if ( NDFL < KEXNW ) {
