@@ -72,21 +72,21 @@
       if ( UP ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J-1; I++) {
-               S[I] = max( S( I ), ( A( I, J ) ) ).abs();
-               S[J] = max( S( J ), ( A( I, J ) ) ).abs();
-               AMAX = max( AMAX, ( A( I, J ) ) ).abs();
+               S[I] = max( S( I ), ( A( I, J ) ).abs() );
+               S[J] = max( S( J ), ( A( I, J ) ).abs() );
+               AMAX = max( AMAX, ( A( I, J ) ).abs() );
             }
-            S[J] = max( S( J ), ( A( J, J ) ) ).abs();
-            AMAX = max( AMAX, ( A( J, J ) ) ).abs();
+            S[J] = max( S( J ), ( A( J, J ) ).abs() );
+            AMAX = max( AMAX, ( A( J, J ) ).abs() );
          }
       } else {
          for (J = 1; J <= N; J++) {
-            S[J] = max( S( J ), ( A( J, J ) ) ).abs();
-            AMAX = max( AMAX, ( A( J, J ) ) ).abs();
+            S[J] = max( S( J ), ( A( J, J ) ).abs() );
+            AMAX = max( AMAX, ( A( J, J ) ).abs() );
             for (I = J+1; I <= N; I++) {
-               S[I] = max( S( I ), ( A( I, J ) ) ).abs();
-               S[J] = max( S( J ), ( A( I, J ) ) ).abs();
-               AMAX = max( AMAX, ( A( I, J ) ) ).abs();
+               S[I] = max( S( I ), ( A( I, J ) ).abs() );
+               S[J] = max( S( J ), ( A( I, J ) ).abs() );
+               AMAX = max( AMAX, ( A( I, J ) ).abs() );
             }
          }
       }

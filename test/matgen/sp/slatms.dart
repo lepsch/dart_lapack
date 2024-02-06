@@ -201,7 +201,7 @@
 
          TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= MNMIN; I++) { // 20
-            TEMP = max( TEMP, ( D( I ) ) ).abs();
+            TEMP = max( TEMP, ( D( I ) ).abs() );
          } // 20
 
          if ( TEMP > ZERO ) {

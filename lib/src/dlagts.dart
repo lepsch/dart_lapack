@@ -63,9 +63,9 @@ import 'package:lapack/src/xerbla.dart';
       if ( JOB < 0 ) {
          if ( TOL <= ZERO ) {
             TOL = ( A( 1 ) ).abs();
-            if (N > 1) TOL = max( TOL, ( A( 2 ) ).abs(), ( B( 1 ) ) ).abs();
+            if (N > 1) TOL = max( TOL, ( A( 2 ) ).abs(), ( B( 1 ) ).abs() );
             for (K = 3; K <= N; K++) { // 10
-               TOL = max( TOL, ( A( K ) ).abs(), ( B( K-1 ) ).abs(), ( D( K-2 ) ) ).abs();
+               TOL = max( TOL, ( A( K ) ).abs(), ( B( K-1 ) ).abs(), ( D( K-2 ) ).abs() );
             } // 10
             TOL = TOL*EPS;
             if (TOL == ZERO) TOL = EPS;

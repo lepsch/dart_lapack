@@ -127,9 +127,9 @@ import 'package:lapack/src/xerbla.dart';
          // Compute reorthogonalization criterion and stopping criterion.
 
          ONENRM = ( D( B1 ) ).abs() + ( E( B1 ) ).abs();
-         ONENRM = max( ONENRM, ( D( BN ) ).abs()+( E( BN-1 ) ) ).abs();
+         ONENRM = max( ONENRM, ( D( BN ) ).abs()+( E( BN-1 ) ).abs() );
          for (I = B1 + 1; I <= BN - 1; I++) { // 50
-            ONENRM = max( ONENRM, ( D( I ) ).abs()+( E( I-1 ) ).abs()+ ( E( I ) ) ).abs();
+            ONENRM = max( ONENRM, ( D( I ) ).abs()+( E( I-1 ) ).abs()+ ( E( I ) ).abs() );
          } // 50
          ORTOL = ODM3*ONENRM;
 
@@ -191,7 +191,7 @@ import 'package:lapack/src/xerbla.dart';
             // Normalize and scale the righthand side vector Pb.
 
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ) ).abs() / ( WORK( INDRV1+JMAX ) ).abs();
+            SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ) ).abs() / ( WORK( INDRV1+JMAX ).abs() );
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.

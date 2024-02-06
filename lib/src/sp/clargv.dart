@@ -43,7 +43,7 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1[FF] = max( ( double( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
+      ABS1[FF] = max( ( double( FF ) ).abs(), ( AIMAG( FF ) ).abs() );
       ABSSQ[FF] = double( FF )**2 + AIMAG( FF )**2;
       // ..
       // .. Executable Statements ..

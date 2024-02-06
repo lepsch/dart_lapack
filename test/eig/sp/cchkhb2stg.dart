@@ -415,9 +415,9 @@
                TEMP4 = ZERO;
 
                for (J = 1; J <= N; J++) { // 151
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
-                  TEMP3 = max( TEMP3, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP3 = max( TEMP3, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
                } // 151
 

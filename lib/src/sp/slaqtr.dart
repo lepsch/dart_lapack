@@ -172,7 +172,7 @@
                   // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
                   // to avoid overflow in updating right-hand side.
 
-                  XJ = max( ( V( 1, 1 ) ).abs(), ( V( 2, 1 ) ) ).abs();
+                  XJ = max( ( V( 1, 1 ) ).abs(), ( V( 2, 1 ) ).abs() );
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
@@ -248,7 +248,7 @@
                      }
                   }
                   X[J1] = X( J1 ) / TMP;
-                  XMAX = max( XMAX, ( X( J1 ) ) ).abs();
+                  XMAX = max( XMAX, ( X( J1 ) ).abs() );
 
                } else {
 
@@ -257,7 +257,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side elements by inner product.
 
-                  XJ = max( ( X( J1 ) ).abs(), ( X( J2 ) ) ).abs();
+                  XJ = max( ( X( J1 ) ).abs(), ( X( J2 ) ).abs() );
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( max( WORK( J2 ), WORK( J1 ) ) > ( BIGNUM-XJ )* REC ) {
@@ -356,7 +356,7 @@
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 50
-                        XMAX = max( XMAX, ( X( K ) ).abs()+ ( X( K+N ) ) ).abs();
+                        XMAX = max( XMAX, ( X( K ) ).abs()+ ( X( K+N ) ).abs() );
                      } // 50
                   }
 
@@ -383,7 +383,7 @@
                   // Scale X(J1), .... to avoid overflow in
                   // updating right hand side.
 
-                  XJ = max( ( V( 1, 1 ) ).abs()+( V( 1, 2 ) ).abs(), ( V( 2, 1 ) ).abs()+( V( 2, 2 ) ) ).abs();
+                  XJ = max( ( V( 1, 1 ) ).abs()+( V( 1, 2 ) ).abs(), ( V( 2, 1 ) ).abs()+( V( 2, 2 ) ).abs() );
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
@@ -488,7 +488,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side element by inner product.
 
-                  XJ = max( ( X( J1 ) ).abs()+( X( N+J1 ) ).abs(), ( X( J2 ) ).abs()+( X( N+J2 ) ) ).abs();
+                  XJ = max( ( X( J1 ) ).abs()+( X( N+J1 ) ).abs(), ( X( J2 ) ).abs()+( X( N+J2 ) ).abs() );
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XJ ) / XMAX ) {

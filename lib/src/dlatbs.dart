@@ -541,7 +541,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   X[J] = X( J ) / TJJS - SUMJ;
                }
-               XMAX = max( XMAX, ( X( J ) ) ).abs();
+               XMAX = max( XMAX, ( X( J ) ).abs() );
             } // 160
          }
          SCALE = SCALE / TSCAL;

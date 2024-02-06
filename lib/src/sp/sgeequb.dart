@@ -75,7 +75,7 @@
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            R[I] = max( R( I ), ( A( I, J ) ) ).abs();
+            R[I] = max( R( I ), ( A( I, J ) ).abs() );
          } // 20
       } // 30
       for (I = 1; I <= M; I++) {

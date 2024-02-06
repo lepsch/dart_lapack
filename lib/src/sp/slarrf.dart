@@ -128,7 +128,7 @@
             // in this case
             SAWNAN1 = true;
          }
-         MAX1 = max( MAX1,(DPLUS(I+1)) ).abs();
+         MAX1 = max( MAX1,(DPLUS(I+1)).abs() );
       } // 6
       SAWNAN1 = SAWNAN1 || SISNAN( MAX1 );
        if ( FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1 ) ) {
@@ -157,7 +157,7 @@
             // in this case
             SAWNAN2 = true;
          }
-         MAX2 = max( MAX2,(WORK(I+1)) ).abs();
+         MAX2 = max( MAX2,(WORK(I+1)).abs() );
       } // 7
       SAWNAN2 = SAWNAN2 || SISNAN( MAX2 );
        if ( FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2 ) ) {

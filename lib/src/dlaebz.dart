@@ -271,7 +271,7 @@ import 'package:lapack/src/xerbla.dart';
          KFNEW = KF;
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) );
-            TMP2 = max( ( AB( JI, 2 ) ).abs(), ( AB( JI, 1 ) ) ).abs();
+            TMP2 = max( ( AB( JI, 2 ) ).abs(), ( AB( JI, 1 ) ).abs() );
             if ( TMP1 < max( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,

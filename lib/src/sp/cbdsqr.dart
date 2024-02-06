@@ -134,10 +134,10 @@
 
       SMAX = ZERO;
       for (I = 1; I <= N; I++) { // 20
-         SMAX = max( SMAX, ( D( I ) ) ).abs();
+         SMAX = max( SMAX, ( D( I ) ).abs() );
       } // 20
       for (I = 1; I <= N - 1; I++) { // 30
-         SMAX = max( SMAX, ( E( I ) ) ).abs();
+         SMAX = max( SMAX, ( E( I ) ).abs() );
       } // 30
       SMIN = ZERO;
       if ( TOL >= ZERO ) {

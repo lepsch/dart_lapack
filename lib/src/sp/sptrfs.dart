@@ -212,7 +212,7 @@
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 80
-            LSTRES = max( LSTRES, ( X( I, J ) ) ).abs();
+            LSTRES = max( LSTRES, ( X( I, J ) ).abs() );
          } // 80
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

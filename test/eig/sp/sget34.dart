@@ -78,7 +78,7 @@
                   T[2][2] = VAL( IC );
                   T[1][2] = VAL( IB );
                   T[2][1] = ZERO;
-                  TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 1, 2 ) ) ).abs();
+                  TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 1, 2 ) ).abs() );
                   scopy(16, T, 1, T1, 1 );
                   scopy(16, VAL( 1 ), 0, Q, 1 );
                   scopy(4, VAL( 3 ), 0, Q, 5 );
@@ -115,7 +115,7 @@
                            T[3][1] = ZERO;
                            T[3][2] = -VAL( IC21 );
                            T[3][3] = VAL( IC11 )*double( IC22 );
-                           TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ) ).abs();
+                           TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ).abs() );
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
                            scopy(4, VAL( 3 ), 0, Q, 5 );
@@ -157,7 +157,7 @@
                            T[3][1] = ZERO;
                            T[3][2] = ZERO;
                            T[3][3] = VAL( IC )*VM( ICM );
-                           TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ) ).abs();
+                           TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ).abs() );
                            scopy(16, T, 1, T1, 1 );
                            scopy(16, VAL( 1 ), 0, Q, 1 );
                            scopy(4, VAL( 3 ), 0, Q, 5 );
@@ -211,7 +211,7 @@
                                     TNRM = ZERO;
                                     for (I = 1; I <= 4; I++) { // 200
                                        for (J = 1; J <= 4; J++) { // 190
-                                          TNRM = max( TNRM, ( T( I, J ) ) ).abs();
+                                          TNRM = max( TNRM, ( T( I, J ) ).abs() );
                                        } // 190
                                     } // 200
                                     scopy(16, T, 1, T1, 1 );

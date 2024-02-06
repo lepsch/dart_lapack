@@ -141,13 +141,13 @@
             TEMP1 = ZERO;
             if ( ALPHAI( JVEC ) == ZERO ) {
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs() );
                } // 20
                ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
             } else {
                ILCPLX = true;
                for (J = 1; J <= N; J++) { // 30
-                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs()+ ( E( J, JVEC+1 ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs()+ ( E( J, JVEC+1 ) ).abs() );
                } // 30
                ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
             }

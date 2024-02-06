@@ -80,7 +80,7 @@
       KD = KU + 1;
       for (J = 1; J <= N; J++) { // 30
          for (I = max( J-KU, 1 ); I <= min( J+KL, M ); I++) { // 20
-            R[I] = max( R( I ), ( AB( KD+I-J, J ) ) ).abs();
+            R[I] = max( R( I ), ( AB( KD+I-J, J ) ).abs() );
          } // 20
       } // 30
       for (I = 1; I <= M; I++) {

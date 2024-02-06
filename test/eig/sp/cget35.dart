@@ -92,15 +92,15 @@
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50
                                  A[I][J] = ATMP( I, J )*VM1( IMLA );
-                                 TNRM = max( TNRM, ( A( I, J ) ) ).abs();
+                                 TNRM = max( TNRM, ( A( I, J ) ).abs() );
                               } // 50
                               A[I][I] = A( I, I )*VM2( IMLAD );
-                              TNRM = max( TNRM, ( A( I, I ) ) ).abs();
+                              TNRM = max( TNRM, ( A( I, I ) ).abs() );
                            } // 60
                            for (I = 1; I <= N; I++) { // 80
                               for (J = 1; J <= N; J++) { // 70
                                  B[I][J] = BTMP( I, J )*VM1( IMLB );
-                                 TNRM = max( TNRM, ( B( I, J ) ) ).abs();
+                                 TNRM = max( TNRM, ( B( I, J ) ).abs() );
                               } // 70
                            } // 80
                            if (TNRM == ZERO) TNRM = ONE;

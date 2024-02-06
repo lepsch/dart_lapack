@@ -78,7 +78,7 @@
       for (J = 1; J <= NRHS; J++) { // 40
          ccopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ICAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
+         XNORM = max( ONE, ( X( IX, J ) ).abs() );
          XSCAL = ( ONE / XNORM ) / REAL( N );
          csscal(N, XSCAL, WORK, 1 );
          ctpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );

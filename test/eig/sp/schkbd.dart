@@ -422,7 +422,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ) ) ).abs();
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ) ).abs() );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 
@@ -531,7 +531,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 160
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ).abs() );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 160
 
@@ -637,7 +637,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= MNMIN; J++) { // 190
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ).abs() );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 190
             RESULT[24] = TEMP2;
@@ -732,7 +732,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 230
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ).abs() );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 230
             RESULT[29] = TEMP2;
@@ -831,7 +831,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 260
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ).abs() );
                TEMP2 = max( TEMP1, TEMP2 );
             } // 260
             RESULT[34] = TEMP2;

@@ -63,7 +63,7 @@
          } // 20
          BNORM = ( D( 1 ) ).abs();
          for (I = 2; I <= N; I++) { // 30
-            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I-1 ) ) ).abs();
+            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I-1 ) ).abs() );
          } // 30
       } else {
 
@@ -80,7 +80,7 @@
          } // 50
          BNORM = ( D( N ) ).abs();
          for (I = 1; I <= N-1; I++) { // 60
-            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I ) ) ).abs();
+            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I ) ).abs() );
          } // 60
       }
 

@@ -320,7 +320,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 120
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 120
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -331,7 +331,7 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ) ).abs();
+                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ).abs() );
                   if ( IL != 1 ) {
                      VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
@@ -386,7 +386,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 140
-                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 140
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -433,7 +433,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -486,7 +486,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -576,7 +576,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 260
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 260
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -606,7 +606,7 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ) ).abs();
+                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ).abs() );
                   if ( IL != 1 ) {
                      VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
@@ -678,7 +678,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 360
-                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 360
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -758,7 +758,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -844,7 +844,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -930,7 +930,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 640
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 640
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1005,7 +1005,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 740
-                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 740
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1079,7 +1079,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -1158,7 +1158,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }
@@ -1209,7 +1209,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 940
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 940
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1298,7 +1298,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1040
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1040
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1385,7 +1385,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1150
-                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1150
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1430,7 +1430,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1160
-                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ).abs() );
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 1160
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1526,7 +1526,7 @@
                TEMP1 = dsxt1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = dsxt1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ).abs() );
                } else {
                   TEMP3 = ZERO;
                }

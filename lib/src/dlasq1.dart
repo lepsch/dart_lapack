@@ -63,7 +63,7 @@ import 'package:lapack/src/xerbla.dart';
       SIGMX = ZERO;
       for (I = 1; I <= N - 1; I++) { // 10
          D[I] = ( D( I ) ).abs();
-         SIGMX = max( SIGMX, ( E( I ) ) ).abs();
+         SIGMX = max( SIGMX, ( E( I ) ).abs() );
       } // 10
       D[N] = ( D( N ) ).abs();
 

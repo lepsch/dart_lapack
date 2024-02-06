@@ -119,7 +119,7 @@ import 'package:lapack/src/xerbla.dart';
                ROWMAX = ( W( JMAX, KW-1 ) ).abs();
                if ( IMAX > 1 ) {
                   JMAX = idamax( IMAX-1, W( 1, KW-1 ), 1 );
-                  ROWMAX = max( ROWMAX, ( W( JMAX, KW-1 ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( W( JMAX, KW-1 ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -396,7 +396,7 @@ import 'package:lapack/src/xerbla.dart';
                ROWMAX = ( W( JMAX, K+1 ) ).abs();
                if ( IMAX < N ) {
                   JMAX = IMAX + idamax( N-IMAX, W( IMAX+1, K+1 ), 1 );
-                  ROWMAX = max( ROWMAX, ( W( JMAX, K+1 ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( W( JMAX, K+1 ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {

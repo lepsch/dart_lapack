@@ -531,7 +531,7 @@
 
                   X[J] = X( J ) / TJJS - SUMJ;
                }
-               XMAX = max( XMAX, ( X( J ) ) ).abs();
+               XMAX = max( XMAX, ( X( J ) ).abs() );
                JLEN = JLEN + 1;
                IP = IP + JINC*JLEN;
             } // 140

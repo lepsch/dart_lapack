@@ -123,7 +123,7 @@
       I = ISAMAX( N, D, 1 );
       SMAX = ( D( I ) ).abs();
       I = ISAMAX( N-1, E, 1 );
-      SMAX = max( SMAX, ( E( I ) ) ).abs();
+      SMAX = max( SMAX, ( E( I ) ).abs() );
 
       // Compute threshold for neglecting D's and E's.
 

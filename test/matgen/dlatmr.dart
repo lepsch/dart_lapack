@@ -250,7 +250,7 @@
 
          TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= MNMIN; I++) { // 40
-            TEMP = max( TEMP, ( D( I ) ) ).abs();
+            TEMP = max( TEMP, ( D( I ) ).abs() );
          } // 40
          if ( TEMP == ZERO && DMAX != ZERO ) {
             INFO = 2;

@@ -232,10 +232,10 @@ import 'package:lapack/src/xerbla.dart';
 
          // RANGE='A' or 'V' -- Set ATOLI
 
-         TNORM = max( ( D( 1 ) ).abs()+( E( 1 ) ).abs(), ( D( N ) ).abs()+( E( N-1 ) ) ).abs();
+         TNORM = max( ( D( 1 ) ).abs()+( E( 1 ) ).abs(), ( D( N ) ).abs()+( E( N-1 ) ).abs() );
 
          for (J = 2; J <= N - 1; J++) { // 30
-            TNORM = max( TNORM, ( D( J ) ).abs()+( E( J-1 ) ).abs()+ ( E( J ) ) ).abs();
+            TNORM = max( TNORM, ( D( J ) ).abs()+( E( J-1 ) ).abs()+ ( E( J ) ).abs() );
          } // 30
 
          if ( ABSTOL <= ZERO ) {

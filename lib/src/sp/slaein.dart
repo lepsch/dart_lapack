@@ -427,7 +427,7 @@
 
          VNORM = ZERO;
          for (I = 1; I <= N; I++) { // 290
-            VNORM = max( VNORM, ( VR( I ) ).abs()+( VI( I ) ) ).abs();
+            VNORM = max( VNORM, ( VR( I ) ).abs()+( VI( I ) ).abs() );
          } // 290
          sscal(N, ONE / VNORM, VR, 1 );
          sscal(N, ONE / VNORM, VI, 1 );

@@ -75,7 +75,7 @@
       for (J = 1; J <= NRHS; J++) { // 40
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
+         XNORM = max( ONE, ( X( IX, J ) ).abs() );
          XSCAL = ( ONE / XNORM ) / (KD+1).toDouble();
          zdscal(N, XSCAL, WORK, 1 );
          ztbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );

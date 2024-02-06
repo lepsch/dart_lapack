@@ -357,11 +357,11 @@
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
-                  TEMP = max( TEMP, ( VL( JR, JC ) ) ).abs();
+                  TEMP = max( TEMP, ( VL( JR, JC ) ).abs() );
                } // 30
             } else {
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = max( TEMP, ( VL( JR, JC ) ).abs()+ ( VL( JR, JC+1 ) ) ).abs();
+                  TEMP = max( TEMP, ( VL( JR, JC ) ).abs()+ ( VL( JR, JC+1 ) ).abs() );
                } // 40
             }
             if (TEMP < SMLNUM) GO TO 70;
@@ -385,11 +385,11 @@
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
-                  TEMP = max( TEMP, ( VR( JR, JC ) ) ).abs();
+                  TEMP = max( TEMP, ( VR( JR, JC ) ).abs() );
                } // 80
             } else {
                for (JR = 1; JR <= N; JR++) { // 90
-                  TEMP = max( TEMP, ( VR( JR, JC ) ).abs()+ ( VR( JR, JC+1 ) ) ).abs();
+                  TEMP = max( TEMP, ( VR( JR, JC ) ).abs()+ ( VR( JR, JC+1 ) ).abs() );
                } // 90
             }
             if (TEMP < SMLNUM) GO TO 120;

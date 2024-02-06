@@ -57,11 +57,11 @@
          ANORM = D( 1 );
          RESID = ( WORK( 1 ) ).abs();
       } else {
-         ANORM = max( D( 1 )+( E( 1 ) ).abs(), D( N )+( E( N-1 ) ) ).abs();
-         RESID = max( ( WORK( 1 ) ).abs()+( WORK( N+1 ) ).abs(), ( WORK( N ) ).abs()+( WORK( 2*N-1 ) ) ).abs();
+         ANORM = max( D( 1 )+( E( 1 ) ).abs(), D( N )+( E( N-1 ) ).abs() );
+         RESID = max( ( WORK( 1 ) ).abs()+( WORK( N+1 ) ).abs(), ( WORK( N ) ).abs()+( WORK( 2*N-1 ) ).abs() );
          for (I = 2; I <= N - 1; I++) { // 20
-            ANORM = max( ANORM, D( I )+( E( I ) ).abs()+( E( I-1 ) ) ).abs();
-            RESID = max( RESID, ( WORK( I ) ).abs()+( WORK( N+I-1 ) ).abs()+ ( WORK( N+I ) ) ).abs();
+            ANORM = max( ANORM, D( I )+( E( I ) ).abs()+( E( I-1 ) ).abs() );
+            RESID = max( RESID, ( WORK( I ) ).abs()+( WORK( N+I-1 ) ).abs()+ ( WORK( N+I ) ).abs() );
          } // 20
       }
 

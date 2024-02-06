@@ -201,7 +201,7 @@
 
          TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= RANK; I++) { // 110
-            TEMP = max( TEMP, ( D( I ) ) ).abs();
+            TEMP = max( TEMP, ( D( I ) ).abs() );
          } // 110
 
          if ( TEMP > ZERO ) {

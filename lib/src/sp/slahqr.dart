@@ -118,8 +118,8 @@
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some cases.  ====
             if ( ( H( K, K-1 ) ).abs() <= ULP*TST ) {
-               AB = max( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ) ).abs();
-               BA = min( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ) ).abs();
+               AB = max( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ).abs() );
+               BA = min( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ).abs() );
                AA = max( ( H( K, K ) ).abs(), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = min( ( H( K, K ) ).abs(), ABS( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
                if( BA*( AB / S ) <= max( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;

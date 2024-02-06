@@ -332,7 +332,7 @@
          IRAB = IZAMAX( N-ILO+1, A( I, ILO ), LDA );
          RAB = ( A( I, IRAB+ILO-1 ) ).abs();
          IRAB = IZAMAX( N-ILO+1, B( I, ILO ), LDB );
-         RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ) ).abs();
+         RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ).abs() );
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT(LSCALE( I ) + sign( HALF, LSCALE( I ) ));
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
@@ -340,7 +340,7 @@
          ICAB = IZAMAX( IHI, A( 1, I ), 1 );
          CAB = ( A( ICAB, I ) ).abs();
          ICAB = IZAMAX( IHI, B( 1, I ), 1 );
-         CAB = max( CAB, ( B( ICAB, I ) ) ).abs();
+         CAB = max( CAB, ( B( ICAB, I ) ).abs() );
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT(RSCALE( I ) + sign( HALF, RSCALE( I ) ));
          JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );

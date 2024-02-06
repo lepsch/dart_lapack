@@ -186,7 +186,7 @@
 
          TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= N; I++) { // 40
-            TEMP = max( TEMP, ( D( I ) ) ).abs();
+            TEMP = max( TEMP, ( D( I ) ).abs() );
          } // 40
 
          if ( TEMP > ZERO ) {

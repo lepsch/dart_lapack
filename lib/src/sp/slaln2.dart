@@ -163,7 +163,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 2, 1 ) ) ).abs();
+               BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 2, 1 ) ).abs() );
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
@@ -249,7 +249,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ) ).abs();
+               BNORM = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ).abs() );
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }

@@ -88,7 +88,7 @@
                                        } else {
                                           A[I][J] = A( I, J )* VM1( IMLOFF );
                                        }
-                                       TNRM = max( TNRM, ( A( I, J ) ) ).abs();
+                                       TNRM = max( TNRM, ( A( I, J ) ).abs() );
                                     } // 10
                                  } // 20
                                  for (I = 1; I <= N; I++) { // 40
@@ -99,7 +99,7 @@
                                        } else {
                                           B[I][J] = B( I, J )* VM1( IMLOFF );
                                        }
-                                       TNRM = max( TNRM, ( B( I, J ) ) ).abs();
+                                       TNRM = max( TNRM, ( B( I, J ) ).abs() );
                                     } // 30
                                  } // 40
                                  CNRM = ZERO;

@@ -105,7 +105,7 @@ import 'package:lapack/src/xerbla.dart';
       IMAX = idamax( N, Z, 1 );
       JMAX = idamax( N, D, 1 );
       EPS = dlamch( 'Epsilon' );
-      TOL = EIGHT*EPS*max( ( D( JMAX ) ).abs(), ( Z( IMAX ) ) ).abs();
+      TOL = EIGHT*EPS*max( ( D( JMAX ) ).abs(), ( Z( IMAX ) ).abs() );
 
       // If the rank-1 modifier is small enough, no more needs to be done
       // except to reorganize Q so that its columns correspond with the

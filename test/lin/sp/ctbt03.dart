@@ -75,7 +75,7 @@
       for (J = 1; J <= NRHS; J++) { // 40
          ccopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ICAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
+         XNORM = max( ONE, ( X( IX, J ) ).abs() );
          XSCAL = ( ONE / XNORM ) / REAL( KD+1 );
          csscal(N, XSCAL, WORK, 1 );
          ctbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );

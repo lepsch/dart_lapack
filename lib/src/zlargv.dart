@@ -44,7 +44,7 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1[FF] = max( ( FF.toDouble() ).abs(), ( DIMAG( FF ) ) ).abs();
+      ABS1[FF] = max( ( FF.toDouble() ).abs(), ( DIMAG( FF ) ).abs() );
       ABSSQ[FF] = FF.toDouble()**2 + DIMAG( FF )**2;
       // ..
       // .. Executable Statements ..

@@ -130,7 +130,7 @@ import 'package:lapack/src/xerbla.dart';
       I = idamax( N, D, 1 );
       SMAX = ( D( I ) ).abs();
       I = idamax( N-1, E, 1 );
-      SMAX = max( SMAX, ( E( I ) ) ).abs();
+      SMAX = max( SMAX, ( E( I ) ).abs() );
 
       // Compute threshold for neglecting D's and E's.
 
@@ -138,7 +138,7 @@ import 'package:lapack/src/xerbla.dart';
       if ( SMIN != ZERO ) {
          MU = SMIN;
          for (I = 2; I <= N; I++) {
-            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ).abs() );
             SMIN = min( SMIN, MU );
             if (SMIN == ZERO) break;
          }

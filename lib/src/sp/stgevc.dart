@@ -338,7 +338,7 @@
                   WORK[2*N+JE] = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP;
                   WORK[3*N+JE] = BCOEFI*P( JE+1, JE+1 ) / TEMP;
                }
-               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE+1 ) ).abs()+( WORK( 3*N+JE+1 ) ) ).abs();
+               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE+1 ) ).abs()+( WORK( 3*N+JE+1 ) ).abs() );
             }
 
             DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
@@ -451,11 +451,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = IBEG; J <= N; J++) { // 180
-                  XMAX = max( XMAX, ( VL( J, IEIG ) ).abs()+ ( VL( J, IEIG+1 ) ) ).abs();
+                  XMAX = max( XMAX, ( VL( J, IEIG ) ).abs()+ ( VL( J, IEIG+1 ) ).abs() );
                } // 180
             } else {
                for (J = IBEG; J <= N; J++) { // 190
-                  XMAX = max( XMAX, ( VL( J, IEIG ) ) ).abs();
+                  XMAX = max( XMAX, ( VL( J, IEIG ) ).abs() );
                } // 190
             }
 
@@ -629,7 +629,7 @@
                   WORK[3*N+JE] = BCOEFI*P( JE-1, JE-1 ) / TEMP;
                }
 
-               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE-1 ) ).abs()+( WORK( 3*N+JE-1 ) ) ).abs();
+               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE-1 ) ).abs()+( WORK( 3*N+JE-1 ) ).abs() );
 
                // Compute contribution from columns JE and JE-1
                // of A and B to the sums.
@@ -779,11 +779,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = 1; J <= IEND; J++) { // 460
-                  XMAX = max( XMAX, ( VR( J, IEIG ) ).abs()+ ( VR( J, IEIG+1 ) ) ).abs();
+                  XMAX = max( XMAX, ( VR( J, IEIG ) ).abs()+ ( VR( J, IEIG+1 ) ).abs() );
                } // 460
             } else {
                for (J = 1; J <= IEND; J++) { // 470
-                  XMAX = max( XMAX, ( VR( J, IEIG ) ) ).abs();
+                  XMAX = max( XMAX, ( VR( J, IEIG ) ).abs() );
                } // 470
             }
 

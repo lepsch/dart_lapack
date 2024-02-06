@@ -574,7 +574,7 @@
 
                   X[J] = X( J ) / TJJS - SUMJ;
                }
-               XMAX = max( XMAX, ( X( J ) ) ).abs();
+               XMAX = max( XMAX, ( X( J ) ).abs() );
             } // 140
          }
          SCALE = SCALE / TSCAL;

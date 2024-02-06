@@ -151,7 +151,7 @@
       }
       SCALE = ONE;
       if ( ( TWO*SMLNUM )*( BTMP( 2 ) ).abs() > ( U22 ).abs() || ( TWO*SMLNUM )*( BTMP( 1 ) ).abs() > ( U11 ).abs() ) {
-         SCALE = HALF / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ) ).abs();
+         SCALE = HALF / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ).abs() );
          BTMP[1] = BTMP( 1 )*SCALE;
          BTMP[2] = BTMP( 2 )*SCALE;
       }
@@ -168,7 +168,7 @@
          XNORM = ( X( 1, 1 ) ).abs() + ( X( 1, 2 ) ).abs();
       } else {
          X[2][1] = X2( 2 );
-         XNORM = max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ) ).abs();
+         XNORM = max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ).abs() );
       }
       return;
 
@@ -180,7 +180,7 @@
       // Set pivots less than SMIN to SMIN.
 
       } // 50
-      SMIN = max( ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs()       SMIN = max( SMIN, ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ) ).abs();
+      SMIN = max( ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs()       SMIN = max( SMIN, ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ).abs() );
       SMIN = max( EPS*SMIN, SMLNUM );
       BTMP[1] = ZERO;
       scopy(16, BTMP, 0, T16, 1 );
@@ -254,7 +254,7 @@
       }
       SCALE = ONE;
       if ( ( EIGHT*SMLNUM )*( BTMP( 1 ) ).abs() > ( T16( 1, 1 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 2 ) ).abs() > ( T16( 2, 2 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 3 ) ).abs() > ( T16( 3, 3 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 4 ) ).abs() > ( T16( 4, 4 ) ).abs() ) {
-         SCALE = ( ONE / EIGHT ) / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ).abs(), ( BTMP( 3 ) ).abs(), ( BTMP( 4 ) ) ).abs();
+         SCALE = ( ONE / EIGHT ) / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ).abs(), ( BTMP( 3 ) ).abs(), ( BTMP( 4 ) ).abs() );
          BTMP[1] = BTMP( 1 )*SCALE;
          BTMP[2] = BTMP( 2 )*SCALE;
          BTMP[3] = BTMP( 3 )*SCALE;
@@ -279,6 +279,6 @@
       X[2][1] = TMP( 2 );
       X[1][2] = TMP( 3 );
       X[2][2] = TMP( 4 );
-      XNORM = max( ( TMP( 1 ) ).abs()+( TMP( 3 ) ).abs(), ( TMP( 2 ) ).abs()+( TMP( 4 ) ) ).abs();
+      XNORM = max( ( TMP( 1 ) ).abs()+( TMP( 3 ) ).abs(), ( TMP( 2 ) ).abs()+( TMP( 4 ) ).abs() );
       return;
       }

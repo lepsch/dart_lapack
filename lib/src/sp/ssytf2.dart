@@ -112,7 +112,7 @@
                ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX > 1 ) {
                   JMAX = ISAMAX( IMAX-1, A( 1, IMAX ), 1 );
-                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -278,7 +278,7 @@
                ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX < N ) {
                   JMAX = IMAX + ISAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
-                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {

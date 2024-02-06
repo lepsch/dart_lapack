@@ -177,7 +177,7 @@
             ANORM = ZERO;
             for (J = 1; J <= INFO; J++) { // 90
                for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 80
-                  ANORM = max( ANORM, ( AB( I, J ) ) ).abs();
+                  ANORM = max( ANORM, ( AB( I, J ) ).abs() );
                } // 80
             } // 90
             RPVGRW = SLANTB( 'M', 'U', 'N', INFO, min( INFO-1, KL+KU ), AFB( max( 1, KL+KU+2-INFO ), 1 ), LDAFB, WORK );

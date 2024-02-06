@@ -124,7 +124,7 @@ import 'package:lapack/src/xerbla.dart';
                KPC = ( IMAX-1 )*IMAX / 2 + 1;
                if ( IMAX > 1 ) {
                   JMAX = idamax( IMAX-1, AP( KPC ), 1 );
-                  ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-1 ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-1 ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -306,7 +306,7 @@ import 'package:lapack/src/xerbla.dart';
                KPC = NPP - ( N-IMAX+1 )*( N-IMAX+2 ) / 2 + 1;
                if ( IMAX < N ) {
                   JMAX = IMAX + idamax( N-IMAX, AP( KPC+1 ), 1 );
-                  ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-IMAX ) ) ).abs();
+                  ROWMAX = max( ROWMAX, ( AP( KPC+JMAX-IMAX ) ).abs() );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {

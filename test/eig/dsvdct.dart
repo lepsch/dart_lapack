@@ -42,7 +42,7 @@
 
       MX = ( S( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 10
-         MX = max( MX, ( S( I+1 ) ).abs(), ( E( I ) ) ).abs();
+         MX = max( MX, ( S( I+1 ) ).abs(), ( E( I ) ).abs() );
       } // 10
 
       if ( MX == ZERO ) {

@@ -362,7 +362,7 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 130
-               TEMP1 = max( TEMP1, ( W1( J ) ).abs(), ( W3( J ) ) ).abs();
+               TEMP1 = max( TEMP1, ( W1( J ) ).abs(), ( W3( J ) ).abs() );
                TEMP2 = max( TEMP2, ABS( W1( J )-W3( J ) ) );
             } // 130
 

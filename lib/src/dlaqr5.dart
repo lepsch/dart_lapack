@@ -384,8 +384,8 @@ import 'package:lapack/src/xerbla.dart';
                      IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
                   }
                   if ( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
-                     H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs();
-                     H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs();
+                     H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() );
+                     H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() );
                      H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
                      SCL = H11 + H12;
                      TST2 = H22*( H11 / SCL );

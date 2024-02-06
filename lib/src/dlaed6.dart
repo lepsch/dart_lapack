@@ -117,9 +117,9 @@ import 'package:lapack/src/xerbla.dart';
       // when computing 1/TEMP**3
 
       if ( ORGATI ) {
-         TEMP = min( ABS( D( 2 )-TAU ), ( D( 3 )-TAU ) ).abs();
+         TEMP = min( ABS( D( 2 )-TAU ), ( D( 3 )-TAU ).abs() );
       } else {
-         TEMP = min( ABS( D( 1 )-TAU ), ( D( 2 )-TAU ) ).abs();
+         TEMP = min( ABS( D( 1 )-TAU ), ( D( 2 )-TAU ).abs() );
       }
       SCALE = false;
       if ( TEMP <= SMALL1 ) {

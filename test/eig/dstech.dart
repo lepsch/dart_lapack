@@ -57,7 +57,7 @@
 
       MX = ( EIG( 1 ) ).abs();
       for (I = 2; I <= N; I++) { // 10
-         MX = max( MX, ( EIG( I ) ) ).abs();
+         MX = max( MX, ( EIG( I ) ).abs() );
       } // 10
       EPS = max( EPS*MX, UNFLEP );
 

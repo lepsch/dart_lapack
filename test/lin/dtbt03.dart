@@ -74,7 +74,7 @@
       for (J = 1; J <= NRHS; J++) { // 40
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = idamax( N, WORK, 1 );
-         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
+         XNORM = max( ONE, ( X( IX, J ) ).abs() );
          XSCAL = ( ONE / XNORM ) / (KD+1).toDouble();
          dscal(N, XSCAL, WORK, 1 );
          dtbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );

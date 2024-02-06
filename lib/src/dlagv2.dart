@@ -136,7 +136,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // compute inf norms of A and B
 
-            H1 = max( ( A( 1, 1 ) ).abs()+( A( 1, 2 ) ).abs(), ( A( 2, 1 ) ).abs()+( A( 2, 2 ) ) ).abs()             H2 = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ) ).abs();
+            H1 = max( ( A( 1, 1 ) ).abs()+( A( 1, 2 ) ).abs(), ( A( 2, 1 ) ).abs()+( A( 2, 2 ) ) ).abs()             H2 = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ).abs() );
 
             if ( ( SCALE1*H1 ) >= ( WR1 ).abs()*H2 ) {
 

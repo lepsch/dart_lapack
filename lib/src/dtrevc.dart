@@ -398,7 +398,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   EMAX = ZERO;
                   for (K = 1; K <= KI; K++) { // 100
-                     EMAX = max( EMAX, ( VR( K, IS-1 ) ).abs()+ ( VR( K, IS ) ) ).abs();
+                     EMAX = max( EMAX, ( VR( K, IS-1 ) ).abs()+ ( VR( K, IS ) ).abs() );
                   } // 100
 
                   REMAX = ONE / EMAX;
@@ -422,7 +422,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 120
-                     EMAX = max( EMAX, ( VR( K, KI-1 ) ).abs()+ ( VR( K, KI ) ) ).abs();
+                     EMAX = max( EMAX, ( VR( K, KI-1 ) ).abs()+ ( VR( K, KI ) ).abs() );
                   } // 120
                   REMAX = ONE / EMAX;
                   dscal(N, REMAX, VR( 1, KI-1 ), 1 );
@@ -711,7 +711,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   EMAX = ZERO;
                   for (K = KI; K <= N; K++) { // 220
-                     EMAX = max( EMAX, ( VL( K, IS ) ).abs()+ ( VL( K, IS+1 ) ) ).abs();
+                     EMAX = max( EMAX, ( VL( K, IS ) ).abs()+ ( VL( K, IS+1 ) ).abs() );
                   } // 220
                   REMAX = ONE / EMAX;
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
@@ -732,7 +732,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 240
-                     EMAX = max( EMAX, ( VL( K, KI ) ).abs()+ ( VL( K, KI+1 ) ) ).abs();
+                     EMAX = max( EMAX, ( VL( K, KI ) ).abs()+ ( VL( K, KI+1 ) ).abs() );
                   } // 240
                   REMAX = ONE / EMAX;
                   dscal(N, REMAX, VL( 1, KI ), 1 );

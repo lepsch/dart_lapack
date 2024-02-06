@@ -236,7 +236,7 @@ import 'package:lapack/src/xerbla.dart';
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 100
-            LSTRES = max( LSTRES, ( X( I, J ) ) ).abs();
+            LSTRES = max( LSTRES, ( X( I, J ) ).abs() );
          } // 100
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

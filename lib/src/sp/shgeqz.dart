@@ -755,8 +755,8 @@
                // Swap rows to pivot
 
                ILPIVT = false;
-               TEMP = max( ( T( J+1, J+1 ) ).abs(), ( T( J+1, J+2 ) ) ).abs();
-               TEMP2 = max( ( T( J+2, J+1 ) ).abs(), ( T( J+2, J+2 ) ) ).abs();
+               TEMP = max( ( T( J+1, J+1 ) ).abs(), ( T( J+1, J+2 ) ).abs() );
+               TEMP2 = max( ( T( J+2, J+1 ) ).abs(), ( T( J+2, J+2 ) ).abs() );
                if ( max( TEMP, TEMP2 ) < SAFMIN ) {
                   SCALE = ZERO;
                   U1 = ONE;

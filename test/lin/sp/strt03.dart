@@ -68,7 +68,7 @@
       for (J = 1; J <= NRHS; J++) { // 30
          scopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ISAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
+         XNORM = max( ONE, ( X( IX, J ) ).abs() );
          XSCAL = ( ONE / XNORM ) / REAL( N );
          sscal(N, XSCAL, WORK, 1 );
          strmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
