@@ -222,7 +222,7 @@ void dlaln2(
         BR2 = B[2][1];
       }
       BR2 = BR2 - LR21 * BR1;
-      BBND = max((BR1 * (UR22 * UR11R)).abs(), (BR2).abs());
+      BBND = max((BR1 * (UR22 * UR11R).abs()), (BR2).abs());
       if (BBND > ONE && (UR22).abs() < ONE) {
         if (BBND >= BIGNUM * (UR22).abs()) SCALE.value = ONE / BBND;
       }

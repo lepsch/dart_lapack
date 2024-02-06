@@ -190,7 +190,7 @@ void dlaqtr(
           // Scale V[1][1] (= X[J1]) and/or V[2][1] (=X[J2])
           // to avoid overflow in updating right-hand side.
 
-          XJ = max((V[1][1]).abs(), (V[2][1])).abs();
+          XJ = max((V[1][1]).abs(), (V[2][1]).abs());
           if (XJ > ONE) {
             REC = ONE / XJ;
             if (max(WORK[J1], WORK[J2]) > (BIGNUM - XMAX) * REC) {
@@ -382,7 +382,7 @@ void dlaqtr(
 
             XMAX = ZERO;
             for (K = 1; K <= J1 - 1; K++) {
-              XMAX = max(XMAX, (X[K]).abs() + (X[K + N])).abs();
+              XMAX = max(XMAX, (X[K]).abs() + (X[K + N]).abs());
             }
           }
         } else {

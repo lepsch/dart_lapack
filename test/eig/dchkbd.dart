@@ -763,7 +763,7 @@ void dchkbd(
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(
                 sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[J]).abs(), (S2[J])).abs(),
+                ULP * max((S1[J]).abs(), (S2[J]).abs()),
               );
           TEMP2 = max(TEMP1, TEMP2);
         }

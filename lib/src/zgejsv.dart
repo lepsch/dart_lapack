@@ -702,7 +702,7 @@
          // close-to-rank-deficient.
          TEMP1 = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1) ).abs() ) ) || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ).abs() ) GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1) ).abs() ) ) || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)).abs() < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -717,7 +717,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ).abs() ) GO TO 3302;
+            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)).abs() < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -826,7 +826,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = DCMPLX(XSC*(A(q,q)).abs(),ZERO);
                   for (p = 1; p <= N; p++) { // 4949
-                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) );
+                     if ( ( (p > q) && ((A(p,q)).abs() <= TEMP1) ) || ( p < q ) );
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -856,7 +856,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = DCMPLX(XSC*(A(q,q)).abs(),ZERO);
                   for (p = 1; p <= NR; p++) { // 1949
-                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) );
+                     if ( ( (p > q) && ((A(p,q)).abs() <= TEMP1) ) || ( p < q ) );
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947

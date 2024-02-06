@@ -427,7 +427,7 @@
          // will be truncated.
          NR = 1;
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1) ).abs() ) ) || ( (A(p,p)) < SFMIN ) ).abs() GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1) ).abs() ) ) || ( (A(p,p)).abs() < SFMIN ) ) GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402

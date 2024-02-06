@@ -156,7 +156,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ).abs() ) {
+                  if ( !( ( A( IMAX, IMAX ) ).abs() < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -412,7 +412,7 @@ import 'package:lapack/src/xerbla.dart';
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ).abs() ) {
+                  if ( !( ( A( IMAX, IMAX ) ).abs() < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block

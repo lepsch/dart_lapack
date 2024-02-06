@@ -262,7 +262,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ) <= THRESH ).abs() ) {
+         if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ).abs() <= THRESH ) ) {
             E[M-1] = ZERO;
             GO TO 60;
          }
@@ -289,7 +289,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ) <= THRESH ).abs() ) {
+         if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ).abs() <= THRESH ) ) {
             E[LL] = ZERO;
             GO TO 60;
          }

@@ -951,7 +951,7 @@ void dchkst2stg(
           for (J = 1; J <= N; J++) {
             TEMP1 = max(
               TEMP1,
-              (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J])).abs(),
+              (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()),
             );
           }
 
@@ -1124,7 +1124,7 @@ void dchkst2stg(
         TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
         TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
         if (N > 0) {
-          TEMP3 = max((WA1[N]).abs(), (WA1[1])).abs();
+          TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
         } else {
           TEMP3 = ZERO;
         }
@@ -1381,7 +1381,7 @@ void dchkst2stg(
             for (J = 1; J <= N; J++) {
               TEMP1 = max(
                 TEMP1,
-                (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J])).abs(),
+                (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()),
               );
             }
 
@@ -1446,7 +1446,7 @@ void dchkst2stg(
                 TEMP1 = max(
                   TEMP1,
                   (WR[J - IL + 1] - D4[N - J + 1]).abs() /
-                      (ABSTOL + (WR[J - IL + 1])).abs(),
+                      (ABSTOL + (WR[J - IL + 1]).abs()),
                 );
               }
 

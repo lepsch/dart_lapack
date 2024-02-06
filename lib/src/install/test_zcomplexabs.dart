@@ -171,7 +171,7 @@
                 if (R != answerC) {
                     caseCFails = caseCFails + 1;
                     if (caseCFails == 1) {
-                        print *,  "!! Some (x*(3/4+I)).abs() differ from (5/4)*(x).abs()";
+                        print *,  "!! Some (x*(3/4+I).abs()) differ from (5/4)*(x).abs()";
                     }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC;
                 }
@@ -208,7 +208,7 @@
                     if ( relDiff >= (0.5*eps) ) {
                         caseDFails = caseDFails + 1;
                         if (caseDFails == 1) {
-                            print *,  "!! Some (x*(1+I)).abs() differ from sqrt(2)*(x).abs()";
+                            print *,  "!! Some (x*(1+I).abs()) differ from sqrt(2)*(x).abs()";
                         }
                         WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD;
                     }

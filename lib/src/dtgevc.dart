@@ -573,11 +573,11 @@ void dtgevc(
       XMAX = ZERO;
       if (ILCPLX) {
         for (J = IBEG; J <= N; J++) {
-          XMAX = max(XMAX, (VL[J][IEIG]).abs() + (VL[J][IEIG + 1])).abs();
+          XMAX = max(XMAX, (VL[J][IEIG]).abs() + (VL[J][IEIG + 1]).abs());
         }
       } else {
         for (J = IBEG; J <= N; J++) {
-          XMAX = max(XMAX, (VL[J][IEIG])).abs();
+          XMAX = max(XMAX, (VL[J][IEIG]).abs());
         }
       }
 
@@ -959,11 +959,11 @@ void dtgevc(
       XMAX = ZERO;
       if (ILCPLX) {
         for (J = 1; J <= IEND; J++) {
-          XMAX = max(XMAX, (VR[J][IEIG]).abs() + (VR[J][IEIG + 1])).abs();
+          XMAX = max(XMAX, (VR[J][IEIG]).abs() + (VR[J][IEIG + 1]).abs());
         }
       } else {
         for (J = 1; J <= IEND; J++) {
-          XMAX = max(XMAX, (VR[J][IEIG])).abs();
+          XMAX = max(XMAX, (VR[J][IEIG]).abs());
         }
       }
 

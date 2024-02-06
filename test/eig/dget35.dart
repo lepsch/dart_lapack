@@ -157,7 +157,7 @@ void dget35(
                         } else {
                           B[I][J] = B[I][J] * VM1[IMLOFF];
                         }
-                        TNRM = max(TNRM, (B[I][J])).abs();
+                        TNRM = max(TNRM, (B[I][J]).abs());
                       }
                     }
                     CNRM = ZERO;

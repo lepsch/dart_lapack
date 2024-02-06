@@ -53,7 +53,7 @@ void dbdt04(
     }
     BNORM = (D[1]).abs();
     for (I = 2; I <= N; I++) {
-      BNORM = max(BNORM, (D[I]).abs() + (E[I - 1])).abs();
+      BNORM = max(BNORM, (D[I]).abs() + (E[I - 1]).abs());
     }
   } else {
     // B is lower bidiagonal.
@@ -69,7 +69,7 @@ void dbdt04(
     }
     BNORM = (D[N]).abs();
     for (I = 1; I <= N - 1; I++) {
-      BNORM = max(BNORM, (D[I]).abs() + (E[I])).abs();
+      BNORM = max(BNORM, (D[I]).abs() + (E[I]).abs());
     }
   }
 

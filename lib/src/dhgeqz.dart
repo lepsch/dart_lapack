@@ -353,7 +353,7 @@ void dhgeqz(
                   TEMP.value = TEMP.value / TEMPR.value;
                   TEMP2.value = TEMP2.value / TEMPR.value;
                 }
-                if (TEMP.value * (ASCALE * (H[J + 1][J])).abs() <=
+                if (TEMP.value * (ASCALE * (H[J + 1][J]).abs()) <=
                     TEMP2.value * (ASCALE * ATOL)) ILAZR2 = true;
               }
 

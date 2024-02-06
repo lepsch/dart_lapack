@@ -259,7 +259,7 @@ void dget34(
                       TNRM = ZERO;
                       for (I = 1; I <= 4; I++) {
                         for (J = 1; J <= 4; J++) {
-                          TNRM = max(TNRM, (T[I][J])).abs();
+                          TNRM = max(TNRM, (T[I][J]).abs());
                         }
                       }
                       dcopy(16, T.asArray(), 1, T1.asArray(), 1);
