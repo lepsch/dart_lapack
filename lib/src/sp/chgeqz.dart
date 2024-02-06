@@ -210,7 +210,7 @@
             GO TO 60;
          } else {
             if ( ABS1( H( ILAST, ILAST-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
-               H[ILAST, ILAST-1] = CZERO;
+               H[ILAST][ILAST-1] = CZERO;
                GO TO 60;
             }
          }
@@ -230,7 +230,7 @@
                ILAZRO = true;
             } else {
                if ( ABS1( H( J, J-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
-                  H[J, J-1] = CZERO;
+                  H[J][J-1] = CZERO;
                   ILAZRO = true;
                } else {
                   ILAZRO = false;
@@ -259,7 +259,7 @@
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 20
                      CTEMP = H( JCH, JCH );
                      clartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
-                     H[JCH+1, JCH] = CZERO;
+                     H[JCH+1][JCH] = CZERO;
                      crot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
                      crot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
@@ -272,7 +272,7 @@
                            GO TO 70;
                         }
                      }
-                     T[JCH+1, JCH+1] = CZERO;
+                     T[JCH+1][JCH+1] = CZERO;
                   } // 20
                   GO TO 50;
                } else {
@@ -283,12 +283,12 @@
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 30
                      CTEMP = T( JCH, JCH+1 );
                      clartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
-                     T[JCH+1, JCH+1] = CZERO;
+                     T[JCH+1][JCH+1] = CZERO;
                      if (JCH < ILASTM-1) crot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      crot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) );
                      CTEMP = H( JCH+1, JCH );
                      clartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
-                     H[JCH+1, JCH-1] = CZERO;
+                     H[JCH+1][JCH-1] = CZERO;
                      crot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S );
                      crot(JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
                   } // 30
@@ -317,7 +317,7 @@
          } // 50
          CTEMP = H( ILAST, ILAST );
          clartg(CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
-         H[ILAST, ILAST-1] = CZERO;
+         H[ILAST][ILAST-1] = CZERO;
          crot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S );
          crot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
@@ -443,44 +443,44 @@
             if ( J > ISTART ) {
                CTEMP = H( J, J-1 );
                clartg(CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
-               H[J+1, J-1] = CZERO;
+               H[J+1][J-1] = CZERO;
             }
 
             for (JC = J; JC <= ILASTM; JC++) { // 100
                CTEMP = C*H( J, JC ) + S*H( J+1, JC );
-               H[J+1, JC] = -CONJG( S )*H( J, JC ) + C*H( J+1, JC );
+               H[J+1][JC] = -CONJG( S )*H( J, JC ) + C*H( J+1, JC );
                H[J][JC] = CTEMP;
                CTEMP2 = C*T( J, JC ) + S*T( J+1, JC );
-               T[J+1, JC] = -CONJG( S )*T( J, JC ) + C*T( J+1, JC );
+               T[J+1][JC] = -CONJG( S )*T( J, JC ) + C*T( J+1, JC );
                T[J][JC] = CTEMP2;
             } // 100
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 110
                   CTEMP = C*Q( JR, J ) + CONJG( S )*Q( JR, J+1 );
-                  Q[JR, J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
+                  Q[JR][J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
                   Q[JR][J] = CTEMP;
                } // 110
             }
 
             CTEMP = T( J+1, J+1 );
             clartg(CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
-            T[J+1, J] = CZERO;
+            T[J+1][J] = CZERO;
 
             for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 120
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J );
                H[JR][J] = -CONJG( S )*H( JR, J+1 ) + C*H( JR, J );
-               H[JR, J+1] = CTEMP;
+               H[JR][J+1] = CTEMP;
             } // 120
             for (JR = IFRSTM; JR <= J; JR++) { // 130
                CTEMP = C*T( JR, J+1 ) + S*T( JR, J );
                T[JR][J] = -CONJG( S )*T( JR, J+1 ) + C*T( JR, J );
-               T[JR, J+1] = CTEMP;
+               T[JR][J+1] = CTEMP;
             } // 130
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 140
                   CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J );
                   Z[JR][J] = -CONJG( S )*Z( JR, J+1 ) + C*Z( JR, J );
-                  Z[JR, J+1] = CTEMP;
+                  Z[JR][J+1] = CTEMP;
                } // 140
             }
          } // 150

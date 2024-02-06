@@ -89,7 +89,7 @@
 
          for (J = 1; J <= N-K; J++) {
             for (I = 1; I <= K; I++) {
-               A[I, K+J] = A( I, K+J ) - WORK( I, J );
+               A[I][K+J] = A( I, K+J ) - WORK( I, J );
             }
          }
 

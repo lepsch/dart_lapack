@@ -93,7 +93,7 @@
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
+               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K][K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -108,14 +108,14 @@
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K][K] = AKP1 / D;
-            A[K+1, K+1] = AK / D;
-            A[K, K+1] = -AKKP1 / D;
+            A[K+1][K+1] = AK / D;
+            A[K][K+1] = -AKKP1 / D;
 
             // Compute columns K and K+1 of the inverse.
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K][K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                ccopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
                chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - double( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
             }
@@ -169,8 +169,8 @@
                A[KP][KP] = TEMP;
 
                TEMP = A( K, K+1 );
-               A[K, K+1] = A( KP, K+1 );
-               A[KP, K+1] = TEMP;
+               A[K][K+1] = A( KP, K+1 );
+               A[KP][K+1] = TEMP;
             }
 
             // (2) Interchange rows and columns K+1 and -IPIV(K+1)
@@ -225,7 +225,7 @@
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
+               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K][K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -239,15 +239,15 @@
             AKP1 = double( A( K, K ) ) / T;
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
-            A[K-1, K-1] = AKP1 / D;
+            A[K-1][K-1] = AKP1 / D;
             A[K][K] = AK / D;
-            A[K, K-1] = -AKKP1 / D;
+            A[K][K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K][K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                ccopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
                chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1] = A( K-1, K-1 ) - double( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) );
             }
@@ -301,8 +301,8 @@
                A[KP][KP] = TEMP;
 
                TEMP = A( K, K-1 );
-               A[K, K-1] = A( KP, K-1 );
-               A[KP, K-1] = TEMP;
+               A[K][K-1] = A( KP, K-1 );
+               A[KP][K-1] = TEMP;
             }
 
             // (2) Interchange rows and columns K-1 and -IPIV(K-1)

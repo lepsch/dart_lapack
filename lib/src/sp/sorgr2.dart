@@ -55,10 +55,10 @@
 
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the right
 
-         A[II, N-M+II] = ONE;
+         A[II][N-M+II] = ONE;
          slarf('Right', II-1, N-M+II, A( II, 1 ), LDA, TAU( I ), A, LDA, WORK );
          sscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
-         A[II, N-M+II] = ONE - TAU( I );
+         A[II][N-M+II] = ONE - TAU( I );
 
          // Set A(m-k+i,n-k+i+1:n) to zero
 

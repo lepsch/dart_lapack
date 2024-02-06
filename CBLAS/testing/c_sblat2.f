@@ -246,7 +246,7 @@
       N = min( 32, NMAX );
       for (J = 1; J <= N; J++) { // 120
          for (I = 1; I <= N; I++) { // 110
-            A[I, J] = max( I - J + 1, 0 );
+            A[I][J] = max( I - J + 1, 0 );
          } // 110
          X[J] = J;
          Y[J] = ZERO;
@@ -1994,20 +1994,20 @@
 
                         if ( INCX > 0 ) {
                            for (I = 1; I <= N; I++) { // 50
-                              Z[I, 1] = X( I );
+                              Z[I][1] = X( I );
                            } // 50
                         } else {
                            for (I = 1; I <= N; I++) { // 60
-                              Z[I, 1] = X( N - I + 1 );
+                              Z[I][1] = X( N - I + 1 );
                            } // 60
                         }
                         if ( INCY > 0 ) {
                            for (I = 1; I <= N; I++) { // 70
-                              Z[I, 2] = Y( I );
+                              Z[I][2] = Y( I );
                            } // 70
                         } else {
                            for (I = 1; I <= N; I++) { // 80
-                              Z[I, 2] = Y( N - I + 1 );
+                              Z[I][2] = Y( N - I + 1 );
                            } // 80
                         }
                         JA = 1;
@@ -2140,21 +2140,21 @@
          for (I = 1; I <= M; I++) { // 10
             if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
                if( ( I <= J && J - I <= KU ) || ( I >= J && I - J <= KL ) ) {
-                  A[I, J] = SBEG( RESET ) + TRANSL;
+                  A[I][J] = SBEG( RESET ) + TRANSL;
                } else {
-                  A[I, J] = ZERO;
+                  A[I][J] = ZERO;
                }
                if ( I != J ) {
                   if ( SYM ) {
-                     A[J, I] = A( I, J );
+                     A[J][I] = A( I, J );
                   } else if ( TRI ) {
-                     A[J, I] = ZERO;
+                     A[J][I] = ZERO;
                   }
                }
             }
          } // 10
          if (TRI) A( J, J ) = A( J, J ) + ONE;
-         IF[UNIT ) A( J, J] = ONE;
+         IF[UNIT ) A( J][J] = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.

@@ -493,7 +493,7 @@
                   for (JC = 1; JC <= N; JC++) { // 190
                      IROW = IOFFST - ISKEW*JC;
                      for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 180
-                        A[JR+IROW, JC] = A( JC-ISKEW*JR+IOFFG, JR );
+                        A[JR+IROW][JC] = A( JC-ISKEW*JR+IOFFG, JR );
                      } // 180
                   } // 190
                   if ( IPACK == 5 ) {
@@ -555,7 +555,7 @@
                   for (JC = N; JC >= 1; JC--) { // 260
                      IROW = IOFFST - ISKEW*JC;
                      for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 250
-                        A[JR+IROW, JC] = A( JC-ISKEW*JR+IOFFG, JR );
+                        A[JR+IROW][JC] = A( JC-ISKEW*JR+IOFFG, JR );
                      } // 250
                   } // 260
                   if ( IPACK == 6 ) {
@@ -669,13 +669,13 @@
 
             for (J = 1; J <= UUB; J++) { // 380
                for (I = min( J+LLB, M ); I >= 1; I--) { // 370
-                  A[I-J+UUB+1, J] = A( I, J );
+                  A[I-J+UUB+1][J] = A( I, J );
                } // 370
             } // 380
 
             for (J = UUB + 2; J <= N; J++) { // 400
                for (I = J - UUB; I <= min( J+LLB, M ); I++) { // 390
-                  A[I-J+UUB+1, J] = A( I, J );
+                  A[I-J+UUB+1][J] = A( I, J );
                } // 390
             } // 400
          }

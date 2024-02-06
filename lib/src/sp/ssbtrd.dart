@@ -121,7 +121,7 @@
                         // within the band
 
                         slartg(AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB[KD-K+3, I+K-2] = TEMP;
+                        AB[KD-K+3][I+K-2] = TEMP;
 
                         // apply rotation from the right
 
@@ -210,7 +210,7 @@
                      // and store it in WORK
 
                      WORK[J+KD] = WORK( J )*AB( 1, J+KD );
-                     AB[1, J+KD] = D( J )*AB( 1, J+KD );
+                     AB[1][J+KD] = D( J )*AB( 1, J+KD );
                   } // 70
                } // 80
             } // 90
@@ -289,7 +289,7 @@
                         // within the band
 
                         slartg(AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB[K-1, I] = TEMP;
+                        AB[K-1][I] = TEMP;
 
                         // apply rotation from the left
 

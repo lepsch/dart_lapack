@@ -231,7 +231,7 @@ import 'package:lapack/src/xerbla.dart';
                Z[I][J] = ZERO;
             } // 130
             for (I = 1; I <= BLKSIZ; I++) { // 140
-               Z[B1+I-1, J] = WORK( INDRV1+I );
+               Z[B1+I-1][J] = WORK( INDRV1+I );
             } // 140
 
             // Save the shift to check eigenvalue spacing at next

@@ -117,7 +117,7 @@
 
             CTEMP = B( JROW, JROW );
             clartg(CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B[JROW, JROW-1] = CZERO;
+            B[JROW][JROW-1] = CZERO;
             crot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             crot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL CROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30

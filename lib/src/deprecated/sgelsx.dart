@@ -194,7 +194,7 @@
                   T1 = B( K, J );
                   T2 = B( JPVT( K ), J );
                   } // 70
-                  B[JPVT( K ), J] = T1;
+                  B[JPVT( K )][J] = T1;
                   WORK[2*MN+K] = DONE;
                   T1 = T2;
                   K = JPVT( K );

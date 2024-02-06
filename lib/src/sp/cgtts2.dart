@@ -34,11 +34,11 @@
 
             for (I = 1; I <= N - 1; I++) { // 20
                if ( IPIV( I ) == I ) {
-                  B[I+1, J] = B( I+1, J ) - DL( I )*B( I, J );
+                  B[I+1][J] = B( I+1, J ) - DL( I )*B( I, J );
                } else {
                   TEMP = B( I, J );
                   B[I][J] = B( I+1, J );
-                  B[I+1, J] = TEMP - DL( I )*B( I, J );
+                  B[I+1][J] = TEMP - DL( I )*B( I, J );
                }
             } // 20
 
@@ -60,11 +60,11 @@
 
                for (I = 1; I <= N - 1; I++) { // 40
                   if ( IPIV( I ) == I ) {
-                     B[I+1, J] = B( I+1, J ) - DL( I )*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - DL( I )*B( I, J );
                   } else {
                      TEMP = B( I, J );
                      B[I][J] = B( I+1, J );
-                     B[I+1, J] = TEMP - DL( I )*B( I, J );
+                     B[I+1][J] = TEMP - DL( I )*B( I, J );
                   }
                } // 40
 
@@ -100,7 +100,7 @@
                   B[I][J] = B( I, J ) - DL( I )*B( I+1, J );
                } else {
                   TEMP = B( I+1, J );
-                  B[I+1, J] = B( I, J ) - DL( I )*TEMP;
+                  B[I+1][J] = B( I, J ) - DL( I )*TEMP;
                   B[I][J] = TEMP;
                }
             } // 90
@@ -126,7 +126,7 @@
                      B[I][J] = B( I, J ) - DL( I )*B( I+1, J );
                   } else {
                      TEMP = B( I+1, J );
-                     B[I+1, J] = B( I, J ) - DL( I )*TEMP;
+                     B[I+1][J] = B( I, J ) - DL( I )*TEMP;
                      B[I][J] = TEMP;
                   }
                } // 110
@@ -155,7 +155,7 @@
                   B[I][J] = B( I, J ) - CONJG( DL( I ) )*B( I+1, J );
                } else {
                   TEMP = B( I+1, J );
-                  B[I+1, J] = B( I, J ) - CONJG( DL( I ) )*TEMP;
+                  B[I+1][J] = B( I, J ) - CONJG( DL( I ) )*TEMP;
                   B[I][J] = TEMP;
                }
             } // 150
@@ -181,7 +181,7 @@
                      B[I][J] = B( I, J ) - CONJG( DL( I ) )* B( I+1, J );
                   } else {
                      TEMP = B( I+1, J );
-                     B[I+1, J] = B( I, J ) - CONJG( DL( I ) )*TEMP;
+                     B[I+1][J] = B( I, J ) - CONJG( DL( I ) )*TEMP;
                      B[I][J] = TEMP;
                   }
                } // 170

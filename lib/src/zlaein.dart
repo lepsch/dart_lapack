@@ -87,7 +87,7 @@
                B[I][I] = EI;
                for (J = I + 1; J <= N; J++) { // 40
                   TEMP = B( I+1, J );
-                  B[I+1, J] = B( I, J ) - X*TEMP;
+                  B[I+1][J] = B( I, J ) - X*TEMP;
                   B[I][J] = TEMP;
                } // 40
             } else {
@@ -98,7 +98,7 @@
                X = ZLADIV( EI, B( I, I ) );
                if ( X != ZERO ) {
                   for (J = I + 1; J <= N; J++) { // 50
-                     B[I+1, J] = B( I+1, J ) - X*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - X*B( I, J );
                   } // 50
                }
             }
@@ -122,7 +122,7 @@
                B[J][J] = EJ;
                for (I = 1; I <= J - 1; I++) { // 70
                   TEMP = B( I, J-1 );
-                  B[I, J-1] = B( I, J ) - X*TEMP;
+                  B[I][J-1] = B( I, J ) - X*TEMP;
                   B[I][J] = TEMP;
                } // 70
             } else {
@@ -133,7 +133,7 @@
                X = ZLADIV( EJ, B( J, J ) );
                if ( X != ZERO ) {
                   for (I = 1; I <= J - 1; I++) { // 80
-                     B[I, J-1] = B( I, J-1 ) - X*B( I, J );
+                     B[I][J-1] = B( I, J-1 ) - X*B( I, J );
                   } // 80
                }
             }

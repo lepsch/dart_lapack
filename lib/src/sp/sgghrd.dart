@@ -116,7 +116,7 @@
 
             TEMP = B( JROW, JROW );
             slartg(TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B[JROW, JROW-1] = ZERO;
+            B[JROW][JROW-1] = ZERO;
             srot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             srot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL SROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30

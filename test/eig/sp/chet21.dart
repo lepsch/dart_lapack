@@ -99,9 +99,9 @@
                }
 
                VSAVE = V( J+1, J );
-               V[J+1, J] = ONE;
+               V[J+1][J] = ONE;
                clarfy('L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) );
-               V[J+1, J] = VSAVE;
+               V[J+1][J] = VSAVE;
                WORK[( N+1 )*( J-1 )+1] = D( J );
             } // 40
          } else {
@@ -115,9 +115,9 @@
                }
 
                VSAVE = V( J, J+1 );
-               V[J, J+1] = ONE;
+               V[J][J+1] = ONE;
                clarfy('U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) );
-               V[J, J+1] = VSAVE;
+               V[J][J+1] = VSAVE;
                WORK[( N+1 )*J+1] = D( J+1 );
             } // 60
          }

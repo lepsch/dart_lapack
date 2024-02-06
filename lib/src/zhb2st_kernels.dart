@@ -57,7 +57,7 @@
               V[VPOS] = ONE;
               for (I = 1; I <= LM-1; I++) { // 10
                   V[VPOS+I] = DCONJG( A( OFDPOS-I, ST+I ) );
-                  A[OFDPOS-I, ST+I] = ZERO;
+                  A[OFDPOS-I][ST+I] = ZERO;
               } // 10
               CTMP = DCONJG( A( OFDPOS, ST ) );
               zlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
@@ -92,11 +92,11 @@
                   V[VPOS] = ONE;
                   for (I = 1; I <= LM-1; I++) { // 30
                       V[VPOS+I] = DCONJG( A( DPOS-NB-I, J1+I ) );
-                      A[DPOS-NB-I, J1+I] = ZERO;
+                      A[DPOS-NB-I][J1+I] = ZERO;
                   } // 30
                   CTMP = DCONJG( A( DPOS-NB, J1 ) );
                   zlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-                  A[DPOS-NB, J1] = CTMP;
+                  A[DPOS-NB][J1] = CTMP;
 
                   zlarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
               }
@@ -120,7 +120,7 @@
               V[VPOS] = ONE;
               for (I = 1; I <= LM-1; I++) { // 20
                   V[VPOS+I] = A( OFDPOS+I, ST-1 );
-                  A[OFDPOS+I, ST-1] = ZERO;
+                  A[OFDPOS+I][ST-1] = ZERO;
               } // 20
               zlarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
@@ -157,7 +157,7 @@
                   V[VPOS] = ONE;
                   for (I = 1; I <= LM-1; I++) { // 40
                       V[VPOS+I] = A( DPOS+NB+I, ST );
-                      A[DPOS+NB+I, ST] = ZERO;
+                      A[DPOS+NB+I][ST] = ZERO;
                   } // 40
                   zlarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 

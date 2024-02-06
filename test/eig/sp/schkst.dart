@@ -237,8 +237,8 @@
                for (I = 2; I <= N; I++) { // 90
                   TEMP1 = ( A( I-1, I ) ).abs() / sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                   if ( TEMP1 > HALF ) {
-                     A[I-1, I] = HALF*sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
-                     A[I, I-1] = A( I-1, I );
+                     A[I-1][I] = HALF*sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
+                     A[I][I-1] = A( I-1, I );
                   }
                } // 90
 

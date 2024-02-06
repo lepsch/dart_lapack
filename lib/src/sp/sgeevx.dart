@@ -272,7 +272,7 @@
                K = ISAMAX( N, WORK, 1 );
                slartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
                srot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
-               VL[K, I+1] = ZERO;
+               VL[K][I+1] = ZERO;
             }
          } // 20
       }
@@ -299,7 +299,7 @@
                K = ISAMAX( N, WORK, 1 );
                slartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
                srot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
-               VR[K, I+1] = ZERO;
+               VR[K][I+1] = ZERO;
             }
          } // 40
       }

@@ -71,7 +71,7 @@ import 'package:lapack/src/xerbla.dart';
             AJJ = AB( KD+1, J );
             if (AJJ <= ZERO) GO TO 50;
             AJJ = sqrt( AJJ );
-            AB[KD+1, J] = AJJ;
+            AB[KD+1][J] = AJJ;
             KM = min( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th column and update the
@@ -90,7 +90,7 @@ import 'package:lapack/src/xerbla.dart';
             AJJ = AB( KD+1, J );
             if (AJJ <= ZERO) GO TO 50;
             AJJ = sqrt( AJJ );
-            AB[KD+1, J] = AJJ;
+            AB[KD+1][J] = AJJ;
             KM = min( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th row and update the

@@ -97,7 +97,7 @@
          } else {
             WB = A( K+I, I ) + WA;
             sscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
-            A[K+I, I] = ONE;
+            A[K+I][I] = ONE;
             TAU = WB / WA;
          }
 
@@ -121,7 +121,7 @@
 
          ssyr2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
 
-         A[K+I, I] = -WA;
+         A[K+I][I] = -WA;
          for (J = K + I + 1; J <= N; J++) { // 50
             A[J][I] = ZERO;
          } // 50

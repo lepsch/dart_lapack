@@ -131,7 +131,7 @@
 
                if ( JJ+KV <= N ) {
                   for (I = 1; I <= KL; I++) { // 70
-                     AB[I, JJ+KV] = ZERO;
+                     AB[I][JJ+KV] = ZERO;
                   } // 70
                }
 
@@ -211,8 +211,8 @@
                      IP = IPIV( II );
                      if ( IP != II ) {
                         TEMP = AB( KV+1+II-JJ, JJ );
-                        AB[KV+1+II-JJ, JJ] = AB( KV+1+IP-JJ, JJ );
-                        AB[KV+1+IP-JJ, JJ] = TEMP;
+                        AB[KV+1+II-JJ][JJ] = AB( KV+1+IP-JJ, JJ );
+                        AB[KV+1+IP-JJ][JJ] = TEMP;
                      }
                   } // 100
                } // 110
@@ -273,7 +273,7 @@
 
                   for (JJ = 1; JJ <= J3; JJ++) { // 150
                      for (II = JJ; II <= JB; II++) { // 140
-                        AB[II-JJ+1, JJ+J+KV-1] = WORK13( II, JJ );
+                        AB[II-JJ+1][JJ+J+KV-1] = WORK13( II, JJ );
                      } // 140
                   } // 150
                }

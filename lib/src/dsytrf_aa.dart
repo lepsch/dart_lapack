@@ -151,7 +151,7 @@ import 'package:lapack/src/xerbla.dart';
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = A( J, J+1 );
-               A[J, J+1] = ONE;
+               A[J][J+1] = ONE;
                dcopy(N-J, A( J-1, J+1 ), LDA, WORK( (J+1-J1+1)+JB*N ), 1 );
                dscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -193,7 +193,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Recover T( J, J+1 )
 
-               A[J, J+1] = ALPHA;
+               A[J][J+1] = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
@@ -258,7 +258,7 @@ import 'package:lapack/src/xerbla.dart';
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = A( J+1, J );
-               A[J+1, J] = ONE;
+               A[J+1][J] = ONE;
                dcopy(N-J, A( J+1, J-1 ), 1, WORK( (J+1-J1+1)+JB*N ), 1 );
                dscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -300,7 +300,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Recover T( J+1, J )
 
-               A[J+1, J] = ALPHA;
+               A[J+1][J] = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)

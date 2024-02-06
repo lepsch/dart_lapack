@@ -85,7 +85,7 @@
             zlacgv(Q-I, X21(I,I+1), LDX21 );
             zlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = (X21(I,I+1)).toDouble();
-            X21[I,I+1] = ONE;
+            X21[I][I+1] = ONE;
             zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             zlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             zlacgv(Q-I, X21(I,I+1), LDX21 );

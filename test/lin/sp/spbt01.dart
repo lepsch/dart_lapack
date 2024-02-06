@@ -55,7 +55,7 @@
             // Compute the (K,K) element of the result.
 
             T = SDOT( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 );
-            AFAC[KD+1, K] = T;
+            AFAC[KD+1][K] = T;
 
             // Compute the rest of column K.
 

@@ -243,8 +243,8 @@
                   TEMP1 = ( A( I-1, I ) ).abs();
                   TEMP2 = sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                   if ( TEMP1 > HALF*TEMP2 ) {
-                     A[I-1, I] = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) );
-                     A[I, I-1] = DCONJG( A( I-1, I ) );
+                     A[I-1][I] = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) );
+                     A[I][I-1] = DCONJG( A( I-1, I ) );
                   }
                } // 90
 

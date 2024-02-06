@@ -244,7 +244,7 @@
                   A[K][K] = double( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -338,7 +338,7 @@
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
                      A[J][K] = WK / D;
-                     A[J, K-1] = WKM1 / D;
+                     A[J][K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
                      A[J][J] = CMPLX( double( A( J, J ) ), ZERO );
 
@@ -545,7 +545,7 @@
                   A[K][K] = double( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -642,7 +642,7 @@
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
                      A[J][K] = WK / D;
-                     A[J, K+1] = WKP1 / D;
+                     A[J][K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
                      A[J][J] = CMPLX( double( A( J, J ) ), ZERO );
 

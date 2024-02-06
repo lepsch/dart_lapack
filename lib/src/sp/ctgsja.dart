@@ -125,18 +125,18 @@
 
                if ( UPPER ) {
                   if (K+I <= M) A( K+I, N-L+J ) = CZERO;
-                  B[I, N-L+J] = CZERO;
+                  B[I][N-L+J] = CZERO;
                } else {
                   if (K+J <= M) A( K+J, N-L+I ) = CZERO;
-                  B[J, N-L+I] = CZERO;
+                  B[J][N-L+I] = CZERO;
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
                if (K+I <= M) A( K+I, N-L+I ) = double( A( K+I, N-L+I ) );
                IF( K+J <= M ) A( K+J, N-L+J ) = double( A( K+J, N-L+J ) );
-               B[I, N-L+I] = double( B( I, N-L+I ) );
-               B[J, N-L+J] = double( B( J, N-L+J ) );
+               B[I][N-L+I] = double( B( I, N-L+I ) );
+               B[J][N-L+J] = double( B( J, N-L+J ) );
 
                // Update unitary matrices U, V, Q, if desired.
 

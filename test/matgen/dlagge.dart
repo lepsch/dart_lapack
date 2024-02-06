@@ -123,7 +123,7 @@
                } else {
                   WB = A( KL+I, I ) + WA;
                   dscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A[KL+I, I] = ONE;
+                  A[KL+I][I] = ONE;
                   TAU = WB / WA;
                }
 
@@ -131,7 +131,7 @@
 
                dgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                dger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A[KL+I, I] = -WA;
+               A[KL+I][I] = -WA;
             }
 
             if ( I <= min( N-1-KU, M ) ) {
@@ -145,7 +145,7 @@
                } else {
                   WB = A( I, KU+I ) + WA;
                   dscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A[I, KU+I] = ONE;
+                  A[I][KU+I] = ONE;
                   TAU = WB / WA;
                }
 
@@ -153,7 +153,7 @@
 
                dgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                dger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A[I, KU+I] = -WA;
+               A[I][KU+I] = -WA;
             }
          } else {
 
@@ -171,7 +171,7 @@
                } else {
                   WB = A( I, KU+I ) + WA;
                   dscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A[I, KU+I] = ONE;
+                  A[I][KU+I] = ONE;
                   TAU = WB / WA;
                }
 
@@ -179,7 +179,7 @@
 
                dgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                dger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A[I, KU+I] = -WA;
+               A[I][KU+I] = -WA;
             }
 
             if ( I <= min( M-1-KL, N ) ) {
@@ -193,7 +193,7 @@
                } else {
                   WB = A( KL+I, I ) + WA;
                   dscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A[KL+I, I] = ONE;
+                  A[KL+I][I] = ONE;
                   TAU = WB / WA;
                }
 
@@ -201,7 +201,7 @@
 
                dgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                dger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A[KL+I, I] = -WA;
+               A[KL+I][I] = -WA;
             }
          }
 

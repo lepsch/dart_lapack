@@ -92,14 +92,14 @@
          if ( PRTYPE == 3 ) {
             if (QBLCKA <= 1) QBLCKA = 2;
             for (K = 1; QBLCKA < 0 ? K >= M - 1 : K <= M - 1; K += QBLCKA) { // 130
-               A[K+1, K+1] = A( K, K );
-               A[K+1, K] = -SIN( A( K, K+1 ) );
+               A[K+1][K+1] = A( K, K );
+               A[K+1][K] = -SIN( A( K, K+1 ) );
             } // 130
 
             if (QBLCKB <= 1) QBLCKB = 2;
             for (K = 1; QBLCKB < 0 ? K >= N - 1 : K <= N - 1; K += QBLCKB) { // 140
-               B[K+1, K+1] = B( K, K );
-               B[K+1, K] = -SIN( B( K, K+1 ) );
+               B[K+1][K+1] = B( K, K );
+               B[K+1][K] = -SIN( B( K, K+1 ) );
             } // 140
          }
 
@@ -144,9 +144,9 @@
                A[I][I] = ONE;
                if (I > 2) A( I, I ) = ONE + REEPS;
                if ( (I % 2) != 0 && I < M ) {
-                  A[I, I+1] = IMEPS;
+                  A[I][I+1] = IMEPS;
                } else if ( I > 1 ) {
-                  A[I, I-1] = -IMEPS;
+                  A[I][I-1] = -IMEPS;
                }
             } else if ( I <= 8 ) {
                if ( I <= 6 ) {
@@ -155,16 +155,16 @@
                   A[I][I] = -REEPS;
                }
                if ( (I % 2) != 0 && I < M ) {
-                  A[I, I+1] = ONE;
+                  A[I][I+1] = ONE;
                } else if ( I > 1 ) {
-                  A[I, I-1] = -ONE;
+                  A[I][I-1] = -ONE;
                }
             } else {
                A[I][I] = ONE;
                if ( (I % 2) != 0 && I < M ) {
-                  A[I, I+1] = IMEPS*2;
+                  A[I][I+1] = IMEPS*2;
                } else if ( I > 1 ) {
-                  A[I, I-1] = -IMEPS*2;
+                  A[I][I-1] = -IMEPS*2;
                }
             }
          } // 240
@@ -175,9 +175,9 @@
                B[I][I] = -ONE;
                if (I > 2) B( I, I ) = ONE - REEPS;
                if ( (I % 2) != 0 && I < N ) {
-                  B[I, I+1] = IMEPS;
+                  B[I][I+1] = IMEPS;
                } else if ( I > 1 ) {
-                  B[I, I-1] = -IMEPS;
+                  B[I][I-1] = -IMEPS;
                }
             } else if ( I <= 8 ) {
                if ( I <= 6 ) {
@@ -186,16 +186,16 @@
                   B[I][I] = -REEPS;
                }
                if ( (I % 2) != 0 && I < N ) {
-                  B[I, I+1] = ONE + IMEPS;
+                  B[I][I+1] = ONE + IMEPS;
                } else if ( I > 1 ) {
-                  B[I, I-1] = -ONE - IMEPS;
+                  B[I][I-1] = -ONE - IMEPS;
                }
             } else {
                B[I][I] = ONE - REEPS;
                if ( (I % 2) != 0 && I < N ) {
-                  B[I, I+1] = IMEPS*2;
+                  B[I][I+1] = IMEPS*2;
                } else if ( I > 1 ) {
-                  B[I, I-1] = -IMEPS*2;
+                  B[I][I-1] = -IMEPS*2;
                }
             }
          } // 250

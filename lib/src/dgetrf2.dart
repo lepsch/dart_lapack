@@ -88,7 +88,7 @@ import 'package:lapack/src/xerbla.dart';
                dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
             } else {
                for (I = 1; I <= M-1; I++) { // 10
-                  A[1+I, 1] = A( 1+I, 1 ) / A( 1, 1 );
+                  A[1+I][1] = A( 1+I, 1 ) / A( 1, 1 );
                } // 10
             }
 

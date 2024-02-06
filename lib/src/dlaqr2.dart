@@ -121,8 +121,8 @@ import 'package:lapack/src/xerbla.dart';
       // ==== DTREXC needs a clean margin near the diagonal ====
 
       for (J = 1; J <= JW - 3; J++) { // 10
-         T[J+2, J] = ZERO;
-         T[J+3, J] = ZERO;
+         T[J+2][J] = ZERO;
+         T[J+3][J] = ZERO;
       } // 10
       if (JW > 2) T( JW, JW-2 ) = ZERO;
 

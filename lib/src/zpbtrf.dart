@@ -149,7 +149,7 @@
 
                      for (JJ = 1; JJ <= I3; JJ++) { // 60
                         for (II = JJ; II <= IB; II++) { // 50
-                           AB[II-JJ+1, JJ+I+KD-1] = WORK( II, JJ );
+                           AB[II-JJ+1][JJ+I+KD-1] = WORK( II, JJ );
                         } // 50
                      } // 60
                   }
@@ -237,7 +237,7 @@
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 130
                         for (II = 1; II <= min( JJ, I3 ); II++) { // 120
-                           AB[KD+1-JJ+II, JJ+I-1] = WORK( II, JJ );
+                           AB[KD+1-JJ+II][JJ+I-1] = WORK( II, JJ );
                         } // 120
                      } // 130
                   }

@@ -120,9 +120,9 @@
             L1 = (L - 1) * NB + 1;
             L2 = min( L * NB, M ) + 1;
             if ( NOTRNA ) {
-               SWORK[K, AWRK + L] = CLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[K][AWRK + L] = CLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             } else {
-               SWORK[L, AWRK + K] = CLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[L][AWRK + K] = CLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             }
          }
       }
@@ -134,9 +134,9 @@
             L1 = (L - 1) * NB + 1;
             L2 = min( L * NB, N ) + 1;
             if ( NOTRNB ) {
-               SWORK[K, BWRK + L] = CLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[K][BWRK + L] = CLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             } else {
-               SWORK[L, BWRK + K] = CLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[L][BWRK + K] = CLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             }
          }
       }

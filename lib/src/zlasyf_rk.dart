@@ -294,7 +294,7 @@
                   D22 = W( K-1, KW-1 ) / D12;
                   T = CONE / ( D11*D22-CONE );
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A[J, K-1] = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
+                     A[J][K-1] = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
                   } // 20
                }
 
@@ -302,8 +302,8 @@
                // copy superdiagonal element of D(K) to E(K) and
                // ZERO out superdiagonal entry of A
 
-               A[K-1, K-1] = W( K-1, KW-1 );
-               A[K-1, K] = CZERO;
+               A[K-1][K-1] = W( K-1, KW-1 );
+               A[K-1][K] = CZERO;
                A[K][K] = W( K, KW );
                E[K] = W( K-1, KW );
                E[K-1] = CZERO;
@@ -596,8 +596,8 @@
                // ZERO out subdiagonal entry of A
 
                A[K][K] = W( K, K );
-               A[K+1, K] = CZERO;
-               A[K+1, K+1] = W( K+1, K+1 );
+               A[K+1][K] = CZERO;
+               A[K+1][K+1] = W( K+1, K+1 );
                E[K] = W( K+1, K );
                E[K+1] = CZERO;
 

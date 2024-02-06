@@ -144,7 +144,7 @@
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = DCONJG( A( J, J+1 ) );
-               A[J, J+1] = ONE;
+               A[J][J+1] = ONE;
                zcopy(N-J, A( J-1, J+1 ), LDA, WORK( (J+1-J1+1)+JB*N ), 1 );
                zscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -186,7 +186,7 @@
 
                // Recover T( J, J+1 )
 
-               A[J, J+1] = DCONJG( ALPHA );
+               A[J][J+1] = DCONJG( ALPHA );
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
@@ -251,7 +251,7 @@
                // Merge rank-1 update with BLAS-3 update
 
                ALPHA = DCONJG( A( J+1, J ) );
-               A[J+1, J] = ONE;
+               A[J+1][J] = ONE;
                zcopy(N-J, A( J+1, J-1 ), 1, WORK( (J+1-J1+1)+JB*N ), 1 );
                zscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -293,7 +293,7 @@
 
                // Recover T( J+1, J )
 
-               A[J+1, J] = DCONJG( ALPHA );
+               A[J+1][J] = DCONJG( ALPHA );
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)

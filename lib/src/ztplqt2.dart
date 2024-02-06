@@ -66,7 +66,7 @@
 
             ALPHA = -(T( 1, I ));
             for (J = 1; J <= M-I; J++) {
-               A[I+J, I] = A( I+J, I ) + ALPHA*(T( M, J ));
+               A[I+J][I] = A( I+J, I ) + ALPHA*(T( M, J ));
             }
             zgerc(M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
             for (J = 1; J <= P; J++) {

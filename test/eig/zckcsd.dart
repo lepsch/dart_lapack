@@ -162,19 +162,19 @@
          X[min(P,Q)-R+I,min(P,Q)-R+I] = DCMPLX( COS(THETA(I)), 0.0 );
       }
       for (I = 1; I <= min(P,M-Q)-R; I++) {
-         X[P-I+1,M-I+1] = -ONE;
+         X[P-I+1][M-I+1] = -ONE;
       }
       for (I = 1; I <= R; I++) {
          X[P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I] = DCMPLX( -SIN(THETA(R-I+1)), 0.0 );
       }
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         X[M-I+1,Q-I+1] = ONE;
+         X[M-I+1][Q-I+1] = ONE;
       }
       for (I = 1; I <= R; I++) {
          X[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
       for (I = 1; I <= min(M-P,M-Q)-R; I++) {
-         X[P+I,Q+I] = ONE;
+         X[P+I][Q+I] = ONE;
       }
       for (I = 1; I <= R; I++) {
          X[P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I] = DCMPLX( COS(THETA(I)), 0.0 );

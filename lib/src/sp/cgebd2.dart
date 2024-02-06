@@ -61,13 +61,13 @@
                ALPHA = A( I, I+1 );
                clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E[I] = double( ALPHA );
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                clarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
                clacgv(N-I, A( I, I+1 ), LDA );
-               A[I, I+1] = E( I );
+               A[I][I+1] = E( I );
             } else {
                TAUP[I] = ZERO;
             }
@@ -100,12 +100,12 @@
                ALPHA = A( I+1, I );
                clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E[I] = double( ALPHA );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left
 
                clarf('Left', M-I, N-I, A( I+1, I ), 1, CONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK );
-               A[I+1, I] = E( I );
+               A[I+1][I] = E( I );
             } else {
                TAUQ[I] = ZERO;
             }

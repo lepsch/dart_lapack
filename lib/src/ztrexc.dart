@@ -85,7 +85,7 @@
          zrot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) );
 
          T[K][K] = T22;
-         T[K+1, K+1] = T11;
+         T[K+1][K+1] = T11;
 
          if ( WANTQ ) {
 

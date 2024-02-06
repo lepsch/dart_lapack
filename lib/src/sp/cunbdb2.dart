@@ -90,7 +90,7 @@
             PHI[I] = ATAN2( REAL( X11(I+1,I) ), double( X21(I,I) ) );
             C = COS( PHI(I) );
             S = SIN( PHI(I) );
-            X11[I+1,I] = ONE;
+            X11[I+1][I] = ONE;
             clarf('L', P-I, Q-I, X11(I+1,I), 1, CONJG(TAUP1(I)), X11(I+1,I+1), LDX11, WORK(ILARF) );
          }
          X21[I][I] = ONE;

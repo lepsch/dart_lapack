@@ -197,9 +197,9 @@ import 'package:lapack/src/xerbla.dart';
             L1 = IWORK( L );
             L2 = IWORK( L + 1 );
             if ( NOTRNA ) {
-               SWORK[K, AWRK + L] = dlange( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[K][AWRK + L] = dlange( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             } else {
-               SWORK[L, AWRK + K] = dlange( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
+               SWORK[L][AWRK + K] = dlange( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             }
          }
       }
@@ -211,9 +211,9 @@ import 'package:lapack/src/xerbla.dart';
             L1 = IWORK( PC + L );
             L2 = IWORK( PC + L + 1 );
             if ( NOTRNB ) {
-               SWORK[K, BWRK + L] = dlange( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[K][BWRK + L] = dlange( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             } else {
-               SWORK[L, BWRK + K] = dlange( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
+               SWORK[L][BWRK + K] = dlange( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             }
          }
       }

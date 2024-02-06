@@ -66,13 +66,13 @@
 
       for (I = 1; I <= K; I++) { // 60
          for (J = I; J <= K + L; J++) { // 50
-            A[I, N-K-L+J] = A( I, N-K-L+J ) - R( I, J );
+            A[I][N-K-L+J] = A( I, N-K-L+J ) - R( I, J );
          } // 50
       } // 60
 
       for (I = K + 1; I <= min( K+L, M ); I++) { // 80
          for (J = I; J <= K + L; J++) { // 70
-            A[I, N-K-L+J] = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
+            A[I][N-K-L+J] = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
          } // 70
       } // 80
 
@@ -93,7 +93,7 @@
 
       for (I = 1; I <= L; I++) { // 100
          for (J = I; J <= L; J++) { // 90
-            B[I, N-L+J] = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J );
+            B[I][N-L+J] = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J );
          } // 90
       } // 100
 

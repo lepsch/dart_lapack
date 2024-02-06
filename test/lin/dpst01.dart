@@ -101,9 +101,9 @@
             for (I = 1; I <= N; I++) { // 160
                if ( PIV( I ) <= PIV( J ) ) {
                   if ( I <= J ) {
-                     PERM[PIV( I ), PIV( J )] = AFAC( I, J );
+                     PERM[PIV( I )][PIV( J )] = AFAC( I, J );
                   } else {
-                     PERM[PIV( I ), PIV( J )] = AFAC( J, I );
+                     PERM[PIV( I )][PIV( J )] = AFAC( J, I );
                   }
                }
             } // 160
@@ -116,9 +116,9 @@
             for (I = 1; I <= N; I++) { // 180
                if ( PIV( I ) >= PIV( J ) ) {
                   if ( I >= J ) {
-                     PERM[PIV( I ), PIV( J )] = AFAC( I, J );
+                     PERM[PIV( I )][PIV( J )] = AFAC( I, J );
                   } else {
-                     PERM[PIV( I ), PIV( J )] = AFAC( J, I );
+                     PERM[PIV( I )][PIV( J )] = AFAC( J, I );
                   }
                }
             } // 180

@@ -137,8 +137,8 @@
 
       // Set  N1 by N2 (2,1) blocks to 0
 
-      A[J1+1, J1] = CZERO;
-      B[J1+1, J1] = CZERO;
+      A[J1+1][J1] = CZERO;
+      B[J1+1][J1] = CZERO;
 
       // Accumulate transformations into Q and Z if requested.
 

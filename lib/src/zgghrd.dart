@@ -117,7 +117,7 @@
 
             CTEMP = B( JROW, JROW );
             zlartg(CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B[JROW, JROW-1] = CZERO;
+            B[JROW][JROW-1] = CZERO;
             zrot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             zrot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL ZROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30

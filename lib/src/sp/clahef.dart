@@ -115,12 +115,12 @@
                // Copy column IMAX to column KW-1 of W and update it
 
                ccopy(IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-               W[IMAX, KW-1] = double( A( IMAX, IMAX ) );
+               W[IMAX][KW-1] = double( A( IMAX, IMAX ) );
                ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
                if ( K < N ) {
                   cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
-                  W[IMAX, KW-1] = double( W( IMAX, KW-1 ) );
+                  W[IMAX][KW-1] = double( W( IMAX, KW-1 ) );
                }
 
                // JMAX is the column-index of the largest off-diagonal
@@ -309,15 +309,15 @@
                   // of D**(-1)
 
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A[J, K-1] = D21*( D11*W( J, KW-1 )-W( J, KW ) );
+                     A[J][K-1] = D21*( D11*W( J, KW-1 )-W( J, KW ) );
                      A[J][K] = CONJG( D21 )* ( D22*W( J, KW )-W( J, KW-1 ) );
                   } // 20
                }
 
                // Copy D(k) to A
 
-               A[K-1, K-1] = W( K-1, KW-1 );
-               A[K-1, K] = W( K-1, KW );
+               A[K-1][K-1] = W( K-1, KW-1 );
+               A[K-1][K] = W( K-1, KW );
                A[K][K] = W( K, KW );
 
                // (2) Conjugate columns W(kw) and W(kw-1)
@@ -463,10 +463,10 @@
 
                ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
                clacgv(IMAX-K, W( K, K+1 ), 1 );
-               W[IMAX, K+1] = double( A( IMAX, IMAX ) );
+               W[IMAX][K+1] = double( A( IMAX, IMAX ) );
                if (IMAX < N) ccopy( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
                cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
-               W[IMAX, K+1] = double( W( IMAX, K+1 ) );
+               W[IMAX][K+1] = double( W( IMAX, K+1 ) );
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value.
@@ -651,15 +651,15 @@
 
                   for (J = K + 2; J <= N; J++) { // 80
                      A[J][K] = CONJG( D21 )* ( D11*W( J, K )-W( J, K+1 ) );
-                     A[J, K+1] = D21*( D22*W( J, K+1 )-W( J, K ) );
+                     A[J][K+1] = D21*( D22*W( J, K+1 )-W( J, K ) );
                   } // 80
                }
 
                // Copy D(k) to A
 
                A[K][K] = W( K, K );
-               A[K+1, K] = W( K+1, K );
-               A[K+1, K+1] = W( K+1, K+1 );
+               A[K+1][K] = W( K+1, K );
+               A[K+1][K+1] = W( K+1, K+1 );
 
                // (2) Conjugate columns W(k) and W(k+1)
 

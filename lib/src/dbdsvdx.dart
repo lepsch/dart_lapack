@@ -365,8 +365,8 @@ import 'package:lapack/src/xerbla.dart';
                         // eigenvectors corresponding to the two smallest
                         // eigenvalues.
 
-                        Z[IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2] = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 );
-                        Z[IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1] = ZERO;
+                        Z[IROWZ:IROWZ+NTGK-1][ICOLZ+NSL-2] = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 );
+                        Z[IROWZ:IROWZ+NTGK-1][ICOLZ+NSL-1] = ZERO;
                         // IF( IUTGK*2 > NTGK ) THEN
                            // Eigenvalue equal to zero or very small.
                            // NSL = NSL - 1
@@ -411,7 +411,7 @@ import 'package:lapack/src/xerbla.dart';
                         // active submatrix is reached).
 
                         SPLIT = true;
-                        Z[IROWZ:IROWZ+NTGK-1,N+1] = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO;
+                        Z[IROWZ:IROWZ+NTGK-1][N+1] = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO;
                      }
                   END IF !** WANTZ **!;
 
@@ -437,7 +437,7 @@ import 'package:lapack/src/xerbla.dart';
                   NRV = 0;
                END IF !** NTGK > 0 **!;
                if ( IROWZ < N*2 && WANTZ ) {
-                  Z[1:IROWZ-1, ICOLZ] = ZERO;
+                  Z[1:IROWZ-1][ICOLZ] = ZERO;
                }
             END DO !** IDPTR loop **!;
             if ( SPLIT && WANTZ ) {
@@ -445,8 +445,8 @@ import 'package:lapack/src/xerbla.dart';
                // Bring back eigenvector corresponding
                // to eigenvalue equal to zero.
 
-               Z[IDBEG:IDEND-NTGK+1,ISBEG-1] = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 );
-               Z[IDBEG:IDEND-NTGK+1,N+1] = 0;
+               Z[IDBEG:IDEND-NTGK+1][ISBEG-1] = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 );
+               Z[IDBEG:IDEND-NTGK+1][N+1] = 0;
             }
             IROWV = IROWV - 1;
             IROWU = IROWU + 1;

@@ -33,7 +33,7 @@ void dchksb(final int NSIZES,
       const              MAXTYP = 15 ;
       bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      double             ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL;
+      double             ANINV, ANORM=0, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL;
       final                IDUMMA=Array<int>( 1 ), IOLDSD=Array<int>( 4 );
       // ..
       // .. External Functions ..
@@ -290,12 +290,12 @@ void dchksb(final int NSIZES,
 
                for (JC = 1; JC <= N; JC++) { // 120
                   for (JR = 0; JR <= min( K, N-JC ); JR++) { // 110
-                     A[JR+1, JC] = A[ K+1-JR][ JC+JR ];
+                     A[JR+1][JC] = A[ K+1-JR][ JC+JR ];
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
                   for (JR = min( K, N-JC ) + 1; JR <= K; JR++) { // 130
-                     A[JR+1, JC] = ZERO;
+                     A[JR+1][JC] = ZERO;
                   } // 130
                } // 140
 

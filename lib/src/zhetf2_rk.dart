@@ -262,7 +262,7 @@
                   A[K][K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
 
@@ -367,7 +367,7 @@
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
                      A[J][K] = WK / D;
-                     A[J, K-1] = WKM1 / D;
+                     A[J][K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
                      A[J][J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
@@ -380,7 +380,7 @@
 
                E[K] = A( K-1, K );
                E[K-1] = CZERO;
-               A[K-1, K] = CZERO;
+               A[K-1][K] = CZERO;
 
             }
 
@@ -600,7 +600,7 @@
                   A[K][K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
 
@@ -708,7 +708,7 @@
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
                      A[J][K] = WK / D;
-                     A[J, K+1] = WKP1 / D;
+                     A[J][K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
                      A[J][J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
@@ -721,7 +721,7 @@
 
                E[K] = A( K+1, K );
                E[K+1] = CZERO;
-               A[K+1, K] = CZERO;
+               A[K+1][K] = CZERO;
 
             }
 

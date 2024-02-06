@@ -161,8 +161,8 @@ import 'package:lapack/src/xerbla.dart';
 
          // Set  N1-by-N2 (2,1) - blocks to ZERO.
 
-         A[J1+1, J1] = ZERO;
-         B[J1+1, J1] = ZERO;
+         A[J1+1][J1] = ZERO;
+         B[J1+1][J1] = ZERO;
 
          // Accumulate transformations into Q and Z if requested.
 
@@ -198,7 +198,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (I = 1; I <= N2; I++) { // 10
             dscal(N1, -ONE, LI( 1, I ), 1 );
-            LI[N1+I, I] = SCALE;
+            LI[N1+I][I] = SCALE;
          } // 10
          dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO );
          if (LINFO != 0) GO TO 70;
@@ -212,7 +212,7 @@ import 'package:lapack/src/xerbla.dart';
           // where IR = [ SCALE * identity(N1), R ]
 
          for (I = 1; I <= N1; I++) { // 20
-            IR[N2+I, I] = SCALE;
+            IR[N2+I][I] = SCALE;
          } // 20
          dgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
          if (LINFO != 0) GO TO 70;
@@ -340,7 +340,7 @@ import 'package:lapack/src/xerbla.dart';
             WORK[M*M] = WORK( N2*M+N2+1 );
             WORK[M*M-1] = -WORK( N2*M+N2+2 );
             T[M][M] = T( N2+1, N2+1 );
-            T[M-1, M] = -T( M, M-1 );
+            T[M-1][M] = -T( M, M-1 );
          }
          dgemm('T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 );
          dlacpy('Full', N2, N1, WORK( M*M+1 ), N2, A( J1, J1+N2 ), LDA );

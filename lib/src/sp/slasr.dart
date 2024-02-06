@@ -59,7 +59,7 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 10
                         TEMP = A( J+1, I );
-                        A[J+1, I] = CTEMP*TEMP - STEMP*A( J, I );
+                        A[J+1][I] = CTEMP*TEMP - STEMP*A( J, I );
                         A[J][I] = STEMP*TEMP + CTEMP*A( J, I );
                      } // 10
                   }
@@ -71,7 +71,7 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= N; I++) { // 30
                         TEMP = A( J+1, I );
-                        A[J+1, I] = CTEMP*TEMP - STEMP*A( J, I );
+                        A[J+1][I] = CTEMP*TEMP - STEMP*A( J, I );
                         A[J][I] = STEMP*TEMP + CTEMP*A( J, I );
                      } // 30
                   }
@@ -142,7 +142,7 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 130
                         TEMP = A( I, J+1 );
-                        A[I, J+1] = CTEMP*TEMP - STEMP*A( I, J );
+                        A[I][J+1] = CTEMP*TEMP - STEMP*A( I, J );
                         A[I][J] = STEMP*TEMP + CTEMP*A( I, J );
                      } // 130
                   }
@@ -154,7 +154,7 @@
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
                      for (I = 1; I <= M; I++) { // 150
                         TEMP = A( I, J+1 );
-                        A[I, J+1] = CTEMP*TEMP - STEMP*A( I, J );
+                        A[I][J+1] = CTEMP*TEMP - STEMP*A( I, J );
                         A[I][J] = STEMP*TEMP + CTEMP*A( I, J );
                      } // 150
                   }

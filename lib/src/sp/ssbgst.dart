@@ -161,22 +161,22 @@
 
             BII = BB( KB1, I );
             for (J = I; J <= I1; J++) { // 20
-               AB[I-J+KA1, J] = AB( I-J+KA1, J ) / BII;
+               AB[I-J+KA1][J] = AB( I-J+KA1, J ) / BII;
             } // 20
             for (J = max( 1, I-KA ); J <= I; J++) { // 30
-               AB[J-I+KA1, I] = AB( J-I+KA1, I ) / BII;
+               AB[J-I+KA1][I] = AB( J-I+KA1, I ) / BII;
             } // 30
             for (K = I - KBT; K <= I - 1; K++) { // 60
                for (J = I - KBT; J <= K; J++) { // 40
-                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )*AB( K-I+KA1, I ) - BB( K-I+KB1, I )*AB( J-I+KA1, I ) + AB( KA1, I )*BB( J-I+KB1, I )* BB( K-I+KB1, I );
+                  AB[J-K+KA1][K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )*AB( K-I+KA1, I ) - BB( K-I+KB1, I )*AB( J-I+KA1, I ) + AB( KA1, I )*BB( J-I+KB1, I )* BB( K-I+KB1, I );
                } // 40
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 50
-                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( K-I+KB1, I )*AB( J-I+KA1, I );
+                  AB[J-K+KA1][K] = AB( J-K+KA1, K ) - BB( K-I+KB1, I )*AB( J-I+KA1, I );
                } // 50
             } // 60
             for (J = I; J <= I1; J++) { // 80
                for (K = max( J-KA, I-KBT ); K <= I - 1; K++) { // 70
-                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J );
+                  AB[K-J+KA1][J] = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J );
                } // 70
             } // 80
 
@@ -232,7 +232,7 @@
                // and store it in WORK(j-m)
 
                WORK[J-M] = WORK( J-M )*AB( 1, J+1 );
-               AB[1, J+1] = WORK( N+J-M )*AB( 1, J+1 );
+               AB[1][J+1] = WORK( N+J-M )*AB( 1, J+1 );
             } // 90
 
             // generate rotations in 1st set to annihilate elements which
@@ -306,7 +306,7 @@
                // and store it in WORK(j)
 
                WORK[J] = WORK( J )*AB( 1, J+1 );
-               AB[1, J+1] = WORK( N+J )*AB( 1, J+1 );
+               AB[1][J+1] = WORK( N+J )*AB( 1, J+1 );
             } // 160
             if ( UPDATE ) {
                if (I-K < N-KA && K <= KBT) WORK( I-K+KA ) = WORK( I-K );
@@ -382,22 +382,22 @@
 
             BII = BB( 1, I );
             for (J = I; J <= I1; J++) { // 250
-               AB[J-I+1, I] = AB( J-I+1, I ) / BII;
+               AB[J-I+1][I] = AB( J-I+1, I ) / BII;
             } // 250
             for (J = max( 1, I-KA ); J <= I; J++) { // 260
-               AB[I-J+1, J] = AB( I-J+1, J ) / BII;
+               AB[I-J+1][J] = AB( I-J+1, J ) / BII;
             } // 260
             for (K = I - KBT; K <= I - 1; K++) { // 290
                for (J = I - KBT; J <= K; J++) { // 270
-                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-J+1, J )*AB( I-K+1, K ) - BB( I-K+1, K )*AB( I-J+1, J ) + AB( 1, I )*BB( I-J+1, J )* BB( I-K+1, K );
+                  AB[K-J+1][J] = AB( K-J+1, J ) - BB( I-J+1, J )*AB( I-K+1, K ) - BB( I-K+1, K )*AB( I-J+1, J ) + AB( 1, I )*BB( I-J+1, J )* BB( I-K+1, K );
                } // 270
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 280
-                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-K+1, K )*AB( I-J+1, J );
+                  AB[K-J+1][J] = AB( K-J+1, J ) - BB( I-K+1, K )*AB( I-J+1, J );
                } // 280
             } // 290
             for (J = I; J <= I1; J++) { // 310
                for (K = max( J-KA, I-KBT ); K <= I - 1; K++) { // 300
-                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I );
+                  AB[J-K+1][K] = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I );
                } // 300
             } // 310
 
@@ -453,7 +453,7 @@
                // and store it in WORK(j-m)
 
                WORK[J-M] = WORK( J-M )*AB( KA1, J-KA+1 );
-               AB[KA1, J-KA+1] = WORK( N+J-M )*AB( KA1, J-KA+1 );
+               AB[KA1][J-KA+1] = WORK( N+J-M )*AB( KA1, J-KA+1 );
             } // 320
 
             // generate rotations in 1st set to annihilate elements which
@@ -527,7 +527,7 @@
                // and store it in WORK(j)
 
                WORK[J] = WORK( J )*AB( KA1, J-KA+1 );
-               AB[KA1, J-KA+1] = WORK( N+J )*AB( KA1, J-KA+1 );
+               AB[KA1][J-KA+1] = WORK( N+J )*AB( KA1, J-KA+1 );
             } // 390
             if ( UPDATE ) {
                if (I-K < N-KA && K <= KBT) WORK( I-K+KA ) = WORK( I-K );
@@ -652,22 +652,22 @@
 
             BII = BB( KB1, I );
             for (J = I1; J <= I; J++) { // 500
-               AB[J-I+KA1, I] = AB( J-I+KA1, I ) / BII;
+               AB[J-I+KA1][I] = AB( J-I+KA1, I ) / BII;
             } // 500
             for (J = I; J <= min( N, I+KA ); J++) { // 510
-               AB[I-J+KA1, J] = AB( I-J+KA1, J ) / BII;
+               AB[I-J+KA1][J] = AB( I-J+KA1, J ) / BII;
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
                for (J = K; J <= I + KBT; J++) { // 520
-                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )*AB( I-K+KA1, K ) - BB( I-K+KB1, K )*AB( I-J+KA1, J ) + AB( KA1, I )*BB( I-J+KB1, J )* BB( I-K+KB1, K );
+                  AB[K-J+KA1][J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )*AB( I-K+KA1, K ) - BB( I-K+KB1, K )*AB( I-J+KA1, J ) + AB( KA1, I )*BB( I-J+KB1, J )* BB( I-K+KB1, K );
                } // 520
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 530
-                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-K+KB1, K )*AB( I-J+KA1, J );
+                  AB[K-J+KA1][J] = AB( K-J+KA1, J ) - BB( I-K+KB1, K )*AB( I-J+KA1, J );
                } // 530
             } // 540
             for (J = I1; J <= I; J++) { // 560
                for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 550
-                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I );
+                  AB[J-K+KA1][K] = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I );
                } // 550
             } // 560
 
@@ -722,7 +722,7 @@
                // and store it in WORK(j)
 
                WORK[J] = WORK( J )*AB( 1, J+KA-1 );
-               AB[1, J+KA-1] = WORK( N+J )*AB( 1, J+KA-1 );
+               AB[1][J+KA-1] = WORK( N+J )*AB( 1, J+KA-1 );
             } // 570
 
             // generate rotations in 1st set to annihilate elements which
@@ -798,7 +798,7 @@
                // and store it in WORK(m-kb+j)
 
                WORK[M-KB+J] = WORK( M-KB+J )*AB( 1, J+KA-1 );
-               AB[1, J+KA-1] = WORK( N+M-KB+J )*AB( 1, J+KA-1 );
+               AB[1][J+KA-1] = WORK( N+M-KB+J )*AB( 1, J+KA-1 );
             } // 640
             if ( UPDATE ) {
                if (I+K > KA1 && K <= KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
@@ -876,22 +876,22 @@
 
             BII = BB( 1, I );
             for (J = I1; J <= I; J++) { // 730
-               AB[I-J+1, J] = AB( I-J+1, J ) / BII;
+               AB[I-J+1][J] = AB( I-J+1, J ) / BII;
             } // 730
             for (J = I; J <= min( N, I+KA ); J++) { // 740
-               AB[J-I+1, I] = AB( J-I+1, I ) / BII;
+               AB[J-I+1][I] = AB( J-I+1, I ) / BII;
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770
                for (J = K; J <= I + KBT; J++) { // 750
-                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( J-I+1, I )*AB( K-I+1, I ) - BB( K-I+1, I )*AB( J-I+1, I ) + AB( 1, I )*BB( J-I+1, I )* BB( K-I+1, I );
+                  AB[J-K+1][K] = AB( J-K+1, K ) - BB( J-I+1, I )*AB( K-I+1, I ) - BB( K-I+1, I )*AB( J-I+1, I ) + AB( 1, I )*BB( J-I+1, I )* BB( K-I+1, I );
                } // 750
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 760
-                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( K-I+1, I )*AB( J-I+1, I );
+                  AB[J-K+1][K] = AB( J-K+1, K ) - BB( K-I+1, I )*AB( J-I+1, I );
                } // 760
             } // 770
             for (J = I1; J <= I; J++) { // 790
                for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 780
-                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J );
+                  AB[K-J+1][J] = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J );
                } // 780
             } // 790
 
@@ -946,7 +946,7 @@
                // and store it in WORK(j)
 
                WORK[J] = WORK( J )*AB( KA1, J-1 );
-               AB[KA1, J-1] = WORK( N+J )*AB( KA1, J-1 );
+               AB[KA1][J-1] = WORK( N+J )*AB( KA1, J-1 );
             } // 800
 
             // generate rotations in 1st set to annihilate elements which
@@ -1022,7 +1022,7 @@
                // and store it in WORK(m-kb+j)
 
                WORK[M-KB+J] = WORK( M-KB+J )*AB( KA1, J-1 );
-               AB[KA1, J-1] = WORK( N+M-KB+J )*AB( KA1, J-1 );
+               AB[KA1][J-1] = WORK( N+M-KB+J )*AB( KA1, J-1 );
             } // 870
             if ( UPDATE ) {
                if (I+K > KA1 && K <= KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );

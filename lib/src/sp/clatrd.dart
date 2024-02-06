@@ -56,7 +56,7 @@
                ALPHA = A( I-1, I );
                clarfg(I-1, ALPHA, A( 1, I ), 1, TAU( I-1 ) );
                E[I-1] = double( ALPHA );
-               A[I-1, I] = ONE;
+               A[I-1][I] = ONE;
 
                // Compute W(1:i-1,i)
 
@@ -97,7 +97,7 @@
                ALPHA = A( I+1, I );
                clarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAU( I ) );
                E[I] = double( ALPHA );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute W(i+1:n,i)
 

@@ -59,7 +59,7 @@
             AJJ = AB( KD+1, J );
             if (AJJ <= ZERO) GO TO 30;
             AJJ = sqrt( AJJ );
-            AB[KD+1, J] = AJJ;
+            AB[KD+1][J] = AJJ;
 
             // Compute elements J+1:J+KN of row J and update the
             // trailing submatrix within the band.

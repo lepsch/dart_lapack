@@ -858,13 +858,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 570
                      for (I = max( 1, J-KD ); I <= J; I++) { // 560
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 560
                   } // 570
                } else {
                   for (J = 1; J <= N; J++) { // 590
                      for (I = J; I <= min( N, J+KD ); I++) { // 580
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 580
                   } // 590
                }
@@ -891,13 +891,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 610
                      for (I = max( 1, J-KD ); I <= J; I++) { // 600
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 600
                   } // 610
                } else {
                   for (J = 1; J <= N; J++) { // 630
                      for (I = J; I <= min( N, J+KD ); I++) { // 620
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 620
                   } // 630
                }
@@ -932,13 +932,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 670
                      for (I = max( 1, J-KD ); I <= J; I++) { // 660
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 660
                   } // 670
                } else {
                   for (J = 1; J <= N; J++) { // 690
                      for (I = J; I <= min( N, J+KD ); I++) { // 680
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 680
                   } // 690
                }
@@ -967,13 +967,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 710
                      for (I = max( 1, J-KD ); I <= J; I++) { // 700
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 700
                   } // 710
                } else {
                   for (J = 1; J <= N; J++) { // 730
                      for (I = J; I <= min( N, J+KD ); I++) { // 720
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 720
                   } // 730
                }
@@ -1008,13 +1008,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 770
                      for (I = max( 1, J-KD ); I <= J; I++) { // 760
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 760
                   } // 770
                } else {
                   for (J = 1; J <= N; J++) { // 790
                      for (I = J; I <= min( N, J+KD ); I++) { // 780
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 780
                   } // 790
                }
@@ -1042,13 +1042,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 810
                      for (I = max( 1, J-KD ); I <= J; I++) { // 800
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 800
                   } // 810
                } else {
                   for (J = 1; J <= N; J++) { // 830
                      for (I = J; I <= min( N, J+KD ); I++) { // 820
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 820
                   } // 830
                }
@@ -1083,13 +1083,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 860
                      for (I = max( 1, J-KD ); I <= J; I++) { // 850
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 850
                   } // 860
                } else {
                   for (J = 1; J <= N; J++) { // 880
                      for (I = J; I <= min( N, J+KD ); I++) { // 870
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 870
                   } // 880
                }
@@ -1116,13 +1116,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 900
                      for (I = max( 1, J-KD ); I <= J; I++) { // 890
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 890
                   } // 900
                } else {
                   for (J = 1; J <= N; J++) { // 920
                      for (I = J; I <= min( N, J+KD ); I++) { // 910
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 910
                   } // 920
                }
@@ -1311,13 +1311,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1070
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1060
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1060
                   } // 1070
                } else {
                   for (J = 1; J <= N; J++) { // 1090
                      for (I = J; I <= min( N, J+KD ); I++) { // 1080
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1080
                   } // 1090
                }
@@ -1344,13 +1344,13 @@
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1110
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1100
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1100
                   } // 1110
                } else {
                   for (J = 1; J <= N; J++) { // 1130
                      for (I = J; I <= min( N, J+KD ); I++) { // 1120
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1120
                   } // 1130
                }

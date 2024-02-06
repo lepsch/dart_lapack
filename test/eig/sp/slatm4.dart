@@ -62,7 +62,7 @@
 
          } // 30
          for (JD = 1; JD <= N - 1; JD++) { // 40
-            A[JD+1, JD] = ONE;
+            A[JD+1][JD] = ONE;
          } // 40
          ISDB = 1;
          ISDE = N - 1;
@@ -74,7 +74,7 @@
          } // 50
          K = ( N-1 ) / 2;
          for (JD = 1; JD <= K; JD++) { // 60
-            A[JD+1, JD] = ONE;
+            A[JD+1][JD] = ONE;
          } // 60
          ISDB = 1;
          ISDE = K;
@@ -116,7 +116,7 @@
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = ALPHA**double( I-1 );
+               A[NZ1+I][NZ1+I] = ALPHA**double( I-1 );
             } // 150
          }
          GO TO 220;
@@ -128,7 +128,7 @@
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 );
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = double( KLEN-I )*ALPHA + RCOND;
+               A[NZ1+I][NZ1+I] = double( KLEN-I )*ALPHA + RCOND;
             } // 170
          }
          GO TO 220;
@@ -157,7 +157,7 @@
             A[JD][JD] = AMAGN*double( A( JD, JD ) );
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*double( A( JD+1, JD ) );
+            A[JD+1][JD] = AMAGN*double( A( JD+1, JD ) );
          } // 240
 
          // If ISIGN = 1 or 2, assign random signs to diagonal and
@@ -166,12 +166,12 @@
          if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( double( A( JD, JD ) ) != ZERO ) {
-                  if[SLARAN( ISEED ) > HALF ) A( JD, JD] = -A( JD, JD );
+                  if[SLARAN( ISEED ) > HALF ) A( JD][JD] = -A( JD, JD );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( double( A( JD+1, JD ) ) != ZERO ) {
-                  if[SLARAN( ISEED ) > HALF ) A( JD+1, JD] = -A( JD+1, JD );
+                  if[SLARAN( ISEED ) > HALF ) A( JD+1][JD] = -A( JD+1, JD );
                }
             } // 260
          }
@@ -182,12 +182,12 @@
             for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                TEMP = A( JD, JD );
                A[JD][JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
-               A[KBEG+KEND-JD, KBEG+KEND-JD] = TEMP;
+               A[KBEG+KEND-JD][KBEG+KEND-JD] = TEMP;
             } // 270
             for (JD = 1; JD <= ( N-1 ) / 2; JD++) { // 280
                TEMP = A( JD+1, JD );
-               A[JD+1, JD] = A( N+1-JD, N-JD );
-               A[N+1-JD, N-JD] = TEMP;
+               A[JD+1][JD] = A( N+1-JD, N-JD );
+               A[N+1-JD][N-JD] = TEMP;
             } // 280
          }
 
@@ -220,9 +220,9 @@
                   SV1 = A( JD, JD );
                   SV2 = A( JD+1, JD+1 );
                   A[JD][JD] = CL*CR*SV1 + SL*SR*SV2;
-                  A[JD+1, JD] = -SL*CR*SV1 + CL*SR*SV2;
-                  A[JD, JD+1] = -CL*SR*SV1 + SL*CR*SV2;
-                  A[JD+1, JD+1] = SL*SR*SV1 + CL*CR*SV2;
+                  A[JD+1][JD] = -SL*CR*SV1 + CL*SR*SV2;
+                  A[JD][JD+1] = -CL*SR*SV1 + SL*CR*SV2;
+                  A[JD+1][JD+1] = SL*SR*SV1 + CL*CR*SV2;
                }
             } // 290
          }

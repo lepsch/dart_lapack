@@ -132,7 +132,7 @@
                      // within the band, and apply rotation from the left
 
                      slartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
-                     AB[KU+ML-1, I] = RA;
+                     AB[KU+ML-1][I] = RA;
                      if (I < N) srot( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1;
@@ -171,7 +171,7 @@
                   // and store it in WORK(n+1:2*n)
 
                   WORK[J+KUN] = WORK( J )*AB( 1, J+KUN );
-                  AB[1, J+KUN] = WORK( MN+J )*AB( 1, J+KUN );
+                  AB[1][J+KUN] = WORK( MN+J )*AB( 1, J+KUN );
                } // 40
 
                // generate plane rotations to annihilate nonzero elements
@@ -197,7 +197,7 @@
                      // within the band, and apply rotation from the right
 
                      slartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA );
-                     AB[KU-MU+3, I+MU-2] = RA;
+                     AB[KU-MU+3][I+MU-2] = RA;
                      srot(min( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) );
                   }
                   NR = NR + 1;
@@ -227,7 +227,7 @@
                   // band and store it in WORK(1:n)
 
                   WORK[J+KB] = WORK( J+KUN )*AB( KLU1, J+KUN );
-                  AB[KLU1, J+KUN] = WORK( MN+J+KUN )*AB( KLU1, J+KUN );
+                  AB[KLU1][J+KUN] = WORK( MN+J+KUN )*AB( KLU1, J+KUN );
                } // 70
 
                if ( ML > ML0 ) {
@@ -252,7 +252,7 @@
             D[I] = RA;
             if ( I < N ) {
                E[I] = RS*AB( 1, I+1 );
-               AB[1, I+1] = RC*AB( 1, I+1 );
+               AB[1][I+1] = RC*AB( 1, I+1 );
             }
             if (WANTQ) srot( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS );
             IF( WANTC ) srot( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );

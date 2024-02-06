@@ -42,7 +42,7 @@
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
-                  B[I+1, 1] = B( I+1, 1 ) - FACT*B( I, 1 );
+                  B[I+1][1] = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
                   return;
@@ -61,7 +61,7 @@
                DU[I] = TEMP;
                TEMP = B( I, 1 );
                B[I][1] = B( I+1, 1 );
-               B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
+               B[I+1][1] = TEMP - FACT*B( I+1, 1 );
             }
          } // 10
          if ( N > 1 ) {
@@ -70,7 +70,7 @@
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
-                  B[I+1, 1] = B( I+1, 1 ) - FACT*B( I, 1 );
+                  B[I+1][1] = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
                   return;
@@ -83,7 +83,7 @@
                DU[I] = TEMP;
                TEMP = B( I, 1 );
                B[I][1] = B( I+1, 1 );
-               B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
+               B[I+1][1] = TEMP - FACT*B( I+1, 1 );
             }
          }
          if ( D( N ) == ZERO ) {
@@ -100,7 +100,7 @@
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
                   for (J = 1; J <= NRHS; J++) { // 20
-                     B[I+1, J] = B( I+1, J ) - FACT*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - FACT*B( I, J );
                   } // 20
                } else {
                   INFO = I;
@@ -121,7 +121,7 @@
                for (J = 1; J <= NRHS; J++) { // 30
                   TEMP = B( I, J );
                   B[I][J] = B( I+1, J );
-                  B[I+1, J] = TEMP - FACT*B( I+1, J );
+                  B[I+1][J] = TEMP - FACT*B( I+1, J );
                } // 30
             }
          } // 40
@@ -132,7 +132,7 @@
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
                   for (J = 1; J <= NRHS; J++) { // 50
-                     B[I+1, J] = B( I+1, J ) - FACT*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - FACT*B( I, J );
                   } // 50
                } else {
                   INFO = I;
@@ -147,7 +147,7 @@
                for (J = 1; J <= NRHS; J++) { // 60
                   TEMP = B( I, J );
                   B[I][J] = B( I+1, J );
-                  B[I+1, J] = TEMP - FACT*B( I+1, J );
+                  B[I+1][J] = TEMP - FACT*B( I+1, J );
                } // 60
             }
          }

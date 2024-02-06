@@ -226,7 +226,7 @@ import 'package:lapack/src/xerbla.dart';
                      S = B( I, J );
                      TEMP = B( I, JJ );
                      B[I][JJ] = C*TEMP - S*B( I-1, JJ );
-                     B[I-1, JJ] = S*TEMP + C*B( I-1, JJ );
+                     B[I-1][JJ] = S*TEMP + C*B( I-1, JJ );
                   }
 
                   // Annihilate B( JJ+1, JJ ).
@@ -234,10 +234,10 @@ import 'package:lapack/src/xerbla.dart';
                   if ( JJ < IHI ) {
                      TEMP = B( JJ+1, JJ+1 );
                      dlartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
-                     B[JJ+1, JJ] = ZERO;
+                     B[JJ+1][JJ] = ZERO;
                      drot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
-                     A[JJ+1, J] = C;
-                     B[JJ+1, J] = -S;
+                     A[JJ+1][J] = C;
+                     B[JJ+1][J] = -S;
                   }
                }
 
@@ -262,12 +262,12 @@ import 'package:lapack/src/xerbla.dart';
                      TEMP1 = A( K, J+I+1 );
                      TEMP2 = A( K, J+I+2 );
                      TEMP3 = A( K, J+I+3 );
-                     A[K, J+I+3] = C2*TEMP3 + S2*TEMP2;
+                     A[K][J+I+3] = C2*TEMP3 + S2*TEMP2;
                      TEMP2 = -S2*TEMP3 + C2*TEMP2;
-                     A[K, J+I+2] = C1*TEMP2 + S1*TEMP1;
+                     A[K][J+I+2] = C1*TEMP2 + S1*TEMP1;
                      TEMP1 = -S1*TEMP2 + C1*TEMP1;
-                     A[K, J+I+1] = C*TEMP1 + S*TEMP;
-                     A[K, J+I] = -S*TEMP1 + C*TEMP;
+                     A[K][J+I+1] = C*TEMP1 + S*TEMP;
+                     A[K][J+I] = -S*TEMP1 + C*TEMP;
                   }
                }
 
@@ -303,7 +303,7 @@ import 'package:lapack/src/xerbla.dart';
                   dgemv('Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                   PPW = PW;
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
-                     A[I, J+1] = WORK( PPW );
+                     A[I][J+1] = WORK( PPW );
                      PPW = PPW + 1;
                   }
 
@@ -339,7 +339,7 @@ import 'package:lapack/src/xerbla.dart';
                      dgemv('Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                      PPW = PW;
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
-                        A[I, J+1] = WORK( PPW );
+                        A[I][J+1] = WORK( PPW );
                         PPW = PPW + 1;
                      }
                      PPWO = PPWO + 4*NNB*NNB;

@@ -65,7 +65,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dlarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E[I] = A( I, I+1 );
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -113,7 +113,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dlarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E[I] = A( I+1, I );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute Y(i+1:n,i)
 

@@ -232,7 +232,7 @@
 
                // Negate A(J,J+1).
 
-               A[J, J+1] = -A( J, J+1 );
+               A[J][J+1] = -A( J, J+1 );
             } // 120
          } else {
             for (J = 1; J <= N - 1; J++) { // 130
@@ -250,7 +250,7 @@
 
                // Negate A(J+1,J).
 
-               A[J+1, J] = -A( J+1, J );
+               A[J+1][J] = -A( J+1, J );
             } // 130
          }
 
@@ -457,8 +457,8 @@
                A[1][J] = -TSCAL / (N+1).toDouble();
                A[J][J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[1, J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
-               A[J-1, J-1] = ONE;
+               A[1][J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
+               A[J-1][J-1] = ONE;
                B[J-1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*2.0;
             } // 340
@@ -468,8 +468,8 @@
                A[N][J] = -TSCAL / (N+1).toDouble();
                A[J][J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[N, J+1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
-               A[J+1, J+1] = ONE;
+               A[N][J+1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
+               A[J+1][J+1] = ONE;
                B[J+1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*2.0;
             } // 350

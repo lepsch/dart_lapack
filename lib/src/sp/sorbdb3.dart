@@ -87,7 +87,7 @@
             PHI[I] = ATAN2( X21(I+1,I), X11(I,I) );
             C = COS( PHI(I) );
             S = SIN( PHI(I) );
-            X21[I+1,I] = ONE;
+            X21[I+1][I] = ONE;
             slarf('L', M-P-I, Q-I, X21(I+1,I), 1, TAUP2(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
          }
          X11[I][I] = ONE;

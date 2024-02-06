@@ -249,7 +249,7 @@
 
       if ( LLB == 0 && UUB == 0 ) {
          for (J = 1; J <= MNMIN; J++) { // 120
-            A[( 1-ISKEW )*J+IOFFST, J] = DCMPLX( D( J ) );
+            A[( 1-ISKEW )*J+IOFFST][J] = DCMPLX( D( J ) );
          } // 120
 
          if (IPACK <= 2 || IPACK >= 5) IPACKG = IPACK;
@@ -270,7 +270,7 @@
             }
 
             for (J = 1; J <= MNMIN; J++) { // 130
-               A[( 1-ISKEW )*J+IOFFST, J] = DCMPLX( D( J ) );
+               A[( 1-ISKEW )*J+IOFFST][J] = DCMPLX( D( J ) );
             } // 130
 
             if ( TOPDWN ) {
@@ -500,7 +500,7 @@
                }
 
                for (J = 1; J <= MNMIN; J++) { // 260
-                  A[( 1-ISKEW )*J+IOFFG, J] = DCMPLX( D( J ) );
+                  A[( 1-ISKEW )*J+IOFFG][J] = DCMPLX( D( J ) );
                } // 260
 
                for (K = 1; K <= UUB; K++) { // 290
@@ -558,11 +558,11 @@
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
                         for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 300
-                           A[JR+IROW, JC] = A( JC-ISKEW*JR+IOFFG, JR );
+                           A[JR+IROW][JC] = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 300
                      } else {
                         for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 310
-                           A[JR+IROW, JC] = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
+                           A[JR+IROW][JC] = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 310
                      }
                   } // 320
@@ -591,7 +591,7 @@
                }
 
                for (J = 1; J <= MNMIN; J++) { // 350
-                  A[( 1-ISKEW )*J+IOFFG, J] = DCMPLX( D( J ) );
+                  A[( 1-ISKEW )*J+IOFFG][J] = DCMPLX( D( J ) );
                } // 350
 
                for (K = 1; K <= UUB; K++) { // 380
@@ -648,11 +648,11 @@
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
                         for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 390
-                           A[JR+IROW, JC] = A( JC-ISKEW*JR+IOFFG, JR );
+                           A[JR+IROW][JC] = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 390
                      } else {
                         for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 400
-                           A[JR+IROW, JC] = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
+                           A[JR+IROW][JC] = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 400
                      }
                   } // 410
@@ -782,13 +782,13 @@
 
             for (J = 1; J <= UUB; J++) { // 540
                for (I = min( J+LLB, M ); I >= 1; I--) { // 530
-                  A[I-J+UUB+1, J] = A( I, J );
+                  A[I-J+UUB+1][J] = A( I, J );
                } // 530
             } // 540
 
             for (J = UUB + 2; J <= N; J++) { // 560
                for (I = J - UUB; I <= min( J+LLB, M ); I++) { // 550
-                  A[I-J+UUB+1, J] = A( I, J );
+                  A[I-J+UUB+1][J] = A( I, J );
                } // 550
             } // 560
          }

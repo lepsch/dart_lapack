@@ -211,7 +211,7 @@
                A[KP][KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             }
@@ -296,7 +296,7 @@
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
                      A[J][K] = WK / D12;
-                     A[J, K-1] = WKM1 / D12;
+                     A[J][K-1] = WKM1 / D12;
 
                   } // 30
 
@@ -467,7 +467,7 @@
                A[KP][KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             }
@@ -557,7 +557,7 @@
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
                      A[J][K] = WK / D21;
-                     A[J, K+1] = WKP1 / D21;
+                     A[J][K+1] = WKP1 / D21;
 
                   } // 60
 

@@ -94,7 +94,7 @@
                IJ = 0;
                for (J = 0; J <= N2; J++) {
                   for (I = N1; I <= N2 + J; I++) {
-                     A[N2+J, I] = ARF( IJ );
+                     A[N2+J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (I = J; I <= N - 1; I++) {
@@ -114,7 +114,7 @@
                      IJ = IJ + 1;
                   }
                   for (L = J - N1; L <= N1 - 1; L++) {
-                     A[J-N1, L] = ARF( IJ );
+                     A[J-N1][L] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   IJ = IJ - NX2;
@@ -137,7 +137,7 @@
                      IJ = IJ + 1;
                   }
                   for (I = N1 + J; I <= N - 1; I++) {
-                     A[I, N1+J] = ARF( IJ );
+                     A[I][N1+J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -165,7 +165,7 @@
                      IJ = IJ + 1;
                   }
                   for (L = N2 + J; L <= N - 1; L++) {
-                     A[N2+J, L] = ARF( IJ );
+                     A[N2+J][L] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -189,7 +189,7 @@
                IJ = 0;
                for (J = 0; J <= K - 1; J++) {
                   for (I = K; I <= K + J; I++) {
-                     A[K+J, I] = ARF( IJ );
+                     A[K+J][I] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   for (I = J; I <= N - 1; I++) {
@@ -209,7 +209,7 @@
                      IJ = IJ + 1;
                   }
                   for (L = J - K; L <= K - 1; L++) {
-                     A[J-K, L] = ARF( IJ );
+                     A[J-K][L] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                   IJ = IJ - NP1X2;
@@ -237,7 +237,7 @@
                      IJ = IJ + 1;
                   }
                   for (I = K + 1 + J; I <= N - 1; I++) {
-                     A[I, K+1+J] = ARF( IJ );
+                     A[I][K+1+J] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }
@@ -265,7 +265,7 @@
                      IJ = IJ + 1;
                   }
                   for (L = K + 1 + J; L <= N - 1; L++) {
-                     A[K+1+J, L] = ARF( IJ );
+                     A[K+1+J][L] = ARF( IJ );
                      IJ = IJ + 1;
                   }
                }

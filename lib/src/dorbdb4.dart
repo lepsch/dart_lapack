@@ -101,8 +101,8 @@ import 'package:lapack/src/xerbla.dart';
             THETA[I] = ATAN2( X11(I,I-1), X21(I,I-1) );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
-            X11[I,I-1] = ONE;
-            X21[I,I-1] = ONE;
+            X11[I][I-1] = ONE;
+            X21[I][I-1] = ONE;
             dlarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, TAUP1(I), X11(I,I), LDX11, WORK(ILARF) );
             dlarf('L', M-P-I+1, Q-I+1, X21(I,I-1), 1, TAUP2(I), X21(I,I), LDX21, WORK(ILARF) );
          }
@@ -133,7 +133,7 @@ import 'package:lapack/src/xerbla.dart';
 
       for (I = P + 1; I <= Q; I++) {
          dlarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
-         X21[M-Q+I-P,I] = ONE;
+         X21[M-Q+I-P][I] = ONE;
          dlarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
       }
 

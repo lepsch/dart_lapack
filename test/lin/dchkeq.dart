@@ -78,13 +78,13 @@
       // Test with zero rows and columns
 
       for (J = 1; J <= NSZ; J++) { // 90
-         A[max( NSZ-1, 1 ), J] = ZERO;
+         A[max( NSZ-1, 1 )][J] = ZERO;
       } // 90
       dgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       if( INFO != max( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE;
 
       for (J = 1; J <= NSZ; J++) { // 100
-         A[max( NSZ-1, 1 ), J] = ONE;
+         A[max( NSZ-1, 1 )][J] = ONE;
       } // 100
       for (I = 1; I <= NSZ; I++) { // 110
          A[I, max( NSZ-1, 1 )] = ZERO;
@@ -108,7 +108,7 @@
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
                         if( I <= min( M, J+KL ) && I >= max( 1, J-KU ) && J <= N ) {
-                           AB[KU+1+I-J, J] = POW( I+J+1 )* ( -1 )**( I+J );
+                           AB[KU+1+I-J][J] = POW( I+J+1 )* ( -1 )**( I+J );
                         }
                      } // 140
                   } // 150
@@ -273,7 +273,7 @@
                } // 370
             } // 380
             for (J = 1; J <= N; J++) { // 390
-               AB[KL+1, J] = POW( 2*J+1 );
+               AB[KL+1][J] = POW( 2*J+1 );
             } // 390
 
             dpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );

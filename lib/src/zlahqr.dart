@@ -54,8 +54,8 @@
 
       // ==== clear out the trash ====
       for (J = ILO; J <= IHI - 3; J++) { // 10
-         H[J+2, J] = ZERO;
-         H[J+3, J] = ZERO;
+         H[J+2][J] = ZERO;
+         H[J+3][J] = ZERO;
       } // 10
       if (ILO <= IHI-2) H( IHI, IHI-2 ) = ZERO;
       // ==== ensure that subdiagonal entries are real ====
@@ -73,7 +73,7 @@
             // .    sudden underflow in ABS(H(I,I-1)) ====
             SC = H( I, I-1 ) / CABS1( H( I, I-1 ) );
             SC = DCONJG( SC ) / ( SC ).abs();
-            H[I, I-1] = ( H( I, I-1 ) ).abs();
+            H[I][I-1] = ( H( I, I-1 ) ).abs();
             zscal(JHI-I+1, SC, H( I, I ), LDH );
             zscal(min( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 );
          }
@@ -150,7 +150,7 @@
 
             // H(L,L-1) is negligible
 
-            H[L, L-1] = ZERO;
+            H[L][L-1] = ZERO;
          }
 
          // Exit from loop if a submatrix of order 1 has split off.
@@ -248,8 +248,8 @@
             if (K > M) zcopy( 2, H( K, K-1 ), 1, V, 1 );
             zlarfg(2, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
-               H[K, K-1] = V( 1 );
-               H[K+1, K-1] = ZERO;
+               H[K][K-1] = V( 1 );
+               H[K+1][K-1] = ZERO;
             }
             V2 = V( 2 );
             T2 = (T1*V2).toDouble();
@@ -260,7 +260,7 @@
             for (J = K; J <= I2; J++) { // 80
                SUM = DCONJG( T1 )*H( K, J ) + T2*H( K+1, J );
                H[K][J] = H( K, J ) - SUM;
-               H[K+1, J] = H( K+1, J ) - SUM*V2;
+               H[K+1][J] = H( K+1, J ) - SUM*V2;
             } // 80
 
             // Apply G from the right to transform the columns of the
@@ -269,7 +269,7 @@
             for (J = I1; J <= min( K+2, I ); J++) { // 90
                SUM = T1*H( J, K ) + T2*H( J, K+1 );
                H[J][K] = H( J, K ) - SUM;
-               H[J, K+1] = H( J, K+1 ) - SUM*DCONJG( V2 );
+               H[J][K+1] = H( J, K+1 ) - SUM*DCONJG( V2 );
             } // 90
 
             if ( WANTZ ) {
@@ -279,7 +279,7 @@
                for (J = ILOZ; J <= IHIZ; J++) { // 100
                   SUM = T1*Z( J, K ) + T2*Z( J, K+1 );
                   Z[J][K] = Z( J, K ) - SUM;
-                  Z[J, K+1] = Z( J, K+1 ) - SUM*DCONJG( V2 );
+                  Z[J][K+1] = Z( J, K+1 ) - SUM*DCONJG( V2 );
                } // 100
             }
 
@@ -292,7 +292,7 @@
 
                TEMP = ONE - T1;
                TEMP = TEMP / ( TEMP ).abs();
-               H[M+1, M] = H( M+1, M )*DCONJG( TEMP );
+               H[M+1][M] = H( M+1, M )*DCONJG( TEMP );
                if (M+2 <= I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
                   if ( J != M+1 ) {
@@ -311,7 +311,7 @@
          TEMP = H( I, I-1 );
          if ( DIMAG( TEMP ) != RZERO ) {
             RTEMP = ( TEMP ).abs();
-            H[I, I-1] = RTEMP;
+            H[I][I-1] = RTEMP;
             TEMP = TEMP / RTEMP;
             if (I2 > I) zscal( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH );
             zscal(I-I1, TEMP, H( I1, I ), 1 );

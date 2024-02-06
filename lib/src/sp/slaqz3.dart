@@ -70,7 +70,7 @@
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
-               A[KWTOP, KWTOP-1] = ZERO;
+               A[KWTOP][KWTOP-1] = ZERO;
             }
          }
       }
@@ -175,11 +175,11 @@
 
       if ( KWTOP != ILO && S != ZERO ) {
          // Reflect spike back, this will create optimally packed bulges
-         A[KWTOP:KWBOT, KWTOP-1] = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND );
+         A[KWTOP:KWBOT][KWTOP-1] = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND );
          for (K = KWBOT-1; K >= KWTOP; K--) {
             slartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
-            A[K, KWTOP-1] = TEMP;
-            A[K+1, KWTOP-1] = ZERO;
+            A[K][KWTOP-1] = TEMP;
+            A[K+1][KWTOP-1] = ZERO;
             K2 = max( KWTOP, K-1 );
             srot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             srot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );
@@ -206,15 +206,15 @@
 
                   // Move shift down
                   slartg(B( K2+1, K2+1 ), B( K2+1, K2 ), C1, S1, TEMP );
-                  B[K2+1, K2+1] = TEMP;
-                  B[K2+1, K2] = ZERO;
+                  B[K2+1][K2+1] = TEMP;
+                  B[K2+1][K2] = ZERO;
                   srot(K2+2-ISTARTM+1, A( ISTARTM, K2+1 ), 1, A( ISTARTM, K2 ), 1, C1, S1 );
                   srot(K2-ISTARTM+1, B( ISTARTM, K2+1 ), 1, B( ISTARTM, K2 ), 1, C1, S1 );
                   srot(JW, ZC( 1, K2+1-KWTOP+1 ), 1, ZC( 1, K2-KWTOP+1 ), 1, C1, S1 );
 
                   slartg(A( K2+1, K2 ), A( K2+2, K2 ), C1, S1, TEMP );
-                  A[K2+1, K2] = TEMP;
-                  A[K2+2, K2] = ZERO;
+                  A[K2+1][K2] = TEMP;
+                  A[K2+2][K2] = ZERO;
                   srot(ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 );
                   srot(ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 );
                   srot(JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 );
@@ -224,7 +224,7 @@
                // Remove the shift
                slartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
                B[KWBOT][KWBOT] = TEMP;
-               B[KWBOT, KWBOT-1] = ZERO;
+               B[KWBOT][KWBOT-1] = ZERO;
                srot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 );
                srot(KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 );
                srot(JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 );

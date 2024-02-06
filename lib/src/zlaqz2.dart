@@ -70,7 +70,7 @@
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
-               A[KWTOP, KWTOP-1] = CZERO;
+               A[KWTOP][KWTOP-1] = CZERO;
             }
          }
       }
@@ -134,11 +134,11 @@
 
       if ( KWTOP != ILO && S != CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
-         A[KWTOP:KWBOT, KWTOP-1] = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) );
+         A[KWTOP:KWBOT][KWTOP-1] = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) );
          for (K = KWBOT-1; K >= KWTOP; K--) {
             zlartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
-            A[K, KWTOP-1] = TEMP;
-            A[K+1, KWTOP-1] = CZERO;
+            A[K][KWTOP-1] = TEMP;
+            A[K+1][KWTOP-1] = CZERO;
             K2 = max( KWTOP, K-1 );
             zrot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             zrot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );

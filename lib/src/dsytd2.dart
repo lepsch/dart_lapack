@@ -69,7 +69,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
@@ -85,7 +85,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dsyr2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
-               A[I, I+1] = E( I );
+               A[I][I+1] = E( I );
             }
             D[I+1] = A( I+1, I+1 );
             TAU[I] = TAUI;
@@ -107,7 +107,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
@@ -123,7 +123,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dsyr2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
-               A[I+1, I] = E( I );
+               A[I+1][I] = E( I );
             }
             D[I] = A( I, I );
             TAU[I] = TAUI;

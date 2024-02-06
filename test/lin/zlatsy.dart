@@ -48,16 +48,16 @@
             C = A - 2.0*B*EYE;
             R = C / BETA;
             X[I][I] = A;
-            X[I-2, I] = B;
-            X[I-2, I-1] = R;
-            X[I-2, I-2] = C;
-            X[I-1, I-1] = ZLARND( 2, ISEED );
-            X[I-3, I-3] = ZLARND( 2, ISEED );
-            X[I-4, I-4] = ZLARND( 2, ISEED );
+            X[I-2][I] = B;
+            X[I-2][I-1] = R;
+            X[I-2][I-2] = C;
+            X[I-1][I-1] = ZLARND( 2, ISEED );
+            X[I-3][I-3] = ZLARND( 2, ISEED );
+            X[I-4][I-4] = ZLARND( 2, ISEED );
             if ( ( X( I-3, I-3 ) ).abs() > ( X( I-4, I-4 ) ).abs() ) {
-               X[I-4, I-3] = 2.0*X( I-3, I-3 );
+               X[I-4][I-3] = 2.0*X( I-3, I-3 );
             } else {
-               X[I-4, I-3] = 2.0*X( I-4, I-4 );
+               X[I-4][I-3] = 2.0*X( I-4, I-4 );
             }
          } // 30
 
@@ -70,19 +70,19 @@
             C = A - 2.0*B*EYE;
             R = C / BETA;
             X[I][I] = A;
-            X[I-2, I] = B;
-            X[I-2, I-1] = R;
-            X[I-2, I-2] = C;
-            X[I-1, I-1] = ZLARND( 2, ISEED );
+            X[I-2][I] = B;
+            X[I-2][I-1] = R;
+            X[I-2][I-2] = C;
+            X[I-1][I-1] = ZLARND( 2, ISEED );
             I = I - 3;
          }
          if ( I > 1 ) {
             X[I][I] = ZLARND( 2, ISEED );
-            X[I-1, I-1] = ZLARND( 2, ISEED );
+            X[I-1][I-1] = ZLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ).abs() ) {
-               X[I-1, I] = 2.0*X( I, I );
+               X[I-1][I] = 2.0*X( I, I );
             } else {
-               X[I-1, I] = 2.0*X( I-1, I-1 );
+               X[I-1][I] = 2.0*X( I-1, I-1 );
             }
             I = I - 2;
          } else if ( I == 1 ) {
@@ -110,16 +110,16 @@
             C = A - 2.0*B*EYE;
             R = C / BETA;
             X[I][I] = A;
-            X[I+2, I] = B;
-            X[I+2, I+1] = R;
-            X[I+2, I+2] = C;
-            X[I+1, I+1] = ZLARND( 2, ISEED );
-            X[I+3, I+3] = ZLARND( 2, ISEED );
-            X[I+4, I+4] = ZLARND( 2, ISEED );
+            X[I+2][I] = B;
+            X[I+2][I+1] = R;
+            X[I+2][I+2] = C;
+            X[I+1][I+1] = ZLARND( 2, ISEED );
+            X[I+3][I+3] = ZLARND( 2, ISEED );
+            X[I+4][I+4] = ZLARND( 2, ISEED );
             if ( ( X( I+3, I+3 ) ).abs() > ( X( I+4, I+4 ) ).abs() ) {
-               X[I+4, I+3] = 2.0*X( I+3, I+3 );
+               X[I+4][I+3] = 2.0*X( I+3, I+3 );
             } else {
-               X[I+4, I+3] = 2.0*X( I+4, I+4 );
+               X[I+4][I+3] = 2.0*X( I+4, I+4 );
             }
          } // 60
 
@@ -132,19 +132,19 @@
             C = A - 2.0*B*EYE;
             R = C / BETA;
             X[I][I] = A;
-            X[I+2, I] = B;
-            X[I+2, I+1] = R;
-            X[I+2, I+2] = C;
-            X[I+1, I+1] = ZLARND( 2, ISEED );
+            X[I+2][I] = B;
+            X[I+2][I+1] = R;
+            X[I+2][I+2] = C;
+            X[I+1][I+1] = ZLARND( 2, ISEED );
             I = I + 3;
          }
          if ( I < N ) {
             X[I][I] = ZLARND( 2, ISEED );
-            X[I+1, I+1] = ZLARND( 2, ISEED );
+            X[I+1][I+1] = ZLARND( 2, ISEED );
             if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ).abs() ) {
-               X[I+1, I] = 2.0*X( I, I );
+               X[I+1][I] = 2.0*X( I, I );
             } else {
-               X[I+1, I] = 2.0*X( I+1, I+1 );
+               X[I+1][I] = 2.0*X( I+1, I+1 );
             }
             I = I + 2;
          } else if ( I == N ) {

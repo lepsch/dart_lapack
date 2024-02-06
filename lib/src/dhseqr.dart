@@ -160,7 +160,7 @@ import 'package:lapack/src/xerbla.dart';
                   // .    array before calling DLAQR0. ====
 
                   dlacpy('A', N, N, H, LDH, HL, NL );
-                  HL[N+1, N] = ZERO;
+                  HL[N+1][N] = ZERO;
                   dlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
                   dlaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL DLACPY( 'A', N, N, HL, NL, H, LDH );
                }

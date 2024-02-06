@@ -135,9 +135,9 @@
             // to 1
 
             EI = A( I+IB, I+IB-1 );
-            A[I+IB, I+IB-1] = ONE;
+            A[I+IB][I+IB-1] = ONE;
             sgemm('No transpose', 'Transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA );
-            A[I+IB, I+IB-1] = EI;
+            A[I+IB][I+IB-1] = EI;
 
             // Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
             // right

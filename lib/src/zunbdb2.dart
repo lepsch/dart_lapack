@@ -90,7 +90,7 @@
             PHI[I] = ATAN2( (X11(I+1,I)).toDouble(), (X21(I,I)).toDouble() );
             C = COS( PHI(I) );
             S = SIN( PHI(I) );
-            X11[I+1,I] = ONE;
+            X11[I+1][I] = ONE;
             zlarf('L', P-I, Q-I, X11(I+1,I), 1, DCONJG(TAUP1(I)), X11(I+1,I+1), LDX11, WORK(ILARF) );
          }
          X21[I][I] = ONE;

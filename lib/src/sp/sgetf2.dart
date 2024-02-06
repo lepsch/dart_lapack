@@ -66,7 +66,7 @@
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) { // 20
-                    A[J+I, J] = A( J+I, J ) / A( J, J );
+                    A[J+I][J] = A( J+I, J ) / A( J, J );
                  } // 20
                }
             }

@@ -99,7 +99,7 @@
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
              WORK[K][INVD] = ONE / A( K, K );
-             WORK[K,INVD+1] = 0;
+             WORK[K][INVD+1] = 0;
             K=K+1;
          } else {
             // 2 x 2 diagonal NNB
@@ -109,9 +109,9 @@
              AKKP1 = WORK(K+1,1)  / T;
              D = T*( AK*AKP1-ONE );
              WORK[K][INVD] = AKP1 / D;
-             WORK[K+1,INVD+1] = AK / D;
-             WORK[K,INVD+1] = -AKKP1 / D;
-             WORK[K+1,INVD] = -AKKP1 / D;
+             WORK[K+1][INVD+1] = AK / D;
+             WORK[K][INVD+1] = -AKKP1 / D;
+             WORK[K+1][INVD] = -AKKP1 / D;
             K=K+2;
          }
         }
@@ -265,7 +265,7 @@
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
              WORK[K][INVD] = ONE / A( K, K );
-             WORK[K,INVD+1] = 0;
+             WORK[K][INVD+1] = 0;
             K=K-1;
          } else {
             // 2 x 2 diagonal NNB
@@ -274,10 +274,10 @@
              AKP1 = A( K, K ) / T;
              AKKP1 = WORK(K-1,1) / T;
              D = T*( AK*AKP1-ONE );
-             WORK[K-1,INVD] = AKP1 / D;
+             WORK[K-1][INVD] = AKP1 / D;
              WORK[K][INVD] = AK / D;
-             WORK[K,INVD+1] = -AKKP1 / D;
-             WORK[K-1,INVD+1] = -AKKP1 / D;
+             WORK[K][INVD+1] = -AKKP1 / D;
+             WORK[K-1][INVD+1] = -AKKP1 / D;
             K=K-2;
          }
         }

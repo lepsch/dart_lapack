@@ -41,7 +41,7 @@ import 'package:lapack/src/xerbla.dart';
                IP = IPIV( I );
                TEMP = B( I+1-IP+I, J ) - DL( I )*B( IP, J );
                B[I][J] = B( IP, J );
-               B[I+1, J] = TEMP;
+               B[I+1][J] = TEMP;
             } // 20
 
             // Solve U*x = b.
@@ -62,11 +62,11 @@ import 'package:lapack/src/xerbla.dart';
 
                for (I = 1; I <= N - 1; I++) { // 40
                   if ( IPIV( I ) == I ) {
-                     B[I+1, J] = B( I+1, J ) - DL( I )*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - DL( I )*B( I, J );
                   } else {
                      TEMP = B( I, J );
                      B[I][J] = B( I+1, J );
-                     B[I+1, J] = TEMP - DL( I )*B( I, J );
+                     B[I+1][J] = TEMP - DL( I )*B( I, J );
                   }
                } // 40
 
@@ -123,7 +123,7 @@ import 'package:lapack/src/xerbla.dart';
                      B[I][J] = B( I, J ) - DL( I )*B( I+1, J );
                   } else {
                      TEMP = B( I+1, J );
-                     B[I+1, J] = B( I, J ) - DL( I )*TEMP;
+                     B[I+1][J] = B( I, J ) - DL( I )*TEMP;
                      B[I][J] = TEMP;
                   }
                } // 110

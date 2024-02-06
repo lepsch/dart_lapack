@@ -388,14 +388,14 @@
                      // the new RRR directly into Z and needs an intermediate
                      // workspace
                      for (K = 1; K <= IN-1; K++) { // 56
-                        Z[IBEGIN+K-1, NEWFTT] = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO );
+                        Z[IBEGIN+K-1][NEWFTT] = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO );
                      } // 56
                      Z[IEND][NEWFTT] = CMPLX( WORK( INDIN1+IN-1 ), ZERO );
                      if ( IINFO == 0 ) {
                         // a new RRR for the cluster was found by SLARRF
                         // update shift and store it
                         SSIGMA = SIGMA + TAU;
-                        Z[IEND, NEWFTT+1] = CMPLX( SSIGMA, ZERO );
+                        Z[IEND][NEWFTT+1] = CMPLX( SSIGMA, ZERO );
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
                         for (K = NEWFST; K <= NEWLST; K++) { // 116

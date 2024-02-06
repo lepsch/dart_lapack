@@ -91,7 +91,7 @@ import 'package:lapack/src/xerbla.dart';
             drot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             dlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = X21(I,I+1);
-            X21[I,I+1] = ONE;
+            X21[I][I+1] = ONE;
             dlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             dlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = sqrt( dnrm2( P-I, X11(I+1,I+1), 1 )**2 + dnrm2( M-P-I, X21(I+1,I+1), 1 )**2 );
             PHI[I] = ATAN2( S, C );

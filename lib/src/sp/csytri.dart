@@ -91,7 +91,7 @@
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               csymv[UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 );
+               csymv[UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K][K] = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -106,14 +106,14 @@
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K][K] = AKP1 / D;
-            A[K+1, K+1] = AK / D;
-            A[K, K+1] = -AKKP1 / D;
+            A[K+1][K+1] = AK / D;
+            A[K][K+1] = -AKKP1 / D;
 
             // Compute columns K and K+1 of the inverse.
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               csymv[UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - CDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               csymv[UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K][K] = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - CDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                ccopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
                csymv[UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - CDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
@@ -133,8 +133,8 @@
             A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K+1 );
-               A[K, K+1] = A( KP, K+1 );
-               A[KP, K+1] = TEMP;
+               A[K][K+1] = A( KP, K+1 );
+               A[KP][K+1] = TEMP;
             }
          }
 
@@ -168,7 +168,7 @@
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               csymv[UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 );
+               csymv[UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K][K] = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 );
             }
             KSTEP = 1;
          } else {
@@ -182,15 +182,15 @@
             AKP1 = A( K, K ) / T;
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
-            A[K-1, K-1] = AKP1 / D;
+            A[K-1][K-1] = AKP1 / D;
             A[K][K] = AK / D;
-            A[K, K-1] = -AKKP1 / D;
+            A[K][K-1] = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               csymv[UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - CDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               csymv[UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K][K] = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - CDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                ccopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
                csymv[UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1] = A( K-1, K-1 ) - CDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
@@ -210,8 +210,8 @@
             A[KP][KP] = TEMP;
             if ( KSTEP == 2 ) {
                TEMP = A( K, K-1 );
-               A[K, K-1] = A( KP, K-1 );
-               A[KP, K-1] = TEMP;
+               A[K][K-1] = A( KP, K-1 );
+               A[KP][K-1] = TEMP;
             }
          }
 

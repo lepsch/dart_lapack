@@ -143,8 +143,8 @@
          for (I = 1; I <= N; I++) { // 90
             AB[I][J] = max( I - J + 1, 0 );
          } // 90
-         AB[J, NMAX + 1] = J;
-         AB[1, NMAX + J] = J;
+         AB[J][NMAX + 1] = J;
+         AB[1][NMAX + J] = J;
          C[J][1] = ZERO;
       } // 100
       for (J = 1; J <= N; J++) { // 110
@@ -168,8 +168,8 @@
          STOP;
       }
       for (J = 1; J <= N; J++) { // 120
-         AB[J, NMAX + 1] = N - J + 1;
-         AB[1, NMAX + J] = N - J + 1;
+         AB[J][NMAX + 1] = N - J + 1;
+         AB[1][NMAX + J] = N - J + 1;
       } // 120
       for (J = 1; J <= N; J++) { // 130
          CC[N - J + 1] = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
@@ -2083,7 +2083,7 @@
             }
          } // 10
          if (TRI) A( J, J ) = A( J, J ) + ONE;
-         IF[UNIT ) A( J, J] = ONE;
+         IF[UNIT ) A( J][J] = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.

@@ -44,7 +44,7 @@
          for (L = 1; L <= M; L++) { // 10
             A[L][J] = ZERO;
          } // 10
-         A[M-N+J, J] = ONE;
+         A[M-N+J][J] = ONE;
       } // 20
 
       for (I = 1; I <= K; I++) { // 40
@@ -52,10 +52,10 @@
 
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the left
 
-         A[M-N+II, II] = ONE;
+         A[M-N+II][II] = ONE;
          slarf('Left', M-N+II, II-1, A( 1, II ), 1, TAU( I ), A, LDA, WORK );
          sscal(M-N+II-1, -TAU( I ), A( 1, II ), 1 );
-         A[M-N+II, II] = ONE - TAU( I );
+         A[M-N+II][II] = ONE - TAU( I );
 
          // Set A(m-k+i+1:m,n-k+i) to zero
 

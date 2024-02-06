@@ -118,7 +118,7 @@ import 'package:lapack/src/xerbla.dart';
          dtrmm('L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B[M-L+I, J] = B( M-L+I, J ) - WORK( I, J );
+               B[M-L+I][J] = B( M-L+I, J ) - WORK( I, J );
             }
          }
 
@@ -171,7 +171,7 @@ import 'package:lapack/src/xerbla.dart';
          dtrmm('R', 'U', 'T', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B[I, N-L+J] = B( I, N-L+J ) - WORK( I, J );
+               B[I][N-L+J] = B( I, N-L+J ) - WORK( I, J );
             }
          }
 
@@ -199,7 +199,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK[K-L+I, J] = B( I, J );
+               WORK[K-L+I][J] = B( I, J );
             }
          }
 
@@ -253,7 +253,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK[I, K-L+J] = B( I, J );
+               WORK[I][K-L+J] = B( I, J );
             }
          }
          dtrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
@@ -332,7 +332,7 @@ import 'package:lapack/src/xerbla.dart';
          dtrmm('L', 'L', 'T', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               B[M-L+I, J] = B( M-L+I, J ) - WORK( I, J );
+               B[M-L+I][J] = B( M-L+I, J ) - WORK( I, J );
             }
          }
 
@@ -384,7 +384,7 @@ import 'package:lapack/src/xerbla.dart';
          dtrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               B[I, N-L+J] = B( I, N-L+J ) - WORK( I, J );
+               B[I][N-L+J] = B( I, N-L+J ) - WORK( I, J );
             }
          }
 
@@ -411,7 +411,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
-               WORK[K-L+I, J] = B( I, J );
+               WORK[K-L+I][J] = B( I, J );
             }
          }
          dtrmm('L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
@@ -463,7 +463,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
-               WORK[I, K-L+J] = B( I, J );
+               WORK[I][K-L+J] = B( I, J );
             }
          }
          dtrmm('R', 'U', 'T', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );

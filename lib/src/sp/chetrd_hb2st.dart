@@ -165,7 +165,7 @@
               for (I = 1; I <= N - 1; I++) { // 60
                   TMP = AB( ABOFDPOS, I+1 );
                   ABSTMP = ( TMP ).abs();
-                  AB[ABOFDPOS, I+1] = ABSTMP;
+                  AB[ABOFDPOS][I+1] = ABSTMP;
                   E[I] = ABSTMP;
                   if ( ABSTMP != RZERO ) {
                      TMP = TMP / ABSTMP;

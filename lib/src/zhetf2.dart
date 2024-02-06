@@ -163,7 +163,7 @@
                if ( KSTEP == 2 ) {
                   A[K][K] = (A( K, K )).toDouble();
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -221,7 +221,7 @@
                         A[I][J] = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K-1 )*DCONJG( WKM1 );
                      } // 30
                      A[J][K] = WK;
-                     A[J, K-1] = WKM1;
+                     A[J][K-1] = WKM1;
                      A[J][J] = DCMPLX( (A( J, J )).toDouble(), 0.0 );
                   } // 40
 
@@ -351,7 +351,7 @@
                if ( KSTEP == 2 ) {
                   A[K][K] = (A( K, K )).toDouble();
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -410,7 +410,7 @@
                         A[I][J] = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K+1 )*DCONJG( WKP1 );
                      } // 70
                      A[J][K] = WK;
-                     A[J, K+1] = WKP1;
+                     A[J][K+1] = WKP1;
                      A[J][J] = DCMPLX( (A( J, J )).toDouble(), 0.0 );
                   } // 80
                }

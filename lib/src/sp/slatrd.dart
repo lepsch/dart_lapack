@@ -48,7 +48,7 @@
 
                slarfg(I-1, A( I-1, I ), A( 1, I ), 1, TAU( I-1 ) );
                E[I-1] = A( I-1, I );
-               A[I-1, I] = ONE;
+               A[I-1][I] = ONE;
 
                // Compute W(1:i-1,i)
 
@@ -82,7 +82,7 @@
 
                slarfg(N-I, A( I+1, I ), A( min( I+2, N ), I ), 1, TAU( I ) );
                E[I] = A( I+1, I );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute W(i+1:n,i)
 

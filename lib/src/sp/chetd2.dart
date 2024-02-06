@@ -64,7 +64,7 @@
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
@@ -83,7 +83,7 @@
             } else {
                A[I][I] = double( A( I, I ) );
             }
-            A[I, I+1] = E( I );
+            A[I][I+1] = E( I );
             D[I+1] = double( A( I+1, I+1 ) );
             TAU[I] = TAUI;
          } // 10
@@ -106,7 +106,7 @@
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
@@ -123,9 +123,9 @@
                cher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
             } else {
-               A[I+1, I+1] = double( A( I+1, I+1 ) );
+               A[I+1][I+1] = double( A( I+1, I+1 ) );
             }
-            A[I+1, I] = E( I );
+            A[I+1][I] = E( I );
             D[I] = double( A( I, I ) );
             TAU[I] = TAUI;
          } // 20

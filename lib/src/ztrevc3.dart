@@ -163,7 +163,7 @@
 
             for (K = 1; K <= KI - 1; K++) { // 50
                T[K][K] = T( K, K ) - T( KI, KI );
-               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
+               if[CABS1( T( K, K ) ) < SMIN ) T( K][K] = SMIN;
             } // 50
 
             if ( KI > 1 ) {
@@ -265,7 +265,7 @@
 
             for (K = KI + 1; K <= N; K++) { // 100
                T[K][K] = T( K, K ) - T( KI, KI );
-               if[CABS1( T( K, K ) ) < SMIN ) T( K, K] = SMIN;
+               if[CABS1( T( K, K ) ) < SMIN ) T( K][K] = SMIN;
             } // 100
 
             if ( KI < N ) {

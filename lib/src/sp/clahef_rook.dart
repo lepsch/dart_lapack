@@ -132,14 +132,14 @@
                   // Copy column IMAX to column KW-1 of W and update it
 
                   if (IMAX > 1) ccopy( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-                  W[IMAX, KW-1] = double( A( IMAX, IMAX ) );
+                  W[IMAX][KW-1] = double( A( IMAX, IMAX ) );
 
                   ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                   clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
 
                   if ( K < N ) {
                      cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
-                     W[IMAX, KW-1] = double( W( IMAX, KW-1 ) );
+                     W[IMAX][KW-1] = double( W( IMAX, KW-1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -391,14 +391,14 @@
                   // of D**(-1)
 
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A[J, K-1] = T*( ( D11*W( J, KW-1 )-W( J, KW ) ) / D21 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / CONJG( D21 ) );
+                     A[J][K-1] = T*( ( D11*W( J, KW-1 )-W( J, KW ) ) / D21 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / CONJG( D21 ) );
                   } // 20
                }
 
                // Copy D(k) to A
 
-               A[K-1, K-1] = W( K-1, KW-1 );
-               A[K-1, K] = W( K-1, KW );
+               A[K-1][K-1] = W( K-1, KW-1 );
+               A[K-1][K] = W( K-1, KW );
                A[K][K] = W( K, KW );
 
                // (2) Conjugate columns W(kw) and W(kw-1)
@@ -564,13 +564,13 @@
 
                   ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
                   clacgv(IMAX-K, W( K, K+1 ), 1 );
-                  W[IMAX, K+1] = double( A( IMAX, IMAX ) );
+                  W[IMAX][K+1] = double( A( IMAX, IMAX ) );
 
                   if (IMAX < N) ccopy( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K > 1 ) {
                      cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
-                     W[IMAX, K+1] = double( W( IMAX, K+1 ) );
+                     W[IMAX][K+1] = double( W( IMAX, K+1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -825,8 +825,8 @@
                // Copy D(k) to A
 
                A[K][K] = W( K, K );
-               A[K+1, K] = W( K+1, K );
-               A[K+1, K+1] = W( K+1, K+1 );
+               A[K+1][K] = W( K+1, K );
+               A[K+1][K+1] = W( K+1, K+1 );
 
                // (2) Conjugate columns W(k) and W(k+1)
 

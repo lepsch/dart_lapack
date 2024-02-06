@@ -72,7 +72,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( IPIV( I ) < 0 ) {
                   E[I] = A( I-1, I );
                   E[I-1] = ZERO;
-                  A[I-1, I] = ZERO;
+                  A[I-1][I] = ZERO;
                   I = I - 1;
                } else {
                   E[I] = ZERO;
@@ -178,7 +178,7 @@ import 'package:lapack/src/xerbla.dart';
             I = N;
             while (I > 1) {
                if ( IPIV( I ) < 0 ) {
-                  A[I-1, I] = E( I );
+                  A[I-1][I] = E( I );
                   I = I - 1;
                }
                I = I - 1;
@@ -207,7 +207,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( I < N && IPIV(I) < 0 ) {
                   E[I] = A( I+1, I );
                   E[I+1] = ZERO;
-                  A[I+1, I] = ZERO;
+                  A[I+1][I] = ZERO;
                   I = I + 1;
                } else {
                   E[I] = ZERO;
@@ -313,7 +313,7 @@ import 'package:lapack/src/xerbla.dart';
             I = 1;
             while (I <= N-1) {
                if ( IPIV( I ) < 0 ) {
-                  A[I + 1, I] = E( I );
+                  A[I + 1][I] = E( I );
                   I = I + 1;
                }
                I = I + 1;

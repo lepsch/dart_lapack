@@ -659,19 +659,19 @@
                      if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
                            for (I = max( 1, J-KA ); I <= J; I++) { // 320
-                              AB[KA+1+I-J, J] = A( I, J );
+                              AB[KA+1+I-J][J] = A( I, J );
                            } // 320
                            for (I = max( 1, J-KB ); I <= J; I++) { // 330
-                              BB[KB+1+I-J, J] = B( I, J );
+                              BB[KB+1+I-J][J] = B( I, J );
                            } // 330
                         } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
                            for (I = J; I <= min( N, J+KA ); I++) { // 350
-                              AB[1+I-J, J] = A( I, J );
+                              AB[1+I-J][J] = A( I, J );
                            } // 350
                            for (I = J; I <= min( N, J+KB ); I++) { // 360
-                              BB[1+I-J, J] = B( I, J );
+                              BB[1+I-J][J] = B( I, J );
                            } // 360
                         } // 370
                      }
@@ -701,19 +701,19 @@
                      if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
                            for (I = max( 1, J-KA ); I <= J; I++) { // 380
-                              AB[KA+1+I-J, J] = A( I, J );
+                              AB[KA+1+I-J][J] = A( I, J );
                            } // 380
                            for (I = max( 1, J-KB ); I <= J; I++) { // 390
-                              BB[KB+1+I-J, J] = B( I, J );
+                              BB[KB+1+I-J][J] = B( I, J );
                            } // 390
                         } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
                            for (I = J; I <= min( N, J+KA ); I++) { // 410
-                              AB[1+I-J, J] = A( I, J );
+                              AB[1+I-J][J] = A( I, J );
                            } // 410
                            for (I = J; I <= min( N, J+KB ); I++) { // 420
-                              BB[1+I-J, J] = B( I, J );
+                              BB[1+I-J][J] = B( I, J );
                            } // 420
                         } // 430
                      }
@@ -743,19 +743,19 @@
                      if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
                            for (I = max( 1, J-KA ); I <= J; I++) { // 440
-                              AB[KA+1+I-J, J] = A( I, J );
+                              AB[KA+1+I-J][J] = A( I, J );
                            } // 440
                            for (I = max( 1, J-KB ); I <= J; I++) { // 450
-                              BB[KB+1+I-J, J] = B( I, J );
+                              BB[KB+1+I-J][J] = B( I, J );
                            } // 450
                         } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
                            for (I = J; I <= min( N, J+KA ); I++) { // 470
-                              AB[1+I-J, J] = A( I, J );
+                              AB[1+I-J][J] = A( I, J );
                            } // 470
                            for (I = J; I <= min( N, J+KB ); I++) { // 480
-                              BB[1+I-J, J] = B( I, J );
+                              BB[1+I-J][J] = B( I, J );
                            } // 480
                         } // 490
                      }
@@ -784,19 +784,19 @@
                      if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
                            for (I = max( 1, J-KA ); I <= J; I++) { // 500
-                              AB[KA+1+I-J, J] = A( I, J );
+                              AB[KA+1+I-J][J] = A( I, J );
                            } // 500
                            for (I = max( 1, J-KB ); I <= J; I++) { // 510
-                              BB[KB+1+I-J, J] = B( I, J );
+                              BB[KB+1+I-J][J] = B( I, J );
                            } // 510
                         } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
                            for (I = J; I <= min( N, J+KA ); I++) { // 530
-                              AB[1+I-J, J] = A( I, J );
+                              AB[1+I-J][J] = A( I, J );
                            } // 530
                            for (I = J; I <= min( N, J+KB ); I++) { // 540
-                              BB[1+I-J, J] = B( I, J );
+                              BB[1+I-J][J] = B( I, J );
                            } // 540
                         } // 550
                      }
@@ -826,19 +826,19 @@
                      if ( lsame( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
                            for (I = max( 1, J-KA ); I <= J; I++) { // 560
-                              AB[KA+1+I-J, J] = A( I, J );
+                              AB[KA+1+I-J][J] = A( I, J );
                            } // 560
                            for (I = max( 1, J-KB ); I <= J; I++) { // 570
-                              BB[KB+1+I-J, J] = B( I, J );
+                              BB[KB+1+I-J][J] = B( I, J );
                            } // 570
                         } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
                            for (I = J; I <= min( N, J+KA ); I++) { // 590
-                              AB[1+I-J, J] = A( I, J );
+                              AB[1+I-J][J] = A( I, J );
                            } // 590
                            for (I = J; I <= min( N, J+KB ); I++) { // 600
-                              BB[1+I-J, J] = B( I, J );
+                              BB[1+I-J][J] = B( I, J );
                            } // 600
                         } // 610
                      }

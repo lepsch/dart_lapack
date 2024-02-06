@@ -83,7 +83,7 @@
             srot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             slarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = X21(I,I+1);
-            X21[I,I+1] = ONE;
+            X21[I][I+1] = ONE;
             slarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             slarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = sqrt( SNRM2( P-I, X11(I+1,I+1), 1 )**2 + SNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
             PHI[I] = ATAN2( S, C );

@@ -76,7 +76,7 @@
             // Compute the (K,K) element of the result.
 
             AKK = DBLE( ZDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) );
-            AFAC[KD+1, K] = AKK;
+            AFAC[KD+1][K] = AKK;
 
             // Compute the rest of column K.
 

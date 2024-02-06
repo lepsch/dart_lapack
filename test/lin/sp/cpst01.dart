@@ -116,9 +116,9 @@
             for (I = 1; I <= N; I++) { // 170
                if ( PIV( I ) <= PIV( J ) ) {
                   if ( I <= J ) {
-                     PERM[PIV( I ), PIV( J )] = AFAC( I, J );
+                     PERM[PIV( I )][PIV( J )] = AFAC( I, J );
                   } else {
-                     PERM[PIV( I ), PIV( J )] = CONJG( AFAC( J, I ) );
+                     PERM[PIV( I )][PIV( J )] = CONJG( AFAC( J, I ) );
                   }
                }
             } // 170
@@ -131,9 +131,9 @@
             for (I = 1; I <= N; I++) { // 190
                if ( PIV( I ) >= PIV( J ) ) {
                   if ( I >= J ) {
-                     PERM[PIV( I ), PIV( J )] = AFAC( I, J );
+                     PERM[PIV( I )][PIV( J )] = AFAC( I, J );
                   } else {
-                     PERM[PIV( I ), PIV( J )] = CONJG( AFAC( J, I ) );
+                     PERM[PIV( I )][PIV( J )] = CONJG( AFAC( J, I ) );
                   }
                }
             } // 190

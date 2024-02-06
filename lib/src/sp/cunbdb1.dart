@@ -104,7 +104,7 @@
             clacgv(Q-I, X21(I,I+1), LDX21 );
             clarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = double( X21(I,I+1) );
-            X21[I,I+1] = ONE;
+            X21[I][I+1] = ONE;
             clarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             clarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             clacgv(Q-I, X21(I,I+1), LDX21 );

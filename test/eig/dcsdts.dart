@@ -70,7 +70,7 @@
       dgemm('Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX );
 
       for (I = 1; I <= min(P,M-Q)-R; I++) {
-         XF[P-I+1,M-I+1] = XF(P-I+1,M-I+1) + ONE;
+         XF[P-I+1][M-I+1] = XF(P-I+1,M-I+1) + ONE;
       }
       for (I = 1; I <= R; I++) {
          XF[P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I] = XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) + SIN(THETA(R-I+1));
@@ -81,7 +81,7 @@
       dgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX );
 
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         XF[M-I+1,Q-I+1] = XF(M-I+1,Q-I+1) - ONE;
+         XF[M-I+1][Q-I+1] = XF(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
          XF[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1));
@@ -92,7 +92,7 @@
       dgemm('Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX );
 
       for (I = 1; I <= min(M-P,M-Q)-R; I++) {
-         XF[P+I,Q+I] = XF(P+I,Q+I) - ONE;
+         XF[P+I][Q+I] = XF(P+I,Q+I) - ONE;
       }
       for (I = 1; I <= R; I++) {
          XF[P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I] = XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) - COS(THETA(I));
@@ -209,7 +209,7 @@
       dgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX );
 
       for (I = 1; I <= min(M-P,Q)-R; I++) {
-         X[M-I+1,Q-I+1] = X(M-I+1,Q-I+1) - ONE;
+         X[M-I+1][Q-I+1] = X(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
          X[M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I] = X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1));

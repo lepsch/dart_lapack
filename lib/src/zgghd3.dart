@@ -219,7 +219,7 @@
                      S = B( I, J );
                      TEMP = B( I, JJ );
                      B[I][JJ] = CTEMP*TEMP - DCONJG( S )*B( I-1, JJ );
-                     B[I-1, JJ] = S*TEMP + CTEMP*B( I-1, JJ );
+                     B[I-1][JJ] = S*TEMP + CTEMP*B( I-1, JJ );
                   }
 
                   // Annihilate B( JJ+1, JJ ).
@@ -227,10 +227,10 @@
                   if ( JJ < IHI ) {
                      TEMP = B( JJ+1, JJ+1 );
                      zlartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
-                     B[JJ+1, JJ] = CZERO;
+                     B[JJ+1][JJ] = CZERO;
                      zrot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
-                     A[JJ+1, J] = DCMPLX( C );
-                     B[JJ+1, J] = -DCONJG( S );
+                     A[JJ+1][J] = DCMPLX( C );
+                     B[JJ+1][J] = -DCONJG( S );
                   }
                }
 
@@ -250,12 +250,12 @@
                      TEMP1 = A( K, J+I+1 );
                      TEMP2 = A( K, J+I+2 );
                      TEMP3 = A( K, J+I+3 );
-                     A[K, J+I+3] = C2*TEMP3 + DCONJG( S2 )*TEMP2;
+                     A[K][J+I+3] = C2*TEMP3 + DCONJG( S2 )*TEMP2;
                      TEMP2 = -S2*TEMP3 + C2*TEMP2;
-                     A[K, J+I+2] = C1*TEMP2 + DCONJG( S1 )*TEMP1;
+                     A[K][J+I+2] = C1*TEMP2 + DCONJG( S1 )*TEMP1;
                      TEMP1 = -S1*TEMP2 + C1*TEMP1;
-                     A[K, J+I+1] = CTEMP*TEMP1 + DCONJG( S )*TEMP;
-                     A[K, J+I] = -S*TEMP1 + CTEMP*TEMP;
+                     A[K][J+I+1] = CTEMP*TEMP1 + DCONJG( S )*TEMP;
+                     A[K][J+I] = -S*TEMP1 + CTEMP*TEMP;
                   }
                }
 
@@ -292,7 +292,7 @@
                   zgemv('Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                   PPW = PW;
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
-                     A[I, J+1] = WORK( PPW );
+                     A[I][J+1] = WORK( PPW );
                      PPW = PPW + 1;
                   }
 
@@ -328,7 +328,7 @@
                      zgemv('Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                      PPW = PW;
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
-                        A[I, J+1] = WORK( PPW );
+                        A[I][J+1] = WORK( PPW );
                         PPW = PPW + 1;
                      }
                      PPWO = PPWO + 4*NNB*NNB;

@@ -57,7 +57,7 @@ import 'package:lapack/src/xerbla.dart';
             for (J = 1; J <= N; J++) { // 20
                CJ = C( J );
                for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 10
-                  AB[KU+1+I-J, J] = CJ*AB( KU+1+I-J, J );
+                  AB[KU+1+I-J][J] = CJ*AB( KU+1+I-J, J );
                } // 10
             } // 20
             EQUED = 'C';
@@ -68,7 +68,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N; J++) { // 40
             for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 30
-               AB[KU+1+I-J, J] = R( I )*AB( KU+1+I-J, J );
+               AB[KU+1+I-J][J] = R( I )*AB( KU+1+I-J, J );
             } // 30
          } // 40
          EQUED = 'R';
@@ -79,7 +79,7 @@ import 'package:lapack/src/xerbla.dart';
          for (J = 1; J <= N; J++) { // 60
             CJ = C( J );
             for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 50
-               AB[KU+1+I-J, J] = CJ*R( I )*AB( KU+1+I-J, J );
+               AB[KU+1+I-J][J] = CJ*R( I )*AB( KU+1+I-J, J );
             } // 50
          } // 60
          EQUED = 'B';

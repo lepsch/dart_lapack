@@ -388,7 +388,7 @@ import 'package:lapack/src/xerbla.dart';
                         // a new RRR for the cluster was found by DLARRF
                         // update shift and store it
                         SSIGMA = SIGMA + TAU;
-                        Z[IEND, NEWFTT+1] = SSIGMA;
+                        Z[IEND][NEWFTT+1] = SSIGMA;
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
                         for (K = NEWFST; K <= NEWLST; K++) { // 116

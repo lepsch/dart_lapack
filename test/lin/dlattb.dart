@@ -79,7 +79,7 @@
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 10
                   AB[I][J] = ZERO;
                } // 10
-               AB[KD+1, J] = J;
+               AB[KD+1][J] = J;
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
@@ -105,7 +105,7 @@
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 50
                   AB[I][J] = ZERO;
                } // 50
-               AB[KD+1, J] = J.toDouble();
+               AB[KD+1][J] = J.toDouble();
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
@@ -125,14 +125,14 @@
                LENJ = ( N-3 ) / 2;
                dlarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 90
-                  AB[1, 2*( J+1 )] = TNORM*WORK( J );
+                  AB[1][2*( J+1 )] = TNORM*WORK( J );
                } // 90
             } else {
                AB[2][1] = sign( TNORM, dlarnd( 2, ISEED ) );
                LENJ = ( N-3 ) / 2;
                dlarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 100
-                  AB[2, 2*J+1] = TNORM*WORK( J );
+                  AB[2][2*J+1] = TNORM*WORK( J );
                } // 100
             }
          } else if ( KD > 1 ) {
@@ -202,7 +202,7 @@
             for (J = 1; J <= N; J++) { // 120
                LENJ = min( J, KD+1 );
                dlarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               AB[KD+1, J] = sign( TWO, AB( KD+1, J ) );
+               AB[KD+1][J] = sign( TWO, AB( KD+1, J ) );
             } // 120
          } else {
             for (J = 1; J <= N; J++) { // 130
@@ -233,9 +233,9 @@
                LENJ = min( J, KD+1 );
                dlarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                dscal(LENJ-1, TSCAL, AB( KD+2-LENJ, J ), 1 );
-               AB[KD+1, J] = sign( ONE, AB( KD+1, J ) );
+               AB[KD+1][J] = sign( ONE, AB( KD+1, J ) );
             } // 140
-            AB[KD+1, N] = SMLNUM*AB( KD+1, N );
+            AB[KD+1][N] = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 150
                LENJ = min( N-J+1, KD+1 );
@@ -257,9 +257,9 @@
             for (J = 1; J <= N; J++) { // 160
                LENJ = min( J, KD+1 );
                dlarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               AB[KD+1, J] = sign( ONE, AB( KD+1, J ) );
+               AB[KD+1][J] = sign( ONE, AB( KD+1, J ) );
             } // 160
-            AB[KD+1, N] = SMLNUM*AB( KD+1, N );
+            AB[KD+1][N] = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = min( N-J+1, KD+1 );
@@ -282,9 +282,9 @@
                   AB[I][J] = ZERO;
                } // 180
                if ( JCOUNT <= 2 ) {
-                  AB[KD+1, J] = SMLNUM;
+                  AB[KD+1][J] = SMLNUM;
                } else {
-                  AB[KD+1, J] = ONE;
+                  AB[KD+1][J] = ONE;
                }
                JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
@@ -336,7 +336,7 @@
                   AB[I][J] = ZERO;
                } // 240
                if (J > 1 && KD > 0) AB( KD, J ) = -ONE;
-               AB[KD+1, J] = TSCAL;
+               AB[KD+1][J] = TSCAL;
             } // 250
             B[N] = ONE;
          } else {
@@ -360,9 +360,9 @@
                LENJ = min( J, KD+1 );
                dlarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J != IY ) {
-                  AB[KD+1, J] = sign( TWO, AB( KD+1, J ) );
+                  AB[KD+1][J] = sign( TWO, AB( KD+1, J ) );
                } else {
-                  AB[KD+1, J] = ZERO;
+                  AB[KD+1][J] = ZERO;
                }
             } // 280
          } else {
@@ -398,34 +398,34 @@
             if ( UPPER ) {
                for (J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) { // 330
                   for (I = J; I >= max( 1, J-KD+1 ); I -= 2) { // 320
-                     AB[1+( J-I ), I] = -TSCAL / (KD+2).toDouble();
-                     AB[KD+1, I] = ONE;
+                     AB[1+( J-I )][I] = -TSCAL / (KD+2).toDouble();
+                     AB[KD+1][I] = ONE;
                      B[I] = TEXP*( ONE-ULP );
                      if ( I > max( 1, J-KD+1 ) ) {
-                        AB[2+( J-I ), I-1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
-                        AB[KD+1, I-1] = ONE;
+                        AB[2+( J-I )][I-1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
+                        AB[KD+1][I-1] = ONE;
                         B[I-1] = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 320
-                  B[max( 1, J-KD+1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
+                  B[max( 1][J-KD+1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
                } // 330
             } else {
                for (J = 1; KD < 0 ? J >= N : J <= N; J += KD) { // 350
                   TEXP = ONE;
                   LENJ = min( KD+1, N-J+1 );
                   for (I = J; 2 < 0 ? I >= min( N, J+KD-1 ) : I <= min( N, J+KD-1 ); I += 2) { // 340
-                     AB[LENJ-( I-J ), J] = -TSCAL / (KD+2).toDouble();
+                     AB[LENJ-( I-J )][J] = -TSCAL / (KD+2).toDouble();
                      AB[1][J] = ONE;
                      B[J] = TEXP*( ONE-ULP );
                      if ( I < min( N, J+KD-1 ) ) {
-                        AB[LENJ-( I-J+1 ), I+1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
-                        AB[1, I+1] = ONE;
+                        AB[LENJ-( I-J+1 )][I+1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
+                        AB[1][I+1] = ONE;
                         B[I+1] = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 340
-                  B[min( N, J+KD-1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
+                  B[min( N][J+KD-1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
                } // 350
             }
          } else {
@@ -445,7 +445,7 @@
             for (J = 1; J <= N; J++) { // 370
                LENJ = min( J-1, KD );
                dlarnv(2, ISEED, LENJ, AB( KD+1-LENJ, J ) );
-               AB[KD+1, J] = J.toDouble();
+               AB[KD+1][J] = J.toDouble();
             } // 370
          } else {
             for (J = 1; J <= N; J++) { // 380

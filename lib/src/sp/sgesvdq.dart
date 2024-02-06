@@ -737,7 +737,7 @@
                    // singular vectors of R
                    for (p = 1; p <= NR; p++) { // 1196
                       for (q = p; q <= N; q++) { // 1197
-                         U[q,NR+p] = A(p,q);
+                         U[q][NR+p] = A(p,q);
                       } // 1197
                    } // 1196
                    if (NR > 1) slaset('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);

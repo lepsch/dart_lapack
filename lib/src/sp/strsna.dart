@@ -225,9 +225,9 @@
                   } // 30
                   WORK[2][2] = ZERO;
 
-                  WORK[1, N+1] = TWO*MU;
+                  WORK[1][N+1] = TWO*MU;
                   for (I = 2; I <= N - 1; I++) { // 40
-                     WORK[I, N+1] = SN*WORK( 1, I+1 );
+                     WORK[I][N+1] = SN*WORK( 1, I+1 );
                   } // 40
                   N2 = 2;
                   NN = 2*( N-1 );

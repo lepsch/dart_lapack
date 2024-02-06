@@ -452,7 +452,7 @@ import 'package:lapack/src/xerbla.dart';
                   dscal(KI, REMAX, VR( 1, IS   ), 1 );
 
                   for (K = KI + 1; K <= N; K++) { // 110
-                     VR[K, IS-1] = ZERO;
+                     VR[K][IS-1] = ZERO;
                      VR[K][IS] = ZERO;
                   } // 110
 
@@ -849,7 +849,7 @@ import 'package:lapack/src/xerbla.dart';
 
                   for (K = 1; K <= KI - 1; K++) { // 230
                      VL[K][IS] = ZERO;
-                     VL[K, IS+1] = ZERO;
+                     VL[K][IS+1] = ZERO;
                   } // 230
 
                } else if ( NB == 1 ) {

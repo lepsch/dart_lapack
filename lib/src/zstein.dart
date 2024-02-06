@@ -231,7 +231,7 @@
                Z[I][J] = CZERO;
             } // 150
             for (I = 1; I <= BLKSIZ; I++) { // 160
-               Z[B1+I-1, J] = DCMPLX( WORK( INDRV1+I ), ZERO );
+               Z[B1+I-1][J] = DCMPLX( WORK( INDRV1+I ), ZERO );
             } // 160
 
             // Save the shift to check eigenvalue spacing at next

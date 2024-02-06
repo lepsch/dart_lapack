@@ -60,7 +60,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
-               T[I, J+N1] = A( I, J+N1 );
+               T[I][J+N1] = A( I, J+N1 );
             }
          }
          dtrmm('L', 'L', 'T', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT );
@@ -75,7 +75,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
-               A[I, J+N1] = A( I, J+N1 ) - T( I, J+N1 );
+               A[I][J+N1] = A( I, J+N1 ) - T( I, J+N1 );
             }
          }
 
@@ -87,7 +87,7 @@ import 'package:lapack/src/xerbla.dart';
 
          for (I = 1; I <= N1; I++) {
             for (J = 1; J <= N2; J++) {
-               T[I, J+N1] = (A( J+N1, I ));
+               T[I][J+N1] = (A( J+N1, I ));
             }
          }
 

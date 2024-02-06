@@ -129,10 +129,10 @@ import 'package:lapack/src/xerbla.dart';
 
                if ( UPPER ) {
                   if (K+I <= M) A( K+I, N-L+J ) = ZERO;
-                  B[I, N-L+J] = ZERO;
+                  B[I][N-L+J] = ZERO;
                } else {
                   if (K+J <= M) A( K+J, N-L+I ) = ZERO;
-                  B[J, N-L+I] = ZERO;
+                  B[J][N-L+I] = ZERO;
                }
 
                // Update orthogonal matrices U, V, Q, if desired.

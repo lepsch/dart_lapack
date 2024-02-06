@@ -92,7 +92,7 @@
                   cscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) {
-                    A[J+I, J] = A( J+I, J ) / A( J, J );
+                    A[J+I][J] = A( J+I, J ) / A( J, J );
                  }
                }
          } else if ( PIVMAG == ZERO && INFO == 0 ) {

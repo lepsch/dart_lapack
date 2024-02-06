@@ -245,7 +245,7 @@ import 'package:lapack/src/xerbla.dart';
                K = idamax( N, WORK( IWRK ), 1 );
                dlartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
                drot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
-               VL[K, I+1] = ZERO;
+               VL[K][I+1] = ZERO;
             }
          } // 20
       }
@@ -273,7 +273,7 @@ import 'package:lapack/src/xerbla.dart';
                K = idamax( N, WORK( IWRK ), 1 );
                dlartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
                drot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
-               VR[K, I+1] = ZERO;
+               VR[K][I+1] = ZERO;
             }
          } // 40
       }

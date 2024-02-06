@@ -61,13 +61,13 @@
          for (J = 1; J <= N - 1; J++) { // 20
             ccopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             for (I = 1; I <= J - 1; I++) { // 10
-               WORK[J, I+1] = CONJG( AINV( JJ+I-1 ) );
+               WORK[J][I+1] = CONJG( AINV( JJ+I-1 ) );
             } // 10
             JJ = JJ + J;
          } // 20
          JJ = ( ( N-1 )*N ) / 2 + 1;
          for (I = 1; I <= N - 1; I++) { // 30
-            WORK[N, I+1] = CONJG( AINV( JJ+I-1 ) );
+            WORK[N][I+1] = CONJG( AINV( JJ+I-1 ) );
          } // 30
 
          // Multiply by A
@@ -92,7 +92,7 @@
          for (J = 2; J <= N; J++) { // 70
             ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             for (I = 1; I <= N - J; I++) { // 60
-               WORK[J, J+I-1] = CONJG( AINV( JJ+I ) );
+               WORK[J][J+I-1] = CONJG( AINV( JJ+I ) );
             } // 60
             JJ = JJ + N - J + 1;
          } // 70

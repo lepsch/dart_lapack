@@ -138,7 +138,7 @@
                A[KP][KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             }
@@ -192,7 +192,7 @@
                         A[I][J] = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1;
                      } // 20
                      A[J][K] = WK;
-                     A[J, K-1] = WKM1;
+                     A[J][K-1] = WKM1;
                   } // 30
 
                }
@@ -304,7 +304,7 @@
                A[KP][KP] = T;
                if ( KSTEP == 2 ) {
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             }
@@ -361,7 +361,7 @@
                      } // 50
 
                      A[J][K] = WK;
-                     A[J, K+1] = WKP1;
+                     A[J][K+1] = WKP1;
 
                   } // 60
                }

@@ -451,7 +451,7 @@
 
                for (JW = 0; JW <= NW - 1; JW++) { // 210
                   for (JR = IBEG; JR <= N; JR++) { // 200
-                     VL[JR, IEIG+JW] = XSCALE*VL( JR, IEIG+JW );
+                     VL[JR][IEIG+JW] = XSCALE*VL( JR, IEIG+JW );
                   } // 200
                } // 210
             }
@@ -746,7 +746,7 @@
 
                for (JW = 0; JW <= NW - 1; JW++) { // 430
                   for (JR = 1; JR <= N; JR++) { // 420
-                     VR[JR, IEIG+JW] = WORK( ( JW+4 )*N+JR );
+                     VR[JR][IEIG+JW] = WORK( ( JW+4 )*N+JR );
                   } // 420
                } // 430
 
@@ -754,7 +754,7 @@
             } else {
                for (JW = 0; JW <= NW - 1; JW++) { // 450
                   for (JR = 1; JR <= N; JR++) { // 440
-                     VR[JR, IEIG+JW] = WORK( ( JW+2 )*N+JR );
+                     VR[JR][IEIG+JW] = WORK( ( JW+2 )*N+JR );
                   } // 440
                } // 450
 
@@ -778,7 +778,7 @@
                XSCALE = ONE / XMAX;
                for (JW = 0; JW <= NW - 1; JW++) { // 490
                   for (JR = 1; JR <= IEND; JR++) { // 480
-                     VR[JR, IEIG+JW] = XSCALE*VR( JR, IEIG+JW );
+                     VR[JR][IEIG+JW] = XSCALE*VR( JR, IEIG+JW );
                   } // 480
                } // 490
             }

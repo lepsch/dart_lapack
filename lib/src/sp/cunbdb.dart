@@ -153,7 +153,7 @@
                } else {
                   clarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
                }
-               X11[I,I+1] = ONE;
+               X11[I][I+1] = ONE;
             }
             if ( M-Q+1 > I ) {
                clacgv(M-Q-I+1, X12(I,I), LDX12 );
@@ -210,7 +210,7 @@
             cscal(M-P-Q-I+1, CMPLX( Z2*Z4, 0.0 ), X22(Q+I,P+I), LDX22 );
             clacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
             clarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
-            X22[Q+I,P+I] = ONE;
+            X22[Q+I][P+I] = ONE;
             clarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
 
             clacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
@@ -269,7 +269,7 @@
 
             if ( I < Q ) {
                clarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
-               X11[I+1,I] = ONE;
+               X11[I+1][I] = ONE;
             }
             clarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             X12[I][I] = ONE;
@@ -306,7 +306,7 @@
 
             cscal(M-P-Q-I+1, CMPLX( Z2*Z4, 0.0 ), X22(P+I,Q+I), 1 );
             clarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
-            X22[P+I,Q+I] = ONE;
+            X22[P+I][Q+I] = ONE;
             if ( M-P-Q != I ) {
                clarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, CONJG(TAUQ2(P+I)), X22(P+I,Q+I+1), LDX22, WORK );
             }

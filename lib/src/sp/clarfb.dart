@@ -189,7 +189,7 @@
 
                for (J = 1; J <= K; J++) { // 90
                   for (I = 1; I <= N; I++) { // 80
-                     C[M-K+J, I] = C( M-K+J, I ) - CONJG( WORK( I, J ) );
+                     C[M-K+J][I] = C( M-K+J, I ) - CONJG( WORK( I, J ) );
                   } // 80
                } // 90
 
@@ -236,7 +236,7 @@
 
                for (J = 1; J <= K; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
-                     C[I, N-K+J] = C( I, N-K+J ) - WORK( I, J );
+                     C[I][N-K+J] = C( I, N-K+J ) - WORK( I, J );
                   } // 110
                } // 120
             }
@@ -397,7 +397,7 @@
 
                for (J = 1; J <= K; J++) { // 210
                   for (I = 1; I <= N; I++) { // 200
-                     C[M-K+J, I] = C( M-K+J, I ) - CONJG( WORK( I, J ) );
+                     C[M-K+J][I] = C( M-K+J, I ) - CONJG( WORK( I, J ) );
                   } // 200
                } // 210
 
@@ -444,7 +444,7 @@
 
                for (J = 1; J <= K; J++) { // 240
                   for (I = 1; I <= M; I++) { // 230
-                     C[I, N-K+J] = C( I, N-K+J ) - WORK( I, J );
+                     C[I][N-K+J] = C( I, N-K+J ) - WORK( I, J );
                   } // 230
                } // 240
 

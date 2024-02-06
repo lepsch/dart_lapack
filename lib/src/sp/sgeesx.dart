@@ -264,8 +264,8 @@
                      if ( WANTVS ) {
                        sswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
-                     A[I, I+1] = A( I+1, I );
-                     A[I+1, I] = ZERO;
+                     A[I][I+1] = A( I+1, I );
+                     A[I+1][I] = ZERO;
                   }
                   INXT = I + 2;
                }

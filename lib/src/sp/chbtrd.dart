@@ -127,7 +127,7 @@
                         // within the band
 
                         clartg(AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB[KD-K+3, I+K-2] = TEMP;
+                        AB[KD-K+3][I+K-2] = TEMP;
 
                         // apply rotation from the right
 
@@ -217,7 +217,7 @@
                      // and store it in WORK
 
                      WORK[J+KD] = WORK( J )*AB( 1, J+KD );
-                     AB[1, J+KD] = D( J )*AB( 1, J+KD );
+                     AB[1][J+KD] = D( J )*AB( 1, J+KD );
                   } // 70
                } // 80
             } // 90
@@ -230,7 +230,7 @@
             for (I = 1; I <= N - 1; I++) { // 100
                T = AB( KD, I+1 );
                ABST = ( T ).abs();
-               AB[KD, I+1] = ABST;
+               AB[KD][I+1] = ABST;
                E[I] = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;
@@ -310,7 +310,7 @@
                         // within the band
 
                         clartg(AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB[K-1, I] = TEMP;
+                        AB[K-1][I] = TEMP;
 
                         // apply rotation from the left
 

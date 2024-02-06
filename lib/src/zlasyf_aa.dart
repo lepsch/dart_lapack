@@ -131,8 +131,8 @@
                // Swap A(I1, I1) with A(I2,I2)
 
                PIV = A( I1+J1-1, I1 );
-               A[J1+I1-1, I1] = A( J1+I2-1, I2 );
-               A[J1+I2-1, I2] = PIV;
+               A[J1+I1-1][I1] = A( J1+I2-1, I2 );
+               A[J1+I2-1][I2] = PIV;
 
                // Swap H(I1, 1:J1) with H(I2, 1:J1)
 
@@ -152,7 +152,7 @@
 
             // Set A(J, J+1) = T(J, J+1)
 
-            A[K, J+1] = WORK( 2 );
+            A[K][J+1] = WORK( 2 );
 
             if ( J < NB ) {
 
@@ -271,8 +271,8 @@
                // Swap A(I1, I1) with A(I2, I2)
 
                PIV = A( I1, J1+I1-1 );
-               A[I1, J1+I1-1] = A( I2, J1+I2-1 );
-               A[I2, J1+I2-1] = PIV;
+               A[I1][J1+I1-1] = A( I2, J1+I2-1 );
+               A[I2][J1+I2-1] = PIV;
 
                // Swap H(I1, I1:J1) with H(I2, I2:J1)
 
@@ -292,7 +292,7 @@
 
             // Set A(J+1, J) = T(J+1, J)
 
-            A[J+1, K] = WORK( 2 );
+            A[J+1][K] = WORK( 2 );
 
             if ( J < NB ) {
 

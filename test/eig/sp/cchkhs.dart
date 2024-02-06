@@ -272,7 +272,7 @@
             }
 
             for (J = 1; J <= N - 1; J++) { // 120
-               UU[J+1, J] = CZERO;
+               UU[J+1][J] = CZERO;
                for (I = J + 2; I <= N; I++) { // 110
                   U[I][J] = H( I, J );
                   UU[I][J] = H( I, J );

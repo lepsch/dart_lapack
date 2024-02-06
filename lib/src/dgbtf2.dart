@@ -79,7 +79,7 @@ import 'package:lapack/src/xerbla.dart';
 
          if ( J+KV <= N ) {
             for (I = 1; I <= KL; I++) { // 30
-               AB[I, J+KV] = ZERO;
+               AB[I][J+KV] = ZERO;
             } // 30
          }
 

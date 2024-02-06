@@ -360,7 +360,7 @@
             } else {
                for (JR = 1; JR <= N; JR++) { // 60
                   VL[JR][JC] = VL( JR, JC )*TEMP;
-                  VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
+                  VL[JR][JC+1] = VL( JR, JC+1 )*TEMP;
                } // 60
             }
          } // 70
@@ -388,7 +388,7 @@
             } else {
                for (JR = 1; JR <= N; JR++) { // 110
                   VR[JR][JC] = VR( JR, JC )*TEMP;
-                  VR[JR, JC+1] = VR( JR, JC+1 )*TEMP;
+                  VR[JR][JC+1] = VR( JR, JC+1 )*TEMP;
                } // 110
             }
          } // 120

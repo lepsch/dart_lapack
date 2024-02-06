@@ -59,7 +59,7 @@
             MULT = DL( K ) / D( K );
             D[K+1] = D( K+1 ) - MULT*DU( K );
             for (J = 1; J <= NRHS; J++) { // 10
-               B[K+1, J] = B( K+1, J ) - MULT*B( K, J );
+               B[K+1][J] = B( K+1, J ) - MULT*B( K, J );
             } // 10
             if[K < ( N-1 ) ) DL( K] = ZERO;
          } else {
@@ -78,7 +78,7 @@
             for (J = 1; J <= NRHS; J++) { // 20
                TEMP = B( K, J );
                B[K][J] = B( K+1, J );
-               B[K+1, J] = TEMP - MULT*B( K+1, J );
+               B[K+1][J] = TEMP - MULT*B( K+1, J );
             } // 20
          }
       } // 30

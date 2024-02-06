@@ -50,7 +50,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
-                  B[I+1, 1] = B( I+1, 1 ) - FACT*B( I, 1 );
+                  B[I+1][1] = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
                   return;
@@ -69,7 +69,7 @@ import 'package:lapack/src/xerbla.dart';
                DU[I] = TEMP;
                TEMP = B( I, 1 );
                B[I][1] = B( I+1, 1 );
-               B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
+               B[I+1][1] = TEMP - FACT*B( I+1, 1 );
             }
          } // 10
          if ( N > 1 ) {
@@ -78,7 +78,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
-                  B[I+1, 1] = B( I+1, 1 ) - FACT*B( I, 1 );
+                  B[I+1][1] = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
                   return;
@@ -91,7 +91,7 @@ import 'package:lapack/src/xerbla.dart';
                DU[I] = TEMP;
                TEMP = B( I, 1 );
                B[I][1] = B( I+1, 1 );
-               B[I+1, 1] = TEMP - FACT*B( I+1, 1 );
+               B[I+1][1] = TEMP - FACT*B( I+1, 1 );
             }
          }
          if ( D( N ) == ZERO ) {
@@ -108,7 +108,7 @@ import 'package:lapack/src/xerbla.dart';
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
                   for (J = 1; J <= NRHS; J++) { // 20
-                     B[I+1, J] = B( I+1, J ) - FACT*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - FACT*B( I, J );
                   } // 20
                } else {
                   INFO = I;
@@ -129,7 +129,7 @@ import 'package:lapack/src/xerbla.dart';
                for (J = 1; J <= NRHS; J++) { // 30
                   TEMP = B( I, J );
                   B[I][J] = B( I+1, J );
-                  B[I+1, J] = TEMP - FACT*B( I+1, J );
+                  B[I+1][J] = TEMP - FACT*B( I+1, J );
                } // 30
             }
          } // 40
@@ -140,7 +140,7 @@ import 'package:lapack/src/xerbla.dart';
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
                   for (J = 1; J <= NRHS; J++) { // 50
-                     B[I+1, J] = B( I+1, J ) - FACT*B( I, J );
+                     B[I+1][J] = B( I+1, J ) - FACT*B( I, J );
                   } // 50
                } else {
                   INFO = I;
@@ -155,7 +155,7 @@ import 'package:lapack/src/xerbla.dart';
                for (J = 1; J <= NRHS; J++) { // 60
                   TEMP = B( I, J );
                   B[I][J] = B( I+1, J );
-                  B[I+1, J] = TEMP - FACT*B( I+1, J );
+                  B[I+1][J] = TEMP - FACT*B( I+1, J );
                } // 60
             }
          }

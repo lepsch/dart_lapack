@@ -153,7 +153,7 @@
                if ( KSTEP == 2 ) {
                   A[K][K] = double( A( K, K ) );
                   T = A( K-1, K );
-                  A[K-1, K] = A( KP, K );
+                  A[K-1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -211,7 +211,7 @@
                         A[I][J] = A( I, J ) - A( I, K )*CONJG( WK ) - A( I, K-1 )*CONJG( WKM1 );
                      } // 30
                      A[J][K] = WK;
-                     A[J, K-1] = WKM1;
+                     A[J][K-1] = WKM1;
                      A[J][J] = CMPLX( double( A( J, J ) ), 0.0 );
                   } // 40
 
@@ -331,7 +331,7 @@
                if ( KSTEP == 2 ) {
                   A[K][K] = double( A( K, K ) );
                   T = A( K+1, K );
-                  A[K+1, K] = A( KP, K );
+                  A[K+1][K] = A( KP, K );
                   A[KP][K] = T;
                }
             } else {
@@ -390,7 +390,7 @@
                         A[I][J] = A( I, J ) - A( I, K )*CONJG( WK ) - A( I, K+1 )*CONJG( WKP1 );
                      } // 70
                      A[J][K] = WK;
-                     A[J, K+1] = WKP1;
+                     A[J][K+1] = WKP1;
                      A[J][J] = CMPLX( double( A( J, J ) ), 0.0 );
                   } // 80
                }

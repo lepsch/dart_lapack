@@ -278,14 +278,14 @@ import 'package:lapack/src/xerbla.dart';
                   D22 = W( K-1, KW-1 ) / D12;
                   T = ONE / ( D11*D22-ONE );
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A[J, K-1] = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
+                     A[J][K-1] = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 );
                   } // 20
                }
 
                // Copy D(k) to A
 
-               A[K-1, K-1] = W( K-1, KW-1 );
-               A[K-1, K] = W( K-1, KW );
+               A[K-1][K-1] = W( K-1, KW-1 );
+               A[K-1][K] = W( K-1, KW );
                A[K][K] = W( K, KW );
             }
          }
@@ -579,8 +579,8 @@ import 'package:lapack/src/xerbla.dart';
                // Copy D(k) to A
 
                A[K][K] = W( K, K );
-               A[K+1, K] = W( K+1, K );
-               A[K+1, K+1] = W( K+1, K+1 );
+               A[K+1][K] = W( K+1, K );
+               A[K+1][K+1] = W( K+1, K+1 );
             }
          }
 

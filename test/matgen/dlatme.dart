@@ -198,8 +198,8 @@
          if ( USEEI ) {
             for (J = 2; J <= N; J++) { // 50
                if ( lsame( EI( J ), 'I' ) ) {
-                  A[J-1, J] = A( J, J );
-                  A[J, J-1] = -A( J, J );
+                  A[J-1][J] = A( J, J );
+                  A[J][J-1] = -A( J, J );
                   A[J][J] = A( J-1, J-1 );
                }
             } // 50
@@ -209,8 +209,8 @@
 
          for (J = 2; J <= N; J += 2) { // 60
             if ( DLARAN( ISEED ) > HALF ) {
-               A[J-1, J] = A( J, J );
-               A[J, J-1] = -A( J, J );
+               A[J-1][J] = A( J, J );
+               A[J][J-1] = -A( J, J );
                A[J][J] = A( J-1, J-1 );
             }
          } // 60

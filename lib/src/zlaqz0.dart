@@ -187,14 +187,14 @@
 
          // Check deflations at the end
          if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ).abs() ) ) ) {
-            A[ISTOP, ISTOP-1] = CZERO;
+            A[ISTOP][ISTOP-1] = CZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = CZERO;
          }
          // Check deflations at the start
          if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ).abs() ) ) ) {
-            A[ISTART+1, ISTART] = CZERO;
+            A[ISTART+1][ISTART] = CZERO;
             ISTART = ISTART+1;
             LD = 0;
             ESHIFT = CZERO;
@@ -208,7 +208,7 @@
          ISTART2 = ISTART;
          for (K = ISTOP; K >= ISTART+1; K--) {
             if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ).abs() ) ) ) {
-               A[K, K-1] = CZERO;
+               A[K][K-1] = CZERO;
                ISTART2 = K;
                break;
             }
@@ -234,8 +234,8 @@
 
                for (K2 = K; K2 >= ISTART2+1; K2--) {
                   zlartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
-                  B[K2-1, K2] = TEMP;
-                  B[K2-1, K2-1] = CZERO;
+                  B[K2-1][K2] = TEMP;
+                  B[K2-1][K2-1] = CZERO;
                    zrot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 );
                   zrot(min( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
@@ -244,8 +244,8 @@
 
                   if ( K2 < ISTOP ) {
                      zlartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
-                     A[K2, K2-1] = TEMP;
-                     A[K2+1, K2-1] = CZERO;
+                     A[K2][K2-1] = TEMP;
+                     A[K2+1][K2-1] = CZERO;
                       zrot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 );
                      zrot(ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
                      if ( ILQ ) {
@@ -258,7 +258,7 @@
                if ( ISTART2 < ISTOP ) {
                   zlartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
                   A[ISTART2][ISTART2] = TEMP;
-                  A[ISTART2+1, ISTART2] = CZERO;
+                  A[ISTART2+1][ISTART2] = CZERO;
                    zrot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 );
                   zrot(ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
                   if ( ILQ ) {

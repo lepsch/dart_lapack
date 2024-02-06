@@ -2286,7 +2286,7 @@ import 'common.dart';
             }
          } // 10
          if (TRI) A( J, J ) = A( J, J ) + ONE;
-         IF[UNIT ) A( J, J] = ONE;
+         IF[UNIT ) A( J][J] = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.

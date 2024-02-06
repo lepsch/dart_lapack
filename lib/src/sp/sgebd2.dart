@@ -56,12 +56,12 @@
 
                slarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E[I] = A( I, I+1 );
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                slarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
-               A[I, I+1] = E( I );
+               A[I][I+1] = E( I );
             } else {
                TAUP[I] = ZERO;
             }
@@ -90,12 +90,12 @@
 
                slarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E[I] = A( I+1, I );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Apply H(i) to A(i+1:m,i+1:n) from the left
 
                slarf('Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK );
-               A[I+1, I] = E( I );
+               A[I+1][I] = E( I );
             } else {
                TAUQ[I] = ZERO;
             }

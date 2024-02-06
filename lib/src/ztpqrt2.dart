@@ -62,7 +62,7 @@
 
             ALPHA = -CONJG(T( I, 1 ));
             for (J = 1; J <= N-I; J++) {
-               A[I, I+J] = A( I, I+J ) + ALPHA*CONJG(T( J, N ));
+               A[I][I+J] = A( I, I+J ) + ALPHA*CONJG(T( J, N ));
             }
             zgerc(P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB );
          }

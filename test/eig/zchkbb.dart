@@ -241,7 +241,7 @@
 
                for (J = 1; J <= N; J++) { // 110
                   for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 100
-                     AB[KU+1+I-J, J] = A( I, J );
+                     AB[KU+1+I-J][J] = A( I, J );
                   } // 100
                } // 110
 

@@ -234,7 +234,7 @@
 
                // Negate A(J,J+1).
 
-               A[J, J+1] = -A( J, J+1 );
+               A[J][J+1] = -A( J, J+1 );
             } // 120
          } else {
             for (J = 1; J <= N - 1; J++) { // 130
@@ -253,7 +253,7 @@
 
                // Negate A(J+1,J).
 
-               A[J+1, J] = -A( J+1, J );
+               A[J+1][J] = -A( J+1, J );
             } // 130
          }
 
@@ -462,8 +462,8 @@
                A[1][J] = -TSCAL / REAL( N+1 );
                A[J][J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[1, J-1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
-               A[J-1, J-1] = ONE;
+               A[1][J-1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
+               A[J-1][J-1] = ONE;
                B[J-1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*2.;
             } // 340
@@ -473,8 +473,8 @@
                A[N][J] = -TSCAL / REAL( N+1 );
                A[J][J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[N, J+1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
-               A[J+1, J+1] = ONE;
+               A[N][J+1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
+               A[J+1][J+1] = ONE;
                B[J+1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*2.;
             } // 350

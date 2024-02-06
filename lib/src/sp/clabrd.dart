@@ -68,7 +68,7 @@
                ALPHA = A( I, I+1 );
                clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E[I] = double( ALPHA );
-               A[I, I+1] = ONE;
+               A[I][I+1] = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -127,7 +127,7 @@
                ALPHA = A( I+1, I );
                clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E[I] = double( ALPHA );
-               A[I+1, I] = ONE;
+               A[I+1][I] = ONE;
 
                // Compute Y(i+1:n,i)
 

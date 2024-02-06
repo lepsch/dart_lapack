@@ -51,9 +51,9 @@
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J );
                for (I = max( 1, J-KD ); I <= J - 1; I++) { // 10
-                  AB[KD+1+I-J, J] = CJ*S( I )*AB( KD+1+I-J, J );
+                  AB[KD+1+I-J][J] = CJ*S( I )*AB( KD+1+I-J, J );
                } // 10
-               AB[KD+1, J] = CJ*CJ*(AB( KD+1, J )).toDouble();
+               AB[KD+1][J] = CJ*CJ*(AB( KD+1, J )).toDouble();
             } // 20
          } else {
 
@@ -63,7 +63,7 @@
                CJ = S( J );
                AB[1][J] = CJ*CJ*(AB( 1, J )).toDouble();
                for (I = J + 1; I <= min( N, J+KD ); I++) { // 30
-                  AB[1+I-J, J] = CJ*S( I )*AB( 1+I-J, J );
+                  AB[1+I-J][J] = CJ*S( I )*AB( 1+I-J, J );
                } // 30
             } // 40
          }

@@ -192,24 +192,24 @@ import 'package:lapack/src/xerbla.dart';
 
          // Check deflations at the end
          if ( ( A( ISTOP-1, ISTOP-2 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP-1, ISTOP-1 ) ).abs()+( A( ISTOP-2, ISTOP-2 ) ).abs() ) ) ) {
-            A[ISTOP-1, ISTOP-2] = ZERO;
+            A[ISTOP-1][ISTOP-2] = ZERO;
             ISTOP = ISTOP-2;
             LD = 0;
             ESHIFT = ZERO;
          } else if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ).abs() ) ) ) {
-            A[ISTOP, ISTOP-1] = ZERO;
+            A[ISTOP][ISTOP-1] = ZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = ZERO;
          }
          // Check deflations at the start
          if ( ( A( ISTART+2, ISTART+1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART+1, ISTART+1 ) ).abs()+( A( ISTART+2, ISTART+2 ) ).abs() ) ) ) {
-            A[ISTART+2, ISTART+1] = ZERO;
+            A[ISTART+2][ISTART+1] = ZERO;
             ISTART = ISTART+2;
             LD = 0;
             ESHIFT = ZERO;
          } else if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ).abs() ) ) ) {
-            A[ISTART+1, ISTART] = ZERO;
+            A[ISTART+1][ISTART] = ZERO;
             ISTART = ISTART+1;
             LD = 0;
             ESHIFT = ZERO;
@@ -223,7 +223,7 @@ import 'package:lapack/src/xerbla.dart';
          ISTART2 = ISTART;
          for (K = ISTOP; K >= ISTART+1; K--) {
             if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ).abs() ) ) ) {
-               A[K, K-1] = ZERO;
+               A[K][K-1] = ZERO;
                ISTART2 = K;
                break;
             }
@@ -249,8 +249,8 @@ import 'package:lapack/src/xerbla.dart';
 
                for (K2 = K; K2 >= ISTART2+1; K2--) {
                   dlartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
-                  B[K2-1, K2] = TEMP;
-                  B[K2-1, K2-1] = ZERO;
+                  B[K2-1][K2] = TEMP;
+                  B[K2-1][K2-1] = ZERO;
                    drot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 );
                   drot(min( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
@@ -259,8 +259,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   if ( K2 < ISTOP ) {
                      dlartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
-                     A[K2, K2-1] = TEMP;
-                     A[K2+1, K2-1] = ZERO;
+                     A[K2][K2-1] = TEMP;
+                     A[K2+1][K2-1] = ZERO;
                       drot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 );
                      drot(ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
                      if ( ILQ ) {
@@ -273,7 +273,7 @@ import 'package:lapack/src/xerbla.dart';
                if ( ISTART2 < ISTOP ) {
                   dlartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
                   A[ISTART2][ISTART2] = TEMP;
-                  A[ISTART2+1, ISTART2] = ZERO;
+                  A[ISTART2+1][ISTART2] = ZERO;
                    drot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 );
                   drot(ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
                   if ( ILQ ) {

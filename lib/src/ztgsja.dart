@@ -125,18 +125,18 @@
 
                if ( UPPER ) {
                   if (K+I <= M) A( K+I, N-L+J ) = CZERO;
-                  B[I, N-L+J] = CZERO;
+                  B[I][N-L+J] = CZERO;
                } else {
                   if (K+J <= M) A( K+J, N-L+I ) = CZERO;
-                  B[J, N-L+I] = CZERO;
+                  B[J][N-L+I] = CZERO;
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
                if (K+I <= M) A( K+I, N-L+I ) = (A( K+I, N-L+I )).toDouble();
                IF( K+J <= M ) A( K+J, N-L+J ) = (A( K+J, N-L+J )).toDouble();
-               B[I, N-L+I] = (B( I, N-L+I )).toDouble();
-               B[J, N-L+J] = (B( J, N-L+J )).toDouble();
+               B[I][N-L+I] = (B( I, N-L+I )).toDouble();
+               B[J][N-L+J] = (B( J, N-L+J )).toDouble();
 
                // Update unitary matrices U, V, Q, if desired.
 

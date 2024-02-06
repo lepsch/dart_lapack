@@ -124,7 +124,7 @@ import 'package:lapack/src/xerbla.dart';
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 10
-               A[J-1, J] = E( J-1 );
+               A[J-1][J] = E( J-1 );
                D[J] = A( J, J );
             } // 10
          } // 20
@@ -153,7 +153,7 @@ import 'package:lapack/src/xerbla.dart';
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 30
-               A[J+1, J] = E( J );
+               A[J+1][J] = E( J );
                D[J] = A( J, J );
             } // 30
          } // 40

@@ -185,7 +185,7 @@
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A[K+1, JCOL] = ANORM;
+                     A[K+1][JCOL] = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
@@ -327,12 +327,12 @@
 
                for (JC = 1; JC <= N; JC++) { // 120
                   for (JR = 0; JR <= min( K, N-JC ); JR++) { // 110
-                     A[JR+1, JC] = A( K+1-JR, JC+JR );
+                     A[JR+1][JC] = A( K+1-JR, JC+JR );
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
                   for (JR = min( K, N-JC ) + 1; JR <= K; JR++) { // 130
-                     A[JR+1, JC] = ZERO;
+                     A[JR+1][JC] = ZERO;
                   } // 130
                } // 140
 

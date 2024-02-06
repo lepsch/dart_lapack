@@ -39,8 +39,8 @@ import 'package:lapack/src/xerbla.dart';
 
          drot(IHI-ISTARTM+1, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C1, S1 );
          drot(IHI-ISTARTM+1, B( ISTARTM, IHI-1 ), 1, B( ISTARTM, IHI-2 ), 1, C2, S2 );
-         B[IHI-1, IHI-2] = ZERO;
-         B[IHI, IHI-2] = ZERO;
+         B[IHI-1][IHI-2] = ZERO;
+         B[IHI][IHI-2] = ZERO;
          drot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 );
          drot(IHI-ISTARTM+1, A( ISTARTM, IHI-1 ), 1, A( ISTARTM, IHI-2 ), 1, C2, S2 );
          if ( ILZ ) {
@@ -49,8 +49,8 @@ import 'package:lapack/src/xerbla.dart';
          }
 
          dlartg(A( IHI-1, IHI-2 ), A( IHI, IHI-2 ), C1, S1, TEMP );
-         A[IHI-1, IHI-2] = TEMP;
-         A[IHI, IHI-2] = ZERO;
+         A[IHI-1][IHI-2] = TEMP;
+         A[IHI][IHI-2] = ZERO;
          drot(ISTOPM-IHI+2, A( IHI-1, IHI-1 ), LDA, A( IHI, IHI-1 ), LDA, C1, S1 );
          drot(ISTOPM-IHI+2, B( IHI-1, IHI-1 ), LDB, B( IHI, IHI-1 ), LDB, C1, S1 );
          if ( ILQ ) {
@@ -59,7 +59,7 @@ import 'package:lapack/src/xerbla.dart';
 
          dlartg(B( IHI, IHI ), B( IHI, IHI-1 ), C1, S1, TEMP );
          B[IHI][IHI] = TEMP;
-         B[IHI, IHI-1] = ZERO;
+         B[IHI][IHI-1] = ZERO;
          drot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C1, S1 );
          drot(IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C1, S1 );
          if ( ILZ ) {
@@ -95,17 +95,17 @@ import 'package:lapack/src/xerbla.dart';
             drot(NZ, Z( 1, K+2-ZSTART+1 ), 1, Z( 1, K+1-ZSTART+ 1 ), 1, C1, S1 );
             drot(NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C2, S2 );
          }
-         B[K+1, K] = ZERO;
-         B[K+2, K] = ZERO;
+         B[K+1][K] = ZERO;
+         B[K+2][K] = ZERO;
 
          // Calculate Q1 and Q2
 
          dlartg(A( K+2, K ), A( K+3, K ), C1, S1, TEMP );
-         A[K+2, K] = TEMP;
-         A[K+3, K] = ZERO;
+         A[K+2][K] = TEMP;
+         A[K+3][K] = ZERO;
          dlartg(A( K+1, K ), A( K+2, K ), C2, S2, TEMP );
-         A[K+1, K] = TEMP;
-         A[K+2, K] = ZERO;
+         A[K+1][K] = TEMP;
+         A[K+2][K] = ZERO;
 
          // Apply transformations from the left
 

@@ -65,7 +65,7 @@
 
          } // 30
          for (JD = 1; JD <= N - 1; JD++) { // 40
-            A[JD+1, JD] = CONE;
+            A[JD+1][JD] = CONE;
          } // 40
          ISDB = 1;
          ISDE = N - 1;
@@ -77,7 +77,7 @@
          } // 50
          K = ( N-1 ) / 2;
          for (JD = 1; JD <= K; JD++) { // 60
-            A[JD+1, JD] = CONE;
+            A[JD+1][JD] = CONE;
          } // 60
          ISDB = 1;
          ISDE = K;
@@ -119,7 +119,7 @@
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = CMPLX( ALPHA**double( I-1 ) );
+               A[NZ1+I][NZ1+I] = CMPLX( ALPHA**double( I-1 ) );
             } // 150
          }
          GO TO 220;
@@ -131,7 +131,7 @@
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 );
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = CMPLX( double( KLEN-I )*ALPHA+RCOND );
+               A[NZ1+I][NZ1+I] = CMPLX( double( KLEN-I )*ALPHA+RCOND );
             } // 170
          }
          GO TO 220;
@@ -160,7 +160,7 @@
             A[JD][JD] = AMAGN*double( A( JD, JD ) );
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*double( A( JD+1, JD ) );
+            A[JD+1][JD] = AMAGN*double( A( JD+1, JD ) );
          } // 240
 
          // If RSIGN = true , assign random signs to diagonal and
@@ -178,7 +178,7 @@
                if ( double( A( JD+1, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD+1, JD] = CTEMP*double( A( JD+1, JD ) );
+                  A[JD+1][JD] = CTEMP*double( A( JD+1, JD ) );
                }
             } // 260
          }
@@ -189,12 +189,12 @@
             for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                CTEMP = A( JD, JD );
                A[JD][JD] = A( KBEG+KEND-JD, KBEG+KEND-JD );
-               A[KBEG+KEND-JD, KBEG+KEND-JD] = CTEMP;
+               A[KBEG+KEND-JD][KBEG+KEND-JD] = CTEMP;
             } // 270
             for (JD = 1; JD <= ( N-1 ) / 2; JD++) { // 280
                CTEMP = A( JD+1, JD );
-               A[JD+1, JD] = A( N+1-JD, N-JD );
-               A[N+1-JD, N-JD] = CTEMP;
+               A[JD+1][JD] = A( N+1-JD, N-JD );
+               A[N+1-JD][N-JD] = CTEMP;
             } // 280
          }
 

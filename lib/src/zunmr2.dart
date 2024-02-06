@@ -99,9 +99,9 @@
          }
          zlacgv(NQ-K+I-1, A( I, 1 ), LDA );
          AII = A( I, NQ-K+I );
-         A[I, NQ-K+I] = ONE;
+         A[I][NQ-K+I] = ONE;
          zlarf(SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK );
-         A[I, NQ-K+I] = AII;
+         A[I][NQ-K+I] = AII;
          zlacgv(NQ-K+I-1, A( I, 1 ), LDA );
       } // 10
       return;
