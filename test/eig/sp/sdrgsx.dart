@@ -517,7 +517,7 @@
 
  9996 FORMAT( ' SDRGSX: S not in Schur form at eigenvalue ${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6})' );
 
- 9995 FORMAT( / 1X, '${.a3} -- Real Expert Generalized Schur form problem driver' );
+ 9995 FORMAT('\n ${.a3} -- Real Expert Generalized Schur form problem driver' );
 
  9994 FORMAT( 'Input Example' );
 

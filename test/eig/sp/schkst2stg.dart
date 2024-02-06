@@ -1220,7 +1220,7 @@
 
  9999 FORMAT( ' SCHKST2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
- 9998 FORMAT( / 1X, '${.a3} -- Real Symmetric eigenvalue problem' );
+ 9998 FORMAT('\n ${.a3} -- Real Symmetric eigenvalue problem' );
  9997 FORMAT( ' Matrix types (see SCHKST2STG for details): ' );
 
  9996 FORMAT('\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.' );

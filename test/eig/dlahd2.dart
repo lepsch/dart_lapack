@@ -206,16 +206,16 @@
       return;
 
  9999 FORMAT(' ${.a3}:  no header available' );
- 9998 FORMAT( / 1X, '${.a3} -- Real Non-symmetric eigenvalue problem' );
- 9997 FORMAT( / 1X, '${.a3} -- Complex Non-symmetric eigenvalue problem' );
- 9996 FORMAT( / 1X, '${.a3} -- Real Symmetric eigenvalue problem' );
- 9995 FORMAT( / 1X, '${.a3} -- Complex Hermitian eigenvalue problem' );
- 9994 FORMAT( / 1X, '${.a3} -- Real Singular Value Decomposition' );
- 9993 FORMAT( / 1X, '${.a3} -- Complex Singular Value Decomposition' );
- 9992 FORMAT( / 1X, '${.a3} -- Real Symmetric Generalized eigenvalue problem' );
- 9991 FORMAT( / 1X, '${.a3} -- Complex Hermitian Generalized eigenvalue problem' );
- 9990 FORMAT( / 1X, '${.a3} -- Real Band reduc. to bidiagonal form' );
- 9989 FORMAT( / 1X, '${.a3} -- Complex Band reduc. to bidiagonal form' );
+ 9998 FORMAT('\n ${.a3} -- Real Non-symmetric eigenvalue problem' );
+ 9997 FORMAT('\n ${.a3} -- Complex Non-symmetric eigenvalue problem' );
+ 9996 FORMAT('\n ${.a3} -- Real Symmetric eigenvalue problem' );
+ 9995 FORMAT('\n ${.a3} -- Complex Hermitian eigenvalue problem' );
+ 9994 FORMAT('\n ${.a3} -- Real Singular Value Decomposition' );
+ 9993 FORMAT('\n ${.a3} -- Complex Singular Value Decomposition' );
+ 9992 FORMAT('\n ${.a3} -- Real Symmetric Generalized eigenvalue problem' );
+ 9991 FORMAT('\n ${.a3} -- Complex Hermitian Generalized eigenvalue problem' );
+ 9990 FORMAT('\n ${.a3} -- Real Band reduc. to bidiagonal form' );
+ 9989 FORMAT('\n ${.a3} -- Complex Band reduc. to bidiagonal form' );
 
  9988 FORMAT( ' Matrix types (see xCHKHS for details): ' );
 

@@ -644,35 +644,35 @@
 
       // First line of header
 
- 9999 FORMAT( / 1X, '${.a3}:  General dense matrices' );
- 9998 FORMAT( / 1X, '${.a3}:  General band matrices' );
- 9997 FORMAT( / 1X, '${.a3}:  General tridiagonal' );
- 9996 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite matrices' );
- 9995 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite packed matrices' );
- 9994 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite band matrices' );
- 9993 FORMAT( / 1X, '${.a3}:  ${.a9} positive definite tridiagonal' );
- 9992 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite matrices, partial (Bunch-Kaufman) pivoting' );
- 9991 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting' );
- 9892 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
- 9891 FORMAT( / 1X, '${.a3}:  ${.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
- 9990 FORMAT( / 1X, '${.a3}:  Triangular matrices' );
- 9989 FORMAT( / 1X, '${.a3}:  Triangular packed matrices' );
- 9988 FORMAT( / 1X, '${.a3}:  Triangular band matrices' );
- 9987 FORMAT( / 1X, '${.a3}:  ${.a2} factorization of general matrices' );
- 9986 FORMAT( / 1X, '${.a3}:  QR factorization with column pivoting' );
- 9985 FORMAT( / 1X, '${.a3}:  RQ factorization of trapezoidal matrix' );
- 9984 FORMAT( / 1X, '${.a3}:  Least squares driver routines' );
- 9983 FORMAT( / 1X, '${.a3}:  LU factorization variants' );
- 9982 FORMAT( / 1X, '${.a3}:  Cholesky factorization variants' );
- 9981 FORMAT( / 1X, '${.a3}:  QR factorization variants' );
- 9980 FORMAT( / 1X, '${.a3}:  No header available' );
- 8000 FORMAT( / 1X, '${.a3}:  QRT factorization for general matrices' );
- 8001 FORMAT( / 1X, '${.a3}:  QRT factorization for triangular-pentagonal matrices' );
- 8002 FORMAT( / 1X, '${.a3}:  LQT factorization for general matrices' );
- 8003 FORMAT( / 1X, '${.a3}:  LQT factorization for triangular-pentagonal matrices' );
- 8004 FORMAT( / 1X, '${.a3}:  TS factorization for tall-skinny or short-wide matrices' );
- 8005 FORMAT( / 1X, '${.a3}:  Householder reconstruction from TSQR factorization output ', /,' for tall-skinny matrices.' );
- 8006 FORMAT( / 1X, '${.a3}:  truncated QR factorization with column pivoting' );
+ 9999 FORMAT('\n ${.a3}:  General dense matrices' );
+ 9998 FORMAT('\n ${.a3}:  General band matrices' );
+ 9997 FORMAT('\n ${.a3}:  General tridiagonal' );
+ 9996 FORMAT('\n ${.a3}:  ${.a9} positive definite matrices' );
+ 9995 FORMAT('\n ${.a3}:  ${.a9} positive definite packed matrices' );
+ 9994 FORMAT('\n ${.a3}:  ${.a9} positive definite band matrices' );
+ 9993 FORMAT('\n ${.a3}:  ${.a9} positive definite tridiagonal' );
+ 9992 FORMAT('\n ${.a3}:  ${.a9} indefinite matrices, partial (Bunch-Kaufman) pivoting' );
+ 9991 FORMAT('\n ${.a3}:  ${.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting' );
+ 9892 FORMAT('\n ${.a3}:  ${.a9} indefinite matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9891 FORMAT('\n ${.a3}:  ${.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9990 FORMAT('\n ${.a3}:  Triangular matrices' );
+ 9989 FORMAT('\n ${.a3}:  Triangular packed matrices' );
+ 9988 FORMAT('\n ${.a3}:  Triangular band matrices' );
+ 9987 FORMAT('\n ${.a3}:  ${.a2} factorization of general matrices' );
+ 9986 FORMAT('\n ${.a3}:  QR factorization with column pivoting' );
+ 9985 FORMAT('\n ${.a3}:  RQ factorization of trapezoidal matrix' );
+ 9984 FORMAT('\n ${.a3}:  Least squares driver routines' );
+ 9983 FORMAT('\n ${.a3}:  LU factorization variants' );
+ 9982 FORMAT('\n ${.a3}:  Cholesky factorization variants' );
+ 9981 FORMAT('\n ${.a3}:  QR factorization variants' );
+ 9980 FORMAT('\n ${.a3}:  No header available' );
+ 8000 FORMAT('\n ${.a3}:  QRT factorization for general matrices' );
+ 8001 FORMAT('\n ${.a3}:  QRT factorization for triangular-pentagonal matrices' );
+ 8002 FORMAT('\n ${.a3}:  LQT factorization for general matrices' );
+ 8003 FORMAT('\n ${.a3}:  LQT factorization for triangular-pentagonal matrices' );
+ 8004 FORMAT('\n ${.a3}:  TS factorization for tall-skinny or short-wide matrices' );
+ 8005 FORMAT('\n ${.a3}:  Householder reconstruction from TSQR factorization output ', /,' for tall-skinny matrices.' );
+ 8006 FORMAT('\n ${.a3}:  truncated QR factorization with column pivoting' );
 
       // GE matrix types
 

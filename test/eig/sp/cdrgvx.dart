@@ -337,7 +337,7 @@
 
  9998 FORMAT( ' CDRGVX: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, IWA=${.i5}, IWB=${.i5}, IWX=${.i5}, IWY=${.i5}');
 
- 9997 FORMAT( / 1X, '${.a3} -- Complex Expert Eigenvalue/vector problem driver' );
+ 9997 FORMAT('\n ${.a3} -- Complex Expert Eigenvalue/vector problem driver' );
 
  9996 FORMAT( 'Input Example' );
 

@@ -83,7 +83,7 @@
  9998 FORMAT( ' Error in ZTREXC: RMAX =', D12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
  9997 FORMAT( ' Error in ZTRSNA: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
  9996 FORMAT( ' Error in ZTRSEN: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
- 9995 FORMAT( / 1X, 'All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
+ 9995 FORMAT('\n All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
  9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n ZTRSYL, ZTREXC, ZTRSNA, ZTRSEN', / );
  9993 FORMAT( ' Relative machine precision (EPS) = ', D16.6, / ' Safe minimum (SFMIN)             = ', D16.6, / );
  9992 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );

@@ -819,7 +819,7 @@
  9993 FORMAT('    ${.a4}:  ', 10I6, / 11X, 10I6 );
  9992 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
  9991 FORMAT( ' Relative machine ${} is taken to be', E16.6 );
- 9990 FORMAT( / 1X, '${.a3}:  Unrecognized path name' );
- 9989 FORMAT( / 1X, '${.a3} routines were not tested' );
- 9988 FORMAT( / 1X, '${.a3} driver routines were not tested' );
+ 9990 FORMAT('\n ${.a3}:  Unrecognized path name' );
+ 9989 FORMAT('\n ${.a3} routines were not tested' );
+ 9988 FORMAT('\n ${.a3} driver routines were not tested' );
       }

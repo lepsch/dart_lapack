@@ -161,12 +161,12 @@
       }
 
  9999 FORMAT( 1X, A );
- 9991 FORMAT( / 1X, '${.a3}: GQR factorization of general matrices' );
- 9992 FORMAT( / 1X, '${.a3}: GRQ factorization of general matrices' );
- 9993 FORMAT( / 1X, '${.a3}: LSE Problem' );
- 9994 FORMAT( / 1X, '${.a3}: GLM Problem' );
- 9995 FORMAT( / 1X, '${.a3}: Generalized Singular Value Decomposition' );
- 9996 FORMAT( / 1X, '${.a3}: CS Decomposition' );
+ 9991 FORMAT('\n ${.a3}: GQR factorization of general matrices' );
+ 9992 FORMAT('\n ${.a3}: GRQ factorization of general matrices' );
+ 9993 FORMAT('\n ${.a3}: LSE Problem' );
+ 9994 FORMAT('\n ${.a3}: GLM Problem' );
+ 9995 FORMAT('\n ${.a3}: Generalized Singular Value Decomposition' );
+ 9996 FORMAT('\n ${.a3}: CS Decomposition' );
 
  9950 FORMAT( 3X, I2, ': A-diagonal matrix  B-upper triangular' );
  9951 FORMAT( 3X, I2, ': A-diagonal matrix  B-lower triangular' );

@@ -254,6 +254,6 @@
  9993 FORMAT('    ${.a4}:  ', 10I6, / 11X, 10I6 );
  9992 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
  9991 FORMAT( ' Relative machine ${} is taken to be', D16.6 );
- 9990 FORMAT( / 1X, '${.a6} routines were not tested' );
- 9989 FORMAT( / 1X, '${.a6} driver routines were not tested' );
+ 9990 FORMAT('\n ${.a6} routines were not tested' );
+ 9989 FORMAT('\n ${.a6} driver routines were not tested' );
       }

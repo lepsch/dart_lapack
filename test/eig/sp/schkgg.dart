@@ -551,7 +551,7 @@
 
  9998 FORMAT( ' SCHKGG: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
- 9997 FORMAT( / 1X, '${.a3} -- Real Generalized eigenvalue problem' );
+ 9997 FORMAT('\n ${.a3} -- Real Generalized eigenvalue problem' );
 
  9996 FORMAT( ' Matrix types (see SCHKGG for details): ' );
 

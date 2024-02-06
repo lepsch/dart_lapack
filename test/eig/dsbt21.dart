@@ -1,4 +1,15 @@
-      void dsbt21(UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RESULT ) {
+
+      import 'dart:math';
+
+import 'package:lapack/src/matrix.dart';
+
+void dsbt21(final String UPLO, final int N, final int KA, final int KS,
+          final Matrix<double> A, final int LDA,
+          final Array<double> D,
+          final Array<double> E,
+          final Matrix<double> U, final int LDU,
+          final Array<double> WORK,
+          final Array<double> RESULT, ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +19,6 @@
       double             A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * );
       // ..
 
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       bool               LOWER;
       String             CUPLO;

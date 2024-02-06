@@ -370,7 +370,7 @@
 
       slasum(PATH, NOUNIT, NERRS, NTESTT );
 
- 9999 FORMAT( / 1X, '${.a3} -- Real Eigenvalue-Eigenvector Decomposition Expert Driver\n Matrix types (see SDRVVX for details): ' );
+ 9999 FORMAT('\n ${.a3} -- Real Eigenvalue-Eigenvector Decomposition Expert Driver\n Matrix types (see SDRVVX for details): ' );
 
  9998 FORMAT('\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.' );
  9997 FORMAT( ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex           17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ' );

@@ -417,7 +417,7 @@
 
  9998 FORMAT( ' ZDRGES3: S not in Schur form at eigenvalue ${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
- 9997 FORMAT( / 1X, '${.a3} -- Complex Generalized Schur from problem driver' );
+ 9997 FORMAT('\n ${.a3} -- Complex Generalized Schur from problem driver' );
 
  9996 FORMAT( ' Matrix types (see ZDRGES3 for details): ' );
 

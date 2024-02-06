@@ -127,7 +127,7 @@
  9993 FORMAT( ' Error in STRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
  9992 FORMAT( ' Error in STRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
  9991 FORMAT( ' Error in SLAQTR: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=${.i8} KNT=${.i8}');
- 9990 FORMAT( / 1X, 'All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
+ 9990 FORMAT('\n All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
  9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n SLALN2, SLASY2, SLANV2, SLAEXC, STRSYL, STREXC, STRSNA, STRSEN, SLAQTR', / );
  9988 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe minimum (SFMIN)             = ', E16.6, / );
  9987 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );

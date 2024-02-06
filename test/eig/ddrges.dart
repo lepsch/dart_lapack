@@ -439,7 +439,7 @@
 
  9997 FORMAT( ' DDRGES: S not in Schur form at eigenvalue ${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
 
- 9996 FORMAT( / 1X, '${.a3} -- Real Generalized Schur form driver' );
+ 9996 FORMAT('\n ${.a3} -- Real Generalized Schur form driver' );
 
  9995 FORMAT( ' Matrix types (see DDRGES for details): ' );
 

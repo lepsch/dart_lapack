@@ -392,7 +392,7 @@
 
  9998 FORMAT( ' DDRGEV: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 3}N=${.i4}, JTYPE=${.i3}, ISEED=(${i4(4, ',')}', I5, ')' );
 
- 9997 FORMAT( / 1X, '${.a3} -- Real Generalized eigenvalue problem driver' );
+ 9997 FORMAT('\n ${.a3} -- Real Generalized eigenvalue problem driver' );
 
  9996 FORMAT( ' Matrix types (see DDRGEV for details): ' );
 

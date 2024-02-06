@@ -269,18 +269,18 @@
 
       // First line of header
 
- 9999 FORMAT( / 1X, '${.a3} drivers:  General dense matrices' );
- 9998 FORMAT( / 1X, '${.a3} drivers:  General band matrices' );
- 9997 FORMAT( / 1X, '${.a3} drivers:  General tridiagonal' );
- 9996 FORMAT( / 1X, '${.a3} drivers:  ${.a9} positive definite matrices' );
- 9995 FORMAT( / 1X, '${.a3} drivers:  ${.a9} positive definite packed matrices' );
- 9994 FORMAT( / 1X, '${.a3} drivers:  ${.a9} positive definite band matrices' );
- 9993 FORMAT( / 1X, '${.a3} drivers:  ${.a9} positive definite tridiagonal' );
- 9971 FORMAT( / 1X, '${.a3} drivers:  ${.a9} indefinite matrices, "Aasen" Algorithm' );
- 9992 FORMAT( / 1X, '${.a3} drivers:  ${.a9} indefinite matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
- 9991 FORMAT( / 1X, '${.a3} drivers:  ${.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting' );
- 9891 FORMAT( / 1X, '${.a3} drivers:  ${.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
- 9990 FORMAT( / 1X, '${.a3}:  No header available' );
+ 9999 FORMAT('\n ${.a3} drivers:  General dense matrices' );
+ 9998 FORMAT('\n ${.a3} drivers:  General band matrices' );
+ 9997 FORMAT('\n ${.a3} drivers:  General tridiagonal' );
+ 9996 FORMAT('\n ${.a3} drivers:  ${.a9} positive definite matrices' );
+ 9995 FORMAT('\n ${.a3} drivers:  ${.a9} positive definite packed matrices' );
+ 9994 FORMAT('\n ${.a3} drivers:  ${.a9} positive definite band matrices' );
+ 9993 FORMAT('\n ${.a3} drivers:  ${.a9} positive definite tridiagonal' );
+ 9971 FORMAT('\n ${.a3} drivers:  ${.a9} indefinite matrices, "Aasen" Algorithm' );
+ 9992 FORMAT('\n ${.a3} drivers:  ${.a9} indefinite matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9991 FORMAT('\n ${.a3} drivers:  ${.a9} indefinite packed matrices, partial (Bunch-Kaufman) pivoting' );
+ 9891 FORMAT('\n ${.a3} drivers:  ${.a9} indefinite packed matrices, "rook" (bounded Bunch-Kaufman) pivoting' );
+ 9990 FORMAT('\n ${.a3}:  No header available' );
 
       // GE matrix types
 

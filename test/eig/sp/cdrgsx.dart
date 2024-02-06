@@ -465,7 +465,7 @@
 
  9997 FORMAT( ' CDRGSX: S not in Schur form at eigenvalue ${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6})' );
 
- 9996 FORMAT( / 1X, '${.a3} -- Complex Expert Generalized Schur form problem driver' );
+ 9996 FORMAT('\n ${.a3} -- Complex Expert Generalized Schur form problem driver' );
 
  9995 FORMAT( 'Input Example' );
 
