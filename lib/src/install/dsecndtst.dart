@@ -1,11 +1,7 @@
       int                NMAX, ITS;
       const              NMAX = 1000, ITS = 50000 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J;
       double             ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
-      // ..
-      // .. Local Arrays ..
       double             X( NMAX ), Y( NMAX );
       // ..
       // .. External Functions ..
@@ -17,8 +13,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-      // ..
-      // .. Executable Statements ..
 
 // .. Figure TOTAL flops ..
       TOTAL = (NMAX).toDouble() * ITS.toDouble() * 2.0;

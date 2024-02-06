@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), MVAL( * ), NVAL( * );
       double               BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * );
@@ -24,15 +20,11 @@
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 16 ;
-      // ..
-      // .. Local Scalars ..
       bool               BADMM, BADNN, BIDIAG;
       String             UPLO;
       String             PATH;
       int                I, IINFO, IMODE, ITYPE, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MQ, MTYPES, N, NFAIL, NMAX, NTEST;
       double               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL;
-      // ..
-      // .. Local Arrays ..
       int                IOLDSD( 4 ), IWORK( 1 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       double               DUMMA( 1 ), RESULT( 14 );
       // ..
@@ -59,8 +51,6 @@
       const KTYPE = [ 1, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 9, 9, 9, 10 ];
       const KMAGN = [ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 0 ];
       const KMODE = [ 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0 ];
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

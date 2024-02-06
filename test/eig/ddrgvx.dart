@@ -3,28 +3,17 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       double             A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), DIF( * ), DIFTRU( * ), DTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), S( * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TEN, TNTH, HALF;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT;
       double             ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
-      // ..
-      // .. Local Arrays ..
       double             WEIGHT( 5 );
       // ..
       // .. External Functions ..
@@ -37,8 +26,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

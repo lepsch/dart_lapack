@@ -3,18 +3,11 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               X, Y, Z;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       double               W, XABS, YABS, ZABS, HUGEVAL;
       // ..
       // .. External Subroutines ..
@@ -22,8 +15,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       HUGEVAL = SLAMCH( 'Overflow' );
       XABS = ( X ).abs();

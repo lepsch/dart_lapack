@@ -11,12 +11,8 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR, SORT;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM;
-      // ..
-      // .. Array Arguments ..
       bool               BWORK( * );
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
@@ -25,18 +21,11 @@ import 'package:lapack/src/xerbla.dart';
       // EXTERNAL SELCTG
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST;
       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, LWKOPT, LWKMIN;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SAFMAX, SAFMIN, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       int                IDUM( 1 );
       double             DIF( 2 );
       // ..
@@ -50,8 +39,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Decode the input arguments
 

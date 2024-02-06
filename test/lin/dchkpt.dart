@@ -5,36 +5,25 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NNS, NOUT;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 12 ;
       int                NTESTS;
       const              NTESTS = 7 ;
-      // ..
-      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TYPE;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), Z( 3 );
       // ..
@@ -60,8 +49,6 @@ import 'common.dart';
       // ..
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
-      // ..
-      // .. Executable Statements ..
 
       PATH[1: 1] = 'double          ';
       PATH[2: 3] = 'PT';

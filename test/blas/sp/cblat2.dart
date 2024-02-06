@@ -3,9 +3,6 @@
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NIN;
       const              NIN = 5 ;
       int                NSUBS;
@@ -1953,8 +1950,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String            srnamc.SRNAMT;
       // .. Scalars in Common ..
@@ -2589,8 +2584,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       Complex            RI( * ), RJ( * );
@@ -2617,8 +2610,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2669,8 +2660,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, J, MI, MJ;
@@ -2714,8 +2703,6 @@
 
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
-
-      // .. Scalar Arguments ..
       double               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
@@ -2730,8 +2717,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                INFOT, NOUT;
       bool               LERR, OK;
       String            srnamc.SRNAMT;
@@ -2748,8 +2733,6 @@
       void cregr1(TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS ) {
 
 // Input initialization for regression test.
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY;
       Complex            ALPHA, BETA;
@@ -2793,8 +2776,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..

@@ -3,27 +3,18 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDX, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             RESULT( 15 ), RWORK( * ), THETA( * );
       double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             REALONE, REALZERO;
       const              REALONE = 1.0, REALZERO = 0.0 ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double             PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
-      // ..
-      // .. Local Scalars ..
       int                I, INFO, R;
       double             EPS2, RESID, ULP, ULPINV;
       // ..
@@ -36,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC COS, DBLE, MAX, MIN, SIN
-      // ..
-      // .. Executable Statements ..
 
       ULP = dlamch( 'Precision' );
       ULPINV = REALONE / ULP;

@@ -3,14 +3,9 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       Complex            A, B, C, CS1, EVSCAL, RT1, RT2, SN1;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
       double               ONE;
@@ -21,15 +16,11 @@
       const              HALF = 0.5 ;
       double               THRESH;
       const              THRESH = 0.1 ;
-      // ..
-      // .. Local Scalars ..
       double               BABS, EVNORM, TABS, Z;
       Complex            S, T, TMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
 
       // Special case:  The matrix is actually diagonal.

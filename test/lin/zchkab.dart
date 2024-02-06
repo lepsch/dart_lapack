@@ -3,9 +3,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX;
       const              NMAX = 132 ;
       int                MAXIN;
@@ -18,8 +15,6 @@
       const              NIN = 5, NOUT = 6 ;
       int                LDAMAX;
       const              LDAMAX = NMAX ;
-      // ..
-      // .. Local Scalars ..
       bool               FATAL, TSTDRV, TSTERR;
       String             C1;
       String             C2;
@@ -29,8 +24,6 @@
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THRESH;
       double               SEPS;
-      // ..
-      // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             RWORK(NMAX);
@@ -57,8 +50,6 @@
 
       // .. Data statements ..
       const INTSTR = '0123456789';
-      // ..
-      // .. Executable Statements ..
 
       S1 = DSECND( );
       LDA = NMAX;

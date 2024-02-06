@@ -3,23 +3,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                LDB, LDX, LDXACT, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double               BERR( * ), FERR( * ), RESLTS( * );
       Complex            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IMAX, J, K, NZ;
       double               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
@@ -39,8 +30,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Quick exit if N = 0 or NRHS = 0.
 

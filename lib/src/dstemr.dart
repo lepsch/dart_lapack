@@ -11,26 +11,17 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       bool               TRYRAC;
       int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N;
       double           VL, VU;
-      // ..
-      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
       double             Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, FOUR, MINRGP;
       const              ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 1.0e-3 ;
-      // ..
-      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;
       double             BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU;
@@ -48,8 +39,6 @@ import 'package:lapack/src/xerbla.dart';
       // INTRINSIC MAX, MIN, SQRT
 
 
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

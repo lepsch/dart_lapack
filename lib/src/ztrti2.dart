@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                INFO, LDA, N;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J;
       Complex         AJJ;
@@ -32,8 +23,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

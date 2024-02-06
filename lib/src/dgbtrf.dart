@@ -11,28 +11,17 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double             AB( LDAB, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NBMAX, LDWORK;
       const              NBMAX = 64, LDWORK = NBMAX+1 ;
-      // ..
-      // .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
       double             TEMP;
-      // ..
-      // .. Local Arrays ..
       double             WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
@@ -44,8 +33,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // KV is the number of superdiagonals in the factor U, allowing for
       // fill-in

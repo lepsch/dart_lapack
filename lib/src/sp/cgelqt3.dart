@@ -3,28 +3,17 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int       INFO, LDA, M, N, LDT;
-      // ..
-      // .. Array Arguments ..
       Complex   A( LDA, * ), T( LDT, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex   ONE, ZERO;
       const     ONE = (1.0e+00,0.0e+00) ;
       const     ZERO = (0.0e+00,0.0e+00);
-      // ..
-      // .. Local Scalars ..
       int       I, I1, J, J1, M1, M2, IINFO;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLARFG, CTRMM, CGEMM, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       if ( M < 0 ) {

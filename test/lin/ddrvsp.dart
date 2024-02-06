@@ -5,33 +5,22 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       const              ONE = 1.0, ZERO = 0.0 ;
       const              NTYPES = 10, NTESTS = 6 ;
       const              NFACT = 2 ;
-      // ..
-      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NERRS, NFAIL, NIMAT, NPP, NRUN, NT;
       double             AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
-      // ..
-      // .. Local Arrays ..
       String             FACTS( NFACT );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
@@ -58,8 +47,6 @@ import 'common.dart';
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
       const FACTS = [ 'F', 'N' ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

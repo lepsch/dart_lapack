@@ -3,24 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS;
       double               RESID;
-      // ..
-      // .. Array Arguments ..
       double               D( * );
       Complex            B( LDB, * ), E( * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                J;
       double               ANORM, BNORM, EPS, XNORM;
       // ..
@@ -33,8 +24,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLAPTM
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

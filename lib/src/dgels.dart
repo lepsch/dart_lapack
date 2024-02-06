@@ -11,27 +11,16 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE;
       double             ANRM, BIGNUM, BNRM, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
@@ -45,8 +34,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments.
 

@@ -3,31 +3,20 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBU, JOBVT;
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       double             RWORK( * ), S( * );
       Complex         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS;
       int                BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
       int                LWORK_ZGEQRF, LWORK_ZUNGQR_N, LWORK_ZUNGQR_M, LWORK_ZGEBRD, LWORK_ZUNGBR_P, LWORK_ZUNGBR_Q, LWORK_ZGELQF, LWORK_ZUNGLQ_N, LWORK_ZUNGLQ_M;
       double             ANRM, BIGNUM, EPS, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       double             DUM( 1 );
       Complex         CDUM( 1 );
       // ..
@@ -42,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

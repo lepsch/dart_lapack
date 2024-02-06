@@ -3,18 +3,12 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String           UPLO;
       int              I1, I2, LDA, N;
-      // ..
-      // .. Array Arguments ..
       Complex          A( LDA, N );
 
 // =====================================================================
 
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       int                I;
       Complex            TMP;
@@ -25,8 +19,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZSWAP
-      // ..
-      // .. Executable Statements ..
 
       UPPER = lsame( UPLO, 'U' );
       if (UPPER) {

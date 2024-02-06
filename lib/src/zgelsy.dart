@@ -3,28 +3,19 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       double             RCOND;
-      // ..
-      // .. Array Arguments ..
       int                JPVT( * );
       double             RWORK( * );
       Complex         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN, NB, NB1, NB2, NB3, NB4;
       double             ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;
@@ -40,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       MN = min( M, N );
       ISMIN = MN + 1;

@@ -11,28 +11,17 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine (3.5.0) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T;
       int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q;
-      // ..
-      // .. Array Arguments ..
       double             THETA(*);
       double             U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*);
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R;
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
-      // ..
-      // .. Local Arrays ..
       double             DUM1(1), DUM2(1,1);
       // ..
       // .. External Subroutines ..
@@ -44,8 +33,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

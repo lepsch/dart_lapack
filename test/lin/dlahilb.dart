@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
       // .. Array Arguments ..
       double           A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
@@ -28,8 +26,6 @@
       // .. External Functions
       // EXTERNAL DLASET
       // INTRINSIC DBLE
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

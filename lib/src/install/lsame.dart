@@ -3,8 +3,6 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             CA, CB;
       // ..
 
@@ -12,11 +10,7 @@
 
       // .. Intrinsic Functions ..
       // INTRINSIC ICHAR
-      // ..
-      // .. Local Scalars ..
       int                INTA, INTB, ZCODE;
-      // ..
-      // .. Executable Statements ..
 
       // Test if the characters are equal
 

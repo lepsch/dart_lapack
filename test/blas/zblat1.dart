@@ -5,9 +5,6 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int              NOUT;
       const            NOUT=6;
       // .. Scalars in Common ..
@@ -383,8 +380,6 @@ import 'common.dart';
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
 
       // C.L. LAWSON, JPL, 1978 DEC 6
-
-      // .. Scalar Arguments ..
       double            SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
       double            SSIZE(*);
@@ -403,8 +398,6 @@ import 'common.dart';
       double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-
-      // .. Scalar Arguments ..
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
@@ -414,8 +407,6 @@ import 'common.dart';
       // **************************** CTEST *****************************
 
       // C.L. LAWSON, JPL, 1978 DEC 6
-
-      // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
       // .. Array Arguments ..
@@ -494,8 +485,6 @@ import 'common.dart';
       // Algorithm 978: Safe Scaling in the Level 1 BLAS
       // ACM Trans Math Softw 44:1--28
       // https://doi.org/10.1145/3061665
-
-      // .. Scalar Arguments ..
       int               combla.INCX, combla.N;
       double            THRESH;
 

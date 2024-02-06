@@ -20,6 +20,7 @@ import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
 import '../matgen/dlarnd.dart';
@@ -40,7 +41,7 @@ void dchkst2stg(
   final Array<bool> DOTYPE,
   final Array<int> ISEED,
   final double THRESH,
-  final int NOUNIT,
+  final Nout NOUNIT,
   final Matrix<double> A,
   final int LDA,
   final Array<double> AP,
@@ -449,7 +450,7 @@ void dchkst2stg(
         }
 
         if (IINFO.value != 0) {
-          print9999('Generator', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           return;
         }
@@ -466,7 +467,7 @@ void dchkst2stg(
         dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
 
         if (IINFO.value != 0) {
-          print9999('DSYTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSYTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -481,7 +482,7 @@ void dchkst2stg(
         NTEST = 2;
         dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
-          print9999('DORGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DORGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -540,7 +541,7 @@ void dchkst2stg(
 
         dsteqr('N', N, D1, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -583,7 +584,7 @@ void dchkst2stg(
 
         dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -624,7 +625,7 @@ void dchkst2stg(
 
         dsteqr('N', N, D3, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -671,7 +672,7 @@ void dchkst2stg(
         dsptrd('U', N, VP, SD, SE, TAU, IINFO);
 
         if (IINFO.value != 0) {
-          print9999('DSPTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSPTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -684,7 +685,7 @@ void dchkst2stg(
         NTEST = 6;
         dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO);
         if (IINFO.value != 0) {
-          print9999('DOPGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DOPGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -717,7 +718,7 @@ void dchkst2stg(
         dsptrd('L', N, VP, SD, SE, TAU, IINFO);
 
         if (IINFO.value != 0) {
-          print9999('DSPTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSPTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -730,7 +731,7 @@ void dchkst2stg(
         NTEST = 8;
         dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO);
         if (IINFO.value != 0) {
-          print9999('DOPGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DOPGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -754,7 +755,7 @@ void dchkst2stg(
         NTEST = 9;
         dsteqr('V', N, D1, WORK, Z, LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -772,7 +773,7 @@ void dchkst2stg(
         NTEST = 11;
         dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -790,7 +791,7 @@ void dchkst2stg(
         NTEST = 12;
         dsterf(N, D3, WORK, IINFO);
         if (IINFO.value != 0) {
-          print9999('DSTERF', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTERF', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -848,7 +849,7 @@ void dchkst2stg(
           NTEST = 14;
           dpteqr('V', N, D4, WORK, Z, LDU, WORK[N + 1], IINFO);
           if (IINFO.value != 0) {
-            print9999('DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
@@ -870,7 +871,7 @@ void dchkst2stg(
           NTEST = 16;
           dpteqr('N', N, D5, WORK, Z, LDU, WORK[N + 1], IINFO);
           if (IINFO.value != 0) {
-            print9999('DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
@@ -929,7 +930,7 @@ void dchkst2stg(
             IINFO,
           );
           if (IINFO.value != 0) {
-            print9999('DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
@@ -985,7 +986,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1044,7 +1045,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1104,7 +1105,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1157,7 +1158,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1184,7 +1185,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1222,7 +1223,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1259,7 +1260,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1296,7 +1297,7 @@ void dchkst2stg(
           IINFO,
         );
         if (IINFO.value != 0) {
-          print9999('DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
           if (IINFO.value < 0) {
             return;
@@ -1359,7 +1360,7 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999('DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1423,7 +1424,7 @@ void dchkst2stg(
               );
 
               if (IINFO.value != 0) {
-                print9999('DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                print9999(NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
                 INFO.value = IINFO.value.abs();
                 if (IINFO.value < 0) {
                   return;
@@ -1501,7 +1502,7 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999('DSTEMR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(NOUNIT, 'DSTEMR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1547,7 +1548,7 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999('DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(NOUNIT, 'DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1629,7 +1630,7 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999('DSTEMR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(NOUNIT, 'DSTEMR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1675,7 +1676,7 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999('DSTEMR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(NOUNIT, 'DSTEMR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1738,7 +1739,7 @@ void dchkst2stg(
             IINFO,
           );
           if (IINFO.value != 0) {
-            print9999('DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
@@ -1784,7 +1785,7 @@ void dchkst2stg(
             IINFO,
           );
           if (IINFO.value != 0) {
-            print9999('DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
             if (IINFO.value < 0) {
               return;
@@ -1817,29 +1818,29 @@ void dchkst2stg(
       for (JR = 1; JR <= NTEST; JR++) {
         if (RESULT[JR] >= THRESH) {
           // If this is the first test to fail,
-          // print a header to the data file.
+          // NOUNIT.println a header to the data file.
 
           if (NERRS == 0) {
-            print(' DST -- Real Symmetric eigenvalue problem');
-            print(' Matrix types (see DCHKST2STG for details): ');
-            print(
+            NOUNIT.println(' DST -- Real Symmetric eigenvalue problem');
+            NOUNIT.println(' Matrix types (see DCHKST2STG for details): ');
+            NOUNIT.println(
               ' Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.',
             );
-            print(
+            NOUNIT.println(
               ' Dense Symmetric Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.',
             );
-            print(
+            NOUNIT.println(
               ' 16=Positive definite, evenly spaced eigenvalues\n 17=Positive definite, geometrically spaced eigenvlaues\n 18=Positive definite, clustered eigenvalues\n 19=Positive definite, small evenly spaced eigenvalues\n 20=Positive definite, large evenly spaced eigenvalues\n 21=Diagonally dominant tridiagonal, geometrically spaced eigenvalues',
             );
 
             // Tests performed
 
-            print(
+            NOUNIT.println(
               'Test performed:  see DCHKST2STG for details.',
             );
           }
           NERRS = NERRS + 1;
-          print(
+          NOUNIT.println(
             ' N=${N.i5}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}',
           );
         }
@@ -1853,13 +1854,14 @@ void dchkst2stg(
 }
 
 void print9999(
+  final Nout NOUNIT,
   final String s,
   final int info,
   final int n,
   final int jtype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUNIT.println(
     ' DCHKST2STG: $s returned INFO=${info.i6}.${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
   );
 }

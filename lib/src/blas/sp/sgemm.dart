@@ -3,13 +3,9 @@
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double ALPHA,BETA;
       int     K,LDA,LDB,LDC,M,N;
       String    TRANSA,TRANSB;
-      // ..
-      // .. Array Arguments ..
       double A(LDA,*),B(LDB,*),C(LDC,*);
       // ..
 
@@ -24,8 +20,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Local Scalars ..
       double TEMP;
       int     I,INFO,J,L,NROWA,NROWB;
       bool    NOTA,NOTB;

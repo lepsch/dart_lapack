@@ -3,25 +3,16 @@
 // -- LAPACK computational routine (version 3.X) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ONE, NEGONE;
       double               ZERO;
       const              ONE = (1.0, 0.0) ;
       const              NEGONE = (-1.0, 0.0) ;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       double               SFMIN, PIVMAG;
       Complex            TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
@@ -38,8 +29,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, IAND, ABS
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

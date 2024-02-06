@@ -3,23 +3,14 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDA, M, N;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double               D( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, J;
       double               WN;
       Complex            TAU, WA, WB;
@@ -33,8 +24,6 @@
       // .. External Functions ..
       //- REAL               SCNRM2;
       // EXTERNAL SCNRM2
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

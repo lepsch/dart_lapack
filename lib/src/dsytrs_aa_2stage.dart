@@ -13,12 +13,8 @@ import 'package:lapack/src/xerbla.dart';
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LTB, LDB, INFO;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       double             A( LDA, * ), TB( * ), B( LDB, * );
       // ..
@@ -27,8 +23,6 @@ import 'package:lapack/src/xerbla.dart';
 
       double             ONE;
       const              ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                LDTB, NB;
       bool               UPPER;
       // ..
@@ -41,8 +35,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

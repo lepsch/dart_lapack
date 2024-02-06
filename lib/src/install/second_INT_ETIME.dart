@@ -8,15 +8,11 @@
 
       // .. Local Scalars ..
       double               T1;
-      // ..
-      // .. Local Arrays ..
       double               TARRAY( 2 );
       // ..
       // .. Intrinsic Functions ..
       double               ETIME;
       // INTRINSIC ETIME
-      // ..
-      // .. Executable Statements ..
 
       T1 = ETIME( TARRAY );
       SECOND = TARRAY( 1 );

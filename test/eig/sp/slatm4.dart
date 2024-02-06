@@ -3,25 +3,16 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2;
       double               AMAGN, RCOND, TRIANG;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double               A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double               HALF;
       const              HALF = ONE / TWO ;
-      // ..
-      // .. Local Scalars ..
       int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       double               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
       // ..
@@ -34,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, MAX, MIN, MOD, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       if (N <= 0) return;
       slaset('Full', N, N, ZERO, ZERO, A, LDA );

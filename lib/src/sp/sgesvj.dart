@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N;
       String             JOBA, JOBU, JOBV;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
@@ -19,13 +15,9 @@
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       int                NSWEEP;
       const              NSWEEP = 30 ;
-      // ..
-      // .. Local Scalars ..
       double               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN;
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
-      // ..
-      // .. Local Arrays ..
       double               FASTR( 5 );
       // ..
       // .. Intrinsic Functions ..
@@ -52,8 +44,6 @@
       // EXTERNAL SLASCL, SLASET, SLASSQ, XERBLA
 
       // EXTERNAL SGSVJ0, SGSVJ1
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

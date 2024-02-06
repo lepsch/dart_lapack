@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIAG, NORMIN, TRANS, UPLO;
       int                INFO, N;
       double               SCALE;
-      // ..
-      // .. Array Arguments ..
       double               CNORM( * );
       Complex            AP( * ), X( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, HALF, ONE, TWO;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, IP, J, JFIRST, JINC, JLAST, JLEN;
       double               BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
@@ -45,8 +36,6 @@
       // .. Statement Function definitions ..
       CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       CABS2[ZDUM] = ABS( double( ZDUM ) / 2. ) + ABS( AIMAG( ZDUM ) / 2. );
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

@@ -3,15 +3,10 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                NOUT;
       double             THRESH;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e1 ;
       Complex         CZERO;
@@ -22,14 +17,10 @@
       const              NSZ = 5, NSZB = 3*NSZ-2 ;
       int                NSZP, NPOW;
       const              NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 ;
-      // ..
-      // .. Local Scalars ..
       bool               OK;
       String             PATH;
       int                I, INFO, J, KL, KU, M, N;
       double             CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND;
-      // ..
-      // .. Local Arrays ..
       double             C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
       Complex         A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP );
       // ..
@@ -42,8 +33,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       PATH[1: 1] = 'Zomplex precision';
       PATH[2: 3] = 'EQ';

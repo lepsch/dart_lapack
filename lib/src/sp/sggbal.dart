@@ -3,24 +3,15 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOB;
       int                IHI, ILO, INFO, LDA, LDB, N;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), B( LDB, * ), LSCALE( * ), RSCALE( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       double               THREE, SCLFAC;
       const              THREE = 3.0, SCLFAC = 1.0e+1 ;
-      // ..
-      // .. Local Scalars ..
       int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2;
       double               ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
       // ..
@@ -35,8 +26,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG10, MAX, MIN, REAL, SIGN
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters
 

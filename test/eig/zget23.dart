@@ -3,35 +3,24 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               COMP;
       String             BALANC;
       int                INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double             RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * );
       Complex         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             EPSIN;
       const              EPSIN = 5.9605e-8 ;
-      // ..
-      // .. Local Scalars ..
       bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN;
       double             ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST;
       Complex         CTMP;
-      // ..
-      // .. Local Arrays ..
       String             SENS( 2 );
       double             RES( 2 );
       Complex         CDUM( 1 );
@@ -49,8 +38,6 @@
       // ..
       // .. Data statements ..
       const SENS = [ 'N', 'V' ];
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

@@ -3,25 +3,16 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS;
       double               RCOND;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double               BERR( * ), FERR( * ), RWORK( * );
       Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, NOFACT;
       int                LWKOPT, NB;
       double               ANORM;
@@ -37,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

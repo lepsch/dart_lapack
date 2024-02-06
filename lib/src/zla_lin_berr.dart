@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N, NZ, NRHS;
-      // ..
-      // .. Array Arguments ..
       double             AYB( N, NRHS ), BERR( NRHS );
       Complex         RES( N, NRHS );
       // ..
@@ -32,8 +28,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Adding SAFE1 to the numerator guards against spuriously zero
       // residuals.  A similar safeguard is in the CLA_yyAMV routine used

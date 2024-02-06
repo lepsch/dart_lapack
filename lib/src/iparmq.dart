@@ -3,8 +3,6 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N;
       String             NAME*( * ), OPTS*( * );
 
@@ -16,16 +14,12 @@
       const              NMIN = 75, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500, RCOST = 10 ;
       double               TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       int                NH, NS;
       int                I, IC, IZ;
       String             SUBNAM*6;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
-      // ..
-      // .. Executable Statements ..
       if ( ( ISPEC == ISHFTS ) || ( ISPEC == INWIN ) || ( ISPEC == IACC22 ) ) {
 
          // ==== Set the number simultaneous shifts ====

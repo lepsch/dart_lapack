@@ -3,14 +3,10 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH;
       String             UPLO;
       bool               COLEQU, IGNORE_CWISE;
       double               RTHRESH, DZ_UB;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
@@ -57,8 +53,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

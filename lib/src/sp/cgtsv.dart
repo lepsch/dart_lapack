@@ -3,21 +3,12 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       Complex            B( LDB, * ), D( * ), DL( * ), DU( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                J, K;
       Complex            MULT, TEMP, ZDUM;
       // ..
@@ -32,8 +23,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       if ( N < 0 ) {

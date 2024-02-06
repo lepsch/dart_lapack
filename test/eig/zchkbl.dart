@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                NIN, NOUT;
       // ..
 
@@ -15,13 +13,9 @@
       const              LDA = 20 ;
       double             ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
       double             ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
       Complex         CDUM;
-      // ..
-      // .. Local Arrays ..
       int                LMAX( 3 );
       double             DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       Complex         A( LDA, LDA ), AIN( LDA, LDA );
@@ -41,8 +35,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       LMAX[1] = 0;
       LMAX[2] = 0;

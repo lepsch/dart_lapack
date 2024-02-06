@@ -3,8 +3,6 @@
       // .. External Functions ..
       //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
-      // ..
-      // .. Executable Statements ..
 
       EPS   = SLAMCH( 'Epsilon' );
       SFMIN = SLAMCH( 'Safe minimum' );

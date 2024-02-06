@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                LDA, N;
       double             AMAX, SCOND;
-      // ..
-      // .. Array Arguments ..
       double             S( * );
       Complex         A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J;
       double             CJ, LARGE, SMALL;
       // ..
@@ -28,8 +19,6 @@
       //- bool               lsame;
       //- double             DLAMCH;
       // EXTERNAL lsame, DLAMCH
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

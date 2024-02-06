@@ -11,12 +11,8 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, ITYPE, LDZ, N;
-      // ..
-      // .. Array Arguments ..
       double             AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
@@ -33,8 +29,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. External Subroutines ..
       // EXTERNAL DPPTRF, DSPEV, DSPGST, DTPMV, DTPSV, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

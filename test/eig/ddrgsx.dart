@@ -5,30 +5,19 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       double             A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), S( * ), WORK( * ), Z( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1 ;
-      // ..
-      // .. Local Scalars ..
       bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, I1, IFUNC, IINFO, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
       double             ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
-      // ..
-      // .. Local Arrays ..
       double             DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
@@ -49,8 +38,6 @@ import 'common.dart';
       // ..
       // .. Common blocks ..
       // COMMON / mn / mn.M, mn.N, mn.MPLUSN, mn.K, mn.FS
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

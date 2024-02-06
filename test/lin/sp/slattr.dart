@@ -3,23 +3,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                IMAT, INFO, LDA, N;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double               A( LDA, * ), B( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, TWO, ZERO;
       const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       String             DIST, TYPE;
       String             PATH;
@@ -37,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SIGN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       PATH[1: 1] = 'Single precision';
       PATH[2: 3] = 'TR';

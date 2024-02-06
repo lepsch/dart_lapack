@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N, NCOLS, LDA, LDAF;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), AF( LDAF, * );
       // ..
 
@@ -26,8 +22,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       RPVGRW = 1.0;
 

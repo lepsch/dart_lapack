@@ -12,22 +12,13 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             IDENT;
       int                K, LDA, LDB, LDT, LDWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LNOTIDENT;
       int                I, J;
       // ..
@@ -37,8 +28,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DTRMM
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

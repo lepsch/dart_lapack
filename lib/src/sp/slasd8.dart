@@ -3,21 +3,12 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                ICOMPQ, INFO, K, LDDIFR;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
       double               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
       // ..
@@ -30,8 +21,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

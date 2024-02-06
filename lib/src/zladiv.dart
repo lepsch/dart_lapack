@@ -3,8 +3,6 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       Complex         X, Y;
       // ..
 
@@ -18,8 +16,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DIMAG
-      // ..
-      // .. Executable Statements ..
 
       dladiv((X).toDouble(), DIMAG( X ), Y.toDouble(), DIMAG( Y ), ZR, ZI );
       ZLADIV = DCMPLX( ZR, ZI );

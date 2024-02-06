@@ -3,37 +3,26 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * );
       double               D( * ), RWORK( * );
       Complex            A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 12 ;
       int                NTESTS;
       const              NTESTS = 6 ;
-      // ..
-      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, TYPE;
       String             PATH;
       int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
       double               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       double               RESULT( NTESTS ), Z( 3 );
       // ..
@@ -59,8 +48,6 @@
       // ..
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
-      // ..
-      // .. Executable Statements ..
 
       PATH[1: 1] = 'Complex precision';
       PATH[2: 3] = 'PT';

@@ -4,28 +4,19 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDT, LDVL, LDVR, LWORK, LRWORK, M, MM, N;
-      // ..
-      // .. Array Arguments ..
       bool               SELECT( * );
       double               RWORK( * );
       Complex            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE  = ( 1.0, 0.0 ) ;
       int                NBMIN, NBMAX;
       const              NBMIN = 8, NBMAX = 128 ;
-      // ..
-      // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI, IV, MAXWRK, NB;
       double               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
@@ -48,8 +39,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test the input parameters
 

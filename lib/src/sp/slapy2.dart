@@ -3,20 +3,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               X, Y;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
       double               ONE;
       const              ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       double               W, XABS, YABS, Z, HUGEVAL;
       bool               X_IS_NAN, Y_IS_NAN;
       // ..
@@ -29,8 +22,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       X_IS_NAN = SISNAN( X );
       Y_IS_NAN = SISNAN( Y );

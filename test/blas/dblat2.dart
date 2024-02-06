@@ -5,9 +5,6 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NIN;
       const              NIN = 5 ;
       int                NSUBS;
@@ -1920,8 +1917,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String             srnamc.SRNAMT;
       // .. Scalars in Common ..
@@ -2509,8 +2504,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       double             RI( * ), RJ( * );
@@ -2537,8 +2530,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2588,8 +2579,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, MI;
@@ -2628,8 +2617,6 @@ import 'common.dart';
 
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
-
-      // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;
@@ -2644,8 +2631,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                infoc.INFOT, NOUT;
       bool               infoc.LERR, infoc.OK;
       String             srnamc.SRNAMT;
@@ -2662,8 +2647,6 @@ import 'common.dart';
       void dregr1(TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS ) {
 
 // Input initialization for regression test.
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY;
       double             ALPHA, BETA;
@@ -2707,8 +2690,6 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..

@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       int                IOUNIT;
       // ..
@@ -25,8 +23,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-      // ..
-      // .. Executable Statements ..
 
       if (IOUNIT <= 0) return;
       C1 = PATH( 1: 1 );

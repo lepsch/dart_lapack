@@ -5,18 +5,11 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
-      // ..
-      // .. Array Arguments ..
       double               Q( LDQ, * ), C( LDC, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
 
@@ -34,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

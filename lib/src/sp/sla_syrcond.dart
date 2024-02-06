@@ -3,8 +3,6 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE;
       // ..
@@ -20,8 +18,6 @@
       int                KASE, I, J;
       double               AINVNM, SMLNUM, TMP;
       bool               UP;
-      // ..
-      // .. Local Arrays ..
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
@@ -34,8 +30,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       SLA_SYRCOND = 0.0;
 

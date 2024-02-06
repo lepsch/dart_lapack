@@ -3,18 +3,11 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                INFO, J1, LDA, LDB, LDQ, LDZ, N;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double               TWENTY;
@@ -23,14 +16,10 @@
       const              LDST = 2 ;
       bool               WANDS;
       const              WANDS = true ;
-      // ..
-      // .. Local Scalars ..
       bool               STRONG, WEAK;
       int                I, M;
       double               CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
       Complex            CDUM, F, G, SQ, SZ;
-      // ..
-      // .. Local Arrays ..
       Complex            S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
       // ..
       // .. External Functions ..
@@ -42,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

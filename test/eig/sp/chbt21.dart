@@ -3,25 +3,16 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                KA, KS, LDA, LDU, N;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), E( * ), RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), U( LDU, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR;
@@ -37,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Constants
 

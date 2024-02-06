@@ -11,22 +11,13 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double             AB( LDAB, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J, JP, JU, KM, KV;
       // ..
       // .. External Functions ..
@@ -38,8 +29,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // KV is the number of superdiagonals in the factor U, allowing for
       // fill-in.

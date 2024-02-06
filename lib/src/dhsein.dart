@@ -11,24 +11,15 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             EIGSRC, INITV, SIDE;
       int                INFO, LDH, LDVL, LDVR, M, MM, N;
-      // ..
-      // .. Array Arguments ..
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * );
       double             H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK;
       double             BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
@@ -43,8 +34,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test the input parameters.
 

@@ -31,6 +31,7 @@ extension StringFormatExtension on String {
   String get a3 => substring(0, 3).padLeft(3);
   String get a6 => substring(0, 6).padLeft(6);
   String get a15 => substring(0, 15).padLeft(15);
+  String get a79 => substring(0, 79).padLeft(79);
 }
 
 extension IntArrayFormatExtension on Array<int> {

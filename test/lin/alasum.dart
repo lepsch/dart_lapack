@@ -1,29 +1,25 @@
-      void alasum(TYPE, NOUT, NFAIL, NRUN, NERRS ) {
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/nio.dart';
 
+void alasum(
+  final String TYPE,
+  final Nout NOUT,
+  final int NFAIL,
+  final int NRUN,
+  final int NERRS,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      String             TYPE;
-      int                NFAIL, NOUT, NRUN, NERRS;
-      // ..
-
-// =====================================================================
-
-      // .. Executable Statements ..
-
-      if ( NFAIL > 0 ) {
-         WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN;
-      } else {
-         WRITE( NOUT, FMT = 9998 )TYPE, NRUN;
-      }
-      if ( NERRS > 0 ) {
-         WRITE( NOUT, FMT = 9997 )NERRS;
-      }
-
- 9999 FORMAT( 1X, A3, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
- 9998 FORMAT( /1X, 'All tests for ', A3, ' routines passed the threshold ( ', I6, ' tests run)' );
- 9997 FORMAT( 6X, I6, ' error messages recorded' );
-      return;
-      }
+  if (NFAIL > 0) {
+    NOUT.println(
+        ' ${TYPE.a3}: ${NFAIL.i6} out of ${NRUN.i6} tests failed to pass the threshold');
+  } else {
+    NOUT.println(
+        '\n All tests for ${TYPE.a3} routines passed the threshold ( ${NRUN.i6} tests run)');
+  }
+  if (NERRS > 0) {
+    NOUT.println('      ${NERRS.i6} error messages recorded');
+  }
+}

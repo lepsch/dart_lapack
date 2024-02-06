@@ -3,26 +3,18 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int     INFO, LDA, LDT, M, N, NB;
-      // ..
-      // .. Array Arguments ..
       double A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
-      // ..
-      // .. Local Scalars ..
       int        I, IB, IINFO, K;
       bool       USE_RECURSIVE_QR;
       const    USE_RECURSIVE_QR= true ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQRT2, SGEQRT3, SLARFB, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

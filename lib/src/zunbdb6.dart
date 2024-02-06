@@ -3,23 +3,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
-      // ..
-      // .. Array Arguments ..
       Complex         Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ALPHA, REALONE, REALZERO;
       const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
       Complex         NEGONE, ONE, ZERO;
       const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
-      // ..
-      // .. Local Scalars ..
       int                I, IX;
       double             EPS, NORM, NORM_NEW, SCL, SSQ;
       // ..
@@ -31,8 +22,6 @@
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

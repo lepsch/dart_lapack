@@ -3,12 +3,8 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KA, KB, LDAB, LDBB, LDZ, N;
-      // ..
-      // .. Array Arguments ..
       double             RWORK( * ), W( * );
       Complex         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
       // ..
@@ -26,8 +22,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSTERF, XERBLA, ZHBGST, ZHBTRD, ZPBSTF, ZSTEQR
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

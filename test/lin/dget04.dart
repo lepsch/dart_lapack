@@ -3,22 +3,13 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
       double             RCOND, RESID;
-      // ..
-      // .. Array Arguments ..
       double             X( LDX, * ), XACT( LDXACT, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IX, J;
       double             DIFFNM, EPS, XNORM;
       // ..
@@ -29,8 +20,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Quick exit if N = 0 or NRHS = 0.
 

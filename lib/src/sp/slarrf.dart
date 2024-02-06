@@ -3,22 +3,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                CLSTRT, CLEND, INFO, N;
       double               CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO;
       const              ONE = 1.0, TWO = 2.0, QUART = 0.25, MAXGROWTH1 = 8.0, MAXGROWTH2 = 8.0 ;
-      // ..
-      // .. Local Scalars ..
       bool      DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1;
       int                I, INDX, KTRY, KTRYMAX, SLEFT, SRIGHT, SHIFT;
       const              KTRYMAX = 1, SLEFT = 1, SRIGHT = 2 ;
@@ -34,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

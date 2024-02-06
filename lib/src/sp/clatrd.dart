@@ -3,23 +3,14 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDW, N, NB;
-      // ..
-      // .. Array Arguments ..
       double               E( * );
       Complex            A( LDA, * ), TAU( * ), W( LDW, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ZERO, ONE, HALF;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, IW;
       Complex            ALPHA;
       // ..
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

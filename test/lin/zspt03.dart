@@ -3,24 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                LDW, N;
       double             RCOND, RESID;
-      // ..
-      // .. Array Arguments ..
       double             RWORK( * );
       Complex         A( * ), AINV( * ), WORK( LDW, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL;
       double             AINVNM, ANORM, EPS;
       Complex         T;
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-      // ..
-      // .. Executable Statements ..
 
       // Quick exit if N = 0.
 

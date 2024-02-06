@@ -3,25 +3,18 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIST, TYPE;
       String             PATH;
       int                IMAT, KL, KU, M, MODE, N;
       double               ANORM, CNDNUM;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               SHRINK, TENTH;
       const              SHRINK = 0.25, TENTH = 0.1 ;
       double               ONE;
       const              ONE = 1.0 ;
       double               TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               FIRST;
       String             C2;
       int                MAT;
@@ -40,8 +33,6 @@
       // ..
       // .. Data statements ..
       const FIRST = true;
-      // ..
-      // .. Executable Statements ..
 
       // Set some constants for use in the subroutine.
 

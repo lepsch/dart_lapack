@@ -2378,8 +2378,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       double             RI( * ), RJ( * );
@@ -2409,8 +2407,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2464,8 +2460,6 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, MI;
@@ -2507,8 +2501,6 @@
 
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
-
-      // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;

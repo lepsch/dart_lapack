@@ -11,28 +11,17 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                I;
       double             DSIGMA, RHO;
-      // ..
-      // .. Array Arguments ..
       double             D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TWO, THREE, FOUR;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0 ;
-      // ..
-      // .. Local Scalars ..
       double             B, C, DEL, DELSQ, TAU, W;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-      // ..
-      // .. Executable Statements ..
 
       DEL = D( 2 ) - D( 1 );
       DELSQ = DEL*( D( 2 )+D( 1 ) );

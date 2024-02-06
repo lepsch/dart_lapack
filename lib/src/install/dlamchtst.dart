@@ -3,8 +3,6 @@
       // .. External Functions ..
       //- double             DLAMCH;
       // EXTERNAL DLAMCH
-      // ..
-      // .. Executable Statements ..
 
       EPS   = dlamch( 'Epsilon' );
       SFMIN = dlamch( 'Safe minimum' );

@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIRECT, SIDE, STOREV, TRANS;
       int                K, L, LDC, LDT, LDV, LDWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       Complex            C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       String             TRANST;
       int                I, INFO, J;
       // ..
@@ -28,8 +19,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEMM, CLACGV, CTRMM, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

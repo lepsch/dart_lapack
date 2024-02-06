@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             COMPQ;
       int                IFST, ILST, INFO, LDQ, LDT, N;
-      // ..
-      // .. Array Arguments ..
       Complex            Q( LDQ, * ), T( LDT, * );
       // ..
 
@@ -29,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test the input parameters.
 

@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                NCOLS, LDA, LDAF;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), AF( LDAF, * );
       double             WORK( * );
       // ..
@@ -33,8 +29,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
       UPPER = lsame( 'Upper', UPLO );
 
       // DPOTRF will have factored only the NCOLSxNCOLS leading submatrix,

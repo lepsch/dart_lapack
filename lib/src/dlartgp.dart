@@ -11,22 +11,15 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double             CS, F, G, R, SN;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
       double             ONE;
       const              ONE = 1.0 ;
       double             TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       // LOGICAL            FIRST
       int                COUNT, I;
       double             EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
@@ -43,8 +36,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Data statements ..
       // DATA               FIRST / true /
-      // ..
-      // .. Executable Statements ..
 
       // IF( FIRST ) THEN
          SAFMIN = dlamch( 'S' );

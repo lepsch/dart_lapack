@@ -11,11 +11,7 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDSA, M, N;
-      // ..
-      // .. Array Arguments ..
       double               SA( LDSA, * );
       double             A( LDA, * );
       // ..
@@ -32,8 +28,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
-      // ..
-      // .. Executable Statements ..
 
       RMAX = SLAMCH( 'O' );
       for (J = 1; J <= N; J++) { // 20

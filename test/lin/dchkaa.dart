@@ -5,9 +5,6 @@ import 'common.dart';
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX;
       const              NMAX = 132 ;
       int                MAXIN;
@@ -20,8 +17,6 @@ import 'common.dart';
       const              NIN = 5, NOUT = 6 ;
       int                KDMAX;
       const              KDMAX = NMAX+( NMAX+1 ) / 4 ;
-      // ..
-      // .. Local Scalars ..
       bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
@@ -30,8 +25,6 @@ import 'common.dart';
       String             ALINE;
       int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THREQ, THRESH;
-      // ..
-      // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX );
       // ..

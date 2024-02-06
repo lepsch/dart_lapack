@@ -5,21 +5,14 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double             EIGHT, SEVTEN;
@@ -28,15 +21,11 @@ import 'common.dart';
       const              NTYPES = 10 ;
       int                NTESTS;
       const              NTESTS = 7 ;
-      // ..
-      // .. Local Scalars ..
       bool               TRFCON, ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
       double             ALPHA, ANORM, CNDNUM, CONST, DTEMP, SING_MAX, SING_MIN, RCOND, RCONDC;
-      // ..
-      // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             BLOCK( 2, 2 ), DDUMMY( 1 ), RESULT( NTESTS );
@@ -63,8 +52,6 @@ import 'common.dart';
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
       const UPLOS = [ 'U', 'L' ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

@@ -3,23 +3,14 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT;
       double               PIVMIN, VL, VU;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), E( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I;
       bool               MATT;
       double               LPIVOT, RPIVOT, SL, SU, TMP, TMP2;
@@ -28,8 +19,6 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       LCNT = 0;

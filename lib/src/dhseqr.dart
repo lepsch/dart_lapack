@@ -11,18 +11,11 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDH, LDZ, LWORK, N;
       String             COMPZ, JOB;
-      // ..
-      // .. Array Arguments ..
       double             H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
 
       // ==== Matrices of order NTINY or smaller must be processed by
       // .    DLAHQR because of insufficient subdiagonal scratch space.
@@ -40,11 +33,7 @@ import 'package:lapack/src/xerbla.dart';
       const              NL = 49 ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Arrays ..
       double             HL( NL, NL ), WORKL( NL );
-      // ..
-      // .. Local Scalars ..
       int                I, KBOT, NMIN;
       bool               INITZ, LQUERY, WANTT, WANTZ;
       // ..
@@ -58,8 +47,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // ==== Decode and check the input parameters. ====
 

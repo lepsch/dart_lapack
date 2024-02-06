@@ -5,23 +5,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       bool               WANTZ;
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), V( * ), TAU( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
       Complex            CTMP;
@@ -35,8 +26,6 @@
       //- bool               lsame;
       // EXTERNAL lsame
       // ..
-      // ..
-      // .. Executable Statements ..
 
       AJETER = IB + LDVT;
       UPPER = lsame( UPLO, 'U' );

@@ -3,19 +3,12 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N;
       Complex            TAU;
-      // ..
-      // .. Array Arguments ..
       Complex            C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
@@ -28,8 +21,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
-      // ..
-      // .. Executable Statements ..
 
       if( ( min( M, N ) == 0 ) || ( TAU == ZERO ) ) return;
 

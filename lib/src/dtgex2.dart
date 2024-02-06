@@ -11,12 +11,8 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                INFO, J1, LDA, LDB, LDQ, LDZ, LWORK, N, N1, N2;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
@@ -33,13 +29,9 @@ import 'package:lapack/src/xerbla.dart';
       const              LDST = 4 ;
       bool               WANDS;
       const              WANDS = true ;
-      // ..
-      // .. Local Scalars ..
       bool               STRONG, WEAK;
       int                I, IDUM, LINFO, M;
       double             BQRA21, BRQA21, DDUM, DNORMA, DNORMB, DSCALE, DSUM, EPS, F, G, SA, SB, SCALE, SMLNUM, THRESHA, THRESHB;
-      // ..
-      // .. Local Arrays ..
       int                IWORK( LDST + 2 );
       double             AI( 2 ), AR( 2 ), BE( 2 ), IR( LDST, LDST ), IRCOP( LDST, LDST ), LI( LDST, LDST ), LICOP( LDST, LDST ), S( LDST, LDST ), SCPY( LDST, LDST ), T( LDST, LDST ), TAUL( LDST ), TAUR( LDST ), TCPY( LDST, LDST );
       // ..
@@ -52,8 +44,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

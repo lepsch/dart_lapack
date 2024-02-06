@@ -13,6 +13,7 @@ import 'package:lapack/src/dorgbr.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
 import '../lin/alasum.dart';
@@ -55,7 +56,7 @@ void dchkbd(
   final Array<double> WORK,
   final int LWORK,
   final Array<int> IWORK,
-  final int NOUT,
+  final Nout NOUT,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
@@ -525,7 +526,7 @@ void dchkbd(
         // Error Exit
 
         if (IINFO.value != 0) {
-          print9998('Generator', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'Generator', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           return;
         }
@@ -555,7 +556,7 @@ void dchkbd(
         // Check error code from DGEBRD.
 
         if (IINFO.value != 0) {
-          print9998('DGEBRD', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DGEBRD', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           return;
         }
@@ -587,7 +588,7 @@ void dchkbd(
         // Check error code from DORGBR.
 
         if (IINFO.value != 0) {
-          print9998('DORGBR(Q)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DORGBR(Q)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           return;
         }
@@ -610,7 +611,7 @@ void dchkbd(
         // Check error code from DORGBR.
 
         if (IINFO.value != 0) {
-          print9998('DORGBR(P)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DORGBR(P)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           return;
         }
@@ -673,7 +674,7 @@ void dchkbd(
       failed:
       while (true) {
         if (IINFO.value != 0) {
-          print9998('DBDSQR(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSQR(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -710,7 +711,7 @@ void dchkbd(
         // Check error code from DBDSQR.
 
         if (IINFO.value != 0) {
-          print9998('DBDSQR(values)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSQR(values)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -861,7 +862,7 @@ void dchkbd(
         // Check error code from DBDSDC.
 
         if (IINFO.value != 0) {
-          print9998('DBDSDC(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSDC(vects)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -897,7 +898,7 @@ void dchkbd(
         // Check error code from DBDSDC.
 
         if (IINFO.value != 0) {
-          print9998('DBDSDC(values)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSDC(values)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1001,7 +1002,7 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(vects,A)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSVDX(vects,A)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1056,7 +1057,15 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(values,A)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(
+            NOUT,
+            'DBDSVDX(values,A)',
+            IINFO.value,
+            M,
+            N,
+            JTYPE,
+            IOLDSD,
+          );
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1179,7 +1188,7 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(vects,I)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSVDX(vects,I)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1226,7 +1235,15 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(values,I)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(
+            NOUT,
+            'DBDSVDX(values,I)',
+            IINFO.value,
+            M,
+            N,
+            JTYPE,
+            IOLDSD,
+          );
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1365,7 +1382,7 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(vects,V)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(NOUT, 'DBDSVDX(vects,V)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1412,7 +1429,15 @@ void dchkbd(
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
-          print9998('DBDSVDX(values,V)', IINFO.value, M, N, JTYPE, IOLDSD);
+          print9998(
+            NOUT,
+            'DBDSVDX(values,V)',
+            IINFO.value,
+            M,
+            N,
+            JTYPE,
+            IOLDSD,
+          );
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1492,7 +1517,7 @@ void dchkbd(
       for (J = 1; J <= 34; J++) {
         if (RESULT[J] >= THRESH) {
           if (NFAIL == 0) dlahd2(NOUT, PATH);
-          print(
+          NOUT.println(
             ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}',
           );
           NFAIL = NFAIL + 1;
@@ -1511,6 +1536,7 @@ void dchkbd(
 }
 
 void print9998(
+  final Nout NOUT,
   final String s,
   final int info,
   final int m,
@@ -1518,7 +1544,7 @@ void print9998(
   final int jtype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUT.println(
     ' DCHKBD: $s returned INFO=${info.i6}.\n${' ' * 9}M=${m.i6}, N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
   );
 }

@@ -11,28 +11,17 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LVL, MSUB, N, ND;
-      // ..
-      // .. Array Arguments ..
       int                INODE( * ), NDIML( * ), NDIMR( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;
       double             TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, INT, LOG, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Find the number of levels on the tree.
 

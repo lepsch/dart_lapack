@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                J, JOB;
       double               C, GAMMA, S, SEST, SESTPR;
-      // ..
-      // .. Array Arguments ..
       double               W( J ), X( J );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double               HALF, FOUR;
       const              HALF = 0.5, FOUR = 4.0 ;
-      // ..
-      // .. Local Scalars ..
       double               ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;
       // ..
       // .. Intrinsic Functions ..
@@ -29,8 +20,6 @@
       // .. External Functions ..
       //- REAL               SDOT, SLAMCH;
       // EXTERNAL SDOT, SLAMCH
-      // ..
-      // .. Executable Statements ..
 
       EPS = SLAMCH( 'Epsilon' );
       ALPHA = SDOT( J, X, 1, W, 1 );

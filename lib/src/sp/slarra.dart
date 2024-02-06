@@ -3,31 +3,20 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
       double                SPLTOL, TNRM;
-      // ..
-      // .. Array Arguments ..
       int                ISPLIT( * );
       double               D( * ), E( * ), E2( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I;
       double               EABS, TMP1;
 
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       NSPLIT = 1;

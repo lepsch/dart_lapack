@@ -4,22 +4,13 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX;
       const              NMAX = 2 ;
-      // ..
-      // .. Local Scalars ..
       int                I, INFO, J, MB, NB;
-      // ..
-      // .. Local Arrays ..
       double               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX*2);
       // ..
       // .. External Subroutines ..
@@ -36,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
-      // ..
-      // .. Executable Statements ..
 
       NOUT = NUNIT;
       WRITE( NOUT, FMT = * );

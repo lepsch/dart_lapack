@@ -11,11 +11,7 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N, NZ, NRHS;
-      // ..
-      // .. Array Arguments ..
       double             AYB( N, NRHS ), BERR( NRHS );
       double             RES( N, NRHS );
       // ..
@@ -33,8 +29,6 @@ import 'package:lapack/src/xerbla.dart';
       // EXTERNAL DLAMCH
       double             DLAMCH;
       double             SAFE1;
-      // ..
-      // .. Executable Statements ..
 
       // Adding SAFE1 to the numerator guards against spuriously zero
       // residuals.  A similar safeguard is in the SLA_yyAMV routine used

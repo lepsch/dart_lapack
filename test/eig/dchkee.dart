@@ -155,14 +155,14 @@ void main() async {
   infoc.NUNIT = NOUT;
 
   try {
-    // String readLine() {
+    // String await NIN.readLine() {
     //   final s = NIN.readLineSync()?.trim();
     //   if (s == null) throw EOF();
     //   return s;
     // }
 
-    // void readArray<T>(Array<T> a, int n) {
-    //   final parts = readLine().split(RegExp(r'\s+'));
+    await // void NIN.readArray<T>(Array<T> a, int n) {
+    //   final parts = await NIN.readLine().split(RegExp(r'\s+'));
     //   if (parts.length < n) throw EOF();
     //   for (var i = 1; i <= n; i++) {
     //     a[i] = switch (T) {
@@ -174,21 +174,21 @@ void main() async {
     //   }
     // }
 
-    // int readInt() {
+    // int await NIN.readInt() {
     //   final a = Array<int>(1);
-    //   readArray(a, 1);
+    await //   NIN.readArray(a, 1);
     //   return a[1];
     // }
 
-    // double readDouble() {
+    // double await NIN.readDouble() {
     //   final a = Array<double>(1);
-    //   readArray(a, 1);
+    await //   NIN.readArray(a, 1);
     //   return a[1];
     // }
 
-    // bool readBool() {
+    // bool await NIN.readBool() {
     //   final a = Array<bool>(1);
-    //   readArray(a, 1);
+    await //   NIN.readArray(a, 1);
     //   return a[1];
     // }
 
@@ -196,7 +196,7 @@ void main() async {
     while (true) {
       // Read the first line and set the 3-character test path
       do {
-        LINE = await NIN.readLine();
+        LINE = await NIN.await NIN.readLine();
         PATH = LINE.substring(0, 3);
       } while (PATH.trim().isEmpty);
 
@@ -309,7 +309,7 @@ void main() async {
         continue;
       } else if (lsamen(3, PATH, 'DEC')) {
         // DEC:  Eigencondition estimation
-        THRESH = await NIN.readDouble();
+        THRESH = await NIN.await NIN.readDouble();
         xlaenv(1, 1);
         xlaenv(12, 11);
         xlaenv(13, 2);
@@ -330,7 +330,7 @@ void main() async {
 
       // Read the number of values of M, P, and N.
 
-      NN = readInt();
+      NN = await NIN.readInt();
       if (NN < 0) {
         print9989('   NN ', NN, 1);
         NN = 0;
@@ -344,7 +344,7 @@ void main() async {
       // Read the values of M
 
       if (!(DGX || DXV)) {
-        readArray(MVAL, NN);
+        await NIN.readArray(MVAL, NN);
         if (SVD) {
           VNAME = '    M ';
         } else {
@@ -366,7 +366,7 @@ void main() async {
       // Read the values of P
 
       if (GLM || GQR || GSV || CSD || LSE) {
-        readArray(PVAL, NN);
+        await NIN.readArray(PVAL, NN);
         for (I = 1; I <= NN; I++) {
           // 30
           if (PVAL[I] < 0) {
@@ -383,7 +383,7 @@ void main() async {
       // Read the values of N
 
       if (SVD || DBB || GLM || GQR || GSV || CSD || LSE) {
-        readArray(NVAL, NN);
+        await NIN.readArray(NVAL, NN);
         for (I = 1; I <= NN; I++) {
           // 40
           if (NVAL[I] < 0) {
@@ -409,8 +409,8 @@ void main() async {
       // Read the number of values of K, followed by the values of K
 
       if (DSB || DBB) {
-        NK = readInt();
-        readArray(KVAL, NK);
+        NK = await NIN.readInt();
+        await NIN.readArray(KVAL, NK);
         for (I = 1; I <= NK; I++) {
           // 60
           if (KVAL[I] < 0) {
@@ -429,7 +429,7 @@ void main() async {
         // parameters is allowed.
 
         final PARAMS = Array<int>(8);
-        readArray(PARAMS, 8);
+        await NIN.readArray(PARAMS, 8);
         NBVAL[1] = PARAMS[1];
         NBMIN[1] = PARAMS[2];
         NXVAL[1] = PARAMS[3];
@@ -485,7 +485,7 @@ void main() async {
         // of parameters is allowed.
 
         final PARAMS = Array<int>(8);
-        readArray(PARAMS, 8);
+        await NIN.readArray(PARAMS, 8);
         NBVAL[1] = PARAMS[1];
         NBMIN[1] = PARAMS[2];
         NXVAL[1] = PARAMS[3];
@@ -522,7 +522,7 @@ void main() async {
         // For the other paths, the number of parameters can be varied
         // from the input file.  Read the number of parameter values.
 
-        NPARMS = readInt();
+        NPARMS = await NIN.readInt();
         if (NPARMS < 1) {
           print9989('NPARMS', NPARMS, 1);
           NPARMS = 0;
@@ -536,7 +536,7 @@ void main() async {
         // Read the values of NB
 
         if (!DBB) {
-          readArray(NBVAL, NPARMS);
+          await NIN.readArray(NBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 70
             if (NBVAL[I] < 0) {
@@ -553,7 +553,7 @@ void main() async {
         // Read the values of NBMIN
 
         if (NEP || SEP || SVD || DGG) {
-          readArray(NBMIN, NPARMS);
+          await NIN.readArray(NBMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 80
             if (NBMIN[I] < 0) {
@@ -575,7 +575,7 @@ void main() async {
         // Read the values of NX
 
         if (NEP || SEP || SVD) {
-          readArray(NXVAL, NPARMS);
+          await NIN.readArray(NXVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 100
             if (NXVAL[I] < 0) {
@@ -598,7 +598,7 @@ void main() async {
         // or DBB).
 
         if (SVD || DBB || DGG) {
-          readArray(NSVAL, NPARMS);
+          await NIN.readArray(NSVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 120
             if (NSVAL[I] < 0) {
@@ -620,7 +620,7 @@ void main() async {
         // Read the values for MAXB.
 
         if (DGG) {
-          readArray(MXBVAL, NPARMS);
+          await NIN.readArray(MXBVAL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 140
             if (MXBVAL[I] < 0) {
@@ -642,7 +642,7 @@ void main() async {
         // Read the values for INMIN.
 
         if (NEP) {
-          readArray(INMIN, NPARMS);
+          await NIN.readArray(INMIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 540
             if (INMIN[I] < 0) {
@@ -661,7 +661,7 @@ void main() async {
         // Read the values for INWIN.
 
         if (NEP) {
-          readArray(INWIN, NPARMS);
+          await NIN.readArray(INWIN, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 560
             if (INWIN[I] < 0) {
@@ -680,7 +680,7 @@ void main() async {
         // Read the values for INIBL.
 
         if (NEP) {
-          readArray(INIBL, NPARMS);
+          await NIN.readArray(INIBL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 580
             if (INIBL[I] < 0) {
@@ -699,7 +699,7 @@ void main() async {
         // Read the values for ISHFTS.
 
         if (NEP) {
-          readArray(ISHFTS, NPARMS);
+          await NIN.readArray(ISHFTS, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 600
             if (ISHFTS[I] < 0) {
@@ -718,7 +718,7 @@ void main() async {
         // Read the values for IACC22.
 
         if (NEP || DGG) {
-          readArray(IACC22, NPARMS);
+          await NIN.readArray(IACC22, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 620
             if (IACC22[I] < 0) {
@@ -737,7 +737,7 @@ void main() async {
         // Read the values for NBCOL.
 
         if (DGG) {
-          readArray(NBCOL, NPARMS);
+          await NIN.readArray(NBCOL, NPARMS);
           for (I = 1; I <= NPARMS; I++) {
             // 160
             if (NBCOL[I] < 0) {
@@ -769,31 +769,31 @@ void main() async {
 
       // Read the threshold value for the test ratios.
 
-      THRESH = readDouble();
+      THRESH = await NIN.readDouble();
       print(
         ' Routines pass computational tests if test ratio is less than ${THRESH.toStringAsFixed(2)}',
       );
       if (SEP || SVD || DGG) {
         // Read the flag that indicates whether to test LAPACK routines.
 
-        TSTCHK = readBool();
+        TSTCHK = await NIN.readBool();
 
         // Read the flag that indicates whether to test driver routines.
 
-        TSTDRV = readBool();
+        TSTDRV = await NIN.readBool();
       }
 
       // Read the flag that indicates whether to test the error exits.
 
-      TSTERR = readBool();
+      TSTERR = await NIN.readBool();
 
       // Read the code describing how to set the random number seed.
 
-      NEWSD = readInt();
+      NEWSD = await NIN.readInt();
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
 
-      if (NEWSD == 2) readArray(IOLDSD, 4);
+     if (NEWSD == 2) await NIN.readArray(IOLDSD, 4);
 
       for (I = 1; I <= 4; I++) {
         // 180
@@ -816,7 +816,7 @@ void main() async {
           nextLine:
           while (true) {
             // 200
-            LINE = readLine();
+            LINE = await NIN.readLine();
             C3 = LINE.substring(0, 3);
             LENP = LINE.length;
             I = 3;
@@ -899,7 +899,7 @@ void main() async {
 
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(1, 1);
           if (TSTERR) derrhs('DHSEQR', NOUT);
           for (I = 1; I <= NPARMS; I++) {
@@ -973,7 +973,7 @@ void main() async {
 
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(1, 1);
           xlaenv(9, 25);
           if (TSTERR) {
@@ -1012,30 +1012,30 @@ void main() async {
                   NOUT,
                   A(1, 1),
                   NMAX,
-                  A(1, 2),
-                  D(1, 1),
-                  D(1, 2),
-                  D(1, 3),
-                  D(1, 4),
-                  D(1, 5),
-                  D(1, 6),
-                  D(1, 7),
-                  D(1, 8),
-                  D(1, 9),
-                  D(1, 10),
-                  D(1, 11),
+                  A(1, 2).asArray(),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  D(1, 5).asArray(),
+                  D(1, 6).asArray(),
+                  D(1, 7).asArray(),
+                  D(1, 8).asArray(),
+                  D(1, 9).asArray(),
+                  D(1, 10).asArray(),
+                  D(1, 11).asArray(),
                   A(1, 3),
                   NMAX,
                   A(1, 4),
-                  A(1, 5),
-                  D(1, 12),
+                  A(1, 5).asArray(),
+                  D(1, 12).asArray(),
                   A(1, 6),
                   WORK,
                   LWORK,
                   IWORK,
                   LIWORK,
                   RESULT,
-                  INFO.value,
+                  INFO,
                 );
               } else {
                 dchkst(
@@ -1048,30 +1048,30 @@ void main() async {
                   NOUT,
                   A(1, 1),
                   NMAX,
-                  A(1, 2),
-                  D(1, 1),
-                  D(1, 2),
-                  D(1, 3),
-                  D(1, 4),
-                  D(1, 5),
-                  D(1, 6),
-                  D(1, 7),
-                  D(1, 8),
-                  D(1, 9),
-                  D(1, 10),
-                  D(1, 11),
+                  A(1, 2).asArray(),
+                  D(1, 1).asArray(),
+                  D(1, 2).asArray(),
+                  D(1, 3).asArray(),
+                  D(1, 4).asArray(),
+                  D(1, 5).asArray(),
+                  D(1, 6).asArray(),
+                  D(1, 7).asArray(),
+                  D(1, 8).asArray(),
+                  D(1, 9).asArray(),
+                  D(1, 10).asArray(),
+                  D(1, 11).asArray(),
                   A(1, 3),
                   NMAX,
                   A(1, 4),
-                  A(1, 5),
-                  D(1, 12),
+                  A(1, 5).asArray(),
+                  D(1, 12).asArray(),
                   A(1, 6),
                   WORK,
                   LWORK,
                   IWORK,
                   LIWORK,
                   RESULT,
-                  INFO.value,
+                  INFO,
                 );
               }
               if (INFO.value != 0) print9980('DCHKST', INFO.value);
@@ -1106,7 +1106,7 @@ void main() async {
                   IWORK,
                   LIWORK,
                   RESULT,
-                  INFO.value,
+                  INFO,
                 );
               } else {
                 ddrvst(
@@ -1137,7 +1137,7 @@ void main() async {
                   IWORK,
                   LIWORK,
                   RESULT,
-                  INFO.value,
+                  INFO,
                 );
               }
               if (INFO.value != 0) print9980('DDRVST', INFO.value);
@@ -1154,7 +1154,7 @@ void main() async {
 
           MAXTYP = 21;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(9, 25);
           for (I = 1; I <= NPARMS; I++) {
             // 310
@@ -1200,7 +1200,7 @@ void main() async {
                 IWORK,
                 LIWORK,
                 RESULT,
-                INFO.value,
+                INFO,
               );
               if (INFO.value != 0) print9980('DDRVSG', INFO.value);
             }
@@ -1217,7 +1217,7 @@ void main() async {
 
           MAXTYP = 16;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(1, 1);
           xlaenv(9, 25);
 
@@ -1253,10 +1253,10 @@ void main() async {
                 THRESH,
                 A(1, 1),
                 NMAX,
-                D(1, 1),
-                D(1, 2),
-                D(1, 3),
-                D(1, 4),
+                D(1, 1).asArray(),
+                D(1, 2).asArray(),
+                D(1, 3).asArray(),
+                D(1, 4).asArray(),
                 A(1, 2),
                 NMAX,
                 A(1, 3),
@@ -1271,7 +1271,7 @@ void main() async {
                 LWORK,
                 IWORK,
                 NOUT,
-                INFO.value,
+                INFO,
               );
               if (INFO.value != 0) print9980('DCHKBD', INFO.value);
             }
@@ -1300,7 +1300,7 @@ void main() async {
                 LWORK,
                 IWORK,
                 NOUT,
-                INFO.value,
+                INFO,
               );
             }
           } // 330
@@ -1316,7 +1316,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrvev(
               NN,
               NVAL,
@@ -1360,7 +1360,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrves(
               NN,
               NVAL,
@@ -1402,7 +1402,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrvvx(
               NN,
               NVAL,
@@ -1455,7 +1455,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derred(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrvsx(
               NN,
               NVAL,
@@ -1503,7 +1503,7 @@ void main() async {
 
           MAXTYP = 26;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           xlaenv(1, 1);
           if (TSTCHK && TSTERR) derrgg(C3, NOUT);
           for (I = 1; I <= NPARMS; I++) {
@@ -1563,7 +1563,7 @@ void main() async {
                 LWORK,
                 LOGWRK,
                 RESULT,
-                INFO.value,
+                INFO,
               );
               if (INFO.value != 0) print9980('DCHKGG', INFO.value);
             }
@@ -1580,7 +1580,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrges(
               NN,
               NVAL,
@@ -1652,7 +1652,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             xlaenv(5, 2);
             ddrgsx(
               NN,
@@ -1696,7 +1696,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrgev(
               NN,
               NVAL,
@@ -1775,7 +1775,7 @@ void main() async {
             print9990(C3);
           } else {
             if (TSTERR) derrgg(C3, NOUT);
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
             ddrgvx(
               NN,
               THRESH,
@@ -1819,7 +1819,7 @@ void main() async {
 
           MAXTYP = 15;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           if (TSTERR) derrst('DSB', NOUT);
           // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
           // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
@@ -1856,7 +1856,7 @@ void main() async {
 
           MAXTYP = 15;
           NTYPES = min(MAXTYP, NTYPES);
-          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
           for (I = 1; I <= NPARMS; I++) {
             // 370
             NRHS = NSVAL[I];

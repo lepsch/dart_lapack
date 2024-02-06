@@ -3,30 +3,19 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2;
       double               SCALE, XNORM;
-      // ..
-      // .. Array Arguments ..
       double               B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double               TWO, HALF, EIGHT;
       const              TWO = 2.0, HALF = 0.5, EIGHT = 8.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               BSWAP, XSWAP;
       int                I, IP, IPIV, IPSV, J, JP, JPSV, K;
       double               BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX;
-      // ..
-      // .. Local Arrays ..
       bool               BSWPIV( 4 ), XSWPIV( 4 );
       int                JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 );
       double               BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
@@ -46,8 +35,6 @@
       const LOCU12 = 3, 4, 1, 2, LOCL21 = 2, 1, 4, 3, LOCU22 = 4, 3, 2, 1;
       const XSWPIV = [ false , false , true , true ];
       const BSWPIV = [ false , true , false , true ];
-      // ..
-      // .. Executable Statements ..
 
       // Do not check the input parameters for errors
 

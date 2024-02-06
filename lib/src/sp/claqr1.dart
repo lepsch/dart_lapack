@@ -3,12 +3,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       Complex            S1, S2;
       int                LDH, N;
-      // ..
-      // .. Array Arguments ..
       Complex            H( LDH, * ), V( * );
       // ..
 
@@ -19,8 +15,6 @@
       const              ZERO = ( 0.0, 0.0 ) ;
       double               RZERO;
       const              RZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       Complex            CDUM, H21S, H31S;
       double               S;
       // ..
@@ -32,8 +26,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

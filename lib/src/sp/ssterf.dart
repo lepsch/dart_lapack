@@ -3,23 +3,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, N;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), E( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE, TWO, THREE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       int                MAXIT;
       const              MAXIT = 30 ;
-      // ..
-      // .. Local Scalars ..
       int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;
       double               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN;
       // ..
@@ -32,8 +23,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

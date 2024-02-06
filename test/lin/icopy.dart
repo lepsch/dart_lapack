@@ -3,11 +3,7 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCX, INCY, N;
-      // ..
-      // .. Array Arguments ..
       int                SX( * ), SY( * );
       // ..
 
@@ -18,8 +14,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
-      // ..
-      // .. Executable Statements ..
 
       if (N <= 0) return;
       IF( INCX == 1 && INCY == 1 ) GO TO 20;

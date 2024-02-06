@@ -11,32 +11,21 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
       double              PIVMIN, RELTOL, VL, VU, WL, WU;
-      // ..
-      // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * );
       double             D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TWO, HALF, FUDGE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = ONE/TWO, FUDGE = TWO ;
       int       ALLRNG, VALRNG, INDRNG;
       const     ALLRNG = 1, VALRNG = 2, INDRNG = 3 ;
-      // ..
-      // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU;
       double             ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL;
 
-      // ..
-      // .. Local Arrays ..
       int                IDUMMA( 1 );
       // ..
       // .. External Functions ..
@@ -50,8 +39,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       M = 0;

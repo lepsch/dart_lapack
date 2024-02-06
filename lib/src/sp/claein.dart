@@ -3,27 +3,18 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
       double               EPS3, SMLNUM;
       Complex            W;
-      // ..
-      // .. Array Arguments ..
       double               RWORK( * );
       Complex            B( LDB, * ), H( LDH, * ), V( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, TENTH;
       const              ONE = 1.0, TENTH = 1.0e-1 ;
       Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J;
       double               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
@@ -46,8 +37,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

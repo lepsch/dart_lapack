@@ -3,25 +3,16 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
-      // ..
-      // .. Array Arguments ..
       double               RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       String             NORMAB, TRANS;
       int                J, JVEC;
       double               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
@@ -42,8 +33,6 @@
       // ..
       // .. Statement Function definitions ..
       ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       RESULT[1] = ZERO;
       RESULT[2] = ZERO;

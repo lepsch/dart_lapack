@@ -4,8 +4,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
       // .. Return values ..
       double           RESULT(6);
@@ -19,12 +17,8 @@
       // .. Parameters ..
       double           ONE, ZERO;
       const    ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int     INFO, J, K, N2, NP1,i;
       double             ANORM, EPS, RESID, CNORM, DNORM;
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 );
       // ..
       // .. External Functions ..

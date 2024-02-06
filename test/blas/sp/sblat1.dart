@@ -3,9 +3,6 @@
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int              NOUT;
       const            NOUT=6;
       // .. Scalars in Common ..
@@ -641,8 +638,6 @@
       // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
 
       // C.L. LAWSON, JPL, 1978 DEC 6
-
-      // .. Scalar Arguments ..
       double              SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
       double              SSIZE(*);
@@ -661,8 +656,6 @@
       double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
-
-      // .. Scalar Arguments ..
       double                            SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;

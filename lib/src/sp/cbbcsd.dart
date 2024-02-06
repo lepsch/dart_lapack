@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS;
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LRWORK, M, P, Q;
-      // ..
-      // .. Array Arguments ..
       double               B11D( * ), B11E( * ), B12D( * ), B12E( * ), B21D( * ), B21E( * ), B22D( * ), B22E( * ), PHI( * ), THETA( * ), RWORK( * );
       Complex            U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * );
       // ..
@@ -24,8 +20,6 @@
       const              NEGONECOMPLEX = (-1.0,0.0) ;
       double               PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
-      // ..
-      // .. Local Scalars ..
       bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T;
       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LRWORKMIN, LRWORKOPT, MAXIT, MINI;
       double               B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;
@@ -40,8 +34,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, ATAN2, COS, MAX, MIN, SIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

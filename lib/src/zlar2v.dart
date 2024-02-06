@@ -3,11 +3,7 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCC, INCX, N;
-      // ..
-      // .. Array Arguments ..
       double             C( * );
       Complex         S( * ), X( * ), Y( * ), Z( * );
       // ..
@@ -21,8 +17,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DCONJG, DIMAG
-      // ..
-      // .. Executable Statements ..
 
       IX = 1;
       IC = 1;

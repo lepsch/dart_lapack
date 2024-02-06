@@ -3,27 +3,18 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KASE, N;
       double               EST;
-      // ..
-      // .. Array Arguments ..
       int                ISAVE( 3 );
       Complex            V( * ), X( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                  ITMAX;
       const              ITMAX = 5 ;
       double                 ONE,         TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       Complex              CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, JLAST;
       double               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
       // ..
@@ -37,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, REAL
-      // ..
-      // .. Executable Statements ..
 
       SAFMIN = SLAMCH( 'Safe minimum' );
       if ( KASE == 0 ) {

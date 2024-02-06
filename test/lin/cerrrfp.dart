@@ -3,20 +3,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                NUNIT;
       // ..
 
 // =====================================================================
 
-      // ..
-      // .. Local Scalars ..
       int                INFO;
       Complex            ALPHACMPLX;
       double               ALPHA, BETA;
-      // ..
-      // .. Local Arrays ..
       Complex            A( 1, 1), B( 1, 1);
       // ..
       // .. External Subroutines ..
@@ -33,8 +27,6 @@
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
       // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Executable Statements ..
 
       NOUT = NUNIT;
       OK = true;

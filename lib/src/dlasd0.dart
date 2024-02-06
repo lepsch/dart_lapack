@@ -11,11 +11,7 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDU, LDVT, N, SMLSIZ, SQRE;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
@@ -28,8 +24,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASD1, DLASDQ, DLASDT, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

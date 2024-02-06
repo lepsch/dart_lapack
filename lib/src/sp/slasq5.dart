@@ -3,13 +3,9 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, N0, PP;
       double               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS;
-      // ..
-      // .. Array Arguments ..
       double               Z( * );
       // ..
 
@@ -18,15 +14,11 @@
       // .. Parameter ..
       double               ZERO, HALF;
       const              ZERO = 0.0, HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       int                J4, J4P2;
       double               D, EMIN, TEMP, DTHRESH;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
-      // ..
-      // .. Executable Statements ..
 
       if( ( N0-I0-1 ) <= 0 ) return;
 

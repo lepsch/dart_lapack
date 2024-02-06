@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               ZI, ZR;
       // ..
 
@@ -19,8 +17,6 @@
       // ..
       // .. Common blocks ..
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-      // ..
-      // .. Local Scalars ..
       int                I;
       double               RMIN, X;
       // ..
@@ -31,8 +27,6 @@
       // .. External Functions ..
       //- REAL               SLAPY2;
       // EXTERNAL SLAPY2
-      // ..
-      // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
          SSLECT = ( ZR < ZERO );

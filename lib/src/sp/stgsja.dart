@@ -3,25 +3,16 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
       double               TOLA, TOLB;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 40 ;
       double               ZERO, ONE, HUGENUM;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
 
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
@@ -37,8 +28,6 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, HUGE
       const              HUGENUM = HUGE(ZERO) ;
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test the input parameters
 

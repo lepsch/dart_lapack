@@ -3,22 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NNS, NOUT;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * );
       double               COPYS( * ), S( * );
       Complex            A( * ), B( * ), C( * ), COPYA( * ), COPYB( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NTESTS;
       const              NTESTS = 18 ;
       int                SMLSIZ;
@@ -27,14 +20,10 @@
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       String             TRANS;
       String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_CGELS, LWORK_CGELST, LWORK_CGETSLS, LWORK_CGELSS, LWORK_CGELSY,  LWORK_CGELSD, LRWORK_CGELSY, LRWORK_CGELSS, LRWORK_CGELSD;
       double               EPS, NORMA, NORMB, RCOND;
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
       double               RESULT( NTESTS ), RWQ( 1 );
       Complex            WQ( 1 );
@@ -65,8 +54,6 @@
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

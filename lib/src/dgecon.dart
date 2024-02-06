@@ -11,30 +11,19 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, LDA, N;
       double             ANORM, RCOND;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1;
       double             AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
-      // ..
-      // .. Local Arrays ..
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
@@ -48,8 +37,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       HUGEVAL = dlamch( 'Overflow' );
 

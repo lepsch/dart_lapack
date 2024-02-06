@@ -3,28 +3,17 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double               X( N );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
       int                LV, IPW2;
       double               R;
       const              LV = 128, IPW2 = 4096, R = ONE / IPW2 ;
-      // ..
-      // .. Local Scalars ..
       int                I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J;
-      // ..
-      // .. Local Arrays ..
       int                MM( LV, 4 );
       // ..
       // .. Intrinsic Functions ..
@@ -159,8 +148,6 @@
       DATA               ( MM( 126, J ), J = 1, 4 ) / 2573, 1368, 3508, 3017 /;
       DATA               ( MM( 127, J ), J = 1, 4 ) / 1148, 1848, 3525, 2141 /;
       DATA               ( MM( 128, J ), J = 1, 4 ) / 545, 2366, 3801, 1537 /;
-      // ..
-      // .. Executable Statements ..
 
       // Quick return for N < 1
       if ( N < 1 ) {

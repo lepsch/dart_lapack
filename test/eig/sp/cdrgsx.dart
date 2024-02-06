@@ -3,34 +3,23 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       double               RWORK( * ), S( * );
       Complex            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
       double               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
       Complex            X;
-      // ..
-      // .. Local Arrays ..
       double               DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
@@ -57,8 +46,6 @@
       // ..
       // .. Statement Function definitions ..
       ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

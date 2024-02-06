@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       int                NIN, NMATS, NOUT, NTYPES;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       // ..
 
@@ -20,8 +16,6 @@
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, J, K, LENP, NT;
-      // ..
-      // .. Local Arrays ..
       int                NREQ( 100 );
       // ..
       // .. Intrinsic Functions ..
@@ -29,8 +23,6 @@
       // ..
       // .. Data statements ..
       const INTSTR = '0123456789';
-      // ..
-      // .. Executable Statements ..
 
       if ( NMATS >= NTYPES ) {
 

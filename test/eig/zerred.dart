@@ -7,26 +7,17 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX, LW;
       const              NMAX = 4, LW = 5*NMAX ;
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
       double             ABNRM;
-      // ..
-      // .. Local Arrays ..
       bool               B( NMAX );
       int                IW( 4*NMAX );
       double             R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX );
@@ -55,8 +46,6 @@ import 'common.dart';
       // COMMON / infoc / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
       // COMMON / srnamc / srnamc.SRNAMT
       // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
-      // ..
-      // .. Executable Statements ..
 
       infoc.NOUT = NUNIT;
       WRITE( infoc.NOUT, FMT = * );

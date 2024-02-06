@@ -3,20 +3,13 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
       Complex            SWORK( * );
       Complex         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       bool               DOITREF;
       const              DOITREF = true ;
 
@@ -50,8 +43,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       ITER = 0;

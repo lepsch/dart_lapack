@@ -3,37 +3,26 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * );
       double               RWORK( * ), S( * );
       Complex            A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 9 ;
       int                NTESTS;
       const              NTESTS = 6 ;
-      // ..
-      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS;
       double               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND, RPVGRW_SVXX;
-      // ..
-      // .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
@@ -63,8 +52,6 @@
       const UPLOS = [ 'U', 'L' ];
       const FACTS = [ 'F', 'N', 'E' ];
       const EQUEDS = [ 'N', 'Y' ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

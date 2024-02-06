@@ -11,15 +11,10 @@ import 'package:lapack/src/xerbla.dart';
       IMPLICIT    NONE;
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;
-      // ..
-      // .. Array Arguments ..
       double           A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       double           S( * ), RWORK( * );
       int              IWORK( * );
 
-// =====================================================================
-
-      // .. Parameters ..
       double           ZERO,         ONE;
       const          ZERO = 0.0, ONE = 1.0 ;
       // .. Local Scalars ..

@@ -3,13 +3,9 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH;
       bool               COLEQU, IGNORE_CWISE;
       double               RTHRESH, DZ_UB;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
       // ..
@@ -46,8 +42,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       if (INFO != 0) return;
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE);

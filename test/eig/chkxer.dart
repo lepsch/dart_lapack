@@ -3,16 +3,12 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               LERR, OK;
       List<String>        srnamc.SRNAMT;
       int                INFOT, NOUT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-      // ..
-      // .. Executable Statements ..
       if ( !LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT,srnamc.SRNAMT( 1:LEN_TRIM(srnamc.SRNAMT ) );
          OK = false;

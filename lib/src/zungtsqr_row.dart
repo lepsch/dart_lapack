@@ -4,25 +4,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
-      // ..
-      // .. Array Arguments ..
       Complex        A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY;
       int                NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1;
-      // ..
-      // .. Local Arrays ..
       Complex         DUMMY( 1, 1 );
       // ..
       // .. External Subroutines ..
@@ -30,8 +19,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters
 

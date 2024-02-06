@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T, JOBV2T, SIGNS, TRANS;
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LDX11, LDX12, LDX21, LDX22, LRWORK, LWORK, M, P, Q;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             THETA( * );
       double             RWORK( * );
@@ -20,8 +16,6 @@
       // .. Parameters ..
       Complex         ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
-      // ..
-      // .. Local Scalars ..
       String             TRANST, SIGNST;
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, ITAUQ2, J, LBBCSDWORK, LBBCSDWORKMIN, LBBCSDWORKOPT, LORBDBWORK, LORBDBWORKMIN, LORBDBWORKOPT, LORGLQWORK, LORGLQWORKMIN, LORGLQWORKOPT, LORGQRWORK, LORGQRWORKMIN, LORGQRWORKOPT, LWORKMIN, LWORKOPT, P1, Q1;
       bool               COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T;
@@ -37,8 +31,6 @@
       // ..
       // .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

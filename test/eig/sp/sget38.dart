@@ -3,18 +3,11 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT, NIN;
-      // ..
-      // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
       double               RMAX( 3 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double               EPSIN;
@@ -23,12 +16,8 @@
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       int                LIWORK;
       const              LIWORK = LDT*LDT ;
-      // ..
-      // .. Local Scalars ..
       int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM;
       double               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
-      // ..
-      // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK );
       double               Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT );
@@ -42,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' ) / EPS;

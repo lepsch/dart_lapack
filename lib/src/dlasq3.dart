@@ -11,25 +11,16 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP;
       double             DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
-      // ..
-      // .. Array Arguments ..
       double             Z( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             CBIAS;
       const              CBIAS = 1.50 ;
       double             ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
       const              ZERO = 0.0, QURTR = 0.250, HALF = 0.5, ONE = 1.0, TWO = 2.0, HUNDRD = 100.0 ;
-      // ..
-      // .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE;
       double             EPS, S, T, TEMP, TOL, TOL2;
       // ..
@@ -43,8 +34,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       N0IN = N0;
       EPS = dlamch( 'Precision' );

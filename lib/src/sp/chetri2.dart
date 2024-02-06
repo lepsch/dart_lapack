@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
@@ -27,8 +23,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHETRI2X, CHETRI, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

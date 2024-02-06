@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB;
       double             ALPHA;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         ONE, TWO, ZERO, HALF, TWENTY;
       const              ONE = ( 1.0, 0.0 ), TWO = ( 2.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), TWENTY = ( 2.0e+1, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, J, K;
       Complex         IMEPS, REEPS;
       // ..
@@ -27,8 +18,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM
-      // ..
-      // .. Executable Statements ..
 
       if ( PRTYPE == 1 ) {
          for (I = 1; I <= M; I++) { // 20

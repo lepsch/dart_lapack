@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       double               THRESH;
@@ -17,8 +15,6 @@
       String             PATH;
       int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC;
       double               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC;
-      // ..
-      // .. Local Arrays ..
       int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
       double               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 );
       // ..
@@ -28,8 +24,6 @@
       // .. External Functions ..
       //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
-      // ..
-      // .. Executable Statements ..
 
       PATH[1: 1] = 'Single precision';
       PATH[2: 3] = 'EC';

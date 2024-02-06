@@ -7,26 +7,17 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
       double             A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double            ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       int                MAXTYP;
       const              MAXTYP = 5 ;
-      // ..
-      // .. Local Scalars ..
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       String             PATH;
@@ -38,8 +29,6 @@ import 'common.dart';
       // ..
       // .. Local Arrays for DGESVDQ ..
       double             RWORK( 2 );
-      // ..
-      // .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 );
       double             RESULT( 39 );
@@ -67,8 +56,6 @@ import 'common.dart';
       const CJOB = [ 'N', 'O', 'S', 'A' ];
       const CJOBR = [ 'A', 'V', 'I' ];
       const CJOBV = [ 'N', 'V' ];
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

@@ -11,26 +11,15 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
       double             ALPHA, BETA;
-      // ..
-      // .. Array Arguments ..
       int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * );
       double             D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
-      // ..
-      // .. Local Arrays ..
       int                CTOT( 4 ), PSM( 4 );
-      // ..
-      // .. Local Scalars ..
       int                CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2;
       double             C, EPS, HLFTOL, S, TAU, TOL, Z1;
       // ..
@@ -43,8 +32,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

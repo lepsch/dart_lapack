@@ -7,6 +7,7 @@ import 'package:lapack/src/dlaset.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
 import '../matgen/dlatmr.dart';
@@ -28,7 +29,7 @@ void dchkbb(
   final int NRHS,
   final Array<int> ISEED,
   final double THRESH,
-  final int NOUNIT,
+  final Nout NOUNIT,
   final Matrix<double> A,
   final int LDA,
   final Matrix<double> AB,
@@ -113,21 +114,19 @@ void dchkbb(
   NMAX = 1;
   MNMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     MMAX = max(MMAX, MVAL[J]);
     if (MVAL[J] < 0) BADMM = true;
     NMAX = max(NMAX, NVAL[J]);
     if (NVAL[J] < 0) BADNN = true;
     MNMAX = max(MNMAX, min(MVAL[J], NVAL[J]));
-  } // 10
+  }
 
   BADNNB = false;
   KMAX = 0;
   for (J = 1; J <= NWDTHS; J++) {
-    // 20
     KMAX = max(KMAX, KK[J]);
     if (KK[J] < 0) BADNNB = true;
-  } // 20
+  }
 
   // Check for errors
 
@@ -183,14 +182,12 @@ void dchkbb(
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 160
     M = MVAL[JSIZE];
     N = NVAL[JSIZE];
     // MNMIN = min(M, N);
     AMNINV = ONE / (max(1, max(M, N))).toDouble();
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
-      // 150
       K = KK[JWIDTH];
       if (K >= M && K >= N) continue;
       KL = max(0, min(M - 1, K));
@@ -259,9 +256,8 @@ void dchkbb(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[JCOL][JCOL] = ANORM;
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, singular values specified
 
@@ -375,7 +371,7 @@ void dchkbb(
           );
 
           if (IINFO.value != 0) {
-            print9999('Generator', IINFO.value, M, N, K, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'Generator', IINFO.value, M, N, K, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             return;
           }
@@ -385,9 +381,8 @@ void dchkbb(
 
         for (J = 1; J <= N; J++) {
           for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-            // 100
             AB[KU + 1 + I - J][J] = A[I][J];
-          } // 100
+          }
         }
 
         // Copy C
@@ -418,7 +413,7 @@ void dchkbb(
         );
 
         if (IINFO.value != 0) {
-          print9999('DGBBRD', IINFO.value, M, N, K, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DGBBRD', IINFO.value, M, N, K, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -439,7 +434,7 @@ void dchkbb(
           // End of Loop -- Check for RESULT[j] > THRESH
 
           NTEST = 4;
-        } // 120
+        }
         NTESTT = NTESTT + NTEST;
 
         // Print out tests which fail.
@@ -448,18 +443,19 @@ void dchkbb(
           if (RESULT[JR] >= THRESH) {
             if (NERRS == 0) dlahd2(NOUNIT, 'DBB');
             NERRS = NERRS + 1;
-            print9998(M, N, K, IOLDSD, JTYPE, JR, RESULT[JR]);
+            print9998(NOUNIT, M, N, K, IOLDSD, JTYPE, JR, RESULT[JR]);
           }
         }
       }
-    } // 150
-  } // 160
+    }
+  }
 
   // Summary
   dlasum('DBB', NOUNIT, NERRS, NTESTT);
 }
 
 void print9998(
+  final Nout NOUNIT,
   final int m,
   final int n,
   final int k,
@@ -468,12 +464,13 @@ void print9998(
   final int test,
   final double result,
 ) {
-  print(
+  NOUNIT.println(
     ' M =${m.i4} N=${n.i4}, K=${m.i3}, seed=${seed[1].i4},${seed[2].i4},${seed[3].i4},${seed[4].i4} type ${type.i2}, test(${test.i2})=${result.g10_3}',
   );
 }
 
 void print9999(
+  final Nout NOUNIT,
   final String s,
   final int info,
   final int m,
@@ -482,7 +479,7 @@ void print9999(
   final int jtype,
   final Array<int> iseed,
 ) {
-  print(
+  NOUNIT.println(
     ' DCHKBB: $s returned INFO=${info.i5}.\n         M=${m.i5} N=${n.i5} K=${k.i5}, JTYPE=${jtype.i5}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})',
   );
 }

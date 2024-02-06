@@ -4,22 +4,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             IDENT;
       int                K, LDA, LDB, LDT, LDWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               LNOTIDENT;
       int                I, J;
       // ..
@@ -29,8 +20,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZGEMM, ZTRMM
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

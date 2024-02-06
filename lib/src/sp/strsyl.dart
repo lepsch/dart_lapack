@@ -3,28 +3,17 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
       double               SCALE;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT;
       double               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM;
-      // ..
-      // .. Local Arrays ..
       double               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
       // ..
       // .. External Functions ..
@@ -37,8 +26,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Decode and Test input parameters
 

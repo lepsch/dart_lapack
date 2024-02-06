@@ -3,32 +3,21 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IJOB, LDZ, N;
       double             RDSCAL, RDSUM;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
       Complex         RHS( * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                MAXDIM;
       const              MAXDIM = 2 ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, INFO, J, K;
       double             RTEMP, SCALE, SMINU, SPLUS;
       Complex         BM, BP, PMONE, TEMP;
-      // ..
-      // .. Local Arrays ..
       double             RWORK( MAXDIM );
       Complex         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
       // ..
@@ -42,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, SQRT
-      // ..
-      // .. Executable Statements ..
 
       if ( IJOB != 2 ) {
 

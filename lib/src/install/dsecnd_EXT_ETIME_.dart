@@ -6,15 +6,11 @@
 
       // .. Local Scalars ..
       double               T1;
-      // ..
-      // .. Local Arrays ..
       double               TARRAY( 2 );
       // ..
       // .. External Functions ..
       //- REAL               ETIME_;
       // EXTERNAL ETIME_
-      // ..
-      // .. Executable Statements ..
 
       T1 = ETIME_( TARRAY );
       DSECND = TARRAY( 1 );

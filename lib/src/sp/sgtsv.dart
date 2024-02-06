@@ -3,21 +3,12 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double               B( LDB, * ), D( * ), DL( * ), DU( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J;
       double               FACT, TEMP;
       // ..
@@ -26,8 +17,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       if ( N < 0 ) {

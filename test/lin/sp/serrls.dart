@@ -3,24 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX;
       const              NMAX = 2 ;
-      // ..
-      // .. Local Scalars ..
       String             C2;
       int                INFO, IRNK;
       double               RCOND;
-      // ..
-      // .. Local Arrays ..
       int                IP( NMAX );
       double               A( NMAX, NMAX ), B( NMAX, NMAX ), S( NMAX ), W( NMAX );
       // ..
@@ -39,8 +30,6 @@
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NOUT, OK, LERR
       // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Executable Statements ..
 
       NOUT = NUNIT;
       WRITE( NOUT, FMT = * );

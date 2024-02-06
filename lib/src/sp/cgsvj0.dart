@@ -9,8 +9,6 @@
       int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP;
       double               EPS, SFMIN, TOL;
       String             JOBV;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
       double               SVA( N );
       // ..
@@ -22,8 +20,6 @@
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       Complex      CZERO,                  CONE;
       const      CZERO = (0.0, 0.0), CONE = (1.0, 0.0) ;
-      // ..
-      // .. Local Scalars ..
       Complex            AAPQ, OMPQ;
       double               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND;
@@ -47,8 +43,6 @@
       // EXTERNAL CCOPY, CROT, CSWAP, CAXPY
       // from LAPACK
       // EXTERNAL CLASCL, CLASSQ, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

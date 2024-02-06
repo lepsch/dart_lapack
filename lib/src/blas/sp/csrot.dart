@@ -3,12 +3,8 @@
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int               INCX, INCY, N;
       double              C, S;
-      // ..
-      // .. Array Arguments ..
       Complex           CX( * ), CY( * );
       // ..
 
@@ -17,8 +13,6 @@
       // .. Local Scalars ..
       int               I, IX, IY;
       Complex           CTEMP;
-      // ..
-      // .. Executable Statements ..
 
       if (N <= 0) return;
       if ( INCX == 1 && INCY == 1 ) {

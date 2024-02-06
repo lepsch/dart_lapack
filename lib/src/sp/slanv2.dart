@@ -3,20 +3,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               A, B, C, CS, D, RT1I, RT1R, RT2I, RT2R, SN;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, HALF, ONE, TWO;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
       double               MULTPL;
       const              MULTPL = 4.0 ;
-      // ..
-      // .. Local Scalars ..
       double               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2;
       int                COUNT;
       // ..
@@ -26,8 +19,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SIGN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       SAFMIN = SLAMCH( 'S' );
       EPS = SLAMCH( 'P' );

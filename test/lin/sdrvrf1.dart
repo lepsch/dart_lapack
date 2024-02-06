@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       int                NVAL( NN );
       double               A( LDA, * ), ARF( * ), WORK( * );
       // ..
@@ -20,13 +16,9 @@
       const              ONE = 1.0 ;
       int                NTESTS;
       const              NTESTS = 1 ;
-      // ..
-      // .. Local Scalars ..
       String             UPLO, CFORM, NORM;
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
       double               EPS, LARGE, NORMA, NORMARF, SMALL;
-      // ..
-      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double               RESULT( NTESTS );
@@ -49,8 +41,6 @@
       const UPLOS = [ 'U', 'L' ];
       const FORMS = [ 'N', 'T' ];
       const NORMS = [ 'M', '1', 'I', 'F' ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

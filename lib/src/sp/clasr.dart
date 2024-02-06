@@ -3,23 +3,14 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIRECT, PIVOT, SIDE;
       int                LDA, M, N;
-      // ..
-      // .. Array Arguments ..
       double               C( * ), S( * );
       Complex            A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, INFO, J;
       double               CTEMP, STEMP;
       Complex            TEMP;
@@ -33,8 +24,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters
 

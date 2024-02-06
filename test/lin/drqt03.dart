@@ -3,23 +3,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       double             AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double             ROGUE;
       const              ROGUE = -1.0e+10 ;
-      // ..
-      // .. Local Scalars ..
       String             SIDE, TRANS;
       int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC;
       double             CNORM, EPS, RESID;
@@ -31,8 +22,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLARNV, DLASET, DORGRQ, DORMRQ
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 );
       // ..
       // .. Intrinsic Functions ..
@@ -46,8 +35,6 @@
       // ..
       // .. Data statements ..
       const ISEED = [ 1988, 1989, 1990, 1991 ];
-      // ..
-      // .. Executable Statements ..
 
       EPS = dlamch( 'Epsilon' );
       MINMN = min( M, N );

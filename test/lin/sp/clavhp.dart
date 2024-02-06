@@ -3,23 +3,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDB, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( * ), B( LDB, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               NOUNIT;
       int                J, K, KC, KCNEXT, KP;
       Complex            D11, D12, D21, D22, T1, T2;
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

@@ -3,19 +3,12 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KB, LDA, LDW, N, NB;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex         A( LDA, * ), W( LDW, * ), E( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex         CONE;
@@ -24,8 +17,6 @@
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               DONE;
       int                IMAX, ITEMP, II, J, JB, JJ, JMAX, K, KK, KKW, KP, KSTEP, KW, P;
       double             ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;
@@ -48,8 +39,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[Z] = ( Z.toDouble() ).abs() + ( DIMAG( Z ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

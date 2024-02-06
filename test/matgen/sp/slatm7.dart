@@ -3,27 +3,18 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               COND;
       int                IDIST, INFO, IRSIGN, MODE, N, RANK;
-      // ..
-      // .. Array Arguments ..
       double               D( * );
       int                ISEED( 4 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
       double               ZERO;
       const              ZERO = 0.0 ;
       double               HALF;
       const              HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       double               ALPHA, TEMP;
       int                I;
       // ..
@@ -36,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Decode and Test the input parameters. Initialize flags & seed.
 

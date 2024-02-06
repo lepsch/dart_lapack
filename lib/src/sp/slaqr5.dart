@@ -4,12 +4,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV;
       bool               WANTT, WANTZ;
-      // ..
-      // .. Array Arguments ..
       double               H( LDH, * ), SI( * ), SR( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
@@ -17,8 +13,6 @@
       // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       double               ALPHA, BETA, H11, H12, H21, H22, REFSUM, SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, T1, T2, T3, TST1, TST2, ULP;
       int                I, I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;
       bool               ACCUM, BMP22;
@@ -30,14 +24,10 @@
       // .. Intrinsic Functions ..
 
       // INTRINSIC ABS, MAX, MIN, MOD, REAL
-      // ..
-      // .. Local Arrays ..
       double               VT( 3 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLAQR1, SLARFG, SLASET, STRMM
-      // ..
-      // .. Executable Statements ..
 
       // ==== If there are no shifts, then there is nothing to do. ====
 

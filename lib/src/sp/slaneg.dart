@@ -3,18 +3,11 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N, R;
       double               PIVMIN, SIGMA;
-      // ..
-      // .. Array Arguments ..
       double               D( * ), LLD( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const            ZERO = 0.0, ONE = 1.0 ;
       // Some architectures propagate Infinities and NaNs very slowly, so
@@ -24,8 +17,6 @@
       // enough that the overhead is tiny in common cases.
       int     BLKLEN;
       const     BLKLEN = 128 ;
-      // ..
-      // .. Local Scalars ..
       int                BJ, J, NEG1, NEG2, NEGCNT;
       double               BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP;
       bool    SAWNAN;
@@ -36,8 +27,6 @@
       // .. External Functions ..
       //- bool    SISNAN;
       // EXTERNAL SISNAN
-      // ..
-      // .. Executable Statements ..
 
       NEGCNT = 0;
 

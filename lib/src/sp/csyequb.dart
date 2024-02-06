@@ -3,26 +3,17 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, N;
       double               AMAX, SCOND;
       String             UPLO;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), WORK( * );
       double               S( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                MAX_ITER;
       const              MAX_ITER = 100 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J, ITER;
       double               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
@@ -44,8 +35,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

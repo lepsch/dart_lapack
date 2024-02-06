@@ -8,28 +8,17 @@ import 'package:lapack/src/xerbla.dart';
 
       void dlatrs3(UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;
       const              NRHSMIN = 2, NBRHS = 32 ;
       const              NBMIN = 8, NBMAX = 64 ;
-      // ..
-      // .. Local Arrays ..
       double             W( NBMAX ), XNRM( NBRHS );
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN;
       double             ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
@@ -45,8 +34,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

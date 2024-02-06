@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                CURLVL, CURPBM, INFO, N, TLVLS;
-      // ..
-      // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), PERM( * ), PRMPTR( * ), QPTR( * );
       double               GIVNUM( 2, * ), Q( * ), Z( * ), ZTEMP( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
       // ..
       // .. External Subroutines ..
@@ -26,8 +17,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

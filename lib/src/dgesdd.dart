@@ -12,29 +12,18 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBZ;
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IL, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NWORK, WRKBL;
       int                LWORK_DGEBRD_MN, LWORK_DGEBRD_MM, LWORK_DGEBRD_NN, LWORK_DGELQF_MN, LWORK_DGEQRF_MN, LWORK_DORGBR_P_MM, LWORK_DORGBR_Q_NN, LWORK_DORGLQ_MN, LWORK_DORGLQ_NN, LWORK_DORGQR_MM, LWORK_DORGQR_MN, LWORK_DORMBR_PRT_MM, LWORK_DORMBR_QLN_MM, LWORK_DORMBR_PRT_MN, LWORK_DORMBR_QLN_MN, LWORK_DORMBR_PRT_NN, LWORK_DORMBR_QLN_NN;
       double             ANRM, BIGNUM, EPS, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       int                IDUM( 1 );
       double             DUM( 1 );
       // ..
@@ -48,8 +37,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

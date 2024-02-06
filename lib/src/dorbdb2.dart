@@ -11,11 +11,7 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-      // ..
-      // .. Array Arguments ..
       double             PHI(*), THETA(*);
       double             TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
@@ -25,8 +21,6 @@ import 'package:lapack/src/xerbla.dart';
       // .. Parameters ..
       double             NEGONE, ONE;
       const              NEGONE = -1.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       double             C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
@@ -40,8 +34,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

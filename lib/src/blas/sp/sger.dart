@@ -3,22 +3,13 @@
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double ALPHA;
       int     INCX,INCY,LDA,M,N;
-      // ..
-      // .. Array Arguments ..
       double A(LDA,*),X(*),Y(*);
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double ZERO;
       const     ZERO=0.0;
-      // ..
-      // .. Local Scalars ..
       double TEMP;
       int     I,INFO,IX,J,JY,KX;
       // ..

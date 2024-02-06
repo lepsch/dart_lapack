@@ -3,12 +3,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               FORWRD;
       int                LDX, M, N;
-      // ..
-      // .. Array Arguments ..
       int                K( * );
       double               X( LDX, * );
       // ..
@@ -18,8 +14,6 @@
       // .. Local Scalars ..
       int                I, II, J, IN;
       double               TEMP;
-      // ..
-      // .. Executable Statements ..
 
       if (N <= 1) return;
 

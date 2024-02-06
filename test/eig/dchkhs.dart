@@ -16,6 +16,7 @@ import 'package:lapack/src/dtrevc3.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 
 import '../matgen/dlatme.dart';
@@ -34,7 +35,7 @@ void dchkhs(
   final Array<bool> DOTYPE,
   final Array<int> ISEED,
   final double THRESH,
-  final StreamSink<List<int>> NOUNIT,
+  final Nout NOUNIT,
   final Matrix<double> A,
   final int LDA,
   final Matrix<double> H,

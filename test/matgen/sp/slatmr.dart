@@ -3,31 +3,20 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
       double               ANORM, COND, CONDL, CONDR, DMAX, SPARSE;
-      // ..
-      // .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
       double               A( LDA, * ), D( * ), DL( * ), DR( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
       double               ONE;
       const              ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
       double               ALPHA, ONORM, TEMP;
-      // ..
-      // .. Local Arrays ..
       double               TEMPA( 1 );
       // ..
       // .. External Functions ..
@@ -39,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, MOD
-      // ..
-      // .. Executable Statements ..
 
       // 1)      Decode and Test the input parameters.
               // Initialize flags & seed.

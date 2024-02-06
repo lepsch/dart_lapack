@@ -11,19 +11,12 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               ORGATI;
       int                INFO, KNITER;
       double             FINIT, RHO, TAU;
-      // ..
-      // .. Array Arguments ..
       double             D( 3 ), Z( 3 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 40 ;
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT;
@@ -32,19 +25,13 @@ import 'package:lapack/src/xerbla.dart';
       // .. External Functions ..
       //- double             DLAMCH;
       // EXTERNAL DLAMCH
-      // ..
-      // .. Local Arrays ..
       double             DSCALE( 3 ), ZSCALE( 3 );
-      // ..
-      // .. Local Scalars ..
       bool               SCALE;
       int                I, ITER, NITER;
       double             A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

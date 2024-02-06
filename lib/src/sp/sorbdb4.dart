@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-      // ..
-      // .. Array Arguments ..
       double               PHI(*), THETA(*);
       double               PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
@@ -17,8 +13,6 @@
       // .. Parameters ..
       double               NEGONE, ONE, ZERO;
       const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       double               C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
@@ -32,8 +26,6 @@
       // ..
       // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
 

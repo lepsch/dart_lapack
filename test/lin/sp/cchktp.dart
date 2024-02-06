@@ -3,22 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNS, NOUT;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double               RWORK( * );
       Complex            AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NTYPE1, NTYPES;
       const              NTYPE1 = 10, NTYPES = 18 ;
       int                NTESTS;
@@ -27,14 +20,10 @@
       const              NTRAN = 3 ;
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN;
       double               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
-      // ..
-      // .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double               RESULT( NTESTS );
@@ -62,8 +51,6 @@
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
       const UPLOS = 'U', 'L', TRANSS = 'N', 'T', 'C';
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

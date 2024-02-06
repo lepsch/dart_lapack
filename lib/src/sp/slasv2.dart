@@ -3,14 +3,9 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               CSL, CSR, F, G, H, SNL, SNR, SSMAX, SSMIN;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
       double               HALF;
@@ -21,8 +16,6 @@
       const              TWO = 2.0 ;
       double               FOUR;
       const              FOUR = 4.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               GASMAL, SWAP;
       int                PMAX;
       double               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT;
@@ -33,8 +26,6 @@
       // .. External Functions ..
       //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
-      // ..
-      // .. Executable Statements ..
 
       FT = F;
       FA = ( FT ).abs();

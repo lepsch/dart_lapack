@@ -3,13 +3,9 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS;
       double             RCOND;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * );
       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
@@ -34,8 +30,6 @@
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       const              LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 ;
       const              LA_LINRX_RCOND_I = 3 ;
-      // ..
-      // .. Local Scalars ..
       String   (1)       NORM;
       bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH;
@@ -53,8 +47,6 @@
       double             DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C;
       bool               lsame;
       int                ILATRANS, ILAPREC;
-      // ..
-      // .. Executable Statements ..
 
       // Check the input parameters.
 

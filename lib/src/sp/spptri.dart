@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-      // ..
-      // .. Array Arguments ..
       double               AP( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN;
       double               AJJ;
@@ -30,8 +21,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL, SSPR, STPMV, STPTRI, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

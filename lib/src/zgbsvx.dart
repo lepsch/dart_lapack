@@ -3,13 +3,9 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS;
       double             RCOND;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * );
       Complex         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
@@ -18,13 +14,8 @@
 // =====================================================================
 // Moved setting of INFO = N+1 so INFO does not subsequently get
 // overwritten.  Sven, 17 Mar 05.
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J, J1, J2;
@@ -40,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       NOFACT = lsame( FACT, 'N' );

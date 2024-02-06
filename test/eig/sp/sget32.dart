@@ -3,26 +3,17 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       double               RMAX;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double               TWO, FOUR, EIGHT;
       const              TWO = 2.0, FOUR = 4.0, EIGHT = 8.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LTRANL, LTRANR;
       int                IB, IB1, IB2, IB3, INFO, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2;
       double               BIGNUM, DEN, EPS, RES, SCALE, SGN, SMLNUM, TMP, TNRM, XNORM, XNRM;
-      // ..
-      // .. Local Arrays ..
       int                ITVAL( 2, 2, 8 );
       double               B( 2, 2 ), TL( 2, 2 ), TR( 2, 2 ), VAL( 3 ), X( 2, 2 );
       // ..
@@ -38,8 +29,6 @@
       // ..
       // .. Data statements ..
       const ITVAL = [ 8, 4, 2, 1, 4, 8, 1, 2, 2, 1, 8, 4, 1, 2, 4, 8, 9, 4, 2, 1, 4, 9, 1, 2, 2, 1, 9, 4, 1, 2, 4, 9 ];
-      // ..
-      // .. Executable Statements ..
 
       // Get machine parameters
 

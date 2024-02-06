@@ -3,13 +3,9 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TYPE;
       int                IE, IMAT, IOUNIT, M, N, NTESTS;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double               RESULT( * );
       // ..
@@ -21,8 +17,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAHD2
-      // ..
-      // .. Executable Statements ..
 
       if ( M == N ) {
 

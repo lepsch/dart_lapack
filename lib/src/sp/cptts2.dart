@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IUPLO, LDB, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double               D( * );
       Complex            B( LDB, * ), E( * );
       // ..
@@ -22,8 +18,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

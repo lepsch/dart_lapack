@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N1, N2, STRD1, STRD2;
-      // ..
-      // .. Array Arguments ..
       int                INDEX( * );
       double               A( * );
       // ..
@@ -16,8 +12,6 @@
 
       // .. Local Scalars ..
       int                I, IND1, IND2, N1SV, N2SV;
-      // ..
-      // .. Executable Statements ..
 
       N1SV = N1;
       N2SV = N2;

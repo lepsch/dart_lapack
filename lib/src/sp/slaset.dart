@@ -3,13 +3,9 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, M, N;
       double               ALPHA, BETA;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * );
       // ..
 
@@ -24,8 +20,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN
-      // ..
-      // .. Executable Statements ..
 
       if ( lsame( UPLO, 'U' ) ) {
 

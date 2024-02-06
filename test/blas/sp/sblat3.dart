@@ -3,9 +3,6 @@
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NIN;
       const              NIN = 5 ;
       int                NSUBS;
@@ -1493,8 +1490,6 @@
 
 // 3-19-92:  Initialize ALPHA and BETA  (eca)
 // 3-19-92:  Fix argument 12 in calls to SSYMM with INFOT = 9  (eca)
-
-      // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String            srnamc.SRNAMT;
       // .. Scalars in Common ..
@@ -2254,8 +2249,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       double               RI( * ), RJ( * );
@@ -2284,8 +2277,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2337,8 +2328,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, MI;
@@ -2378,8 +2367,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       double               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
@@ -2396,8 +2383,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                INFOT, NOUT;
       bool               LERR, OK;
       String            srnamc.SRNAMT;
@@ -2429,8 +2414,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..

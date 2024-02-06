@@ -3,25 +3,16 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KASE, N;
       double               EST;
-      // ..
-      // .. Array Arguments ..
       int                ISGN( * ), ISAVE( 3 );
       double               V( * ), X( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
       double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, JLAST;
       double               ALTSGN, ESTOLD, TEMP, XS;
       // ..
@@ -35,8 +26,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, NINT, REAL
-      // ..
-      // .. Executable Statements ..
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10

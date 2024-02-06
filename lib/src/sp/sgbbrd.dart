@@ -3,22 +3,13 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             VECT;
       int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC;
-      // ..
-      // .. Array Arguments ..
       double               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT;
       double               RA, RB, RC, RS;
@@ -32,8 +23,6 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters
 

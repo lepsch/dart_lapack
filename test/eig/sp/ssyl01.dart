@@ -6,12 +6,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT;
       double               THRESH;
-      // ..
-      // .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 );
       double               RMAX( 2 );
       // ..
@@ -23,13 +19,9 @@
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXM, MAXN, LDSWORK;
       const              MAXM = 101, MAXN = 138, LDSWORK = 18 ;
-      // ..
-      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N;
       double               ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
-      // ..
-      // .. Local Arrays ..
       double               DUML( MAXM ), DUMR( MAXN ), D( max( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
       // ..
@@ -61,8 +53,6 @@
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( SWORK( LDSWORK, 54 ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      // ..
-      // .. Executable Statements ..
 
       // Get machine parameters
 

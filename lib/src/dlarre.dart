@@ -11,33 +11,22 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
       double            PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU;
-      // ..
-      // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * );
       double             D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR=4.0, HNDRD = 100.0, PERT = 8.0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0, FUDGE = 2.0 ;
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
       const              MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 ;
-      // ..
-      // .. Local Scalars ..
       bool               FORCEB, NOREP, USEDQD;
       int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND;
       double             AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
 
 
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
@@ -52,8 +41,6 @@ import 'package:lapack/src/xerbla.dart';
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 
-      // ..
-      // .. Executable Statements ..
 
 
       INFO = 0;

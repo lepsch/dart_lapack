@@ -4,32 +4,21 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBZ;
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double               RWORK( * ), S( * );
       Complex            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BLK, CHUNK, I, IE, IERR, IL, IR, IRU, IRVT, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR1, MNTHR2, NRWORK, NWORK, WRKBL;
       int                LWORK_CGEBRD_MN, LWORK_CGEBRD_MM, LWORK_CGEBRD_NN, LWORK_CGELQF_MN, LWORK_CGEQRF_MN, LWORK_CUNGBR_P_MN, LWORK_CUNGBR_P_NN, LWORK_CUNGBR_Q_MN, LWORK_CUNGBR_Q_MM, LWORK_CUNGLQ_MN, LWORK_CUNGLQ_NN, LWORK_CUNGQR_MM, LWORK_CUNGQR_MN, LWORK_CUNMBR_PRC_MM, LWORK_CUNMBR_QLN_MM, LWORK_CUNMBR_PRC_MN, LWORK_CUNMBR_QLN_MN, LWORK_CUNMBR_PRC_NN, LWORK_CUNMBR_QLN_NN;
       double   ANRM, BIGNUM, EPS, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       int                IDUM( 1 );
       double               DUM( 1 );
       Complex            CDUM( 1 );
@@ -44,8 +33,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

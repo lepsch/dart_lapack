@@ -3,18 +3,11 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDH, LDZ, LWORK, N;
       String             COMPZ, JOB;
-      // ..
-      // .. Array Arguments ..
       Complex            H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
 
       // ==== Matrices of order NTINY or smaller must be processed by
       // .    CLAHQR because of insufficient subdiagonal scratch space.
@@ -34,11 +27,7 @@
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double               RZERO;
       const              RZERO = 0.0 ;
-      // ..
-      // .. Local Arrays ..
       Complex            HL( NL, NL ), WORKL( NL );
-      // ..
-      // .. Local Scalars ..
       int                KBOT, NMIN;
       bool               INITZ, LQUERY, WANTT, WANTZ;
       // ..
@@ -53,8 +42,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-      // ..
-      // .. Executable Statements ..
 
       // ==== Decode and check the input parameters. ====
 

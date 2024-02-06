@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                N;
-      // ..
-      // .. Array Arguments ..
       Complex         X( * ), Y( * ), W( * );
       // ..
 
@@ -16,8 +12,6 @@
       // .. Local Scalars ..
       Complex         S;
       int                I;
-      // ..
-      // .. Executable Statements ..
       for (I = 1; I <= N; I++) { // 10
         S = X(I) + W(I);
         S = (S + S) - S;

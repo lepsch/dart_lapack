@@ -11,29 +11,18 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IDIST, N;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double             X( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       int                LV;
       const              LV = 128 ;
       double             TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IL, IL2, IV;
-      // ..
-      // .. Local Arrays ..
       double             U( LV );
       // ..
       // .. Intrinsic Functions ..
@@ -41,8 +30,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLARUV
-      // ..
-      // .. Executable Statements ..
 
       for (IV = 1; LV / 2 < 0 ? IV >= N : IV <= N; IV += LV / 2) { // 40
          IL = min( LV / 2, N-IV+1 );

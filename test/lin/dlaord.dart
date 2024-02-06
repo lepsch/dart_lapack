@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOB;
       int                INCX, N;
-      // ..
-      // .. Array Arguments ..
       double             X( * );
       // ..
 
@@ -24,8 +20,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
-      // ..
-      // .. Executable Statements ..
 
       INC = ( INCX ).abs();
       if ( lsame( JOB, 'I' ) ) {

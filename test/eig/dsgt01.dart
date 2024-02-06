@@ -3,22 +3,13 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, LDA, LDB, LDZ, M, N;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I;
       double             ANORM, ULP;
       // ..
@@ -28,8 +19,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYMM
-      // ..
-      // .. Executable Statements ..
 
       RESULT[1] = ZERO;
       if (N <= 0) return;

@@ -3,33 +3,22 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, NMAX, NOUT;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * );
       double             ALPHA( * ), BETA( * ), RWORK( * );
       Complex         A( * ), AF( * ), B( * ), BF( * ), Q( * ), R( * ), U( * ), V( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NTESTS;
       const              NTESTS = 12 ;
       int                NTYPES;
       const              NTYPES = 8 ;
-      // ..
-      // .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
       double             ANORM, BNORM, CNDNMA, CNDNMB;
-      // ..
-      // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
       double             RESULT( NTESTS );
       // ..
@@ -38,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

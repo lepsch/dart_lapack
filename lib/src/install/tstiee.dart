@@ -5,11 +5,7 @@
       // .. External Functions ..
       //- int                ILAENV;
       // EXTERNAL ILAENV
-      // ..
-      // .. Local Scalars ..
       int                IEEEOK;
-      // ..
-      // .. Executable Statements ..
 
       WRITE( 6, FMT = * ) 'We are about to check whether infinity arithmetic';
       WRITE( 6, FMT = * )'can be trusted.  If this test hangs, set';

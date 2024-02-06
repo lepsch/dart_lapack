@@ -3,24 +3,16 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, P, N;
-      // ..
-      // .. Array Arguments ..
       double               RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), D( * ), CF( * ), DF( * ), WORK( LWORK ), X( * );
 
 // ====================================================================
 
-      // ..
-      // .. Local Scalars ..
       int                INFO;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGGLSE, CLACPY, CGET02
-      // ..
-      // .. Executable Statements ..
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vectors C and D to the arrays CF and DF,

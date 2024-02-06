@@ -3,11 +3,7 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDU, LDVT, N, SMLSIZ, SQRE;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double               D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
@@ -20,8 +16,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASD1, SLASDQ, SLASDT, XERBLA
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

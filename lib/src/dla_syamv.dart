@@ -11,22 +11,13 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double             ALPHA, BETA;
       int                INCX, INCY, LDA, N, UPLO;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), X( * ), Y( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
@@ -41,8 +32,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, ABS, SIGN
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

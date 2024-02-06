@@ -5,36 +5,25 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                LA, LAFAC, NM, NN, NNB, NNS, NOUT;
       double             THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES, NTESTS;
       const              NTYPES = 8, NTESTS = 7 ;
       int                NBW, NTRAN;
       const              NBW = 4, NTRAN = 3 ;
-      // ..
-      // .. Local Scalars ..
       bool               TRFCON, ZEROT;
       String             DIST, NORM, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN;
       double             AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, RCOND, RCONDC, RCONDI, RCONDO;
-      // ..
-      // .. Local Arrays ..
       String             TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW );
       double             RESULT( NTESTS );
@@ -60,8 +49,6 @@ import 'common.dart';
       // ..
       // .. Data statements ..
       const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

@@ -11,23 +11,14 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INCV, LDC, N;
       double             TAU;
-      // ..
-      // .. Array Arguments ..
       double             C( LDC, * ), V( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO, HALF;
       const              ONE = 1.0, ZERO = 0.0, HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       double             ALPHA;
       // ..
       // .. External Subroutines ..
@@ -36,8 +27,6 @@ import 'package:lapack/src/xerbla.dart';
       // .. External Functions ..
       //- double             DDOT;
       // EXTERNAL DDOT
-      // ..
-      // .. Executable Statements ..
 
       if (TAU == ZERO) return;
 

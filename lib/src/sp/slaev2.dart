@@ -3,14 +3,9 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double               A, B, C, CS1, RT1, RT2, SN1;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE;
       const              ONE = 1.0 ;
       double               TWO;
@@ -19,15 +14,11 @@
       const              ZERO = 0.0 ;
       double               HALF;
       const              HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       int                SGN1, SGN2;
       double               AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Compute the eigenvalues
 

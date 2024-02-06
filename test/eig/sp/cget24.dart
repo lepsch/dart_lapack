@@ -3,36 +3,25 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               COMP;
       int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
       double               RCDEIN, RCDVIN, THRESH;
-      // ..
-      // .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * );
       double               RESULT( 17 ), RWORK( * );
       Complex            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
-      // ..
-      // .. Local Scalars ..
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1;
       double               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
       Complex            CTMP;
-      // ..
-      // .. Local Arrays ..
       int                IPNT( 20 );
       // ..
       // .. External Functions ..
@@ -55,8 +44,6 @@
       // ..
       // .. Common blocks ..
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-      // ..
-      // .. Executable Statements ..
 
       // Check for errors
 

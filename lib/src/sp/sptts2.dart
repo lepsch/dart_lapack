@@ -3,11 +3,7 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDB, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double               B( LDB, * ), D( * ), E( * );
       // ..
 
@@ -18,8 +14,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SSCAL
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

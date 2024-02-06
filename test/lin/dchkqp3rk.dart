@@ -19,30 +19,19 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       // int                NM, NN, NNB, NNS, NOUT;
       // double             THRESH;
-      // ..
-      // .. Array Arguments ..
       // final                IWORK=Array<int>)(), NBVAL=Array<int>)(), MVAL=Array<int>)(), NVAL=Array<int>)(), NSVAL=Array<int>)(), NXVAL=Array<int>)();
       // double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       const              NTYPES = 19 ;
       const              NTESTS = 5 ;
       const              ONE = 1.0, ZERO = 0.0, BIGNUM = 1.0e+38 ;
-      // ..
-      // .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T;
       double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
-      // ..
-      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), RDUMMY( 1 );
       // ..
@@ -67,8 +56,6 @@ import 'common.dart';
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 

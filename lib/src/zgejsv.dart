@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       IMPLICIT    NONE;
       int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N;
-      // ..
-      // .. Array Arguments ..
       Complex       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK );
       double           SVA( N ), RWORK( LRWORK );
       int              IWORK( * );
@@ -22,8 +18,6 @@
       const     ZERO = 0.0, ONE = 1.0 ;
       Complex CZERO, CONE;
       const     CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       Complex       CTEMP;
       double           AAPP,    AAQQ,   AATMAX, AATMIN, BIG,    BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN, MAXPRJ,  SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1, USCAL1,  USCAL2, XSC;
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;

@@ -5,12 +5,8 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LTB, LDB, INFO;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       Complex            A( LDA, * ), TB( * ), B( LDB, * );
       // ..
@@ -19,8 +15,6 @@
 
       Complex            ONE;
       const              ONE  = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                LDTB, NB;
       bool               UPPER;
       // ..
@@ -33,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

@@ -3,30 +3,19 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOBU, JOBVT, RANGE;
       int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS;
       double               VL, VU;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       String             JOBZ, RNGTGK;
       bool               ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;
       int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITGKZ, IUTGK, J, MAXWRK, MINMN, MINWRK, MNTHR;
       double               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       double               DUM( 1 );
       // ..
       // .. External Subroutines ..
@@ -40,8 +29,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments.
 

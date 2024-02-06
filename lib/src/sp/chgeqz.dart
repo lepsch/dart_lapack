@@ -3,27 +3,18 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
       int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
-      // ..
-      // .. Array Arguments ..
       double               RWORK( * );
       Complex            ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double               HALF;
       const              HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       bool               ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;
       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT;
       double               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP;
@@ -46,8 +37,6 @@
       // ..
       // .. Statement Function definitions ..
       ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       // Decode JOB, COMPQ, COMPZ
 

@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, N;
-      // ..
-      // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * );
       Complex         Z( LDZ, * );
       // ..
@@ -25,17 +21,11 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL DPTTRF, XERBLA, ZBDSQR, ZLASET
-      // ..
-      // .. Local Arrays ..
       Complex         C( 1, 1 ), VT( 1, 1 );
-      // ..
-      // .. Local Scalars ..
       int                I, ICOMPZ, NRU;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

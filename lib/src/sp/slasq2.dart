@@ -3,23 +3,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, N;
-      // ..
-      // .. Array Arguments ..
       double               Z( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               CBIAS;
       const              CBIAS = 1.50 ;
       double               ZERO, HALF, ONE, TWO, FOUR, HUNDRD;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0, FOUR = 4.0, HUNDRD = 100.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               IEEE;
       int                I0, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE, I1, N1;
       double               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ;
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments.
       // (in case SLASQ2 is not called by SLASQ1)

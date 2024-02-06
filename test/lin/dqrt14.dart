@@ -3,27 +3,16 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                LDA, LDX, LWORK, M, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double             A( LDA, * ), WORK( LWORK ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               TPSD;
       int                I, INFO, J, LDWORK;
       double             ANRM, ERR, XNRM;
-      // ..
-      // .. Local Arrays ..
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
@@ -36,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       DQRT14 = ZERO;
       if ( lsame( TRANS, 'N' ) ) {

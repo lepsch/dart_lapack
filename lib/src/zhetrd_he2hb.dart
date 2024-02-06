@@ -5,23 +5,14 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDAB, LWORK, N, KD;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             RONE;
       Complex         ZERO, ONE, HALF;
       const              RONE = 1.0, ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
       // ..
@@ -35,8 +26,6 @@
       //- bool               lsame;
       //- int                ILAENV2STAGE;
       // EXTERNAL lsame, ILAENV2STAGE
-      // ..
-      // .. Executable Statements ..
 
       // Determine the minimal workspace size required
       // and test the input parameters

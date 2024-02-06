@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, P, N;
       double               RESULT;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RWORK( * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
 
 // ====================================================================
@@ -16,8 +12,6 @@
       // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                INFO;
       double               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
@@ -30,8 +24,6 @@
 
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );

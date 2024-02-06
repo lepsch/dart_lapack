@@ -3,12 +3,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDSA, N;
-      // ..
-      // .. Array Arguments ..
       Complex            SA( LDSA, * );
       Complex         A( LDA, * );
       // ..
@@ -27,8 +23,6 @@
       //- REAL               SLAMCH;
       //- bool               lsame;
       // EXTERNAL SLAMCH, lsame
-      // ..
-      // .. Executable Statements ..
 
       RMAX = SLAMCH( 'O' );
       UPPER = lsame( UPLO, 'U' );

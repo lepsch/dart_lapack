@@ -11,8 +11,6 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       double             F, G, H, SSMAX, SSMIN;
       // ..
 
@@ -25,14 +23,10 @@ import 'package:lapack/src/xerbla.dart';
       const              ONE = 1.0 ;
       double             TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       FA = ( F ).abs();
       GA = ( G ).abs();

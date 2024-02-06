@@ -4,28 +4,19 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS;
       double               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
       double               RWORK( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                INB, INBMIN, IXOVER;
       const              INB = 1, INBMIN = 2, IXOVER = 3 ;
       double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX;
       double               EPS, HUGEVAL, MAXC2NRM, SAFMIN;
@@ -41,8 +32,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Test input arguments
       // ====================

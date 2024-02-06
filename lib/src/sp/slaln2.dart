@@ -3,29 +3,18 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               LTRANS;
       int                INFO, LDA, LDB, LDX, NA, NW;
       double               CA, D1, D2, SCALE, SMIN, WI, WR, XNORM;
-      // ..
-      // .. Array Arguments ..
       double               A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double               TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       int                ICMAX, J;
       double               BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21, CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21, LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R, UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S, UR22, XI1, XI2, XR1, XR2;
-      // ..
-      // .. Local Arrays ..
       bool               CSWAP( 4 ), RSWAP( 4 );
       int                IPIVOT( 4, 4 );
       double               CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 );
@@ -47,8 +36,6 @@
       const CSWAP = [ false , false , true , true ];
       const RSWAP = [ false , true , false , true ];
       const IPIVOT = [ 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4, 3, 2, 1 ];
-      // ..
-      // .. Executable Statements ..
 
       // Compute BIGNUM
 

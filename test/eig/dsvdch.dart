@@ -3,24 +3,15 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, N;
       double             TOL;
-      // ..
-      // .. Array Arguments ..
       double             E( * ), S( * ), SVD( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
       double             ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                BPNT, COUNT, NUML, NUMU, TPNT;
       double             EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
       // ..
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Get machine constants
 

@@ -1,62 +1,55 @@
-import 'common.dart';
+import 'dart:math';
 
-      void ddrvst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, D1, D2, D3, D4, EVEIGS, WA1, WA2, WA3, U, LDU, V, TAU, Z, WORK, LWORK, IWORK, LIWORK, RESULT, INFO ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dsbev.dart';
+import 'package:lapack/src/dsbevd.dart';
+import 'package:lapack/src/dsbevx.dart';
+import 'package:lapack/src/dspevd.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+import '../matgen/dlatmr.dart';
+import '../matgen/dlatms.dart';
+import 'common.dart';
+import 'dsxt1.dart';
+
+      void ddrvst2stg(final int NSIZES,
+        final Array<int> NN, final int NTYPES,
+        final Array<bool> DOTYPE,
+        final Array<int> ISEED, final double THRESH, final Nout NOUNIT,
+        final Matrix<double> A, final int LDA,
+        final Array<double> D1,
+        final Array<double> D2,
+        final Array<double> D3,
+        final Array<double> D4,
+        final Array<double> EVEIGS,
+        final Array<double> WA1,
+        final Array<double> WA2,
+        final Array<double> WA3,
+        final Matrix<double> U, final int LDU,
+        final Matrix<double> V,
+        final Array<double> TAU,
+        final Matrix<double> Z,
+        final Array<double> WORK, final int LWORK,
+        final Array<int> IWORK, final int LIWORK,
+        final Array<double> RESULT, final Box<int> INFO, ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
-      int                INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES;
-      double             THRESH;
-      // ..
-      // .. Array Arguments ..
-      bool               DOTYPE( * );
-      int                ISEED( 4 ), IWORK( * ), NN( * );
-      double             A( LDA, * ), D1( * ), D2( * ), D3( * ), D4( * ), EVEIGS( * ), RESULT( * ), TAU( * ), U( LDU, * ), V( LDU, * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), Z( LDU, * );
-      // ..
-
-// =====================================================================
-
-      // .. Parameters ..
-      double             ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      double             HALF;
       const              HALF = 0.5 ;
-      int                MAXTYP;
       const              MAXTYP = 18 ;
-      // ..
-      // .. Local Scalars ..
       bool               BADNN;
       String             UPLO;
-      int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      double             ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
-      // ..
-      // .. Local Arrays ..
-      int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLARND, DSXT1;
-      // EXTERNAL DLAMCH, DLARND, DSXT1
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALASVM, DLACPY, DLAFTS, DLASET, DLATMR, DLATMS, DSBEV, DSBEVD, DSBEVX, DSPEV, DSPEVD, DSPEVX, DSTEV, DSTEVD, DSTEVR, DSTEVX, DSTT21, DSTT22, DSYEV, DSYEVD, DSYEVR, DSYEVX, DSYT21, DSYEVD_2STAGE, DSYEVR_2STAGE, DSYEVX_2STAGE, DSYEV_2STAGE, DSBEV_2STAGE, DSBEVD_2STAGE, DSBEVX_2STAGE, DSYTRD_2STAGE, DSYTRD_SY2SB, DSYTRD_SB2ST, DSYT22, XERBLA
-      // ..
-      // .. Scalars in Common ..
-      // String             srnamc.SRNAMT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / srnamc / srnamc.SRNAMT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT
-      // ..
-      // .. Data statements ..
-      const KTYPE = [ 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9,];
-      const KMAGN = [ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3 ];
-      const KMODE = [ 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4 ];
-      // ..
-      // .. Executable Statements ..
+      int                I, IDIAG, IHBW, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
+      double             ABSTOL, ANINV, ANORM=0, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
+      final                IDUMMA=Array<int>( 1 ), IOLDSD=Array<int>( 4 ), ISEED2=Array<int>( 4 ), ISEED3=Array<int>( 4 );
+      const KTYPE = Array.fromList([ 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9,]);
+      const KMAGN = Array.fromList([ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3 ]);
+      const KMODE = Array.fromList([ 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4 ]);
+      final IINFO=Box(0);
 
       // Keep ftrnchek happy
 
@@ -66,33 +59,33 @@ import 'common.dart';
       // 1)      Check for errors
 
       NTESTT = 0;
-      INFO = 0;
+      INFO.value = 0;
 
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = max( NMAX, NN( J ) );
-         if( NN( J ) < 0 ) BADNN = true;
+         NMAX = max( NMAX, NN[ J ] );
+         if( NN[ J ] < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( BADNN ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NTYPES < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < NMAX ) {
-         INFO = -9;
+         INFO.value = -9;
       } else if ( LDU < NMAX ) {
-         INFO = -16;
-      } else if ( 2*max( 2, NMAX )**2 > LWORK ) {
-         INFO = -21;
+         INFO.value = -16;
+      } else if ( 2*pow(max( 2, NMAX ),2) > LWORK ) {
+         INFO.value = -21;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DDRVST2STG', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DDRVST2STG', -INFO.value );
          return;
       }
 
@@ -112,8 +105,8 @@ import 'common.dart';
       // Loop over sizes, types
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED2[I] = ISEED( I );
-         ISEED3[I] = ISEED( I );
+         ISEED2[I] = ISEED[ I ];
+         ISEED3[I] = ISEED[ I ];
       } // 20
 
       NERRS = 0;
@@ -121,12 +114,12 @@ import 'common.dart';
 
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1740
-         N = NN( JSIZE );
+         N = NN[ JSIZE ];
          if ( N > 0 ) {
-            LGN = INT( LOG( N.toDouble() ) / LOG( TWO ) );
-            if (2**LGN < N) LGN = LGN + 1;
-            IF( 2**LGN < N ) LGN = LGN + 1;
-            LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2;
+            LGN =  log( N.toDouble() ) ~/ log( TWO ) ;
+            if (pow(2,LGN) < N) LGN = LGN + 1;
+            if( pow(2,LGN) < N ) LGN = LGN + 1;
+            LWEDC = 1 + 4*N + 2*N*LGN + 4*pow(N,2).toInt();
             // LIWEDC = 6 + 6*N + 5*N*LGN
             LIWEDC = 3 + 5*N;
          } else {
@@ -144,19 +137,19 @@ import 'common.dart';
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 1730
 
-            if( !DOTYPE( JTYPE ) ) GO TO 1730;
+            if( !DOTYPE[ JTYPE ] ) continue;
             NMATS = NMATS + 1;
             NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 30
-               IOLDSD[J] = ISEED( J );
+               IOLDSD[J] = ISEED[ J ];
             } // 30
 
             // 2)      Compute "A"
-
-                    // Control parameters:
-
-                // KMAGN  KMODE        KTYPE
+            //
+            //         Control parameters:
+            //
+            //     KMAGN  KMODE        KTYPE
             // =1  O(1)   clustered 1  zero
             // =2  large  clustered 2  identity
             // =3  small  exponential  (none)
@@ -167,31 +160,31 @@ import 'common.dart';
             // =8                      random symmetric
             // =9                      band symmetric, w/ eigenvalues
 
-            if (MTYPES > MAXTYP) GO TO 110;
+            if (MTYPES <=  MAXTYP) {
 
-            ITYPE = KTYPE( JTYPE );
-            IMODE = KMODE( JTYPE );
+            ITYPE = KTYPE[ JTYPE ];
+            IMODE = KMODE[ JTYPE ];
 
             // Compute norm
 
-            GO TO ( 40, 50, 60 )KMAGN( JTYPE );
+            switch(KMAGN[JTYPE]) {
 
-            } // 40
+            case 1:
             ANORM = ONE;
-            GO TO 70;
+            break;
 
-            } // 50
+            case 2:
             ANORM = ( RTOVFL*ULP )*ANINV;
-            GO TO 70;
+            break;
 
-            } // 60
+            case 3:
             ANORM = RTUNFL*N*ULPINV;
-            GO TO 70;
+            break;
 
-            } // 70
+            }
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-            IINFO = 0;
+            IINFO.value = 0;
             COND = ULPINV;
 
             // Special Matrices -- Identity & Jordan block
@@ -199,7 +192,7 @@ import 'common.dart';
                     // Zero
 
             if ( ITYPE == 1 ) {
-               IINFO = 0;
+               IINFO.value = 0;
 
             } else if ( ITYPE == 2 ) {
 
@@ -213,34 +206,34 @@ import 'common.dart';
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO.value );
 
             } else if ( ITYPE == 5 ) {
 
                // Symmetric, eigenvalues specified
 
-               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO.value );
 
             } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
                IDUMMA[1] = 1;
-               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO.value );
 
             } else if ( ITYPE == 8 ) {
 
                // Symmetric, random eigenvalues
 
                IDUMMA[1] = 1;
-               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO.value );
 
             } else if ( ITYPE == 9 ) {
 
                // Symmetric banded, eigenvalues specified
 
                IHBW = INT( ( N-1 )*dlarnd( 1, ISEED3 ) );
-               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK( N+1 ), IINFO );
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK( N+1 ), IINFO.value );
 
                // Store as dense matrix for most routines.
 
@@ -255,12 +248,12 @@ import 'common.dart';
                   } // 90
                } // 100
             } else {
-               IINFO = 1;
+               IINFO.value = 1;
             }
 
-            if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ( IINFO ).abs();
+            if ( IINFO.value != 0 ) {
+               print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
+               INFO.value = ( IINFO.value ).abs();
                return;
             }
 
@@ -283,6 +276,7 @@ import 'common.dart';
             // 3)      If matrix is tridiagonal, call DSTEV and DSTEVX.
 
             if ( JTYPE <= 7 ) {
+              while (true){
                NTEST = 1;
                for (I = 1; I <= N; I++) { // 120
                   D1[I] = (A( I, I )).toDouble();
@@ -291,17 +285,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 130
                srnamc.SRNAMT = 'DSTEV';
-               dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEV(V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstev('V', N, D1, D2, Z, LDU, WORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEV(V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[1] = ULPINV;
                      RESULT[2] = ULPINV;
                      RESULT[3] = ULPINV;
-                     GO TO 180;
+                     break;
                   }
                }
 
@@ -320,15 +314,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 160
                srnamc.SRNAMT = 'DSTEV';
-               dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEV(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstev('N', N, D3, D4, Z, LDU, WORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEV(N)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[3] = ULPINV;
-                     GO TO 180;
+                     break;
                   }
                }
 
@@ -342,7 +336,9 @@ import 'common.dart';
                } // 170
                RESULT[3] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
-               } // 180
+               break;} // 180
+
+               while (true) {
 
                NTEST = 4;
                for (I = 1; I <= N; I++) { // 190
@@ -353,17 +349,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 200
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(V,A)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[4] = ULPINV;
                      RESULT[5] = ULPINV;
                      RESULT[6] = ULPINV;
-                     GO TO 250;
+                     break;
                   }
                }
                if ( N > 0 ) {
@@ -387,15 +383,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 230
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(N,A)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[6] = ULPINV;
-                     GO TO 250;
+                     break;
                   }
                }
 
@@ -411,6 +407,8 @@ import 'common.dart';
 
                } // 250
 
+               while (true) {
+
                NTEST = 7;
                for (I = 1; I <= N; I++) { // 260
                   D1[I] = (A( I, I )).toDouble();
@@ -419,16 +417,16 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 270
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[7] = ULPINV;
                      RESULT[8] = ULPINV;
-                     GO TO 320;
+                     break;
                   }
                }
                if ( N > 0 ) {
@@ -452,15 +450,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 300
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[9] = ULPINV;
-                     GO TO 320;
+                     break;
                   }
                }
 
@@ -476,6 +474,8 @@ import 'common.dart';
 
                } // 320
 
+               while (true) {
+
 
                NTEST = 10;
                for (I = 1; I <= N; I++) { // 330
@@ -485,17 +485,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 340
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(V,I)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[10] = ULPINV;
                      RESULT[11] = ULPINV;
                      RESULT[12] = ULPINV;
-                     GO TO 380;
+                     break;
                   }
                }
 
@@ -515,15 +515,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 370
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(N,I)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[12] = ULPINV;
-                     GO TO 380;
+                     break;
                   }
                }
 
@@ -534,6 +534,8 @@ import 'common.dart';
                RESULT[12] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
 
                } // 380
+
+               while (true) {
 
                NTEST = 12;
                if ( N > 0 ) {
@@ -559,17 +561,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 400
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(V,V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[13] = ULPINV;
                      RESULT[14] = ULPINV;
                      RESULT[15] = ULPINV;
-                     GO TO 440;
+                     break;
                   }
                }
 
@@ -577,7 +579,7 @@ import 'common.dart';
                   RESULT[13] = ULPINV;
                   RESULT[14] = ULPINV;
                   RESULT[15] = ULPINV;
-                  GO TO 440;
+                  break;
                }
 
                // Do tests 13 and 14.
@@ -595,15 +597,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 430
                srnamc.SRNAMT = 'DSTEVX';
-               dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVX(N,V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[15] = ULPINV;
-                     GO TO 440;
+                     break;
                   }
                }
 
@@ -615,6 +617,8 @@ import 'common.dart';
 
                } // 440
 
+               while (true) {
+
                NTEST = 16;
                for (I = 1; I <= N; I++) { // 450
                   D1[I] = (A( I, I )).toDouble();
@@ -623,17 +627,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 460
                srnamc.SRNAMT = 'DSTEVD';
-               dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVD(V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVD(V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[16] = ULPINV;
                      RESULT[17] = ULPINV;
                      RESULT[18] = ULPINV;
-                     GO TO 510;
+                     break;
                   }
                }
 
@@ -652,15 +656,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 490
                srnamc.SRNAMT = 'DSTEVD';
-               dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVD(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVD(N)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[18] = ULPINV;
-                     GO TO 510;
+                     break;
                   }
                }
 
@@ -676,6 +680,8 @@ import 'common.dart';
 
                } // 510
 
+               while (true) {
+
                NTEST = 19;
                for (I = 1; I <= N; I++) { // 520
                   D1[I] = (A( I, I )).toDouble();
@@ -684,17 +690,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 530
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[19] = ULPINV;
                      RESULT[20] = ULPINV;
                      RESULT[21] = ULPINV;
-                     GO TO 570;
+                     break;
                   }
                }
 
@@ -714,15 +720,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 560
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[21] = ULPINV;
-                     GO TO 570;
+                     break;
                   }
                }
 
@@ -733,6 +739,9 @@ import 'common.dart';
                RESULT[21] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
 
                } // 570
+
+
+               while (true) {
 
                NTEST = 21;
                if ( N > 0 ) {
@@ -758,17 +767,17 @@ import 'common.dart';
                   D2[I] = (A( I+1, I )).toDouble();
                } // 590
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[22] = ULPINV;
                      RESULT[23] = ULPINV;
                      RESULT[24] = ULPINV;
-                     GO TO 630;
+                     break;
                   }
                }
 
@@ -776,7 +785,7 @@ import 'common.dart';
                   RESULT[22] = ULPINV;
                   RESULT[23] = ULPINV;
                   RESULT[24] = ULPINV;
-                  GO TO 630;
+                  break;
                }
 
                // Do tests 22 and 23.
@@ -794,15 +803,15 @@ import 'common.dart';
                   D4[I] = (A( I+1, I )).toDouble();
                } // 620
                srnamc.SRNAMT = 'DSTEVR';
-               dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSTEVR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[24] = ULPINV;
-                     GO TO 630;
+                     break;
                   }
                }
 
@@ -834,23 +843,25 @@ import 'common.dart';
                   UPLO = 'U';
                }
 
+               while (true) {
+
                // 4)      Call DSYEV and DSYEVX.
 
                dlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSYEV';
-               dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 660;
+                     break;
                   }
                }
 
@@ -862,15 +873,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSYEV_2STAGE';
-               dsyev_2stage('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyev_2stage('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEV_2STAGE(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 660;
+                     break;
                   }
                }
 
@@ -885,6 +896,8 @@ import 'common.dart';
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 660
+
+               while (true) {
                dlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1;
@@ -908,17 +921,17 @@ import 'common.dart';
                }
 
                srnamc.SRNAMT = 'DSYEVX';
-               dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 680;
+                     break;
                   }
                }
 
@@ -930,15 +943,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSYEVX_2STAGE';
-               dsyevx_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVX_2STAGE(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 680;
+                     break;
                   }
                }
 
@@ -954,20 +967,22 @@ import 'common.dart';
 
                } // 680
 
+               while (true) {
+
                NTEST = NTEST + 1;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVX';
-               dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 690;
+                     break;
                   }
                }
 
@@ -980,15 +995,15 @@ import 'common.dart';
                NTEST = NTEST + 2;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVX_2STAGE';
-               dsyevx_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVX_2STAGE(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 690;
+                     break;
                   }
                }
 
@@ -999,20 +1014,22 @@ import 'common.dart';
                RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
                } // 690
 
+               while (true) {
+
                NTEST = NTEST + 1;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVX';
-               dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 700;
+                     break;
                   }
                }
 
@@ -1025,21 +1042,21 @@ import 'common.dart';
                NTEST = NTEST + 2;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVX_2STAGE';
-               dsyevx_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevx_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVX_2STAGE(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 700;
+                     break;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
                   RESULT[NTEST] = ULPINV;
-                  GO TO 700;
+                  break;
                }
 
                // Do test 36 (or +54)
@@ -1055,6 +1072,7 @@ import 'common.dart';
 
                } // 700
 
+               while (true) {
                // 5)      Call DSPEV and DSPEVX.
 
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -1082,17 +1100,17 @@ import 'common.dart';
 
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSPEV';
-               dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 800;
+                     break;
                   }
                }
 
@@ -1120,15 +1138,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSPEV';
-               dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEV(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 800;
+                     break;
                   }
                }
 
@@ -1164,6 +1182,8 @@ import 'common.dart';
                   } // 840
                }
 
+               while (true) {
+
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
@@ -1185,17 +1205,17 @@ import 'common.dart';
                }
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 900;
+                     break;
                   }
                }
 
@@ -1224,15 +1244,15 @@ import 'common.dart';
                }
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 900;
+                     break;
                   }
                }
 
@@ -1265,20 +1285,21 @@ import 'common.dart';
                   } // 940
                }
 
+               while (true) {
                NTEST = NTEST + 1;
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 990;
+                     break;
                   }
                }
 
@@ -1307,21 +1328,21 @@ import 'common.dart';
                }
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 990;
+                     break;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
                   RESULT[NTEST] = ULPINV;
-                  GO TO 990;
+                  break;
                }
 
                // Do test 45 (or +54)
@@ -1335,7 +1356,7 @@ import 'common.dart';
                }
                RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
-               } // 990
+               break;} // 990
                if ( IUPLO == 1 ) {
                   INDX = 1;
                   for (J = 1; J <= N; J++) { // 1010
@@ -1354,20 +1375,21 @@ import 'common.dart';
                   } // 1030
                }
 
+               while (true) {
                NTEST = NTEST + 1;
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1080;
+                     break;
                   }
                }
 
@@ -1396,21 +1418,21 @@ import 'common.dart';
                }
 
                srnamc.SRNAMT = 'DSPEVX';
-               dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVX(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1080;
+                     break;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
                   RESULT[NTEST] = ULPINV;
-                  GO TO 1080;
+                  break;
                }
 
                // Do test 48 (or +54)
@@ -1442,30 +1464,31 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1100
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1090
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1090
                   } // 1100
                } else {
                   for (J = 1; J <= N; J++) { // 1120
                      for (I = J; I <= min( N, J+KD ); I++) { // 1110
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1110
                   } // 1120
                }
 
+               while (true) {
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSBEV';
-               dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSBEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSBEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1180;
+                     brewk;
                   }
                }
 
@@ -1476,28 +1499,28 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1140
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1130
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1130
                   } // 1140
                } else {
                   for (J = 1; J <= N; J++) { // 1160
                      for (I = J; I <= min( N, J+KD ); I++) { // 1150
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1150
                   } // 1160
                }
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSBEV_2STAGE';
-               dsbev_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSBEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbev_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSBEV_2STAGE(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1180;
+                     brewk;
                   }
                }
 
@@ -1518,30 +1541,31 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1200
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1190
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1190
                   } // 1200
                } else {
                   for (J = 1; J <= N; J++) { // 1220
                      for (I = J; I <= min( N, J+KD ); I++) { // 1210
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1210
                   } // 1220
                }
 
+               while (true) {
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSBEVX';
-               dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSBEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1280;
+                     break;
                   }
                }
 
@@ -1554,27 +1578,27 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1240
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1230
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1230
                   } // 1240
                } else {
                   for (J = 1; J <= N; J++) { // 1260
                      for (I = J; I <= min( N, J+KD ); I++) { // 1250
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1250
                   } // 1260
                }
 
                srnamc.SRNAMT = 'DSBEVX_2STAGE';
-               dsbevx_2stage('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx_2stage('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSBEVX_2STAGE(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1280;
+                     break;
                   }
                }
 
@@ -1589,33 +1613,35 @@ import 'common.dart';
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 1280
+
+               while (true) {
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1300
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1290
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1290
                   } // 1300
                } else {
                   for (J = 1; J <= N; J++) { // 1320
                      for (I = J; I <= min( N, J+KD ); I++) { // 1310
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1310
                   } // 1320
                }
 
                srnamc.SRNAMT = 'DSBEVX';
-               dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSBEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1370;
+                     break;
                   }
                }
 
@@ -1628,27 +1654,27 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1340
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1330
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1330
                   } // 1340
                } else {
                   for (J = 1; J <= N; J++) { // 1360
                      for (I = J; I <= min( N, J+KD ); I++) { // 1350
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1350
                   } // 1360
                }
 
                srnamc.SRNAMT = 'DSBEVX_2STAGE';
-               dsbevx_2stage('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx_2stage('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSBEVX_2STAGE(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1370;
+                     break;
                   }
                }
 
@@ -1664,33 +1690,36 @@ import 'common.dart';
                RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 1370
+
+               while (true) {
+
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1390
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1380
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1380
                   } // 1390
                } else {
                   for (J = 1; J <= N; J++) { // 1410
                      for (I = J; I <= min( N, J+KD ); I++) { // 1400
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1400
                   } // 1410
                }
 
                srnamc.SRNAMT = 'DSBEVX';
-               dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSBEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1460;
+                     break;
                   }
                }
 
@@ -1703,33 +1732,33 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1430
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1420
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1420
                   } // 1430
                } else {
                   for (J = 1; J <= N; J++) { // 1450
                      for (I = J; I <= min( N, J+KD ); I++) { // 1440
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1440
                   } // 1450
                }
 
                srnamc.SRNAMT = 'DSBEVX_2STAGE';
-               dsbevx_2stage('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevx_2stage('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSBEVX_2STAGE(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1460;
+                     break;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
                   RESULT[NTEST] = ULPINV;
-                  GO TO 1460;
+                  break;
                }
 
                // Do test 60 (or +54)
@@ -1745,23 +1774,24 @@ import 'common.dart';
 
                } // 1460
 
+               while (true) {
                // 7)      Call DSYEVD
 
                dlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSYEVD';
-               dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1480;
+                     break;
                   }
                }
 
@@ -1773,15 +1803,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSYEVD_2STAGE';
-               dsyevd_2stage('N', UPLO, N, A, LDU, D3, WORK,  LWORK, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevd_2stage('N', UPLO, N, A, LDU, D3, WORK,  LWORK, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVD_2STAGE(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1480;
+                     break;
                   }
                }
 
@@ -1797,6 +1827,7 @@ import 'common.dart';
 
                } // 1480
 
+               while (true) {
                // 8)      Call DSPEVD.
 
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -1824,17 +1855,17 @@ import 'common.dart';
 
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSPEVD';
-               dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1580;
+                     break;
                   }
                }
 
@@ -1863,15 +1894,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSPEVD';
-               dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSPEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1580;
+                     break;
                   }
                }
 
@@ -1886,6 +1917,7 @@ import 'common.dart';
                RESULT[NTEST] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
                } // 1580
 
+               while (true) {
                // 9)      Call DSBEVD.
 
                if ( JTYPE <= 7 ) {
@@ -1902,30 +1934,30 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1600
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1590
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1590
                   } // 1600
                } else {
                   for (J = 1; J <= N; J++) { // 1620
                      for (I = J; I <= min( N, J+KD ); I++) { // 1610
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1610
                   } // 1620
                }
 
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSBEVD';
-               dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSBEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSBEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1680;
+                     break;
                   }
                }
 
@@ -1936,28 +1968,28 @@ import 'common.dart';
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1640
                      for (I = max( 1, J-KD ); I <= J; I++) { // 1630
-                        V[KD+1+I-J, J] = A( I, J );
+                        V[KD+1+I-J][J] = A( I, J );
                      } // 1630
                   } // 1640
                } else {
                   for (J = 1; J <= N; J++) { // 1660
                      for (I = J; I <= min( N, J+KD ); I++) { // 1650
-                        V[1+I-J, J] = A( I, J );
+                        V[1+I-J][J] = A( I, J );
                      } // 1650
                   } // 1660
                }
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSBEVD_2STAGE';
-               dsbevd_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IWORK, LIWEDC, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSBEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsbevd_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IWORK, LIWEDC, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSBEVD_2STAGE(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1680;
+                     break;
                   }
                }
 
@@ -1974,20 +2006,21 @@ import 'common.dart';
                } // 1680
 
 
+               while (true) {
                dlacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1;
                srnamc.SRNAMT = 'DSYEVR';
-               dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVR(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1700;
+                     break;
                   }
                }
 
@@ -1999,15 +2032,15 @@ import 'common.dart';
 
                NTEST = NTEST + 2;
                srnamc.SRNAMT = 'DSYEVR_2STAGE';
-               dsyevr_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVR_2STAGE(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1700;
+                     break;
                   }
                }
 
@@ -2023,20 +2056,21 @@ import 'common.dart';
 
                } // 1700
 
+               while (true) {
                NTEST = NTEST + 1;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVR';
-               dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVR(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1710;
+                     break;
                   }
                }
 
@@ -2049,15 +2083,15 @@ import 'common.dart';
                NTEST = NTEST + 2;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVR_2STAGE';
-               dsyevr_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVR_2STAGE(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1710;
+                     break;
                   }
                }
 
@@ -2068,20 +2102,21 @@ import 'common.dart';
                RESULT[NTEST] = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
                } // 1710
 
+               while (true) {
                NTEST = NTEST + 1;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVR';
-               dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT, 'DSYEVR(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
                      RESULT[NTEST+1] = ULPINV;
                      RESULT[NTEST+2] = ULPINV;
-                     GO TO 1720;
+                     break;
                   }
                }
 
@@ -2094,21 +2129,21 @@ import 'common.dart';
                NTEST = NTEST + 2;
                dlacpy(' ', N, N, V, LDU, A, LDA );
                srnamc.SRNAMT = 'DSYEVR_2STAGE';
-               dsyevr_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ( IINFO ).abs();
-                  if ( IINFO < 0 ) {
+               dsyevr_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO.value );
+               if ( IINFO.value != 0 ) {
+                  print9999(NOUNIT,  'DSYEVR_2STAGE(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
+                  INFO.value = ( IINFO.value ).abs();
+                  if ( IINFO.value < 0 ) {
                      return;
                   } else {
                      RESULT[NTEST] = ULPINV;
-                     GO TO 1720;
+                     break;
                   }
                }
 
                if ( M3 == 0 && N > 0 ) {
                   RESULT[NTEST] = ULPINV;
-                  GO TO 1720;
+                  break;
                }
 
                // Do test 78 (or +54)
@@ -2139,7 +2174,11 @@ import 'common.dart';
 
       alasvm('DST', NOUNIT, NERRS, NTESTT, 0 );
 
- 9999 FORMAT( ' DDRVST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+
 
       return;
       }
+
+void print9999( final Nout NOUNIT, final String s, final int info, final int n, final int jtype, final Array<int> isedd) {
+  NOUNIT.println(' DDRVST2STG: $s returned INFO=${info.i6}.', / 9X, 'N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
+}

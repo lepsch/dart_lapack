@@ -4,23 +4,14 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NOUT;
       double   THRESH;
-      // ..
-      // .. Array Arguments ..
       int                MVAL( * ), NBVAL( * ), NVAL( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NTESTS;
       const              NTESTS = 6 ;
-      // ..
-      // .. Local Scalars ..
       String             PATH;
       int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN;
 
@@ -38,8 +29,6 @@
       // .. Common blocks ..
       // COMMON / INFOC / INFOT, NUNIT, OK, LERR
       // COMMON / SRNAMC /srnamc.SRNAMT
-      // ..
-      // .. Executable Statements ..
 
       // Initialize constants
 

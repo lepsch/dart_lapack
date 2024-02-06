@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IFIRST, ILAST, INFO, N, OFFSET, TWIST;
       double               PIVMIN, RTOL1, RTOL2, SPDIAM;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double               D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, TWO, HALF;
       const            ZERO = 0.0, TWO = 2.0, HALF = 0.5 ;
       int       MAXITR;
-      // ..
-      // .. Local Scalars ..
       int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R;
       double               BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
       // ..
@@ -31,8 +22,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

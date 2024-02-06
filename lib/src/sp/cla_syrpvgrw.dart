@@ -3,12 +3,8 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                N, INFO, LDA, LDAF;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), AF( LDAF, * );
       double               WORK( * );
       int                IPIV( * );
@@ -34,8 +30,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( double ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       UPPER = lsame( 'Upper', UPLO );
       if ( INFO == 0 ) {

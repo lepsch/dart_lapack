@@ -5,9 +5,6 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NIN;
       const              NIN = 5 ;
       int                NSUBS;
@@ -1605,8 +1602,6 @@ import 'common.dart';
 // 3-19-92:  Fix argument 12 in calls to ZSYMM and ZHEMM
              // with infoc.INFOT = 9  (eca)
 // 10-9-00:  Declared INTRINSIC DCMPLX (susan)
-
-      // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String             srnamc.SRNAMT;
       // .. Scalars in Common ..
@@ -2819,8 +2814,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       Complex         RI( * ), RJ( * );
@@ -2849,8 +2842,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2903,8 +2894,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, J, MI, MJ;
@@ -2951,8 +2940,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;
@@ -2969,8 +2956,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                infoc.INFOT, NOUT;
       bool               infoc.LERR, infoc.OK;
       String             srnamc.SRNAMT;
@@ -3002,8 +2987,6 @@ import 'common.dart';
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
       // .. Scalars in Common ..

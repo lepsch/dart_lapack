@@ -3,12 +3,8 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                LDB, LDC, LDU, M, N;
       double               RESID;
-      // ..
-      // .. Array Arguments ..
       double               B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
       // ..
 
@@ -17,8 +13,6 @@
       // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                J;
       double               BNORM, EPS, REALMN;
       // ..
@@ -31,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

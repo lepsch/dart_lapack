@@ -3,25 +3,16 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IDIST, INFO, IRSIGN, MODE, N;
       double             COND;
-      // ..
-      // .. Array Arguments ..
       int                ISEED( 4 );
       double             D( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
       double             HALF;
       const              HALF = 0.5 ;
-      // ..
-      // .. Local Scalars ..
       int                I;
       double             ALPHA, TEMP;
       // ..
@@ -34,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, EXP, LOG
-      // ..
-      // .. Executable Statements ..
 
       // Decode and Test the input parameters. Initialize flags & seed.
 

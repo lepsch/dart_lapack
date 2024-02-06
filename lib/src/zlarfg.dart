@@ -3,22 +3,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCX, N;
       Complex         ALPHA, TAU;
-      // ..
-      // .. Array Arguments ..
       Complex         X( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                J, KNT;
       double             ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
       // ..
@@ -32,8 +23,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZSCAL
-      // ..
-      // .. Executable Statements ..
 
       if ( N <= 0 ) {
          TAU = ZERO;

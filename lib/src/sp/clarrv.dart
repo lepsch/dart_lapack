@@ -3,28 +3,19 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                DOL, DOU, INFO, LDZ, M, N;
       double               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
-      // ..
-      // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
       double               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
       Complex           Z( LDZ, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                MAXITR;
       const              MAXITR = 10 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       double               ZERO, ONE, TWO, THREE, FOUR, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
-      // ..
-      // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;
       int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW;
       int                INDIN1, INDIN2;
@@ -40,8 +31,6 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX, MIN
       // INTRINSIC CMPLX
-      // ..
-      // .. Executable Statements ..
       // ..
 
       INFO = 0;

@@ -3,8 +3,6 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS;
       bool               COLEQU, IGNORE_CWISE;
       int                ITHRESH;
@@ -55,8 +53,6 @@
       // ..
       // .. Statement Function Definitions ..
       CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       if (INFO != 0) return;
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE);

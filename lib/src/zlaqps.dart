@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KB, LDA, LDF, M, N, NB, OFFSET;
-      // ..
-      // .. Array Arguments ..
       int                JPVT( * );
       double             VN1( * ), VN2( * );
       Complex         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       Complex         CZERO, CONE;
       const              ZERO = 0.0, ONE = 1.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
       double             TEMP, TEMP2, TOL3Z;
       Complex         AKK;
@@ -35,8 +26,6 @@
       //- int                idamax;
       //- double             DLAMCH, DZNRM2;
       // EXTERNAL idamax, DLAMCH, DZNRM2
-      // ..
-      // .. Executable Statements ..
 
       LASTRK = min( M, N+OFFSET );
       LSTICC = 0;

@@ -3,15 +3,10 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
       double               RMAX;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                LDT;
       const              LDT = 10 ;
       double               ZERO, ONE, TWO;
@@ -20,14 +15,10 @@
       const              LARGE = 1.0e6 ;
       Complex            CONE;
       const              CONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N;
       double               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM;
       Complex            RMUL;
-      // ..
-      // .. Local Arrays ..
       double               DUM( 1 ), VM1( 3 ), VM2( 3 );
       Complex            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT );
       // ..
@@ -40,8 +31,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Get machine parameters
 

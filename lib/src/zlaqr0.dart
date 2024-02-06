@@ -3,12 +3,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, LWORK, N;
       bool               WANTT, WANTZ;
-      // ..
-      // .. Array Arguments ..
       Complex         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
@@ -42,8 +38,6 @@
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             TWO;
       const              TWO = 2.0 ;
-      // ..
-      // .. Local Scalars ..
       Complex         AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2;
       double             S;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD;
@@ -53,8 +47,6 @@
       // .. External Functions ..
       //- int                ILAENV;
       // EXTERNAL ILAENV
-      // ..
-      // .. Local Arrays ..
       Complex         ZDUM( 1, 1 );
       // ..
       // .. External Subroutines ..
@@ -68,8 +60,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
       INFO = 0;
 
       // ==== Quick return for N = 0: nothing to do. ====

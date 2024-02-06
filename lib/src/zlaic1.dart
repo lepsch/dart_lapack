@@ -3,25 +3,16 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                J, JOB;
       double             SEST, SESTPR;
       Complex         C, GAMMA, S;
-      // ..
-      // .. Array Arguments ..
       Complex         W( J ), X( J );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       double             HALF, FOUR;
       const              HALF = 0.5, FOUR = 4.0 ;
-      // ..
-      // .. Local Scalars ..
       double             ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
       Complex         ALPHA, COSINE, SINE;
       // ..
@@ -32,8 +23,6 @@
       //- double             DLAMCH;
       //- Complex         ZDOTC;
       // EXTERNAL DLAMCH, ZDOTC
-      // ..
-      // .. Executable Statements ..
 
       EPS = dlamch( 'Epsilon' );
       ALPHA = ZDOTC( J, X, 1, W, 1 );

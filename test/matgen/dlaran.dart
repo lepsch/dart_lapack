@@ -8,9 +8,6 @@
       int                ISEED( 4 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                M1, M2, M3, M4;
       const              M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 ;
       double             ONE;
@@ -18,15 +15,11 @@
       int                IPW2;
       double             R;
       const              IPW2 = 4096, R = ONE / IPW2 ;
-      // ..
-      // .. Local Scalars ..
       int                IT1, IT2, IT3, IT4;
       double             RNDOUT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MOD
-      // ..
-      // .. Executable Statements ..
       } // 10
 
       // multiply the seed by the multiplier modulo 2**48

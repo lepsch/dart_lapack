@@ -2244,8 +2244,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
       Complex         RI( * ), RJ( * );
@@ -2277,8 +2275,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
@@ -2335,8 +2331,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       bool               RESET;
       // .. Local Scalars ..
       int                I, IC, J, MI, MJ;
@@ -2386,8 +2380,6 @@
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
-
-      // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;

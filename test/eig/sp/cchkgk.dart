@@ -3,14 +3,9 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                NIN, NOUT;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
       const              LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 ;
       int                LDE, LDF, LDWORK, LRWORK;
@@ -19,13 +14,9 @@
       const              ZERO = 0.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;
       double               ANORM, BNORM, EPS, RMAX, VMAX;
       Complex            CDUM;
-      // ..
-      // .. Local Arrays ..
       int                LMAX( 4 );
       double               LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK );
       Complex            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
@@ -45,8 +36,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       LMAX[1] = 0;
       LMAX[2] = 0;

@@ -1,12 +1,8 @@
       void ztrsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, SWORK, LDSWORK, INFO ) {
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, LDSWORK, M, N;
       double             SCALE;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), B( LDB, * ), C( LDC, * );
       double             SWORK( LDSWORK, * );
       // ..
@@ -15,14 +11,10 @@
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB;
       double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
       Complex         CSGN;
-      // ..
-      // .. Local Arrays ..
       double             WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
@@ -36,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, EXPONENT, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Decode and Test input parameters
 

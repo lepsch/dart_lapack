@@ -3,18 +3,11 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       Complex            Z;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I;
       double               RMIN, X;
       // ..
@@ -30,8 +23,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, REAL
-      // ..
-      // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
          CSLECT = ( double( Z ) < ZERO );

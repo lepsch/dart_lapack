@@ -12,12 +12,8 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
-      // ..
-      // .. Array Arguments ..
       double             H( LDH, * ), WI( * ), WR( * ), Z( LDZ, * );
       // ..
 
@@ -30,12 +26,8 @@ import 'package:lapack/src/xerbla.dart';
       const              DAT1 = 3.0 / 4.0, DAT2 = -0.4375 ;
       int                KEXSH;
       const              KEXSH = 10 ;
-      // ..
-      // .. Local Scalars ..
       double             AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3;
       int                I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ, KDEFL;
-      // ..
-      // .. Local Arrays ..
       double             V( 3 );
       // ..
       // .. External Functions ..
@@ -47,8 +39,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 

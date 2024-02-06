@@ -5,12 +5,8 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LTB, LWORK, INFO;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       Complex         A( LDA, * ), B( LDB, * ), TB( * ), WORK( * );
       // ..
@@ -30,8 +26,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

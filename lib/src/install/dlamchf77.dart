@@ -6,15 +6,11 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             CMACH;
       // ..
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               FIRST, LRND;
       int                BETA, IMAX, IMIN, IT;
       double             BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
@@ -31,8 +27,6 @@
       // ..
       // .. Data statements ..
       const FIRST = true;
-      // ..
-      // .. Executable Statements ..
 
       if ( FIRST ) {
          dlamc2(BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX );
@@ -140,8 +134,6 @@
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-      // .. Scalar Arguments ..
       bool               IEEE1, RND;
       int                BETA, T;
       // ..
@@ -161,8 +153,6 @@
       // ..
       // .. Data statements ..
       const FIRST = true;
-      // ..
-      // .. Executable Statements ..
 
       if ( FIRST ) {
          ONE = 1;
@@ -347,8 +337,6 @@
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-      // .. Scalar Arguments ..
       bool               RND;
       int                BETA, EMAX, EMIN, T;
       double             EPS, RMAX, RMIN;
@@ -375,8 +363,6 @@
       // ..
       // .. Data statements ..
       const FIRST = true, IWARN = false;
-      // ..
-      // .. Executable Statements ..
 
       if ( FIRST ) {
          ZERO = 0;
@@ -556,8 +542,6 @@
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-      // .. Scalar Arguments ..
       double             A, B;
       // ..
 // =====================================================================
@@ -600,8 +584,6 @@
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-      // .. Scalar Arguments ..
       int                BASE, EMIN;
       double             START;
       // ..
@@ -614,8 +596,6 @@
       // .. External Functions ..
       //- double             DLAMC3;
       // EXTERNAL DLAMC3
-      // ..
-      // .. Executable Statements ..
 
       A = START;
       ONE = 1;
@@ -703,19 +683,12 @@
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-      // .. Scalar Arguments ..
       bool               IEEE;
       int                BETA, EMAX, EMIN, P;
       double             RMAX;
       // ..
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
       double             OLDY, RECBAS, Y, Z;
       // ..
@@ -725,8 +698,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
-      // ..
-      // .. Executable Statements ..
 
       // First compute LEXP and UEXP, two powers of 2 that bound
       // abs(EMIN). We then assume that EMAX + abs(EMIN) will sum

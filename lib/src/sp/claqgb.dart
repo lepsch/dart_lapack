@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             EQUED;
       int                KL, KU, LDAB, M, N;
       double               AMAX, COLCND, ROWCND;
-      // ..
-      // .. Array Arguments ..
       double               C( * ), R( * );
       Complex            AB( LDAB, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J;
       double               CJ, LARGE, SMALL;
       // ..
@@ -30,8 +21,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Quick return if possible
 

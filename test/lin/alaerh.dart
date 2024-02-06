@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             PATH;
       List<String>       SUBNAM;
       List<String>       OPTS;
@@ -27,8 +25,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAHD
-      // ..
-      // .. Executable Statements ..
 
       if (INFO == 0) return;
       P2 = PATH( 2: 3 );

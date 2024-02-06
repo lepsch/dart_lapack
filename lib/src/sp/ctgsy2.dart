@@ -3,30 +3,19 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N;
       double               RDSCAL, RDSUM, SCALE;
-      // ..
-      // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       int                LDZ;
       const              ZERO = 0.0, ONE = 1.0, LDZ = 2 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, K;
       double               SCALOC;
       Complex            ALPHA;
-      // ..
-      // .. Local Arrays ..
       int                IPIV( LDZ ), JPIV( LDZ );
       Complex            RHS( LDZ ), Z( LDZ, LDZ );
       // ..
@@ -39,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test input parameters
 

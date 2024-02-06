@@ -6,8 +6,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ICHAR
-      // ..
-      // .. Executable Statements ..
 
 
       // Determine the character set.

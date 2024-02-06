@@ -3,28 +3,17 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN;
       double               RMAX;
-      // ..
-      // .. Array Arguments ..
       int                NINFO( 3 );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                LDT, LWORK;
       const              LDT = 10, LWORK = 2*LDT*LDT ;
-      // ..
-      // .. Local Scalars ..
       int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, INFO1, INFO2, J, LOC, N;
       double               EPS, RES;
-      // ..
-      // .. Local Arrays ..
       double               Q( LDT, LDT ), RESULT( 2 ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..
@@ -36,8 +25,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
-      // ..
-      // .. Executable Statements ..
 
       EPS = SLAMCH( 'P' );
       RMAX = ZERO;

@@ -3,19 +3,12 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, LDX, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double               AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
       double               ZERO;
@@ -26,13 +19,9 @@
       const              TWO = 2.0 ;
       double               THREE;
       const              THREE = 3.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, IK, J, K, KASE, KK, NZ;
       double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      // ..
-      // .. Local Arrays ..
       int                ISAVE( 3 );
       // ..
       // .. External Subroutines ..
@@ -45,8 +34,6 @@
       //- bool               lsame;
       //- REAL               SLAMCH;
       // EXTERNAL lsame, SLAMCH
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

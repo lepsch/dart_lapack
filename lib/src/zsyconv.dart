@@ -3,19 +3,12 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO, WAY;
       int                INFO, LDA, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       Complex         A( LDA, * ), E( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       Complex         ZERO;
       const              ZERO = (0.0,0.0) ;
       // ..
@@ -29,8 +22,6 @@
       bool               UPPER, CONVERT;
       int                I, IP, J;
       Complex         TEMP;
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       UPPER = lsame( UPLO, 'U' );

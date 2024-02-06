@@ -3,28 +3,19 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               WANTNC;
       int       B1, BN, N, NEGCNT, R;
       double               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
-      // ..
-      // .. Array Arguments ..
       int                ISUPPZ( * );
       double               D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
       Complex          Z( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
 
-      // ..
-      // .. Local Scalars ..
       bool               SAWNAN1, SAWNAN2;
       int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;
       double               DMINUS, DPLUS, EPS, S, TMP;
@@ -36,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL
-      // ..
-      // .. Executable Statements ..
 
       EPS = SLAMCH( 'Precision' );
 

@@ -3,19 +3,12 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, L, LDC, M, N;
       double               TAU;
-      // ..
-      // .. Array Arguments ..
       double               C( LDC, * ), V( * ), WORK( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
@@ -25,8 +18,6 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      // ..
-      // .. Executable Statements ..
 
       if ( lsame( SIDE, 'L' ) ) {
 

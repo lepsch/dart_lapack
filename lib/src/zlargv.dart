@@ -3,24 +3,15 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCC, INCX, INCY, N;
-      // ..
-      // .. Array Arguments ..
       double             C( * );
       Complex         X( * ), Y( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       // LOGICAL            FIRST
 
       int                COUNT, I, IC, IX, IY, J;
@@ -46,8 +37,6 @@
       // .. Statement Function definitions ..
       ABS1[FF] = max( ( FF.toDouble() ).abs(), ( DIMAG( FF ) ).abs() );
       ABSSQ[FF] = FF.toDouble()**2 + DIMAG( FF )**2;
-      // ..
-      // .. Executable Statements ..
 
       // IF( FIRST ) THEN
          // FIRST = false;

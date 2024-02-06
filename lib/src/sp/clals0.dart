@@ -3,24 +3,15 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
       double               C, S;
-      // ..
-      // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
       double               DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), RWORK( * ), Z( * );
       Complex            B( LDB, * ), BX( LDBX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, J, JCOL, JROW, M, N, NLP1;
       double               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
       // ..
@@ -33,8 +24,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, MAX, REAL
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

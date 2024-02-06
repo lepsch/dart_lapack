@@ -3,8 +3,6 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                NIN, NOUT;
       // ..
 
@@ -15,12 +13,8 @@
       const              LDE = 20 ;
       double               ZERO;
       const              ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
       double               EPS, RMAX, SAFMIN, VMAX, X;
-      // ..
-      // .. Local Arrays ..
       int                LMAX( 2 );
       double               E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
       // ..
@@ -33,8 +27,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-      // ..
-      // .. Executable Statements ..
 
       LMAX[1] = 0;
       LMAX[2] = 0;

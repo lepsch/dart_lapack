@@ -4,8 +4,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-
       int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
       double             SPARSE;
       // ..
@@ -16,9 +14,6 @@
       double             D( * ), DL( * ), DR( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
 
       double             ZERO;
       const              ZERO = 0.0 ;

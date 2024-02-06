@@ -7,9 +7,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-// =====================================================================
-
-      // .. Parameters ..
       int                NMAX;
       const              NMAX = 132 ;
       int                NCMAX;
@@ -26,8 +23,6 @@
       const              MAXT = 30 ;
       int                NIN, NOUT;
       const              NIN = 5, NOUT = 6 ;
-      // ..
-      // .. Local Scalars ..
       bool               CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SBB, SBK, SBL, SEP, SES, SEV, SGG, SGK, SGL, SGS, SGV, SGX, SSB, SSX, SVD, SVX, SXV, TSTCHK, TSTDIF, TSTDRV, TSTERR;
       String             C1;
       String             C3, PATH;
@@ -37,8 +32,6 @@
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int          N_THREADS, ONE_THREAD;
       double               EPS, S1, S2, THRESH, THRSHN;
-      // ..
-      // .. Local Arrays ..
       bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN );
@@ -91,8 +84,6 @@
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( WORK(LWORK), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      // ..
-      // .. Executable Statements ..
 
       A = 0.0;
       B = 0.0;

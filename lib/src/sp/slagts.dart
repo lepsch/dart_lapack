@@ -3,23 +3,14 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INFO, JOB, N;
       double               TOL;
-      // ..
-      // .. Array Arguments ..
       int                IN( * );
       double               A( * ), B( * ), C( * ), D( * ), Y( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. Local Scalars ..
       int                K;
       double               ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
       // ..
@@ -32,8 +23,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       if ( ( ( JOB ).abs() > 2 ) || ( JOB == 0 ) ) {

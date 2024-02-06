@@ -3,20 +3,13 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       bool               UPPER;
       double               A1, A3, B1, B3, CSQ, CSU, CSV;
       Complex            A2, B2, SNQ, SNU, SNV;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       double               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
       Complex            B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22;
       // ..
@@ -31,8 +24,6 @@
       // ..
       // .. Statement Function definitions ..
       ABS1[T] = ( double( T ) ).abs() + ( AIMAG( T ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       if ( UPPER ) {
 

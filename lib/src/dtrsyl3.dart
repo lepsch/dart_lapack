@@ -8,26 +8,18 @@ import 'package:lapack/src/xerbla.dart';
 
       void dtrsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO ) {
       // IMPLICIT NONE
-
-      // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
       double             SCALE;
-      // ..
-      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * );
       // ..
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY, SKIP;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC;
       double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
-      // ..
-      // .. Local Arrays ..
       double             WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
@@ -41,8 +33,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, EXPONENT, MAX, MIN
-      // ..
-      // .. Executable Statements ..
 
       // Decode and Test input parameters
 

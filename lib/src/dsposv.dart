@@ -11,19 +11,12 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
-      // ..
-      // .. Array Arguments ..
       double               SWORK( * );
       double             A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       bool               DOITREF;
       const              DOITREF = true ;
 
@@ -51,8 +44,6 @@ import 'package:lapack/src/xerbla.dart';
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
       ITER = 0;

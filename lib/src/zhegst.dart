@@ -3,24 +3,15 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, LDA, LDB, N;
-      // ..
-      // .. Array Arguments ..
       Complex         A( LDA, * ), B( LDB, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
       Complex         CONE, HALF;
       const              CONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      // ..
-      // .. Local Scalars ..
       bool               UPPER;
       int                K, KB, NB;
       // ..
@@ -34,8 +25,6 @@
       //- bool               lsame;
       //- int                ILAENV;
       // EXTERNAL lsame, ILAENV
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters.
 

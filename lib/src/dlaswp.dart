@@ -11,11 +11,7 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                INCX, K1, K2, LDA, N;
-      // ..
-      // .. Array Arguments ..
       int                IPIV( * );
       double             A( LDA, * );
       // ..
@@ -25,8 +21,6 @@ import 'package:lapack/src/xerbla.dart';
       // .. Local Scalars ..
       int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;
       double             TEMP;
-      // ..
-      // .. Executable Statements ..
 
       // Interchange row I with row IPIV(K1+(I-K1)*abs(INCX)) for each of rows
       // K1 through K2.

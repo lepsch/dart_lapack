@@ -3,28 +3,19 @@
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
       double             RMAX;
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                LDT, LWORK;
       const              LDT = 10, LWORK = 2*LDT*LDT ;
-      // ..
-      // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;
       double             EPS, RES;
       Complex         CTEMP;
-      // ..
-      // .. Local Arrays ..
       double             RESULT( 2 ), RWORK( LDT );
       Complex         DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
@@ -34,8 +25,6 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZHST01, ZLACPY, ZLASET, ZTREXC
-      // ..
-      // .. Executable Statements ..
 
       EPS = dlamch( 'P' );
       RMAX = ZERO;

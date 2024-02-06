@@ -3,27 +3,18 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             JOB;
       int                IHI, ILO, INFO, LDA, N;
-      // ..
-      // .. Array Arguments ..
       double             SCALE( * );
       Complex         A( LDA, * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       double             SCLFAC;
       const              SCLFAC = 2.0 ;
       double             FACTOR;
       const              FACTOR = 0.95 ;
-      // ..
-      // .. Local Scalars ..
       bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L;
       double             C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;

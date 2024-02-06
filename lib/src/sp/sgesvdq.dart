@@ -3,19 +3,12 @@
       IMPLICIT    NONE;
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;
-      // ..
-      // .. Array Arguments ..
       double        A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       double        S( * ), RWORK( * );
       int         IWORK( * );
 
-// =====================================================================
-
-      // .. Parameters ..
       double        ZERO,         ONE;
       const     ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       int         IERR, IWOFF, NR, N1, OPTRATIO, p, q;
       int         LWCON, LWQP3, LWRK_SGELQF, LWRK_SGESVD, LWRK_SGESVD2, LWRK_SGEQP3,  LWRK_SGEQRF, LWRK_SORMLQ, LWRK_SORMQR, LWRK_SORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ, LWORQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK;
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
@@ -35,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Test the input arguments
 

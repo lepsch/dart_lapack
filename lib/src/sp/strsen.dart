@@ -3,30 +3,19 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LIWORK, LWORK, M, N;
       double               S, SEP;
-      // ..
-      // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
       double               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
-// =====================================================================
-
-      // .. Parameters ..
       double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;
       double               EST, RNORM, SCALE;
-      // ..
-      // .. Local Arrays ..
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
@@ -39,8 +28,6 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
 
       // Decode and test the input parameters
 

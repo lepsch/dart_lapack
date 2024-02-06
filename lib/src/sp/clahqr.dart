@@ -4,12 +4,8 @@
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
-      // ..
-      // .. Array Arguments ..
       Complex            H( LDH, * ), W( * ), Z( LDZ, * );
       // ..
 
@@ -24,13 +20,9 @@
       const              DAT1 = 3.0 / 4.0 ;
       int                KEXSH;
       const              KEXSH = 10 ;
-      // ..
-      // .. Local Scalars ..
       Complex            CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y;
       double               AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP;
       int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;
-      // ..
-      // .. Local Arrays ..
       Complex            V( 2 );
       // ..
       // .. External Functions ..
@@ -49,8 +41,6 @@
       // ..
       // .. Statement Function definitions ..
       CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
-      // ..
-      // .. Executable Statements ..
 
       INFO = 0;
 
