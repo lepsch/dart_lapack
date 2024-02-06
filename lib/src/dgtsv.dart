@@ -54,7 +54,7 @@ import 'package:lapack/src/xerbla.dart';
 
       if ( NRHS == 1 ) {
          for (I = 1; I <= N - 2; I++) { // 10
-            if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+            if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
 
                // No row interchange required
 
@@ -85,7 +85,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 10
          if ( N > 1 ) {
             I = N - 1;
-            if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+            if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );
@@ -111,7 +111,7 @@ import 'package:lapack/src/xerbla.dart';
          }
       } else {
          for (I = 1; I <= N - 2; I++) { // 40
-            if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+            if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
 
                // No row interchange required
 
@@ -146,7 +146,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 40
          if ( N > 1 ) {
             I = N - 1;
-            if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+            if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
                if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I );
                   D[I+1] = D( I+1 ) - FACT*DU( I );

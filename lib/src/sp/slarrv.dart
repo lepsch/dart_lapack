@@ -302,7 +302,7 @@
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
                      NEWLST = J;
-                  } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ( WORK(WBEGIN + J -1) ) ).abs() {
+                  } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ( WORK(WBEGIN + J -1) ).abs() ) {
                      // the right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J;

@@ -138,7 +138,7 @@
 
       // Choose between QL and QR iteration
 
-      if ( ( D( LEND ) ).abs() < ( D( L ) ) ).abs() {
+      if ( ( D( LEND ) ).abs() < ( D( L ) ).abs() ) {
          LEND = LSV;
          L = LENDSV;
       }

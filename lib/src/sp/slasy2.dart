@@ -253,7 +253,7 @@
          T16[4][4] = SMIN;
       }
       SCALE = ONE;
-      if ( ( EIGHT*SMLNUM )*( BTMP( 1 ) ).abs() > ( T16( 1, 1 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 2 ) ).abs() > ( T16( 2, 2 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 3 ) ).abs() > ( T16( 3, 3 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 4 ) ).abs() > ( T16( 4, 4 ) ) ).abs() {
+      if ( ( EIGHT*SMLNUM )*( BTMP( 1 ) ).abs() > ( T16( 1, 1 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 2 ) ).abs() > ( T16( 2, 2 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 3 ) ).abs() > ( T16( 3, 3 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 4 ) ).abs() > ( T16( 4, 4 ) ).abs() ) {
          SCALE = ( ONE / EIGHT ) / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ).abs(), ( BTMP( 3 ) ).abs(), ( BTMP( 4 ) ) ).abs();
          BTMP[1] = BTMP( 1 )*SCALE;
          BTMP[2] = BTMP( 2 )*SCALE;

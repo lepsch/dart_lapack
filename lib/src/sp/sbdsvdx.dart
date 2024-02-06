@@ -93,7 +93,7 @@
             NS = 1;
             S[1] = ( D( 1 ) ).abs();
          } else {
-            if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ) ).abs() {
+            if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ).abs() ) {
                NS = 1;
                S[1] = ( D( 1 ) ).abs();
             }

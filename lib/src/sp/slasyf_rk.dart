@@ -167,7 +167,7 @@
                   // ABS( W( IMAX, KW-1 ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !(( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ) ).abs() {
+                  if ( !(( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ).abs() ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -466,7 +466,7 @@
                   // ABS( W( IMAX, K+1 ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ) ).abs() {
+                  if ( !( ( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ).abs() ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block

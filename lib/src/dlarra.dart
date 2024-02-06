@@ -63,7 +63,7 @@ import 'package:lapack/src/xerbla.dart';
          // Criterion that guarantees relative accuracy
          for (I = 1; I <= N-1; I++) { // 10
             EABS = ( E(I) ).abs();
-            if ( EABS <= SPLTOL * sqrt((D(I))).abs()*sqrt((D(I+1))) ).abs() {
+            if ( EABS <= SPLTOL * sqrt((D(I))).abs()*sqrt((D(I+1))).abs() ) {
                E[I] = ZERO;
                E2[I] = ZERO;
                ISPLIT[NSPLIT] = I;

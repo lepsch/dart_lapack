@@ -207,7 +207,7 @@
 
             GO TO 80;
          } else {
-            if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ) ) ) ).abs() {
+            if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ) ) ).abs() ) {
                H[ILAST, ILAST-1] = ZERO;
                GO TO 80;
             }
@@ -227,7 +227,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ) ) ) ).abs() {
+               if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ) ) ).abs() ) {
                   H[J, J-1] = ZERO;
                   ILAZRO = true;
                } else {
@@ -387,7 +387,7 @@
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
 
-            if( ( double( MAXIT )*SAFMIN )*( H( ILAST, ILAST-1 ) ).abs() < ( T( ILAST-1, ILAST-1 ) ) ).abs() {
+            if( ( double( MAXIT )*SAFMIN )*( H( ILAST, ILAST-1 ) ).abs() < ( T( ILAST-1, ILAST-1 ) ).abs() ) {
                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 );
             } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) );

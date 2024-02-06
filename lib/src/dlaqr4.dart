@@ -345,7 +345,7 @@ import 'package:lapack/src/xerbla.dart';
                         if (SORTED) GO TO 60;
                         SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
-                           if ( ( WR( I ) ).abs()+( WI( I ) ).abs() < ( WR( I+1 ) ).abs()+( WI( I+1 ) ) ).abs() {
+                           if ( ( WR( I ) ).abs()+( WI( I ) ).abs() < ( WR( I+1 ) ).abs()+( WI( I+1 ) ).abs() ) {
                               SORTED = false;
 
                               SWAP = WR( I );

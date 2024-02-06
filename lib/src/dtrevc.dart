@@ -285,7 +285,7 @@ import 'package:lapack/src/xerbla.dart';
                  // [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
                  // [ (T(KI,KI-1)   T(KI,KI)   )               ]
 
-               if ( ( T( KI-1, KI ) ).abs() >= ( T( KI, KI-1 ) ) ).abs() {
+               if ( ( T( KI-1, KI ) ).abs() >= ( T( KI, KI-1 ) ).abs() ) {
                   WORK[KI-1+N] = ONE;
                   WORK[KI+N2] = WI / T( KI-1, KI );
                } else {
@@ -589,7 +589,7 @@ import 'package:lapack/src/xerbla.dart';
                   // ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
                   // ((T(KI+1,KI) T(KI+1,KI+1))                )
 
-               if ( ( T( KI, KI+1 ) ).abs() >= ( T( KI+1, KI ) ) ).abs() {
+               if ( ( T( KI, KI+1 ) ).abs() >= ( T( KI+1, KI ) ).abs() ) {
                   WORK[KI+N] = WI / T( KI, KI+1 );
                   WORK[KI+1+N2] = ONE;
                } else {

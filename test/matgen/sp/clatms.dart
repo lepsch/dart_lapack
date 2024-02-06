@@ -198,7 +198,7 @@
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      if ( ( D( 1 ) ).abs() <= ( D( MNMIN ) ) ).abs() {
+      if ( ( D( 1 ) ).abs() <= ( D( MNMIN ) ).abs() ) {
          TOPDWN = true;
       } else {
          TOPDWN = false;

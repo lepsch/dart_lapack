@@ -62,7 +62,7 @@
       // Check for scaling
 
       I = ICAMAX( N, RHS, 1 );
-      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
+      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ).abs() ) {
          TEMP = CMPLX( ONE / TWO, ZERO ) / ( RHS( I ) ).abs();
          cscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*double( TEMP );

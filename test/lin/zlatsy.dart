@@ -65,7 +65,7 @@
             X[I-1, I-1] = ZLARND( 2, ISEED );
             X[I-3, I-3] = ZLARND( 2, ISEED );
             X[I-4, I-4] = ZLARND( 2, ISEED );
-            if ( ( X( I-3, I-3 ) ).abs() > ( X( I-4, I-4 ) ) ).abs() {
+            if ( ( X( I-3, I-3 ) ).abs() > ( X( I-4, I-4 ) ).abs() ) {
                X[I-4, I-3] = 2.0*X( I-3, I-3 );
             } else {
                X[I-4, I-3] = 2.0*X( I-4, I-4 );
@@ -90,7 +90,7 @@
          if ( I > 1 ) {
             X[I][I] = ZLARND( 2, ISEED );
             X[I-1, I-1] = ZLARND( 2, ISEED );
-            if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ) ).abs() {
+            if ( ( X( I, I ) ).abs() > ( X( I-1, I-1 ) ).abs() ) {
                X[I-1, I] = 2.0*X( I, I );
             } else {
                X[I-1, I] = 2.0*X( I-1, I-1 );
@@ -127,7 +127,7 @@
             X[I+1, I+1] = ZLARND( 2, ISEED );
             X[I+3, I+3] = ZLARND( 2, ISEED );
             X[I+4, I+4] = ZLARND( 2, ISEED );
-            if ( ( X( I+3, I+3 ) ).abs() > ( X( I+4, I+4 ) ) ).abs() {
+            if ( ( X( I+3, I+3 ) ).abs() > ( X( I+4, I+4 ) ).abs() ) {
                X[I+4, I+3] = 2.0*X( I+3, I+3 );
             } else {
                X[I+4, I+3] = 2.0*X( I+4, I+4 );
@@ -152,7 +152,7 @@
          if ( I < N ) {
             X[I][I] = ZLARND( 2, ISEED );
             X[I+1, I+1] = ZLARND( 2, ISEED );
-            if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ) ).abs() {
+            if ( ( X( I, I ) ).abs() > ( X( I+1, I+1 ) ).abs() ) {
                X[I+1, I] = 2.0*X( I, I );
             } else {
                X[I+1, I] = 2.0*X( I+1, I+1 );

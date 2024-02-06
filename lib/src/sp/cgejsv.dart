@@ -690,7 +690,7 @@
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = sqrt(double(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1))) ).abs() {
+            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1))).abs() ) {
                NR = NR + 1;
             } else {
                GO TO 3002;

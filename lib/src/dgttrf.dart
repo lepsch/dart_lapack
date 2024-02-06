@@ -59,7 +59,7 @@ import 'package:lapack/src/xerbla.dart';
       } // 20
 
       for (I = 1; I <= N - 2; I++) { // 30
-         if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+         if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
 
             // No row interchange required, eliminate DL(I)
 
@@ -85,7 +85,7 @@ import 'package:lapack/src/xerbla.dart';
       } // 30
       if ( N > 1 ) {
          I = N - 1;
-         if ( ( D( I ) ).abs() >= ( DL( I ) ) ).abs() {
+         if ( ( D( I ) ).abs() >= ( DL( I ) ).abs() ) {
             if ( D( I ) != ZERO ) {
                FACT = DL( I ) / D( I );
                DL[I] = FACT;

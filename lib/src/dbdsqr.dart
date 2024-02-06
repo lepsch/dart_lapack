@@ -249,7 +249,7 @@ import 'package:lapack/src/xerbla.dart';
       // (from larger end diagonal element towards smaller)
 
       if ( LL > OLDM || M < OLDLL ) {
-         if ( ( D( LL ) ).abs() >= ( D( M ) ) ).abs() {
+         if ( ( D( LL ) ).abs() >= ( D( M ) ).abs() ) {
 
             // Chase bulge from top (big end) to bottom (small end)
 
@@ -269,7 +269,7 @@ import 'package:lapack/src/xerbla.dart';
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ) <= THRESH ) ).abs() {
+         if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ) <= THRESH ).abs() ) {
             E[M-1] = ZERO;
             GO TO 60;
          }

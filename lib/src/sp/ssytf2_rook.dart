@@ -148,7 +148,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ).abs() {
+                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ).abs() ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -404,7 +404,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ).abs() {
+                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ).abs() ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block

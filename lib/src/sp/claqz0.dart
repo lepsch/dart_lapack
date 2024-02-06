@@ -186,14 +186,14 @@
          }
 
          // Check deflations at the end
-         if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ) ) ) ).abs() {
+         if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ) ) ).abs() ) {
             A[ISTOP, ISTOP-1] = CZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = CZERO;
          }
          // Check deflations at the start
-         if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ) ) ) ).abs() {
+         if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ) ) ).abs() ) {
             A[ISTART+1, ISTART] = CZERO;
             ISTART = ISTART+1;
             LD = 0;
@@ -207,7 +207,7 @@
          // Check interior deflations
          ISTART2 = ISTART;
          for (K = ISTOP; K >= ISTART+1; K--) {
-            if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
+            if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ).abs() ) {
                A[K, K-1] = CZERO;
                ISTART2 = K;
                break;
@@ -323,7 +323,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( double( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
+            if ( ( double( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ).abs() ) {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 );
             } else {
                ESHIFT = ESHIFT+CONE/( SAFMIN*REAL( MAXIT ) );

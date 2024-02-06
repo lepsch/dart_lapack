@@ -97,7 +97,7 @@
          SI[KWTOP] = ZERO;
          NS = 1;
          ND = 0;
-         if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ) ) ).abs() {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ) ).abs() ) {
             NS = 0;
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;

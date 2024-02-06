@@ -69,7 +69,7 @@ import 'package:lapack/src/xerbla.dart';
       // Check for scaling
 
       I = idamax( N, RHS, 1 );
-      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
+      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ).abs() ) {
          TEMP = ( ONE / TWO ) / ( RHS( I ) ).abs();
          dscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*TEMP;

@@ -66,7 +66,7 @@
          BETA[KWTOP] = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ) ).abs() {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ).abs() ) {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
