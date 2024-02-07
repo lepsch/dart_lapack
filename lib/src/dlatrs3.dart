@@ -7,7 +7,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
       void dlatrs3(UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO ) {
-      // IMPLICIT NONE
       String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       double             A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );

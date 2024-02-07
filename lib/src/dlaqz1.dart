@@ -7,8 +7,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
       void dlaqz1(A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V ) {
-      // IMPLICIT NONE
-
       // Arguments
       int    , INTENT( IN ) :: LDA, LDB;
       double          , INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;

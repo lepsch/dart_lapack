@@ -1,5 +1,4 @@
       void zebchvxx(THRESH, PATH ) {
-      // IMPLICIT NONE
       // .. Scalar Arguments ..
       double            THRESH;
       String            PATH;

@@ -8,8 +8,6 @@ import 'package:lapack/src/xerbla.dart';
 
       void dsytrd_sy2sb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO ) {
 
-      // IMPLICIT NONE
-
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

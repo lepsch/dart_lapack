@@ -106,7 +106,7 @@ import 'package:lapack/src/xerbla.dart';
       // Scale.
 
       NM1 = N - 1;
-      ORGNRM = DLANST( 'M', N, D, E );
+      ORGNRM = dlanst( 'M', N, D, E );
       if ( ORGNRM == ZERO ) {
          dlaset('A', N, NRHS, ZERO, ZERO, B, LDB );
          return;

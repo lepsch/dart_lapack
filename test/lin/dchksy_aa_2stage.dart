@@ -6,7 +6,6 @@ import 'common.dart';
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // IMPLICIT NONE
       bool               TSTERR;
       int                NN, NNB, NNS, NMAX, NOUT;
       double             THRESH;
@@ -53,12 +52,12 @@ import 'common.dart';
 
       // Test path
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'S2';
 
       // Path to generate matrices
 
-      MATPATH[1: 1] = 'double          ';
+      MATPATH = '${'Double precision'[0]}';
       MATPATH[2: 3] = 'SY';
       NRUN = 0;
       NFAIL = 0;

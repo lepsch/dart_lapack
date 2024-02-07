@@ -29,7 +29,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'EQ';
 
       EPS = dlamch( 'P' );

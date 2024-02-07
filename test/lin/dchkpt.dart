@@ -50,7 +50,7 @@ import 'common.dart';
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'PT';
       NRUN = 0;
       NFAIL = 0;
@@ -227,7 +227,7 @@ import 'common.dart';
 
             // Compute norm(A).
 
-            ANORM = DLANST( '1', N, D, E );
+            ANORM = dlanst( '1', N, D, E );
 
             // Use DPTTRS to solve for one column at a time of inv(A),
             // computing the maximum column sum as we go.

@@ -7,8 +7,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
       void dgetsqrhrt(M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO ) {
-      // IMPLICIT NONE
-
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

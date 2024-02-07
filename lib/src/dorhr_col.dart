@@ -7,8 +7,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
       void dorhr_col(M, N, NB, A, LDA, T, LDT, D, INFO ) {
-      // IMPLICIT NONE
-
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

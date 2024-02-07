@@ -4,7 +4,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // IMPLICIT NONE
       String             SIDE, TRANS;
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
       Complex         Q( LDQ, * ), C( LDC, * ), WORK( * );

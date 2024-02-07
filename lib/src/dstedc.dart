@@ -145,7 +145,7 @@ import 'package:lapack/src/xerbla.dart';
 
          // Scale.
 
-         ORGNRM = DLANST( 'M', N, D, E );
+         ORGNRM = dlanst( 'M', N, D, E );
          if (ORGNRM == ZERO) GO TO 50;
 
          EPS = dlamch( 'Epsilon' );
@@ -184,7 +184,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Scale.
 
-               ORGNRM = DLANST( 'M', M, D( START ), E( START ) );
+               ORGNRM = dlanst( 'M', M, D( START ), E( START ) );
                dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
                dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 

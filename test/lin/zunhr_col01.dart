@@ -1,6 +1,4 @@
       void zunhr_col01(M, N, MB1, NB1, NB2, RESULT ) {
-      // IMPLICIT NONE
-
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

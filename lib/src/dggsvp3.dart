@@ -12,7 +12,6 @@ import 'package:lapack/src/xerbla.dart';
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // IMPLICIT NONE
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK;
       double             TOLA, TOLB;

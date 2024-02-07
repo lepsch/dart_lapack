@@ -3,7 +3,6 @@
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      IMPLICIT    NONE;
       int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N;
       Complex     A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK );
       double        SVA( N ), RWORK( LRWORK );

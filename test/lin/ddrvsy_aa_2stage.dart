@@ -56,12 +56,12 @@ import 'common.dart';
 
       // Test path
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'S2';
 
       // Path to generate matrices
 
-      MATPATH[1: 1] = 'double          ';
+      MATPATH = '${'Double precision'[0]}';
       MATPATH[2: 3] = 'SY';
 
       NRUN = 0;

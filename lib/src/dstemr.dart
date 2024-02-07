@@ -255,7 +255,7 @@ import 'package:lapack/src/xerbla.dart';
          // RMAX threshold.
 
          SCALE = ONE;
-         TNRM = DLANST( 'M', N, D, E );
+         TNRM = dlanst( 'M', N, D, E );
          if ( TNRM > ZERO && TNRM < RMIN ) {
             SCALE = RMIN / TNRM;
          } else if ( TNRM > RMAX ) {

@@ -29,7 +29,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SIGN, SQRT
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'TR';
       UNFL = dlamch( 'Safe minimum' );
       ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );

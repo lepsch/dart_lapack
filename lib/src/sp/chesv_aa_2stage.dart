@@ -4,7 +4,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // IMPLICIT NONE
       String             UPLO;
       int                N, NRHS, LDA, LDB, LTB, LWORK, INFO;
       int                IPIV( * ), IPIV2( * );

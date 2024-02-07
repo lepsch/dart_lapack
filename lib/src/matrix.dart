@@ -28,6 +28,8 @@ abstract interface class Array<T> {
   List<T> toRawList();
 
   Matrix<T> asMatrix(int ld);
+
+  T maxval(int start, int end);
 }
 
 class Matrix<T> {
@@ -151,6 +153,28 @@ class _Array<T> implements Array<T> {
       _Array.fromSlice(_elements, offset: offset, ld: ld),
       ld,
     );
+  }
+
+  @override
+  T maxval(int start, int end) {
+    switch (T) {
+      case double:
+      case int:
+        num value = 0;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[start] as num)) value = this[start] as num;
+        }
+        return value as T;
+
+      case bool:
+        for (var i = start + 1; i <= end; i++) {
+          if (this[start] as bool) return true as T;
+        }
+        return false as T;
+      default:
+        throw UnimplementedError();
+    }
+    ;
   }
 }
 

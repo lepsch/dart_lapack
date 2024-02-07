@@ -8,8 +8,6 @@ import 'package:lapack/src/xerbla.dart';
 
       void dsyev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO ) {
 
-      // IMPLICIT NONE
-
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

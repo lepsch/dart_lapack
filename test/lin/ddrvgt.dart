@@ -50,7 +50,7 @@ import 'common.dart';
       // .. Data statements ..
       const ISEEDY = 0, 0, 0, 1, TRANSS = 'N', 'T', 'C';
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'GT';
       NRUN = 0;
       NFAIL = 0;

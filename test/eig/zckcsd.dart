@@ -139,8 +139,6 @@
 
 
       void zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK ) {
-      // IMPLICIT NONE
-
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double             THETA( * );

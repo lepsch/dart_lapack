@@ -71,7 +71,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Compute the norm of the matrix A.
 
-      ANORM = DLANST( '1', N, D, E );
+      ANORM = dlanst( '1', N, D, E );
 
       // Compute the reciprocal of the condition number of A.
 

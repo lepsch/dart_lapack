@@ -112,7 +112,7 @@
 
       // Scale submatrix in rows and columns L to LEND
 
-      ANORM = DLANST( 'I', LEND-L+1, D( L ), E( L ) );
+      ANORM = dlanst( 'I', LEND-L+1, D( L ), E( L ) );
       ISCALE = 0;
       if (ANORM == ZERO) GO TO 10;
       if ( ANORM > SSFMAX ) {

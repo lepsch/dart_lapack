@@ -131,7 +131,7 @@ import 'package:lapack/src/xerbla.dart';
          VUU = VU;
       }
 
-      TNRM = DLANST( 'M', N, D, E );
+      TNRM = dlanst( 'M', N, D, E );
       if ( TNRM > ZERO && TNRM < RMIN ) {
          ISCALE = 1;
          SIGMA = RMIN / TNRM;

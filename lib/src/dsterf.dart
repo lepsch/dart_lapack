@@ -88,7 +88,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale submatrix in rows and columns L to LEND
 
-      ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) );
+      ANORM = dlanst( 'M', LEND-L+1, D( L ), E( L ) );
       ISCALE = 0;
       if (ANORM == ZERO) GO TO 10;
       if ( (ANORM > SSFMAX) ) {

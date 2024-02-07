@@ -47,7 +47,7 @@ import 'common.dart';
 
       // Initialize constants and the random number seed.
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'QR';
       NRUN = 0;
       NFAIL = 0;

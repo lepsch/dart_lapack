@@ -1,419 +1,591 @@
-      void dget23(COMP, BALANC, JTYPE, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, LWORK, IWORK, INFO ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dnrm2.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgeevx.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlapy2.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import 'dget22.dart';
+
+void dget23(
+  final bool COMP,
+  final String BALANC,
+  final int JTYPE,
+  final double THRESH,
+  final Array<int> ISEED,
+  final Nout NOUNIT,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> H,
+  final Array<double> WR,
+  final Array<double> WI,
+  final Array<double> WR1,
+  final Array<double> WI1,
+  final Matrix<double> VL,
+  final int LDVL,
+  final Matrix<double> VR,
+  final int LDVR,
+  final Matrix<double> LRE,
+  final int LDLRE,
+  final Array<double> RCONDV,
+  final Array<double> RCNDV1,
+  final Array<double> RCDVIN,
+  final Array<double> RCONDE,
+  final Array<double> RCNDE1,
+  final Array<double> RCDEIN,
+  final Array<double> SCALE,
+  final Array<double> SCALE1,
+  final Array<double> RESULT,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<int> IWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               COMP;
-      String             BALANC;
-      int                INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
-      double             THRESH;
-      int                ISEED( 4 ), IWORK( * );
-      double             A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
+  const EPSIN = 5.9605e-8;
+  bool BALOK, NOBAL;
+  String SENSE;
+  int I, IHI = 0, IHI1 = 0, ILO = 0, ILO1 = 0, ISENS, ISENSM, J, JJ, KMIN;
+  double ABNRM = 0,
+      ABNRM1 = 0,
+      EPS,
+      SMLNUM,
+      TNRM,
+      TOL,
+      TOLIN,
+      ULP,
+      ULPINV,
+      V,
+      VIMIN,
+      VMAX,
+      VMX,
+      VRMIN,
+      VRMX,
+      VTST;
+  final DUM = Array<double>(1), RES = Array<double>(2);
+  const SENS = ['N', 'V'];
+  final IINFO = Box(0);
 
-// =====================================================================
+  // Check for errors
 
+  NOBAL = lsame(BALANC, 'N');
+  BALOK =
+      NOBAL || lsame(BALANC, 'P') || lsame(BALANC, 'S') || lsame(BALANC, 'B');
+  INFO.value = 0;
+  if (!BALOK) {
+    INFO.value = -2;
+  } else if (THRESH < ZERO) {
+    INFO.value = -4;
+    // } else if ( NOUNIT <= 0 ) {
+    //    INFO.value = -6;
+  } else if (N < 0) {
+    INFO.value = -7;
+  } else if (LDA < 1 || LDA < N) {
+    INFO.value = -9;
+  } else if (LDVL < 1 || LDVL < N) {
+    INFO.value = -16;
+  } else if (LDVR < 1 || LDVR < N) {
+    INFO.value = -18;
+  } else if (LDLRE < 1 || LDLRE < N) {
+    INFO.value = -20;
+  } else if (LWORK < 3 * N || (COMP && LWORK < 6 * N + N * N)) {
+    INFO.value = -31;
+  }
 
-      // .. Parameters ..
-      double             ZERO, ONE, TWO;
-      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      double             EPSIN;
-      const              EPSIN = 5.9605e-8 ;
-      bool               BALOK, NOBAL;
-      String             SENSE;
-      int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN;
-      double             ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST;
-      String             SENS( 2 );
-      double             DUM( 1 ), RES( 2 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLAPY2, DNRM2;
-      // EXTERNAL lsame, DLAMCH, DLAPY2, DNRM2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEEVX, DGET22, DLACPY, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, MIN
-      // ..
-      // .. Data statements ..
-      const SENS = [ 'N', 'V' ];
+  if (INFO.value != 0) {
+    xerbla('DGET23', -INFO.value);
+    return;
+  }
 
-      // Check for errors
+  // Quick return if nothing to do
 
-      NOBAL = lsame( BALANC, 'N' );
-      BALOK = NOBAL || lsame( BALANC, 'P' ) || lsame( BALANC, 'S' ) || lsame( BALANC, 'B' );
-      INFO = 0;
-      if ( !BALOK ) {
-         INFO = -2;
-      } else if ( THRESH < ZERO ) {
-         INFO = -4;
-      } else if ( NOUNIT <= 0 ) {
-         INFO = -6;
-      } else if ( N < 0 ) {
-         INFO = -7;
-      } else if ( LDA < 1 || LDA < N ) {
-         INFO = -9;
-      } else if ( LDVL < 1 || LDVL < N ) {
-         INFO = -16;
-      } else if ( LDVR < 1 || LDVR < N ) {
-         INFO = -18;
-      } else if ( LDLRE < 1 || LDLRE < N ) {
-         INFO = -20;
-      } else if ( LWORK < 3*N || ( COMP && LWORK < 6*N+N*N ) ) {
-         INFO = -31;
+  for (I = 1; I <= 11; I++) {
+    RESULT[I] = -ONE;
+  }
+
+  if (N == 0) return;
+
+  // More Important constants
+
+  ULP = dlamch('Precision');
+  SMLNUM = dlamch('S');
+  ULPINV = ONE / ULP;
+
+  // Compute eigenvalues and eigenvectors, and test them
+
+  if (LWORK >= 6 * N + N * N) {
+    SENSE = 'B';
+    ISENSM = 2;
+  } else {
+    SENSE = 'E';
+    ISENSM = 1;
+  }
+  dlacpy('F', N, N, A, LDA, H, LDA);
+  dgeevx(
+    BALANC,
+    'V',
+    'V',
+    SENSE,
+    N,
+    H,
+    LDA,
+    WR,
+    WI,
+    VL,
+    LDVL,
+    VR,
+    LDVR,
+    ILO,
+    IHI,
+    SCALE,
+    ABNRM,
+    RCONDE,
+    RCONDV,
+    WORK,
+    LWORK,
+    IWORK,
+    IINFO.value,
+  );
+  if (IINFO.value != 0) {
+    RESULT[1] = ULPINV;
+    _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
+    INFO.value = (IINFO.value).abs();
+    return;
+  }
+
+  // Do Test (1)
+
+  dget22('N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES);
+  RESULT[1] = RES[1];
+
+  // Do Test (2)
+
+  dget22('T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES);
+  RESULT[2] = RES[1];
+
+  // Do Test (3)
+
+  for (J = 1; J <= N; J++) {
+    TNRM = ONE;
+    if (WI[J] == ZERO) {
+      TNRM = dnrm2(N, VR(1, J).asArray(), 1);
+    } else if (WI[J] > ZERO) {
+      TNRM = dlapy2(
+        dnrm2(N, VR(1, J).asArray(), 1),
+        dnrm2(N, VR(1, J + 1).asArray(), 1),
+      );
+    }
+    RESULT[3] = max(RESULT[3], min(ULPINV, (TNRM - ONE).abs() / ULP));
+    if (WI[J] > ZERO) {
+      VMX = ZERO;
+      VRMX = ZERO;
+      for (JJ = 1; JJ <= N; JJ++) {
+        VTST = dlapy2(VR[JJ][J], VR[JJ][J + 1]);
+        if (VTST > VMX) VMX = VTST;
+        if (VR[JJ][J + 1] == ZERO && (VR[JJ][J]).abs() > VRMX) {
+          VRMX = (VR[JJ][J]).abs();
+        }
+      }
+      if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
+    }
+  }
+
+  // Do Test (4)
+
+  for (J = 1; J <= N; J++) {
+    TNRM = ONE;
+    if (WI[J] == ZERO) {
+      TNRM = dnrm2(N, VL(1, J).asArray(), 1);
+    } else if (WI[J] > ZERO) {
+      TNRM = dlapy2(
+        dnrm2(N, VL(1, J).asArray(), 1),
+        dnrm2(N, VL(1, J + 1).asArray(), 1),
+      );
+    }
+    RESULT[4] = max(RESULT[4], min(ULPINV, (TNRM - ONE).abs() / ULP));
+    if (WI[J] > ZERO) {
+      VMX = ZERO;
+      VRMX = ZERO;
+      for (JJ = 1; JJ <= N; JJ++) {
+        VTST = dlapy2(VL[JJ][J], VL[JJ][J + 1]);
+        if (VTST > VMX) VMX = VTST;
+        if (VL[JJ][J + 1] == ZERO && (VL[JJ][J]).abs() > VRMX) {
+          VRMX = (VL[JJ][J]).abs();
+        }
+      }
+      if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;
+    }
+  }
+
+  // Test for all options of computing condition numbers
+
+  for (ISENS = 1; ISENS <= ISENSM; ISENS++) {
+    SENSE = SENS[ISENS - 1];
+
+    // Compute eigenvalues only, and test them
+
+    dlacpy('F', N, N, A, LDA, H, LDA);
+    dgeevx(
+      BALANC,
+      'N',
+      'N',
+      SENSE,
+      N,
+      H,
+      LDA,
+      WR1,
+      WI1,
+      DUM,
+      1,
+      DUM,
+      1,
+      ILO1,
+      IHI1,
+      SCALE1,
+      ABNRM1,
+      RCNDE1,
+      RCNDV1,
+      WORK,
+      LWORK,
+      IWORK,
+      IINFO.value,
+    );
+    if (IINFO.value != 0) {
+      RESULT[1] = ULPINV;
+      _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
+      INFO.value = (IINFO.value).abs();
+      continue;
+    }
+
+    // Do Test (5)
+
+    for (J = 1; J <= N; J++) {
+      if (WR[J] != WR1[J] || WI[J] != WI1[J]) RESULT[5] = ULPINV;
+    }
+
+    // Do Test (8)
+
+    if (!NOBAL) {
+      for (J = 1; J <= N; J++) {
+        if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
+      }
+      if (ILO != ILO1) RESULT[8] = ULPINV;
+      if (IHI != IHI1) RESULT[8] = ULPINV;
+      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+    }
+
+    // Do Test (9)
+
+    if (ISENS == 2 && N > 1) {
+      for (J = 1; J <= N; J++) {
+        if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
+      }
+    }
+
+    // Compute eigenvalues and right eigenvectors, and test them
+
+    dlacpy('F', N, N, A, LDA, H, LDA);
+    dgeevx(
+      BALANC,
+      'N',
+      'V',
+      SENSE,
+      N,
+      H,
+      LDA,
+      WR1,
+      WI1,
+      DUM,
+      1,
+      LRE,
+      LDLRE,
+      ILO1,
+      IHI1,
+      SCALE1,
+      ABNRM1,
+      RCNDE1,
+      RCNDV1,
+      WORK,
+      LWORK,
+      IWORK,
+      IINFO.value,
+    );
+    if (IINFO.value != 0) {
+      RESULT[1] = ULPINV;
+      _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
+      INFO.value = (IINFO.value).abs();
+      continue;
+    }
+
+    // Do Test (5) again
+
+    for (J = 1; J <= N; J++) {
+      if (WR[J] != WR1[J] || WI[J] != WI1[J]) RESULT[5] = ULPINV;
+    }
+
+    // Do Test (6)
+
+    for (J = 1; J <= N; J++) {
+      for (JJ = 1; JJ <= N; JJ++) {
+        if (VR[J][JJ] != LRE[J][JJ]) RESULT[6] = ULPINV;
+      }
+    }
+
+    // Do Test (8) again
+
+    if (!NOBAL) {
+      for (J = 1; J <= N; J++) {
+        if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
+      }
+      if (ILO != ILO1) RESULT[8] = ULPINV;
+      if (IHI != IHI1) RESULT[8] = ULPINV;
+      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+    }
+
+    // Do Test (9) again
+
+    if (ISENS == 2 && N > 1) {
+      for (J = 1; J <= N; J++) {
+        if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
+      }
+    }
+
+    // Compute eigenvalues and left eigenvectors, and test them
+
+    dlacpy('F', N, N, A, LDA, H, LDA);
+    dgeevx(
+      BALANC,
+      'V',
+      'N',
+      SENSE,
+      N,
+      H,
+      LDA,
+      WR1,
+      WI1,
+      LRE,
+      LDLRE,
+      DUM,
+      1,
+      ILO1,
+      IHI1,
+      SCALE1,
+      ABNRM1,
+      RCNDE1,
+      RCNDV1,
+      WORK,
+      LWORK,
+      IWORK,
+      IINFO.value,
+    );
+    if (IINFO.value != 0) {
+      RESULT[1] = ULPINV;
+      _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
+      INFO.value = (IINFO.value).abs();
+      continue;
+    }
+
+    // Do Test (5) again
+
+    for (J = 1; J <= N; J++) {
+      if (WR[J] != WR1[J] || WI[J] != WI1[J]) RESULT[5] = ULPINV;
+    }
+
+    // Do Test (7)
+
+    for (J = 1; J <= N; J++) {
+      for (JJ = 1; JJ <= N; JJ++) {
+        if (VL[J][JJ] != LRE[J][JJ]) RESULT[7] = ULPINV;
+      }
+    }
+
+    // Do Test (8) again
+
+    if (!NOBAL) {
+      for (J = 1; J <= N; J++) {
+        if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
+      }
+      if (ILO != ILO1) RESULT[8] = ULPINV;
+      if (IHI != IHI1) RESULT[8] = ULPINV;
+      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+    }
+
+    // Do Test (9) again
+
+    if (ISENS == 2 && N > 1) {
+      for (J = 1; J <= N; J++) {
+        if (RCONDV[J] != RCNDV1[J]) RESULT[9] = ULPINV;
+      }
+    }
+  }
+
+  // If COMP, compare condition numbers to precomputed ones
+
+  if (COMP) {
+    dlacpy('F', N, N, A, LDA, H, LDA);
+    dgeevx(
+      'N',
+      'V',
+      'V',
+      'B',
+      N,
+      H,
+      LDA,
+      WR,
+      WI,
+      VL,
+      LDVL,
+      VR,
+      LDVR,
+      ILO,
+      IHI,
+      SCALE,
+      ABNRM,
+      RCONDE,
+      RCONDV,
+      WORK,
+      LWORK,
+      IWORK,
+      IINFO.value,
+    );
+    if (IINFO.value != 0) {
+      RESULT[1] = ULPINV;
+      _printResults(
+        NOUNIT,
+        JTYPE,
+        'DGEEVX5',
+        IINFO.value,
+        N,
+        BALANC,
+        ISEED,
+        comp: true,
+      );
+      INFO.value = (IINFO.value).abs();
+    } else {
+      // Sort eigenvalues and condition numbers lexicographically
+      // to compare with inputs
+
+      for (I = 1; I <= N - 1; I++) {
+        KMIN = I;
+        VRMIN = WR[I];
+        VIMIN = WI[I];
+        for (J = I + 1; J <= N; J++) {
+          if (WR[J] < VRMIN) {
+            KMIN = J;
+            VRMIN = WR[J];
+            VIMIN = WI[J];
+          }
+        }
+        WR[KMIN] = WR[I];
+        WI[KMIN] = WI[I];
+        WR[I] = VRMIN;
+        WI[I] = VIMIN;
+        VRMIN = RCONDE[KMIN];
+        RCONDE[KMIN] = RCONDE[I];
+        RCONDE[I] = VRMIN;
+        VRMIN = RCONDV[KMIN];
+        RCONDV[KMIN] = RCONDV[I];
+        RCONDV[I] = VRMIN;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DGET23', -INFO );
-         return;
+      // Compare condition numbers for eigenvectors
+      // taking their condition numbers into account
+
+      RESULT[10] = ZERO;
+      EPS = max(EPSIN, ULP);
+      V = max(N.toDouble() * EPS * ABNRM, SMLNUM);
+      if (ABNRM == ZERO) V = ONE;
+      for (I = 1; I <= N; I++) {
+        if (V > RCONDV[I] * RCONDE[I]) {
+          TOL = RCONDV[I];
+        } else {
+          TOL = V / RCONDE[I];
+        }
+        if (V > RCDVIN[I] * RCDEIN[I]) {
+          TOLIN = RCDVIN[I];
+        } else {
+          TOLIN = V / RCDEIN[I];
+        }
+        TOL = max(TOL, SMLNUM / EPS);
+        TOLIN = max(TOLIN, SMLNUM / EPS);
+        if (EPS * (RCDVIN[I] - TOLIN) > RCONDV[I] + TOL) {
+          VMAX = ONE / EPS;
+        } else if (RCDVIN[I] - TOLIN > RCONDV[I] + TOL) {
+          VMAX = (RCDVIN[I] - TOLIN) / (RCONDV[I] + TOL);
+        } else if (RCDVIN[I] + TOLIN < EPS * (RCONDV[I] - TOL)) {
+          VMAX = ONE / EPS;
+        } else if (RCDVIN[I] + TOLIN < RCONDV[I] - TOL) {
+          VMAX = (RCONDV[I] - TOL) / (RCDVIN[I] + TOLIN);
+        } else {
+          VMAX = ONE;
+        }
+        RESULT[10] = max(RESULT[10], VMAX);
       }
 
-      // Quick return if nothing to do
+      // Compare condition numbers for eigenvalues
+      // taking their condition numbers into account
 
-      for (I = 1; I <= 11; I++) { // 10
-         RESULT[I] = -ONE;
-      } // 10
-
-      if (N == 0) return;
-
-      // More Important constants
-
-      ULP = dlamch( 'Precision' );
-      SMLNUM = dlamch( 'S' );
-      ULPINV = ONE / ULP;
-
-      // Compute eigenvalues and eigenvectors, and test them
-
-      if ( LWORK >= 6*N+N*N ) {
-         SENSE = 'B';
-         ISENSM = 2;
-      } else {
-         SENSE = 'E';
-         ISENSM = 1;
+      RESULT[11] = ZERO;
+      for (I = 1; I <= N; I++) {
+        if (V > RCONDV[I]) {
+          TOL = ONE;
+        } else {
+          TOL = V / RCONDV[I];
+        }
+        if (V > RCDVIN[I]) {
+          TOLIN = ONE;
+        } else {
+          TOLIN = V / RCDVIN[I];
+        }
+        TOL = max(TOL, SMLNUM / EPS);
+        TOLIN = max(TOLIN, SMLNUM / EPS);
+        if (EPS * (RCDEIN[I] - TOLIN) > RCONDE[I] + TOL) {
+          VMAX = ONE / EPS;
+        } else if (RCDEIN[I] - TOLIN > RCONDE[I] + TOL) {
+          VMAX = (RCDEIN[I] - TOLIN) / (RCONDE[I] + TOL);
+        } else if (RCDEIN[I] + TOLIN < EPS * (RCONDE[I] - TOL)) {
+          VMAX = ONE / EPS;
+        } else if (RCDEIN[I] + TOLIN < RCONDE[I] - TOL) {
+          VMAX = (RCONDE[I] - TOL) / (RCDEIN[I] + TOLIN);
+        } else {
+          VMAX = ONE;
+        }
+        RESULT[11] = max(RESULT[11], VMAX);
       }
-      dlacpy('F', N, N, A, LDA, H, LDA );
-      dgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
-      if ( IINFO != 0 ) {
-         RESULT[1] = ULPINV;
-         if ( JTYPE != 22 ) {
-            WRITE( NOUNIT, FMT = 9998 )'DGEEVX1', IINFO, N, JTYPE, BALANC, ISEED;
-         } else {
-            WRITE( NOUNIT, FMT = 9999 )'DGEEVX1', IINFO, N, ISEED( 1 );
-         }
-         INFO = ( IINFO ).abs();
-         return;
-      }
+    }
+  }
 
-      // Do Test (1)
+//  9999 FORMAT( );
+}
 
-      dget22('N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES );
-      RESULT[1] = RES( 1 );
-
-      // Do Test (2)
-
-      dget22('T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES );
-      RESULT[2] = RES( 1 );
-
-      // Do Test (3)
-
-      for (J = 1; J <= N; J++) { // 30
-         TNRM = ONE;
-         if ( WI( J ) == ZERO ) {
-            TNRM = dnrm2( N, VR( 1, J ), 1 );
-         } else if ( WI( J ) > ZERO ) {
-            TNRM = dlapy2( dnrm2( N, VR( 1, J ), 1 ), dnrm2( N, VR( 1, J+1 ), 1 ) );
-         }
-         RESULT[3] = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
-         if ( WI( J ) > ZERO ) {
-            VMX = ZERO;
-            VRMX = ZERO;
-            for (JJ = 1; JJ <= N; JJ++) { // 20
-               VTST = dlapy2( VR( JJ, J ), VR( JJ, J+1 ) );
-               if (VTST > VMX) VMX = VTST;
-               IF( VR( JJ, J+1 ) == ZERO && ( VR( JJ, J ) ).abs() > VRMX )VRMX = ( VR( JJ, J ) ).abs();
-            } // 20
-            if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
-         }
-      } // 30
-
-      // Do Test (4)
-
-      for (J = 1; J <= N; J++) { // 50
-         TNRM = ONE;
-         if ( WI( J ) == ZERO ) {
-            TNRM = dnrm2( N, VL( 1, J ), 1 );
-         } else if ( WI( J ) > ZERO ) {
-            TNRM = dlapy2( dnrm2( N, VL( 1, J ), 1 ), dnrm2( N, VL( 1, J+1 ), 1 ) );
-         }
-         RESULT[4] = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
-         if ( WI( J ) > ZERO ) {
-            VMX = ZERO;
-            VRMX = ZERO;
-            for (JJ = 1; JJ <= N; JJ++) { // 40
-               VTST = dlapy2( VL( JJ, J ), VL( JJ, J+1 ) );
-               if (VTST > VMX) VMX = VTST;
-               IF( VL( JJ, J+1 ) == ZERO && ( VL( JJ, J ) ).abs() > VRMX )VRMX = ( VL( JJ, J ) ).abs();
-            } // 40
-            if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
-         }
-      } // 50
-
-      // Test for all options of computing condition numbers
-
-      for (ISENS = 1; ISENS <= ISENSM; ISENS++) { // 200
-
-         SENSE = SENS( ISENS );
-
-         // Compute eigenvalues only, and test them
-
-         dlacpy('F', N, N, A, LDA, H, LDA );
-         dgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[1] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'DGEEVX2', IINFO, N, JTYPE, BALANC, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'DGEEVX2', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 190;
-         }
-
-         // Do Test (5)
-
-         for (J = 1; J <= N; J++) { // 60
-            if( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV;
-         } // 60
-
-         // Do Test (8)
-
-         if ( !NOBAL ) {
-            for (J = 1; J <= N; J++) { // 70
-               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
-            } // 70
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
-            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
-            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
-         }
-
-         // Do Test (9)
-
-         if ( ISENS == 2 && N > 1 ) {
-            for (J = 1; J <= N; J++) { // 80
-               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
-            } // 80
-         }
-
-         // Compute eigenvalues and right eigenvectors, and test them
-
-         dlacpy('F', N, N, A, LDA, H, LDA );
-         dgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[1] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'DGEEVX3', IINFO, N, JTYPE, BALANC, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'DGEEVX3', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 190;
-         }
-
-         // Do Test (5) again
-
-         for (J = 1; J <= N; J++) { // 90
-            if( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV;
-         } // 90
-
-         // Do Test (6)
-
-         for (J = 1; J <= N; J++) { // 110
-            for (JJ = 1; JJ <= N; JJ++) { // 100
-               if( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV;
-            } // 100
-         } // 110
-
-         // Do Test (8) again
-
-         if ( !NOBAL ) {
-            for (J = 1; J <= N; J++) { // 120
-               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
-            } // 120
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
-            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
-            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
-         }
-
-         // Do Test (9) again
-
-         if ( ISENS == 2 && N > 1 ) {
-            for (J = 1; J <= N; J++) { // 130
-               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
-            } // 130
-         }
-
-         // Compute eigenvalues and left eigenvectors, and test them
-
-         dlacpy('F', N, N, A, LDA, H, LDA );
-         dgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[1] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'DGEEVX4', IINFO, N, JTYPE, BALANC, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'DGEEVX4', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 190;
-         }
-
-         // Do Test (5) again
-
-         for (J = 1; J <= N; J++) { // 140
-            if( WR( J ) != WR1( J ) || WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV;
-         } // 140
-
-         // Do Test (7)
-
-         for (J = 1; J <= N; J++) { // 160
-            for (JJ = 1; JJ <= N; JJ++) { // 150
-               if( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV;
-            } // 150
-         } // 160
-
-         // Do Test (8) again
-
-         if ( !NOBAL ) {
-            for (J = 1; J <= N; J++) { // 170
-               if( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV;
-            } // 170
-            if (ILO != ILO1) RESULT( 8 ) = ULPINV;
-            if( IHI != IHI1 ) RESULT( 8 ) = ULPINV;
-            IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
-         }
-
-         // Do Test (9) again
-
-         if ( ISENS == 2 && N > 1 ) {
-            for (J = 1; J <= N; J++) { // 180
-               if( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV;
-            } // 180
-         }
-
-         } // 190
-
-      } // 200
-
-      // If COMP, compare condition numbers to precomputed ones
-
-      if ( COMP ) {
-         dlacpy('F', N, N, A, LDA, H, LDA );
-         dgeevx('N', 'V', 'V', 'B', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[1] = ULPINV;
-            WRITE( NOUNIT, FMT = 9999 )'DGEEVX5', IINFO, N, ISEED( 1 );
-            INFO = ( IINFO ).abs();
-            GO TO 250;
-         }
-
-         // Sort eigenvalues and condition numbers lexicographically
-         // to compare with inputs
-
-         for (I = 1; I <= N - 1; I++) { // 220
-            KMIN = I;
-            VRMIN = WR( I );
-            VIMIN = WI( I );
-            for (J = I + 1; J <= N; J++) { // 210
-               if ( WR( J ) < VRMIN ) {
-                  KMIN = J;
-                  VRMIN = WR( J );
-                  VIMIN = WI( J );
-               }
-            } // 210
-            WR[KMIN] = WR( I );
-            WI[KMIN] = WI( I );
-            WR[I] = VRMIN;
-            WI[I] = VIMIN;
-            VRMIN = RCONDE( KMIN );
-            RCONDE[KMIN] = RCONDE( I );
-            RCONDE[I] = VRMIN;
-            VRMIN = RCONDV( KMIN );
-            RCONDV[KMIN] = RCONDV( I );
-            RCONDV[I] = VRMIN;
-         } // 220
-
-         // Compare condition numbers for eigenvectors
-         // taking their condition numbers into account
-
-         RESULT[10] = ZERO;
-         EPS = max( EPSIN, ULP );
-         V = max( N.toDouble()*EPS*ABNRM, SMLNUM );
-         if (ABNRM == ZERO) V = ONE;
-         for (I = 1; I <= N; I++) { // 230
-            if ( V > RCONDV( I )*RCONDE( I ) ) {
-               TOL = RCONDV( I );
-            } else {
-               TOL = V / RCONDE( I );
-            }
-            if ( V > RCDVIN( I )*RCDEIN( I ) ) {
-               TOLIN = RCDVIN( I );
-            } else {
-               TOLIN = V / RCDEIN( I );
-            }
-            TOL = max( TOL, SMLNUM / EPS );
-            TOLIN = max( TOLIN, SMLNUM / EPS );
-            if ( EPS*( RCDVIN( I )-TOLIN ) > RCONDV( I )+TOL ) {
-               VMAX = ONE / EPS;
-            } else if ( RCDVIN( I )-TOLIN > RCONDV( I )+TOL ) {
-               VMAX = ( RCDVIN( I )-TOLIN ) / ( RCONDV( I )+TOL );
-            } else if ( RCDVIN( I )+TOLIN < EPS*( RCONDV( I )-TOL ) ) {
-               VMAX = ONE / EPS;
-            } else if ( RCDVIN( I )+TOLIN < RCONDV( I )-TOL ) {
-               VMAX = ( RCONDV( I )-TOL ) / ( RCDVIN( I )+TOLIN );
-            } else {
-               VMAX = ONE;
-            }
-            RESULT[10] = max( RESULT( 10 ), VMAX );
-         } // 230
-
-         // Compare condition numbers for eigenvalues
-         // taking their condition numbers into account
-
-         RESULT[11] = ZERO;
-         for (I = 1; I <= N; I++) { // 240
-            if ( V > RCONDV( I ) ) {
-               TOL = ONE;
-            } else {
-               TOL = V / RCONDV( I );
-            }
-            if ( V > RCDVIN( I ) ) {
-               TOLIN = ONE;
-            } else {
-               TOLIN = V / RCDVIN( I );
-            }
-            TOL = max( TOL, SMLNUM / EPS );
-            TOLIN = max( TOLIN, SMLNUM / EPS );
-            if ( EPS*( RCDEIN( I )-TOLIN ) > RCONDE( I )+TOL ) {
-               VMAX = ONE / EPS;
-            } else if ( RCDEIN( I )-TOLIN > RCONDE( I )+TOL ) {
-               VMAX = ( RCDEIN( I )-TOLIN ) / ( RCONDE( I )+TOL );
-            } else if ( RCDEIN( I )+TOLIN < EPS*( RCONDE( I )-TOL ) ) {
-               VMAX = ONE / EPS;
-            } else if ( RCDEIN( I )+TOLIN < RCONDE( I )-TOL ) {
-               VMAX = ( RCONDE( I )-TOL ) / ( RCDEIN( I )+TOLIN );
-            } else {
-               VMAX = ONE;
-            }
-            RESULT[11] = max( RESULT( 11 ), VMAX );
-         } // 240
-         } // 250
-
-      }
-
- 9999 FORMAT( ' DGET23: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, INPUT EXAMPLE NUMBER = ${.i4}');
- 9998 FORMAT( ' DGET23: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, BALANC = ${}, ISEED=(${.i5(4, ',')})' );
-
-      return;
-      }
+void _printResults(
+  final Nout nout,
+  final int JTYPE,
+  final String s,
+  final int info,
+  final int n,
+  final String BALANC,
+  final Array<int> iseed, {
+  final bool comp = false,
+}) {
+  if (!comp && JTYPE != 22) {
+    nout.println(
+      ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${JTYPE.i6}, BALANC = $BALANC, ISEED=(${iseed.i5(4, ',')})',
+    );
+  } else {
+    nout.println(
+      ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${iseed[1].i4}',
+    );
+  }
+}

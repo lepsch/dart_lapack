@@ -7,8 +7,6 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
       void dgeevx(BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, INFO ) {
-      // implicit none
-
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -27,18 +25,6 @@ import 'package:lapack/src/xerbla.dart';
       double             ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
       bool               SELECT( 1 );
       double             DUM( 1 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, DTRSNA, XERBLA
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax, ILAENV;
-      //- double             DLAMCH, DLANGE, DLAPY2, DNRM2;
-      // EXTERNAL lsame, idamax, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT
 
       // Test the input arguments
 

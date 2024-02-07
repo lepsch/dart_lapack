@@ -101,7 +101,7 @@
       // Scale.
 
       NM1 = N - 1;
-      ORGNRM = DLANST( 'M', N, D, E );
+      ORGNRM = dlanst( 'M', N, D, E );
       if ( ORGNRM == ZERO ) {
          zlaset('A', N, NRHS, CZERO, CZERO, B, LDB );
          return;

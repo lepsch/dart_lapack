@@ -50,7 +50,7 @@ import 'common.dart';
       // .. Data statements ..
       const ISEEDY = [ 0, 0, 0, 1 ];
 
-      PATH[1: 1] = 'double          ';
+      PATH = '${'Double precision'[0]}';
       PATH[2: 3] = 'PT';
       NRUN = 0;
       NFAIL = 0;
@@ -221,7 +221,7 @@ import 'common.dart';
 
                   // Compute the 1-norm of A.
 
-                  ANORM = DLANST( '1', N, D, E );
+                  ANORM = dlanst( '1', N, D, E );
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
                   if (N > 1) dcopy( N-1, E, 1, E( N+1 ), 1 );

@@ -72,7 +72,7 @@ import 'package:lapack/src/xerbla.dart';
       // Scale matrix to allowable range, if necessary.
 
       ISCALE = 0;
-      TNRM = DLANST( 'M', N, D, E );
+      TNRM = dlanst( 'M', N, D, E );
       if ( TNRM > ZERO && TNRM < RMIN ) {
          ISCALE = 1;
          SIGMA = RMIN / TNRM;

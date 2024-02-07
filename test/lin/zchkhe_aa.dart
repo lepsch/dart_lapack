@@ -4,7 +4,6 @@
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // IMPLICIT NONE
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
       double             THRESH;

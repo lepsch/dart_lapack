@@ -32,7 +32,7 @@
 
       // Compute the 1-norm of the tridiagonal matrix A.
 
-      ANORM = DLANST( '1', N, D, E );
+      ANORM = dlanst( '1', N, D, E );
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 

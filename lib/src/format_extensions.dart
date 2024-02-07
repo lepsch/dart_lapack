@@ -33,8 +33,11 @@ extension DoubleFormatExtension on double {
 }
 
 extension StringFormatExtension on String {
+  String get a1 => substring(0, 1).padLeft(1);
   String get a3 => substring(0, 3).padLeft(3);
+  String get a4 => substring(0, 4).padLeft(4);
   String get a6 => substring(0, 6).padLeft(6);
+  String get a10 => substring(0, 10).padLeft(10);
   String get a15 => substring(0, 15).padLeft(15);
   String get a79 => substring(0, 79).padLeft(79);
 }
