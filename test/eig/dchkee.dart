@@ -1858,7 +1858,7 @@ void main() async {
 
           xlaenv(1, 1);
           if (TSTERR) derrgg('GQR', NOUT);
-          dckgqr(
+          await dckgqr(
             NN,
             MVAL,
             NN,
@@ -1869,19 +1869,19 @@ void main() async {
             ISEED,
             THRESH,
             NMAX,
-            A(1, 1),
-            A(1, 2),
-            A(1, 3),
-            A(1, 4),
+            A(1, 1).asArray(),
+            A(1, 2).asArray(),
+            A(1, 3).asArray(),
+            A(1, 4).asArray(),
             TAUA,
-            B(1, 1),
-            B(1, 2),
-            B(1, 3),
-            B(1, 4),
-            B(1, 5),
+            B(1, 1).asArray(),
+            B(1, 2).asArray(),
+            B(1, 3).asArray(),
+            B(1, 4).asArray(),
+            B(1, 5).asArray(),
             TAUB,
             WORK,
-            D(1, 1),
+            D(1, 1).asArray(),
             NIN,
             NOUT,
             INFO,

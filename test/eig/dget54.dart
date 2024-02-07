@@ -1,69 +1,79 @@
-      void dget54(N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dget54(
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final int LDB,
+  final Matrix<double> S,
+  final int LDS,
+  final Matrix<double> T,
+  final int LDT,
+  final Matrix<double> U,
+  final int LDU,
+  final Matrix<double> V,
+  final int LDV,
+  final Array<double> WORK,
+  final Box<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LDS, LDT, LDU, LDV, N;
-      double             RESULT;
-      double             A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  double ABNORM, ULP, UNFL, WNORM;
+  final DUM = Array<double>(1);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             ABNORM, ULP, UNFL, WNORM;
-      double             DUM( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
+  RESULT.value = ZERO;
+  if (N <= 0) return;
 
-      RESULT = ZERO;
-      if (N <= 0) return;
+  // Constants
 
-      // Constants
+  UNFL = dlamch('Safe minimum');
+  ULP = dlamch('Epsilon') * dlamch('Base');
 
-      UNFL = dlamch( 'Safe minimum' );
-      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
+  // compute the norm of (A,B)
 
-      // compute the norm of (A,B)
+  dlacpy('Full', N, N, A, LDA, WORK.asMatrix(N), N);
+  dlacpy('Full', N, N, B, LDB, WORK(N * N + 1).asMatrix(N), N);
+  ABNORM = max(dlange('1', N, 2 * N, WORK.asMatrix(N), N, DUM), UNFL);
 
-      dlacpy('Full', N, N, A, LDA, WORK, N );
-      dlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = max( dlange( '1', N, 2*N, WORK, N, DUM ), UNFL );
+  // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
-      // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
+  dlacpy(' ', N, N, A, LDA, WORK.asMatrix(N), N);
+  dgemm('N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO,
+      WORK(N * N + 1).asMatrix(N), N);
 
-      dlacpy(' ', N, N, A, LDA, WORK, N );
-      dgemm('N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO, WORK( N*N+1 ), N );
+  dgemm('N', 'C', N, N, N, -ONE, WORK(N * N + 1).asMatrix(N), N, V, LDV, ONE,
+      WORK.asMatrix(N), N);
 
-      dgemm('N', 'C', N, N, N, -ONE, WORK( N*N+1 ), N, V, LDV, ONE, WORK, N );
+  // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 
-      // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
+  dlacpy(' ', N, N, B, LDB, WORK(N * N + 1).asMatrix(N), N);
+  dgemm('N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO,
+      WORK(2 * N * N + 1).asMatrix(N), N);
 
-      dlacpy(' ', N, N, B, LDB, WORK( N*N+1 ), N );
-      dgemm('N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO, WORK( 2*N*N+1 ), N );
+  dgemm('N', 'C', N, N, N, -ONE, WORK(2 * N * N + 1).asMatrix(N), N, V, LDV,
+      ONE, WORK(N * N + 1).asMatrix(N), N);
 
-      dgemm('N', 'C', N, N, N, -ONE, WORK( 2*N*N+1 ), N, V, LDV, ONE, WORK( N*N+1 ), N );
+  // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      // Compute norm(W)/ ( ulp*norm((A,B)) )
+  WNORM = dlange('1', N, 2 * N, WORK.asMatrix(N), N, DUM);
 
-      WNORM = dlange( '1', N, 2*N, WORK, N, DUM );
-
-      if ( ABNORM > WNORM ) {
-         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
-      } else {
-         if ( ABNORM < ONE ) {
-            RESULT = ( min( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
-         } else {
-            RESULT = min( WNORM / ABNORM, (2*N).toDouble() ) / ( 2*N*ULP );
-         }
-      }
-
-      return;
-      }
+  if (ABNORM > WNORM) {
+    RESULT.value = (WNORM / ABNORM) / (2 * N * ULP);
+  } else {
+    if (ABNORM < ONE) {
+      RESULT.value = (min(WNORM, 2 * N * ABNORM) / ABNORM) / (2 * N * ULP);
+    } else {
+      RESULT.value = min(WNORM / ABNORM, (2 * N).toDouble()) / (2 * N * ULP);
+    }
+  }
+}

@@ -1230,7 +1230,7 @@
       dlasum('ZST', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' ZCHKST2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' ZCHKST2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
  9998 FORMAT('\n ${.a3} -- Complex Hermitian eigenvalue problem' );
  9997 FORMAT( ' Matrix types (see ZCHKST2STG for details): ' );
@@ -1239,8 +1239,8 @@
  9995 FORMAT( ' Dense ${} Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.' );
  9994 FORMAT( ' 16=Positive definite, evenly spaced eigenvalues\n 17=Positive definite, geometrically spaced eigenvlaues\n 18=Positive definite, clustered eigenvalues\n 19=Positive definite, small evenly spaced eigenvalues\n 20=Positive definite, large evenly spaced eigenvalues\n 21=Diagonally dominant tridiagonal, geometrically spaced eigenvalues' );
 
- 9989 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is' F8.2 );
- 9988 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is', 1P, D10.3 );
+ 9989 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is${.f8_2}');
+ 9988 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is${( * 10).d10_3}');
 
  9987 FORMAT('\nTest performed:  see ZCHKST2STG for details.\n');
       }

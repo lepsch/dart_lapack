@@ -340,13 +340,13 @@
       slasum('CHB', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' CCHKHB: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' CCHKHB: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
  9998 FORMAT('\n ${.a3} -- Complex Hermitian Banded Tridiagonal Reduction Routines' );
  9997 FORMAT( ' Matrix types (see SCHK23 for details): ' );
 
  9996 FORMAT('\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.' );
  9995 FORMAT( ' Dense ${} Banded Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.' );
 
- 9994 FORMAT('\n Tests performed:   (S is Tridiag,  U is ${},', / 20X, A, ' means ${}.\n UPLO=''U'':\n  1= | A - U S U${.a1} | / ( |A| n ulp )       2= | I - U U${.a1} | / ( n ulp )\n UPLO=''L'':\n  3= | A - U S U${.a1} | / ( |A| n ulp )       4= | I - U U${.a1} | / ( n ulp )' );
+ 9994 FORMAT('\n Tests performed:   (S is Tridiag,  U is ${},\n${' ' * 20}$ means ${}.\n UPLO=''U'':\n  1= | A - U S U${.a1} | / ( |A| n ulp )       2= | I - U U${.a1} | / ( n ulp )\n UPLO=''L'':\n  3= | A - U S U${.a1} | / ( |A| n ulp )       4= | I - U U${.a1} | / ( n ulp )' );
  9993 FORMAT( ' N=${.i5}, K=${.i4}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
       }

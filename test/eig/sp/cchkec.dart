@@ -88,7 +88,7 @@
  9993 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe minimum (SFMIN)             = ', E16.6, / );
  9992 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
  9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale factor in ${.i8} tests.');
- 9971 FORMAT( 'Error in CTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9970 FORMAT( 'Error in CTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9971 FORMAT( 'Error in CTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
+ 9970 FORMAT( 'Error in CTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
       return;
       }

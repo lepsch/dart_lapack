@@ -299,6 +299,6 @@
       slasum('CBB', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' CCHKBB: ${} returned INFO=${.i5}.\n${' ' * 9}M=${.i5} N=${.i5} K=${.i5}, JTYPE=${.i5}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' CCHKBB: ${} returned INFO=${.i5}.\n${' ' * 9}M=${.i5} N=${.i5} K=${.i5}, JTYPE=${.i5}, ISEED=(${.i5(4, ',')})' );
  9998 FORMAT( ' M =${.i4} N=${.i4}, K=${.i3}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
       }

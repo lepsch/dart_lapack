@@ -483,6 +483,6 @@ import 'common.dart';
 
       return;
  9999 FORMAT( ' M=${.i5}, N=${.i5}, type ${.i2}, seed=${i4(4, ',')}', ' test(${.i2})=${.g11_4};
- 9998 FORMAT( ' ZCHKBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9998 FORMAT( ' ZCHKBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
       }

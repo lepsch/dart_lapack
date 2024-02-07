@@ -337,10 +337,10 @@
          IF( RESLTS( 5 ) > THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH;
       }
  9999 FORMAT(' All tests for ${.a3} routines passed the threshold' );
- 9998 FORMAT( ' DGEEQU failed test with value ', D10.3, ' exceeding threshold ', D10.3 );
- 9997 FORMAT( ' DGBEQU failed test with value ', D10.3, ' exceeding threshold ', D10.3 );
- 9996 FORMAT( ' DPOEQU failed test with value ', D10.3, ' exceeding threshold ', D10.3 );
- 9995 FORMAT( ' DPPEQU failed test with value ', D10.3, ' exceeding threshold ', D10.3 );
- 9994 FORMAT( ' DPBEQU failed test with value ', D10.3, ' exceeding threshold ', D10.3 );
+ 9998 FORMAT( ' DGEEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
+ 9997 FORMAT( ' DGBEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
+ 9996 FORMAT( ' DPOEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
+ 9995 FORMAT( ' DPPEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
+ 9994 FORMAT( ' DPBEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
       return;
       }

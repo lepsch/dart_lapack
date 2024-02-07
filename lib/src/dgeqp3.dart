@@ -100,7 +100,7 @@ import 'package:lapack/src/xerbla.dart';
          dgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = max( IWS, INT( WORK( 1 ) ) );
          if ( NA < N ) {
-// CC         CALL DORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
+// CC         CALL dorm2r( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 // CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
             dormqr('Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = max( IWS, INT( WORK( 1 ) ) );

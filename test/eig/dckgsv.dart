@@ -1,108 +1,232 @@
-      void dckgsv(NM, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, U, V, Q, ALPHA, BETA, R, IWORK, WORK, RWORK, NIN, NOUT, INFO ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
+import '../lin/alasum.dart';
+import '../matgen/dlatms.dart';
+import 'alahdg.dart';
+import 'alareq.dart';
+import 'dgsvts3.dart';
+import 'dlatb9.dart';
+
+Future<void> dckgsv(
+  final int NM,
+  final Array<int> MVAL,
+  final Array<int> PVAL,
+  final Array<int> NVAL,
+  final int NMATS,
+  final Array<int> ISEED,
+  final double THRESH,
+  final int NMAX,
+  final Array<double> A,
+  final Array<double> AF,
+  final Array<double> B,
+  final Array<double> BF,
+  final Array<double> U,
+  final Array<double> V,
+  final Array<double> Q,
+  final Array<double> ALPHA,
+  final Array<double> BETA,
+  final Array<double> R,
+  final Array<int> IWORK,
+  final Array<double> WORK,
+  final Array<double> RWORK,
+  final Nin NIN,
+  final Nout NOUT,
+  final Box<int> INFO,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, NIN, NM, NMATS, NMAX, NOUT;
-      double             THRESH;
-      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * );
-      double             A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * );
-      // ..
+  const NTESTS = 12;
+  const NTYPES = 8;
+  bool FIRSTT;
+  int I,
+      IM,
+      IMAT,
+      LDA,
+      LDB,
+      LDQ,
+      LDR,
+      LDU,
+      LDV,
+      LWORK,
+      M,
+      N,
+      NFAIL,
+      NRUN,
+      NT,
+      P;
+  final DOTYPE = Array<bool>(NTYPES);
+  final RESULT = Array<double>(NTESTS);
+  const PATH = 'GSV';
+  final DISTA = Box(''), DISTB = Box(''), TYPE = Box('');
+  final KLA = Box(0),
+      KLB = Box(0),
+      KUA = Box(0),
+      KUB = Box(0),
+      MODEA = Box(0),
+      MODEB = Box(0),
+      IINFO = Box(0);
+  final ANORM = Box(0.0),
+      BNORM = Box(0.0),
+      CNDNMA = Box(0.0),
+      CNDNMB = Box(0.0);
 
-      int                NTESTS;
-      const              NTESTS = 12 ;
-      int                NTYPES;
-      const              NTYPES = 8 ;
-      bool               FIRSTT;
-      String             DISTA, DISTB, TYPE;
-      String             PATH;
-      int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
-      double             ANORM, BNORM, CNDNMA, CNDNMB;
-      bool               DOTYPE( NTYPES );
-      double             RESULT( NTESTS );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DGSVTS3, DLATB9, DLATMS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS
+  // Initialize constants and the random number seed.
 
-      // Initialize constants and the random number seed.
+  INFO.value = 0;
+  NRUN = 0;
+  NFAIL = 0;
+  FIRSTT = true;
+  await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
+  LDA = NMAX;
+  LDB = NMAX;
+  LDU = NMAX;
+  LDV = NMAX;
+  LDQ = NMAX;
+  LDR = NMAX;
+  LWORK = NMAX * NMAX;
 
-      PATH[1: 3] = 'GSV';
-      INFO = 0;
-      NRUN = 0;
-      NFAIL = 0;
-      FIRSTT = true;
-      alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
-      LDA = NMAX;
-      LDB = NMAX;
-      LDU = NMAX;
-      LDV = NMAX;
-      LDQ = NMAX;
-      LDR = NMAX;
-      LWORK = NMAX*NMAX;
+  // Do for each value of M in MVAL.
 
-      // Do for each value of M in MVAL.
+  for (IM = 1; IM <= NM; IM++) {
+    M = MVAL[IM];
+    P = PVAL[IM];
+    N = NVAL[IM];
 
-      for (IM = 1; IM <= NM; IM++) { // 30
-         M = MVAL( IM );
-         P = PVAL( IM );
-         N = NVAL( IM );
+    for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
+      // Do the tests only if DOTYPE[ IMAT ] is true.
 
-         for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 20
+      if (!DOTYPE[IMAT]) continue;
 
-            // Do the tests only if DOTYPE( IMAT ) is true.
+      // Set up parameters with DLATB9 and generate test
+      // matrices A and B with DLATMS.
 
-            if( !DOTYPE( IMAT ) ) GO TO 20;
+      dlatb9(
+        PATH,
+        IMAT,
+        M,
+        P,
+        N,
+        TYPE,
+        KLA,
+        KUA,
+        KLB,
+        KUB,
+        ANORM,
+        BNORM,
+        MODEA,
+        MODEB,
+        CNDNMA,
+        CNDNMB,
+        DISTA,
+        DISTB,
+      );
 
-            // Set up parameters with DLATB9 and generate test
-            // matrices A and B with DLATMS.
+      // Generate M by N matrix A
 
-            dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
-
-            // Generate M by N matrix A
-
-            dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
-            if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ( IINFO ).abs();
-               GO TO 20;
-            }
-
-            dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
-            if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ( IINFO ).abs();
-               GO TO 20;
-            }
-
-            NT = 6;
-
-            dgsvts3(M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V, LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK, LWORK, RWORK, RESULT );
-
-            // Print information about the tests that did not
-            // pass the threshold.
-
-            for (I = 1; I <= NT; I++) { // 10
-               if ( RESULT( I ) >= THRESH ) {
-                  if ( NFAIL == 0 && FIRSTT ) {
-                     FIRSTT = false;
-                     alahdg(NOUT, PATH );
-                  }
-                  WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I );
-                  NFAIL = NFAIL + 1;
-               }
-            } // 10
-            NRUN = NRUN + NT;
-         } // 20
-      } // 30
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, 0 );
-
- 9999 FORMAT( ' DLATMS in DCKGSV   INFO = ${.i5}');
- 9998 FORMAT( ' M=${.i4} P=${.i4}, N=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
-      return;
+      dlatms(
+        M,
+        N,
+        DISTA.value,
+        ISEED,
+        TYPE.value,
+        RWORK,
+        MODEA.value,
+        CNDNMA.value,
+        ANORM.value,
+        KLA.value,
+        KUA.value,
+        'No packing',
+        A.asMatrix(LDA),
+        LDA,
+        WORK,
+        IINFO,
+      );
+      if (IINFO.value != 0) {
+        print9999(NOUT, IINFO.value);
+        INFO.value = (IINFO.value).abs();
+        continue;
       }
+
+      dlatms(
+        P,
+        N,
+        DISTB.value,
+        ISEED,
+        TYPE.value,
+        RWORK,
+        MODEB.value,
+        CNDNMB.value,
+        BNORM.value,
+        KLB.value,
+        KUB.value,
+        'No packing',
+        B.asMatrix(LDB),
+        LDB,
+        WORK,
+        IINFO,
+      );
+      if (IINFO.value != 0) {
+        print9999(NOUT, IINFO.value);
+        INFO.value = (IINFO.value).abs();
+        continue;
+      }
+
+      NT = 6;
+
+      dgsvts3(
+        M,
+        P,
+        N,
+        A,
+        AF,
+        LDA,
+        B,
+        BF,
+        LDB,
+        U,
+        LDU,
+        V,
+        LDV,
+        Q,
+        LDQ,
+        ALPHA,
+        BETA,
+        R,
+        LDR,
+        IWORK,
+        WORK,
+        LWORK,
+        RWORK,
+        RESULT,
+      );
+
+      // Print information about the tests that did not
+      // pass the threshold.
+
+      for (I = 1; I <= NT; I++) {
+        if (RESULT[I] >= THRESH) {
+          if (NFAIL == 0 && FIRSTT) {
+            FIRSTT = false;
+            alahdg(NOUT, PATH);
+          }
+          NOUT.println(
+            ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}',
+          );
+          NFAIL = NFAIL + 1;
+        }
+      }
+      NRUN = NRUN + NT;
+    }
+  }
+
+  // Print a summary of the results.
+  alasum(PATH, NOUT, NFAIL, NRUN, 0);
+}
+
+void print9999(final Nout NOUT, final int info) {
+  NOUT.println(' DLATMS in DCKGSV   INFO.value = ${info.i5}');
+}

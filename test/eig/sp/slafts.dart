@@ -32,7 +32,7 @@
                IE = IE + 1;
                if ( RESULT( K ) < 10000.0 ) {
                   WRITE( IOUNIT, FMT = 9999 )N, IMAT, ISEED, K, RESULT( K );
- 9999             FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is' F8.2 );
+ 9999             FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is${.f8_2}');
                } else {
                   WRITE( IOUNIT, FMT = 9998 )N, IMAT, ISEED, K, RESULT( K );
  9998             FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is', 1P, E10.3 );
@@ -53,7 +53,7 @@
                IE = IE + 1;
                if ( RESULT( K ) < 10000.0 ) {
                   WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K );
- 9997             FORMAT( 1X, I5, ' x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is' F8.2 );
+ 9997             FORMAT( 1X, I5, ' x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is${.f8_2}');
                } else {
                   WRITE( IOUNIT, FMT = 9996 )M, N, IMAT, ISEED, K, RESULT( K );
  9996             FORMAT( 1X, I5, ' x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is', 1P, E10.3 );

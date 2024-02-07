@@ -645,7 +645,7 @@
 
       return;
 
- 9999 FORMAT( ' SCHKHS: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
- 9998 FORMAT( ' SCHKHS: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
- 9997 FORMAT( ' SCHKHS: Selected ${} Eigenvectors from ${} do not match other eigenvectors ${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' SCHKHS: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
+ 9998 FORMAT( ' SCHKHS: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
+ 9997 FORMAT( ' SCHKHS: Selected ${} Eigenvectors from ${} do not match other eigenvectors ${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
       }

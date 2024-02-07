@@ -350,13 +350,13 @@
 
  9992 FORMAT('\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and ${} means ${}.\n 1 = max | ( b A - a B )${} l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
 
- 9991 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is' F8.2 );
+ 9991 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is${.f8_2}');
 
- 9990 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is', 1P, D10.3 );
+ 9990 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is${( * 10).d10_3}');
 
- 9989 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is' F8.2 );
+ 9989 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is${.f8_2}');
 
- 9988 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is', 1P, D10.3 );
+ 9988 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is${( * 10).d10_3}');
 
  9987 FORMAT( ' ZDRGVX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, Input example #${.i2})' );
 

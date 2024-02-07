@@ -1,6 +1,7 @@
 import 'package:lapack/src/matrix.dart';
 
 extension IntFormatExtension on int {
+  String get i1 => toString().padLeft(1);
   String get i2 => toString().padLeft(2);
   String get i3 => toString().padLeft(3);
   String get i4 => toString().padLeft(4);

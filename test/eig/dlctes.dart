@@ -1,28 +1,14 @@
-bool dlctes(ZR, ZI, D) {
+import 'package:lapack/src/f2c/sign.dart';
+
+bool dlctes(final double ZR, final double ZI, final double D) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double D, ZI, ZR;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double ZERO, ONE;
   const ZERO = 0.0, ONE = 1.0;
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC SIGN
-  // ..
-  // .. Executable Statements ..
 
   if (D == ZERO) {
-    DLCTES = (ZR < ZERO);
+    return (ZR < ZERO);
   } else {
-    DLCTES = (sign(ONE, ZR) != sign(ONE, D));
+    return (sign(ONE, ZR) != sign(ONE, D));
   }
-
-  return;
 }

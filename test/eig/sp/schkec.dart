@@ -133,6 +133,6 @@
  9987 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
  9986 FORMAT( ' Error in STGEXC: RMAX =', E12.3, / ' LMAX = ${.i8} NINFO=', 2I8, ' KNT=${.i8}');
  9972 FORMAT( 'STRSYL and STRSYL3 compute an inconsistent result factor in ${.i8} tests.');
- 9971 FORMAT( 'Error in STRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9970 FORMAT( 'Error in STRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9971 FORMAT( 'Error in STRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
+ 9970 FORMAT( 'Error in STRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
       }

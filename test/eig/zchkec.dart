@@ -87,8 +87,8 @@
  9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n ZTRSYL, ZTREXC, ZTRSNA, ZTRSEN\n');
  9993 FORMAT( ' Relative machine precision (EPS) = ', D16.6, / ' Safe minimum (SFMIN)             = ', D16.6, / );
  9992 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
- 9970 FORMAT( 'Error in ZTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
- 9971 FORMAT( 'Error in ZTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =', D12.3, ' threshold =', D12.3 );
+ 9970 FORMAT( 'Error in ZTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
+ 9971 FORMAT( 'Error in ZTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
  9972 FORMAT( 'ZTRSYL and ZTRSYL3 compute an inconsistent scale factor in ${.i8} tests.');
       return;
       }

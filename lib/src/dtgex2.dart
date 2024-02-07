@@ -253,7 +253,7 @@ import 'package:lapack/src/xerbla.dart';
          dgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO );
          if (LINFO != 0) GO TO 70;
          dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO );
-         CALL DORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO != 0 ) GO TO 70;
+         CALL dorm2r( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO != 0 ) GO TO 70;
 
          // Compute F-norm(S21) in BQRA21. (T21 is 0.)
 

@@ -1218,7 +1218,7 @@
       slasum('SST', NOUNIT, NERRS, NTESTT );
       return;
 
- 9999 FORMAT( ' SCHKST2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' SCHKST2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
  9998 FORMAT('\n ${.a3} -- Real Symmetric eigenvalue problem' );
  9997 FORMAT( ' Matrix types (see SCHKST2STG for details): ' );

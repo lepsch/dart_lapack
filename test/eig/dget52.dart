@@ -1,151 +1,273 @@
-      void dget52(LEFT, N, A, LDA, B, LDB, E, LDE, ALPHAR, ALPHAI, BETA, WORK, RESULT ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dget52(
+  final bool LEFT,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final int LDB,
+  final Matrix<double> E,
+  final int LDE,
+  final Array<double> ALPHAR,
+  final Array<double> ALPHAI,
+  final Array<double> BETA,
+  final Array<double> WORK,
+  final Array<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               LEFT;
-      int                LDA, LDB, LDE, N;
-      double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), E( LDE, * ), RESULT( 2 ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
+  bool ILCPLX;
+  String NORMAB, TRANS;
+  int J, JVEC;
+  double ABMAX,
+      ACOEF,
+      ALFMAX,
+      ANORM,
+      BCOEFI,
+      BCOEFR,
+      BETMAX,
+      BNORM,
+      ENORM,
+      ENRMER,
+      ERRNRM,
+      SAFMAX,
+      SAFMIN,
+      SALFI,
+      SALFR,
+      SBETA,
+      SCALE,
+      TEMP1,
+      ULP;
 
-      double             ZERO, ONE, TEN;
-      const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      bool               ILCPLX;
-      String             NORMAB, TRANS;
-      int                J, JVEC;
-      double             ABMAX, ACOEF, ALFMAX, ANORM, BCOEFI, BCOEFR, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SALFI, SALFR, SBETA, SCALE, TEMP1, ULP;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX
+  RESULT[1] = ZERO;
+  RESULT[2] = ZERO;
+  if (N <= 0) return;
 
-      RESULT[1] = ZERO;
-      RESULT[2] = ZERO;
-      if (N <= 0) return;
+  SAFMIN = dlamch('Safe minimum');
+  SAFMAX = ONE / SAFMIN;
+  ULP = dlamch('Epsilon') * dlamch('Base');
 
-      SAFMIN = dlamch( 'Safe minimum' );
-      SAFMAX = ONE / SAFMIN;
-      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
+  if (LEFT) {
+    TRANS = 'T';
+    NORMAB = 'I';
+  } else {
+    TRANS = 'N';
+    NORMAB = 'O';
+  }
 
-      if ( LEFT ) {
-         TRANS = 'T';
-         NORMAB = 'I';
+  // Norm of A, B, and E:
+
+  ANORM = max(dlange(NORMAB, N, N, A, LDA, WORK), SAFMIN);
+  BNORM = max(dlange(NORMAB, N, N, B, LDB, WORK), SAFMIN);
+  ENORM = max(dlange('O', N, N, E, LDE, WORK), ULP);
+  ALFMAX = SAFMAX / max(ONE, BNORM);
+  BETMAX = SAFMAX / max(ONE, ANORM);
+
+  // Compute error matrix.
+  // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+
+  ILCPLX = false;
+  for (JVEC = 1; JVEC <= N; JVEC++) {
+    if (ILCPLX) {
+      // 2nd Eigenvalue/-vector of pair -- do nothing
+
+      ILCPLX = false;
+    } else {
+      SALFR = ALPHAR[JVEC];
+      SALFI = ALPHAI[JVEC];
+      SBETA = BETA[JVEC];
+      if (SALFI == ZERO) {
+        // Real eigenvalue and -vector
+
+        ABMAX = max((SALFR).abs(), (SBETA).abs());
+        if ((SALFR).abs() > ALFMAX || (SBETA).abs() > BETMAX || ABMAX < ONE) {
+          SCALE = ONE / max(ABMAX, SAFMIN);
+          SALFR = SCALE * SALFR;
+          SBETA = SCALE * SBETA;
+        }
+        SCALE = ONE /
+            max((SALFR).abs() * BNORM, max((SBETA).abs() * ANORM, SAFMIN));
+        ACOEF = SCALE * SBETA;
+        BCOEFR = SCALE * SALFR;
+        dgemv(
+          TRANS,
+          N,
+          N,
+          ACOEF,
+          A,
+          LDA,
+          E(1, JVEC).asArray(),
+          1,
+          ZERO,
+          WORK(N * (JVEC - 1) + 1),
+          1,
+        );
+        dgemv(
+          TRANS,
+          N,
+          N,
+          -BCOEFR,
+          B,
+          LDA,
+          E(1, JVEC).asArray(),
+          1,
+          ONE,
+          WORK(N * (JVEC - 1) + 1),
+          1,
+        );
       } else {
-         TRANS = 'N';
-         NORMAB = 'O';
+        // Complex conjugate pair
+
+        ILCPLX = true;
+        if (JVEC == N) {
+          RESULT[1] = TEN / ULP;
+          return;
+        }
+        ABMAX = max((SALFR).abs() + (SALFI).abs(), (SBETA).abs());
+        if ((SALFR).abs() + (SALFI).abs() > ALFMAX ||
+            (SBETA).abs() > BETMAX ||
+            ABMAX < ONE) {
+          SCALE = ONE / max(ABMAX, SAFMIN);
+          SALFR = SCALE * SALFR;
+          SALFI = SCALE * SALFI;
+          SBETA = SCALE * SBETA;
+        }
+        SCALE = ONE /
+            max(
+              ((SALFR).abs() + (SALFI).abs()) * BNORM,
+              max((SBETA).abs() * ANORM, SAFMIN),
+            );
+        ACOEF = SCALE * SBETA;
+        BCOEFR = SCALE * SALFR;
+        BCOEFI = SCALE * SALFI;
+        if (LEFT) {
+          BCOEFI = -BCOEFI;
+        }
+
+        dgemv(
+          TRANS,
+          N,
+          N,
+          ACOEF,
+          A,
+          LDA,
+          E(1, JVEC).asArray(),
+          1,
+          ZERO,
+          WORK(N * (JVEC - 1) + 1),
+          1,
+        );
+        dgemv(
+          TRANS,
+          N,
+          N,
+          -BCOEFR,
+          B,
+          LDA,
+          E(1, JVEC).asArray(),
+          1,
+          ONE,
+          WORK(N * (JVEC - 1) + 1),
+          1,
+        );
+        dgemv(
+          TRANS,
+          N,
+          N,
+          BCOEFI,
+          B,
+          LDA,
+          E(1, JVEC + 1).asArray(),
+          1,
+          ONE,
+          WORK(N * (JVEC - 1) + 1),
+          1,
+        );
+
+        dgemv(
+          TRANS,
+          N,
+          N,
+          ACOEF,
+          A,
+          LDA,
+          E(1, JVEC + 1).asArray(),
+          1,
+          ZERO,
+          WORK(N * JVEC + 1),
+          1,
+        );
+        dgemv(
+          TRANS,
+          N,
+          N,
+          -BCOEFI,
+          B,
+          LDA,
+          E(1, JVEC).asArray(),
+          1,
+          ONE,
+          WORK(N * JVEC + 1),
+          1,
+        );
+        dgemv(
+          TRANS,
+          N,
+          N,
+          -BCOEFR,
+          B,
+          LDA,
+          E(1, JVEC + 1).asArray(),
+          1,
+          ONE,
+          WORK(N * JVEC + 1),
+          1,
+        );
       }
+    }
+  }
 
-      // Norm of A, B, and E:
+  ERRNRM =
+      dlange('One', N, N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1)) /
+          ENORM;
 
-      ANORM = max( dlange( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
-      BNORM = max( dlange( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
-      ENORM = max( dlange( 'O', N, N, E, LDE, WORK ), ULP );
-      ALFMAX = SAFMAX / max( ONE, BNORM );
-      BETMAX = SAFMAX / max( ONE, ANORM );
+  // Compute RESULT[1]
 
-      // Compute error matrix.
-      // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+  RESULT[1] = ERRNRM / ULP;
 
+  // Normalization of E:
+
+  ENRMER = ZERO;
+  ILCPLX = false;
+  for (JVEC = 1; JVEC <= N; JVEC++) {
+    if (ILCPLX) {
       ILCPLX = false;
-      for (JVEC = 1; JVEC <= N; JVEC++) { // 10
-         if ( ILCPLX ) {
-
-            // 2nd Eigenvalue/-vector of pair -- do nothing
-
-            ILCPLX = false;
-         } else {
-            SALFR = ALPHAR( JVEC );
-            SALFI = ALPHAI( JVEC );
-            SBETA = BETA( JVEC );
-            if ( SALFI == ZERO ) {
-
-               // Real eigenvalue and -vector
-
-               ABMAX = max( ( SALFR ).abs(), ( SBETA ).abs() );
-               if ( ( SALFR ).abs() > ALFMAX || ( SBETA ).abs() > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / max( ABMAX, SAFMIN );
-                  SALFR = SCALE*SALFR;
-                  SBETA = SCALE*SBETA;
-               }
-               SCALE = ONE / max( ( SALFR ).abs()*BNORM, ( SBETA ).abs()*ANORM, SAFMIN );
-               ACOEF = SCALE*SBETA;
-               BCOEFR = SCALE*SALFR;
-               dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
-               dgemv(TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 );
-            } else {
-
-               // Complex conjugate pair
-
-               ILCPLX = true;
-               if ( JVEC == N ) {
-                  RESULT[1] = TEN / ULP;
-                  return;
-               }
-               ABMAX = max( ( SALFR ).abs()+( SALFI ).abs(), ( SBETA ).abs() );
-               if ( ( SALFR ).abs()+( SALFI ).abs() > ALFMAX || ( SBETA ).abs() > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / max( ABMAX, SAFMIN );
-                  SALFR = SCALE*SALFR;
-                  SALFI = SCALE*SALFI;
-                  SBETA = SCALE*SBETA;
-               }
-               SCALE = ONE / max( ( ( SALFR ).abs()+( SALFI ).abs() )*BNORM, ( SBETA ).abs()*ANORM, SAFMIN );
-               ACOEF = SCALE*SBETA;
-               BCOEFR = SCALE*SALFR;
-               BCOEFI = SCALE*SALFI;
-               if ( LEFT ) {
-                  BCOEFI = -BCOEFI;
-               }
-
-               dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
-               dgemv(TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 );
-               dgemv(TRANS, N, N, BCOEFI, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 );
-
-               dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC+1 ), 1, ZERO, WORK( N*JVEC+1 ), 1 );
-               dgemv(TRANS, N, N, -BCOEFI, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*JVEC+1 ), 1 );
-               dgemv(TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*JVEC+1 ), 1 );
-            }
-         }
-      } // 10
-
-      ERRNRM = dlange( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM;
-
-      // Compute RESULT(1)
-
-      RESULT[1] = ERRNRM / ULP;
-
-      // Normalization of E:
-
-      ENRMER = ZERO;
-      ILCPLX = false;
-      for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-         if ( ILCPLX ) {
-            ILCPLX = false;
-         } else {
-            TEMP1 = ZERO;
-            if ( ALPHAI( JVEC ) == ZERO ) {
-               for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs() );
-               } // 20
-               ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
-            } else {
-               ILCPLX = true;
-               for (J = 1; J <= N; J++) { // 30
-                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs()+ ( E( J, JVEC+1 ) ).abs() );
-               } // 30
-               ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
-            }
-         }
-      } // 40
-
-      // Compute RESULT(2) : the normalization error in E.
-
-      RESULT[2] = ENRMER / ( N.toDouble()*ULP );
-
-      return;
+    } else {
+      TEMP1 = ZERO;
+      if (ALPHAI[JVEC] == ZERO) {
+        for (J = 1; J <= N; J++) {
+          TEMP1 = max(TEMP1, (E[J][JVEC]).abs());
+        }
+        ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
+      } else {
+        ILCPLX = true;
+        for (J = 1; J <= N; J++) {
+          TEMP1 = max(TEMP1, (E[J][JVEC]).abs() + (E[J][JVEC + 1]).abs());
+        }
+        ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
       }
+    }
+  }
+
+  // Compute RESULT[2] : the normalization error in E.
+
+  RESULT[2] = ENRMER / (N.toDouble() * ULP);
+}

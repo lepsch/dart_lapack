@@ -875,5 +875,5 @@
       dlasum('DSG', NOUNIT, NERRS, NTESTT );
 
       return;
- 9999 FORMAT( ' DDRVSG2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${i5(3, ',')}', I5, ')' );
+ 9999 FORMAT( ' DDRVSG2STG: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
       }

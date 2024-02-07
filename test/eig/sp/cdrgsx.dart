@@ -472,8 +472,8 @@
  9994 FORMAT( ' Matrix types: \n  1:  A is a block diagonal matrix of Jordan blocks and B is the identity \n      matrix, \n  2:  A and B are upper triangular matrices, \n  3:  A and B are as type 2, but each second diagonal block in A_11 and \n      each third diagonal block in A_22 are 2x2 blocks,\n  4:  A and B are block diagonal matrices, \n  5:  (A,B) has potentially close or common eigenvalues.\n');
 
  9993 FORMAT('\n Tests performed:  (S is Schur, T is triangular, Q and Z are ${},\n${' ' * 19} a is alpha, b is beta, and ${} means ${}.)\n  1 = | A - Q S Z${} | / ( |A| n ulp )      2 = | B - Q T Z${} | / ( |B| n ulp )\n  3 = | I - QQ${} | / ( n ulp )             4 = | I - ZZ${} | / ( n ulp )\n  5 = 1/ULP  if A is not in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n  7 = 1/ULP  if SDIM is not the correct number of selected eigenvalues\n  8 = 1/ULP  if DIFEST/DIFTRU > 10*THRESH or DIFTRU/DIFEST > 10*THRESH\n  9 = 1/ULP  if DIFEST <> 0 or DIFTRU > ULP*norm(A,B) when reordering fails\n 10 = 1/ULP  if PLEST/PLTRU > THRESH or PLTRU/PLEST > THRESH\n    ( Test 10 is only for input examples )\n');
- 9992 FORMAT( ' Matrix order=${.i2}, type=${.i2}, a=', E10.3, ', order(A_11)=${.i2}, result ${.i2} is ' F8.2 );
- 9991 FORMAT( ' Matrix order=${.i2}, type=${.i2}, a=', E10.3, ', order(A_11)=${.i2}, result ${.i2} is ' E10.3 );
- 9990 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is' F8.2 );
+ 9992 FORMAT( ' Matrix order=${.i2}, type=${.i2}, a=${.e10_3}, order(A_11)=${.i2}, result ${.i2} is ${.f8_2}');
+ 9991 FORMAT( ' Matrix order=${.i2}, type=${.i2}, a=${.e10_3}, order(A_11)=${.i2}, result ${.i2} is ${.e10_3}');
+ 9990 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is${.f8_2}');
  9989 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is', 1P, E10.3 );
       }
