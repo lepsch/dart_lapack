@@ -494,7 +494,7 @@ void ddrgev3(
           ALPHAI,
           BETA,
           WORK,
-          RESULT[1],
+          RESULT(1),
         );
         if (RESULT[2] > THRESH) {
           _print9998(NOUNIT, 'Left', 'DGGEV31', RESULT[2], N, JTYPE, IOLDSD);
@@ -515,7 +515,7 @@ void ddrgev3(
           ALPHAI,
           BETA,
           WORK,
-          RESULT[3],
+          RESULT(3),
         );
         if (RESULT[4] > THRESH) {
           _print9998(NOUNIT, 'Right', 'DGGEV31', RESULT[4], N, JTYPE, IOLDSD);

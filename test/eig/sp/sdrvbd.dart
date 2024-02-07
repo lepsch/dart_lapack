@@ -662,6 +662,4 @@
  9997 FORMAT( ' M=${.i5}, N=${.i5}, type ${.i1}, IWS=${.i1}, seed=${i4(4, ',')}', ' test(${.i2})=${.g11_4};
  9996 FORMAT( ' SDRVBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
  9995 FORMAT( ' SDRVBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, LSWORK=', I6, / 9X, 'ISEED=(${.i5(4, ',')})' );
-
-      return;
       }

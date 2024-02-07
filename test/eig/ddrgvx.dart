@@ -1,362 +1,580 @@
-      void ddrgvx(NSIZE, THRESH, NIN, NOUT, A, LDA, B, AI, BI, ALPHAR, ALPHAI, BETA, VL, VR, ILO, IHI, LSCALE, RSCALE, S, DTRU, DIF, DIFTRU, WORK, LWORK, IWORK, LIWORK, RESULT, BWORK, INFO ) {
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dggevx.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import '../matgen/dlatm6.dart';
+import 'alasvm.dart';
+import 'dget52.dart';
+
+Future<void> ddrgvx(
+  final int NSIZE,
+  final double THRESH,
+  final Nin NIN,
+  final Nout NOUT,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final Matrix<double> AI,
+  final Matrix<double> BI,
+  final Array<double> ALPHAR,
+  final Array<double> ALPHAI,
+  final Array<double> BETA,
+  final Matrix<double> VL,
+  final Matrix<double> VR,
+  final Box<int> ILO,
+  final Box<int> IHI,
+  final Array<double> LSCALE,
+  final Array<double> RSCALE,
+  final Array<double> S,
+  final Array<double> DTRU,
+  final Array<double> DIF,
+  final Array<double> DIFTRU,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<int> IWORK,
+  final int LIWORK,
+  final Array<double> RESULT,
+  final Array<bool> BWORK,
+  final Box<int> INFO,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE;
-      double             THRESH;
-      bool               BWORK( * );
-      int                IWORK( * );
-      double             A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), DIF( * ), DIFTRU( * ), DTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), S( * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5;
+  int I,
+      IPTYPE,
+      IWA,
+      IWB,
+      IWX,
+      IWY,
+      J,
+      MAXWRK = 0,
+      MINWRK,
+      N,
+      NERRS,
+      NMAX,
+      NPTKNT,
+      NTESTT;
+  double ABNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
+  final WEIGHT = Array<double>(5);
+  final LINFO = Box(0);
+  final ANORM = Box(0.0), BNORM = Box(0.0);
 
-      double             ZERO, ONE, TEN, TNTH, HALF;
-      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5 ;
-      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT;
-      double             ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
-      double             WEIGHT( 5 );
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL ILAENV, DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALASVM, DGET52, DGGEVX, DLACPY, DLATM6, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, SQRT
+  // Check for errors
 
-      // Check for errors
+  INFO.value = 0;
 
-      INFO = 0;
+  NMAX = 5;
 
-      NMAX = 5;
+  if (NSIZE < 0) {
+    INFO.value = -1;
+  } else if (THRESH < ZERO) {
+    INFO.value = -2;
+    // } else if (NIN <= 0) {
+    //   INFO.value = -3;
+    // } else if ( NOUT <= 0 ) {
+    //    INFO.value = -4;
+  } else if (LDA < 1 || LDA < NMAX) {
+    INFO.value = -6;
+  } else if (LIWORK < NMAX + 6) {
+    INFO.value = -26;
+  }
 
-      if ( NSIZE < 0 ) {
-         INFO = -1;
-      } else if ( THRESH < ZERO ) {
-         INFO = -2;
-      } else if ( NIN <= 0 ) {
-         INFO = -3;
-      } else if ( NOUT <= 0 ) {
-         INFO = -4;
-      } else if ( LDA < 1 || LDA < NMAX ) {
-         INFO = -6;
-      } else if ( LIWORK < NMAX+6 ) {
-         INFO = -26;
-      }
+  // Compute workspace
+  // (Note: Comments in the code beginning "Workspace:" describe the
+  // minimal amount of workspace needed at that point in the code,
+  // as well as the preferred amount for good performance.
+  // NB refers to the optimal block size for the immediately
+  // following subroutine, as returned by ILAENV.)
 
-      // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+  MINWRK = 1;
+  if (INFO.value == 0 && LWORK >= 1) {
+    MINWRK = 2 * NMAX * NMAX + 12 * NMAX + 16;
+    MAXWRK = 6 * NMAX + NMAX * ilaenv(1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0);
+    MAXWRK = max(MAXWRK, 2 * NMAX * NMAX + 12 * NMAX + 16);
+    WORK[1] = MAXWRK.toDouble();
+  }
 
-      MINWRK = 1;
-      if ( INFO == 0 && LWORK >= 1 ) {
-         MINWRK = 2*NMAX*NMAX + 12*NMAX + 16;
-         MAXWRK = 6*NMAX + NMAX*ilaenv( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 );
-         MAXWRK = max( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 );
-         WORK[1] = MAXWRK;
-      }
+  if (LWORK < MINWRK) INFO.value = -24;
 
-      if (LWORK < MINWRK) INFO = -24;
+  if (INFO.value != 0) {
+    xerbla('DDRGVX', -INFO.value);
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DDRGVX', -INFO );
-         return;
-      }
+  N = 5;
+  ULP = dlamch('P');
+  ULPINV = ONE / ULP;
+  THRSH2 = TEN * THRESH;
+  NERRS = 0;
+  NPTKNT = 0;
+  NTESTT = 0;
 
-      N = 5;
-      ULP = dlamch( 'P' );
-      ULPINV = ONE / ULP;
-      THRSH2 = TEN*THRESH;
-      NERRS = 0;
-      NPTKNT = 0;
-      NTESTT = 0;
+  if (NSIZE != 0) {
+    // Parameters used for generating test matrices.
 
-      if (NSIZE == 0) GO TO 90;
+    WEIGHT[1] = TNTH;
+    WEIGHT[2] = HALF;
+    WEIGHT[3] = ONE;
+    WEIGHT[4] = ONE / WEIGHT[2];
+    WEIGHT[5] = ONE / WEIGHT[1];
 
-      // Parameters used for generating test matrices.
+    for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) {
+      for (IWA = 1; IWA <= 5; IWA++) {
+        for (IWB = 1; IWB <= 5; IWB++) {
+          for (IWX = 1; IWX <= 5; IWX++) {
+            for (IWY = 1; IWY <= 5; IWY++) {
+              // generated a test matrix pair
 
-      WEIGHT[1] = TNTH;
-      WEIGHT[2] = HALF;
-      WEIGHT[3] = ONE;
-      WEIGHT[4] = ONE / WEIGHT( 2 );
-      WEIGHT[5] = ONE / WEIGHT( 1 );
+              dlatm6(
+                IPTYPE,
+                5,
+                A,
+                LDA,
+                B,
+                VR,
+                LDA,
+                VL,
+                LDA,
+                WEIGHT[IWA],
+                WEIGHT[IWB],
+                WEIGHT[IWX],
+                WEIGHT[IWY],
+                DTRU,
+                DIFTRU,
+              );
 
-      for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) { // 80
-         for (IWA = 1; IWA <= 5; IWA++) { // 70
-            for (IWB = 1; IWB <= 5; IWB++) { // 60
-               for (IWX = 1; IWX <= 5; IWX++) { // 50
-                  for (IWY = 1; IWY <= 5; IWY++) { // 40
+              // Compute eigenvalues/eigenvectors of (A, B).
+              // Compute eigenvalue/eigenvector condition numbers
+              // using computed eigenvectors.
 
-                     // generated a test matrix pair
+              dlacpy('F', N, N, A, LDA, AI, LDA);
+              dlacpy('F', N, N, B, LDA, BI, LDA);
 
-                     dlatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU );
+              dggevx(
+                'N',
+                'V',
+                'V',
+                'B',
+                N,
+                AI,
+                LDA,
+                BI,
+                LDA,
+                ALPHAR,
+                ALPHAI,
+                BETA,
+                VL,
+                LDA,
+                VR,
+                LDA,
+                ILO,
+                IHI,
+                LSCALE,
+                RSCALE,
+                ANORM,
+                BNORM,
+                S,
+                DIF,
+                WORK,
+                LWORK,
+                IWORK,
+                BWORK,
+                LINFO,
+              );
+              if (LINFO.value != 0) {
+                RESULT[1] = ULPINV;
+                NOUT.println(
+                  ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${IPTYPE.i6})',
+                );
+                continue;
+              }
 
-                     // Compute eigenvalues/eigenvectors of (A, B).
-                     // Compute eigenvalue/eigenvector condition numbers
-                     // using computed eigenvectors.
+              // Compute the norm(A, B)
 
-                     dlacpy('F', N, N, A, LDA, AI, LDA );
-                     dlacpy('F', N, N, B, LDA, BI, LDA );
+              dlacpy('Full', N, N, AI, LDA, WORK.asMatrix(N), N);
+              dlacpy('Full', N, N, BI, LDA, WORK(N * N + 1).asMatrix(N), N);
+              ABNORM = dlange('Fro', N, 2 * N, WORK.asMatrix(N), N, WORK);
 
-                     dggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
-                     if ( LINFO != 0 ) {
-                        RESULT[1] = ULPINV;
-                        WRITE( NOUT, FMT = 9999 )'DGGEVX', LINFO, N, IPTYPE;
-                        GO TO 30;
-                     }
+              // Tests (1) and (2)
 
-                     // Compute the norm(A, B)
+              RESULT[1] = ZERO;
+              dget52(
+                true,
+                N,
+                A,
+                LDA,
+                B,
+                LDA,
+                VL,
+                LDA,
+                ALPHAR,
+                ALPHAI,
+                BETA,
+                WORK,
+                RESULT(1),
+              );
+              if (RESULT[2] > THRESH) {
+                _print9998(
+                  NOUT,
+                  'Left',
+                  'DGGEVX',
+                  RESULT[2],
+                  N,
+                  IPTYPE,
+                  IWA,
+                  IWB,
+                  IWX,
+                  IWY,
+                );
+              }
 
-                     dlacpy('Full', N, N, AI, LDA, WORK, N );
-                     dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
-                     ABNORM = dlange( 'Fro', N, 2*N, WORK, N, WORK );
+              RESULT[2] = ZERO;
+              dget52(
+                false,
+                N,
+                A,
+                LDA,
+                B,
+                LDA,
+                VR,
+                LDA,
+                ALPHAR,
+                ALPHAI,
+                BETA,
+                WORK,
+                RESULT(2),
+              );
+              if (RESULT[3] > THRESH) {
+                _print9998(
+                  NOUT,
+                  'Right',
+                  'DGGEVX',
+                  RESULT[3],
+                  N,
+                  IPTYPE,
+                  IWA,
+                  IWB,
+                  IWX,
+                  IWY,
+                );
+              }
 
-                     // Tests (1) and (2)
+              // Test (3)
 
-                     RESULT[1] = ZERO;
-                     dget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
-                     if ( RESULT( 2 ) > THRESH ) {
-                        WRITE( NOUT, FMT = 9998 )'Left', 'DGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY;
-                     }
+              RESULT[3] = ZERO;
+              for (I = 1; I <= N; I++) {
+                if (S[I] == ZERO) {
+                  if (DTRU[I] > ABNORM * ULP) RESULT[3] = ULPINV;
+                } else if (DTRU[I] == ZERO) {
+                  if (S[I] > ABNORM * ULP) RESULT[3] = ULPINV;
+                } else {
+                  WORK[I] = max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
+                  RESULT[3] = max(RESULT[3], WORK[I]);
+                }
+              } // 10
 
-                     RESULT[2] = ZERO;
-                     dget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
-                     if ( RESULT( 3 ) > THRESH ) {
-                        WRITE( NOUT, FMT = 9998 )'Right', 'DGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY;
-                     }
+              // Test (4)
 
-                     // Test (3)
+              RESULT[4] = ZERO;
+              if (DIF[1] == ZERO) {
+                if (DIFTRU[1] > ABNORM * ULP) RESULT[4] = ULPINV;
+              } else if (DIFTRU[1] == ZERO) {
+                if (DIF[1] > ABNORM * ULP) RESULT[4] = ULPINV;
+              } else if (DIF[5] == ZERO) {
+                if (DIFTRU[5] > ABNORM * ULP) RESULT[4] = ULPINV;
+              } else if (DIFTRU[5] == ZERO) {
+                if (DIF[5] > ABNORM * ULP) RESULT[4] = ULPINV;
+              } else {
+                RATIO1 =
+                    max((DIFTRU[1] / DIF[1]).abs(), (DIF[1] / DIFTRU[1]).abs());
+                RATIO2 =
+                    max((DIFTRU[5] / DIF[5]).abs(), (DIF[5] / DIFTRU[5]).abs());
+                RESULT[4] = max(RATIO1, RATIO2);
+              }
 
-                     RESULT[3] = ZERO;
-                     for (I = 1; I <= N; I++) { // 10
-                        if ( S( I ) == ZERO ) {
-                           if[DTRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
-                        } else if ( DTRU( I ) == ZERO ) {
-                           if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
-                        } else {
-                           WORK[I] = max( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) );
-                           RESULT[3] = max( RESULT( 3 ), WORK( I ) );
-                        }
-                     } // 10
+              NTESTT = NTESTT + 4;
 
-                     // Test (4)
+              // Print out tests which fail.
 
-                     RESULT[4] = ZERO;
-                     if ( DIF( 1 ) == ZERO ) {
-                        if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-                     } else if ( DIFTRU( 1 ) == ZERO ) {
-                        if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-                     } else if ( DIF( 5 ) == ZERO ) {
-                        if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-                     } else if ( DIFTRU( 5 ) == ZERO ) {
-                        if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-                     } else {
-                        RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-                        RESULT[4] = max( RATIO1, RATIO2 );
-                     }
+              for (J = 1; J <= 4; J++) {
+                if ((RESULT[J] >= THRSH2 && J >= 4) ||
+                    (RESULT[J] >= THRESH && J <= 3)) {
+                  // If this is the first test to fail,
+                  // print a header to the data file.
 
-                     NTESTT = NTESTT + 4;
+                  if (NERRS == 0) {
+                    _print9997(NOUT);
 
-                     // Print out tests which fail.
+                    // Print out messages for built-in examples
 
-                     for (J = 1; J <= 4; J++) { // 20
-                        if ( ( RESULT( J ) >= THRSH2 && J >= 4 ) || ( RESULT( J ) >= THRESH && J <= 3 ) ) {
+                    // Matrix types
 
-                        // If this is the first test to fail,
-                        // print a header to the data file.
+                    NOUT.println(' Matrix types:\n');
+                    NOUT.println(
+                      ' TYPE 1: Da is diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n',
+                    );
+                    NOUT.println(
+                      ' TYPE 2: Da is quasi-diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n',
+                    );
 
-                           if ( NERRS == 0 ) {
-                              WRITE( NOUT, FMT = 9997 )'DXV';
+                    // Tests performed
 
-                           // Print out messages for built-in examples
+                    _print9992(NOUT);
+                  }
+                  NERRS = NERRS + 1;
+                  if (RESULT[J] < 10000.0) {
+                    NOUT.println(
+                      ' Type=$IPTYPE{.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${RESULT[J].f8_2}',
+                    );
+                  } else {
+                    NOUT.println(
+                      ' Type=${IPTYPE.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${(RESULT[J] * 10).d10_3}',
+                    );
+                  }
+                }
+              } // 20
 
-                           // Matrix types
-
-                              WRITE( NOUT, FMT = 9995 );
-                              WRITE( NOUT, FMT = 9994 );
-                              WRITE( NOUT, FMT = 9993 );
-
-                           // Tests performed
-
-                              WRITE( NOUT, FMT = 9992 )'''', 'transpose', '''';
-
-                           }
-                           NERRS = NERRS + 1;
-                           if ( RESULT( J ) < 10000.0 ) {
-                              WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J );
-                           } else {
-                              WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J );
-                           }
-                        }
-                     } // 20
-
-                     } // 30
-
-                  } // 40
-               } // 50
-            } // 60
-         } // 70
-      } // 80
-
-      GO TO 150;
-
-      } // 90
-
+              //  } // 30
+            } // 40
+          } // 50
+        } // 60
+      } // 70
+    } // 80
+  } else {
+    while (true) {
       // Read in data from file to check accuracy of condition estimation
       // Read input data until N=0
-
-      READ( NIN, FMT = *, END = 150 )N;
-      if (N == 0) GO TO 150;
-      for (I = 1; I <= N; I++) { // 100
-         READ( NIN, FMT = * )( A( I, J ), J = 1, N );
-      } // 100
-      for (I = 1; I <= N; I++) { // 110
-         READ( NIN, FMT = * )( B( I, J ), J = 1, N );
-      } // 110
-      READ( NIN, FMT = * )( DTRU( I ), I = 1, N );
-      READ( NIN, FMT = * )( DIFTRU( I ), I = 1, N );
-
+      try {
+        N = await NIN.readInt();
+        if (N == 0) break;
+        await NIN.readMatrix(A, N, N);
+        await NIN.readMatrix(B, N, N);
+        await NIN.readArray(DTRU, N);
+        await NIN.readArray(DIFTRU, N);
+      } on EOF catch (_) {
+        break;
+      }
       NPTKNT = NPTKNT + 1;
 
       // Compute eigenvalues/eigenvectors of (A, B).
       // Compute eigenvalue/eigenvector condition numbers
       // using computed eigenvectors.
 
-      dlacpy('F', N, N, A, LDA, AI, LDA );
-      dlacpy('F', N, N, B, LDA, BI, LDA );
+      dlacpy('F', N, N, A, LDA, AI, LDA);
+      dlacpy('F', N, N, B, LDA, BI, LDA);
 
-      dggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
+      dggevx(
+        'N',
+        'V',
+        'V',
+        'B',
+        N,
+        AI,
+        LDA,
+        BI,
+        LDA,
+        ALPHAR,
+        ALPHAI,
+        BETA,
+        VL,
+        LDA,
+        VR,
+        LDA,
+        ILO,
+        IHI,
+        LSCALE,
+        RSCALE,
+        ANORM,
+        BNORM,
+        S,
+        DIF,
+        WORK,
+        LWORK,
+        IWORK,
+        BWORK,
+        LINFO,
+      );
 
-      if ( LINFO != 0 ) {
-         RESULT[1] = ULPINV;
-         WRITE( NOUT, FMT = 9987 )'DGGEVX', LINFO, N, NPTKNT;
-         GO TO 140;
+      if (LINFO.value != 0) {
+        RESULT[1] = ULPINV;
+        NOUT.println(
+          ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, Input example #${NPTKNT.i2})',
+        );
+        continue;
       }
 
       // Compute the norm(A, B)
 
-      dlacpy('Full', N, N, AI, LDA, WORK, N );
-      dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
-      ABNORM = dlange( 'Fro', N, 2*N, WORK, N, WORK );
+      dlacpy('Full', N, N, AI, LDA, WORK.asMatrix(N), N);
+      dlacpy('Full', N, N, BI, LDA, WORK(N * N + 1).asMatrix(N), N);
+      ABNORM = dlange('Fro', N, 2 * N, WORK.asMatrix(N), N, WORK);
 
       // Tests (1) and (2)
 
       RESULT[1] = ZERO;
-      dget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
-      if ( RESULT( 2 ) > THRESH ) {
-         WRITE( NOUT, FMT = 9986 )'Left', 'DGGEVX', RESULT( 2 ), N, NPTKNT;
+      dget52(
+        true,
+        N,
+        A,
+        LDA,
+        B,
+        LDA,
+        VL,
+        LDA,
+        ALPHAR,
+        ALPHAI,
+        BETA,
+        WORK,
+        RESULT(1),
+      );
+      if (RESULT[2] > THRESH) {
+        _print9986(NOUT, 'Left', 'DGGEVX', RESULT[2], N, NPTKNT);
       }
 
       RESULT[2] = ZERO;
-      dget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
-      if ( RESULT( 3 ) > THRESH ) {
-         WRITE( NOUT, FMT = 9986 )'Right', 'DGGEVX', RESULT( 3 ), N, NPTKNT;
+      dget52(
+        false,
+        N,
+        A,
+        LDA,
+        B,
+        LDA,
+        VR,
+        LDA,
+        ALPHAR,
+        ALPHAI,
+        BETA,
+        WORK,
+        RESULT(2),
+      );
+      if (RESULT[3] > THRESH) {
+        _print9986(NOUT, 'Right', 'DGGEVX', RESULT[3], N, NPTKNT);
       }
 
       // Test (3)
 
       RESULT[3] = ZERO;
-      for (I = 1; I <= N; I++) { // 120
-         if ( S( I ) == ZERO ) {
-            if[DTRU( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
-         } else if ( DTRU( I ) == ZERO ) {
-            if[S( I ) > ABNORM*ULP ) RESULT( 3] = ULPINV;
-         } else {
-            WORK[I] = max( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) );
-            RESULT[3] = max( RESULT( 3 ), WORK( I ) );
-         }
+      for (I = 1; I <= N; I++) {
+        if (S[I] == ZERO) {
+          if (DTRU[I] > ABNORM * ULP) RESULT[3] = ULPINV;
+        } else if (DTRU[I] == ZERO) {
+          if (S[I] > ABNORM * ULP) RESULT[3] = ULPINV;
+        } else {
+          WORK[I] = max((DTRU[I] / S[I]).abs(), (S[I] / DTRU[I]).abs());
+          RESULT[3] = max(RESULT[3], WORK[I]);
+        }
       } // 120
 
       // Test (4)
 
       RESULT[4] = ZERO;
-      if ( DIF( 1 ) == ZERO ) {
-         if[DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-      } else if ( DIFTRU( 1 ) == ZERO ) {
-         if[DIF( 1 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-      } else if ( DIF( 5 ) == ZERO ) {
-         if[DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
-      } else if ( DIFTRU( 5 ) == ZERO ) {
-         if[DIF( 5 ) > ABNORM*ULP ) RESULT( 4] = ULPINV;
+      if (DIF[1] == ZERO) {
+        if (DIFTRU[1] > ABNORM * ULP) RESULT[4] = ULPINV;
+      } else if (DIFTRU[1] == ZERO) {
+        if (DIF[1] > ABNORM * ULP) RESULT[4] = ULPINV;
+      } else if (DIF[5] == ZERO) {
+        if (DIFTRU[5] > ABNORM * ULP) RESULT[4] = ULPINV;
+      } else if (DIFTRU[5] == ZERO) {
+        if (DIF[5] > ABNORM * ULP) RESULT[4] = ULPINV;
       } else {
-         RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-         RESULT[4] = max( RATIO1, RATIO2 );
+        RATIO1 = max((DIFTRU[1] / DIF[1]).abs(), (DIF[1] / DIFTRU[1]).abs());
+        RATIO2 = max((DIFTRU[5] / DIF[5]).abs(), (DIF[5] / DIFTRU[5]).abs());
+        RESULT[4] = max(RATIO1, RATIO2);
       }
 
       NTESTT = NTESTT + 4;
 
       // Print out tests which fail.
 
-      for (J = 1; J <= 4; J++) { // 130
-         if ( RESULT( J ) >= THRSH2 ) {
+      for (J = 1; J <= 4; J++) {
+        if (RESULT[J] >= THRSH2) {
+          // If this is the first test to fail,
+          // print a header to the data file.
 
-            // If this is the first test to fail,
-            // print a header to the data file.
+          if (NERRS == 0) {
+            _print9997(NOUT);
 
-            if ( NERRS == 0 ) {
-               WRITE( NOUT, FMT = 9997 )'DXV';
+            // Print out messages for built-in examples
 
-               // Print out messages for built-in examples
+            // Matrix types
 
-               // Matrix types
+            NOUT.println(' Input Example');
 
-               WRITE( NOUT, FMT = 9996 );
+            // Tests performed
 
-               // Tests performed
-
-               WRITE( NOUT, FMT = 9992 )'''', 'transpose', '''';
-
-            }
-            NERRS = NERRS + 1;
-            if ( RESULT( J ) < 10000.0 ) {
-               WRITE( NOUT, FMT = 9989 )NPTKNT, N, J, RESULT( J );
-            } else {
-               WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J );
-            }
-         }
+            _print9992(NOUT);
+          }
+          NERRS = NERRS + 1;
+          if (RESULT[J] < 10000.0) {
+            NOUT.println(
+              ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${RESULT[J].f8_2}',
+            );
+          } else {
+            NOUT.println(
+              ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}',
+            );
+          }
+        }
       } // 130
 
-      } // 140
+      // } // 140
+    } // 90
+  } // 150
 
-      GO TO 90;
-      } // 150
+  // Summary
+  alasvm('DXV', NOUT, NERRS, NTESTT, 0);
 
-      // Summary
+  WORK[1] = MAXWRK.toDouble();
+}
 
-      alasvm('DXV', NOUT, NERRS, NTESTT, 0 );
+void _print9998(
+  final Nout nout,
+  final String side,
+  final String s,
+  final double error,
+  final int n,
+  final int jtype,
+  final int iwa,
+  final int iwb,
+  final int iwx,
+  final int iwy,
+) {
+  nout.println(
+    ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, IWA=${iwa.i5}, IWB=${iwb.i5}, IWX=${iwx.i5}, IWY=${iwy.i5}',
+  );
+}
 
-      WORK[1] = MAXWRK;
+void _print9997(final Nout nout) {
+  nout.println('\n DXV -- Real Expert Eigenvalue/vector problem driver');
+}
 
-      return;
+void _print9992(final Nout nout) {
+  nout.println(
+    '\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and \' means transpose.\n 1 = max | ( b A - a B )\' l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n',
+  );
+}
 
- 9999 FORMAT( ' DDRGVX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6})' );
+//  ' Input Example' FORMAT(  );
 
- 9998 FORMAT( ' DDRGVX: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, JTYPE=${.i6}, IWA=${.i5}, IWB=${.i5}, IWX=${.i5}, IWY=${.i5}');
-
- 9997 FORMAT('\n ${.a3} -- Real Expert Eigenvalue/vector problem driver' );
-
- 9996 FORMAT( ' Input Example' );
-
- 9995 FORMAT( ' Matrix types:\n');
-
- 9994 FORMAT( ' TYPE 1: Da is diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n');
-
- 9993 FORMAT( ' TYPE 2: Da is quasi-diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n');
-
- 9992 FORMAT('\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and ${} means ${}.\n 1 = max | ( b A - a B )${} l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
-
- 9991 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is${.f8_2}');
- 9990 FORMAT( ' Type=${.i2}, IWA=${.i2}, IWB=${.i2}, IWX=${.i2}, IWY=${.i2}, result ${.i2} is${( * 10).d10_3}');
- 9989 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is${.f8_2}');
- 9988 FORMAT( ' Input example #${.i2}, matrix order=${.i4}, result ${.i2} is${( * 10).d10_3}');
- 9987 FORMAT( ' DDRGVX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, Input example #${.i2})' );
-
- 9986 FORMAT( ' DDRGVX: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 9}N=${.i6}, Input Example #${.i2})' );
-
-      }
+void _print9986(
+  final Nout nout,
+  final String side,
+  final String s,
+  final double error,
+  final int n,
+  final int ninput,
+) {
+  nout.println(
+    ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, Input Example #${ninput.i2})',
+  );
+}
