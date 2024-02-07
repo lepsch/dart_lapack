@@ -202,7 +202,7 @@ import 'common.dart';
 
                         // Compute the 1-norm of A.
 
-                        ANORM = DLANSP( '1', UPLO, N, AFAC, RWORK );
+                        ANORM = dlansp( '1', UPLO, N, AFAC, RWORK );
 
                         // Factor the matrix A.
 
@@ -215,7 +215,7 @@ import 'common.dart';
 
                         // Compute the 1-norm condition number of A.
 
-                        AINVNM = DLANSP( '1', UPLO, N, A, RWORK );
+                        AINVNM = dlansp( '1', UPLO, N, A, RWORK );
                         if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                            RCONDC = ONE;
                         } else {

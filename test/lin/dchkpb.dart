@@ -243,7 +243,7 @@ import 'common.dart';
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                     ANORM = DLANSB( '1', UPLO, N, KD, A, LDAB, RWORK );
+                     ANORM = dlansb( '1', UPLO, N, KD, A, LDAB, RWORK );
                      AINVNM = dlange( '1', N, N, AINV, LDA, RWORK );
                      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                         RCONDC = ONE;

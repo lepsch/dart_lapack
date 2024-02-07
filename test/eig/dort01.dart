@@ -56,7 +56,7 @@
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 
-         RESID = DLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) );
+         RESID = dlansy( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) );
          RESID = ( RESID / K.toDouble() ) / EPS;
       } else if ( TRANSU == 'T' ) {
 

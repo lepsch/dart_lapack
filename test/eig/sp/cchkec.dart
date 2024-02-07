@@ -84,7 +84,7 @@
  9997 FORMAT( ' Error in CTRSNA: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
  9996 FORMAT( ' Error in CTRSEN: RMAX =', 3E12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=${.i8}');
  9995 FORMAT('\n All tests for ${.a3} routines passed the threshold ( ${.i6} tests run)' );
- 9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n CTRSYL, CTREXC, CTRSNA, CTRSEN', / );
+ 9994 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estimation routines\n CTRSYL, CTREXC, CTRSNA, CTRSEN\n');
  9993 FORMAT( ' Relative machine precision (EPS) = ', E16.6, / ' Safe minimum (SFMIN)             = ', E16.6, / );
  9992 FORMAT( ' Routines pass computational tests if test ratio is less than', F8.2, / / );
  9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale factor in ${.i8} tests.');

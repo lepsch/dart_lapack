@@ -221,8 +221,8 @@ import 'common.dart';
                      // loop over INB, cause the code to bomb on a Sun
                      // SPARCstation.
 
-                      // ANORMO = DLANGB( 'O', N, KL, KU, A, LDA, RWORK )
-                      // ANORMI = DLANGB( 'I', N, KL, KU, A, LDA, RWORK )
+                      // ANORMO = dlangb( 'O', N, KL, KU, A, LDA, RWORK )
+                      // ANORMI = dlangb( 'I', N, KL, KU, A, LDA, RWORK )
 
                      // Do for each blocksize in NBVAL
 
@@ -262,8 +262,8 @@ import 'common.dart';
 
                         if (INB > 1 || M != N) GO TO 110;
 
-                        ANORMO = DLANGB( 'O', N, KL, KU, A, LDA, RWORK );
-                        ANORMI = DLANGB( 'I', N, KL, KU, A, LDA, RWORK );
+                        ANORMO = dlangb( 'O', N, KL, KU, A, LDA, RWORK );
+                        ANORMI = dlangb( 'I', N, KL, KU, A, LDA, RWORK );
 
                         if ( INFO == 0 ) {
 

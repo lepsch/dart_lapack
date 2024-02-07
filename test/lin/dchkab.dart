@@ -249,7 +249,7 @@ import 'common.dart';
 
  9999 FORMAT('\n Execution not attempted due to input errors' );
  9998 FORMAT('\n End of tests' );
- 9997 FORMAT( ' Total time used = ${.f12_2} seconds', / );
+ 9997 FORMAT( ' Total time used = ${.f12_2} seconds\n');
  9996 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be >=', I6 )
  9995 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
  9994 FORMAT( ' Tests of the double           LAPACK DSGESV/DSPOSV',; ' routines \n LAPACK VERSION ${.i1}.${.i1}.', I1, / / ' The following parameter values will be used:' )

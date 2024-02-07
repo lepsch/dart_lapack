@@ -61,7 +61,7 @@
       // Check for sparsity
 
       if ( SPARSE > ZERO ) {
-         if ( DLARAN( ISEED ) < SPARSE ) {
+         if ( dlaran( ISEED ) < SPARSE ) {
             ZLATM2 = CZERO;
             return;
          }

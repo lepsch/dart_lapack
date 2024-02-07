@@ -117,7 +117,7 @@
          } // 210
          ALPHA = LOG( ONE / COND );
          for (I = 1; I <= N; I++) { // 220
-            D[I] = EXP( ALPHA*DLARAN( ISEED ) );
+            D[I] = EXP( ALPHA*dlaran( ISEED ) );
          } // 220
          GO TO 240;
 
@@ -133,7 +133,7 @@
 
          if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 250
-               TEMP = DLARAN( ISEED );
+               TEMP = dlaran( ISEED );
                if (TEMP > HALF) D( I ) = -D( I );
             } // 250
          }

@@ -141,7 +141,7 @@
          } // 180
          ALPHA = LOG( RCOND );
          for (JD = KBEG; JD <= KEND; JD++) { // 190
-            A[JD][JD] = EXP( ALPHA*DLARAN( ISEED ) );
+            A[JD][JD] = EXP( ALPHA*dlaran( ISEED ) );
          } // 190
          GO TO 220;
 

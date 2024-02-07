@@ -216,7 +216,7 @@ import 'common.dart';
 
                      // Compute the 1-norm of A.
 
-                     ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+                     ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
 
                      // Factor the matrix A.
 
@@ -232,7 +232,7 @@ import 'common.dart';
                      // RCONDC that is used later in TEST3.
 
                      dsytri_3(UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO );
-                     AINVNM = DLANSY( '1', UPLO, N, AINV, LDA, RWORK );
+                     AINVNM = dlansy( '1', UPLO, N, AINV, LDA, RWORK );
 
                      // Compute the 1-norm condition number of A.
 

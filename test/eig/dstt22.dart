@@ -63,7 +63,7 @@
          }
       } // 40
 
-      WNORM = DLANSY( '1', 'L', M, WORK, M, WORK( 1, M+1 ) );
+      WNORM = dlansy( '1', 'L', M, WORK, M, WORK( 1, M+1 ) );
 
       if ( ANORM > WNORM ) {
          RESULT[1] = ( WNORM / ANORM ) / ( M*ULP );

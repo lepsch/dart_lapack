@@ -104,7 +104,7 @@
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK );
+      RESID = dlansy( '1', 'Upper', N, R, LDA, RWORK );
       RESULT[3] = ( RESID / (max( 1, N )).toDouble() ) / ULP;
 
       // Compute I - Z'*Z
@@ -114,7 +114,7 @@
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', P, T, LDB, RWORK );
+      RESID = dlansy( '1', 'Upper', P, T, LDB, RWORK );
       RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
 
       return;

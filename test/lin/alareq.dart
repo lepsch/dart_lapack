@@ -102,10 +102,10 @@
 
       } // 90
       WRITE( NOUT, FMT = 9998 )PATH;
- 9998 FORMAT('\n *** End of file reached when trying to read matrix types for ', A3, /' *** Check that you are requesting the right number of types for each path', / );
- 9997 FORMAT( ' *** Warning:  duplicate request of matrix type ${.i2} for ', A3 );
- 9996 FORMAT( //' *** Invalid int     value in column ', I2,; ' of input line:', /A79 )
- 9995 FORMAT( //' *** Not enough matrix types on input line', /A79 );
+ 9998 FORMAT('\n *** End of file reached when trying to read matrix types for ${.a3}\n *** Check that you are requesting the right number of types for each path\n');
+ 9997 FORMAT( ' *** Warning:  duplicate request of matrix type ${.i2} for ${.a3}');
+ 9996 FORMAT( '\n\n *** Invalid integer value in column ', I2,; ' of input line:', /A79 )
+ 9995 FORMAT( '\n\n *** Not enough matrix types on input line', /A79 );
  9994 FORMAT( ' ==> Specify ${.i4} matrix types on this line or adjust NTYPES on previous line' );
       WRITE( NOUT, FMT = * );
       STOP;

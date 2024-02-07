@@ -310,7 +310,7 @@ import 'common.dart';
                // Get an estimate of RCOND = 1/CNDNUM.
 
                } // 140
-               ANORM = DLANSP( '1', UPLO, N, A, RWORK );
+               ANORM = dlansp( '1', UPLO, N, A, RWORK );
                srnamc.SRNAMT = 'DSPCON';
                dspcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 

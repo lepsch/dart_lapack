@@ -102,7 +102,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK );
+      ANRM = dlansb( 'M', UPLO, N, KD, AB, LDAB, WORK );
       ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1;

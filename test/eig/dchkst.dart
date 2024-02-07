@@ -307,7 +307,7 @@ void dchkst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 5) {
@@ -328,7 +328,7 @@ void dchkst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 7) {
@@ -346,10 +346,10 @@ void dchkst(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -379,10 +379,10 @@ void dchkst(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -415,7 +415,7 @@ void dchkst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 10) {
@@ -436,7 +436,7 @@ void dchkst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
           for (I = 2; I <= N; I++) {
@@ -465,7 +465,7 @@ void dchkst(
       dlacpy('U', N, N, A, LDA, V, LDU);
 
       NTEST = 1;
-      dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO.value);
+      dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
 
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSYTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
@@ -481,7 +481,7 @@ void dchkst(
       dlacpy('U', N, N, V, LDU, U, LDU);
 
       NTEST = 2;
-      dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO.value);
+      dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DORGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -536,7 +536,7 @@ void dchkst(
       dlacpy('L', N, N, A, LDA, V, LDU);
 
       NTEST = 3;
-      dsytrd('L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO.value);
+      dsytrd('L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
 
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSYTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
@@ -552,7 +552,7 @@ void dchkst(
       dlacpy('L', N, N, V, LDU, U, LDU);
 
       NTEST = 4;
-      dorgtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO.value);
+      dorgtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DORGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -616,7 +616,7 @@ void dchkst(
       dcopy(NAP, AP, 1, VP, 1);
 
       NTEST = 5;
-      dsptrd('U', N, VP, SD, SE, TAU, IINFO.value);
+      dsptrd('U', N, VP, SD, SE, TAU, IINFO);
 
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSPTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
@@ -630,7 +630,7 @@ void dchkst(
       }
 
       NTEST = 6;
-      dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO.value);
+      dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DOPGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -664,7 +664,7 @@ void dchkst(
       dcopy(NAP, AP, 1, VP, 1);
 
       NTEST = 7;
-      dsptrd('L', N, VP, SD, SE, TAU, IINFO.value);
+      dsptrd('L', N, VP, SD, SE, TAU, IINFO);
 
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSPTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
@@ -678,7 +678,7 @@ void dchkst(
       }
 
       NTEST = 8;
-      dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO.value);
+      dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DOPGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -702,7 +702,7 @@ void dchkst(
       dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
       NTEST = 9;
-      dsteqr('V', N, D1, WORK, Z, LDU, WORK[N + 1], IINFO.value);
+      dsteqr('V', N, D1, WORK, Z, LDU, WORK[N + 1], IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -720,7 +720,7 @@ void dchkst(
       if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
       NTEST = 11;
-      dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO.value);
+      dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -738,7 +738,7 @@ void dchkst(
       if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
       NTEST = 12;
-      dsterf(N, D3, WORK, IINFO.value);
+      dsterf(N, D3, WORK, IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTERF', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -780,7 +780,7 @@ void dchkst(
 
       for (J = 0; J <= LOG2UI; J++) {
         // 160
-        dstech(N, SD, SE, D1, TEMP1, WORK, IINFO.value);
+        dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
         if (IINFO.value == 0) break;
         TEMP1 = TEMP1 * TWO;
       } // 160
@@ -798,7 +798,7 @@ void dchkst(
         dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
         NTEST = 14;
-        dpteqr('V', N, D4, WORK, Z, LDU, WORK[N + 1], IINFO.value);
+        dpteqr('V', N, D4, WORK, Z, LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -820,7 +820,7 @@ void dchkst(
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
         NTEST = 16;
-        dpteqr('N', N, D5, WORK, Z, LDU, WORK[N + 1], IINFO.value);
+        dpteqr('N', N, D5, WORK, Z, LDU, WORK[N + 1], IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -1382,7 +1382,13 @@ void dchkst(
 
             if (IINFO.value != 0) {
               print9999(
-                  NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                NOUNIT,
+                'DSTEMR(V,I,rel)',
+                IINFO.value,
+                N,
+                JTYPE,
+                IOLDSD,
+              );
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;

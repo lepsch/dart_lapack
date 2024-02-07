@@ -53,7 +53,7 @@
       // Check for sparsity
 
       if ( SPARSE > ZERO ) {
-         if ( DLARAN( ISEED ) < SPARSE ) {
+         if ( dlaran( ISEED ) < SPARSE ) {
             DLATM2 = ZERO;
             return;
          }

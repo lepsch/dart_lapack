@@ -140,7 +140,7 @@ import 'package:lapack/src/xerbla.dart';
          VLL = ZERO;
          VUU = ZERO;
       }
-      ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK );
+      ANRM = dlansb( 'M', UPLO, N, KD, AB, LDAB, WORK );
       if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1;
          SIGMA = RMIN / ANRM;

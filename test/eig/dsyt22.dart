@@ -34,7 +34,7 @@
 
       // Norm of A:
 
-      ANORM = max( DLANSY( '1', UPLO, N, A, LDA, WORK ), UNFL );
+      ANORM = max( dlansy( '1', UPLO, N, A, LDA, WORK ), UNFL );
 
       // Compute error matrix:
 
@@ -56,7 +56,7 @@
             WORK[JJ2] = WORK( JJ2 ) - E( J-1 );
          } // 20
       }
-      WNORM = DLANSY( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) );
+      WNORM = dlansy( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) );
 
       if ( ANORM > WNORM ) {
          RESULT[1] = ( WNORM / ANORM ) / ( M*ULP );

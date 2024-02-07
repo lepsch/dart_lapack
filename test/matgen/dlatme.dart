@@ -208,7 +208,7 @@
       } else if ( ( MODE ).abs() == 5 ) {
 
          for (J = 2; J <= N; J += 2) { // 60
-            if ( DLARAN( ISEED ) > HALF ) {
+            if ( dlaran( ISEED ) > HALF ) {
                A[J-1][J] = A( J, J );
                A[J][J-1] = -A( J, J );
                A[J][J] = A( J-1, J-1 );

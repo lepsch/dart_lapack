@@ -125,7 +125,7 @@
 
       // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', P, WORK, LDU1, RWORK );
+      RESID = dlansy( '1', 'Upper', P, WORK, LDU1, RWORK );
       RESULT[5] = ( RESID / (max(1,P))).toDouble() / ULP;
 
       // Compute I - U2'*U2
@@ -135,7 +135,7 @@
 
       // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', M-P, WORK, LDU2, RWORK );
+      RESID = dlansy( '1', 'Upper', M-P, WORK, LDU2, RWORK );
       RESULT[6] = ( RESID / (max(1,M-P))).toDouble() / ULP;
 
       // Compute I - V1T*V1T'
@@ -145,7 +145,7 @@
 
       // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', Q, WORK, LDV1T, RWORK );
+      RESID = dlansy( '1', 'Upper', Q, WORK, LDV1T, RWORK );
       RESULT[7] = ( RESID / (max(1,Q))).toDouble() / ULP;
 
       // Compute I - V2T*V2T'
@@ -155,7 +155,7 @@
 
       // Compute norm( I - V2T*V2T' ) / ( max(1,M-Q) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', M-Q, WORK, LDV2T, RWORK );
+      RESID = dlansy( '1', 'Upper', M-Q, WORK, LDV2T, RWORK );
       RESULT[8] = ( RESID / (max(1,M-Q))).toDouble() / ULP;
 
       // Check sorting
@@ -232,7 +232,7 @@
 
       // Compute norm( I - U1'*U1 ) / ( max(1,P) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', P, WORK, LDU1, RWORK );
+      RESID = dlansy( '1', 'Upper', P, WORK, LDU1, RWORK );
       RESULT[12] = ( RESID / (max(1,P))).toDouble() / ULP;
 
       // Compute I - U2'*U2
@@ -242,7 +242,7 @@
 
       // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', M-P, WORK, LDU2, RWORK );
+      RESID = dlansy( '1', 'Upper', M-P, WORK, LDU2, RWORK );
       RESULT[13] = ( RESID / (max(1,M-P))).toDouble() / ULP;
 
       // Compute I - V1T*V1T'
@@ -252,7 +252,7 @@
 
       // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', Q, WORK, LDV1T, RWORK );
+      RESID = dlansy( '1', 'Upper', Q, WORK, LDV1T, RWORK );
       RESULT[14] = ( RESID / (max(1,Q))).toDouble() / ULP;
 
       // Check sorting

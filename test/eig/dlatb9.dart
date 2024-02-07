@@ -1,64 +1,58 @@
-void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
-    MODEB, CNDNMA, CNDNMB, DISTA, DISTB) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/lsamen.dart';
+
+bool _FIRST = true;
+double _BADC1 = 0, _BADC2 = 0, _EPS = 0, _LARGE = 0, _SMALL = 0;
+
+void dlatb9(
+  final String PATH,
+  final int IMAT,
+  final int M,
+  final int P,
+  final int N,
+  final Box<String> TYPE,
+  final Box<int> KLA,
+  final Box<int> KUA,
+  final Box<int> KLB,
+  final Box<int> KUB,
+  final Box<double> ANORM,
+  final Box<double> BNORM,
+  final Box<int> MODEA,
+  final Box<int> MODEB,
+  final Box<double> CNDNMA,
+  final Box<double> CNDNMB,
+  final Box<String> DISTA,
+  final Box<String> DISTB,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  String DISTA, DISTB, TYPE;
-  String PATH;
-  int IMAT, KLA, KLB, KUA, KUB, M, MODEA, MODEB, N, P;
-  double ANORM, BNORM, CNDNMA, CNDNMB;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double SHRINK, TENTH;
   const SHRINK = 0.25, TENTH = 0.1;
-  double ONE, TEN;
   const ONE = 1.0, TEN = 1.0e+1;
-  // ..
-  // .. Local Scalars ..
-  bool FIRST;
-  double BADC1, BADC2, EPS, LARGE, SMALL;
-  // ..
-  // .. External Functions ..
-  //- bool               LSAMEN;
-  //- double             DLAMCH;
-  // EXTERNAL LSAMEN, DLAMCH
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC MAX, SQRT
-  // ..
-  // .. Save statement ..
-  SAVE EPS, SMALL, LARGE, BADC1, BADC2, FIRST;
-  // ..
-  // .. Data statements ..
-  const FIRST = true;
-  // ..
-  // .. Executable Statements ..
 
   // Set some constants for use in the subroutine.
 
-  if (FIRST) {
-    FIRST = false;
-    EPS = dlamch('Precision');
-    BADC2 = TENTH / EPS;
-    BADC1 = sqrt(BADC2);
-    SMALL = dlamch('Safe minimum');
-    LARGE = ONE / SMALL;
-    SMALL = SHRINK * (SMALL / EPS);
-    LARGE = ONE / SMALL;
+  if (_FIRST) {
+    _FIRST = false;
+    _EPS = dlamch('Precision');
+    _BADC2 = TENTH / _EPS;
+    _BADC1 = sqrt(_BADC2);
+    _SMALL = dlamch('Safe minimum');
+    _LARGE = ONE / _SMALL;
+    _SMALL = SHRINK * (_SMALL / _EPS);
+    _LARGE = ONE / _SMALL;
   }
 
   // Set some parameters we don't plan to change.
 
-  TYPE = 'N';
-  DISTA = 'S';
-  DISTB = 'S';
-  MODEA = 3;
-  MODEB = 4;
+  TYPE.value = 'N';
+  DISTA.value = 'S';
+  DISTB.value = 'S';
+  MODEA.value = 3;
+  MODEB.value = 4;
 
   // Set the lower and upper bandwidths.
 
@@ -70,31 +64,31 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
     if (IMAT == 1) {
       // A: diagonal, B: upper triangular
 
-      KLA = 0;
-      KUA = 0;
-      KLB = 0;
-      KUB = max(N - 1, 0);
+      KLA.value = 0;
+      KUA.value = 0;
+      KLB.value = 0;
+      KUB.value = max(N - 1, 0);
     } else if (IMAT == 2) {
       // A: upper triangular, B: upper triangular
 
-      KLA = 0;
-      KUA = max(N - 1, 0);
-      KLB = 0;
-      KUB = max(N - 1, 0);
+      KLA.value = 0;
+      KUA.value = max(N - 1, 0);
+      KLB.value = 0;
+      KUB.value = max(N - 1, 0);
     } else if (IMAT == 3) {
       // A: lower triangular, B: upper triangular
 
-      KLA = max(M - 1, 0);
-      KUA = 0;
-      KLB = 0;
-      KUB = max(N - 1, 0);
+      KLA.value = max(M - 1, 0);
+      KUA.value = 0;
+      KLB.value = 0;
+      KUB.value = max(N - 1, 0);
     } else {
       // A: general dense, B: general dense
 
-      KLA = max(M - 1, 0);
-      KUA = max(N - 1, 0);
-      KLB = max(P - 1, 0);
-      KUB = max(N - 1, 0);
+      KLA.value = max(M - 1, 0);
+      KUA.value = max(N - 1, 0);
+      KLB.value = max(P - 1, 0);
+      KUB.value = max(N - 1, 0);
     }
   } else if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GLM')) {
     // A: N by M, B: N by P
@@ -102,72 +96,70 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
     if (IMAT == 1) {
       // A: diagonal, B: lower triangular
 
-      KLA = 0;
-      KUA = 0;
-      KLB = max(N - 1, 0);
-      KUB = 0;
+      KLA.value = 0;
+      KUA.value = 0;
+      KLB.value = max(N - 1, 0);
+      KUB.value = 0;
     } else if (IMAT == 2) {
       // A: lower triangular, B: diagonal
 
-      KLA = max(N - 1, 0);
-      KUA = 0;
-      KLB = 0;
-      KUB = 0;
+      KLA.value = max(N - 1, 0);
+      KUA.value = 0;
+      KLB.value = 0;
+      KUB.value = 0;
     } else if (IMAT == 3) {
       // A: lower triangular, B: upper triangular
 
-      KLA = max(N - 1, 0);
-      KUA = 0;
-      KLB = 0;
-      KUB = max(P - 1, 0);
+      KLA.value = max(N - 1, 0);
+      KUA.value = 0;
+      KLB.value = 0;
+      KUB.value = max(P - 1, 0);
     } else {
       // A: general dense, B: general dense
 
-      KLA = max(N - 1, 0);
-      KUA = max(M - 1, 0);
-      KLB = max(N - 1, 0);
-      KUB = max(P - 1, 0);
+      KLA.value = max(N - 1, 0);
+      KUA.value = max(M - 1, 0);
+      KLB.value = max(N - 1, 0);
+      KUB.value = max(P - 1, 0);
     }
   }
 
   // Set the condition number and norm.
 
-  CNDNMA = TEN * TEN;
-  CNDNMB = TEN;
+  CNDNMA.value = TEN * TEN;
+  CNDNMB.value = TEN;
   if (lsamen(3, PATH, 'GQR') ||
       lsamen(3, PATH, 'GRQ') ||
       lsamen(3, PATH, 'GSV')) {
     if (IMAT == 5) {
-      CNDNMA = BADC1;
-      CNDNMB = BADC1;
+      CNDNMA.value = _BADC1;
+      CNDNMB.value = _BADC1;
     } else if (IMAT == 6) {
-      CNDNMA = BADC2;
-      CNDNMB = BADC2;
+      CNDNMA.value = _BADC2;
+      CNDNMB.value = _BADC2;
     } else if (IMAT == 7) {
-      CNDNMA = BADC1;
-      CNDNMB = BADC2;
+      CNDNMA.value = _BADC1;
+      CNDNMB.value = _BADC2;
     } else if (IMAT == 8) {
-      CNDNMA = BADC2;
-      CNDNMB = BADC1;
+      CNDNMA.value = _BADC2;
+      CNDNMB.value = _BADC1;
     }
   }
 
-  ANORM = TEN;
-  BNORM = TEN * TEN * TEN;
+  ANORM.value = TEN;
+  BNORM.value = TEN * TEN * TEN;
   if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GRQ')) {
     if (IMAT == 7) {
-      ANORM = SMALL;
-      BNORM = LARGE;
+      ANORM.value = _SMALL;
+      BNORM.value = _LARGE;
     } else if (IMAT == 8) {
-      ANORM = LARGE;
-      BNORM = SMALL;
+      ANORM.value = _LARGE;
+      BNORM.value = _SMALL;
     }
   }
 
   if (N <= 1) {
-    CNDNMA = ONE;
-    CNDNMB = ONE;
+    CNDNMA.value = ONE;
+    CNDNMB.value = ONE;
   }
-
-  return;
 }

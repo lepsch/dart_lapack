@@ -392,7 +392,7 @@ import 'common.dart';
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 140
-                  ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+                  ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
                   srnamc.SRNAMT = 'DSYCON';
                   dsycon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 

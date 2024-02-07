@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgebal.dart';
-import 'package:lapack/src/dlange.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
@@ -24,7 +23,8 @@ Future<void> dchkbl(final Nin NIN, final Nout NOUT) async {
       VMAX;
   final LMAX = Array<int>(3);
   final A = Matrix<double>(LDA, LDA), AIN = Matrix<double>(LDA, LDA);
-  final DUMMY = Array<double>(1),
+  final
+      // DUMMY = Array<double>(1),
       SCALE = Array<double>(LDA),
       SCALIN = Array<double>(LDA);
   final INFO = Box(0), IHI = Box(0), ILO = Box(0);
@@ -52,7 +52,7 @@ Future<void> dchkbl(final Nin NIN, final Nout NOUT) async {
 
     dgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO);
 
-    if (INFO != 0) {
+    if (INFO.value != 0) {
       NINFO = NINFO + 1;
       LMAX[1] = KNT;
     }

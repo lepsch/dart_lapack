@@ -99,7 +99,7 @@
             } else {
                zlaset('F', M, M, ZERO, ONE, X, LDX );
                for (I = 1; I <= M; I++) {
-                  J = INT( DLARAN( ISEED ) * M ) + 1;
+                  J = INT( dlaran( ISEED ) * M ) + 1;
                   if ( J != I ) {
                      zdrot(M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, REALZERO, REALONE );
                   }

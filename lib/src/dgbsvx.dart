@@ -194,12 +194,12 @@ import 'package:lapack/src/xerbla.dart';
       } else {
          NORM = 'I';
       }
-      ANORM = DLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
+      ANORM = dlangb( NORM, N, KL, KU, AB, LDAB, WORK );
       RPVGRW = DLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, WORK );
       if ( RPVGRW == ZERO ) {
          RPVGRW = ONE;
       } else {
-         RPVGRW = DLANGB( 'M', N, KL, KU, AB, LDAB, WORK ) / RPVGRW;
+         RPVGRW = dlangb( 'M', N, KL, KU, AB, LDAB, WORK ) / RPVGRW;
       }
 
       // Compute the reciprocal of the condition number of A.

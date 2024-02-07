@@ -252,7 +252,7 @@ import 'common.dart';
 
                            // Compute the 1-norm of A.
 
-                           ANORM = DLANSB( '1', UPLO, N, KD, AFAC, LDAB, RWORK );
+                           ANORM = dlansb( '1', UPLO, N, KD, AFAC, LDAB, RWORK );
 
                            // Factor the matrix A.
 

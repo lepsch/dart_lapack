@@ -36,7 +36,7 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+      ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
          return;
@@ -145,7 +145,7 @@
       // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
       // ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
 
-      RESID = DLANSY( '1', UPLO, N, PERM, LDAFAC, RWORK );
+      RESID = dlansy( '1', UPLO, N, PERM, LDAFAC, RWORK );
 
       RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 

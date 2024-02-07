@@ -138,7 +138,7 @@
 
       dlaset('Full', M, M, ZERO, ONE, R, M );
       dsyrk('U', 'T', M, M, -ONE, Q, M, ONE, R, M );
-      RESID = DLANSY( '1', 'Upper', M, R, M, RWORK );
+      RESID = dlansy( '1', 'Upper', M, R, M, RWORK );
       RESULT[2] = RESID / ( EPS * max( 1, M ) );
 
       // Generate random m-by-n matrix C

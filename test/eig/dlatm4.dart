@@ -138,7 +138,7 @@
          } // 180
          ALPHA = LOG( RCOND );
          for (JD = KBEG; JD <= KEND; JD++) { // 190
-            A[JD][JD] = EXP( ALPHA*DLARAN( ISEED ) );
+            A[JD][JD] = EXP( ALPHA*dlaran( ISEED ) );
          } // 190
          GO TO 220;
 
@@ -166,12 +166,12 @@
          if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( (A( JD, JD )).toDouble() != ZERO ) {
-                  if[DLARAN( ISEED ) > HALF ) A( JD][JD] = -A( JD, JD );
+                  if[dlaran( ISEED ) > HALF ) A( JD][JD] = -A( JD, JD );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( (A( JD+1, JD )).toDouble() != ZERO ) {
-                  if[DLARAN( ISEED ) > HALF ) A( JD+1][JD] = -A( JD+1, JD );
+                  if[dlaran( ISEED ) > HALF ) A( JD+1][JD] = -A( JD+1, JD );
                }
             } // 260
          }
@@ -197,20 +197,20 @@
          if ( ISIGN == 2 && ITYPE != 2 && ITYPE != 3 ) {
             SAFMIN = dlamch( 'S' );
             for (JD = KBEG; 2 < 0 ? JD >= KEND - 1 : JD <= KEND - 1; JD += 2) { // 290
-               if ( DLARAN( ISEED ) > HALF ) {
+               if ( dlaran( ISEED ) > HALF ) {
 
                   // Rotation on left.
 
-                  CL = TWO*DLARAN( ISEED ) - ONE;
-                  SL = TWO*DLARAN( ISEED ) - ONE;
+                  CL = TWO*dlaran( ISEED ) - ONE;
+                  SL = TWO*dlaran( ISEED ) - ONE;
                   TEMP = ONE / max( SAFMIN, sqrt( CL**2+SL**2 ) );
                   CL = CL*TEMP;
                   SL = SL*TEMP;
 
                   // Rotation on right.
 
-                  CR = TWO*DLARAN( ISEED ) - ONE;
-                  SR = TWO*DLARAN( ISEED ) - ONE;
+                  CR = TWO*dlaran( ISEED ) - ONE;
+                  SR = TWO*dlaran( ISEED ) - ONE;
                   TEMP = ONE / max( SAFMIN, sqrt( CR**2+SR**2 ) );
                   CR = CR*TEMP;
                   SR = SR*TEMP;

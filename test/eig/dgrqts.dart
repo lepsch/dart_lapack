@@ -1,121 +1,193 @@
-      void dgrqts(M, P, N, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dsyrk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dggrqf.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dorgqr.dart';
+import 'package:lapack/src/dorgrq.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dgrqts(
+  final int M,
+  final int P,
+  final int N,
+  final Matrix<double> A,
+  final Matrix<double> AF,
+  final Matrix<double> Q,
+  final Matrix<double> R,
+  final int LDA,
+  final Array<double> TAUA,
+  final Matrix<double> B,
+  final Matrix<double> BF,
+  final Matrix<double> Z,
+  final Matrix<double> T,
+  final Matrix<double> BWK,
+  final int LDB,
+  final Array<double> TAUB,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<double> RWORK,
+  final Array<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LWORK, M, N, P;
-      double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), RESULT( 4 ), RWORK( * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  const ROGUE = -1.0e+10;
+  final INFO = Box(0);
+  double ANORM, BNORM, RESID, ULP, UNFL;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             ROGUE;
-      const              ROGUE = -1.0e+10 ;
-      int                INFO;
-      double             ANORM, BNORM, RESID, ULP, UNFL;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE, DLANSY;
-      // EXTERNAL DLAMCH, DLANGE, DLANSY
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DGGRQF, DLACPY, DLASET, DORGQR, DORGRQ, DSYRK
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
+  ULP = dlamch('Precision');
+  UNFL = dlamch('Safe minimum');
 
-      ULP = dlamch( 'Precision' );
-      UNFL = dlamch( 'Safe minimum' );
+  // Copy the matrix A to the array AF.
 
-      // Copy the matrix A to the array AF.
+  dlacpy('Full', M, N, A, LDA, AF, LDA);
+  dlacpy('Full', P, N, B, LDB, BF, LDB);
 
-      dlacpy('Full', M, N, A, LDA, AF, LDA );
-      dlacpy('Full', P, N, B, LDB, BF, LDB );
+  ANORM = max(dlange('1', M, N, A, LDA, RWORK), UNFL);
+  BNORM = max(dlange('1', P, N, B, LDB, RWORK), UNFL);
 
-      ANORM = max( dlange( '1', M, N, A, LDA, RWORK ), UNFL );
-      BNORM = max( dlange( '1', P, N, B, LDB, RWORK ), UNFL );
+  // Factorize the matrices A and B in the arrays AF and BF.
 
-      // Factorize the matrices A and B in the arrays AF and BF.
+  dggrqf(M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO);
 
-      dggrqf(M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO );
+  // Generate the N-by-N matrix Q
 
-      // Generate the N-by-N matrix Q
+  dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA);
+  if (M <= N) {
+    if (M > 0 && M < N) dlacpy('Full', M, N - M, AF, LDA, Q(N - M + 1, 1), LDA);
+    if (M > 1) {
+      dlacpy(
+        'Lower',
+        M - 1,
+        M - 1,
+        AF(2, N - M + 1),
+        LDA,
+        Q(N - M + 2, N - M + 1),
+        LDA,
+      );
+    }
+  } else {
+    if (N > 1) {
+      dlacpy('Lower', N - 1, N - 1, AF(M - N + 2, 1), LDA, Q(2, 1), LDA);
+    }
+  }
+  dorgrq(N, N, min(M, N), Q, LDA, TAUA, WORK, LWORK, INFO);
 
-      dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if ( M <= N ) {
-         if (M > 0 && M < N) dlacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) dlacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
-      } else {
-         if (N > 1) dlacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
-      }
-      dorgrq(N, N, min( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
+  // Generate the P-by-P matrix Z
 
-      // Generate the P-by-P matrix Z
+  dlaset('Full', P, P, ROGUE, ROGUE, Z, LDB);
+  if (P > 1) dlacpy('Lower', P - 1, N, BF(2, 1), LDB, Z(2, 1), LDB);
+  dorgqr(P, P, min(P, N), Z, LDB, TAUB, WORK, LWORK, INFO);
 
-      dlaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
-      if (P > 1) dlacpy( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB );
-      dorgqr(P, P, min( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO );
+  // Copy R
 
-      // Copy R
+  dlaset('Full', M, N, ZERO, ZERO, R, LDA);
+  if (M <= N) {
+    dlacpy('Upper', M, M, AF(1, N - M + 1), LDA, R(1, N - M + 1), LDA);
+  } else {
+    dlacpy('Full', M - N, N, AF, LDA, R, LDA);
+    dlacpy('Upper', N, N, AF(M - N + 1, 1), LDA, R(M - N + 1, 1), LDA);
+  }
 
-      dlaset('Full', M, N, ZERO, ZERO, R, LDA );
-      if ( M <= N ) {
-         dlacpy('Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
-      } else {
-         dlacpy('Full', M-N, N, AF, LDA, R, LDA );
-         dlacpy('Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
-      }
+  // Copy T
 
-      // Copy T
+  dlaset('Full', P, N, ZERO, ZERO, T, LDB);
+  dlacpy('Upper', P, N, BF, LDB, T, LDB);
 
-      dlaset('Full', P, N, ZERO, ZERO, T, LDB );
-      dlacpy('Upper', P, N, BF, LDB, T, LDB );
+  // Compute R - A*Q'
 
-      // Compute R - A*Q'
+  dgemm(
+    'No transpose',
+    'Transpose',
+    M,
+    N,
+    N,
+    -ONE,
+    A,
+    LDA,
+    Q,
+    LDA,
+    ONE,
+    R,
+    LDA,
+  );
 
-      dgemm('No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA );
+  // Compute norm( R - A*Q' ) / ( max(M,N)*norm(A)*ULP ) .
 
-      // Compute norm( R - A*Q' ) / ( max(M,N)*norm(A)*ULP ) .
+  RESID = dlange('1', M, N, R, LDA, RWORK);
+  if (ANORM > ZERO) {
+    RESULT[1] = ((RESID / (max(1, max(M, N))).toDouble()) / ANORM) / ULP;
+  } else {
+    RESULT[1] = ZERO;
+  }
 
-      RESID = dlange( '1', M, N, R, LDA, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / (max( 1, M, N )).toDouble() ) / ANORM ) / ULP;
-      } else {
-         RESULT[1] = ZERO;
-      }
+  // Compute T*Q - Z'*B
 
-      // Compute T*Q - Z'*B
+  dgemm(
+    'Transpose',
+    'No transpose',
+    P,
+    N,
+    P,
+    ONE,
+    Z,
+    LDB,
+    B,
+    LDB,
+    ZERO,
+    BWK,
+    LDB,
+  );
+  dgemm(
+    'No transpose',
+    'No transpose',
+    P,
+    N,
+    N,
+    ONE,
+    T,
+    LDB,
+    Q,
+    LDA,
+    -ONE,
+    BWK,
+    LDB,
+  );
 
-      dgemm('Transpose', 'No transpose', P, N, P, ONE, Z, LDB, B, LDB, ZERO, BWK, LDB )       CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, T, LDB, Q, LDA, -ONE, BWK, LDB );
+  // Compute norm( T*Q - Z'*B ) / ( max(P,N)*norm(A)*ULP ) .
 
-      // Compute norm( T*Q - Z'*B ) / ( max(P,N)*norm(A)*ULP ) .
+  RESID = dlange('1', P, N, BWK, LDB, RWORK);
+  if (BNORM > ZERO) {
+    RESULT[2] = ((RESID / (max(1, max(P, M))).toDouble()) / BNORM) / ULP;
+  } else {
+    RESULT[2] = ZERO;
+  }
 
-      RESID = dlange( '1', P, N, BWK, LDB, RWORK );
-      if ( BNORM > ZERO ) {
-         RESULT[2] = ( ( RESID / (max( 1, P, M )).toDouble() ) / BNORM ) / ULP;
-      } else {
-         RESULT[2] = ZERO;
-      }
+  // Compute I - Q*Q'
 
-      // Compute I - Q*Q'
+  dlaset('Full', N, N, ZERO, ONE, R, LDA);
+  dsyrk('Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA);
 
-      dlaset('Full', N, N, ZERO, ONE, R, LDA );
-      dsyrk('Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
+  // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      // Compute norm( I - Q'*Q ) / ( N * ULP ) .
+  RESID = dlansy('1', 'Upper', N, R, LDA, RWORK);
+  RESULT[3] = (RESID / (max(1, N)).toDouble()) / ULP;
 
-      RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT[3] = ( RESID / (max( 1, N )).toDouble() ) / ULP;
+  // Compute I - Z'*Z
 
-      // Compute I - Z'*Z
+  dlaset('Full', P, P, ZERO, ONE, T, LDB);
+  dsyrk('Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB);
 
-      dlaset('Full', P, P, ZERO, ONE, T, LDB );
-      dsyrk('Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB );
+  // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      // Compute norm( I - Z'*Z ) / ( P*ULP ) .
-
-      RESID = DLANSY( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
-
-      return;
-      }
+  RESID = dlansy('1', 'Upper', P, T, LDB, RWORK);
+  RESULT[4] = (RESID / (max(1, P)).toDouble()) / ULP;
+}

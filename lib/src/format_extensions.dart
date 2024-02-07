@@ -9,6 +9,7 @@ extension IntFormatExtension on int {
   String get i7 => toString().padLeft(7);
   String get i8 => toString().padLeft(8);
   String get i12 => toString().padLeft(12);
+  String get i15 => toString().padLeft(15);
   String get i36 => toString().padLeft(36);
 }
 
@@ -27,6 +28,7 @@ extension DoubleFormatExtension on double {
 
   String get g10_3 => toStringAsFixed(3).padLeft(10);
   String get g11_4 => toStringAsFixed(4).padLeft(11);
+  String get g13_6 => toStringAsFixed(6).padLeft(13);
 }
 
 extension StringFormatExtension on String {

@@ -113,7 +113,7 @@ import 'common.dart';
 
                      NORM = NORMS( INORM );
                      NORMARF = DLANSF( NORM, CFORM, UPLO, N, ARF, WORK );
-                     NORMA = DLANSY( NORM, UPLO, N, A, LDA, WORK );
+                     NORMA = dlansy( NORM, UPLO, N, A, LDA, WORK );
 
                      RESULT[1] = ( NORMA - NORMARF ) / NORMA / EPS;
                      NRUN = NRUN + 1;

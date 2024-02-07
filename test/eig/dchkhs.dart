@@ -284,7 +284,7 @@ void dchkhs(
             A,
             LDA,
             WORK(N + 1),
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
@@ -305,7 +305,7 @@ void dchkhs(
             A,
             LDA,
             WORK(N + 1),
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 6) {
           // General, eigenvalues specified
@@ -340,7 +340,7 @@ void dchkhs(
             A,
             LDA,
             WORK(2 * N + 1),
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
@@ -373,7 +373,7 @@ void dchkhs(
             A,
             LDA,
             IWORK,
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
@@ -406,7 +406,7 @@ void dchkhs(
             A,
             LDA,
             IWORK,
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 9) {
           // General, random eigenvalues
@@ -472,7 +472,7 @@ void dchkhs(
             A,
             LDA,
             IWORK,
-            IINFO.value,
+            IINFO,
           );
         } else {
           IINFO.value = 1;

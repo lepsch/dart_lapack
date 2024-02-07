@@ -1,124 +1,220 @@
-      void dckglm(NN, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, RWORK, NIN, NOUT, INFO ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
 
+import '../lin/alasum.dart';
+import '../matgen/dlarnd.dart';
+import '../matgen/dlatms.dart';
+import 'alahdg.dart';
+import 'alareq.dart';
+import 'dglmts.dart';
+import 'dlatb9.dart';
+
+Future<void> dckglm(
+  final int NN,
+  final Array<int> MVAL,
+  final Array<int> PVAL,
+  final Array<int> NVAL,
+  final int NMATS,
+  final Array<int> ISEED,
+  final double THRESH,
+  final int NMAX,
+  final Array<double> A,
+  final Array<double> AF,
+  final Array<double> B,
+  final Array<double> BF,
+  final Array<double> X,
+  final Array<double> WORK,
+  final Array<double> RWORK,
+  final Nin NIN,
+  final Nout NOUT,
+  final Box<int> INFO,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, NIN, NMATS, NMAX, NN, NOUT;
-      double             THRESH;
-      int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
-      double             A( * ), AF( * ), B( * ), BF( * ), RWORK( * ), WORK( * ), X( * );
-      // ..
+  const NTYPES = 8;
+  bool FIRSTT;
+  final TYPE = Box(''), DISTA = Box(''), DISTB = Box('');
+  int I, IK, IMAT, LDA, LDB, LWORK, M, N, NFAIL, NRUN, P;
+  final KLA = Box(0),
+      KLB = Box(0),
+      KUA = Box(0),
+      KUB = Box(0),
+      MODEA = Box(0),
+      MODEB = Box(0);
+  final ANORM = Box(0.0),
+      BNORM = Box(0.0),
+      CNDNMA = Box(0.0),
+      CNDNMB = Box(0.0),
+      RESID = Box(0.0);
+  final DOTYPE = Array<bool>(NTYPES);
+  final IINFO = Box(0);
+  const PATH = 'GLM';
 
-      int                NTYPES;
-      const              NTYPES = 8 ;
-      bool               FIRSTT;
-      String             DISTA, DISTB, TYPE;
-      String             PATH;
-      int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P;
-      double             ANORM, BNORM, CNDNMA, CNDNMB, RESID;
-      bool               DOTYPE( NTYPES );
-      // ..
-      // .. External Functions ..
-      //- double             DLARND;
-      // EXTERNAL DLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAHDG, ALAREQ, ALASUM, DGLMTS, DLATB9, DLATMS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS
+  // Initialize constants.
 
-      // Initialize constants.
+  INFO.value = 0;
+  NRUN = 0;
+  NFAIL = 0;
+  FIRSTT = true;
+  await alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT);
+  LDA = NMAX;
+  LDB = NMAX;
+  LWORK = NMAX * NMAX;
 
-      PATH[1: 3] = 'GLM';
-      INFO = 0;
-      NRUN = 0;
-      NFAIL = 0;
-      FIRSTT = true;
-      alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
-      LDA = NMAX;
-      LDB = NMAX;
-      LWORK = NMAX*NMAX;
+  // Check for valid input values.
 
-      // Check for valid input values.
-
-      for (IK = 1; IK <= NN; IK++) { // 10
-         M = MVAL( IK );
-         P = PVAL( IK );
-         N = NVAL( IK );
-         if ( M > N || N > M+P ) {
-            if ( FIRSTT ) {
-               WRITE( NOUT, FMT = * );
-               FIRSTT = false;
-            }
-            WRITE( NOUT, FMT = 9997 )M, P, N;
-         }
-      } // 10
-      FIRSTT = true;
-
-      // Do for each value of M in MVAL.
-
-      for (IK = 1; IK <= NN; IK++) { // 40
-         M = MVAL( IK );
-         P = PVAL( IK );
-         N = NVAL( IK );
-         if (M > N || N > M+P) GO TO 40;
-
-         for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
-
-            // Do the tests only if DOTYPE( IMAT ) is true.
-
-            if( !DOTYPE( IMAT ) ) GO TO 30;
-
-            // Set up parameters with DLATB9 and generate test
-            // matrices A and B with DLATMS.
-
-            dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
-
-            dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
-            if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ( IINFO ).abs();
-               GO TO 30;
-            }
-
-            dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
-            if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ( IINFO ).abs();
-               GO TO 30;
-            }
-
-            // Generate random left hand side vector of GLM
-
-            for (I = 1; I <= N; I++) { // 20
-               X[I] = dlarnd( 2, ISEED );
-            } // 20
-
-            dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );
-
-            // Print information about the tests that did not
-            // pass the threshold.
-
-            if ( RESID >= THRESH ) {
-               if ( NFAIL == 0 && FIRSTT ) {
-                  FIRSTT = false;
-                  alahdg(NOUT, PATH );
-               }
-               WRITE( NOUT, FMT = 9998 )N, M, P, IMAT, 1, RESID;
-               NFAIL = NFAIL + 1;
-            }
-            NRUN = NRUN + 1;
-
-         } // 30
-      } // 40
-
-      // Print a summary of the results.
-
-      alasum(PATH, NOUT, NFAIL, NRUN, 0 );
-
- 9999 FORMAT( ' DLATMS in DCKGLM INFO = ${.i5}');
- 9998 FORMAT( ' N=${.i4} M=${.i4}, P=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
- 9997 FORMAT( ' *** Invalid input  for GLM:  M = ${.i6}, P = ${.i6}, N = ${.i6};\n     must satisfy M <= N <= M+P  (this set of values will be skipped)' )
-      return;
+  for (IK = 1; IK <= NN; IK++) {
+    M = MVAL[IK];
+    P = PVAL[IK];
+    N = NVAL[IK];
+    if (M > N || N > M + P) {
+      if (FIRSTT) {
+        NOUT.println();
+        FIRSTT = false;
       }
+      NOUT.println(
+        ' *** Invalid input  for GLM:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n'
+        '     must satisfy M <= N <= M+P  (this set of values will be skipped)',
+      );
+    }
+  }
+  FIRSTT = true;
+
+  // Do for each value of M in MVAL.
+
+  for (IK = 1; IK <= NN; IK++) {
+    M = MVAL[IK];
+    P = PVAL[IK];
+    N = NVAL[IK];
+    if (M > N || N > M + P) continue;
+
+    for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
+      // Do the tests only if DOTYPE[ IMAT ] is true.
+      if (!DOTYPE[IMAT]) continue;
+
+      // Set up parameters with DLATB9 and generate test
+      // matrices A and B with DLATMS.
+
+      dlatb9(
+        PATH,
+        IMAT,
+        M,
+        P,
+        N,
+        TYPE,
+        KLA,
+        KUA,
+        KLB,
+        KUB,
+        ANORM,
+        BNORM,
+        MODEA,
+        MODEB,
+        CNDNMA,
+        CNDNMB,
+        DISTA,
+        DISTB,
+      );
+
+      dlatms(
+        N,
+        M,
+        DISTA.value,
+        ISEED,
+        TYPE.value,
+        RWORK,
+        MODEA.value,
+        CNDNMA.value,
+        ANORM.value,
+        KLA.value,
+        KUA.value,
+        'No packing',
+        A.asMatrix(LDA),
+        LDA,
+        WORK,
+        IINFO,
+      );
+      if (IINFO.value != 0) {
+        print9999(NOUT, IINFO.value);
+        INFO.value = (IINFO.value).abs();
+        continue;
+      }
+
+      dlatms(
+        N,
+        P,
+        DISTB.value,
+        ISEED,
+        TYPE.value,
+        RWORK,
+        MODEB.value,
+        CNDNMB.value,
+        BNORM.value,
+        KLB.value,
+        KUB.value,
+        'No packing',
+        B.asMatrix(LDB),
+        LDB,
+        WORK,
+        IINFO,
+      );
+      if (IINFO.value != 0) {
+        print9999(NOUT, IINFO.value);
+        INFO.value = (IINFO.value).abs();
+        continue;
+      }
+
+      // Generate random left hand side vector of GLM
+
+      for (I = 1; I <= N; I++) {
+        X[I] = dlarnd(2, ISEED);
+      }
+
+      dglmts(
+        N,
+        M,
+        P,
+        A,
+        AF,
+        LDA,
+        B,
+        BF,
+        LDB,
+        X,
+        X[NMAX + 1],
+        X[2 * NMAX + 1],
+        X[3 * NMAX + 1],
+        WORK,
+        LWORK,
+        RWORK,
+        RESID.value,
+      );
+
+      // Print information about the tests that did not
+      // pass the threshold.
+
+      if (RESID.value >= THRESH) {
+        if (NFAIL == 0 && FIRSTT) {
+          FIRSTT = false;
+          alahdg(NOUT, PATH);
+        }
+        NOUT.println(
+          ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}',
+        );
+        NFAIL = NFAIL + 1;
+      }
+      NRUN = NRUN + 1;
+    }
+  }
+
+  // Print a summary of the results.
+
+  alasum(PATH, NOUT, NFAIL, NRUN, 0);
+}
+
+void print9999(final Nout NOUT, final int info) {
+  NOUT.println(' DLATMS in DCKGLM INFO = ${info.i5}');
+}

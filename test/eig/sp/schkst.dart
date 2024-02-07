@@ -1173,4 +1173,4 @@
 
  9990 FORMAT( ' N=${.i5}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
 
- 9988 FORMAT('\nTest performed:  see SCHKST for details.', / );      }
+ 9988 FORMAT('\nTest performed:  see SCHKST for details.\n');      }

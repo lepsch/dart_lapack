@@ -61,7 +61,7 @@
       if ( ITYPE == 3 ) {
          ANORM = ONE;
       } else {
-         ANORM = max( DLANSP( '1', CUPLO, N, AP, WORK ), UNFL );
+         ANORM = max( dlansp( '1', CUPLO, N, AP, WORK ), UNFL );
       }
 
       // Compute error matrix:
@@ -82,7 +82,7 @@
                dspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
             } // 20
          }
-         WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( N**2+1 ) );
+         WNORM = dlansp( '1', CUPLO, N, WORK, WORK( N**2+1 ) );
 
       } else if ( ITYPE == 2 ) {
 
@@ -139,7 +139,7 @@
          for (J = 1; J <= LAP; J++) { // 70
             WORK[J] = WORK( J ) - AP( J );
          } // 70
-         WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LAP+1 ) );
+         WNORM = dlansp( '1', CUPLO, N, WORK, WORK( LAP+1 ) );
 
       } else if ( ITYPE == 3 ) {
 

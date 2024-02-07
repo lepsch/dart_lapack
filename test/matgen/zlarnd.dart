@@ -23,8 +23,8 @@
       // Generate a pair of real random numbers from a uniform (0,1)
       // distribution
 
-      T1 = DLARAN( ISEED );
-      T2 = DLARAN( ISEED );
+      T1 = dlaran( ISEED );
+      T2 = dlaran( ISEED );
 
       if ( IDIST == 1 ) {
 

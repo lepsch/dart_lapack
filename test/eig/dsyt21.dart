@@ -55,7 +55,7 @@
       if ( ITYPE == 3 ) {
          ANORM = ONE;
       } else {
-         ANORM = max( DLANSY( '1', CUPLO, N, A, LDA, WORK ), UNFL );
+         ANORM = max( dlansy( '1', CUPLO, N, A, LDA, WORK ), UNFL );
       }
 
       // Compute error matrix:
@@ -76,7 +76,7 @@
                dsyr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20
          }
-         WNORM = DLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) );
+         WNORM = dlansy( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) );
 
       } else if ( ITYPE == 2 ) {
 
@@ -129,7 +129,7 @@
                } // 80
             }
          } // 90
-         WNORM = DLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) );
+         WNORM = dlansy( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) );
 
       } else if ( ITYPE == 3 ) {
 

@@ -4,7 +4,7 @@
 
 ### Quick
  - Cleanup ->  // \d+$
- - To Matrix -> (\b[ABC])\(([^())]+),([^()]+)\) -> $1[$2][$3]
+ - To Matrix -> (\b[XY])\(([^())]+),([^()]+)\) -> $1[$2][$3]
  - To Array -> (\b[XY])\(([^())]+)\) -> $1[$2]
 
 ### Line continuations

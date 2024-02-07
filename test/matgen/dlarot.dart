@@ -1,79 +1,80 @@
-      void dlarot(LROWS, LLEFT, LRIGHT, NL, C, S, A, LDA, XLEFT, XRIGHT ) {
+import 'package:lapack/src/blas/drot.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
 
+void dlarot(
+  final bool LROWS,
+  final bool LLEFT,
+  final bool LRIGHT,
+  final int NL,
+  final double C,
+  final double S,
+  final Array<double> A,
+  final int LDA,
+  final Box<double> XLEFT,
+  final Box<double> XRIGHT,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               LLEFT, LRIGHT, LROWS;
-      int                LDA, NL;
-      double             C, S, XLEFT, XRIGHT;
-      double             A( * );
-      // ..
+  int IINC, INEXT, IX, IY, IYT = 0, NT;
+  final XT = Array<double>(2), YT = Array<double>(2);
 
-// =====================================================================
+  // Set up indices, arrays for ends
 
-      // .. Local Scalars ..
-      int                IINC, INEXT, IX, IY, IYT, NT;
-      double             XT( 2 ), YT( 2 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DROT, XERBLA
+  if (LROWS) {
+    IINC = LDA;
+    INEXT = 1;
+  } else {
+    IINC = 1;
+    INEXT = LDA;
+  }
 
-      // Set up indices, arrays for ends
+  if (LLEFT) {
+    NT = 1;
+    IX = 1 + IINC;
+    IY = 2 + LDA;
+    XT[1] = A[1];
+    YT[1] = XLEFT.value;
+  } else {
+    NT = 0;
+    IX = 1;
+    IY = 1 + INEXT;
+  }
 
-      if ( LROWS ) {
-         IINC = LDA;
-         INEXT = 1;
-      } else {
-         IINC = 1;
-         INEXT = LDA;
-      }
+  if (LRIGHT) {
+    IYT = 1 + INEXT + (NL - 1) * IINC;
+    NT = NT + 1;
+    XT[NT] = XRIGHT.value;
+    YT[NT] = A[IYT];
+  }
 
-      if ( LLEFT ) {
-         NT = 1;
-         IX = 1 + IINC;
-         IY = 2 + LDA;
-         XT[1] = A( 1 );
-         YT[1] = XLEFT;
-      } else {
-         NT = 0;
-         IX = 1;
-         IY = 1 + INEXT;
-      }
+  // Check for errors
 
-      if ( LRIGHT ) {
-         IYT = 1 + INEXT + ( NL-1 )*IINC;
-         NT = NT + 1;
-         XT[NT] = XRIGHT;
-         YT[NT] = A( IYT );
-      }
+  if (NL < NT) {
+    xerbla('DLAROT', 4);
+    return;
+  }
+  if (LDA <= 0 || (!LROWS && LDA < NL - NT)) {
+    xerbla('DLAROT', 8);
+    return;
+  }
 
-      // Check for errors
+  // Rotate
 
-      if ( NL < NT ) {
-         xerbla('DLAROT', 4 );
-         return;
-      }
-      if ( LDA <= 0 || ( !LROWS && LDA < NL-NT ) ) {
-         xerbla('DLAROT', 8 );
-         return;
-      }
+  drot(NL - NT, A(IX), IINC, A(IY), IINC, C, S);
+  drot(NT, XT, 1, YT, 1, C, S);
 
-      // Rotate
+  // Stuff values back into XLEFT.value, XRIGHT.value, etc.
 
-      drot(NL-NT, A( IX ), IINC, A( IY ), IINC, C, S );
-      drot(NT, XT, 1, YT, 1, C, S );
+  if (LLEFT) {
+    A[1] = XT[1];
+    XLEFT.value = YT[1];
+  }
 
-      // Stuff values back into XLEFT, XRIGHT, etc.
-
-      if ( LLEFT ) {
-         A[1] = XT( 1 );
-         XLEFT = YT( 1 );
-      }
-
-      if ( LRIGHT ) {
-         XRIGHT = XT( NT );
-         A[IYT] = YT( NT );
-      }
-
-      return;
-      }
+  if (LRIGHT) {
+    XRIGHT.value = XT[NT];
+    A[IYT] = YT[NT];
+  }
+}

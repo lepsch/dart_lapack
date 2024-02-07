@@ -36,8 +36,8 @@
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANSP( '1', UPLO, N, A, RWORK );
-      AINVNM = DLANSP( '1', UPLO, N, AINV, RWORK );
+      ANORM = dlansp( '1', UPLO, N, A, RWORK );
+      AINVNM = dlansp( '1', UPLO, N, AINV, RWORK );
       if ( ANORM <= ZERO || AINVNM == ZERO ) {
          RCOND = ZERO;
          RESID = ONE / EPS;

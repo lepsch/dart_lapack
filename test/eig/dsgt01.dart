@@ -27,7 +27,7 @@
 
       // Compute product of 1-norms of A and Z.
 
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* dlange( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE;
+      ANORM = dlansy( '1', UPLO, N, A, LDA, WORK )* dlange( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE;
 
       if ( ITYPE == 1 ) {
 

@@ -177,7 +177,7 @@ import 'package:lapack/src/xerbla.dart';
       // number of A.
 
       NORM = 'I';
-      ANORM = DLANSY( NORM, UPLO, N, A, LDA, WORK );
+      ANORM = dlansy( NORM, UPLO, N, A, LDA, WORK );
       dsycon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side

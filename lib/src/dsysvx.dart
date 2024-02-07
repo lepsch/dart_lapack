@@ -95,7 +95,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Compute the norm of the matrix A.
 
-      ANORM = DLANSY( 'I', UPLO, N, A, LDA, WORK );
+      ANORM = dlansy( 'I', UPLO, N, A, LDA, WORK );
 
       // Compute the reciprocal of the condition number of A.
 

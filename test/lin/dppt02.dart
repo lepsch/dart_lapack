@@ -34,7 +34,7 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANSP( '1', UPLO, N, A, RWORK );
+      ANORM = dlansp( '1', UPLO, N, A, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
          return;

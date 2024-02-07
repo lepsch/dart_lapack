@@ -82,7 +82,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Compute some constants.
 
-      ANRM = DLANSY( 'I', UPLO, N, A, LDA, WORK );
+      ANRM = dlansy( 'I', UPLO, N, A, LDA, WORK );
       EPS = dlamch( 'Epsilon' );
       CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
 

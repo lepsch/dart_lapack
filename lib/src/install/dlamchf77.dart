@@ -516,7 +516,7 @@
 
       return;
 
- 9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-  EMIN = ', I8, / ' If, after inspection, the value EMIN looks acceptable please comment out \n the IF block as marked within the code of routine DLAMC2,\n otherwise supply EMIN explicitly.', / );
+ 9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-  EMIN = ', I8, / ' If, after inspection, the value EMIN looks acceptable please comment out \n the IF block as marked within the code of routine DLAMC2,\n otherwise supply EMIN explicitly.\n');
       }
 
 // ***********************************************************************

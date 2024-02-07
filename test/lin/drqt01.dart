@@ -88,7 +88,7 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK );
+      RESID = dlansy( '1', 'Upper', N, R, LDA, RWORK );
 
       RESULT[2] = ( RESID / (max( 1, N )).toDouble() ) / EPS;
 

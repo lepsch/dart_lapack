@@ -66,7 +66,7 @@
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = DLANSP( 'M', UPLO, N, AP, WORK );
+      ANRM = dlansp( 'M', UPLO, N, AP, WORK );
       ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1;

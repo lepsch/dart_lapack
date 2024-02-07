@@ -217,7 +217,7 @@ import 'common.dart';
 
                      // Compute the 1-norm of A.
 
-                     ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+                     ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
 
                      // Factor the matrix A.
 
@@ -229,7 +229,7 @@ import 'common.dart';
                      dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      LWORK = (N+NB+1)*(NB+3);
                      dsytri_rook(UPLO, N, AINV, LDA, IWORK, WORK, INFO );
-                     AINVNM = DLANSY( '1', UPLO, N, AINV, LDA, RWORK );
+                     AINVNM = dlansy( '1', UPLO, N, AINV, LDA, RWORK );
 
                      // Compute the 1-norm condition number of A.
 

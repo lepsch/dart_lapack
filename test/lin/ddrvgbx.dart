@@ -262,7 +262,7 @@ import 'common.dart';
 
                            // Compute the 1-norm and infinity-norm of A.
 
-                           ANORMO = DLANGB( '1', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )                            ANORMI = DLANGB( 'I', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK );
+                           ANORMO = dlangb( '1', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )                            ANORMI = dlangb( 'I', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK );
 
                            // Factor the matrix A.
 
@@ -410,7 +410,7 @@ import 'common.dart';
                               if ( RPVGRW == ZERO ) {
                                  RPVGRW = ONE;
                               } else {
-                                 RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW;
+                                 RPVGRW = dlangb( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW;
                               }
                            }
                            RESULT[7] = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / dlamch( 'E' );

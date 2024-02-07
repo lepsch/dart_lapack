@@ -276,8 +276,8 @@ void dchkbb(
               'N',
               A,
               LDA,
-              WORK[M + 1],
-              IINFO.value,
+              WORK(M + 1),
+              IINFO,
             );
           } else if (ITYPE == 6) {
             // Nonhermitian, singular values specified
@@ -297,8 +297,8 @@ void dchkbb(
               'N',
               A,
               LDA,
-              WORK[M + 1],
-              IINFO.value,
+              WORK(M + 1),
+              IINFO,
             );
           } else if (ITYPE == 9) {
             // Nonhermitian, random entries
@@ -315,10 +315,10 @@ void dchkbb(
               ONE,
               'T',
               'N',
-              WORK[N + 1],
+              WORK(N + 1),
               1,
               ONE,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               1,
               ONE,
               'N',
@@ -331,7 +331,7 @@ void dchkbb(
               A,
               LDA,
               IDUMMA,
-              IINFO.value,
+              IINFO,
             );
           } else {
             IINFO.value = 1;
@@ -351,10 +351,10 @@ void dchkbb(
             ONE,
             'T',
             'N',
-            WORK[M + 1],
+            WORK(M + 1),
             1,
             ONE,
-            WORK[2 * M + 1],
+            WORK(2 * M + 1),
             1,
             ONE,
             'N',
@@ -367,7 +367,7 @@ void dchkbb(
             C,
             LDC,
             IDUMMA,
-            IINFO.value,
+            IINFO,
           );
 
           if (IINFO.value != 0) {

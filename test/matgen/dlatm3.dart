@@ -1,99 +1,89 @@
-      double dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/matrix.dart';
 
+import 'dlaran.dart';
+import 'dlarnd.dart';
+
+double dlatm3(
+  final int M,
+  final int N,
+  final int I,
+  final int J,
+  final Box<int> ISUB,
+  final Box<int> JSUB,
+  final int KL,
+  final int KU,
+  final int IDIST,
+  final Array<int> ISEED,
+  final Array<double> D,
+  final int IGRADE,
+  final Array<double> DL,
+  final Array<double> DR,
+  final int IPVTNG,
+  final Array<int> IWORK,
+  final double SPARSE,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ZERO = 0.0;
+  double TEMP;
 
-      int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
-      double             SPARSE;
-      // ..
+  // Check for I and J in range
 
-      // .. Array Arguments ..
+  if (I < 1 || I > M || J < 1 || J > N) {
+    ISUB.value = I;
+    JSUB.value = J;
+    return ZERO;
+  }
 
-      int                ISEED( 4 ), IWORK( * );
-      double             D( * ), DL( * ), DR( * );
-      // ..
+  // Compute subscripts depending on IPVTNG
 
+  if (IPVTNG == 0) {
+    ISUB.value = I;
+    JSUB.value = J;
+  } else if (IPVTNG == 1) {
+    ISUB.value = IWORK[I];
+    JSUB.value = J;
+  } else if (IPVTNG == 2) {
+    ISUB.value = I;
+    JSUB.value = IWORK[J];
+  } else if (IPVTNG == 3) {
+    ISUB.value = IWORK[I];
+    JSUB.value = IWORK[J];
+  }
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      // ..
+  // Check for banding
 
-      // .. Local Scalars ..
+  if (JSUB.value > ISUB.value + KU || JSUB.value < ISUB.value - KL) {
+    return ZERO;
+  }
 
-      double             TEMP;
-      // ..
+  // Check for sparsity
 
-      // .. External Functions ..
+  if (SPARSE > ZERO) {
+    if (dlaran(ISEED) < SPARSE) {
+      return ZERO;
+    }
+  }
 
-      double             DLARAN, DLARND;
-      // EXTERNAL DLARAN, DLARND
-      // ..
-
-// -----------------------------------------------------------------------
-
-      // .. Executable Statements ..
-
-
-      // Check for I and J in range
-
-      if ( I < 1 || I > M || J < 1 || J > N ) {
-         ISUB = I;
-         JSUB = J;
-         DLATM3 = ZERO;
-         return;
-      }
-
-      // Compute subscripts depending on IPVTNG
-
-      if ( IPVTNG == 0 ) {
-         ISUB = I;
-         JSUB = J;
-      } else if ( IPVTNG == 1 ) {
-         ISUB = IWORK( I );
-         JSUB = J;
-      } else if ( IPVTNG == 2 ) {
-         ISUB = I;
-         JSUB = IWORK( J );
-      } else if ( IPVTNG == 3 ) {
-         ISUB = IWORK( I );
-         JSUB = IWORK( J );
-      }
-
-      // Check for banding
-
-      if ( JSUB > ISUB+KU || JSUB < ISUB-KL ) {
-         DLATM3 = ZERO;
-         return;
-      }
-
-      // Check for sparsity
-
-      if ( SPARSE > ZERO ) {
-         if ( DLARAN( ISEED ) < SPARSE ) {
-            DLATM3 = ZERO;
-            return;
-         }
-      }
-
-      // Compute entry and grade it according to IGRADE
-
-      if ( I == J ) {
-         TEMP = D( I );
-      } else {
-         TEMP = dlarnd( IDIST, ISEED );
-      }
-      if ( IGRADE == 1 ) {
-         TEMP = TEMP*DL( I );
-      } else if ( IGRADE == 2 ) {
-         TEMP = TEMP*DR( J );
-      } else if ( IGRADE == 3 ) {
-         TEMP = TEMP*DL( I )*DR( J );
-      } else if ( IGRADE == 4 && I != J ) {
-         TEMP = TEMP*DL( I ) / DL( J );
-      } else if ( IGRADE == 5 ) {
-         TEMP = TEMP*DL( I )*DL( J );
-      }
-      DLATM3 = TEMP;
-      return;
-      }
+  // Compute entry and grade it according to IGRADE
+  
+  if (I == J) {
+    TEMP = D[I];
+  } else {
+    TEMP = dlarnd(IDIST, ISEED);
+  }
+  if (IGRADE == 1) {
+    TEMP = TEMP * DL[I];
+  } else if (IGRADE == 2) {
+    TEMP = TEMP * DR[J];
+  } else if (IGRADE == 3) {
+    TEMP = TEMP * DL[I] * DR[J];
+  } else if (IGRADE == 4 && I != J) {
+    TEMP = TEMP * DL[I] / DL[J];
+  } else if (IGRADE == 5) {
+    TEMP = TEMP * DL[I] * DL[J];
+  }
+  return TEMP;
+}

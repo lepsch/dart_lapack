@@ -167,7 +167,7 @@ import 'common.dart';
 
                         // Compute the 1-norm of A.
 
-                        ANORM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
+                        ANORM = dlansy( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
 
                         // Factor the matrix A.
 
@@ -181,7 +181,7 @@ import 'common.dart';
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
+                           AINVNM = dlansy( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
                            RCONDC = ( ONE / ANORM ) / AINVNM;
 
                            // Restore the matrix A.

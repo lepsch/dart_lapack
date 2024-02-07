@@ -261,7 +261,7 @@ import 'common.dart';
 // +    TEST 8
                   // Get an estimate of RCOND = 1/CNDNUM.
 
-                  ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+                  ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
                   srnamc.SRNAMT = 'DPOCON';
                   dpocon(UPLO, N, AFAC, LDA, ANORM, RCOND, WORK, IWORK, INFO );
 

@@ -268,10 +268,10 @@ void dchksb2stg(
               0,
               0,
               'Q',
-              A[K + 1][1],
+              A(K + 1, 1),
               LDA,
-              WORK[N + 1],
-              IINFO.value,
+              WORK(N + 1),
+              IINFO,
             );
           } else if (ITYPE == 5) {
             // Symmetric, eigenvalues specified
@@ -291,8 +291,8 @@ void dchksb2stg(
               'Q',
               A,
               LDA,
-              WORK[N + 1],
-              IINFO.value,
+              WORK(N + 1),
+              IINFO,
             );
           } else if (ITYPE == 7) {
             // Diagonal, random eigenvalues
@@ -309,10 +309,10 @@ void dchksb2stg(
               ONE,
               'T',
               'N',
-              WORK[N + 1],
+              WORK(N + 1),
               1,
               ONE,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               1,
               ONE,
               'N',
@@ -322,10 +322,10 @@ void dchksb2stg(
               ZERO,
               ANORM,
               'Q',
-              A[K + 1][1],
+              A(K + 1, 1),
               LDA,
               IDUMMA,
-              IINFO.value,
+              IINFO,
             );
           } else if (ITYPE == 8) {
             // Symmetric, random eigenvalues
@@ -342,10 +342,10 @@ void dchksb2stg(
               ONE,
               'T',
               'N',
-              WORK[N + 1],
+              WORK(N + 1),
               1,
               ONE,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               1,
               ONE,
               'N',
@@ -358,7 +358,7 @@ void dchksb2stg(
               A,
               LDA,
               IDUMMA,
-              IINFO.value,
+              IINFO,
             );
           } else if (ITYPE == 9) {
             // Positive definite, eigenvalues specified.
@@ -378,8 +378,8 @@ void dchksb2stg(
               'Q',
               A,
               LDA,
-              WORK[N + 1],
-              IINFO.value,
+              WORK(N + 1),
+              IINFO,
             );
           } else if (ITYPE == 10) {
             // Positive definite tridiagonal, eigenvalues specified.
@@ -398,10 +398,10 @@ void dchksb2stg(
               1,
               1,
               'Q',
-              A[K][1],
+              A(K, 1),
               LDA,
-              WORK[N + 1],
-              IINFO.value,
+              WORK(N + 1),
+              IINFO,
             );
             for (I = 2; I <= N; I++) {
               TEMP1 =
@@ -432,14 +432,14 @@ void dchksb2stg(
             'U',
             N,
             K,
-            WORK,
+            WORK.asMatrix(LDA),
             LDA,
             SD,
             SE,
             U,
             LDU,
-            WORK[LDA * N + 1],
-            IINFO.value,
+            WORK(LDA * N + 1),
+            IINFO,
           );
 
           if (IINFO.value != 0) {
@@ -455,7 +455,7 @@ void dchksb2stg(
 
           // Do tests 1 and 2
 
-          dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[1]);
+          dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT(1));
 
           // Before converting A into lower for DSBTRD, run DSYTRD_SB2ST
           // otherwise matrix A will be converted to lower and then need
@@ -508,7 +508,7 @@ void dchksb2stg(
             LH,
             WORK[LH + 1],
             LW,
-            IINFO.value,
+            IINFO,
           );
 
           // Compute D2 from the DSYTRD_SB2ST Upper case
@@ -552,14 +552,14 @@ void dchksb2stg(
             'L',
             N,
             K,
-            WORK,
+            WORK.asMatrix(LDA),
             LDA,
             SD,
             SE,
             U,
             LDU,
-            WORK[LDA * N + 1],
-            IINFO.value,
+            WORK(LDA * N + 1),
+            IINFO,
           );
 
           if (IINFO.value != 0) {
@@ -576,7 +576,7 @@ void dchksb2stg(
 
           // Do tests 3 and 4
 
-          dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[3]);
+          dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT(3));
 
           // DSYTRD_SB2ST Lower case is used to compute D3.
           // Note to set SD and SE to zero to be sure not reusing
@@ -602,7 +602,7 @@ void dchksb2stg(
             LH,
             WORK[LH + 1],
             LW,
-            IINFO.value,
+            IINFO,
           );
 
           // Compute D3 from the 2-stage Upper case

@@ -190,7 +190,7 @@ import 'package:lapack/src/xerbla.dart';
       } else {
          NORM = '1';
       }
-      ANORM = DLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
+      ANORM = dlangb( NORM, N, KL, KU, AB, LDAB, WORK );
       dgbcon(NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side

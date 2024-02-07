@@ -1185,4 +1185,4 @@
  9989 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is' F8.2 );
  9988 FORMAT( ' Matrix order=${.i5}, type=${.i2}, seed=${i4(4, ',')}', ' result ${.i3} is', 1P, D10.3 );
 
- 9987 FORMAT('\nTest performed:  see ZCHKST for details.', / );      }
+ 9987 FORMAT('\nTest performed:  see ZCHKST for details.\n');      }

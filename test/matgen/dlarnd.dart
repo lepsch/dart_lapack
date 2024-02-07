@@ -22,7 +22,7 @@
 
       // Generate a real random number from a uniform (0,1) distribution
 
-      T1 = DLARAN( ISEED );
+      T1 = dlaran( ISEED );
 
       if ( IDIST == 1 ) {
 
@@ -38,7 +38,7 @@
 
          // normal (0,1)
 
-         T2 = DLARAN( ISEED );
+         T2 = dlaran( ISEED );
          DLARND = sqrt( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
       }
       return;

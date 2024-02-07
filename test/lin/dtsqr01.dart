@@ -121,7 +121,7 @@
 
       dlaset('Full', M, M, ZERO, ONE, R, M );
       dsyrk('U', 'C', M, M, -ONE, Q, M, ONE, R, M );
-      RESID = DLANSY( '1', 'Upper', M, R, M, RWORK );
+      RESID = dlansy( '1', 'Upper', M, R, M, RWORK );
       RESULT[2] = RESID / (EPS*max(1,M));
 
       // Generate random m-by-n matrix C and a copy CF
@@ -255,7 +255,7 @@
 
       dlaset('Full', N, N, ZERO, ONE, LQ, L );
       dsyrk('U', 'C', N, N, -ONE, Q, N, ONE, LQ, L );
-      RESID = DLANSY( '1', 'Upper', N, LQ, L, RWORK );
+      RESID = dlansy( '1', 'Upper', N, LQ, L, RWORK );
       RESULT[2] = RESID / (EPS*max(1,N));
 
       // Generate random m-by-n matrix C and a copy CF

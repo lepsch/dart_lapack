@@ -85,18 +85,16 @@ void dchksb(
   BADNN = false;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
-    // 10
     NMAX = max(NMAX, NN[J]);
     if (NN[J] < 0) BADNN = true;
-  } // 10
+  }
 
   BADNNB = false;
   KMAX = 0;
   for (J = 1; J <= NSIZES; J++) {
-    // 20
     KMAX = max(KMAX, KK[J]);
     if (KK[J] < 0) BADNNB = true;
-  } // 20
+  }
   KMAX = min(NMAX - 1, KMAX);
 
   // Check for errors
@@ -143,12 +141,10 @@ void dchksb(
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
-    // 190
     N = NN[JSIZE];
     ANINV = ONE / (max(1, N)).toDouble();
 
     for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) {
-      // 180
       K = KK[JWIDTH];
       if (K > N) continue;
       K = max(0, min(N - 1, K));
@@ -160,15 +156,13 @@ void dchksb(
       }
 
       for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
-        // 170
         if (!DOTYPE[JTYPE]) continue;
         NMATS = NMATS + 1;
         NTEST = 0;
 
         for (J = 1; J <= 4; J++) {
-          // 30
           IOLDSD[J] = ISEED[J];
-        } // 30
+        }
 
         // Compute "A".
         // Store as "Upper"; later, we will copy to other format.
@@ -226,9 +220,8 @@ void dchksb(
             // Identity
 
             for (JCOL = 1; JCOL <= N; JCOL++) {
-              // 80
               A[K + 1][JCOL] = ANORM;
-            } // 80
+            }
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
 
@@ -245,9 +238,9 @@ void dchksb(
               0,
               0,
               'Q',
-              A[K + 1][1],
+              A(K + 1, 1),
               LDA,
-              WORK[N + 1],
+              WORK(N + 1),
               IINFO,
             );
           } else if (ITYPE == 5) {
@@ -268,7 +261,7 @@ void dchksb(
               'Q',
               A,
               LDA,
-              WORK[N + 1],
+              WORK(N + 1),
               IINFO,
             );
           } else if (ITYPE == 7) {
@@ -286,10 +279,10 @@ void dchksb(
               ONE,
               'T',
               'N',
-              WORK[N + 1],
+              WORK(N + 1),
               1,
               ONE,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               1,
               ONE,
               'N',
@@ -299,7 +292,7 @@ void dchksb(
               ZERO,
               ANORM,
               'Q',
-              A[K + 1][1],
+              A(K + 1, 1),
               LDA,
               IDUMMA,
               IINFO,
@@ -319,10 +312,10 @@ void dchksb(
               ONE,
               'T',
               'N',
-              WORK[N + 1],
+              WORK(N + 1),
               1,
               ONE,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               1,
               ONE,
               'N',
@@ -355,7 +348,7 @@ void dchksb(
               'Q',
               A,
               LDA,
-              WORK[N + 1],
+              WORK(N + 1),
               IINFO,
             );
           } else if (ITYPE == 10) {
@@ -375,19 +368,18 @@ void dchksb(
               1,
               1,
               'Q',
-              A[K][1],
+              A(K, 1),
               LDA,
-              WORK[N + 1],
+              WORK(N + 1),
               IINFO,
             );
             for (I = 2; I <= N; I++) {
-              // 90
               TEMP1 =
                   (A[K][I]).abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               if (TEMP1 > HALF) {
                 A[K][I] = HALF * sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
               }
-            } // 90
+            }
           } else {
             IINFO.value = 1;
           }
@@ -397,7 +389,7 @@ void dchksb(
             INFO.value = (IINFO.value).abs();
             return;
           }
-        } // 100
+        }
 
         while (true) {
           // Call DSBTRD to compute S and U from upper triangle.
@@ -410,13 +402,13 @@ void dchksb(
             'U',
             N,
             K,
-            WORK,
+            WORK.asMatrix(LDA),
             LDA,
             SD,
             SE,
             U,
             LDU,
-            WORK[LDA * N + 1],
+            WORK(LDA * N + 1),
             IINFO,
           );
 
@@ -433,25 +425,21 @@ void dchksb(
 
           // Do tests 1 and 2
 
-          dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[1]);
+          dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT(1));
 
           // Convert A from Upper-Triangle-Only storage to
           // Lower-Triangle-Only storage.
 
           for (JC = 1; JC <= N; JC++) {
-            // 120
             for (JR = 0; JR <= min(K, N - JC); JR++) {
-              // 110
               A[JR + 1][JC] = A[K + 1 - JR][JC + JR];
-            } // 110
-          } // 120
+            }
+          }
           for (JC = N + 1 - K; JC <= N; JC++) {
-            // 140
             for (JR = min(K, N - JC) + 1; JR <= K; JR++) {
-              // 130
               A[JR + 1][JC] = ZERO;
-            } // 130
-          } // 140
+            }
+          }
 
           // Call DSBTRD to compute S and U from lower triangle
 
@@ -463,13 +451,13 @@ void dchksb(
             'L',
             N,
             K,
-            WORK,
+            WORK.asMatrix(LDA),
             LDA,
             SD,
             SE,
             U,
             LDU,
-            WORK[LDA * N + 1],
+            WORK(LDA * N + 1),
             IINFO,
           );
 
@@ -487,16 +475,15 @@ void dchksb(
 
           // Do tests 3 and 4
 
-          dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT[3]);
+          dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT(3));
 
           // End of Loop -- Check for RESULT[j] > THRESH
-        } // 150
+        }
         NTESTT = NTESTT + NTEST;
 
         // Print out tests which fail.
 
         for (JR = 1; JR <= NTEST; JR++) {
-          // 160
           if (RESULT[JR] >= THRESH) {
             // If this is the first test to fail,
             // print a header to the data file.
@@ -524,10 +511,10 @@ void dchksb(
               ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}',
             );
           }
-        } // 160
-      } // 170
-    } // 180
-  } // 190
+        }
+      }
+    }
+  }
 
   // Summary
   dlasum('DSB', NOUNIT, NERRS, NTESTT);

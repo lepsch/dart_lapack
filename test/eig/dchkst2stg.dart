@@ -305,7 +305,7 @@ void dchkst2stg(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 5) {
@@ -326,7 +326,7 @@ void dchkst2stg(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 7) {
@@ -344,10 +344,10 @@ void dchkst2stg(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -377,10 +377,10 @@ void dchkst2stg(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -413,7 +413,7 @@ void dchkst2stg(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
         } else if (ITYPE == 10) {
@@ -434,7 +434,7 @@ void dchkst2stg(
             'N',
             A,
             LDA,
-            WORK[N + 1],
+            WORK(N + 1),
             IINFO,
           );
           for (I = 2; I <= N; I++) {
@@ -1360,7 +1360,8 @@ void dchkst2stg(
               IINFO,
             );
             if (IINFO.value != 0) {
-              print9999(NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
+              print9999(
+                  NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1424,7 +1425,8 @@ void dchkst2stg(
               );
 
               if (IINFO.value != 0) {
-                print9999(NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                print9999(
+                    NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
                 INFO.value = IINFO.value.abs();
                 if (IINFO.value < 0) {
                   return;

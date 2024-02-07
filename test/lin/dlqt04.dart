@@ -78,7 +78,7 @@
 
       dlaset('Full', N, N, ZERO, ONE, L, LL );
       dsyrk('U', 'C', N, N, -ONE, Q, N, ONE, L, LL );
-      RESID = DLANSY( '1', 'Upper', N, L, LL, RWORK );
+      RESID = dlansy( '1', 'Upper', N, L, LL, RWORK );
       RESULT[2] = RESID / (EPS*max(1,N));
 
       // Generate random m-by-n matrix C and a copy CF

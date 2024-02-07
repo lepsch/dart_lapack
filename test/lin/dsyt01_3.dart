@@ -40,7 +40,7 @@
       // 1) Determine EPS and the norm of A.
 
       EPS = dlamch( 'Epsilon' );
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
+      ANORM = dlansy( '1', UPLO, N, A, LDA, RWORK );
 
       // 2) Initialize C to the identity matrix.
 
@@ -72,7 +72,7 @@
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = DLANSY( '1', UPLO, N, C, LDC, RWORK );
+      RESID = dlansy( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;

@@ -1236,9 +1236,9 @@ import 'common.dart';
  9996 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NS =${.i4}, cenvir.MAXB =${.i4}, IACC22 =${.i4}, NBCOL =${.i4}');
  9995 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NX =${.i4}, NRHS =${.i4}');
  9994 FORMAT( / / ' End of tests' );
- 9993 FORMAT( ' Total time used = ${.f12_2} seconds', / );
+ 9993 FORMAT( ' Total time used = ${.f12_2} seconds\n');
  9992 FORMAT(' ${.a3}:  Unrecognized path name' );
- 9991 FORMAT( / / ' *** Invalid int     value in column ', I2,; ' of input line:', / A79 )
+ 9991 FORMAT( / / ' *** Invalid integer value in column ', I2,; ' of input line:', / A79 )
  9990 FORMAT( / / 1X, '${.a3} routines were not tested' );
  9989 FORMAT( ' Invalid input value: ${}=${.i6}; must be >=', I6 )
  9988 FORMAT( ' Invalid input value: ${}=${.i6}; must be <=', I6 )
