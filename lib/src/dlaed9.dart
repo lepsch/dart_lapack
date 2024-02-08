@@ -1,111 +1,105 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlaed4.dart';
+import 'package:lapack/src/f2c/sign.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlaed9(K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA, W, S, LDS, INFO ) {
-
+void dlaed9(
+  final int K,
+  final int KSTART,
+  final int KSTOP,
+  final int N,
+  final Array<double> D,
+  final Matrix<double> Q,
+  final int LDQ,
+  final double RHO,
+  final Array<double> DLAMBDA,
+  final Array<double> W,
+  final Matrix<double> S,
+  final int LDS,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, K, KSTART, KSTOP, LDQ, LDS, N;
-      double             RHO;
-      double             D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * );
-      // ..
+  int I, J;
+  double TEMP;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      int                I, J;
-      double             TEMP;
-      // ..
-      // .. External Functions ..
-      //- double             DNRM2;
-      // EXTERNAL DNRM2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DLAED4, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SIGN, SQRT
+  INFO.value = 0;
 
-      // Test the input parameters.
+  if (K < 0) {
+    INFO.value = -1;
+  } else if (KSTART < 1 || KSTART > max(1, K)) {
+    INFO.value = -2;
+  } else if (max(1, KSTOP) < KSTART || KSTOP > max(1, K)) {
+    INFO.value = -3;
+  } else if (N < K) {
+    INFO.value = -4;
+  } else if (LDQ < max(1, K)) {
+    INFO.value = -7;
+  } else if (LDS < max(1, K)) {
+    INFO.value = -12;
+  }
+  if (INFO.value != 0) {
+    xerbla('DLAED9', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
+  // Quick return if possible
 
-      if ( K < 0 ) {
-         INFO = -1;
-      } else if ( KSTART < 1 || KSTART > max( 1, K ) ) {
-         INFO = -2;
-      } else if ( max( 1, KSTOP ) < KSTART || KSTOP > max( 1, K ) ) {
-         INFO = -3;
-      } else if ( N < K ) {
-         INFO = -4;
-      } else if ( LDQ < max( 1, K ) ) {
-         INFO = -7;
-      } else if ( LDS < max( 1, K ) ) {
-         INFO = -12;
+  if (K == 0) return;
+
+  for (J = KSTART; J <= KSTOP; J++) {
+    dlaed4(K, J, DLAMBDA, W, Q(1, J).asArray(), RHO, D.box(J), INFO);
+
+    // If the zero finder fails, the computation is terminated.
+
+    if (INFO.value != 0) return;
+  }
+
+  if (K == 1 || K == 2) {
+    for (I = 1; I <= K; I++) {
+      for (J = 1; J <= K; J++) {
+        S[J][I] = Q[J][I];
       }
-      if ( INFO != 0 ) {
-         xerbla('DLAED9', -INFO );
-         return;
-      }
+    }
+    return;
+  }
 
-      // Quick return if possible
+  // Compute updated W.
 
-      if (K == 0) return;
+  dcopy(K, W, 1, S.asArray(), 1);
 
-      for (J = KSTART; J <= KSTOP; J++) { // 20
-         dlaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
+  // Initialize W[I] = Q[I][I]
 
-         // If the zero finder fails, the computation is terminated.
+  dcopy(K, Q.asArray(), LDQ + 1, W, 1);
+  for (J = 1; J <= K; J++) {
+    for (I = 1; I <= J - 1; I++) {
+      W[I] = W[I] * (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
+    }
+    for (I = J + 1; I <= K; I++) {
+      W[I] = W[I] * (Q[I][J] / (DLAMBDA[I] - DLAMBDA[J]));
+    }
+  }
+  for (I = 1; I <= K; I++) {
+    W[I] = sign(sqrt(-W[I]), S[I][1]).toDouble();
+  }
 
-         if (INFO != 0) GO TO 120;
-      } // 20
+  // Compute eigenvectors of the modified rank-1 modification.
 
-      if ( K == 1 || K == 2 ) {
-         for (I = 1; I <= K; I++) { // 40
-            for (J = 1; J <= K; J++) { // 30
-               S[J][I] = Q( J, I );
-            } // 30
-         } // 40
-         GO TO 120;
-      }
-
-      // Compute updated W.
-
-      dcopy(K, W, 1, S, 1 );
-
-      // Initialize W(I) = Q(I,I)
-
-      dcopy(K, Q, LDQ+1, W, 1 );
-      for (J = 1; J <= K; J++) { // 70
-         for (I = 1; I <= J - 1; I++) { // 50
-            W[I] = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
-         } // 50
-         for (I = J + 1; I <= K; I++) { // 60
-            W[I] = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
-         } // 60
-      } // 70
-      for (I = 1; I <= K; I++) { // 80
-         W[I] = sign( sqrt( -W( I ) ), S( I, 1 ) );
-      } // 80
-
-      // Compute eigenvectors of the modified rank-1 modification.
-
-      for (J = 1; J <= K; J++) { // 110
-         for (I = 1; I <= K; I++) { // 90
-            Q[I][J] = W( I ) / Q( I, J );
-         } // 90
-         TEMP = dnrm2( K, Q( 1, J ), 1 );
-         for (I = 1; I <= K; I++) { // 100
-            S[I][J] = Q( I, J ) / TEMP;
-         } // 100
-      } // 110
-
-      } // 120
-      return;
-      }
+  for (J = 1; J <= K; J++) {
+    for (I = 1; I <= K; I++) {
+      Q[I][J] = W[I] / Q[I][J];
+    }
+    TEMP = dnrm2(K, Q(1, J).asArray(), 1);
+    for (I = 1; I <= K; I++) {
+      S[I][J] = Q[I][J] / TEMP;
+    }
+  }
+}
