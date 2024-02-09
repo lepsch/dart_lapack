@@ -181,21 +181,21 @@ Future<void> dckgsv(
         M,
         P,
         N,
-        A,
-        AF,
+        A.asMatrix(LDA),
+        AF.asMatrix(LDA),
         LDA,
-        B,
-        BF,
+        B.asMatrix(LDB),
+        BF.asMatrix(LDB),
         LDB,
-        U,
+        U.asMatrix(LDU),
         LDU,
-        V,
+        V.asMatrix(LDV),
         LDV,
-        Q,
+        Q.asMatrix(LDQ),
         LDQ,
         ALPHA,
         BETA,
-        R,
+        R.asMatrix(LDR),
         LDR,
         IWORK,
         WORK,
@@ -228,5 +228,5 @@ Future<void> dckgsv(
 }
 
 void print9999(final Nout NOUT, final int info) {
-  NOUT.println(' DLATMS in DCKGSV   INFO.value = ${info.i5}');
+  NOUT.println(' DLATMS in DCKGSV   INFO = ${info.i5}');
 }

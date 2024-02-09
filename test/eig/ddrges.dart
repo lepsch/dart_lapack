@@ -76,11 +76,10 @@ void ddrges(
       NMAX,
       NTEST = 0,
       NTESTT,
-      RSUB,
-      SDIM = 0;
+      RSUB;
   double SAFMAX, SAFMIN, TEMP1, ULP, ULPINV;
   final IOLDSD = Array<int>(4);
-  final IINFO = Box(0), IERR = Box(0);
+  final IINFO = Box(0), IERR = Box(0), SDIM = Box(0);
   final TEMP2 = Box(0.0);
   final RMAGN = Array<double>(4, offset: 1);
   final KCLASS = Array.fromList([
@@ -276,12 +275,12 @@ void ddrges(
           dlatm4(
             KATYPE[JTYPE],
             IN,
-            KZ1(KAZERO[JTYPE]),
-            KZ2(KAZERO[JTYPE]),
+            KZ1[KAZERO[JTYPE]],
+            KZ2[KAZERO[JTYPE]],
             IASIGN[JTYPE],
-            RMAGN(KAMAGN[JTYPE]),
+            RMAGN[KAMAGN[JTYPE]],
             ULP,
-            RMAGN(KTRIAN[JTYPE] * KAMAGN[JTYPE]),
+            RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
             2,
             ISEED,
             A,
@@ -301,12 +300,12 @@ void ddrges(
           dlatm4(
             KBTYPE[JTYPE],
             IN,
-            KZ1(KBZERO[JTYPE]),
-            KZ2(KBZERO[JTYPE]),
+            KZ1[KBZERO[JTYPE]],
+            KZ2[KBZERO[JTYPE]],
             IBSIGN[JTYPE],
-            RMAGN(KBMAGN[JTYPE]),
+            RMAGN[KBMAGN[JTYPE]],
             ONE,
-            RMAGN(KTRIAN[JTYPE] * KBMAGN[JTYPE]),
+            RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
             2,
             ISEED,
             B,
@@ -518,7 +517,7 @@ void ddrges(
             Z,
             LDQ,
             WORK,
-            RESULT[7],
+            RESULT.box(7),
           );
         }
         dget51(
@@ -605,19 +604,19 @@ void ddrges(
             }
             if (!ILABAD) {
               dget53(
-                S[I1][I1],
+                S(I1, I1),
                 LDA,
-                T[I1][I1],
+                T(I1, I1),
                 LDA,
                 BETA[J],
                 ALPHAR[J],
                 ALPHAI[J],
-                TEMP2.value,
-                IERR.value,
+                TEMP2,
+                IERR,
               );
               if (IERR.value >= 3) {
                 NOUNIT.println(
-                  ' DDRGES: DGET53 returned INFO.value=${IERR.value.i1} for eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i4(4, ',')})',
+                  ' DDRGES: DGET53 returned INFO=${IERR.value.i1} for eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i4(4, ',')})',
                 );
                 INFO.value = (IERR.value).abs();
               }
@@ -655,7 +654,7 @@ void ddrges(
               }
             }
           }
-          if (SDIM != KNTEIG) {
+          if (SDIM.value != KNTEIG) {
             RESULT[12] = ULPINV;
           }
         }

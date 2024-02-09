@@ -3,106 +3,86 @@ import 'dart:math';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlarrr(N, D, E, INFO ) {
-
+void dlarrr(
+  final int N,
+  final Array<double> D,
+  final Array<double> E,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                N, INFO;
-      double             D( * ), E( * );
-      // ..
+  const ZERO = 0.0, RELCOND = 0.999;
+  int I;
+  bool YESREL;
+  double EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
 
+  // Quick return if possible
 
-      double             ZERO, RELCOND;
-      const              ZERO = 0.0, RELCOND = 0.999 ;
-      int                I;
-      bool               YESREL;
-      double             EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
+  if (N <= 0) {
+    INFO.value = 0;
+    return;
+  }
 
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS
+  // As a default, do NOT go for relative-accuracy preserving computations.
+  INFO.value = 1;
 
-      // Quick return if possible
+  SAFMIN = dlamch('Safe minimum');
+  EPS = dlamch('Precision');
+  SMLNUM = SAFMIN / EPS;
+  RMIN = sqrt(SMLNUM);
 
-      if ( N <= 0 ) {
-         INFO = 0;
-         return;
-      }
+  // Tests for relative accuracy
 
-      // As a default, do NOT go for relative-accuracy preserving computations.
-      INFO = 1;
+  // Test for scaled diagonal dominance
+  // Scale the diagonal entries to one and check whether the sum of the
+  // off-diagonals is less than one
 
-      SAFMIN = dlamch( 'Safe minimum' );
-      EPS = dlamch( 'Precision' );
-      SMLNUM = SAFMIN / EPS;
-      RMIN = sqrt( SMLNUM );
+  // The sdd relative error bounds have a 1/(1- 2*x) factor in them,
+  // x = max(OFFDIG + OFFDIG2), so when x is close to 1/2, no relative
+  // accuracy is promised.  In the notation of the code fragment below,
+  // 1/(1 - (OFFDIG + OFFDIG2)) is the condition number.
+  // We don't think it is worth going into "sdd mode" unless the relative
+  // condition number is reasonable, not 1/macheps.
+  // The threshold should be compatible with other thresholds used in the
+  // code. We set  OFFDIG + OFFDIG2 <= .999 =: RELCOND, it corresponds
+  // to losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
+  // instead of the current OFFDIG + OFFDIG2 < 1
 
-      // Tests for relative accuracy
+  YESREL = true;
+  OFFDIG = ZERO;
+  TMP = sqrt((D[1]).abs());
+  if (TMP < RMIN) YESREL = false;
+  if (YESREL) {
+    for (I = 2; I <= N; I++) {
+      TMP2 = sqrt((D[I]).abs());
+      if (TMP2 < RMIN) YESREL = false;
+      if (!YESREL) break;
+      OFFDIG2 = (E[I - 1]).abs() / (TMP * TMP2);
+      if (OFFDIG + OFFDIG2 >= RELCOND) YESREL = false;
+      if (!YESREL) break;
+      TMP = TMP2;
+      OFFDIG = OFFDIG2;
+    }
+  }
 
-      // Test for scaled diagonal dominance
-      // Scale the diagonal entries to one and check whether the sum of the
-      // off-diagonals is less than one
+  if (YESREL) {
+    INFO.value = 0;
+    return;
+  } else {}
 
-      // The sdd relative error bounds have a 1/(1- 2*x) factor in them,
-      // x = max(OFFDIG + OFFDIG2), so when x is close to 1/2, no relative
-      // accuracy is promised.  In the notation of the code fragment below,
-      // 1/(1 - (OFFDIG + OFFDIG2)) is the condition number.
-      // We don't think it is worth going into "sdd mode" unless the relative
-      // condition number is reasonable, not 1/macheps.
-      // The threshold should be compatible with other thresholds used in the
-      // code. We set  OFFDIG + OFFDIG2 <= .999 =: RELCOND, it corresponds
-      // to losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
-      // instead of the current OFFDIG + OFFDIG2 < 1
+  // *** MORE TO BE IMPLEMENTED ***
 
-      YESREL = true;
-      OFFDIG = ZERO;
-      TMP = sqrt((D(1) ).abs() );
-      if (TMP < RMIN) YESREL = false ;
-      if ( !YESREL) GOTO 11;
-      for (I = 2; I <= N; I++) { // 10
-         TMP2 = sqrt((D(I) ).abs() );
-         if (TMP2 < RMIN) YESREL = false ;
-         if ( !YESREL) GOTO 11;
-         OFFDIG2 = (E(I-1)).abs()/(TMP*TMP2);
-         if (OFFDIG+OFFDIG2 >= RELCOND) YESREL = false ;
-         if ( !YESREL) GOTO 11;
-         TMP = TMP2;
-         OFFDIG = OFFDIG2;
-      } // 10
-      } // 11
+  // Test if the lower bidiagonal matrix L from T = L D L^T
+  // (zero shift facto) is well conditioned
 
-      if ( YESREL ) {
-         INFO = 0;
-         return;
-      } else {
-      }
-
-
-
-      // *** MORE TO BE IMPLEMENTED ***
-
-
-
-      // Test if the lower bidiagonal matrix L from T = L D L^T
-      // (zero shift facto) is well conditioned
-
-
-
-      // Test if the upper bidiagonal matrix U from T = U D U^T
-      // (zero shift facto) is well conditioned.
-      // In this case, the matrix needs to be flipped and, at the end
-      // of the eigenvector computation, the flip needs to be applied
-      // to the computed eigenvectors (and the support)
-
-
-
-      return;
-      }
+  // Test if the upper bidiagonal matrix U from T = U D U^T
+  // (zero shift facto) is well conditioned.
+  // In this case, the matrix needs to be flipped and, at the end
+  // of the eigenvector computation, the flip needs to be applied
+  // to the computed eigenvectors (and the support)
+}

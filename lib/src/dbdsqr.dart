@@ -154,7 +154,7 @@ void dbdsqr(
 
       // Update singular vectors if desired
 
-      if (NRU > 0) dlasr('R.value', 'V', 'F', NRU, N, WORK[1], WORK[N], U, LDU);
+      if (NRU > 0) dlasr('R', 'V', 'F', NRU, N, WORK[1], WORK[N], U, LDU);
       if (NCC > 0) dlasr('L', 'V', 'F', N, NCC, WORK[1], WORK[N], C, LDC);
     }
 
@@ -456,7 +456,7 @@ void dbdsqr(
           }
           if (NRU > 0) {
             dlasr(
-              'R.value',
+              'R',
               'V',
               'F',
               NRU,
@@ -526,7 +526,7 @@ void dbdsqr(
           }
           if (NRU > 0) {
             dlasr(
-              'R.value',
+              'R',
               'V',
               'B',
               NRU,
@@ -603,7 +603,7 @@ void dbdsqr(
           }
           if (NRU > 0) {
             dlasr(
-              'R.value',
+              'R',
               'V',
               'F',
               NRU,
@@ -680,7 +680,7 @@ void dbdsqr(
           }
           if (NRU > 0) {
             dlasr(
-              'R.value',
+              'R',
               'V',
               'B',
               NRU,

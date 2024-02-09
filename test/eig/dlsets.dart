@@ -1,41 +1,57 @@
-      void dlsets(M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT ) {
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgglse.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/matrix.dart';
 
+import 'dget02.dart';
+
+void dlsets(
+  final int M,
+  final int P,
+  final int N,
+  final Matrix<double> A,
+  final Matrix<double> AF,
+  final int LDA,
+  final Matrix<double> B,
+  final Matrix<double> BF,
+  final int LDB,
+  final Array<double> C,
+  final Array<double> CF,
+  final Array<double> D,
+  final Array<double> DF,
+  final Array<double> X,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<double> RWORK,
+  final Array<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LWORK, M, N, P;
+  final INFO = Box(0);
 
-// ====================================================================
+  // Copy the matrices A and B to the arrays AF and BF,
+  // and the vectors C and D to the arrays CF and DF,
 
-      double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), RESULT( 2 ), RWORK( * ), WORK( LWORK ), X( * );
-      int                INFO;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DGET02, DGGLSE, DLACPY
+  dlacpy('Full', M, N, A, LDA, AF, LDA);
+  dlacpy('Full', P, N, B, LDB, BF, LDB);
+  dcopy(M, C, 1, CF, 1);
+  dcopy(P, D, 1, DF, 1);
 
-      // Copy the matrices A and B to the arrays AF and BF,
-      // and the vectors C and D to the arrays CF and DF,
+  // Solve LSE problem
 
-      dlacpy('Full', M, N, A, LDA, AF, LDA );
-      dlacpy('Full', P, N, B, LDB, BF, LDB );
-      dcopy(M, C, 1, CF, 1 );
-      dcopy(P, D, 1, DF, 1 );
+  dgglse(M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO);
 
-      // Solve LSE problem
+  // Test the residual for the solution of LSE
 
-      dgglse(M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO );
+  // Compute RESULT[1] = norm( A*x - c ) / norm(A)*norm(X)*EPS
 
-      // Test the residual for the solution of LSE
+  dcopy(M, C, 1, CF, 1);
+  dcopy(P, D, 1, DF, 1);
+  dget02('No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT[1]);
 
-      // Compute RESULT(1) = norm( A*x - c ) / norm(A)*norm(X)*EPS
+  // Compute result[2] = norm( B*x - d ) / norm(B)*norm(X)*EPS
 
-      dcopy(M, C, 1, CF, 1 );
-      dcopy(P, D, 1, DF, 1 );
-      dget02('No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT( 1 ) );
-
-      // Compute result(2) = norm( B*x - d ) / norm(B)*norm(X)*EPS
-
-      dget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) );
-
-      return;
-      }
+  dget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT[2]);
+}

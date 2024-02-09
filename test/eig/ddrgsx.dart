@@ -60,7 +60,6 @@ Future<void> ddrgsx(
       J,
       MAXWRK = 0,
       MINWRK,
-      MM = 0,
       MN2,
       NERRS,
       NPTKNT,
@@ -82,7 +81,7 @@ Future<void> ddrgsx(
   final DIFEST = Array<double>(2),
       PL = Array<double>(2),
       RESULT = Array<double>(10);
-  final IINFO = Box(0), LINFO = Box(0);
+  final IINFO = Box(0), LINFO = Box(0), MM = Box(0);
   final TEMP2 = Box(0.0);
 
   // Check for errors
@@ -317,7 +316,7 @@ Future<void> ddrgsx(
               Z,
               LDA,
               WORK,
-              RESULT[1],
+              RESULT.box(1),
             );
             dget51(
               1,
@@ -331,7 +330,7 @@ Future<void> ddrgsx(
               Z,
               LDA,
               WORK,
-              RESULT[2],
+              RESULT.box(2),
             );
             dget51(
               3,
@@ -345,7 +344,7 @@ Future<void> ddrgsx(
               Q,
               LDA,
               WORK,
-              RESULT[3],
+              RESULT.box(3),
             );
             dget51(
               3,
@@ -359,7 +358,7 @@ Future<void> ddrgsx(
               Z,
               LDA,
               WORK,
-              RESULT[4],
+              RESULT.box(4),
             );
             NTEST = 4;
 
@@ -417,9 +416,9 @@ Future<void> ddrgsx(
                 }
                 if (!ILABAD) {
                   dget53(
-                    AI[I1][I1],
+                    AI(I1, I1),
                     LDA,
-                    BI[I1][I1],
+                    BI(I1, I1),
                     LDA,
                     BETA[J],
                     ALPHAR[J],
@@ -457,19 +456,19 @@ Future<void> ddrgsx(
             // value. first, compute the exact DIF.
 
             RESULT[8] = ZERO;
-            MN2 = MM * (mn.MPLUSN - MM) * 2;
+            MN2 = MM.value * (mn.MPLUSN - MM.value) * 2;
             if (IFUNC >= 2 && MN2 <= NCMAX * NCMAX) {
               // Note: for either following two causes, there are
               // almost same number of test cases fail the test.
 
               dlakf2(
-                MM,
-                mn.MPLUSN - MM,
+                MM.value,
+                mn.MPLUSN - MM.value,
                 AI,
                 LDA,
-                AI[MM + 1][MM + 1],
+                AI(MM.value + 1, MM.value + 1),
                 BI,
-                BI[MM + 1][MM + 1],
+                BI(MM.value + 1, MM.value + 1),
                 C,
                 LDC,
               );
@@ -606,7 +605,7 @@ Future<void> ddrgsx(
         IWORK,
         LIWORK,
         BWORK,
-        LINFO.value,
+        LINFO,
       );
 
       if (LINFO.value != 0 && LINFO.value != mn.MPLUSN + 2) {
@@ -649,10 +648,14 @@ Future<void> ddrgsx(
 
       // Do tests (1) to (4)
 
-      dget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT[1]);
-      dget51(1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT[2]);
-      dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT[3]);
-      dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT[4]);
+      dget51(
+          1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT.box(1));
+      dget51(
+          1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT.box(2));
+      dget51(
+          3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT.box(3));
+      dget51(
+          3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT.box(4));
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -703,14 +706,14 @@ Future<void> ddrgsx(
           }
           if (!ILABAD) {
             dget53(
-              AI[I1][I1],
+              AI(I1, I1),
               LDA,
-              BI[I1][I1],
+              BI(I1, I1),
               LDA,
               BETA[J],
               ALPHAR[J],
               ALPHAI[J],
-              TEMP2.value,
+              TEMP2,
               IINFO,
             );
             if (IINFO.value >= 3) {

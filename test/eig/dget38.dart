@@ -29,16 +29,12 @@ Future<void> dget38(
   const EPSIN = 5.9605e-8;
   const LDT = 20, LWORK = 2 * LDT * (10 + LDT);
   const LIWORK = LDT * LDT;
-  int I, ISCL, ITMP, J, KMIN, M = 0, N = 0, NDIM = 0;
+  int I, ISCL, ITMP, J, KMIN, N = 0, NDIM = 0;
   double BIGNUM,
       EPS,
-      S = 0,
-      SEP = 0,
       SEPIN = 0,
-      SEPTMP,
       SIN = 0,
       SMLNUM,
-      STMP,
       TNRM,
       TOL,
       TOLIN,
@@ -68,7 +64,8 @@ Future<void> dget38(
       RESULT = Array<double>(2),
       WRTMP = Array<double>(LDT);
 
-  final INFO = Box(0);
+  final INFO = Box(0), M = Box(0);
+  final S = Box(0.0), SEP = Box(0.0), SEPTMP = Box(0.0), STMP = Box(0.0);
 
   EPS = dlamch('P');
   SMLNUM = dlamch('S') / EPS;
@@ -104,7 +101,7 @@ Future<void> dget38(
     for (I = 1; I <= N; I++) {}
     (SIN, SEPIN) = await NIN.readDouble2();
 
-    TNRM = dlange('M', N, N, TMP, LDT, WORK);
+    TNRM = dlange('M.value', N, N, TMP, LDT, WORK);
     for (ISCL = 1; ISCL <= 3; ISCL++) {
       // Scale input matrix
 
@@ -129,12 +126,12 @@ Future<void> dget38(
       // Generate orthogonal matrix
 
       dlacpy('L', N, N, T, LDT, Q, LDT);
-      dorghr(N, 1, N, Q, LDT, WORK[1], WORK[N + 1], LWORK - N, INFO.value);
+      dorghr(N, 1, N, Q, LDT, WORK(1), WORK(N + 1), LWORK - N, INFO);
 
       // Compute Schur form
 
       dhseqr(
-        'S',
+        'S.value',
         'V',
         N,
         1,
@@ -147,7 +144,7 @@ Future<void> dget38(
         LDT,
         WORK,
         LWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
@@ -208,15 +205,15 @@ Future<void> dget38(
         LWORK,
         IWORK,
         LIWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
         continue;
       }
-      SEPTMP = SEP / VMUL;
-      STMP = S;
+      SEPTMP.value = SEP.value / VMUL;
+      STMP.value = S.value;
 
       // Compute residuals
 
@@ -232,10 +229,10 @@ Future<void> dget38(
 
       V = max(TWO * N.toDouble() * EPS * TNRM, SMLNUM);
       if (TNRM == ZERO) V = ONE;
-      if (V > SEPTMP) {
+      if (V > SEPTMP.value) {
         TOL = ONE;
       } else {
-        TOL = V / SEPTMP;
+        TOL = V / SEPTMP.value;
       }
       if (V > SEPIN) {
         TOLIN = ONE;
@@ -244,14 +241,14 @@ Future<void> dget38(
       }
       TOL = max(TOL, SMLNUM / EPS);
       TOLIN = max(TOLIN, SMLNUM / EPS);
-      if (EPS * (SIN - TOLIN) > STMP + TOL) {
+      if (EPS * (SIN - TOLIN) > STMP.value + TOL) {
         VMAX = ONE / EPS;
-      } else if (SIN - TOLIN > STMP + TOL) {
-        VMAX = (SIN - TOLIN) / (STMP + TOL);
-      } else if (SIN + TOLIN < EPS * (STMP - TOL)) {
+      } else if (SIN - TOLIN > STMP.value + TOL) {
+        VMAX = (SIN - TOLIN) / (STMP.value + TOL);
+      } else if (SIN + TOLIN < EPS * (STMP.value - TOL)) {
         VMAX = ONE / EPS;
-      } else if (SIN + TOLIN < STMP - TOL) {
-        VMAX = (STMP - TOL) / (SIN + TOLIN);
+      } else if (SIN + TOLIN < STMP.value - TOL) {
+        VMAX = (STMP.value - TOL) / (SIN + TOLIN);
       } else {
         VMAX = ONE;
       }
@@ -263,10 +260,10 @@ Future<void> dget38(
       // Compare condition numbers for invariant subspace
       // taking its condition number into account
 
-      if (V > SEPTMP * STMP) {
-        TOL = SEPTMP;
+      if (V > SEPTMP.value * STMP.value) {
+        TOL = SEPTMP.value;
       } else {
-        TOL = V / STMP;
+        TOL = V / STMP.value;
       }
       if (V > SEPIN * SIN) {
         TOLIN = SEPIN;
@@ -275,14 +272,14 @@ Future<void> dget38(
       }
       TOL = max(TOL, SMLNUM / EPS);
       TOLIN = max(TOLIN, SMLNUM / EPS);
-      if (EPS * (SEPIN - TOLIN) > SEPTMP + TOL) {
+      if (EPS * (SEPIN - TOLIN) > SEPTMP.value + TOL) {
         VMAX = ONE / EPS;
-      } else if (SEPIN - TOLIN > SEPTMP + TOL) {
-        VMAX = (SEPIN - TOLIN) / (SEPTMP + TOL);
-      } else if (SEPIN + TOLIN < EPS * (SEPTMP - TOL)) {
+      } else if (SEPIN - TOLIN > SEPTMP.value + TOL) {
+        VMAX = (SEPIN - TOLIN) / (SEPTMP.value + TOL);
+      } else if (SEPIN + TOLIN < EPS * (SEPTMP.value - TOL)) {
         VMAX = ONE / EPS;
-      } else if (SEPIN + TOLIN < SEPTMP - TOL) {
-        VMAX = (SEPTMP - TOL) / (SEPIN + TOLIN);
+      } else if (SEPIN + TOLIN < SEPTMP.value - TOL) {
+        VMAX = (SEPTMP.value - TOL) / (SEPIN + TOLIN);
       } else {
         VMAX = ONE;
       }
@@ -294,16 +291,17 @@ Future<void> dget38(
       // Compare condition number for eigenvalue cluster
       // without taking its condition number into account
 
-      if (SIN <= (2 * N).toDouble() * EPS && STMP <= (2 * N).toDouble() * EPS) {
+      if (SIN <= (2 * N).toDouble() * EPS &&
+          STMP.value <= (2 * N).toDouble() * EPS) {
         VMAX = ONE;
-      } else if (EPS * SIN > STMP) {
+      } else if (EPS * SIN > STMP.value) {
         VMAX = ONE / EPS;
-      } else if (SIN > STMP) {
-        VMAX = SIN / STMP;
-      } else if (SIN < EPS * STMP) {
+      } else if (SIN > STMP.value) {
+        VMAX = SIN / STMP.value;
+      } else if (SIN < EPS * STMP.value) {
         VMAX = ONE / EPS;
-      } else if (SIN < STMP) {
-        VMAX = STMP / SIN;
+      } else if (SIN < STMP.value) {
+        VMAX = STMP.value / SIN;
       } else {
         VMAX = ONE;
       }
@@ -315,16 +313,16 @@ Future<void> dget38(
       // Compare condition numbers for invariant subspace
       // without taking its condition number into account
 
-      if (SEPIN <= V && SEPTMP <= V) {
+      if (SEPIN <= V && SEPTMP.value <= V) {
         VMAX = ONE;
-      } else if (EPS * SEPIN > SEPTMP) {
+      } else if (EPS * SEPIN > SEPTMP.value) {
         VMAX = ONE / EPS;
-      } else if (SEPIN > SEPTMP) {
-        VMAX = SEPIN / SEPTMP;
-      } else if (SEPIN < EPS * SEPTMP) {
+      } else if (SEPIN > SEPTMP.value) {
+        VMAX = SEPIN / SEPTMP.value;
+      } else if (SEPIN < EPS * SEPTMP.value) {
         VMAX = ONE / EPS;
-      } else if (SEPIN < SEPTMP) {
-        VMAX = SEPTMP / SEPIN;
+      } else if (SEPIN < SEPTMP.value) {
+        VMAX = SEPTMP.value / SEPIN;
       } else {
         VMAX = ONE;
       }
@@ -339,8 +337,8 @@ Future<void> dget38(
       VMAX = ZERO;
       dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT);
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
-      SEPTMP = -ONE;
-      STMP = -ONE;
+      SEPTMP.value = -ONE;
+      STMP.value = -ONE;
       dtrsen(
         'E',
         'V',
@@ -359,15 +357,15 @@ Future<void> dget38(
         LWORK,
         IWORK,
         LIWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
         continue;
       }
-      if (S != STMP) VMAX = ONE / EPS;
-      if (-ONE != SEPTMP) VMAX = ONE / EPS;
+      if (S.value != STMP.value) VMAX = ONE / EPS;
+      if (-ONE != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
         for (J = 1; J <= N; J++) {
           if (TTMP[I][J] != T[I][J]) VMAX = ONE / EPS;
@@ -380,8 +378,8 @@ Future<void> dget38(
 
       dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT);
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
-      SEPTMP = -ONE;
-      STMP = -ONE;
+      SEPTMP.value = -ONE;
+      STMP.value = -ONE;
       dtrsen(
         'V',
         'V',
@@ -400,15 +398,15 @@ Future<void> dget38(
         LWORK,
         IWORK,
         LIWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
         continue;
       }
-      if (-ONE != STMP) VMAX = ONE / EPS;
-      if (SEP != SEPTMP) VMAX = ONE / EPS;
+      if (-ONE != STMP.value) VMAX = ONE / EPS;
+      if (SEP.value != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
         for (J = 1; J <= N; J++) {
           if (TTMP[I][J] != T[I][J]) VMAX = ONE / EPS;
@@ -421,8 +419,8 @@ Future<void> dget38(
 
       dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT);
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
-      SEPTMP = -ONE;
-      STMP = -ONE;
+      SEPTMP.value = -ONE;
+      STMP.value = -ONE;
       dtrsen(
         'E',
         'N',
@@ -441,15 +439,15 @@ Future<void> dget38(
         LWORK,
         IWORK,
         LIWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
         continue;
       }
-      if (S != STMP) VMAX = ONE / EPS;
-      if (-ONE != SEPTMP) VMAX = ONE / EPS;
+      if (S.value != STMP.value) VMAX = ONE / EPS;
+      if (-ONE != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
         for (J = 1; J <= N; J++) {
           if (TTMP[I][J] != T[I][J]) VMAX = ONE / EPS;
@@ -462,8 +460,8 @@ Future<void> dget38(
 
       dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT);
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
-      SEPTMP = -ONE;
-      STMP = -ONE;
+      SEPTMP.value = -ONE;
+      STMP.value = -ONE;
       dtrsen(
         'V',
         'N',
@@ -482,15 +480,15 @@ Future<void> dget38(
         LWORK,
         IWORK,
         LIWORK,
-        INFO.value,
+        INFO,
       );
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
         continue;
       }
-      if (-ONE != STMP) VMAX = ONE / EPS;
-      if (SEP != SEPTMP) VMAX = ONE / EPS;
+      if (-ONE != STMP.value) VMAX = ONE / EPS;
+      if (SEP.value != SEPTMP.value) VMAX = ONE / EPS;
       for (I = 1; I <= N; I++) {
         for (J = 1; J <= N; J++) {
           if (TTMP[I][J] != T[I][J]) VMAX = ONE / EPS;

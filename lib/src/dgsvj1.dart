@@ -1,442 +1,738 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/ddot.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
+import 'package:lapack/src/blas/drotm.dart';
+import 'package:lapack/src/blas/dswap.dart';
+import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlassq.dart';
+import 'package:lapack/src/f2c/sign.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgsvj1(JOBV, M, N, N1, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO ) {
-
+void dgsvj1(
+  final String JOBV,
+  final int M,
+  final int N,
+  final int N1,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> D,
+  final Array<double> SVA,
+  final int MV,
+  final Matrix<double> V,
+  final int LDV,
+  final double EPS,
+  final double SFMIN,
+  final double TOL,
+  final int NSWEEP,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      double             EPS, SFMIN, TOL;
-      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
-      String             JOBV;
-      double             A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK );
-      // ..
+  const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
+  double AAPP0,
+      AAPQ,
+      APOAQ,
+      AQOAP,
+      BIG,
+      BIGTHETA,
+      CS,
+      // LARGE,
+      MXAAPQ = 0,
+      MXSINJ = 0,
+      ROOTBIG,
+      ROOTEPS,
+      ROOTSFMIN,
+      ROOTTOL,
+      SMALL,
+      SN,
+      TEMP1,
+      THETA,
+      THSIGN;
+  int BLSKIP,
+      EMPTSW,
+      i,
+      ibr,
+      igl = 0,
+      IJBLSK,
+      ISWROT = 0,
+      jbc,
+      jgl,
+      KBL,
+      MVL = 0,
+      NOTROT,
+      NBLC,
+      NBLR,
+      p,
+      PSKIPPED,
+      q,
+      ROWSKIP,
+      SWBAND;
+  bool APPLV, ROTOK, RSVEC;
+  final FASTR = Array<double>(5);
+  final IERR = Box(0);
+  final T = Box(0.0), AAPP = Box(0.0), AAQQ = Box(0.0);
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Parameters ..
-      double             ZERO, HALF, ONE;
-      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
-      double             AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
-      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
-      bool               APPLV, ROTOK, RSVEC;
-      double             FASTR( 5 );
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DABS, MAX, DBLE, MIN, DSIGN, DSQRT
-      // ..
-      // .. External Functions ..
-      //- double             DDOT, DNRM2;
-      //- int                idamax;
-      //- bool               lsame;
-      // EXTERNAL idamax, lsame, DDOT, DNRM2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
+  APPLV = lsame(JOBV, 'A');
+  RSVEC = lsame(JOBV, 'V');
+  if (!(RSVEC || APPLV || lsame(JOBV, 'N'))) {
+    INFO.value = -1;
+  } else if (M < 0) {
+    INFO.value = -2;
+  } else if ((N < 0) || (N > M)) {
+    INFO.value = -3;
+  } else if (N1 < 0) {
+    INFO.value = -4;
+  } else if (LDA < M) {
+    INFO.value = -6;
+  } else if ((RSVEC || APPLV) && (MV < 0)) {
+    INFO.value = -9;
+  } else if ((RSVEC && (LDV < N)) || (APPLV && (LDV < MV))) {
+    INFO.value = -11;
+  } else if (TOL <= EPS) {
+    INFO.value = -14;
+  } else if (NSWEEP < 0) {
+    INFO.value = -15;
+  } else if (LWORK < M) {
+    INFO.value = -17;
+  } else {
+    INFO.value = 0;
+  }
 
-      // Test the input parameters.
+  // #:(
+  if (INFO.value != 0) {
+    xerbla('DGSVJ1', -INFO.value);
+    return;
+  }
 
-      APPLV = lsame( JOBV, 'A' );
-      RSVEC = lsame( JOBV, 'V' );
-      if ( !( RSVEC || APPLV || lsame( JOBV, 'N' ) ) ) {
-         INFO = -1;
-      } else if ( M < 0 ) {
-         INFO = -2;
-      } else if ( ( N < 0 ) || ( N > M ) ) {
-         INFO = -3;
-      } else if ( N1 < 0 ) {
-         INFO = -4;
-      } else if ( LDA < M ) {
-         INFO = -6;
-      } else if ( ( RSVEC || APPLV ) && ( MV < 0 ) ) {
-         INFO = -9;
-      } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) )  ) {
-         INFO = -11;
-      } else if ( TOL <= EPS ) {
-         INFO = -14;
-      } else if ( NSWEEP < 0 ) {
-         INFO = -15;
-      } else if ( LWORK < M ) {
-         INFO = -17;
-      } else {
-         INFO = 0;
-      }
+  if (RSVEC) {
+    MVL = N;
+  } else if (APPLV) {
+    MVL = MV;
+  }
+  RSVEC = RSVEC || APPLV;
 
-      // #:(
-      if ( INFO != 0 ) {
-         xerbla('DGSVJ1', -INFO );
-         return;
-      }
+  ROOTEPS = sqrt(EPS);
+  ROOTSFMIN = sqrt(SFMIN);
+  SMALL = SFMIN / EPS;
+  BIG = ONE / SFMIN;
+  ROOTBIG = ONE / ROOTSFMIN;
+  // LARGE = BIG / sqrt((M * N).toDouble());
+  BIGTHETA = ONE / ROOTEPS;
+  ROOTTOL = sqrt(TOL);
 
-      if ( RSVEC ) {
-         MVL = N;
-      } else if ( APPLV ) {
-         MVL = MV;
-      }
-      RSVEC = RSVEC || APPLV;
+  // .. Initialize the right singular vector matrix ..
 
-      ROOTEPS = DSQRT( EPS );
-      ROOTSFMIN = DSQRT( SFMIN );
-      SMALL = SFMIN / EPS;
-      BIG = ONE / SFMIN;
-      ROOTBIG = ONE / ROOTSFMIN;
-      LARGE = BIG / DSQRT( (M*N).toDouble() );
-      BIGTHETA = ONE / ROOTEPS;
-      ROOTTOL = DSQRT( TOL );
+  // RSVEC = lsame( JOBV, 'Y' )
 
-      // .. Initialize the right singular vector matrix ..
+  EMPTSW = N1 * (N - N1);
+  NOTROT = 0;
+  FASTR[1] = ZERO;
 
-      // RSVEC = lsame( JOBV, 'Y' )
+  // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
-      EMPTSW = N1*( N-N1 );
-      NOTROT = 0;
-      FASTR[1] = ZERO;
+  KBL = min(8, N);
+  NBLR = N1 ~/ KBL;
+  if ((NBLR * KBL) != N1) NBLR = NBLR + 1;
 
-      // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
+  // .. the tiling is NBLR-by-NBLC [tiles]
 
-      KBL = min( 8, N );
-      NBLR = N1 / KBL;
-      if( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
+  NBLC = (N - N1) ~/ KBL;
+  if ((NBLC * KBL) != (N - N1)) NBLC = NBLC + 1;
+  BLSKIP = pow(KBL, 2).toInt() + 1;
+  // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
-      // .. the tiling is nblr-by-nblc [tiles]
+  ROWSKIP = min(5, KBL);
+  // [TP] ROWSKIP is a tuning parameter.
+  SWBAND = 0;
+  // [TP] SWBAND is a tuning parameter. It is meaningful and effective
+  // if SGESVJ is used as a computational routine in the preconditioned
+  // Jacobi SVD algorithm SGESVJ.
 
-      NBLC = ( N-N1 ) / KBL;
-      if( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1;
-      BLSKIP = ( KBL**2 ) + 1;
-// [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
+  // | *   *   * [x] [x] [x]|
+  // | *   *   * [x] [x] [x]|    Row-cycling in the NBLR-by-NBLC [x] blocks.
+  // | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
+  // |[x] [x] [x] *   *   * |
+  // |[x] [x] [x] *   *   * |
+  // |[x] [x] [x] *   *   * |
 
-      ROWSKIP = min( 5, KBL );
-// [TP] ROWSKIP is a tuning parameter.
-      SWBAND = 0;
-// [TP] SWBAND is a tuning parameter. It is meaningful and effective
-      // if SGESVJ is used as a computational routine in the preconditioned
-      // Jacobi SVD algorithm SGESVJ.
+  var isBelowTolerance = false;
+  for (i = 1; i <= NSWEEP; i++) {
+    // 1993
+    // .. go go go ...
 
+    MXAAPQ = ZERO;
+    MXSINJ = ZERO;
+    ISWROT = 0;
 
-      // | *   *   * [x] [x] [x]|
-      // | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
-      // | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
-      // |[x] [x] [x] *   *   * |
-      // |[x] [x] [x] *   *   * |
-      // |[x] [x] [x] *   *   * |
+    NOTROT = 0;
+    PSKIPPED = 0;
 
+    for (ibr = 1; ibr <= NBLR; ibr++) {
+      // 2000
 
-      for (i = 1; i <= NSWEEP; i++) { // 1993
-      // .. go go go ...
-
-         MXAAPQ = ZERO;
-         MXSINJ = ZERO;
-         ISWROT = 0;
-
-         NOTROT = 0;
-         PSKIPPED = 0;
-
-         for (ibr = 1; ibr <= NBLR; ibr++) { // 2000
-
-            igl = ( ibr-1 )*KBL + 1;
-
+      igl = (ibr - 1) * KBL + 1;
 
 // ........................................................
 // ... go to the off diagonal blocks
 
-            igl = ( ibr-1 )*KBL + 1;
+      igl = (ibr - 1) * KBL + 1;
 
-            for (jbc = 1; jbc <= NBLC; jbc++) { // 2010
+      jbcLoop:
+      for (jbc = 1; jbc <= NBLC; jbc++) {
+        // 2010
 
-               jgl = N1 + ( jbc-1 )*KBL + 1;
+        jgl = N1 + (jbc - 1) * KBL + 1;
 
-         // doing the block at ( ibr, jbc )
+        // doing the block at ( ibr, jbc )
 
-               IJBLSK = 0;
-               for (p = igl; p <= min( igl+KBL-1, N1 ); p++) { // 2100
+        IJBLSK = 0;
+        for (p = igl; p <= min(igl + KBL - 1, N1); p++) {
+          // 2100
 
-                  AAPP = SVA( p );
+          AAPP.value = SVA[p];
 
-                  if ( AAPP > ZERO ) {
+          if (AAPP.value > ZERO) {
+            PSKIPPED = 0;
 
-                     PSKIPPED = 0;
+            for (q = jgl; q <= min(jgl + KBL - 1, N); q++) {
+              // 2200
 
-                     for (q = jgl; q <= min( jgl+KBL-1, N ); q++) { // 2200
+              AAQQ.value = SVA[q];
 
-                        AAQQ = SVA( q );
+              if (AAQQ.value > ZERO) {
+                AAPP0 = AAPP.value;
 
-                        if ( AAQQ > ZERO ) {
-                           AAPP0 = AAPP;
+                // .. M x 2 Jacobi SVD ..
 
-      // .. M x 2 Jacobi SVD ..
+                // .. Safe Gram matrix computation ..
 
-         // .. Safe Gram matrix computation ..
-
-                           if ( AAQQ >= ONE ) {
-                              if ( AAPP >= AAQQ ) {
-                                 ROTOK = ( SMALL*AAPP ) <= AAQQ;
-                              } else {
-                                 ROTOK = ( SMALL*AAQQ ) <= AAPP;
-                              }
-                              if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
-                              } else {
-                                 dcopy(M, A( 1, p ), 1, WORK, 1 );
-                                 CALL DLASCL( 'G', 0, 0, AAPP, D( p ), M, 1, WORK, LDA, IERR )                                  AAPQ = ddot( M, WORK, 1, A( 1, q ), 1 )*D( q ) / AAQQ;
-                              }
-                           } else {
-                              if ( AAPP >= AAQQ ) {
-                                 ROTOK = AAPP <= ( AAQQ / SMALL );
-                              } else {
-                                 ROTOK = AAQQ <= ( AAPP / SMALL );
-                              }
-                              if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( ddot( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP;
-                              } else {
-                                 dcopy(M, A( 1, q ), 1, WORK, 1 );
-                                 CALL DLASCL( 'G', 0, 0, AAQQ, D( q ), M, 1, WORK, LDA, IERR )                                  AAPQ = ddot( M, WORK, 1, A( 1, p ), 1 )*D( p ) / AAPP;
-                              }
-                           }
-
-                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
-
-         // TO rotate or NOT to rotate, THAT is the question ...
-
-                           if ( DABS( AAPQ ) > TOL ) {
-                              NOTROT = 0;
-            // ROTATED  = ROTATED + 1
-                              PSKIPPED = 0;
-                              ISWROT = ISWROT + 1;
-
-                              if ( ROTOK ) {
-
-                                 AQOAP = AAQQ / AAPP;
-                                 APOAQ = AAPP / AAQQ;
-                                 THETA = -HALF*DABS(AQOAP-APOAQ) / AAPQ;
-                                 if (AAQQ > AAPP0) THETA = -THETA;
-
-                                 if ( DABS( THETA ) > BIGTHETA ) {
-                                    T = HALF / THETA;
-                                    FASTR[3] = T*D( p ) / D( q );
-                                    FASTR[4] = -T*D( q ) / D( p );
-                                    drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = max( MXSINJ, DABS( T ) );
-                                 } else {
-
-                  // .. choose correct signum for THETA and rotate
-
-                                    THSIGN = -DSIGN( ONE, AAPQ );
-                                    if (AAQQ > AAPP0) THSIGN = -THSIGN;
-                                    T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) );
-                                    CS = DSQRT( ONE / ( ONE+T*T ) );
-                                    SN = T*CS;
-                                    MXSINJ = max( MXSINJ, DABS( SN ) );
-                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
-
-                                    APOAQ = D( p ) / D( q );
-                                    AQOAP = D( q ) / D( p );
-                                    if ( D( p ) >= ONE ) {
-
-                                       if ( D( q ) >= ONE ) {
-                                          FASTR[3] = T*APOAQ;
-                                          FASTR[4] = -T*AQOAP;
-                                          D[p] = D( p )*CS;
-                                          D[q] = D( q )*CS;
-                                          drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                       } else {
-                                          daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                          daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                          if ( RSVEC ) {
-                                             daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
-                                             daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
-                                          }
-                                          D[p] = D( p )*CS;
-                                          D[q] = D( q ) / CS;
-                                       }
-                                    } else {
-                                       if ( D( q ) >= ONE ) {
-                                          daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                          daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                          if ( RSVEC ) {
-                                             daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
-                                             daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
-                                          }
-                                          D[p] = D( p ) / CS;
-                                          D[q] = D( q )*CS;
-                                       } else {
-                                          if ( D( p ) >= D( q ) ) {
-                                             daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                             daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                             D[p] = D( p )*CS;
-                                             D[q] = D( q ) / CS;
-                                             if ( RSVEC ) {
-                                                daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
-                                                daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
-                                             }
-                                          } else {
-                                             daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                             daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                             D[p] = D( p ) / CS;
-                                             D[q] = D( q )*CS;
-                                             if ( RSVEC ) {
-                                                daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
-                                                daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
-                                             }
-                                          }
-                                       }
-                                    }
-                                 }
-
-                              } else {
-                                 if ( AAPP > AAQQ ) {
-                                    dcopy(M, A( 1, p ), 1, WORK, 1 );
-                                    dlascl('G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
-                                    dlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
-                                    TEMP1 = -AAPQ*D( p ) / D( q );
-                                    daxpy(M, TEMP1, WORK, 1, A( 1, q ), 1 );
-                                    dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA[q] = AAQQ*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = max( MXSINJ, SFMIN );
-                                 } else {
-                                    dcopy(M, A( 1, q ), 1, WORK, 1 );
-                                    dlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
-                                    dlascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
-                                    TEMP1 = -AAPQ*D( q ) / D( p );
-                                    daxpy(M, TEMP1, WORK, 1, A( 1, p ), 1 );
-                                    dlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA[p] = AAPP*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = max( MXSINJ, SFMIN );
-                                 }
-                              }
-            // END IF ROTOK THEN ... ELSE
-
-            // In the case of cancellation in updating SVA(q)
-            // .. recompute SVA(q)
-                              if( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) {
-                                 if( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
-                                    SVA[q] = dnrm2( M, A( 1, q ), 1 )* D( q );
-                                 } else {
-                                    T = ZERO;
-                                    AAQQ = ONE;
-                                    dlassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA[q] = T*DSQRT( AAQQ )*D( q );
-                                 }
-                              }
-                              if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
-                                 if( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
-                                    AAPP = dnrm2( M, A( 1, p ), 1 )* D( p );
-                                 } else {
-                                    T = ZERO;
-                                    AAPP = ONE;
-                                    dlassq(M, A( 1, p ), 1, T, AAPP );
-                                    AAPP = T*DSQRT( AAPP )*D( p );
-                                 }
-                                 SVA[p] = AAPP;
-                              }
-               // end of OK rotation
-                           } else {
-                              NOTROT = NOTROT + 1;
-            // SKIPPED  = SKIPPED  + 1
-                              PSKIPPED = PSKIPPED + 1;
-                              IJBLSK = IJBLSK + 1;
-                           }
-                        } else {
-                           NOTROT = NOTROT + 1;
-                           PSKIPPED = PSKIPPED + 1;
-                           IJBLSK = IJBLSK + 1;
-                        }
-
-       // IF ( NOTROT >= EMPTSW )  GO TO 2011
-                        if ( ( i <= SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
-                           SVA[p] = AAPP;
-                           NOTROT = 0;
-                           GO TO 2011;
-                        }
-                        if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
-                           AAPP = -AAPP;
-                           NOTROT = 0;
-                           GO TO 2203;
-                        }
-
-
-                     } // 2200
-         // end of the q-loop
-                     } // 2203
-
-                     SVA[p] = AAPP;
-
+                if (AAQQ.value >= ONE) {
+                  if (AAPP.value >= AAQQ.value) {
+                    ROTOK = (SMALL * AAPP.value) <= AAQQ.value;
                   } else {
-                     if (AAPP == ZERO) NOTROT = NOTROT + min( jgl+KBL-1, N ) - jgl + 1;
-                     if (AAPP < ZERO) NOTROT = 0;
-// **      IF ( NOTROT >= EMPTSW )  GO TO 2011
+                    ROTOK = (SMALL * AAQQ.value) <= AAPP.value;
                   }
+                  if (AAPP.value < (BIG / AAQQ.value)) {
+                    AAPQ =
+                        (ddot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1) *
+                                D[p] *
+                                D[q] /
+                                AAQQ.value) /
+                            AAPP.value;
+                  } else {
+                    dcopy(M, A(1, p).asArray(), 1, WORK, 1);
+                    dlascl(
+                      'G',
+                      0,
+                      0,
+                      AAPP.value,
+                      D[p],
+                      M,
+                      1,
+                      WORK.asMatrix(LDA),
+                      LDA,
+                      IERR,
+                    );
+                    AAPQ = ddot(M, WORK, 1, A(1, q).asArray(), 1) *
+                        D[q] /
+                        AAQQ.value;
+                  }
+                } else {
+                  if (AAPP.value >= AAQQ.value) {
+                    ROTOK = AAPP.value <= (AAQQ.value / SMALL);
+                  } else {
+                    ROTOK = AAQQ.value <= (AAPP.value / SMALL);
+                  }
+                  if (AAPP.value > (SMALL / AAQQ.value)) {
+                    AAPQ =
+                        (ddot(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1) *
+                                D[p] *
+                                D[q] /
+                                AAQQ.value) /
+                            AAPP.value;
+                  } else {
+                    dcopy(M, A(1, q).asArray(), 1, WORK, 1);
+                    dlascl(
+                      'G',
+                      0,
+                      0,
+                      AAQQ.value,
+                      D[q],
+                      M,
+                      1,
+                      WORK.asMatrix(LDA),
+                      LDA,
+                      IERR,
+                    );
+                    AAPQ = ddot(M, WORK, 1, A(1, p).asArray(), 1) *
+                        D[p] /
+                        AAPP.value;
+                  }
+                }
 
-               } // 2100
-      // end of the p-loop
-            } // 2010
+                MXAAPQ = max(MXAAPQ, AAPQ.abs());
+
+                // TO rotate or NOT to rotate, THAT is the question ...
+
+                if (AAPQ.abs() > TOL) {
+                  NOTROT = 0;
+                  // ROTATED  = ROTATED + 1
+                  PSKIPPED = 0;
+                  ISWROT = ISWROT + 1;
+
+                  if (ROTOK) {
+                    AQOAP = AAQQ.value / AAPP.value;
+                    APOAQ = AAPP.value / AAQQ.value;
+                    THETA = -HALF * (AQOAP - APOAQ).abs() / AAPQ;
+                    if (AAQQ.value > AAPP0) THETA = -THETA;
+
+                    if (THETA.abs() > BIGTHETA) {
+                      T.value = HALF / THETA;
+                      FASTR[3] = T.value * D[p] / D[q];
+                      FASTR[4] = -T.value * D[q] / D[p];
+                      drotm(
+                        M,
+                        A(1, p).asArray(),
+                        1,
+                        A(1, q).asArray(),
+                        1,
+                        FASTR,
+                      );
+                      if (RSVEC) {
+                        drotm(
+                          MVL,
+                          V(1, p).asArray(),
+                          1,
+                          V(1, q).asArray(),
+                          1,
+                          FASTR,
+                        );
+                      }
+                      SVA[q] = AAQQ.value *
+                          sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
+                      AAPP.value = AAPP.value *
+                          sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
+                      MXSINJ = max(MXSINJ, T.value.abs());
+                    } else {
+                      // .. choose correct signum for THETA and rotate
+
+                      THSIGN = -sign(ONE, AAPQ).toDouble();
+                      if (AAQQ.value > AAPP0) THSIGN = -THSIGN;
+                      T.value =
+                          ONE / (THETA + THSIGN * sqrt(ONE + THETA * THETA));
+                      CS = sqrt(ONE / (ONE + T.value * T.value));
+                      SN = T.value * CS;
+                      MXSINJ = max(MXSINJ, SN.abs());
+                      SVA[q] = AAQQ.value *
+                          sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
+                      AAPP.value = AAPP.value *
+                          sqrt(max(ZERO, ONE - T.value * AQOAP * AAPQ));
+
+                      APOAQ = D[p] / D[q];
+                      AQOAP = D[q] / D[p];
+                      if (D[p] >= ONE) {
+                        if (D[q] >= ONE) {
+                          FASTR[3] = T.value * APOAQ;
+                          FASTR[4] = -T.value * AQOAP;
+                          D[p] = D[p] * CS;
+                          D[q] = D[q] * CS;
+                          drotm(
+                            M,
+                            A(1, p).asArray(),
+                            1,
+                            A(1, q).asArray(),
+                            1,
+                            FASTR,
+                          );
+                          if (RSVEC) {
+                            drotm(
+                              MVL,
+                              V(1, p).asArray(),
+                              1,
+                              V(1, q).asArray(),
+                              1,
+                              FASTR,
+                            );
+                          }
+                        } else {
+                          daxpy(
+                            M,
+                            -T.value * AQOAP,
+                            A(1, q).asArray(),
+                            1,
+                            A(1, p).asArray(),
+                            1,
+                          );
+                          daxpy(
+                            M,
+                            CS * SN * APOAQ,
+                            A(1, p).asArray(),
+                            1,
+                            A(1, q).asArray(),
+                            1,
+                          );
+                          if (RSVEC) {
+                            daxpy(
+                              MVL,
+                              -T.value * AQOAP,
+                              V(1, q).asArray(),
+                              1,
+                              V(1, p).asArray(),
+                              1,
+                            );
+                            daxpy(
+                              MVL,
+                              CS * SN * APOAQ,
+                              V(1, p).asArray(),
+                              1,
+                              V(1, q).asArray(),
+                              1,
+                            );
+                          }
+                          D[p] = D[p] * CS;
+                          D[q] = D[q] / CS;
+                        }
+                      } else {
+                        if (D[q] >= ONE) {
+                          daxpy(
+                            M,
+                            T.value * APOAQ,
+                            A(1, p).asArray(),
+                            1,
+                            A(1, q).asArray(),
+                            1,
+                          );
+                          daxpy(
+                            M,
+                            -CS * SN * AQOAP,
+                            A(1, q).asArray(),
+                            1,
+                            A(1, p).asArray(),
+                            1,
+                          );
+                          if (RSVEC) {
+                            daxpy(
+                              MVL,
+                              T.value * APOAQ,
+                              V(1, p).asArray(),
+                              1,
+                              V(1, q).asArray(),
+                              1,
+                            );
+                            daxpy(
+                              MVL,
+                              -CS * SN * AQOAP,
+                              V(1, q).asArray(),
+                              1,
+                              V(1, p).asArray(),
+                              1,
+                            );
+                          }
+                          D[p] = D[p] / CS;
+                          D[q] = D[q] * CS;
+                        } else {
+                          if (D[p] >= D[q]) {
+                            daxpy(
+                              M,
+                              -T.value * AQOAP,
+                              A(1, q).asArray(),
+                              1,
+                              A(1, p).asArray(),
+                              1,
+                            );
+                            daxpy(
+                              M,
+                              CS * SN * APOAQ,
+                              A(1, p).asArray(),
+                              1,
+                              A(1, q).asArray(),
+                              1,
+                            );
+                            D[p] = D[p] * CS;
+                            D[q] = D[q] / CS;
+                            if (RSVEC) {
+                              daxpy(
+                                MVL,
+                                -T.value * AQOAP,
+                                V(1, q).asArray(),
+                                1,
+                                V(1, p).asArray(),
+                                1,
+                              );
+                              daxpy(
+                                MVL,
+                                CS * SN * APOAQ,
+                                V(1, p).asArray(),
+                                1,
+                                V(1, q).asArray(),
+                                1,
+                              );
+                            }
+                          } else {
+                            daxpy(
+                              M,
+                              T.value * APOAQ,
+                              A(1, p).asArray(),
+                              1,
+                              A(1, q).asArray(),
+                              1,
+                            );
+                            daxpy(
+                              M,
+                              -CS * SN * AQOAP,
+                              A(1, q).asArray(),
+                              1,
+                              A(1, p).asArray(),
+                              1,
+                            );
+                            D[p] = D[p] / CS;
+                            D[q] = D[q] * CS;
+                            if (RSVEC) {
+                              daxpy(
+                                MVL,
+                                T.value * APOAQ,
+                                V(1, p).asArray(),
+                                1,
+                                V(1, q).asArray(),
+                                1,
+                              );
+                              daxpy(
+                                MVL,
+                                -CS * SN * AQOAP,
+                                V(1, q).asArray(),
+                                1,
+                                V(1, p).asArray(),
+                                1,
+                              );
+                            }
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    if (AAPP.value > AAQQ.value) {
+                      dcopy(M, A(1, p).asArray(), 1, WORK, 1);
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        AAPP.value,
+                        ONE,
+                        M,
+                        1,
+                        WORK.asMatrix(LDA),
+                        LDA,
+                        IERR,
+                      );
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        AAQQ.value,
+                        ONE,
+                        M,
+                        1,
+                        A(1, q),
+                        LDA,
+                        IERR,
+                      );
+                      TEMP1 = -AAPQ * D[p] / D[q];
+                      daxpy(M, TEMP1, WORK, 1, A(1, q).asArray(), 1);
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        ONE,
+                        AAQQ.value,
+                        M,
+                        1,
+                        A(1, q),
+                        LDA,
+                        IERR,
+                      );
+                      SVA[q] = AAQQ.value * sqrt(max(ZERO, ONE - AAPQ * AAPQ));
+                      MXSINJ = max(MXSINJ, SFMIN);
+                    } else {
+                      dcopy(M, A(1, q).asArray(), 1, WORK, 1);
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        AAQQ.value,
+                        ONE,
+                        M,
+                        1,
+                        WORK.asMatrix(LDA),
+                        LDA,
+                        IERR,
+                      );
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        AAPP.value,
+                        ONE,
+                        M,
+                        1,
+                        A(1, p),
+                        LDA,
+                        IERR,
+                      );
+                      TEMP1 = -AAPQ * D[q] / D[p];
+                      daxpy(M, TEMP1, WORK, 1, A(1, p).asArray(), 1);
+                      dlascl(
+                        'G',
+                        0,
+                        0,
+                        ONE,
+                        AAPP.value,
+                        M,
+                        1,
+                        A(1, p),
+                        LDA,
+                        IERR,
+                      );
+                      SVA[p] = AAPP.value * sqrt(max(ZERO, ONE - AAPQ * AAPQ));
+                      MXSINJ = max(MXSINJ, SFMIN);
+                    }
+                  }
+                  // END if ROTOK THEN ... ELSE
+
+                  // In the case of cancellation in updating SVA[q]
+                  // .. recompute SVA[q]
+                  if (pow(SVA[q] / AAQQ.value, 2) <= ROOTEPS) {
+                    if ((AAQQ.value < ROOTBIG) && (AAQQ.value > ROOTSFMIN)) {
+                      SVA[q] = dnrm2(M, A(1, q).asArray(), 1) * D[q];
+                    } else {
+                      T.value = ZERO;
+                      AAQQ.value = ONE;
+                      dlassq(M, A(1, q).asArray(), 1, T, AAQQ);
+                      SVA[q] = T.value * sqrt(AAQQ.value) * D[q];
+                    }
+                  }
+                  if (pow(AAPP.value / AAPP0, 2) <= ROOTEPS) {
+                    if ((AAPP.value < ROOTBIG) && (AAPP.value > ROOTSFMIN)) {
+                      AAPP.value = dnrm2(M, A(1, p).asArray(), 1) * D[p];
+                    } else {
+                      T.value = ZERO;
+                      AAPP.value = ONE;
+                      dlassq(M, A(1, p).asArray(), 1, T, AAPP);
+                      AAPP.value = T.value * sqrt(AAPP.value) * D[p];
+                    }
+                    SVA[p] = AAPP.value;
+                  }
+                  // end of OK rotation
+                } else {
+                  NOTROT = NOTROT + 1;
+                  // SKIPPED  = SKIPPED  + 1
+                  PSKIPPED = PSKIPPED + 1;
+                  IJBLSK = IJBLSK + 1;
+                }
+              } else {
+                NOTROT = NOTROT + 1;
+                PSKIPPED = PSKIPPED + 1;
+                IJBLSK = IJBLSK + 1;
+              }
+
+              // if ( NOTROT >= EMPTSW )  GO TO 2011
+              if ((i <= SWBAND) && (IJBLSK >= BLSKIP)) {
+                SVA[p] = AAPP.value;
+                NOTROT = 0;
+                break jbcLoop;
+              }
+              if ((i <= SWBAND) && (PSKIPPED > ROWSKIP)) {
+                AAPP.value = -AAPP.value;
+                NOTROT = 0;
+                break;
+              }
+            } // 2200
+            // end of the q-loop
+
+            SVA[p] = AAPP.value;
+          } else {
+            if (AAPP.value == ZERO) {
+              NOTROT = NOTROT + min(jgl + KBL - 1, N).toInt() - jgl + 1;
+            }
+            if (AAPP.value < ZERO) NOTROT = 0;
+            // **      if ( NOTROT >= EMPTSW )  GO TO 2011
+          }
+        } // 2100
+        // end of the p-loop
+      } // 2010
       // end of the jbc-loop
-            } // 2011
-// 2011 bailed out of the jbc-loop
-            for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2012
-               SVA( p ) = DABS( SVA( p ) );
-            } // 2012
-// **   IF ( NOTROT >= EMPTSW ) GO TO 1994
-         } // 2000
-// 2000 :: end of the ibr-loop
+      for (p = igl; p <= min(igl + KBL - 1, N); p++) {
+        // 2012
+        SVA[p] = SVA[p].abs();
+      } // 2012
+      // **   if ( NOTROT >= EMPTSW ) GO TO 1994
+    } // 2000
+    // end of the ibr-loop
 
-      // .. update SVA(N)
-         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
-            SVA[N] = dnrm2( M, A( 1, N ), 1 )*D( N );
-         } else {
-            T = ZERO;
-            AAPP = ONE;
-            dlassq(M, A( 1, N ), 1, T, AAPP );
-            SVA[N] = T*DSQRT( AAPP )*D( N );
-         }
+    // .. update SVA[N]
+    if ((SVA[N] < ROOTBIG) && (SVA[N] > ROOTSFMIN)) {
+      SVA[N] = dnrm2(M, A(1, N).asArray(), 1) * D[N];
+    } else {
+      T.value = ZERO;
+      AAPP.value = ONE;
+      dlassq(M, A(1, N).asArray(), 1, T, AAPP);
+      SVA[N] = T.value * sqrt(AAPP.value) * D[N];
+    }
 
-      // Additional steering devices
+    // Additional steering devices
 
-         if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
-          if ( ( i > SWBAND+1 ) && ( MXAAPQ < (N).toDouble()*TOL ) && ( N.toDouble()*MXAAPQ*MXSINJ < TOL ) ) {
-            GO TO 1994;
-         }
+    if ((i < SWBAND) && ((MXAAPQ <= ROOTTOL) || (ISWROT <= N))) SWBAND = i;
+    if ((i > SWBAND + 1) &&
+        (MXAAPQ < (N).toDouble() * TOL) &&
+        (N.toDouble() * MXAAPQ * MXSINJ < TOL)) {
+      isBelowTolerance = true;
+      break;
+    }
 
+    if (NOTROT >= EMPTSW) {
+      isBelowTolerance = true;
+      break;
+    }
+  } // 1993
+  // end i=1:NSWEEP loop
+  if (!isBelowTolerance) {
+    // #:) Reaching this point means that the procedure has completed the given
+    // number of sweeps.
+    INFO.value = NSWEEP - 1;
+  } else {
+    // } // 1994
+    // #:) Reaching this point means that during the i-th sweep all pivots were
+    // below the given threshold, causing early exit.
 
-         if (NOTROT >= EMPTSW) GO TO 1994;
+    INFO.value = 0;
+    // #:) INFO.value = 0 confirms successful iterations.
+  } // } // 1995
 
-      } // 1993
-      // end i=1:NSWEEP loop
-// #:) Reaching this point means that the procedure has completed the given
-      // number of sweeps.
-      INFO = NSWEEP - 1;
-      GO TO 1995;
-      } // 1994
-// #:) Reaching this point means that during the i-th sweep all pivots were
-      // below the given threshold, causing early exit.
+  // Sort the vector D
 
-      INFO = 0;
-// #:) INFO = 0 confirms successful iterations.
-      } // 1995
-
-      // Sort the vector D
-
-      for (p = 1; p <= N - 1; p++) { // 5991
-         q = idamax( N-p+1, SVA( p ), 1 ) + p - 1;
-         if ( p != q ) {
-            TEMP1 = SVA( p );
-            SVA[p] = SVA( q );
-            SVA[q] = TEMP1;
-            TEMP1 = D( p );
-            D[p] = D( q );
-            D[q] = TEMP1;
-            dswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) dswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
-         }
-      } // 5991
-
-      return;
-      // ..
-      // .. END OF DGSVJ1
-      // ..
-      }
+  for (p = 1; p <= N - 1; p++) {
+    // 5991
+    q = idamax(N - p + 1, SVA(p), 1) + p - 1;
+    if (p != q) {
+      TEMP1 = SVA[p];
+      SVA[p] = SVA[q];
+      SVA[q] = TEMP1;
+      TEMP1 = D[p];
+      D[p] = D[q];
+      D[q] = TEMP1;
+      dswap(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1);
+      if (RSVEC) dswap(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1);
+    }
+  } // 5991
+}

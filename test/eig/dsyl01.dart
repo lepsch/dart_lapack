@@ -26,18 +26,7 @@ void dsyl01(
   const MAXM = 245, MAXN = 192, LDSWORK = 36;
   String TRANA = '', TRANB = '';
   int I, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N;
-  double ANRM,
-      BNRM,
-      BIGNUM,
-      EPS,
-      RES,
-      RES1,
-      RMUL,
-      SCALE,
-      SCALE3,
-      SMLNUM,
-      TNRM,
-      XNRM;
+  double ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE3, SMLNUM, TNRM, XNRM;
   final DUML = Array<double>(MAXM),
       DUMR = Array<double>(MAXN),
       D = Array<double>(max(MAXM, MAXN)),
@@ -51,6 +40,7 @@ void dsyl01(
       X = Matrix<double>(MAXM, MAXN),
       SWORK = Matrix<double>(LDSWORK, 126);
   final INFO = Box(0), IINFO = Box(0);
+  final SCALE = Box(0.0);
 
   // Get machine parameters
 
@@ -74,7 +64,7 @@ void dsyl01(
   for (I = 1; I <= 4; I++) {
     ISEED[I] = 1;
   }
-  SCALE = ONE;
+  SCALE.value = ONE;
   SCALE3 = ONE;
   LIWORK = MAXM + MAXN + 2;
   for (J = 1; J <= 2; J++) {
@@ -87,35 +77,34 @@ void dsyl01(
         KLA = 0;
         KUA = M - 1;
         dlatmr(
-          M,
-          M,
-          'S',
-          ISEED,
-          'N',
-          D,
-          6,
-          ONE,
-          ONE,
-          'T',
-          'N',
-          DUML,
-          1,
-          ONE,
-          DUMR,
-          1,
-          ONE,
-          'N',
-          IWORK,
-          KLA,
-          KUA,
-          ZERO,
-          ONE,
-          'NO',
-          A,
-          MAXM,
-          IWORK,
-          IINFO.value,
-        );
+            M,
+            M,
+            'S',
+            ISEED,
+            'N',
+            D,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            DUML,
+            1,
+            ONE,
+            DUMR,
+            1,
+            ONE,
+            'N',
+            IWORK,
+            KLA,
+            KUA,
+            ZERO,
+            ONE,
+            'NO',
+            A,
+            MAXM,
+            IWORK,
+            IINFO);
         for (I = 1; I <= M; I++) {
           A[I][I] = A[I][I] * VM[J];
         }
@@ -124,67 +113,65 @@ void dsyl01(
           KLB = 0;
           KUB = N - 1;
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'N',
-            D,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            DUML,
-            1,
-            ONE,
-            DUMR,
-            1,
-            ONE,
-            'N',
-            IWORK,
-            KLB,
-            KUB,
-            ZERO,
-            ONE,
-            'NO',
-            B,
-            MAXN,
-            IWORK,
-            IINFO.value,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'N',
+              D,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              DUML,
+              1,
+              ONE,
+              DUMR,
+              1,
+              ONE,
+              'N',
+              IWORK,
+              KLB,
+              KUB,
+              ZERO,
+              ONE,
+              'NO',
+              B,
+              MAXN,
+              IWORK,
+              IINFO);
           BNRM = dlange('M', N, N, B, MAXN, DUM);
           TNRM = max(ANRM, BNRM);
           dlatmr(
-            M,
-            N,
-            'S',
-            ISEED,
-            'N',
-            D,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            DUML,
-            1,
-            ONE,
-            DUMR,
-            1,
-            ONE,
-            'N',
-            IWORK,
-            M,
-            N,
-            ZERO,
-            ONE,
-            'NO',
-            C,
-            MAXM,
-            IWORK,
-            IINFO.value,
-          );
+              M,
+              N,
+              'S',
+              ISEED,
+              'N',
+              D,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              DUML,
+              1,
+              ONE,
+              DUMR,
+              1,
+              ONE,
+              'N',
+              IWORK,
+              M,
+              N,
+              ZERO,
+              ONE,
+              'NO',
+              C,
+              MAXM,
+              IWORK,
+              IINFO);
           for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
             if (ITRANA == 1) {
               TRANA = 'N';
@@ -203,21 +190,8 @@ void dsyl01(
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
               dlacpy('All', M, N, C, MAXM, CC, MAXM);
-              dtrsyl(
-                TRANA,
-                TRANB,
-                ISGN,
-                M,
-                N,
-                A,
-                MAXM,
-                B,
-                MAXN,
-                X,
-                MAXM,
-                SCALE,
-                IINFO.value,
-              );
+              dtrsyl(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE,
+                  IINFO);
               if (IINFO.value != 0) NINFO[1] = NINFO[1] + 1;
               XNRM = dlange('M', M, N, X, MAXM, DUM);
               RMUL = ONE;
@@ -226,36 +200,10 @@ void dsyl01(
                   RMUL = ONE / max(XNRM, TNRM);
                 }
               }
-              dgemm(
-                TRANA,
-                'N',
-                M,
-                N,
-                M,
-                RMUL,
-                A,
-                MAXM,
-                X,
-                MAXM,
-                -SCALE * RMUL,
-                CC,
-                MAXM,
-              );
-              dgemm(
-                'N',
-                TRANB,
-                M,
-                N,
-                N,
-                ISGN.toDouble() * RMUL,
-                X,
-                MAXM,
-                B,
-                MAXN,
-                ONE,
-                CC,
-                MAXM,
-              );
+              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
+                  -SCALE.value * RMUL, CC, MAXM);
+              dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
+                  MAXN, ONE, CC, MAXM);
               RES1 = dlange('M', M, N, CC, MAXM, DUM);
               RES = RES1 /
                   max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
@@ -264,25 +212,8 @@ void dsyl01(
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
               dlacpy('All', M, N, C, MAXM, CC, MAXM);
-              dtrsyl3(
-                TRANA,
-                TRANB,
-                ISGN,
-                M,
-                N,
-                A,
-                MAXM,
-                B,
-                MAXN,
-                X,
-                MAXM,
-                SCALE3,
-                IWORK,
-                LIWORK,
-                SWORK,
-                LDSWORK,
-                INFO,
-              );
+              dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
+                  SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO);
               if (INFO.value != 0) NINFO[2] = NINFO[2] + 1;
               XNRM = dlange('M', M, N, X, MAXM, DUM);
               RMUL = ONE;
@@ -291,42 +222,17 @@ void dsyl01(
                   RMUL = ONE / max(XNRM, TNRM);
                 }
               }
-              dgemm(
-                TRANA,
-                'N',
-                M,
-                N,
-                M,
-                RMUL,
-                A,
-                MAXM,
-                X,
-                MAXM,
-                -SCALE3 * RMUL,
-                CC,
-                MAXM,
-              );
-              dgemm(
-                'N',
-                TRANB,
-                M,
-                N,
-                N,
-                ISGN.toDouble() * RMUL,
-                X,
-                MAXM,
-                B,
-                MAXN,
-                ONE,
-                CC,
-                MAXM,
-              );
+              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3 * RMUL,
+                  CC, MAXM);
+              dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
+                  MAXN, ONE, CC, MAXM);
               RES1 = dlange('M', M, N, CC, MAXM, DUM);
               RES = RES1 /
                   max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
               // Verify that TRSYL3 only flushes if TRSYL flushes (but
               // there may be cases where TRSYL3 avoid flushing).
-              if (SCALE3 == ZERO && SCALE > ZERO || IINFO.value != INFO.value) {
+              if (SCALE3 == ZERO && SCALE.value > ZERO ||
+                  IINFO.value != INFO.value) {
                 NFAIL[3] = NFAIL[3] + 1;
               }
               if (RES > THRESH || disnan(RES)) NFAIL[2] = NFAIL[2] + 1;

@@ -18,24 +18,19 @@ void dget33(
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0, FOUR = 4.0;
   int I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;
-  double BIGNUM,
-      CS = 0,
-      EPS,
-      RES,
-      SMLNUM,
-      SN = 0,
-      SUM,
-      TNRM,
-      WI1 = 0,
-      WI2 = 0,
-      WR1 = 0,
-      WR2 = 0;
+  double BIGNUM, EPS, RES, SMLNUM, SUM, TNRM;
   final Q = Matrix<double>(2, 2),
       T = Matrix<double>(2, 2),
       T1 = Matrix<double>(2, 2),
       T2 = Matrix<double>(2, 2);
 
   final VAL = Array<double>(4), VM = Array<double>(3);
+  final CS = Box(0.0),
+      SN = Box(0.0),
+      WI1 = Box(0.0),
+      WI2 = Box(0.0),
+      WR1 = Box(0.0),
+      WR2 = Box(0.0);
 
   // Get machine parameters
 
@@ -89,10 +84,10 @@ void dget33(
                   Q[2][2] = ONE;
 
                   dlanv2(
-                    T[1][1],
-                    T[1][2],
-                    T[2][1],
-                    T[2][2],
+                    T.box(1, 1),
+                    T.box(1, 2),
+                    T.box(2, 1),
+                    T.box(2, 2),
                     WR1,
                     WI1,
                     WR2,
@@ -101,8 +96,8 @@ void dget33(
                     SN,
                   );
                   for (J1 = 1; J1 <= 2; J1++) {
-                    RES = Q[J1][1] * CS + Q[J1][2] * SN;
-                    Q[J1][2] = -Q[J1][1] * SN + Q[J1][2] * CS;
+                    RES = Q[J1][1] * CS.value + Q[J1][2] * SN.value;
+                    Q[J1][2] = -Q[J1][1] * SN.value + Q[J1][2] * CS.value;
                     Q[J1][1] = RES;
                   }
 

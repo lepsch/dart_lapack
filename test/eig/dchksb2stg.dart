@@ -472,7 +472,16 @@ void dchksb2stg(
           dcopy(N, SD, 1, D1, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr('N', N, D1, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO.value);
+          dsteqr(
+            'N',
+            N,
+            D1,
+            WORK,
+            WORK(N + 1).asMatrix(LDU),
+            LDU,
+            WORK(N + 1),
+            IINFO,
+          );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -506,7 +515,7 @@ void dchksb2stg(
             SE,
             WORK,
             LH,
-            WORK[LH + 1],
+            WORK(LH + 1),
             LW,
             IINFO,
           );
@@ -516,7 +525,16 @@ void dchksb2stg(
           dcopy(N, SD, 1, D2, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO.value);
+          dsteqr(
+            'N',
+            N,
+            D2,
+            WORK,
+            WORK(N + 1).asMatrix(LDU),
+            LDU,
+            WORK(N + 1),
+            IINFO,
+          );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -600,7 +618,7 @@ void dchksb2stg(
             SE,
             WORK,
             LH,
-            WORK[LH + 1],
+            WORK(LH + 1),
             LW,
             IINFO,
           );
@@ -610,7 +628,16 @@ void dchksb2stg(
           dcopy(N, SD, 1, D3, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr('N', N, D3, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO.value);
+          dsteqr(
+            'N',
+            N,
+            D3,
+            WORK,
+            WORK(N + 1).asMatrix(LDU),
+            LDU,
+            WORK(N + 1),
+            IINFO,
+          );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();

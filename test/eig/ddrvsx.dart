@@ -504,7 +504,7 @@ Future<void> ddrvsx(
             NNWORK,
             IWORK,
             BWORK,
-            INFO.value,
+            INFO,
           );
 
           // Check for RESULT[j] > THRESH

@@ -94,9 +94,6 @@ void ddrvst(
       LGN,
       LIWEDC,
       LWEDC,
-      M = 0,
-      M2 = 0,
-      M3 = 0,
       MTYPES,
       N,
       NERRS,
@@ -123,7 +120,7 @@ void ddrvst(
       IOLDSD = Array<int>(4),
       ISEED2 = Array<int>(4),
       ISEED3 = Array<int>(4);
-  final IINFO = Box(0);
+  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0);
   final KTYPE = Array.fromList([
     1,
     2,
@@ -309,8 +306,8 @@ void ddrvst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
-            IINFO.value,
+            WORK(N + 1),
+            IINFO,
           );
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
@@ -330,8 +327,8 @@ void ddrvst(
             'N',
             A,
             LDA,
-            WORK[N + 1],
-            IINFO.value,
+            WORK(N + 1),
+            IINFO,
           );
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
@@ -349,10 +346,10 @@ void ddrvst(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -365,7 +362,7 @@ void ddrvst(
             A,
             LDA,
             IWORK,
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
@@ -383,10 +380,10 @@ void ddrvst(
             ONE,
             'T',
             'N',
-            WORK[N + 1],
+            WORK(N + 1),
             1,
             ONE,
-            WORK[2 * N + 1],
+            WORK(2 * N + 1),
             1,
             ONE,
             'N',
@@ -399,7 +396,7 @@ void ddrvst(
             A,
             LDA,
             IWORK,
-            IINFO.value,
+            IINFO,
           );
         } else if (ITYPE == 9) {
           // Symmetric banded, eigenvalues specified
@@ -420,8 +417,8 @@ void ddrvst(
             'Z',
             U,
             LDU,
-            WORK[N + 1],
-            IINFO.value,
+            WORK(N + 1),
+            IINFO,
           );
 
           // Store as dense matrix for most routines.
@@ -555,7 +552,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -608,7 +605,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -663,7 +660,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -717,7 +714,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -769,7 +766,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -793,7 +790,7 @@ void ddrvst(
           }
           dstt22(
             N,
-            M2,
+            M2.value,
             0,
             D3,
             D4,
@@ -802,7 +799,7 @@ void ddrvst(
             Z,
             LDU,
             WORK,
-            max(1, M2),
+            max(1, M2.value),
             RESULT[10],
           );
 
@@ -829,7 +826,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -843,8 +840,8 @@ void ddrvst(
 
           // Do test 12.
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[12] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
 
           break;
@@ -909,7 +906,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -924,7 +921,7 @@ void ddrvst(
             }
           }
 
-          if (M2 == 0 && N > 0) {
+          if (M2.value == 0 && N > 0) {
             RESULT[13] = ULPINV;
             RESULT[14] = ULPINV;
             RESULT[15] = ULPINV;
@@ -941,7 +938,7 @@ void ddrvst(
           }
           dstt22(
             N,
-            M2,
+            M2.value,
             0,
             D3,
             D4,
@@ -950,7 +947,7 @@ void ddrvst(
             Z,
             LDU,
             WORK,
-            max(1, M2),
+            max(1, M2.value),
             RESULT[13],
           );
 
@@ -977,7 +974,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -992,8 +989,8 @@ void ddrvst(
 
           // Do test 15.
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[15] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
@@ -1019,7 +1016,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVD(V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1060,7 +1057,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVD(N)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1114,7 +1111,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1139,7 +1136,7 @@ void ddrvst(
           }
           dstt22(
             N,
-            M2,
+            M2.value,
             0,
             D3,
             D4,
@@ -1148,7 +1145,7 @@ void ddrvst(
             Z,
             LDU,
             WORK,
-            max(1, M2),
+            max(1, M2.value),
             RESULT[19],
           );
 
@@ -1177,7 +1174,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1192,8 +1189,8 @@ void ddrvst(
 
           // Do test 21.
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[21] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
         }
@@ -1259,7 +1256,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1274,7 +1271,7 @@ void ddrvst(
             }
           }
 
-          if (M2 == 0 && N > 0) {
+          if (M2.value == 0 && N > 0) {
             RESULT[22] = ULPINV;
             RESULT[23] = ULPINV;
             RESULT[24] = ULPINV;
@@ -1291,7 +1288,7 @@ void ddrvst(
           }
           dstt22(
             N,
-            M2,
+            M2.value,
             0,
             D3,
             D4,
@@ -1300,7 +1297,7 @@ void ddrvst(
             Z,
             LDU,
             WORK,
-            max(1, M2),
+            max(1, M2.value),
             RESULT[22],
           );
 
@@ -1329,7 +1326,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1344,8 +1341,8 @@ void ddrvst(
 
           // Do test 24.
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[24] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
 
           break;
@@ -1496,7 +1493,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1562,7 +1559,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1619,7 +1616,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1649,7 +1646,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -1687,7 +1684,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1709,8 +1706,8 @@ void ddrvst(
 
           // Do test 33 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
         }
@@ -1739,7 +1736,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1769,7 +1766,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -1807,7 +1804,7 @@ void ddrvst(
             LWORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -1827,15 +1824,15 @@ void ddrvst(
             }
           }
 
-          if (M3 == 0 && N > 0) {
+          if (M3.value == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
             break;
           }
 
           // Do test 36 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {
@@ -2026,10 +2023,10 @@ void ddrvst(
             WA1,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2107,10 +2104,10 @@ void ddrvst(
             WA2,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2180,10 +2177,10 @@ void ddrvst(
             WA2,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2211,7 +2208,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -2219,7 +2216,7 @@ void ddrvst(
             D2,
             Z,
             LDU,
-            V,
+            V.asArray(),
             LDU,
             TAU,
             WORK,
@@ -2262,10 +2259,10 @@ void ddrvst(
             WA3,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2285,15 +2282,15 @@ void ddrvst(
             }
           }
 
-          if (M3 == 0 && N > 0) {
+          if (M3.value == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
             break;
           }
 
           // Do test 45 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {
@@ -2340,10 +2337,10 @@ void ddrvst(
             WA2,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2371,7 +2368,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -2379,7 +2376,7 @@ void ddrvst(
             D2,
             Z,
             LDU,
-            V,
+            V.asArray(),
             LDU,
             TAU,
             WORK,
@@ -2422,10 +2419,10 @@ void ddrvst(
             WA3,
             Z,
             LDU,
-            V,
+            V.asArray(),
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2445,15 +2442,15 @@ void ddrvst(
             }
           }
 
-          if (M3 == 0 && N > 0) {
+          if (M3.value == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
             break;
           }
 
           // Do test 48 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {
@@ -2610,7 +2607,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2691,7 +2688,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2763,7 +2760,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2791,7 +2788,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -2845,7 +2842,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2867,8 +2864,8 @@ void ddrvst(
 
           // Do test 57 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {
@@ -2918,7 +2915,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -2946,7 +2943,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -3000,7 +2997,7 @@ void ddrvst(
             WORK,
             IWORK,
             IWORK(5 * N + 1),
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3020,15 +3017,15 @@ void ddrvst(
             }
           }
 
-          if (M3 == 0 && N > 0) {
+          if (M3.value == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
             break;
           }
 
           // Do test 60 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {
@@ -3057,7 +3054,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3107,7 +3104,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3173,7 +3170,7 @@ void ddrvst(
             LWEDC - INDX + 1,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3240,7 +3237,7 @@ void ddrvst(
             LWEDC - INDX + 1,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3308,7 +3305,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3373,7 +3370,7 @@ void ddrvst(
             LWEDC,
             IWORK,
             LIWEDC,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -3424,7 +3421,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3491,7 +3488,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3549,7 +3546,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3579,7 +3576,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -3618,7 +3615,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3640,8 +3637,8 @@ void ddrvst(
 
           // Do test 75 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           RESULT[NTEST] = (TEMP1 + TEMP2) / max(UNFL, ULP * TEMP3);
           break;
         }
@@ -3671,7 +3668,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3701,7 +3698,7 @@ void ddrvst(
             1,
             UPLO,
             N,
-            M2,
+            M2.value,
             0,
             A,
             LDU,
@@ -3740,7 +3737,7 @@ void ddrvst(
             LWORK,
             IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(
@@ -3760,15 +3757,15 @@ void ddrvst(
             }
           }
 
-          if (M3 == 0 && N > 0) {
+          if (M3.value == 0 && N > 0) {
             RESULT[NTEST] = ULPINV;
             break;
           }
 
           // Do test 78 (or +54)
 
-          TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-          TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+          TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+          TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
           if (N > 0) {
             TEMP3 = max((WA1[1]).abs(), (WA1[N]).abs());
           } else {

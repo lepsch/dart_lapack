@@ -1,95 +1,85 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlarrk(N, IW, GL, GU, D, E2, PIVMIN, RELTOL, W, WERR, INFO) {
-
+void dlarrk(
+  final int N,
+  final int IW,
+  final double GL,
+  final double GU,
+  final Array<double> D,
+  final Array<double> E2,
+  final double PIVMIN,
+  final double RELTOL,
+  final Box<double> W,
+  final Box<double> WERR,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int       INFO, IW, N;
-      double              PIVMIN, RELTOL, GL, GU, W, WERR;
-      double             D( * ), E2( * );
-      // ..
+  const HALF = 0.5, TWO = 2.0, FUDGE = TWO, ZERO = 0.0;
+  int I, IT, ITMAX, NEGCNT;
+  double ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;
 
-      double             FUDGE, HALF, TWO, ZERO;
-      const              HALF = 0.5, TWO = 2.0, FUDGE = TWO, ZERO = 0.0 ;
-      int       I, IT, ITMAX, NEGCNT;
-      double             ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, INT, LOG, MAX
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) {
+    INFO.value = 0;
+    return;
+  }
 
-      if ( N <= 0 ) {
-         INFO = 0;
-         return;
-      }
+  // Get machine constants
+  EPS = dlamch('P');
 
-      // Get machine constants
-      EPS = dlamch( 'P' );
+  TNORM = max((GL).abs(), (GU).abs());
+  RTOLI = RELTOL;
+  ATOLI = FUDGE * TWO * PIVMIN;
+  ITMAX = (log(TNORM + PIVMIN) - log(PIVMIN)) ~/ log(TWO) + 2;
 
-      TNORM = max( ( GL ).abs(), ( GU ).abs() );
-      RTOLI = RELTOL;
-      ATOLI = FUDGE*TWO*PIVMIN;
-       ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
+  INFO.value = -1;
 
-      INFO = -1;
+  LEFT = GL - FUDGE * TNORM * EPS * N - FUDGE * TWO * PIVMIN;
+  RIGHT = GU + FUDGE * TNORM * EPS * N + FUDGE * TWO * PIVMIN;
+  IT = 0;
 
-      LEFT = GL - FUDGE*TNORM*EPS*N - FUDGE*TWO*PIVMIN;
-      RIGHT = GU + FUDGE*TNORM*EPS*N + FUDGE*TWO*PIVMIN;
-      IT = 0;
+  while (true) {
+    // Check if interval converged or maximum number of iterations reached
 
-      } // 10
+    TMP1 = (RIGHT - LEFT).abs();
+    TMP2 = max((RIGHT).abs(), (LEFT).abs());
+    if (TMP1 < max(ATOLI, max(PIVMIN, RTOLI * TMP2))) {
+      INFO.value = 0;
+      break;
+    }
+    if (IT > ITMAX) break;
 
-      // Check if interval converged or maximum number of iterations reached
+    // Count number of negative pivots for mid-point
 
-      TMP1 = ( RIGHT - LEFT ).abs();
-      TMP2 = max( (RIGHT).abs(), (LEFT).abs() );
-      if ( TMP1 < max( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
-         INFO = 0;
-         GOTO 30;
-      }
-      if (IT > ITMAX) GOTO 30;
+    IT = IT + 1;
+    MID = HALF * (LEFT + RIGHT);
+    NEGCNT = 0;
+    TMP1 = D[1] - MID;
+    if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+    if (TMP1 <= ZERO) NEGCNT = NEGCNT + 1;
 
+    for (I = 2; I <= N; I++) {
+      TMP1 = D[I] - E2[I - 1] / TMP1 - MID;
+      if ((TMP1).abs() < PIVMIN) TMP1 = -PIVMIN;
+      if (TMP1 <= ZERO) NEGCNT = NEGCNT + 1;
+    }
 
-      // Count number of negative pivots for mid-point
+    if (NEGCNT >= IW) {
+      RIGHT = MID;
+    } else {
+      LEFT = MID;
+    }
+  }
 
-      IT = IT + 1;
-      MID = HALF * (LEFT + RIGHT);
-      NEGCNT = 0;
-      TMP1 = D( 1 ) - MID;
-      if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
-      IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
+  // Converged or maximum number of iterations reached
 
-      for (I = 2; I <= N; I++) { // 20
-         TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID;
-         if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
-         IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
-      } // 20
-
-      if (NEGCNT >= IW) {
-         RIGHT = MID;
-      } else {
-         LEFT = MID;
-      }
-      GOTO 10;
-
-      } // 30
-
-      // Converged or maximum number of iterations reached
-
-      W = HALF * (LEFT + RIGHT);
-      WERR = HALF * ( RIGHT - LEFT ).abs();
-
-      return;
-      }
+  W.value = HALF * (LEFT + RIGHT);
+  WERR.value = HALF * (RIGHT - LEFT).abs();
+}

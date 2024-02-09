@@ -127,7 +127,7 @@ Future<void> dget37(
         LDT,
         WR,
         WI,
-        DUM,
+        DUM.asMatrix(1),
         1,
         WORK,
         LWORK,

@@ -77,12 +77,11 @@ void ddrges3(
       NMAX,
       NTEST,
       NTESTT,
-      RSUB,
-      SDIM = 0;
+      RSUB;
   double SAFMAX, SAFMIN, TEMP1, ULP, ULPINV;
   final IERR = Box(0), IINFO = Box(0);
   final TEMP2 = Box(0.0);
-  final IOLDSD = Array<int>(4);
+  final IOLDSD = Array<int>(4), SDIM = Box(0);
   final RMAGN = Array<double>(4, offset: 1);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -659,7 +658,7 @@ void ddrges3(
               }
             }
           }
-          if (SDIM != KNTEIG) {
+          if (SDIM.value != KNTEIG) {
             RESULT[12] = ULPINV;
           }
         }

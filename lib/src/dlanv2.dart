@@ -47,8 +47,8 @@ void dlanv2(
   SAFMIN = dlamch('S');
   EPS = dlamch('P');
   SAFMN2 = pow(
-    dlamch('B.value'),
-    (log(SAFMIN / EPS) / log(dlamch('B.value')) ~/ TWO),
+    dlamch('B'),
+    (log(SAFMIN / EPS) / log(dlamch('B')) ~/ TWO),
   ).toDouble();
   SAFMX2 = ONE / SAFMN2;
   if (C.value == ZERO) {

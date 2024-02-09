@@ -89,7 +89,7 @@
       // Compute the 1-norm of WORK, which is only guaranteed to be
       // upper Hessenberg.
 
-      RESID = DLANHS( '1', N, WORK, LDWORK, RWORK );
+      RESID = dlanhs( '1', N, WORK, LDWORK, RWORK );
 
       // Compute norm(L*U - A) / (norm(A) * EPS)
 

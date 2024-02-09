@@ -76,7 +76,7 @@ void dchkst(
   const MAXTYP = 21;
   const SRANGE = false;
   const SREL = false;
-  bool BADNN, TRYRAC;
+  bool BADNN;
   int I,
       IL,
       IMODE,
@@ -92,9 +92,6 @@ void dchkst(
       LIWEDC,
       LOG2UI,
       LWEDC,
-      M = 0,
-      M2 = 0,
-      M3 = 0,
       MTYPES,
       N,
       NAP,
@@ -102,7 +99,6 @@ void dchkst(
       NERRS,
       NMATS,
       NMAX,
-      NSPLIT = 0,
       NTEST = 0,
       NTESTT;
   double ABSTOL,
@@ -123,7 +119,8 @@ void dchkst(
       VU;
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
   final DUMMA = Array<double>(1);
-  final IINFO = Box(0);
+  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0), NSPLIT = Box(0);
+  final TRYRAC = Box(true);
   final KTYPE = Array.fromList(
     [1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10],
   );
@@ -145,7 +142,6 @@ void dchkst(
   // Important constants
 
   BADNN = false;
-  TRYRAC = true;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
     // 10
@@ -702,7 +698,7 @@ void dchkst(
       dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
       NTEST = 9;
-      dsteqr('V', N, D1, WORK, Z, LDU, WORK[N + 1], IINFO);
+      dsteqr('V', N, D1, WORK, Z, LDU, WORK(N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -720,7 +716,16 @@ void dchkst(
       if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
       NTEST = 11;
-      dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
+      dsteqr(
+        'N',
+        N,
+        D2,
+        WORK,
+        WORK(N + 1).asMatrix(LDU),
+        LDU,
+        WORK(N + 1),
+        IINFO,
+      );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -798,7 +803,7 @@ void dchkst(
         dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
         NTEST = 14;
-        dpteqr('V', N, D4, WORK, Z, LDU, WORK[N + 1], IINFO);
+        dpteqr('V', N, D4, WORK, Z, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -820,7 +825,7 @@ void dchkst(
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
         NTEST = 16;
-        dpteqr('N', N, D5, WORK, Z, LDU, WORK[N + 1], IINFO);
+        dpteqr('N', N, D5, WORK, Z, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -875,11 +880,11 @@ void dchkst(
           M,
           NSPLIT,
           WR,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           WORK,
-          IWORK[2 * N + 1],
-          IINFO.value,
+          IWORK(2 * N + 1),
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
@@ -932,11 +937,11 @@ void dchkst(
         M,
         NSPLIT,
         WA1,
-        IWORK[1],
-        IWORK[N + 1],
+        IWORK(1),
+        IWORK(N + 1),
         WORK,
-        IWORK[2 * N + 1],
-        IINFO.value,
+        IWORK(2 * N + 1),
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -992,11 +997,11 @@ void dchkst(
         M2,
         NSPLIT,
         WA2,
-        IWORK[1],
-        IWORK[N + 1],
+        IWORK(1),
+        IWORK(N + 1),
         WORK,
-        IWORK[2 * N + 1],
-        IINFO.value,
+        IWORK(2 * N + 1),
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1052,11 +1057,11 @@ void dchkst(
         M3,
         NSPLIT,
         WA3,
-        IWORK[1],
-        IWORK[N + 1],
+        IWORK(1),
+        IWORK(N + 1),
         WORK,
-        IWORK[2 * N + 1],
-        IINFO.value,
+        IWORK(2 * N + 1),
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1069,15 +1074,15 @@ void dchkst(
         }
       }
 
-      if (M3 == 0 && N != 0) {
+      if (M3.value == 0 && N != 0) {
         RESULT[19] = ULPINV;
         break jTypeLoop;
       }
 
       // Do test 19
 
-      TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-      TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+      TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+      TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
       if (N > 0) {
         TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
       } else {
@@ -1105,11 +1110,11 @@ void dchkst(
         M,
         NSPLIT,
         WA1,
-        IWORK[1],
-        IWORK[N + 1],
+        IWORK(1),
+        IWORK(N + 1),
         WORK,
-        IWORK[2 * N + 1],
-        IINFO.value,
+        IWORK(2 * N + 1),
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1127,16 +1132,16 @@ void dchkst(
         N,
         SD,
         SE,
-        M,
+        M.value,
         WA1,
-        IWORK[1],
-        IWORK[N + 1],
+        IWORK(1),
+        IWORK(N + 1),
         Z,
         LDU,
         WORK,
-        IWORK[2 * N + 1],
-        IWORK[3 * N + 1],
-        IINFO.value,
+        IWORK(2 * N + 1),
+        IWORK(3 * N + 1),
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
@@ -1170,11 +1175,11 @@ void dchkst(
         WORK,
         Z,
         LDU,
-        WORK[N + 1],
+        WORK(N + 1),
         LWEDC - N,
         IWORK,
         LIWEDC,
-        IINFO.value,
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1207,11 +1212,11 @@ void dchkst(
         WORK,
         Z,
         LDU,
-        WORK[N + 1],
+        WORK(N + 1),
         LWEDC - N,
         IWORK,
         LIWEDC,
-        IINFO.value,
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1244,11 +1249,11 @@ void dchkst(
         WORK,
         Z,
         LDU,
-        WORK[N + 1],
+        WORK(N + 1),
         LWEDC - N,
         IWORK,
         LIWEDC,
-        IINFO.value,
+        IINFO,
       );
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1307,13 +1312,13 @@ void dchkst(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
             WORK,
             LWORK,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1371,13 +1376,13 @@ void dchkst(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
               WORK,
               LWORK,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LWORK - 2 * N,
-              IINFO.value,
+              IINFO,
             );
 
             if (IINFO.value != 0) {
@@ -1458,11 +1463,11 @@ void dchkst(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
             IINFO,
           );
@@ -1504,13 +1509,13 @@ void dchkst(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
-            IINFO.value,
+            IINFO,
           );
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1587,11 +1592,11 @@ void dchkst(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
             IINFO,
           );
@@ -1633,11 +1638,11 @@ void dchkst(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
             IINFO,
           );
@@ -1697,13 +1702,13 @@ void dchkst(
           Z,
           LDU,
           N,
-          IWORK[1],
+          IWORK(1),
           TRYRAC,
-          WORK[N + 1],
+          WORK(N + 1),
           LWORK - N,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           LIWORK - 2 * N,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1743,13 +1748,13 @@ void dchkst(
           Z,
           LDU,
           N,
-          IWORK[1],
+          IWORK(1),
           TRYRAC,
-          WORK[N + 1],
+          WORK(N + 1),
           LWORK - N,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           LIWORK - 2 * N,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);

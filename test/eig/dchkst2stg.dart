@@ -77,7 +77,7 @@ void dchkst2stg(
   const MAXTYP = 21;
   const SRANGE = false;
   const SREL = false;
-  bool BADNN, TRYRAC;
+  bool BADNN;
   int I,
       IL,
       IMODE,
@@ -93,9 +93,6 @@ void dchkst2stg(
       LIWEDC,
       LOG2UI,
       LWEDC,
-      M = 0,
-      M2 = 0,
-      M3 = 0,
       MTYPES,
       N,
       NAP,
@@ -103,7 +100,6 @@ void dchkst2stg(
       NERRS,
       NMATS,
       NMAX,
-      NSPLIT = 0,
       NTEST,
       NTESTT,
       LH,
@@ -135,7 +131,8 @@ void dchkst2stg(
   final KMODE = Array.fromList(
     [0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3],
   );
-  final IINFO = Box(0);
+  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0), NSPLIT = Box(0);
+  final TRYRAC = Box(true);
 
   // Keep ftnchek happy
   IDUMMA[1] = 1;
@@ -148,7 +145,6 @@ void dchkst2stg(
   // Important constants
 
   BADNN = false;
-  TRYRAC = true;
   NMAX = 1;
   for (J = 1; J <= NSIZES; J++) {
     NMAX = max(NMAX, NN[J]);
@@ -539,7 +535,16 @@ void dchkst2stg(
         dcopy(N, SD, 1, D1, 1);
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-        dsteqr('N', N, D1, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
+        dsteqr(
+          'N',
+          N,
+          D1,
+          WORK,
+          WORK(N + 1).asMatrix(LDU),
+          LDU,
+          WORK(N + 1),
+          IINFO,
+        );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
@@ -572,7 +577,7 @@ void dchkst2stg(
           TAU,
           WORK,
           LH,
-          WORK[LH + 1],
+          WORK(LH + 1),
           LW,
           IINFO,
         );
@@ -582,7 +587,16 @@ void dchkst2stg(
         dcopy(N, SD, 1, D2, 1);
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-        dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
+        dsteqr(
+          'N',
+          N,
+          D2,
+          WORK,
+          WORK(N + 1).asMatrix(LDU),
+          LDU,
+          WORK(N + 1),
+          IINFO,
+        );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
@@ -613,7 +627,7 @@ void dchkst2stg(
           TAU,
           WORK,
           LH,
-          WORK[LH + 1],
+          WORK(LH + 1),
           LW,
           IINFO,
         );
@@ -623,7 +637,16 @@ void dchkst2stg(
         dcopy(N, SD, 1, D3, 1);
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-        dsteqr('N', N, D3, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
+        dsteqr(
+          'N',
+          N,
+          D3,
+          WORK,
+          WORK(N + 1).asMatrix(LDU),
+          LDU,
+          WORK(N + 1),
+          IINFO,
+        );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
@@ -753,7 +776,7 @@ void dchkst2stg(
         dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
         NTEST = 9;
-        dsteqr('V', N, D1, WORK, Z, LDU, WORK[N + 1], IINFO);
+        dsteqr('V', N, D1, WORK, Z, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
@@ -771,7 +794,16 @@ void dchkst2stg(
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
         NTEST = 11;
-        dsteqr('N', N, D2, WORK, WORK[N + 1], LDU, WORK[N + 1], IINFO);
+        dsteqr(
+          'N',
+          N,
+          D2,
+          WORK,
+          WORK(N + 1).asMatrix(LDU),
+          LDU,
+          WORK(N + 1),
+          IINFO,
+        );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = IINFO.value.abs();
@@ -847,7 +879,7 @@ void dchkst2stg(
           dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
           NTEST = 14;
-          dpteqr('V', N, D4, WORK, Z, LDU, WORK[N + 1], IINFO);
+          dpteqr('V', N, D4, WORK, Z, LDU, WORK(N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
@@ -869,7 +901,7 @@ void dchkst2stg(
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
           NTEST = 16;
-          dpteqr('N', N, D5, WORK, Z, LDU, WORK[N + 1], IINFO);
+          dpteqr('N', N, D5, WORK, Z, LDU, WORK(N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = IINFO.value.abs();
@@ -923,10 +955,10 @@ void dchkst2stg(
             M,
             NSPLIT,
             WR,
-            IWORK[1],
-            IWORK[N + 1],
+            IWORK(1),
+            IWORK(N + 1),
             WORK,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             IINFO,
           );
           if (IINFO.value != 0) {
@@ -979,10 +1011,10 @@ void dchkst2stg(
           M,
           NSPLIT,
           WA1,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           WORK,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           IINFO,
         );
         if (IINFO.value != 0) {
@@ -1038,10 +1070,10 @@ void dchkst2stg(
           M2,
           NSPLIT,
           WA2,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           WORK,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           IINFO,
         );
         if (IINFO.value != 0) {
@@ -1098,10 +1130,10 @@ void dchkst2stg(
           M3,
           NSPLIT,
           WA3,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           WORK,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           IINFO,
         );
         if (IINFO.value != 0) {
@@ -1115,15 +1147,15 @@ void dchkst2stg(
           }
         }
 
-        if (M3 == 0 && N != 0) {
+        if (M3.value == 0 && N != 0) {
           RESULT[19] = ULPINV;
           break failed;
         }
 
         // Do test 19
 
-        TEMP1 = dsxt1(1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL);
-        TEMP2 = dsxt1(1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL);
+        TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+        TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
         if (N > 0) {
           TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
         } else {
@@ -1151,10 +1183,10 @@ void dchkst2stg(
           M,
           NSPLIT,
           WA1,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           WORK,
-          IWORK[2 * N + 1],
+          IWORK(2 * N + 1),
           IINFO,
         );
         if (IINFO.value != 0) {
@@ -1173,15 +1205,15 @@ void dchkst2stg(
           N,
           SD,
           SE,
-          M,
+          M.value,
           WA1,
-          IWORK[1],
-          IWORK[N + 1],
+          IWORK(1),
+          IWORK(N + 1),
           Z,
           LDU,
           WORK,
-          IWORK[2 * N + 1],
-          IWORK[3 * N + 1],
+          IWORK(2 * N + 1),
+          IWORK(3 * N + 1),
           IINFO,
         );
         if (IINFO.value != 0) {
@@ -1216,7 +1248,7 @@ void dchkst2stg(
           WORK,
           Z,
           LDU,
-          WORK[N + 1],
+          WORK(N + 1),
           LWEDC - N,
           IWORK,
           LIWEDC,
@@ -1253,7 +1285,7 @@ void dchkst2stg(
           WORK,
           Z,
           LDU,
-          WORK[N + 1],
+          WORK(N + 1),
           LWEDC - N,
           IWORK,
           LIWEDC,
@@ -1290,7 +1322,7 @@ void dchkst2stg(
           WORK,
           Z,
           LDU,
-          WORK[N + 1],
+          WORK(N + 1),
           LWEDC - N,
           IWORK,
           LIWEDC,
@@ -1351,17 +1383,23 @@ void dchkst2stg(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
               WORK,
               LWORK,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LWORK - 2 * N,
               IINFO,
             );
             if (IINFO.value != 0) {
               print9999(
-                  NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                NOUNIT,
+                'DSTEMR(V,A,rel)',
+                IINFO.value,
+                N,
+                JTYPE,
+                IOLDSD,
+              );
               INFO.value = IINFO.value.abs();
               if (IINFO.value < 0) {
                 return;
@@ -1415,18 +1453,24 @@ void dchkst2stg(
                 Z,
                 LDU,
                 N,
-                IWORK[1],
+                IWORK(1),
                 TRYRAC,
                 WORK,
                 LWORK,
-                IWORK[2 * N + 1],
+                IWORK(2 * N + 1),
                 LWORK - 2 * N,
                 IINFO,
               );
 
               if (IINFO.value != 0) {
                 print9999(
-                    NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                  NOUNIT,
+                  'DSTEMR(V,I,rel)',
+                  IINFO.value,
+                  N,
+                  JTYPE,
+                  IOLDSD,
+                );
                 INFO.value = IINFO.value.abs();
                 if (IINFO.value < 0) {
                   return;
@@ -1495,11 +1539,11 @@ void dchkst2stg(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
-              WORK[N + 1],
+              WORK(N + 1),
               LWORK - N,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LIWORK - 2 * N,
               IINFO,
             );
@@ -1541,11 +1585,11 @@ void dchkst2stg(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
-              WORK[N + 1],
+              WORK(N + 1),
               LWORK - N,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LIWORK - 2 * N,
               IINFO,
             );
@@ -1623,11 +1667,11 @@ void dchkst2stg(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
-              WORK[N + 1],
+              WORK(N + 1),
               LWORK - N,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LIWORK - 2 * N,
               IINFO,
             );
@@ -1669,11 +1713,11 @@ void dchkst2stg(
               Z,
               LDU,
               N,
-              IWORK[1],
+              IWORK(1),
               TRYRAC,
-              WORK[N + 1],
+              WORK(N + 1),
               LWORK - N,
-              IWORK[2 * N + 1],
+              IWORK(2 * N + 1),
               LIWORK - 2 * N,
               IINFO,
             );
@@ -1732,11 +1776,11 @@ void dchkst2stg(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
             IINFO,
           );
@@ -1778,11 +1822,11 @@ void dchkst2stg(
             Z,
             LDU,
             N,
-            IWORK[1],
+            IWORK(1),
             TRYRAC,
-            WORK[N + 1],
+            WORK(N + 1),
             LWORK - N,
-            IWORK[2 * N + 1],
+            IWORK(2 * N + 1),
             LIWORK - 2 * N,
             IINFO,
           );

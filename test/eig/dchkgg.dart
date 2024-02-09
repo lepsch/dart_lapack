@@ -264,12 +264,12 @@ void dchkgg(
             dlatm4(
               KATYPE[JTYPE],
               IN.value,
-              KZ1(KAZERO[JTYPE]),
-              KZ2(KAZERO[JTYPE]),
+              KZ1[KAZERO[JTYPE]],
+              KZ2[KAZERO[JTYPE]],
               IASIGN[JTYPE],
-              RMAGN(KAMAGN[JTYPE]),
+              RMAGN[KAMAGN[JTYPE]],
               ULP,
-              RMAGN(KTRIAN[JTYPE] * KAMAGN[JTYPE]),
+              RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
               2,
               ISEED,
               A,
@@ -289,12 +289,12 @@ void dchkgg(
             dlatm4(
               KBTYPE[JTYPE],
               IN.value,
-              KZ1(KBZERO[JTYPE]),
-              KZ2(KBZERO[JTYPE]),
+              KZ1[KBZERO[JTYPE]],
+              KZ2[KBZERO[JTYPE]],
               IBSIGN[JTYPE],
-              RMAGN(KBMAGN[JTYPE]),
+              RMAGN[KBMAGN[JTYPE]],
               ONE,
-              RMAGN(KTRIAN[JTYPE] * KBMAGN[JTYPE]),
+              RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
               2,
               ISEED,
               B,
@@ -359,8 +359,8 @@ void dchkgg(
                 WORK,
                 A,
                 LDA,
-                WORK[2 * N + 1],
-                IINFO.value,
+                WORK(2 * N + 1),
+                IINFO,
               );
               if (IINFO.value != 0) break;
               dorm2r(
@@ -371,11 +371,11 @@ void dchkgg(
                 N - 1,
                 V,
                 LDU,
-                WORK[N + 1],
+                WORK(N + 1),
                 A,
                 LDA,
-                WORK[2 * N + 1],
-                IINFO.value,
+                WORK(2 * N + 1),
+                IINFO,
               );
               if (IINFO.value != 0) break;
               dorm2r(
@@ -389,8 +389,8 @@ void dchkgg(
                 WORK,
                 B,
                 LDA,
-                WORK[2 * N + 1],
-                IINFO.value,
+                WORK(2 * N + 1),
+                IINFO,
               );
               if (IINFO.value != 0) break;
               dorm2r(
@@ -401,11 +401,11 @@ void dchkgg(
                 N - 1,
                 V,
                 LDU,
-                WORK[N + 1],
+                WORK(N + 1),
                 B,
                 LDA,
-                WORK[2 * N + 1],
-                IINFO.value,
+                WORK(2 * N + 1),
+                IINFO,
               );
               if (IINFO.value != 0) break;
             }
@@ -446,7 +446,7 @@ void dchkgg(
           break;
         }
 
-        dorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK[N + 1], IINFO);
+        dorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORM2R', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -454,7 +454,7 @@ void dchkgg(
         }
 
         dlaset('Full', N, N, ZERO, ONE, U, LDU);
-        dorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK[N + 1], IINFO);
+        dorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORM2R', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -471,10 +471,10 @@ void dchkgg(
 
         // Do tests 1--4
 
-        dget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT[1]);
-        dget51(1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT[2]);
-        dget51(3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT[3]);
-        dget51(3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT[4]);
+        dget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT.box(1));
+        dget51(1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT.box(2));
+        dget51(3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT.box(3));
+        dget51(3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT.box(4));
 
         // Call DHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 
@@ -487,28 +487,8 @@ void dchkgg(
         NTEST = 5;
         RESULT[5] = ULPINV;
 
-        dhgeqz(
-          'E',
-          'N',
-          'N',
-          N,
-          1,
-          N,
-          S2,
-          LDA,
-          P2,
-          LDA,
-          ALPHR3,
-          ALPHI3,
-          BETA3,
-          Q,
-          LDU,
-          Z,
-          LDU,
-          WORK,
-          LWORK,
-          IINFO,
-        );
+        dhgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3,
+            Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(E)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -520,28 +500,8 @@ void dchkgg(
         dlacpy(' ', N, N, H, LDA, S2, LDA);
         dlacpy(' ', N, N, T, LDA, P2, LDA);
 
-        dhgeqz(
-          'S',
-          'N',
-          'N',
-          N,
-          1,
-          N,
-          S2,
-          LDA,
-          P2,
-          LDA,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          Q,
-          LDU,
-          Z,
-          LDU,
-          WORK,
-          LWORK,
-          IINFO,
-        );
+        dhgeqz('S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1,
+            Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(S)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -553,28 +513,8 @@ void dchkgg(
         dlacpy(' ', N, N, H, LDA, S1, LDA);
         dlacpy(' ', N, N, T, LDA, P1, LDA);
 
-        dhgeqz(
-          'S',
-          'I',
-          'I',
-          N,
-          1,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          Q,
-          LDU,
-          Z,
-          LDU,
-          WORK,
-          LWORK,
-          IINFO,
-        );
+        dhgeqz('S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1,
+            Q, LDU, Z, LDU, WORK, LWORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHGEQZ(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -585,10 +525,10 @@ void dchkgg(
 
         // Do Tests 5--8
 
-        dget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT[5]);
-        dget51(1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT[6]);
-        dget51(3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT[7]);
-        dget51(3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT[8]);
+        dget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT.box(5));
+        dget51(1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT.box(6));
+        dget51(3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT.box(7));
+        dget51(3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT.box(8));
 
         // Compute the Left and Right Eigenvectors of (S1,P1)
 
@@ -609,24 +549,8 @@ void dchkgg(
           LLWORK[J] = false;
         }
 
-        dtgevc(
-          'L',
-          'S',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          EVECTL,
-          LDU,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU,
+            DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,S1)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -641,56 +565,20 @@ void dchkgg(
           LLWORK[J] = true;
         }
 
-        dtgevc(
-          'L',
-          'S',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          EVECTL(1, I1 + 1),
-          LDU,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL(1, I1 + 1), LDU,
+            DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,S2)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
 
-        dget52(
-          true,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          EVECTL,
-          LDU,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          WORK,
-          DUMMA[1],
-        );
+        dget52(true, N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1,
+            WORK, DUMMA);
         RESULT[9] = DUMMA[1];
         if (DUMMA[2] > THRSHN) {
           print9998(
-            NOUNIT,
-            'Left',
-            'DTGEVC(HOWMNY=S)',
-            DUMMA[2],
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUNIT, 'Left', 'DTGEVC(HOWMNY=S)', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // 10: Compute the left eigenvector Matrix with
@@ -699,56 +587,20 @@ void dchkgg(
         NTEST = 10;
         RESULT[10] = ULPINV;
         dlacpy('F', N, N, Q, LDU, EVECTL, LDU);
-        dtgevc(
-          'L',
-          'B',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          EVECTL,
-          LDU,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU,
+            DUMMA.asMatrix(LDU), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(L,B)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
 
-        dget52(
-          true,
-          N,
-          H,
-          LDA,
-          T,
-          LDA,
-          EVECTL,
-          LDU,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          WORK,
-          DUMMA[1],
-        );
+        dget52(true, N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1,
+            WORK, DUMMA);
         RESULT[10] = DUMMA[1];
         if (DUMMA[2] > THRSHN) {
           print9998(
-            NOUNIT,
-            'Left',
-            'DTGEVC(HOWMNY=B)',
-            DUMMA[2],
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUNIT, 'Left', 'DTGEVC(HOWMNY=B)', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // 11: Compute the right eigenvector Matrix without
@@ -768,24 +620,8 @@ void dchkgg(
           LLWORK[J] = false;
         }
 
-        dtgevc(
-          'R',
-          'S',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          EVECTR,
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA.asMatrix(LDU), LDU,
+            EVECTR, LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,S1)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -800,45 +636,16 @@ void dchkgg(
           LLWORK[J] = true;
         }
 
-        dtgevc(
-          'R',
-          'S',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          EVECTR(1, I1 + 1),
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA.asMatrix(LDU), LDU,
+            EVECTR(1, I1 + 1), LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,S2)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
 
-        dget52(
-          false,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          EVECTR,
-          LDU,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          WORK,
-          DUMMA[1],
-        );
+        dget52(false, N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1,
+            WORK, DUMMA);
         RESULT[11] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
           print9998(
@@ -858,45 +665,16 @@ void dchkgg(
         NTEST = 12;
         RESULT[12] = ULPINV;
         dlacpy('F', N, N, Z, LDU, EVECTR, LDU);
-        dtgevc(
-          'R',
-          'B',
-          LLWORK,
-          N,
-          S1,
-          LDA,
-          P1,
-          LDA,
-          DUMMA.asMatrix(LDU),
-          LDU,
-          EVECTR,
-          LDU,
-          N,
-          IN,
-          WORK,
-          IINFO,
-        );
+        dtgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA.asMatrix(LDU), LDU,
+            EVECTR, LDU, N, IN, WORK, IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTGEVC(R,B)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           break;
         }
 
-        dget52(
-          false,
-          N,
-          H,
-          LDA,
-          T,
-          LDA,
-          EVECTR,
-          LDU,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          WORK,
-          DUMMA[1],
-        );
+        dget52(false, N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1,
+            WORK, DUMMA);
         RESULT[12] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
           print9998(
@@ -915,8 +693,8 @@ void dchkgg(
         if (TSTDIF) {
           // Do Tests 13--14
 
-          dget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT[13]);
-          dget51(2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT[14]);
+          dget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT.box(13));
+          dget51(2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT.box(14));
 
           // Do Test 15
 

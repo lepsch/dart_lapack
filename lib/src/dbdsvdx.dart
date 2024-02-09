@@ -64,8 +64,7 @@ void dbdsvdx(
       K,
       NTGK = 0,
       NRU,
-      NRV,
-      NSL = 0;
+      NRV;
   double ABSTOL,
       EPS,
       EMIN,
@@ -82,6 +81,7 @@ void dbdsvdx(
       VLTGK,
       VUTGK,
       ZJTJI;
+  final NSL = Box(0);
 
   // Test the input parameters.
 
@@ -230,21 +230,21 @@ void dbdsvdx(
       'N',
       'V',
       N * 2,
-      WORK[IDTGK],
-      WORK[IETGK],
+      WORK(IDTGK),
+      WORK(IETGK),
       VLTGK,
       VUTGK,
       ILTGK,
       ILTGK,
       ABSTOL,
-      NS.value,
+      NS,
       S,
       Z,
       LDZ,
-      WORK[ITEMP],
-      IWORK[IIWORK],
-      IWORK[IIFAIL],
-      INFO.value,
+      WORK(ITEMP),
+      IWORK(IIWORK),
+      IWORK(IIFAIL),
+      INFO,
     );
     if (NS.value == 0) {
       return;
@@ -271,21 +271,21 @@ void dbdsvdx(
       'N',
       'I',
       N * 2,
-      WORK[IDTGK],
-      WORK[IETGK],
+      WORK(IDTGK),
+      WORK(IETGK),
       VLTGK,
       VLTGK,
       ILTGK,
       ILTGK,
       ABSTOL,
-      NS.value,
+      NS,
       S,
       Z,
       LDZ,
-      WORK[ITEMP],
-      IWORK[IIWORK],
-      IWORK[IIFAIL],
-      INFO.value,
+      WORK(ITEMP),
+      IWORK(IIWORK),
+      IWORK(IIFAIL),
+      INFO,
     );
     VLTGK = S[1] - FUDGE * SMAX * ULP * N;
     for (var i = IDTGK; i <= IDTGK + 2 * N - 1; i++) {
@@ -297,21 +297,21 @@ void dbdsvdx(
       'N',
       'I',
       N * 2,
-      WORK[IDTGK],
-      WORK[IETGK],
+      WORK(IDTGK),
+      WORK(IETGK),
       VUTGK,
       VUTGK,
       IUTGK,
       IUTGK,
       ABSTOL,
-      NS.value,
+      NS,
       S,
       Z,
       LDZ,
-      WORK[ITEMP],
-      IWORK[IIWORK],
-      IWORK[IIFAIL],
-      INFO.value,
+      WORK(ITEMP),
+      IWORK(IIWORK),
+      IWORK(IIFAIL),
+      INFO,
     );
     VUTGK = S[1] + FUDGE * SMAX * ULP * N;
     VUTGK = min(VUTGK, ZERO);
@@ -442,29 +442,29 @@ void dbdsvdx(
             JOBZ,
             RNGVX,
             NTGK,
-            WORK[IDTGK + ISPLT - 1],
-            WORK[IETGK + ISPLT - 1],
+            WORK(IDTGK + ISPLT - 1),
+            WORK(IETGK + ISPLT - 1),
             VLTGK,
             VUTGK,
             ILTGK,
             IUTGK,
             ABSTOL,
             NSL,
-            S[ISBEG],
-            Z[IROWZ][ICOLZ],
+            S(ISBEG),
+            Z(IROWZ, ICOLZ),
             LDZ,
-            WORK[ITEMP],
-            IWORK[IIWORK],
-            IWORK[IIFAIL],
-            INFO.value,
+            WORK(ITEMP),
+            IWORK(IIWORK),
+            IWORK(IIFAIL),
+            INFO,
           );
           if (INFO.value != 0) {
             // Exit with the error code from DSTEVX.
             return;
           }
-          EMIN = S.maxval(ISBEG, ISBEG + NSL - 1).abs();
+          EMIN = S.maxval(ISBEG, ISBEG + NSL.value - 1).abs();
 
-          if (NSL > 0 && WANTZ) {
+          if (NSL.value > 0 && WANTZ) {
             // Normalize u=Z[[2,4,...]][:] and v=Z[[1,3,...]][:],
             // changing the sign of v as discussed in the leading
             // comments. The norms of u and v may be (slightly)
@@ -473,7 +473,7 @@ void dbdsvdx(
             // those norms and, if needed, reorthogonalize the
             // vectors.
 
-            if (NSL > 1 &&
+            if (NSL.value > 1 &&
                 VUTGK == ZERO &&
                 (NTGK % 2) == 0 &&
                 EMIN == 0 &&
@@ -484,18 +484,18 @@ void dbdsvdx(
               // eigenvalues.
 
               for (var i = IROWZ; i <= IROWZ + NTGK - 1; i++) {
-                Z[i][ICOLZ + NSL - 2] =
-                    Z[i][ICOLZ + NSL - 2] + Z[i][ICOLZ + NSL - 1];
-                Z[i][ICOLZ + NSL - 1] = ZERO;
+                Z[i][ICOLZ + NSL.value - 2] =
+                    Z[i][ICOLZ + NSL.value - 2] + Z[i][ICOLZ + NSL.value - 1];
+                Z[i][ICOLZ + NSL.value - 1] = ZERO;
               }
 
               // if( IUTGK*2 > NTGK ) THEN
               // Eigenvalue equal to zero or very small.
-              // NSL = NSL - 1
+              // NSL.value = NSL.value - 1
               // END if
             }
 
-            for (I = 0; I <= min(NSL - 1, NRU - 1); I++) {
+            for (I = 0; I <= min(NSL.value - 1, NRU - 1); I++) {
               NRMU = dnrm2(NRU, Z(IROWU, ICOLZ + I).asArray(), 2);
               if (NRMU == ZERO) {
                 INFO.value = N * 2 + 1;
@@ -524,7 +524,7 @@ void dbdsvdx(
                 dscal(NRU, ONE / NRMU, Z(IROWU, ICOLZ + I).asArray(), 2);
               }
             }
-            for (I = 0; I <= min(NSL - 1, NRV - 1); I++) {
+            for (I = 0; I <= min(NSL.value - 1, NRV - 1); I++) {
               NRMV = dnrm2(NRV, Z(IROWV, ICOLZ + I).asArray(), 2);
               if (NRMV == ZERO) {
                 INFO.value = N * 2 + 1;
@@ -562,30 +562,30 @@ void dbdsvdx(
               SPLIT = true;
 
               for (var i = IROWZ; i <= IROWZ + NTGK - 1; i++) {
-                Z[i][N + 1] = Z[i][NS.value + NSL];
-                Z[i][NS.value + NSL] = ZERO;
+                Z[i][N + 1] = Z[i][NS.value + NSL.value];
+                Z[i][NS.value + NSL.value] = ZERO;
               }
             }
           } // !** WANTZ **!;
 
-          NSL = min(NSL, NRU);
+          NSL.value = min(NSL.value, NRU);
           SVEQ0 = false;
 
           // Absolute values of the eigenvalues of TGK.
 
-          for (I = 0; I <= NSL - 1; I++) {
+          for (I = 0; I <= NSL.value - 1; I++) {
             S[ISBEG + I] = (S[ISBEG + I]).abs();
           }
 
           // Update pointers for TGK, S and Z.
 
-          ISBEG = ISBEG + NSL;
+          ISBEG = ISBEG + NSL.value;
           IROWZ = IROWZ + NTGK;
-          ICOLZ = ICOLZ + NSL;
+          ICOLZ = ICOLZ + NSL.value;
           IROWU = IROWZ;
           IROWV = IROWZ + 1;
           ISPLT = IDPTR + 1;
-          NS.value = NS.value + NSL;
+          NS.value = NS.value + NSL.value;
           NRU = 0;
           NRV = 0;
         } // !** NTGK > 0 **!;

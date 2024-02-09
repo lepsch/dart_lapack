@@ -1,504 +1,637 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dgemm.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlaqr1.dart';
+import 'package:lapack/src/dlarfg.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlaqr5(WANTT, WANTZ, KACC22, N, KTOP, KBOT, NSHFTS, SR, SI, H, LDH, ILOZ, IHIZ, Z, LDZ, V, LDV, U, LDU, NV, WV, LDWV, NH, WH, LDWH ) {
+void dlaqr5(
+  final bool WANTT,
+  final bool WANTZ,
+  final int KACC22,
+  final int N,
+  final int KTOP,
+  final int KBOT,
+  final int NSHFTS,
+  final Array<double> SR,
+  final Array<double> SI,
+  final Matrix<double> H,
+  final int LDH,
+  final int ILOZ,
+  final int IHIZ,
+  final Matrix<double> Z,
+  final int LDZ,
+  final Matrix<double> V,
+  final int LDV,
+  final Matrix<double> U,
+  final int LDU,
+  final int NV,
+  final Matrix<double> WV,
+  final int LDWV,
+  final int NH,
+  final Matrix<double> WH,
+  final int LDWH,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV;
-      bool               WANTT, WANTZ;
-      double             H( LDH, * ), SI( * ), SR( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  double H11,
+      H12,
+      H21,
+      H22,
+      REFSUM,
+      // SAFMAX,
+      SAFMIN,
+      SCL,
+      SMLNUM,
+      SWAP,
+      T1,
+      T2,
+      T3,
+      TST1,
+      TST2,
+      ULP;
+  int I,
+      I2,
+      I4,
+      INCOL,
+      J,
+      JBOT,
+      JCOL,
+      JLEN,
+      JROW,
+      JTOP,
+      K,
+      K1,
+      KDU,
+      KMS,
+      KRCOL,
+      M,
+      M22,
+      MBOT,
+      MTOP,
+      NBMPS,
+      NDCOL,
+      NS,
+      NU;
+  bool ACCUM, BMP22;
+  final VT = Array<double>(3);
+  final ALPHA = Box(0.0), BETA = Box(0.0);
 
-// ================================================================
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             ALPHA, BETA, H11, H12, H21, H22, REFSUM, SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, T1, T2, T3, TST1, TST2, ULP;
-      int                I, I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;
-      bool               ACCUM, BMP22;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
+  // ==== If there are no shifts, then there is nothing to do. ====
 
-      // INTRINSIC ABS, DBLE, MAX, MIN, MOD
-      double             VT( 3 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DLACPY, DLAQR1, DLARFG, DLASET, DTRMM
+  if (NSHFTS < 2) return;
 
-      // ==== If there are no shifts, then there is nothing to do. ====
+  // ==== If the active block is empty or 1-by-1, then there
+  // .    is nothing to do. ====
 
-      if (NSHFTS < 2) return;
+  if (KTOP >= KBOT) return;
 
-      // ==== If the active block is empty or 1-by-1, then there
-      // .    is nothing to do. ====
+  // ==== Shuffle shifts into pairs of real shifts and pairs
+  // .    of complex conjugate shifts assuming complex
+  // .    conjugate shifts are already adjacent to one
+  // .    another. ====
 
-      if (KTOP >= KBOT) return;
+  for (I = 1; 2 < 0 ? I >= NSHFTS - 2 : I <= NSHFTS - 2; I += 2) {
+    if (SI[I] != -SI[I + 1]) {
+      SWAP = SR[I];
+      SR[I] = SR[I + 1];
+      SR[I + 1] = SR[I + 2];
+      SR[I + 2] = SWAP;
 
-      // ==== Shuffle shifts into pairs of real shifts and pairs
-      // .    of complex conjugate shifts assuming complex
-      // .    conjugate shifts are already adjacent to one
-      // .    another. ====
+      SWAP = SI[I];
+      SI[I] = SI[I + 1];
+      SI[I + 1] = SI[I + 2];
+      SI[I + 2] = SWAP;
+    }
+  }
 
-      for (I = 1; 2 < 0 ? I >= NSHFTS - 2 : I <= NSHFTS - 2; I += 2) { // 10
-         if ( SI( I ) != -SI( I+1 ) ) {
+  // ==== NSHFTS is supposed to be even, but if it is odd,
+  // .    then simply reduce it by one.  The shuffle above
+  // .    ensures that the dropped shift is real and that
+  // .    the remaining shifts are paired. ====
 
-            SWAP = SR( I );
-            SR[I] = SR( I+1 );
-            SR[I+1] = SR( I+2 );
-            SR[I+2] = SWAP;
+  NS = NSHFTS - (NSHFTS % 2);
 
-            SWAP = SI( I );
-            SI[I] = SI( I+1 );
-            SI[I+1] = SI( I+2 );
-            SI[I+2] = SWAP;
-         }
-      } // 10
+  // ==== Machine constants for deflation ====
 
-      // ==== NSHFTS is supposed to be even, but if it is odd,
-      // .    then simply reduce it by one.  The shuffle above
-      // .    ensures that the dropped shift is real and that
-      // .    the remaining shifts are paired. ====
+  SAFMIN = dlamch('SAFE MINIMUM');
+  // SAFMAX = ONE / SAFMIN;
+  ULP = dlamch('PRECISION');
+  SMLNUM = SAFMIN * (N.toDouble() / ULP);
 
-      NS = NSHFTS - (NSHFTS % 2);
+  // ==== Use accumulated reflections to update far-from-diagonal
+  // .    entries ? ====
 
-      // ==== Machine constants for deflation ====
+  ACCUM = (KACC22 == 1) || (KACC22 == 2);
 
-      SAFMIN = dlamch( 'SAFE MINIMUM' );
-      SAFMAX = ONE / SAFMIN;
-      ULP = dlamch( 'PRECISION' );
-      SMLNUM = SAFMIN*( N.toDouble() / ULP );
+  // ==== clear trash ====
 
-      // ==== Use accumulated reflections to update far-from-diagonal
-      // .    entries ? ====
+  if (KTOP + 2 <= KBOT) H[KTOP + 2][KTOP] = ZERO;
 
-      ACCUM = ( KACC22 == 1 ) || ( KACC22 == 2 );
+  // ==== NBMPS = number of 2-shift bulges in the chain ====
 
-      // ==== clear trash ====
+  NBMPS = NS ~/ 2;
 
-      if (KTOP+2 <= KBOT) H( KTOP+2, KTOP ) = ZERO;
+  // ==== KDU = width of slab ====
 
-      // ==== NBMPS = number of 2-shift bulges in the chain ====
+  KDU = 4 * NBMPS;
 
-      NBMPS = NS / 2;
+  // ==== Create and chase chains of NBMPS bulges ====
 
-      // ==== KDU = width of slab ====
+  for (INCOL = KTOP - 2 * NBMPS + 1;
+      2 * NBMPS < 0 ? INCOL >= KBOT - 2 : INCOL <= KBOT - 2;
+      INCOL += 2 * NBMPS) {
+    // JTOP = Index from which updates from the right start.
 
-      KDU = 4*NBMPS;
+    if (ACCUM) {
+      JTOP = max(KTOP, INCOL);
+    } else if (WANTT) {
+      JTOP = 1;
+    } else {
+      JTOP = KTOP;
+    }
 
-      // ==== Create and chase chains of NBMPS bulges ====
+    NDCOL = INCOL + KDU;
+    if (ACCUM) dlaset('ALL', KDU, KDU, ZERO, ONE, U, LDU);
 
-      for (INCOL = KTOP - 2*NBMPS + 1; 2*NBMPS < 0 ? INCOL >= KBOT - 2 : INCOL <= KBOT - 2; INCOL += 2*NBMPS) { // 180
+    // ==== Near-the-diagonal bulge chase.  The following loop
+    // .    performs the near-the-diagonal part of a small bulge
+    // .    multi-shift QR sweep.  Each 4*NBMPS column diagonal
+    // .    chunk extends from column INCOL to column NDCOL
+    // .    (including both column INCOL and column NDCOL). The
+    // .    following loop chases a 2*NBMPS+1 column long chain of
+    // .    NBMPS bulges 2*NBMPS columns to the right.  (INCOL
+    // .    may be less than KTOP and and NDCOL may be greater than
+    // .    KBOT indicating phantom columns from which to chase
+    // .    bulges before they are actually introduced or to which
+    // .    to chase bulges beyond column KBOT.)  ====
 
-         // JTOP = Index from which updates from the right start.
+    for (KRCOL = INCOL;
+        KRCOL <= min(INCOL + 2 * NBMPS - 1, KBOT - 2);
+        KRCOL++) {
+      // ==== Bulges number MTOP to MBOT are active double implicit
+      // .    shift bulges.  There may or may not also be small
+      // .    2-by-2 bulge, if there is room.  The inactive bulges
+      // .    (if any) must wait until the active bulges have moved
+      // .    down the diagonal to make room.  The phantom matrix
+      // .    paradigm described above helps keep track.  ====
 
-         if ( ACCUM ) {
-            JTOP = max( KTOP, INCOL );
-         } else if ( WANTT ) {
-            JTOP = 1;
-         } else {
-            JTOP = KTOP;
-         }
+      MTOP = max(1, (KTOP - KRCOL) ~/ 2 + 1);
+      MBOT = min(NBMPS, (KBOT - KRCOL - 1) ~/ 2);
+      M22 = MBOT + 1;
+      BMP22 = (MBOT < NBMPS) && (KRCOL + 2 * (M22 - 1)) == (KBOT - 2);
 
-         NDCOL = INCOL + KDU;
-         if (ACCUM) dlaset( 'ALL', KDU, KDU, ZERO, ONE, U, LDU );
+      // ==== Generate reflections to chase the chain right
+      // .    one column.  (The minimum value of K is KTOP-1.) ====
 
-         // ==== Near-the-diagonal bulge chase.  The following loop
-         // .    performs the near-the-diagonal part of a small bulge
-         // .    multi-shift QR sweep.  Each 4*NBMPS column diagonal
-         // .    chunk extends from column INCOL to column NDCOL
-         // .    (including both column INCOL and column NDCOL). The
-         // .    following loop chases a 2*NBMPS+1 column long chain of
-         // .    NBMPS bulges 2*NBMPS columns to the right.  (INCOL
-         // .    may be less than KTOP and and NDCOL may be greater than
-         // .    KBOT indicating phantom columns from which to chase
-         // .    bulges before they are actually introduced or to which
-         // .    to chase bulges beyond column KBOT.)  ====
+      if (BMP22) {
+        // ==== Special case: 2-by-2 reflection at bottom treated
+        // .    separately ====
 
-         for (KRCOL = INCOL; KRCOL <= min( INCOL+2*NBMPS-1, KBOT-2 ); KRCOL++) { // 145
+        K = KRCOL + 2 * (M22 - 1);
+        if (K == KTOP - 1) {
+          dlaqr1(
+            2,
+            H(K + 1, K + 1),
+            LDH,
+            SR[2 * M22 - 1],
+            SI[2 * M22 - 1],
+            SR[2 * M22],
+            SI[2 * M22],
+            V(1, M22).asArray(),
+          );
+          BETA.value = V[1][M22];
+          dlarfg(2, BETA, V(2, M22).asArray(), 1, V.box(1, M22));
+        } else {
+          BETA.value = H[K + 1][K];
+          V[2][M22] = H[K + 2][K];
+          dlarfg(2, BETA, V(2, M22).asArray(), 1, V.box(1, M22));
+          H[K + 1][K] = BETA.value;
+          H[K + 2][K] = ZERO;
+        }
 
-            // ==== Bulges number MTOP to MBOT are active double implicit
-            // .    shift bulges.  There may or may not also be small
-            // .    2-by-2 bulge, if there is room.  The inactive bulges
-            // .    (if any) must wait until the active bulges have moved
-            // .    down the diagonal to make room.  The phantom matrix
-            // .    paradigm described above helps keep track.  ====
+        // ==== Perform update from right within
+        // .    computational window. ====
 
-            MTOP = max( 1, ( KTOP-KRCOL ) / 2+1 );
-            MBOT = min( NBMPS, ( KBOT-KRCOL-1 ) / 2 );
-            M22 = MBOT + 1;
-            BMP22 = ( MBOT < NBMPS ) && ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 );
+        T1 = V[1][M22];
+        T2 = T1 * V[2][M22];
+        for (J = JTOP; J <= min(KBOT, K + 3); J++) {
+          REFSUM = H[J][K + 1] + V[2][M22] * H[J][K + 2];
+          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
+          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
+        }
 
-            // ==== Generate reflections to chase the chain right
-            // .    one column.  (The minimum value of K is KTOP-1.) ====
+        // ==== Perform update from left within
+        // .    computational window. ====
 
-            if ( BMP22 ) {
+        if (ACCUM) {
+          JBOT = min(NDCOL, KBOT);
+        } else if (WANTT) {
+          JBOT = N;
+        } else {
+          JBOT = KBOT;
+        }
+        T1 = V[1][M22];
+        T2 = T1 * V[2][M22];
+        for (J = K + 1; J <= JBOT; J++) {
+          REFSUM = H[K + 1][J] + V[2][M22] * H[K + 2][J];
+          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
+          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
+        }
 
-               // ==== Special case: 2-by-2 reflection at bottom treated
-               // .    separately ====
+        // ==== The following convergence test requires that
+        // .    the tradition small-compared-to-nearby-diagonals
+        // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
+        // .    criteria both be satisfied.  The latter improves
+        // .    accuracy in some examples. Falling back on an
+        // .    alternate convergence criterion when TST1 or TST2
+        // .    is zero (as done here) is traditional but probably
+        // .    unnecessary. ====
 
-               K = KRCOL + 2*( M22-1 );
-               if ( K == KTOP-1 ) {
-                  dlaqr1(2, H( K+1, K+1 ), LDH, SR( 2*M22-1 ), SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ), V( 1, M22 ) );
-                  BETA = V( 1, M22 );
-                  dlarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
-               } else {
-                  BETA = H( K+1, K );
-                  V[2][M22] = H( K+2, K );
-                  dlarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
-                  H[K+1][K] = BETA;
-                  H[K+2][K] = ZERO;
-               }
-
-
-               // ==== Perform update from right within
-               // .    computational window. ====
-
-               T1 = V( 1, M22 );
-               T2 = T1*V( 2, M22 );
-               for (J = JTOP; J <= min( KBOT, K+3 ); J++) { // 30
-                  REFSUM = H( J, K+1 ) + V( 2, M22 )*H( J, K+2 );
-                  H[J][K+1] = H( J, K+1 ) - REFSUM*T1;
-                  H[J][K+2] = H( J, K+2 ) - REFSUM*T2;
-               } // 30
-
-               // ==== Perform update from left within
-               // .    computational window. ====
-
-               if ( ACCUM ) {
-                  JBOT = min( NDCOL, KBOT );
-               } else if ( WANTT ) {
-                  JBOT = N;
-               } else {
-                  JBOT = KBOT;
-               }
-               T1 = V( 1, M22 );
-               T2 = T1*V( 2, M22 );
-               for (J = K+1; J <= JBOT; J++) { // 40
-                  REFSUM = H( K+1, J ) + V( 2, M22 )*H( K+2, J );
-                  H[K+1][J] = H( K+1, J ) - REFSUM*T1;
-                  H[K+2][J] = H( K+2, J ) - REFSUM*T2;
-               } // 40
-
-               // ==== The following convergence test requires that
-               // .    the tradition small-compared-to-nearby-diagonals
-               // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-               // .    criteria both be satisfied.  The latter improves
-               // .    accuracy in some examples. Falling back on an
-               // .    alternate convergence criterion when TST1 or TST2
-               // .    is zero (as done here) is traditional but probably
-               // .    unnecessary. ====
-
-               if ( K >= KTOP ) {
-                  if ( H( K+1, K ) != ZERO ) {
-                     TST1 = ( H( K, K ) ).abs() + ( H( K+1, K+1 ) ).abs();
-                     if ( TST1 == ZERO ) {
-                        if (K >= KTOP+1) TST1 = TST1 + ( H( K, K-1 ) ).abs();
-                        if( K >= KTOP+2 ) TST1 = TST1 + ( H( K, K-2 ) ).abs();
-                        if( K >= KTOP+3 ) TST1 = TST1 + ( H( K, K-3 ) ).abs();
-                        if( K <= KBOT-2 ) TST1 = TST1 + ( H( K+2, K+1 ) ).abs();
-                        if( K <= KBOT-3 ) TST1 = TST1 + ( H( K+3, K+1 ) ).abs();
-                        IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
-                     }
-                     if( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
-                        H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() )                         H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() )                         H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
-                        SCL = H11 + H12;
-                        TST2 = H22*( H11 / SCL );
-
-                        if ( TST2 == ZERO || H21*( H12 / SCL ) <= max( SMLNUM, ULP*TST2 ) ) {
-                           H[K+1][K] = ZERO;
-                        }
-                     }
-                  }
-               }
-
-               // ==== Accumulate orthogonal transformations. ====
-
-               if ( ACCUM ) {
-                  KMS = K - INCOL;
-                  T1 = V( 1, M22 );
-                  T2 = T1*V( 2, M22 );
-                  for (J = max( 1, KTOP-INCOL ); J <= KDU; J++) { // 50
-                     REFSUM = U( J, KMS+1 ) + V( 2, M22 )*U( J, KMS+2 );
-                     U[J][KMS+1] = U( J, KMS+1 ) - REFSUM*T1;
-                     U[J][KMS+2] = U( J, KMS+2 ) - REFSUM*T2;
-                     } // 50
-               } else if ( WANTZ ) {
-                  T1 = V( 1, M22 );
-                  T2 = T1*V( 2, M22 );
-                  for (J = ILOZ; J <= IHIZ; J++) { // 60
-                     REFSUM = Z( J, K+1 )+V( 2, M22 )*Z( J, K+2 );
-                     Z[J][K+1] = Z( J, K+1 ) - REFSUM*T1;
-                     Z[J][K+2] = Z( J, K+2 ) - REFSUM*T2;
-                  } // 60
-               }
+        if (K >= KTOP) {
+          if (H[K + 1][K] != ZERO) {
+            TST1 = (H[K][K]).abs() + (H[K + 1][K + 1]).abs();
+            if (TST1 == ZERO) {
+              if (K >= KTOP + 1) TST1 = TST1 + (H[K][K - 1]).abs();
+              if (K >= KTOP + 2) TST1 = TST1 + (H[K][K - 2]).abs();
+              if (K >= KTOP + 3) TST1 = TST1 + (H[K][K - 3]).abs();
+              if (K <= KBOT - 2) TST1 = TST1 + (H[K + 2][K + 1]).abs();
+              if (K <= KBOT - 3) TST1 = TST1 + (H[K + 3][K + 1]).abs();
+              if (K <= KBOT - 4) TST1 = TST1 + (H[K + 4][K + 1]).abs();
             }
+            if ((H[K + 1][K]).abs() <= max(SMLNUM, ULP * TST1)) {
+              H12 = max((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
+              H21 = min((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
+              H11 = max(
+                (H[K + 1][K + 1]).abs(),
+                (H[K][K] - H[K + 1][K + 1]).abs(),
+              );
+              H22 = min(
+                (H[K + 1][K + 1]).abs(),
+                (H[K][K] - H[K + 1][K + 1]).abs(),
+              );
+              SCL = H11 + H12;
+              TST2 = H22 * (H11 / SCL);
 
-            // ==== Normal case: Chain of 3-by-3 reflections ====
-
-            for (M = MBOT; M >= MTOP; M--) { // 80
-               K = KRCOL + 2*( M-1 );
-               if ( K == KTOP-1 ) {
-                  dlaqr1(3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) );
-                  ALPHA = V( 1, M );
-                  dlarfg(3, ALPHA, V( 2, M ), 1, V( 1, M ) );
-               } else {
-
-                  // ==== Perform delayed transformation of row below
-                  // .    Mth bulge. Exploit fact that first two elements
-                  // .    of row are actually zero. ====
-
-                  T1 = V( 1, M );
-                  T2 = T1*V( 2, M );
-                  T3 = T1*V( 3, M );
-                  REFSUM = V( 3, M )*H( K+3, K+2 );
-                  H[K+3][K] = -REFSUM*T1;
-                  H[K+3][K+1] = -REFSUM*T2;
-                  H[K+3][K+2] = H( K+3, K+2 ) - REFSUM*T3;
-
-                  // ==== Calculate reflection to move
-                  // .    Mth bulge one step. ====
-
-                  BETA      = H( K+1, K );
-                  V[2][M] = H( K+2, K );
-                  V[3][M] = H( K+3, K );
-                  dlarfg(3, BETA, V( 2, M ), 1, V( 1, M ) );
-
-                  // ==== A Bulge may collapse because of vigilant
-                  // .    deflation or destructive underflow.  In the
-                  // .    underflow case, try the two-small-subdiagonals
-                  // .    trick to try to reinflate the bulge.  ====
-
-                  if ( H( K+3, K ) != ZERO || H( K+3, K+1 ) != ZERO || H( K+3, K+2 ) == ZERO ) {
-
-                     // ==== Typical case: not collapsed (yet). ====
-
-                     H[K+1][K] = BETA;
-                     H[K+2][K] = ZERO;
-                     H[K+3][K] = ZERO;
-                  } else {
-
-                     // ==== Atypical case: collapsed.  Attempt to
-                     // .    reintroduce ignoring H(K+1,K) and H(K+2,K).
-                     // .    If the fill resulting from the new
-                     // .    reflector is too large, then abandon it.
-                     // .    Otherwise, use the new one. ====
-
-                     dlaqr1(3, H( K+1, K+1 ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), VT );
-                     ALPHA = VT( 1 );
-                     dlarfg(3, ALPHA, VT( 2 ), 1, VT( 1 ) );
-                     T1 = VT( 1 );
-                     T2 = T1*VT( 2 );
-                     T3 = T1*VT( 3 );
-                     REFSUM = H( K+1, K ) + VT( 2 )*H( K+2, K );
-
-                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ( REFSUM*T3 ).abs() > ULP* ( ( H( K, K ) ).abs()+( H( K+1, K+1 ) ).abs()+( H( K+2, K+2 ) ).abs() ) ) {
-
-                        // ==== Starting a new bulge here would
-                        // .    create non-negligible fill.  Use
-                        // .    the old one with trepidation. ====
-
-                        H[K+1][K] = BETA;
-                        H[K+2][K] = ZERO;
-                        H[K+3][K] = ZERO;
-                     } else {
-
-                        // ==== Starting a new bulge here would
-                        // .    create only negligible fill.
-                        // .    Replace the old reflector with
-                        // .    the new one. ====
-
-                        H[K+1][K] = H( K+1, K ) - REFSUM*T1;
-                        H[K+2][K] = ZERO;
-                        H[K+3][K] = ZERO;
-                        V[1][M] = VT( 1 );
-                        V[2][M] = VT( 2 );
-                        V[3][M] = VT( 3 );
-                     }
-                  }
-               }
-
-               // ====  Apply reflection from the right and
-               // .     the first column of update from the left.
-               // .     These updates are required for the vigilant
-               // .     deflation check. We still delay most of the
-               // .     updates from the left for efficiency. ====
-
-               T1 = V( 1, M );
-               T2 = T1*V( 2, M );
-               T3 = T1*V( 3, M );
-               for (J = JTOP; J <= min( KBOT, K+3 ); J++) { // 70
-                  REFSUM = H( J, K+1 ) + V( 2, M )*H( J, K+2 ) + V( 3, M )*H( J, K+3 );
-                  H[J][K+1] = H( J, K+1 ) - REFSUM*T1;
-                  H[J][K+2] = H( J, K+2 ) - REFSUM*T2;
-                  H[J][K+3] = H( J, K+3 ) - REFSUM*T3;
-               } // 70
-
-               // ==== Perform update from left for subsequent
-               // .    column. ====
-
-               REFSUM = H( K+1, K+1 ) + V( 2, M )*H( K+2, K+1 ) + V( 3, M )*H( K+3, K+1 );
-               H[K+1][K+1] = H( K+1, K+1 ) - REFSUM*T1;
-               H[K+2][K+1] = H( K+2, K+1 ) - REFSUM*T2;
-               H[K+3][K+1] = H( K+3, K+1 ) - REFSUM*T3;
-
-               // ==== The following convergence test requires that
-               // .    the tradition small-compared-to-nearby-diagonals
-               // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-               // .    criteria both be satisfied.  The latter improves
-               // .    accuracy in some examples. Falling back on an
-               // .    alternate convergence criterion when TST1 or TST2
-               // .    is zero (as done here) is traditional but probably
-               // .    unnecessary. ====
-
-               if (K < KTOP) continue;
-               if ( H( K+1, K ) != ZERO ) {
-                  TST1 = ( H( K, K ) ).abs() + ( H( K+1, K+1 ) ).abs();
-                  if ( TST1 == ZERO ) {
-                     if (K >= KTOP+1) TST1 = TST1 + ( H( K, K-1 ) ).abs();
-                     if( K >= KTOP+2 ) TST1 = TST1 + ( H( K, K-2 ) ).abs();
-                     if( K >= KTOP+3 ) TST1 = TST1 + ( H( K, K-3 ) ).abs();
-                     if( K <= KBOT-2 ) TST1 = TST1 + ( H( K+2, K+1 ) ).abs();
-                     if( K <= KBOT-3 ) TST1 = TST1 + ( H( K+3, K+1 ) ).abs();
-                     IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
-                  }
-                  if ( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
-                     H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() );
-                     H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ).abs() );
-                     H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
-                     SCL = H11 + H12;
-                     TST2 = H22*( H11 / SCL );
-
-                     if ( TST2 == ZERO || H21*( H12 / SCL ) <= max( SMLNUM, ULP*TST2 ) ) {
-                        H[K+1][K] = ZERO;
-                     }
-                  }
-               }
-            } // 80
-
-            // ==== Multiply H by reflections from the left ====
-
-            if ( ACCUM ) {
-               JBOT = min( NDCOL, KBOT );
-            } else if ( WANTT ) {
-               JBOT = N;
-            } else {
-               JBOT = KBOT;
+              if (TST2 == ZERO ||
+                  H21 * (H12 / SCL) <= max(SMLNUM, ULP * TST2)) {
+                H[K + 1][K] = ZERO;
+              }
             }
+          }
+        }
 
-            for (M = MBOT; M >= MTOP; M--) { // 100
-               K = KRCOL + 2*( M-1 );
-               T1 = V( 1, M );
-               T2 = T1*V( 2, M );
-               T3 = T1*V( 3, M );
-               for (J = max( KTOP, KRCOL + 2*M ); J <= JBOT; J++) { // 90
-                  REFSUM = H( K+1, J ) + V( 2, M )*H( K+2, J ) + V( 3, M )*H( K+3, J );
-                  H[K+1][J] = H( K+1, J ) - REFSUM*T1;
-                  H[K+2][J] = H( K+2, J ) - REFSUM*T2;
-                  H[K+3][J] = H( K+3, J ) - REFSUM*T3;
-               } // 90
-            } // 100
+        // ==== Accumulate orthogonal transformations. ====
 
-            // ==== Accumulate orthogonal transformations. ====
-
-            if ( ACCUM ) {
-
-               // ==== Accumulate U. (If needed, update Z later
-               // .    with an efficient matrix-matrix
-               // .    multiply.) ====
-
-               for (M = MBOT; M >= MTOP; M--) { // 120
-                  K = KRCOL + 2*( M-1 );
-                  KMS = K - INCOL;
-                  I2 = max( 1, KTOP-INCOL );
-                  I2 = max( I2, KMS-(KRCOL-INCOL)+1 );
-                  I4 = min( KDU, KRCOL + 2*( MBOT-1 ) - INCOL + 5 );
-                  T1 = V( 1, M );
-                  T2 = T1*V( 2, M );
-                  T3 = T1*V( 3, M );
-                  for (J = I2; J <= I4; J++) { // 110
-                     REFSUM = U( J, KMS+1 ) + V( 2, M )*U( J, KMS+2 ) + V( 3, M )*U( J, KMS+3 );
-                     U[J][KMS+1] = U( J, KMS+1 ) - REFSUM*T1;
-                     U[J][KMS+2] = U( J, KMS+2 ) - REFSUM*T2;
-                     U[J][KMS+3] = U( J, KMS+3 ) - REFSUM*T3;
-                  } // 110
-               } // 120
-            } else if ( WANTZ ) {
-
-               // ==== U is not accumulated, so update Z
-               // .    now by multiplying by reflections
-               // .    from the right. ====
-
-               for (M = MBOT; M >= MTOP; M--) { // 140
-                  K = KRCOL + 2*( M-1 );
-                  T1 = V( 1, M );
-                  T2 = T1*V( 2, M );
-                  T3 = T1*V( 3, M );
-                  for (J = ILOZ; J <= IHIZ; J++) { // 130
-                     REFSUM = Z( J, K+1 ) + V( 2, M )*Z( J, K+2 ) + V( 3, M )*Z( J, K+3 );
-                     Z[J][K+1] = Z( J, K+1 ) - REFSUM*T1;
-                     Z[J][K+2] = Z( J, K+2 ) - REFSUM*T2;
-                     Z[J][K+3] = Z( J, K+3 ) - REFSUM*T3;
-                  } // 130
-               } // 140
-            }
-
-            // ==== End of near-the-diagonal bulge chase. ====
-
-         } // 145
-
-         // ==== Use U (if accumulated) to update far-from-diagonal
-         // .    entries in H.  If required, use U to update Z as
-         // .    well. ====
-
-         if ( ACCUM ) {
-            if ( WANTT ) {
-               JTOP = 1;
-               JBOT = N;
-            } else {
-               JTOP = KTOP;
-               JBOT = KBOT;
-            }
-            K1 = max( 1, KTOP-INCOL );
-            NU = ( KDU-max( 0, NDCOL-KBOT ) ) - K1 + 1;
-
-            // ==== Horizontal Multiply ====
-
-            for (JCOL = min( NDCOL, KBOT ) + 1; NH < 0 ? JCOL >= JBOT : JCOL <= JBOT; JCOL += NH) { // 150
-               JLEN = min( NH, JBOT-JCOL+1 );
-               dgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
-               dlacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
-            } // 150
-
-            // ==== Vertical multiply ====
-
-            for (JROW = JTOP; NV < 0 ? JROW >= max( KTOP, INCOL ) - 1 : JROW <= max( KTOP, INCOL ) - 1; JROW += NV) { // 160
-               JLEN = min( NV, max( KTOP, INCOL )-JROW );
-               dgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
-               dlacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
-            } // 160
-
-            // ==== Z multiply (also vertical) ====
-
-            if ( WANTZ ) {
-               for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) { // 170
-                  JLEN = min( NV, IHIZ-JROW+1 );
-                  dgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
-                  dlacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
-               } // 170
-            }
-         }
-      } // 180
-
-      // ==== End of DLAQR5 ====
-
+        if (ACCUM) {
+          KMS = K - INCOL;
+          T1 = V[1][M22];
+          T2 = T1 * V[2][M22];
+          for (J = max(1, KTOP - INCOL); J <= KDU; J++) {
+            REFSUM = U[J][KMS + 1] + V[2][M22] * U[J][KMS + 2];
+            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM * T1;
+            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * T2;
+          }
+        } else if (WANTZ) {
+          T1 = V[1][M22];
+          T2 = T1 * V[2][M22];
+          for (J = ILOZ; J <= IHIZ; J++) {
+            REFSUM = Z[J][K + 1] + V[2][M22] * Z[J][K + 2];
+            Z[J][K + 1] = Z[J][K + 1] - REFSUM * T1;
+            Z[J][K + 2] = Z[J][K + 2] - REFSUM * T2;
+          }
+        }
       }
+
+      // ==== Normal case: Chain of 3-by-3 reflections ====
+
+      for (M = MBOT; M >= MTOP; M--) {
+        K = KRCOL + 2 * (M - 1);
+        if (K == KTOP - 1) {
+          dlaqr1(
+            3,
+            H(KTOP, KTOP),
+            LDH,
+            SR[2 * M - 1],
+            SI[2 * M - 1],
+            SR[2 * M],
+            SI[2 * M],
+            V(1, M).asArray(),
+          );
+          ALPHA.value = V[1][M];
+          dlarfg(3, ALPHA, V(2, M).asArray(), 1, V.box(1, M));
+        } else {
+          // ==== Perform delayed transformation of row below
+          // .    Mth bulge. Exploit fact that first two elements
+          // .    of row are actually zero. ====
+
+          T1 = V[1][M];
+          T2 = T1 * V[2][M];
+          T3 = T1 * V[3][M];
+          REFSUM = V[3][M] * H[K + 3][K + 2];
+          H[K + 3][K] = -REFSUM * T1;
+          H[K + 3][K + 1] = -REFSUM * T2;
+          H[K + 3][K + 2] = H[K + 3][K + 2] - REFSUM * T3;
+
+          // ==== Calculate reflection to move
+          // .    Mth bulge one step. ====
+
+          BETA.value = H[K + 1][K];
+          V[2][M] = H[K + 2][K];
+          V[3][M] = H[K + 3][K];
+          dlarfg(3, BETA, V(2, M).asArray(), 1, V.box(1, M));
+
+          // ==== A Bulge may collapse because of vigilant
+          // .    deflation or destructive underflow.  In the
+          // .    underflow case, try the two-small-subdiagonals
+          // .    trick to try to reinflate the bulge.  ====
+
+          if (H[K + 3][K] != ZERO ||
+              H[K + 3][K + 1] != ZERO ||
+              H[K + 3][K + 2] == ZERO) {
+            // ==== Typical case: not collapsed (yet). ====
+
+            H[K + 1][K] = BETA.value;
+            H[K + 2][K] = ZERO;
+            H[K + 3][K] = ZERO;
+          } else {
+            // ==== Atypical case: collapsed.  Attempt to
+            // .    reintroduce ignoring H[K+1][K] and H[K+2][K].
+            // .    If the fill resulting from the new
+            // .    reflector is too large, then abandon it.
+            // .    Otherwise, use the new one. ====
+
+            dlaqr1(
+              3,
+              H(K + 1, K + 1),
+              LDH,
+              SR[2 * M - 1],
+              SI[2 * M - 1],
+              SR[2 * M],
+              SI[2 * M],
+              VT,
+            );
+            ALPHA.value = VT[1];
+            dlarfg(3, ALPHA, VT(2), 1, VT.box(1));
+            T1 = VT[1];
+            T2 = T1 * VT[2];
+            T3 = T1 * VT[3];
+            REFSUM = H[K + 1][K] + VT[2] * H[K + 2][K];
+
+            if ((H[K + 2][K] - REFSUM * T2).abs() + (REFSUM * T3).abs() >
+                ULP *
+                    ((H[K][K]).abs() +
+                        (H[K + 1][K + 1]).abs() +
+                        (H[K + 2][K + 2]).abs())) {
+              // ==== Starting a new bulge here would
+              // .    create non-negligible fill.  Use
+              // .    the old one with trepidation. ====
+
+              H[K + 1][K] = BETA.value;
+              H[K + 2][K] = ZERO;
+              H[K + 3][K] = ZERO;
+            } else {
+              // ==== Starting a new bulge here would
+              // .    create only negligible fill.
+              // .    Replace the old reflector with
+              // .    the new one. ====
+
+              H[K + 1][K] = H[K + 1][K] - REFSUM * T1;
+              H[K + 2][K] = ZERO;
+              H[K + 3][K] = ZERO;
+              V[1][M] = VT[1];
+              V[2][M] = VT[2];
+              V[3][M] = VT[3];
+            }
+          }
+        }
+
+        // ====  Apply reflection from the right and
+        // .     the first column of update from the left.
+        // .     These updates are required for the vigilant
+        // .     deflation check. We still delay most of the
+        // .     updates from the left for efficiency. ====
+
+        T1 = V[1][M];
+        T2 = T1 * V[2][M];
+        T3 = T1 * V[3][M];
+        for (J = JTOP; J <= min(KBOT, K + 3); J++) {
+          REFSUM = H[J][K + 1] + V[2][M] * H[J][K + 2] + V[3][M] * H[J][K + 3];
+          H[J][K + 1] = H[J][K + 1] - REFSUM * T1;
+          H[J][K + 2] = H[J][K + 2] - REFSUM * T2;
+          H[J][K + 3] = H[J][K + 3] - REFSUM * T3;
+        }
+
+        // ==== Perform update from left for subsequent
+        // .    column. ====
+
+        REFSUM = H[K + 1][K + 1] +
+            V[2][M] * H[K + 2][K + 1] +
+            V[3][M] * H[K + 3][K + 1];
+        H[K + 1][K + 1] = H[K + 1][K + 1] - REFSUM * T1;
+        H[K + 2][K + 1] = H[K + 2][K + 1] - REFSUM * T2;
+        H[K + 3][K + 1] = H[K + 3][K + 1] - REFSUM * T3;
+
+        // ==== The following convergence test requires that
+        // .    the tradition small-compared-to-nearby-diagonals
+        // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
+        // .    criteria both be satisfied.  The latter improves
+        // .    accuracy in some examples. Falling back on an
+        // .    alternate convergence criterion when TST1 or TST2
+        // .    is zero (as done here) is traditional but probably
+        // .    unnecessary. ====
+
+        if (K < KTOP) continue;
+        if (H[K + 1][K] != ZERO) {
+          TST1 = (H[K][K]).abs() + (H[K + 1][K + 1]).abs();
+          if (TST1 == ZERO) {
+            if (K >= KTOP + 1) TST1 = TST1 + (H[K][K - 1]).abs();
+            if (K >= KTOP + 2) TST1 = TST1 + (H[K][K - 2]).abs();
+            if (K >= KTOP + 3) TST1 = TST1 + (H[K][K - 3]).abs();
+            if (K <= KBOT - 2) TST1 = TST1 + (H[K + 2][K + 1]).abs();
+            if (K <= KBOT - 3) TST1 = TST1 + (H[K + 3][K + 1]).abs();
+            if (K <= KBOT - 4) TST1 = TST1 + (H[K + 4][K + 1]).abs();
+          }
+          if ((H[K + 1][K]).abs() <= max(SMLNUM, ULP * TST1)) {
+            H12 = max((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
+            H21 = min((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
+            H11 =
+                max((H[K + 1][K + 1]).abs(), (H[K][K] - H[K + 1][K + 1]).abs());
+            H22 =
+                min((H[K + 1][K + 1]).abs(), (H[K][K] - H[K + 1][K + 1]).abs());
+            SCL = H11 + H12;
+            TST2 = H22 * (H11 / SCL);
+
+            if (TST2 == ZERO || H21 * (H12 / SCL) <= max(SMLNUM, ULP * TST2)) {
+              H[K + 1][K] = ZERO;
+            }
+          }
+        }
+      }
+
+      // ==== Multiply H by reflections from the left ====
+
+      if (ACCUM) {
+        JBOT = min(NDCOL, KBOT);
+      } else if (WANTT) {
+        JBOT = N;
+      } else {
+        JBOT = KBOT;
+      }
+
+      for (M = MBOT; M >= MTOP; M--) {
+        K = KRCOL + 2 * (M - 1);
+        T1 = V[1][M];
+        T2 = T1 * V[2][M];
+        T3 = T1 * V[3][M];
+        for (J = max(KTOP, KRCOL + 2 * M); J <= JBOT; J++) {
+          REFSUM = H[K + 1][J] + V[2][M] * H[K + 2][J] + V[3][M] * H[K + 3][J];
+          H[K + 1][J] = H[K + 1][J] - REFSUM * T1;
+          H[K + 2][J] = H[K + 2][J] - REFSUM * T2;
+          H[K + 3][J] = H[K + 3][J] - REFSUM * T3;
+        }
+      }
+
+      // ==== Accumulate orthogonal transformations. ====
+
+      if (ACCUM) {
+        // ==== Accumulate U. (If needed, update Z later
+        // .    with an efficient matrix-matrix
+        // .    multiply.) ====
+
+        for (M = MBOT; M >= MTOP; M--) {
+          K = KRCOL + 2 * (M - 1);
+          KMS = K - INCOL;
+          I2 = max(1, KTOP - INCOL);
+          I2 = max(I2, KMS - (KRCOL - INCOL) + 1);
+          I4 = min(KDU, KRCOL + 2 * (MBOT - 1) - INCOL + 5);
+          T1 = V[1][M];
+          T2 = T1 * V[2][M];
+          T3 = T1 * V[3][M];
+          for (J = I2; J <= I4; J++) {
+            REFSUM = U[J][KMS + 1] +
+                V[2][M] * U[J][KMS + 2] +
+                V[3][M] * U[J][KMS + 3];
+            U[J][KMS + 1] = U[J][KMS + 1] - REFSUM * T1;
+            U[J][KMS + 2] = U[J][KMS + 2] - REFSUM * T2;
+            U[J][KMS + 3] = U[J][KMS + 3] - REFSUM * T3;
+          }
+        }
+      } else if (WANTZ) {
+        // ==== U is not accumulated, so update Z
+        // .    now by multiplying by reflections
+        // .    from the right. ====
+
+        for (M = MBOT; M >= MTOP; M--) {
+          K = KRCOL + 2 * (M - 1);
+          T1 = V[1][M];
+          T2 = T1 * V[2][M];
+          T3 = T1 * V[3][M];
+          for (J = ILOZ; J <= IHIZ; J++) {
+            REFSUM =
+                Z[J][K + 1] + V[2][M] * Z[J][K + 2] + V[3][M] * Z[J][K + 3];
+            Z[J][K + 1] = Z[J][K + 1] - REFSUM * T1;
+            Z[J][K + 2] = Z[J][K + 2] - REFSUM * T2;
+            Z[J][K + 3] = Z[J][K + 3] - REFSUM * T3;
+          }
+        }
+      }
+
+      // ==== End of near-the-diagonal bulge chase. ====
+    }
+
+    // ==== Use U (if accumulated) to update far-from-diagonal
+    // .    entries in H.  If required, use U to update Z as
+    // .    well. ====
+
+    if (ACCUM) {
+      if (WANTT) {
+        JTOP = 1;
+        JBOT = N;
+      } else {
+        JTOP = KTOP;
+        JBOT = KBOT;
+      }
+      K1 = max(1, KTOP - INCOL);
+      NU = (KDU - max(0, NDCOL - KBOT)).toInt() - K1 + 1;
+
+      // ==== Horizontal Multiply ====
+
+      for (JCOL = min(NDCOL, KBOT) + 1;
+          NH < 0 ? JCOL >= JBOT : JCOL <= JBOT;
+          JCOL += NH) {
+        JLEN = min(NH, JBOT - JCOL + 1);
+        dgemm(
+          'C',
+          'N',
+          NU,
+          JLEN,
+          NU,
+          ONE,
+          U(K1, K1),
+          LDU,
+          H(INCOL + K1, JCOL),
+          LDH,
+          ZERO,
+          WH,
+          LDWH,
+        );
+        dlacpy('ALL', NU, JLEN, WH, LDWH, H(INCOL + K1, JCOL), LDH);
+      }
+
+      // ==== Vertical multiply ====
+
+      for (JROW = JTOP;
+          NV < 0 ? JROW >= max(KTOP, INCOL) - 1 : JROW <= max(KTOP, INCOL) - 1;
+          JROW += NV) {
+        JLEN = min(NV, max(KTOP, INCOL) - JROW);
+        dgemm(
+          'N',
+          'N',
+          JLEN,
+          NU,
+          NU,
+          ONE,
+          H(JROW, INCOL + K1),
+          LDH,
+          U(K1, K1),
+          LDU,
+          ZERO,
+          WV,
+          LDWV,
+        );
+        dlacpy('ALL', JLEN, NU, WV, LDWV, H(JROW, INCOL + K1), LDH);
+      }
+
+      // ==== Z multiply (also vertical) ====
+
+      if (WANTZ) {
+        for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) {
+          JLEN = min(NV, IHIZ - JROW + 1);
+          dgemm(
+            'N',
+            'N',
+            JLEN,
+            NU,
+            NU,
+            ONE,
+            Z(JROW, INCOL + K1),
+            LDZ,
+            U(K1, K1),
+            LDU,
+            ZERO,
+            WV,
+            LDWV,
+          );
+          dlacpy('ALL', JLEN, NU, WV, LDWV, Z(JROW, INCOL + K1), LDZ);
+        }
+      }
+    }
+  }
+}

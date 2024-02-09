@@ -11,7 +11,7 @@ import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
-import '../blas/sp/sblat3.dart';
+import 'chkxer.dart';
 import 'common.dart';
 
 void derrbd(
@@ -24,8 +24,8 @@ void derrbd(
   const NMAX = 4, LW = NMAX;
   const ZERO = 0.0, ONE = 1.0;
   String C2;
-  int I, J, NS = 0, NT;
-  final INFO = Box(0);
+  int I, J, NT;
+  final INFO = Box(0), NS = Box(0);
   final IQ = Matrix<int>(NMAX, NMAX);
   final IW = Array<int>(NMAX);
   final A = Matrix<double>(NMAX, NMAX),
@@ -201,19 +201,94 @@ void derrbd(
 
     srnamc.SRNAMT = 'DBDSDC';
     infoc.INFOT = 1;
-    dbdsdc('/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO);
+    dbdsdc(
+      '/',
+      'N',
+      0,
+      D,
+      E,
+      U,
+      1,
+      V,
+      1,
+      Q.asArray(),
+      IQ.asArray(),
+      W,
+      IW,
+      INFO,
+    );
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dbdsdc('U', '/', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO);
+    dbdsdc(
+      'U',
+      '/',
+      0,
+      D,
+      E,
+      U,
+      1,
+      V,
+      1,
+      Q.asArray(),
+      IQ.asArray(),
+      W,
+      IW,
+      INFO,
+    );
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
-    dbdsdc('U', 'N', -1, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO);
+    dbdsdc(
+      'U',
+      'N',
+      -1,
+      D,
+      E,
+      U,
+      1,
+      V,
+      1,
+      Q.asArray(),
+      IQ.asArray(),
+      W,
+      IW,
+      INFO,
+    );
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
-    dbdsdc('U', 'I', 2, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO);
+    dbdsdc(
+      'U',
+      'I',
+      2,
+      D,
+      E,
+      U,
+      1,
+      V,
+      1,
+      Q.asArray(),
+      IQ.asArray(),
+      W,
+      IW,
+      INFO,
+    );
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dbdsdc('U', 'I', 2, D, E, U, 2, V, 1, Q, IQ, W, IW, INFO);
+    dbdsdc(
+      'U',
+      'I',
+      2,
+      D,
+      E,
+      U,
+      2,
+      V,
+      1,
+      Q.asArray(),
+      IQ.asArray(),
+      W,
+      IW,
+      INFO,
+    );
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 5;
 

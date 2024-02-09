@@ -73,7 +73,6 @@ void dchkhs(
       IHI = 0,
       ILO = 0,
       IMODE,
-      IN = 0,
       ITYPE,
       J,
       JCOL,
@@ -108,7 +107,7 @@ void dchkhs(
   String ADUMMA = '';
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4);
   final DUMMA = Array<double>(6);
-  final IINFO = Box(0);
+  final IINFO = Box(0), IN = Box(0);
   final KTYPE = Array.fromList([
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ]);
@@ -540,7 +539,7 @@ void dchkhs(
           LDU,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHSEQR(E)', IINFO.value, N, JTYPE, IOLDSD);
@@ -568,7 +567,7 @@ void dchkhs(
           LDU,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0 && IINFO.value <= N + 2) {
           print9999(NOUNIT, 'DHSEQR(S)', IINFO.value, N, JTYPE, IOLDSD);
@@ -596,7 +595,7 @@ void dchkhs(
           LDU,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0 && IINFO.value <= N + 2) {
           print9999(NOUNIT, 'DHSEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
@@ -678,14 +677,14 @@ void dchkhs(
           N,
           T1,
           LDA,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           EVECTR,
           LDU,
           N,
           IN,
           WORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC(R,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -711,14 +710,14 @@ void dchkhs(
           N,
           T1,
           LDA,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           EVECTL,
           LDU,
           N,
           IN,
           WORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC(R,S)', IINFO.value, N, JTYPE, IOLDSD);
@@ -765,12 +764,12 @@ void dchkhs(
           LDA,
           EVECTL,
           LDU,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           N,
           IN,
           WORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC(L,A)', IINFO.value, N, JTYPE, IOLDSD);
@@ -811,12 +810,12 @@ void dchkhs(
           LDA,
           EVECTR,
           LDU,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           N,
           IN,
           WORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC(L,S)', IINFO.value, N, JTYPE, IOLDSD);
@@ -868,7 +867,7 @@ void dchkhs(
           LDA,
           WR3,
           WI3,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           EVECTX,
           LDU,
@@ -877,7 +876,7 @@ void dchkhs(
           WORK,
           IWORK,
           IWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHSEIN(R)', IINFO.value, N, JTYPE, IOLDSD);
@@ -928,14 +927,14 @@ void dchkhs(
           WI3,
           EVECTY,
           LDU,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           N1,
           IN,
           WORK,
           IWORK,
           IWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DHSEIN(L)', IINFO.value, N, JTYPE, IOLDSD);
@@ -985,7 +984,7 @@ void dchkhs(
           LDU,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORMHR(R)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1032,7 +1031,7 @@ void dchkhs(
           LDU,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DORMHR(L)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1076,7 +1075,7 @@ void dchkhs(
           N,
           T1,
           LDA,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           EVECTR,
           LDU,
@@ -1084,7 +1083,7 @@ void dchkhs(
           IN,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC3(R,B)', IINFO.value, N, JTYPE, IOLDSD);
@@ -1118,13 +1117,13 @@ void dchkhs(
           LDA,
           EVECTL,
           LDU,
-          DUMMA,
+          DUMMA.asMatrix(LDU),
           LDU,
           N,
           IN,
           WORK,
           NWORK,
-          IINFO.value,
+          IINFO,
         );
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DTREVC3(L,B)', IINFO.value, N, JTYPE, IOLDSD);

@@ -94,8 +94,6 @@ void dchkbd(
       N = 0,
       NFAIL,
       NMAX,
-      NS1 = 0,
-      NS2 = 0,
       NTEST;
   double
       // ABSTOL,
@@ -122,7 +120,7 @@ void dchkbd(
       Array.fromList([1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 0]);
   final KMODE =
       Array.fromList([0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0]);
-  final IINFO = Box(0);
+  final IINFO = Box(0), NS1 = Box(0), NS2 = Box(0);
 
   // Check for errors
 
@@ -547,8 +545,8 @@ void dchkbd(
           BD,
           BE,
           WORK,
-          WORK[MNMIN + 1],
-          WORK[2 * MNMIN + 1],
+          WORK(MNMIN + 1),
+          WORK(2 * MNMIN + 1),
           LWORK - 2 * MNMIN,
           IINFO,
         );
@@ -580,7 +578,7 @@ void dchkbd(
           Q,
           LDQ,
           WORK,
-          WORK[2 * MNMIN + 1],
+          WORK(2 * MNMIN + 1),
           LWORK - 2 * MNMIN,
           IINFO,
         );
@@ -602,8 +600,8 @@ void dchkbd(
           M,
           PT,
           LDPT,
-          WORK[MNMIN + 1],
-          WORK[2 * MNMIN + 1],
+          WORK(MNMIN + 1),
+          WORK(2 * MNMIN + 1),
           LWORK - 2 * MNMIN,
           IINFO,
         );
@@ -639,8 +637,8 @@ void dchkbd(
         // 3:  Check the orthogonality of PT
 
         dbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT.box(1));
-        dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT(2));
-        dort01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT(3));
+        dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT.box(2));
+        dort01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT.box(3));
       }
 
       // Use DBDSQR to form the SVD of the bidiagonal matrix B:
@@ -666,7 +664,7 @@ void dchkbd(
         LDPT,
         Z,
         LDX,
-        WORK[MNMIN + 1],
+        WORK(MNMIN + 1),
         IINFO,
       );
 
@@ -704,7 +702,7 @@ void dchkbd(
           LDPT,
           Z,
           LDX,
-          WORK[MNMIN + 1],
+          WORK(MNMIN + 1),
           IINFO,
         );
 
@@ -805,7 +803,7 @@ void dchkbd(
             LDQ,
             Y,
             LDX,
-            WORK[MNMIN + 1],
+            WORK(MNMIN + 1),
             IINFO,
           );
 
@@ -854,7 +852,7 @@ void dchkbd(
           LDPT,
           DUM,
           IDUM,
-          WORK[MNMIN + 1],
+          WORK(MNMIN + 1),
           IWORK,
           IINFO,
         );
@@ -884,13 +882,13 @@ void dchkbd(
           MNMIN,
           S2,
           WORK,
-          DUM,
+          DUM.asMatrix(1),
           1,
-          DUM,
+          DUM.asMatrix(1),
           1,
           DUM,
           IDUM,
-          WORK[MNMIN + 1],
+          WORK(MNMIN + 1),
           IWORK,
           IINFO,
         );
@@ -984,17 +982,17 @@ void dchkbd(
           'V',
           'A',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           ZERO,
           ZERO,
           0,
           0,
           NS1,
           S1,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1013,7 +1011,7 @@ void dchkbd(
         }
 
         J = IWBZ;
-        for (I = 1; I <= NS1; I++) {
+        for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
           J = J + MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
@@ -1039,17 +1037,17 @@ void dchkbd(
           'N',
           'A',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           ZERO,
           ZERO,
           0,
           0,
           NS2,
           S2,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1106,7 +1104,7 @@ void dchkbd(
           MNMIN,
           U,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(21),
         );
@@ -1116,7 +1114,7 @@ void dchkbd(
           MNMIN,
           VT,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(22),
         );
@@ -1170,17 +1168,17 @@ void dchkbd(
           'V',
           'I',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           ZERO,
           ZERO,
           IL,
           IU,
           NS1,
           S1,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1199,7 +1197,7 @@ void dchkbd(
         }
 
         J = IWBZ;
-        for (I = 1; I <= NS1; I++) {
+        for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
           J = J + MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
@@ -1217,17 +1215,17 @@ void dchkbd(
           'N',
           'I',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           ZERO,
           ZERO,
           IL,
           IU,
           NS2,
           S2,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1266,7 +1264,7 @@ void dchkbd(
           BD,
           BE,
           S1,
-          NS1,
+          NS1.value,
           U,
           LDPT,
           VT,
@@ -1277,35 +1275,35 @@ void dchkbd(
         dort01(
           'Columns',
           MNMIN,
-          NS1,
+          NS1.value,
           U,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(26),
         );
         dort01(
           'Rows',
-          NS1,
+          NS1.value,
           MNMIN,
           VT,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(27),
         );
 
         RESULT[28] = ZERO;
-        for (I = 1; I <= NS1 - 1; I++) {
+        for (I = 1; I <= NS1.value - 1; I++) {
           if (S1[I] < S1[I + 1]) RESULT[28] = ULPINV;
           if (S1[I] < ZERO) RESULT[28] = ULPINV;
         }
-        if (NS1 >= 1) {
-          if (S1[NS1] < ZERO) RESULT[28] = ULPINV;
+        if (NS1.value >= 1) {
+          if (S1[NS1.value] < ZERO) RESULT[28] = ULPINV;
         }
 
         TEMP2 = ZERO;
-        for (J = 1; J <= NS1; J++) {
+        for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(
                 sqrt(UNFL) * max(S1[1], ONE),
@@ -1335,14 +1333,14 @@ void dchkbd(
                   max(ULP * ANORM, TWO * RTUNFL),
                 );
           }
-          if (IU != NS1) {
+          if (IU != NS1.value) {
             VL = S1[IU] -
                 max(
                   ULP * ANORM,
                   max(TWO * RTUNFL, HALF * (S1[IU + 1] - S1[IU]).abs()),
                 );
           } else {
-            VL = S1[NS1] -
+            VL = S1[NS1.value] -
                 max(
                   ULP * ANORM,
                   max(TWO * RTUNFL, HALF * (S1[MNMIN] - S1[1]).abs()),
@@ -1364,17 +1362,17 @@ void dchkbd(
           'V',
           'V',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           VL,
           VU,
           0,
           0,
           NS1,
           S1,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1393,7 +1391,7 @@ void dchkbd(
         }
 
         J = IWBZ;
-        for (I = 1; I <= NS1; I++) {
+        for (I = 1; I <= NS1.value; I++) {
           dcopy(MNMIN, WORK(J), 1, U(1, I).asArray(), 1);
           J = J + MNMIN;
           dcopy(MNMIN, WORK(J), 1, VT(I, 1).asArray(), LDPT);
@@ -1411,17 +1409,17 @@ void dchkbd(
           'N',
           'V',
           MNMIN,
-          WORK[IWBD],
-          WORK[IWBE],
+          WORK(IWBD),
+          WORK(IWBE),
           VL,
           VU,
           0,
           0,
           NS2,
           S2,
-          WORK[IWBZ],
+          WORK(IWBZ).asMatrix(MNMIN2),
           MNMIN2,
-          WORK[IWWORK],
+          WORK(IWWORK),
           IWORK,
           IINFO,
         );
@@ -1460,7 +1458,7 @@ void dchkbd(
           BD,
           BE,
           S1,
-          NS1,
+          NS1.value,
           U,
           LDPT,
           VT,
@@ -1471,35 +1469,35 @@ void dchkbd(
         dort01(
           'Columns',
           MNMIN,
-          NS1,
+          NS1.value,
           U,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(31),
         );
         dort01(
           'Rows',
-          NS1,
+          NS1.value,
           MNMIN,
           VT,
           LDPT,
-          WORK[IWBS + MNMIN],
+          WORK(IWBS + MNMIN),
           LWORK - MNMIN,
           RESULT.box(32),
         );
 
         RESULT[33] = ZERO;
-        for (I = 1; I <= NS1 - 1; I++) {
+        for (I = 1; I <= NS1.value - 1; I++) {
           if (S1[I] < S1[I + 1]) RESULT[28] = ULPINV;
           if (S1[I] < ZERO) RESULT[28] = ULPINV;
         }
-        if (NS1 >= 1) {
-          if (S1[NS1] < ZERO) RESULT[28] = ULPINV;
+        if (NS1.value >= 1) {
+          if (S1[NS1.value] < ZERO) RESULT[28] = ULPINV;
         }
 
         TEMP2 = ZERO;
-        for (J = 1; J <= NS1; J++) {
+        for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
               max(
                 sqrt(UNFL) * max(S1[1], ONE),

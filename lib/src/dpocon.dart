@@ -2,116 +2,107 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacn2.dart';
+import 'package:lapack/src/dlatrs.dart';
+import 'package:lapack/src/drscl.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dpocon(UPLO, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO ) {
-
+void dpocon(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final double ANORM,
+  final Box<double> RCOND,
+  final Array<double> WORK,
+  final Array<int> IWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, N;
-      double             ANORM, RCOND;
-      int                IWORK( * );
-      double             A( LDA, * ), WORK( * );
-      // ..
+  const ONE = 1.0, ZERO = 0.0;
+  bool UPPER;
+  String NORMIN;
+  int IX, KASE;
+  double AINVNM = 0, SCALE, SMLNUM;
+  final ISAVE = Array<int>(3);
+  final SCALEL = Box(0.0), SCALEU = Box(0.0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               UPPER;
-      String             NORMIN;
-      int                IX, KASE;
-      double             AINVNM, SCALE, SCALEL, SCALEU, SMLNUM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, idamax, DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLACN2, DLATRS, DRSCL, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (ANORM < ZERO) {
+    INFO.value = -5;
+  }
+  if (INFO.value != 0) {
+    xerbla('DPOCON', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( ANORM < ZERO ) {
-         INFO = -5;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DPOCON', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  RCOND.value = ZERO;
+  if (N == 0) {
+    RCOND.value = ONE;
+    return;
+  } else if (ANORM == ZERO) {
+    return;
+  }
 
-      RCOND = ZERO;
-      if ( N == 0 ) {
-         RCOND = ONE;
-         return;
-      } else if ( ANORM == ZERO ) {
-         return;
-      }
+  SMLNUM = dlamch('Safe minimum');
 
-      SMLNUM = dlamch( 'Safe minimum' );
+  // Estimate the 1-norm of inv(A).
 
-      // Estimate the 1-norm of inv(A).
+  KASE = 0;
+  NORMIN = 'N';
+  while (true) {
+    dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
+    if (KASE == 0) break;
 
-      KASE = 0;
-      NORMIN = 'N';
-      } // 10
-      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
-         if ( UPPER ) {
+    if (UPPER) {
+      // Multiply by inv(U**T).
 
-            // Multiply by inv(U**T).
+      dlatrs('Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL,
+          WORK(2 * N + 1), INFO);
+      NORMIN = 'Y';
 
-            dlatrs('Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO );
-            NORMIN = 'Y';
+      // Multiply by inv(U).
 
-            // Multiply by inv(U).
+      dlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK,
+          SCALEU, WORK(2 * N + 1), INFO);
+    } else {
+      // Multiply by inv(L).
 
-            dlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO );
-         } else {
+      dlatrs('Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK,
+          SCALEL, WORK(2 * N + 1), INFO);
+      NORMIN = 'Y';
 
-            // Multiply by inv(L).
+      // Multiply by inv(L**T).
 
-            dlatrs('Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO );
-            NORMIN = 'Y';
+      dlatrs('Lower', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU,
+          WORK(2 * N + 1), INFO);
+    }
 
-            // Multiply by inv(L**T).
+    // Multiply by 1/SCALE if doing so will not cause overflow.
 
-            dlatrs('Lower', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO );
-         }
+    SCALE = SCALEL.value * SCALEU.value;
+    if (SCALE != ONE) {
+      IX = idamax(N, WORK, 1);
+      if (SCALE < (WORK[IX]).abs() * SMLNUM || SCALE == ZERO) return;
+      drscl(N, SCALE, WORK, 1);
+    }
+  }
 
-         // Multiply by 1/SCALE if doing so will not cause overflow.
-
-         SCALE = SCALEL*SCALEU;
-         if ( SCALE != ONE ) {
-            IX = idamax( N, WORK, 1 );
-            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 20;
-            drscl(N, SCALE, WORK, 1 );
-         }
-         GO TO 10;
-      }
-
-      // Compute the estimate of the reciprocal condition number.
-
-      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
-
-      } // 20
-      return;
-      }
+  // Compute the estimate of the reciprocal condition number.
+  if (AINVNM != ZERO) RCOND.value = (ONE / AINVNM) / ANORM;
+}

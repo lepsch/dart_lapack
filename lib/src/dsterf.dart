@@ -1,299 +1,359 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlae2.dart';
+import 'package:lapack/src/dlanst.dart';
+import 'package:lapack/src/dlapy2.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlasrt.dart';
+import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsterf(N, D, E, INFO ) {
-
+void dsterf(
+  final int N,
+  final Array<double> D,
+  final Array<double> E,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, N;
-      double             D( * ), E( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0;
+  const MAXIT = 30;
+  int I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;
+  double ALPHA,
+      ANORM,
+      BB,
+      C,
+      EPS,
+      EPS2,
+      GAMMA,
+      OLDC,
+      OLDGAM,
+      P,
+      R,
+      RT1 = 0,
+      RT2 = 0,
+      RTE,
+      S,
+      SAFMAX,
+      SAFMIN,
+      SIGMA,
+      SSFMAX,
+      SSFMIN;
+  // RMAX;
 
-      double             ZERO, ONE, TWO, THREE;
-      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
-      int                MAXIT;
-      const              MAXIT = 30 ;
-      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;
-      double             ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANST, DLAPY2;
-      // EXTERNAL DLAMCH, DLANST, DLAPY2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAE2, DLASCL, DLASRT, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SIGN, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
 
-      INFO = 0;
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N < 0) {
+    INFO.value = -1;
+    xerbla('DSTERF', -INFO.value);
+    return;
+  }
+  if (N <= 1) return;
 
-      if ( N < 0 ) {
-         INFO = -1;
-         xerbla('DSTERF', -INFO );
-         return;
+  // Determine the unit roundoff for this environment.
+
+  EPS = dlamch('E');
+  EPS2 = pow(EPS, 2).toDouble();
+  SAFMIN = dlamch('S');
+  SAFMAX = ONE / SAFMIN;
+  SSFMAX = sqrt(SAFMAX) / THREE;
+  SSFMIN = sqrt(SAFMIN) / EPS2;
+  // RMAX = dlamch('O');
+
+  // Compute the eigenvalues of the tridiagonal matrix.
+
+  NMAXIT = N * MAXIT;
+  SIGMA = ZERO;
+  JTOT = 0;
+
+  // Determine where the matrix splits and choose QL or QR iteration
+  // for each block, according to whether top or bottom diagonal
+  // element is smaller.
+
+  L1 = 1;
+
+  while (true) {
+    if (L1 > N) break;
+    if (L1 > 1) E[L1 - 1] = ZERO;
+    bool isLoopExhausted = true;
+    for (M = L1; M <= N - 1; M++) {
+      if ((E[M]).abs() <= (sqrt((D[M]).abs()) * sqrt((D[M + 1]).abs())) * EPS) {
+        E[M] = ZERO;
+        isLoopExhausted = false;
+        break;
       }
-      if (N <= 1) return;
-
-      // Determine the unit roundoff for this environment.
-
-      EPS = dlamch( 'E' );
-      EPS2 = EPS**2;
-      SAFMIN = dlamch( 'S' );
-      SAFMAX = ONE / SAFMIN;
-      SSFMAX = sqrt( SAFMAX ) / THREE;
-      SSFMIN = sqrt( SAFMIN ) / EPS2;
-      RMAX = dlamch( 'O' );
-
-      // Compute the eigenvalues of the tridiagonal matrix.
-
-      NMAXIT = N*MAXIT;
-      SIGMA = ZERO;
-      JTOT = 0;
-
-      // Determine where the matrix splits and choose QL or QR iteration
-      // for each block, according to whether top or bottom diagonal
-      // element is smaller.
-
-      L1 = 1;
-
-      } // 10
-      if (L1 > N) GO TO 170;
-      IF[L1 > 1 ) E( L1-1] = ZERO;
-      for (M = L1; M <= N - 1; M++) { // 20
-         if ( ( E( M ) ).abs() <= ( sqrt( ( D( M ) ).abs() )*sqrt( ( D( M+ 1 ) ).abs() ) )*EPS ) {
-            E[M] = ZERO;
-            GO TO 30;
-         }
-      } // 20
+    }
+    if (isLoopExhausted) {
       M = N;
+    }
 
-      } // 30
-      L = L1;
-      LSV = L;
-      LEND = M;
-      LENDSV = LEND;
-      L1 = M + 1;
-      if (LEND == L) GO TO 10;
+    L = L1;
+    LSV = L;
+    LEND = M;
+    LENDSV = LEND;
+    L1 = M + 1;
+    if (LEND == L) continue;
 
-      // Scale submatrix in rows and columns L to LEND
+    // Scale submatrix in rows and columns L to LEND
 
-      ANORM = dlanst( 'M', LEND-L+1, D( L ), E( L ) );
-      ISCALE = 0;
-      if (ANORM == ZERO) GO TO 10;
-      if ( (ANORM > SSFMAX) ) {
-         ISCALE = 1;
-         dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
-         dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
-      } else if ( ANORM < SSFMIN ) {
-         ISCALE = 2;
-         dlascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO );
-         dlascl('G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
-      }
+    ANORM = dlanst('M', LEND - L + 1, D[L], E[L]);
+    ISCALE = 0;
+    if (ANORM == ZERO) continue;
+    if ((ANORM > SSFMAX)) {
+      ISCALE = 1;
+      dlascl(
+        'G',
+        0,
+        0,
+        ANORM,
+        SSFMAX,
+        LEND - L + 1,
+        1,
+        D(L).asMatrix(N),
+        N,
+        INFO,
+      );
+      dlascl('G', 0, 0, ANORM, SSFMAX, LEND - L, 1, E(L).asMatrix(N), N, INFO);
+    } else if (ANORM < SSFMIN) {
+      ISCALE = 2;
+      dlascl(
+        'G',
+        0,
+        0,
+        ANORM,
+        SSFMIN,
+        LEND - L + 1,
+        1,
+        D(L).asMatrix(N),
+        N,
+        INFO,
+      );
+      dlascl('G', 0, 0, ANORM, SSFMIN, LEND - L, 1, E(L).asMatrix(N), N, INFO);
+    }
 
-      for (I = L; I <= LEND - 1; I++) { // 40
-         E[I] = E( I )**2;
-      } // 40
+    for (I = L; I <= LEND - 1; I++) {
+      E[I] = pow(E[I], 2).toDouble();
+    }
 
-      // Choose between QL and QR iteration
+    // Choose between QL and QR iteration
 
-      if ( ( D( LEND ) ).abs() < ( D( L ) ).abs() ) {
-         LEND = LSV;
-         L = LENDSV;
-      }
+    if ((D[LEND]).abs() < (D[L]).abs()) {
+      LEND = LSV;
+      L = LENDSV;
+    }
 
-      if ( LEND >= L ) {
+    if (LEND >= L) {
+      // QL Iteration
 
-         // QL Iteration
+      // Look for small subdiagonal element.
 
-         // Look for small subdiagonal element.
+      while (LEND >= L) {
+        var hasSubdiagonalElement = false;
+        if (L != LEND) {
+          for (M = L; M <= LEND - 1; M++) {
+            if ((E[M]).abs() <= EPS2 * (D[M] * D[M + 1]).abs()) {
+              hasSubdiagonalElement = true;
+              break;
+            }
+          }
+        }
+        if (!hasSubdiagonalElement) {
+          M = LEND;
+        }
 
-         } // 50
-         if ( L != LEND ) {
-            for (M = L; M <= LEND - 1; M++) { // 60
-               if( ( E( M ) ).abs() <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70;
-            } // 60
-         }
-         M = LEND;
+        if (M < LEND) E[M] = ZERO;
+        P = D[L];
+        if (M != L) {
+          // If remaining matrix is 2 by 2, use DLAE2 to compute its
+          // eigenvalues.
 
-         } // 70
-         if (M < LEND) E( M ) = ZERO;
-         P = D( L );
-         if (M == L) GO TO 90;
-
-         // If remaining matrix is 2 by 2, use DLAE2 to compute its
-         // eigenvalues.
-
-         if ( M == L+1 ) {
-            RTE = sqrt( E( L ) );
-            dlae2(D( L ), RTE, D( L+1 ), RT1, RT2 );
+          if (M == L + 1) {
+            RTE = sqrt(E[L]);
+            dlae2(D[L], RTE, D[L + 1], RT1, RT2);
             D[L] = RT1;
-            D[L+1] = RT2;
+            D[L + 1] = RT2;
             E[L] = ZERO;
             L = L + 2;
-            if (L <= LEND) GO TO 50;
-            GO TO 150;
-         }
+            continue;
+          }
 
-         if (JTOT == NMAXIT) GO TO 150;
-         JTOT = JTOT + 1;
+          if (JTOT == NMAXIT) break;
+          JTOT = JTOT + 1;
 
-         // Form shift.
+          // Form shift.
 
-         RTE = sqrt( E( L ) );
-         SIGMA = ( D( L+1 )-P ) / ( TWO*RTE );
-         R = dlapy2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
+          RTE = sqrt(E[L]);
+          SIGMA = (D[L + 1] - P) / (TWO * RTE);
+          R = dlapy2(SIGMA, ONE);
+          SIGMA = P - (RTE / (SIGMA + sign(R, SIGMA)));
 
-         C = ONE;
-         S = ZERO;
-         GAMMA = D( M ) - SIGMA;
-         P = GAMMA*GAMMA;
+          C = ONE;
+          S = ZERO;
+          GAMMA = D[M] - SIGMA;
+          P = GAMMA * GAMMA;
 
-         // Inner loop
+          // Inner loop
 
-         for (I = M - 1; I >= L; I--) { // 80
-            BB = E( I );
+          for (I = M - 1; I >= L; I--) {
+            BB = E[I];
             R = P + BB;
-            if (I != M-1) E( I+1 ) = S*R;
+            if (I != M - 1) E[I + 1] = S * R;
             OLDC = C;
             C = P / R;
             S = BB / R;
             OLDGAM = GAMMA;
-            ALPHA = D( I );
-            GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM;
-            D[I+1] = OLDGAM + ( ALPHA-GAMMA );
-            if ( C != ZERO ) {
-               P = ( GAMMA*GAMMA ) / C;
+            ALPHA = D[I];
+            GAMMA = C * (ALPHA - SIGMA) - S * OLDGAM;
+            D[I + 1] = OLDGAM + (ALPHA - GAMMA);
+            if (C != ZERO) {
+              P = (GAMMA * GAMMA) / C;
             } else {
-               P = OLDC*BB;
+              P = OLDC * BB;
             }
-         } // 80
+          }
 
-         E[L] = S*P;
-         D[L] = SIGMA + GAMMA;
-         GO TO 50;
+          E[L] = S * P;
+          D[L] = SIGMA + GAMMA;
+          continue;
+        }
 
-         // Eigenvalue found.
+        // Eigenvalue found.
 
-         } // 90
-         D[L] = P;
+        D[L] = P;
+        L = L + 1;
+      }
+    } else {
+      // QR Iteration
 
-         L = L + 1;
-         if (L <= LEND) GO TO 50;
-         GO TO 150;
+      // Look for small superdiagonal element.
 
-      } else {
+      while (L >= LEND) {
+        var hasSuperdiagonalElement = false;
+        for (M = L; M >= LEND + 1; M--) {
+          if ((E[M - 1]).abs() <= EPS2 * (D[M] * D[M - 1]).abs()) {
+            hasSuperdiagonalElement = true;
+            break;
+          }
+        }
+        if (!hasSuperdiagonalElement) {
+          M = LEND;
+        }
 
-         // QR Iteration
+        if (M > LEND) E[M - 1] = ZERO;
+        P = D[L];
+        if (M != L) {
+          // If remaining matrix is 2 by 2, use DLAE2 to compute its
+          // eigenvalues.
 
-         // Look for small superdiagonal element.
-
-         } // 100
-         for (M = L; M >= LEND + 1; M--) { // 110
-            if( ( E( M-1 ) ).abs() <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
-         } // 110
-         M = LEND;
-
-         } // 120
-         if (M > LEND) E( M-1 ) = ZERO;
-         P = D( L );
-         if (M == L) GO TO 140;
-
-         // If remaining matrix is 2 by 2, use DLAE2 to compute its
-         // eigenvalues.
-
-         if ( M == L-1 ) {
-            RTE = sqrt( E( L-1 ) );
-            dlae2(D( L ), RTE, D( L-1 ), RT1, RT2 );
+          if (M == L - 1) {
+            RTE = sqrt(E[L - 1]);
+            dlae2(D[L], RTE, D[L - 1], RT1, RT2);
             D[L] = RT1;
-            D[L-1] = RT2;
-            E[L-1] = ZERO;
+            D[L - 1] = RT2;
+            E[L - 1] = ZERO;
             L = L - 2;
-            if (L >= LEND) GO TO 100;
-            GO TO 150;
-         }
+            continue;
+          }
 
-         if (JTOT == NMAXIT) GO TO 150;
-         JTOT = JTOT + 1;
+          if (JTOT == NMAXIT) break;
+          JTOT = JTOT + 1;
 
-         // Form shift.
+          // Form shift.
 
-         RTE = sqrt( E( L-1 ) );
-         SIGMA = ( D( L-1 )-P ) / ( TWO*RTE );
-         R = dlapy2( SIGMA, ONE );
-         SIGMA = P - ( RTE / ( SIGMA+sign( R, SIGMA ) ) );
+          RTE = sqrt(E[L - 1]);
+          SIGMA = (D[L - 1] - P) / (TWO * RTE);
+          R = dlapy2(SIGMA, ONE);
+          SIGMA = P - (RTE / (SIGMA + sign(R, SIGMA)));
 
-         C = ONE;
-         S = ZERO;
-         GAMMA = D( M ) - SIGMA;
-         P = GAMMA*GAMMA;
+          C = ONE;
+          S = ZERO;
+          GAMMA = D[M] - SIGMA;
+          P = GAMMA * GAMMA;
 
-         // Inner loop
+          // Inner loop
 
-         for (I = M; I <= L - 1; I++) { // 130
-            BB = E( I );
+          for (I = M; I <= L - 1; I++) {
+            // 130
+            BB = E[I];
             R = P + BB;
-            if (I != M) E( I-1 ) = S*R;
+            if (I != M) E[I - 1] = S * R;
             OLDC = C;
             C = P / R;
             S = BB / R;
             OLDGAM = GAMMA;
-            ALPHA = D( I+1 );
-            GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM;
-            D[I] = OLDGAM + ( ALPHA-GAMMA );
-            if ( C != ZERO ) {
-               P = ( GAMMA*GAMMA ) / C;
+            ALPHA = D[I + 1];
+            GAMMA = C * (ALPHA - SIGMA) - S * OLDGAM;
+            D[I] = OLDGAM + (ALPHA - GAMMA);
+            if (C != ZERO) {
+              P = (GAMMA * GAMMA) / C;
             } else {
-               P = OLDC*BB;
+              P = OLDC * BB;
             }
-         } // 130
+          } // 130
 
-         E[L-1] = S*P;
-         D[L] = SIGMA + GAMMA;
-         GO TO 100;
+          E[L - 1] = S * P;
+          D[L] = SIGMA + GAMMA;
+          continue;
+        }
 
-         // Eigenvalue found.
-
-         } // 140
-         D[L] = P;
-
-         L = L - 1;
-         if (L >= LEND) GO TO 100;
-         GO TO 150;
-
+        // Eigenvalue found.
+        D[L] = P;
+        L = L - 1;
       }
+    }
 
-      // Undo scaling if necessary
+    // Undo scaling if necessary
 
-      } // 150
-      if (ISCALE == 1) dlascl( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
-      IF( ISCALE == 2 ) dlascl( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+    // } // 150
+    if (ISCALE == 1) {
+      dlascl(
+        'G',
+        0,
+        0,
+        SSFMAX,
+        ANORM,
+        LENDSV - LSV + 1,
+        1,
+        D(LSV).asMatrix(N),
+        N,
+        INFO,
+      );
+    }
+    if (ISCALE == 2) {
+      dlascl(
+        'G',
+        0,
+        0,
+        SSFMIN,
+        ANORM,
+        LENDSV - LSV + 1,
+        1,
+        D(LSV).asMatrix(N),
+        N,
+        INFO,
+      );
+    }
 
-      // Check for no convergence to an eigenvalue after a total
-      // of N*MAXIT iterations.
+    // Check for no convergence to an eigenvalue after a total
+    // of N*MAXIT iterations.
 
-      if (JTOT < NMAXIT) GO TO 10;
-      for (I = 1; I <= N - 1; I++) { // 160
-         if( E( I ) != ZERO ) INFO = INFO + 1;
-      } // 160
-      GO TO 180;
-
-      // Sort eigenvalues in increasing order.
-
-      } // 170
-      dlasrt('I', N, D, INFO );
-
-      } // 180
+    if (JTOT >= NMAXIT) {
+      for (I = 1; I <= N - 1; I++) {
+        if (E[I] != ZERO) INFO.value = INFO.value + 1;
+      }
       return;
-      }
+    }
+  }
+
+  // Sort eigenvalues in increasing order.
+
+  dlasrt('I', N, D, INFO);
+}

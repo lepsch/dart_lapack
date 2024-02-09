@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/dbdsdc.dart';
 import 'package:lapack/src/dlae2.dart';
 import 'package:lapack/src/dlaev2.dart';
 import 'package:lapack/src/dlanst.dart';
@@ -11,6 +10,7 @@ import 'package:lapack/src/dlapy2.dart';
 import 'package:lapack/src/dlartg.dart';
 import 'package:lapack/src/dlascl.dart';
 import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dlasr.dart';
 import 'package:lapack/src/dlasrt.dart';
 import 'package:lapack/src/f2c/sign.dart';
 import 'package:lapack/src/install/dlamch.dart';
@@ -106,7 +106,7 @@ void dsteqr(
 
   EPS = dlamch('E');
   EPS2 = pow(EPS, 2).toDouble();
-  SAFMIN = dlamch('S.value');
+  SAFMIN = dlamch('S');
   SAFMAX = ONE / SAFMIN;
   SSFMAX = sqrt(SAFMAX) / THREE;
   SSFMIN = sqrt(SAFMIN) / EPS2;
@@ -235,7 +235,7 @@ void dsteqr(
               WORK[L] = C.value;
               WORK[N - 1 + L] = S.value;
               dlasr(
-                'R.value',
+                'R',
                 'V',
                 'B',
                 N,
@@ -293,7 +293,7 @@ void dsteqr(
             if (ICOMPZ > 0) {
               MM = M - L + 1;
               dlasr(
-                'R.value',
+                'R',
                 'V',
                 'B',
                 N,
@@ -356,7 +356,7 @@ void dsteqr(
             WORK[M] = C.value;
             WORK[N - 1 + M] = S.value;
             dlasr(
-              'R.value',
+              'R',
               'V',
               'F',
               N,
@@ -414,7 +414,7 @@ void dsteqr(
           if (ICOMPZ > 0) {
             MM = L - M + 1;
             dlasr(
-              'R.value',
+              'R',
               'V',
               'F',
               N,

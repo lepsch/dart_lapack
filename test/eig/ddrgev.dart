@@ -444,7 +444,7 @@ void ddrgev(
           LDQ,
           WORK,
           LWORK,
-          IERR.value,
+          IERR,
         );
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
@@ -468,7 +468,7 @@ void ddrgev(
           ALPHAI,
           BETA,
           WORK,
-          RESULT[1],
+          RESULT(1),
         );
         if (RESULT[2] > THRESH) {
           _print9998(NOUNIT, 'Left', 'DGGEV1', RESULT[2], N, JTYPE, IOLDSD);
@@ -489,7 +489,7 @@ void ddrgev(
           ALPHAI,
           BETA,
           WORK,
-          RESULT[3],
+          RESULT(3),
         );
         if (RESULT[4] > THRESH) {
           _print9998(NOUNIT, 'Right', 'DGGEV1', RESULT[4], N, JTYPE, IOLDSD);
@@ -516,7 +516,7 @@ void ddrgev(
           LDQ,
           WORK,
           LWORK,
-          IERR.value,
+          IERR,
         );
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
@@ -553,7 +553,7 @@ void ddrgev(
           LDQ,
           WORK,
           LWORK,
-          IERR.value,
+          IERR,
         );
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
@@ -596,7 +596,7 @@ void ddrgev(
           LDQE,
           WORK,
           LWORK,
-          IERR.value,
+          IERR,
         );
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;

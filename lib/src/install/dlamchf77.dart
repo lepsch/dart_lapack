@@ -1,84 +1,87 @@
-// > \ingroup lamch
+import 'dart:math';
 
-// =====================================================================
-      double dlamch(CMACH ) {
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/format_extensions.dart';
 
+class _DlamchCache {
+  var FIRST = true;
+  var EPS = 0.0,
+      SFMIN = 0.0,
+      BASE = 0.0,
+      T = 0.0,
+      RND = 0.0,
+      EMIN = 0.0,
+      RMIN = 0.0,
+      EMAX = 0.0,
+      RMAX = 0.0,
+      PREC = 0.0;
+}
+
+final _dlamchCache = _DlamchCache();
+
+double dlamch(final String CMACH) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             CMACH;
-      // ..
-      // .. Parameters ..
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               FIRST, LRND;
-      int                BETA, IMAX, IMIN, IT;
-      double             BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAMC2
-      // ..
-      // .. Save statement ..
-      SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC;
-      // ..
-      // .. Data statements ..
-      const FIRST = true;
+  const ONE = 1.0, ZERO = 0.0;
+  final LRND = Box(false);
+  final BETA = Box(0), IMAX = Box(0), IMIN = Box(0), IT = Box(0);
+  double RMACH = 0, SMALL = 0;
 
-      if ( FIRST ) {
-         dlamc2(BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX );
-         BASE = BETA;
-         T = IT;
-         if ( LRND ) {
-            RND = ONE;
-            EPS = ( BASE**( 1-IT ) ) / 2;
-         } else {
-            RND = ZERO;
-            EPS = BASE**( 1-IT );
-         }
-         PREC = EPS*BASE;
-         EMIN = IMIN;
-         EMAX = IMAX;
-         SFMIN = RMIN;
-         SMALL = ONE / RMAX;
-         if ( SMALL >= SFMIN ) {
+  if (_dlamchCache.FIRST) {
+    var EPS=Box(0.0), RMIN=Box(0.0), RMAX=Box(0.0);
+    dlamc2(BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX);
+    _dlamchCache.EPS = EPS.value;
+    _dlamchCache.RMIN = RMIN.value;
+    _dlamchCache.RMAX = RMAX.value;
+    _dlamchCache.BASE = BETA.value.toDouble();
+    _dlamchCache.T = IT.value.toDouble();
+    if (LRND.value) {
+      _dlamchCache.RND = ONE;
+      _dlamchCache.EPS = pow(_dlamchCache.BASE, 1 - IT.value) / 2;
+    } else {
+      _dlamchCache.RND = ZERO;
+      _dlamchCache.EPS = pow(_dlamchCache.BASE, 1 - IT.value).toDouble();
+    }
+    _dlamchCache.PREC = _dlamchCache.EPS * _dlamchCache.BASE;
+    _dlamchCache.EMIN = IMIN.value.toDouble();
+    _dlamchCache.EMAX = IMAX.value.toDouble();
+    _dlamchCache.SFMIN = _dlamchCache.RMIN;
+    SMALL = ONE / _dlamchCache.RMAX;
+    if (SMALL >= _dlamchCache.SFMIN) {
+      // Use SMALL plus a bit, to avoid the possibility of rounding
+      // causing overflow when computing  1/sfmin.
 
-            // Use SMALL plus a bit, to avoid the possibility of rounding
-            // causing overflow when computing  1/sfmin.
+      _dlamchCache.SFMIN = SMALL * (ONE + _dlamchCache.EPS);
+    }
+  }
 
-            SFMIN = SMALL*( ONE+EPS );
-         }
-      }
+  if (lsame(CMACH, 'E')) {
+    RMACH = _dlamchCache.EPS;
+  } else if (lsame(CMACH, 'S')) {
+    RMACH = _dlamchCache.SFMIN;
+  } else if (lsame(CMACH, 'B')) {
+    RMACH = _dlamchCache.BASE;
+  } else if (lsame(CMACH, 'P')) {
+    RMACH = _dlamchCache.PREC;
+  } else if (lsame(CMACH, 'N')) {
+    RMACH = _dlamchCache.T;
+  } else if (lsame(CMACH, 'R')) {
+    RMACH = _dlamchCache.RND;
+  } else if (lsame(CMACH, 'M')) {
+    RMACH = _dlamchCache.EMIN;
+  } else if (lsame(CMACH, 'U')) {
+    RMACH = _dlamchCache.RMIN;
+  } else if (lsame(CMACH, 'L')) {
+    RMACH = _dlamchCache.EMAX;
+  } else if (lsame(CMACH, 'O')) {
+    RMACH = _dlamchCache.RMAX;
+  }
 
-      if ( lsame( CMACH, 'E' ) ) {
-         RMACH = EPS;
-      } else if ( lsame( CMACH, 'S' ) ) {
-         RMACH = SFMIN;
-      } else if ( lsame( CMACH, 'B' ) ) {
-         RMACH = BASE;
-      } else if ( lsame( CMACH, 'P' ) ) {
-         RMACH = PREC;
-      } else if ( lsame( CMACH, 'N' ) ) {
-         RMACH = T;
-      } else if ( lsame( CMACH, 'R' ) ) {
-         RMACH = RND;
-      } else if ( lsame( CMACH, 'M' ) ) {
-         RMACH = EMIN;
-      } else if ( lsame( CMACH, 'U' ) ) {
-         RMACH = RMIN;
-      } else if ( lsame( CMACH, 'L' ) ) {
-         RMACH = EMAX;
-      } else if ( lsame( CMACH, 'O' ) ) {
-         RMACH = RMAX;
-      }
-
-      DLAMCH = RMACH;
-      FIRST  = false;
-      return;
-      }
+  _dlamchCache.FIRST = false;
+  return RMACH;
+}
 
 // ***********************************************************************
 // > \brief \b DLAMC1
@@ -130,141 +133,121 @@
 // >        Comms. of the ACM, 17, 276-277.
 // > \endverbatim
 // >
-      void dlamc1(BETA, T, RND, IEEE1 ) {
 
+class _Dlamc1Cache {
+  bool FIRST = true, LIEEE1 = false, LRND = false;
+  int LBETA = 0, LT = 0;
+}
+
+final _dlamc1Cache = _Dlamc1Cache();
+
+void dlamc1(
+  final Box<int> BETA,
+  final Box<int> T,
+  final Box<bool> RND,
+  final Box<bool> IEEE1,
+) {
 // -- LAPACK auxiliary routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-      bool               IEEE1, RND;
-      int                BETA, T;
-      // ..
-// =====================================================================
+// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  double A, B, C, F, ONE, QTR, SAVEC, T1, T2;
 
-      // .. Local Scalars ..
-      bool               FIRST, LIEEE1, LRND;
-      int                LBETA, LT;
-      double             A, B, C, F, ONE, QTR, SAVEC, T1, T2;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMC3;
-      // EXTERNAL DLAMC3
-      // ..
-      // .. Save statement ..
-      SAVE               FIRST, LIEEE1, LBETA, LRND, LT;
-      // ..
-      // .. Data statements ..
-      const FIRST = true;
+  if (_dlamc1Cache.FIRST) {
+    ONE = 1;
 
-      if ( FIRST ) {
-         ONE = 1;
+    // LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
+    // IEEE1, T and RND.
 
-         // LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
-         // IEEE1, T and RND.
+    // Throughout this routine  we use the function  dlamc3  to ensure
+    // that relevant values are  stored and not held in registers,  or
+    // are not affected by optimizers.
 
-         // Throughout this routine  we use the function  DLAMC3  to ensure
-         // that relevant values are  stored and not held in registers,  or
-         // are not affected by optimizers.
+    // Compute  a = 2.0**m  with the  smallest positive integer m such
+    // that
 
-         // Compute  a = 2.0**m  with the  smallest positive integer m such
-         // that
+    //    fl( a + 1.0 ) = a.
 
-            // fl( a + 1.0 ) = a.
+    A = 1;
+    C = 1;
 
-         A = 1;
-         C = 1;
+    while (C == ONE) {
+      A = 2 * A;
+      C = dlamc3(A, ONE);
+      C = dlamc3(C, -A);
+    }
 
-// +       WHILE( C == ONE )LOOP
-         } // 10
-         if ( C == ONE ) {
-            A = 2*A;
-            C = DLAMC3( A, ONE );
-            C = DLAMC3( C, -A );
-            GO TO 10;
-         }
-// +       END WHILE
+    // Now compute  b = 2.0**m  with the smallest positive integer m
+    // such that
 
-         // Now compute  b = 2.0**m  with the smallest positive integer m
-         // such that
+    //    fl( a + b ) > a.
 
-            // fl( a + b ) > a.
+    B = 1;
+    C = dlamc3(A, B);
 
-         B = 1;
-         C = DLAMC3( A, B );
+    while (C == A) {
+      B = 2 * B;
+      C = dlamc3(A, B);
+    }
 
-// +       WHILE( C == A )LOOP
-         } // 20
-         if ( C == A ) {
-            B = 2*B;
-            C = DLAMC3( A, B );
-            GO TO 20;
-         }
-// +       END WHILE
+    // Now compute the base.  a and c  are neighbouring floating point
+    // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
+    // their difference is beta. Adding 0.25 to c is to ensure that it
+    // is truncated to beta and not ( beta - 1 ).
 
-         // Now compute the base.  a and c  are neighbouring floating point
-         // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
-         // their difference is beta. Adding 0.25 to c is to ensure that it
-         // is truncated to beta and not ( beta - 1 ).
+    QTR = ONE / 4;
+    SAVEC = C;
+    C = dlamc3(C, -A);
+    _dlamc1Cache.LBETA = (C + QTR).toInt();
 
-         QTR = ONE / 4;
-         SAVEC = C;
-         C = DLAMC3( C, -A );
-         LBETA = C + QTR;
+    // Now determine whether rounding or chopping occurs,  by adding a
+    // bit  less  than  beta/2  and a  bit  more  than  beta/2  to  a.
 
-         // Now determine whether rounding or chopping occurs,  by adding a
-         // bit  less  than  beta/2  and a  bit  more  than  beta/2  to  a.
+    B = _dlamc1Cache.LBETA.toDouble();
+    F = dlamc3(B / 2, -B / 100);
+    C = dlamc3(F, A);
+    if (C == A) {
+      _dlamc1Cache.LRND = true;
+    } else {
+      _dlamc1Cache.LRND = false;
+    }
+    F = dlamc3(B / 2, B / 100);
+    C = dlamc3(F, A);
+    if ((_dlamc1Cache.LRND) && (C == A)) _dlamc1Cache.LRND = false;
 
-         B = LBETA;
-         F = DLAMC3( B / 2, -B / 100 );
-         C = DLAMC3( F, A );
-         if ( C == A ) {
-            LRND = true;
-         } else {
-            LRND = false;
-         }
-         F = DLAMC3( B / 2, B / 100 );
-         C = DLAMC3( F, A );
-         if( ( LRND ) && ( C == A ) ) LRND = false;
+    // Try and decide whether rounding is done in the  IEEE  'round to
+    // nearest' style. B/2 is half a unit in the last place of the two
+    // numbers A and SAVEC. Furthermore, A is even, i.e. has last  bit
+    // zero, and SAVEC is odd. Thus adding B/2 to A should not  change
+    // A, but adding B/2 to SAVEC should change SAVEC.
 
-         // Try and decide whether rounding is done in the  IEEE  'round to
-         // nearest' style. B/2 is half a unit in the last place of the two
-         // numbers A and SAVEC. Furthermore, A is even, i.e. has last  bit
-         // zero, and SAVEC is odd. Thus adding B/2 to A should not  change
-         // A, but adding B/2 to SAVEC should change SAVEC.
+    T1 = dlamc3(B / 2, A);
+    T2 = dlamc3(B / 2, SAVEC);
+    _dlamc1Cache.LIEEE1 = (T1 == A) && (T2 > SAVEC) && _dlamc1Cache.LRND;
 
-         T1 = DLAMC3( B / 2, A );
-         T2 = DLAMC3( B / 2, SAVEC );
-         LIEEE1 = ( T1 == A ) && ( T2 > SAVEC ) && LRND;
+    // Now find  the  mantissa, t.  It should  be the  integer part of
+    // log to the base beta of a,  however it is safer to determine  t
+    // by powering.  So we find t as the smallest positive integer for
+    // which
 
-         // Now find  the  mantissa, t.  It should  be the  integer part of
-         // log to the base beta of a,  however it is safer to determine  t
-         // by powering.  So we find t as the smallest positive integer for
-         // which
+    // fl( beta**t + 1.0 ) = 1.0.
 
-            // fl( beta**t + 1.0 ) = 1.0.
+    _dlamc1Cache.LT = 0;
+    A = 1;
+    C = 1;
 
-         LT = 0;
-         A = 1;
-         C = 1;
+    while (C == ONE) {
+      _dlamc1Cache.LT += 1;
+      A = A * _dlamc1Cache.LBETA;
+      C = dlamc3(A, ONE);
+      C = dlamc3(C, -A);
+    }
+  }
 
-// +       WHILE( C == ONE )LOOP
-         } // 30
-         if ( C == ONE ) {
-            LT = LT + 1;
-            A = A*LBETA;
-            C = DLAMC3( A, ONE );
-            C = DLAMC3( C, -A );
-            GO TO 30;
-         }
-// +       END WHILE
-
-      }
-
-      BETA = LBETA;
-      T = LT;
-      RND = LRND;
-      IEEE1 = LIEEE1;
-      FIRST = false;
-      return;
-      }
+  BETA.value = _dlamc1Cache.LBETA;
+  T.value = _dlamc1Cache.LT;
+  RND.value = _dlamc1Cache.LRND;
+  IEEE1.value = _dlamc1Cache.LIEEE1;
+  _dlamc1Cache.FIRST = false;
+}
 
 // ***********************************************************************
 // > \brief \b DLAMC2
@@ -333,198 +316,206 @@
 // >  The computation of  EPS  is based on a routine PARANOIA by
 // >  W. Kahan of the University of California at Berkeley.
 // > \endverbatim
-      void dlamc2(BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX ) {
 
+class _Dlamc2Cache {
+  bool FIRST = true, IWARN = false;
+  int LBETA = 0, LEMAX = 0, LEMIN = 0, LT = 0;
+  double LEPS = 0.0, LRMAX = 0.0, LRMIN = 0.0;
+}
+
+final _dlamc2Cache = _Dlamc2Cache();
+
+void dlamc2(
+  final Box<int> BETA,
+  final Box<int> T,
+  final Box<bool> RND,
+  final Box<double> EPS,
+  final Box<int> EMIN,
+  final Box<double> RMIN,
+  final Box<int> EMAX,
+  final Box<double> RMAX,
+) {
 // -- LAPACK auxiliary routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-      bool               RND;
-      int                BETA, EMAX, EMIN, T;
-      double             EPS, RMAX, RMIN;
-      // ..
-// =====================================================================
+// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  bool IEEE, IWARN = false;
+  int I, LEMIN = 0;
+  double A,
+      B,
+      C,
+      HALF,
+      LEPS = 0,
+      LRMIN = 0,
+      ONE,
+      RBASE,
+      SIXTH,
+      SMALL,
+      THIRD,
+      TWO,
+      ZERO;
+  final LRND = Box(false), LIEEE1 = Box(false);
+  final LEMAX = Box(0),
+      NGPMIN = Box(0),
+      NGNMIN = Box(0),
+      GNMIN = Box(0),
+      GPMIN = Box(0),
+      LBETA = Box(0),
+      LT = Box(0);
+  final LRMAX = Box(0.0);
 
-      // .. Local Scalars ..
-      bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
-      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN;
-      double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMC3;
-      // EXTERNAL DLAMC3
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAMC1, DLAMC4, DLAMC5
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN
-      // ..
-      // .. Save statement ..
-      SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT;
-      // ..
-      // .. Data statements ..
-      const FIRST = true, IWARN = false;
+  if (_dlamc2Cache.FIRST) {
+    ZERO = 0;
+    ONE = 1;
+    TWO = 2;
 
-      if ( FIRST ) {
-         ZERO = 0;
-         ONE = 1;
-         TWO = 2;
+    // LBETA, LT, LRND, LEPS, LEMIN and LRMIN  are the local values of
+    // BETA, T, RND, EPS, EMIN and RMIN.
 
-         // LBETA, LT, LRND, LEPS, LEMIN and LRMIN  are the local values of
-         // BETA, T, RND, EPS, EMIN and RMIN.
+    // Throughout this routine  we use the function  dlamc3  to ensure
+    // that relevant values are stored  and not held in registers,  or
+    // are not affected by optimizers.
 
-         // Throughout this routine  we use the function  DLAMC3  to ensure
-         // that relevant values are stored  and not held in registers,  or
-         // are not affected by optimizers.
+    // DLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
 
-         // DLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
+    dlamc1(LBETA, LT, LRND, LIEEE1);
 
-         dlamc1(LBETA, LT, LRND, LIEEE1 );
+    // Start to find EPS.
 
-         // Start to find EPS.
+    B = LBETA.value.toDouble();
+    A = pow(B, -LT.value).toDouble();
+    LEPS = A;
 
-         B = LBETA;
-         A = B**( -LT );
-         LEPS = A;
+    // Try some tricks to see whether or not this is the correct  EPS.
 
-         // Try some tricks to see whether or not this is the correct  EPS.
+    B = TWO / 3;
+    HALF = ONE / 2;
+    SIXTH = dlamc3(B, -HALF);
+    THIRD = dlamc3(SIXTH, SIXTH);
+    B = dlamc3(THIRD, -HALF);
+    B = dlamc3(B, SIXTH);
+    B = (B).abs();
+    if (B < LEPS) B = LEPS;
 
-         B = TWO / 3;
-         HALF = ONE / 2;
-         SIXTH = DLAMC3( B, -HALF );
-         THIRD = DLAMC3( SIXTH, SIXTH );
-         B = DLAMC3( THIRD, -HALF );
-         B = DLAMC3( B, SIXTH );
-         B = ( B ).abs();
-         if (B < LEPS) B = LEPS;
+    LEPS = 1;
 
-         LEPS = 1;
+    while ((LEPS > B) && (B > ZERO)) {
+      LEPS = B;
+      C = dlamc3(HALF * LEPS, pow(TWO, 5) * pow(LEPS, 2).toDouble());
+      C = dlamc3(HALF, -C);
+      B = dlamc3(HALF, C);
+      C = dlamc3(HALF, -B);
+      B = dlamc3(HALF, C);
+    }
 
-// +       WHILE( ( LEPS > B ) && ( B > ZERO ) )LOOP
-         } // 10
-         if ( ( LEPS > B ) && ( B > ZERO ) ) {
-            LEPS = B;
-            C = DLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) );
-            C = DLAMC3( HALF, -C );
-            B = DLAMC3( HALF, C );
-            C = DLAMC3( HALF, -B );
-            B = DLAMC3( HALF, C );
-            GO TO 10;
-         }
-// +       END WHILE
+    if (A < LEPS) LEPS = A;
 
-         if (A < LEPS) LEPS = A;
+    // Computation of EPS complete.
 
-         // Computation of EPS complete.
+    // Now find  EMIN.  Let A = + or - 1, and + or - (1 + BASE**(-3)).
+    // Keep dividing  A by BETA until (gradual) underflow occurs. This
+    // is detected when we cannot recover the previous A.
 
-         // Now find  EMIN.  Let A = + or - 1, and + or - (1 + BASE**(-3)).
-         // Keep dividing  A by BETA until (gradual) underflow occurs. This
-         // is detected when we cannot recover the previous A.
+    RBASE = ONE / LBETA.value;
+    SMALL = ONE;
+    for (I = 1; I <= 3; I++) {
+      // 20
+      SMALL = dlamc3(SMALL * RBASE, ZERO);
+    } // 20
+    A = dlamc3(ONE, SMALL);
+    dlamc4(NGPMIN, ONE, LBETA.value);
+    dlamc4(NGNMIN, -ONE, LBETA.value);
+    dlamc4(GPMIN, A, LBETA.value);
+    dlamc4(GNMIN, -A, LBETA.value);
+    IEEE = false;
 
-         RBASE = ONE / LBETA;
-         SMALL = ONE;
-         for (I = 1; I <= 3; I++) { // 20
-            SMALL = DLAMC3( SMALL*RBASE, ZERO );
-         } // 20
-         A = DLAMC3( ONE, SMALL );
-         dlamc4(NGPMIN, ONE, LBETA );
-         dlamc4(NGNMIN, -ONE, LBETA );
-         dlamc4(GPMIN, A, LBETA );
-         dlamc4(GNMIN, -A, LBETA );
-         IEEE = false;
-
-         if ( ( NGPMIN == NGNMIN ) && ( GPMIN == GNMIN ) ) {
-            if ( NGPMIN == GPMIN ) {
-               LEMIN = NGPMIN;
-             // ( Non twos-complement machines, no gradual underflow;
-               // e.g.,  VAX )
-            } else if ( ( GPMIN-NGPMIN ) == 3 ) {
-               LEMIN = NGPMIN - 1 + LT;
-               IEEE = true;
-             // ( Non twos-complement machines, with gradual underflow;
-               // e.g., IEEE standard followers )
-            } else {
-               LEMIN = min( NGPMIN, GPMIN );
-             // ( A guess; no known machine )
-               IWARN = true;
-            }
-
-         } else if ( ( NGPMIN == GPMIN ) && ( NGNMIN == GNMIN ) ) {
-            if ( ( NGPMIN-NGNMIN ).abs() == 1 ) {
-               LEMIN = max( NGPMIN, NGNMIN );
-             // ( Twos-complement machines, no gradual underflow;
-               // e.g., CYBER 205 )
-            } else {
-               LEMIN = min( NGPMIN, NGNMIN );
-             // ( A guess; no known machine )
-               IWARN = true;
-            }
-
-         } else if ( ( ( NGPMIN-NGNMIN ).abs() == 1 ) && ( GPMIN == GNMIN ) ) {
-            if ( ( GPMIN-min( NGPMIN, NGNMIN ) ) == 3 ) {
-               LEMIN = max( NGPMIN, NGNMIN ) - 1 + LT;
-             // ( Twos-complement machines with gradual underflow;
-               // no known machine )
-            } else {
-               LEMIN = min( NGPMIN, NGNMIN );
-             // ( A guess; no known machine )
-               IWARN = true;
-            }
-
-         } else {
-            LEMIN = min( NGPMIN, NGNMIN, GPMIN, GNMIN );
-          // ( A guess; no known machine )
-            IWARN = true;
-         }
-         FIRST = false;
-// **
-// Comment out this if block if EMIN is ok
-         if ( IWARN ) {
-            FIRST = true;
-            WRITE( 6, FMT = 9999 )LEMIN;
-         }
-// **
-
-         // Assume IEEE arithmetic if we found denormalised  numbers above,
-         // or if arithmetic seems to round in the  IEEE style,  determined
-         // in routine DLAMC1. A true IEEE machine should have both  things
-         // true; however, faulty machines may have one or the other.
-
-         IEEE = IEEE || LIEEE1;
-
-         // Compute  RMIN by successive division by  BETA. We could compute
-         // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
-         // this computation.
-
-         LRMIN = 1;
-         for (I = 1; I <= 1 - LEMIN; I++) { // 30
-            LRMIN = DLAMC3( LRMIN*RBASE, ZERO );
-         } // 30
-
-         // Finally, call DLAMC5 to compute EMAX and RMAX.
-
-         dlamc5(LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX );
+    if ((NGPMIN == NGNMIN) && (GPMIN == GNMIN)) {
+      if (NGPMIN == GPMIN) {
+        LEMIN = NGPMIN.value;
+        // ( Non twos-complement machines, no gradual underflow;
+        // e.g.,  VAX )
+      } else if ((GPMIN.value - NGPMIN.value) == 3) {
+        LEMIN = NGPMIN.value - 1 + LT.value;
+        IEEE = true;
+        // ( Non twos-complement machines, with gradual underflow;
+        // e.g., IEEE standard followers )
+      } else {
+        LEMIN = min(NGPMIN.value, GPMIN.value);
+        // ( A guess; no known machine )
+        IWARN = true;
       }
-
-      BETA = LBETA;
-      T = LT;
-      RND = LRND;
-      EPS = LEPS;
-      EMIN = LEMIN;
-      RMIN = LRMIN;
-      EMAX = LEMAX;
-      RMAX = LRMAX;
-
-      return;
-
- 9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-  EMIN = ', I8, / ' If, after inspection, the value EMIN looks acceptable please comment out \n the IF block as marked within the code of routine DLAMC2,\n otherwise supply EMIN explicitly.\n');
+    } else if ((NGPMIN == GPMIN) && (NGNMIN == GNMIN)) {
+      if ((NGPMIN.value - NGNMIN.value).abs() == 1) {
+        LEMIN = max(NGPMIN.value, NGNMIN.value);
+        // ( Twos-complement machines, no gradual underflow;
+        // e.g., CYBER 205 )
+      } else {
+        LEMIN = min(NGPMIN.value, NGNMIN.value);
+        // ( A guess; no known machine )
+        IWARN = true;
       }
+    } else if (((NGPMIN.value - NGNMIN.value).abs() == 1) && (GPMIN == GNMIN)) {
+      if ((GPMIN.value - min(NGPMIN.value, NGNMIN.value)) == 3) {
+        LEMIN = max(NGPMIN.value, NGNMIN.value) - 1 + LT.value;
+        // ( Twos-complement machines with gradual underflow;
+        // no known machine )
+      } else {
+        LEMIN = min(NGPMIN.value, NGNMIN.value);
+        // ( A guess; no known machine )
+        IWARN = true;
+      }
+    } else {
+      LEMIN =
+          min(min(NGPMIN.value, NGNMIN.value), min(GPMIN.value, GNMIN.value));
+      // ( A guess; no known machine )
+      IWARN = true;
+    }
+    _dlamc2Cache.FIRST = false;
+    // **
+    // Comment out this if block if EMIN is ok
+    if (IWARN) {
+      _dlamc2Cache.FIRST = true;
+      print(
+          '\n\n WARNING. The value EMIN may be incorrect:-  EMIN = ${LEMIN.i8}\n If, after inspection, the value EMIN looks acceptable please comment out \n the IF block as marked within the code of routine DLAMC2,\n otherwise supply EMIN explicitly.\n');
+    }
+    // **
+
+    // Assume IEEE arithmetic if we found denormalised  numbers above,
+    // or if arithmetic seems to round in the  IEEE style,  determined
+    // in routine DLAMC1. A true IEEE machine should have both  things
+    // true; however, faulty machines may have one or the other.
+
+    IEEE = IEEE || LIEEE1.value;
+
+    // Compute  RMIN by successive division by  BETA. We could compute
+    // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
+    // this computation.
+
+    LRMIN = 1;
+    for (I = 1; I <= 1 - LEMIN; I++) {
+      // 30
+      LRMIN = dlamc3(LRMIN * RBASE, ZERO);
+    } // 30
+
+    // Finally, call DLAMC5 to compute EMAX and RMAX.
+
+    dlamc5(LBETA.value, LT.value, LEMIN, IEEE, LEMAX, LRMAX);
+  }
+
+  BETA.value = LBETA.value;
+  T.value = LT.value;
+  RND.value = LRND.value;
+  EPS.value = LEPS;
+  EMIN.value = LEMIN;
+  RMIN.value = LRMIN;
+  EMAX.value = LEMAX.value;
+  RMAX.value = LRMAX.value;
+}
 
 // ***********************************************************************
-// > \brief \b DLAMC3
+// > \brief \b dlamc3
 // > \details
 // > \b Purpose:
 // > \verbatim
-// > DLAMC3  is intended to force  A  and  B  to be stored prior to doing
+// > dlamc3  is intended to force  A  and  B  to be stored prior to doing
 // > the addition of  A  and  B ,  for use in situations where optimizers
 // > might hold one of these in a register.
 // > \endverbatim
@@ -538,20 +529,11 @@
 // >
 // > \ingroup lamc3
 // >
-      double dlamc3(A, B ) {
-
+double dlamc3(final double A, final double B) {
 // -- LAPACK auxiliary routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-      double             A, B;
-      // ..
-// =====================================================================
-
-      // .. Executable Statements ..
-
-      DLAMC3 = A + B;
-
-      return;
-      }
+// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  return A + B;
+}
 
 // ***********************************************************************
 // > \brief \b DLAMC4
@@ -580,57 +562,41 @@
 // >
 // > \ingroup lamc4
 // >
-      void dlamc4(EMIN, START, BASE ) {
-
+void dlamc4(final Box<int> EMIN, final double START, final int BASE) {
 // -- LAPACK auxiliary routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-      int                BASE, EMIN;
-      double             START;
-      // ..
-// =====================================================================
+// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  int I;
+  double A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
 
-      // .. Local Scalars ..
-      int                I;
-      double             A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMC3;
-      // EXTERNAL DLAMC3
-
-      A = START;
-      ONE = 1;
-      RBASE = ONE / BASE;
-      ZERO = 0;
-      EMIN = 1;
-      B1 = DLAMC3( A*RBASE, ZERO );
-      C1 = A;
-      C2 = A;
-      D1 = A;
-      D2 = A;
-// +    WHILE( ( C1 == A ) && ( C2 == A ).AND.
-// $       ( D1 == A ) && ( D2 == A )      )LOOP
-      } // 10
-      if ( ( C1 == A ) && ( C2 == A ) && ( D1 == A ) && ( D2 == A ) ) {
-         EMIN = EMIN - 1;
-         A = B1;
-         B1 = DLAMC3( A / BASE, ZERO );
-         C1 = DLAMC3( B1*BASE, ZERO );
-         D1 = ZERO;
-         for (I = 1; I <= BASE; I++) { // 20
-            D1 = D1 + B1;
-         } // 20
-         B2 = DLAMC3( A*RBASE, ZERO );
-         C2 = DLAMC3( B2 / RBASE, ZERO );
-         D2 = ZERO;
-         for (I = 1; I <= BASE; I++) { // 30
-            D2 = D2 + B2;
-         } // 30
-         GO TO 10;
-      }
-// +    END WHILE
-
-      return;
-      }
+  A = START;
+  ONE = 1;
+  RBASE = ONE / BASE;
+  ZERO = 0;
+  EMIN.value = 1;
+  B1 = dlamc3(A * RBASE, ZERO);
+  C1 = A;
+  C2 = A;
+  D1 = A;
+  D2 = A;
+  while ((C1 == A) && (C2 == A) && (D1 == A) && (D2 == A)) {
+    EMIN.value -= 1;
+    A = B1;
+    B1 = dlamc3(A / BASE, ZERO);
+    C1 = dlamc3(B1 * BASE, ZERO);
+    D1 = ZERO;
+    for (I = 1; I <= BASE; I++) {
+      // 20
+      D1 = D1 + B1;
+    } // 20
+    B2 = dlamc3(A * RBASE, ZERO);
+    C2 = dlamc3(B2 / RBASE, ZERO);
+    D2 = ZERO;
+    for (I = 1; I <= BASE; I++) {
+      // 30
+      D2 = D2 + B2;
+    } // 30
+  }
+}
 
 // ***********************************************************************
 // > \brief \b DLAMC5
@@ -679,112 +645,104 @@
 // >
 // > \ingroup lamc5
 // >
-      void dlamc5(BETA, P, EMIN, IEEE, EMAX, RMAX ) {
-
+void dlamc5(
+  final int BETA,
+  final int P,
+  final int EMIN,
+  final bool IEEE,
+  final Box<int> EMAX,
+  final Box<double> RMAX,
+) {
 // -- LAPACK auxiliary routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-      bool               IEEE;
-      int                BETA, EMAX, EMIN, P;
-      double             RMAX;
-      // ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
-      double             OLDY, RECBAS, Y, Z;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMC3;
-      // EXTERNAL DLAMC3
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MOD
+// -- Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  const ZERO = 0.0, ONE = 1.0;
+  int EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
+  double OLDY = 0, RECBAS, Y, Z;
 
-      // First compute LEXP and UEXP, two powers of 2 that bound
-      // abs(EMIN). We then assume that EMAX + abs(EMIN) will sum
-      // approximately to the bound that is closest to abs(EMIN).
-      // (EMAX is the exponent of the required number RMAX).
+  // First compute LEXP and UEXP, two powers of 2 that bound
+  // abs(EMIN). We then assume that EMAX + abs(EMIN) will sum
+  // approximately to the bound that is closest to abs(EMIN).
+  // (EMAX is the exponent of the required number RMAX).
 
-      LEXP = 1;
-      EXBITS = 1;
-      } // 10
-      TRY = LEXP*2;
-      if ( TRY <= ( -EMIN ) ) {
-         LEXP = TRY;
-         EXBITS = EXBITS + 1;
-         GO TO 10;
-      }
-      if ( LEXP == -EMIN ) {
-         UEXP = LEXP;
-      } else {
-         UEXP = TRY;
-         EXBITS = EXBITS + 1;
-      }
+  LEXP = 1;
+  EXBITS = 1;
+  TRY = LEXP * 2;
+  while (TRY <= -EMIN) {
+    LEXP = TRY;
+    EXBITS = EXBITS + 1;
+    TRY = LEXP * 2;
+  }
+  if (LEXP == -EMIN) {
+    UEXP = LEXP;
+  } else {
+    UEXP = TRY;
+    EXBITS = EXBITS + 1;
+  }
 
-      // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
-      // than or equal to EMIN. EXBITS is the number of bits needed to
-      // store the exponent.
+  // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
+  // than or equal to EMIN. EXBITS is the number of bits needed to
+  // store the exponent.
 
-      if ( ( UEXP+EMIN ) > ( -LEXP-EMIN ) ) {
-         EXPSUM = 2*LEXP;
-      } else {
-         EXPSUM = 2*UEXP;
-      }
+  if ((UEXP + EMIN) > (-LEXP - EMIN)) {
+    EXPSUM = 2 * LEXP;
+  } else {
+    EXPSUM = 2 * UEXP;
+  }
 
-      // EXPSUM is the exponent range, approximately equal to
-      // EMAX - EMIN + 1 .
+  // EXPSUM is the exponent range, approximately equal to
+  // EMAX - EMIN + 1 .
 
-      EMAX = EXPSUM + EMIN - 1;
-      NBITS = 1 + EXBITS + P;
+  EMAX.value = EXPSUM + EMIN - 1;
+  NBITS = 1 + EXBITS + P;
 
-      // NBITS is the total number of bits needed to store a
-      // floating-point number.
+  // NBITS is the total number of bits needed to store a
+  // floating-point number.
 
-      if ( ( (NBITS % 2) == 1 ) && ( BETA == 2 ) ) {
+  if (((NBITS % 2) == 1) && (BETA == 2)) {
+    // Either there are an odd number of bits used to store a
+    // floating-point number, which is unlikely, or some bits are
+    // not used in the representation of numbers, which is possible,
+    // (e.g. Cray machines) or the mantissa has an implicit bit,
+    // (e.g. IEEE machines, Dec Vax machines), which is perhaps the
+    // most likely. We have to assume the last alternative.
+    // If this is true, then we need to reduce EMAX by one because
+    // there must be some way of representing zero in an implicit-bit
+    // system. On machines like Cray, we are reducing EMAX by one
+    // unnecessarily.
 
-         // Either there are an odd number of bits used to store a
-         // floating-point number, which is unlikely, or some bits are
-         // not used in the representation of numbers, which is possible,
-         // (e.g. Cray machines) or the mantissa has an implicit bit,
-         // (e.g. IEEE machines, Dec Vax machines), which is perhaps the
-         // most likely. We have to assume the last alternative.
-         // If this is true, then we need to reduce EMAX by one because
-         // there must be some way of representing zero in an implicit-bit
-         // system. On machines like Cray, we are reducing EMAX by one
-         // unnecessarily.
+    EMAX.value -= 1;
+  }
 
-         EMAX = EMAX - 1;
-      }
+  if (IEEE) {
+    // Assume we are on an IEEE machine which reserves one exponent
+    // for infinity and NaN.
 
-      if ( IEEE ) {
+    EMAX.value -= 1;
+  }
 
-         // Assume we are on an IEEE machine which reserves one exponent
-         // for infinity and NaN.
+  // Now create RMAX, the largest machine number, which should
+  // be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
 
-         EMAX = EMAX - 1;
-      }
+  // First compute 1.0 - BETA**(-P), being careful that the
+  // result is less than 1.0 .
 
-      // Now create RMAX, the largest machine number, which should
-      // be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
+  RECBAS = ONE / BETA;
+  Z = BETA - ONE;
+  Y = ZERO;
+  for (I = 1; I <= P; I++) {
+    // 20
+    Z = Z * RECBAS;
+    if (Y < ONE) OLDY = Y;
+    Y = dlamc3(Y, Z);
+  } // 20
+  if (Y >= ONE) Y = OLDY;
 
-      // First compute 1.0 - BETA**(-P), being careful that the
-      // result is less than 1.0 .
+  // Now multiply by BETA**EMAX to get RMAX.
 
-      RECBAS = ONE / BETA;
-      Z = BETA - ONE;
-      Y = ZERO;
-      for (I = 1; I <= P; I++) { // 20
-         Z = Z*RECBAS;
-         if (Y < ONE) OLDY = Y;
-         Y = DLAMC3( Y, Z );
-      } // 20
-      if (Y >= ONE) Y = OLDY;
+  for (I = 1; I <= EMAX.value; I++) {
+    // 30
+    Y = dlamc3(Y * BETA, ZERO);
+  } // 30
 
-      // Now multiply by BETA**EMAX to get RMAX.
-
-      for (I = 1; I <= EMAX; I++) { // 30
-         Y = DLAMC3( Y*BETA, ZERO );
-      } // 30
-
-      RMAX = Y;
-      return;
-      }
+  RMAX.value = Y;
+}

@@ -101,7 +101,7 @@ Future<void> dckcsd(
         dlaror('L', 'I', M, M, X.asMatrix(LDX), LDX, ISEED, WORK, IINFO);
         if (M != 0 && IINFO.value != 0) {
           NOUT.println(
-            ' DLAROR in DCKCSD: M = ${M.i5}, INFO.value = ${IINFO.value.i15}',
+            ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}',
           );
           INFO.value = (IINFO.value).abs();
           continue;

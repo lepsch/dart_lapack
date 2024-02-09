@@ -171,6 +171,7 @@ Future<void> dcklse(
       }
 
       // Generate the right-hand sides C and D for the LSE.
+      var LD1 = max(N, 1), LD2 = max(M, 1);
 
       dlarhs(
         'DGE',
@@ -182,16 +183,18 @@ Future<void> dcklse(
         max(M - 1, 0),
         max(N - 1, 0),
         1,
-        A,
+        A.asMatrix(LDA),
         LDA,
-        X[4 * NMAX + 1],
-        max(N, 1),
-        X,
-        max(M, 1),
+        X(4 * NMAX + 1).asMatrix(LD1),
+        LD1,
+        X.asMatrix(LD2),
+        LD2,
         ISEED,
         IINFO,
       );
 
+      LD1 = max(N, 1);
+      LD2 = max(P, 1);
       dlarhs(
         'DGE',
         'Computed',
@@ -202,12 +205,12 @@ Future<void> dcklse(
         max(P - 1, 0),
         max(N - 1, 0),
         1,
-        B,
+        B.asMatrix(LDB),
         LDB,
-        X[4 * NMAX + 1],
-        max(N, 1),
-        X[2 * NMAX + 1],
-        max(P, 1),
+        X(4 * NMAX + 1).asMatrix(LD1),
+        LD1,
+        X(2 * NMAX + 1).asMatrix(LD2),
+        LD2,
         ISEED,
         IINFO,
       );
@@ -218,21 +221,21 @@ Future<void> dcklse(
         M,
         P,
         N,
-        A,
-        AF,
+        A.asMatrix(LDA),
+        AF.asMatrix(LDA),
         LDA,
-        B,
-        BF,
+        B.asMatrix(LDB),
+        BF.asMatrix(LDB),
         LDB,
         X,
-        X[NMAX + 1],
-        X[2 * NMAX + 1],
-        X[3 * NMAX + 1],
-        X[4 * NMAX + 1],
+        X(NMAX + 1),
+        X(2 * NMAX + 1),
+        X(3 * NMAX + 1),
+        X(4 * NMAX + 1),
         WORK,
         LWORK,
         RWORK,
-        RESULT[1],
+        RESULT(1),
       );
 
       // Print information about the tests that did not

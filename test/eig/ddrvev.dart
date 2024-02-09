@@ -91,10 +91,10 @@ void ddrvev(
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ]);
   final KMAGN = Array.fromList([
-    1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3 //
+    1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3, //
   ]);
   final KMODE = Array.fromList([
-    0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 //
+    0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1, //
   ]);
   final KCONDS = Array.fromList([
     0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 0, 0, 0, //
@@ -242,13 +242,45 @@ void ddrvev(
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
-          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A,
-              LDA, WORK(N + 1), IINFO);
+          dlatms(
+            N,
+            N,
+            'S',
+            ISEED,
+            'S',
+            WORK,
+            IMODE,
+            COND,
+            ANORM,
+            0,
+            0,
+            'N',
+            A,
+            LDA,
+            WORK(N + 1),
+            IINFO,
+          );
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
 
-          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A,
-              LDA, WORK(N + 1), IINFO);
+          dlatms(
+            N,
+            N,
+            'S',
+            ISEED,
+            'S',
+            WORK,
+            IMODE,
+            COND,
+            ANORM,
+            N,
+            N,
+            'N',
+            A,
+            LDA,
+            WORK(N + 1),
+            IINFO,
+          );
         } else if (ITYPE == 6) {
           // General, eigenvalues specified
 
@@ -262,123 +294,127 @@ void ddrvev(
 
           ADUMMA = ' ';
           dlatme(
-              N,
-              'S',
-              ISEED,
-              WORK,
-              IMODE,
-              COND,
-              ONE,
-              ADUMMA,
-              'T',
-              'T',
-              'T',
-              WORK(N + 1),
-              4,
-              CONDS,
-              N,
-              N,
-              ANORM,
-              A,
-              LDA,
-              WORK(2 * N + 1),
-              IINFO);
+            N,
+            'S',
+            ISEED,
+            WORK,
+            IMODE,
+            COND,
+            ONE,
+            ADUMMA,
+            'T',
+            'T',
+            'T',
+            WORK(N + 1),
+            4,
+            CONDS,
+            N,
+            N,
+            ANORM,
+            A,
+            LDA,
+            WORK(2 * N + 1),
+            IINFO,
+          );
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
 
           dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              0,
-              0,
-              ZERO,
-              ANORM,
-              'NO',
-              A,
-              LDA,
-              IWORK,
-              IINFO);
+            N,
+            N,
+            'S',
+            ISEED,
+            'S',
+            WORK,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            WORK(N + 1),
+            1,
+            ONE,
+            WORK(2 * N + 1),
+            1,
+            ONE,
+            'N',
+            IDUMMA,
+            0,
+            0,
+            ZERO,
+            ANORM,
+            'NO',
+            A,
+            LDA,
+            IWORK,
+            IINFO,
+          );
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
 
           dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              N,
-              N,
-              ZERO,
-              ANORM,
-              'NO',
-              A,
-              LDA,
-              IWORK,
-              IINFO);
+            N,
+            N,
+            'S',
+            ISEED,
+            'S',
+            WORK,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            WORK(N + 1),
+            1,
+            ONE,
+            WORK(2 * N + 1),
+            1,
+            ONE,
+            'N',
+            IDUMMA,
+            N,
+            N,
+            ZERO,
+            ANORM,
+            'NO',
+            A,
+            LDA,
+            IWORK,
+            IINFO,
+          );
         } else if (ITYPE == 9) {
           // General, random eigenvalues
 
           dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'N',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              N,
-              N,
-              ZERO,
-              ANORM,
-              'NO',
-              A,
-              LDA,
-              IWORK,
-              IINFO);
+            N,
+            N,
+            'S',
+            ISEED,
+            'N',
+            WORK,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            WORK(N + 1),
+            1,
+            ONE,
+            WORK(2 * N + 1),
+            1,
+            ONE,
+            'N',
+            IDUMMA,
+            N,
+            N,
+            ZERO,
+            ANORM,
+            'NO',
+            A,
+            LDA,
+            IWORK,
+            IINFO,
+          );
           if (N >= 4) {
             dlaset('Full', 2, N, ZERO, ZERO, A, LDA);
             dlaset('Full', N - 3, 1, ZERO, ZERO, A(3, 1), LDA);
@@ -389,34 +425,35 @@ void ddrvev(
           // Triangular, random eigenvalues
 
           dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'N',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              N,
-              0,
-              ZERO,
-              ANORM,
-              'NO',
-              A,
-              LDA,
-              IWORK,
-              IINFO);
+            N,
+            N,
+            'S',
+            ISEED,
+            'N',
+            WORK,
+            6,
+            ONE,
+            ONE,
+            'T',
+            'N',
+            WORK(N + 1),
+            1,
+            ONE,
+            WORK(2 * N + 1),
+            1,
+            ONE,
+            'N',
+            IDUMMA,
+            N,
+            0,
+            ZERO,
+            ANORM,
+            'NO',
+            A,
+            LDA,
+            IWORK,
+            IINFO,
+          );
         } else {
           IINFO.value = 1;
         }
@@ -447,8 +484,22 @@ void ddrvev(
         // Compute eigenvalues and eigenvectors, and test them
 
         dlacpy('F', N, N, A, LDA, H, LDA);
-        dgeev('V', 'V', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, NNWORK,
-            IINFO);
+        dgeev(
+          'V',
+          'V',
+          N,
+          H,
+          LDA,
+          WR,
+          WI,
+          VL,
+          LDVL,
+          VR,
+          LDVR,
+          WORK,
+          NNWORK,
+          IINFO,
+        );
         if (IINFO.value != 0) {
           RESULT[1] = ULPINV;
           _print9993(NOUNIT, 'DGEEV1', IINFO.value, N, JTYPE, IOLDSD);
@@ -473,8 +524,10 @@ void ddrvev(
           if (WI[J] == ZERO) {
             TNRM = dnrm2(N, VR(1, J).asArray(), 1);
           } else if (WI[J] > ZERO) {
-            TNRM = dlapy2(dnrm2(N, VR(1, J).asArray(), 1),
-                dnrm2(N, VR(1, J + 1).asArray(), 1));
+            TNRM = dlapy2(
+              dnrm2(N, VR(1, J).asArray(), 1),
+              dnrm2(N, VR(1, J + 1).asArray(), 1),
+            );
           }
           RESULT[3] = max(RESULT[3], min(ULPINV, (TNRM - ONE).abs() / ULP));
           if (WI[J] > ZERO) {
@@ -483,8 +536,9 @@ void ddrvev(
             for (JJ = 1; JJ <= N; JJ++) {
               VTST = dlapy2(VR[JJ][J], VR[JJ][J + 1]);
               if (VTST > VMX) VMX = VTST;
-              if (VR[JJ][J + 1] == ZERO && (VR[JJ][J]).abs() > VRMX)
+              if (VR[JJ][J + 1] == ZERO && (VR[JJ][J]).abs() > VRMX) {
                 VRMX = (VR[JJ][J]).abs();
+              }
             }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[3] = ULPINV;
           }
@@ -497,8 +551,10 @@ void ddrvev(
           if (WI[J] == ZERO) {
             TNRM = dnrm2(N, VL(1, J).asArray(), 1);
           } else if (WI[J] > ZERO) {
-            TNRM = dlapy2(dnrm2(N, VL(1, J).asArray(), 1),
-                dnrm2(N, VL(1, J + 1).asArray(), 1));
+            TNRM = dlapy2(
+              dnrm2(N, VL(1, J).asArray(), 1),
+              dnrm2(N, VL(1, J + 1).asArray(), 1),
+            );
           }
           RESULT[4] = max(RESULT[4], min(ULPINV, (TNRM - ONE).abs() / ULP));
           if (WI[J] > ZERO) {
@@ -507,8 +563,9 @@ void ddrvev(
             for (JJ = 1; JJ <= N; JJ++) {
               VTST = dlapy2(VL[JJ][J], VL[JJ][J + 1]);
               if (VTST > VMX) VMX = VTST;
-              if (VL[JJ][J + 1] == ZERO && (VL[JJ][J]).abs() > VRMX)
+              if (VL[JJ][J + 1] == ZERO && (VL[JJ][J]).abs() > VRMX) {
                 VRMX = (VL[JJ][J]).abs();
+              }
             }
             if (VRMX / VMX < ONE - TWO * ULP) RESULT[4] = ULPINV;
           }
@@ -517,8 +574,22 @@ void ddrvev(
         // Compute eigenvalues only, and test them
         while (true) {
           dlacpy('F', N, N, A, LDA, H, LDA);
-          dgeev('N', 'N', N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, WORK, NNWORK,
-              IINFO);
+          dgeev(
+            'N',
+            'N',
+            N,
+            H,
+            LDA,
+            WR1,
+            WI1,
+            DUM.asMatrix(1),
+            1,
+            DUM.asMatrix(1),
+            1,
+            WORK,
+            NNWORK,
+            IINFO,
+          );
           if (IINFO.value != 0) {
             RESULT[1] = ULPINV;
             _print9993(NOUNIT, 'DGEEV2', IINFO.value, N, JTYPE, IOLDSD);
@@ -535,8 +606,22 @@ void ddrvev(
           // Compute eigenvalues and right eigenvectors, and test them
 
           dlacpy('F', N, N, A, LDA, H, LDA);
-          dgeev('N', 'V', N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, WORK, NNWORK,
-              IINFO);
+          dgeev(
+            'N',
+            'V',
+            N,
+            H,
+            LDA,
+            WR1,
+            WI1,
+            DUM.asMatrix(1),
+            1,
+            LRE,
+            LDLRE,
+            WORK,
+            NNWORK,
+            IINFO,
+          );
           if (IINFO.value != 0) {
             RESULT[1] = ULPINV;
             _print9993(NOUNIT, 'DGEEV3', IINFO.value, N, JTYPE, IOLDSD);
@@ -561,8 +646,22 @@ void ddrvev(
           // Compute eigenvalues and left eigenvectors, and test them
 
           dlacpy('F', N, N, A, LDA, H, LDA);
-          dgeev('V', 'N', N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, WORK, NNWORK,
-              IINFO);
+          dgeev(
+            'V',
+            'N',
+            N,
+            H,
+            LDA,
+            WR1,
+            WI1,
+            LRE,
+            LDLRE,
+            DUM.asMatrix(1),
+            1,
+            WORK,
+            NNWORK,
+            IINFO,
+          );
           if (IINFO.value != 0) {
             RESULT[1] = ULPINV;
             _print9993(NOUNIT, 'DGEEV4', IINFO.value, N, JTYPE, IOLDSD);
@@ -599,22 +698,28 @@ void ddrvev(
         if (NFAIL > 0) NTESTF = NTESTF + 1;
         if (NTESTF == 1) {
           NOUNIT.println(
-              '\n ${PATH.a3} -- Real Eigenvalue-Eigenvector Decomposition Driver\n Matrix types (see DDRVEV for details): ');
+            '\n ${PATH.a3} -- Real Eigenvalue-Eigenvector Decomposition Driver\n Matrix types (see DDRVEV for details): ',
+          );
           NOUNIT.println(
-              '\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.');
+            '\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.',
+          );
           NOUNIT.println(
-              ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex ${' ' * 6}    17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ');
+            ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex ${' ' * 6}    17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ',
+          );
           NOUNIT.println(
-              ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n');
+            ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n',
+          );
           NOUNIT.println(
-              ' Tests performed with test threshold =${THRESH.f8_2}\n\n 1 = | A VR - VR W | / ( n |A| ulp ) \n 2 = | transpose(A) VL - VL W | / ( n |A| ulp ) \n 3 = | |VR(i)| - 1 | / ulp \n 4 = | |VL(i)| - 1 | / ulp \n 5 = 0 if W same no matter if VR or VL computed, 1/ulp otherwise\n 6 = 0 if VR same no matter if VL computed,  1/ulp otherwise\n 7 = 0 if VL same no matter if VR computed,  1/ulp otherwise\n');
+            ' Tests performed with test threshold =${THRESH.f8_2}\n\n 1 = | A VR - VR W | / ( n |A| ulp ) \n 2 = | transpose(A) VL - VL W | / ( n |A| ulp ) \n 3 = | |VR(i)| - 1 | / ulp \n 4 = | |VL(i)| - 1 | / ulp \n 5 = 0 if W same no matter if VR or VL computed, 1/ulp otherwise\n 6 = 0 if VR same no matter if VL computed,  1/ulp otherwise\n 7 = 0 if VL same no matter if VR computed,  1/ulp otherwise\n',
+          );
           NTESTF = 2;
         }
 
         for (J = 1; J <= 7; J++) {
           if (RESULT[J] >= THRESH) {
             NOUNIT.println(
-                ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
+              ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}',
+            );
           }
         }
 
@@ -637,5 +742,6 @@ void _print9993(
   final Array<int> iseed,
 ) {
   nout.println(
-      ' DDRVEV: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
+    ' DDRVEV: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
+  );
 }

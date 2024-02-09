@@ -1,4 +1,3 @@
-
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dgees.dart';
 import 'package:lapack/src/dgeesx.dart';
@@ -14,7 +13,7 @@ import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
-import '../blas/sp/sblat3.dart';
+import 'chkxer.dart';
 import 'common.dart';
 import 'dslect.dart';
 
@@ -27,8 +26,8 @@ void derred(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4, ONE = 1.0, ZERO = 0.0;
   String C2;
-  int I, IHI = 0, ILO = 0, J, NS = 0, NT, SDIM = 0;
-  double ABNRM = 0;
+  int I, J,  NT, SDIM = 0;
+  final ABNRM = Box(0.0);
   final B = Array<bool>(NMAX);
   final IW = Array<int>(2 * NMAX);
   final A = Matrix<double>(NMAX, NMAX),
@@ -42,7 +41,7 @@ void derred(
       W = Array<double>(10 * NMAX),
       WI = Array<double>(NMAX),
       WR = Array<double>(NMAX);
-  final INFO = Box(0);
+  final INFO = Box(0), NS=Box(0), IHI = Box(0), ILO = Box(0);
 
   infoc.NOUT = NUNIT;
   print('');

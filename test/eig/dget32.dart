@@ -27,40 +27,16 @@ void dget32(
   final VAL = Array<double>(3);
   final INFO = Box(0);
   final XNORM = Box(0.0), SCALE = Box(0.0);
-  const ITVAL = [
-    8,
-    4,
-    2,
-    1,
-    4,
-    8,
-    1,
-    2,
-    2,
-    1,
-    8,
-    4,
-    1,
-    2,
-    4,
-    8,
-    9,
-    4,
-    2,
-    1,
-    4,
-    9,
-    1,
-    2,
-    2,
-    1,
-    9,
-    4,
-    1,
-    2,
-    4,
-    9,
-  ];
+  final ITVAL = Matrix3d.fromList([
+    [8, 4, 2, 1],
+    [4, 8, 1, 2],
+    [2, 1, 8, 4],
+    [1, 2, 4, 8],
+    [9, 4, 2, 1],
+    [4, 9, 1, 2],
+    [2, 1, 9, 4],
+    [1, 2, 4, 9],
+  ]);
 
   // Get machine parameters
 
@@ -151,10 +127,10 @@ void dget32(
                 for (IB2 = 1; IB2 <= 3; IB2++) {
                   B[1][1] = VAL[IB1];
                   B[2][1] = -FOUR * VAL[IB2];
-                  TL[1][1] = ITVAL(1, 1, ITL) * VAL[ITLSCL];
-                  TL[2][1] = ITVAL(2, 1, ITL) * VAL[ITLSCL];
-                  TL[1][2] = ITVAL(1, 2, ITL) * VAL[ITLSCL];
-                  TL[2][2] = ITVAL(2, 2, ITL) * VAL[ITLSCL];
+                  TL[1][1] = ITVAL[1][1][ITL] * VAL[ITLSCL];
+                  TL[2][1] = ITVAL[2][1][ITL] * VAL[ITLSCL];
+                  TL[1][2] = ITVAL[1][2][ITL] * VAL[ITLSCL];
+                  TL[2][2] = ITVAL[2][2][ITL] * VAL[ITLSCL];
                   TR[1][1] = VAL[ITR];
                   KNT.value = KNT.value + 1;
                   dlasy2(
@@ -222,10 +198,10 @@ void dget32(
                 for (IB2 = 1; IB2 <= 3; IB2++) {
                   B[1][1] = VAL[IB1];
                   B[1][2] = -TWO * VAL[IB2];
-                  TR[1][1] = ITVAL(1, 1, ITR) * VAL[ITRSCL];
-                  TR[2][1] = ITVAL(2, 1, ITR) * VAL[ITRSCL];
-                  TR[1][2] = ITVAL(1, 2, ITR) * VAL[ITRSCL];
-                  TR[2][2] = ITVAL(2, 2, ITR) * VAL[ITRSCL];
+                  TR[1][1] = ITVAL[1][1][ITR] * VAL[ITRSCL];
+                  TR[2][1] = ITVAL[2][1][ITR] * VAL[ITRSCL];
+                  TR[1][2] = ITVAL[1][2][ITR] * VAL[ITRSCL];
+                  TR[2][2] = ITVAL[2][2][ITR] * VAL[ITRSCL];
                   TL[1][1] = VAL[ITL];
                   KNT.value = KNT.value + 1;
                   dlasy2(
@@ -297,14 +273,14 @@ void dget32(
                       B[2][1] = -FOUR * VAL[IB2];
                       B[1][2] = -TWO * VAL[IB3];
                       B[2][2] = EIGHT * min(VAL[IB1], min(VAL[IB2], VAL[IB3]));
-                      TR[1][1] = ITVAL(1, 1, ITR) * VAL[ITRSCL];
-                      TR[2][1] = ITVAL(2, 1, ITR) * VAL[ITRSCL];
-                      TR[1][2] = ITVAL(1, 2, ITR) * VAL[ITRSCL];
-                      TR[2][2] = ITVAL(2, 2, ITR) * VAL[ITRSCL];
-                      TL[1][1] = ITVAL(1, 1, ITL) * VAL[ITLSCL];
-                      TL[2][1] = ITVAL(2, 1, ITL) * VAL[ITLSCL];
-                      TL[1][2] = ITVAL(1, 2, ITL) * VAL[ITLSCL];
-                      TL[2][2] = ITVAL(2, 2, ITL) * VAL[ITLSCL];
+                      TR[1][1] = ITVAL[1][1][ITR] * VAL[ITRSCL];
+                      TR[2][1] = ITVAL[2][1][ITR] * VAL[ITRSCL];
+                      TR[1][2] = ITVAL[1][2][ITR] * VAL[ITRSCL];
+                      TR[2][2] = ITVAL[2][2][ITR] * VAL[ITRSCL];
+                      TL[1][1] = ITVAL[1][1][ITL] * VAL[ITLSCL];
+                      TL[2][1] = ITVAL[2][1][ITL] * VAL[ITLSCL];
+                      TL[1][2] = ITVAL[1][2][ITL] * VAL[ITLSCL];
+                      TL[2][2] = ITVAL[2][2][ITL] * VAL[ITLSCL];
                       KNT.value = KNT.value + 1;
                       dlasy2(
                         LTRANL,

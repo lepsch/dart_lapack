@@ -2,11 +2,18 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dbbcsd.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlapmr.dart';
+import 'package:lapack/src/dlapmt.dart';
+import 'package:lapack/src/dorbdb.dart';
+import 'package:lapack/src/dorglq.dart';
+import 'package:lapack/src/dorgqr.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      RECURSIVE SUBROUTINE DORCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO );
+void dorcsd( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO ){
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -16,26 +23,11 @@ import 'package:lapack/src/xerbla.dart';
       int                IWORK( * );
       double             THETA( * );
       double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
-      // ..
 
-// ===================================================================
-
-      // .. Parameters ..
-      double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       String             TRANST, SIGNST;
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, ITAUQ2, J, LBBCSDWORK, LBBCSDWORKMIN, LBBCSDWORKOPT, LORBDBWORK, LORBDBWORKMIN, LORBDBWORKOPT, LORGLQWORK, LORGLQWORKMIN, LORGLQWORKOPT, LORGQRWORK, LORGQRWORKMIN, LORGQRWORKOPT, LWORKMIN, LWORKOPT;
       bool               COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DBBCSD, DLACPY, DLAPMR, DLAPMT, DORBDB, DORGLQ, DORGQR, XERBLA
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. Intrinsic Functions
-      // INTRINSIC INT, MAX, MIN
 
       // Test input arguments
 
@@ -257,9 +249,5 @@ import 'package:lapack/src/xerbla.dart';
             dlapmr( false , M-Q, M-Q, V2T, LDV2T, IWORK );
          }
       }
-
-      return;
-
-      // End DORCSD
 
       }

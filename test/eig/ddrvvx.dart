@@ -642,7 +642,7 @@ Future<void> ddrvvx(
       SCALE1,
       RESULT,
       WORK,
-      6 * N + 2 * pow(N, 2),
+      6 * N + 2 * pow(N, 2).toInt(),
       IWORK,
       INFO,
     );

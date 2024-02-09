@@ -2,242 +2,227 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlaexc.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtrexc(COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, WORK, INFO ) {
-
+void dtrexc(
+  final String COMPQ,
+  final int N,
+  final Matrix<double> T,
+  final int LDT,
+  final Matrix<double> Q,
+  final int LDQ,
+  final Box<int> IFST,
+  final Box<int> ILST,
+  final Array<double> WORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             COMPQ;
-      int                IFST, ILST, INFO, LDQ, LDT, N;
-      double             Q( LDQ, * ), T( LDT, * ), WORK( * );
-      // ..
+  const ZERO = 0.0;
+  bool WANTQ;
+  int HERE = 0, NBF, NBL, NBNEXT;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      bool               WANTQ;
-      int                HERE, NBF, NBL, NBNEXT;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAEXC, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Decode and test the input arguments.
 
-      // Decode and test the input arguments.
+  INFO.value = 0;
+  WANTQ = lsame(COMPQ, 'V');
+  if (!WANTQ && !lsame(COMPQ, 'N')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDT < max(1, N)) {
+    INFO.value = -4;
+  } else if (LDQ < 1 || (WANTQ && LDQ < max(1, N))) {
+    INFO.value = -6;
+  } else if ((IFST.value < 1 || IFST.value > N) && (N > 0)) {
+    INFO.value = -7;
+  } else if ((ILST.value < 1 || ILST.value > N) && (N > 0)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('DTREXC', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      WANTQ = lsame( COMPQ, 'V' );
-      if ( !WANTQ && !lsame( COMPQ, 'N' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDT < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LDQ < 1 || ( WANTQ && LDQ < max( 1, N ) ) ) {
-         INFO = -6;
-      } else if (( IFST < 1 || IFST > N ) && ( N > 0 )) {
-         INFO = -7;
-      } else if (( ILST < 1 || ILST > N ) && ( N > 0 )) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DTREXC', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 1) return;
 
-      if (N <= 1) return;
+  // Determine the first row of specified block
+  // and find out it is 1 by 1 or 2 by 2.
 
-      // Determine the first row of specified block
-      // and find out it is 1 by 1 or 2 by 2.
+  if (IFST.value > 1) {
+    if (T[IFST.value][IFST.value - 1] != ZERO) IFST.value = IFST.value - 1;
+  }
+  NBF = 1;
+  if (IFST.value < N) {
+    if (T[IFST.value + 1][IFST.value] != ZERO) NBF = 2;
+  }
 
-      if ( IFST > 1 ) {
-         if( T( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
-      }
-      NBF = 1;
-      if ( IFST < N ) {
-         if( T( IFST+1, IFST ) != ZERO ) NBF = 2;
-      }
+  // Determine the first row of the final block
+  // and find out it is 1 by 1 or 2 by 2.
 
-      // Determine the first row of the final block
-      // and find out it is 1 by 1 or 2 by 2.
+  if (ILST.value > 1) {
+    if (T[ILST.value][ILST.value - 1] != ZERO) ILST.value = ILST.value - 1;
+  }
+  NBL = 1;
+  if (ILST.value < N) {
+    if (T[ILST.value + 1][ILST.value] != ZERO) NBL = 2;
+  }
 
-      if ( ILST > 1 ) {
-         if( T( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
-      }
-      NBL = 1;
-      if ( ILST < N ) {
-         if( T( ILST+1, ILST ) != ZERO ) NBL = 2;
-      }
+  if (IFST.value == ILST.value) return;
 
-      if (IFST == ILST) return;
+  if (IFST.value < ILST.value) {
+    // Update ILST.value
 
-      if ( IFST < ILST ) {
+    if (NBF == 2 && NBL == 1) ILST.value = ILST.value - 1;
+    if (NBF == 1 && NBL == 2) ILST.value = ILST.value + 1;
 
-         // Update ILST
+    HERE = IFST.value;
 
-         if (NBF == 2 && NBL == 1) ILST = ILST - 1;
-         IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
+    do {
+      // Swap block with next one below
 
-         HERE = IFST;
+      if (NBF == 1 || NBF == 2) {
+        // Current block either 1 by 1 or 2 by 2
 
-         } // 10
+        NBNEXT = 1;
+        if (HERE + NBF + 1 <= N) {
+          if (T[HERE + NBF + 1][HERE + NBF] != ZERO) NBNEXT = 2;
+        }
+        dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO);
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        HERE = HERE + NBNEXT;
 
-         // Swap block with next one below
+        // Test if 2 by 2 block breaks into two 1 by 1 blocks
 
-         if ( NBF == 1 || NBF == 2 ) {
-
-            // Current block either 1 by 1 or 2 by 2
-
-            NBNEXT = 1;
-            if ( HERE+NBF+1 <= N ) {
-               if( T( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
-            }
-            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            HERE = HERE + NBNEXT;
-
-            // Test if 2 by 2 block breaks into two 1 by 1 blocks
-
-            if ( NBF == 2 ) {
-               if( T( HERE+1, HERE ) == ZERO ) NBF = 3;
-            }
-
-         } else {
-
-            // Current block consists of two 1 by 1 blocks each of which
-            // must be swapped individually
-
-            NBNEXT = 1;
-            if ( HERE+3 <= N ) {
-               if( T( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
-            }
-            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            if ( NBNEXT == 1 ) {
-
-               // Swap two 1 by 1 blocks, no problems possible
-
-               dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
-               HERE = HERE + 1;
-            } else {
-
-               // Recompute NBNEXT in case 2 by 2 split
-
-               if( T( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
-               if ( NBNEXT == 2 ) {
-
-                  // 2 by 2 Block did not split
-
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE + 2;
-               } else {
-
-                  // 2 by 2 Block did split
-
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO );
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO );
-                  HERE = HERE + 2;
-               }
-            }
-         }
-         if (HERE < ILST) GO TO 10;
-
+        if (NBF == 2) {
+          if (T[HERE + 1][HERE] == ZERO) NBF = 3;
+        }
       } else {
+        // Current block consists of two 1 by 1 blocks each of which
+        // must be swapped individually
 
-         HERE = IFST;
-         } // 20
+        NBNEXT = 1;
+        if (HERE + 3 <= N) {
+          if (T[HERE + 3][HERE + 2] != ZERO) NBNEXT = 2;
+        }
+        dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE + 1, 1, NBNEXT, WORK, INFO);
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        if (NBNEXT == 1) {
+          // Swap two 1 by 1 blocks, no problems possible
 
-         // Swap block with next one above
+          dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO);
+          HERE = HERE + 1;
+        } else {
+          // Recompute NBNEXT in case 2 by 2 split
 
-         if ( NBF == 1 || NBF == 2 ) {
+          if (T[HERE + 2][HERE + 1] == ZERO) NBNEXT = 1;
+          if (NBNEXT == 2) {
+            // 2 by 2 Block did not split
 
-            // Current block either 1 by 1 or 2 by 2
-
-            NBNEXT = 1;
-            if ( HERE >= 3 ) {
-               if( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO);
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
             }
-            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            HERE = HERE - NBNEXT;
+            HERE = HERE + 2;
+          } else {
+            // 2 by 2 Block did split
 
-            // Test if 2 by 2 block breaks into two 1 by 1 blocks
-
-            if ( NBF == 2 ) {
-               if( T( HERE+1, HERE ) == ZERO ) NBF = 3;
-            }
-
-         } else {
-
-            // Current block consists of two 1 by 1 blocks each of which
-            // must be swapped individually
-
-            NBNEXT = 1;
-            if ( HERE >= 3 ) {
-               if( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
-            }
-            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            if ( NBNEXT == 1 ) {
-
-               // Swap two 1 by 1 blocks, no problems possible
-
-               dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO );
-               HERE = HERE - 1;
-            } else {
-
-               // Recompute NBNEXT in case 2 by 2 split
-
-               if( T( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
-               if ( NBNEXT == 2 ) {
-
-                  // 2 by 2 Block did not split
-
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE - 2;
-               } else {
-
-                  // 2 by 2 Block did split
-
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO );
-                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO );
-                  HERE = HERE - 2;
-               }
-            }
-         }
-         if (HERE > ILST) GO TO 20;
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO);
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE + 1, 1, 1, WORK, INFO);
+            HERE = HERE + 2;
+          }
+        }
       }
-      ILST = HERE;
+    } while (HERE < ILST.value);
+  } else {
+    HERE = IFST.value;
+    do {
+      // Swap block with next one above
 
-      return;
+      if (NBF == 1 || NBF == 2) {
+        // Current block either 1 by 1 or 2 by 2
+
+        NBNEXT = 1;
+        if (HERE >= 3) {
+          if (T[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
+        }
+        dlaexc(
+          WANTQ,
+          N,
+          T,
+          LDT,
+          Q,
+          LDQ,
+          HERE - NBNEXT,
+          NBNEXT,
+          NBF,
+          WORK,
+          INFO,
+        );
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        HERE = HERE - NBNEXT;
+
+        // Test if 2 by 2 block breaks into two 1 by 1 blocks
+
+        if (NBF == 2) {
+          if (T[HERE + 1][HERE] == ZERO) NBF = 3;
+        }
+      } else {
+        // Current block consists of two 1 by 1 blocks each of which
+        // must be swapped individually
+
+        NBNEXT = 1;
+        if (HERE >= 3) {
+          if (T[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
+        }
+        dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE - NBNEXT, NBNEXT, 1, WORK, INFO);
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        if (NBNEXT == 1) {
+          // Swap two 1 by 1 blocks, no problems possible
+
+          dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO);
+          HERE = HERE - 1;
+        } else {
+          // Recompute NBNEXT in case 2 by 2 split
+
+          if (T[HERE][HERE - 1] == ZERO) NBNEXT = 1;
+          if (NBNEXT == 2) {
+            // 2 by 2 Block did not split
+
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE - 1, 2, 1, WORK, INFO);
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
+            }
+            HERE = HERE - 2;
+          } else {
+            // 2 by 2 Block did split
+
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO);
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE - 1, 1, 1, WORK, INFO);
+            HERE = HERE - 2;
+          }
+        }
       }
+    } while (HERE > ILST.value);
+  }
+  ILST.value = HERE;
+}

@@ -42,23 +42,15 @@ void dgeqr2(
   for (I = 1; I <= K; I++) {
     // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
-    dlarfg(M - I + 1, A(I, I), A(min(I + 1, M), I), 1, TAU(I));
+    dlarfg(
+        M - I + 1, A.box(I, I), A(min(I + 1, M), I).asArray(), 1, TAU.box(I));
     if (I < N) {
       // Apply H(i) to A(i:m,i+1:n) from the left
 
       AII = A[I][I];
       A[I][I] = ONE;
-      dlarf(
-        'Left',
-        M - I + 1,
-        N - I,
-        A(I, I),
-        1,
-        TAU(I),
-        A(I, I + 1),
-        LDA,
-        WORK,
-      );
+      dlarf('Left', M - I + 1, N - I, A(I, I).asArray(), 1, TAU[I], A(I, I + 1),
+          LDA, WORK);
       A[I][I] = AII;
     }
   }

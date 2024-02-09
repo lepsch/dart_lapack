@@ -1,28 +1,27 @@
-import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/dlartg.dart';
+import 'package:lapack/src/dlasv2.dart';
 
-void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
+void dlags2(
+  final bool UPPER,
+  final double A1,
+  final double A2,
+  final double A3,
+  final double B1,
+  final double B2,
+  final double B3,
+  final Box<double> CSU,
+  final Box<double> SNU,
+  final Box<double> CSV,
+  final Box<double> SNV,
+  final Box<double> CSQ,
+  final Box<double> SNQ,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  bool UPPER;
-  double A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ, SNU, SNV;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double ZERO;
   const ZERO = 0.0;
-  // ..
-  // .. Local Scalars ..
   double A,
       AUA11,
       AUA12,
@@ -34,14 +33,7 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
       AVB22,
       B,
       C,
-      CSL,
-      CSR,
       D,
-      R,
-      S1,
-      S2,
-      SNL,
-      SNR,
       UA11,
       UA11R,
       UA12,
@@ -54,12 +46,13 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
       VB21,
       VB22,
       VB22R;
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DLARTG, DLASV2
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS
+  final CSL = Box(0.0),
+      CSR = Box(0.0),
+      S1 = Box(0.0),
+      S2 = Box(0.0),
+      R = Box(0.0),
+      SNL = Box(0.0),
+      SNR = Box(0.0);
 
   if (UPPER) {
     // Input matrices A and B are upper triangular matrices
@@ -78,18 +71,18 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
 
     dlasv2(A, B, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSL).abs() >= (SNL).abs() || (CSR).abs() >= (SNR).abs()) {
+    if ((CSL.value).abs() >= (SNL.value).abs() || (CSR.value).abs() >= (SNR.value).abs()) {
       // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
       // and (1,2) element of |U|**T *|A| and |V|**T *|B|.
 
-      UA11R = CSL * A1;
-      UA12 = CSL * A2 + SNL * A3;
+      UA11R = CSL.value * A1;
+      UA12 = CSL.value * A2 + SNL.value * A3;
 
-      VB11R = CSR * B1;
-      VB12 = CSR * B2 + SNR * B3;
+      VB11R = CSR.value * B1;
+      VB12 = CSR.value * B2 + SNR.value * B3;
 
-      AUA12 = (CSL).abs() * (A2).abs() + (SNL).abs() * (A3).abs();
-      AVB12 = (CSR).abs() * (B2).abs() + (SNR).abs() * (B3).abs();
+      AUA12 = (CSL.value).abs() * (A2).abs() + (SNL.value).abs() * (A3).abs();
+      AVB12 = (CSR.value).abs() * (B2).abs() + (SNR.value).abs() * (B3).abs();
 
       // zero (1,2) elements of U**T *A and V**T *B
 
@@ -104,22 +97,22 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
         dlartg(-VB11R, VB12, CSQ, SNQ, R);
       }
 
-      CSU = CSL;
-      SNU = -SNL;
-      CSV = CSR;
-      SNV = -SNR;
+      CSU.value = CSL.value;
+      SNU.value = -SNL.value;
+      CSV.value = CSR.value;
+      SNV.value = -SNR.value;
     } else {
       // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
       // and (2,2) element of |U|**T *|A| and |V|**T *|B|.
 
-      UA21 = -SNL * A1;
-      UA22 = -SNL * A2 + CSL * A3;
+      UA21 = -SNL.value * A1;
+      UA22 = -SNL.value * A2 + CSL.value * A3;
 
-      VB21 = -SNR * B1;
-      VB22 = -SNR * B2 + CSR * B3;
+      VB21 = -SNR.value * B1;
+      VB22 = -SNR.value * B2 + CSR.value * B3;
 
-      AUA22 = (SNL).abs() * (A2).abs() + (CSL).abs() * (A3).abs();
-      AVB22 = (SNR).abs() * (B2).abs() + (CSR).abs() * (B3).abs();
+      AUA22 = (SNL.value).abs() * (A2).abs() + (CSL.value).abs() * (A3).abs();
+      AVB22 = (SNR.value).abs() * (B2).abs() + (CSR.value).abs() * (B3).abs();
 
       // zero (2,2) elements of U**T*A and V**T*B, and then swap.
 
@@ -134,10 +127,10 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
         dlartg(-VB21, VB22, CSQ, SNQ, R);
       }
 
-      CSU = SNL;
-      SNU = CSL;
-      CSV = SNR;
-      SNV = CSR;
+      CSU.value = SNL.value;
+      SNU.value = CSL.value;
+      CSV.value = SNR.value;
+      SNV.value = CSR.value;
     }
   } else {
     // Input matrices A and B are lower triangular matrices
@@ -156,18 +149,18 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
 
     dlasv2(A, C, D, S1, S2, SNR, CSR, SNL, CSL);
 
-    if ((CSR).abs() >= (SNR).abs() || (CSL).abs() >= (SNL).abs()) {
+    if ((CSR.value).abs() >= (SNR.value).abs() || (CSL.value).abs() >= (SNL.value).abs()) {
       // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
       // and (2,1) element of |U|**T *|A| and |V|**T *|B|.
 
-      UA21 = -SNR * A1 + CSR * A2;
-      UA22R = CSR * A3;
+      UA21 = -SNR.value * A1 + CSR.value * A2;
+      UA22R = CSR.value * A3;
 
-      VB21 = -SNL * B1 + CSL * B2;
-      VB22R = CSL * B3;
+      VB21 = -SNL.value * B1 + CSL.value * B2;
+      VB22R = CSL.value * B3;
 
-      AUA21 = (SNR).abs() * (A1).abs() + (CSR).abs() * (A2).abs();
-      AVB21 = (SNL).abs() * (B1).abs() + (CSL).abs() * (B2).abs();
+      AUA21 = (SNR.value).abs() * (A1).abs() + (CSR.value).abs() * (A2).abs();
+      AVB21 = (SNL.value).abs() * (B1).abs() + (CSL.value).abs() * (B2).abs();
 
       // zero (2,1) elements of U**T *A and V**T *B.
 
@@ -182,22 +175,22 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
         dlartg(VB22R, VB21, CSQ, SNQ, R);
       }
 
-      CSU = CSR;
-      SNU = -SNR;
-      CSV = CSL;
-      SNV = -SNL;
+      CSU.value = CSR.value;
+      SNU.value = -SNR.value;
+      CSV.value = CSL.value;
+      SNV.value = -SNL.value;
     } else {
       // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
       // and (1,1) element of |U|**T *|A| and |V|**T *|B|.
 
-      UA11 = CSR * A1 + SNR * A2;
-      UA12 = SNR * A3;
+      UA11 = CSR.value * A1 + SNR.value * A2;
+      UA12 = SNR.value * A3;
 
-      VB11 = CSL * B1 + SNL * B2;
-      VB12 = SNL * B3;
+      VB11 = CSL.value * B1 + SNL.value * B2;
+      VB12 = SNL.value * B3;
 
-      AUA11 = (CSR).abs() * (A1).abs() + (SNR).abs() * (A2).abs();
-      AVB11 = (CSL).abs() * (B1).abs() + (SNL).abs() * (B2).abs();
+      AUA11 = (CSR.value).abs() * (A1).abs() + (SNR.value).abs() * (A2).abs();
+      AVB11 = (CSL.value).abs() * (B1).abs() + (SNL.value).abs() * (B2).abs();
 
       // zero (1,1) elements of U**T*A and V**T*B, and then swap.
 
@@ -212,12 +205,10 @@ void dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
         dlartg(VB12, VB11, CSQ, SNQ, R);
       }
 
-      CSU = SNR;
-      SNU = CSR;
-      CSV = SNL;
-      SNV = CSL;
+      CSU.value = SNR.value;
+      SNU.value = CSR.value;
+      CSV.value = SNL.value;
+      SNV.value = CSL.value;
     }
   }
-
-  return;
 }

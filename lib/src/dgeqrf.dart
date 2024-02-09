@@ -105,7 +105,7 @@ void dgeqrf(
           A(I, I),
           LDA,
           TAU(I),
-          WORK,
+          WORK.asMatrix(LDWORK),
           LDWORK,
         );
 
@@ -121,11 +121,11 @@ void dgeqrf(
           IB,
           A(I, I),
           LDA,
-          WORK,
+          WORK.asMatrix(LDWORK),
           LDWORK,
           A(I, I + IB),
           LDA,
-          WORK(IB + 1),
+          WORK(IB + 1).asMatrix(LDWORK),
           LDWORK,
         );
       }

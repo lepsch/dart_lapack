@@ -87,7 +87,7 @@ void dget34(
           dcopy(16, T.asArray(), 1, T1.asArray(), 1);
           dcopy(16, VAL(1), 0, Q.asArray(), 1);
           dcopy(4, VAL(3), 0, Q.asArray(), 5);
-          dlaexc(true, 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO.value);
+          dlaexc(true, 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO);
           if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
           dhst01(2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
           RES = RESULT[1] + RESULT[2];
@@ -140,7 +140,7 @@ void dget34(
                 dcopy(16, T.asArray(), 1, T1.asArray(), 1);
                 dcopy(16, VAL(1), 0, Q.asArray(), 1);
                 dcopy(4, VAL(3), 0, Q.asArray(), 5);
-                dlaexc(true, 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO.value);
+                dlaexc(true, 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO);
                 if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
@@ -202,7 +202,7 @@ void dget34(
                 dcopy(16, T.asArray(), 1, T1.asArray(), 1);
                 dcopy(16, VAL(1), 0, Q.asArray(), 1);
                 dcopy(4, VAL(3), 0, Q.asArray(), 5);
-                dlaexc(true, 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO.value);
+                dlaexc(true, 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO);
                 if (INFO.value != 0) NINFO[INFO.value] = NINFO[INFO.value] + 1;
                 dhst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT);
                 RES = RESULT[1] + RESULT[2];
@@ -265,7 +265,7 @@ void dget34(
                       dcopy(16, T.asArray(), 1, T1.asArray(), 1);
                       dcopy(16, VAL(1), 0, Q.asArray(), 1);
                       dcopy(4, VAL(3), 0, Q.asArray(), 5);
-                      dlaexc(true, 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO.value);
+                      dlaexc(true, 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO);
                       if (INFO.value != 0) {
                         NINFO[INFO.value] = NINFO[INFO.value] + 1;
                       }

@@ -78,7 +78,6 @@ void ddrvsg2stg(
       KA9,
       KB = 0,
       KB9,
-      M = 0,
       MTYPES,
       N,
       NERRS,
@@ -101,7 +100,7 @@ void ddrvsg2stg(
       TEMP1,
       TEMP2;
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
-  final IINFO = Box(0);
+  final IINFO = Box(0), M = Box(0);
   final KTYPE = Array.fromList([
     1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 9, //
   ]);
@@ -502,7 +501,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // Test DSYGV_2STAGE
@@ -618,7 +617,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // Test DSYGVX
@@ -649,7 +648,7 @@ void ddrvsg2stg(
               LDZ,
               WORK,
               NWORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -686,7 +685,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -722,7 +721,7 @@ void ddrvsg2stg(
               LDZ,
               WORK,
               NWORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -750,7 +749,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -759,7 +758,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -788,7 +787,7 @@ void ddrvsg2stg(
               LDZ,
               WORK,
               NWORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -816,7 +815,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -825,7 +824,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             break;
@@ -891,7 +890,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // Test DSPGVD
@@ -969,7 +968,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // Test DSPGVX
@@ -1016,9 +1015,9 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
-              INFO.value,
+              INFO,
             );
             if (IINFO.value != 0) {
               _print9999(
@@ -1044,7 +1043,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1053,7 +1052,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -1100,9 +1099,9 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
-              INFO.value,
+              INFO,
             );
             if (IINFO.value != 0) {
               _print9999(
@@ -1128,7 +1127,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1137,7 +1136,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -1182,9 +1181,9 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
-              INFO.value,
+              INFO,
             );
             if (IINFO.value != 0) {
               _print9999(
@@ -1210,7 +1209,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1219,7 +1218,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             break;
@@ -1301,7 +1300,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // TEST DSBGVD
@@ -1382,7 +1381,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             // Test DSBGVX
@@ -1422,7 +1421,7 @@ void ddrvsg2stg(
               LDA,
               BB,
               LDB,
-              BP,
+              BP.asMatrix(max(1, N)),
               max(1, N),
               VL,
               VU,
@@ -1434,7 +1433,7 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -1462,7 +1461,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1471,7 +1470,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -1511,7 +1510,7 @@ void ddrvsg2stg(
               LDA,
               BB,
               LDB,
-              BP,
+              BP.asMatrix(max(1, N)),
               max(1, N),
               VL,
               VU,
@@ -1523,7 +1522,7 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -1551,7 +1550,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1560,7 +1559,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             NTEST = NTEST + 1;
@@ -1598,7 +1597,7 @@ void ddrvsg2stg(
               LDA,
               BB,
               LDB,
-              BP,
+              BP.asMatrix(max(1, N)),
               max(1, N),
               VL,
               VU,
@@ -1610,7 +1609,7 @@ void ddrvsg2stg(
               Z,
               LDZ,
               WORK,
-              IWORK[N + 1],
+              IWORK(N + 1),
               IWORK,
               IINFO,
             );
@@ -1638,7 +1637,7 @@ void ddrvsg2stg(
               IBTYPE,
               UPLO,
               N,
-              M,
+              M.value,
               A,
               LDA,
               B,
@@ -1647,7 +1646,7 @@ void ddrvsg2stg(
               LDZ,
               D,
               WORK,
-              RESULT[NTEST],
+              RESULT(NTEST),
             );
 
             break;

@@ -21,25 +21,14 @@ Future<void> dget36(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   const LDT = 10, LWORK = 2 * LDT * LDT;
-  int I,
-      IFST = 0,
-      IFST1,
-      IFST2,
-      IFSTSV,
-      ILST = 0,
-      ILST1,
-      ILST2,
-      ILSTSV,
-      J,
-      LOC,
-      N = 0;
+  int I, IFST = 0, IFSTSV, ILST = 0, ILSTSV, J, LOC, N = 0;
   double EPS, RES;
   final Q = Matrix<double>(LDT, LDT),
       T1 = Matrix<double>(LDT, LDT),
       T2 = Matrix<double>(LDT, LDT),
       TMP = Matrix<double>(LDT, LDT);
   final RESULT = Array<double>(2), WORK = Array<double>(LWORK);
-  final INFO1 = Box(0), INFO2 = Box(0);
+  final INFO1 = Box(0), INFO2 = Box(0), IFST1=Box(0), IFST2=Box(0), ILST1=Box(0), ILST2=Box(0);
 
   EPS = dlamch('P');
   RMAX.value = ZERO;
@@ -60,16 +49,16 @@ Future<void> dget36(
     dlacpy('F', N, N, TMP, LDT, T2, LDT);
     IFSTSV = IFST;
     ILSTSV = ILST;
-    IFST1 = IFST;
-    ILST1 = ILST;
-    IFST2 = IFST;
-    ILST2 = ILST;
+    IFST1.value = IFST;
+    ILST1.value = ILST;
+    IFST2.value = IFST;
+    ILST2.value = ILST;
     RES = ZERO;
 
     // Test without accumulating Q
 
     dlaset('Full', N, N, ZERO, ONE, Q, LDT);
-    dtrexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1.value);
+    dtrexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1);
     for (I = 1; I <= N; I++) {
       for (J = 1; J <= N; J++) {
         if (I == J && Q[I][J] != ONE) RES = RES + ONE / EPS;
@@ -80,7 +69,7 @@ Future<void> dget36(
     // Test with accumulating Q
 
     dlaset('Full', N, N, ZERO, ONE, Q, LDT);
-    dtrexc('V', N, T2, LDT, Q, LDT, IFST2, ILST2, WORK, INFO2.value);
+    dtrexc('V', N, T2, LDT, Q, LDT, IFST2, ILST2, WORK, INFO2);
 
     // Compare T1 with T2
 
@@ -89,8 +78,8 @@ Future<void> dget36(
         if (T1[I][J] != T2[I][J]) RES = RES + ONE / EPS;
       }
     }
-    if (IFST1 != IFST2) RES = RES + ONE / EPS;
-    if (ILST1 != ILST2) RES = RES + ONE / EPS;
+    if (IFST1.value != IFST2.value) RES = RES + ONE / EPS;
+    if (ILST1.value != ILST2.value) RES = RES + ONE / EPS;
     if (INFO1.value != INFO2.value) RES = RES + ONE / EPS;
 
     // Test for successful reordering of T2
@@ -98,8 +87,8 @@ Future<void> dget36(
     if (INFO2.value != 0) {
       NINFO[INFO2.value] = NINFO[INFO2.value] + 1;
     } else {
-      if ((IFST2 - IFSTSV).abs() > 1) RES = RES + ONE / EPS;
-      if ((ILST2 - ILSTSV).abs() > 1) RES = RES + ONE / EPS;
+      if ((IFST2.value - IFSTSV).abs() > 1) RES = RES + ONE / EPS;
+      if ((ILST2.value - ILSTSV).abs() > 1) RES = RES + ONE / EPS;
     }
 
     // Test for small residual, and orthogonality of Q

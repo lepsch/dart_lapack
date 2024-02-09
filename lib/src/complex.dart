@@ -49,3 +49,7 @@ class Complex {
 extension DoubleComplexExtension on double {
   Complex toComplex() => Complex(this);
 }
+
+extension IntComplexExtension on int {
+  Complex toComplex() => Complex(toDouble());
+}

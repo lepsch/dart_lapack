@@ -409,7 +409,7 @@ void dchkbb(
           CC,
           LDC,
           WORK,
-          IINFO.value,
+          IINFO,
         );
 
         if (IINFO.value != 0) {

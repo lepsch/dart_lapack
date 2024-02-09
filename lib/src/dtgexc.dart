@@ -1,283 +1,482 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dtgex2.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtgexc(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, WORK, LWORK, INFO ) {
-
+void dtgexc(
+  final bool WANTQ,
+  final bool WANTZ,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final int LDB,
+  final Matrix<double> Q,
+  final int LDQ,
+  final Matrix<double> Z,
+  final int LDZ,
+  final Box<int> IFST,
+  final Box<int> ILST,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               WANTQ, WANTZ;
-      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N;
-      double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
-      // ..
+  const ZERO = 0.0;
+  bool LQUERY;
+  int HERE = 0, LWMIN = 0, NBF = 0, NBL = 0, NBNEXT = 0;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      bool               LQUERY;
-      int                HERE, LWMIN, NBF, NBL, NBNEXT;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DTGEX2, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Decode and test input arguments.
 
-      // Decode and test input arguments.
+  INFO.value = 0;
+  LQUERY = (LWORK == -1);
+  if (N < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -7;
+  } else if (LDQ < 1 || WANTQ && (LDQ < max(1, N))) {
+    INFO.value = -9;
+  } else if (LDZ < 1 || WANTZ && (LDZ < max(1, N))) {
+    INFO.value = -11;
+  } else if (IFST.value < 1 || IFST.value > N) {
+    INFO.value = -12;
+  } else if (ILST.value < 1 || ILST.value > N) {
+    INFO.value = -13;
+  }
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 );
-      if ( N < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -7;
-      } else if ( LDQ < 1 || WANTQ && ( LDQ < max( 1, N ) ) ) {
-         INFO = -9;
-      } else if ( LDZ < 1 || WANTZ && ( LDZ < max( 1, N ) ) ) {
-         INFO = -11;
-      } else if ( IFST < 1 || IFST > N ) {
-         INFO = -12;
-      } else if ( ILST < 1 || ILST > N ) {
-         INFO = -13;
-      }
+  if (INFO.value == 0) {
+    if (N <= 1) {
+      LWMIN = 1;
+    } else {
+      LWMIN = 4 * N + 16;
+    }
+    WORK[1] = LWMIN.toDouble();
 
-      if ( INFO == 0 ) {
-         if ( N <= 1 ) {
-            LWMIN = 1;
-         } else {
-            LWMIN = 4*N + 16;
-         }
-         WORK[1] = LWMIN;
+    if (LWORK < LWMIN && !LQUERY) {
+      INFO.value = -15;
+    }
+  }
 
-         if (LWORK < LWMIN && !LQUERY) {
-            INFO = -15;
-         }
-      }
+  if (INFO.value != 0) {
+    xerbla('DTGEXC', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DTGEXC', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 1) return;
 
-      if (N <= 1) return;
+  // Determine the first row of the specified block and find out
+  // if it is 1-by-1 or 2-by-2.
 
-      // Determine the first row of the specified block and find out
-      // if it is 1-by-1 or 2-by-2.
+  if (IFST.value > 1) {
+    if (A[IFST.value][IFST.value - 1] != ZERO) IFST.value = IFST.value - 1;
+  }
+  NBF = 1;
+  if (IFST.value < N) {
+    if (A[IFST.value + 1][IFST.value] != ZERO) NBF = 2;
+  }
 
-      if ( IFST > 1 ) {
-         if( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1;
-      }
-      NBF = 1;
-      if ( IFST < N ) {
-         if( A( IFST+1, IFST ) != ZERO ) NBF = 2;
-      }
+  // Determine the first row of the final block
+  // and find out if it is 1-by-1 or 2-by-2.
 
-      // Determine the first row of the final block
-      // and find out if it is 1-by-1 or 2-by-2.
+  if (ILST.value > 1) {
+    if (A[ILST.value][ILST.value - 1] != ZERO) ILST.value = ILST.value - 1;
+  }
+  NBL = 1;
+  if (ILST.value < N) {
+    if (A[ILST.value + 1][ILST.value] != ZERO) NBL = 2;
+  }
+  if (IFST.value == ILST.value) return;
 
-      if ( ILST > 1 ) {
-         if( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1;
-      }
-      NBL = 1;
-      if ( ILST < N ) {
-         if( A( ILST+1, ILST ) != ZERO ) NBL = 2;
-      }
-      if (IFST == ILST) return;
+  if (IFST.value < ILST.value) {
+    // Update ILST.value.
 
-      if ( IFST < ILST ) {
+    if (NBF == 2 && NBL == 1) ILST.value = ILST.value - 1;
+    if (NBF == 1 && NBL == 2) ILST.value = ILST.value + 1;
 
-         // Update ILST.
+    HERE = IFST.value;
 
-         if (NBF == 2 && NBL == 1) ILST = ILST - 1;
-         IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
+    do {
+      // Swap with next one below.
 
-         HERE = IFST;
+      if (NBF == 1 || NBF == 2) {
+        // Current block either 1-by-1 or 2-by-2.
 
-         } // 10
+        NBNEXT = 1;
+        if (HERE + NBF + 1 <= N) {
+          if (A[HERE + NBF + 1][HERE + NBF] != ZERO) NBNEXT = 2;
+        }
+        dtgex2(
+          WANTQ,
+          WANTZ,
+          N,
+          A,
+          LDA,
+          B,
+          LDB,
+          Q,
+          LDQ,
+          Z,
+          LDZ,
+          HERE,
+          NBF,
+          NBNEXT,
+          WORK,
+          LWORK,
+          INFO.value,
+        );
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        HERE = HERE + NBNEXT;
 
-         // Swap with next one below.
+        // Test if 2-by-2 block breaks into two 1-by-1 blocks.
 
-         if ( NBF == 1 || NBF == 2 ) {
-
-            // Current block either 1-by-1 or 2-by-2.
-
-            NBNEXT = 1;
-            if ( HERE+NBF+1 <= N ) {
-               if( A( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2;
-            }
-            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            HERE = HERE + NBNEXT;
-
-            // Test if 2-by-2 block breaks into two 1-by-1 blocks.
-
-            if ( NBF == 2 ) {
-               if( A( HERE+1, HERE ) == ZERO ) NBF = 3;
-            }
-
-         } else {
-
-            // Current block consists of two 1-by-1 blocks, each of which
-            // must be swapped individually.
-
-            NBNEXT = 1;
-            if ( HERE+3 <= N ) {
-               if( A( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2;
-            }
-            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            if ( NBNEXT == 1 ) {
-
-               // Swap two 1-by-1 blocks.
-
-               dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-               if ( INFO != 0 ) {
-                  ILST = HERE;
-                  return;
-               }
-               HERE = HERE + 1;
-
-            } else {
-
-               // Recompute NBNEXT in case of 2-by-2 split.
-
-               if( A( HERE+2, HERE+1 ) == ZERO ) NBNEXT = 1;
-               if ( NBNEXT == 2 ) {
-
-                  // 2-by-2 block did not split.
-
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE + 2;
-               } else {
-
-                  // 2-by-2 block did split.
-
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE + 1;
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE + 1;
-               }
-
-            }
-         }
-         if (HERE < ILST) GO TO 10;
+        if (NBF == 2) {
+          if (A[HERE + 1][HERE] == ZERO) NBF = 3;
+        }
       } else {
-         HERE = IFST;
+        // Current block consists of two 1-by-1 blocks, each of which
+        // must be swapped individually.
 
-         } // 20
+        NBNEXT = 1;
+        if (HERE + 3 <= N) {
+          if (A[HERE + 3][HERE + 2] != ZERO) NBNEXT = 2;
+        }
+        dtgex2(
+          WANTQ,
+          WANTZ,
+          N,
+          A,
+          LDA,
+          B,
+          LDB,
+          Q,
+          LDQ,
+          Z,
+          LDZ,
+          HERE + 1,
+          1,
+          NBNEXT,
+          WORK,
+          LWORK,
+          INFO.value,
+        );
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        if (NBNEXT == 1) {
+          // Swap two 1-by-1 blocks.
 
-         // Swap with next one below.
+          dtgex2(
+            WANTQ,
+            WANTZ,
+            N,
+            A,
+            LDA,
+            B,
+            LDB,
+            Q,
+            LDQ,
+            Z,
+            LDZ,
+            HERE,
+            1,
+            1,
+            WORK,
+            LWORK,
+            INFO.value,
+          );
+          if (INFO.value != 0) {
+            ILST.value = HERE;
+            return;
+          }
+          HERE = HERE + 1;
+        } else {
+          // Recompute NBNEXT in case of 2-by-2 split.
 
-         if ( NBF == 1 || NBF == 2 ) {
+          if (A[HERE + 2][HERE + 1] == ZERO) NBNEXT = 1;
+          if (NBNEXT == 2) {
+            // 2-by-2 block did not split.
 
-            // Current block either 1-by-1 or 2-by-2.
-
-            NBNEXT = 1;
-            if ( HERE >= 3 ) {
-               if( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE,
+              1,
+              NBNEXT,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
             }
-            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
+            HERE = HERE + 2;
+          } else {
+            // 2-by-2 block did split.
+
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE,
+              1,
+              1,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
             }
-            HERE = HERE - NBNEXT;
-
-            // Test if 2-by-2 block breaks into two 1-by-1 blocks.
-
-            if ( NBF == 2 ) {
-               if( A( HERE+1, HERE ) == ZERO ) NBF = 3;
+            HERE = HERE + 1;
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE,
+              1,
+              1,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
             }
-
-         } else {
-
-            // Current block consists of two 1-by-1 blocks, each of which
-            // must be swapped individually.
-
-            NBNEXT = 1;
-            if ( HERE >= 3 ) {
-               if( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2;
-            }
-            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );
-            if ( INFO != 0 ) {
-               ILST = HERE;
-               return;
-            }
-            if ( NBNEXT == 1 ) {
-
-               // Swap two 1-by-1 blocks.
-
-               dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO );
-               if ( INFO != 0 ) {
-                  ILST = HERE;
-                  return;
-               }
-               HERE = HERE - 1;
-            } else {
-
-              // Recompute NBNEXT in case of 2-by-2 split.
-
-               if( A( HERE, HERE-1 ) == ZERO ) NBNEXT = 1;
-               if ( NBNEXT == 2 ) {
-
-                  // 2-by-2 block did not split.
-
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE - 2;
-               } else {
-
-                  // 2-by-2 block did split.
-
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE - 1;
-                  dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO != 0 ) {
-                     ILST = HERE;
-                     return;
-                  }
-                  HERE = HERE - 1;
-               }
-            }
-         }
-         if (HERE > ILST) GO TO 20;
+            HERE = HERE + 1;
+          }
+        }
       }
-      ILST = HERE;
-      WORK[1] = LWMIN;
-      return;
+    } while (HERE < ILST.value);
+  } else {
+    HERE = IFST.value;
+
+    do {
+      // Swap with next one below.
+
+      if (NBF == 1 || NBF == 2) {
+        // Current block either 1-by-1 or 2-by-2.
+
+        NBNEXT = 1;
+        if (HERE >= 3) {
+          if (A[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
+        }
+        dtgex2(
+          WANTQ,
+          WANTZ,
+          N,
+          A,
+          LDA,
+          B,
+          LDB,
+          Q,
+          LDQ,
+          Z,
+          LDZ,
+          HERE - NBNEXT,
+          NBNEXT,
+          NBF,
+          WORK,
+          LWORK,
+          INFO.value,
+        );
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        HERE = HERE - NBNEXT;
+
+        // Test if 2-by-2 block breaks into two 1-by-1 blocks.
+
+        if (NBF == 2) {
+          if (A[HERE + 1][HERE] == ZERO) NBF = 3;
+        }
+      } else {
+        // Current block consists of two 1-by-1 blocks, each of which
+        // must be swapped individually.
+
+        NBNEXT = 1;
+        if (HERE >= 3) {
+          if (A[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
+        }
+        dtgex2(
+          WANTQ,
+          WANTZ,
+          N,
+          A,
+          LDA,
+          B,
+          LDB,
+          Q,
+          LDQ,
+          Z,
+          LDZ,
+          HERE - NBNEXT,
+          NBNEXT,
+          1,
+          WORK,
+          LWORK,
+          INFO.value,
+        );
+        if (INFO.value != 0) {
+          ILST.value = HERE;
+          return;
+        }
+        if (NBNEXT == 1) {
+          // Swap two 1-by-1 blocks.
+
+          dtgex2(
+            WANTQ,
+            WANTZ,
+            N,
+            A,
+            LDA,
+            B,
+            LDB,
+            Q,
+            LDQ,
+            Z,
+            LDZ,
+            HERE,
+            NBNEXT,
+            1,
+            WORK,
+            LWORK,
+            INFO.value,
+          );
+          if (INFO.value != 0) {
+            ILST.value = HERE;
+            return;
+          }
+          HERE = HERE - 1;
+        } else {
+          // Recompute NBNEXT in case of 2-by-2 split.
+
+          if (A[HERE][HERE - 1] == ZERO) NBNEXT = 1;
+          if (NBNEXT == 2) {
+            // 2-by-2 block did not split.
+
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE - 1,
+              2,
+              1,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
+            }
+            HERE = HERE - 2;
+          } else {
+            // 2-by-2 block did split.
+
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE,
+              1,
+              1,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
+            }
+            HERE = HERE - 1;
+            dtgex2(
+              WANTQ,
+              WANTZ,
+              N,
+              A,
+              LDA,
+              B,
+              LDB,
+              Q,
+              LDQ,
+              Z,
+              LDZ,
+              HERE,
+              1,
+              1,
+              WORK,
+              LWORK,
+              INFO.value,
+            );
+            if (INFO.value != 0) {
+              ILST.value = HERE;
+              return;
+            }
+            HERE = HERE - 1;
+          }
+        }
       }
+    } while (HERE > ILST.value);
+  }
+  ILST.value = HERE;
+  WORK[1] = LWMIN.toDouble();
+}

@@ -7,6 +7,9 @@
  - To Matrix -> \b([XY])\(([^())]+),([^()]+)\) -> $1[$2][$3]
  - To Array -> \b([XY])\(([^())]+)\) -> $1[$2]
 
+#### WARN:
+ - Fix `Box.value` in strings -> '[^']*\.value.*'
+
 ### Line continuations
 ```
 ^\s     (.+)(\n\s    [^\s]\s*(.*))$

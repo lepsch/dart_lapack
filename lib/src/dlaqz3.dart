@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      RECURSIVE SUBROUTINE DLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, NS, ND, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, LWORK, REC, INFO );
+      void dlaqz3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, NS, ND, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, LWORK, REC, INFO ){
       // Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
@@ -272,4 +272,4 @@ import 'package:lapack/src/xerbla.dart';
          dlacpy('ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ );
       }
 
-      END SUBROUTINE;
+}

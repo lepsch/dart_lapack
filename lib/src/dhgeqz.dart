@@ -85,11 +85,9 @@ void dhgeqz(
       ANORM,
       ASCALE,
       ATOL,
-      B11 = 0,
       B1A,
       B1I,
       B1R,
-      B22 = 0,
       B2A,
       B2I,
       B2R,
@@ -103,19 +101,15 @@ void dhgeqz(
       C21,
       C22I,
       C22R,
-      CL = 0,
       CQ,
-      CR = 0,
       CZ,
       ESHIFT,
       S1INV,
       SAFMAX,
       SAFMIN,
       SCALE = 0,
-      SL = 0,
       SQI,
       SQR,
-      SR = 0,
       SZI,
       SZR,
       T1,
@@ -144,7 +138,13 @@ void dhgeqz(
       WR = Box(0.0),
       WR2 = Box(0.0),
       TEMP = Box(0.0),
-      TEMP2 = Box(0.0);
+      TEMP2 = Box(0.0),
+      B11 = Box(0.0),
+      B22 = Box(0.0),
+      SR = Box(0.0),
+      CR = Box(0.0),
+      SL = Box(0.0),
+      CL = Box(0.0);
 
   if (lsame(JOB, 'E')) {
     ILSCHR = false;
@@ -232,7 +232,7 @@ void dhgeqz(
   // Machine Constants
 
   IN = IHI + 1 - ILO;
-  SAFMIN = dlamch('S.value');
+  SAFMIN = dlamch('S');
   SAFMAX = ONE / SAFMIN;
   ULP = dlamch('E') * dlamch('B');
   ANORM = dlanhs('F', IN, H(ILO, ILO), LDH, WORK);
@@ -420,7 +420,12 @@ void dhgeqz(
               for (JCH = J; JCH <= ILAST - 1; JCH++) {
                 TEMP.value = T[JCH][JCH + 1];
                 dlartg(
-                    TEMP.value, T[JCH + 1][JCH + 1], C, S, T.box(JCH, JCH + 1));
+                  TEMP.value,
+                  T[JCH + 1][JCH + 1],
+                  C,
+                  S,
+                  T.box(JCH, JCH + 1),
+                );
                 T[JCH + 1][JCH + 1] = ZERO;
                 if (JCH < ILASTM - 1) {
                   drot(
@@ -455,7 +460,12 @@ void dhgeqz(
                 }
                 TEMP.value = H[JCH + 1][JCH];
                 dlartg(
-                    TEMP.value, H[JCH + 1][JCH - 1], C, S, H.box(JCH + 1, JCH));
+                  TEMP.value,
+                  H[JCH + 1][JCH - 1],
+                  C,
+                  S,
+                  H.box(JCH + 1, JCH),
+                );
                 H[JCH + 1][JCH - 1] = ZERO;
                 drot(
                   JCH + 1 - IFRSTM,
@@ -627,18 +637,8 @@ void dhgeqz(
           // bottom-right 2x2 block of A and B. The first eigenvalue
           // returned by DLAG2 is the Wilkinson shift (AEP p.512),
 
-          dlag2(
-            H(ILAST - 1, ILAST - 1),
-            LDH,
-            T(ILAST - 1, ILAST - 1),
-            LDT,
-            SAFMIN * SAFETY,
-            S1,
-            S2,
-            WR,
-            WR2,
-            WI,
-          );
+          dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
+              SAFMIN * SAFETY, S1, S2, WR, WR2, WI);
 
           if (((WR.value / S1.value) * T[ILAST][ILAST] - H[ILAST][ILAST])
                   .abs() >
@@ -652,9 +652,7 @@ void dhgeqz(
             S2.value = TEMP.value;
           }
           TEMP.value = max(
-            S1.value,
-            SAFMIN * max(ONE, max(WR.value.abs(), WI.value.abs())),
-          );
+              S1.value, SAFMIN * max(ONE, max(WR.value.abs(), WI.value.abs())));
           if (WI.value != ZERO) {
             useFrancisDoubleShift = true;
           }
@@ -771,47 +769,24 @@ void dhgeqz(
 
           // Step 1: Standardize, that is, rotate so that
 
-          // ( B11  0  )
-          // B = (         )  with B11 non-negative.
-          // (  0  B22 )
+          // ( B11.value  0  )
+          // B = (         )  with B11.value non-negative.
+          // (  0  B22.value )
 
-          dlasv2(
-            T[ILAST - 1][ILAST - 1],
-            T[ILAST - 1][ILAST],
-            T[ILAST][ILAST],
-            B22,
-            B11,
-            SR,
-            CR,
-            SL,
-            CL,
-          );
+          dlasv2(T[ILAST - 1][ILAST - 1], T[ILAST - 1][ILAST], T[ILAST][ILAST],
+              B22, B11, SR, CR, SL, CL);
 
-          if (B11 < ZERO) {
-            CR = -CR;
-            SR = -SR;
-            B11 = -B11;
-            B22 = -B22;
+          if (B11.value < ZERO) {
+            CR.value = -CR.value;
+            SR.value = -SR.value;
+            B11.value = -B11.value;
+            B22.value = -B22.value;
           }
 
-          drot(
-            ILASTM + 1 - IFIRST,
-            H(ILAST - 1, ILAST - 1).asArray(),
-            LDH,
-            H(ILAST, ILAST - 1).asArray(),
-            LDH,
-            CL,
-            SL,
-          );
-          drot(
-            ILAST + 1 - IFRSTM,
-            H(IFRSTM, ILAST - 1).asArray(),
-            1,
-            H(IFRSTM, ILAST).asArray(),
-            1,
-            CR,
-            SR,
-          );
+          drot(ILASTM + 1 - IFIRST, H(ILAST - 1, ILAST - 1).asArray(), LDH,
+              H(ILAST, ILAST - 1).asArray(), LDH, CL.value, SL.value);
+          drot(ILAST + 1 - IFRSTM, H(IFRSTM, ILAST - 1).asArray(), 1,
+              H(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
 
           if (ILAST < ILASTM) {
             drot(
@@ -820,8 +795,8 @@ void dhgeqz(
               LDT,
               T(ILAST, ILAST + 1).asArray(),
               LDT,
-              CL,
-              SL,
+              CL.value,
+              SL.value,
             );
           }
           if (IFRSTM < ILAST - 1) {
@@ -831,8 +806,8 @@ void dhgeqz(
               1,
               T(IFRSTM, ILAST).asArray(),
               1,
-              CR,
-              SR,
+              CR.value,
+              SR.value,
             );
           }
 
@@ -843,8 +818,8 @@ void dhgeqz(
               1,
               Q(1, ILAST).asArray(),
               1,
-              CL,
-              SL,
+              CL.value,
+              SL.value,
             );
           }
           if (ILZ) {
@@ -854,19 +829,19 @@ void dhgeqz(
               1,
               Z(1, ILAST).asArray(),
               1,
-              CR,
-              SR,
+              CR.value,
+              SR.value,
             );
           }
 
-          T[ILAST - 1][ILAST - 1] = B11;
+          T[ILAST - 1][ILAST - 1] = B11.value;
           T[ILAST - 1][ILAST] = ZERO;
           T[ILAST][ILAST - 1] = ZERO;
-          T[ILAST][ILAST] = B22;
+          T[ILAST][ILAST] = B22.value;
 
-          // If B22 is negative, negate column ILAST
+          // If B22.value is negative, negate column ILAST
 
-          if (B22 < ZERO) {
+          if (B22.value < ZERO) {
             for (J = IFRSTM; J <= ILAST; J++) {
               H[J][ILAST] = -H[J][ILAST];
               T[J][ILAST] = -T[J][ILAST];
@@ -877,25 +852,15 @@ void dhgeqz(
                 Z[J][ILAST] = -Z[J][ILAST];
               }
             }
-            B22 = -B22;
+            B22.value = -B22.value;
           }
 
           // Step 2: Compute ALPHAR, ALPHAI, and BETA (see refs.)
 
           // Recompute shift
 
-          dlag2(
-            H(ILAST - 1, ILAST - 1),
-            LDH,
-            T(ILAST - 1, ILAST - 1),
-            LDT,
-            SAFMIN * SAFETY,
-            S1,
-            TEMP,
-            WR,
-            TEMP2,
-            WI,
-          );
+          dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
+              SAFMIN * SAFETY, S1, TEMP, WR, TEMP2, WI);
 
           // If standardization has perturbed the shift onto real line,
           // do another (real single-shift) QR step.
@@ -916,12 +881,12 @@ void dhgeqz(
           // (sA - wB) ( CZ   -SZ )
           // ( SZ    CZ )
 
-          C11R = S1.value * A11 - WR.value * B11;
-          C11I = -WI.value * B11;
+          C11R = S1.value * A11 - WR.value * B11.value;
+          C11I = -WI.value * B11.value;
           C12 = S1.value * A12;
           C21 = S1.value * A21;
-          C22R = S1.value * A22 - WR.value * B22;
-          C22I = -WI.value * B22;
+          C22R = S1.value * A22 - WR.value * B22.value;
+          C22I = -WI.value * B22.value;
 
           if (C11R.abs() + C11I.abs() + C12.abs() >
               C21.abs() + C22R.abs() + C22I.abs()) {
@@ -952,12 +917,12 @@ void dhgeqz(
           // ( -SQ   CQ )
 
           AN = (A11).abs() + (A12).abs() + (A21).abs() + (A22).abs();
-          BN = (B11).abs() + (B22).abs();
+          BN = (B11.value).abs() + (B22.value).abs();
           WABS = (WR.value).abs() + (WI.value).abs();
           if (S1.value * AN > WABS * BN) {
-            CQ = CZ * B11;
-            SQR = SZR * B22;
-            SQI = -SZI * B22;
+            CQ = CZ * B11.value;
+            SQR = SZR * B22.value;
+            SQI = -SZI * B22.value;
           } else {
             A1R = CZ * A11 + SZR * A12;
             A1I = SZI * A12;
@@ -984,11 +949,11 @@ void dhgeqz(
 
           TEMPR.value = SQR * SZR - SQI * SZI;
           TEMPI = SQR * SZI + SQI * SZR;
-          B1R = CQ * CZ * B11 + TEMPR.value * B22;
-          B1I = TEMPI * B22;
+          B1R = CQ * CZ * B11.value + TEMPR.value * B22.value;
+          B1I = TEMPI * B22.value;
           B1A = dlapy2(B1R, B1I);
-          B2R = CQ * CZ * B22 + TEMPR.value * B11;
-          B2I = -TEMPI * B11;
+          B2R = CQ * CZ * B22.value + TEMPR.value * B11.value;
+          B2I = -TEMPI * B11.value;
           B2A = dlapy2(B2R, B2I);
 
           // Normalize so beta > 0, and Im( alpha1 ) > 0

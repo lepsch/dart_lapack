@@ -1,39 +1,40 @@
-      double dsxt1(IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL ) {
+import 'dart:math';
 
+import 'package:lapack/src/matrix.dart';
+
+double dsxt1(
+  final int IJOB,
+  final Array<double> D1,
+  final int N1,
+  final Array<double> D2,
+  final int N2,
+  final double ABSTOL,
+  final double ULP,
+  final double UNFL,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IJOB, N1, N2;
-      double             ABSTOL, ULP, UNFL;
-      double             D1( * ), D2( * );
-      // ..
+  const ZERO = 0.0;
+  int I, J;
+  double TEMP1, TEMP2;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      int                I, J;
-      double             TEMP1, TEMP2;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN
+  TEMP1 = ZERO;
 
-      TEMP1 = ZERO;
+  J = 1;
+  for (I = 1; I <= N1; I++) {
+    while (D2[J] < D1[I] && J < N2) {
+      J = J + 1;
+    }
+    if (J == 1) {
+      TEMP2 = (D2[J] - D1[I]).abs();
+      if (IJOB == 2) TEMP2 = TEMP2 / max(UNFL, ABSTOL + ULP * (D1[I]).abs());
+    } else {
+      TEMP2 = min((D2[J] - D1[I]).abs(), (D1[I] - D2[J - 1]).abs());
+      if (IJOB == 2) TEMP2 = TEMP2 / max(UNFL, ABSTOL + ULP * (D1[I]).abs());
+    }
+    TEMP1 = max(TEMP1, TEMP2);
+  }
 
-      J = 1;
-      for (I = 1; I <= N1; I++) { // 20
-         } // 10
-         if ( D2( J ) < D1( I ) && J < N2 ) {
-            J = J + 1;
-            GO TO 10;
-         }
-         if ( J == 1 ) {
-            TEMP2 = ABS( D2( J )-D1( I ) );
-            if (IJOB == 2) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*( D1( I ) ).abs() );
-         } else {
-            TEMP2 = min( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*( D1( I ) ).abs() );
-         }
-         TEMP1 = max( TEMP1, TEMP2 );
-      } // 20
-
-      DSXT1 = TEMP1;
-      return;
-      }
+  return TEMP1;
+}

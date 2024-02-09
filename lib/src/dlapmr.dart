@@ -1,92 +1,70 @@
-import 'dart:math';
-
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlapmr(FORWRD, M, N, X, LDX, K ) {
-
+void dlapmr(
+  final bool FORWRD,
+  final int M,
+  final int N,
+  final Matrix<double> X,
+  final int LDX,
+  final Array<int> K,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               FORWRD;
-      int                LDX, M, N;
-      int                K( * );
-      double             X( LDX, * );
-      // ..
+  int I, IN, J, JJ;
+  double TEMP;
 
-// =====================================================================
+  if (M <= 1) return;
 
-      // .. Local Scalars ..
-      int                I, IN, J, JJ;
-      double             TEMP;
+  for (I = 1; I <= M; I++) {
+    K[I] = -K[I];
+  }
 
-      if (M <= 1) return;
+  if (FORWRD) {
+    // Forward permutation
 
-      for (I = 1; I <= M; I++) { // 10
-         K[I] = -K( I );
-      } // 10
+    for (I = 1; I <= M; I++) {
+      if (K[I] > 0) continue;
 
-      if ( FORWRD ) {
+      J = I;
+      K[J] = -K[J];
+      IN = K[J];
 
-         // Forward permutation
+      while (true) {
+        if (K[IN] > 0) break;
 
-         for (I = 1; I <= M; I++) { // 50
+        for (JJ = 1; JJ <= N; JJ++) {
+          TEMP = X[J][JJ];
+          X[J][JJ] = X[IN][JJ];
+          X[IN][JJ] = TEMP;
+        }
 
-            if( K( I ) > 0 ) GO TO 40;
-
-            J = I;
-            K[J] = -K( J );
-            IN = K( J );
-
-            } // 20
-            if( K( IN ) > 0 ) GO TO 40;
-
-            for (JJ = 1; JJ <= N; JJ++) { // 30
-               TEMP = X( J, JJ );
-               X[J][JJ] = X( IN, JJ );
-               X[IN][JJ] = TEMP;
-            } // 30
-
-            K[IN] = -K( IN );
-            J = IN;
-            IN = K( IN );
-            GO TO 20;
-
-            } // 40
-
-         } // 50
-
-      } else {
-
-         // Backward permutation
-
-         for (I = 1; I <= M; I++) { // 90
-
-            if( K( I ) > 0 ) GO TO 80;
-
-            K[I] = -K( I );
-            J = K( I );
-            } // 60
-            if (J == I) GO TO 80;
-
-            for (JJ = 1; JJ <= N; JJ++) { // 70
-               TEMP = X( I, JJ );
-               X[I][JJ] = X( J, JJ );
-               X[J][JJ] = TEMP;
-            } // 70
-
-            K[J] = -K( J );
-            J = K( J );
-            GO TO 60;
-
-            } // 80
-
-         } // 90
-
+        K[IN] = -K[IN];
+        J = IN;
+        IN = K[IN];
       }
+    }
+  } else {
+    // Backward permutation
 
-      return;
+    for (I = 1; I <= M; I++) {
+      if (K[I] > 0) continue;
+
+      K[I] = -K[I];
+      J = K[I];
+      // }
+      while (true) {
+        if (J == I) break;
+
+        for (JJ = 1; JJ <= N; JJ++) {
+          TEMP = X[I][JJ];
+          X[I][JJ] = X[J][JJ];
+          X[J][JJ] = TEMP;
+        }
+
+        K[J] = -K[J];
+        J = K[J];
       }
+    }
+  }
+}

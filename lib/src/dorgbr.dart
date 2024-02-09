@@ -2,166 +2,152 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dorglq.dart';
+import 'package:lapack/src/dorgqr.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dorgbr(VECT, M, N, K, A, LDA, TAU, WORK, LWORK, INFO ) {
-
+void dorgbr(
+  final String VECT,
+  final int M,
+  final int N,
+  final int K,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> TAU,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             VECT;
-      int                INFO, K, LDA, LWORK, M, N;
-      double             A( LDA, * ), TAU( * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool LQUERY, WANTQ;
+  int I, J, LWKOPT = 0, MN;
+  final IINFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               LQUERY, WANTQ;
-      int                I, IINFO, J, LWKOPT, MN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DORGLQ, DORGQR, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  WANTQ = lsame(VECT, 'Q');
+  MN = min(M, N);
+  LQUERY = (LWORK == -1);
+  if (!WANTQ && !lsame(VECT, 'P')) {
+    INFO.value = -1;
+  } else if (M < 0) {
+    INFO.value = -2;
+  } else if (N < 0 ||
+      (WANTQ && (N > M || N < min(M, K))) ||
+      (!WANTQ && (M > N || M < min(N, K)))) {
+    INFO.value = -3;
+  } else if (K < 0) {
+    INFO.value = -4;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -6;
+  } else if (LWORK < max(1, MN) && !LQUERY) {
+    INFO.value = -9;
+  }
 
-      INFO = 0;
-      WANTQ = lsame( VECT, 'Q' );
-      MN = min( M, N );
-      LQUERY = ( LWORK == -1 );
-      if ( !WANTQ && !lsame( VECT, 'P' ) ) {
-         INFO = -1;
-      } else if ( M < 0 ) {
-         INFO = -2;
-      } else if ( N < 0 || ( WANTQ && ( N > M || N < min( M, K ) ) ) || ( !WANTQ && ( M > N || M < min( N, K ) ) ) ) {
-         INFO = -3;
-      } else if ( K < 0 ) {
-         INFO = -4;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -6;
-      } else if ( LWORK < max( 1, MN ) && !LQUERY ) {
-         INFO = -9;
-      }
-
-      if ( INFO == 0 ) {
-         WORK[1] = 1;
-         if ( WANTQ ) {
-            if ( M >= K ) {
-               dorgqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
-            } else {
-               if ( M > 1 ) {
-                  dorgqr(M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO );
-               }
-            }
-         } else {
-            if ( K < N ) {
-               dorglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
-            } else {
-               if ( N > 1 ) {
-                  dorglq(N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO );
-               }
-            }
-         }
-         LWKOPT = INT( WORK( 1 ) );
-         LWKOPT = max(LWKOPT, MN);
-      }
-
-      if ( INFO != 0 ) {
-         xerbla('DORGBR', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         WORK[1] = LWKOPT;
-         return;
-      }
-
-      // Quick return if possible
-
-      if ( M == 0 || N == 0 ) {
-         WORK[1] = 1;
-         return;
-      }
-
-      if ( WANTQ ) {
-
-         // Form Q, determined by a call to DGEBRD to reduce an m-by-k
-         // matrix
-
-         if ( M >= K ) {
-
-            // If m >= k, assume m >= n >= k
-
-            dorgqr(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
-
-         } else {
-
-            // If m < k, assume m = n
-
-            // Shift the vectors which define the elementary reflectors one
-            // column to the right, and set the first row and column of Q
-            // to those of the unit matrix
-
-            for (J = M; J >= 2; J--) { // 20
-               A[1][J] = ZERO;
-               for (I = J + 1; I <= M; I++) { // 10
-                  A[I][J] = A( I, J-1 );
-               } // 10
-            } // 20
-            A[1][1] = ONE;
-            for (I = 2; I <= M; I++) { // 30
-               A[I][1] = ZERO;
-            } // 30
-            if ( M > 1 ) {
-
-               // Form Q(2:m,2:m)
-
-               dorgqr(M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
-            }
-         }
+  if (INFO.value == 0) {
+    WORK[1] = 1;
+    if (WANTQ) {
+      if (M >= K) {
+        dorgqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO);
       } else {
-
-         // Form P**T, determined by a call to DGEBRD to reduce a k-by-n
-         // matrix
-
-         if ( K < N ) {
-
-            // If k < n, assume k <= m <= n
-
-            dorglq(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
-
-         } else {
-
-            // If k >= n, assume m = n
-
-            // Shift the vectors which define the elementary reflectors one
-            // row downward, and set the first row and column of P**T to
-            // those of the unit matrix
-
-            A[1][1] = ONE;
-            for (I = 2; I <= N; I++) { // 40
-               A[I][1] = ZERO;
-            } // 40
-            for (J = 2; J <= N; J++) { // 60
-               for (I = J - 1; I >= 2; I--) { // 50
-                  A[I][J] = A( I-1, J );
-               } // 50
-               A[1][J] = ZERO;
-            } // 60
-            if ( N > 1 ) {
-
-               // Form P**T(2:n,2:n)
-
-               dorglq(N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
-            }
-         }
+        if (M > 1) {
+          dorgqr(M - 1, M - 1, M - 1, A, LDA, TAU, WORK, -1, IINFO);
+        }
       }
-      WORK[1] = LWKOPT;
-      return;
+    } else {
+      if (K < N) {
+        dorglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO);
+      } else {
+        if (N > 1) {
+          dorglq(N - 1, N - 1, N - 1, A, LDA, TAU, WORK, -1, IINFO);
+        }
       }
+    }
+    LWKOPT = WORK[1].toInt();
+    LWKOPT = max(LWKOPT, MN);
+  }
+
+  if (INFO.value != 0) {
+    xerbla('DORGBR', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    WORK[1] = LWKOPT.toDouble();
+    return;
+  }
+
+  // Quick return if possible
+
+  if (M == 0 || N == 0) {
+    WORK[1] = 1;
+    return;
+  }
+
+  if (WANTQ) {
+    // Form Q, determined by a call to DGEBRD to reduce an m-by-k
+    // matrix
+
+    if (M >= K) {
+      // If m >= k, assume m >= n >= k
+
+      dorgqr(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO);
+    } else {
+      // If m < k, assume m = n
+
+      // Shift the vectors which define the elementary reflectors one
+      // column to the right, and set the first row and column of Q
+      // to those of the unit matrix
+
+      for (J = M; J >= 2; J--) {
+        A[1][J] = ZERO;
+        for (I = J + 1; I <= M; I++) {
+          A[I][J] = A[I][J - 1];
+        }
+      }
+      A[1][1] = ONE;
+      for (I = 2; I <= M; I++) {
+        A[I][1] = ZERO;
+      }
+      if (M > 1) {
+        // Form Q(2:m,2:m)
+        dorgqr(M - 1, M - 1, M - 1, A(2, 2), LDA, TAU, WORK, LWORK, IINFO);
+      }
+    }
+  } else {
+    // Form P**T, determined by a call to DGEBRD to reduce a k-by-n
+    // matrix
+
+    if (K < N) {
+      // If k < n, assume k <= m <= n
+
+      dorglq(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO);
+    } else {
+      // If k >= n, assume m = n
+
+      // Shift the vectors which define the elementary reflectors one
+      // row downward, and set the first row and column of P**T to
+      // those of the unit matrix
+
+      A[1][1] = ONE;
+      for (I = 2; I <= N; I++) {
+        A[I][1] = ZERO;
+      }
+      for (J = 2; J <= N; J++) {
+        for (I = J - 1; I >= 2; I--) {
+          A[I][J] = A[I - 1][J];
+        }
+        A[1][J] = ZERO;
+      }
+      if (N > 1) {
+        // Form P**T(2:n,2:n)
+
+        dorglq(N - 1, N - 1, N - 1, A[2][2], LDA, TAU, WORK, LWORK, IINFO);
+      }
+    }
+  }
+  WORK[1] = LWKOPT.toDouble();
+}
