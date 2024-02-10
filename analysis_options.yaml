@@ -42,6 +42,7 @@ analyzer:
     strict-raw-types: true
   exclude:
     - lib/src/deprecated/**
+    - lib/src/install/sp/**
     - lib/src/blas/sp/**
     - lib/src/sp/**
     - test/eig/sp/**
