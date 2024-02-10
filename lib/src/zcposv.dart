@@ -1,4 +1,4 @@
-      void zcposv(UPLO, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, WORK, SWORK, RWORK, ITER, final Box<int> INFO ) {
+      void zcposv(UPLO, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, WORK, SWORK, final Array<double> RWORK, ITER, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

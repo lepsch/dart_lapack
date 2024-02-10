@@ -1,4 +1,4 @@
-      void cgeqp3(M, N, final Matrix<double> A, final int LDA, JPVT, TAU, final Array<double> WORK, final int LWORK, RWORK, final Box<int> INFO ) {
+      void cgeqp3(M, N, final Matrix<double> A, final int LDA, JPVT, TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

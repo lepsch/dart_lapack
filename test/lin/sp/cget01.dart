@@ -1,4 +1,4 @@
-      void cget01(M, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, IPIV, RWORK, RESID ) {
+      void cget01(M, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, IPIV, final Array<double> RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

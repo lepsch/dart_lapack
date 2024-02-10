@@ -1,4 +1,4 @@
-      void zptcon(N, D, E, ANORM, RCOND, RWORK, final Box<int> INFO ) {
+      void zptcon(N, D, E, ANORM, RCOND, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

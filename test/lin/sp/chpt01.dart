@@ -1,4 +1,4 @@
-      void chpt01(UPLO, N, A, AFAC, IPIV, final Matrix<double> C, final int LDC, RWORK, RESID ) {
+      void chpt01(UPLO, N, A, AFAC, IPIV, final Matrix<double> C, final int LDC, final Array<double> RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

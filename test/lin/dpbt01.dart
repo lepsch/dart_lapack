@@ -1,4 +1,4 @@
-      void dpbt01(UPLO, N, KD, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, RWORK, RESID ) {
+      void dpbt01(UPLO, N, KD, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Array<double> RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

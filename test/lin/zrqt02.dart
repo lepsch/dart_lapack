@@ -1,4 +1,4 @@
-      void zrqt02(M, N, K, A, AF, Q, R, LDA, TAU, final Array<double> WORK, final int LWORK, RWORK, RESULT ) {
+      void zrqt02(M, N, K, A, AF, Q, R, LDA, TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

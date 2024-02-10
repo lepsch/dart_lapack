@@ -1,4 +1,4 @@
-      void cgbbrd(VECT, M, N, NCC, KL, KU, final Matrix<double> AB, final int LDAB, D, E, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final Matrix<double> C, final int LDC, WORK, RWORK, final Box<int> INFO ) {
+      void cgbbrd(VECT, M, N, NCC, KL, KU, final Matrix<double> AB, final int LDAB, D, E, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final Matrix<double> C, final int LDC, WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

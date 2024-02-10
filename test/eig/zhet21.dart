@@ -1,4 +1,4 @@
-      void zhet21(ITYPE, UPLO, N, KBAND, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, TAU, WORK, RWORK, RESULT ) {
+      void zhet21(ITYPE, UPLO, N, KBAND, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, TAU, WORK, final Array<double> RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

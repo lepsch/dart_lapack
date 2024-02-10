@@ -1,4 +1,4 @@
-      void ztbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, final Matrix<double> AB, final int LDAB, RWORK, RAT ) {
+      void ztbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, final Matrix<double> AB, final int LDAB, final Array<double> RWORK, RAT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

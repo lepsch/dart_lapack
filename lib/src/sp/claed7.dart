@@ -1,4 +1,4 @@
-      void claed7(N, CUTPNT, QSIZ, TLVLS, CURLVL, CURPBM, D, final Matrix<double> Q, final int LDQ, RHO, INDXQ, QSTORE, QPTR, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, WORK, RWORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void claed7(N, CUTPNT, QSIZ, TLVLS, CURLVL, CURPBM, D, final Matrix<double> Q, final int LDQ, RHO, INDXQ, QSTORE, QPTR, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, WORK, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

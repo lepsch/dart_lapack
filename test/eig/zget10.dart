@@ -1,4 +1,4 @@
-      void zget10(M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, RWORK, RESULT ) {
+      void zget10(M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, final Array<double> RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
