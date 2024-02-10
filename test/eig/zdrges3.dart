@@ -1,4 +1,4 @@
-      void zdrges3(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, B, S, T, final Matrix<double> Q, final int LDQ, Z, ALPHA, BETA, final Array<double> WORK, final int LWORK, RWORK, RESULT, BWORK, final Box<int> INFO ) {
+      void zdrges3(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, B, S, T, final Matrix<double> Q, final int LDQ, Z, ALPHA, BETA, final Array<double> WORK, final int LWORK, RWORK, RESULT, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

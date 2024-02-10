@@ -1,4 +1,4 @@
-      void zgges3(JOBVSL, JOBVSR, SORT, SELCTG, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHA, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, final Array<double> WORK, final int LWORK, RWORK, BWORK, final Box<int> INFO ) {
+      void zgges3(JOBVSL, JOBVSR, SORT, SELCTG, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHA, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, final Array<double> WORK, final int LWORK, RWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sdrves(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, final Matrix<double> VS, final int LDVS, RESULT, WORK, NWORK, final Array<int> IWORK, BWORK, final Box<int> INFO ) {
+      void sdrves(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, final Matrix<double> VS, final int LDVS, RESULT, WORK, NWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sdrvsx(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NIUNIT, NOUNIT, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, final Matrix<double> VS, final int LDVS, VS1, RESULT, final Array<double> WORK, final int LWORK, final Array<int> IWORK, BWORK, final Box<int> INFO ) {
+      void sdrvsx(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NIUNIT, NOUNIT, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, final Matrix<double> VS, final int LDVS, VS1, RESULT, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
