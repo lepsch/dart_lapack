@@ -98,11 +98,11 @@
          if (J >= N) GO TO 20;
 
          // each step of the main loop
-          // J is the last column of the previous panel
-          // J1 is the first column of the current panel
-          // K1 identifies if the previous column of the panel has been
-           // explicitly stored, e.g., K1=1 for the first panel, and
-           // K1=0 for the rest
+         //  J is the last column of the previous panel
+         //  J1 is the first column of the current panel
+         //  K1 identifies if the previous column of the panel has been
+         //   explicitly stored, e.g., K1=1 for the first panel, and
+         //   K1=0 for the rest
 
          J1 = J + 1;
          JB = min( N-J1+1, NB );
@@ -123,8 +123,8 @@
          J = J + JB;
 
          // Trailing submatrix update, where
-          // the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
-          // WORK stores the current block of the auxiriarly matrix H
+         //  the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
+         //  WORK stores the current block of the auxiriarly matrix H
 
          if ( J < N ) {
 
@@ -140,8 +140,8 @@
                zscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
                // K1 identifies if the previous column of the panel has been
-                // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
-                // while K1=0 and K2=1 for the rest
+               //  explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
+               //  while K1=0 and K2=1 for the rest
 
                if ( J1 > 1 ) {
 
@@ -192,7 +192,7 @@
          // .....................................................
 
          // copy first column A(1:N, 1) into H(1:N, 1)
-          // (stored in WORK(1:N))
+         //  (stored in WORK(1:N))
 
          zcopy(N, A( 1, 1 ), 1, WORK( 1 ), 1 );
 
@@ -205,11 +205,11 @@
          if (J >= N) GO TO 20;
 
          // each step of the main loop
-          // J is the last column of the previous panel
-          // J1 is the first column of the current panel
-          // K1 identifies if the previous column of the panel has been
-           // explicitly stored, e.g., K1=1 for the first panel, and
-           // K1=0 for the rest
+         //  J is the last column of the previous panel
+         //  J1 is the first column of the current panel
+         //  K1 identifies if the previous column of the panel has been
+         //   explicitly stored, e.g., K1=1 for the first panel, and
+         //   K1=0 for the rest
 
          J1 = J+1;
          JB = min( N-J1+1, NB );
@@ -230,8 +230,8 @@
          J = J + JB;
 
          // Trailing submatrix update, where
-           // A(J2+1, J1-1) stores L(J2+1, J1) and
-           // WORK(J2+1, 1) stores H(J2+1, 1)
+         //   A(J2+1, J1-1) stores L(J2+1, J1) and
+         //   WORK(J2+1, 1) stores H(J2+1, 1)
 
          if ( J < N ) {
 
@@ -247,8 +247,8 @@
                zscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
                // K1 identifies if the previous column of the panel has been
-                // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
-                // while K1=0 and K2=1 for the rest
+               //  explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
+               //  while K1=0 and K2=1 for the rest
 
                if ( J1 > 1 ) {
 

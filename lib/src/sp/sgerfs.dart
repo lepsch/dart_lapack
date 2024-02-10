@@ -142,10 +142,10 @@
          BERR[J] = S;
 
          // Test stopping criterion. Continue iterating if
-            // 1) The residual BERR(J) is larger than machine epsilon, and
-            // 2) BERR(J) decreased by at least a factor of 2 during the
-               // last iteration, and
-            // 3) At most ITMAX iterations tried.
+         //    1) The residual BERR(J) is larger than machine epsilon, and
+         //    2) BERR(J) decreased by at least a factor of 2 during the
+         //       last iteration, and
+         //    3) At most ITMAX iterations tried.
 
          if ( BERR( J ) > EPS && TWO*BERR( J ) <= LSTRES && COUNT <= ITMAX ) {
 
@@ -162,22 +162,22 @@
 
          // norm(X - XTRUE) / norm(X) <= FERR =
          // norm( abs(inv(op(A)))*
-            // ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
+         //    ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
 
          // where
-           // norm(Z) is the magnitude of the largest component of Z
-           // inv(op(A)) is the inverse of op(A)
-           // abs(Z) is the componentwise absolute value of the matrix or
-              // vector Z
-           // NZ is the maximum number of nonzeros in any row of A, plus 1
-           // EPS is machine epsilon
+         //   norm(Z) is the magnitude of the largest component of Z
+         //   inv(op(A)) is the inverse of op(A)
+         //   abs(Z) is the componentwise absolute value of the matrix or
+         //      vector Z
+         //   NZ is the maximum number of nonzeros in any row of A, plus 1
+         //   EPS is machine epsilon
 
          // The i-th component of abs(R)+NZ*EPS*(abs(op(A))*abs(X)+abs(B))
          // is incremented by SAFE1 if the i-th component of
          // abs(op(A))*abs(X) + abs(B) is less than SAFE2.
 
          // Use SLACN2 to estimate the infinity-norm of the matrix
-            // inv(op(A)) * diag(W),
+         //    inv(op(A)) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          for (I = 1; I <= N; I++) { // 90

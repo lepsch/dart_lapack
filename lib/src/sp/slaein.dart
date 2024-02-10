@@ -140,7 +140,7 @@
          for (ITS = 1; ITS <= N; ITS++) { // 110
 
             // Solve U*x = scale*v for a right eigenvector
-              // or U**T*x = scale*v for a left eigenvector,
+            //   or U**T*x = scale*v for a left eigenvector,
             // overwriting x on v.
 
             slatrs('Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR );
@@ -327,7 +327,7 @@
             VCRIT = BIGNUM;
 
             // Solve U*(xr,xi) = scale*(vr,vi) for a right eigenvector,
-              // or U**T*(xr,xi) = scale*(vr,vi) for a left eigenvector,
+            //   or U**T*(xr,xi) = scale*(vr,vi) for a left eigenvector,
             // overwriting (xr,xi) on (vr,vi).
 
             for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 250

@@ -153,9 +153,9 @@
           // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 
          // Where
-                   // M                         L-1
+         //           M                         L-1
          // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)].
-                 // I=K+1                       J=1
+         //         I=K+1                       J=1
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
@@ -323,9 +323,9 @@
            // A(K,K)**H*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 
          // Where
-                    // K-1                        L-1
-           // R(K,L) = SUM [A(I,K)**H*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)]
-                    // I=1                        J=1
+         //            K-1                        L-1
+         //   R(K,L) = SUM [A(I,K)**H*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)]
+         //            I=1                        J=1
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
@@ -493,9 +493,9 @@
             // A(K,K)**H*X(K,L) + ISGN*X(K,L)*B(L,L)**H = C(K,L) - R(K,L)
 
          // Where
-                      // K-1                          N
-             // R(K,L) = SUM [A(I,K)**H*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**H].
-                      // I=1                        J=L+1
+         //              K-1                          N
+         //     R(K,L) = SUM [A(I,K)**H*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**H].
+         //              I=1                        J=L+1
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
@@ -663,9 +663,9 @@
              // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L)**H = C(K,L) - R(K,L)
 
          // Where
-                       // M                          N
-             // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**H].
-                     // I=K+1                      J=L+1
+         //               M                          N
+         //     R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**H].
+         //             I=K+1                      J=L+1
 
          // Start loop over block rows (index = K) and block columns (index = L)
 

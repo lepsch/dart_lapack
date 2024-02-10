@@ -38,13 +38,13 @@
          if ( lsame( DIRECT, 'F' ) ) {
 
             // Let  V =  ( V1 )    (first K rows)
-                      // ( V2 )
+            //           ( V2 )
             // where  V1  is unit lower triangular.
 
             if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**H * C  where  C = ( C1 )
-                                                     // ( C2 )
+               //                                       ( C2 )
 
                // W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
 
@@ -141,13 +141,13 @@
          } else {
 
             // Let  V =  ( V1 )
-                      // ( V2 )    (last K rows)
+            //           ( V2 )    (last K rows)
             // where  V2  is unit upper triangular.
 
             if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**H * C  where  C = ( C1 )
-                                                   // ( C2 )
+               //                                     ( C2 )
 
                // W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
 
@@ -252,7 +252,7 @@
             if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**H * C  where  C = ( C1 )
-                                                     // ( C2 )
+               //                                       ( C2 )
 
                // W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
 
@@ -355,7 +355,7 @@
             if ( lsame( SIDE, 'L' ) ) {
 
                // Form  H * C  or  H**H * C  where  C = ( C1 )
-                                                     // ( C2 )
+               //                                       ( C2 )
 
                // W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
 

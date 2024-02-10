@@ -189,7 +189,7 @@
                      ITYPE = ( IRANK-1 )*3 + ISCALE;
                      if( !DOTYPE( ITYPE ) ) GO TO 110;
                   // =====================================================
-                        // Begin test SGELS
+                  //       Begin test SGELS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -251,7 +251,7 @@
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
-                                  // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
+                                 //  / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT[2] = SQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
@@ -276,10 +276,10 @@
                         }
                      }
                   // =====================================================
-                        // End test SGELS
+                  //       End test SGELS
                   // =====================================================
                   // =====================================================
-                        // Begin test SGELST
+                  //       Begin test SGELST
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -340,7 +340,7 @@
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
-                                  // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
+                                 //  / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT[4] = SQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
@@ -365,10 +365,10 @@
                         }
                      }
                   // =====================================================
-                        // End test SGELST
+                  //       End test SGELST
                   // =====================================================
                   // =====================================================
-                        // Begin test SGETSLS
+                  //       Begin test SGETSLS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -462,7 +462,7 @@
                         }
                      }
                   // =====================================================
-                        // End test SGETSLS
+                  //       End test SGETSLS
                   // =====================================================
 
                      // Generate a matrix of scaling type ISCALE and rank
@@ -501,24 +501,24 @@
                         sgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'SGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 7:  Compute relative error in svd
-                                 // workspace: M*N + 4*min(M,N) + max(M,N)
+                        //          workspace: M*N + 4*min(M,N) + max(M,N)
 
                         RESULT[7] = SQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK );
 
                         // Test 8:  Compute error in solution
-                                 // workspace:  M*NRHS + M
+                        //          workspace:  M*NRHS + M
 
                         slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
                         sqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
-                                 // workspace: NRHS*(M+N)
+                        //          workspace: NRHS*(M+N)
 
                         RESULT[9] = ZERO;
                         if (M > CRANK) RESULT( 9 ) = SQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
-                                 // workspace: (M+NRHS)*(N+2)
+                        //          workspace: (M+NRHS)*(N+2)
 
                         RESULT[10] = ZERO;
 
@@ -536,7 +536,7 @@
                         sgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'SGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
-                                        // max(2*min(m,n),nrhs,max(m,n))
+                        //                 max(2*min(m,n),nrhs,max(m,n))
 
                         // Test 11:  Compute relative error in svd
 

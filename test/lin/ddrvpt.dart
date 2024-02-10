@@ -272,7 +272,7 @@ import 'common.dart';
                   if ( IZERO == 0 ) {
 
                      // Check the factorization by computing the ratio
-                        // norm(L*D*L' - A) / (n * norm(A) * EPS )
+                     //    norm(L*D*L' - A) / (n * norm(A) * EPS )
 
                      dptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
 
@@ -328,7 +328,7 @@ import 'common.dart';
                   if ( IFACT == 2 ) {
 
                      // Check the factorization by computing the ratio
-                        // norm(L*D*L' - A) / (n * norm(A) * EPS )
+                     //    norm(L*D*L' - A) / (n * norm(A) * EPS )
 
                      K1 = 1;
                      dptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );

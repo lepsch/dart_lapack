@@ -94,11 +94,11 @@
       if ( INFO == 0 ) {
 
       // Compute workspace
-         // .. compute the minimal and the optimal workspace lengths
-         // [[The expressions for computing the minimal and the optimal
-         // values of LCWORK are written with a lot of redundancy and
-         // can be simplified. However, this detailed form is easier for
-         // maintenance and modifications of the code.]]
+      //    .. compute the minimal and the optimal workspace lengths
+      //    [[The expressions for computing the minimal and the optimal
+      //    values of LCWORK are written with a lot of redundancy and
+      //    can be simplified. However, this detailed form is easier for
+      //    maintenance and modifications of the code.]]
 
          // .. minimal workspace length for CGEQP3 of an M x N matrix
          LWQP3 = N+1;
@@ -373,7 +373,7 @@
       // .. QR factorization with column pivoting
 
       // A * P = Q * [ R ]
-                  // [ 0 ]
+      //             [ 0 ]
 
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
@@ -433,7 +433,7 @@
          if ( CONDA ) {
             // Estimate the scaled condition number of A. Use the fact that it is
             // the same as the scaled condition number of R.
-               // .. V is used as workspace
+            //    .. V is used as workspace
                clacpy('U', N, N, A, LDA, V, LDV );
                // Only the leading NR x NR submatrix of the triangular factor
                // is considered. Only if NR=N will this give a reliable error
@@ -472,8 +472,8 @@
          if ( RTRANS ) {
 
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
-            // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
-            // the upper triangle of [A] to zero.
+          //   .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
+          //   the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
                A[p][p] = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1147
@@ -535,7 +535,7 @@
          }
 
             // .. assemble the left singular vector matrix U of dimensions
-               // (M x NR) or (M x N) or (M x M).
+            //    (M x NR) or (M x N) or (M x M).
          if ( ( NR < M ) && ( !WNTUF ) ) {
              claset('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU);
              if ( NR < N1 ) {
@@ -691,11 +691,11 @@
                 // .. need all N right singular vectors and NR < N
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
-                // [[The optimal ratio N/NR for using QRF instead of padding
-                  // with zeros. Here hard coded to 2; it must be at least
-                  // two due to work space constraints.]]
-                // OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = max( OPTRATIO, 2 )
+             //    [[The optimal ratio N/NR for using QRF instead of padding
+             //      with zeros. Here hard coded to 2; it must be at least
+             //      two due to work space constraints.]]
+             //    OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+             //    OPTRATIO = max( OPTRATIO, 2 )
                 OPTRATIO = 2;
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
@@ -796,18 +796,18 @@
              } else {
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
-                // is then N1 (N or M)
-                // [[The optimal ratio N/NR for using LQ instead of padding
-                  // with zeros. Here hard coded to 2; it must be at least
-                  // two due to work space constraints.]]
-                // OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = max( OPTRATIO, 2 )
+               //  is then N1 (N or M)
+               //  [[The optimal ratio N/NR for using LQ instead of padding
+               //    with zeros. Here hard coded to 2; it must be at least
+               //    two due to work space constraints.]]
+               //  OPTRATIO = ilaenv(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+               //  OPTRATIO = max( OPTRATIO, 2 )
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {
                   clacpy('U', NR, N, A, LDA, V, LDV );
                   if (NR > 1) claset('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
-                  // singular vectors of R stored in [U](1:NR,1:NR)
+               //    singular vectors of R stored in [U](1:NR,1:NR)
                   claset('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV);
                   cgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                   clapmt( false , N, N, V, LDV, IWORK );

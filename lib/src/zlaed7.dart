@@ -26,7 +26,7 @@
       INFO = 0;
 
       // IF( ICOMPQ < 0 || ICOMPQ > 1 ) THEN
-         // INFO = -1
+      //    INFO = -1
       // ELSE IF( N < 0 ) THEN
       if ( N < 0 ) {
          INFO = -1;

@@ -196,7 +196,7 @@ import 'common.dart';
 
 // +    TEST 1
             // Factor A as L*D*L' and compute the ratio
-               // norm(L*D*L' - A) / (n * norm(A) * EPS )
+            //    norm(L*D*L' - A) / (n * norm(A) * EPS )
 
             dpttrf(N, D( N+1 ), E( N+1 ), INFO );
 

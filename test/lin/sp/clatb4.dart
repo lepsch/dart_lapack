@@ -55,7 +55,7 @@
       MODE = 3;
 
       // xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
-                           // M x N matrix.
+      //                      M x N matrix.
 
       if ( lsamen( 2, C2, 'QR' ) || lsamen( 2, C2, 'LQ' ) || lsamen( 2, C2, 'QL' ) || lsamen( 2, C2, 'RQ' ) ) {
 
@@ -100,8 +100,8 @@
       } else if ( lsamen( 2, C2, 'QK' ) ) {
 
          // xQK: truncated QR with pivoting.
-              // Set parameters to generate a general
-              // M x N matrix.
+         //      Set parameters to generate a general
+         //      M x N matrix.
 
          // Set TYPE, the type of matrix to be generated.  'N' is nonsymmetric.
 
@@ -175,7 +175,7 @@
             } else if ( IMAT == 17 ) {
 
                // 17. Random, CNDNUM = 0.1/EPS,
-                   // one small singular value S(N)=1/CNDNUM
+               //     one small singular value S(N)=1/CNDNUM
 
                CNDNUM = BADC2;
                ANORM = ONE;

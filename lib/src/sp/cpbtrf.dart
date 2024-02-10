@@ -101,8 +101,8 @@
                   // blocks in the diagram:
 
                      // A11   A12   A13
-                           // A22   A23
-                                 // A33
+                     //       A22   A23
+                     //             A33
 
                   // The numbers of rows and columns in the partitioning
                   // are IB, I2, I3 respectively. The blocks A12, A22 and

@@ -241,8 +241,8 @@
             } // 70
                                                   // T
             // Compute coefficients in  ( a A - b B )  y = 0
-               // a  is  ACOEF
-               // b  is  BCOEFR + i*BCOEFI
+            //    a  is  ACOEF
+            //    b  is  BCOEFR + i*BCOEFI
 
             if ( !ILCPLX ) {
 
@@ -371,13 +371,13 @@
 
                      // j-1
                // SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
-                     // k=je
+               //       k=je
 
                // To reduce the op count, this is done as
 
                // _        j-1                  _        j-1
                // a*conjg( sum  S(k,j)*x(k) ) - b*conjg( sum  P(k,j)*x(k) )
-                        // k=je                          k=je
+               //          k=je                          k=je
 
                // which may cause underflow problems if A or B are close
                // to underflow.  (E.g., less than SMALL.)
@@ -524,8 +524,8 @@
             } // 250
 
             // Compute coefficients in  ( a A - b B ) x = 0
-               // a  is  ACOEF
-               // b  is  BCOEFR + i*BCOEFI
+            //    a  is  ACOEF
+            //    b  is  BCOEFR + i*BCOEFI
 
             if ( !ILCPLX ) {
 

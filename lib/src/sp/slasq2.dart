@@ -326,8 +326,8 @@
          // Now I0:N0 is unreduced.
          // PP = 0 for ping, PP = 1 for pong.
          // PP = 2 indicates that flipping was applied to the Z array and
-                // and that the tests for deflation upon entry in SLASQ3
-                // should not be performed.
+         //        and that the tests for deflation upon entry in SLASQ3
+         //        should not be performed.
 
          NBIG = 100*( N0-I0+1 );
          for (IWHILB = 1; IWHILB <= NBIG; IWHILB++) { // 140

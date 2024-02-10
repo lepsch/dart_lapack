@@ -82,9 +82,9 @@
              // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 
          // Where
-                     // M                        L-1
-           // R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
-                   // I=K+1                      J=1
+         //             M                        L-1
+         //   R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
+         //           I=K+1                      J=1
 
          for (L = 1; L <= N; L++) { // 30
             for (K = M; K >= 1; K--) { // 20
@@ -128,9 +128,9 @@
              // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 
          // Where
-                    // K-1                           L-1
-           // R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
-                    // I=1                           J=1
+         //            K-1                           L-1
+         //   R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
+         //            I=1                           J=1
 
          for (L = 1; L <= N; L++) { // 60
             for (K = 1; K <= M; K++) { // 50
@@ -175,12 +175,12 @@
              // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
 
          // Where
-                     // K-1
-            // R(K,L) = SUM [A**H(I,K)*X(I,L)] +
-                     // I=1
-                            // N
-                      // ISGN*SUM [X(K,J)*B**H(L,J)].
-                           // J=L+1
+         //             K-1
+         //    R(K,L) = SUM [A**H(I,K)*X(I,L)] +
+         //             I=1
+         //                    N
+         //              ISGN*SUM [X(K,J)*B**H(L,J)].
+         //                   J=L+1
 
          for (L = N; L >= 1; L--) { // 90
             for (K = 1; K <= M; K++) { // 80
@@ -225,9 +225,9 @@
             // A(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
 
          // Where
-                     // M                          N
-           // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
-                   // I=K+1                      J=L+1
+         //             M                          N
+         //   R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
+         //           I=K+1                      J=L+1
 
          for (L = N; L >= 1; L--) { // 120
             for (K = M; K >= 1; K--) { // 110

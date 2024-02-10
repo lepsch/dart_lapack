@@ -246,7 +246,7 @@
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation:
-                     // y := y - B' * conjg(x)
+                  //    y := y - B' * conjg(x)
                   // where x is a column of A and y is a row of B.
 
                   zgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB );

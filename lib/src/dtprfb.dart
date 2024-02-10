@@ -75,10 +75,10 @@ import 'package:lapack/src/xerbla.dart';
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ I ]    (K-by-K)
-                   // [ V ]    (M-by-K)
+         //           [ V ]    (M-by-K)
 
          // Form  H C  or  H**T C  where  C = [ A ]  (K-by-N)
-                                           // [ B ]  (M-by-N)
+         //                                   [ B ]  (M-by-N)
 
          // H = I - W T W**T          or  H**T = I - W T**T W**T
 
@@ -129,7 +129,7 @@ import 'package:lapack/src/xerbla.dart';
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ I ]    (K-by-K)
-                   // [ V ]    (N-by-K)
+         //           [ V ]    (N-by-K)
 
          // Form  C H or  C H**T  where  C = [ A B ] (A is M-by-K, B is M-by-N)
 
@@ -182,10 +182,10 @@ import 'package:lapack/src/xerbla.dart';
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ V ]    (M-by-K)
-                   // [ I ]    (K-by-K)
+         //           [ I ]    (K-by-K)
 
          // Form  H C  or  H**T C  where  C = [ B ]  (M-by-N)
-                                           // [ A ]  (K-by-N)
+         //                                   [ A ]  (K-by-N)
 
          // H = I - W T W**T          or  H**T = I - W T**T W**T
 
@@ -237,7 +237,7 @@ import 'package:lapack/src/xerbla.dart';
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ V ]    (N-by-K)
-                   // [ I ]    (K-by-K)
+         //           [ I ]    (K-by-K)
 
          // Form  C H  or  C H**T  where  C = [ B A ] (B is M-by-N, A is M-by-K)
 
@@ -292,7 +292,7 @@ import 'package:lapack/src/xerbla.dart';
          // Let  W =  [ I V ] ( I is K-by-K, V is K-by-M )
 
          // Form  H C  or  H**T C  where  C = [ A ]  (K-by-N)
-                                           // [ B ]  (M-by-N)
+         //                                   [ B ]  (M-by-N)
 
          // H = I - W**T T W          or  H**T = I - W**T T**T W
 
@@ -397,7 +397,7 @@ import 'package:lapack/src/xerbla.dart';
          // Let  W =  [ V I ] ( I is K-by-K, V is K-by-M )
 
          // Form  H C  or  H**T C  where  C = [ B ]  (M-by-N)
-                                           // [ A ]  (K-by-N)
+         //                                   [ A ]  (K-by-N)
 
          // H = I - W**T T W          or  H**T = I - W**T T**T W
 

@@ -262,21 +262,21 @@
       } else if ( lsamen( 2, P2, 'SY' ) || lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK' ) || lsamen( 2, P2, 'HE' ) || lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HK' ) || lsamen( 2, P2, 'HA' ) ) {
 
          // xSY: symmetric indefinite matrices
-              // with partial (Bunch-Kaufman) pivoting;
+         //      with partial (Bunch-Kaufman) pivoting;
          // xSR: symmetric indefinite matrices
-              // with rook (bounded Bunch-Kaufman) pivoting;
+         //      with rook (bounded Bunch-Kaufman) pivoting;
          // xSK: symmetric indefinite matrices
-              // with rook (bounded Bunch-Kaufman) pivoting,
-              // new storage format;
+         //      with rook (bounded Bunch-Kaufman) pivoting,
+         //      new storage format;
          // xHE: Hermitian indefinite matrices
-              // with partial (Bunch-Kaufman) pivoting.
+         //      with partial (Bunch-Kaufman) pivoting.
          // xHR: Hermitian indefinite matrices
-              // with rook (bounded Bunch-Kaufman) pivoting;
+         //      with rook (bounded Bunch-Kaufman) pivoting;
          // xHK: Hermitian indefinite matrices
-              // with rook (bounded Bunch-Kaufman) pivoting,
-              // new storage format;
+         //      with rook (bounded Bunch-Kaufman) pivoting,
+         //      new storage format;
          // xHA: Hermitian matrices
-              // Aasen Algorithm
+         //      Aasen Algorithm
 
          UPLO = OPTS( 1: 1 );
          if ( lsamen( 3, C3, 'TRF' ) ) {

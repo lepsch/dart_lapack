@@ -31,7 +31,7 @@
       if (N <= 0 || NRHS == 0) return;
 
       // Compute the maximum over the number of right hand sides of
-         // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
+      //    norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
       if ( lsame( TRANS, 'N' ) ) {
          ANORM = ZLANGT( '1', N, DL, D, DU );

@@ -117,9 +117,9 @@
       } // 30
 
       // Index IP is used to specify the real or complex eigenvalue:
-        // IP = 0, real eigenvalue,
-             // 1, first of conjugate complex pair: (wr,wi)
-            // -1, second of conjugate complex pair: (wr,wi)
+      //   IP = 0, real eigenvalue,
+      //        1, first of conjugate complex pair: (wr,wi)
+      //       -1, second of conjugate complex pair: (wr,wi)
 
       N2 = 2*N;
 
@@ -165,7 +165,7 @@
                } // 50
 
                // Solve the upper quasi-triangular system:
-                  // (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
+               //    (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
 
                JNXT = KI - 1;
                for (J = KI - 1; J >= 1; J--) { // 60
@@ -261,8 +261,8 @@
                // Complex right eigenvector.
 
                // Initial solve
-                 // [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
-                 // [ (T(KI,KI-1)   T(KI,KI)   )               ]
+               //   [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
+               //   [ (T(KI,KI-1)   T(KI,KI)   )               ]
 
                if ( ( T( KI-1, KI ) ).abs() >= ( T( KI, KI-1 ) ).abs() ) {
                   WORK[KI-1+N] = ONE;
@@ -455,7 +455,7 @@
                } // 160
 
                // Solve the quasi-triangular system:
-                  // (T(KI+1:N,KI+1:N) - WR)**T*X = SCALE*WORK
+               //    (T(KI+1:N,KI+1:N) - WR)**T*X = SCALE*WORK
 
                VMAX = ONE;
                VCRIT = BIGNUM;
@@ -520,8 +520,8 @@
                      WORK[J+1+N] = WORK( J+1+N ) - SDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 );
 
                      // Solve
-                       // [T(J,J)-WR   T(J,J+1)     ]**T* X = SCALE*( WORK1 )
-                       // [T(J+1,J)    T(J+1,J+1)-WR]               ( WORK2 )
+                     //   [T(J,J)-WR   T(J,J+1)     ]**T* X = SCALE*( WORK1 )
+                     //   [T(J+1,J)    T(J+1,J+1)-WR]               ( WORK2 )
 
                      slaln2( true , 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
@@ -565,8 +565,8 @@
                // Complex left eigenvector.
 
                 // Initial solve:
-                  // ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
-                  // ((T(KI+1,KI) T(KI+1,KI+1))                )
+                //   ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
+                //   ((T(KI+1,KI) T(KI+1,KI+1))                )
 
                if ( ( T( KI, KI+1 ) ).abs() >= ( T( KI+1, KI ) ).abs() ) {
                   WORK[KI+N] = WI / T( KI, KI+1 );
@@ -661,8 +661,8 @@
                      WORK[J+1+N2] = WORK( J+1+N2 ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 );
 
                      // Solve 2-by-2 complex linear equation
-                       // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
-                       // ([T(j+1,j) T(j+1,j+1)]               )
+                     //   ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
+                     //   ([T(j+1,j) T(j+1,j+1)]               )
 
                      slaln2( true , 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 

@@ -64,14 +64,13 @@ void dgges3(
       BNRM,
       BNRMTO = 0,
       EPS,
-      PVSL = 0,
-      PVSR = 0,
       SAFMAX,
       SAFMIN,
       SMLNUM;
   final IDUM = Array<int>(1);
   final DIF = Array<double>(2);
   final IERR = Box(0), ILO = Box(0), IHI = Box(0);
+  final PVSL = Box(0.0), PVSR = Box(0.0);
 
   // Decode the input arguments
 
@@ -164,7 +163,7 @@ void dgges3(
           LDVSL,
           VSR,
           LDVSR,
-          SDIM.value,
+          SDIM,
           PVSL,
           PVSR,
           DIF,
@@ -356,11 +355,11 @@ void dgges3(
           LDVSL,
           VSR,
           LDVSR,
-          SDIM.value,
+          SDIM,
           PVSL,
           PVSR,
           DIF,
-          WORK[IWRK],
+          WORK(IWRK),
           LWORK - IWRK + 1,
           IDUM,
           1,

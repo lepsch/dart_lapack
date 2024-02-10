@@ -468,36 +468,36 @@ void derrgg(
 
     srnamc.SRNAMT = 'DORCSD';
     infoc.INFOT = 7;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', -1, 0, 0, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', -1, 0, 0, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 8;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, -1, 0, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, -1, 0, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, -1, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, -1, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, -1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, -1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 20;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A,
-        -1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, -1, A, 1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 22;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, -1, A, 1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, -1, A, 1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 24;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, -1, A, 1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, -1, A, 1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 26;
-    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A,
-        1, A, 1, A, 1, A, -1, W, LW, IW, INFO);
+    dorcsd('Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1,
+        A.asArray(), A, 1, A, 1, A, 1, A, -1, W, LW, IW, INFO);
     chkxer('DORCSD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 8;
 

@@ -332,8 +332,8 @@
                sgemm('Transpose', 'No transpose', M, NRHS, M, ONE, Q, LDQ, X, LDX, ZERO, Y, LDX );
 
                // Test 1:  Check the decomposition A := Q * B * PT
-                    // 2:  Check the orthogonality of Q
-                    // 3:  Check the orthogonality of PT
+               //      2:  Check the orthogonality of Q
+               //      3:  Check the orthogonality of PT
 
                sbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT( 1 ) );
                sort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
@@ -386,9 +386,9 @@
             }
 
             // Test 4:  Check the decomposition B := U * S1 * VT
-                 // 5:  Check the computation Z := U' * Y
-                 // 6:  Check the orthogonality of U
-                 // 7:  Check the orthogonality of VT
+            //      5:  Check the computation Z := U' * Y
+            //      6:  Check the orthogonality of U
+            //      7:  Check the orthogonality of VT
 
             sbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) );
             sbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RESULT( 5 ) );
@@ -396,7 +396,7 @@
             sort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
-                     // non-increasing order and are non-negative
+            //          non-increasing order and are non-negative
 
             RESULT[8] = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
@@ -419,7 +419,7 @@
             RESULT[9] = TEMP2;
 
             // Test 10:  Sturm sequence test of singular values
-                      // Go up by factors of two until it succeeds
+            //           Go up by factors of two until it succeeds
 
             TEMP1 = THRESH*( HALF-ULP );
 
@@ -442,9 +442,9 @@
                sbdsqr(UPLO, MNMIN, N, M, NRHS, S2, WORK, PT, LDPT, Q, LDQ, Y, LDX, WORK( MNMIN+1 ), IINFO );
 
                // Test 11:  Check the decomposition A := Q*U * S2 * VT*PT
-                    // 12:  Check the computation Z := U' * Q' * X
-                    // 13:  Check the orthogonality of Q*U
-                    // 14:  Check the orthogonality of VT*PT
+               //      12:  Check the computation Z := U' * Q' * X
+               //      13:  Check the orthogonality of Q*U
+               //      14:  Check the orthogonality of VT*PT
 
                sbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RESULT( 11 ) );
                sbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RESULT( 12 ) );
@@ -497,15 +497,15 @@
             }
 
             // Test 15:  Check the decomposition B := U * S1 * VT
-                 // 16:  Check the orthogonality of U
-                 // 17:  Check the orthogonality of VT
+            //      16:  Check the orthogonality of U
+            //      17:  Check the orthogonality of VT
 
             sbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 15 ) );
             sort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT( 16 ) );
             sort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 17 ) );
 
             // Test 18:  Check that the singular values are sorted in
-                      // non-increasing order and are non-negative
+            //           non-increasing order and are non-negative
 
             RESULT[18] = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 150
@@ -606,11 +606,11 @@
             scopy(MNMIN, S1, 1, WORK( IWBS ), 1 );
 
             // Test 20:  Check the decomposition B := U * S1 * VT
-                 // 21:  Check the orthogonality of U
-                 // 22:  Check the orthogonality of VT
-                 // 23:  Check that the singular values are sorted in
-                      // non-increasing order and are non-negative
-                 // 24:  Compare SBDSVDX with and without singular vectors
+            //      21:  Check the orthogonality of U
+            //      22:  Check the orthogonality of VT
+            //      23:  Check that the singular values are sorted in
+            //           non-increasing order and are non-negative
+            //      24:  Compare SBDSVDX with and without singular vectors
 
             sbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 20 ) );
             sort01('Columns', MNMIN, MNMIN, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 21 ) );
@@ -701,11 +701,11 @@
             }
 
             // Test 25:  Check S1 - U' * B * VT'
-                 // 26:  Check the orthogonality of U
-                 // 27:  Check the orthogonality of VT
-                 // 28:  Check that the singular values are sorted in
-                      // non-increasing order and are non-negative
-                 // 29:  Compare SBDSVDX with and without singular vectors
+            //      26:  Check the orthogonality of U
+            //      27:  Check the orthogonality of VT
+            //      28:  Check that the singular values are sorted in
+            //           non-increasing order and are non-negative
+            //      29:  Compare SBDSVDX with and without singular vectors
 
             sbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 25 ) );
             sort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 26 ) );
@@ -800,11 +800,11 @@
             }
 
             // Test 30:  Check S1 - U' * B * VT'
-                 // 31:  Check the orthogonality of U
-                 // 32:  Check the orthogonality of VT
-                 // 33:  Check that the singular values are sorted in
-                      // non-increasing order and are non-negative
-                 // 34:  Compare SBDSVDX with and without singular vectors
+            //      31:  Check the orthogonality of U
+            //      32:  Check the orthogonality of VT
+            //      33:  Check that the singular values are sorted in
+            //           non-increasing order and are non-negative
+            //      34:  Compare SBDSVDX with and without singular vectors
 
             sbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 30 ) );
             sort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 31 ) );

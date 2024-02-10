@@ -166,7 +166,7 @@
       sdrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, S_WORK_SLANSY );
 
       // Test the conversion routines:
-        // stfttp, stpttf, stfttr, strttf, strttp and stpttr.
+      //   stfttp, stpttf, stfttr, strttf, strttp and stpttr.
 
       sdrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
 

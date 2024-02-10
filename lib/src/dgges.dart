@@ -65,14 +65,13 @@ void dgges(
       BNRM = 0,
       BNRMTO = 0,
       EPS,
-      PVSL = 0,
-      PVSR = 0,
       SAFMAX,
       SAFMIN,
       SMLNUM;
   final IDUM = Array<int>(1);
   final DIF = Array<double>(2);
   final IHI = Box(0), ILO = Box(0), IERR = Box(0);
+  final PVSL = Box(0.0), PVSR = Box(0.0);
 
   // Decode the input arguments
 
@@ -212,7 +211,7 @@ void dgges(
   ICOLS = N + 1 - ILO.value;
   ITAU = IWRK;
   IWRK = ITAU + IROWS;
-  dgeqrf(IROWS, ICOLS, B[ILO.value][ILO.value], LDB, WORK[ITAU], WORK[IWRK],
+  dgeqrf(IROWS, ICOLS, B(ILO.value, ILO.value), LDB, WORK(ITAU), WORK(IWRK),
       LWORK + 1 - IWRK, IERR);
 
   // Apply the orthogonal transformation to matrix A
@@ -309,11 +308,11 @@ void dgges(
           LDVSL,
           VSR,
           LDVSR,
-          SDIM.value,
+          SDIM,
           PVSL,
           PVSR,
           DIF,
-          WORK[IWRK],
+          WORK(IWRK),
           LWORK - IWRK + 1,
           IDUM,
           1,

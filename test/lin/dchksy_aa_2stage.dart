@@ -261,7 +261,7 @@ import 'common.dart';
 
                    // CALL DSYT01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
       // $                            AINV, LDA, RWORK, RESULT( 1 ) )
-                   // NT = 1
+      //              NT = 1
                   NT = 0;
 
 

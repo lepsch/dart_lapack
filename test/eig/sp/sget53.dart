@@ -89,7 +89,7 @@
 
                   // |det( s A - w B )|
       // sigma_min = ------------------
-                  // norm( s A - w B )
+      //             norm( s A - w B )
 
       CNORM = max( ( CR11 ).abs()+( CI11 ).abs()+( CR21 ).abs(), ( CR12 ).abs()+( CI12 ).abs()+( CR22 ).abs()+( CI22 ).abs(), SAFMIN );
       CSCALE = ONE / sqrt( CNORM );

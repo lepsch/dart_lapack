@@ -34,7 +34,7 @@
       // INTRINSIC ABS, MAX, MOD
 
       // 1)      Decode and Test the input parameters.
-              // Initialize flags & seed.
+      //         Initialize flags & seed.
 
       INFO = 0;
 
@@ -217,7 +217,7 @@
       }
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
-              // (but don't modify the corners of 2x2 blocks.)
+      //         (but don't modify the corners of 2x2 blocks.)
 
       if ( IUPPER != 0 ) {
          for (JC = 2; JC <= N; JC++) { // 70

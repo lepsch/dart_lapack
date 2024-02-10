@@ -76,7 +76,7 @@
                caxpy(I, ALPHA, A( 1, I+1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**H - w * v**H
+               //    A := A - v * w**H - w * v**H
 
                cher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
@@ -118,7 +118,7 @@
                caxpy(N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**H - w * v**H
+               //    A := A - v * w**H - w * v**H
 
                cher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 

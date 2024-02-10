@@ -199,13 +199,13 @@
          // If the pivot column is not the first column of the
          // subblock A(1:M,KK:N):
          // 1) swap the KK-th column and the KP-th pivot column
-            // in A(1:M,1:N);
+         //    in A(1:M,1:N);
          // 2) copy the KK-th element into the KP-th element of the partial
-            // and exact 2-norm vectors VN1 and VN2. ( Swap is not needed
-            // for VN1 and VN2 since we use the element with the index
-            // larger than KK in the next loop step.)
+         //    and exact 2-norm vectors VN1 and VN2. ( Swap is not needed
+         //    for VN1 and VN2 since we use the element with the index
+         //    larger than KK in the next loop step.)
          // 3) Save the pivot interchange with the indices relative to the
-            // the original matrix A, not the block A(1:M,1:N).
+         //    the original matrix A, not the block A(1:M,1:N).
 
          if ( KP != KK ) {
             cswap(M, A( 1, KP ), 1, A( 1, KK ), 1 );
@@ -262,15 +262,15 @@
 
          // Apply H(KK)**H to A(I:M,KK+1:N+NRHS) from the left.
          // ( If M >= N, then at KK = N there is no residual matrix,
-          // i.e. no columns of A to update, only columns of B.
-          // If M < N, then at KK = M-IOFFSET, I = M and we have a
-          // one-row residual matrix in A and the elementary
-          // reflector is a unit matrix, TAU(KK) = CZERO, i.e. no update
-          // is needed for the residual matrix in A and the
-          // right-hand-side-matrix in B.
-          // Therefore, we update only if
-          // KK < MINMNUPDT = min(M-IOFFSET, N+NRHS)
-          // condition is satisfied, not only KK < N+NRHS )
+         //  i.e. no columns of A to update, only columns of B.
+         //  If M < N, then at KK = M-IOFFSET, I = M and we have a
+         //  one-row residual matrix in A and the elementary
+         //  reflector is a unit matrix, TAU(KK) = CZERO, i.e. no update
+         //  is needed for the residual matrix in A and the
+         //  right-hand-side-matrix in B.
+         //  Therefore, we update only if
+         //  KK < MINMNUPDT = min(M-IOFFSET, N+NRHS)
+         //  condition is satisfied, not only KK < N+NRHS )
 
          if ( KK < MINMNUPDT ) {
             AIKK = A( I, KK );

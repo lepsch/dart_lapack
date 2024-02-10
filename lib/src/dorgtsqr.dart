@@ -95,7 +95,7 @@ import 'package:lapack/src/xerbla.dart';
       // Perform by the following operation using the routine DLAMTSQR.
 
           // Q1_in = Q_in * ( I ), where I is a N-by-N identity matrix,
-                         // ( 0 )        0 is a (M-N)-by-N zero matrix.
+          //                ( 0 )        0 is a (M-N)-by-N zero matrix.
 
       // (1a) Form M-by-N matrix in the array WORK(1:LDC*N) with ones
       // on the diagonal and zeros elsewhere.
@@ -103,7 +103,7 @@ import 'package:lapack/src/xerbla.dart';
       dlaset('F', M, N, ZERO, ONE, WORK, LDC );
 
       // (1b)  On input, WORK(1:LDC*N) stores ( I );
-                                           // ( 0 )
+      //                                      ( 0 )
 
             // On output, WORK(1:LDC*N) stores Q1_in.
 

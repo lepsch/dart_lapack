@@ -54,7 +54,7 @@
          } // 10
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
-                         // C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
+         //                 C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
 
          if (L > 0) cgemm( 'Transpose', 'Conjugate transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
@@ -71,7 +71,7 @@
          } // 30
 
          // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-                             // V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
+         //                     V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
 
          if (L > 0) cgemm( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
 
@@ -86,12 +86,12 @@
          } // 40
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
-                         // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
+         //                 C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
 
          if (L > 0) cgemm( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
-                         // W( 1:m, 1:k ) * T**H
+         //                 W( 1:m, 1:k ) * T**H
 
          for (J = 1; J <= K; J++) { // 50
             clacgv(K-J+1, T( J, J ), 1 );
@@ -110,7 +110,7 @@
          } // 80
 
          // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-                             // W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
+         //                     W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
 
          for (J = 1; J <= L; J++) { // 90
             clacgv(K, V( 1, J ), 1 );

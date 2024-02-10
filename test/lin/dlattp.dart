@@ -122,26 +122,26 @@
          // ..., 1, 1/s:
 
          // 1  y  y  y  ...  y  y  z
-            // 1  0  0  ...  0  0  y
-               // 1  0  ...  0  0  y
-                  // .  ...  .  .  .
-                      // .   .  .  .
-                          // 1  0  y
-                             // 1  y
-                                // 1
+         //    1  0  0  ...  0  0  y
+         //       1  0  ...  0  0  y
+         //          .  ...  .  .  .
+         //              .   .  .  .
+         //                  1  0  y
+         //                     1  y
+         //                        1
 
          // To fill in the zeros, we first multiply by a matrix with small
          // condition number of the form
 
          // 1  0  0  0  0  ...
-            // 1  +  *  0  0  ...
-               // 1  +  0  0  0
-                  // 1  +  *  0  0
-                     // 1  +  0  0
-                        // ...
-                           // 1  +  0
-                              // 1  0
-                                 // 1
+         //    1  +  *  0  0  ...
+         //       1  +  0  0  0
+         //          1  +  *  0  0
+         //             1  +  0  0
+         //                ...
+         //                   1  +  0
+         //                      1  0
+         //                         1
 
          // Each element marked with a '*' is formed by taking the product
          // of the adjacent elements marked with '+'.  The '*'s can be
@@ -153,23 +153,23 @@
          // The product of these two matrices has the form
 
          // 1  y  y  y  y  y  .  y  y  z
-            // 1  +  *  0  0  .  0  0  y
-               // 1  +  0  0  .  0  0  y
-                  // 1  +  *  .  .  .  .
-                     // 1  +  .  .  .  .
-                        // .  .  .  .  .
-                           // .  .  .  .
-                              // 1  +  y
-                                 // 1  y
-                                    // 1
+         //    1  +  *  0  0  .  0  0  y
+         //       1  +  0  0  .  0  0  y
+         //          1  +  *  .  .  .  .
+         //             1  +  .  .  .  .
+         //                .  .  .  .  .
+         //                   .  .  .  .
+         //                      1  +  y
+         //                         1  y
+         //                            1
 
          // Now we multiply by Givens rotations, using the fact that
 
                // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
                // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
          // and
-               // [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
-               // [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
+         //       [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
+         //       [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
 
          // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
 

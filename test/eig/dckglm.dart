@@ -152,8 +152,8 @@ Future<void> dckglm(
         X[I] = dlarnd(2, ISEED);
       }
 
-      dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X[NMAX + 1], X[2 * NMAX + 1],
-          X[3 * NMAX + 1], WORK, LWORK, RWORK, RESID.value);
+      dglmts(N, M, P, A.asMatrix(LDA), AF.asMatrix(LDA), LDA, B.asMatrix(LDB), BF.asMatrix(LDB), LDB, X, X(NMAX + 1), X(2 * NMAX + 1),
+          X(3 * NMAX + 1), WORK, LWORK, RWORK, RESID);
 
       // Print information about the tests that did not
       // pass the threshold.

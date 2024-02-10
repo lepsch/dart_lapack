@@ -63,9 +63,9 @@
       SB = SCALE*sqrt( SUM );
 
       // THRES has been changed from
-         // THRESH = max( TEN*EPS*SA, SMLNUM )
+      //    THRESH = max( TEN*EPS*SA, SMLNUM )
       // to
-         // THRESH = max( TWENTY*EPS*SA, SMLNUM )
+      //    THRESH = max( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
       // Jim Demmel and Guillaume Revy. See forum post 1783.
@@ -93,16 +93,16 @@
       zrot(2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, CQ, SQ );
 
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
-                           // and  |T21| <= O(EPS F-norm((B)))
+      //                      and  |T21| <= O(EPS F-norm((B)))
 
       WEAK = ( S( 2, 1 ) ).abs() <= THRESHA && ( T( 2, 1 ) ).abs() <= THRESHB       IF( !WEAK ) GO TO 20;
 
       if ( WANDS ) {
 
          // Strong stability test:
-            // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
-            // and
-            // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
+         //    F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
+         //    and
+         //    F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
          zlacpy('Full', M, M, S, LDST, WORK, M );
          zlacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );

@@ -138,10 +138,10 @@
       } // 30
 
       // Index IP is used to specify the real or complex eigenvalue:
-        // IP = 0, real eigenvalue,
-             // 1, first  of conjugate complex pair: (wr,wi)
-            // -1, second of conjugate complex pair: (wr,wi)
-        // ISCOMPLEX array stores IP for each column in current block.
+      //   IP = 0, real eigenvalue,
+      //        1, first  of conjugate complex pair: (wr,wi)
+      //       -1, second of conjugate complex pair: (wr,wi)
+      //   ISCOMPLEX array stores IP for each column in current block.
 
       if ( RIGHTV ) {
 
@@ -509,8 +509,8 @@
                         }
                         REMAX = ONE / EMAX;
                      // else if ISCOMPLEX(K) == -1
-                        // second eigenvector of conjugate pair
-                        // reuse same REMAX as previous K
+                     //    second eigenvector of conjugate pair
+                     //    reuse same REMAX as previous K
                      }
                      sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   }
@@ -906,8 +906,8 @@
                         }
                         REMAX = ONE / EMAX;
                      // else if ISCOMPLEX(K) == -1
-                        // second eigenvector of conjugate pair
-                        // reuse same REMAX as previous K
+                     //    second eigenvector of conjugate pair
+                     //    reuse same REMAX as previous K
                      }
                      sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   }

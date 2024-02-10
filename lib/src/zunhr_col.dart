@@ -51,7 +51,7 @@
       // are not stored) by performing the "modified" LU-decomposition.
 
       // Q_in - ( S ) = V * U = ( V1 ) * U,
-             // ( 0 )           ( V2 )
+      //        ( 0 )           ( V2 )
 
       // where 0 is an (M-N)-by-N zero matrix.
 
@@ -114,21 +114,21 @@
                 // X(JB) * (A(JB)**T) = B(JB), where:
 
                 // A(JB)**T  is a JNB-by-JNB unit upper-triangular
-                          // coefficient block, and A(JB)=V1(JB), which
-                          // is a JNB-by-JNB unit lower-triangular block
-                          // stored in A(JB:JB+JNB-1,JB:JB+JNB-1).
-                          // The N-by-N matrix V1 is the upper part
-                          // of the M-by-N lower-trapezoidal matrix V
-                          // stored in A(1:M,1:N);
+                //           coefficient block, and A(JB)=V1(JB), which
+                //           is a JNB-by-JNB unit lower-triangular block
+                //           stored in A(JB:JB+JNB-1,JB:JB+JNB-1).
+                //           The N-by-N matrix V1 is the upper part
+                //           of the M-by-N lower-trapezoidal matrix V
+                //           stored in A(1:M,1:N);
 
                 // B(JB)     is a JNB-by-JNB  upper-triangular right-hand
-                          // side block, B(JB) = (-1)*U(JB)*S(JB), and
-                          // B(JB) is stored in T(1:JNB,JB:JB+JNB-1);
+                //           side block, B(JB) = (-1)*U(JB)*S(JB), and
+                //           B(JB) is stored in T(1:JNB,JB:JB+JNB-1);
 
                 // X(JB)     is a JNB-by-JNB upper-triangular solution
-                          // block, X(JB) is the upper-triangular block
-                          // reflector T(JB), and X(JB) is stored
-                          // in T(1:JNB,JB:JB+JNB-1).
+                //           block, X(JB) is the upper-triangular block
+                //           reflector T(JB), and X(JB) is stored
+                //           in T(1:JNB,JB:JB+JNB-1).
 
               // In other words, we perform the triangular solve for the
               // upper-triangular block T(JB):

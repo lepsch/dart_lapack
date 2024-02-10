@@ -62,7 +62,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 10
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
-                         // C( m-l+1:m, 1:n )**T * V( 1:k, 1:l )**T
+         //                 C( m-l+1:m, 1:n )**T * V( 1:k, 1:l )**T
 
          if (L > 0) dgemm( 'Transpose', 'Transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
@@ -79,7 +79,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 30
 
          // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-                             // V( 1:k, 1:l )**T * W( 1:n, 1:k )**T
+         //                     V( 1:k, 1:l )**T * W( 1:n, 1:k )**T
 
          if (L > 0) dgemm( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
 
@@ -94,7 +94,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 40
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
-                         // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**T
+         //                 C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**T
 
          if (L > 0) dgemm( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
@@ -111,7 +111,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 60
 
          // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-                             // W( 1:m, 1:k ) * V( 1:k, 1:l )
+         //                     W( 1:m, 1:k ) * V( 1:k, 1:l )
 
          if (L > 0) dgemm( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC );
 

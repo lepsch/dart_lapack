@@ -203,7 +203,7 @@
                // Perform a rank-2 update of A(1:k-2,1:k-2) as
 
                // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**H
-                  // = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
+               //    = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
 
                if ( K > 2 ) {
 
@@ -391,7 +391,7 @@
                   // Perform a rank-2 update of A(k+2:n,k+2:n) as
 
                   // A := A - ( L(k) L(k+1) )*D(k)*( L(k) L(k+1) )**H
-                     // = A - ( W(k) W(k+1) )*inv(D(k))*( W(k) W(k+1) )**H
+                  //    = A - ( W(k) W(k+1) )*inv(D(k))*( W(k) W(k+1) )**H
 
                   // where L(k) and L(k+1) are the k-th and (k+1)-th
                   // columns of L

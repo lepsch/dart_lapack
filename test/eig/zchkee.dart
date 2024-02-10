@@ -730,11 +730,11 @@ import 'common.dart';
          // NEP:  Nonsymmetric Eigenvalue Problem
          // -------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
-            // NS    = number of shifts
-            // cenvir.MAXB  = minimum submatrix size
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
+         //    NS    = number of shifts
+         //    cenvir.MAXB  = minimum submatrix size
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -767,9 +767,9 @@ import 'common.dart';
          // SEP:  Symmetric Eigenvalue Problem
          // ----------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -822,9 +822,9 @@ import 'common.dart';
          // ZSG:  Hermitian Generalized Eigenvalue Problem
          // ----------------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -859,10 +859,10 @@ import 'common.dart';
          // SVD:  Singular Value Decomposition
          // ----------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
-            // NRHS  = number of right hand sides
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
+         //    NRHS  = number of right hand sides
 
          MAXTYP = 16;
          NTYPES = min( MAXTYP, NTYPES );
@@ -897,7 +897,7 @@ import 'common.dart';
 
          // --------------------------------------------
          // ZEV:  Nonsymmetric Eigenvalue Problem Driver
-               // ZGEEV (eigenvalues and eigenvectors)
+         //       ZGEEV (eigenvalues and eigenvectors)
          // --------------------------------------------
 
          MAXTYP = 21;
@@ -917,7 +917,7 @@ import 'common.dart';
 
          // --------------------------------------------
          // ZES:  Nonsymmetric Eigenvalue Problem Driver
-               // ZGEES (Schur form)
+         //       ZGEES (Schur form)
          // --------------------------------------------
 
          MAXTYP = 21;
@@ -937,7 +937,7 @@ import 'common.dart';
 
          // --------------------------------------------------------------
          // ZVX:  Nonsymmetric Eigenvalue Problem Expert Driver
-               // ZGEEVX (eigenvalues, eigenvectors and condition numbers)
+         //       ZGEEVX (eigenvalues, eigenvectors and condition numbers)
          // --------------------------------------------------------------
 
          MAXTYP = 21;
@@ -957,7 +957,7 @@ import 'common.dart';
 
          // ---------------------------------------------------
          // ZSX:  Nonsymmetric Eigenvalue Problem Expert Driver
-               // ZGEESX (Schur form and condition numbers)
+         //       ZGEESX (Schur form and condition numbers)
          // ---------------------------------------------------
 
          MAXTYP = 21;
@@ -979,12 +979,12 @@ import 'common.dart';
          // ZGG:  Generalized Nonsymmetric Eigenvalue Problem
          // -------------------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NS    = number of shifts
-            // cenvir.MAXB  = minimum submatrix size
-            // IACC22: structured matrix multiply
-            // NBCOL = minimum column dimension for blocks
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NS    = number of shifts
+         //    cenvir.MAXB  = minimum submatrix size
+         //    IACC22: structured matrix multiply
+         //    NBCOL = minimum column dimension for blocks
 
          MAXTYP = 26;
          NTYPES = min( MAXTYP, NTYPES );
@@ -1017,7 +1017,7 @@ import 'common.dart';
 
          // -------------------------------------------------
          // ZGS:  Generalized Nonsymmetric Eigenvalue Problem
-               // ZGGES (Schur form)
+         //       ZGGES (Schur form)
          // -------------------------------------------------
 
          MAXTYP = 26;
@@ -1044,7 +1044,7 @@ import 'common.dart';
 
          // -------------------------------------------------
          // ZGX  Generalized Nonsymmetric Eigenvalue Problem
-               // ZGGESX (Schur form and condition numbers)
+         //       ZGGESX (Schur form and condition numbers)
          // -------------------------------------------------
 
          MAXTYP = 5;
@@ -1065,7 +1065,7 @@ import 'common.dart';
 
          // -------------------------------------------------
          // ZGV:  Generalized Nonsymmetric Eigenvalue Problem
-               // ZGGEV (Eigenvalue/vector form)
+         //       ZGGEV (Eigenvalue/vector form)
          // -------------------------------------------------
 
          MAXTYP = 26;
@@ -1091,7 +1091,7 @@ import 'common.dart';
 
          // -------------------------------------------------
          // ZXV:  Generalized Nonsymmetric Eigenvalue Problem
-               // ZGGEVX (eigenvalue/vector with condition numbers)
+         //       ZGGEVX (eigenvalue/vector with condition numbers)
          // -------------------------------------------------
 
          MAXTYP = 2;

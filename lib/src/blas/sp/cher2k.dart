@@ -108,7 +108,7 @@
       if (lsame(TRANS,'N')) {
 
          // Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
-                    // C.
+         //            C.
 
           if (UPPER) {
               for (J = 1; J <= N; J++) { // 130
@@ -164,7 +164,7 @@
       } else {
 
          // Form  C := alpha*A**H*B + conjg( alpha )*B**H*A +
-                    // C.
+         //            C.
 
           if (UPPER) {
               for (J = 1; J <= N; J++) { // 210

@@ -269,9 +269,9 @@
 
 
                   // NEED TO WRITE CHET01_AA_2STAGE
-                   // CALL CHET01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
+                  //  CALL CHET01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
       // $                            AINV, LDA, RWORK, RESULT( 1 ) )
-                   // NT = 1
+      //              NT = 1
                    NT = 0;
 
 

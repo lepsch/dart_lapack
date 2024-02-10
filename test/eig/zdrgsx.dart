@@ -71,11 +71,11 @@ import 'common.dart';
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
@@ -338,7 +338,7 @@ import 'common.dart';
       }
 
       // Compute the norm(A, B)
-         // (should this be norm of (A,B) or (AI,BI)?)
+      //    (should this be norm of (A,B) or (AI,BI)?)
 
       zlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK, mn.MPLUSN );
       zlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, WORK( mn.MPLUSN*mn.MPLUSN+1 ), mn.MPLUSN );

@@ -103,7 +103,7 @@ import 'package:lapack/src/xerbla.dart';
 
 
          // Y = (Y1,Y2); L = [ L1            0  ];  T = [T1 T3]
-                          // [ A(1:N1,J1:N)  L2 ]       [ 0 T2]
+         //                  [ A(1:N1,J1:N)  L2 ]       [ 0 T2]
 
       }
 

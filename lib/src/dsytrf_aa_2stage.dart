@@ -189,7 +189,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO != 0 && INFO == 0) THEN
-                   // INFO = IINFO+(J+1)*NB
+                //    INFO = IINFO+(J+1)*NB
                 // END IF
 
                // Copy panel back
@@ -317,7 +317,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO != 0 && INFO == 0) THEN
-                   // INFO = IINFO+(J+1)*NB
+                //    INFO = IINFO+(J+1)*NB
                 // END IF
 
                // Compute T(J+1, J), zero out for GEMM update

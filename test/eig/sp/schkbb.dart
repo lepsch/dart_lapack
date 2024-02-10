@@ -262,9 +262,9 @@
                }
 
                // Test 1:  Check the decomposition A := Q * B * P'
-                    // 2:  Check the orthogonality of Q
-                    // 3:  Check the orthogonality of P
-                    // 4:  Check the computation of Q' * C
+               //      2:  Check the orthogonality of Q
+               //      3:  Check the orthogonality of P
+               //      4:  Check the computation of Q' * C
 
                sbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) );
                sort01('Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) );

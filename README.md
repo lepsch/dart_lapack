@@ -87,6 +87,11 @@ $1 $3
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t](     [ \t]*)([^ \t].*)$/\1 \/\/ \2/g' %
 ```
 
+```
+^( +)(//.*)\n\1( +)//
+$1$2\n$1//$3
+```
+
 ### Remove empty comment lines
 ```sh
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %

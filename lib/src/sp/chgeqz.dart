@@ -170,14 +170,14 @@
       // Initialize dynamic indices
 
       // Eigenvalues ILAST+1:N have been found.
-         // Column operations modify rows IFRSTM:whatever
-         // Row operations modify columns whatever:ILASTM
+      //    Column operations modify rows IFRSTM:whatever
+      //    Row operations modify columns whatever:ILASTM
 
       // If only eigenvalues are being computed, then
-         // IFRSTM is the row of the last splitting row above row ILAST;
-         // this is always at least ILO.
+      //    IFRSTM is the row of the last splitting row above row ILAST;
+      //    this is always at least ILO.
       // IITER counts iterations since the last eigenvalue was found,
-         // to tell when to use an extraordinary shift.
+      //    to tell when to use an extraordinary shift.
       // MAXIT is the maximum number of QZ sweeps allowed.
 
       ILAST = IHI;
@@ -201,8 +201,8 @@
          // Split the matrix if possible.
 
          // Two tests:
-            // 1: H(j,j-1)=0  or  j=ILO
-            // 2: T(j,j)=0
+         //    1: H(j,j-1)=0  or  j=ILO
+         //    2: T(j,j)=0
 
          // Special case: j=ILAST
 

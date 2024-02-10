@@ -97,7 +97,7 @@ import 'package:lapack/src/xerbla.dart';
       } // 230
 
       // III) Twist index
-        // T was shifted by SIGMA initially.
+      //   T was shifted by SIGMA initially.
       GAMMA = (T + SIGMA) + P;
       if (GAMMA < ZERO) NEGCNT = NEGCNT+1;
 

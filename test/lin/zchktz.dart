@@ -83,9 +83,9 @@
                   if( !DOTYPE( IMODE ) ) GO TO 50;
 
                   // Do for each type of singular value distribution.
-                     // 0:  zero matrix
-                     // 1:  one small singular value
-                     // 2:  exponential distribution
+                  //    0:  zero matrix
+                  //    1:  one small singular value
+                  //    2:  exponential distribution
 
                   MODE = IMODE - 1;
 

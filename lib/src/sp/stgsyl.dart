@@ -195,8 +195,8 @@
          for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 150
 
             // Solve (I, J)-subsystem
-                // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-                // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+            //     A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+            //     D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
             // for I = P, P - 1,..., 1; J = 1, 2,..., Q
 
             DSCALE = ZERO;
@@ -275,8 +275,8 @@
       } else {
 
          // Solve transposed (I, J)-subsystem
-              // A(I, I)**T * R(I, J)  + D(I, I)**T * L(I, J)  =  C(I, J)
-              // R(I, J)  * B(J, J)**T + L(I, J)  * E(J, J)**T = -F(I, J)
+         //      A(I, I)**T * R(I, J)  + D(I, I)**T * L(I, J)  =  C(I, J)
+         //      R(I, J)  * B(J, J)**T + L(I, J)  * E(J, J)**T = -F(I, J)
          // for I = 1,2,..., P; J = Q, Q-1,..., 1
 
          SCALE = ONE;

@@ -74,12 +74,12 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV. The workspace is
-        // computed assuming ILO = 1 and IHI = N, the worst case.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV. The workspace is
+      //   computed assuming ILO = 1 and IHI = N, the worst case.)
 
       if ( INFO == 0 ) {
          MINWRK = max( 1, 8*N );

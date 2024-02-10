@@ -235,17 +235,17 @@
                   // pivoting.
 
                    // IF( IZERO > 0 ) THEN
-                      // J = 1
-                      // K = IZERO
+                   //    J = 1
+                   //    K = IZERO
 // 100                CONTINUE
                       // IF( J == K ) THEN
-                         // K = IWORK( J )
+                      //    K = IWORK( J )
                       // ELSE IF( IWORK( J ) == K ) THEN
-                         // K = J
+                      //    K = J
                       // END IF
                       // IF( J < K ) THEN
-                         // J = J + 1
-                         // GO TO 100
+                      //    J = J + 1
+                      //    GO TO 100
                       // END IF
                    // ELSE
                      K = 0;

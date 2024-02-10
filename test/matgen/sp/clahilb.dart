@@ -20,9 +20,9 @@
       // ..
       // .. Parameters ..
       // NMAX_EXACT   the largest dimension where the generated data is
-                   // exact.
+      //              exact.
       // NMAX_APPROX  the largest dimension where the generated data has
-                   // a small componentwise relative error.
+      //              a small componentwise relative error.
       // ??? complex uses how many bits ???
       int     NMAX_EXACT, NMAX_APPROX, SIZE_D;
       const     NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8;
@@ -82,7 +82,7 @@
 
       // Generate the scaled Hilbert matrix in A
       // If we are testing SY routines, take
-           // D1_i = D2_i, else, D1_i = D2_i*
+      //      D1_i = D2_i, else, D1_i = D2_i*
       if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
@@ -111,7 +111,7 @@
       }
 
       // If we are testing SY routines,
-             // take D1_i = D2_i, else, D1_i = D2_i*
+      //        take D1_i = D2_i, else, D1_i = D2_i*
       if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {

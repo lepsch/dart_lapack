@@ -148,8 +148,8 @@
       } else if ( lsamen( 2, C2, 'TR' ) ) {
 
          // Triangular matrix.  Note that for triangular matrices,
-            // KU = 1 => non-unit triangular
-            // KU = 2 => unit triangular
+         //    KU = 1 => non-unit triangular
+         //    KU = 2 => unit triangular
 
          clacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU == 2 ) {

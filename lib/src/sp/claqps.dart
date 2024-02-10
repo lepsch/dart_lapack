@@ -92,7 +92,7 @@
 
          // Incremental updating of F:
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
-                     // *A(RK:M,K).
+         //             *A(RK:M,K).
 
          if ( K > 1 ) {
             cgemv('Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 );
@@ -140,7 +140,7 @@
 
       // Apply the block reflector to the rest of the matrix:
       // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
-                          // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
+      //                     A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
 
       if ( KB < min( N, M-OFFSET ) ) {
          cgemm('No transpose', 'Conjugate transpose', M-RK, N-KB, KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( RK+1, KB+1 ), LDA );

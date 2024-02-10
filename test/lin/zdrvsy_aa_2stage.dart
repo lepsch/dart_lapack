@@ -263,7 +263,7 @@
                       // CALL ZSY01_AA( UPLO, N, A, LDA, AFAC, LDA,
       // $                                  IWORK, AINV, LDA, RWORK,
       // $                                  RESULT( 2 ) )
-                      // NT = 2
+      //                 NT = 2
                      NT = 1;
 
                      // Print information about the tests that did not pass

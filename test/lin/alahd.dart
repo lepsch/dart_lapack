@@ -177,7 +177,7 @@
       } else if ( lsamen( 2, P2, 'SY' )  ) {
 
          // SY: Symmetric indefinite full,
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          if ( lsame( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
@@ -205,13 +205,13 @@
       } else if ( lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm
 
          // SK: Symmetric indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
-             // ( new storage format for factors:
-               // L and diagonal of D is stored in A,
-               // subdiagonal of D is stored in E )
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm,
+         //     ( new storage format for factors:
+         //       L and diagonal of D is stored in A,
+         //       subdiagonal of D is stored in E )
 
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Symmetric';
 
@@ -237,7 +237,7 @@
       } else if ( lsamen( 2, P2, 'SP' ) ) {
 
          // SP: Symmetric indefinite packed,
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          if ( lsame( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
@@ -264,7 +264,7 @@
       } else if ( lsamen( 2, P2, 'HA' )  ) {
 
          // HA: Hermitian,
-             // with Assen Algorithm
+         //     with Assen Algorithm
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
 
@@ -286,7 +286,7 @@
       } else if ( lsamen( 2, P2, 'HE' )  ) {
 
          // HE: Hermitian indefinite full,
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
 
@@ -308,13 +308,13 @@
       } else if ( lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HR' ) ) {
 
          // HR: Hermitian indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm
 
          // HK: Hermitian indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
-             // ( new storage format for factors:
-               // L and diagonal of D is stored in A,
-               // subdiagonal of D is stored in E )
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm,
+         //     ( new storage format for factors:
+         //       L and diagonal of D is stored in A,
+         //       subdiagonal of D is stored in E )
 
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Hermitian';
 
@@ -336,7 +336,7 @@
       } else if ( lsamen( 2, P2, 'HP' ) ) {
 
          // HP: Hermitian indefinite packed,
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          if ( lsame( C3, 'E' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
@@ -511,7 +511,7 @@
       } else if ( lsamen( 2, P2, 'LS' ) ) {
 
          // LS:  Least Squares driver routines for
-              // LS, LST, TSLS, LSD, LSS, LSX and LSY.
+         //      LS, LST, TSLS, LSD, LSS, LSX and LSY.
 
          WRITE( IOUNIT, FMT = 9984 )PATH;
          WRITE( IOUNIT, FMT = 9967 );

@@ -106,25 +106,25 @@
                // ( 'S' for symmetric distribution ) => UNIFORM( -1, 1 )
 
             // Do for each type of NON-SYMMETRIC matrix:                               CNDNUM                     NORM                                     MODE
-             // 1. Zero matrix
-             // 2. Random, Diagonal, CNDNUM = 2                                        CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 3. Random, Upper triangular, CNDNUM = 2                                CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 4. Random, Lower triangular, CNDNUM = 2                                CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 5. Random, First column is zero, CNDNUM = 2                            CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 6. Random, Last MINMN column is zero, CNDNUM = 2                       CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 7. Random, Last N column is zero, CNDNUM = 2                           CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 8. Random, Middle column in MINMN is zero, CNDNUM = 2                  CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
-             // 9. Random, First half of MINMN columns are zero, CNDNUM = 2            CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  1. Zero matrix
+            //  2. Random, Diagonal, CNDNUM = 2                                        CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  3. Random, Upper triangular, CNDNUM = 2                                CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  4. Random, Lower triangular, CNDNUM = 2                                CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  5. Random, First column is zero, CNDNUM = 2                            CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  6. Random, Last MINMN column is zero, CNDNUM = 2                       CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  7. Random, Last N column is zero, CNDNUM = 2                           CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  8. Random, Middle column in MINMN is zero, CNDNUM = 2                  CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //  9. Random, First half of MINMN columns are zero, CNDNUM = 2            CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 10. Random, Last columns are zero starting from MINMN/2+1, CNDNUM = 2   CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 11. Random, Half MINMN columns in the middle are zero starting
-                   // from  MINMN/2-(MINMN/2)/2+1, CNDNUM = 2                          CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
+            //        from  MINMN/2-(MINMN/2)/2+1, CNDNUM = 2                          CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 12. Random, Odd columns are ZERO, CNDNUM = 2                            CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 13. Random, Even columns are ZERO, CNDNUM = 2                           CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 14. Random, CNDNUM = 2                                                  CNDNUM = 2                      ONE                                      3 ( geometric distribution of singular values )
             // 15. Random, CNDNUM = sqrt(0.1/EPS)                                      CNDNUM = BADC1 = sqrt(0.1/EPS)  ONE                                      3 ( geometric distribution of singular values )
             // 16. Random, CNDNUM = 0.1/EPS                                            CNDNUM = BADC2 = 0.1/EPS        ONE                                      3 ( geometric distribution of singular values )
             // 17. Random, CNDNUM = 0.1/EPS,                                           CNDNUM = BADC2 = 0.1/EPS        ONE                                      2 ( one small singular value, S(N)=1/CNDNUM )
-                  // one small singular value S(N)=1/CNDNUM
+            //       one small singular value S(N)=1/CNDNUM
             // 18. Random, CNDNUM = 2, scaled near underflow                           CNDNUM = 2                      SMALL = SAFMIN
             // 19. Random, CNDNUM = 2, scaled near overflow                            CNDNUM = 2                      LARGE = 1.0/( 0.25 * ( SAFMIN / EPS ) )  3 ( geometric distribution of singular values )
 
@@ -253,13 +253,13 @@
 
 
                   // 1) Set the first NB_ZERO columns in COPYA(1:M,1:N)
-                     // to zero.
+                  //    to zero.
 
                   claset('Full', M, NB_ZERO, CZERO, CZERO, COPYA, LDA );
 
                      // 2) Generate an M-by-(N-NB_ZERO) matrix with the
-                        // chosen singular value distribution
-                        // in COPYA(1:M,NB_ZERO+1:N).
+                     //    chosen singular value distribution
+                     //    in COPYA(1:M,NB_ZERO+1:N).
 
                   clatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
@@ -312,9 +312,9 @@
                   }
 
                   // 5) Order the singular values generated by
-                     // DLAMTS in decreasing order and add trailing zeros
-                     // that correspond to zero columns.
-                     // The total number of singular values is MINMN.
+                  //    DLAMTS in decreasing order and add trailing zeros
+                  //    that correspond to zero columns.
+                  //    The total number of singular values is MINMN.
 
                   MINMNB_GEN = min( M, NB_GEN );
 
@@ -487,7 +487,7 @@
                   // The test returns the ratio:
 
                   // 1-norm(Q**T * B - Q**T * B ) /
-                        // ( M * EPS )
+                  //       ( M * EPS )
 
                   // (1) Compute B:=Q**T * B in the matrix B.
 

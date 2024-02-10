@@ -83,7 +83,7 @@
 
          // Incremental updating of F:
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**T
-                     // *A(RK:M,K).
+         //             *A(RK:M,K).
 
          if ( K > 1 ) {
             sgemv('Transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, ZERO, AUXV( 1 ), 1 );
@@ -131,7 +131,7 @@
 
       // Apply the block reflector to the rest of the matrix:
       // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
-                          // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
+      //                     A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 
       if ( KB < min( N, M-OFFSET ) ) {
          sgemm('No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA );

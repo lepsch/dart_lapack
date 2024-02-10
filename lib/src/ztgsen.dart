@@ -163,8 +163,8 @@
       if ( WANTP ) {
 
          // Solve generalized Sylvester equation for R and L:
-                    // A11 * R - L * A22 = A12
-                    // B11 * R - L * B22 = B12
+         //            A11 * R - L * A22 = A12
+         //            B11 * R - L * B22 = B12
 
          N1 = M;
          N2 = N - M;

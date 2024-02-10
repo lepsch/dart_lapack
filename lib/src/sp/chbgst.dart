@@ -76,7 +76,7 @@
       // of the split Cholesky factorization of B as S**H*S where
 
       // S = ( U    )
-          // ( M  L )
+      //     ( M  L )
 
       // with U upper triangular of order m, and L lower triangular of
       // order n-m. S has the same bandwidth as B.
@@ -121,12 +121,12 @@
 
       // UPDATE = true;
       // DO I = N, M + 1, -1
-         // use S(i) to update A and create a new bulge
-         // apply rotations to push all bulges KA positions downward
+      //    use S(i) to update A and create a new bulge
+      //    apply rotations to push all bulges KA positions downward
       // END DO
       // UPDATE = false;
       // DO I = M + KA + 1, N - 1
-         // apply rotations to push all bulges KA positions downward
+      //    apply rotations to push all bulges KA positions downward
       // END DO
 
       // To avoid duplicating code, the two loops are merged.
@@ -613,12 +613,12 @@
 
       // UPDATE = true;
       // DO I = 1, M
-         // use S(i) to update A and create a new bulge
-         // apply rotations to push all bulges KA positions upward
+      //    use S(i) to update A and create a new bulge
+      //    apply rotations to push all bulges KA positions upward
       // END DO
       // UPDATE = false;
       // DO I = M - KA - 1, 2, -1
-         // apply rotations to push all bulges KA positions upward
+      //    apply rotations to push all bulges KA positions upward
       // END DO
 
       // To avoid duplicating code, the two loops are merged.

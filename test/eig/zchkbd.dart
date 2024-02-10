@@ -338,8 +338,8 @@ import 'common.dart';
                zgemm('Conjugate transpose', 'No transpose', M, NRHS, M, CONE, Q, LDQ, X, LDX, CZERO, Y, LDX );
 
                // Test 1:  Check the decomposition A := Q * B * PT
-                    // 2:  Check the orthogonality of Q
-                    // 3:  Check the orthogonality of PT
+               //      2:  Check the orthogonality of Q
+               //      3:  Check the orthogonality of PT
 
                zbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) );
                zunt01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
@@ -392,9 +392,9 @@ import 'common.dart';
             }
 
             // Test 4:  Check the decomposition B := U * S1 * VT
-                 // 5:  Check the computation Z := U' * Y
-                 // 6:  Check the orthogonality of U
-                 // 7:  Check the orthogonality of VT
+            //      5:  Check the computation Z := U' * Y
+            //      6:  Check the orthogonality of U
+            //      7:  Check the orthogonality of VT
 
             zbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) );
             zbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) );
@@ -402,7 +402,7 @@ import 'common.dart';
             zunt01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
-                     // non-increasing order and are non-negative
+            //          non-increasing order and are non-negative
 
             RESULT[8] = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
@@ -425,7 +425,7 @@ import 'common.dart';
             RESULT[9] = TEMP2;
 
             // Test 10:  Sturm sequence test of singular values
-                      // Go up by factors of two until it succeeds
+            //           Go up by factors of two until it succeeds
 
             TEMP1 = THRESH*( HALF-ULP );
 
@@ -448,9 +448,9 @@ import 'common.dart';
                zbdsqr(UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO );
 
                // Test 11:  Check the decomposition A := Q*U * S2 * VT*PT
-                    // 12:  Check the computation Z := U' * Q' * X
-                    // 13:  Check the orthogonality of Q*U
-                    // 14:  Check the orthogonality of VT*PT
+               //      12:  Check the computation Z := U' * Q' * X
+               //      13:  Check the orthogonality of Q*U
+               //      14:  Check the orthogonality of VT*PT
 
                zbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) );
                zbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) );

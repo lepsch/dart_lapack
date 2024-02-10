@@ -60,18 +60,18 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "RWorkspace:" describe the
-        // minimal amount of real workspace needed at that point in the
-        // code, as well as the preferred amount for good performance.
-        // IWorkspace refers to integer workspace.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.
-        // HSWORK refers to the workspace preferred by SHSEQR, as
-        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-        // the worst case.
-        // If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
-        // depends on SDIM, which is computed by the routine STRSEN later
-        // in the code.)
+      //  (Note: Comments in the code beginning "RWorkspace:" describe the
+      //   minimal amount of real workspace needed at that point in the
+      //   code, as well as the preferred amount for good performance.
+      //   IWorkspace refers to integer workspace.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.
+      //   HSWORK refers to the workspace preferred by SHSEQR, as
+      //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+      //   the worst case.
+      //   If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
+      //   depends on SDIM, which is computed by the routine STRSEN later
+      //   in the code.)
 
       if ( INFO == 0 ) {
          LIWRK = 1;
@@ -187,9 +187,9 @@
          // Reorder eigenvalues, transform Schur vectors, and compute
          // reciprocal condition numbers
          // (RWorkspace: if SENSE is not 'N', need N+2*SDIM*(N-SDIM)
-                      // otherwise, need N )
+         //              otherwise, need N )
          // (IWorkspace: if SENSE is 'V' or 'B', need SDIM*(N-SDIM)
-                      // otherwise, need 0 )
+         //              otherwise, need 0 )
 
          strsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, ICOND );
          if ( !WANTSN) MAXWRK = max( MAXWRK, N+2*SDIM*( N-SDIM ) );

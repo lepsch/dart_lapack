@@ -97,7 +97,7 @@
                   // Meet 1 by 1 diagonal block
 
                   // Scale to avoid overflow when computing
-                      // x(j) = b(j)/T(j,j)
+                  //     x(j) = b(j)/T(j,j)
 
                   XJ = ( X( J1 ) ).abs();
                   TJJ = ( T( J1, J1 ) ).abs();

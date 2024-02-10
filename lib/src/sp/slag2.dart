@@ -88,10 +88,10 @@
       }
 
       // Note: the test of R in the following IF is to cover the case when
-            // DISCR is small and negative and is flushed to zero during
-            // the calculation of R.  On machines which have a consistent
-            // flush-to-zero threshold and handle numbers above that
-            // threshold correctly, it would not be necessary.
+      //       DISCR is small and negative and is flushed to zero during
+      //       the calculation of R.  On machines which have a consistent
+      //       flush-to-zero threshold and handle numbers above that
+      //       threshold correctly, it would not be necessary.
 
       if ( DISCR >= ZERO || R == ZERO ) {
          SUM = PP + sign( R, PP );
@@ -131,12 +131,12 @@
 
       // This scale factor (WSCALE) is bounded from above using C1 and C2,
       // and from below using C3 and C4.
-         // C1 implements the condition  s A  must never overflow.
-         // C2 implements the condition  w B  must never overflow.
-         // C3, with C2,
-            // implement the condition that s A - w B must never overflow.
-         // C4 implements the condition  s    should not underflow.
-         // C5 implements the condition  max(s,|w|) should be at least 2.
+      //    C1 implements the condition  s A  must never overflow.
+      //    C2 implements the condition  w B  must never overflow.
+      //    C3, with C2,
+      //       implement the condition that s A - w B must never overflow.
+      //    C4 implements the condition  s    should not underflow.
+      //    C5 implements the condition  max(s,|w|) should be at least 2.
 
       C1 = BSIZE*( SAFMIN*max( ONE, ASCALE ) );
       C2 = SAFMIN*max( ONE, BNORM );

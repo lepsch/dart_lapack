@@ -98,7 +98,7 @@
             SN = -( P / ( TAU*CS ) )*sign( ONE, SIGMA );
 
             // Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
-                    // [ CC  DD ]   [ C  D ] [ SN  CS ]
+            //         [ CC  DD ]   [ C  D ] [ SN  CS ]
 
             AA = A*CS + B*SN;
             BB = -A*SN + B*CS;
@@ -106,7 +106,7 @@
             DD = -C*SN + D*CS;
 
             // Compute [ A  B ] = [ CS  SN ] [ AA  BB ]
-                    // [ C  D ]   [-SN  CS ] [ CC  DD ]
+            //         [ C  D ]   [-SN  CS ] [ CC  DD ]
 
             A = AA*CS + CC*SN;
             B = BB*CS + DD*SN;

@@ -331,12 +331,12 @@
             NTEST = 8;
 
             // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
-                 // and 4: | I - Z Z' | / ( n ulp )
+            //      and 4: | I - Z Z' | / ( n ulp )
 
             chst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RWORK, RESULT( 3 ) );
 
             // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
-                 // and 6: | I - UZ (UZ)' | / ( n ulp )
+            //      and 6: | I - UZ (UZ)' | / ( n ulp )
 
             chst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RWORK, RESULT( 5 ) );
 

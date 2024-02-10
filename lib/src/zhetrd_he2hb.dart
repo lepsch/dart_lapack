@@ -193,9 +193,9 @@
              zher2k(UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
              // ==================================================================
              // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
-              // DO 45 J = I, I+PK-1
-                 // LK = min( KD, N-J ) + 1
-                 // CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
+             //  DO 45 J = I, I+PK-1
+             //     LK = min( KD, N-J ) + 1
+             //     CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
 // 45        CONTINUE
              // ==================================================================
           } // 40

@@ -92,7 +92,7 @@
          if ( WIDTH <= CVRGD || WIDTH <= MNWDTH ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
-             // eigenvalues, however, they can only get bigger.)
+            //  eigenvalues, however, they can only get bigger.)
             // Remove it from the list.
             IWORK[K-1] = -1;
             // Make sure that I1 always points to the first unconverged interval

@@ -37,7 +37,7 @@
       // INTRINSIC ABS, CMPLX, CONJG, COS, MAX, MIN, MOD, REAL, SIN
 
       // 1)      Decode and Test the input parameters.
-              // Initialize flags & seed.
+      //         Initialize flags & seed.
 
       INFO = 0;
 
@@ -216,7 +216,7 @@
       claset('Full', LDA, N, CZERO, CZERO, A, LDA );
 
       // 3)      Generate Banded Matrix using Givens rotations.
-              // Also the special case of UUB=LLB=0
+      //         Also the special case of UUB=LLB=0
 
                 // Compute Addressing constants to cover all
                 // storage formats.  Whether GE, HE, SY, GB, HB, or SB,
@@ -685,9 +685,9 @@
       } else {
 
          // 4)      Generate Banded Matrix by first
-                 // Rotating by random Unitary matrices,
-                 // then reducing the bandwidth using Householder
-                 // transformations.
+         //         Rotating by random Unitary matrices,
+         //         then reducing the bandwidth using Householder
+         //         transformations.
 
                  // Note: we should get here only if LDA >= N
 
@@ -809,10 +809,10 @@
          } else if ( IPACK >= 5 ) {
 
             // Packed Band --
-               // 1st row is now in A( UUB+2-j, j), zero above it
-               // m-th row is now in A( M+UUB-j,j), zero below it
-               // last non-zero diagonal is now in A( UUB+LLB+1,j ),
-                  // zero below it, too.
+            //    1st row is now in A( UUB+2-j, j), zero above it
+            //    m-th row is now in A( M+UUB-j,j), zero below it
+            //    last non-zero diagonal is now in A( UUB+LLB+1,j ),
+            //       zero below it, too.
 
             IR1 = UUB + LLB + 2;
             IR2 = UUB + M + 2;

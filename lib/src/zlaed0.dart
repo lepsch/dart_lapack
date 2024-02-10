@@ -34,7 +34,7 @@
       INFO = 0;
 
       // IF( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
-         // INFO = -1
+      //    INFO = -1
       // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ < max( 0, N ) ) )
 // $        THEN
       if ( QSIZ < max( 0, N ) ) {

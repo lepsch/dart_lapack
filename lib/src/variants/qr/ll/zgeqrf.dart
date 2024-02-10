@@ -43,8 +43,8 @@
              // NB=3     2NB=6       K=10
              // |        |           |
        // 1--2--3--4--5--6--7--8--9--10
-                   // |     \________/
-                // K-NX=5      NT=4
+       //             |     \________/
+       //          K-NX=5      NT=4
 
       // So here 4 x 4 is the last T stored in the workspace
 

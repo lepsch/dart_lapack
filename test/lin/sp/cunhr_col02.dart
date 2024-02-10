@@ -89,7 +89,7 @@
       LWORK = INT( WORKQUERY( 1 ) );
 
       // In CGEMQRT, WORK is N*NB2_UB if SIDE = 'L',
-                 // or  M*NB2_UB if SIDE = 'R'.
+      //            or  M*NB2_UB if SIDE = 'R'.
 
       LWORK = max( LWORK, NB2_UB * N, NB2_UB * M );
 

@@ -144,7 +144,7 @@
 
       // Permute the matrix to make it more nearly triangular
       // Workspace layout:  (2*N words -- "work..." not actually used)
-         // left_permutation, right_permutation, work...
+      //    left_permutation, right_permutation, work...
 
       ILEFT = 1;
       IRIGHT = N + 1;
@@ -157,7 +157,7 @@
 
       // Reduce B to triangular form, and initialize VSL and/or VSR
       // Workspace layout:  ("work..." must have at least N words)
-         // left_permutation, right_permutation, tau, work...
+      //    left_permutation, right_permutation, tau, work...
 
       IROWS = IHI + 1 - ILO;
       ICOLS = N + 1 - ILO;
@@ -199,7 +199,7 @@
 
       // Perform QZ algorithm, computing Schur vectors if desired
       // Workspace layout:  ("work..." must have at least 1 word)
-         // left_permutation, right_permutation, work...
+      //    left_permutation, right_permutation, work...
 
       IWORK = ITAU;
       dhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO );

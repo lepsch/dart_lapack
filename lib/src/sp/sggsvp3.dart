@@ -94,7 +94,7 @@
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
-                                            // (  0   0  )
+      //                                       (  0   0  )
 
       for (I = 1; I <= N; I++) { // 10
          IWORK[I] = 0;
@@ -167,12 +167,12 @@
       }
 
       // Let              N-L     L
-                 // A = ( A11    A12 ) M,
+      //            A = ( A11    A12 ) M,
 
       // then the following does the complete QR decomposition of A11:
 
                // A11 = U*(  0  T12 )*P1**T
-                       // (  0   0  )
+               //         (  0   0  )
 
       for (I = 1; I <= N - L; I++) { // 70
          IWORK[I] = 0;

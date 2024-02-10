@@ -1,67 +1,75 @@
-      void dglmts(N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/dasum.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dggglm.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dglmts(
+  final int N,
+  final int M,
+  final int P,
+  final Matrix<double> A,
+  final Matrix<double> AF,
+  final int LDA,
+  final Matrix<double> B,
+  final Matrix<double> BF,
+  final int LDB,
+  final Array<double> D,
+  final Array<double> DF,
+  final Array<double> X,
+  final Array<double> U,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<double> RWORK,
+  final Box<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LWORK, M, N, P;
-      double             RESULT;
+  const ZERO = 0.0, ONE = 1.0;
+  final INFO = Box(0);
+  double ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;
 
-// ====================================================================
+  EPS = dlamch('Epsilon');
+  UNFL = dlamch('Safe minimum');
+  ANORM = max(dlange('1', N, M, A, LDA, RWORK), UNFL);
+  BNORM = max(dlange('1', N, P, B, LDB, RWORK), UNFL);
 
-      double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), RWORK( * ), U( * ), WORK( LWORK ), X( * );
-      // ..
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                INFO;
-      double             ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;
-      // ..
-      // .. External Functions ..
-      //- double             DASUM, DLAMCH, DLANGE;
-      // EXTERNAL DASUM, DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
+  // Copy the matrices A and B to the arrays AF and BF,
+  // and the vector D the array DF.
 
-      // EXTERNAL DCOPY, DGEMV, DGGGLM, DLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  dlacpy('Full', N, M, A, LDA, AF, LDA);
+  dlacpy('Full', N, P, B, LDB, BF, LDB);
+  dcopy(N, D, 1, DF, 1);
 
-      EPS = dlamch( 'Epsilon' );
-      UNFL = dlamch( 'Safe minimum' );
-      ANORM = max( dlange( '1', N, M, A, LDA, RWORK ), UNFL );
-      BNORM = max( dlange( '1', N, P, B, LDB, RWORK ), UNFL );
+  // Solve GLM problem
 
-      // Copy the matrices A and B to the arrays AF and BF,
-      // and the vector D the array DF.
+  dggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO);
 
-      dlacpy('Full', N, M, A, LDA, AF, LDA );
-      dlacpy('Full', N, P, B, LDB, BF, LDB );
-      dcopy(N, D, 1, DF, 1 );
+  // Test the residual for the solution of LSE
+  //
+  //                   norm( d - A*x - B*u )
+  //   RESULT = -----------------------------------------
+  //            (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
-      // Solve GLM problem
+  dcopy(N, D, 1, DF, 1);
+  dgemv('No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1);
 
-      dggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO );
+  dgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1);
 
-      // Test the residual for the solution of LSE
+  DNORM = dasum(N, DF, 1);
+  XNORM = dasum(M, X, 1) + dasum(P, U, 1);
+  YNORM = ANORM + BNORM;
 
-                        // norm( d - A*x - B*u )
-        // RESULT = -----------------------------------------
-                 // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
-
-      dcopy(N, D, 1, DF, 1 );
-      dgemv('No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 );
-
-      dgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
-
-      DNORM = dasum( N, DF, 1 );
-      XNORM = dasum( M, X, 1 ) + dasum( P, U, 1 );
-      YNORM = ANORM + BNORM;
-
-      if ( XNORM <= ZERO ) {
-         RESULT = ZERO;
-      } else {
-         RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS;
-      }
-
-      }
+  if (XNORM <= ZERO) {
+    RESULT.value = ZERO;
+  } else {
+    RESULT.value = ((DNORM / YNORM) / XNORM) / EPS;
+  }
+}

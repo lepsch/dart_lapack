@@ -361,8 +361,8 @@
                         Z[IROWZ:IROWZ+NTGK-1][ICOLZ+NSL-2] = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 );
                         Z[IROWZ:IROWZ+NTGK-1][ICOLZ+NSL-1] = ZERO;
                         // IF( IUTGK*2 > NTGK ) THEN
-                           // Eigenvalue equal to zero or very small.
-                           // NSL = NSL - 1
+                        //    Eigenvalue equal to zero or very small.
+                        //    NSL = NSL - 1
                         // END IF
                      }
 

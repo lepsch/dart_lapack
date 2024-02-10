@@ -42,9 +42,9 @@ void dgsvts3(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
-  int I, J, K = 0, L = 0;
+  int I, J;
   double ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
-  final INFO = Box(0);
+  final INFO = Box(0), K = Box(0), L = Box(0);
 
   ULP = dlamch('Precision');
   ULPINV = ONE / ULP;
@@ -65,16 +65,16 @@ void dgsvts3(
 
   // Copy R
 
-  for (I = 1; I <= min(K + L, M); I++) {
-    for (J = I; J <= K + L; J++) {
-      R[I][J] = AF[I][N - K - L + J];
+  for (I = 1; I <= min(K.value + L.value, M); I++) {
+    for (J = I; J <= K.value + L.value; J++) {
+      R[I][J] = AF[I][N - K.value - L.value + J];
     }
   }
 
-  if (M - K - L < 0) {
-    for (I = M + 1; I <= K + L; I++) {
-      for (J = I; J <= K + L; J++) {
-        R[I][J] = BF[I - K][N - K - L + J];
+  if (M - K.value - L.value < 0) {
+    for (I = M + 1; I <= K.value + L.value; I++) {
+      for (J = I; J <= K.value + L.value; J++) {
+        R[I][J] = BF[I - K.value][N - K.value - L.value + J];
       }
     }
   }
@@ -87,15 +87,17 @@ void dgsvts3(
   dgemm('Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK.asMatrix(LDA),
       LDA, ZERO, A, LDA);
 
-  for (I = 1; I <= K; I++) {
-    for (J = I; J <= K + L; J++) {
-      A[I][N - K - L + J] = A[I][N - K - L + J] - R[I][J];
+  for (I = 1; I <= K.value; I++) {
+    for (J = I; J <= K.value + L.value; J++) {
+      A[I][N - K.value - L.value + J] =
+          A[I][N - K.value - L.value + J] - R[I][J];
     }
   }
 
-  for (I = K + 1; I <= min(K + L, M); I++) {
-    for (J = I; J <= K + L; J++) {
-      A[I][N - K - L + J] = A[I][N - K - L + J] - ALPHA[I] * R[I][J];
+  for (I = K.value + 1; I <= min(K.value + L.value, M); I++) {
+    for (J = I; J <= K.value + L.value; J++) {
+      A[I][N - K.value - L.value + J] =
+          A[I][N - K.value - L.value + J] - ALPHA[I] * R[I][J];
     }
   }
 
@@ -117,9 +119,10 @@ void dgsvts3(
   dgemm('Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK.asMatrix(LDB),
       LDB, ZERO, B, LDB);
 
-  for (I = 1; I <= L; I++) {
-    for (J = I; J <= L; J++) {
-      B[I][N - L + J] = B[I][N - L + J] - BETA[K + I] * R[K + I][K + J];
+  for (I = 1; I <= L.value; I++) {
+    for (J = I; J <= L.value; J++) {
+      B[I][N - L.value + J] = B[I][N - L.value + J] -
+          BETA[K.value + I] * R[K.value + I][K.value + J];
     }
   }
 
@@ -165,7 +168,7 @@ void dgsvts3(
   // Check sorting
 
   dcopy(N, ALPHA, 1, WORK, 1);
-  for (I = K + 1; I <= min(K + L, M); I++) {
+  for (I = K.value + 1; I <= min(K.value + L.value, M); I++) {
     J = IWORK[I];
     if (I != J) {
       TEMP = WORK[I];
@@ -175,7 +178,7 @@ void dgsvts3(
   }
 
   RESULT[6] = ZERO;
-  for (I = K + 1; I <= min(K + L, M) - 1; I++) {
+  for (I = K.value + 1; I <= min(K.value + L.value, M) - 1; I++) {
     if (WORK[I] < WORK[I + 1]) RESULT[6] = ULPINV;
   }
 }

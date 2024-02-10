@@ -186,8 +186,8 @@
 
                // Non-singular eigenvalue:
                // Compute coefficients  a  and  b  in
-                    // H
-                  // y  ( a A - b B ) = 0
+               //      H
+               //    y  ( a A - b B ) = 0
 
                TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
@@ -235,9 +235,9 @@
                for (J = JE + 1; J <= N; J++) { // 100
 
                   // Compute
-                        // j-1
+                  //       j-1
                   // SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
-                        // k=je
+                  //       k=je
                   // (Scale if necessary)
 
                   TEMP = ONE / XMAX;

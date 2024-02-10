@@ -87,8 +87,8 @@
       // Compute the GQR factorization of matrices A and B:
 
            // Q**T*A = ( R11 ) M,    Q**T*B*Z**T = ( T11   T12 ) M
-                    // (  0  ) N-M                 (  0    T22 ) N-M
-                       // M                         M+P-N  N-M
+           //          (  0  ) N-M                 (  0    T22 ) N-M
+           //             M                         M+P-N  N-M
 
       // where R11 and T22 are upper triangular, and Q and Z are
       // orthogonal.
@@ -97,7 +97,7 @@
       LOPT = INT( WORK( M+NP+1 ) );
 
       // Update left-hand-side vector d = Q**T*d = ( d1 ) M
-                                                // ( d2 ) N-M
+      //                                           ( d2 ) N-M
 
       sormqr('Left', 'Transpose', N, 1, M, A, LDA, WORK, D, max( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       LOPT = max( LOPT, INT( WORK( M+NP+1 ) ) );

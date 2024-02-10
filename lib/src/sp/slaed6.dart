@@ -158,15 +158,15 @@
       }
 
          // Iteration begins -- Use Gragg-Thornton-Warner cubic convergent
-                             // scheme
+         //                     scheme
 
       // It is not hard to see that
 
             // 1) Iterations will go up monotonically
-               // if FINIT < 0;
+            //    if FINIT < 0;
 
             // 2) Iterations will go down monotonically
-               // if FINIT > 0.
+            //    if FINIT > 0.
 
       ITER = NITER + 1;
 

@@ -65,12 +65,12 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // CWorkspace refers to complex workspace, and RWorkspace to
-        // real workspace. NB refers to the optimal block size for the
-        // immediately following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   CWorkspace refers to complex workspace, and RWorkspace to
+      //   real workspace. NB refers to the optimal block size for the
+      //   immediately following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
          MINWRK = 1;
@@ -916,7 +916,7 @@
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
                      // (CWorkspace: need   2*N*N+3*N,
-                                  // prefer 2*N*N+2*N+2*N*NB)
+                     //              prefer 2*N*N+2*N+2*N*NB)
                      // (RWorkspace: need   N)
 
                      cgebrd(N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -930,7 +930,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (CWorkspace: need   2*N*N+3*N-1,
-                                  // prefer 2*N*N+2*N+(N-1)*NB)
+                     //              prefer 2*N*N+2*N+(N-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -1019,7 +1019,7 @@
                } else if ( WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S'
-                          // or 'A')
+                  //         or 'A')
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
@@ -1078,7 +1078,7 @@
 
                      // Generate right bidiagonalizing vectors in VT
                      // (CWorkspace: need   N*N+3*N-1,
-                                  // prefer N*N+2*N+(N-1)*NB)
+                     //              prefer N*N+2*N+(N-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -1354,7 +1354,7 @@
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
                      // (CWorkspace: need   2*N*N+3*N,
-                                  // prefer 2*N*N+2*N+2*N*NB)
+                     //              prefer 2*N*N+2*N+2*N*NB)
                      // (RWorkspace: need   N)
 
                      cgebrd(N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -1368,7 +1368,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (CWorkspace: need   2*N*N+3*N-1,
-                                  // prefer 2*N*N+2*N+(N-1)*NB)
+                     //              prefer 2*N*N+2*N+(N-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -1460,7 +1460,7 @@
                } else if ( WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S'
-                          // or 'A')
+                  //         or 'A')
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
@@ -1520,7 +1520,7 @@
 
                      // Generate right bidiagonalizing vectors in VT
                      // (CWorkspace: need   N*N+3*N-1,
-                                  // prefer N*N+2*N+(N-1)*NB)
+                     //              prefer N*N+2*N+(N-1)*NB)
                      // (RWorkspace: need   0)
 
                      cungbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2222,7 +2222,7 @@
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
                      // (CWorkspace: need   2*M*M+3*M,
-                                  // prefer 2*M*M+2*M+2*M*NB)
+                     //              prefer 2*M*M+2*M+2*M*NB)
                      // (RWorkspace: need   M)
 
                      cgebrd(M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2230,7 +2230,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (CWorkspace: need   2*M*M+3*M-1,
-                                  // prefer 2*M*M+2*M+(M-1)*NB)
+                     //              prefer 2*M*M+2*M+(M-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2323,7 +2323,7 @@
                } else if ( WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
-                          // JOBVT='S')
+                  //         JOBVT='S')
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
@@ -2376,7 +2376,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (CWorkspace: need   M*M+3*M-1,
-                                  // prefer M*M+2*M+(M-1)*NB)
+                     //              prefer M*M+2*M+(M-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2521,7 +2521,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (CWorkspace: need   M*M+3*M-1,
-                                  // prefer M*M+2*M+(M-1)*NB)
+                     //              prefer M*M+2*M+(M-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2657,7 +2657,7 @@
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
                      // (CWorkspace: need   2*M*M+3*M,
-                                  // prefer 2*M*M+2*M+2*M*NB)
+                     //              prefer 2*M*M+2*M+2*M*NB)
                      // (RWorkspace: need   M)
 
                      cgebrd(M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2665,7 +2665,7 @@
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (CWorkspace: need   2*M*M+3*M-1,
-                                  // prefer 2*M*M+2*M+(M-1)*NB)
+                     //              prefer 2*M*M+2*M+(M-1)*NB)
                      // (RWorkspace: 0)
 
                      cungbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
@@ -2761,7 +2761,7 @@
                } else if ( WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
-                          // JOBVT='A')
+                  //         JOBVT='A')
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 

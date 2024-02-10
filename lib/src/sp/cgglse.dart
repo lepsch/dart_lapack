@@ -76,8 +76,8 @@
       // Compute the GRQ factorization of matrices B and A:
 
              // B*Q**H = (  0  T12 ) P   Z**H*A*Q**H = ( R11 R12 ) N-P
-                         // N-P  P                     (  0  R22 ) M+P-N
-                                                       // N-P  P
+             //             N-P  P                     (  0  R22 ) M+P-N
+             //                                           N-P  P
 
       // where T12 and R11 are upper triangular, and Q and Z are
       // unitary.
@@ -86,7 +86,7 @@
       LOPT = INT( WORK( P+MN+1 ) );
 
       // Update c = Z**H *c = ( c1 ) N-P
-                        // ( c2 ) M+P-N
+      //                   ( c2 ) M+P-N
 
       cunmqr('Left', 'Conjugate Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, max( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = max( LOPT, INT( WORK( P+MN+1 ) ) );

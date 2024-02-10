@@ -141,7 +141,7 @@
       if ( IRANGE == 3 ) {
 
          // RANGE='I': Compute the interval containing eigenvalues
-                    // IL through IU.
+         //            IL through IU.
 
          // Compute Gershgorin interval for entire (split) matrix
          // and use it as the initial interval
@@ -373,7 +373,7 @@
             // eigenvalue(s).
 
             // (If N(w) is monotone non-decreasing, this should never
-                // happen.)
+            //     happen.)
 
             if ( IDISCL > 0 ) {
                WKILL = WU;
@@ -418,7 +418,7 @@
       }
 
       // If ORDER='B', do nothing -- the eigenvalues are already sorted
-         // by block.
+      //    by block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
       if ( IORDER == 1 && NSPLIT > 1 ) {

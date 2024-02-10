@@ -82,7 +82,7 @@
          }
 
          // col2_(7) Compute A2: = A2 - W2 =
-                              // = A(1:K, K+1:N-K) - WORK(1:K, 1:N-K),
+         //                      = A(1:K, K+1:N-K) - WORK(1:K, 1:N-K),
          // column-by-column.
 
          for (J = 1; J <= N-K; J++) {

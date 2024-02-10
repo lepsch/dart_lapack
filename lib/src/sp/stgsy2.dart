@@ -112,8 +112,8 @@
       if ( NOTRAN ) {
 
          // Solve (I, J) - subsystem
-            // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-            // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+         //    A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+         //    D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
          // for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
 
          SCALE = ONE;
@@ -419,8 +419,8 @@
       } else {
 
          // Solve (I, J) - subsystem
-              // A(I, I)**T * R(I, J) + D(I, I)**T * L(J, J)  =  C(I, J)
-              // R(I, I)  * B(J, J) + L(I, J)  * E(J, J)  = -F(I, J)
+         //      A(I, I)**T * R(I, J) + D(I, I)**T * L(J, J)  =  C(I, J)
+         //      R(I, I)  * B(J, J) + L(I, J)  * E(J, J)  = -F(I, J)
          // for I = 1, 2, ..., P, J = Q, Q - 1, ..., 1
 
          SCALE = ONE;

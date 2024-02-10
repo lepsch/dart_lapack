@@ -217,7 +217,7 @@
 
             // Path 1 (M much larger than N):
             // A = Q * R = Q * ( QB * B * PB**T )
-                      // = Q * ( QB * ( UB * S * VB**T ) * PB**T )
+            //           = Q * ( QB * ( UB * S * VB**T ) * PB**T )
             // U = Q * QB * UB; V**T = VB**T * PB**T
 
             // Compute A=Q*R
@@ -358,7 +358,7 @@
 
             // Path 1t (N much larger than M):
             // A = L * Q = ( QB * B * PB**T ) * Q
-                      // = ( QB * ( UB * S * VB**T ) * PB**T ) * Q
+            //           = ( QB * ( UB * S * VB**T ) * PB**T ) * Q
             // U = QB * UB ; V**T = VB**T * PB**T * Q
 
             // Compute A=L*Q

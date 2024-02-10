@@ -257,8 +257,27 @@ Future<void> dckgqr(
 
           NT = 4;
 
-          dgqrts(N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB,
-              TAUB, WORK, LWORK, RWORK, RESULT);
+          dgqrts(
+              N,
+              M,
+              P,
+              A.asMatrix(LDA),
+              AF.asMatrix(LDA),
+              AQ.asMatrix(LDA),
+              AR.asMatrix(LDA),
+              LDA,
+              TAUA,
+              B.asMatrix(LDB),
+              BF.asMatrix(LDB),
+              BZ.asMatrix(LDB),
+              BT.asMatrix(LDB),
+              BWK.asMatrix(LDB),
+              LDB,
+              TAUB,
+              WORK,
+              LWORK,
+              RWORK,
+              RESULT);
 
           // Print information about the tests that did not
           // pass the threshold.

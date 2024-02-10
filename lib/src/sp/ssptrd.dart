@@ -70,7 +70,7 @@
                saxpy(I, ALPHA, AP( I1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**T - w * v**T
+               //    A := A - v * w**T - w * v**T
 
                sspr2(UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP );
 
@@ -112,7 +112,7 @@
                saxpy(N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**T - w * v**T
+               //    A := A - v * w**T - w * v**T
 
                sspr2(UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) );
 

@@ -30,7 +30,7 @@
          // Input matrices A and B are upper triangular matrices
 
          // Form matrix C = A*adj(B) = ( a b )
-                                    // ( 0 d )
+         //                            ( 0 d )
 
          A = A1*B3;
          D = A3*B1;
@@ -118,7 +118,7 @@
          // Input matrices A and B are lower triangular matrices
 
          // Form matrix C = A*adj(B) = ( a 0 )
-                                    // ( c d )
+         //                            ( c d )
 
          A = A1*B3;
          D = A3*B1;

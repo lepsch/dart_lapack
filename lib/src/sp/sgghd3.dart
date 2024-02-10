@@ -136,7 +136,7 @@
             // accumulated Givens rotations in workspace.
             // N2NB   denotes the number of 2*NNB-by-2*NNB factors
             // NBLST  denotes the (possibly smaller) order of the last
-                   // factor.
+            //        factor.
 
             N2NB = ( IHI-JCOL-1 ) / NNB - 1;
             NBLST = IHI - JCOL - N2NB*NNB;
@@ -236,7 +236,7 @@
                // Update A by transformations from right.
                // Explicit loop unrolling provides better performance
                // compared to SLASR.
-                // CALL SLASR( 'Right', 'Variable', 'Backward', IHI-TOP,
+               //  CALL SLASR( 'Right', 'Variable', 'Backward', IHI-TOP,
       // $                     IHI-J, A( J+2, J ), B( J+2, J ),
       // $                     A( TOP+1, J+1 ), LDA )
 
@@ -279,7 +279,7 @@
 
                          // [  U11  U12  ]
                      // U = [            ],
-                         // [  U21  U22  ]
+                     //     [  U21  U22  ]
 
                   // where U21 is a LEN-by-LEN matrix and U12 is lower
                   // triangular.
@@ -305,8 +305,8 @@
                          // [  U11  U12   0  ]
                          // [                ]
                      // U = [  U21  U22   0  ],
-                         // [                ]
-                         // [   0    0    I  ]
+                     //     [                ]
+                     //     [   0    0    I  ]
 
                   // where I denotes the (NNB-LEN)-by-(NNB-LEN) identity
                   // matrix, U21 is a LEN-by-LEN upper triangular matrix
@@ -354,7 +354,7 @@
 
                          // [  U11  U12  ]
                      // U = [            ]
-                         // [  U21  U22  ],
+                     //     [  U21  U22  ],
 
                   // where all blocks are NNB-by-NNB, U21 is upper
                   // triangular and U12 is lower triangular.

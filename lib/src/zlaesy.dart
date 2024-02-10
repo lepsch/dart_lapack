@@ -43,7 +43,7 @@
 
          // Compute the eigenvalues and eigenvectors.
          // The characteristic equation is
-            // lambda **2 - (A+C) lambda + (A*C - B*B)
+         //    lambda **2 - (A+C) lambda + (A*C - B*B)
          // and we solve it using the quadratic formula.
 
          S = ( A+C )*HALF;

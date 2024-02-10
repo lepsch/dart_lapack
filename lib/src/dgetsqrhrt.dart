@@ -112,8 +112,8 @@ import 'package:lapack/src/xerbla.dart';
       dlatsqr(M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT+1), LW1, IINFO );
 
       // (2) Copy the factor R_tsqr stored in the upper-triangular part
-          // of A into the square matrix in the work array
-          // WORK(LWT+1:LWT+N*N) column-by-column.
+      //     of A into the square matrix in the work array
+      //     WORK(LWT+1:LWT+N*N) column-by-column.
 
       for (J = 1; J <= N; J++) {
          dcopy(J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 );

@@ -98,14 +98,14 @@
 
                 // [ A11 ]
          // Factor [ --- ]
-                // [ A21 ]
+         //        [ A21 ]
 
          zgetrf2(M, N1, A, LDA, IPIV, IINFO );
           if (INFO == 0 && IINFO > 0) INFO = IINFO;
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
-                               // [ A22 ]
+         //                       [ A22 ]
 
          zlaswp(N2, A( 1, N1+1 ), LDA, 1, N1, IPIV, 1 );
 

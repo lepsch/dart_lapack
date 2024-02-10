@@ -62,12 +62,12 @@
       }
 
       // Compute workspace
-        // Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace allocated at that point in the code,
-        // as well as the preferred amount for good performance.
-        // CWorkspace refers to complex workspace, and RWorkspace to
-        // real workspace. NB refers to the optimal block size for the
-        // immediately following subroutine, as returned by ILAENV.)
+      //   Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace allocated at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   CWorkspace refers to complex workspace, and RWorkspace to
+      //   real workspace. NB refers to the optimal block size for the
+      //   immediately following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
          MINWRK = 1;

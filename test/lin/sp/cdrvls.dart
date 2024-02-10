@@ -199,7 +199,7 @@
                      ITYPE = ( IRANK-1 )*3 + ISCALE;
                      if( !DOTYPE( ITYPE ) ) GO TO 100;
                   // =====================================================
-                        // Begin test CGELS
+                  //       Begin test CGELS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -286,10 +286,10 @@
                         }
                      }
                   // =====================================================
-                        // End test CGELS
+                  //       End test CGELS
                   // =====================================================
                   // =====================================================
-                        // Begin test CGELST
+                  //       Begin test CGELST
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -376,10 +376,10 @@
                         }
                      }
                   // =====================================================
-                        // End test CGELST
+                  //       End test CGELST
                   // =====================================================
                   // =====================================================
-                        // Begin test CGELSTSLS
+                  //       Begin test CGELSTSLS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -473,7 +473,7 @@
                         }
                      }
                   // =====================================================
-                        // End test CGELSTSLS
+                  //       End test CGELSTSLS
                   // ====================================================
 
                      // Generate a matrix of scaling type ISCALE and rank
@@ -514,24 +514,24 @@
                         // workspace used: 2*MNMIN+NB*NB+NB*max(N,NRHS)
 
                         // Test 7:  Compute relative error in svd
-                                 // workspace: M*N + 4*min(M,N) + max(M,N)
+                        //          workspace: M*N + 4*min(M,N) + max(M,N)
 
                         RESULT[7] = CQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK, RWORK );
 
                         // Test 8:  Compute error in solution
-                                 // workspace:  M*NRHS + M
+                        //          workspace:  M*NRHS + M
 
                         clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
                         cqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
-                                 // workspace: NRHS*(M+N)
+                        //          workspace: NRHS*(M+N)
 
                         RESULT[9] = ZERO;
                         if (M > CRANK) RESULT( 9 ) = CQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
-                                 // workspace: (M+NRHS)*(N+2)
+                        //          workspace: (M+NRHS)*(N+2)
 
                         RESULT[10] = ZERO;
 
@@ -551,7 +551,7 @@
                         if (INFO != 0) alaerh( PATH, 'CGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
-                                        // max(2*min(m,n),nrhs,max(m,n))
+                        //                 max(2*min(m,n),nrhs,max(m,n))
 
                         // Test 11:  Compute relative error in svd
 

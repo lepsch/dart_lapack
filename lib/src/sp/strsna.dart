@@ -197,7 +197,7 @@
 
                   // Triangularize the 2 by 2 block by unitary
                   // transformation U = [  cs   i*ss ]
-                                     // [ i*ss   cs  ].
+                  //                    [ i*ss   cs  ].
                   // such that the (1,1) position of WORK is complex
                   // eigenvalue lambda with positive imaginary part. (2,2)
                   // position of WORK is the complex eigenvalue lambda
@@ -211,10 +211,10 @@
                   // Form
 
                   // C**T = WORK(2:N,2:N) + i*[rwork(1) ..... rwork(n-1) ]
-                                           // [   mu                     ]
-                                           // [         ..               ]
-                                           // [             ..           ]
-                                           // [                  mu      ]
+                  //                          [   mu                     ]
+                  //                          [         ..               ]
+                  //                          [             ..           ]
+                  //                          [                  mu      ]
                   // where C**T is transpose of matrix C,
                   // and RWORK is stored starting in the N+1-st column of
                   // WORK.

@@ -78,12 +78,12 @@
                if( !DOTYPE( IMODE ) ) GO TO 70;
 
                // Do for each type of matrix
-                  // 1:  zero matrix
-                  // 2:  one small singular value
-                  // 3:  geometric distribution of singular values
-                  // 4:  first n/2 columns fixed
-                  // 5:  last n/2 columns fixed
-                  // 6:  every second column fixed
+               //    1:  zero matrix
+               //    2:  one small singular value
+               //    3:  geometric distribution of singular values
+               //    4:  first n/2 columns fixed
+               //    5:  last n/2 columns fixed
+               //    6:  every second column fixed
 
                MODE = IMODE;
                if (IMODE > 3) MODE = 1;

@@ -454,7 +454,7 @@
       } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // SY:  symmetric indefinite matrices,
-              // with partial (Bunch-Kaufman) pivoting algorithm
+         //      with partial (Bunch-Kaufman) pivoting algorithm
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -474,7 +474,7 @@
       } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // SR:  symmetric indefinite matrices,
-              // with bounded Bunch-Kaufman (rook) pivoting algorithm
+         //      with bounded Bunch-Kaufman (rook) pivoting algorithm
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -494,8 +494,8 @@
       } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // SK:  symmetric indefinite matrices,
-              // with bounded Bunch-Kaufman (rook) pivoting algorithm,
-              // different matrix storage format than SR path version.
+         //      with bounded Bunch-Kaufman (rook) pivoting algorithm,
+         //      different matrix storage format than SR path version.
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -515,7 +515,7 @@
       } else if ( lsamen( 2, C2, 'SA' ) ) {
 
          // SA:  symmetric indefinite matrices,
-              // with partial (Aasen's) pivoting algorithm
+         //      with partial (Aasen's) pivoting algorithm
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -535,7 +535,7 @@
       } else if ( lsamen( 2, C2, 'S2' ) ) {
 
          // SA:  symmetric indefinite matrices,
-              // with partial (Aasen's) pivoting algorithm
+         //      with partial (Aasen's) pivoting algorithm
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -555,7 +555,7 @@
       } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // SP:  symmetric indefinite packed matrices,
-              // with partial (Bunch-Kaufman) pivoting algorithm
+         //      with partial (Bunch-Kaufman) pivoting algorithm
 
          NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
@@ -718,7 +718,7 @@
       } else if ( lsamen( 2, C2, 'EQ' ) ) {
 
          // EQ:  Equilibration routines for general and positive definite
-              // matrices (THREQ should be between 2 and 10)
+         //      matrices (THREQ should be between 2 and 10)
 
          if ( TSTCHK ) {
             schkeq(THREQ, NOUT );

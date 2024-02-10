@@ -72,7 +72,7 @@
          GO TO 220;
 
          // abs(ITYPE) = 3: Transposed Jordan block, followed by the
-                         // identity.
+         //                 identity.
 
          } // 50
          K = ( N-1 ) / 2;

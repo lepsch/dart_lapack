@@ -728,11 +728,11 @@
          // NEP:  Nonsymmetric Eigenvalue Problem
          // -------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
-            // NS    = number of shifts
-            // MAXB  = minimum submatrix size
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
+         //    NS    = number of shifts
+         //    MAXB  = minimum submatrix size
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -765,9 +765,9 @@
          // SEP:  Symmetric Eigenvalue Problem
          // ----------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -820,9 +820,9 @@
          // SSG:  Symmetric Generalized Eigenvalue Problem
          // ----------------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
 
          MAXTYP = 21;
          NTYPES = min( MAXTYP, NTYPES );
@@ -856,10 +856,10 @@
          // SVD:  Singular Value Decomposition
          // ----------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NX    = crossover point
-            // NRHS  = number of right hand sides
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NX    = crossover point
+         //    NRHS  = number of right hand sides
 
          MAXTYP = 16;
          NTYPES = min( MAXTYP, NTYPES );
@@ -894,7 +894,7 @@
 
          // --------------------------------------------
          // SEV:  Nonsymmetric Eigenvalue Problem Driver
-               // SGEEV (eigenvalues and eigenvectors)
+         //       SGEEV (eigenvalues and eigenvectors)
          // --------------------------------------------
 
          MAXTYP = 21;
@@ -914,7 +914,7 @@
 
          // --------------------------------------------
          // SES:  Nonsymmetric Eigenvalue Problem Driver
-               // SGEES (Schur form)
+         //       SGEES (Schur form)
          // --------------------------------------------
 
          MAXTYP = 21;
@@ -934,7 +934,7 @@
 
          // --------------------------------------------------------------
          // SVX:  Nonsymmetric Eigenvalue Problem Expert Driver
-               // SGEEVX (eigenvalues, eigenvectors and condition numbers)
+         //       SGEEVX (eigenvalues, eigenvectors and condition numbers)
          // --------------------------------------------------------------
 
          MAXTYP = 21;
@@ -954,7 +954,7 @@
 
          // ---------------------------------------------------
          // SSX:  Nonsymmetric Eigenvalue Problem Expert Driver
-               // SGEESX (Schur form and condition numbers)
+         //       SGEESX (Schur form and condition numbers)
          // ---------------------------------------------------
 
          MAXTYP = 21;
@@ -976,12 +976,12 @@
          // SGG:  Generalized Nonsymmetric Eigenvalue Problem
          // -------------------------------------------------
          // Vary the parameters
-            // NB    = block size
-            // NBMIN = minimum block size
-            // NS    = number of shifts
-            // MAXB  = minimum submatrix size
-            // IACC22: structured matrix multiply
-            // NBCOL = minimum column dimension for blocks
+         //    NB    = block size
+         //    NBMIN = minimum block size
+         //    NS    = number of shifts
+         //    MAXB  = minimum submatrix size
+         //    IACC22: structured matrix multiply
+         //    NBCOL = minimum column dimension for blocks
 
          MAXTYP = 26;
          NTYPES = min( MAXTYP, NTYPES );
@@ -1014,7 +1014,7 @@
 
          // -------------------------------------------------
          // SGS:  Generalized Nonsymmetric Eigenvalue Problem
-               // SGGES (Schur form)
+         //       SGGES (Schur form)
          // -------------------------------------------------
 
          MAXTYP = 26;
@@ -1042,7 +1042,7 @@
 
          // -------------------------------------------------
          // SGX:  Generalized Nonsymmetric Eigenvalue Problem
-               // SGGESX (Schur form and condition numbers)
+         //       SGGESX (Schur form and condition numbers)
          // -------------------------------------------------
 
          MAXTYP = 5;
@@ -1063,7 +1063,7 @@
 
          // -------------------------------------------------
          // SGV:  Generalized Nonsymmetric Eigenvalue Problem
-               // SGGEV (Eigenvalue/vector form)
+         //       SGGEV (Eigenvalue/vector form)
          // -------------------------------------------------
 
          MAXTYP = 26;
@@ -1088,7 +1088,7 @@
 
          // -------------------------------------------------
          // SXV:  Generalized Nonsymmetric Eigenvalue Problem
-               // SGGEVX (eigenvalue/vector with condition numbers)
+         //       SGGEVX (eigenvalue/vector with condition numbers)
          // -------------------------------------------------
 
          MAXTYP = 2;

@@ -258,12 +258,12 @@
             }
 
             // 3) Call SSYGV, SSPGV, SSBGV, SSYGVD, SSPGVD, SSBGVD,
-               // SSYGVX, SSPGVX, and SSBGVX, do tests.
+            //    SSYGVX, SSPGVX, and SSBGVX, do tests.
 
             // loop over the three generalized problems
-                  // IBTYPE = 1: A*x = (lambda)*B*x
-                  // IBTYPE = 2: A*B*x = (lambda)*x
-                  // IBTYPE = 3: B*A*x = (lambda)*x
+            //       IBTYPE = 1: A*x = (lambda)*B*x
+            //       IBTYPE = 2: A*B*x = (lambda)*x
+            //       IBTYPE = 3: B*A*x = (lambda)*x
 
             for (IBTYPE = 1; IBTYPE <= 3; IBTYPE++) { // 630
 

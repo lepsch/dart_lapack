@@ -145,9 +145,9 @@
       } else if ( lsamen( 2, P2, 'SY' ) || lsamen( 2, P2, 'SP' ) ) {
 
          // SY: Symmetric indefinite full
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
          // SP: Symmetric indefinite packed
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          if ( lsame( C3, 'Y' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
@@ -172,13 +172,13 @@
       } else if ( lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm
 
          // SK: Symmetric indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
-             // ( new storage format for factors:
-               // L and diagonal of D is stored in A,
-               // subdiagonal of D is stored in E )
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm,
+         //     ( new storage format for factors:
+         //       L and diagonal of D is stored in A,
+         //       subdiagonal of D is stored in E )
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric';
 
@@ -198,7 +198,7 @@
       } else if ( lsamen( 2, P2, 'HA' ) ) {
 
          // HA: Hermitian
-             // Aasen algorithm
+         //     Aasen algorithm
          WRITE( IOUNIT, FMT = 9971 )PATH, 'Hermitian';
 
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
@@ -216,9 +216,9 @@
        } else if ( lsamen( 2, P2, 'HE' ) || lsamen( 2, P2, 'HP' ) ) {
 
          // HE: Hermitian indefinite full
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
          // HP: Hermitian indefinite packed
-             // with partial (Bunch-Kaufman) pivoting algorithm
+         //     with partial (Bunch-Kaufman) pivoting algorithm
 
          if ( lsame( C3, 'E' ) ) {
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
@@ -241,13 +241,13 @@
       } else if ( lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HK' ) ) {
 
          // HR: Hermitian indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm
 
          // HK: Hermitian indefinite full,
-             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
-             // ( new storage format for factors:
-               // L and diagonal of D is stored in A,
-               // subdiagonal of D is stored in E )
+         //     with rook (bounded Bunch-Kaufman) pivoting algorithm,
+         //     ( new storage format for factors:
+         //       L and diagonal of D is stored in A,
+         //       subdiagonal of D is stored in E )
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
 

@@ -375,8 +375,8 @@ import 'package:lapack/src/xerbla.dart';
                   if ( J > 1 ) {
 
                      // Compute the update
-                        // x(max(1,j-kd):j-1) := x(max(1,j-kd):j-1) -
-                                              // x(j)* A(max(1,j-kd):j-1,j)
+                     //    x(max(1,j-kd):j-1) := x(max(1,j-kd):j-1) -
+                     //                          x(j)* A(max(1,j-kd):j-1,j)
 
                      JLEN = min( KD, J-1 );
                      daxpy(JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
@@ -386,8 +386,8 @@ import 'package:lapack/src/xerbla.dart';
                } else if ( J < N ) {
 
                   // Compute the update
-                     // x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
-                                           // x(j) * A(j+1:min(j+kd,n),j)
+                  //    x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
+                  //                          x(j) * A(j+1:min(j+kd,n),j)
 
                   JLEN = min( KD, N-J );
                   if (JLEN > 0) daxpy( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
@@ -403,7 +403,7 @@ import 'package:lapack/src/xerbla.dart';
             for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 160
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
-                                     // k<>j
+               //                       k<>j
 
                XJ = ( X( J ) ).abs();
                USCAL = TSCAL;

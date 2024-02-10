@@ -983,7 +983,7 @@
           // INFOT = 9
           // CALL SSBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 1, W,
       // $                                      25, IW, 12, INFO )
-          // CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11;
          ssbevd_2stage('N', 'U', 1, 0, A, 1, X, Z, 1, W, 0, IW, 1, INFO );
          chkxer('SSBEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -993,15 +993,15 @@
           // INFOT = 11
           // CALL SSBEVD_2STAGE( 'V', 'U', 2, 0, A, 1, X, Z, 2, W,
       // $                                      18, IW, 12, INFO )
-          // CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13;
          ssbevd_2stage('N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, IW, 0, INFO );
          chkxer('SSBEVD_2STAGE', INFOT, NOUT, LERR, OK );
           // INFOT = 13
           // CALL SSBEVD_2STAGE( 'V', 'U', 2, 0, A, 1, X, Z, 2, W,
       // $                                      25, IW, 11, INFO )
-          // CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-          // NT = NT + 12
+      //     CALL CHKXER( 'SSBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     NT = NT + 12
          NT = NT + 9;
 
          // SSBEV
@@ -1127,7 +1127,7 @@
           // INFOT = 9
           // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1, 0.0,
       // $          0.0, 0, 0, 0.0, M, X, Z, 2, W, 0, IW, I3, INFO )
-          // CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11;
          ssbevx_2stage('N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
@@ -1146,7 +1146,7 @@
           // INFOT = 18
           // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0,
       // $          0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO )
-          // CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 20;
          ssbevx_2stage('N', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );

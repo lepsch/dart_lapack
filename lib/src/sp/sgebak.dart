@@ -81,7 +81,7 @@
       // Backward permutation
 
       // For  I = ILO-1 step -1 until 1,
-               // IHI+1 step 1 until N do --
+      //          IHI+1 step 1 until N do --
 
       } // 30
       if ( lsame( JOB, 'P' ) || lsame( JOB, 'B' ) ) {

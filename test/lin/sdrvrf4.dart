@@ -92,8 +92,8 @@
                         }
 
                         // All the parameters are set:
-                           // CFORM, UPLO, TRANS, M, N,
-                           // ALPHA, and BETA
+                        //    CFORM, UPLO, TRANS, M, N,
+                        //    ALPHA, and BETA
                         // READY TO TEST!
 
                         NRUN = NRUN + 1;

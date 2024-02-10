@@ -87,12 +87,12 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV. The workspace is
-        // computed assuming ILO = 1 and IHI = N, the worst case.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV. The workspace is
+      //   computed assuming ILO = 1 and IHI = N, the worst case.)
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
@@ -256,8 +256,8 @@
 
       // Compute Eigenvectors and estimate condition numbers if desired
       // (Workspace: STGEVC: need 6*N
-                  // STGSNA: need 2*N*(N+2)+16 if SENSE = 'V' or 'B',
-                          // need N otherwise )
+      //             STGSNA: need 2*N*(N+2)+16 if SENSE = 'V' or 'B',
+      //                     need N otherwise )
 
       if ( ILV || !WANTSN ) {
          if ( ILV ) {

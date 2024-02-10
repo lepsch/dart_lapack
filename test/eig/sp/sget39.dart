@@ -109,7 +109,7 @@
                         CALL SLAQTR( false , true , N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO != 0 ) NINFO = NINFO + 1;
 
                         // || T*x - scale*d || /
-                          // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
+                        //   max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 
                         scopy(N, D, 1, Y, 1 );
                         sgemv('No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
@@ -127,7 +127,7 @@
                         CALL SLAQTR( true , true , N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO != 0 ) NINFO = NINFO + 1;
 
                         // || T*x - scale*d || /
-                          // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
+                        //   max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 
                         scopy(N, D, 1, Y, 1 );
                         sgemv('Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
@@ -145,8 +145,8 @@
                         CALL SLAQTR( false , false , N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO != 0 ) NINFO = NINFO + 1;
 
                         // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
-                           // max(ulp*(||T||+||B||)*(||x1||+||x2||),
-                                   // smlnum/ulp * (||T||+||B||), smlnum )
+                        //    max(ulp*(||T||+||B||)*(||x1||+||x2||),
+                        //            smlnum/ulp * (||T||+||B||), smlnum )
 
 
                         scopy(2*N, D, 1, Y, 1 );
@@ -175,8 +175,8 @@
                         CALL SLAQTR( true , false , N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO != 0 ) NINFO = NINFO + 1;
 
                         // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
-                           // max(ulp*(||T||+||B||)*(||x1||+||x2||),
-                                   // smlnum/ulp * (||T||+||B||), smlnum )
+                        //    max(ulp*(||T||+||B||)*(||x1||+||x2||),
+                        //            smlnum/ulp * (||T||+||B||), smlnum )
 
                         scopy(2*N, D, 1, Y, 1 );
                         Y[1] = B( 1 )*X( 1+N ) - SCALE*Y( 1 );

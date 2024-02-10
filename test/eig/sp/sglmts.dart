@@ -45,7 +45,7 @@
 
                         // norm( d - A*x - B*u )
         // RESULT = -----------------------------------------
-                 // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
+        //          (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
       scopy(N, D, 1, DF, 1 );
       sgemv('No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 );

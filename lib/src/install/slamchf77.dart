@@ -434,12 +434,12 @@
             if ( NGPMIN == GPMIN ) {
                LEMIN = NGPMIN;
              // ( Non twos-complement machines, no gradual underflow;
-               // e.g.,  VAX )
+             //   e.g.,  VAX )
             } else if ( ( GPMIN-NGPMIN ) == 3 ) {
                LEMIN = NGPMIN - 1 + LT;
                IEEE = true;
              // ( Non twos-complement machines, with gradual underflow;
-               // e.g., IEEE standard followers )
+             //   e.g., IEEE standard followers )
             } else {
                LEMIN = min( NGPMIN, GPMIN );
              // ( A guess; no known machine )
@@ -450,7 +450,7 @@
             if ( ( NGPMIN-NGNMIN ).abs() == 1 ) {
                LEMIN = max( NGPMIN, NGNMIN );
              // ( Twos-complement machines, no gradual underflow;
-               // e.g., CYBER 205 )
+             //   e.g., CYBER 205 )
             } else {
                LEMIN = min( NGPMIN, NGNMIN );
              // ( A guess; no known machine )
@@ -461,7 +461,7 @@
             if ( ( GPMIN-min( NGPMIN, NGNMIN ) ) == 3 ) {
                LEMIN = max( NGPMIN, NGNMIN ) - 1 + LT;
              // ( Twos-complement machines with gradual underflow;
-               // no known machine )
+             //   no known machine )
             } else {
                LEMIN = min( NGPMIN, NGNMIN );
              // ( A guess; no known machine )

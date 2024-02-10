@@ -218,17 +218,17 @@
 
          // Disabled 2x2 case because of a failure on the following matrix
          // RANGE = 'I', IL = IU = 4
-           // Original Tridiagonal, d = [
-            // -0.150102010615740e+00
-            // -0.849897989384260e+00
-            // -0.128208148052635e-15
-             // 0.128257718286320e-15
-           // ];
-           // e = [
-            // -0.357171383266986e+00
-            // -0.180411241501588e-15
-            // -0.175152352710251e-15
-           // ];
+         //   Original Tridiagonal, d = [
+         //    -0.150102010615740e+00
+         //    -0.849897989384260e+00
+         //    -0.128208148052635e-15
+         //     0.128257718286320e-15
+         //   ];
+         //   e = [
+         //    -0.357171383266986e+00
+         //    -0.180411241501588e-15
+         //    -0.175152352710251e-15
+         //   ];
 
           // ELSE IF( IN == 2 ) THEN
 // *           2x2 block
@@ -237,12 +237,12 @@
              // L1 = TMP1 - DISC
              // IF( WL >= L1-PIVMIN )
       // $         NWL = NWL + 1
-             // IF( WU >= L1-PIVMIN )
+      //        IF( WU >= L1-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG || ( WL < L1-PIVMIN && WU.GE.
+      //        IF( IRANGE == ALLRNG || ( WL < L1-PIVMIN && WU.GE.
       // $          L1-PIVMIN ) ) THEN
-                // M = M + 1
-                // W( M ) = L1
+      //           M = M + 1
+      //           W( M ) = L1
 // *              The uncertainty of eigenvalues of a 2x2 matrix is very small
                 // WERR( M ) = EPS * ABS( W( M ) ) * TWO
                 // IBLOCK( M ) = JBLK
@@ -251,12 +251,12 @@
              // L2 = TMP1 + DISC
              // IF( WL >= L2-PIVMIN )
       // $         NWL = NWL + 1
-             // IF( WU >= L2-PIVMIN )
+      //        IF( WU >= L2-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG || ( WL < L2-PIVMIN && WU.GE.
+      //        IF( IRANGE == ALLRNG || ( WL < L2-PIVMIN && WU.GE.
       // $          L2-PIVMIN ) ) THEN
-                // M = M + 1
-                // W( M ) = L2
+      //           M = M + 1
+      //           W( M ) = L2
 // *              The uncertainty of eigenvalues of a 2x2 matrix is very small
                 // WERR( M ) = EPS * ABS( W( M ) ) * TWO
                 // IBLOCK( M ) = JBLK
@@ -449,7 +449,7 @@
       }
 
       // If ORDER='B', do nothing the eigenvalues are already sorted by
-         // block.
+      //    block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
       if ( lsame(ORDER,'E') && NSPLIT > 1 ) {

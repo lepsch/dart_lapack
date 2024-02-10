@@ -172,10 +172,10 @@ import 'common.dart';
 
                // If iterative refinement has been used and claimed to
                // be successful (ITER>0), we want
-                 // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS*SRQT(N)) < 1
+               //   NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS*SRQT(N)) < 1
 
                // If double precision has been used (ITER<0), we want
-                 // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
+               //   NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
                if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(N.toDouble()))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {

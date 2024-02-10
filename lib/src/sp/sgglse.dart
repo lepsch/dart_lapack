@@ -76,8 +76,8 @@
       // Compute the GRQ factorization of matrices B and A:
 
              // B*Q**T = (  0  T12 ) P   Z**T*A*Q**T = ( R11 R12 ) N-P
-                         // N-P  P                     (  0  R22 ) M+P-N
-                                                       // N-P  P
+             //             N-P  P                     (  0  R22 ) M+P-N
+             //                                           N-P  P
 
       // where T12 and R11 are upper triangular, and Q and Z are
       // orthogonal.
@@ -86,7 +86,7 @@
       LOPT = INT( WORK( P+MN+1 ) );
 
       // Update c = Z**T *c = ( c1 ) N-P
-                           // ( c2 ) M+P-N
+      //                      ( c2 ) M+P-N
 
       sormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, max( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = max( LOPT, INT( WORK( P+MN+1 ) ) );

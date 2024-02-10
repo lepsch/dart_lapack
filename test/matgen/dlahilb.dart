@@ -16,9 +16,9 @@
       // ..
       // .. Parameters ..
       // NMAX_EXACT   the largest dimension where the generated data is
-                   // exact.
+      //              exact.
       // NMAX_APPROX  the largest dimension where the generated data has
-                   // a small componentwise relative error.
+      //              a small componentwise relative error.
       int     NMAX_EXACT, NMAX_APPROX;
       const     NMAX_EXACT = 6, NMAX_APPROX = 11;
       // ..

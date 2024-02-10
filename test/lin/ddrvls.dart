@@ -191,7 +191,7 @@ import 'common.dart';
                      ITYPE = ( IRANK-1 )*3 + ISCALE;
                      if( !DOTYPE( ITYPE ) ) GO TO 110;
                   // =====================================================
-                        // Begin test DGELS
+                  //       Begin test DGELS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -253,7 +253,7 @@ import 'common.dart';
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
-                                  // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
+                                 //  / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT[2] = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
@@ -278,10 +278,10 @@ import 'common.dart';
                         }
                      }
                   // =====================================================
-                        // End test DGELS
+                  //       End test DGELS
                   // =====================================================
                   // =====================================================
-                        // Begin test DGELST
+                  //       Begin test DGELST
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -342,7 +342,7 @@ import 'common.dart';
 
                                  // Solving LS system, compute:
                                  // r = norm((B- A*X)**T * A) /
-                                  // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
+                                 //  / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT[4] = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
                               } else {
@@ -367,10 +367,10 @@ import 'common.dart';
                         }
                      }
                   // =====================================================
-                        // End test DGELST
+                  //       End test DGELST
                   // =====================================================
                   // =====================================================
-                        // Begin test DGETSLS
+                  //       Begin test DGETSLS
                   // =====================================================
                      if ( IRANK == 1 ) {
 
@@ -464,7 +464,7 @@ import 'common.dart';
                         }
                      }
                   // =====================================================
-                        // End test DGETSLS
+                  //       End test DGETSLS
                   // =====================================================
 
                      // Generate a matrix of scaling type ISCALE and rank
@@ -503,24 +503,24 @@ import 'common.dart';
                         dgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 7:  Compute relative error in svd
-                                 // workspace: M*N + 4*min(M,N) + max(M,N)
+                        //          workspace: M*N + 4*min(M,N) + max(M,N)
 
                         RESULT[7] = DQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK );
 
                         // Test 8:  Compute error in solution
-                                 // workspace:  M*NRHS + M
+                        //          workspace:  M*NRHS + M
 
                         dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
                         dqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
-                                 // workspace: NRHS*(M+N)
+                        //          workspace: NRHS*(M+N)
 
                         RESULT[9] = ZERO;
                         if (M > CRANK) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
-                                 // workspace: (M+NRHS)*(N+2)
+                        //          workspace: (M+NRHS)*(N+2)
 
                         RESULT[10] = ZERO;
 
@@ -538,7 +538,7 @@ import 'common.dart';
                         dgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'DGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
-                                        // max(2*min(m,n),nrhs,max(m,n))
+                        //                 max(2*min(m,n),nrhs,max(m,n))
 
                         // Test 11:  Compute relative error in svd
 

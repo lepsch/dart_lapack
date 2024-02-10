@@ -30,7 +30,7 @@
       // INTRINSIC ABS, MAX, MIN, MOD
 
       // 1)      Decode and Test the input parameters.
-              // Initialize flags & seed.
+      //         Initialize flags & seed.
 
       INFO = 0;
 
@@ -298,9 +298,9 @@
       }
 
       // 4)      Generate matrices for each kind of PACKing
-              // Always sweep matrix columnwise (if symmetric, upper
-              // half only) so that matrix generated does not depend
-              // on PACK
+      //         Always sweep matrix columnwise (if symmetric, upper
+      //         half only) so that matrix generated does not depend
+      //         on PACK
 
       if ( FULBND ) {
 

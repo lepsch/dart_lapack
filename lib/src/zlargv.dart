@@ -39,7 +39,7 @@
       ABSSQ[FF] = FF.toDouble()**2 + DIMAG( FF )**2;
 
       // IF( FIRST ) THEN
-         // FIRST = false;
+      //    FIRST = false;
          SAFMIN = dlamch( 'S' );
          EPS = dlamch( 'E' );
          SAFMN2 = dlamch( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( dlamch( 'B' ) ) / TWO );

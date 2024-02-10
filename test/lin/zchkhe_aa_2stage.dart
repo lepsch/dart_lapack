@@ -266,9 +266,9 @@
                   // Reconstruct matrix from factors and compute residual.
 
                   // NEED TO CREATE ZHET01_AA_2STAGE
-                   // CALL ZHET01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
+                  //  CALL ZHET01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK,
       // $                            AINV, LDA, RWORK, RESULT( 1 ) )
-                   // NT = 1
+      //              NT = 1
                   NT = 0;
 
 

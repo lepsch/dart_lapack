@@ -74,11 +74,11 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.
 
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
@@ -143,19 +143,19 @@
             // Description of control parameters:
 
             // KCLASS: =1 means w/o rotation, =2 means w/ rotation,
-                    // =3 means random.
+            //         =3 means random.
             // KATYPE: the "type" to be passed to SLATM4 for computing A.
             // KAZERO: the pattern of zeros on the diagonal for A:
-                    // =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
-                    // =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
-                    // =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
-                    // non-zero entries.)
+            //         =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
+            //         =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
+            //         =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
+            //         non-zero entries.)
             // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
-                    // =2: large, =3: small.
+            //         =2: large, =3: small.
             // IASIGN: 1 if the diagonal elements of A are to be
-                    // multiplied by a random magnitude 1 number, =2 if
-                    // randomly chosen diagonal blocks are to be rotated
-                    // to form 2x2 blocks.
+            //         multiplied by a random magnitude 1 number, =2 if
+            //         randomly chosen diagonal blocks are to be rotated
+            //         to form 2x2 blocks.
             // KBTYPE, KBZERO, KBMAGN, IBSIGN: the same, but for B.
             // KTRIAN: =0: don't fill in the upper triangle, =1: do.
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.

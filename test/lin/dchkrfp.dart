@@ -167,7 +167,7 @@
       ddrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_DLANSY );
 
       // Test the conversion routines:
-        // dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
+      //   dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
 
       ddrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
 

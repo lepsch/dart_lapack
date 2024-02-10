@@ -108,7 +108,7 @@
       }
 
       // Compute QR factorization with column pivoting of A:
-         // A * P = Q * R
+      //    A * P = Q * R
 
       zgeqpf(M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), RWORK, INFO );
 
@@ -150,7 +150,7 @@
       }
 
       // Logically partition R = [ R11 R12 ]
-                              // [  0  R22 ]
+      //                         [  0  R22 ]
       // where R11 = R(1:RANK,1:RANK)
 
       // [R11,R12] = [ T11, 0 ] * Y

@@ -73,8 +73,8 @@
       // a random complex number from the circle |x| = 1
 
        // 2)      Compute Rotation by computing Householder
-               // Transformations H(2), H(3), ..., H(n).  Note that the
-               // order in which they are computed is irrelevant.
+       //         Transformations H(2), H(3), ..., H(n).  Note that the
+       //         order in which they are computed is irrelevant.
 
       for (J = 1; J <= NXFRM; J++) { // 10
          X[J] = CZERO;

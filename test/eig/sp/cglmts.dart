@@ -48,7 +48,7 @@
 
                         // norm( d - A*x - B*u )
         // RESULT = -----------------------------------------
-                 // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
+        //          (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
       ccopy(N, D, 1, DF, 1 );
       cgemv('No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 );

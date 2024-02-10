@@ -70,10 +70,10 @@
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ I ]    (K-by-K)
-                   // [ V ]    (M-by-K)
+         //           [ V ]    (M-by-K)
 
          // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
-                                           // [ B ]  (M-by-N)
+         //                                   [ B ]  (M-by-N)
 
          // H = I - W T W**H          or  H**H = I - W T**H W**H
 
@@ -124,7 +124,7 @@
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ I ]    (K-by-K)
-                   // [ V ]    (N-by-K)
+         //           [ V ]    (N-by-K)
 
          // Form  C H or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
 
@@ -177,10 +177,10 @@
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ V ]    (M-by-K)
-                   // [ I ]    (K-by-K)
+         //           [ I ]    (K-by-K)
 
          // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
-                                           // [ A ]  (K-by-N)
+         //                                   [ A ]  (K-by-N)
 
          // H = I - W T W**H          or  H**H = I - W T**H W**H
 
@@ -232,7 +232,7 @@
 // ---------------------------------------------------------------------------
 
          // Let  W =  [ V ]    (N-by-K)
-                   // [ I ]    (K-by-K)
+         //           [ I ]    (K-by-K)
 
          // Form  C H  or  C H**H  where  C = [ B A ] (B is M-by-N, A is M-by-K)
 
@@ -287,7 +287,7 @@
          // Let  W =  [ I V ] ( I is K-by-K, V is K-by-M )
 
          // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
-                                           // [ B ]  (M-by-N)
+         //                                   [ B ]  (M-by-N)
 
          // H = I - W**H T W          or  H**H = I - W**H T**H W
 
@@ -392,7 +392,7 @@
          // Let  W =  [ V I ] ( I is K-by-K, V is K-by-M )
 
          // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
-                                           // [ A ]  (K-by-N)
+         //                                   [ A ]  (K-by-N)
 
          // H = I - W**H T W          or  H**H = I - W**H T**H W
 

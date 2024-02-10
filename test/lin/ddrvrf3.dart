@@ -99,8 +99,8 @@ import 'common.dart';
                               }
 
                               // All the parameters are set:
-                                 // CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
-                                 // and ALPHA
+                              //    CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
+                              //    and ALPHA
                               // READY TO TEST!
 
                               NRUN = NRUN + 1;

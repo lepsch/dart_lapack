@@ -113,7 +113,7 @@ import 'package:lapack/src/xerbla.dart';
             }
 
             // It can be proved that
-                // D(N)^2+RHO/2 <= SIGMA_n^2 < D(N)^2+TAU2 <= D(N)^2+RHO
+            //     D(N)^2+RHO/2 <= SIGMA_n^2 < D(N)^2+TAU2 <= D(N)^2+RHO
 
          } else {
             DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) );

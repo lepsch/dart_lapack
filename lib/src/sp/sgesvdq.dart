@@ -377,7 +377,7 @@
       // .. QR factorization with column pivoting
 
       // A * P = Q * [ R ]
-                  // [ 0 ]
+      //             [ 0 ]
 
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
@@ -437,7 +437,7 @@
          if ( CONDA ) {
             // Estimate the scaled condition number of A. Use the fact that it is
             // the same as the scaled condition number of R.
-               // .. V is used as workspace
+            //    .. V is used as workspace
                slacpy('U', N, N, A, LDA, V, LDV );
                // Only the leading NR x NR submatrix of the triangular factor
                // is considered. Only if NR=N will this give a reliable error
@@ -476,8 +476,8 @@
          if ( RTRANS ) {
 
           // .. compute the singular values of R**T = [A](1:NR,1:N)**T
-            // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
-            // the upper triangle of [A] to zero.
+          //   .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
+          //   the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
                for (q = p + 1; q <= N; q++) { // 1147
                   A[q][p] = A(p,q);
@@ -537,7 +537,7 @@
          }
 
             // .. assemble the left singular vector matrix U of dimensions
-               // (M x NR) or (M x N) or (M x M).
+            //    (M x NR) or (M x N) or (M x M).
          if ( ( NR < M ) && ( !WNTUF ) ) {
              slaset('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU);
              if ( NR < N1 ) {
@@ -688,11 +688,11 @@
                 // .. need all N right singular vectors and NR < N
              // .. copy R**T into [V] and overwrite [V] with the left singular
              // vectors of R**T
-                // [[The optimal ratio N/NR for using QRF instead of padding
-                  // with zeros. Here hard coded to 2; it must be at least
-                  // two due to work space constraints.]]
-                // OPTRATIO = ilaenv(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = max( OPTRATIO, 2 )
+             //    [[The optimal ratio N/NR for using QRF instead of padding
+             //      with zeros. Here hard coded to 2; it must be at least
+             //      two due to work space constraints.]]
+             //    OPTRATIO = ilaenv(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
+             //    OPTRATIO = max( OPTRATIO, 2 )
                 OPTRATIO = 2;
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
@@ -791,18 +791,18 @@
              } else {
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
-                // is then N1 (N or M)
-                // [[The optimal ratio N/NR for using LQ instead of padding
-                  // with zeros. Here hard coded to 2; it must be at least
-                  // two due to work space constraints.]]
-                // OPTRATIO = ilaenv(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = max( OPTRATIO, 2 )
+               //  is then N1 (N or M)
+               //  [[The optimal ratio N/NR for using LQ instead of padding
+               //    with zeros. Here hard coded to 2; it must be at least
+               //    two due to work space constraints.]]
+               //  OPTRATIO = ilaenv(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
+               //  OPTRATIO = max( OPTRATIO, 2 )
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {
                   slacpy('U', NR, N, A, LDA, V, LDV );
                   if (NR > 1) slaset('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
-                  // singular vectors of R stored in [U](1:NR,1:NR)
+               //    singular vectors of R stored in [U](1:NR,1:NR)
                   slaset('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV);
                   sgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
                   slapmt( false , N, N, V, LDV, IWORK );

@@ -96,9 +96,9 @@
           // maintenance and modifications of the code.]]
 
          // .. minimal workspace length for CGEQP3 of an M x N matrix,
-          // CGEQRF of an N x N matrix, CGELQF of an N x N matrix,
-          // CUNMLQ for computing N x N matrix, CUNMQR for computing N x N
-          // matrix, CUNMQR for computing M x N matrix, respectively.
+         //  CGEQRF of an N x N matrix, CGELQF of an N x N matrix,
+         //  CUNMLQ for computing N x N matrix, CUNMQR for computing N x N
+         //  matrix, CUNMQR for computing M x N matrix, respectively.
           LWQP3 = N+1;
           LWQRF = max( 1, N );
           LWLQF = max( 1, N );
@@ -108,7 +108,7 @@
          // .. minimal workspace length for CPOCON of an N x N matrix
           LWCON = 2 * N;
          // .. minimal workspace length for CGESVJ of an N x N matrix,
-          // without and with explicit accumulation of Jacobi rotations
+         //  without and with explicit accumulation of Jacobi rotations
           LWSVDJ  = max( 2 * N, 1 );
           LWSVDJV = max( 2 * N, 1 );
           // .. minimal REAL workspace length for CGEQP3, CPOCON, CGESVJ
@@ -915,7 +915,7 @@
          }
           // .. permute the rows of V
           // DO 8991 p = 1, N
-             // CALL CCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
+          //    CALL CCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
 // 8991    CONTINUE
           // CALL CLACPY( 'All', N, N, A, LDA, V, LDV )
          clapmr( false , N, N, V, LDV, IWORK );

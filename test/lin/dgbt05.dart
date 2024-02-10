@@ -38,7 +38,7 @@
       NZ = min( KL+KU+2, N+1 );
 
       // Test 1:  Compute the maximum of
-         // norm(X - XACT) / ( norm(X) * FERR )
+      //    norm(X - XACT) / ( norm(X) * FERR )
       // over all the vectors X and XACT using the infinity-norm.
 
       ERRBND = ZERO;

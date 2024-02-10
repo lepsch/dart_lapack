@@ -181,8 +181,8 @@
                // and 1-by-1 block D(k) in column k of A.
                // NOTE: Diagonal element U(k,k) is a UNIT element
                // and not stored.
-                  // A(k,k) := D(k,k) = W(k,kw)
-                  // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
+               //    A(k,k) := D(k,k) = W(k,kw)
+               //    A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
                ccopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                R1 = CONE / A( K, K );
@@ -201,9 +201,9 @@
                // block D(k-1:k,k-1:k) in columns k-1 and k of A.
                // NOTE: 2-by-2 diagonal block U(k-1:k,k-1:k) is a UNIT
                // block and not stored.
-                  // A(k-1:k,k-1:k) := D(k-1:k,k-1:k) = W(k-1:k,kw-1:kw)
-                  // A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
-                  // = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
+               //    A(k-1:k,k-1:k) := D(k-1:k,k-1:k) = W(k-1:k,kw-1:kw)
+               //    A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
+               //    = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
 
                if ( K > 2 ) {
 
@@ -213,24 +213,24 @@
                   // this inverse
 
                   // D**(-1) = ( d11 d21 )**(-1) =
-                            // ( d21 d22 )
+                  //           ( d21 d22 )
 
                   // = 1/(d11*d22-d21**2) * ( ( d22 ) (-d21 ) ) =
-                                         // ( (-d21 ) ( d11 ) )
+                  //                        ( (-d21 ) ( d11 ) )
 
                   // = 1/d21 * 1/((d11/d21)*(d22/d21)-1) *
 
                     // * ( ( d22/d21 ) (      -1 ) ) =
-                      // ( (      -1 ) ( d11/d21 ) )
+                    //   ( (      -1 ) ( d11/d21 ) )
 
                   // = 1/d21 * 1/(D22*D11-1) * ( ( D11 ) (  -1 ) ) =
-                                            // ( ( -1  ) ( D22 ) )
+                  //                           ( ( -1  ) ( D22 ) )
 
                   // = 1/d21 * T * ( ( D11 ) (  -1 ) )
-                                // ( (  -1 ) ( D22 ) )
+                  //               ( (  -1 ) ( D22 ) )
 
                   // = D21 * ( ( D11 ) (  -1 ) )
-                          // ( (  -1 ) ( D22 ) )
+                  //         ( (  -1 ) ( D22 ) )
 
                   D21 = W( K-1, KW );
                   D11 = W( K, KW ) / D21;
@@ -454,8 +454,8 @@
                // and 1-by-1 block D(k) in column k of A.
                // (NOTE: Diagonal element L(k,k) is a UNIT element
                // and not stored)
-                  // A(k,k) := D(k,k) = W(k,k)
-                  // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
+               //    A(k,k) := D(k,k) = W(k,k)
+               //    A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                ccopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K < N ) {
@@ -476,9 +476,9 @@
                // block D(k:k+1,k:k+1) in columns k and k+1 of A.
                // (NOTE: 2-by-2 diagonal block L(k:k+1,k:k+1) is a UNIT
                // block and not stored)
-                  // A(k:k+1,k:k+1) := D(k:k+1,k:k+1) = W(k:k+1,k:k+1)
-                  // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
-                  // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
+               //    A(k:k+1,k:k+1) := D(k:k+1,k:k+1) = W(k:k+1,k:k+1)
+               //    A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
+               //    = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
                if ( K < N-1 ) {
 
@@ -488,24 +488,24 @@
                   // this inverse
 
                   // D**(-1) = ( d11 d21 )**(-1) =
-                            // ( d21 d22 )
+                  //           ( d21 d22 )
 
                   // = 1/(d11*d22-d21**2) * ( ( d22 ) (-d21 ) ) =
-                                         // ( (-d21 ) ( d11 ) )
+                  //                        ( (-d21 ) ( d11 ) )
 
                   // = 1/d21 * 1/((d11/d21)*(d22/d21)-1) *
 
                     // * ( ( d22/d21 ) (      -1 ) ) =
-                      // ( (      -1 ) ( d11/d21 ) )
+                    //   ( (      -1 ) ( d11/d21 ) )
 
                   // = 1/d21 * 1/(D22*D11-1) * ( ( D11 ) (  -1 ) ) =
-                                            // ( ( -1  ) ( D22 ) )
+                  //                           ( ( -1  ) ( D22 ) )
 
                   // = 1/d21 * T * ( ( D11 ) (  -1 ) )
-                                // ( (  -1 ) ( D22 ) )
+                  //               ( (  -1 ) ( D22 ) )
 
                   // = D21 * ( ( D11 ) (  -1 ) )
-                          // ( (  -1 ) ( D22 ) )
+                  //         ( (  -1 ) ( D22 ) )
 
                   D21 = W( K+1, K );
                   D11 = W( K+1, K+1 ) / D21;

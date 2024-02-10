@@ -50,12 +50,12 @@
       }
 
       // If the input parameters M, N, NRHS, KMAX, LDA are valid:
-        // a) Test the input workspace size LWORK for the minimum
-           // size requirement IWS.
-        // b) Determine the optimal block size NB and optimal
-           // workspace size LWKOPT to be returned in WORK(1)
-           // in case of (1) LWORK < IWS, (2) LQUERY = true ,
-           // (3) when routine exits.
+      //   a) Test the input workspace size LWORK for the minimum
+      //      size requirement IWS.
+      //   b) Determine the optimal block size NB and optimal
+      //      workspace size LWKOPT to be returned in WORK(1)
+      //      in case of (1) LWORK < IWS, (2) LQUERY = true ,
+      //      (3) when routine exits.
       // Here, IWS is the miminum workspace required for unblocked
       // code.
 
@@ -69,10 +69,10 @@
             // Minimal workspace size in case of using only unblocked
             // BLAS 2 code in SLAQP2RK.
             // 1) SGEQP3RK and SLAQP2RK: 2*N to store full and partial
-               // column 2-norms.
+            //    column 2-norms.
             // 2) SLAQP2RK: N+NRHS-1 to use in WORK array that is used
-               // in SLARF subroutine inside SLAQP2RK to apply an
-               // elementary reflector from the left.
+            //    in SLARF subroutine inside SLAQP2RK to apply an
+            //    elementary reflector from the left.
             // TOTAL_WORK_SIZE = 3*N + NRHS - 1
 
             IWS = 3*N + NRHS - 1;
@@ -85,13 +85,13 @@
             // both unblocked BLAS 2 in SLAQP2RK and blocked BLAS 3 code
             // in SLAQP3RK.
             // 1) SGEQP3RK, SLAQP2RK, SLAQP3RK: 2*N to store full and
-               // partial column 2-norms.
+            //    partial column 2-norms.
             // 2) SLAQP2RK: N+NRHS-1 to use in WORK array that is used
-               // in SLARF subroutine to apply an elementary reflector
-               // from the left.
+            //    in SLARF subroutine to apply an elementary reflector
+            //    from the left.
             // 3) SLAQP3RK: NB*(N+NRHS) to use in the work array F that
-               // is used to apply a block reflector from
-               // the left.
+            //    is used to apply a block reflector from
+            //    the left.
             // 4) SLAQP3RK: NB to use in the auxilixary array AUX.
             // Sizes (2) and ((3) + (4)) should intersect, therefore
             // TOTAL_WORK_SIZE = 2*N + NB*( N+NRHS+1 ), given NBMIN=2.
@@ -106,7 +106,7 @@
       }
 
        // NOTE: The optimal workspace size is returned in WORK(1), if
-             // the input parameters M, N, NRHS, KMAX, LDA are valid.
+       //       the input parameters M, N, NRHS, KMAX, LDA are valid.
 
       if ( INFO != 0 ) {
          xerbla('SGEQP3RK', -INFO );
@@ -137,11 +137,11 @@
 
       // Initialize storage for partial and exact column 2-norms.
       // a) The elements WORK(1:N) are used to store partial column
-         // 2-norms of the matrix A, and may decrease in each computation
-         // step; initialize to the values of complete columns 2-norms.
+      //    2-norms of the matrix A, and may decrease in each computation
+      //    step; initialize to the values of complete columns 2-norms.
       // b) The elements WORK(N+1:2*N) are used to store complete column
-         // 2-norms of the matrix A, they are not changed during the
-         // computation; initialize the values of complete columns 2-norms.
+      //    2-norms of the matrix A, they are not changed during the
+      //    computation; initialize the values of complete columns 2-norms.
 
       for (J = 1; J <= N; J++) {
          WORK[J] = SNRM2( M, A( 1, J ), 1 );
@@ -331,10 +331,10 @@
          // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
          // J   is the column index of a column block;
          // JB  is the column block size to pass to block factorization
-             // routine in a loop step;
+         //     routine in a loop step;
          // JBF is the number of columns that were actually factorized
-             // that was returned by the block factorization routine
-             // in a loop step, JBF <= JB;
+         //     that was returned by the block factorization routine
+         //     in a loop step, JBF <= JB;
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
 
@@ -361,13 +361,13 @@
                // satisfied before the end of the column block, we can
                // return from the routine. Perform the following before
                // returning:
-                 // a) Set the number of factorized columns K,
-                    // K = IOFFSET + JBF from the last call of blocked
-                    // routine.
-                 // NOTE: 1) MAXC2NRMK and RELMAXC2NRMK are returned
-                          // by the block factorization routine;
-                       // 2) The remaining TAUs are set to ZERO by the
-                          // block factorization routine.
+               //   a) Set the number of factorized columns K,
+               //      K = IOFFSET + JBF from the last call of blocked
+               //      routine.
+               //   NOTE: 1) MAXC2NRMK and RELMAXC2NRMK are returned
+               //            by the block factorization routine;
+               //         2) The remaining TAUs are set to ZERO by the
+               //            block factorization routine.
 
                K = IOFFSET + JBF;
 
@@ -413,9 +413,9 @@
          // of columns JMAX-J+1 supplied to be factorized by the
          // unblocked routine, we can return from
          // the routine. Perform the following before returning:
-            // a) Set the number of factorized columns K,
-            // b) MAXC2NRMK and RELMAXC2NRMK are returned by the
-               // unblocked factorization routine above.
+         //    a) Set the number of factorized columns K,
+         //    b) MAXC2NRMK and RELMAXC2NRMK are returned by the
+         //       unblocked factorization routine above.
 
          K = J - 1 + KF;
 
@@ -440,9 +440,9 @@
             K = JMAX;
 
          // If there exits a residual matrix after the blocked code:
-            // 1) compute the values of MAXC2NRMK, RELMAXC2NRMK of the
-               // residual matrix, otherwise set them to ZERO;
-            // 2) Set TAU(K+1:MINMN) to ZERO.
+         //    1) compute the values of MAXC2NRMK, RELMAXC2NRMK of the
+         //       residual matrix, otherwise set them to ZERO;
+         //    2) Set TAU(K+1:MINMN) to ZERO.
 
          if ( K < MINMN ) {
             JMAXC2NRM = K + ISAMAX( N-K, WORK( K+1 ), 1 );

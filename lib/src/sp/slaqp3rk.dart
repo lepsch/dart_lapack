@@ -86,11 +86,11 @@
                DONE = true;
 
                // Set KB, the number of factorized partial columns
-                       // that are non-zero in each step in the block,
-                       // i.e. the rank of the factor R.
+               //         that are non-zero in each step in the block,
+               //         i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
-                       // is the same as the number of processed rows in
-                       // the original whole matrix A_orig.
+               //         is the same as the number of processed rows in
+               //         the original whole matrix A_orig.
 
                KB = K - 1;
                if = I - 1;
@@ -110,7 +110,7 @@
                // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-                                // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
+               //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
                if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
@@ -138,11 +138,11 @@
                DONE = true;
 
                // Set KB, the number of factorized partial columns
-                       // that are non-zero in each step in the block,
-                       // i.e. the rank of the factor R.
+               //         that are non-zero in each step in the block,
+               //         i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
-                       // is the same as the number of processed rows in
-                       // the original whole matrix A_orig.
+               //         is the same as the number of processed rows in
+               //         the original whole matrix A_orig.
 
                KB = K - 1;
                if = I - 1;
@@ -157,7 +157,7 @@
                // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-                                // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
+               //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
                if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
@@ -214,11 +214,11 @@
                DONE = true;
 
                // Set KB, the number of factorized partial columns
-                       // that are non-zero in each step in the block,
-                       // i.e. the rank of the factor R.
+               //         that are non-zero in each step in the block,
+               //         i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
-                       // is the same as the number of processed rows in
-                       // the original whole matrix A_orig;
+               //         is the same as the number of processed rows in
+               //         the original whole matrix A_orig;
 
                   KB = K - 1;
                   if = I - 1;
@@ -228,10 +228,10 @@
                // the residual matrix and and/or the residual of the right
                // hand sides exist,  i.e. if the submatrix
                // A(I+1:M,KB+1:N+NRHS) exists.  This occurs when
-                  // KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
+               //    KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
 
                // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
-                              // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
+               //                A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 
                if ( KB < MINMNUPDT ) {
                   sgemm('No transpose', 'Transpose', M-IF, N+NRHS-KB, KB,-ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA );
@@ -265,14 +265,14 @@
          // If the pivot column is not the first column of the
          // subblock A(1:M,K:N):
          // 1) swap the K-th column and the KP-th pivot column
-            // in A(1:M,1:N);
+         //    in A(1:M,1:N);
          // 2) swap the K-th row and the KP-th row in F(1:N,1:K-1)
          // 3) copy the K-th element into the KP-th element of the partial
-            // and exact 2-norm vectors VN1 and VN2. (Swap is not needed
-            // for VN1 and VN2 since we use the element with the index
-            // larger than K in the next loop step.)
+         //    and exact 2-norm vectors VN1 and VN2. (Swap is not needed
+         //    for VN1 and VN2 since we use the element with the index
+         //    larger than K in the next loop step.)
          // 4) Save the pivot interchange with the indices relative to the
-            // the original matrix A_orig, not the block A(1:M,1:N).
+         //    the original matrix A_orig, not the block A(1:M,1:N).
 
          if ( KP != K ) {
             sswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
@@ -314,11 +314,11 @@
             DONE = true;
 
             // Set KB, the number of factorized partial columns
-                    // that are non-zero in each step in the block,
-                    // i.e. the rank of the factor R.
+            //         that are non-zero in each step in the block,
+            //         i.e. the rank of the factor R.
             // Set IF, the number of processed rows in the block, which
-                    // is the same as the number of processed rows in
-                    // the original whole matrix A_orig.
+            //         is the same as the number of processed rows in
+            //         the original whole matrix A_orig.
 
             KB = K - 1;
             if = I - 1;
@@ -339,7 +339,7 @@
             // when ( NRHS != 0 AND KB <= (M-IOFFSET) ):
 
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
-                             // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
+            //                  A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
             if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
@@ -364,14 +364,14 @@
          // ===============================================================
 
          // Compute the current K-th column of F:
-           // 1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**T * A(I:M,K).
+         //   1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**T * A(I:M,K).
 
          if ( K < N+NRHS ) {
             sgemv('Transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, ZERO, F( K+1, K ), 1 );
          }
 
             // 2) Zero out elements above and on the diagonal of the
-               // column K in matrix F, i.e elements F(1:K,K).
+            //    column K in matrix F, i.e elements F(1:K,K).
 
          for (J = 1; J <= K; J++) {
             F[J][K] = ZERO;
@@ -379,7 +379,7 @@
 
           // 3) Incremental updating of the K-th column of F:
          // F(1:N,K) := F(1:N,K) - tau(K) * F(1:N,1:K-1) * A(I:M,1:K-1)**T
-                     // * A(I:M,K).
+         //             * A(I:M,K).
 
          if ( K > 1 ) {
             sgemv('Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, ZERO, AUXV( 1 ), 1 );
@@ -391,7 +391,7 @@
 
          // Update the current I-th row of A:
          // A(I,K+1:N+NRHS) := A(I,K+1:N+NRHS)
-                          // - A(I,1:K)*F(K+1:N+NRHS,1:K)**T.
+         //                  - A(I,1:K)*F(K+1:N+NRHS,1:K)**T.
 
          if ( K < N+NRHS ) {
             sgemv('No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA );
@@ -442,10 +442,10 @@
       }
 
       // Now, afler the loop:
-         // Set KB, the number of factorized columns in the block;
-         // Set IF, the number of processed rows in the block, which
-                 // is the same as the number of processed rows in
-                 // the original whole matrix A_orig, IF = IOFFSET + KB.
+      //    Set KB, the number of factorized columns in the block;
+      //    Set IF, the number of processed rows in the block, which
+      //            is the same as the number of processed rows in
+      //            the original whole matrix A_orig, IF = IOFFSET + KB.
 
       KB = K;
       if = I;
@@ -457,7 +457,7 @@
       // This occurs when KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
 
       // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
-                          // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
+      //                     A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 
       if ( KB < MINMNUPDT ) {
          sgemm('No transpose', 'Transpose', M-IF, N+NRHS-KB, KB, -ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA );

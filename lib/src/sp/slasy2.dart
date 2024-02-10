@@ -74,7 +74,7 @@
 
       // 1 by 2:
       // TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
-                                        // [TR21 TR22]
+      //                                   [TR21 TR22]
 
       } // 20
 
@@ -93,8 +93,8 @@
       GO TO 40;
 
       // 2 by 1:
-           // op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
-             // [TL21 TL22] [X21]         [X21]         [B21]
+      //      op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
+      //        [TL21 TL22] [X21]         [X21]         [B21]
 
       } // 30
       SMIN = max( EPS*max( ( TR( 1, 1 ) ).abs(), ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ).abs() ), SMLNUM );
@@ -161,7 +161,7 @@
 
       // 2 by 2:
       // op[TL11 TL12]*[X11 X12] +ISGN* [X11 X12]*op[TR11 TR12] = [B11 B12]
-        // [TL21 TL22] [X21 X22]        [X21 X22]   [TR21 TR22]   [B21 B22]
+      //   [TL21 TL22] [X21 X22]        [X21 X22]   [TR21 TR22]   [B21 B22]
 
       // Solve equivalent 4 by 4 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.

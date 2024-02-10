@@ -257,7 +257,7 @@
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
-                        // = A - W(k)*1/D(k)*W(k)**T
+                     //    = A - W(k)*1/D(k)*W(k)**T
 
                      D11 = CONE / A( K, K );
                      zsyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
@@ -276,8 +276,8 @@
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - U(k)*D(k)*U(k)**T
-                        // = A - W(k)*(1/D(k))*W(k)**T
-                        // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
+                     //    = A - W(k)*(1/D(k))*W(k)**T
+                     //    = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
                      zsyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
                   }
@@ -300,7 +300,7 @@
                // Perform a rank-2 update of A(1:k-2,1:k-2) as
 
                // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**T
-                  // = A - ( ( A(k-1)A(k) )*inv(D(k)) ) * ( A(k-1)A(k) )**T
+               //    = A - ( ( A(k-1)A(k) )*inv(D(k)) ) * ( A(k-1)A(k) )**T
 
                // and store L(k) and L(k+1) in columns k and k+1
 
@@ -552,7 +552,7 @@
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
-                        // = A - W(k)*(1/D(k))*W(k)**T
+                     //    = A - W(k)*(1/D(k))*W(k)**T
 
                      D11 = CONE / A( K, K );
                      zsyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
@@ -571,8 +571,8 @@
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
-                        // = A - W(k)*(1/D(k))*W(k)**T
-                        // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
+                     //    = A - W(k)*(1/D(k))*W(k)**T
+                     //    = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
                      zsyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   }
@@ -596,7 +596,7 @@
                // Perform a rank-2 update of A(k+2:n,k+2:n) as
 
                // A := A - ( L(k) L(k+1) ) * D(k) * ( L(k) L(k+1) )**T
-                  // = A - ( ( A(k)A(k+1) )*inv(D(k) ) * ( A(k)A(k+1) )**T
+               //    = A - ( ( A(k)A(k+1) )*inv(D(k) ) * ( A(k)A(k+1) )**T
 
                // and store L(k) and L(k+1) in columns k and k+1
 

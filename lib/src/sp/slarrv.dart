@@ -208,8 +208,8 @@
             for (I = 1; I <= OLDNCL; I++) { // 150
                J = OLDCLS + 2*I;
                // OLDFST, OLDLST = first, last index of current cluster.
-                                // cluster indices start with 1 and are relative
-                                // to WBEGIN when accessing W, WGAP, WERR, Z
+               //                  cluster indices start with 1 and are relative
+               //                  to WBEGIN when accessing W, WGAP, WERR, Z
                OLDFST = IWORK( J-1 );
                OLDLST = IWORK( J );
                if ( NDEPTH > 0 ) {
@@ -255,7 +255,7 @@
                   Q = INDEXW( WBEGIN-1+OLDLST );
                   // Offset for the arrays WORK, WGAP and WERR, i.e., the P-OFFSET
                   // through the Q-OFFSET elements of these arrays are to be used.
-                   // OFFSET = P-OLDFST
+                  //  OFFSET = P-OLDFST
                   OFFSET = INDEXW( WBEGIN ) - 1;
                   // perform limited bisection (if necessary) to get approximate
                   // eigenvalues to the precision needed.
@@ -548,14 +548,14 @@
                               // as a bracket but to be modified if the RQCORR
                               // chooses to. In this case, the RIGHT side should
                               // be modified as follows:
-                               // RIGHT = max(RIGHT, LAMBDA + RQCORR)
+                              //  RIGHT = max(RIGHT, LAMBDA + RQCORR)
                            } else {
                               // The current LAMBDA is on the right of the true
                               // eigenvalue
                               RIGHT = LAMBDA;
                               // See comment about assuming the error estimate is
                               // correct above.
-                               // LEFT = min(LEFT, LAMBDA + RQCORR)
+                              //  LEFT = min(LEFT, LAMBDA + RQCORR)
                            }
                            WORK[WINDEX] = HALF * (RIGHT + LEFT);
                            // Take RQCORR since it has the correct sign and

@@ -96,9 +96,9 @@
           // maintenance and modifications of the code.]]
 
          // .. minimal workspace length for ZGEQP3 of an M x N matrix,
-          // ZGEQRF of an N x N matrix, ZGELQF of an N x N matrix,
-          // ZUNMLQ for computing N x N matrix, ZUNMQR for computing N x N
-          // matrix, ZUNMQR for computing M x N matrix, respectively.
+         //  ZGEQRF of an N x N matrix, ZGELQF of an N x N matrix,
+         //  ZUNMLQ for computing N x N matrix, ZUNMQR for computing N x N
+         //  matrix, ZUNMQR for computing M x N matrix, respectively.
           LWQP3 = N+1;
           LWQRF = max( 1, N );
           LWLQF = max( 1, N );
@@ -108,7 +108,7 @@
          // .. minimal workspace length for ZPOCON of an N x N matrix
           LWCON = 2 * N;
          // .. minimal workspace length for ZGESVJ of an N x N matrix,
-          // without and with explicit accumulation of Jacobi rotations
+         //  without and with explicit accumulation of Jacobi rotations
           LWSVDJ  = max( 2 * N, 1 );
           LWSVDJV = max( 2 * N, 1 );
           // .. minimal REAL workspace length for ZGEQP3, ZPOCON, ZGESVJ
@@ -914,7 +914,7 @@
          }
           // .. permute the rows of V
           // DO 8991 p = 1, N
-             // CALL ZCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
+          //    CALL ZCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
 // 8991    CONTINUE
           // CALL ZLACPY( 'All', N, N, A, LDA, V, LDV )
          zlapmr( false , N, N, V, LDV, IWORK );

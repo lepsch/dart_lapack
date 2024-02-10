@@ -61,7 +61,7 @@
       }
 
       // Compute the maximum over the number of right hand sides of
-         // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
+      //    norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 40

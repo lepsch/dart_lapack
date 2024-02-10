@@ -97,14 +97,14 @@
 
                 // [ A11 ]
          // Factor [ --- ]
-                // [ A21 ]
+         //        [ A21 ]
 
          sgetrf2(m, n1, A, lda, ipiv, iinfo );
           if (info == 0 && iinfo > 0) info = iinfo;
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
-                               // [ A22 ]
+         //                       [ A22 ]
 
          slaswp(N2, A( 1, N1+1 ), LDA, 1, N1, IPIV, 1 );
 

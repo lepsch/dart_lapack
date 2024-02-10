@@ -142,13 +142,13 @@
 
             // Form a unit triangular matrix T with condition CNDNUM.  T is
             // given by
-                    // | 1   +   *                      |
-                    // |     1   +                      |
-                // T = |         1   +   *              |
-                    // |             1   +              |
-                    // |                 1   +   *      |
-                    // |                     1   +      |
-                    // |                          . . . |
+            //         | 1   +   *                      |
+            //         |     1   +                      |
+            //     T = |         1   +   *              |
+            //         |             1   +              |
+            //         |                 1   +   *      |
+            //         |                     1   +      |
+            //         |                          . . . |
          // Each element marked with a '*' is formed by taking the product
          // of the adjacent elements marked with '+'.  The '*'s can be
          // chosen freely, and the '+'s are chosen so that the inverse of

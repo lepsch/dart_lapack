@@ -216,8 +216,8 @@
                // and 1-by-1 block D(k) in column k of A.
                // (NOTE: Diagonal element U(k,k) is a UNIT element
                // and not stored)
-                  // A(k,k) := D(k,k) = W(k,kw)
-                  // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
+               //    A(k,k) := D(k,k) = W(k,kw)
+               //    A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
@@ -226,8 +226,8 @@
                if ( K > 1 ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
-                   // since that was ensured earlier in pivot search:
-                   // case A(k,k) = 0 falls into 2x2 pivot case(4))
+                  //  since that was ensured earlier in pivot search:
+                  //  case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / REAL( A( K, K ) );
                   csscal(K-1, R1, A( 1, K ), 1 );
@@ -250,9 +250,9 @@
                // block D(k-1:k,k-1:k) in columns k-1 and k of A.
                // (NOTE: 2-by-2 diagonal block U(k-1:k,k-1:k) is a UNIT
                // block and not stored)
-                  // A(k-1:k,k-1:k) := D(k-1:k,k-1:k) = W(k-1:k,kw-1:kw)
-                  // A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
-                  // = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
+               //    A(k-1:k,k-1:k) := D(k-1:k,k-1:k) = W(k-1:k,kw-1:kw)
+               //    A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
+               //    = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
 
                if ( K > 2 ) {
 
@@ -262,41 +262,41 @@
                   // ( W(kw-1) W(kw) ) by this inverse, i.e. by D**(-1).
 
                   // D**(-1) = ( d11 cj(d21) )**(-1) =
-                            // ( d21    d22 )
+                  //           ( d21    d22 )
 
                   // = 1/(d11*d22-|d21|**2) * ( ( d22) (-cj(d21) ) ) =
-                                           // ( (-d21) (     d11 ) )
+                  //                          ( (-d21) (     d11 ) )
 
                   // = 1/(|d21|**2) * 1/((d11/cj(d21))*(d22/d21)-1) *
 
                     // * ( d21*( d22/d21 ) conj(d21)*(           - 1 ) ) =
-                      // (     (      -1 )           ( d11/conj(d21) ) )
+                    //   (     (      -1 )           ( d11/conj(d21) ) )
 
                   // = 1/(|d21|**2) * 1/(D22*D11-1) *
 
                     // * ( d21*( D11 ) conj(d21)*(  -1 ) ) =
-                      // (     (  -1 )           ( D22 ) )
+                    //   (     (  -1 )           ( D22 ) )
 
                   // = (1/|d21|**2) * T * ( d21*( D11 ) conj(d21)*(  -1 ) ) =
-                                       // (     (  -1 )           ( D22 ) )
+                  //                      (     (  -1 )           ( D22 ) )
 
                   // = ( (T/conj(d21))*( D11 ) (T/d21)*(  -1 ) ) =
-                    // (               (  -1 )         ( D22 ) )
+                  //   (               (  -1 )         ( D22 ) )
 
                   // = ( conj(D21)*( D11 ) D21*(  -1 ) )
-                    // (           (  -1 )     ( D22 ) ),
+                  //   (           (  -1 )     ( D22 ) ),
 
                   // where D11 = d22/d21,
-                        // D22 = d11/conj(d21),
-                        // D21 = T/d21,
-                        // T = 1/(D22*D11-1).
+                  //       D22 = d11/conj(d21),
+                  //       D21 = T/d21,
+                  //       T = 1/(D22*D11-1).
 
                   // (NOTE: No need to check for division by ZERO,
-                   // since that was ensured earlier in pivot search:
-                   // (a) d21 != 0, since in 2x2 pivot case(4)
-                       // |d21| should be larger than |d11| and |d22|;
-                   // (b) (D22*D11 - 1) != 0, since from (a),
-                       // both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
+                  //  since that was ensured earlier in pivot search:
+                  //  (a) d21 != 0, since in 2x2 pivot case(4)
+                  //      |d21| should be larger than |d11| and |d22|;
+                  //  (b) (D22*D11 - 1) != 0, since from (a),
+                  //      both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
 
                   D21 = W( K-1, KW );
                   D11 = W( K, KW ) / CONJG( D21 );
@@ -557,8 +557,8 @@
                // and 1-by-1 block D(k) in column k of A.
                // (NOTE: Diagonal element L(k,k) is a UNIT element
                // and not stored)
-                  // A(k,k) := D(k,k) = W(k,k)
-                  // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
+               //    A(k,k) := D(k,k) = W(k,k)
+               //    A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
@@ -567,8 +567,8 @@
                if ( K < N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
-                   // since that was ensured earlier in pivot search:
-                   // case A(k,k) = 0 falls into 2x2 pivot case(4))
+                  //  since that was ensured earlier in pivot search:
+                  //  case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / REAL( A( K, K ) );
                   csscal(N-K, R1, A( K+1, K ), 1 );
@@ -591,9 +591,9 @@
                // block D(k:k+1,k:k+1) in columns k and k+1 of A.
                // (NOTE: 2-by-2 diagonal block L(k:k+1,k:k+1) is a UNIT
                // block and not stored)
-                  // A(k:k+1,k:k+1) := D(k:k+1,k:k+1) = W(k:k+1,k:k+1)
-                  // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
-                  // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
+               //    A(k:k+1,k:k+1) := D(k:k+1,k:k+1) = W(k:k+1,k:k+1)
+               //    A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
+               //    = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
                if ( K < N-1 ) {
 
@@ -603,41 +603,41 @@
                   // ( W(kw-1) W(kw) ) by this inverse, i.e. by D**(-1).
 
                   // D**(-1) = ( d11 cj(d21) )**(-1) =
-                            // ( d21    d22 )
+                  //           ( d21    d22 )
 
                   // = 1/(d11*d22-|d21|**2) * ( ( d22) (-cj(d21) ) ) =
-                                           // ( (-d21) (     d11 ) )
+                  //                          ( (-d21) (     d11 ) )
 
                   // = 1/(|d21|**2) * 1/((d11/cj(d21))*(d22/d21)-1) *
 
                     // * ( d21*( d22/d21 ) conj(d21)*(           - 1 ) ) =
-                      // (     (      -1 )           ( d11/conj(d21) ) )
+                    //   (     (      -1 )           ( d11/conj(d21) ) )
 
                   // = 1/(|d21|**2) * 1/(D22*D11-1) *
 
                     // * ( d21*( D11 ) conj(d21)*(  -1 ) ) =
-                      // (     (  -1 )           ( D22 ) )
+                    //   (     (  -1 )           ( D22 ) )
 
                   // = (1/|d21|**2) * T * ( d21*( D11 ) conj(d21)*(  -1 ) ) =
-                                       // (     (  -1 )           ( D22 ) )
+                  //                      (     (  -1 )           ( D22 ) )
 
                   // = ( (T/conj(d21))*( D11 ) (T/d21)*(  -1 ) ) =
-                    // (               (  -1 )         ( D22 ) )
+                  //   (               (  -1 )         ( D22 ) )
 
                   // = ( conj(D21)*( D11 ) D21*(  -1 ) )
-                    // (           (  -1 )     ( D22 ) )
+                  //   (           (  -1 )     ( D22 ) )
 
                   // where D11 = d22/d21,
-                        // D22 = d11/conj(d21),
-                        // D21 = T/d21,
-                        // T = 1/(D22*D11-1).
+                  //       D22 = d11/conj(d21),
+                  //       D21 = T/d21,
+                  //       T = 1/(D22*D11-1).
 
                   // (NOTE: No need to check for division by ZERO,
-                   // since that was ensured earlier in pivot search:
-                   // (a) d21 != 0, since in 2x2 pivot case(4)
-                       // |d21| should be larger than |d11| and |d22|;
-                   // (b) (D22*D11 - 1) != 0, since from (a),
-                       // both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
+                  //  since that was ensured earlier in pivot search:
+                  //  (a) d21 != 0, since in 2x2 pivot case(4)
+                  //      |d21| should be larger than |d11| and |d22|;
+                  //  (b) (D22*D11 - 1) != 0, since from (a),
+                  //      both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
 
                   D21 = W( K+1, K );
                   D11 = W( K+1, K+1 ) / D21;

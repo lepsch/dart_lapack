@@ -52,15 +52,15 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // CWorkspace refers to complex workspace, and RWorkspace to real
-        // workspace. NB refers to the optimal block size for the
-        // immediately following subroutine, as returned by ILAENV.
-        // HSWORK refers to the workspace preferred by CHSEQR, as
-        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-        // the worst case.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   CWorkspace refers to complex workspace, and RWorkspace to real
+      //   workspace. NB refers to the optimal block size for the
+      //   immediately following subroutine, as returned by ILAENV.
+      //   HSWORK refers to the workspace preferred by CHSEQR, as
+      //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+      //   the worst case.)
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {

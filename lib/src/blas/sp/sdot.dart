@@ -43,7 +43,7 @@
       } else {
 
          // code for unequal increments or equal increments
-           // not equal to 1
+         //   not equal to 1
 
          IX = 1;
          IY = 1;

@@ -144,17 +144,17 @@
             // Description of control parameters:
 
             // KCLASS: =1 means w/o rotation, =2 means w/ rotation,
-                    // =3 means random.
+            //         =3 means random.
             // KATYPE: the "type" to be passed to CLATM4 for computing A.
             // KAZERO: the pattern of zeros on the diagonal for A:
-                    // =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
-                    // =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
-                    // =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
-                    // non-zero entries.)
+            //         =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
+            //         =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
+            //         =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
+            //         non-zero entries.)
             // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
-                    // =2: large, =3: small.
+            //         =2: large, =3: small.
             // LASIGN: true if the diagonal elements of A are to be
-                    // multiplied by a random magnitude 1 number.
+            //         multiplied by a random magnitude 1 number.
             // KBTYPE, KBZERO, KBMAGN, LBSIGN: the same, but for B.
             // KTRIAN: =0: don't fill in the upper triangle, =1: do.
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
@@ -351,7 +351,7 @@
             // Compute the Left and Right Eigenvectors of (S1,P1)
 
             // 9: Compute the left eigenvector Matrix without
-               // back transforming:
+            //    back transforming:
 
             NTEST = 9;
             RESULT[9] = ULPINV;
@@ -396,7 +396,7 @@
             }
 
             // 10: Compute the left eigenvector Matrix with
-                // back transforming:
+            //     back transforming:
 
             NTEST = 10;
             RESULT[10] = ULPINV;
@@ -415,7 +415,7 @@
             }
 
             // 11: Compute the right eigenvector Matrix without
-                // back transforming:
+            //     back transforming:
 
             NTEST = 11;
             RESULT[11] = ULPINV;
@@ -460,7 +460,7 @@
             }
 
             // 12: Compute the right eigenvector Matrix with
-                // back transforming:
+            //     back transforming:
 
             NTEST = 12;
             RESULT[12] = ULPINV;

@@ -64,7 +64,7 @@
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
-                         // columns.
+               //           columns.
 
                MM = N;
                MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'SGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, N + NRHS*ilaenv( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
@@ -82,7 +82,7 @@
                if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
-                            // than rows.
+                  //           than rows.
 
                   MAXWRK = M + M*ilaenv( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ilaenv( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ilaenv( 1, 'SORMBR', 'QLT', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ilaenv( 1, 'SORMBR', 'PLN', M, NRHS, M, -1 ) );
                   if ( NRHS > 1 ) {

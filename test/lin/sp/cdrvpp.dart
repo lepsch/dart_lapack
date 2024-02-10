@@ -184,7 +184,7 @@
                         // Compute the condition number for comparison with
                         // the value returned by CPPSVX (FACT = 'N' reuses
                         // the condition number from the previous iteration
-                           // with FACT = 'F').
+                        //    with FACT = 'F').
 
                         ccopy(NPP, ASAV, 1, AFAC, 1 );
                         if ( EQUIL || IEQUED > 1 ) {

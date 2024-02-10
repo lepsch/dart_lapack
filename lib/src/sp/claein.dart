@@ -148,7 +148,7 @@
       for (ITS = 1; ITS <= N; ITS++) { // 110
 
          // Solve U*x = scale*v for a right eigenvector
-           // or U**H *x = scale*v for a left eigenvector,
+         //   or U**H *x = scale*v for a left eigenvector,
          // overwriting x on v.
 
          clatrs('Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V, SCALE, RWORK, IERR );

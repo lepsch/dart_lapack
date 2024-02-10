@@ -47,9 +47,9 @@
          if ( J > min(M, NB) ) GO TO 20;
 
          // K is the column to be factorized
-          // when being called from ZHETRF_AA,
-          // > for the first block column, J1 is 1, hence J1+J-1 is J,
-          // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
+         //  when being called from ZHETRF_AA,
+         //  > for the first block column, J1 is 1, hence J1+J-1 is J,
+         //  > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
          K = J1+J-1;
          if ( J == M ) {
@@ -62,15 +62,15 @@
          }
 
          // H(J:N, J) := A(J, J:N) - H(J:N, 1:(J-1)) * L(J1:(J-1), J),
-          // where H(J:N, J) has been initialized to be A(J, J:N)
+         //  where H(J:N, J) has been initialized to be A(J, J:N)
 
          if ( K > 2 ) {
 
          // K is the column to be factorized
-          // > for the first block column, K is J, skipping the first two
-            // columns
-          // > for the rest of the columns, K is J+1, skipping only the
-            // first column
+         //  > for the first block column, K is J, skipping the first two
+         //    columns
+         //  > for the rest of the columns, K is J+1, skipping only the
+         //    first column
 
             zlacgv(J-K1, A( 1, J ), 1 );
             zgemv('No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( 1, J ), 1, ONE, H( J, J ), 1 );
@@ -84,7 +84,7 @@
          if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J-1, J:N) * T(J-1,J),
-             // where A(J-1, J) stores T(J-1, J) and A(J-2, J:N) stores U(J-1, J:N)
+            //  where A(J-1, J) stores T(J-1, J) and A(J-2, J:N) stores U(J-1, J:N)
 
             ALPHA = -DCONJG( A( K-1, J ) );
             zaxpy(MJ, ALPHA, A( K-2, J ), LDA, WORK( 1 ), 1 );
@@ -97,7 +97,7 @@
          if ( J < M ) {
 
             // Compute WORK(2:N) = T(J, J) L(J, (J+1):N)
-             // where A(J, J) stores T(J, J) and A(J-1, (J+1):N) stores U(J, (J+1):N)
+            //  where A(J, J) stores T(J, J) and A(J-1, (J+1):N) stores U(J, (J+1):N)
 
             if ( K > 1 ) {
                ALPHA = -A( K, J );
@@ -145,7 +145,7 @@
                if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
-                   // skipping the first column
+                  //  skipping the first column
 
                   zswap(I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                }
@@ -165,7 +165,7 @@
             }
 
             // Compute L(J+2, J+1) = WORK( 3:N ) / T(J, J+1),
-             // where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
+            //  where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
 
             if ( J < (M-1) ) {
                if ( A( K, J+1 ) != ZERO ) {
@@ -191,9 +191,9 @@
          if( J > min( M, NB ) ) GO TO 40;
 
          // K is the column to be factorized
-          // when being called from ZHETRF_AA,
-          // > for the first block column, J1 is 1, hence J1+J-1 is J,
-          // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
+         //  when being called from ZHETRF_AA,
+         //  > for the first block column, J1 is 1, hence J1+J-1 is J,
+         //  > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
          K = J1+J-1;
          if ( J == M ) {
@@ -206,15 +206,15 @@
          }
 
          // H(J:N, J) := A(J:N, J) - H(J:N, 1:(J-1)) * L(J, J1:(J-1))^T,
-          // where H(J:N, J) has been initialized to be A(J:N, J)
+         //  where H(J:N, J) has been initialized to be A(J:N, J)
 
          if ( K > 2 ) {
 
          // K is the column to be factorized
-          // > for the first block column, K is J, skipping the first two
-            // columns
-          // > for the rest of the columns, K is J+1, skipping only the
-            // first column
+         //  > for the first block column, K is J, skipping the first two
+         //    columns
+         //  > for the rest of the columns, K is J+1, skipping only the
+         //    first column
 
             zlacgv(J-K1, A( J, 1 ), LDA );
             zgemv('No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( J, 1 ), LDA, ONE, H( J, J ), 1 );
@@ -228,7 +228,7 @@
          if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J:N, J-1) * T(J-1,J),
-             // where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
+            //  where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
 
             ALPHA = -DCONJG( A( J, K-1 ) );
             zaxpy(MJ, ALPHA, A( J, K-2 ), 1, WORK( 1 ), 1 );
@@ -241,7 +241,7 @@
          if ( J < M ) {
 
             // Compute WORK(2:N) = T(J, J) L((J+1):N, J)
-             // where A(J, J) = T(J, J) and A((J+1):N, J-1) = L((J+1):N, J)
+            //  where A(J, J) = T(J, J) and A((J+1):N, J-1) = L((J+1):N, J)
 
             if ( K > 1 ) {
                ALPHA = -A( J, K );
@@ -289,7 +289,7 @@
                if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
-                   // skipping the first column
+                  //  skipping the first column
 
                   zswap(I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                }
@@ -309,7 +309,7 @@
             }
 
             // Compute L(J+2, J+1) = WORK( 3:N ) / T(J, J+1),
-             // where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
+            //  where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
 
             if ( J < (M-1) ) {
                if ( A( J+1, K ) != ZERO ) {

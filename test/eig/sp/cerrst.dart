@@ -421,7 +421,7 @@
           // INFOT = 8
           // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 3,
       // $                            RW, 25, IW, 12, INFO )
-          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10;
          cheevd_2stage('N', 'U', 1, A, 1, X, W, 1, RW, 0, IW, 1, INFO );
          chkxer('CHEEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -431,14 +431,14 @@
           // INFOT = 10
           // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
       // $                            RW, 18, IW, 12, INFO )
-          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 12;
          cheevd_2stage('N', 'U', 1, A, 1, X, W, 1, RW, 1, IW, 0, INFO );
          chkxer('CHEEVD_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 12;
           // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
       // $                            RW, 25, IW, 11, INFO )
-          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 10;
 
          // CHEEV
@@ -875,7 +875,7 @@
           // INFOT = 11
           // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
       // $                         W, 2, RW, 25, IW, 12, INFO )
-          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13;
          chbevd_2stage('N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 0, IW, 1, INFO );
          chkxer('CHBEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -885,7 +885,7 @@
           // INFOT = 13
           // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
       // $                          W, 25, RW, 2, IW, 12, INFO )
-          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 15;
          chbevd_2stage('N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 1, IW, 0, INFO );
          chkxer('CHBEVD_2STAGE', INFOT, NOUT, LERR, OK );
@@ -895,7 +895,7 @@
           // INFOT = 15
           // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
       // $                          W, 25, RW, 25, IW, 2, INFO )
-          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13;
 
          // CHBEV
@@ -1013,7 +1013,7 @@
           // CALL CHBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1,
       // $                       0.0, 0.0, 0, 0, 0.0,
       // $                       M, X, Z, 2, W, 0, RW, IW, I3, INFO )
-          // CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
+      //     CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11;
          chbevx_2stage('N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, RW, IW, I3, INFO );
          chkxer('CHBEVX_2STAGE', INFOT, NOUT, LERR, OK );

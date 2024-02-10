@@ -49,7 +49,7 @@
       dgemm(TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X, LDX, ONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
-         // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
+      //    norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10

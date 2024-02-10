@@ -37,7 +37,7 @@
       }
 
       // Compute the maximum of
-         // norm(X - XACT) / ( norm(XACT) * EPS )
+      //    norm(X - XACT) / ( norm(XACT) * EPS )
       // over all the vectors X and XACT .
 
       RESID = ZERO;

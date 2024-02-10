@@ -60,18 +60,18 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of real workspace needed at that point in the
-        // code, as well as the preferred amount for good performance.
-        // CWorkspace refers to complex workspace, and RWorkspace to real
-        // workspace. NB refers to the optimal block size for the
-        // immediately following subroutine, as returned by ILAENV.
-        // HSWORK refers to the workspace preferred by ZHSEQR, as
-        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-        // the worst case.
-        // If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
-        // depends on SDIM, which is computed by the routine ZTRSEN later
-        // in the code.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of real workspace needed at that point in the
+      //   code, as well as the preferred amount for good performance.
+      //   CWorkspace refers to complex workspace, and RWorkspace to real
+      //   workspace. NB refers to the optimal block size for the
+      //   immediately following subroutine, as returned by ILAENV.
+      //   HSWORK refers to the workspace preferred by ZHSEQR, as
+      //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+      //   the worst case.
+      //   If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
+      //   depends on SDIM, which is computed by the routine ZTRSEN later
+      //   in the code.)
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
@@ -184,7 +184,7 @@
          // Reorder eigenvalues, transform Schur vectors, and compute
          // reciprocal condition numbers
          // (CWorkspace: if SENSE is not 'N', need 2*SDIM*(N-SDIM)
-                      // otherwise, need none )
+         //              otherwise, need none )
          // (RWorkspace: none)
 
          ztrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );

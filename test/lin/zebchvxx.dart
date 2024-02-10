@@ -113,10 +113,10 @@
          if (ORCOND < EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
-             // IF (INFO == 0 || INFO > N+1) THEN
-                // NFAIL = NFAIL + 1
-                // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
-             // END IF
+         //     IF (INFO == 0 || INFO > N+1) THEN
+         //        NFAIL = NFAIL + 1
+         //        WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
+         //     END IF
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
          // to converge (INFO > N+1).
@@ -238,7 +238,7 @@
             CWISE_RCOND = ERRBND_C(K + (COND_I-1)*NRHS);
              // write (*,*) 'nwise : ', n, k, ncond, nwise_rcond,
       // $           condthresh, ncond >= condthresh
-             // write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
+      //        write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
             if (NCOND >= CONDTHRESH) {
                NGUAR = 'YES';
                if (NWISE_BND > ERRTHRESH) {
@@ -265,7 +265,7 @@
             }
              // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
       // $           condthresh, ccond >= condthresh
-             // write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
+      //        write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
             if (CCOND >= CONDTHRESH) {
                CGUAR = 'YES';
                if (CWISE_BND > ERRTHRESH) {

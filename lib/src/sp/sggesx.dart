@@ -97,11 +97,11 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
          if ( N > 0) {
@@ -243,7 +243,7 @@
       // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
       // condition number(s)
       // (Workspace: If IJOB >= 1, need max( 8*(N+1), 2*SDIM*(N-SDIM) )
-                  // otherwise, need 8*(N+1) )
+      //             otherwise, need 8*(N+1) )
 
       if ( WANTST ) {
 

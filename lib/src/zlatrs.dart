@@ -454,7 +454,7 @@
                   if ( J > 1 ) {
 
                      // Compute the update
-                        // x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
+                     //    x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
 
                      zaxpy(J-1, -X( J )*TSCAL, A( 1, J ), 1, X, 1 );
                      I = IZAMAX( J-1, X, 1 );
@@ -464,7 +464,7 @@
                   if ( J < N ) {
 
                      // Compute the update
-                        // x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
+                     //    x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
 
                      zaxpy(N-J, -X( J )*TSCAL, A( J+1, J ), 1, X( J+1 ), 1 );
                      I = J + IZAMAX( N-J, X( J+1 ), 1 );
@@ -480,7 +480,7 @@
             for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 170
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
-                                     // k<>j
+               //                       k<>j
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;
@@ -613,7 +613,7 @@
             for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 220
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
-                                     // k<>j
+               //                       k<>j
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;

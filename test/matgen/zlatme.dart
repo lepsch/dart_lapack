@@ -39,7 +39,7 @@
       // INTRINSIC ABS, DCONJG, MAX, MOD
 
       // 1)      Decode and Test the input parameters.
-              // Initialize flags & seed.
+      //         Initialize flags & seed.
 
       INFO = 0;
 

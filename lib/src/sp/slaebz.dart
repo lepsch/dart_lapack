@@ -53,8 +53,8 @@
       // Initialize for loop
 
       // KF and KL have the following meaning:
-         // Intervals 1,...,KF-1 have converged.
-         // Intervals KF,...,KL  still need to be refined.
+      //    Intervals 1,...,KF-1 have converged.
+      //    Intervals KF,...,KL  still need to be refined.
 
       KF = 1;
       KL = MINP;
@@ -148,7 +148,7 @@
             } else {
 
                // IJOB=3: Binary search.  Keep only the interval containing
-                       // w   s.t. N(w) = NVAL
+               //         w   s.t. N(w) = NVAL
 
                for (JI = KF; JI <= KL; JI++) { // 80
                   if ( IWORK( JI ) <= NVAL( JI ) ) {
@@ -231,7 +231,7 @@
                } else {
 
                   // IJOB=3: Binary search.  Keep only the interval
-                          // containing  w  s.t. N(w) = NVAL
+                  //         containing  w  s.t. N(w) = NVAL
 
                   if ( ITMP1 <= NVAL( JI ) ) {
                      AB[JI][1] = TMP1;
@@ -256,7 +256,7 @@
             if ( TMP1 < max( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
-                            // then increment KFNEW
+               //              then increment KFNEW
 
                if ( JI > KFNEW ) {
                   TMP1 = AB( JI, 1 );

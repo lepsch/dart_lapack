@@ -148,7 +148,7 @@
 
       // Permute the matrix to make it more nearly triangular
       // Workspace layout:  (8*N words -- "work" requires 6*N words)
-         // left_permutation, right_permutation, work...
+      //    left_permutation, right_permutation, work...
 
       ILEFT = 1;
       IRIGHT = N + 1;
@@ -161,7 +161,7 @@
 
       // Reduce B to triangular form, and initialize VL and/or VR
       // Workspace layout:  ("work..." must have at least N words)
-         // left_permutation, right_permutation, tau, work...
+      //    left_permutation, right_permutation, tau, work...
 
       IROWS = IHI + 1 - ILO;
       if ( ILV ) {
@@ -214,7 +214,7 @@
 
       // Perform QZ algorithm
       // Workspace layout:  ("work..." must have at least 1 word)
-         // left_permutation, right_permutation, work...
+      //    left_permutation, right_permutation, work...
 
       IWORK = ITAU;
       if ( ILV ) {

@@ -107,7 +107,7 @@
          for (CNT = 1; CNT <= ITHRESH; CNT++) {
 
          // Compute residual RES = B_s - op(A_s) * Y,
-             // op(A) = A, A**T, or A**H depending on TRANS (and type).
+         //     op(A) = A, A**T, or A**H depending on TRANS (and type).
 
             scopy(N, B( 1, J ), 1, RES, 1 );
             if (Y_PREC_STATE == BASE_RESIDUAL) {
@@ -242,12 +242,12 @@
          }
 
       // Compute componentwise relative backward error from formula
-          // max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
+      //     max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
       // where abs(Z) is the componentwise absolute value of the matrix
       // or vector Z.
 
          // Compute residual RES = B_s - op(A_s) * Y,
-             // op(A) = A, A**T, or A**H depending on TRANS (and type).
+         //     op(A) = A, A**T, or A**H depending on TRANS (and type).
          scopy(N, B( 1, J ), 1, RES, 1 );
          ssymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
 

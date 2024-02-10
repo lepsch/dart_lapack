@@ -161,8 +161,8 @@
 
                   // Reordering successful, solve generalized Sylvester
                   // equation for R and L,
-                             // A22 * R - L * A11 = A12
-                             // B22 * R - L * B11 = B12,
+                  //            A22 * R - L * A11 = A12
+                  //            B22 * R - L * B11 = B12,
                   // and compute estimate of Difl[(A11,B11), (A22, B22)].
 
                   N1 = 1;

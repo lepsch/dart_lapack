@@ -76,9 +76,9 @@
       DNORMB = DSCALE*sqrt( DSUM );
 
       // THRES has been changed from
-         // THRESH = max( TEN*EPS*SA, SMLNUM )
+      //    THRESH = max( TEN*EPS*SA, SMLNUM )
       // to
-         // THRESH = max( TWENTY*EPS*SA, SMLNUM )
+      //    THRESH = max( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
       // Jim Demmel and Guillaume Revy. See forum post 1783.
@@ -113,16 +113,16 @@
          LI[1][2] = -LI( 2, 1 );
 
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
-                            // and  |T21| <= O(EPS F-norm((B)))
+         //                    and  |T21| <= O(EPS F-norm((B)))
 
          WEAK = ( S( 2, 1 ) ).abs() <= THRESHA && ( T( 2, 1 ) ).abs() <= THRESHB          IF( !WEAK ) GO TO 70;
 
          if ( WANDS ) {
 
             // Strong stability test:
-                // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
-                // and
-                // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
+            //     F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
+            //     and
+            //     F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
             slacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M );
             sgemm('N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M );
@@ -144,7 +144,7 @@
          }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
-                // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
+         //        (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
 
          srot(J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          srot(J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
@@ -168,11 +168,11 @@
       } else {
 
          // CASE 2: Swap 1-by-1 and 2-by-2 blocks, or 2-by-2
-                 // and 2-by-2 blocks.
+         //         and 2-by-2 blocks.
 
          // Solve the generalized Sylvester equation
-                  // S11 * R - L * S22 = SCALE * S12
-                  // T11 * R - L * T22 = SCALE * T12
+         //          S11 * R - L * S22 = SCALE * S12
+         //          T11 * R - L * T22 = SCALE * T12
          // for R and L. Solutions in LI and IR.
 
          slacpy('Full', N1, N2, T( 1, N1+1 ), LDST, LI, LDST );
@@ -183,10 +183,10 @@
          // Compute orthogonal matrix QL:
 
                      // QL**T * LI = [ TL ]
-                                  // [ 0  ]
+                     //              [ 0  ]
          // where
-                     // LI =  [      -L              ]
-                           // [ SCALE * identity(N2) ]
+         //             LI =  [      -L              ]
+         //                   [ SCALE * identity(N2) ]
 
          for (I = 1; I <= N2; I++) { // 10
             sscal(N1, -ONE, LI( 1, I ), 1 );
@@ -257,8 +257,8 @@
          BQRA21 = DSCALE*sqrt( DSUM );
 
          // Decide which method to use.
-           // Weak stability test:
-              // F-norm(S21) <= O(EPS * F-norm((S)))
+         //   Weak stability test:
+         //      F-norm(S21) <= O(EPS * F-norm((S)))
 
          if ( BQRA21 <= BRQA21 && BQRA21 <= THRESHA ) {
             slacpy('F', M, M, SCPY, LDST, S, LDST );
@@ -276,9 +276,9 @@
          if ( WANDS ) {
 
             // Strong stability test:
-                // F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
-                // and
-                // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
+            //     F-norm((A-QL**H*S*QR)) <= O(EPS*F-norm((A)))
+            //     and
+            //     F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
             slacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M );
             sgemm('N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M );
@@ -362,7 +362,7 @@
          }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
-                 // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
+         //         (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
 
          I = J1 + M;
          if ( I <= N ) {

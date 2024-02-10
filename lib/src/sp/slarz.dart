@@ -38,7 +38,7 @@
             saxpy(N, -TAU, WORK, 1, C, LDC );
 
             // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-                                // tau * v( 1:l ) * w( 1:n )**T
+            //                     tau * v( 1:l ) * w( 1:n )**T
 
             sger(L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC );
          }
@@ -62,7 +62,7 @@
             saxpy(M, -TAU, WORK, 1, C, 1 );
 
             // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-                                // tau * w( 1:m ) * v( 1:l )**T
+            //                     tau * w( 1:m ) * v( 1:l )**T
 
             sger(M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC );
 

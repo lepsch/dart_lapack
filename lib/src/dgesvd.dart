@@ -1,44 +1,45 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dgemm.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dbdsqr.dart';
+import 'package:lapack/src/dgebrd.dart';
+import 'package:lapack/src/dgelqf.dart';
+import 'package:lapack/src/dgeqrf.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dorgbr.dart';
+import 'package:lapack/src/dorglq.dart';
+import 'package:lapack/src/dorgqr.dart';
+import 'package:lapack/src/dormbr.dart';
 import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, INFO ) {
+      void dgesvd(final String JOBU, final String JOBVT, final int M, final int N,
+      final Matrix<double> A, final int LDA, final Array<double> S,
+      final Matrix<double> U, final int LDU,
+      final Matrix<double> VT, final int LDVT,
+      final Array<double> WORK, final int LWORK, final Box<int> INFO, ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBU, JOBVT;
-      int                INFO, LDA, LDU, LDVT, LWORK, M, N;
-      double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-      // ..
-
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS;
-      int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
+      int                BDSPAC=0, BLK, CHUNK, I, IE=0, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK=0, MINMN, MINWRK, MNTHR=0, NCU=0, NCVT=0, NRU=0, NRVT=0, WRKBL=0;
       int                LWORK_DGEQRF, LWORK_DORGQR_N, LWORK_DORGQR_M, LWORK_DGEBRD, LWORK_DORGBR_P, LWORK_DORGBR_Q, LWORK_DGELQF, LWORK_DORGLQ_N, LWORK_DORGLQ_M;
       double             ANRM, BIGNUM, EPS, SMLNUM;
-      double             DUM( 1 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DBDSQR, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN, SQRT
+      final             DUM=Array<double>( 1 );
+      final IERR=Box(0);
 
       // Test the input arguments
 
-      INFO = 0;
+      INFO.value = 0;
       MINMN = min( M, N );
       WNTUA = lsame( JOBU, 'A' );
       WNTUS = lsame( JOBU, 'S' );
@@ -53,29 +54,29 @@ import 'package:lapack/src/xerbla.dart';
       LQUERY = ( LWORK == -1 );
 
       if ( !( WNTUA || WNTUS || WNTUO || WNTUN ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( M < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDA < max( 1, M ) ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDU < 1 || ( WNTUAS && LDU < M ) ) {
-         INFO = -9;
+         INFO.value = -9;
       } else if ( LDVT < 1 || ( WNTVA && LDVT < N ) || ( WNTVS && LDVT < MINMN ) ) {
-         INFO = -11;
+         INFO.value = -11;
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
          MINWRK = 1;
          MAXWRK = 1;
          if ( M >= N && MINMN > 0 ) {
@@ -86,21 +87,21 @@ import 'package:lapack/src/xerbla.dart';
             BDSPAC = 5*N;
             // Compute space needed for DGEQRF
             dgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEQRF = INT( DUM(1) );
+            LWORK_DGEQRF = DUM[1].toInt();
             // Compute space needed for DORGQR
             dorgqr(M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGQR_N = INT( DUM(1) );
+            LWORK_DORGQR_N = DUM[1].toInt();
             dorgqr(M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGQR_M = INT( DUM(1) );
+            LWORK_DORGQR_M = DUM[1].toInt();
             // Compute space needed for DGEBRD
             dgebrd(N, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD = INT( DUM(1) );
+            LWORK_DGEBRD = DUM[1].toInt();
             // Compute space needed for DORGBR P
             dorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_P = INT( DUM(1) );
+            LWORK_DORGBR_P = DUM[1].toInt();
             // Compute space needed for DORGBR Q
             dorgbr('Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_Q = INT( DUM(1) );
+            LWORK_DORGBR_Q = DUM[1].toInt();
 
             if ( M >= MNTHR ) {
                if ( WNTUN ) {
@@ -214,16 +215,16 @@ import 'package:lapack/src/xerbla.dart';
                // Path 10 (M at least N, but not much larger)
 
                dgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-               LWORK_DGEBRD = INT( DUM(1) );
+               LWORK_DGEBRD = DUM[1].toInt();
                MAXWRK = 3*N + LWORK_DGEBRD;
                if ( WNTUS || WNTUO ) {
                   dorgbr('Q', M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-                  LWORK_DORGBR_Q = INT( DUM(1) );
+                  LWORK_DORGBR_Q = DUM[1].toInt();
                   MAXWRK = max( MAXWRK, 3*N + LWORK_DORGBR_Q );
                }
                if ( WNTUA ) {
                   dorgbr('Q', M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-                  LWORK_DORGBR_Q = INT( DUM(1) );
+                  LWORK_DORGBR_Q = DUM[1].toInt();
                   MAXWRK = max( MAXWRK, 3*N + LWORK_DORGBR_Q );
                }
                if ( !WNTVN ) {
@@ -240,21 +241,21 @@ import 'package:lapack/src/xerbla.dart';
             BDSPAC = 5*M;
             // Compute space needed for DGELQF
             dgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DGELQF = INT( DUM(1) );
+            LWORK_DGELQF = DUM[1].toInt();
             // Compute space needed for DORGLQ
             dorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGLQ_N = INT( DUM(1) );
+            LWORK_DORGLQ_N = DUM[1].toInt();
             dorglq(M, N, M, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGLQ_M = INT( DUM(1) );
+            LWORK_DORGLQ_M = DUM[1].toInt();
             // Compute space needed for DGEBRD
             dgebrd(M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD = INT( DUM(1) );
+            LWORK_DGEBRD = DUM[1].toInt();
              // Compute space needed for DORGBR P
             dorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_P = INT( DUM(1) );
+            LWORK_DORGBR_P = DUM[1].toInt();
             // Compute space needed for DORGBR Q
             dorgbr('Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_Q = INT( DUM(1) );
+            LWORK_DORGBR_Q = DUM[1].toInt();
             if ( N >= MNTHR ) {
                if ( WNTVN ) {
 
@@ -367,17 +368,17 @@ import 'package:lapack/src/xerbla.dart';
                // Path 10t(N greater than M, but not much larger)
 
                dgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-               LWORK_DGEBRD = INT( DUM(1) );
+               LWORK_DGEBRD = DUM[1].toInt();
                MAXWRK = 3*M + LWORK_DGEBRD;
                if ( WNTVS || WNTVO ) {
                  // Compute space needed for DORGBR P
                  dorgbr('P', M, N, M, A, N, DUM(1), DUM(1), -1, IERR );
-                 LWORK_DORGBR_P = INT( DUM(1) );
+                 LWORK_DORGBR_P = DUM[1].toInt();
                  MAXWRK = max( MAXWRK, 3*M + LWORK_DORGBR_P );
                }
                if ( WNTVA ) {
                  dorgbr('P', N, N, M, A, N, DUM(1), DUM(1), -1, IERR );
-                 LWORK_DORGBR_P = INT( DUM(1) );
+                 LWORK_DORGBR_P = DUM[1].toInt();
                  MAXWRK = max( MAXWRK, 3*M + LWORK_DORGBR_P );
                }
                if ( !WNTUN ) {
@@ -388,15 +389,15 @@ import 'package:lapack/src/xerbla.dart';
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK[1] = MAXWRK;
+         WORK[1] = MAXWRK.toDouble();
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -13;
+            INFO.value = -13;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DGESVD', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DGESVD', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -476,7 +477,7 @@ import 'package:lapack/src/xerbla.dart';
                // singular vectors of A in A if desired
                // (Workspace: need BDSPAC)
 
-               dbdsqr('U', N, NCVT, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('U', N, NCVT, 0, 0, S, WORK( IE ), A, LDA, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                // If right singular vectors desired in VT, copy them there
 
@@ -509,7 +510,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // WORK(IU) is LDWRKU by N, WORK(IR) is N by N
 
-                     LDWRKU = ( LWORK-N*N-N ) / N;
+                     LDWRKU = ( LWORK-N*N-N ) ~/ N;
                      LDWRKR = N;
                   }
                   ITAU = IR + LDWRKR*N;
@@ -522,8 +523,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Copy R to WORK(IR) and zero out below it
 
-                  dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
-                  dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                  dlacpy('U', N, N, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                  dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ).asMatrix(LDWRKR), LDWRKR );
 
                   // Generate Q in A
                   // (Workspace: need N*N + 2*N, prefer N*N + N + N*NB)
@@ -537,19 +538,19 @@ import 'package:lapack/src/xerbla.dart';
                   // Bidiagonalize R in WORK(IR)
                   // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
-                  dgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dgebrd(N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing R
                   // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                  dorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dorgbr('Q', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + N;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of R in WORK(IR)
                   // (Workspace: need N*N + BDSPAC)
 
-                  dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM.asMatrix(1), 1, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
                   IU = IE + N;
 
                   // Multiply Q in A by left singular vectors of R in
@@ -558,8 +559,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 10
                      CHUNK = min( M-I+1, LDWRKU );
-                     dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
-                     dlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
+                     dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR, ZERO, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlacpy('F', CHUNK, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A( I, 1 ), LDA );
                   } // 10
 
                } else {
@@ -586,7 +587,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM.asMatrix(1), 1, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                }
 
@@ -617,7 +618,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // WORK(IU) is LDWRKU by N and WORK(IR) is N by N
 
-                     LDWRKU = ( LWORK-N*N-N ) / N;
+                     LDWRKU = ( LWORK-N*N-N ) ~/ N;
                      LDWRKR = N;
                   }
                   ITAU = IR + LDWRKR*N;
@@ -646,12 +647,12 @@ import 'package:lapack/src/xerbla.dart';
                   // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
                   dgebrd(N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  dlacpy('L', N, N, VT, LDVT, WORK( IR ), LDWRKR );
+                  dlacpy('L', N, N, VT, LDVT, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                   // Generate left vectors bidiagonalizing R in WORK(IR)
                   // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                  dorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dorgbr('Q', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing R in VT
                   // (Workspace: need N*N + 4*N-1, prefer N*N + 3*N + (N-1)*NB)
@@ -664,7 +665,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of R in VT
                   // (Workspace: need N*N + BDSPAC)
 
-                  dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
                   IU = IE + N;
 
                   // Multiply Q in A by left singular vectors of R in
@@ -673,8 +674,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 20
                      CHUNK = min( M-I+1, LDWRKU );
-                     dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
-                     dlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
+                     dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR, ZERO, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlacpy('F', CHUNK, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A( I, 1 ), LDA );
                   } // 20
 
                } else {
@@ -724,7 +725,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of A in VT
                   // (Workspace: need BDSPAC)
 
-                  dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                }
 
@@ -762,8 +763,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     dlacpy('U', N, N, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need N*N + 2*N, prefer N*N + N + N*NB)
@@ -777,25 +778,25 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
-                     dgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dgebrd(N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left vectors bidiagonalizing R in WORK(IR)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
                      // (Workspace: need N*N + BDSPAC)
 
-                     dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM.asMatrix(1), 1, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IR), storing result in U
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU );
+                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR, ZERO, U, LDU );
 
                   } else {
 
@@ -840,7 +841,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in U
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM.asMatrix(1), 1, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -887,8 +888,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ).asMatrix(LDWRKU), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*N*N + 2*N, prefer 2*N*N + N + N*NB)
@@ -902,21 +903,21 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
                      // (Workspace: need 2*N*N + 4*N,
-                                 // prefer 2*N*N+3*N+2*N*NB)
+                     //             prefer 2*N*N+3*N+2*N*NB)
 
-                     dgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
+                     dgebrd(N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('U', N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*N*N + 4*N, prefer 2*N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*N*N + 4*N-1,
-                                 // prefer 2*N*N+3*N+(N-1)*NB)
+                     //             prefer 2*N*N+3*N+(N-1)*NB)
 
-                     dorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
@@ -924,18 +925,18 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of R in WORK(IR)
                      // (Workspace: need 2*N*N + BDSPAC)
 
-                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( IU ).asMatrix(LDWRKU), LDWRKU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IU), storing result in U
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU );
+                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU, ZERO, U, LDU );
 
                      // Copy right singular vectors of R to A
                      // (Workspace: need N*N)
 
-                     dlacpy('F', N, N, WORK( IR ), LDWRKR, A, LDA );
+                     dlacpy('F', N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A, LDA );
 
                   } else {
 
@@ -986,14 +987,14 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in A
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
                } else if ( WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S'
-                          // or 'A')
+                  //         or 'A')
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
@@ -1023,8 +1024,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ).asMatrix(LDWRKU), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need N*N + 2*N, prefer N*N + N + N*NB)
@@ -1038,17 +1039,17 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
-                     dgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('U', N, N, WORK( IU ), LDWRKU, VT, LDVT );
+                     dgebrd(N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('U', N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, VT, LDVT );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need N*N + 4*N-1,
-                                 // prefer N*N+3*N+(N-1)*NB)
+                     //             prefer N*N+3*N+(N-1)*NB)
 
                      dorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
@@ -1058,13 +1059,13 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of R in VT
                      // (Workspace: need N*N + BDSPAC)
 
-                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ).asMatrix(LDWRKU), LDWRKU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IU), storing result in U
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU );
+                     dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU, ZERO, U, LDU );
 
                   } else {
 
@@ -1115,7 +1116,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1129,7 +1130,7 @@ import 'package:lapack/src/xerbla.dart';
                   // M left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  if ( LWORK >= N*N+max( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+max( N+M, max(4*N, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1156,8 +1157,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     dlacpy('U', N, N, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate Q in U
                      // (Workspace: need N*N + N + M, prefer N*N + N + M*NB)
@@ -1171,25 +1172,25 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
-                     dgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dgebrd(N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
                      // (Workspace: need N*N + BDSPAC)
 
-                     dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM.asMatrix(1), 1, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IR), storing result in A
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IR ), LDWRKR, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IR ).asMatrix(LDWRKR), LDWRKR, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
@@ -1239,7 +1240,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in U
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM.asMatrix(1), 1, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1249,7 +1250,7 @@ import 'package:lapack/src/xerbla.dart';
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  if ( LWORK >= 2*N*N+max( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= 2*N*N+max( N+M, max(4*N, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1292,8 +1293,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ).asMatrix(LDWRKU), LDWRKU );
                      IE = ITAU;
                      ITAUQ = IE + N;
                      ITAUP = ITAUQ + N;
@@ -1302,21 +1303,21 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
                      // (Workspace: need 2*N*N + 4*N,
-                                 // prefer 2*N*N+3*N+2*N*NB)
+                     //             prefer 2*N*N+3*N+2*N*NB)
 
-                     dgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
+                     dgebrd(N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('U', N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*N*N + 4*N, prefer 2*N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*N*N + 4*N-1,
-                                 // prefer 2*N*N+3*N+(N-1)*NB)
+                     //             prefer 2*N*N+3*N+(N-1)*NB)
 
-                     dorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', N, N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1324,13 +1325,13 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of R in WORK(IR)
                      // (Workspace: need 2*N*N + BDSPAC)
 
-                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( IU ).asMatrix(LDWRKU), LDWRKU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IU), storing result in A
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ).asMatrix(LDWRKU), LDWRKU, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
@@ -1338,7 +1339,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy right singular vectors of R from WORK(IR) to A
 
-                     dlacpy('F', N, N, WORK( IR ), LDWRKR, A, LDA );
+                     dlacpy('F', N, N, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A, LDA );
 
                   } else {
 
@@ -1390,18 +1391,18 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in A
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
                } else if ( WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S'
-                          // or 'A')
+                  //         or 'A')
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  if ( LWORK >= N*N+max( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+max( N+M, max(4*N, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1433,8 +1434,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ).asMatrix(LDWRKU), LDWRKU );
                      IE = ITAU;
                      ITAUQ = IE + N;
                      ITAUP = ITAUQ + N;
@@ -1443,17 +1444,17 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + 2*N*NB)
 
-                     dgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('U', N, N, WORK( IU ), LDWRKU, VT, LDVT );
+                     dgebrd(N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('U', N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, VT, LDVT );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need N*N + 4*N, prefer N*N + 3*N + N*NB)
 
-                     dorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', N, N, N, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need N*N + 4*N-1,
-                                 // prefer N*N+3*N+(N-1)*NB)
+                     //             prefer N*N+3*N+(N-1)*NB)
 
                      dorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N;
@@ -1463,13 +1464,13 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of R in VT
                      // (Workspace: need N*N + BDSPAC)
 
-                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ).asMatrix(LDWRKU), LDWRKU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IU), storing result in A
                      // (Workspace: need N*N)
 
-                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ).asMatrix(LDWRKU), LDWRKU, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
@@ -1524,7 +1525,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1556,7 +1557,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dlacpy('L', M, N, A, LDA, U, LDU );
                if (WNTUS) NCU = N;
-               IF( WNTUA ) NCU = M;
+               if( WNTUA ) NCU = M;
                dorgbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
@@ -1588,7 +1589,7 @@ import 'package:lapack/src/xerbla.dart';
             if (WNTUAS || WNTUO) NRU = M;
             if( WNTUN ) NRU = 0;
             if( WNTVAS || WNTVO ) NCVT = N;
-            IF( WNTVN ) NCVT = 0;
+            if( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1596,7 +1597,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             } else if ( ( !WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1604,7 +1605,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in A
                // (Workspace: need BDSPAC)
 
-               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1612,7 +1613,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             }
 
          }
@@ -1665,7 +1666,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of A in A if desired
                // (Workspace: need BDSPAC)
 
-               dbdsqr('U', M, 0, NRU, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('U', M, 0, NRU, 0, S, WORK( IE ), DUM.asMatrix(1), 1, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                // If left singular vectors desired in U, copy them there
 
@@ -1701,7 +1702,7 @@ import 'package:lapack/src/xerbla.dart';
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
                      LDWRKU = M;
-                     CHUNK = ( LWORK-M*M-M ) / M;
+                     CHUNK = ( LWORK-M*M-M ) ~/ M;
                      LDWRKR = M;
                   }
                   ITAU = IR + LDWRKR*M;
@@ -1714,8 +1715,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   // Copy L to WORK(IR) and zero out above it
 
-                  dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
-                  dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                  dlacpy('L', M, M, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                  dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ).asMatrix(LDWRKR), LDWRKR );
 
                   // Generate Q in A
                   // (Workspace: need M*M + 2*M, prefer M*M + M + M*NB)
@@ -1729,19 +1730,19 @@ import 'package:lapack/src/xerbla.dart';
                   // Bidiagonalize L in WORK(IR)
                   // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
-                  dgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dgebrd(M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing L
                   // (Workspace: need M*M + 4*M-1, prefer M*M + 3*M + (M-1)*NB)
 
-                  dorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dorgbr('P', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + M;
 
                   // Perform bidiagonal QR iteration, computing right
                   // singular vectors of L in WORK(IR)
                   // (Workspace: need M*M + BDSPAC)
 
-                  dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
                   IU = IE + M;
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
@@ -1750,8 +1751,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 30
                      BLK = min( N-I+1, CHUNK );
-                     dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
-                     dlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
+                     dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlacpy('F', M, BLK, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A( 1, I ), LDA );
                   } // 30
 
                } else {
@@ -1778,7 +1779,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  dbdsqr('L', M, N, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('L', M, N, 0, 0, S, WORK( IE ), A, LDA, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                }
 
@@ -1812,7 +1813,7 @@ import 'package:lapack/src/xerbla.dart';
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
                      LDWRKU = M;
-                     CHUNK = ( LWORK-M*M-M ) / M;
+                     CHUNK = ( LWORK-M*M-M ) ~/ M;
                      LDWRKR = M;
                   }
                   ITAU = IR + LDWRKR*M;
@@ -1841,12 +1842,12 @@ import 'package:lapack/src/xerbla.dart';
                   // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
                   dgebrd(M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  dlacpy('U', M, M, U, LDU, WORK( IR ), LDWRKR );
+                  dlacpy('U', M, M, U, LDU, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                   // Generate right vectors bidiagonalizing L in WORK(IR)
                   // (Workspace: need M*M + 4*M-1, prefer M*M + 3*M + (M-1)*NB)
 
-                  dorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  dorgbr('P', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing L in U
                   // (Workspace: need M*M + 4*M, prefer M*M + 3*M + M*NB)
@@ -1859,7 +1860,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of L in WORK(IR)
                   // (Workspace: need M*M + BDSPAC)
 
-                  dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IR ), LDWRKR, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
                   IU = IE + M;
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
@@ -1868,8 +1869,8 @@ import 'package:lapack/src/xerbla.dart';
 
                   for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 40
                      BLK = min( N-I+1, CHUNK );
-                     dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
-                     dlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
+                     dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlacpy('F', M, BLK, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A( 1, I ), LDA );
                   } // 40
 
                } else {
@@ -1919,7 +1920,7 @@ import 'package:lapack/src/xerbla.dart';
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  dbdsqr('U', M, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                  dbdsqr('U', M, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                }
 
@@ -1957,8 +1958,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     dlacpy('L', M, M, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need M*M + 2*M, prefer M*M + M + M*NB)
@@ -1972,26 +1973,26 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
-                     dgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dgebrd(M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right vectors bidiagonalizing L in
                      // WORK(IR)
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + (M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
                      // (Workspace: need M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IR) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, A, LDA, ZERO, VT, LDVT );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A, LDA, ZERO, VT, LDVT );
 
                   } else {
 
@@ -2037,7 +2038,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2084,8 +2085,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IU), zeroing out below it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ).asMatrix(LDWRKU), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*M*M + 2*M, prefer 2*M*M + M + M*NB)
@@ -2099,21 +2100,21 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
                      // (Workspace: need 2*M*M + 4*M,
-                                 // prefer 2*M*M+3*M+2*M*NB)
+                     //             prefer 2*M*M+3*M+2*M*NB)
 
-                     dgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
+                     dgebrd(M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('L', M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*M*M + 4*M-1,
-                                 // prefer 2*M*M+3*M+(M-1)*NB)
+                     //             prefer 2*M*M+3*M+(M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*M*M + 4*M, prefer 2*M*M + 3*M + M*NB)
 
-                     dorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2121,18 +2122,18 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of L in WORK(IU)
                      // (Workspace: need 2*M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A, LDA, ZERO, VT, LDVT );
 
                      // Copy left singular vectors of L to A
                      // (Workspace: need M*M)
 
-                     dlacpy('F', M, M, WORK( IR ), LDWRKR, A, LDA );
+                     dlacpy('F', M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A, LDA );
 
                   } else {
 
@@ -2181,14 +2182,14 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
                } else if ( WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
-                          // JOBVT='S')
+                  //         JOBVT='S')
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
@@ -2218,8 +2219,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ).asMatrix(LDWRKU), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need M*M + 2*M, prefer M*M + M + M*NB)
@@ -2233,14 +2234,14 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
-                     dgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('L', M, M, WORK( IU ), LDWRKU, U, LDU );
+                     dgebrd(M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('L', M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, U, LDU );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need M*M + 4*M-1,
-                                 // prefer M*M+3*M+(M-1)*NB)
+                     //             prefer M*M+3*M+(M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + M*NB)
@@ -2253,13 +2254,13 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of L in WORK(IU)
                      // (Workspace: need M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ).asMatrix(LDWRKU), LDWRKU, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ).asMatrix(LDWRKU), LDWRKU, A, LDA, ZERO, VT, LDVT );
 
                   } else {
 
@@ -2310,7 +2311,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2324,7 +2325,7 @@ import 'package:lapack/src/xerbla.dart';
                   // N right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  if ( LWORK >= M*M+max( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+max( N + M, max(4*M, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -2351,8 +2352,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     dlacpy('L', M, M, A, LDA, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate Q in VT
                      // (Workspace: need M*M + M + N, prefer M*M + M + N*NB)
@@ -2366,26 +2367,26 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
-                     dgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dgebrd(M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need M*M + 4*M-1,
-                                 // prefer M*M+3*M+(M-1)*NB)
+                     //             prefer M*M+3*M+(M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
                      // (Workspace: need M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IR) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, VT, LDVT, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IR ).asMatrix(LDWRKR), LDWRKR, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
@@ -2433,7 +2434,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM.asMatrix(1), 1, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2443,7 +2444,7 @@ import 'package:lapack/src/xerbla.dart';
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  if ( LWORK >= 2*M*M+max( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= 2*M*M+max( N + M, max(4*M, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -2486,8 +2487,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ).asMatrix(LDWRKU), LDWRKU );
                      IE = ITAU;
                      ITAUQ = IE + M;
                      ITAUP = ITAUQ + M;
@@ -2496,21 +2497,21 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
                      // (Workspace: need 2*M*M + 4*M,
-                                 // prefer 2*M*M+3*M+2*M*NB)
+                     //             prefer 2*M*M+3*M+2*M*NB)
 
-                     dgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
+                     dgebrd(M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('L', M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*M*M + 4*M-1,
-                                 // prefer 2*M*M+3*M+(M-1)*NB)
+                     //             prefer 2*M*M+3*M+(M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*M*M + 4*M, prefer 2*M*M + 3*M + M*NB)
 
-                     dorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('Q', M, M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2518,13 +2519,13 @@ import 'package:lapack/src/xerbla.dart';
                      // right singular vectors of L in WORK(IU)
                      // (Workspace: need 2*M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( IR ).asMatrix(LDWRKR), LDWRKR, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ).asMatrix(LDWRKU), LDWRKU, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
@@ -2532,7 +2533,7 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy left singular vectors of A from WORK(IR) to A
 
-                     dlacpy('F', M, M, WORK( IR ), LDWRKR, A, LDA );
+                     dlacpy('F', M, M, WORK( IR ).asMatrix(LDWRKR), LDWRKR, A, LDA );
 
                   } else {
 
@@ -2582,18 +2583,18 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
                } else if ( WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
-                          // JOBVT='A')
+                  //         JOBVT='A')
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  if ( LWORK >= M*M+max( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+max( N + M, max(4*M, BDSPAC) ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -2625,8 +2626,8 @@ import 'package:lapack/src/xerbla.dart';
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
-                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ).asMatrix(LDWRKU), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ).asMatrix(LDWRKU), LDWRKU );
                      IE = ITAU;
                      ITAUQ = IE + M;
                      ITAUP = ITAUQ + M;
@@ -2635,13 +2636,13 @@ import 'package:lapack/src/xerbla.dart';
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + 2*M*NB)
 
-                     dgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     dlacpy('L', M, M, WORK( IU ), LDWRKU, U, LDU );
+                     dgebrd(M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dlacpy('L', M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, U, LDU );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + (M-1)*NB)
 
-                     dorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     dorgbr('P', M, M, M, WORK( IU ).asMatrix(LDWRKU), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need M*M + 4*M, prefer M*M + 3*M + M*NB)
@@ -2654,13 +2655,13 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of L in WORK(IU)
                      // (Workspace: need M*M + BDSPAC)
 
-                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ).asMatrix(LDWRKU), LDWRKU, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA );
+                     dgemm('N', 'N', M, N, M, ONE, WORK( IU ).asMatrix(LDWRKU), LDWRKU, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
@@ -2715,7 +2716,7 @@ import 'package:lapack/src/xerbla.dart';
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+                     dbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2756,7 +2757,7 @@ import 'package:lapack/src/xerbla.dart';
 
                dlacpy('U', M, N, A, LDA, VT, LDVT );
                if (WNTVA) NRVT = N;
-               IF( WNTVS ) NRVT = M;
+               if( WNTVS ) NRVT = M;
                dorgbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
@@ -2779,7 +2780,7 @@ import 'package:lapack/src/xerbla.dart';
             if (WNTUAS || WNTUO) NRU = M;
             if( WNTUN ) NRU = 0;
             if( WNTVAS || WNTVO ) NCVT = N;
-            IF( WNTVN ) NCVT = 0;
+            if( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2787,7 +2788,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             } else if ( ( !WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2795,7 +2796,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in A
                // (Workspace: need BDSPAC)
 
-               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2803,7 +2804,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
+               dbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM.asMatrix(1), 1, WORK( IWORK ), INFO );
             }
 
          }
@@ -2813,15 +2814,15 @@ import 'package:lapack/src/xerbla.dart';
       // If DBDSQR failed to converge, copy unconverged superdiagonals
       // to WORK( 2:MINMN )
 
-      if ( INFO != 0 ) {
+      if ( INFO.value != 0 ) {
          if ( IE > 2 ) {
             for (I = 1; I <= MINMN - 1; I++) { // 50
-               WORK[I+1] = WORK( I+IE-1 );
+               WORK[I+1] = WORK[I+IE-1];
             } // 50
          }
          if ( IE < 2 ) {
             for (I = MINMN - 1; I >= 1; I--) { // 60
-               WORK[I+1] = WORK( I+IE-1 );
+               WORK[I+1] = WORK[I+IE-1];
             } // 60
          }
       }
@@ -2829,14 +2830,14 @@ import 'package:lapack/src/xerbla.dart';
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         if( INFO != 0 && ANRM > BIGNUM ) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
-         if( ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         IF( INFO != 0 && ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM > BIGNUM) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S.asMatrix(MINMN), MINMN, IERR );
+         if( INFO.value != 0 && ANRM > BIGNUM ) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ).asMatrix(MINMN), MINMN, IERR );
+         if( ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S.asMatrix(MINMN), MINMN, IERR );
+         if( INFO.value != 0 && ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ).asMatrix(MINMN), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)
 
-      WORK[1] = MAXWRK;
+      WORK[1] = MAXWRK.toDouble();
 
       }

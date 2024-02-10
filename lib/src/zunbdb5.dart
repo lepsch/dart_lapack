@@ -63,9 +63,9 @@
       if ( NORM > N * EPS ) {
          // Scale vector to unit norm to avoid problems in the caller code.
          // Computing the reciprocal is undesirable but
-          // * xLASCL cannot be used because of the vector increments and
-          // * the round-off error has a negligible impact on
-            // orthogonalization.
+         //  * xLASCL cannot be used because of the vector increments and
+         //  * the round-off error has a negligible impact on
+         //    orthogonalization.
          zscal(M1, ONE / NORM, X1, INCX1 );
          zscal(M2, ONE / NORM, X2, INCX2 );
          zunbdb6(M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO );

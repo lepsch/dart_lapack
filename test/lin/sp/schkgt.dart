@@ -165,7 +165,7 @@
 
 // +    TEST 1
             // Factor A as L*U and compute the ratio
-               // norm(L*U - A) / (n * norm(A) * EPS )
+            //    norm(L*U - A) / (n * norm(A) * EPS )
 
             scopy(N+2*M, A, 1, AF, 1 );
            srnamc.SRNAMT = 'SGTTRF';

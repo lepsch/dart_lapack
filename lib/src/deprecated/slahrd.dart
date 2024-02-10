@@ -35,7 +35,7 @@
             // left, using the last column of T as workspace
 
             // Let  V = ( V1 )   and   b = ( b1 )   (first I-1 rows)
-                     // ( V2 )             ( b2 )
+            //          ( V2 )             ( b2 )
 
             // where V1 is unit lower triangular
 

@@ -95,7 +95,7 @@
             }
 
             // It can be proved that
-                // D(N)+RHO/2 <= LAMBDA(N) < D(N)+TAU <= D(N)+RHO
+            //     D(N)+RHO/2 <= LAMBDA(N) < D(N)+TAU <= D(N)+RHO
 
             DLTLB = MIDPT;
             DLTUB = RHO;
@@ -110,7 +110,7 @@
             }
 
             // It can be proved that
-                // D(N) < D(N)+TAU < LAMBDA(N) < D(N)+RHO/2
+            //     D(N) < D(N)+TAU < LAMBDA(N) < D(N)+RHO/2
 
             DLTLB = ZERO;
             DLTUB = MIDPT;

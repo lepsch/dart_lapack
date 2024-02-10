@@ -400,7 +400,7 @@
                      SSIZE(I)=STX(I);
                   }
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
-                        // AND DT11X(5,3,8).
+                    //     AND DT11X(5,3,8).
                   if ((KPAR == 2) && (KNI == 7)) SSIZE(1) = 2.4;
                   IF ((KPAR == 3) && (KNI == 8)) SSIZE(5) = 1.8;
 

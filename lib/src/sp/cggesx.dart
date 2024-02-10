@@ -100,11 +100,11 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
          if ( N > 0) {
@@ -264,7 +264,7 @@
          // Reorder eigenvalues, transform Generalized Schur vectors, and
          // compute reciprocal condition numbers
          // (Complex Workspace: If IJOB >= 1, need max(1, 2*SDIM*(N-SDIM))
-                             // otherwise, need 1 )
+         //                     otherwise, need 1 )
 
          ctgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 

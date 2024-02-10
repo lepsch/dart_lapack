@@ -76,7 +76,7 @@
                zaxpy(I, ALPHA, AP( I1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**H - w * v**H
+               //    A := A - v * w**H - w * v**H
 
                zhpr2(UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP );
 
@@ -120,7 +120,7 @@
                zaxpy(N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
-                  // A := A - v * w**H - w * v**H
+               //    A := A - v * w**H - w * v**H
 
                zhpr2(UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) );
 

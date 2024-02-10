@@ -158,14 +158,14 @@
       // Initialize dynamic indices
 
       // Eigenvalues ILAST+1:N have been found.
-         // Column operations modify rows IFRSTM:whatever.
-         // Row operations modify columns whatever:ILASTM.
+      //    Column operations modify rows IFRSTM:whatever.
+      //    Row operations modify columns whatever:ILASTM.
 
       // If only eigenvalues are being computed, then
-         // IFRSTM is the row of the last splitting row above row ILAST;
-         // this is always at least ILO.
+      //    IFRSTM is the row of the last splitting row above row ILAST;
+      //    this is always at least ILO.
       // IITER counts iterations since the last eigenvalue was found,
-         // to tell when to use an extraordinary shift.
+      //    to tell when to use an extraordinary shift.
       // MAXIT is the maximum number of QZ sweeps allowed.
 
       ILAST = IHI;
@@ -185,8 +185,8 @@
          // Split the matrix if possible.
 
          // Two tests:
-            // 1: H(j,j-1)=0  or  j=ILO
-            // 2: T(j,j)=0
+         //    1: H(j,j-1)=0  or  j=ILO
+         //    2: T(j,j)=0
 
          if ( ILAST == ILO ) {
 
@@ -314,7 +314,7 @@
          srot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
-                               // and BETA
+         //                       and BETA
 
          } // 80
          if ( T( ILAST, ILAST ) < ZERO ) {
@@ -494,9 +494,9 @@
          // Use Francis double-shift
 
          // Note: the Francis double-shift should work with real shifts,
-               // but only if the block is at least 3x3.
-               // This code may break if this point is reached with
-               // a 2x2 block with real eigenvalues.
+         //       but only if the block is at least 3x3.
+         //       This code may break if this point is reached with
+         //       a 2x2 block with real eigenvalues.
 
          } // 200
          if ( IFIRST+1 == ILAST ) {
@@ -507,7 +507,7 @@
 
                         // ( B11  0  )
                     // B = (         )  with B11 non-negative.
-                        // (  0  B22 )
+                    //     (  0  B22 )
 
             slasv2(T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL );
 
@@ -569,9 +569,9 @@
 
             // Compute complex Givens rotation on right
             // (Assume some element of C = (sA - wB) > unfl )
-                             // __
+            //                  __
             // (sA - wB) ( CZ   -SZ )
-                      // ( SZ    CZ )
+            //           ( SZ    CZ )
 
             C11R = S1*A11 - WR*B11;
             C11I = -WI*B11;
@@ -673,7 +673,7 @@
          } else {
 
             // Usual case: 3x3 or larger block, using Francis implicit
-                        // double-shift
+            //             double-shift
 
                                      // 2
             // Eigenvalue equation is  w  - c w + d = 0,

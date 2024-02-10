@@ -235,7 +235,7 @@
                   if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
-                     // y = y - B' conjg(x),
+                  //    y = y - B' conjg(x),
                   // where x is a column of A and y is a row of B.
 
                   zlacgv(NRHS, B( K, 1 ), LDB );
@@ -256,7 +256,7 @@
                   if (KP != K-1) zswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
-                     // y = y - B' conjg(x),
+                  //    y = y - B' conjg(x),
                   // where x is a block column of A and y is a block
                   // row of B.
 

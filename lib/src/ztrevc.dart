@@ -126,7 +126,7 @@
             } // 40
 
             // Solve the triangular system:
-               // (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
+            //    (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 
             for (K = 1; K <= KI - 1; K++) { // 50
                T[K][K] = T( K, K ) - T( KI, KI );
@@ -189,7 +189,7 @@
             } // 90
 
             // Solve the triangular system:
-               // (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE*WORK.
+            //    (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE*WORK.
 
             for (K = KI + 1; K <= N; K++) { // 100
                T[K][K] = T( K, K ) - T( KI, KI );

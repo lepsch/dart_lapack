@@ -38,7 +38,7 @@
       ABSSQ[FF] = double( FF )**2 + AIMAG( FF )**2;
 
       // IF( FIRST ) THEN
-         // FIRST = false;
+      //    FIRST = false;
          SAFMIN = SLAMCH( 'S' );
          EPS = SLAMCH( 'E' );
          SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( SLAMCH( 'B' ) ) / TWO );

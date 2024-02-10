@@ -66,11 +66,11 @@
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
@@ -333,7 +333,7 @@
       }
 
       // Compute the norm(A, B)
-         // (should this be norm of (A,B) or (AI,BI)?)
+      //    (should this be norm of (A,B) or (AI,BI)?)
 
       clacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
       clacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );

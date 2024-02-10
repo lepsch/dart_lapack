@@ -54,11 +54,11 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       // Compute workspace
-       // (Note: Comments in the code beginning "Workspace:" describe the
-        // minimal amount of workspace needed at that point in the code,
-        // as well as the preferred amount for good performance.
-        // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV.)
+      //  (Note: Comments in the code beginning "Workspace:" describe the
+      //   minimal amount of workspace needed at that point in the code,
+      //   as well as the preferred amount for good performance.
+      //   NB refers to the optimal block size for the immediately
+      //   following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
          MINWRK = 1;
@@ -69,7 +69,7 @@ import 'package:lapack/src/xerbla.dart';
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
-                         // columns
+               //           columns
 
                // Compute space needed for DGEQRF
                dgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
@@ -288,8 +288,8 @@ import 'package:lapack/src/xerbla.dart';
          IWORK = IE + N;
 
          // Perform bidiagonal QR iteration
-           // multiply B by transpose of left singular vectors
-           // compute right singular vectors in A
+         //   multiply B by transpose of left singular vectors
+         //   compute right singular vectors in A
          // (Workspace: need BDSPAC)
 
          CALL DBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;
@@ -368,8 +368,8 @@ import 'package:lapack/src/xerbla.dart';
          IWORK = IE + M;
 
          // Perform bidiagonal QR iteration,
-            // computing right singular vectors of L in WORK(IL) and
-            // multiplying B by transpose of left singular vectors
+         //    computing right singular vectors of L in WORK(IL) and
+         //    multiplying B by transpose of left singular vectors
          // (Workspace: need M*M+M+BDSPAC)
 
          CALL DBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;
@@ -443,8 +443,8 @@ import 'package:lapack/src/xerbla.dart';
          IWORK = IE + M;
 
          // Perform bidiagonal QR iteration,
-            // computing right singular vectors of A in A and
-            // multiplying B by transpose of left singular vectors
+         //    computing right singular vectors of A in A and
+         //    multiplying B by transpose of left singular vectors
          // (Workspace: need BDSPAC)
 
          CALL DBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;

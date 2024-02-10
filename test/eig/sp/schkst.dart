@@ -500,7 +500,7 @@
             RESULT[12] = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
             // Do Test 13 -- Sturm Sequence Test of Eigenvalues
-                          // Go up by factors of two until it succeeds
+            //               Go up by factors of two until it succeeds
 
             NTEST = 13;
             TEMP1 = THRESH*( HALF-ULP );
