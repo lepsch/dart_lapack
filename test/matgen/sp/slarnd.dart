@@ -1,4 +1,4 @@
-      double slarnd(IDIST, ISEED ) {
+      double slarnd(IDIST, final int ISEED) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zrscl(N, A, X, INCX ) {
+      void zrscl(N, A, X, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void clqt05(M,N,L,NB,RESULT) {
+      void clqt05(M,N,L,NB, final int RESULT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

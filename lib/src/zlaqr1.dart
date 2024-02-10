@@ -1,4 +1,4 @@
-      void zlaqr1(N, final Matrix<double> H, final int LDH, S1, S2, V ) {
+      void zlaqr1(N, final Matrix<double> H, final int LDH, S1, S2, final int V) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

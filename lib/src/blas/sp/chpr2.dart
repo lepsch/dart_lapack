@@ -1,4 +1,4 @@
-      void chpr2(UPLO,N,ALPHA,X,INCX,Y,INCY,AP) {
+      void chpr2(UPLO,N,ALPHA,X,INCX,Y,INCY, final int AP) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlapmt(FORWRD, M, N, final Matrix<double> X, final int LDX, K ) {
+      void zlapmt(FORWRD, M, N, final Matrix<double> X, final int LDX, final int K) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

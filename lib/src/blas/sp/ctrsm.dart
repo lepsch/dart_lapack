@@ -1,4 +1,4 @@
-      void ctrsm(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA, final Matrix<double> A, final int LDA, B,LDB) {
+      void ctrsm(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA, final Matrix<double> A, final int LDA, B, final int LDB) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

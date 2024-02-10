@@ -1,4 +1,4 @@
-      int icmax1(N, CX, INCX ) {
+      int icmax1(N, CX, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

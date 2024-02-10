@@ -1,4 +1,4 @@
-      void alaerh(PATH, SUBNAM, INFO, INFOE, OPTS, M, N, KL, KU, N5, IMAT, NFAIL, NERRS, NOUT ) {
+      void alaerh(PATH, SUBNAM, INFO, INFOE, OPTS, M, N, KL, KU, N5, IMAT, NFAIL, NERRS, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

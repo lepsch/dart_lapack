@@ -1,4 +1,4 @@
-      void clascl2(M, N, D, X, LDX ) {
+      void clascl2(M, N, D, X, final int LDX) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cdotusub(n,x,incx,y,incy,dotu) {
+      void cdotusub(n,x,incx,y,incy, final int dotu) {
 
       // external cdotu
       Complex cdotu,dotu;

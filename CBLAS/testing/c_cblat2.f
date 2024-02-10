@@ -388,7 +388,7 @@
       // End of CBLAT2.
 
       }
-      void cchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, IORDER ) {
+      void cchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
 
 // Tests CGEMV and CGBMV.
 
@@ -692,7 +692,7 @@
       // End of CCHK1.
 
       }
-      void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, IORDER ) {
+      void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
 
 // Tests CHEMV, CHBMV and CHPMV.
 
@@ -995,7 +995,7 @@
       // End of CCHK2.
 
       }
-      void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z, IORDER ) {
+      void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z, final int IORDER) {
 
 // Tests CTRMV, CTBMV, CTPMV, CTRSV, CTBSV and CTPSV.
 
@@ -1314,7 +1314,7 @@
       // End of CCHK3.
 
       }
-      void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER ) {
+      void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
 
 // Tests CGERC and CGERU.
 
@@ -1554,7 +1554,7 @@
       // End of CCHK4.
 
       }
-      void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER ) {
+      void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
 
 // Tests CHER and CHPR.
 
@@ -1811,7 +1811,7 @@
       // End of CCHK5.
 
       }
-      void cchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER ) {
+      void cchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
 
 // Tests CHER2 and CHPR2.
 
@@ -2098,7 +2098,7 @@
       // End of CCHK6.
 
       }
-      void cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV ) {
+      void cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2223,7 +2223,7 @@
       // End of CMVCH.
 
       }
-      bool lce(RI, RJ, LR ) {
+      bool lce(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2250,7 +2250,7 @@
       // End of LCE.
 
       }
-      bool lceres(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lceres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2355,7 +2355,7 @@
       // End of CBEG.
 
       }
-      double sdiff(X, Y ) {
+      double sdiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2369,7 +2369,7 @@
       // End of SDIFF.
 
       }
-      void cmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL ) {
+      void cmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.

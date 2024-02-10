@@ -1,4 +1,4 @@
-      void schkbl(NIN, NOUT ) {
+      void schkbl(NIN, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

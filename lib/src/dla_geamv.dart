@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dla_geamv(TRANS, M, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
+      void dla_geamv(TRANS, M, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, final int INCY) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

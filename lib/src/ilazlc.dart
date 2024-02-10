@@ -1,4 +1,4 @@
-      int ilazlc(M, N, A, LDA ) {
+      int ilazlc(M, N, A, final int LDA) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

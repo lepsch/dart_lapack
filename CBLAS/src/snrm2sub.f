@@ -1,4 +1,4 @@
-      void snrm2sub(n,x,incx,nrm2) {
+      void snrm2sub(n,x,incx, final int nrm2) {
 
       // external snrm2
       double snrm2,nrm2;

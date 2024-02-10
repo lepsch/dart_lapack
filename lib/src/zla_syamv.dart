@@ -1,4 +1,4 @@
-      void zla_syamv(UPLO, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
+      void zla_syamv(UPLO, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, final int INCY) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -578,7 +578,7 @@
       } // 200
       return;
       }
-      void stest(LEN,SCOMP,STRUE,SSIZE,SFAC) {
+      void stest(LEN,SCOMP,STRUE,SSIZE, final int SFAC) {
       // ********************************* STEST **************************
 
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -630,7 +630,7 @@
 99998 FORMAT (/' CASE  N INCX INCY  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,2I5,I3,2E36.8,2E12.4)
       }
-      void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
+      void stest1(SCOMP1,STRUE1,SSIZE, final int SFAC) {
       // ************************* STEST1 *****************************
 
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
@@ -653,7 +653,7 @@
 
       return;
       }
-      double sdiff(SA,SB) {
+      double sdiff(SA, final int SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                            SA, SB;
@@ -661,7 +661,7 @@
       SDIFF = SA - SB;
       return;
       }
-      void itest1(ICOMP,ITRUE) {
+      void itest1(ICOMP, final int ITRUE) {
       // ********************************* ITEST1 *************************
 
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
@@ -700,7 +700,7 @@
 99998 FORMAT (/' CASE  N INCX INCY                                COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,2I5,2I36,I12)
       }
-      void sb1nrm2(N,INCX,THRESH) {
+      void sb1nrm2(N,INCX, final int THRESH) {
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
 
@@ -880,7 +880,7 @@
    98 FORMAT(' ${.a6}: N=', I6,', INCX=${.i4}, IV=${.i2}, IW=${.i2}, test=', E15.8 );
       return;
       CONTAINS;
-      double sxvals(XX,K) {
+      double sxvals(XX, final int K) {
       // .. Scalar Arguments ..
       double              XX;
       int               K;

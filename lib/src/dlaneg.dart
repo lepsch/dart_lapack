@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      int dlaneg(N, D, LLD, SIGMA, PIVMIN, R ) {
+      int dlaneg(N, D, LLD, SIGMA, PIVMIN, final int R) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

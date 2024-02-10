@@ -1,4 +1,4 @@
-      void cgemm(TRANSA,TRANSB,M,N,K,ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA,C,LDC) {
+      void cgemm(TRANSA,TRANSB,M,N,K,ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA,C, final int LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

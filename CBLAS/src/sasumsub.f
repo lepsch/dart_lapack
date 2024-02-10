@@ -1,4 +1,4 @@
-      void sasumsub(n,x,incx,asum) {
+      void sasumsub(n,x,incx, final int asum) {
 
       // external sasum
       double sasum,asum;

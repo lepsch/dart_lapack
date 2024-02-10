@@ -1,4 +1,4 @@
-      void zspmv(UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY ) {
+      void zspmv(UPLO, N, ALPHA, AP, X, INCX, BETA, Y, final int INCY) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

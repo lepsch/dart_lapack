@@ -1,4 +1,4 @@
-      void sstt21(N, KBAND, AD, AE, SD, SE, final Matrix<double> U, final int LDU, final Array<double> _WORK, RESULT ) {
+      void sstt21(N, KBAND, AD, AE, SD, SE, final Matrix<double> U, final int LDU, final Array<double> _WORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

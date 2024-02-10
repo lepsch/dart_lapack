@@ -1,4 +1,4 @@
-      void dzasumsub(n,x,incx,asum) {
+      void dzasumsub(n,x,incx, final int asum) {
 
       // external dzasum
       double           dzasum,asum;

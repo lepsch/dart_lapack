@@ -1,4 +1,4 @@
-      void slag2(A, LDA, final Matrix<double> B, final int LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI ) {
+      void slag2(A, LDA, final Matrix<double> B, final int LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, final int WI) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

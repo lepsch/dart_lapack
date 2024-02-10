@@ -355,7 +355,7 @@
       // End of ZBLAT3.
 
       }
-      void zchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void zchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests ZGEMM.
 
@@ -609,7 +609,7 @@
 
       }
 
-      void zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC) {
+      void zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       Complex   ALPHA, BETA;
       String           TRANSA, TRANSB;
@@ -642,7 +642,7 @@
  9994 FORMAT( 10X, 3( I3, ',' ) ,' (', F4.1,',',F4.1,') , A,${.i3}, B,${.i3}, (', F4.1,',',F4.1,') , C,${.i3}).' );
       }
 
-      void zchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void zchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests ZHEMM and ZSYMM.
 
@@ -887,7 +887,7 @@
 
       }
 
-      void zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC) {
+      void zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       Complex   ALPHA, BETA;
       String           SIDE, UPLO;
@@ -916,7 +916,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ),' (',F4.1,',',F4.1, '), A,${.i3}, B,${.i3}, (',F4.1,',',F4.1, '), C,${.i3}).' );
       }
 
-      void zchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER ) {
+      void zchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, final int IORDER) {
 
 // Tests ZTRMM and ZTRSM.
 
@@ -1177,7 +1177,7 @@
 
       }
 
-      void zprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB) {
+      void zprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, final int LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
       Complex   ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
@@ -1218,7 +1218,7 @@
  9994 FORMAT( 10X, 2( A14, ',') , 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B,${.i3}).' );
       }
 
-      void zchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void zchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests ZHERK and ZSYRK.
 
@@ -1505,7 +1505,7 @@
 
       }
 
-      void zprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
+      void zprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       Complex   ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1537,7 +1537,7 @@
       }
 
 
-      void zprcn6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
+      void zprcn6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       double           ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1568,7 +1568,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void zchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER ) {
+      void zchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, final int IORDER) {
 
 // Tests ZHER2K and ZSYR2K.
 
@@ -1880,7 +1880,7 @@
 
       }
 
-      void zprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
+      void zprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       Complex   ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1912,7 +1912,7 @@
       }
 
 
-      void zprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
+      void zprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       Complex   ALPHA;
       double           BETA;
@@ -1944,7 +1944,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void zmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
+      void zmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2066,7 +2066,7 @@
       // End of ZMAKE.
 
       }
-      void zmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, MV ) {
+      void zmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2233,7 +2233,7 @@
       // End of ZMMCH.
 
       }
-      bool lze(RI, RJ, LR ) {
+      bool lze(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2262,7 +2262,7 @@
       // End of LZE.
 
       }
-      bool lzeres(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lzeres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2371,7 +2371,7 @@
       // End of ZBEG.
 
       }
-      double ddiff(X, Y ) {
+      double ddiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

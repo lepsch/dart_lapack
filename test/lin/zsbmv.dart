@@ -1,4 +1,4 @@
-      void zsbmv(UPLO, N, K, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
+      void zsbmv(UPLO, N, K, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, final int INCY) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

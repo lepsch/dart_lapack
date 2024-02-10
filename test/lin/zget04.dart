@@ -1,4 +1,4 @@
-      void zget04(N, NRHS, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, RCOND, RESID ) {
+      void zget04(N, NRHS, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, RCOND, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

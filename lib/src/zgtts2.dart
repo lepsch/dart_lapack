@@ -1,4 +1,4 @@
-      void zgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, final Array<int> IPIV, B, LDB ) {
+      void zgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, final Array<int> IPIV, B, final int LDB) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

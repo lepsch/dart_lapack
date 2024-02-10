@@ -1,4 +1,4 @@
-      void zhet22(ITYPE, UPLO, N, M, KBAND, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, TAU, final Array<double> _WORK, final Array<double> RWORK, RESULT ) {
+      void zhet22(ITYPE, UPLO, N, M, KBAND, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, TAU, final Array<double> _WORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

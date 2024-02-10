@@ -1,4 +1,4 @@
-      void derrvx(PATH, NUNIT ) {
+      void derrvx(PATH, final int NUNIT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

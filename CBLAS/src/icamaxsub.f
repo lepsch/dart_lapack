@@ -1,4 +1,4 @@
-      void icamaxsub(n,x,incx,iamax) {
+      void icamaxsub(n,x,incx, final int iamax) {
 
       // external icamax
       int      icamax,iamax;

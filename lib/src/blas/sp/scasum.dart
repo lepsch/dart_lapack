@@ -1,4 +1,4 @@
-      double scasum(N,CX,INCX) {
+      double scasum(N,CX, final int INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

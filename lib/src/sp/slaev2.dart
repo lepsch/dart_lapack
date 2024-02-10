@@ -1,4 +1,4 @@
-      void slaev2(A, B, C, RT1, RT2, CS1, SN1 ) {
+      void slaev2(A, B, C, RT1, RT2, CS1, final int SN1) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void dlaptm(N, NRHS, ALPHA, D, E, final Matrix<double> X, final int LDX, BETA, B, LDB ) {
+      void dlaptm(N, NRHS, ALPHA, D, E, final Matrix<double> X, final int LDX, BETA, B, final int LDB) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void clatsy(UPLO, N, final Matrix<double> X, final int LDX, ISEED ) {
+      void clatsy(UPLO, N, final Matrix<double> X, final int LDX, final int ISEED) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

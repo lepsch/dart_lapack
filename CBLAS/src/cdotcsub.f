@@ -1,4 +1,4 @@
-      void cdotcsub(n,x,incx,y,incy,dotc) {
+      void cdotcsub(n,x,incx,y,incy, final int dotc) {
 
       // external cdotc
       Complex cdotc,dotc;

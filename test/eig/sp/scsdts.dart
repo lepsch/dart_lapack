@@ -1,4 +1,4 @@
-      void scsdts(M, P, Q, X, XF, LDX, final Matrix<double> U1, final int LDU1, final Matrix<double> U2, final int LDU2, final Matrix<double> V1T, final int LDV1T, final Matrix<double> V2T, final int LDV2T, THETA, final Array<int> IWORK, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT ) {
+      void scsdts(M, P, Q, X, XF, LDX, final Matrix<double> U1, final int LDU1, final Matrix<double> U2, final int LDU2, final Matrix<double> V1T, final int LDV1T, final Matrix<double> V2T, final int LDV2T, THETA, final Array<int> IWORK, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

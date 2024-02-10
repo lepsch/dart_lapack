@@ -1,4 +1,4 @@
-      void alareq(PATH, NMATS, final Array<bool> DOTYPE, NTYPES, NIN, NOUT ) {
+      void alareq(PATH, NMATS, final Array<bool> DOTYPE, NTYPES, NIN, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

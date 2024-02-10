@@ -1,4 +1,4 @@
-      void dasumsub(n,x,incx,asum) {
+      void dasumsub(n,x,incx, final int asum) {
 
       // external dasum
       double           dasum,asum;

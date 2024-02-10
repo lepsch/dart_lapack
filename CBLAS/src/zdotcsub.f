@@ -1,4 +1,4 @@
-      void zdotcsub(n,x,incx,y,incy,dotc) {
+      void zdotcsub(n,x,incx,y,incy, final int dotc) {
 
       // external zdotc
       Complex zdotc,dotc;

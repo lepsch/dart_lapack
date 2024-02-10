@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void derrlq(PATH, NUNIT ) {
+      void derrlq(PATH, final int NUNIT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

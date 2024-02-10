@@ -1,4 +1,4 @@
-      void cdrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, final Array<double> _WORK, final Array<double> RWORK, NOUT ) {
+      void cdrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, final Array<double> _WORK, final Array<double> RWORK, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

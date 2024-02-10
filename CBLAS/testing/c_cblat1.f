@@ -282,7 +282,7 @@
       } // 60
       return;
       }
-      void stest(LEN,SCOMP,STRUE,SSIZE,SFAC) {
+      void stest(LEN,SCOMP,STRUE,SSIZE, final int SFAC) {
       // ********************************* STEST **************************
 
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -333,7 +333,7 @@
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
       }
-      void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
+      void stest1(SCOMP1,STRUE1,SSIZE, final int SFAC) {
       // ************************* STEST1 *****************************
 
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
@@ -356,7 +356,7 @@
 
       return;
       }
-      double sdiff(SA,SB) {
+      double sdiff(SA, final int SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                            SA, SB;
@@ -364,7 +364,7 @@
       SDIFF = SA - SB;
       return;
       }
-      void ctest(LEN,CCOMP,CTRUE,CSIZE,SFAC) {
+      void ctest(LEN,CCOMP,CTRUE,CSIZE, final int SFAC) {
       // **************************** CTEST *****************************
 
       // C.L. LAWSON, JPL, 1978 DEC 6
@@ -393,7 +393,7 @@
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
       return;
       }
-      void itest1(ICOMP,ITRUE) {
+      void itest1(ICOMP, final int ITRUE) {
       // ********************************* ITEST1 *************************
 
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR

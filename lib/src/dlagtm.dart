@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlagtm(TRANS, N, NRHS, ALPHA, DL, D, DU, final Matrix<double> X, final int LDX, BETA, B, LDB ) {
+      void dlagtm(TRANS, N, NRHS, ALPHA, DL, D, DU, final Matrix<double> X, final int LDX, BETA, B, final int LDB) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

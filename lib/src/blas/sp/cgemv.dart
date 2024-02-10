@@ -1,4 +1,4 @@
-      void cgemv(TRANS,M,N,ALPHA, final Matrix<double> A, final int LDA, X,INCX,BETA,Y,INCY) {
+      void cgemv(TRANS,M,N,ALPHA, final Matrix<double> A, final int LDA, X,INCX,BETA,Y, final int INCY) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

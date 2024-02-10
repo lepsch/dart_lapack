@@ -1,4 +1,4 @@
-      void sstt22(N, M, KBAND, AD, AE, SD, SE, final Matrix<double> U, final int LDU, final Matrix<double> WORK, final int LDWORK, RESULT ) {
+      void sstt22(N, M, KBAND, AD, AE, SD, SE, final Matrix<double> U, final int LDU, final Matrix<double> WORK, final int LDWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

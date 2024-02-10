@@ -1,4 +1,4 @@
-      void dqrt13(SCALE, M, N, final Matrix<double> A, final int LDA, NORMA, ISEED ) {
+      void dqrt13(SCALE, M, N, final Matrix<double> A, final int LDA, NORMA, final int ISEED) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

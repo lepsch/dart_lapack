@@ -1,4 +1,4 @@
-      void cherk(UPLO,TRANS,N,K,ALPHA, final Matrix<double> A, final int LDA, BETA,C,LDC) {
+      void cherk(UPLO,TRANS,N,K,ALPHA, final Matrix<double> A, final int LDA, BETA,C, final int LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

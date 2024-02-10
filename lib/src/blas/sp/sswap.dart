@@ -1,4 +1,4 @@
-      void sswap(N,SX,INCX,SY,INCY) {
+      void sswap(N,SX,INCX,SY, final int INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

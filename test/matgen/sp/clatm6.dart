@@ -1,4 +1,4 @@
-      void clatm6(TYPE, N, final Matrix<double> A, final int LDA, B, final Matrix<double> X, final int LDX, final Matrix<double> Y, final int LDY, ALPHA, BETA, WX, WY, S, DIF ) {
+      void clatm6(TYPE, N, final Matrix<double> A, final int LDA, B, final Matrix<double> X, final int LDX, final Matrix<double> Y, final int LDY, ALPHA, BETA, WX, WY, S, final int DIF) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

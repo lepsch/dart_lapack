@@ -1,4 +1,4 @@
-      void zlacrt(N, CX, INCX, CY, INCY, C, S ) {
+      void zlacrt(N, CX, INCX, CY, INCY, C, final int S) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

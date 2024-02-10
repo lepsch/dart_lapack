@@ -1,4 +1,4 @@
-      double slapy3(X, Y, Z ) {
+      double slapy3(X, Y, final int Z) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

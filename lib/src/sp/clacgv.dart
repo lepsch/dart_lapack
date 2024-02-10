@@ -1,4 +1,4 @@
-      void clacgv(N, X, INCX ) {
+      void clacgv(N, X, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

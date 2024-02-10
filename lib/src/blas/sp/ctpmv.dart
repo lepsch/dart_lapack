@@ -1,4 +1,4 @@
-      void ctpmv(UPLO,TRANS,DIAG,N,AP,X,INCX) {
+      void ctpmv(UPLO,TRANS,DIAG,N,AP,X, final int INCX) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

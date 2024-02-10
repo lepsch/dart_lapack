@@ -1,4 +1,4 @@
-      void zlaqsp(UPLO, N, AP, S, SCOND, AMAX, EQUED ) {
+      void zlaqsp(UPLO, N, AP, S, SCOND, AMAX, final int EQUED) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

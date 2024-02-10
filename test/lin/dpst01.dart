@@ -1,4 +1,4 @@
-      void dpst01(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, PIV, final Array<double> RWORK, RESID, RANK ) {
+      void dpst01(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, PIV, final Array<double> RWORK, RESID, final int RANK) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

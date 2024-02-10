@@ -1,4 +1,4 @@
-      void zlacgv(N, X, INCX ) {
+      void zlacgv(N, X, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

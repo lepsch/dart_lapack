@@ -1,4 +1,4 @@
-      void zgsvts3(M, P, N, A, AF, LDA, B, BF, LDB, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, ALPHA, BETA, final Matrix<double> R, final int LDR, final Array<int> IWORK, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT ) {
+      void zgsvts3(M, P, N, A, AF, LDA, B, BF, LDB, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, ALPHA, BETA, final Matrix<double> R, final int LDR, final Array<int> IWORK, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

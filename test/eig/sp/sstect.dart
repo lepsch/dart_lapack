@@ -1,4 +1,4 @@
-      void sstect(N, A, B, SHIFT, NUM ) {
+      void sstect(N, A, B, SHIFT, final int NUM) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

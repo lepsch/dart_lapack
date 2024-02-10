@@ -1,4 +1,4 @@
-      void sdotsub(n,x,incx,y,incy,dot) {
+      void sdotsub(n,x,incx,y,incy, final int dot) {
 
       // external sdot
       double sdot;

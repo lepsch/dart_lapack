@@ -1,4 +1,4 @@
-      void stpt01(UPLO, DIAG, N, AP, AINVP, RCOND, final Array<double> _WORK, RESID ) {
+      void stpt01(UPLO, DIAG, N, AP, AINVP, RCOND, final Array<double> _WORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

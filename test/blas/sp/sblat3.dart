@@ -261,7 +261,7 @@
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
 
-      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests SGEMM.
 
@@ -504,7 +504,7 @@
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
 
-      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests SSYMM.
 
@@ -735,7 +735,7 @@
       }
 
 
-      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
+      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, final int C) {
 
 // Tests STRMM and STRSM.
 
@@ -984,7 +984,7 @@
  9995 FORMAT(' ${.i6}: ${.a6}(', 4( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3})        .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests SSYRK.
 
@@ -1217,7 +1217,7 @@
  9994 FORMAT(' ${.i6}: ${.a6}(', 2( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})           .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
+      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, final int W) {
 
 // Tests SSYR2K.
 
@@ -2027,7 +2027,7 @@
  9999 FORMAT( ' ${.a6} PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ${.a6} FAILED THE TESTS OF ERROR-EXITS *******' );
       }
-      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
+      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2132,7 +2132,7 @@
       }
       return;
       }
-      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, MV ) {
+      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2243,7 +2243,7 @@
  9998 FORMAT( 1X, I7, 2G18.6 );
  9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
       }
-      bool lse(RI, RJ, LR ) {
+      bool lse(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2269,7 +2269,7 @@
       LSE = false;
    30 return;
       }
-      bool lseres(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lseres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2363,7 +2363,7 @@
       SBEG = ( I - 500 )/1001.0;
       return;
       }
-      double sdiff(X, Y ) {
+      double sdiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

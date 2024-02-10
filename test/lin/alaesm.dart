@@ -1,4 +1,4 @@
-      void alaesm(PATH, OK, NOUT ) {
+      void alaesm(PATH, OK, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

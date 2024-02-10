@@ -1,4 +1,4 @@
-      void claqge(M, N, final Matrix<double> A, final int LDA, R, C, ROWCND, COLCND, AMAX, EQUED ) {
+      void claqge(M, N, final Matrix<double> A, final int LDA, R, C, ROWCND, COLCND, AMAX, final int EQUED) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zla_lin_berr(N, NZ, NRHS, RES, AYB, BERR ) {
+      void zla_lin_berr(N, NZ, NRHS, RES, AYB, final int BERR) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

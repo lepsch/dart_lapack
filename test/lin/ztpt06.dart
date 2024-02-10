@@ -1,4 +1,4 @@
-      void ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, final Array<double> RWORK, RAT ) {
+      void ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, final Array<double> RWORK, final int RAT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

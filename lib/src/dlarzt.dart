@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlarzt(DIRECT, STOREV, N, K, final Matrix<double> V, final int LDV, TAU, T, LDT ) {
+      void dlarzt(DIRECT, STOREV, N, K, final Matrix<double> V, final int LDV, TAU, T, final int LDT) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

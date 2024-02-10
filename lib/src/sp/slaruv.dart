@@ -1,4 +1,4 @@
-      void slaruv(ISEED, N, X ) {
+      void slaruv(ISEED, N, final int X) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

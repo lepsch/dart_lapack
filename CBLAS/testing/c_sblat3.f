@@ -349,7 +349,7 @@
       // End of SBLAT3.
 
       }
-      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests SGEMM.
 
@@ -601,7 +601,7 @@
 
 
 
-      void sprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC) {
+      void sprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       double             ALPHA, BETA;
       String           TRANSA, TRANSB;
@@ -634,7 +634,7 @@
  9994 FORMAT( 20X, 3( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests SSYMM.
 
@@ -871,7 +871,7 @@
 
       }
 
-      void sprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC) {
+      void sprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       double             ALPHA, BETA;
       String           SIDE, UPLO;
@@ -900,7 +900,7 @@
  9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER ) {
+      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, final int IORDER) {
 
 // Tests STRMM and STRSM.
 
@@ -1157,7 +1157,7 @@
 
       }
 
-      void sprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB) {
+      void sprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, final int LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
       double             ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
@@ -1198,7 +1198,7 @@
  9994 FORMAT( 22X, 2( A14, ',') , 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3}).' );
       }
 
-      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
+      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
 
 // Tests SSYRK.
 
@@ -1439,7 +1439,7 @@
 
       }
 
-      void sprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
+      void sprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       double             ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1470,7 +1470,7 @@
  9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER ) {
+      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, final int IORDER) {
 
 // Tests SSYR2K.
 
@@ -1739,7 +1739,7 @@
 
       }
 
-      void sprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
+      void sprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       double             ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1770,7 +1770,7 @@
  9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,${.i3}, B${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
+      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -1878,7 +1878,7 @@
       // End of SMAKE.
 
       }
-      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, MV ) {
+      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -1992,7 +1992,7 @@
       // End of SMMCH.
 
       }
-      bool lse(RI, RJ, LR ) {
+      bool lse(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2021,7 +2021,7 @@
       // End of LSE.
 
       }
-      bool lseres(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lseres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2122,7 +2122,7 @@
       // End of SBEG.
 
       }
-      double sdiff(X, Y ) {
+      double sdiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

@@ -1,4 +1,4 @@
-      void sger(M,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
+      void sger(M,N,ALPHA,X,INCX,Y,INCY,A, final int LDA) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void dppt01(UPLO, N, A, AFAC, final Array<double> RWORK, RESID ) {
+      void dppt01(UPLO, N, A, AFAC, final Array<double> RWORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

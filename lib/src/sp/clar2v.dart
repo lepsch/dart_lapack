@@ -1,4 +1,4 @@
-      void clar2v(N, X, Y, Z, INCX, C, S, INCC ) {
+      void clar2v(N, X, Y, Z, INCX, C, S, final int INCC) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sglmts(N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT ) {
+      void sglmts(N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

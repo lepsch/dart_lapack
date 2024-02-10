@@ -1,4 +1,4 @@
-      void sebchvxx(THRESH, PATH ) {
+      void sebchvxx(THRESH, final int PATH) {
       // .. Scalar Arguments ..
       double               THRESH;
       String             PATH;

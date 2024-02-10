@@ -1,4 +1,4 @@
-      void zlaesy(A, B, C, RT1, RT2, EVSCAL, CS1, SN1 ) {
+      void zlaesy(A, B, C, RT1, RT2, EVSCAL, CS1, final int SN1) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

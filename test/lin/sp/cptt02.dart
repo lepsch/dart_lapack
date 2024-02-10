@@ -1,4 +1,4 @@
-      void cptt02(UPLO, N, NRHS, D, E, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, RESID ) {
+      void cptt02(UPLO, N, NRHS, D, E, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

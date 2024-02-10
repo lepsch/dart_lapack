@@ -1,4 +1,4 @@
-      void ctbt02(UPLO, TRANS, DIAG, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final Array<double> _WORK, final Array<double> RWORK, RESID ) {
+      void ctbt02(UPLO, TRANS, DIAG, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final Array<double> _WORK, final Array<double> RWORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

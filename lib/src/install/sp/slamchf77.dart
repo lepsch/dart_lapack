@@ -127,7 +127,7 @@
 // >        Comms. of the ACM, 17, 276-277.
 // > \endverbatim
 // >
-      void slamc1(BETA, T, RND, IEEE1 ) {
+      void slamc1(BETA, T, RND, final int IEEE1) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -331,7 +331,7 @@
 // >  W. Kahan of the University of California at Berkeley.
 // > \endverbatim
 // >
-      void slamc2(BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX ) {
+      void slamc2(BETA, T, RND, EPS, EMIN, RMIN, EMAX, final int RMAX) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -536,7 +536,7 @@
 // >
 // > \ingroup lamc3
 // >
-      double slamc3(A, B ) {
+      double slamc3(A, final int B) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -578,7 +578,7 @@
 // >
 // > \ingroup lamc4
 // >
-      void slamc4(EMIN, START, BASE ) {
+      void slamc4(EMIN, START, final int BASE) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -678,7 +678,7 @@
 // >
 // > \ingroup lamc5
 // >
-      void slamc5(BETA, P, EMIN, IEEE, EMAX, RMAX ) {
+      void slamc5(BETA, P, EMIN, IEEE, EMAX, final int RMAX) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..

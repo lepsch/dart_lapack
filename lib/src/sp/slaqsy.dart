@@ -1,4 +1,4 @@
-      void slaqsy(UPLO, N, final Matrix<double> A, final int LDA, S, SCOND, AMAX, EQUED ) {
+      void slaqsy(UPLO, N, final Matrix<double> A, final int LDA, S, SCOND, AMAX, final int EQUED) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cbdt03(UPLO, N, KD, D, E, final Matrix<double> U, final int LDU, S, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, RESID ) {
+      void cbdt03(UPLO, N, KD, D, E, final Matrix<double> U, final int LDU, S, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

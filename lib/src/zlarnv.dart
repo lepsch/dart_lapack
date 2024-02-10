@@ -1,4 +1,4 @@
-      void zlarnv(IDIST, final Array<int> ISEED, N, X ) {
+      void zlarnv(IDIST, final Array<int> ISEED, N, final int X) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

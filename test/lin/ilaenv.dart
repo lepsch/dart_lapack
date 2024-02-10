@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
+      int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, final int N4) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -88,7 +88,7 @@ import 'common.dart';
 
       return;
       }
-      int ilaenv2stage(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
+      int ilaenv2stage(ISPEC, NAME, OPTS, N1, N2, N3, final int N4) {
       // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4;

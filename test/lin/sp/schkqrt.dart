@@ -77,7 +77,7 @@
 // > \ingroup single_lin
 
 // =====================================================================
-      void schkqrt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
+      void schkqrt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, final int NOUT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

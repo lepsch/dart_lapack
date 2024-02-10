@@ -1,4 +1,4 @@
-      void zlatsp(UPLO, N, X, ISEED ) {
+      void zlatsp(UPLO, N, X, final int ISEED) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void dlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST ) {
+      void dlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, final int DIST) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

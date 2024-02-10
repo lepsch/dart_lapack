@@ -320,7 +320,7 @@ import 'common.dart';
       } // 60
       return;
       }
-      void stest(LEN,SCOMP,STRUE,SSIZE,SFAC) {
+      void stest(LEN,SCOMP,STRUE,SSIZE, final int SFAC) {
       // ********************************* STEST **************************
 
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -372,7 +372,7 @@ import 'common.dart';
 99998 FORMAT (/' CASE  combla.N combla.INCX combla.INCY combla.MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
-      void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
+      void stest1(SCOMP1,STRUE1,SSIZE, final int SFAC) {
       // ************************* STEST1 *****************************
 
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
@@ -395,7 +395,7 @@ import 'common.dart';
 
       return;
       }
-      double sdiff(SA,SB) {
+      double sdiff(SA, final int SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                          SA, SB;
@@ -403,7 +403,7 @@ import 'common.dart';
       SDIFF = SA - SB;
       return;
       }
-      void ctest(LEN,CCOMP,CTRUE,CSIZE,SFAC) {
+      void ctest(LEN,CCOMP,CTRUE,CSIZE, final int SFAC) {
       // **************************** CTEST *****************************
 
       // C.L. LAWSON, JPL, 1978 DEC 6
@@ -432,7 +432,7 @@ import 'common.dart';
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
       return;
       }
-      void itest1(ICOMP,ITRUE) {
+      void itest1(ICOMP, final int ITRUE) {
       // ********************************* ITEST1 *************************
 
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
@@ -663,7 +663,7 @@ import 'common.dart';
    98 FORMAT(' ${.a6}: combla.N=', I6,', combla.INCX=${.i4}, IV=${.i2}, IW=${.i2}, test=', E15.8 );
       return;
       CONTAINS;
-      double dxvals(XX,K) {
+      double dxvals(XX, final int K) {
       // .. Scalar Arguments ..
       double            XX;
       int               K;

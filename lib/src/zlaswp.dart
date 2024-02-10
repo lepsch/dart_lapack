@@ -1,4 +1,4 @@
-      void zlaswp(N, final Matrix<double> A, final int LDA, K1, K2, final Array<int> IPIV, INCX ) {
+      void zlaswp(N, final Matrix<double> A, final int LDA, K1, K2, final Array<int> IPIV, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

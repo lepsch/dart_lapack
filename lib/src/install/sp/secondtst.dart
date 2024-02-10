@@ -74,7 +74,7 @@
  9994 FORMAT( ' *** Warning:  Time for operations was less or equal than zero => timing in TESTING might be dubious' );
       mysub(NMAX,X,Y);
       }
-      void mysub(N,X,Y) {
+      void mysub(N,X, final int Y) {
       int     N;
       double X(N), Y(N);
       }

@@ -1,4 +1,4 @@
-      void schkeq(THRESH, NOUT ) {
+      void schkeq(THRESH, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

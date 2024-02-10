@@ -1,4 +1,4 @@
-      void ssvdct(N, S, E, SHIFT, NUM ) {
+      void ssvdct(N, S, E, SHIFT, final int NUM) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

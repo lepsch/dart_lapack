@@ -1,4 +1,4 @@
-      void slargv(N, X, INCX, Y, INCY, C, INCC ) {
+      void slargv(N, X, INCX, Y, INCY, C, final int INCC) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void stbsv(UPLO,TRANS,DIAG,N,K, final Matrix<double> A, final int LDA, X,INCX) {
+      void stbsv(UPLO,TRANS,DIAG,N,K, final Matrix<double> A, final int LDA, X, final int INCX) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

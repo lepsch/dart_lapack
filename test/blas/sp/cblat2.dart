@@ -274,7 +274,7 @@
  9981 FORMAT('\n ******* FATAL ERROR - TESTS ABANDONED *******' );
  9980 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
-      void cchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
+      void cchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, final int G) {
 
 // Tests CGEMV and CGBMV.
 
@@ -584,7 +584,7 @@
  9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
+      void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, final int G) {
 
 // Tests CHEMV, CHBMV and CHPMV.
 
@@ -878,7 +878,7 @@
  9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})             .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z ) {
+      void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, final int Z) {
 
 // Tests CTRMV, CTBMV, CTPMV, CTRSV, CTBSV and CTPSV.
 
@@ -1176,7 +1176,7 @@
  9993 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', A,${.i3}, X,${.i2})                                   .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
+      void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int Z) {
 
 // Tests CGERC and CGERU.
 
@@ -1413,7 +1413,7 @@
  9994 FORMAT(' ${.i6}: ${.a6}(${i3(2, ',')}', '(${.f4_1},${.f4_1}), X,${.i2}, Y,${.i2}, A,${.i3})                         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
+      void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int Z) {
 
 // Tests CHER and CHPR.
 
@@ -1661,7 +1661,7 @@
  9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                                      .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void cchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
+      void cchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int Z) {
 
 // Tests CHER2 and CHPR2.
 
@@ -2272,7 +2272,7 @@
  9999 FORMAT( ' ${.a6} PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ${.a6} FAILED THE TESTS OF ERROR-EXITS *******' );
       }
-      void cmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL ) {
+      void cmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.
@@ -2453,7 +2453,7 @@
       }
       return;
       }
-      void cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV ) {
+      void cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2575,7 +2575,7 @@
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HALF ACCURATE *******\n                       EXPECTED RESULT                    COMPUTED RESULT' );
  9998 FORMAT( 1X, I7, 2( '  (${.g15_6},${.g15_6})' ) );
       }
-      bool lce(RI, RJ, LR ) {
+      bool lce(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2599,7 +2599,7 @@
       LCE = false;
    30 return;
       }
-      bool lceres(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lceres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2697,7 +2697,7 @@
       CBEG = CMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 );
       return;
       }
-      double sdiff(X, Y ) {
+      double sdiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2730,7 +2730,7 @@
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${.i2} NOT DETECTED BY ${.a6} *****' );
       }
-      void cregr1(TRANS, M, N, LY, KL, KU, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY, YS ) {
+      void cregr1(TRANS, M, N, LY, KL, KU, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY, final int YS) {
 
 // Input initialization for regression test.
       String             TRANS;

@@ -1,4 +1,4 @@
-      void dtrt06(RCOND, RCONDC, UPLO, DIAG, N, final Matrix<double> A, final int LDA, final Array<double> _WORK, RAT ) {
+      void dtrt06(RCOND, RCONDC, UPLO, DIAG, N, final Matrix<double> A, final int LDA, final Array<double> _WORK, final int RAT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

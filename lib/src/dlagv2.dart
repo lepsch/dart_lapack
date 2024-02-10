@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlagv2(A, LDA, final Matrix<double> B, final int LDB, ALPHAR, ALPHAI, BETA, CSL, SNL, CSR, SNR ) {
+      void dlagv2(A, LDA, final Matrix<double> B, final int LDB, ALPHAR, ALPHAI, BETA, CSL, SNL, CSR, final int SNR) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

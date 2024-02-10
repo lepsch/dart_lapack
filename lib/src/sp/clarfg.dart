@@ -1,4 +1,4 @@
-      void clarfg(N, ALPHA, X, INCX, TAU ) {
+      void clarfg(N, ALPHA, X, INCX, final int TAU) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

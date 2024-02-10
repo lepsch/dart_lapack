@@ -1,4 +1,4 @@
-      void slaset(UPLO, M, N, ALPHA, BETA, A, LDA ) {
+      void slaset(UPLO, M, N, ALPHA, BETA, A, final int LDA) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

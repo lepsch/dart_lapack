@@ -1,4 +1,4 @@
-      void claqz1(ILQ, ILZ, K, ISTARTM, ISTOPM, IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, NQ, QSTART, final Matrix<double> Q, final int LDQ, NZ, ZSTART, Z, LDZ ) {
+      void claqz1(ILQ, ILZ, K, ISTARTM, ISTOPM, IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, NQ, QSTART, final Matrix<double> Q, final int LDQ, NZ, ZSTART, Z, final int LDZ) {
       // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;

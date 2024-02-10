@@ -1,4 +1,4 @@
-      void slartgp(F, G, CS, SN, R ) {
+      void slartgp(F, G, CS, SN, final int R) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

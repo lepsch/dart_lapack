@@ -262,7 +262,7 @@ import 'common.dart';
  9985 FORMAT('\n ******* FATAL ERROR - TESTS ABANDONED *******' );
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
-      void dchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void dchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests DGEMM.
 
@@ -504,7 +504,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}${.f4_1}, A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void dchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void dchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests DSYMM.
 
@@ -733,7 +733,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})    .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void dchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
+      void dchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, final int C) {
 
 // Tests DTRMM and DTRSM.
 
@@ -982,7 +982,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(', 4( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3})        .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void dchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
+      void dchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
 
 // Tests DSYRK.
 
@@ -1215,7 +1215,7 @@ import 'common.dart';
  9994 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})           .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void dchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
+      void dchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, final int W) {
 
 // Tests DSYR2K.
 
@@ -2024,7 +2024,7 @@ import 'common.dart';
  9999 FORMAT( ' ${.a6} PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ${.a6} FAILED THE TESTS OF ERROR-EXITS *******' );
       }
-      void dmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
+      void dmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2129,7 +2129,7 @@ import 'common.dart';
       }
       return;
       }
-      void dmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, MV ) {
+      void dmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2240,7 +2240,7 @@ import 'common.dart';
  9998 FORMAT( 1X, I7, 2G18.6 );
  9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
       }
-      bool lde(RI, RJ, LR ) {
+      bool lde(RI, RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2266,7 +2266,7 @@ import 'common.dart';
       LDE = false;
    30 return;
       }
-      bool lderes(TYPE, UPLO, M, N, AA, AS, LDA ) {
+      bool lderes(TYPE, UPLO, M, N, AA, AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2360,7 +2360,7 @@ import 'common.dart';
       DBEG = ( I - 500 )/1001.0;
       return;
       }
-      double ddiff(X, Y ) {
+      double ddiff(X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

@@ -1,4 +1,4 @@
-      void zchkgl(NIN, NOUT ) {
+      void zchkgl(NIN, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

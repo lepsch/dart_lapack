@@ -1,4 +1,4 @@
-      void sget22(TRANSA, TRANSE, TRANSW, N, final Matrix<double> A, final int LDA, final Matrix<double> E, final int LDE, WR, WI, final Array<double> _WORK, RESULT ) {
+      void sget22(TRANSA, TRANSE, TRANSW, N, final Matrix<double> A, final int LDA, final Matrix<double> E, final int LDE, WR, WI, final Array<double> _WORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

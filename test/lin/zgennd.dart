@@ -1,4 +1,4 @@
-      bool zgennd(M, N, A, LDA) {
+      bool zgennd(M, N, A, final int LDA) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

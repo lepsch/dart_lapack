@@ -1,4 +1,4 @@
-      void stfsm(TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB ) {
+      void stfsm(TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, final int LDB) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

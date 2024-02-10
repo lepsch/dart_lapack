@@ -1,4 +1,4 @@
-      void dlaord(JOB, N, X, INCX ) {
+      void dlaord(JOB, N, X, final int INCX) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

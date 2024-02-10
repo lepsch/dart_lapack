@@ -1,4 +1,4 @@
-      double slangt(NORM, N, DL, D, DU ) {
+      double slangt(NORM, N, DL, D, final int DU) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

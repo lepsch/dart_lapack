@@ -1,4 +1,4 @@
-      void zbdt05(M, N, final Matrix<double> A, final int LDA, S, NS, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, RESID ) {
+      void zbdt05(M, N, final Matrix<double> A, final int LDA, S, NS, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

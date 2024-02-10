@@ -1,4 +1,4 @@
-      void srqt03(M, N, K, AF, C, CC, Q, LDA, TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT ) {
+      void srqt03(M, N, K, AF, C, CC, Q, LDA, TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

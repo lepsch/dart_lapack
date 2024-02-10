@@ -1,4 +1,4 @@
-      void cgtt01(N, DL, D, DU, DLF, DF, DUF, DU2, final Array<int> IPIV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, RESID ) {
+      void cgtt01(N, DL, D, DU, DLF, DF, DUF, DU2, final Array<int> IPIV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

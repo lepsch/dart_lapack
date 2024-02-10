@@ -1,4 +1,4 @@
-      void caxpy(N,CA,CX,INCX,CY,INCY) {
+      void caxpy(N,CA,CX,INCX,CY, final int INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
