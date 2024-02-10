@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlaqz3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, NS, ND, ALPHAR, ALPHAI, BETA, final Matrix<double> QC, final int LDQC, final Matrix<double> ZC, final int LDZC, final Array<double> WORK, final int LWORK, REC, INFO ) {
+      void dlaqz3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, NS, ND, ALPHAR, ALPHAI, BETA, final Matrix<double> QC, final int LDQC, final Matrix<double> ZC, final int LDZC, final Array<double> WORK, final int LWORK, REC, final Box<int> INFO) {
       // Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;

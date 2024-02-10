@@ -1,4 +1,4 @@
-      void sbdsvdx(UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU, NS, S, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, INFO) {
+      void sbdsvdx(UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU, NS, S, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
