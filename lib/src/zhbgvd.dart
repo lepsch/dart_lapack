@@ -1,4 +1,4 @@
-      void zhbgvd(JOBZ, UPLO, N, KA, KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, W, final Matrix<double> Z, final int LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void zhbgvd(JOBZ, UPLO, N, KA, KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

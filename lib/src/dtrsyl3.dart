@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtrsyl3(TRANA, TRANB, ISGN, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, SCALE, IWORK, LIWORK, final Matrix<double> SWORK, final int LDSWORK, Box<int> INFO ) {
+      void dtrsyl3(TRANA, TRANB, ISGN, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, SCALE, final Array<int> IWORK, final int LIWORK, final Matrix<double> SWORK, final int LDSWORK, Box<int> INFO ) {
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
       double             SCALE;

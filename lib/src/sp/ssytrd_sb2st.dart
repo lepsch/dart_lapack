@@ -1,4 +1,4 @@
-      void ssytrd_sb2st(STAGE1, VECT, UPLO, N, KD, final Matrix<double> AB, final int LDAB, D, E, HOUS, LHOUS, WORK, LWORK, Box<int> INFO ) {
+      void ssytrd_sb2st(STAGE1, VECT, UPLO, N, KD, final Matrix<double> AB, final int LDAB, D, E, HOUS, LHOUS, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // #if defined(_OPENMP)
       use omp_lib;

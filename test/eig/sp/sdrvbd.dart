@@ -1,4 +1,4 @@
-      void sdrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, final Matrix<double> A, final int LDA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, ASAV, USAV, VTSAV, S, SSAV, E, WORK, LWORK, IWORK, NOUT, Box<int> INFO ) {
+      void sdrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, final Matrix<double> A, final int LDA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, ASAV, USAV, VTSAV, S, SSAV, E, final Array<double> WORK, final int LWORK, IWORK, NOUT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

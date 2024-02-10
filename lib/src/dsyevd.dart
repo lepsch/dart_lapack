@@ -9,7 +9,7 @@ import 'package:lapack/src/xerbla.dart';
 
 // >
 // =====================================================================
-      void dsyevd(JOBZ, UPLO, N, final Matrix<double> A, final int LDA, W, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void dsyevd(JOBZ, UPLO, N, final Matrix<double> A, final int LDA, W, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, PHI, final Matrix<double> U1, final int LDU1, final Matrix<double> U2, final int LDU2, final Matrix<double> V1T, final int LDV1T, final Matrix<double> V2T, final int LDV2T, B11D, B11E, B12D, B12E, B21D, B21E, B22D, B22E, RWORK, LRWORK, Box<int> INFO ) {
+      void zbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, PHI, final Matrix<double> U1, final int LDU1, final Matrix<double> U2, final int LDU2, final Matrix<double> V1T, final int LDV1T, final Matrix<double> V2T, final int LDV2T, B11D, B11E, B12D, B12E, B21D, B21E, B22D, B22E, final Array<int> RWORK, final int LRWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

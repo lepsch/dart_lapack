@@ -1,4 +1,4 @@
-      void zungtsqr_row(M, N, MB, NB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, WORK, LWORK, Box<int> INFO ) {
+      void zungtsqr_row(M, N, MB, NB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

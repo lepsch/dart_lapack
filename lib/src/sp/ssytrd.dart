@@ -1,4 +1,4 @@
-      void ssytrd(UPLO, N, final Matrix<double> A, final int LDA, D, E, TAU, WORK, LWORK, Box<int> INFO ) {
+      void ssytrd(UPLO, N, final Matrix<double> A, final int LDA, D, E, TAU, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

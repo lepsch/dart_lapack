@@ -1,4 +1,4 @@
-      void zunbdb(TRANS, SIGNS, M, P, Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X12, final int LDX12, final Matrix<double> X21, final int LDX21, final Matrix<double> X22, final int LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, WORK, LWORK, Box<int> INFO ) {
+      void zunbdb(TRANS, SIGNS, M, P, Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X12, final int LDX12, final Matrix<double> X21, final int LDX21, final Matrix<double> X22, final int LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

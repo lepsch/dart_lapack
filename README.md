@@ -185,6 +185,12 @@ $1for ($3 = $4; $3 <= $5; $3++) { // $2
 $1 final Matrix<double> $3, final int LD$3, $4) {
 ```
 
+### Array args (WORK, LWORK)
+```
+^(\s+\w+\s+\w+\((\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*,)+)\s*IWORK\s*,\s*LIWORK\s*,\s*(.+)\)\s*\{$
+$1 final Array<double> WORK, final int LWORK, $6) {
+```
+
 Improved
 ```
 ^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*([^,]+)\s*,\s*([^,]*)$

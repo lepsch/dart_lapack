@@ -1,4 +1,4 @@
-      void cdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, Z, Q, ALPHA, BETA, final Matrix<double> C, final int LDC, S, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
+      void cdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, Z, Q, ALPHA, BETA, final Matrix<double> C, final int LDC, S, final Array<double> WORK, final int LWORK, RWORK, final Array<int> IWORK, final int LIWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

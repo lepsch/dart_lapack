@@ -1,4 +1,4 @@
-      void sstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, final Matrix<double> Z, final int LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void sstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, final Matrix<double> Z, final int LDZ, NZC, ISUPPZ, TRYRAC, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

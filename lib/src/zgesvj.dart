@@ -1,4 +1,4 @@
-      void zgesvj(JOBA, JOBU, JOBV, M, N, final Matrix<double> A, final int LDA, SVA, MV, final Matrix<double> V, final int LDV, CWORK, LWORK, RWORK, LRWORK, Box<int> INFO ) {
+      void zgesvj(JOBA, JOBU, JOBV, M, N, final Matrix<double> A, final int LDA, SVA, MV, final Matrix<double> V, final int LDV, CWORK, LWORK, final Array<int> RWORK, final int LRWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

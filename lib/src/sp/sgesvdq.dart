@@ -1,4 +1,4 @@
-      void sgesvdq(JOBA, JOBP, JOBR, JOBU, JOBV, M, N, final Matrix<double> A, final int LDA, S, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, Box<int> INFO ) {
+      void sgesvdq(JOBA, JOBP, JOBR, JOBU, JOBV, M, N, final Matrix<double> A, final int LDA, S, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, NUMRANK, final Array<int> IWORK, final int LIWORK, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, Box<int> INFO ) {
       // .. Scalar Arguments ..
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;

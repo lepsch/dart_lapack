@@ -1,4 +1,4 @@
-      void clsets(M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT ) {
+      void clsets(M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, final Array<double> WORK, final int LWORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

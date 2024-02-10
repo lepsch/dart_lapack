@@ -1,4 +1,4 @@
-      void dlqt03(M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT ) {
+      void dlqt03(M, N, K, AF, C, CC, Q, LDA, TAU, final Array<double> WORK, final int LWORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

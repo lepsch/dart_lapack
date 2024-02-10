@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, final Matrix<double> A, final int LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, Box<int> INFO ) {
+      void dgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, final Matrix<double> A, final int LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, final Array<double> WORK, final int LWORK, IWORK, Box<int> INFO ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

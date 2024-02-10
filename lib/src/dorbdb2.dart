@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dorbdb2(M, P, Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X21, final int LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, Box<int> INFO ) {
+      void dorbdb2(M, P, Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X21, final int LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

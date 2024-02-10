@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrd_sy2sb(UPLO, N, KD, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, TAU,  WORK, LWORK, Box<int> INFO ) {
+      void dsytrd_sy2sb(UPLO, N, KD, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, TAU, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sdrgvx(NSIZE, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, ALPHAR, ALPHAI, BETA, VL, VR, ILO, IHI, LSCALE, RSCALE, S, STRU, DIF, DIFTRU, WORK, LWORK, IWORK, LIWORK, RESULT, BWORK, Box<int> INFO ) {
+      void sdrgvx(NSIZE, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, ALPHAR, ALPHAI, BETA, VL, VR, ILO, IHI, LSCALE, RSCALE, S, STRU, DIF, DIFTRU, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, RESULT, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

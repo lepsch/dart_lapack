@@ -1,4 +1,4 @@
-      void cchkbb(NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, BD, BE, final Matrix<double> Q, final int LDQ, final Matrix<double> P, final int LDP, final Matrix<double> C, final int LDC, CC, WORK, LWORK, RWORK, RESULT, Box<int> INFO ) {
+      void cchkbb(NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, BD, BE, final Matrix<double> Q, final int LDQ, final Matrix<double> P, final int LDP, final Matrix<double> C, final int LDC, CC, final Array<double> WORK, final int LWORK, RWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cungql(M, N, K, final Matrix<double> A, final int LDA, TAU, WORK, LWORK, Box<int> INFO ) {
+      void cungql(M, N, K, final Matrix<double> A, final int LDA, TAU, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

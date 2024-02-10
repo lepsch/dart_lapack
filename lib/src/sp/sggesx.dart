@@ -1,4 +1,4 @@
-      void sggesx(JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHAR, ALPHAI, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
+      void sggesx(JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHAR, ALPHAI, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, RCONDE, RCONDV, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

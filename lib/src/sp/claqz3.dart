@@ -1,4 +1,4 @@
-      void claqz3(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, ALPHA, BETA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Matrix<double> QC, final int LDQC, final Matrix<double> ZC, final int LDZC, WORK, LWORK, Box<int> INFO ) {
+      void claqz3(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, ALPHA, BETA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Matrix<double> QC, final int LDQC, final Matrix<double> ZC, final int LDZC, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
       // Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;

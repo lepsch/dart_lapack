@@ -1,4 +1,4 @@
-      void cgesvdx(JOBU, JOBVT, RANGE, M, N, final Matrix<double> A, final int LDA, VL, VU, IL, IU, NS, S, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, WORK, LWORK, RWORK, IWORK, Box<int> INFO ) {
+      void cgesvdx(JOBU, JOBVT, RANGE, M, N, final Matrix<double> A, final int LDA, VL, VU, IL, IU, NS, S, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> WORK, final int LWORK, RWORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

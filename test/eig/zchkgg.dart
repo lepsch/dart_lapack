@@ -1,4 +1,4 @@
-      void zchkgg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUNIT, final Matrix<double> A, final int LDA, B, H, T, S1, S2, P1, P2, final Matrix<double> U, final int LDU, V, Q, Z, ALPHA1, BETA1, ALPHA3, BETA3, EVECTL, EVECTR, WORK, LWORK, RWORK, LLWORK, RESULT, Box<int> INFO ) {
+      void zchkgg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUNIT, final Matrix<double> A, final int LDA, B, H, T, S1, S2, P1, P2, final Matrix<double> U, final int LDU, V, Q, Z, ALPHA1, BETA1, ALPHA3, BETA3, EVECTL, EVECTR, final Array<double> WORK, final int LWORK, RWORK, LLWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

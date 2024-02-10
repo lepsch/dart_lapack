@@ -1,4 +1,4 @@
-      void zunmtr(SIDE, UPLO, TRANS, M, N, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, WORK, LWORK, Box<int> INFO ) {
+      void zunmtr(SIDE, UPLO, TRANS, M, N, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

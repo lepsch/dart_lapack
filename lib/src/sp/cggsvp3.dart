@@ -1,4 +1,4 @@
-      void cggsvp3(JOBU, JOBV, JOBQ, M, P, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, TOLA, TOLB, K, L, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, IWORK, RWORK, TAU, WORK, LWORK, Box<int> INFO ) {
+      void cggsvp3(JOBU, JOBV, JOBQ, M, P, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, TOLA, TOLB, K, L, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, IWORK, RWORK, TAU, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

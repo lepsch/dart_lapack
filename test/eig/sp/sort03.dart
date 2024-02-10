@@ -1,4 +1,4 @@
-      void sort03(RC, MU, MV, N, K, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, WORK, LWORK, RESULT, Box<int> INFO ) {
+      void sort03(RC, MU, MV, N, K, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Array<double> WORK, final int LWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
