@@ -8,6 +8,7 @@
 		"editor.formatOnSave": true,
 		"editor.formatOnPaste": true,
 		"editor.formatOnType": true,
+		"editor.suggestSelection": "recentlyUsedByPrefix",
 		"fortran.fortls.disabled": true
 	}
 }

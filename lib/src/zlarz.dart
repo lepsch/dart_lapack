@@ -1,4 +1,4 @@
-      void zlarz(SIDE, M, N, L, V, INCV, TAU, final Matrix<double> C, final int LDC, WORK ) {
+      void zlarz(SIDE, M, N, L, V, INCV, TAU, final Matrix<double> C, final int LDC, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

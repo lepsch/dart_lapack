@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dla_porcond(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, CMODE, C, INFO, final Array<double> _WORK, IWORK ) {
+      double dla_porcond(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, CMODE, C, INFO, final Array<double> _WORK, final Array<int> IWORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

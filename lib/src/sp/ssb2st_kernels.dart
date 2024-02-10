@@ -1,4 +1,4 @@
-      void ssb2st_kernels(UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, final Matrix<double> A, final int LDA, V, TAU, LDVT, WORK) {
+      void ssb2st_kernels(UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, final Matrix<double> A, final int LDA, V, TAU, LDVT, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

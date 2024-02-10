@@ -1,4 +1,4 @@
-      double slantp(NORM, UPLO, DIAG, N, AP, WORK ) {
+      double slantp(NORM, UPLO, DIAG, N, AP, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

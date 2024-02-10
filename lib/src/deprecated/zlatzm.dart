@@ -1,4 +1,4 @@
-      void zlatzm(SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK ) {
+      void zlatzm(SIDE, M, N, V, INCV, TAU, C1, C2, LDC, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double sla_porpvgrw(UPLO, NCOLS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, WORK ) {
+      double sla_porpvgrw(UPLO, NCOLS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

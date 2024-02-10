@@ -197,6 +197,18 @@ $1 final Array<double> WORK, final int LWORK, $6) {
 $1 final Array<bool> DOTYPE, $6) {
 ```
 
+### Last arg
+```
+^(\s+\w+\s+\w+\((\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*,)+)\s*\wWORK\s*\)\s*\{$
+$1 final Array<double> WORK) {
+```
+
+### Unknown args
+```
+^(\s+\w+\s+\w+\((\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*,)+)\s*(\w+)\s*,\s*(.+)\)\s*\{$
+$1 final int $6, $7) {
+```
+
 Improved
 ```
 ^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*([^,]+)\s*,\s*([^,]*)$

@@ -138,7 +138,7 @@
 
 
 
-      void clacsg(M, P, Q, THETA, final Array<int> ISEED, final Matrix<double> X, final int LDX, WORK ) {
+      void clacsg(M, P, Q, THETA, final Array<int> ISEED, final Matrix<double> X, final int LDX, final Array<double> WORK) {
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double               THETA( * );

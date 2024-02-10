@@ -1,4 +1,4 @@
-      void zlaqp2(M, N, OFFSET, final Matrix<double> A, final int LDA, JPVT, TAU, VN1, VN2, WORK ) {
+      void zlaqp2(M, N, OFFSET, final Matrix<double> A, final int LDA, JPVT, TAU, VN1, VN2, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

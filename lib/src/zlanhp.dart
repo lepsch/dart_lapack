@@ -1,4 +1,4 @@
-      double zlanhp(NORM, UPLO, N, AP, WORK ) {
+      double zlanhp(NORM, UPLO, N, AP, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

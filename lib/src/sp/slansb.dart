@@ -1,4 +1,4 @@
-      double slansb(NORM, UPLO, N, K, final Matrix<double> AB, final int LDAB, WORK ) {
+      double slansb(NORM, UPLO, N, K, final Matrix<double> AB, final int LDAB, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

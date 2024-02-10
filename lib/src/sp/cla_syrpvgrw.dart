@@ -1,4 +1,4 @@
-      double cla_syrpvgrw(UPLO, N, INFO, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, WORK ) {
+      double cla_syrpvgrw(UPLO, N, INFO, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
