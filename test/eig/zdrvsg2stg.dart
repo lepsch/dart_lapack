@@ -1,4 +1,4 @@
-      void zdrvsg2stg(NSIZES, NN, NTYPES, DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, D, D2, final Matrix<double> Z, final int LDZ, AB, BB, AP, BP, WORK, NWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, RESULT, Box<int> INFO ) {
+      void zdrvsg2stg(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, D, D2, final Matrix<double> Z, final int LDZ, AB, BB, AP, BP, WORK, NWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
