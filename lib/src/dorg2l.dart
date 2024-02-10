@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dorg2l(M, N, K, final Matrix<double> A, final int LDA, TAU, WORK, final Box<int> INFO ) {
+      void dorg2l(M, N, K, final Matrix<double> A, final int LDA, TAU, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

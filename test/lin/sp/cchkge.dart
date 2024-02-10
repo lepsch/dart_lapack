@@ -1,4 +1,4 @@
-      void cchkge(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
+      void cchkge(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

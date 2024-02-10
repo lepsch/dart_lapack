@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void dchktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, WORK, NOUT ) {
+      void dchktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, final Array<double> _WORK, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

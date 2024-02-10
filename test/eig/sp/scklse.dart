@@ -1,4 +1,4 @@
-      void scklse(NN, MVAL, PVAL, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void scklse(NN, MVAL, PVAL, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, B, BF, X, final Array<double> _WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void stpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void stpcon(NORM, UPLO, DIAG, N, AP, RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

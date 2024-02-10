@@ -1,4 +1,4 @@
-      void cdrvge(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
+      void cdrvge(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

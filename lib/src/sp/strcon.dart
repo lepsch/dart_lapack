@@ -1,4 +1,4 @@
-      void strcon(NORM, UPLO, DIAG, N, final Matrix<double> A, final int LDA, RCOND, WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void strcon(NORM, UPLO, DIAG, N, final Matrix<double> A, final int LDA, RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

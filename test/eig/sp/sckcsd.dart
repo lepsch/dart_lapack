@@ -1,4 +1,4 @@
-      void sckcsd(NM, MVAL, PVAL, QVAL, NMATS, final Array<int> ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, final Array<int> IWORK, WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void sckcsd(NM, MVAL, PVAL, QVAL, NMATS, final Array<int> ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, final Array<int> IWORK, final Array<double> _WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

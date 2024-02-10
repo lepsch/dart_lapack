@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dpprfs(UPLO, N, NRHS, AP, AFP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void dpprfs(UPLO, N, NRHS, AP, AFP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

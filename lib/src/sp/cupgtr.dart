@@ -1,4 +1,4 @@
-      void cupgtr(UPLO, N, AP, TAU, final Matrix<double> Q, final int LDQ, WORK, final Box<int> INFO ) {
+      void cupgtr(UPLO, N, AP, TAU, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

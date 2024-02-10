@@ -1,4 +1,4 @@
-      void sgeqpf(M, N, final Matrix<double> A, final int LDA, JPVT, TAU, WORK, final Box<int> INFO ) {
+      void sgeqpf(M, N, final Matrix<double> A, final int LDA, JPVT, TAU, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

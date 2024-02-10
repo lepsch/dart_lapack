@@ -1,4 +1,4 @@
-      void dlattp(IMAT, UPLO, TRANS, DIAG, final Array<int> ISEED, N, A, B, WORK, final Box<int> INFO ) {
+      void dlattp(IMAT, UPLO, TRANS, DIAG, final Array<int> ISEED, N, A, B, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

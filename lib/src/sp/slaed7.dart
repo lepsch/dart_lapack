@@ -1,4 +1,4 @@
-      void slaed7(ICOMPQ, N, QSIZ, TLVLS, CURLVL, CURPBM, D, final Matrix<double> Q, final int LDQ, INDXQ, RHO, CUTPNT, QSTORE, QPTR, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void slaed7(ICOMPQ, N, QSIZ, TLVLS, CURLVL, CURPBM, D, final Matrix<double> Q, final int LDQ, INDXQ, RHO, CUTPNT, QSTORE, QPTR, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

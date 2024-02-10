@@ -1,4 +1,4 @@
-      void zhpt21(ITYPE, UPLO, N, KBAND, AP, D, E, final Matrix<double> U, final int LDU, VP, TAU, WORK, final Array<double> RWORK, RESULT ) {
+      void zhpt21(ITYPE, UPLO, N, KBAND, AP, D, E, final Matrix<double> U, final int LDU, VP, TAU, final Array<double> _WORK, final Array<double> RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

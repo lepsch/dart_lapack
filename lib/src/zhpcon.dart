@@ -1,4 +1,4 @@
-      void zhpcon(UPLO, N, AP, final Array<int> IPIV, ANORM, RCOND, WORK, final Box<int> INFO ) {
+      void zhpcon(UPLO, N, AP, final Array<int> IPIV, ANORM, RCOND, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

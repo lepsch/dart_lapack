@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void ddrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, final Array<double> RWORK, SWORK, NOUT ) {
+      void ddrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, final Array<double> _WORK, final Array<double> RWORK, SWORK, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

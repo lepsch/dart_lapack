@@ -1,4 +1,4 @@
-      void zptt01(N, D, E, DF, EF, WORK, RESID ) {
+      void zptt01(N, D, E, DF, EF, final Array<double> _WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

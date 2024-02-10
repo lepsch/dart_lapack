@@ -1,4 +1,4 @@
-      void ssgt01(ITYPE, UPLO, N, M, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Z, final int LDZ, D, WORK, RESULT ) {
+      void ssgt01(ITYPE, UPLO, N, M, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Z, final int LDZ, D, final Array<double> _WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

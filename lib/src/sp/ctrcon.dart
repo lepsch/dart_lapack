@@ -1,4 +1,4 @@
-      void ctrcon(NORM, UPLO, DIAG, N, final Matrix<double> A, final int LDA, RCOND, WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void ctrcon(NORM, UPLO, DIAG, N, final Matrix<double> A, final int LDA, RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slaein(RIGHTV, NOINIT, N, final Matrix<double> H, final int LDH, WR, WI, VR, VI, final Matrix<double> B, final int LDB, WORK, EPS3, SMLNUM, BIGNUM, final Box<int> INFO ) {
+      void slaein(RIGHTV, NOINIT, N, final Matrix<double> H, final int LDH, WR, WI, VR, VI, final Matrix<double> B, final int LDB, final Array<double> _WORK, EPS3, SMLNUM, BIGNUM, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

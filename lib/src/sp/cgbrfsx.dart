@@ -1,4 +1,4 @@
-      void cgbrfsx(TRANS, EQUED, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, R, C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cgbrfsx(TRANS, EQUED, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, R, C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void chbt21(UPLO, N, KA, KS, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, WORK, final Array<double> RWORK, RESULT ) {
+      void chbt21(UPLO, N, KA, KS, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Array<double> _WORK, final Array<double> RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgecon(NORM, N, final Matrix<double> A, final int LDA, ANORM, RCOND, WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cgecon(NORM, N, final Matrix<double> A, final int LDA, ANORM, RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

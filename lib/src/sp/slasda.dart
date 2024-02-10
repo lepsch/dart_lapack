@@ -1,4 +1,4 @@
-      void slasda(ICOMPQ, SMLSIZ, N, SQRE, D, E, final Matrix<double> U, final int LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void slasda(ICOMPQ, SMLSIZ, N, SQRE, D, E, final Matrix<double> U, final int LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

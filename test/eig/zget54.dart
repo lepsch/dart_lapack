@@ -1,4 +1,4 @@
-      void zget54(N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> S, final int LDS, final Matrix<double> T, final int LDT, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, WORK, RESULT ) {
+      void zget54(N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> S, final int LDS, final Matrix<double> T, final int LDT, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Array<double> _WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

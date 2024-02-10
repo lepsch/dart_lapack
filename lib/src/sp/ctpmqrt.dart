@@ -1,4 +1,4 @@
-      void ctpmqrt(SIDE, TRANS, M, N, K, L, NB, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, final Box<int> INFO ) {
+      void ctpmqrt(SIDE, TRANS, M, N, K, L, NB, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

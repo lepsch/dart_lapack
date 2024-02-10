@@ -1,4 +1,4 @@
-      void zdrvgt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, AF, B, X, XACT, WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
+      void zdrvgt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, AF, B, X, XACT, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

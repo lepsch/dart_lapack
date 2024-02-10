@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasd0(N, SQRE, D, E, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, SMLSIZ, final Array<int> IWORK, WORK, final Box<int> INFO ) {
+      void dlasd0(N, SQRE, D, E, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, SMLSIZ, final Array<int> IWORK, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

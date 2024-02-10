@@ -1,4 +1,4 @@
-      void strexc(COMPQ, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, IFST, ILST, WORK, final Box<int> INFO ) {
+      void strexc(COMPQ, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, IFST, ILST, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

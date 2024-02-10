@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasd8(ICOMPQ, K, D, Z, VF, VL, DIFL, final Matrix<double> DIFR, final int LDDIFR, DSIGMA, WORK, final Box<int> INFO ) {
+      void dlasd8(ICOMPQ, K, D, Z, VF, VL, DIFL, final Matrix<double> DIFR, final int LDDIFR, DSIGMA, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

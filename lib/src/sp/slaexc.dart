@@ -1,4 +1,4 @@
-      void slaexc(WANTQ, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, J1, N1, N2, WORK, final Box<int> INFO ) {
+      void slaexc(WANTQ, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, J1, N1, N2, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

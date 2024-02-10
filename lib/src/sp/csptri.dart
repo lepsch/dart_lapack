@@ -1,4 +1,4 @@
-      void csptri(UPLO, N, AP, final Array<int> IPIV, WORK, final Box<int> INFO ) {
+      void csptri(UPLO, N, AP, final Array<int> IPIV, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
