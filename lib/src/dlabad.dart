@@ -19,6 +19,4 @@ void dlabad(SMALL, LARGE) {
   // SMALL = sqrt( SMALL )
   // LARGE = sqrt( LARGE )
   // END IF
-
-  return;
 }

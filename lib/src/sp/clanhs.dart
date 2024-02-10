@@ -79,5 +79,4 @@
       }
 
       CLANHS = VALUE;
-      return;
       }

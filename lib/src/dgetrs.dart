@@ -87,5 +87,4 @@ import 'package:lapack/src/xerbla.dart';
          dlaswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
-      return;
       }

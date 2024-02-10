@@ -213,5 +213,4 @@ import 'common.dart';
 
  9999 FORMAT(' double           RFP routines passed the tests of ',; 'the error exits' )
  9998 FORMAT( ' *** RFP routines failed the tests of the error exits ***' );
-      return;
       }

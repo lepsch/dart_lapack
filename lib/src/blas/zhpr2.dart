@@ -151,6 +151,4 @@ void zhpr2(
       }
     }
   }
-
-  return;
 }

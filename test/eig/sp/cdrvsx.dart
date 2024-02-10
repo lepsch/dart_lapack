@@ -380,5 +380,4 @@
  9992 FORMAT( ' N=${.i5}, input example =${.i3},  test(${.i2})=${.g10_3}');
  9991 FORMAT( ' CDRVSX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
-      return;
       }

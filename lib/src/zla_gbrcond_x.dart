@@ -145,5 +145,4 @@
 
       if (AINVNM != 0.0) ZLA_GBRCOND_X = 1.0 / AINVNM;
 
-      return;
       }

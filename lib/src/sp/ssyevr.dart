@@ -318,5 +318,4 @@
       WORK[1] = SROUNDUP_LWORK( LWKOPT );
       IWORK[1] = LIWMIN;
 
-      return;
       }

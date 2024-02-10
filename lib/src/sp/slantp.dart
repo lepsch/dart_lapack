@@ -212,5 +212,4 @@
       }
 
       SLANTP = VALUE;
-      return;
       }

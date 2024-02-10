@@ -57,5 +57,4 @@ import 'package:lapack/src/xerbla.dart';
       }
       } // 50
 
-      return;
       }

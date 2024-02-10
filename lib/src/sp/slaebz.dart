@@ -299,5 +299,4 @@
       INFO = max( KL+1-KF, 0 );
       MOUT = KL;
 
-      return;
       }

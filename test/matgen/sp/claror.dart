@@ -163,5 +163,4 @@
             cscal(M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 90
       }
-      return;
       }

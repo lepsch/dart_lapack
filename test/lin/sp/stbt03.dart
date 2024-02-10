@@ -85,5 +85,4 @@
          RESID = max( RESID, ERR );
       } // 40
 
-      return;
       }

@@ -273,5 +273,4 @@
 
       WORK[1] = DCMPLX( LWKOPT );
 
-      return;
       }

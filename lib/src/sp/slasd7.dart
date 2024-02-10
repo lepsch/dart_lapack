@@ -272,5 +272,4 @@
       scopy(N-1, VFW( 2 ), 1, VF( 2 ), 1 );
       scopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
-      return;
       }

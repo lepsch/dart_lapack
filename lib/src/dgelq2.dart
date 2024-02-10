@@ -58,5 +58,4 @@ import 'package:lapack/src/xerbla.dart';
             A[I][I] = AII;
          }
       } // 10
-      return;
       }

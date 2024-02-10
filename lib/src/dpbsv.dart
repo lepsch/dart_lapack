@@ -59,5 +59,4 @@ import 'package:lapack/src/xerbla.dart';
          dpbtrs(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO );
 
       }
-      return;
       }

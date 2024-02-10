@@ -388,5 +388,4 @@
 
  9999 FORMAT( 1X, A, ' passed the tests of the error exits (${.i3} tests done)' );
  9998 FORMAT( ' *** ${} failed the tests of the error exits ***' );
-      return;
       }

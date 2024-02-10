@@ -149,5 +149,4 @@
 
       RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
-      return;
       }

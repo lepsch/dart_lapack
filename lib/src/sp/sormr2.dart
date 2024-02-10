@@ -97,5 +97,4 @@
          slarf(SIDE, MI, NI, A( I, 1 ), LDA, TAU( I ), C, LDC, WORK );
          A[I][NQ-K+I] = AII;
       } // 10
-      return;
       }

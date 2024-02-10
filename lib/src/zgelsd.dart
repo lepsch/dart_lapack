@@ -360,5 +360,4 @@
       WORK[1] = MAXWRK;
       IWORK[1] = LIWORK;
       RWORK[1] = LRWORK;
-      return;
       }

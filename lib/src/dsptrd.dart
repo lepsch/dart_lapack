@@ -133,5 +133,4 @@ import 'package:lapack/src/xerbla.dart';
          D[N] = AP( II );
       }
 
-      return;
       }

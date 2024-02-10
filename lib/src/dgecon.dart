@@ -136,5 +136,4 @@ import 'package:lapack/src/xerbla.dart';
       if( disnan( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
-      return;
       }

@@ -168,5 +168,4 @@
 
  9999 FORMAT( 'CUNGTSQR and CUNHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
  9998 FORMAT( 'CUNGTSQR_ROW and CUNHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
-      return;
       }

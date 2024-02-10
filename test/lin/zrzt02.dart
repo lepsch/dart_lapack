@@ -52,5 +52,4 @@
       } // 10
 
       ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      return;
       }

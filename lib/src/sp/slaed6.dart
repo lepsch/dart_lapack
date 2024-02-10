@@ -233,5 +233,4 @@
       // Undo scaling
 
       if (SCALE) TAU = TAU*SCLINV;
-      return;
       }

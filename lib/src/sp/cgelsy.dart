@@ -231,5 +231,4 @@
       } // 70
       WORK[1] = CMPLX( LWKOPT );
 
-      return;
       }

@@ -27,5 +27,4 @@
             ILASLR = max( ILASLR, I );
          }
       }
-      return;
       }

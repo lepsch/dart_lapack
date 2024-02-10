@@ -333,5 +333,4 @@
          COLTYP[J] = CTOT( J );
       } // 190
 
-      return;
       }

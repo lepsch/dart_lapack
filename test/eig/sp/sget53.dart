@@ -96,5 +96,4 @@
       DETR = ( CSCALE*CR11 )*( CSCALE*CR22 ) - ( CSCALE*CI11 )*( CSCALE*CI22 ) - ( CSCALE*CR12 )*( CSCALE*CR21 )       DETI = ( CSCALE*CR11 )*( CSCALE*CI22 ) + ( CSCALE*CI11 )*( CSCALE*CR22 ) - ( CSCALE*CI12 )*( CSCALE*CR21 );
       SIGMIN = ( DETR ).abs() + ( DETI ).abs();
       RESULT = SIGMIN / S1;
-      return;
       }

@@ -59,5 +59,4 @@
       }
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, DUMMY );
-      return;
       }

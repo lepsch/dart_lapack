@@ -69,5 +69,4 @@
          RESULT[1] = ( CLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP );
       }
 
-      return;
       }

@@ -57,5 +57,4 @@
          ztfsm(TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB );
       }
 
-      return;
       }

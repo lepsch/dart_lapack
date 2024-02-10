@@ -17,5 +17,4 @@ double second() {
 
   cpu_time(T);
   SECOND = T;
-  return;
 }

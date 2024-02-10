@@ -1549,5 +1549,4 @@
  9999 FORMAT( ' ZDRVST: ${} returned INFO=', I6, / 9X, 'N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
  9998 FORMAT( ' ZDRVST: ${} returned INFO=', I6, / 9X, 'N=${.i6}, KD=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
-      return;
       }

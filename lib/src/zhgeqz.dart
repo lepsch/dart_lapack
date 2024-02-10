@@ -528,5 +528,4 @@
 
       } // 210
       WORK[1] = DCMPLX( N );
-      return;
       }

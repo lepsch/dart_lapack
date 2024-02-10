@@ -85,5 +85,4 @@
 
       ssyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
-      return;
       }

@@ -95,5 +95,4 @@
          cungqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
       }
       WORK[1] = SROUNDUP_LWORK(LWKOPT);
-      return;
       }

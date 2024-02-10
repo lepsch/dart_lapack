@@ -153,5 +153,4 @@
  9999 FORMAT( ' ZLATMS in ZCKGQR:    INFO = ${.i5}');
  9998 FORMAT( ' M=${.i4} P=${.i4}, N=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
  9997 FORMAT( ' N=${.i4} M=${.i4}, P=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
-      return;
       }

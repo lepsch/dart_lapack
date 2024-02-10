@@ -233,5 +233,4 @@
       ILO = K;
       IHI = L;
 
-      return;
       }

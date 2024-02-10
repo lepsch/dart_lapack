@@ -149,5 +149,4 @@
       WORK[1] = LWMIN;
       RWORK[1] = LRWMIN;
       IWORK[1] = LIWMIN;
-      return;
       }

@@ -10,5 +10,4 @@
 
 // .. Executable Statements ..
       SLAISNAN = (SIN1 != SIN2);
-      return;
       }

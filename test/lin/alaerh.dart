@@ -752,5 +752,4 @@
 
  9930 FORMAT( ' *** Error code from ${}=', I5, / ' ==> M =${.i5}, N =${.i5}, NX =${.i5}, NB =${.i4}, type ${.i2}');
 
-      return;
       }

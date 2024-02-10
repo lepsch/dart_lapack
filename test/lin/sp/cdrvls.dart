@@ -645,5 +645,4 @@
       DEALLOCATE( WORK );
       DEALLOCATE( RWORK );
       DEALLOCATE( IWORK );
-      return;
       }

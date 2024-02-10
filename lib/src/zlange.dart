@@ -79,5 +79,4 @@
       }
 
       ZLANGE = VALUE;
-      return;
       }

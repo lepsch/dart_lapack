@@ -70,5 +70,4 @@
          ctrsm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
-      return;
       }

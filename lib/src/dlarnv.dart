@@ -67,5 +67,4 @@ import 'package:lapack/src/xerbla.dart';
             } // 30
          }
       } // 40
-      return;
       }

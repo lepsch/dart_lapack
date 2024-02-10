@@ -220,5 +220,4 @@
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );
 
-      return;
       }

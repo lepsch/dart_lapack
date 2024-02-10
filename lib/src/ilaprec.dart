@@ -32,5 +32,4 @@ int ilaprec(PREC) {
   } else {
     ILAPREC = -1;
   }
-  return;
 }

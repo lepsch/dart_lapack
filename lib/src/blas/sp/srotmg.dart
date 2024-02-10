@@ -160,5 +160,4 @@
       }
 
       SPARAM[1] = SFLAG;
-      return;
       }

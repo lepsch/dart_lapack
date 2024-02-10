@@ -195,5 +195,4 @@
          xerbla('ZLARHS', -INFO );
       }
 
-      return;
       }

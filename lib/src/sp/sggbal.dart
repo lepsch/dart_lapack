@@ -334,5 +334,4 @@
          sscal(IHI, RSCALE( J ), B( 1, J ), 1 );
       } // 380
 
-      return;
       }

@@ -43,5 +43,4 @@
          STEMP = STEMP + ( CX( I ) ).abs();
       } // 30
       SCSUM1 = STEMP;
-      return;
       }

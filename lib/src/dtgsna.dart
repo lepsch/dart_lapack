@@ -322,5 +322,4 @@ void dtgsna(
     if (PAIR) KS = KS + 1;
   }
   WORK[1] = LWMIN.toDouble();
-  return;
 }

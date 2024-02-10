@@ -188,5 +188,4 @@
          }
       }
       if (STKPNT > 0) GO TO 10;
-      return;
       }

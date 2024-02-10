@@ -108,5 +108,4 @@
       }
 
       ZLANSB = VALUE;
-      return;
       }

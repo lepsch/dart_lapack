@@ -344,5 +344,4 @@ import 'common.dart';
  9999 FORMAT( ' UPLO = ''${.a1}'', N =${.i5}, NB =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
  9998 FORMAT( ' UPLO = ''${.a1}'', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
  9995 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
-      return;
       }

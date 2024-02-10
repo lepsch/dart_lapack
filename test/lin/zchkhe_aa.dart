@@ -344,5 +344,4 @@
 // 9997 FORMAT( ' UPLO = ''${.a1}'', N =${.i5},${' ' * 10} type ', I2,
       // $      ', test(${.i2}) =${.g12_5}
  9995 FORMAT( ' Invalid input value: ${.a4}=${.i6}; must be <=', I6 )
-      return;
       }

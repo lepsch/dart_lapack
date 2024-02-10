@@ -21,5 +21,4 @@ String chla_transtype(TRANS) {
   } else {
     CHLA_TRANSTYPE = 'X';
   }
-  return;
 }

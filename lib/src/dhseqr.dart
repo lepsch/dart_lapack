@@ -88,7 +88,7 @@ void dhseqr(
     // ==== Quick return in case of a workspace query ====
 
     dlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK,
-        LWORK, INFO.value);
+        LWORK, INFO);
     // ==== Ensure reported workspace size is backward-compatible with
     // .    previous LAPACK versions. ====
     WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
@@ -128,12 +128,11 @@ void dhseqr(
 
     if (N > NMIN) {
       dlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK,
-          LWORK, INFO.value);
+          LWORK, INFO);
     } else {
       // ==== Small matrix ====
 
-      dlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ,
-          INFO.value);
+      dlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, INFO);
 
       if (INFO.value > 0) {
         // ==== A rare DLAHQR failure!  DLAQR0 sometimes succeeds
@@ -146,7 +145,7 @@ void dhseqr(
           // .    space to call DLAQR0 directly. ====
 
           dlaqr0(WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ,
-              WORK, LWORK, INFO.value);
+              WORK, LWORK, INFO);
         } else {
           // ==== Tiny matrices don't have enough subdiagonal
           // .    scratch space to benefit from DLAQR0.  Hence,
@@ -157,7 +156,7 @@ void dhseqr(
           HL[N + 1][N] = ZERO;
           dlaset('A', NL, NL - N, ZERO, ZERO, HL(1, N + 1), NL);
           dlaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ,
-              WORKL, NL, INFO.value);
+              WORKL, NL, INFO);
           if (WANTT || INFO.value != 0) dlacpy('A', N, N, HL, NL, H, LDH);
         }
       }
@@ -174,6 +173,4 @@ void dhseqr(
 
     WORK[1] = max((max(1, N)).toDouble(), WORK[1]);
   }
-
-  // ==== End of DHSEQR ====
 }

@@ -137,5 +137,4 @@ import 'package:lapack/src/xerbla.dart';
          dlarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
       }
 
-      return;
       }

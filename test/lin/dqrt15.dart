@@ -133,5 +133,4 @@
       NORMA = dasum( MN, S, 1 );
       NORMB = dlange( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
-      return;
       }

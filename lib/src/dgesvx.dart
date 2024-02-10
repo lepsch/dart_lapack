@@ -231,5 +231,4 @@ import 'package:lapack/src/xerbla.dart';
       // Set INFO = N+1 if the matrix is singular to working precision.
 
       if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
-      return;
       }

@@ -129,5 +129,4 @@
       }
 
       RESULT = min( max( RES1, RES2 ), ONE / ULP );
-      return;
       }

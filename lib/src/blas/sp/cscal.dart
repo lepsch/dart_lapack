@@ -34,5 +34,4 @@
             CX[I] = CA*CX(I);
          }
       }
-      return;
       }

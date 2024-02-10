@@ -128,5 +128,4 @@
       if( SISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
-      return;
       }

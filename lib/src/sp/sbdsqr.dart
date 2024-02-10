@@ -534,5 +534,4 @@
          if( E( I ) != ZERO ) INFO = INFO + 1;
       } // 210
       } // 220
-      return;
       }

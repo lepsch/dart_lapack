@@ -255,5 +255,4 @@
       // Exit with INFO = 1 if swap was rejected.
 
    50 INFO = 1;
-      return;
       }

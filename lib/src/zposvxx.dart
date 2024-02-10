@@ -159,5 +159,4 @@
          zlascl2(N, NRHS, S, X, LDX );
       }
 
-      return;
       }

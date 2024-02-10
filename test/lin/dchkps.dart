@@ -164,5 +164,4 @@ import 'common.dart';
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''${.a1}'', N =${.i5}, RANK =${.i3}, Diff =${.i5}, NB =${.i4}, type ${.i2}, Ratio =${.g12_5};
-      return;
       }

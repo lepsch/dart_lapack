@@ -161,5 +161,4 @@ void dorgqr(
   }
 
   WORK[1] = IWS.toDouble();
-  return;
 }

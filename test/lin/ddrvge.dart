@@ -457,5 +457,4 @@ import 'common.dart';
  9999 FORMAT( 1X, A, ', N =${.i5}, type ${.i2}, test(${.i2}) =${.g12_5};
  9998 FORMAT( 1X, A, ', FACT=''${.a1}'', TRANS=''${.a1}'', N=${.i5}, type ${.i2}, test(${.i1})=${.g12_5};
  9997 FORMAT( 1X, A, ', FACT=''${.a1}'', TRANS=''${.a1}'', N=${.i5}, EQUED=''${.a1}'', type ${.i2}, test(${.i1})=${.g12_5};
-      return;
       }

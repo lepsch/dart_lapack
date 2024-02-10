@@ -128,5 +128,4 @@
 
  9999 FORMAT( 'TS: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
  9998 FORMAT( 'SW: M=${.i5}, N=${.i5}, MB=${.i5}, NB=', I5,' test(${.i2})=${.g12_5};
-      return;
       }

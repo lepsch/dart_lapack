@@ -192,5 +192,4 @@
       }
 
       SLANTR = VALUE;
-      return;
       }

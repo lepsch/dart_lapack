@@ -81,5 +81,4 @@
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=${.i5}, N=${.i5}, NB=${.i4} test(${.i2})=${.g12_5};
-      return;
       }

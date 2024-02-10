@@ -224,6 +224,4 @@ void dsbgvx(
       }
     }
   }
-
-  return;
 }

@@ -70,5 +70,4 @@
          strsm('Left', 'Lower', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
-      return;
       }

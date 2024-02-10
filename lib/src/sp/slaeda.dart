@@ -110,5 +110,4 @@
          PTR = PTR + 2**( TLVLS-K );
       } // 70
 
-      return;
       }

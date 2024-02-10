@@ -51,5 +51,4 @@
          A[M-K+I][N-K+I] = ALPHA;
          clacgv(N-K+I-1, A( M-K+I, 1 ), LDA );
       } // 10
-      return;
       }

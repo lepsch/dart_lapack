@@ -130,5 +130,4 @@
       } // 20
 
       WORK[1] = DCMPLX( LWKOPT );
-      return;
       }

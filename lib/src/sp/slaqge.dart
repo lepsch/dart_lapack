@@ -74,5 +74,4 @@
          EQUED = 'B';
       }
 
-      return;
       }

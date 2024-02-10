@@ -65,5 +65,4 @@ import 'package:lapack/src/xerbla.dart';
             T[I][I] = TAU( I );
          }
       } // 20
-      return;
       }

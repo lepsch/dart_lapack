@@ -86,5 +86,4 @@
 
       if( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      return;
       }

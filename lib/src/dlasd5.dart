@@ -102,5 +102,4 @@ import 'package:lapack/src/xerbla.dart';
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
       }
-      return;
       }

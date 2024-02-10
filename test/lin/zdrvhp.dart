@@ -398,5 +398,4 @@
 
  9999 FORMAT( 1X, A, ', UPLO=''${.a1}'', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
  9998 FORMAT( 1X, A, ', FACT=''${.a1}'', UPLO=''${.a1}'', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
-      return;
       }

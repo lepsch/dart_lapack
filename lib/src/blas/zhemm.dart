@@ -161,6 +161,4 @@ void zhemm(
       }
     }
   }
-
-  return;
 }

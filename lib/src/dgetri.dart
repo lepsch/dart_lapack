@@ -127,5 +127,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 60
 
       WORK[1] = IWS;
-      return;
       }

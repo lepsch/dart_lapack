@@ -44,13 +44,10 @@ void dtgevc(
       LSA,
       LSB;
   int I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, J, JA, JC, JE, JR, JW, NA, NW;
-  double ACOEF = 0,
-      ACOEFA,
+  double ACOEFA,
       ANORM,
       ASCALE,
       BCOEFA,
-      BCOEFI = 0,
-      BCOEFR = 0,
       BIG,
       BIGNUM,
       BNORM,
@@ -67,16 +64,19 @@ void dtgevc(
       SAFMIN = 0,
       SALFAR,
       SBETA,
-      SCALE,
       SMALL,
-      TEMP = 0,
-      TEMP2 = 0,
       TEMP2I,
       TEMP2R,
       ULP,
       XMAX,
       XSCALE;
   final IINFO = Box(0);
+  final ACOEF = Box(0.0),
+      TEMP = Box(0.0),
+      TEMP2 = Box(0.0),
+      BCOEFR = Box(0.0),
+      BCOEFI = Box(0.0),
+      SCALE = Box(0.0);
   final BDIAG = Array<double>(2);
   final SUM = Matrix<double>(2, 2),
       SUMS = Matrix<double>(2, 2),
@@ -214,25 +214,25 @@ void dtgevc(
   WORK[N + 1] = ZERO;
 
   for (J = 2; J <= N; J++) {
-    TEMP = ZERO;
-    TEMP2 = ZERO;
+    TEMP.value = ZERO;
+    TEMP2.value = ZERO;
     if (S[J][J - 1] == ZERO) {
       IEND = J - 1;
     } else {
       IEND = J - 2;
     }
     for (I = 1; I <= IEND; I++) {
-      TEMP = TEMP + (S[I][J]).abs();
-      TEMP2 = TEMP2 + (P[I][J]).abs();
+      TEMP.value = TEMP.value + (S[I][J]).abs();
+      TEMP2.value = TEMP2.value + (P[I][J]).abs();
     }
-    WORK[J] = TEMP;
-    WORK[N + J] = TEMP2;
+    WORK[J] = TEMP.value;
+    WORK[N + J] = TEMP2.value;
     for (I = IEND + 1; I <= min(J + 1, N); I++) {
-      TEMP = TEMP + (S[I][J]).abs();
-      TEMP2 = TEMP2 + (P[I][J]).abs();
+      TEMP.value = TEMP.value + (S[I][J]).abs();
+      TEMP2.value = TEMP2.value + (P[I][J]).abs();
     }
-    ANORM = max(ANORM, TEMP);
-    BNORM = max(BNORM, TEMP2);
+    ANORM = max(ANORM, TEMP.value);
+    BNORM = max(BNORM, TEMP2.value);
   }
 
   ASCALE = ONE / max(ANORM, SAFMIN);
@@ -295,44 +295,50 @@ void dtgevc(
       }
       // T
       // Compute coefficients in  ( a A - b B )  y = 0
-      // a  is  ACOEF
-      // b  is  BCOEFR + i*BCOEFI
+      // a  is  ACOEF.value
+      // b  is  BCOEFR.value + i*BCOEFI.value
 
       if (!ILCPLX) {
         // Real eigenvalue
 
-        TEMP = ONE /
+        TEMP.value = ONE /
             max((S[JE][JE]).abs() * ASCALE,
                 max(P[JE][JE].abs() * BSCALE, SAFMIN));
-        SALFAR = (TEMP * S[JE][JE]) * ASCALE;
-        SBETA = (TEMP * P[JE][JE]) * BSCALE;
-        ACOEF = SBETA * ASCALE;
-        BCOEFR = SALFAR * BSCALE;
-        BCOEFI = ZERO;
+        SALFAR = (TEMP.value * S[JE][JE]) * ASCALE;
+        SBETA = (TEMP.value * P[JE][JE]) * BSCALE;
+        ACOEF.value = SBETA * ASCALE;
+        BCOEFR.value = SALFAR * BSCALE;
+        BCOEFI.value = ZERO;
 
         // Scale to avoid underflow
 
-        SCALE = ONE;
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEF).abs() < SMALL;
-        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR).abs() < SMALL;
-        if (LSA) SCALE = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
-        if (LSB) SCALE = max(SCALE, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+        SCALE.value = ONE;
+        LSA = (SBETA).abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
+        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
+        if (LSA) SCALE.value = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        if (LSB) {
+          SCALE.value =
+              max(SCALE.value, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+        }
         if (LSA || LSB) {
-          SCALE = min(
-              SCALE, ONE / (SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs()))));
+          SCALE.value = min(
+              SCALE.value,
+              ONE /
+                  (SAFMIN *
+                      max(ONE, max(ACOEF.value.abs(), BCOEFR.value.abs()))));
           if (LSA) {
-            ACOEF = ASCALE * (SCALE * SBETA);
+            ACOEF.value = ASCALE * (SCALE.value * SBETA);
           } else {
-            ACOEF = SCALE * ACOEF;
+            ACOEF.value = SCALE.value * ACOEF.value;
           }
           if (LSB) {
-            BCOEFR = BSCALE * (SCALE * SALFAR);
+            BCOEFR.value = BSCALE * (SCALE.value * SALFAR);
           } else {
-            BCOEFR = SCALE * BCOEFR;
+            BCOEFR.value = SCALE.value * BCOEFR.value;
           }
         }
-        ACOEFA = (ACOEF).abs();
-        BCOEFA = (BCOEFR).abs();
+        ACOEFA = (ACOEF.value).abs();
+        BCOEFA = (BCOEFR.value).abs();
 
         // First component is 1
 
@@ -341,54 +347,55 @@ void dtgevc(
       } else {
         // Complex eigenvalue
 
-        dlag2(S[JE][JE], LDS, P[JE][JE], LDP, SAFMIN * SAFETY, ACOEF, TEMP,
+        dlag2(S(JE, JE), LDS, P(JE, JE), LDP, SAFMIN * SAFETY, ACOEF, TEMP,
             BCOEFR, TEMP2, BCOEFI);
-        BCOEFI = -BCOEFI;
-        if (BCOEFI == ZERO) {
+        BCOEFI.value = -BCOEFI.value;
+        if (BCOEFI.value == ZERO) {
           INFO.value = JE;
           return;
         }
 
         // Scale to avoid over/underflow
 
-        ACOEFA = (ACOEF).abs();
-        BCOEFA = (BCOEFR).abs() + (BCOEFI).abs();
-        SCALE = ONE;
+        ACOEFA = (ACOEF.value).abs();
+        BCOEFA = (BCOEFR.value).abs() + (BCOEFI.value).abs();
+        SCALE.value = ONE;
         if (ACOEFA * ULP < SAFMIN && ACOEFA >= SAFMIN) {
-          SCALE = (SAFMIN / ULP) / ACOEFA;
+          SCALE.value = (SAFMIN / ULP) / ACOEFA;
         }
         if (BCOEFA * ULP < SAFMIN && BCOEFA >= SAFMIN) {
-          SCALE = max(SCALE, (SAFMIN / ULP) / BCOEFA);
+          SCALE.value = max(SCALE.value, (SAFMIN / ULP) / BCOEFA);
         }
-        if (SAFMIN * ACOEFA > ASCALE) SCALE = ASCALE / (SAFMIN * ACOEFA);
+        if (SAFMIN * ACOEFA > ASCALE) SCALE.value = ASCALE / (SAFMIN * ACOEFA);
         if (SAFMIN * BCOEFA > BSCALE) {
-          SCALE = min(SCALE, BSCALE / (SAFMIN * BCOEFA));
+          SCALE.value = min(SCALE.value, BSCALE / (SAFMIN * BCOEFA));
         }
-        if (SCALE != ONE) {
-          ACOEF = SCALE * ACOEF;
-          ACOEFA = (ACOEF).abs();
-          BCOEFR = SCALE * BCOEFR;
-          BCOEFI = SCALE * BCOEFI;
-          BCOEFA = (BCOEFR).abs() + (BCOEFI).abs();
+        if (SCALE.value != ONE) {
+          ACOEF.value = SCALE.value * ACOEF.value;
+          ACOEFA = (ACOEF.value).abs();
+          BCOEFR.value = SCALE.value * BCOEFR.value;
+          BCOEFI.value = SCALE.value * BCOEFI.value;
+          BCOEFA = (BCOEFR.value).abs() + (BCOEFI.value).abs();
         }
 
         // Compute first two components of eigenvector
 
-        TEMP = ACOEF * S[JE + 1][JE];
-        TEMP2R = ACOEF * S[JE][JE] - BCOEFR * P[JE][JE];
-        TEMP2I = -BCOEFI * P[JE][JE];
-        if ((TEMP).abs() > (TEMP2R).abs() + (TEMP2I).abs()) {
+        TEMP.value = ACOEF.value * S[JE + 1][JE];
+        TEMP2R = ACOEF.value * S[JE][JE] - BCOEFR.value * P[JE][JE];
+        TEMP2I = -BCOEFI.value * P[JE][JE];
+        if ((TEMP.value).abs() > (TEMP2R).abs() + (TEMP2I).abs()) {
           WORK[2 * N + JE] = ONE;
           WORK[3 * N + JE] = ZERO;
-          WORK[2 * N + JE + 1] = -TEMP2R / TEMP;
-          WORK[3 * N + JE + 1] = -TEMP2I / TEMP;
+          WORK[2 * N + JE + 1] = -TEMP2R / TEMP.value;
+          WORK[3 * N + JE + 1] = -TEMP2I / TEMP.value;
         } else {
           WORK[2 * N + JE + 1] = ONE;
           WORK[3 * N + JE + 1] = ZERO;
-          TEMP = ACOEF * S[JE][JE + 1];
-          WORK[2 * N + JE] =
-              (BCOEFR * P[JE + 1][JE + 1] - ACOEF * S[JE + 1][JE + 1]) / TEMP;
-          WORK[3 * N + JE] = BCOEFI * P[JE + 1][JE + 1] / TEMP;
+          TEMP.value = ACOEF.value * S[JE][JE + 1];
+          WORK[2 * N + JE] = (BCOEFR.value * P[JE + 1][JE + 1] -
+                  ACOEF.value * S[JE + 1][JE + 1]) /
+              TEMP.value;
+          WORK[3 * N + JE] = BCOEFI.value * P[JE + 1][JE + 1] / TEMP.value;
         }
         XMAX = max(
           (WORK[2 * N + JE]).abs() + (WORK[3 * N + JE]).abs(),
@@ -425,11 +432,11 @@ void dtgevc(
         // Check whether scaling is necessary for dot products
 
         XSCALE = ONE / max(ONE, XMAX);
-        TEMP = max(
+        TEMP.value = max(
             WORK[J], max(WORK[N + J], ACOEFA * WORK[J] + BCOEFA * WORK[N + J]));
         if (IL2BY2) {
-          TEMP = max(
-              TEMP,
+          TEMP.value = max(
+              TEMP.value,
               max(
                 WORK[J + 1],
                 max(
@@ -438,7 +445,7 @@ void dtgevc(
                 ),
               ));
         }
-        if (TEMP > BIGNUM * XSCALE) {
+        if (TEMP.value > BIGNUM * XSCALE) {
           for (JW = 0; JW <= NW - 1; JW++) {
             for (JR = JE; JR <= J - 1; JR++) {
               WORK[(JW + 2) * N + JR] = XSCALE * WORK[(JW + 2) * N + JR];
@@ -478,14 +485,15 @@ void dtgevc(
 
         for (JA = 1; JA <= NA; JA++) {
           if (ILCPLX) {
-            SUM[JA][1] = -ACOEF * SUMS[JA][1] +
-                BCOEFR * SUMP[JA][1] -
-                BCOEFI * SUMP[JA][2];
-            SUM[JA][2] = -ACOEF * SUMS[JA][2] +
-                BCOEFR * SUMP[JA][2] +
-                BCOEFI * SUMP[JA][1];
+            SUM[JA][1] = -ACOEF.value * SUMS[JA][1] +
+                BCOEFR.value * SUMP[JA][1] -
+                BCOEFI.value * SUMP[JA][2];
+            SUM[JA][2] = -ACOEF.value * SUMS[JA][2] +
+                BCOEFR.value * SUMP[JA][2] +
+                BCOEFI.value * SUMP[JA][1];
           } else {
-            SUM[JA][1] = -ACOEF * SUMS[JA][1] + BCOEFR * SUMP[JA][1];
+            SUM[JA][1] =
+                -ACOEF.value * SUMS[JA][1] + BCOEFR.value * SUMP[JA][1];
           }
         }
 
@@ -493,17 +501,34 @@ void dtgevc(
         // Solve  ( a A - b B )  y = SUM(,)
         // with scaling and perturbation of the denominator
 
-        dlaln2(true, NA, NW, DMIN, ACOEF, S[J][J], LDS, BDIAG(1), BDIAG(2), SUM,
-            2, BCOEFR, BCOEFI, WORK[2 * N + J], N, SCALE, TEMP, IINFO);
-        if (SCALE < ONE) {
+        dlaln2(
+            true,
+            NA,
+            NW,
+            DMIN,
+            ACOEF.value,
+            S(J, J),
+            LDS,
+            BDIAG[1],
+            BDIAG[2],
+            SUM,
+            2,
+            BCOEFR.value,
+            BCOEFI.value,
+            WORK(2 * N + J).asMatrix(N),
+            N,
+            SCALE,
+            TEMP,
+            IINFO);
+        if (SCALE.value < ONE) {
           for (JW = 0; JW <= NW - 1; JW++) {
             for (JR = JE; JR <= J - 1; JR++) {
-              WORK[(JW + 2) * N + JR] = SCALE * WORK[(JW + 2) * N + JR];
+              WORK[(JW + 2) * N + JR] = SCALE.value * WORK[(JW + 2) * N + JR];
             }
           }
-          XMAX = SCALE * XMAX;
+          XMAX = SCALE.value * XMAX;
         }
-        XMAX = max(XMAX, TEMP);
+        XMAX = max(XMAX, TEMP.value);
       }
 
       // Copy eigenvector to VL, back transforming if
@@ -610,44 +635,50 @@ void dtgevc(
       }
 
       // Compute coefficients in  ( a A - b B ) x = 0
-      // a  is  ACOEF
-      // b  is  BCOEFR + i*BCOEFI
+      // a  is  ACOEF.value
+      // b  is  BCOEFR.value + i*BCOEFI.value
 
       if (!ILCPLX) {
         // Real eigenvalue
 
-        TEMP = ONE /
+        TEMP.value = ONE /
             max((S[JE][JE]).abs() * ASCALE,
                 max((P[JE][JE]).abs() * BSCALE, SAFMIN));
-        SALFAR = (TEMP * S[JE][JE]) * ASCALE;
-        SBETA = (TEMP * P[JE][JE]) * BSCALE;
-        ACOEF = SBETA * ASCALE;
-        BCOEFR = SALFAR * BSCALE;
-        BCOEFI = ZERO;
+        SALFAR = (TEMP.value * S[JE][JE]) * ASCALE;
+        SBETA = (TEMP.value * P[JE][JE]) * BSCALE;
+        ACOEF.value = SBETA * ASCALE;
+        BCOEFR.value = SALFAR * BSCALE;
+        BCOEFI.value = ZERO;
 
         // Scale to avoid underflow
 
-        SCALE = ONE;
-        LSA = (SBETA).abs() >= SAFMIN && (ACOEF).abs() < SMALL;
-        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR).abs() < SMALL;
-        if (LSA) SCALE = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
-        if (LSB) SCALE = max(SCALE, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+        SCALE.value = ONE;
+        LSA = (SBETA).abs() >= SAFMIN && (ACOEF.value).abs() < SMALL;
+        LSB = (SALFAR).abs() >= SAFMIN && (BCOEFR.value).abs() < SMALL;
+        if (LSA) SCALE.value = (SMALL / (SBETA).abs()) * min(ANORM, BIG);
+        if (LSB) {
+          SCALE.value =
+              max(SCALE.value, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
+        }
         if (LSA || LSB) {
-          SCALE = min(
-              SCALE, ONE / SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs())));
+          SCALE.value = min(
+              SCALE.value,
+              ONE /
+                  SAFMIN *
+                  max(ONE, max(ACOEF.value.abs(), BCOEFR.value.abs())));
           if (LSA) {
-            ACOEF = ASCALE * (SCALE * SBETA);
+            ACOEF.value = ASCALE * (SCALE.value * SBETA);
           } else {
-            ACOEF = SCALE * ACOEF;
+            ACOEF.value = SCALE.value * ACOEF.value;
           }
           if (LSB) {
-            BCOEFR = BSCALE * (SCALE * SALFAR);
+            BCOEFR.value = BSCALE * (SCALE.value * SALFAR);
           } else {
-            BCOEFR = SCALE * BCOEFR;
+            BCOEFR.value = SCALE.value * BCOEFR.value;
           }
         }
-        ACOEFA = (ACOEF).abs();
-        BCOEFA = (BCOEFR).abs();
+        ACOEFA = (ACOEF.value).abs();
+        BCOEFA = (BCOEFR.value).abs();
 
         // First component is 1
 
@@ -658,59 +689,60 @@ void dtgevc(
         // (See "Further Details", above.)
 
         for (JR = 1; JR <= JE - 1; JR++) {
-          WORK[2 * N + JR] = BCOEFR * P[JR][JE] - ACOEF * S[JR][JE];
+          WORK[2 * N + JR] = BCOEFR.value * P[JR][JE] - ACOEF.value * S[JR][JE];
         }
       } else {
         // Complex eigenvalue
 
-        dlag2(S[JE - 1][JE - 1], LDS, P[JE - 1][JE - 1], LDP, SAFMIN * SAFETY,
+        dlag2(S(JE - 1, JE - 1), LDS, P(JE - 1, JE - 1), LDP, SAFMIN * SAFETY,
             ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI);
-        if (BCOEFI == ZERO) {
+        if (BCOEFI.value == ZERO) {
           INFO.value = JE - 1;
           return;
         }
 
         // Scale to avoid over/underflow
 
-        ACOEFA = (ACOEF).abs();
-        BCOEFA = (BCOEFR).abs() + (BCOEFI).abs();
-        SCALE = ONE;
+        ACOEFA = (ACOEF.value).abs();
+        BCOEFA = (BCOEFR.value).abs() + (BCOEFI.value).abs();
+        SCALE.value = ONE;
         if (ACOEFA * ULP < SAFMIN && ACOEFA >= SAFMIN) {
-          SCALE = (SAFMIN / ULP) / ACOEFA;
+          SCALE.value = (SAFMIN / ULP) / ACOEFA;
         }
         if (BCOEFA * ULP < SAFMIN && BCOEFA >= SAFMIN) {
-          SCALE = max(SCALE, (SAFMIN / ULP) / BCOEFA);
+          SCALE.value = max(SCALE.value, (SAFMIN / ULP) / BCOEFA);
         }
-        if (SAFMIN * ACOEFA > ASCALE) SCALE = ASCALE / (SAFMIN * ACOEFA);
+        if (SAFMIN * ACOEFA > ASCALE) SCALE.value = ASCALE / (SAFMIN * ACOEFA);
         if (SAFMIN * BCOEFA > BSCALE) {
-          SCALE = min(SCALE, BSCALE / (SAFMIN * BCOEFA));
+          SCALE.value = min(SCALE.value, BSCALE / (SAFMIN * BCOEFA));
         }
-        if (SCALE != ONE) {
-          ACOEF = SCALE * ACOEF;
-          ACOEFA = (ACOEF).abs();
-          BCOEFR = SCALE * BCOEFR;
-          BCOEFI = SCALE * BCOEFI;
-          BCOEFA = (BCOEFR).abs() + (BCOEFI).abs();
+        if (SCALE.value != ONE) {
+          ACOEF.value = SCALE.value * ACOEF.value;
+          ACOEFA = (ACOEF.value).abs();
+          BCOEFR.value = SCALE.value * BCOEFR.value;
+          BCOEFI.value = SCALE.value * BCOEFI.value;
+          BCOEFA = (BCOEFR.value).abs() + (BCOEFI.value).abs();
         }
 
         // Compute first two components of eigenvector
         // and contribution to sums
 
-        TEMP = ACOEF * S[JE][JE - 1];
-        TEMP2R = ACOEF * S[JE][JE] - BCOEFR * P[JE][JE];
-        TEMP2I = -BCOEFI * P[JE][JE];
-        if ((TEMP).abs() >= (TEMP2R).abs() + (TEMP2I).abs()) {
+        TEMP.value = ACOEF.value * S[JE][JE - 1];
+        TEMP2R = ACOEF.value * S[JE][JE] - BCOEFR.value * P[JE][JE];
+        TEMP2I = -BCOEFI.value * P[JE][JE];
+        if ((TEMP.value).abs() >= (TEMP2R).abs() + (TEMP2I).abs()) {
           WORK[2 * N + JE] = ONE;
           WORK[3 * N + JE] = ZERO;
-          WORK[2 * N + JE - 1] = -TEMP2R / TEMP;
-          WORK[3 * N + JE - 1] = -TEMP2I / TEMP;
+          WORK[2 * N + JE - 1] = -TEMP2R / TEMP.value;
+          WORK[3 * N + JE - 1] = -TEMP2I / TEMP.value;
         } else {
           WORK[2 * N + JE - 1] = ONE;
           WORK[3 * N + JE - 1] = ZERO;
-          TEMP = ACOEF * S[JE - 1][JE];
-          WORK[2 * N + JE] =
-              (BCOEFR * P[JE - 1][JE - 1] - ACOEF * S[JE - 1][JE - 1]) / TEMP;
-          WORK[3 * N + JE] = BCOEFI * P[JE - 1][JE - 1] / TEMP;
+          TEMP.value = ACOEF.value * S[JE - 1][JE];
+          WORK[2 * N + JE] = (BCOEFR.value * P[JE - 1][JE - 1] -
+                  ACOEF.value * S[JE - 1][JE - 1]) /
+              TEMP.value;
+          WORK[3 * N + JE] = BCOEFI.value * P[JE - 1][JE - 1] / TEMP.value;
         }
 
         XMAX = max(
@@ -721,14 +753,18 @@ void dtgevc(
         // Compute contribution from columns JE and JE-1
         // of A and B to the sums.
 
-        CREALA = ACOEF * WORK[2 * N + JE - 1];
-        CIMAGA = ACOEF * WORK[3 * N + JE - 1];
-        CREALB = BCOEFR * WORK[2 * N + JE - 1] - BCOEFI * WORK[3 * N + JE - 1];
-        CIMAGB = BCOEFI * WORK[2 * N + JE - 1] + BCOEFR * WORK[3 * N + JE - 1];
-        CRE2A = ACOEF * WORK[2 * N + JE];
-        CIM2A = ACOEF * WORK[3 * N + JE];
-        CRE2B = BCOEFR * WORK[2 * N + JE] - BCOEFI * WORK[3 * N + JE];
-        CIM2B = BCOEFI * WORK[2 * N + JE] + BCOEFR * WORK[3 * N + JE];
+        CREALA = ACOEF.value * WORK[2 * N + JE - 1];
+        CIMAGA = ACOEF.value * WORK[3 * N + JE - 1];
+        CREALB = BCOEFR.value * WORK[2 * N + JE - 1] -
+            BCOEFI.value * WORK[3 * N + JE - 1];
+        CIMAGB = BCOEFI.value * WORK[2 * N + JE - 1] +
+            BCOEFR.value * WORK[3 * N + JE - 1];
+        CRE2A = ACOEF.value * WORK[2 * N + JE];
+        CIM2A = ACOEF.value * WORK[3 * N + JE];
+        CRE2B =
+            BCOEFR.value * WORK[2 * N + JE] - BCOEFI.value * WORK[3 * N + JE];
+        CIM2B =
+            BCOEFI.value * WORK[2 * N + JE] + BCOEFR.value * WORK[3 * N + JE];
         for (JR = 1; JR <= JE - 2; JR++) {
           WORK[2 * N + JR] = -CREALA * S[JR][JE - 1] +
               CREALB * P[JR][JE - 1] -
@@ -766,16 +802,33 @@ void dtgevc(
 
         // Compute x(j) (and x(j+1), if 2-by-2 block)
 
-        dlaln2(false, NA, NW, DMIN, ACOEF, S[J][J], LDS, BDIAG(1), BDIAG(2),
-            WORK[2 * N + J], N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO);
-        if (SCALE < ONE) {
+        dlaln2(
+            false,
+            NA,
+            NW,
+            DMIN,
+            ACOEF.value,
+            S(J, J),
+            LDS,
+            BDIAG[1],
+            BDIAG[2],
+            WORK(2 * N + J).asMatrix(N),
+            N,
+            BCOEFR.value,
+            BCOEFI.value,
+            SUM,
+            2,
+            SCALE,
+            TEMP,
+            IINFO);
+        if (SCALE.value < ONE) {
           for (JW = 0; JW <= NW - 1; JW++) {
             for (JR = 1; JR <= JE; JR++) {
-              WORK[(JW + 2) * N + JR] = SCALE * WORK[(JW + 2) * N + JR];
+              WORK[(JW + 2) * N + JR] = SCALE.value * WORK[(JW + 2) * N + JR];
             }
           }
         }
-        XMAX = max(SCALE * XMAX, TEMP);
+        XMAX = max(SCALE.value * XMAX, TEMP.value);
 
         for (JW = 1; JW <= NW; JW++) {
           for (JA = 1; JA <= NA; JA++) {
@@ -789,12 +842,13 @@ void dtgevc(
           // Check whether scaling is necessary for sum.
 
           XSCALE = ONE / max(ONE, XMAX);
-          TEMP = ACOEFA * WORK[J] + BCOEFA * WORK[N + J];
+          TEMP.value = ACOEFA * WORK[J] + BCOEFA * WORK[N + J];
           if (IL2BY2) {
-            TEMP = max(TEMP, ACOEFA * WORK[J + 1] + BCOEFA * WORK[N + J + 1]);
+            TEMP.value = max(
+                TEMP.value, ACOEFA * WORK[J + 1] + BCOEFA * WORK[N + J + 1]);
           }
-          TEMP = max(TEMP, max(ACOEFA, BCOEFA));
-          if (TEMP > BIGNUM * XSCALE) {
+          TEMP.value = max(TEMP.value, max(ACOEFA, BCOEFA));
+          if (TEMP.value > BIGNUM * XSCALE) {
             for (JW = 0; JW <= NW - 1; JW++) {
               for (JR = 1; JR <= JE; JR++) {
                 WORK[(JW + 2) * N + JR] = XSCALE * WORK[(JW + 2) * N + JR];
@@ -809,12 +863,12 @@ void dtgevc(
 
           for (JA = 1; JA <= NA; JA++) {
             if (ILCPLX) {
-              CREALA = ACOEF * WORK[2 * N + J + JA - 1];
-              CIMAGA = ACOEF * WORK[3 * N + J + JA - 1];
-              CREALB = BCOEFR * WORK[2 * N + J + JA - 1] -
-                  BCOEFI * WORK[3 * N + J + JA - 1];
-              CIMAGB = BCOEFI * WORK[2 * N + J + JA - 1] +
-                  BCOEFR * WORK[3 * N + J + JA - 1];
+              CREALA = ACOEF.value * WORK[2 * N + J + JA - 1];
+              CIMAGA = ACOEF.value * WORK[3 * N + J + JA - 1];
+              CREALB = BCOEFR.value * WORK[2 * N + J + JA - 1] -
+                  BCOEFI.value * WORK[3 * N + J + JA - 1];
+              CIMAGB = BCOEFI.value * WORK[2 * N + J + JA - 1] +
+                  BCOEFR.value * WORK[3 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
                 WORK[2 * N + JR] = WORK[2 * N + JR] -
                     CREALA * S[JR][J + JA - 1] +
@@ -824,8 +878,8 @@ void dtgevc(
                     CIMAGB * P[JR][J + JA - 1];
               }
             } else {
-              CREALA = ACOEF * WORK[2 * N + J + JA - 1];
-              CREALB = BCOEFR * WORK[2 * N + J + JA - 1];
+              CREALA = ACOEF.value * WORK[2 * N + J + JA - 1];
+              CREALB = BCOEFR.value * WORK[2 * N + J + JA - 1];
               for (JR = 1; JR <= J - 1; JR++) {
                 WORK[2 * N + JR] = WORK[2 * N + JR] -
                     CREALA * S[JR][J + JA - 1] +

@@ -33,5 +33,4 @@
 
       ssyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
-      return;
       }

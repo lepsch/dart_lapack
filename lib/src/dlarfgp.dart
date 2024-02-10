@@ -127,5 +127,4 @@ import 'package:lapack/src/xerbla.dart';
          ALPHA = BETA;
       }
 
-      return;
       }

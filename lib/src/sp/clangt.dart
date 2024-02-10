@@ -80,5 +80,4 @@
       }
 
       CLANGT = ANORM;
-      return;
       }

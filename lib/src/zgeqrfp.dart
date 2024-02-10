@@ -118,5 +118,4 @@
       if (I <= K) zgeqr2p( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK[1] = IWS;
-      return;
       }

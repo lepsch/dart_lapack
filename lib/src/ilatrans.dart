@@ -27,5 +27,4 @@ int ilatrans(TRANS) {
   } else {
     ILATRANS = -1;
   }
-  return;
 }

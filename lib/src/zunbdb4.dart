@@ -135,5 +135,4 @@
          zlacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
       }
 
-      return;
       }

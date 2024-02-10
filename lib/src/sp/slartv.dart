@@ -25,5 +25,4 @@
          IY = IY + INCY;
          IC = IC + INCC;
       } // 10
-      return;
       }

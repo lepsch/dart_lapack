@@ -114,5 +114,4 @@
       }
 
       WORK[1] = SROUNDUP_LWORK( LWORKOPT );
-      return;
       }

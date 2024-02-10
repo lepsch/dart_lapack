@@ -342,5 +342,4 @@
  9996 FORMAT( ' SPOEQU failed test with value ${.e10_3} exceeding threshold ', E10.3 );
  9995 FORMAT( ' SPPEQU failed test with value ${.e10_3} exceeding threshold ', E10.3 );
  9994 FORMAT( ' SPBEQU failed test with value ${.e10_3} exceeding threshold ', E10.3 );
-      return;
       }

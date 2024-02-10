@@ -151,5 +151,4 @@
          } // 10
       }
       WORK[1] = LWKOPT;
-      return;
       }

@@ -100,5 +100,4 @@
          } // 40
          RESID = ( RESID / N.toDouble() ) / EPS;
       }
-      return;
       }

@@ -118,5 +118,4 @@
       } // 60
 
       WORK[1] = IWS;
-      return;
       }

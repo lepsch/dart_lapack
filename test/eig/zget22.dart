@@ -147,5 +147,4 @@
 
       RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( N.toDouble()*ULP );
 
-      return;
       }

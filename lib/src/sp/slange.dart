@@ -78,5 +78,4 @@
       }
 
       SLANGE = VALUE;
-      return;
       }

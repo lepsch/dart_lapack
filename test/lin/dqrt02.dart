@@ -72,5 +72,4 @@
 
       RESULT[2] = ( RESID / (max( 1, M )).toDouble() ) / EPS;
 
-      return;
       }

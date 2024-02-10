@@ -143,5 +143,4 @@
       sormrq('Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
       WORK[1] = P + MN + max( LOPT, INT( WORK( P+MN+1 ) ) );
 
-      return;
       }

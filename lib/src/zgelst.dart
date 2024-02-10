@@ -295,5 +295,4 @@
 
       WORK[1] = LWOPT.toDouble();
 
-      return;
       }

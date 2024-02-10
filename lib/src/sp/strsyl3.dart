@@ -982,5 +982,4 @@
       SWORK[1][1] = max( NBA, NBB );
       SWORK[2][1] = 2 * NBB + NBA;
 
-      return;
       }

@@ -46,5 +46,4 @@
 
          zgbtrs('No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
       }
-      return;
       }

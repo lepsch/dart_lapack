@@ -1235,5 +1235,4 @@
       }
 
       CLANHF = VALUE;
-      return;
       }

@@ -65,5 +65,4 @@ import 'package:lapack/src/xerbla.dart';
          dtfsm(TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB );
       }
 
-      return;
       }

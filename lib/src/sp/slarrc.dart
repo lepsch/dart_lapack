@@ -95,5 +95,4 @@
       }
       EIGCNT = RCNT - LCNT;
 
-      return;
       }

@@ -205,5 +205,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANTB = VALUE;
-      return;
       }

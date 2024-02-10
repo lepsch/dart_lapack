@@ -264,6 +264,4 @@ void zgemm(
       }
     }
   }
-
-  return;
 }

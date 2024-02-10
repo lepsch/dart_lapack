@@ -37,6 +37,4 @@ void zaxpy(
       IY = IY + INCY;
     }
   }
-
-  return;
 }

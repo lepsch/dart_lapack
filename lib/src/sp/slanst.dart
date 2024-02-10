@@ -66,5 +66,4 @@
       }
 
       SLANST = ANORM;
-      return;
       }

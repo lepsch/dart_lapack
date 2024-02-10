@@ -99,5 +99,4 @@
       }
 
       SLANSY = VALUE;
-      return;
       }

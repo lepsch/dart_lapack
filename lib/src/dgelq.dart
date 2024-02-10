@@ -145,5 +145,4 @@ import 'package:lapack/src/xerbla.dart';
 
       WORK[1] = LWREQ;
 
-      return;
       }

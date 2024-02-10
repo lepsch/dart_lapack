@@ -21,5 +21,4 @@
          }
       }
       SGENND = true;
-      return;
       }

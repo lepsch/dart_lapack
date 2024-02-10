@@ -35,5 +35,4 @@ void zlaev2(A, B, C, RT1, RT2, CS1, SN1) {
   }
   dlaev2((A).toDouble(), (B).abs(), C.toDouble(), RT1, RT2, CS1, T);
   SN1 = W * T;
-  return;
 }

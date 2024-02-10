@@ -122,5 +122,4 @@
       }
 
       CLANHB = VALUE;
-      return;
       }

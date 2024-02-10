@@ -95,5 +95,4 @@
          TEMP = TEMP*DL( I )*DL( J );
       }
       SLATM3 = TEMP;
-      return;
       }

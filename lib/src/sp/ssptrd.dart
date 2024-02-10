@@ -125,5 +125,4 @@
          D[N] = AP( II );
       }
 
-      return;
       }

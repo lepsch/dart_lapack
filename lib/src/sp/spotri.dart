@@ -48,5 +48,4 @@
 
       slauum(UPLO, N, A, LDA, INFO );
 
-      return;
       }

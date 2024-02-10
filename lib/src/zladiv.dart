@@ -20,5 +20,4 @@
       dladiv((X).toDouble(), DIMAG( X ), Y.toDouble(), DIMAG( Y ), ZR, ZI );
       ZLADIV = DCMPLX( ZR, ZI );
 
-      return;
       }

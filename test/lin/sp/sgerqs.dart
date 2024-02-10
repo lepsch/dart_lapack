@@ -53,5 +53,4 @@
 
       sormrq('Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
-      return;
       }

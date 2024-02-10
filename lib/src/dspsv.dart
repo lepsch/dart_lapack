@@ -56,5 +56,4 @@ import 'package:lapack/src/xerbla.dart';
          dsptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
-      return;
       }

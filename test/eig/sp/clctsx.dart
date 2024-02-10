@@ -56,6 +56,4 @@ bool clctsx(ALPHA, BETA) {
   // ELSE
   // CLCTSX = ( REAL( ALPHA/BETA ) > ZERO )
   // END IF
-
-  return;
 }

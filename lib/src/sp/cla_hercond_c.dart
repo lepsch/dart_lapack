@@ -170,5 +170,4 @@
 
       if (AINVNM != 0.0) CLA_HERCOND_C = 1.0 / AINVNM;
 
-      return;
       }

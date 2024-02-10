@@ -50,5 +50,4 @@
          sger(M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC );
       }
 
-      return;
       }

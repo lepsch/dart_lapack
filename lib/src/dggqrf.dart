@@ -77,5 +77,4 @@ import 'package:lapack/src/xerbla.dart';
 
       WORK[1] = max( LOPT, INT( WORK( 1 ) ) );
 
-      return;
       }

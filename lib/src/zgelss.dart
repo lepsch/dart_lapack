@@ -503,5 +503,4 @@
       }
       } // 70
       WORK[1] = MAXWRK;
-      return;
       }

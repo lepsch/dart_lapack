@@ -49,5 +49,4 @@
          clarf('Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, CONJG( TAU( I ) ), A, LDA, WORK );
          A[M-K+I][N-K+I] = ALPHA;
       } // 10
-      return;
       }

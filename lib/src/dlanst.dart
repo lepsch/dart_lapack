@@ -74,5 +74,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANST = ANORM;
-      return;
       }

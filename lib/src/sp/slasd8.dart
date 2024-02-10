@@ -129,5 +129,4 @@
       scopy(K, WORK( IWK2 ), 1, VF, 1 );
       scopy(K, WORK( IWK3 ), 1, VL, 1 );
 
-      return;
       }

@@ -135,5 +135,4 @@ import 'package:lapack/src/xerbla.dart';
       if (MU > 0 && NU > 0) dgerq2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK[1] = IWS;
-      return;
       }

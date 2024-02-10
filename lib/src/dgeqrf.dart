@@ -129,5 +129,4 @@ void dgeqrf(
   if (I <= K) dgeqr2(M - I + 1, N - I + 1, A(I, I), LDA, TAU(I), WORK, IINFO);
 
   WORK[1] = IWS.toDouble();
-  return;
 }

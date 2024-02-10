@@ -49,5 +49,4 @@
          spotrs(UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
       }
-      return;
       }

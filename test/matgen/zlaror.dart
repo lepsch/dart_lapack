@@ -163,5 +163,4 @@
             zscal(M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 60
       }
-      return;
       }

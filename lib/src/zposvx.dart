@@ -160,5 +160,4 @@
 
       if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
 
-      return;
       }

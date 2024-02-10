@@ -158,5 +158,4 @@
       zgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
       WORK[1] = LWKOPT;
 
-      return;
       }

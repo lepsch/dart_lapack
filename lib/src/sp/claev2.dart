@@ -35,5 +35,4 @@ void claev2(A, B, C, RT1, RT2, CS1, SN1) {
   }
   slaev2(REAL(A), (B).abs(), REAL(C), RT1, RT2, CS1, T);
   SN1 = W * T;
-  return;
 }

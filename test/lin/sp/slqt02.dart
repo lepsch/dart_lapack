@@ -72,5 +72,4 @@
 
       RESULT[2] = ( RESID / REAL( max( 1, N ) ) ) / EPS;
 
-      return;
       }

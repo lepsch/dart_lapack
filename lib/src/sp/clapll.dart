@@ -50,5 +50,4 @@
 
       slas2(( A11 ).abs(), ( A12 ).abs(), ( A22 ).abs(), SSMIN, SSMAX );
 
-      return;
       }

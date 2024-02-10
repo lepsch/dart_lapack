@@ -327,5 +327,4 @@
  9973 FORMAT( 3X, I2, ': norm( U''*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
  9972 FORMAT( 3X, I2, ': abs( WORK(1) - RPVGRW ) / ( max( WORK(1), RPVGRW ) * EPS )' );
 
-      return;
       }

@@ -43,5 +43,4 @@
          IX = IX + INCX;
          IC = IC + INCC;
       } // 10
-      return;
       }

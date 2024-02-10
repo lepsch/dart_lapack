@@ -137,5 +137,4 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 40
-      return;
       }

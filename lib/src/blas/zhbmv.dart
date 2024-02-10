@@ -170,6 +170,4 @@ void zhbmv(
       }
     }
   }
-
-  return;
 }

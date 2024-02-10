@@ -166,5 +166,4 @@
       DEALLOCATE (X, STAT = AllocateStatus);
       DEALLOCATE (SWORK, STAT = AllocateStatus);
 
-      return;
       }

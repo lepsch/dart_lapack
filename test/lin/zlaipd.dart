@@ -28,5 +28,4 @@
          IA = IA + IXA;
          IXA = IXA + VINDA;
       } // 10
-      return;
       }

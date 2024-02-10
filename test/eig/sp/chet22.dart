@@ -77,5 +77,4 @@
 
       if (ITYPE == 1) cunt01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) );
 
-      return;
       }

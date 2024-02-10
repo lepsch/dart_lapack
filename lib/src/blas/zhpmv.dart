@@ -117,8 +117,7 @@ void zhpmv(
           IX = IX + INCX;
           IY = IY + INCY;
         }
-        Y[JY] =
-            Y[JY] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
+        Y[JY] = Y[JY] + TEMP1 * AP[KK + J - 1].real.toComplex() + ALPHA * TEMP2;
         JX = JX + INCX;
         JY = JY + INCY;
         KK = KK + J;
@@ -163,6 +162,4 @@ void zhpmv(
       }
     }
   }
-
-  return;
 }

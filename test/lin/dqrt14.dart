@@ -109,5 +109,4 @@
 
       DQRT14 = ERR / ( (max( M, N, NRHS )).toDouble()*dlamch( 'Epsilon' ) );
 
-      return;
       }

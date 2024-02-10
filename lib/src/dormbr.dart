@@ -155,5 +155,4 @@ void dormbr(
     }
   }
   WORK[1] = LWKOPT.toDouble();
-  return;
 }

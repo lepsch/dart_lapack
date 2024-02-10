@@ -105,5 +105,4 @@
          CTEMP = CTEMP*DL( I )*DL( J );
       }
       ZLATM3 = CTEMP;
-      return;
       }

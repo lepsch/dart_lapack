@@ -376,5 +376,4 @@ import 'package:lapack/src/xerbla.dart';
       // Factor the band matrix
       dgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
-      return;
       }

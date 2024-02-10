@@ -117,5 +117,4 @@
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      return;
       }

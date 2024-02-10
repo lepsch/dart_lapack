@@ -138,5 +138,4 @@
 
       if (AINVNM != 0.0) CLA_GERCOND_X = 1.0 / AINVNM;
 
-      return;
       }

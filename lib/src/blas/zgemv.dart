@@ -169,6 +169,4 @@ void zgemv(
       }
     }
   }
-
-  return;
 }

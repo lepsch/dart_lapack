@@ -103,5 +103,4 @@ import 'package:lapack/src/xerbla.dart';
       }
       EIGCNT = RCNT - LCNT;
 
-      return;
       }

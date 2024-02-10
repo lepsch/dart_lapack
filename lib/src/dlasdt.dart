@@ -56,5 +56,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 20
       ND = LLST*2 - 1;
 
-      return;
       }

@@ -133,5 +133,4 @@
       NORMA = SASUM( MN, S, 1 );
       NORMB = SLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
-      return;
       }

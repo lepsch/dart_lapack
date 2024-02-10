@@ -168,6 +168,4 @@ void slatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
     CNDNMA = ONE;
     CNDNMB = ONE;
   }
-
-  return;
 }

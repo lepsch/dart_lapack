@@ -354,5 +354,4 @@ import 'package:lapack/src/xerbla.dart';
          TAU[J] = ZERO;
       }
 
-      return;
       }

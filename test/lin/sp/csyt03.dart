@@ -82,5 +82,4 @@
 
       RESID = ( ( RESID*RCOND )/EPS ) / REAL( N );
 
-      return;
       }

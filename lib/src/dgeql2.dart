@@ -57,5 +57,4 @@ import 'package:lapack/src/xerbla.dart';
          dlarf('Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, TAU( I ), A, LDA, WORK );
          A[M-K+I][N-K+I] = AII;
       } // 10
-      return;
       }

@@ -227,5 +227,4 @@
       }
 
       TAU = S;
-      return;
       }

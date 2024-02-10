@@ -100,5 +100,4 @@
          CS1 = -SN1;
          SN1 = TN;
       }
-      return;
       }

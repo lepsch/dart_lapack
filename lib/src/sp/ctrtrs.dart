@@ -63,5 +63,4 @@
 
       ctrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
-      return;
       }

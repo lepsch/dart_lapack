@@ -248,5 +248,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 70
       WORK[1] = LWKOPT;
 
-      return;
       }

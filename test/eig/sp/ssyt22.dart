@@ -74,5 +74,4 @@
 
       if (ITYPE == 1) sort01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
 
-      return;
       }

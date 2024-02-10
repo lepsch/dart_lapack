@@ -246,5 +246,4 @@ import 'package:lapack/src/xerbla.dart';
       if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
 
       WORK[1] = RPVGRW;
-      return;
       }

@@ -206,5 +206,4 @@
  9996 FORMAT(' All tests for ${.a5} auxiliary routine passed the threshold ( ',I6,' tests run)');
  9995 FORMAT(' ${.a6} auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold');
 
-      return;
       }

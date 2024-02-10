@@ -94,5 +94,4 @@
 
          SCOND = sqrt( SMIN ) / sqrt( AMAX );
       }
-      return;
       }

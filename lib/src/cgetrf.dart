@@ -99,5 +99,4 @@ void cgetrf(
       }
     }
   }
-  return;
 }

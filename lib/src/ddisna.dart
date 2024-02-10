@@ -108,5 +108,4 @@ import 'package:lapack/src/xerbla.dart';
          SEP[I] = max( SEP( I ), THRESH );
       } // 30
 
-      return;
       }

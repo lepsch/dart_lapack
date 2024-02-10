@@ -221,5 +221,4 @@ import 'package:lapack/src/xerbla.dart';
       dlacpy('All', N, NRHS, B, LDB, X, LDX );
       dpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );
 
-      return;
       }

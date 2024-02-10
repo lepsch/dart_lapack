@@ -127,5 +127,4 @@
       if (MU > 0 && NU > 0) zgeql2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK[1] = IWS;
-      return;
       }

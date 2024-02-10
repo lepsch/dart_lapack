@@ -52,5 +52,4 @@
             SX[I] = SA*SX(I);
          }
       }
-      return;
       }

@@ -23,6 +23,4 @@ bool slctes(ZR, ZI, D) {
   } else {
     SLCTES = (sign(ONE, ZR) != sign(ONE, D));
   }
-
-  return;
 }

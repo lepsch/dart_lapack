@@ -40,5 +40,4 @@
             SLAPY2 = W*sqrt( ONE+( Z / W )**2 );
          }
       }
-      return;
       }

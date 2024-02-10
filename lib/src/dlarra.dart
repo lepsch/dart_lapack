@@ -62,5 +62,4 @@ import 'package:lapack/src/xerbla.dart';
       }
       ISPLIT[NSPLIT] = N;
 
-      return;
       }

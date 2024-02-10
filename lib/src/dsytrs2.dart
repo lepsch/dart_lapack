@@ -209,5 +209,4 @@ import 'package:lapack/src/xerbla.dart';
 
       dsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
-      return;
       }

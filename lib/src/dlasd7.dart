@@ -280,5 +280,4 @@ import 'package:lapack/src/xerbla.dart';
       dcopy(N-1, VFW( 2 ), 1, VF( 2 ), 1 );
       dcopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
-      return;
       }

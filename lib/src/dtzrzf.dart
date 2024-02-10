@@ -143,5 +143,4 @@ import 'package:lapack/src/xerbla.dart';
 
       WORK[1] = LWKOPT;
 
-      return;
       }

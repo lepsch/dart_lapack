@@ -75,5 +75,4 @@ import 'package:lapack/src/xerbla.dart';
       // Apply permutations JPIV to the solution (RHS)
 
       dlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      return;
       }

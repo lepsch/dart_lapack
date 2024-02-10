@@ -56,5 +56,4 @@ import 'package:lapack/src/xerbla.dart';
 
       dlauum(UPLO, N, A, LDA, INFO );
 
-      return;
       }

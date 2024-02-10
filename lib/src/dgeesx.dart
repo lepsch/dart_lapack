@@ -325,5 +325,4 @@ import 'package:lapack/src/xerbla.dart';
          IWORK[1] = 1;
       }
 
-      return;
       }

@@ -60,6 +60,4 @@ bool zlctsx(ALPHA, BETA) {
   // ELSE
   // ZLCTSX = ( (ALPHA/BETA).toDouble() > ZERO )
   // END IF
-
-  return;
 }

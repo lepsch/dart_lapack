@@ -119,5 +119,4 @@
          cunmqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
       }
       WORK[1] = SROUNDUP_LWORK(LWKOPT);
-      return;
       }

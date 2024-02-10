@@ -99,5 +99,4 @@
          RESID = ( RESID / ANORM ) / EPS;
       }
 
-      return;
       }

@@ -875,5 +875,4 @@
       // full row rank triangular (trapezoidal) factor of A.
       NUMRANK = NR;
 
-      return;
       }

@@ -286,5 +286,4 @@
       slasrt('I', N, D, INFO );
 
       } // 180
-      return;
       }

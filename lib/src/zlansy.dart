@@ -100,5 +100,4 @@
       }
 
       ZLANSY = VALUE;
-      return;
       }

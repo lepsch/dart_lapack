@@ -198,5 +198,4 @@
       }
 
       ZLANTB = VALUE;
-      return;
       }

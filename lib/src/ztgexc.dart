@@ -79,5 +79,4 @@
          HERE = HERE + 1;
       }
       ILST = HERE;
-      return;
       }

@@ -192,5 +192,4 @@
       }
 
       WORK[1] = MAXWRK;
-      return;
       }

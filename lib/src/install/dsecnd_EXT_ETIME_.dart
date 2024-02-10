@@ -14,5 +14,4 @@
 
       T1 = ETIME_( TARRAY );
       DSECND = TARRAY( 1 );
-      return;
       }

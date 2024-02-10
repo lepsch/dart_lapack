@@ -105,5 +105,4 @@
             if (INFO == 0) INFO = J;
          }
       } // 40
-      return;
       }

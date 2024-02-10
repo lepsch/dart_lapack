@@ -68,5 +68,4 @@
       zgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK[1] = max( LOPT, INT( WORK( 1 ) ) );
 
-      return;
       }

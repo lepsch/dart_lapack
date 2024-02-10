@@ -120,5 +120,4 @@
          ctrsm('Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA );
       }
 
-      return;
       }

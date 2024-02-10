@@ -137,5 +137,4 @@
       }
 
       ZLANSP = VALUE;
-      return;
       }

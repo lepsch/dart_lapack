@@ -101,5 +101,4 @@
          slarf(SIDE, MI, NI, A( I, I ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
          A[I][I] = AII;
       } // 10
-      return;
       }

@@ -144,5 +144,4 @@
       zunmrq('Left', 'Conjugate transpose', P, 1, NP, B( max( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, max( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       WORK[1] = M + NP + max( LOPT, INT( WORK( M+NP+1 ) ) );
 
-      return;
       }

@@ -132,6 +132,4 @@ void dget33(
       }
     }
   }
-
-  return;
 }

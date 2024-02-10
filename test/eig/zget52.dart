@@ -102,5 +102,4 @@
 
       RESULT[2] = ENRMER / ( N.toDouble()*ULP );
 
-      return;
       }

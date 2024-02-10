@@ -218,5 +218,4 @@
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
-      return;
       }

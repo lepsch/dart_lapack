@@ -66,5 +66,4 @@
          RESULT[1] = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
       }
 
-      return;
       }

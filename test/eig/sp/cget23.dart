@@ -408,5 +408,4 @@
  9999 FORMAT( ' CGET23: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, INPUT EXAMPLE NUMBER = ${.i4}');
  9998 FORMAT( ' CGET23: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, BALANC = ${}, ISEED=(${.i5(4, ',')})' );
 
-      return;
       }

@@ -227,5 +227,4 @@
 
       } // 100
       NCYCLE = KCYCLE;
-      return;
       }

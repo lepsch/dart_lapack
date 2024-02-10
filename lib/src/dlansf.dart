@@ -724,5 +724,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANSF = VALUE;
-      return;
       }

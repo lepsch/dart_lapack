@@ -77,5 +77,4 @@
 
       if (ITYPE == 1) zunt01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) );
 
-      return;
       }

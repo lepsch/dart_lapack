@@ -146,5 +146,4 @@
          COLCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
       }
 
-      return;
       }

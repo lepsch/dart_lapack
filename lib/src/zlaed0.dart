@@ -194,5 +194,4 @@
       } // 100
       dcopy(N, RWORK, 1, D, 1 );
 
-      return;
       }

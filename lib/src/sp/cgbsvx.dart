@@ -241,5 +241,4 @@
       if( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
       RWORK[1] = RPVGRW;
-      return;
       }

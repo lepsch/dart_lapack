@@ -93,5 +93,4 @@
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      return;
       }

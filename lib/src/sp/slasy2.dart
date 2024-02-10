@@ -267,5 +267,4 @@
       X[1][2] = TMP( 3 );
       X[2][2] = TMP( 4 );
       XNORM = max( ( TMP( 1 ) ).abs()+( TMP( 3 ) ).abs(), ( TMP( 2 ) ).abs()+( TMP( 4 ) ).abs() );
-      return;
       }

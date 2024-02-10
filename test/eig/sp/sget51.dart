@@ -95,5 +95,4 @@
          RESULT = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), double( N ) ) / ( N*ULP );
       }
 
-      return;
       }

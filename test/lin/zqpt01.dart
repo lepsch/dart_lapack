@@ -62,5 +62,4 @@
 
       ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*dlamch( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
 
-      return;
       }

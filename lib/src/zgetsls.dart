@@ -288,5 +288,4 @@
 
       } // 50
       WORK[1] = (TSZO + LWO).toDouble();
-      return;
       }

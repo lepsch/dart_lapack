@@ -63,5 +63,4 @@
       } // 20
       if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
-      return;
       }

@@ -211,5 +211,4 @@ void dgeqp3(
   }
 
   WORK[1] = IWS.toDouble();
-  return;
 }

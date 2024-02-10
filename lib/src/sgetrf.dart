@@ -100,5 +100,4 @@ void sgetrf(
       }
     } // 20
   }
-  return;
 }

@@ -164,5 +164,4 @@ import 'package:lapack/src/xerbla.dart';
          COLCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
       }
 
-      return;
       }

@@ -164,5 +164,4 @@ import 'package:lapack/src/xerbla.dart';
 
       if (AINVNM != 0.0) DLA_GERCOND = ( 1.0 / AINVNM );
 
-      return;
       }

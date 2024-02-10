@@ -224,5 +224,4 @@
       }
 
       WORK[1] = DROUNDUP_LWORK(IWS);
-      return;
       }

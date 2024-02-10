@@ -327,5 +327,4 @@
       WORK[1] = MAXWRK;
       IWORK[1] = LIWMIN;
 
-      return;
       }

@@ -160,5 +160,4 @@
          RT1I = sqrt( ( B ).abs() )*sqrt( ( C ).abs() );
          RT2I = -RT1I;
       }
-      return;
       }

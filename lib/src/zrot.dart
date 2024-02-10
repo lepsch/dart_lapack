@@ -44,5 +44,4 @@
          CY[I] = C*CY( I ) - DCONJG( S )*CX( I );
          CX[I] = STEMP;
       } // 30
-      return;
       }

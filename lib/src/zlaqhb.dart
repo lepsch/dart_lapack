@@ -70,5 +70,4 @@
          EQUED = 'Y';
       }
 
-      return;
       }

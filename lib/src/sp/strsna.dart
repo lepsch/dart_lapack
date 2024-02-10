@@ -280,5 +280,4 @@
          if (PAIR) KS = KS + 1;
 
       } // 60
-      return;
       }

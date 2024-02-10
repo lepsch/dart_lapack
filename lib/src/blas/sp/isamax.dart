@@ -46,5 +46,4 @@
             IX = IX + INCX;
          }
       }
-      return;
       }

@@ -72,5 +72,4 @@ import 'package:lapack/src/xerbla.dart';
          EQUED = 'Y';
       }
 
-      return;
       }

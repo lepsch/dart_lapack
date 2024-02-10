@@ -189,6 +189,4 @@ void dtbsv(
       }
     }
   }
-
-  return;
 }

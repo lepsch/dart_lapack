@@ -430,5 +430,4 @@
       dlasrt('D', N, D, INFO );
       zlascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-      return;
       }

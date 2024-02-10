@@ -132,5 +132,4 @@
          D[N] = (A( N, N )).toDouble();
       }
 
-      return;
       }

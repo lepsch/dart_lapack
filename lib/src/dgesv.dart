@@ -50,5 +50,4 @@ import 'package:lapack/src/xerbla.dart';
 
          dgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
-      return;
       }

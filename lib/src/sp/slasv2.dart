@@ -166,5 +166,4 @@
       IF( PMAX == 3 ) TSIGN = sign( ONE, SNR )*sign( ONE, SNL )*sign( ONE, H );
       SSMAX = sign( SSMAX, TSIGN );
       SSMIN = sign( SSMIN, TSIGN*sign( ONE, F )*sign( ONE, H ) );
-      return;
       }

@@ -279,5 +279,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 50
       WORK[1] = WSIZE.toDouble();
 
-      return;
       }

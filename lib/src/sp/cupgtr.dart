@@ -97,5 +97,4 @@
             cung2r(N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO );
          }
       }
-      return;
       }

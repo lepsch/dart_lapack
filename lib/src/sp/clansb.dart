@@ -108,5 +108,4 @@
       }
 
       CLANSB = VALUE;
-      return;
       }

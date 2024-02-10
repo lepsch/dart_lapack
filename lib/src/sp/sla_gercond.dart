@@ -156,5 +156,4 @@
 
       if (AINVNM != 0.0) SLA_GERCOND = ( 1.0 / AINVNM );
 
-      return;
       }

@@ -120,5 +120,4 @@
       RESID = CLANHE( '1', 'Upper', P, T, LDB, RWORK );
       RESULT[4] = ( RESID / REAL( max( 1, P ) ) ) / ULP;
 
-      return;
       }

@@ -133,5 +133,4 @@
          D[N] = (AP( II )).toDouble();
       }
 
-      return;
       }

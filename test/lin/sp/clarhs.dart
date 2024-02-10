@@ -195,5 +195,4 @@
          xerbla('CLARHS', -INFO );
       }
 
-      return;
       }

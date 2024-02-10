@@ -196,5 +196,4 @@ import 'package:lapack/src/xerbla.dart';
          BETA[2] = ONE;
       }
 
-      return;
       }

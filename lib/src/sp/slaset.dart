@@ -60,5 +60,4 @@
          A[I][I] = BETA;
       } // 70
 
-      return;
       }

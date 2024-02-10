@@ -152,6 +152,4 @@ double dladiv2(A, B, C, D, R, T) {
   } else {
     DLADIV2 = (A + D * (B / C)) * T;
   }
-
-  return;
 }

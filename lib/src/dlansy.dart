@@ -107,5 +107,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANSY = VALUE;
-      return;
       }

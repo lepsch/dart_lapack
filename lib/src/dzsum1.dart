@@ -51,5 +51,4 @@ import 'package:lapack/src/xerbla.dart';
          STEMP = STEMP + ( CX( I ) ).abs();
       } // 30
       DZSUM1 = STEMP;
-      return;
       }

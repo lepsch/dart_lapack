@@ -92,5 +92,4 @@
 
       RESULT[2] = ( RESID / REAL( max( 1, M ) ) ) / EPS;
 
-      return;
       }

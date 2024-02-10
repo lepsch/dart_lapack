@@ -341,6 +341,4 @@ void dsbevx_2stage(
   // Set WORK[1] to optimal workspace size.
 
   WORK[1] = LWMIN.toDouble();
-
-  return;
 }

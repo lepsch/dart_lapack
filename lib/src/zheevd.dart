@@ -162,5 +162,4 @@
       RWORK[1] = LROPT;
       IWORK[1] = LIOPT;
 
-      return;
       }

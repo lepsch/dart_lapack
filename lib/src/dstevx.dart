@@ -234,6 +234,4 @@ void dstevx(
       }
     }
   }
-
-  return;
 }

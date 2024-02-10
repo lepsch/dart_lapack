@@ -40,5 +40,4 @@ double dget06(RCOND, RCONDC) {
     }
   }
   DGET06 = RAT;
-  return;
 }

@@ -102,5 +102,4 @@
 
       if (NRMSVL != ZERO) DQRT12 = DQRT12 / NRMSVL;
 
-      return;
       }

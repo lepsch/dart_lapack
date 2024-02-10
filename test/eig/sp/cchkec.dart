@@ -90,5 +90,4 @@
  9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale factor in ${.i8} tests.');
  9971 FORMAT( 'Error in CTRSYL3: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
  9970 FORMAT( 'Error in CTRSYL: ${.i8} tests fail the threshold.\nMaximum test ratio =${.d12_3} threshold =', D12.3 );
-      return;
       }

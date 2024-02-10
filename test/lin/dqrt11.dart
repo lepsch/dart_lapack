@@ -51,5 +51,4 @@
 
       DQRT11 = dlange( 'One-norm', M, M, WORK, M, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) );
 
-      return;
       }

@@ -142,5 +142,4 @@ import 'package:lapack/src/xerbla.dart';
       WORK[1] = LWMIN;
       IWORK[1] = LIWMIN;
 
-      return;
       }

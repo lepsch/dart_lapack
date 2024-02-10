@@ -22,5 +22,4 @@ import 'common.dart';
          claenv.IPARMS[ISPEC] = NVALUE;
       }
 
-      return;
       }

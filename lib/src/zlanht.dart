@@ -67,5 +67,4 @@
       }
 
       ZLANHT = ANORM;
-      return;
       }

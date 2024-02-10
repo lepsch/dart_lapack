@@ -202,6 +202,4 @@ void ztrsv(
       }
     }
   }
-
-  return;
 }

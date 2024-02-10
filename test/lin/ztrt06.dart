@@ -59,5 +59,4 @@
          RAT = RMAX*( min( BIGNUM / max( ONE, ANORM ), ONE / EPS ) );
       }
 
-      return;
       }

@@ -293,5 +293,4 @@ import 'package:lapack/src/xerbla.dart';
 
       } // 50
       WORK[1] = (TSZO + LWO).toDouble();
-      return;
       }

@@ -133,5 +133,4 @@
          zlaswp(N1, A( 1, 1 ), LDA, N1+1, min( M, N), IPIV, 1 );
 
       }
-      return;
       }

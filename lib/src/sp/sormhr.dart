@@ -101,5 +101,4 @@
       sormqr(SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO );
 
       WORK[1] = SROUNDUP_LWORK(LWKOPT);
-      return;
       }

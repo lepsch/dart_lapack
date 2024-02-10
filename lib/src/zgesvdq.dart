@@ -885,5 +885,4 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
       // full row rank triangular (trapezoidal) factor of A.
       NUMRANK.value = NR;
 
-      return;
       }

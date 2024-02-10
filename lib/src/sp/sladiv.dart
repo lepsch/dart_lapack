@@ -144,6 +144,4 @@ double sladiv2(A, B, C, D, R, T) {
   } else {
     SLADIV2 = (A + D * (B / C)) * T;
   }
-
-  return;
 }

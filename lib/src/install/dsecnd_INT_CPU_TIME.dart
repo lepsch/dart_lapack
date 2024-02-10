@@ -17,5 +17,4 @@ double dsecnd() {
 
   cpu_time(T);
   DSECND = T;
-  return;
 }

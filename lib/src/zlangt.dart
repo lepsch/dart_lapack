@@ -80,5 +80,4 @@
       }
 
       ZLANGT = ANORM;
-      return;
       }

@@ -132,5 +132,4 @@
       }
 
       ZLANHP = VALUE;
-      return;
       }

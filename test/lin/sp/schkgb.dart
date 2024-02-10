@@ -417,5 +417,4 @@
  9996 FORMAT( ' TRANS=''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i3}, type ${.i1}, test(${.i1})=${.g12_5};
  9995 FORMAT( ' NORM =''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5},${' ' * 10} type ${.i1}, test(${.i1})=${.g12_5};
 
-      return;
       }

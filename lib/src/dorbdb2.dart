@@ -111,5 +111,4 @@ import 'package:lapack/src/xerbla.dart';
          dlarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
       }
 
-      return;
       }

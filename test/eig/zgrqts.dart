@@ -120,5 +120,4 @@
       RESID = ZLANHE( '1', 'Upper', P, T, LDB, RWORK );
       RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
 
-      return;
       }

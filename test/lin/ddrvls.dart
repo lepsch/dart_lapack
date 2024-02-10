@@ -641,5 +641,4 @@ import 'common.dart';
 
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );
-      return;
       }

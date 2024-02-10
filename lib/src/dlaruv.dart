@@ -213,5 +213,4 @@ import 'package:lapack/src/xerbla.dart';
       ISEED[2] = IT2;
       ISEED[3] = IT3;
       ISEED[4] = IT4;
-      return;
       }

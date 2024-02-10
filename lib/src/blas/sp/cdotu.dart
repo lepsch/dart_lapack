@@ -39,5 +39,4 @@
          }
       }
       CDOTU = CTEMP;
-      return;
       }

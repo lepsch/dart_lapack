@@ -88,5 +88,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANGT = ANORM;
-      return;
       }

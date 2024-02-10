@@ -75,5 +75,4 @@
          A[IYT] = YT( NT );
       }
 
-      return;
       }

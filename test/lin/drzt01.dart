@@ -60,5 +60,4 @@
       DRZT01 = DRZT01 / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
-      return;
       }

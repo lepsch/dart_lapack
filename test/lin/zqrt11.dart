@@ -51,5 +51,4 @@
 
       ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( M.toDouble()*dlamch( 'Epsilon' ) );
 
-      return;
       }

@@ -129,5 +129,4 @@
       // Compute the sum of squares
 
       zlassq(N, RHS, 1, RDSCAL, RDSUM );
-      return;
       }

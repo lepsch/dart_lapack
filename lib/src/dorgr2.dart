@@ -74,5 +74,4 @@ import 'package:lapack/src/xerbla.dart';
             A[II][L] = ZERO;
          } // 30
       } // 40
-      return;
       }

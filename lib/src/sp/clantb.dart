@@ -198,5 +198,4 @@
       }
 
       CLANTB = VALUE;
-      return;
       }

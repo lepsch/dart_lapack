@@ -193,5 +193,4 @@
       }
 
       CLANTR = VALUE;
-      return;
       }

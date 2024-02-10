@@ -96,5 +96,4 @@
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );
       }
 
-      return;
       }

@@ -102,5 +102,4 @@ import 'package:lapack/src/xerbla.dart';
 
          SCOND = sqrt( SMIN ) / sqrt( AMAX );
       }
-      return;
       }

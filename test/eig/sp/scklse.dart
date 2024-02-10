@@ -123,5 +123,4 @@
  9999 FORMAT( ' SLATMS in SCKLSE   INFO = ${.i5}');
  9998 FORMAT( ' M=${.i4} P=${.i4}, N=${.i4}, type ${.i2}, test ${.i2}, ratio=${.g13_6};
  9997 FORMAT( ' *** Invalid input  for LSE:  M = ${.i6}, P = ${.i6}, N = ${.i6};\n     must satisfy P <= N <= P+M  (this set of values will be skipped)' )
-      return;
       }

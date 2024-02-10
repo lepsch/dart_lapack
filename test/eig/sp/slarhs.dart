@@ -173,5 +173,4 @@
          xerbla('SLARHS', -INFO );
       }
 
-      return;
       }

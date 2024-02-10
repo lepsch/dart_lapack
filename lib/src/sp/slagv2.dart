@@ -188,5 +188,4 @@
          BETA[2] = ONE;
       }
 
-      return;
       }

@@ -357,5 +357,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 10
       WORK[1] = MAXWRK;
       IWORK[1] = LIWORK;
-      return;
       }

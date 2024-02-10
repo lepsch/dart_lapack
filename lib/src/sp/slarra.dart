@@ -54,5 +54,4 @@
       }
       ISPLIT[NSPLIT] = N;
 
-      return;
       }

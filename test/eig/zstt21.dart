@@ -90,5 +90,4 @@
 
       RESULT[2] = min( N.toDouble(), ZLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
-      return;
       }

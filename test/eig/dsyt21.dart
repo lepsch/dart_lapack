@@ -178,5 +178,4 @@
          RESULT[2] = min( dlange( '1', N, N, WORK, N, WORK( N**2+1 ) ), N.toDouble() ) / ( N*ULP );
       }
 
-      return;
       }

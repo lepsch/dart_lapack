@@ -270,5 +270,4 @@
       }
 
       WORK[1] = SROUNDUP_LWORK(MAXWRK);
-      return;
       }

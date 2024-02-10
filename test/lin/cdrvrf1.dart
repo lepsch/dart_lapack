@@ -164,5 +164,4 @@
  9995 FORMAT(' ${.a6} auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold');
  9994 FORMAT( 26X, I5,' error message recorded (${.a6})');
 
-      return;
       }

@@ -218,5 +218,4 @@ import 'package:lapack/src/xerbla.dart';
       dlacpy('All', N, NRHS, B, LDB, X, LDX );
       dgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
-      return;
       }

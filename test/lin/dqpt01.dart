@@ -75,5 +75,4 @@
 
       DQPT01 = dlange( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*dlamch( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
-      return;
       }

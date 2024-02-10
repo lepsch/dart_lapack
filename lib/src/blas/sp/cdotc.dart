@@ -42,5 +42,4 @@
          }
       }
       CDOTC = CTEMP;
-      return;
       }

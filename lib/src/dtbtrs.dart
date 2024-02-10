@@ -83,5 +83,4 @@ import 'package:lapack/src/xerbla.dart';
          dtbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
       } // 30
 
-      return;
       }

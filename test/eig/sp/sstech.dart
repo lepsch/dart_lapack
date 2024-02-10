@@ -112,5 +112,4 @@
       BPNT = TPNT;
       if (TPNT <= N) GO TO 50;
       } // 80
-      return;
       }

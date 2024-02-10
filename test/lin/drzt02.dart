@@ -52,5 +52,4 @@
       } // 10
 
       DRZT02 = dlange( 'One-norm', N, N, WORK, N, RWORK ) / ( dlamch( 'Epsilon' )*(max( M, N )).toDouble() );
-      return;
       }

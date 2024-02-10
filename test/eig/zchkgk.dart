@@ -157,5 +157,4 @@
       WRITE( NOUT, FMT = 9991 )KNT;
  9991 FORMAT( ' total number of examples tested              =${.i4}');
 
-      return;
       }

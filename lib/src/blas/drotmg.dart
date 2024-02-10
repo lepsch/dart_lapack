@@ -165,5 +165,4 @@ void drotmg(
   }
 
   DPARAM[1] = DFLAG;
-  return;
 }

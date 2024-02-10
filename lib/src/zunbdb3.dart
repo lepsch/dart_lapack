@@ -106,5 +106,4 @@
          zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
       }
 
-      return;
       }

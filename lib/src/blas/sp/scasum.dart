@@ -36,5 +36,4 @@
          }
       }
       SCASUM = STEMP;
-      return;
       }

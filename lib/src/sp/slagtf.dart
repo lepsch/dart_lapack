@@ -84,5 +84,4 @@
       } // 10
       if( ( ( A( N ) ).abs() <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 
-      return;
       }

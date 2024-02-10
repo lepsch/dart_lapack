@@ -41,5 +41,4 @@
          }
       }
       SDSDOT = double(DSDOT);
-      return;
       }

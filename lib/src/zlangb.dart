@@ -82,5 +82,4 @@
       }
 
       ZLANGB = VALUE;
-      return;
       }

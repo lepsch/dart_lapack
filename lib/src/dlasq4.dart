@@ -231,5 +231,4 @@ void dlasq4(
   }
 
   TAU.value = S;
-  return;
 }

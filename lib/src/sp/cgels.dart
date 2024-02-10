@@ -273,5 +273,4 @@
       } // 50
       WORK[1] = double( WSIZE );
 
-      return;
       }

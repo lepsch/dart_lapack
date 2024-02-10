@@ -215,5 +215,4 @@
       INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1;
 
       } // 140
-      return;
       }

@@ -287,5 +287,4 @@
       slasrt('D', N, D, INFO );
       slascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-      return;
       }

@@ -205,5 +205,4 @@
          clascl2(N, NRHS, R, X, LDX );
       }
 
-      return;
       }

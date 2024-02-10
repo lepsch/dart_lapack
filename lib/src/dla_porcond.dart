@@ -178,5 +178,4 @@ import 'package:lapack/src/xerbla.dart';
 
       if (AINVNM != 0.0) DLA_PORCOND = ( 1.0 / AINVNM );
 
-      return;
       }

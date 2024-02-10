@@ -79,5 +79,4 @@
       }
 
       ZLANHS = VALUE;
-      return;
       }

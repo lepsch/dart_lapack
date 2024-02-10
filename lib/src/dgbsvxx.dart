@@ -213,5 +213,4 @@ import 'package:lapack/src/xerbla.dart';
          dlascl2(N, NRHS, R, X, LDX );
       }
 
-      return;
       }

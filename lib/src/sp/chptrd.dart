@@ -133,5 +133,4 @@
          D[N] = double( AP( II ) );
       }
 
-      return;
       }

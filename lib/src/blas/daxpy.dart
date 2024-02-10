@@ -63,5 +63,4 @@ void daxpy(
       IY = IY + INCY;
     }
   }
-  return;
 }

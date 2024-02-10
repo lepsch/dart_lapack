@@ -78,5 +78,4 @@
       }
 
       ZQRT17 = ERR / ( dlamch( 'Epsilon' )*(max( M, N, NRHS )).toDouble() );
-      return;
       }

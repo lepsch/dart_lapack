@@ -154,5 +154,4 @@
          IY = IY + INCY;
          IX = IX + INCX;
       } // 60
-      return;
       }

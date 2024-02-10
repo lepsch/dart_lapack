@@ -210,5 +210,4 @@ import 'common.dart';
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=${.i5}, N=${.i5}, K=${.i5}, NB=${.i4}, NX=${.i5}, type ${.i2}, test(${.i2})=${.g12_5};
-      return;
       }

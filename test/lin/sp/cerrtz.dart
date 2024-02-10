@@ -71,5 +71,4 @@
 
       alaesm(PATH, OK, NOUT );
 
-      return;
       }

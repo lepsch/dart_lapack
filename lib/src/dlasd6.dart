@@ -109,5 +109,4 @@ import 'package:lapack/src/xerbla.dart';
       N2 = N - K;
       dlamrg(N1, N2, D, 1, -1, IDXQ );
 
-      return;
       }

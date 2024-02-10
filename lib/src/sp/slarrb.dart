@@ -185,5 +185,4 @@
          WGAP[II-1] = max( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
       } // 111
 
-      return;
       }

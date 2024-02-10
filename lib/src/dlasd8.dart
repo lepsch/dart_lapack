@@ -137,5 +137,4 @@ import 'package:lapack/src/xerbla.dart';
       dcopy(K, WORK( IWK2 ), 1, VF, 1 );
       dcopy(K, WORK( IWK3 ), 1, VL, 1 );
 
-      return;
       }

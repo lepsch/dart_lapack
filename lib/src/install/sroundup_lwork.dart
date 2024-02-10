@@ -20,6 +20,4 @@ double sroundup_lwork(LWORK) {
     // Force round up of LWORK
     SROUNDUP_LWORK = SROUNDUP_LWORK * (1.0 + EPSILON(0.0));
   }
-
-  return;
 }

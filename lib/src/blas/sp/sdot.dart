@@ -56,5 +56,4 @@
          }
       }
       SDOT = STEMP;
-      return;
       }

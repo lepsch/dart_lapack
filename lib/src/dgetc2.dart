@@ -106,5 +106,4 @@ import 'package:lapack/src/xerbla.dart';
       IPIV[N] = N;
       JPIV[N] = N;
 
-      return;
       }

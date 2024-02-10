@@ -51,5 +51,4 @@
          cpbtrs(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO );
 
       }
-      return;
       }

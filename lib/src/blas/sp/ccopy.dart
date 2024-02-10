@@ -35,5 +35,4 @@
             IY = IY + INCY;
          }
       }
-      return;
       }

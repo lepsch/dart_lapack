@@ -83,5 +83,4 @@
       W = HALF * (LEFT + RIGHT);
       WERR = HALF * ( RIGHT - LEFT ).abs();
 
-      return;
       }

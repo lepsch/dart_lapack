@@ -104,5 +104,4 @@
          CTEMP = CTEMP*DL( ISUB )*DL( JSUB );
       }
       CLATM2 = CTEMP;
-      return;
       }

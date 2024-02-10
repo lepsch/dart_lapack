@@ -25,5 +25,4 @@ int iladiag(DIAG) {
   } else {
     ILADIAG = -1;
   }
-  return;
 }

@@ -100,5 +100,4 @@
       saxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
       CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) )       IF( NRMSVL != ZERO ) CQRT12 = CQRT12 / NRMSVL;
 
-      return;
       }

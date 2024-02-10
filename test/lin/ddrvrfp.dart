@@ -291,5 +291,4 @@ import 'common.dart';
 
  9999 FORMAT(' ${.a6}, UPLO=''${.a1}'', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
 
-      return;
       }

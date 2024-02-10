@@ -108,5 +108,4 @@ import 'package:lapack/src/xerbla.dart';
          CS1 = -SN1;
          SN1 = TN;
       }
-      return;
       }

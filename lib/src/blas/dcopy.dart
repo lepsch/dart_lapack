@@ -53,5 +53,4 @@ void dcopy(
       IY = IY + INCY;
     }
   }
-  return;
 }

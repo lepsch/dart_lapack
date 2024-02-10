@@ -62,5 +62,4 @@
 
       cunt01('Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
 
-      return;
       }

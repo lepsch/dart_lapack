@@ -381,5 +381,4 @@ void dggev3(
   }
 
   WORK[1] = LWKOPT.toDouble();
-  return;
 }

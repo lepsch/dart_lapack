@@ -132,5 +132,4 @@
             sscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
          } // 50
       }
-      return;
       }

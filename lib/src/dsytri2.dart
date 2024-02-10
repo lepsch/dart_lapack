@@ -76,5 +76,4 @@ import 'package:lapack/src/xerbla.dart';
          dsytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
 
-      return;
       }

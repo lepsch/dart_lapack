@@ -272,5 +272,4 @@ import 'package:lapack/src/xerbla.dart';
 
       } // 250
 
-      return;
       }

@@ -16,5 +16,4 @@
 
       T1 = ETIME( TARRAY );
       SECOND = TARRAY( 1 );
-      return;
       }

@@ -293,5 +293,4 @@
 
       WORK[1] = SROUNDUP_LWORK( LWOPT );
 
-      return;
       }

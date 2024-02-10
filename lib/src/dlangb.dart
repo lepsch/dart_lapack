@@ -93,5 +93,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANGB = VALUE;
-      return;
       }

@@ -71,5 +71,4 @@ import 'package:lapack/src/xerbla.dart';
 
       dtrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
-      return;
       }

@@ -156,5 +156,4 @@
 
       RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
 
-      return;
       }

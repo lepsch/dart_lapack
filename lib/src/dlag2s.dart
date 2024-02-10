@@ -41,5 +41,4 @@ import 'package:lapack/src/xerbla.dart';
       } // 20
       INFO = 0;
       } // 30
-      return;
       }

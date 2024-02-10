@@ -204,5 +204,4 @@
 
       zsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
-      return;
       }

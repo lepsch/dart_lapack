@@ -278,5 +278,4 @@ void dhsein(
       }
     }
   }
-  return;
 }

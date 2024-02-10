@@ -190,5 +190,4 @@
             SCALE2 = ASCALE*BSIZE;
          }
       }
-      return;
       }

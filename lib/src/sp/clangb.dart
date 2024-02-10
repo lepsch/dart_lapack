@@ -82,5 +82,4 @@
       }
 
       CLANGB = VALUE;
-      return;
       }

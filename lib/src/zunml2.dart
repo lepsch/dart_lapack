@@ -108,5 +108,4 @@
          A[I][I] = AII;
          if (I < NQ) zlacgv( NQ-I, A( I, I+1 ), LDA );
       } // 10
-      return;
       }

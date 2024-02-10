@@ -94,5 +94,4 @@
          TEMP = TEMP*DL( ISUB )*DL( JSUB );
       }
       SLATM2 = TEMP;
-      return;
       }

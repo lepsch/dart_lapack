@@ -114,5 +114,4 @@
       }
 
       CLANHE = VALUE;
-      return;
       }

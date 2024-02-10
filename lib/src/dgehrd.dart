@@ -1,6 +1,12 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dtrmm.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgehd2.dart';
+import 'package:lapack/src/dlahr2.dart';
+import 'package:lapack/src/dlarfb.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
@@ -22,8 +28,9 @@ void dgehrd(
   const NBMAX = 64, LDT = NBMAX + 1, TSIZE = LDT * NBMAX;
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;
-  int I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
+  int I, IB, IWT, J, LDWORK, LWKOPT = 0, NB, NBMIN, NH, NX = 0;
   double EI;
+  final IINFO = Box(0);
 
   // Test the input parameters
 
@@ -64,13 +71,11 @@ void dgehrd(
   // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
   for (I = 1; I <= ILO - 1; I++) {
-    // 10
     TAU[I] = ZERO;
-  } // 10
+  }
   for (I = max(1, IHI); I <= N - 1; I++) {
-    // 20
     TAU[I] = ZERO;
-  } // 20
+  }
 
   // Quick return if possible
 
@@ -98,7 +103,7 @@ void dgehrd(
 
         NBMIN = max(2, ilaenv(2, 'DGEHRD', ' ', N, ILO, IHI, -1));
         if (LWORK >= (N * NBMIN + TSIZE)) {
-          NB = (LWORK - TSIZE) / N;
+          NB = (LWORK - TSIZE) ~/ N;
         } else {
           NB = 1;
         }
@@ -116,7 +121,6 @@ void dgehrd(
 
     IWT = 1 + N * NB;
     for (I = ILO; NB < 0 ? I >= IHI - 1 - NX : I <= IHI - 1 - NX; I += NB) {
-      // 40
       IB = min(NB, IHI - I);
 
       // Reduce columns i:i+ib-1 to Hessenberg form, returning the
@@ -129,21 +133,32 @@ void dgehrd(
       // right, computing  A := A - Y * V**T. V(i+ib,ib-1) must be set
       // to 1
 
-      EI = A(I + IB, I + IB - 1);
+      EI = A[I + IB][I + IB - 1];
       A[I + IB][I + IB - 1] = ONE;
-      dgemm('No transpose', 'Transpose', IHI, IHI - I - IB + 1, IB, -ONE, WORK,
-          LDWORK, A(I + IB, I), LDA, ONE, A(1, I + IB), LDA);
+      dgemm(
+          'No transpose',
+          'Transpose',
+          IHI,
+          IHI - I - IB + 1,
+          IB,
+          -ONE,
+          WORK.asMatrix(LDWORK),
+          LDWORK,
+          A(I + IB, I),
+          LDA,
+          ONE,
+          A(1, I + IB),
+          LDA);
       A[I + IB][I + IB - 1] = EI;
 
       // Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
       // right
 
       dtrmm('Right', 'Lower', 'Transpose', 'Unit', I, IB - 1, ONE, A(I + 1, I),
-          LDA, WORK, LDWORK);
+          LDA, WORK.asMatrix(LDWORK), LDWORK);
       for (J = 0; J <= IB - 2; J++) {
-        // 30
-        daxpy(I, -ONE, WORK(LDWORK * J + 1), 1, A(1, I + J + 1), 1);
-      } // 30
+        daxpy(I, -ONE, WORK(LDWORK * J + 1), 1, A(1, I + J + 1).asArray(), 1);
+      }
 
       // Apply the block reflector H to A(i+1:ihi,i+ib:n) from the
       // left
@@ -158,13 +173,13 @@ void dgehrd(
           IB,
           A(I + 1, I),
           LDA,
-          WORK(IWT),
+          WORK(IWT).asMatrix(LDT),
           LDT,
           A(I + 1, I + IB),
           LDA,
-          WORK,
+          WORK.asMatrix(LDWORK),
           LDWORK);
-    } // 40
+    }
   }
 
   // Use unblocked code to reduce the rest of the matrix
@@ -172,6 +187,4 @@ void dgehrd(
   dgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO);
 
   WORK[1] = LWKOPT.toDouble();
-
-  return;
 }

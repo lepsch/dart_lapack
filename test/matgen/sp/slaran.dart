@@ -63,5 +63,4 @@
       }
 
       SLARAN = RNDOUT;
-      return;
       }

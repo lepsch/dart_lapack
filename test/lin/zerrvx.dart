@@ -859,5 +859,4 @@
  9999 FORMAT(' ${.a3} drivers passed the tests of the error exits' );
  9998 FORMAT( ' *** ${.a3} drivers failed the tests of the error exits ***' );
 
-      return;
       }

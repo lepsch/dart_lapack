@@ -183,6 +183,4 @@ void zgbmv(
       }
     }
   }
-
-  return;
 }

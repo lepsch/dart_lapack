@@ -181,5 +181,4 @@
 
       RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( REAL( N )*ULP );
 
-      return;
       }

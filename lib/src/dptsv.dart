@@ -47,5 +47,4 @@ import 'package:lapack/src/xerbla.dart';
 
          dpttrs(N, NRHS, D, E, B, LDB, INFO );
       }
-      return;
       }

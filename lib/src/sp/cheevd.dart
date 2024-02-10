@@ -162,5 +162,4 @@
       RWORK[1] = SROUNDUP_LWORK( LROPT );
       IWORK[1] = LIOPT;
 
-      return;
       }

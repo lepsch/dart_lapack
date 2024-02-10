@@ -49,5 +49,4 @@ void scopy(
       IY = IY + INCY;
     }
   }
-  return;
 }

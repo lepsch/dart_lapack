@@ -180,5 +180,4 @@
 
       if (AINVNM != 0.0) SLA_SYRCOND = ( 1.0 / AINVNM );
 
-      return;
       }

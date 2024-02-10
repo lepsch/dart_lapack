@@ -69,5 +69,4 @@
       cgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK[1] = SROUNDUP_LWORK( max( LOPT, INT( WORK( 1 ) ) ) );
 
-      return;
       }

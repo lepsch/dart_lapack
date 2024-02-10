@@ -503,5 +503,4 @@
 
       WORK[1] = DCMPLX( MAXWRK.toDouble(), ZERO );
 
-      return;
       }

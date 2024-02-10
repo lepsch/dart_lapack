@@ -137,5 +137,4 @@
 
       WORK[1] = LWREQ;
 
-      return;
       }

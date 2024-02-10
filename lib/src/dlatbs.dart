@@ -542,5 +542,4 @@ import 'package:lapack/src/xerbla.dart';
          dscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      return;
       }

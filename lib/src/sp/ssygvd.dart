@@ -131,5 +131,4 @@
       WORK[1] = SROUNDUP_LWORK(LOPT);
       IWORK[1] = LIOPT;
 
-      return;
       }

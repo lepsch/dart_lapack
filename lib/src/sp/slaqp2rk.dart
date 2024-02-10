@@ -346,5 +346,4 @@
          TAU[J] = ZERO;
       }
 
-      return;
       }

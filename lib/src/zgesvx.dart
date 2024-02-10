@@ -224,5 +224,4 @@
       if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
 
       RWORK[1] = RPVGRW;
-      return;
       }

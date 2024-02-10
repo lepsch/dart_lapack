@@ -1235,5 +1235,4 @@
       }
 
       ZLANHF = VALUE;
-      return;
       }

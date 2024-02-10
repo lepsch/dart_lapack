@@ -104,5 +104,4 @@
          CTEMP = CTEMP*DL( ISUB )*DL( JSUB );
       }
       ZLATM2 = CTEMP;
-      return;
       }

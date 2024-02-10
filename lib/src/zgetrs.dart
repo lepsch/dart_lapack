@@ -79,5 +79,4 @@
          zlaswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
-      return;
       }

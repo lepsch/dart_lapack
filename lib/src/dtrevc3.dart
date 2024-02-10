@@ -1202,6 +1202,4 @@ void dtrevc3(
       if (IP != 0) IS = IS + 1;
     } // 260
   }
-
-  return;
 }

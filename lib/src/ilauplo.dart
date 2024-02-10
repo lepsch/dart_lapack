@@ -25,5 +25,4 @@ int ilauplo(UPLO) {
   } else {
     ILAUPLO = -1;
   }
-  return;
 }

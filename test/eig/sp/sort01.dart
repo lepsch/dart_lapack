@@ -91,5 +91,4 @@
          } // 40
          RESID = ( RESID / REAL( N ) ) / EPS;
       }
-      return;
       }

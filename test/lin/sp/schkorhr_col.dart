@@ -168,5 +168,4 @@
 
  9999 FORMAT( 'SORGTSQR and SORHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
  9998 FORMAT( 'SORGTSQR_ROW and SORHR_COL: M=${.i5}, N=${.i5}, MB1=${.i5}, NB1=${.i5}, NB2=${.i5} test(${.i2})=${.g12_5};
-      return;
       }

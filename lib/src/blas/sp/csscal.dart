@@ -37,5 +37,4 @@
             CX[I] = CMPLX(SA*double(CX(I)),SA*AIMAG(CX(I)));
          }
       }
-      return;
       }

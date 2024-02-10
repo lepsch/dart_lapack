@@ -325,5 +325,4 @@ import 'package:lapack/src/xerbla.dart';
          GO TO 30;
          } // 40
       }
-      return;
       }

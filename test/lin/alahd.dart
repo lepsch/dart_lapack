@@ -833,5 +833,4 @@
  8064 FORMAT( 3X, I2, ': 1-norm(Q**T * B - Q**T * B ) / ( M * EPS )');
 
 
-      return;
       }

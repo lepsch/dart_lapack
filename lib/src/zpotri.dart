@@ -48,5 +48,4 @@
 
       zlauum(UPLO, N, A, LDA, INFO );
 
-      return;
       }

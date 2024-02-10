@@ -708,5 +708,4 @@
          dscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      return;
       }

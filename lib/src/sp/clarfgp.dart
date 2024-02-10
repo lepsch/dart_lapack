@@ -139,5 +139,4 @@
          ALPHA = BETA;
       }
 
-      return;
       }

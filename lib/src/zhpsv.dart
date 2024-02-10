@@ -48,5 +48,4 @@
          zhptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
-      return;
       }

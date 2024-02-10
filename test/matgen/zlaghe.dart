@@ -137,5 +137,4 @@
             A[J][I] = DCONJG( A( I, J ) );
          } // 70
       } // 80
-      return;
       }

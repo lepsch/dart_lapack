@@ -94,5 +94,4 @@
          TEMP = TEMP*DL( ISUB )*DL( JSUB );
       }
       DLATM2 = TEMP;
-      return;
       }

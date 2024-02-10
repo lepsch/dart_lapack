@@ -98,5 +98,4 @@
          RESULT = min( CLANGE( '1', N, N, WORK, N, RWORK ), double( N ) ) / ( N*ULP );
       }
 
-      return;
       }

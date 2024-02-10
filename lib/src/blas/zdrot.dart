@@ -41,5 +41,4 @@ void zdrot(
       IY = IY + INCY;
     }
   }
-  return;
 }

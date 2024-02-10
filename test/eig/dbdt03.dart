@@ -111,6 +111,4 @@ void dbdt03(
       }
     }
   }
-
-  return;
 }

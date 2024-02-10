@@ -96,5 +96,4 @@
       N2 = N - K;
       slamrg(N1, N2, D, 1, -1, IDXQ );
 
-      return;
       }

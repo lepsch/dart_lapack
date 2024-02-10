@@ -702,5 +702,4 @@
  9996 FORMAT( ' CDRVBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
  9995 FORMAT( ' CDRVBD: ${} returned INFO=${.i6}.\n${' ' * 9}M=${.i6}, N=${.i6}, JTYPE=${.i6}, LSWORK=', I6, / 9X, 'ISEED=(${.i5(4, ',')})' );
 
-      return;
       }

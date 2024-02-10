@@ -132,5 +132,4 @@
          D[N] = double( A( N, N ) );
       }
 
-      return;
       }

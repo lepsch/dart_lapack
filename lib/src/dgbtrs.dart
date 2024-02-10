@@ -112,5 +112,4 @@ import 'package:lapack/src/xerbla.dart';
             } // 40
          }
       }
-      return;
       }

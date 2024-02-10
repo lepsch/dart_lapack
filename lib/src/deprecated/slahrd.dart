@@ -87,5 +87,4 @@
       } // 10
       A[K+NB][NB] = EI;
 
-      return;
       }

@@ -40,5 +40,4 @@
          CY[I] = C*CY( I ) - S*CX( I );
          CX[I] = CTEMP;
       } // 30
-      return;
       }

@@ -59,5 +59,4 @@
       }
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY );
-      return;
       }

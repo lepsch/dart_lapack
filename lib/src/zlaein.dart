@@ -180,5 +180,4 @@
       I = IZAMAX( N, V, 1 );
       zdscal(N, ONE / CABS1( V( I ) ), V, 1 );
 
-      return;
       }

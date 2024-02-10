@@ -37,6 +37,4 @@ bool clctes(Z, D) {
           ((double(Z) / ZMAX) * REAL(D) + (AIMAG(Z) / ZMAX) * AIMAG(D) < ZERO);
     }
   }
-
-  return;
 }

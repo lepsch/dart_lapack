@@ -40,7 +40,4 @@ double dlarmm(ANORM, BNORM, CNORM) {
       DLARMM = HALF / BNORM;
     }
   }
-  return;
-
-  // ==== End of DLARMM ====
 }

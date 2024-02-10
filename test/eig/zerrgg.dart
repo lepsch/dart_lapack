@@ -852,5 +852,4 @@ import 'common.dart';
  9999 FORMAT(' ${.a3} routines passed the tests of the error exits (${.i3} tests done)' );
  9998 FORMAT( ' *** ${.a3} routines failed the tests of the error exits ***' );
 
-      return;
       }

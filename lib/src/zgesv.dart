@@ -42,5 +42,4 @@
 
          zgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
-      return;
       }

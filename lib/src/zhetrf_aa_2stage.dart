@@ -385,5 +385,4 @@
       // Factor the band matrix
       zgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
-      return;
       }

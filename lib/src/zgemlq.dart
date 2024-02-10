@@ -104,5 +104,4 @@
 
       WORK[1] = LW;
 
-      return;
       }

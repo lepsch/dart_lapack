@@ -327,16 +327,16 @@ void ddrgev(
               }
             }
             dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, A, LDA, WORK(2 * N + 1),
-                IERR.value);
+                IERR);
             if (IERR.value == 0) {
               dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), A, LDA,
-                  WORK(2 * N + 1), IERR.value);
+                  WORK(2 * N + 1), IERR);
               if (IERR.value == 0) {
                 dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, B, LDA,
-                    WORK(2 * N + 1), IERR.value);
+                    WORK(2 * N + 1), IERR);
                 if (IERR.value == 0) {
                   dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), B, LDA,
-                      WORK(2 * N + 1), IERR.value);
+                      WORK(2 * N + 1), IERR);
                 }
               }
             }

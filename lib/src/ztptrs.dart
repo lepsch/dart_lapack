@@ -75,5 +75,4 @@
          ztpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
       } // 30
 
-      return;
       }

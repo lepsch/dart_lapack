@@ -70,5 +70,4 @@
       LWKOPT = max( LOPT, INT( WORK( 1 ) ) );
       WORK[1] = SROUNDUP_LWORK( LWKOPT );
 
-      return;
       }

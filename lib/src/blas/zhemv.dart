@@ -159,6 +159,4 @@ void zhemv(
       }
     }
   }
-
-  return;
 }

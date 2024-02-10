@@ -87,5 +87,4 @@
 
       RESULT[2] = min( M.toDouble(), dlange( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP );
 
-      return;
       }

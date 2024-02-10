@@ -38,6 +38,4 @@ bool zlctes(Z, D) {
           ZERO);
     }
   }
-
-  return;
 }

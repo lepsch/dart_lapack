@@ -122,5 +122,4 @@
       }
 
       ZLANHB = VALUE;
-      return;
       }

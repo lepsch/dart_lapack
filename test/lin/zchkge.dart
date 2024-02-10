@@ -337,5 +337,4 @@
  9999 FORMAT( ' M = ${.i5}, N =${.i5}, NB =${.i4}, type ${.i2}, test(${.i2}) =${.g12_5};
  9998 FORMAT( ' TRANS=''${.a1}'', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
  9997 FORMAT( ' NORM =''${.a1}'', N =${.i5},${' ' * 10} type ${.i2}, test(${.i2}) =${.g12_5};
-      return;
       }

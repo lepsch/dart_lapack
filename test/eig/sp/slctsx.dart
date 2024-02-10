@@ -50,6 +50,4 @@ bool slctsx(AR, AI, BETA) {
   // ELSE
   // SLCTSX = false;
   // END IF
-
-  return;
 }

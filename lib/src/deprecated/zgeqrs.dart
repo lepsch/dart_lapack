@@ -49,5 +49,4 @@
 
       ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
-      return;
       }

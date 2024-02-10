@@ -85,5 +85,4 @@
       }
 
       SLANGB = VALUE;
-      return;
       }

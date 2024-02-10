@@ -342,5 +342,4 @@
  9996 FORMAT( ' DPOEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
  9995 FORMAT( ' DPPEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
  9994 FORMAT( ' DPBEQU failed test with value ${.d10_3} exceeding threshold ', D10.3 );
-      return;
       }

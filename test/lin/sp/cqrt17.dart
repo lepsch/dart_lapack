@@ -78,5 +78,4 @@
       }
 
       CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( max( M, N, NRHS ) ) );
-      return;
       }

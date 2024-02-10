@@ -122,5 +122,4 @@ import 'package:lapack/src/xerbla.dart';
 
       Z[J4+2] = DN;
       Z[4*N0-PP] = EMIN;
-      return;
       }

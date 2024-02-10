@@ -202,5 +202,4 @@
       }
       SIGMA = T;
 
-      return;
       }

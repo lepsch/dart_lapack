@@ -230,5 +230,4 @@
          zlacpy('A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ );
       }
 
-      return;
       }

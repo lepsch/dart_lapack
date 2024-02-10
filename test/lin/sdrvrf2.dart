@@ -152,5 +152,4 @@
  9997 FORMAT(' All tests for the RFP conversion routines passed ( ', I5,' tests run)');
  9996 FORMAT(' RFP conversion routines: ',I5,' out of ',I5, ' error message recorded');
 
-      return;
       }

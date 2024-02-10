@@ -175,5 +175,4 @@
 
       } // 20
       WORK[1] = LWMIN;
-      return;
       }

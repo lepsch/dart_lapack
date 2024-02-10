@@ -225,5 +225,4 @@
       RQCORR = MINGMA*TMP;
 
 
-      return;
       }

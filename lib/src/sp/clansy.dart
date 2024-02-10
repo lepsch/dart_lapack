@@ -100,5 +100,4 @@
       }
 
       CLANSY = VALUE;
-      return;
       }

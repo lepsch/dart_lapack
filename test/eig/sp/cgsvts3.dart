@@ -153,5 +153,4 @@
          if[RWORK( I ) < RWORK( I+1 ) ) RESULT( 6] = ULPINV;
       } // 120
 
-      return;
       }

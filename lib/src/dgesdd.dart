@@ -1150,5 +1150,4 @@ import 'package:lapack/src/xerbla.dart';
 
       WORK[1] = DROUNDUP_LWORK( MAXWRK );
 
-      return;
       }

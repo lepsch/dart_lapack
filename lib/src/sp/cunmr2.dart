@@ -104,5 +104,4 @@
          A[I][NQ-K+I] = AII;
          clacgv(NQ-K+I-1, A( I, 1 ), LDA );
       } // 10
-      return;
       }

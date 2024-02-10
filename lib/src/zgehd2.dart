@@ -54,5 +54,4 @@
          A[I+1][I] = ALPHA;
       } // 10
 
-      return;
       }

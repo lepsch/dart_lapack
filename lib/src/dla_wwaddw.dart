@@ -27,5 +27,4 @@ import 'package:lapack/src/xerbla.dart';
         Y[I] = ((X(I) - S) + W(I)) + Y(I);
         X[I] = S;
       } // 10
-      return;
       }

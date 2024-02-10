@@ -125,5 +125,4 @@ import 'package:lapack/src/xerbla.dart';
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      return;
       }

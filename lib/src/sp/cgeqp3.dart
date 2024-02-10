@@ -183,5 +183,4 @@
       }
 
       WORK[1] = CMPLX( LWKOPT );
-      return;
       }

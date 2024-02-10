@@ -67,6 +67,4 @@ void dlakf2(
 
     IK = IK + M;
   }
-
-  return;
 }

@@ -720,5 +720,4 @@
       }
 
       SLANSF = VALUE;
-      return;
       }

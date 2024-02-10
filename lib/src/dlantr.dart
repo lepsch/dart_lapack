@@ -200,5 +200,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       DLANTR = VALUE;
-      return;
       }

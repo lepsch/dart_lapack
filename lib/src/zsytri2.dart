@@ -63,5 +63,4 @@
       } else {
          zsytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
-      return;
       }

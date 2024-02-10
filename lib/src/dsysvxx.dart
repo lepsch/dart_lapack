@@ -167,5 +167,4 @@ import 'package:lapack/src/xerbla.dart';
          dlascl2(N, NRHS, S, X, LDX );
       }
 
-      return;
       }

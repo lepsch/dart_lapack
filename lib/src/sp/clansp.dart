@@ -137,5 +137,4 @@
       }
 
       CLANSP = VALUE;
-      return;
       }

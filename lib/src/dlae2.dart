@@ -74,5 +74,4 @@ import 'package:lapack/src/xerbla.dart';
          RT1 = HALF*RT;
          RT2 = -HALF*RT;
       }
-      return;
       }

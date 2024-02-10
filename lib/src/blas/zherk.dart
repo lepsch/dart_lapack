@@ -202,6 +202,4 @@ void zherk(
       }
     }
   }
-
-  return;
 }

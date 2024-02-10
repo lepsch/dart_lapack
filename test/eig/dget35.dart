@@ -209,6 +209,4 @@ void dget35(
       }
     }
   }
-
-  return;
 }

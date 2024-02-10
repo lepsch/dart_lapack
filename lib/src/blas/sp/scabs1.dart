@@ -13,5 +13,4 @@ REAL scabs1(Z) {
   // INTRINSIC ABS,AIMAG,REAL
   // ..
   SCABS1 = (REAL(Z)).abs() + (AIMAG(Z)).abs();
-  return;
 }

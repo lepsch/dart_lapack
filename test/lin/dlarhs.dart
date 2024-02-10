@@ -174,5 +174,4 @@
          xerbla('DLARHS', -INFO );
       }
 
-      return;
       }

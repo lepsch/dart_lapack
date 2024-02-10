@@ -449,5 +449,4 @@
       Z[2*N+3] = double( ITER );
       Z[2*N+4] = double( NDIV ) / REAL( N**2 );
       Z[2*N+5] = HUNDRD*NFAIL / REAL( ITER );
-      return;
       }

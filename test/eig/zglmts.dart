@@ -67,5 +67,4 @@
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS;
       }
 
-      return;
       }

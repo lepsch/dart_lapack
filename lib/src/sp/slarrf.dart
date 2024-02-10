@@ -266,5 +266,4 @@
          scopy(N-1, WORK(N+1), 1, LPLUS, 1 );
       }
 
-      return;
       }

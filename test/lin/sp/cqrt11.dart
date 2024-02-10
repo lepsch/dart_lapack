@@ -51,5 +51,4 @@
 
       CQRT11 = CLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) );
 
-      return;
       }

@@ -246,5 +246,4 @@ void dlag2(
       SCALE2.value = ASCALE * BSIZE;
     }
   }
-  return;
 }

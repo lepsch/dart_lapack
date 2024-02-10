@@ -147,6 +147,4 @@ void zher2(
       }
     }
   }
-
-  return;
 }

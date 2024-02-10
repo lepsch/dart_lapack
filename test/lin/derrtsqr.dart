@@ -227,5 +227,4 @@
 
       alaesm(PATH, infoc.OK, infoc.NOUT );
 
-      return;
       }

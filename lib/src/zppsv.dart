@@ -47,5 +47,4 @@
          zpptrs(UPLO, N, NRHS, AP, B, LDB, INFO );
 
       }
-      return;
       }

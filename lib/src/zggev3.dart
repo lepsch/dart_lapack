@@ -288,5 +288,4 @@
       if (ILBSCL) zlascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK[1] = DCMPLX( LWKOPT );
-      return;
       }

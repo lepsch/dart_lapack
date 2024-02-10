@@ -49,5 +49,4 @@
          }
       }
       SASUM = STEMP;
-      return;
       }

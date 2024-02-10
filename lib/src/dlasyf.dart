@@ -596,5 +596,4 @@ import 'package:lapack/src/xerbla.dart';
          KB = K - 1;
 
       }
-      return;
       }

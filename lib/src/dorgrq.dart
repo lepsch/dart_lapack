@@ -152,5 +152,4 @@ import 'package:lapack/src/xerbla.dart';
       }
 
       WORK[1] = IWS;
-      return;
       }

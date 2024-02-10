@@ -32,7 +32,4 @@ double slarmm(ANORM, BNORM, CNORM) {
       SLARMM = HALF / BNORM;
     }
   }
-  return;
-
-  // ==== End of SLARMM ====
 }

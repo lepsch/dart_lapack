@@ -98,5 +98,4 @@ import 'package:lapack/src/xerbla.dart';
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      return;
       }

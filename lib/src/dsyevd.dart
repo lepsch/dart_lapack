@@ -153,5 +153,4 @@ import 'package:lapack/src/xerbla.dart';
       WORK[1] = LOPT;
       IWORK[1] = LIOPT;
 
-      return;
       }

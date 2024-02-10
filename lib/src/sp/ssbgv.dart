@@ -84,5 +84,4 @@
       } else {
          ssteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
-      return;
       }
