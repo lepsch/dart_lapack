@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/f2c/nint.dart';
+import 'package:lapack/src/intrinsics/nint.dart';
 import 'package:lapack/src/ieeeck.dart';
 import 'package:lapack/src/iparam2stage.dart';
 
@@ -83,7 +83,7 @@ int ilaenv2stage(
     IISPEC = 16 + ISPEC;
     return iparam2stage(IISPEC, NAME, OPTS, N1, N2, N3, N4);
   }
-  
+
   // Invalid value for ISPEC
   return -1;
 }

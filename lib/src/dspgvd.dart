@@ -1,38 +1,30 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dtpmv.dart';
+import 'package:lapack/src/blas/dtpsv.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dpptrf.dart';
+import 'package:lapack/src/dspevd.dart';
+import 'package:lapack/src/dspgst.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dspgvd(ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO ) {
+      void dspgvd(final int ITYPE, final String JOBZ, final String UPLO, final int N,
+          final Array<double> AP,
+          final Array<double> BP,
+          final Array<double> W,
+          final Matrix<double> Z, final int LDZ,
+          final Array<double> WORK, final int LWORK,
+          final Array<int> IWORK, final int LIWORK, final Box<int> INFO, ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDZ, LIWORK, LWORK, N;
-      int                IWORK( * );
-      double             AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
-      int                J, LIWMIN, LWMIN, NEIG;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DPPTRF, DSPEVD, DSPGST, DTPMV, DTPSV, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX
+      int                J, LIWMIN=0, LWMIN=0, NEIG;
 
       // Test the input parameters.
 
@@ -40,43 +32,43 @@ import 'package:lapack/src/xerbla.dart';
       UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      INFO = 0;
+      INFO.value = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9;
+         INFO.value = -9;
       }
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
          if ( N <= 1 ) {
             LIWMIN = 1;
             LWMIN = 1;
          } else {
             if ( WANTZ ) {
                LIWMIN = 3 + 5*N;
-               LWMIN = 1 + 6*N + 2*N**2;
+               LWMIN = 1 + 6*N + 2*pow(N,2).toInt();
             } else {
                LIWMIN = 1;
                LWMIN = 2*N;
             }
          }
-         WORK[1] = LWMIN;
+         WORK[1] = LWMIN.toDouble();
          IWORK[1] = LIWMIN;
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11;
+            INFO.value = -11;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -13;
+            INFO.value = -13;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DSPGVD', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DSPGVD', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -89,24 +81,24 @@ import 'package:lapack/src/xerbla.dart';
       // Form a Cholesky factorization of BP.
 
       dpptrf(UPLO, N, BP, INFO );
-      if ( INFO != 0 ) {
-         INFO = N + INFO;
+      if ( INFO.value != 0 ) {
+         INFO.value = N + INFO.value;
          return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
 
       dspgst(ITYPE, UPLO, N, AP, BP, INFO );
-      dspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
-      LWMIN = INT( max( LWMIN.toDouble(), (WORK( 1 )).toDouble() ) );
-      LIWMIN = INT( max( LIWMIN.toDouble(), (IWORK( 1 )).toDouble() ) );
+      dspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO.value );
+      LWMIN = max( LWMIN, WORK[1] ).toInt();
+      LIWMIN = max( LIWMIN, IWORK[1] );
 
       if ( WANTZ ) {
 
          // Backtransform eigenvectors to the original problem.
 
          NEIG = N;
-         if (INFO > 0) NEIG = INFO - 1;
+         if (INFO.value > 0) NEIG = INFO.value - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
@@ -118,9 +110,9 @@ import 'package:lapack/src/xerbla.dart';
                TRANS = 'T';
             }
 
-            for (J = 1; J <= NEIG; J++) { // 10
-               dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-            } // 10
+            for (J = 1; J <= NEIG; J++) {
+               dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
+            }
 
          } else if ( ITYPE == 3 ) {
 
@@ -133,9 +125,9 @@ import 'package:lapack/src/xerbla.dart';
                TRANS = 'N';
             }
 
-            for (J = 1; J <= NEIG; J++) { // 20
-               dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-            } // 20
+            for (J = 1; J <= NEIG; J++) {
+               dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
+            }
          }
       }
 

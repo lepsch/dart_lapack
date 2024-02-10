@@ -1,4 +1,4 @@
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 
 bool dlctes(final double ZR, final double ZI, final double D) {
 // -- LAPACK test routine --

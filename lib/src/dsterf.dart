@@ -6,7 +6,7 @@ import 'package:lapack/src/dlanst.dart';
 import 'package:lapack/src/dlapy2.dart';
 import 'package:lapack/src/dlascl.dart';
 import 'package:lapack/src/dlasrt.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';

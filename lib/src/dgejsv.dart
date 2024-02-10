@@ -21,7 +21,7 @@ import 'package:lapack/src/dorgqr.dart';
 import 'package:lapack/src/dormlq.dart';
 import 'package:lapack/src/dormqr.dart';
 import 'package:lapack/src/dpocon.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';

@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:lapack/src/f2c/digits.dart';
-import 'package:lapack/src/f2c/huge.dart';
-import 'package:lapack/src/f2c/maxexponent.dart';
-import 'package:lapack/src/f2c/minexponent.dart';
-import 'package:lapack/src/f2c/radix.dart';
+import 'package:lapack/src/intrinsics/digits.dart';
+import 'package:lapack/src/intrinsics/huge.dart';
+import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:lapack/src/intrinsics/minexponent.dart';
+import 'package:lapack/src/intrinsics/radix.dart';
 import 'package:lapack/src/matrix.dart';
 
 double dnrm2(final int n, final Array<double> x, final int incx) {

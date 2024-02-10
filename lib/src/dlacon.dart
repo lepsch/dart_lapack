@@ -2,8 +2,8 @@ import 'package:lapack/src/blas/dasum.dart';
 import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/f2c/nint.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/nint.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/matrix.dart';
 
 double _ESTOLD = 0;

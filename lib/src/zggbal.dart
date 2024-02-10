@@ -90,7 +90,7 @@
 
       // Find row with one nonzero in columns 1 through L
 
-      } // 20
+      // } // 20
       L = LM1;
       if (L != 1) GO TO 30;
 
@@ -98,7 +98,7 @@
       LSCALE[1] = 1;
       GO TO 190;
 
-      } // 30
+      // } // 30
       LM1 = L - 1;
       for (I = L; I >= 1; I--) { // 80
          for (J = 1; J <= LM1; J++) { // 40
@@ -108,13 +108,13 @@
          J = L;
          GO TO 70;
 
-         } // 50
+        //  } // 50
          for (J = JP1; J <= L; J++) { // 60
             if( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 80;
          } // 60
          J = JP1 - 1;
 
-         } // 70
+        //  } // 70
          M = L;
          IFLOW = 1;
          GO TO 160;
@@ -123,10 +123,10 @@
 
       // Find column with one nonzero in rows K through N
 
-      } // 90
+      // } // 90
       K = K + 1;
 
-      } // 100
+      // } // 100
       for (J = K; J <= L; J++) { // 150
          for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1;
@@ -134,12 +134,12 @@
          } // 110
          I = L;
          GO TO 140;
-         } // 120
+        //  } // 120
          for (I = IP1; I <= L; I++) { // 130
             if( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 150;
          } // 130
          I = IP1 - 1;
-         } // 140
+        //  } // 140
          M = K;
          IFLOW = 2;
          GO TO 160;
@@ -148,7 +148,7 @@
 
       // Permute rows M and I
 
-      } // 160
+      // } // 160
       LSCALE[M] = I;
       if (I == M) GO TO 170;
       zswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
@@ -156,16 +156,16 @@
 
       // Permute columns M and J
 
-      } // 170
+      // } // 170
       RSCALE[M] = J;
       if (J == M) GO TO 180;
       zswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       zswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
-      } // 180
+      // } // 180
       GO TO ( 20, 90 )IFLOW;
 
-      } // 190
+      // } // 190
       ILO = K;
       IHI = L;
 
@@ -205,14 +205,14 @@
             }
             TA = LOG10( CABS1( A( I, J ) ) ) / BASL;
 
-            } // 210
+            // } // 210
             if ( B( I, J ) == CZERO ) {
                TB = ZERO;
                GO TO 220;
             }
             TB = LOG10( CABS1( B( I, J ) ) ) / BASL;
 
-            } // 220
+            // } // 220
             WORK[I+4*N] = WORK( I+4*N ) - TA - TB;
             WORK[J+5*N] = WORK( J+5*N ) - TA - TB;
          } // 230
@@ -227,7 +227,7 @@
 
       // Start generalized conjugate gradient iteration
 
-      } // 250
+      // } // 250
 
       GAMMA = ddot( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) + ddot( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 );
 
@@ -264,7 +264,7 @@
             if( A( I, J ) == CZERO ) GO TO 280;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
-            } // 280
+            // } // 280
             if( B( I, J ) == CZERO ) GO TO 290;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
@@ -279,7 +279,7 @@
             if( A( I, J ) == CZERO ) GO TO 310;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
-            } // 310
+            // } // 310
             if( B( I, J ) == CZERO ) GO TO 320;
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
@@ -312,7 +312,7 @@
 
       // End generalized conjugate gradient iteration
 
-      } // 350
+      // } // 350
       SFMIN = dlamch( 'S' );
       SFMAX = ONE / SFMIN;
       LSFMIN = INT( LOG10( SFMIN ) / BASL+ONE );

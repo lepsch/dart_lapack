@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/la_constants.dart';
 
 const wp = dp;

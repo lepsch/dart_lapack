@@ -54,7 +54,7 @@
                GO TO 30;
             }
          } // 20
-         } // 30
+        //  } // 30
       }
 
       if ( INFO != 0 ) {
@@ -119,7 +119,7 @@
 
          // Loop through eigenvalues of block nblk.
 
-         } // 60
+        //  } // 60
          JBLK = 0;
          for (J = J1; J <= M; J++) { // 170
             if ( IBLOCK( J ) != NBLK ) {
@@ -166,7 +166,7 @@
 
             // Update iteration count.
 
-            } // 70
+            // } // 70
             ITS = ITS + 1;
             if (ITS > MAXITS) GO TO 120;
 
@@ -199,7 +199,7 @@
 
             // Check the infinity norm of the iterate.
 
-            } // 110
+            // } // 110
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             NRM = ( WORK( INDRV1+JMAX ) ).abs();
 
@@ -215,18 +215,18 @@
             // If stopping criterion was not satisfied, update info and
             // store eigenvector number in array ifail.
 
-            } // 120
+            // } // 120
             INFO = INFO + 1;
             IFAIL[INFO] = J;
 
             // Accept iterate as jth eigenvector.
 
-            } // 130
+            // } // 130
             SCL = ONE / dnrm2( BLKSIZ, WORK( INDRV1+1 ), 1 );
             JMAX = idamax( BLKSIZ, WORK( INDRV1+1 ), 1 );
             if( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
-            } // 140
+            // } // 140
             for (I = 1; I <= N; I++) { // 150
                Z[I][J] = CZERO;
             } // 150

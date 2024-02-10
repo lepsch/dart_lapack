@@ -3,11 +3,11 @@
 import 'dart:math';
 
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/f2c/digits.dart';
-import 'package:lapack/src/f2c/epsilon.dart';
-import 'package:lapack/src/f2c/maxexponent.dart';
-import 'package:lapack/src/f2c/minexponent.dart';
-import 'package:lapack/src/f2c/radix.dart';
+import 'package:lapack/src/intrinsics/digits.dart';
+import 'package:lapack/src/intrinsics/epsilon.dart';
+import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:lapack/src/intrinsics/minexponent.dart';
+import 'package:lapack/src/intrinsics/radix.dart';
 
 // -- LAPACK auxiliary module --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

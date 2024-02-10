@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlanv2.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 

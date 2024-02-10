@@ -14,7 +14,7 @@ import 'package:lapack/src/blas/dsdot.dart';
 import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/f2c/random_number.dart';
+import 'package:lapack/src/intrinsics/random_number.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
 

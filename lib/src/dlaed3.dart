@@ -7,7 +7,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlaed4.dart';
 import 'package:lapack/src/dlaset.dart';
-import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
