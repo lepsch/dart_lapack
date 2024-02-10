@@ -1,4 +1,4 @@
-      void slatm4(ITYPE, N, NZ1, NZ2, ISIGN, AMAGN, RCOND, TRIANG, IDIST, ISEED, A, LDA ) {
+      void slatm4(ITYPE, N, NZ1, NZ2, ISIGN, AMAGN, RCOND, TRIANG, IDIST, final Array<int> ISEED, A, LDA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

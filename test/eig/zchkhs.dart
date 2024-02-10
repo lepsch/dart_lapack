@@ -1,4 +1,4 @@
-      void zchkhs(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, H, T1, T2, final Matrix<double> U, final int LDU, Z, UZ, W1, W3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, RWORK, IWORK, SELECT, RESULT, Box<int> INFO ) {
+      void zchkhs(NSIZES, NN, NTYPES, DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, H, T1, T2, final Matrix<double> U, final int LDU, Z, UZ, W1, W3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, RWORK, IWORK, SELECT, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

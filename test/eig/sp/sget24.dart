@@ -1,4 +1,4 @@
-      void sget24(COMP, JTYPE, THRESH, ISEED, NOUNIT, N, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, final Matrix<double> VS, final int LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, final Array<double> WORK, final int LWORK, IWORK, BWORK, Box<int> INFO ) {
+      void sget24(COMP, JTYPE, THRESH, final Array<int> ISEED, NOUNIT, N, final Matrix<double> A, final int LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, final Matrix<double> VS, final int LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, final Array<double> WORK, final int LWORK, IWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

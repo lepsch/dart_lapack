@@ -1,4 +1,4 @@
-      Complex clatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
+      Complex clatm2(M, N, I, J, KL, KU, IDIST, final Array<int> ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

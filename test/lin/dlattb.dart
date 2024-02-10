@@ -1,4 +1,4 @@
-      void dlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, final Matrix<double> AB, final int LDAB, B, WORK, Box<int> INFO ) {
+      void dlattb(IMAT, UPLO, TRANS, DIAG, final Array<int> ISEED, N, KD, final Matrix<double> AB, final int LDAB, B, WORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

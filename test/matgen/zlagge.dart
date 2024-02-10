@@ -1,4 +1,4 @@
-      void zlagge(M, N, KL, KU, D, final Matrix<double> A, final int LDA, ISEED, WORK, Box<int> INFO ) {
+      void zlagge(M, N, KL, KU, D, final Matrix<double> A, final int LDA, final Array<int> ISEED, WORK, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

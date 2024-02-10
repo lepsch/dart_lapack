@@ -1,4 +1,4 @@
-      void cdrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, ISEED, THRESH, final Matrix<double> A, final int LDA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, ASAV, USAV, VTSAV, S, SSAV, E, final Array<double> WORK, final int LWORK, RWORK, IWORK, NOUNIT, Box<int> INFO ) {
+      void cdrvbd(NSIZES, MM, NN, NTYPES, DOTYPE, final Array<int> ISEED, THRESH, final Matrix<double> A, final int LDA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, ASAV, USAV, VTSAV, S, SSAV, E, final Array<double> WORK, final int LWORK, RWORK, IWORK, NOUNIT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
