@@ -1,4 +1,4 @@
-      void stptri(UPLO, DIAG, N, AP, Box<int> INFO ) {
+      void stptri(UPLO, DIAG, N, AP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

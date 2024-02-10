@@ -1,4 +1,4 @@
-      void ctrsen(JOB, COMPQ, SELECT, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, W, M, S, SEP, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void ctrsen(JOB, COMPQ, SELECT, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, W, M, S, SEP, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

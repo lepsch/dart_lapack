@@ -1,4 +1,4 @@
-      void slarra(N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, Box<int> INFO ) {
+      void slarra(N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

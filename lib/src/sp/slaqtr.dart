@@ -1,4 +1,4 @@
-      void slaqtr(LTRAN, LREAL, N, final Matrix<double> T, final int LDT, B, W, SCALE, X, WORK, Box<int> INFO ) {
+      void slaqtr(LTRAN, LREAL, N, final Matrix<double> T, final int LDT, B, W, SCALE, X, WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

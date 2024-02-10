@@ -1,4 +1,4 @@
-      void cgees(JOBVS, SORT, SELECT, N, final Matrix<double> A, final int LDA, SDIM, W, final Matrix<double> VS, final int LDVS, final Array<double> WORK, final int LWORK, RWORK, BWORK, Box<int> INFO ) {
+      void cgees(JOBVS, SORT, SELECT, N, final Matrix<double> A, final int LDA, SDIM, W, final Matrix<double> VS, final int LDVS, final Array<double> WORK, final int LWORK, RWORK, BWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

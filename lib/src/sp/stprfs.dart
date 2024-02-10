@@ -1,4 +1,4 @@
-      void stprfs(UPLO, TRANS, DIAG, N, NRHS, AP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, IWORK, Box<int> INFO ) {
+      void stprfs(UPLO, TRANS, DIAG, N, NRHS, AP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

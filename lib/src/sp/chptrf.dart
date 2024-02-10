@@ -1,4 +1,4 @@
-      void chptrf(UPLO, N, AP, IPIV, Box<int> INFO ) {
+      void chptrf(UPLO, N, AP, IPIV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

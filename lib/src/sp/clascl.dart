@@ -1,4 +1,4 @@
-      void clascl(TYPE, KL, KU, CFROM, CTO, M, N, final Matrix<double> A, final int LDA, Box<int> INFO ) {
+      void clascl(TYPE, KL, KU, CFROM, CTO, M, N, final Matrix<double> A, final int LDA, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

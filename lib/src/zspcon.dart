@@ -1,4 +1,4 @@
-      void zspcon(UPLO, N, AP, IPIV, ANORM, RCOND, WORK, Box<int> INFO ) {
+      void zspcon(UPLO, N, AP, IPIV, ANORM, RCOND, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

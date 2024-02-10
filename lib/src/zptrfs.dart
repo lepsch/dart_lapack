@@ -1,4 +1,4 @@
-      void zptrfs(UPLO, N, NRHS, D, E, DF, EF, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, RWORK, Box<int> INFO ) {
+      void zptrfs(UPLO, N, NRHS, D, E, DF, EF, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

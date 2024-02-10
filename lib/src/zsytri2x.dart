@@ -1,4 +1,4 @@
-      void zsytri2x(UPLO, N, final Matrix<double> A, final int LDA, IPIV, WORK, NB, Box<int> INFO ) {
+      void zsytri2x(UPLO, N, final Matrix<double> A, final int LDA, IPIV, WORK, NB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

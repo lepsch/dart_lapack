@@ -1,4 +1,4 @@
-      void sdrgev(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, B, S, T, final Matrix<double> Q, final int LDQ, Z, final Matrix<double> QE, final int LDQE, ALPHAR, ALPHAI, BETA, ALPHR1, ALPHI1, BETA1, final Array<double> WORK, final int LWORK, RESULT, Box<int> INFO ) {
+      void sdrgev(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, B, S, T, final Matrix<double> Q, final int LDQ, Z, final Matrix<double> QE, final int LDQE, ALPHAR, ALPHAI, BETA, ALPHR1, ALPHI1, BETA1, final Array<double> WORK, final int LWORK, RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

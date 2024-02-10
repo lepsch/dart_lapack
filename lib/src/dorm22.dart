@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dorm22(SIDE, TRANS, M, N, N1, N2, final Matrix<double> Q, final int LDQ, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void dorm22(SIDE, TRANS, M, N, N1, N2, final Matrix<double> Q, final int LDQ, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

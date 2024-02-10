@@ -1,4 +1,4 @@
-      void ssygvx(ITYPE, JOBZ, RANGE, UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, IWORK, IFAIL, Box<int> INFO ) {
+      void ssygvx(ITYPE, JOBZ, RANGE, UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, IWORK, IFAIL, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

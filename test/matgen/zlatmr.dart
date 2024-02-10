@@ -1,4 +1,4 @@
-      void zlatmr(M, N, DIST, final Array<int> ISEED, SYM, D, MODE, COND, DMAX, RSIGN, GRADE, DL, MODEL, CONDL, DR, MODER, CONDR, PIVTNG, IPIVOT, KL, KU, SPARSE, ANORM, PACK, final Matrix<double> A, final int LDA, IWORK, Box<int> INFO ) {
+      void zlatmr(M, N, DIST, final Array<int> ISEED, SYM, D, MODE, COND, DMAX, RSIGN, GRADE, DL, MODEL, CONDL, DR, MODER, CONDR, PIVTNG, IPIVOT, KL, KU, SPARSE, ANORM, PACK, final Matrix<double> A, final int LDA, IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

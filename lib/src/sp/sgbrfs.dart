@@ -1,4 +1,4 @@
-      void sgbrfs(TRANS, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, IWORK, Box<int> INFO ) {
+      void sgbrfs(TRANS, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

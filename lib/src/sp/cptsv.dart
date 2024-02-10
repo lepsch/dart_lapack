@@ -1,4 +1,4 @@
-      void cptsv(N, NRHS, D, E, final Matrix<double> B, final int LDB, Box<int> INFO ) {
+      void cptsv(N, NRHS, D, E, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

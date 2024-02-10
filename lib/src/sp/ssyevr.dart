@@ -1,4 +1,4 @@
-      void ssyevr(JOBZ, RANGE, UPLO, N, final Matrix<double> A, final int LDA, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, Box<int> INFO ) {
+      void ssyevr(JOBZ, RANGE, UPLO, N, final Matrix<double> A, final int LDA, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

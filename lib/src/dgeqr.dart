@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgeqr(M, N, final Matrix<double> A, final int LDA, T, TSIZE, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void dgeqr(M, N, final Matrix<double> A, final int LDA, T, TSIZE, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

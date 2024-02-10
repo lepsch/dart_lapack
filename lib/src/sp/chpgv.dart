@@ -1,4 +1,4 @@
-      void chpgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, final Matrix<double> Z, final int LDZ, WORK, RWORK, Box<int> INFO ) {
+      void chpgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, final Matrix<double> Z, final int LDZ, WORK, RWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

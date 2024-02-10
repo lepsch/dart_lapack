@@ -1,4 +1,4 @@
-      void slatm1(MODE, COND, IRSIGN, IDIST, final Array<int> ISEED, D, N, Box<int> INFO ) {
+      void slatm1(MODE, COND, IRSIGN, IDIST, final Array<int> ISEED, D, N, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

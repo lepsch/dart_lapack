@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsyevd_2stage(JOBZ, UPLO, N, final Matrix<double> A, final int LDA, W, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, Box<int> INFO ) {
+      void dsyevd_2stage(JOBZ, UPLO, N, final Matrix<double> A, final int LDA, W, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

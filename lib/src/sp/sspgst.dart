@@ -1,4 +1,4 @@
-      void sspgst(ITYPE, UPLO, N, AP, BP, Box<int> INFO ) {
+      void sspgst(ITYPE, UPLO, N, AP, BP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

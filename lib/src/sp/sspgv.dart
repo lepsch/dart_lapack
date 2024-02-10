@@ -1,4 +1,4 @@
-      void sspgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, final Matrix<double> Z, final int LDZ, WORK, Box<int> INFO ) {
+      void sspgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, final Matrix<double> Z, final int LDZ, WORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

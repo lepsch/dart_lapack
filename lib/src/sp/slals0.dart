@@ -1,4 +1,4 @@
-      void slals0(ICOMPQ, NL, NR, SQRE, NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, Box<int> INFO ) {
+      void slals0(ICOMPQ, NL, NR, SQRE, NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slasq2(N, Z, Box<int> INFO ) {
+      void slasq2(N, Z, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

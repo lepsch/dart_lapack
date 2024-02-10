@@ -1,4 +1,4 @@
-      void chseqr(JOB, COMPZ, N, ILO, IHI, final Matrix<double> H, final int LDH, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void chseqr(JOB, COMPZ, N, ILO, IHI, final Matrix<double> H, final int LDH, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

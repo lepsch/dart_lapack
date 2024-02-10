@@ -1,4 +1,4 @@
-      void zhpgvx(ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, WORK, RWORK, IWORK, IFAIL, Box<int> INFO ) {
+      void zhpgvx(ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, WORK, RWORK, IWORK, IFAIL, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

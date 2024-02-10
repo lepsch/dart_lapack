@@ -1,4 +1,4 @@
-      void slatme(N, DIST, final Array<int> ISEED, D, MODE, COND, DMAX, EI, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, final Matrix<double> A, final int LDA, WORK, Box<int> INFO ) {
+      void slatme(N, DIST, final Array<int> ISEED, D, MODE, COND, DMAX, EI, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, final Matrix<double> A, final int LDA, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sormr2(SIDE, TRANS, M, N, K, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, WORK, Box<int> INFO ) {
+      void sormr2(SIDE, TRANS, M, N, K, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

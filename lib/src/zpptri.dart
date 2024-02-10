@@ -1,4 +1,4 @@
-      void zpptri(UPLO, N, AP, Box<int> INFO ) {
+      void zpptri(UPLO, N, AP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void dggsvd(JOBU, JOBV, JOBQ, M, N, P, K, L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHA, BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, WORK, IWORK, Box<int> INFO ) {
+      void dggsvd(JOBU, JOBV, JOBQ, M, N, P, K, L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHA, BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, WORK, IWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

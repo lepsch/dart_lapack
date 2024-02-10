@@ -1,4 +1,4 @@
-      void strsyl(TRANA, TRANB, ISGN, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, SCALE, Box<int> INFO ) {
+      void strsyl(TRANA, TRANB, ISGN, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, SCALE, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

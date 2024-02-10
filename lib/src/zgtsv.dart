@@ -1,4 +1,4 @@
-      void zgtsv(N, NRHS, DL, D, DU, final Matrix<double> B, final int LDB, Box<int> INFO ) {
+      void zgtsv(N, NRHS, DL, D, DU, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slarrr(N, D, E, Box<int> INFO ) {
+      void slarrr(N, D, E, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgelqs(M, N, NRHS, final Matrix<double> A, final int LDA, TAU, final Matrix<double> B, final int LDB, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void cgelqs(M, N, NRHS, final Matrix<double> A, final int LDA, TAU, final Matrix<double> B, final int LDB, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

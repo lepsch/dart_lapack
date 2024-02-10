@@ -1,4 +1,4 @@
-      void stbcon(NORM, UPLO, DIAG, N, KD, final Matrix<double> AB, final int LDAB, RCOND, WORK, IWORK, Box<int> INFO ) {
+      void stbcon(NORM, UPLO, DIAG, N, KD, final Matrix<double> AB, final int LDAB, RCOND, WORK, IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

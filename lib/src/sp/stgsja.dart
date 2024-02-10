@@ -1,4 +1,4 @@
-      void stgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, TOLA, TOLB, ALPHA, BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, WORK, NCYCLE, Box<int> INFO ) {
+      void stgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, TOLA, TOLB, ALPHA, BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, WORK, NCYCLE, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

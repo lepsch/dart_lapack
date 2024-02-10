@@ -1,4 +1,4 @@
-      void slarrc(JOBT, N, VL, VU, D, E, PIVMIN, EIGCNT, LCNT, RCNT, Box<int> INFO ) {
+      void slarrc(JOBT, N, VL, VU, D, E, PIVMIN, EIGCNT, LCNT, RCNT, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

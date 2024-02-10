@@ -1,4 +1,4 @@
-      void zggglm(N, M, P, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, D, X, Y, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void zggglm(N, M, P, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, D, X, Y, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

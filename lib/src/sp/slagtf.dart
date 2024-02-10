@@ -1,4 +1,4 @@
-      void slagtf(N, A, LAMBDA, B, C, TOL, D, IN, Box<int> INFO ) {
+      void slagtf(N, A, LAMBDA, B, C, TOL, D, IN, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

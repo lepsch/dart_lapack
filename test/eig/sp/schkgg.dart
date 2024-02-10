@@ -1,4 +1,4 @@
-      void schkgg(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, TSTDIF, THRSHN, NOUNIT, final Matrix<double> A, final int LDA, B, H, T, S1, S2, P1, P2, final Matrix<double> U, final int LDU, V, Q, Z, ALPHR1, ALPHI1, BETA1, ALPHR3, ALPHI3, BETA3, EVECTL, EVECTR, final Array<double> WORK, final int LWORK, LLWORK, RESULT, Box<int> INFO ) {
+      void schkgg(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, TSTDIF, THRSHN, NOUNIT, final Matrix<double> A, final int LDA, B, H, T, S1, S2, P1, P2, final Matrix<double> U, final int LDU, V, Q, Z, ALPHR1, ALPHI1, BETA1, ALPHR3, ALPHI3, BETA3, EVECTL, EVECTR, final Array<double> WORK, final int LWORK, LLWORK, RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

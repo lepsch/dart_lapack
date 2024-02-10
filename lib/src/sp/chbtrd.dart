@@ -1,4 +1,4 @@
-      void chbtrd(VECT, UPLO, N, KD, final Matrix<double> AB, final int LDAB, D, E, final Matrix<double> Q, final int LDQ, WORK, Box<int> INFO ) {
+      void chbtrd(VECT, UPLO, N, KD, final Matrix<double> AB, final int LDAB, D, E, final Matrix<double> Q, final int LDQ, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

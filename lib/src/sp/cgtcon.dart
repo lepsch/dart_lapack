@@ -1,4 +1,4 @@
-      void cgtcon(NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, Box<int> INFO ) {
+      void cgtcon(NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

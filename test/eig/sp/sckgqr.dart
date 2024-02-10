@@ -1,4 +1,4 @@
-      void sckgqr(NM, MVAL, NP, PVAL, NN, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, AQ, AR, TAUA, B, BF, BZ, BT, BWK, TAUB, WORK, RWORK, NIN, NOUT, Box<int> INFO ) {
+      void sckgqr(NM, MVAL, NP, PVAL, NN, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, AQ, AR, TAUA, B, BF, BZ, BT, BWK, TAUB, WORK, RWORK, NIN, NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sdisna(JOB, M, N, D, SEP, Box<int> INFO ) {
+      void sdisna(JOB, M, N, D, SEP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

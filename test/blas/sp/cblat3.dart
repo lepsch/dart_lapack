@@ -2966,7 +2966,7 @@
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${.i2} NOT DETECTED BY ${.a6} *****' );
       }
-      void xerbla(SRNAME, Box<int> INFO ) {
+      void xerbla(SRNAME, final Box<int> INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 3 BLAS

@@ -1,4 +1,4 @@
-      void zsytrf_rk(UPLO, N, final Matrix<double> A, final int LDA, E, IPIV, final Array<double> WORK, final int LWORK, Box<int> INFO ) {
+      void zsytrf_rk(UPLO, N, final Matrix<double> A, final int LDA, E, IPIV, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

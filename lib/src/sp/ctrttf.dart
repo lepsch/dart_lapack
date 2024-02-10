@@ -1,4 +1,4 @@
-      void ctrttf(TRANSR, UPLO, N, final Matrix<double> A, final int LDA, ARF, Box<int> INFO ) {
+      void ctrttf(TRANSR, UPLO, N, final Matrix<double> A, final int LDA, ARF, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
