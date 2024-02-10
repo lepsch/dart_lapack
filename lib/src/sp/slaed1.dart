@@ -1,4 +1,4 @@
-      void slaed1(N, D, final Matrix<double> Q, final int LDQ, INDXQ, RHO, CUTPNT, WORK, IWORK, final Box<int> INFO ) {
+      void slaed1(N, D, final Matrix<double> Q, final int LDQ, INDXQ, RHO, CUTPNT, WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

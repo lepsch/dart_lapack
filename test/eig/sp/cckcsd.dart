@@ -1,4 +1,4 @@
-      void cckcsd(NM, MVAL, PVAL, QVAL, NMATS, final Array<int> ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK, WORK, RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void cckcsd(NM, MVAL, PVAL, QVAL, NMATS, final Array<int> ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, final Array<int> IWORK, WORK, RWORK, NIN, NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

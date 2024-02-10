@@ -1,4 +1,4 @@
-      double slatm2(M, N, I, J, KL, KU, IDIST, final Array<int> ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
+      double slatm2(M, N, I, J, KL, KU, IDIST, final Array<int> ISEED, D, IGRADE, DL, DR, IPVTNG, final Array<int> IWORK, SPARSE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

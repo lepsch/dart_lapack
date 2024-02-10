@@ -1,4 +1,4 @@
-      void sckgsv(NM, MVAL, PVAL, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, B, BF, U, V, Q, ALPHA, BETA, R, IWORK, WORK, RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void sckgsv(NM, MVAL, PVAL, NVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, B, BF, U, V, Q, ALPHA, BETA, R, final Array<int> IWORK, WORK, RWORK, NIN, NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

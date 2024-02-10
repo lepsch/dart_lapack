@@ -1,4 +1,4 @@
-      void zlalsd(UPLO, SMLSIZ, N, NRHS, D, E, final Matrix<double> B, final int LDB, RCOND, RANK, WORK, RWORK, IWORK, final Box<int> INFO ) {
+      void zlalsd(UPLO, SMLSIZ, N, NRHS, D, E, final Matrix<double> B, final int LDB, RCOND, RANK, WORK, RWORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlarrv(N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, final Matrix<double> Z, final int LDZ, ISUPPZ, WORK, IWORK, final Box<int> INFO ) {
+      void zlarrv(N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, final Matrix<double> Z, final int LDZ, ISUPPZ, WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

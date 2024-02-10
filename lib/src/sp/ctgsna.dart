@@ -1,4 +1,4 @@
-      void ctgsna(JOB, HOWMNY, SELECT, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, S, DIF, MM, M, final Array<double> WORK, final int LWORK, IWORK, final Box<int> INFO ) {
+      void ctgsna(JOB, HOWMNY, SELECT, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, S, DIF, MM, M, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ssycon_3(UPLO, N, final Matrix<double> A, final int LDA, E, IPIV, ANORM, RCOND, WORK, IWORK, final Box<int> INFO ) {
+      void ssycon_3(UPLO, N, final Matrix<double> A, final int LDA, E, IPIV, ANORM, RCOND, WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

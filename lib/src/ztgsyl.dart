@@ -1,4 +1,4 @@
-      void ztgsyl(TRANS, IJOB, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> D, final int LDD, final Matrix<double> E, final int LDE, final Matrix<double> F, final int LDF, SCALE, DIF, final Array<double> WORK, final int LWORK, IWORK, final Box<int> INFO ) {
+      void ztgsyl(TRANS, IJOB, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> D, final int LDD, final Matrix<double> E, final int LDE, final Matrix<double> F, final int LDF, SCALE, DIF, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
