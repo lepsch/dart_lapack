@@ -1,4 +1,4 @@
-      void claqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, final Matrix<double> H, final int LDH, ILOZ, IHIZ, final Matrix<double> Z, final int LDZ, NS, ND, SH, final Matrix<double> V, final int LDV, NH, final Matrix<double> T, final int LDT, NV, final Matrix<double> WV, final int LDWV, WORK, LWORK ) {
+      void claqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, final Matrix<double> H, final int LDH, ILOZ, IHIZ, final Matrix<double> Z, final int LDZ, NS, ND, SH, final Matrix<double> V, final int LDV, NH, final Matrix<double> T, final int LDT, NV, final Matrix<double> WV, final int LDWV, final Array<double> WORK, final int LWORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
