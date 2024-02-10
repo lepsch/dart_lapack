@@ -1,4 +1,4 @@
-      void slahilb(N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO) {
+      void slahilb(N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, WORK, INFO) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

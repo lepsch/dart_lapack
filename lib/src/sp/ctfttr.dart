@@ -1,4 +1,4 @@
-      void ctfttr(TRANSR, UPLO, N, ARF, A, LDA, Box<int> INFO ) {
+      void ctfttr(TRANSR, UPLO, N, ARF, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

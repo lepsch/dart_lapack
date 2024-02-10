@@ -1,4 +1,4 @@
-      void cget10(M, N, A, LDA, B, LDB, WORK, RWORK, RESULT ) {
+      void cget10(M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

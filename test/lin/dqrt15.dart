@@ -1,4 +1,4 @@
-      void dqrt15(SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK ) {
+      void dqrt15(SCALE, RKSEL, M, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

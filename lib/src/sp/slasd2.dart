@@ -1,4 +1,4 @@
-      void slasd2(NL, NR, SQRE, K, D, Z, ALPHA, BETA, U, LDU, VT, LDVT, DSIGMA, U2, LDU2, VT2, LDVT2, IDXP, IDX, IDXC, IDXQ, COLTYP, Box<int> INFO ) {
+      void slasd2(NL, NR, SQRE, K, D, Z, ALPHA, BETA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, DSIGMA, final Matrix<double> U2, final int LDU2, final Matrix<double> VT2, final int LDVT2, IDXP, IDX, IDXC, IDXQ, COLTYP, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

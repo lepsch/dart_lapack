@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dla_gerpvgrw(N, NCOLS, A, LDA, AF, LDAF ) {
+      double dla_gerpvgrw(N, NCOLS, final Matrix<double> A, final int LDA, AF, LDAF ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

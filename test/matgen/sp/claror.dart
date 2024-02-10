@@ -1,4 +1,4 @@
-      void claror(SIDE, INIT, M, N, A, LDA, ISEED, X, Box<int> INFO ) {
+      void claror(SIDE, INIT, M, N, final Matrix<double> A, final int LDA, ISEED, X, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

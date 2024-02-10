@@ -1,4 +1,4 @@
-      void ssyswapr(UPLO, N, A, LDA, I1, I2) {
+      void ssyswapr(UPLO, N, final Matrix<double> A, final int LDA, I1, I2) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sgelqs(M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, Box<int> INFO ) {
+      void sgelqs(M, N, NRHS, final Matrix<double> A, final int LDA, TAU, final Matrix<double> B, final int LDB, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

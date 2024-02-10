@@ -1,4 +1,4 @@
-      void ssbgvd(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void ssbgvd(JOBZ, UPLO, N, KA, KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, W, final Matrix<double> Z, final int LDZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

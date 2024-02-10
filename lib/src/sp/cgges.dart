@@ -1,4 +1,4 @@
-      void cgges(JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, RWORK, BWORK, Box<int> INFO ) {
+      void cgges(JOBVSL, JOBVSR, SORT, SELCTG, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHA, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, WORK, LWORK, RWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

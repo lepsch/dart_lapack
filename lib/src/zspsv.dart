@@ -1,4 +1,4 @@
-      void zspsv(UPLO, N, NRHS, AP, IPIV, B, LDB, Box<int> INFO ) {
+      void zspsv(UPLO, N, NRHS, AP, IPIV, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

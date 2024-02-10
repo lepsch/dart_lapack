@@ -1,4 +1,4 @@
-      double cla_herpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
+      double cla_herpvgrw(UPLO, N, INFO, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

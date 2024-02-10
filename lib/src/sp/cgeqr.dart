@@ -1,4 +1,4 @@
-      void cgeqr(M, N, A, LDA, T, TSIZE, WORK, LWORK, Box<int> INFO ) {
+      void cgeqr(M, N, final Matrix<double> A, final int LDA, T, TSIZE, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

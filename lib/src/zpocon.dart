@@ -1,4 +1,4 @@
-      void zpocon(UPLO, N, A, LDA, ANORM, RCOND, WORK, RWORK, Box<int> INFO ) {
+      void zpocon(UPLO, N, final Matrix<double> A, final int LDA, ANORM, RCOND, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

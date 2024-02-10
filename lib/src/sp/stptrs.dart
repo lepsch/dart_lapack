@@ -1,4 +1,4 @@
-      void stptrs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, Box<int> INFO ) {
+      void stptrs(UPLO, TRANS, DIAG, N, NRHS, AP, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

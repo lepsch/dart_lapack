@@ -1,4 +1,4 @@
-      void zsteqr(COMPZ, N, D, E, Z, LDZ, WORK, Box<int> INFO ) {
+      void zsteqr(COMPZ, N, D, E, final Matrix<double> Z, final int LDZ, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

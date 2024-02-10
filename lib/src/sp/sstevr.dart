@@ -1,4 +1,4 @@
-      void sstevr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void sstevr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

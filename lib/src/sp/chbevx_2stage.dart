@@ -1,4 +1,4 @@
-      void chbevx_2stage(JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, Box<int> INFO ) {
+      void chbevx_2stage(JOBZ, RANGE, UPLO, N, KD, final Matrix<double> AB, final int LDAB, final Matrix<double> Q, final int LDQ, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

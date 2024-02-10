@@ -1,4 +1,4 @@
-      void dlarhs(PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, ISEED, Box<int> INFO ) {
+      void dlarhs(PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, ISEED, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

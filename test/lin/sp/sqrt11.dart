@@ -1,4 +1,4 @@
-      double sqrt11(M, K, A, LDA, TAU, WORK, LWORK ) {
+      double sqrt11(M, K, final Matrix<double> A, final int LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

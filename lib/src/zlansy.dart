@@ -1,4 +1,4 @@
-      double zlansy(NORM, UPLO, N, A, LDA, WORK ) {
+      double zlansy(NORM, UPLO, N, final Matrix<double> A, final int LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

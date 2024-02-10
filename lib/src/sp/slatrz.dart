@@ -1,4 +1,4 @@
-      void slatrz(M, N, L, A, LDA, TAU, WORK ) {
+      void slatrz(M, N, L, final Matrix<double> A, final int LDA, TAU, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

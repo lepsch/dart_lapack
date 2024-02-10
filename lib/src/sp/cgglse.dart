@@ -1,4 +1,4 @@
-      void cgglse(M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, Box<int> INFO ) {
+      void cgglse(M, N, P, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, C, D, X, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

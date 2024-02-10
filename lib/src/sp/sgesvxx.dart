@@ -1,4 +1,4 @@
-      void sgesvxx(FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, Box<int> INFO ) {
+      void sgesvxx(FACT, TRANS, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, EQUED, R, C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

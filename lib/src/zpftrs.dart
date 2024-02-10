@@ -1,4 +1,4 @@
-      void zpftrs(TRANSR, UPLO, N, NRHS, A, B, LDB, Box<int> INFO ) {
+      void zpftrs(TRANSR, UPLO, N, NRHS, A, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

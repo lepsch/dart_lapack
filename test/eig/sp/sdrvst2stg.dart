@@ -1,4 +1,4 @@
-      void sdrvst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, D1, D2, D3, D4, EVEIGS, WA1, WA2, WA3, U, LDU, V, TAU, Z, WORK, LWORK, IWORK, LIWORK, RESULT, Box<int> INFO ) {
+      void sdrvst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, D1, D2, D3, D4, EVEIGS, WA1, WA2, WA3, final Matrix<double> U, final int LDU, V, TAU, Z, WORK, LWORK, IWORK, LIWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

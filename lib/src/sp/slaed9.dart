@@ -1,4 +1,4 @@
-      void slaed9(K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA, W, S, LDS, Box<int> INFO ) {
+      void slaed9(K, KSTART, KSTOP, N, D, final Matrix<double> Q, final int LDQ, RHO, DLAMBDA, W, final Matrix<double> S, final int LDS, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

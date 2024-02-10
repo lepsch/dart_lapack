@@ -1,4 +1,4 @@
-      void cgbsv(N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, Box<int> INFO ) {
+      void cgbsv(N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, IPIV, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

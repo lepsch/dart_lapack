@@ -2,7 +2,7 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-      void zdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, A, LDA, B, AI, BI, Z, Q, ALPHA, BETA, C, LDC, S, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
+      void zdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, Z, Q, ALPHA, BETA, final Matrix<double> C, final int LDC, S, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double sla_syrcond(UPLO, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK ) {
+      double sla_syrcond(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, CMODE, C, INFO, WORK, IWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlacp2(UPLO, M, N, A, LDA, B, LDB ) {
+      void zlacp2(UPLO, M, N, final Matrix<double> A, final int LDA, B, LDB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

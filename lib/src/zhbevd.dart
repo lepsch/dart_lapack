@@ -1,4 +1,4 @@
-      void zhbevd(JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void zhbevd(JOBZ, UPLO, N, KD, final Matrix<double> AB, final int LDAB, W, final Matrix<double> Z, final int LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

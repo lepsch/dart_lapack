@@ -1,4 +1,4 @@
-      void zlagtm(TRANS, N, NRHS, ALPHA, DL, D, DU, X, LDX, BETA, B, LDB ) {
+      void zlagtm(TRANS, N, NRHS, ALPHA, DL, D, DU, final Matrix<double> X, final int LDX, BETA, B, LDB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

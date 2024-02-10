@@ -1,4 +1,4 @@
-      void slarz(SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK ) {
+      void slarz(SIDE, M, N, L, V, INCV, TAU, final Matrix<double> C, final int LDC, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

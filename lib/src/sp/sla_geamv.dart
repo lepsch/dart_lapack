@@ -1,4 +1,4 @@
-      void sla_geamv(TRANS, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
+      void sla_geamv(TRANS, M, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

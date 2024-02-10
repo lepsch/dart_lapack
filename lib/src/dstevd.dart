@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dstevd(JOBZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void dstevd(JOBZ, N, D, E, final Matrix<double> Z, final int LDZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

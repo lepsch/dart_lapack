@@ -1,4 +1,4 @@
-      void zlaqsb(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED ) {
+      void zlaqsb(UPLO, N, KD, final Matrix<double> AB, final int LDAB, S, SCOND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

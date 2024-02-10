@@ -1,4 +1,4 @@
-      void csysv_rk(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, WORK, LWORK, Box<int> INFO ) {
+      void csysv_rk(UPLO, N, NRHS, final Matrix<double> A, final int LDA, E, IPIV, final Matrix<double> B, final int LDB, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

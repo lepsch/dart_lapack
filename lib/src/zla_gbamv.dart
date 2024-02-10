@@ -1,4 +1,4 @@
-      void zla_gbamv(TRANS, M, N, KL, KU, ALPHA, AB, LDAB, X, INCX, BETA, Y, INCY ) {
+      void zla_gbamv(TRANS, M, N, KL, KU, ALPHA, final Matrix<double> AB, final int LDAB, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

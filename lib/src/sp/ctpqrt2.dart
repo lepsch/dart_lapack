@@ -1,4 +1,4 @@
-      void ctpqrt2(M, N, L, A, LDA, B, LDB, T, LDT, Box<int> INFO ) {
+      void ctpqrt2(M, N, L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> T, final int LDT, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void csyrk(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC) {
+      void csyrk(UPLO,TRANS,N,K,ALPHA, final Matrix<double> A, final int LDA, BETA,C,LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

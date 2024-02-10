@@ -1,4 +1,4 @@
-      void slag2d(M, N, SA, LDSA, A, LDA, Box<int> INFO ) {
+      void slag2d(M, N, final Matrix<double> SA, final int LDSA, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

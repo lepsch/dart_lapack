@@ -1,4 +1,4 @@
-      void zsyconvf_rook(UPLO, WAY, N, A, LDA, E, IPIV, Box<int> INFO ) {
+      void zsyconvf_rook(UPLO, WAY, N, final Matrix<double> A, final int LDA, E, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sgbtrf(M, N, KL, KU, AB, LDAB, IPIV, Box<int> INFO ) {
+      void sgbtrf(M, N, KL, KU, final Matrix<double> AB, final int LDAB, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

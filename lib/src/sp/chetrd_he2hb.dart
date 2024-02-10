@@ -1,4 +1,4 @@
-      void chetrd_he2hb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, Box<int> INFO ) {
+      void chetrd_he2hb(UPLO, N, KD, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, TAU,  WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

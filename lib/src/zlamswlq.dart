@@ -1,4 +1,4 @@
-      void zlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, Box<int> INFO ) {
+      void zlamswlq(SIDE, TRANS, M, N, K, MB, NB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Matrix<double> C, final int LDC, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zpot01(UPLO, N, A, LDA, AFAC, LDAFAC, RWORK, RESID ) {
+      void zpot01(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

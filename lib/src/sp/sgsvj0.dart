@@ -1,4 +1,4 @@
-      void sgsvj0(JOBV, M, N, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, Box<int> INFO ) {
+      void sgsvj0(JOBV, M, N, final Matrix<double> A, final int LDA, D, SVA, MV, final Matrix<double> V, final int LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

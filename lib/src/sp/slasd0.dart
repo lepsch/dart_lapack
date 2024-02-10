@@ -1,4 +1,4 @@
-      void slasd0(N, SQRE, D, E, U, LDU, VT, LDVT, SMLSIZ, IWORK, WORK, Box<int> INFO ) {
+      void slasd0(N, SQRE, D, E, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, SMLSIZ, IWORK, WORK, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

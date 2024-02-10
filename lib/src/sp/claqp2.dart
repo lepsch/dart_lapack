@@ -1,4 +1,4 @@
-      void claqp2(M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK ) {
+      void claqp2(M, N, OFFSET, final Matrix<double> A, final int LDA, JPVT, TAU, VN1, VN2, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

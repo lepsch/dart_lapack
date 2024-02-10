@@ -1,4 +1,4 @@
-      void zlabrd(M, N, NB, A, LDA, D, E, TAUQ, TAUP, X, LDX, Y, LDY ) {
+      void zlabrd(M, N, NB, final Matrix<double> A, final int LDA, D, E, TAUQ, TAUP, final Matrix<double> X, final int LDX, Y, LDY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zget52(LEFT, N, A, LDA, B, LDB, E, LDE, ALPHA, BETA, WORK, RWORK, RESULT ) {
+      void zget52(LEFT, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> E, final int LDE, ALPHA, BETA, WORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

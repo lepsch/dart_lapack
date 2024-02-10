@@ -1,4 +1,4 @@
-      void checon_3(UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, Box<int> INFO ) {
+      void checon_3(UPLO, N, final Matrix<double> A, final int LDA, E, IPIV, ANORM, RCOND, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

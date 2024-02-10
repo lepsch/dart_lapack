@@ -1,4 +1,4 @@
-      void cla_porfsx_extended(PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, Box<int> INFO ) {
+      void cla_porfsx_extended(PREC_TYPE, UPLO, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, COLEQU, C, final Matrix<double> B, final int LDB, final Matrix<double> Y, final int LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

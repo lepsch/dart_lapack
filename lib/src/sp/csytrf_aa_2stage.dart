@@ -1,4 +1,4 @@
-      void csytrf_aa_2stage(UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, Box<int> INFO ) {
+      void csytrf_aa_2stage(UPLO, N, final Matrix<double> A, final int LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

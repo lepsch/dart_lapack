@@ -1,4 +1,4 @@
-      void sorbdb5(M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, Box<int> INFO ) {
+      void sorbdb5(M1, M2, N, X1, INCX1, X2, INCX2, final Matrix<double> Q1, final int LDQ1, final Matrix<double> Q2, final int LDQ2, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

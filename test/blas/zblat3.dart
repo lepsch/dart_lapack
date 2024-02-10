@@ -2639,7 +2639,7 @@ import 'common.dart';
       }
       return;
       }
-      void zmmch(TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV ) {
+      void zmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, MV ) {
 
 // Checks the results of the computational tests.
 

@@ -1,4 +1,4 @@
-      void clarzt(DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT ) {
+      void clarzt(DIRECT, STOREV, N, K, final Matrix<double> V, final int LDV, TAU, T, LDT ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

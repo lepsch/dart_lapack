@@ -1,4 +1,4 @@
-      void zlarot(LROWS, LLEFT, LRIGHT, NL, C, S, A, LDA, XLEFT, XRIGHT ) {
+      void zlarot(LROWS, LLEFT, LRIGHT, NL, C, S, final Matrix<double> A, final int LDA, XLEFT, XRIGHT ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

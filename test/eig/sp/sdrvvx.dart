@@ -1,4 +1,4 @@
-      void sdrvvx(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NWORK, IWORK, Box<int> INFO ) {
+      void sdrvvx(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, final Matrix<double> A, final int LDA, H, WR, WI, WR1, WI1, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Matrix<double> LRE, final int LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NWORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, Box<int> INFO ) {
+      void cgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

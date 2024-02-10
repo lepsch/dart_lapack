@@ -138,7 +138,7 @@
 
 
 
-      void zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK ) {
+      void zlacsg(M, P, Q, THETA, ISEED, final Matrix<double> X, final int LDX, WORK ) {
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double             THETA( * );

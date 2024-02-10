@@ -1,4 +1,4 @@
-      void slatsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, Box<int> INFO ) {
+      void slatsqr(M, N, MB, NB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

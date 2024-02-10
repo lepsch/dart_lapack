@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C ) {
+      void dsfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, final Matrix<double> A, final int LDA, BETA, C ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

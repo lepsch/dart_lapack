@@ -1,4 +1,4 @@
-      void zgehd2(N, ILO, IHI, A, LDA, TAU, WORK, Box<int> INFO ) {
+      void zgehd2(N, ILO, IHI, final Matrix<double> A, final int LDA, TAU, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

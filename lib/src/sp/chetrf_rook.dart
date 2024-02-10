@@ -1,4 +1,4 @@
-      void chetrf_rook(UPLO, N, A, LDA, IPIV, WORK, LWORK, Box<int> INFO ) {
+      void chetrf_rook(UPLO, N, final Matrix<double> A, final int LDA, IPIV, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

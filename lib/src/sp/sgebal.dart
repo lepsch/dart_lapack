@@ -1,4 +1,4 @@
-      void sgebal(JOB, N, A, LDA, ILO, IHI, SCALE, Box<int> INFO ) {
+      void sgebal(JOB, N, final Matrix<double> A, final int LDA, ILO, IHI, SCALE, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

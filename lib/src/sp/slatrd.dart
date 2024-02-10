@@ -1,4 +1,4 @@
-      void slatrd(UPLO, N, NB, A, LDA, E, TAU, W, LDW ) {
+      void slatrd(UPLO, N, NB, final Matrix<double> A, final int LDA, E, TAU, W, LDW ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

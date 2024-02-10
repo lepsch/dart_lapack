@@ -1,4 +1,4 @@
-      void zlakf2(M, N, A, LDA, B, D, E, Z, LDZ ) {
+      void zlakf2(M, N, final Matrix<double> A, final int LDA, B, D, E, Z, LDZ ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

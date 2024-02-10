@@ -1,4 +1,4 @@
-      void zggesx(JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
+      void zggesx(JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, SDIM, ALPHA, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgeesx(JOBVS, SORT, SELECT, SENSE, N, A, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, Box<int> INFO ) {
+      void cgeesx(JOBVS, SORT, SELECT, SENSE, N, final Matrix<double> A, final int LDA, SDIM, W, final Matrix<double> VS, final int LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

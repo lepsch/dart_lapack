@@ -1,4 +1,4 @@
-      double cla_gercond_x(TRANS, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK ) {
+      double cla_gercond_x(TRANS, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, X, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

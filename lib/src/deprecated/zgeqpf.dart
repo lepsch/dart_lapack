@@ -1,4 +1,4 @@
-      void zgeqpf(M, N, A, LDA, JPVT, TAU, WORK, RWORK, Box<int> INFO ) {
+      void zgeqpf(M, N, final Matrix<double> A, final int LDA, JPVT, TAU, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

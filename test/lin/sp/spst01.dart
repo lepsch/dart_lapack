@@ -1,4 +1,4 @@
-      void spst01(UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM, PIV, RWORK, RESID, RANK ) {
+      void spst01(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, PIV, RWORK, RESID, RANK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

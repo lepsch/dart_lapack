@@ -1,4 +1,4 @@
-      void chetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, Box<int> INFO ) {
+      void chetrs_aa(UPLO, N, NRHS, final Matrix<double> A, final int LDA, IPIV, final Matrix<double> B, final int LDB, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

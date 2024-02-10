@@ -1,4 +1,4 @@
-      void stgsen(IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
+      void stgsen(IJOB, WANTQ, WANTZ, SELECT, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHAR, ALPHAI, BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

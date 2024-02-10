@@ -1,4 +1,4 @@
-      void sort01(ROWCOL, M, N, U, LDU, WORK, LWORK, RESID ) {
+      void sort01(ROWCOL, M, N, final Matrix<double> U, final int LDU, WORK, LWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

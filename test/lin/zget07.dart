@@ -1,4 +1,4 @@
-      void zget07(TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, CHKFERR, BERR, RESLTS ) {
+      void zget07(TRANS, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, FERR, CHKFERR, BERR, RESLTS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

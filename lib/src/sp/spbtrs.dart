@@ -1,4 +1,4 @@
-      void spbtrs(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, Box<int> INFO ) {
+      void spbtrs(UPLO, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

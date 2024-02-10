@@ -1,4 +1,4 @@
-      void zunt03(RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RWORK, RESULT, Box<int> INFO ) {
+      void zunt03(RC, MU, MV, N, K, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, WORK, LWORK, RWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

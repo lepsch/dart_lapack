@@ -1,4 +1,4 @@
-      void ssfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C ) {
+      void ssfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, final Matrix<double> A, final int LDA, BETA, C ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

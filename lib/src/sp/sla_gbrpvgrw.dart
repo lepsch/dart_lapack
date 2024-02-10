@@ -1,4 +1,4 @@
-      double sla_gbrpvgrw(N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB ) {
+      double sla_gbrpvgrw(N, KL, KU, NCOLS, final Matrix<double> AB, final int LDAB, AFB, LDAFB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

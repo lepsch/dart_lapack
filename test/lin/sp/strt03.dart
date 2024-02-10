@@ -1,4 +1,4 @@
-      void strt03(UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID ) {
+      void strt03(UPLO, TRANS, DIAG, N, NRHS, final Matrix<double> A, final int LDA, SCALE, CNORM, TSCAL, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

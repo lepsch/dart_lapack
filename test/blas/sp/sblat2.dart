@@ -2642,7 +2642,7 @@
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${.i2} NOT DETECTED BY ${.a6} *****' );
       }
-      void sregr1(TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS ) {
+      void sregr1(TRANS, M, N, LY, KL, KU, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY, YS ) {
 
 // Input initialization for regression test.
       String             TRANS;

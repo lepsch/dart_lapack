@@ -1,4 +1,4 @@
-      void zporfsx(UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, Box<int> INFO ) {
+      void zporfsx(UPLO, EQUED, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, S, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

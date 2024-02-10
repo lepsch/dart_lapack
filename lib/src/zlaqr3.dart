@@ -1,4 +1,4 @@
-      void zlaqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SH, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK ) {
+      void zlaqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, final Matrix<double> H, final int LDH, ILOZ, IHIZ, final Matrix<double> Z, final int LDZ, NS, ND, SH, final Matrix<double> V, final int LDV, NH, final Matrix<double> T, final int LDT, NV, final Matrix<double> WV, final int LDWV, WORK, LWORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

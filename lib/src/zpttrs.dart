@@ -1,4 +1,4 @@
-      void zpttrs(UPLO, N, NRHS, D, E, B, LDB, Box<int> INFO ) {
+      void zpttrs(UPLO, N, NRHS, D, E, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

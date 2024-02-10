@@ -1,4 +1,4 @@
-      void ztgsna(JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, Box<int> INFO ) {
+      void ztgsna(JOB, HOWMNY, SELECT, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

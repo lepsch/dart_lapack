@@ -1,4 +1,4 @@
-      void slasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, LDTL, TR, LDTR, B, LDB, SCALE, X, LDX, XNORM, Box<int> INFO ) {
+      void slasy2(LTRANL, LTRANR, ISGN, N1, N2, final Matrix<double> TL, final int LDTL, final Matrix<double> TR, final int LDTR, final Matrix<double> B, final int LDB, SCALE, final Matrix<double> X, final int LDX, XNORM, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ztrsna(JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, RWORK, Box<int> INFO ) {
+      void ztrsna(JOB, HOWMNY, SELECT, N, final Matrix<double> T, final int LDT, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, S, SEP, MM, M, final Matrix<double> WORK, final int LDWORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

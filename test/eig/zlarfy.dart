@@ -1,4 +1,4 @@
-      void zlarfy(UPLO, N, V, INCV, TAU, C, LDC, WORK ) {
+      void zlarfy(UPLO, N, V, INCV, TAU, final Matrix<double> C, final int LDC, WORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cunm2l(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, Box<int> INFO ) {
+      void cunm2l(SIDE, TRANS, M, N, K, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

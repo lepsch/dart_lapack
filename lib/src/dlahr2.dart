@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlahr2(N, K, NB, A, LDA, TAU, T, LDT, Y, LDY ) {
+      void dlahr2(N, K, NB, final Matrix<double> A, final int LDA, TAU, final Matrix<double> T, final int LDT, Y, LDY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

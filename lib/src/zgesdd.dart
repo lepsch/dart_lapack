@@ -1,4 +1,4 @@
-      void zgesdd(JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, Box<int> INFO ) {
+      void zgesdd(JOBZ, M, N, final Matrix<double> A, final int LDA, S, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, WORK, LWORK, RWORK, IWORK, Box<int> INFO ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

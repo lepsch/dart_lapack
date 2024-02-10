@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgtsv(N, NRHS, DL, D, DU, B, LDB, Box<int> INFO ) {
+      void dgtsv(N, NRHS, DL, D, DU, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

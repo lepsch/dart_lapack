@@ -1,4 +1,4 @@
-      void chbev(JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, RWORK, Box<int> INFO ) {
+      void chbev(JOBZ, UPLO, N, KD, final Matrix<double> AB, final int LDAB, W, final Matrix<double> Z, final int LDZ, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

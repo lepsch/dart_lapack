@@ -1,4 +1,4 @@
-      void cdrvrf4(NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, S_WORK_CLANGE ) {
+      void cdrvrf4(NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, final Matrix<double> A, final int LDA, S_WORK_CLANGE ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

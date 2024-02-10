@@ -1,4 +1,4 @@
-      void sgeevx(BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, Box<int> INFO ) {
+      void sgeevx(BALANC, JOBVL, JOBVR, SENSE, N, final Matrix<double> A, final int LDA, WR, WI, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, Box<int> INFO ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

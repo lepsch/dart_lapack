@@ -1,4 +1,4 @@
-      void ctrti2(UPLO, DIAG, N, A, LDA, Box<int> INFO ) {
+      void ctrti2(UPLO, DIAG, N, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

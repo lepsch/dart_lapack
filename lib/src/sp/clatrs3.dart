@@ -1,4 +1,4 @@
-      void clatrs3(UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, Box<int> INFO ) {
+      void clatrs3(UPLO, TRANS, DIAG, NORMIN, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, SCALE, CNORM, WORK, LWORK, Box<int> INFO ) {
       String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       Complex            A( LDA, * ), X( LDX, * );

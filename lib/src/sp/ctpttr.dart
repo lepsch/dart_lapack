@@ -1,4 +1,4 @@
-      void ctpttr(UPLO, N, AP, A, LDA, Box<int> INFO ) {
+      void ctpttr(UPLO, N, AP, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

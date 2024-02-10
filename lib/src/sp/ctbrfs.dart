@@ -1,4 +1,4 @@
-      void ctbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, Box<int> INFO ) {
+      void ctbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

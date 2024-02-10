@@ -1,4 +1,4 @@
-      void spbcon(UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, IWORK, Box<int> INFO ) {
+      void spbcon(UPLO, N, KD, final Matrix<double> AB, final int LDAB, ANORM, RCOND, WORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

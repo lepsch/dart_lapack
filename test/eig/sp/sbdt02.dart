@@ -1,4 +1,4 @@
-      void sbdt02(M, N, B, LDB, C, LDC, U, LDU, WORK, RESID ) {
+      void sbdt02(M, N, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> U, final int LDU, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

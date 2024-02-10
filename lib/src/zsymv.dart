@@ -1,4 +1,4 @@
-      void zsymv(UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
+      void zsymv(UPLO, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

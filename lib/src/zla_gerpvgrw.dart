@@ -1,4 +1,4 @@
-      double zla_gerpvgrw(N, NCOLS, A, LDA, AF, LDAF ) {
+      double zla_gerpvgrw(N, NCOLS, final Matrix<double> A, final int LDA, AF, LDAF ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

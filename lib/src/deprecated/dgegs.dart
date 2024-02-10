@@ -1,4 +1,4 @@
-      void dgegs(JOBVSL, JOBVSR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, Box<int> INFO ) {
+      void dgegs(JOBVSL, JOBVSR, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHAR, ALPHAI, BETA, final Matrix<double> VSL, final int LDVSL, final Matrix<double> VSR, final int LDVSR, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

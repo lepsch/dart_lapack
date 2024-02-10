@@ -1,4 +1,4 @@
-      void slaqgb(M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED ) {
+      void slaqgb(M, N, KL, KU, final Matrix<double> AB, final int LDAB, R, C, ROWCND, COLCND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

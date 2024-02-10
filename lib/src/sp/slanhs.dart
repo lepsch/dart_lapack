@@ -1,4 +1,4 @@
-      double slanhs(NORM, N, A, LDA, WORK ) {
+      double slanhs(NORM, N, final Matrix<double> A, final int LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

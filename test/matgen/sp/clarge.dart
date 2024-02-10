@@ -1,4 +1,4 @@
-      void clarge(N, A, LDA, ISEED, WORK, Box<int> INFO ) {
+      void clarge(N, final Matrix<double> A, final int LDA, ISEED, WORK, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

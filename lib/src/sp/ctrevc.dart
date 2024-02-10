@@ -1,4 +1,4 @@
-      void ctrevc(SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, Box<int> INFO ) {
+      void ctrevc(SIDE, HOWMNY, SELECT, N, final Matrix<double> T, final int LDT, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, MM, M, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

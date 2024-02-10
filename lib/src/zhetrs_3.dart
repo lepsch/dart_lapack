@@ -1,4 +1,4 @@
-      void zhetrs_3(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, Box<int> INFO ) {
+      void zhetrs_3(UPLO, N, NRHS, final Matrix<double> A, final int LDA, E, IPIV, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgegv(JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, Box<int> INFO ) {
+      void cgegv(JOBVL, JOBVR, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHA, BETA, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, WORK, LWORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

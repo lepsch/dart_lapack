@@ -1,4 +1,4 @@
-      void dget08(TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID ) {
+      void dget08(TRANS, M, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

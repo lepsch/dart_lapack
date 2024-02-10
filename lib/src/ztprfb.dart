@@ -1,4 +1,4 @@
-      void ztprfb(SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V, LDV, T, LDT, A, LDA, B, LDB, WORK, LDWORK ) {
+      void ztprfb(SIDE, TRANS, DIRECT, STOREV, M, N, K, L, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, LDWORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

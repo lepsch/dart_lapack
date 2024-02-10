@@ -1,4 +1,4 @@
-      void cgeql2(M, N, A, LDA, TAU, WORK, Box<int> INFO ) {
+      void cgeql2(M, N, final Matrix<double> A, final int LDA, TAU, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

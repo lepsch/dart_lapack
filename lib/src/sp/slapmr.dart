@@ -1,4 +1,4 @@
-      void slapmr(FORWRD, M, N, X, LDX, K ) {
+      void slapmr(FORWRD, M, N, final Matrix<double> X, final int LDX, K ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

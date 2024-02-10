@@ -1,4 +1,4 @@
-      void clauu2(UPLO, N, A, LDA, Box<int> INFO ) {
+      void clauu2(UPLO, N, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

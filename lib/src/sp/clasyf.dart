@@ -1,4 +1,4 @@
-      void clasyf(UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, Box<int> INFO ) {
+      void clasyf(UPLO, N, NB, KB, final Matrix<double> A, final int LDA, IPIV, final Matrix<double> W, final int LDW, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

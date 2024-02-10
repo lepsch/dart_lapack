@@ -1,4 +1,4 @@
-      void clarf(SIDE, M, N, V, INCV, TAU, C, LDC, WORK ) {
+      void clarf(SIDE, M, N, V, INCV, TAU, final Matrix<double> C, final int LDC, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

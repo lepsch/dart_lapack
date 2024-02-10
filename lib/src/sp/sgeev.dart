@@ -1,4 +1,4 @@
-      void sgeev(JOBVL, JOBVR, N, A, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, LWORK, Box<int> INFO ) {
+      void sgeev(JOBVL, JOBVR, N, final Matrix<double> A, final int LDA, WR, WI, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, WORK, LWORK, Box<int> INFO ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

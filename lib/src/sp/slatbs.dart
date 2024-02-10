@@ -1,4 +1,4 @@
-      void slatbs(UPLO, TRANS, DIAG, NORMIN, N, KD, AB, LDAB, X, SCALE, CNORM, Box<int> INFO ) {
+      void slatbs(UPLO, TRANS, DIAG, NORMIN, N, KD, final Matrix<double> AB, final int LDAB, X, SCALE, CNORM, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

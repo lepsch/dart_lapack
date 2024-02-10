@@ -1,4 +1,4 @@
-      void slatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X, SCALE, CNORM, Box<int> INFO ) {
+      void slatrs(UPLO, TRANS, DIAG, NORMIN, N, final Matrix<double> A, final int LDA, X, SCALE, CNORM, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

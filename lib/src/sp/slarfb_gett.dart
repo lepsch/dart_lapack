@@ -1,4 +1,4 @@
-      void slarfb_gett(IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK ) {
+      void slarfb_gett(IDENT, M, N, K, final Matrix<double> T, final int LDT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, LDWORK ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

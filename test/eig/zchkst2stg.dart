@@ -1,4 +1,4 @@
-      void zchkst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, AP, SD, SE, D1, D2, D3, D4, D5, WA1, WA2, WA3, WR, U, LDU, V, VP, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, Box<int> INFO ) {
+      void zchkst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, AP, SD, SE, D1, D2, D3, D4, D5, WA1, WA2, WA3, WR, final Matrix<double> U, final int LDU, V, VP, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

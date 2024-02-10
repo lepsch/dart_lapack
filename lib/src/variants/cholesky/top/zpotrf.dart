@@ -1,4 +1,4 @@
-      void zpotrf(UPLO, N, A, LDA, Box<int> INFO ) {
+      void zpotrf(UPLO, N, final Matrix<double> A, final int LDA, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

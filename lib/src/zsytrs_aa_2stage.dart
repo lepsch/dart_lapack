@@ -1,4 +1,4 @@
-      void zsytrs_aa_2stage(UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, Box<int> INFO ) {
+      void zsytrs_aa_2stage(UPLO, N, NRHS, final Matrix<double> A, final int LDA, TB, LTB, IPIV, IPIV2, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

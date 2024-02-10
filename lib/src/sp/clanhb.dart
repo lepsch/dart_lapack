@@ -1,4 +1,4 @@
-      double clanhb(NORM, UPLO, N, K, AB, LDAB, WORK ) {
+      double clanhb(NORM, UPLO, N, K, final Matrix<double> AB, final int LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

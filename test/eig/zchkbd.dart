@@ -2,7 +2,7 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-      void zchkbd(NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, RWORK, NOUT, Box<int> INFO ) {
+      void zchkbd(NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, final Matrix<double> A, final int LDA, BD, BE, S1, S2, final Matrix<double> X, final int LDX, Y, Z, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, U, VT, WORK, LWORK, RWORK, NOUT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zunm22(SIDE, TRANS, M, N, N1, N2, Q, LDQ, C, LDC, WORK, LWORK, Box<int> INFO ) {
+      void zunm22(SIDE, TRANS, M, N, N1, N2, final Matrix<double> Q, final int LDQ, final Matrix<double> C, final int LDC, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

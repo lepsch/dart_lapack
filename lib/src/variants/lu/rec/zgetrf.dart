@@ -1,4 +1,4 @@
-      void zgetrf(M, N, A, LDA, IPIV, Box<int> INFO ) {
+      void zgetrf(M, N, final Matrix<double> A, final int LDA, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine (version 3.X) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zgelsy(M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, LWORK, RWORK, Box<int> INFO ) {
+      void zgelsy(M, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, JPVT, RCOND, RANK, WORK, LWORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

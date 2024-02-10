@@ -1,4 +1,4 @@
-      void strt06(RCOND, RCONDC, UPLO, DIAG, N, A, LDA, WORK, RAT ) {
+      void strt06(RCOND, RCONDC, UPLO, DIAG, N, final Matrix<double> A, final int LDA, WORK, RAT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

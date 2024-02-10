@@ -1,4 +1,4 @@
-      void stgexc(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, WORK, LWORK, Box<int> INFO ) {
+      void stgexc(WANTQ, WANTZ, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, IFST, ILST, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

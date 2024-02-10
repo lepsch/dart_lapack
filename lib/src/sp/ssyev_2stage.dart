@@ -1,4 +1,4 @@
-      void ssyev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, Box<int> INFO ) {
+      void ssyev_2stage(JOBZ, UPLO, N, final Matrix<double> A, final int LDA, W, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

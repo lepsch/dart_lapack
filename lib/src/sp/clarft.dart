@@ -1,4 +1,4 @@
-      void clarft(DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT ) {
+      void clarft(DIRECT, STOREV, N, K, final Matrix<double> V, final int LDV, TAU, T, LDT ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

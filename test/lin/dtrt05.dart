@@ -1,4 +1,4 @@
-      void dtrt05(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS ) {
+      void dtrt05(UPLO, TRANS, DIAG, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, FERR, BERR, RESLTS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

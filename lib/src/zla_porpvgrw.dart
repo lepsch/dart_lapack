@@ -1,4 +1,4 @@
-      double zla_porpvgrw(UPLO, NCOLS, A, LDA, AF, LDAF, WORK ) {
+      double zla_porpvgrw(UPLO, NCOLS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

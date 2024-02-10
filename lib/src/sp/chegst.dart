@@ -1,4 +1,4 @@
-      void chegst(ITYPE, UPLO, N, A, LDA, B, LDB, Box<int> INFO ) {
+      void chegst(ITYPE, UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

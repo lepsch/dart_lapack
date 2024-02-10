@@ -1,4 +1,4 @@
-      void sgesv(N, NRHS, A, LDA, IPIV, B, LDB, Box<int> INFO ) {
+      void sgesv(N, NRHS, final Matrix<double> A, final int LDA, IPIV, final Matrix<double> B, final int LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

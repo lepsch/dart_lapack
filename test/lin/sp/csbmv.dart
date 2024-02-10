@@ -1,4 +1,4 @@
-      void csbmv(UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
+      void csbmv(UPLO, N, K, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

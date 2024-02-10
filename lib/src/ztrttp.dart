@@ -1,4 +1,4 @@
-      void ztrttp(UPLO, N, A, LDA, AP, Box<int> INFO ) {
+      void ztrttp(UPLO, N, final Matrix<double> A, final int LDA, AP, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

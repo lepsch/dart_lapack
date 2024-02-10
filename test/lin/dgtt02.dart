@@ -1,4 +1,4 @@
-      void dgtt02(TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID ) {
+      void dgtt02(TRANS, N, NRHS, DL, D, DU, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

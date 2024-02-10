@@ -1,4 +1,4 @@
-      void ztpmqrt(SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, Box<int> INFO ) {
+      void ztpmqrt(SIDE, TRANS, M, N, K, L, NB, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
