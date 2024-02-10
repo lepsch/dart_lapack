@@ -1,4 +1,4 @@
-      void csyconvf_rook(UPLO, WAY, N, A, LDA, E, IPIV, INFO ) {
+      void csyconvf_rook(UPLO, WAY, N, A, LDA, E, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

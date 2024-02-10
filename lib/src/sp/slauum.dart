@@ -1,4 +1,4 @@
-      void slauum(UPLO, N, A, LDA, INFO ) {
+      void slauum(UPLO, N, A, LDA, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

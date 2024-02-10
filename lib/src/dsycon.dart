@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsycon(UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, IWORK, INFO ) {
+      void dsycon(UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

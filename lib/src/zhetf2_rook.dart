@@ -1,4 +1,4 @@
-      void zhetf2_rook(UPLO, N, A, LDA, IPIV, INFO ) {
+      void zhetf2_rook(UPLO, N, A, LDA, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

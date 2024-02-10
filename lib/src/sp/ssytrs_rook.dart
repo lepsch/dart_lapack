@@ -1,4 +1,4 @@
-      void ssytrs_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
+      void ssytrs_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

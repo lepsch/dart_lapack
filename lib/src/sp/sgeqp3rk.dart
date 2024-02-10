@@ -1,4 +1,4 @@
-      void sgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, INFO ) {
+      void sgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, Box<int> INFO ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

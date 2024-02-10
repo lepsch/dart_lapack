@@ -1,4 +1,4 @@
-      void sorml2(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO ) {
+      void sorml2(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

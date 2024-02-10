@@ -1,4 +1,4 @@
-      void strsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO ) {
+      void strsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, Box<int> INFO ) {
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
       double               SCALE;

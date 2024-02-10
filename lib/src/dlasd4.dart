@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasd4(N, I, D, Z, DELTA, RHO, SIGMA, WORK, INFO ) {
+      void dlasd4(N, I, D, Z, DELTA, RHO, SIGMA, WORK, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

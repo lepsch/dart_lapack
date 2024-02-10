@@ -1,4 +1,4 @@
-      void slaed4(N, I, D, Z, DELTA, RHO, DLAM, INFO ) {
+      void slaed4(N, I, D, Z, DELTA, RHO, DLAM, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

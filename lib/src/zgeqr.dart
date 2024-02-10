@@ -1,4 +1,4 @@
-      void zgeqr(M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO ) {
+      void zgeqr(M, N, A, LDA, T, TSIZE, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

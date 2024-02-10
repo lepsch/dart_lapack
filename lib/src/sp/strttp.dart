@@ -1,4 +1,4 @@
-      void strttp(UPLO, N, A, LDA, AP, INFO ) {
+      void strttp(UPLO, N, A, LDA, AP, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

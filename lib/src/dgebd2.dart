@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgebd2(M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO ) {
+      void dgebd2(M, N, A, LDA, D, E, TAUQ, TAUP, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

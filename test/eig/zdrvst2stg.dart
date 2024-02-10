@@ -1,4 +1,4 @@
-      void zdrvst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, D1, D2, D3, WA1, WA2, WA3, U, LDU, V, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, INFO ) {
+      void zdrvst2stg(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, D1, D2, D3, WA1, WA2, WA3, U, LDU, V, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

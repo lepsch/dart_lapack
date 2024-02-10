@@ -1,4 +1,4 @@
-      void cdrves(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, HT, W, WT, VS, LDVS, RESULT, WORK, NWORK, RWORK, IWORK, BWORK, INFO ) {
+      void cdrves(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, HT, W, WT, VS, LDVS, RESULT, WORK, NWORK, RWORK, IWORK, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

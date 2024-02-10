@@ -2762,7 +2762,7 @@ import 'common.dart';
       } // 10
       return;
       }
-      void xerbla(SRNAME, INFO ) {
+      void xerbla(SRNAME, Box<int> INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 2 BLAS

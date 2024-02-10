@@ -1,4 +1,4 @@
-      void sstedc(COMPZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO ) {
+      void sstedc(COMPZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

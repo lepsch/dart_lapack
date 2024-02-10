@@ -1,4 +1,4 @@
-      void schkhs(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1, WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK, SELECT, RESULT, INFO ) {
+      void schkhs(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1, WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK, SELECT, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

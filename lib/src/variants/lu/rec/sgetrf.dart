@@ -1,4 +1,4 @@
-      void sgetrf(M, N, A, LDA, IPIV, INFO ) {
+      void sgetrf(M, N, A, LDA, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine (version 3.X) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

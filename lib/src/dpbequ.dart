@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFO ) {
+      void dpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

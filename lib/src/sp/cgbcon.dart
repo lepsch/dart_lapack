@@ -1,4 +1,4 @@
-      void cgbcon(NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, RWORK, INFO ) {
+      void cgbcon(NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

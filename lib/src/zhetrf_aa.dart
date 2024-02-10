@@ -1,4 +1,4 @@
-      void zhetrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO ) {
+      void zhetrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

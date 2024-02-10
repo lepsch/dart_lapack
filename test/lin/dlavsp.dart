@@ -1,4 +1,4 @@
-      void dlavsp(UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO ) {
+      void dlavsp(UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sdrges3(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, ALPHAR, ALPHAI, BETA, WORK, LWORK, RESULT, BWORK, INFO ) {
+      void sdrges3(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, ALPHAR, ALPHAI, BETA, WORK, LWORK, RESULT, BWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

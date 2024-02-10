@@ -1,4 +1,4 @@
-      void zgelsx(M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, RWORK, INFO ) {
+      void zgelsx(M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

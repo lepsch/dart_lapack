@@ -1,4 +1,4 @@
-      void sgesvdq(JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA, S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, INFO ) {
+      void sgesvdq(JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA, S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, Box<int> INFO ) {
       // .. Scalar Arguments ..
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;

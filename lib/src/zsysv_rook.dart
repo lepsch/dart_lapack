@@ -1,4 +1,4 @@
-      void zsysv_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO ) {
+      void zsysv_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

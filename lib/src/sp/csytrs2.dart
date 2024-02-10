@@ -1,4 +1,4 @@
-      void csytrs2(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO ) {
+      void csytrs2(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

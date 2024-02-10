@@ -1,4 +1,4 @@
-      void cheev(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO ) {
+      void cheev(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

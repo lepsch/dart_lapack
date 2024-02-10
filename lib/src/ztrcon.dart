@@ -1,4 +1,4 @@
-      void ztrcon(NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, RWORK, INFO ) {
+      void ztrcon(NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

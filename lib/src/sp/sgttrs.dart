@@ -1,4 +1,4 @@
-      void sgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO ) {
+      void sgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

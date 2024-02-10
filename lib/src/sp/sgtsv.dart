@@ -1,4 +1,4 @@
-      void sgtsv(N, NRHS, DL, D, DU, B, LDB, INFO ) {
+      void sgtsv(N, NRHS, DL, D, DU, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

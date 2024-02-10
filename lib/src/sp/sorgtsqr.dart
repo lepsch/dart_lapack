@@ -1,4 +1,4 @@
-      void sorgtsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
+      void sorgtsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, Box<int> INFO ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

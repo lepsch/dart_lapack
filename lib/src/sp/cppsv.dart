@@ -1,4 +1,4 @@
-      void cppsv(UPLO, N, NRHS, AP, B, LDB, INFO ) {
+      void cppsv(UPLO, N, NRHS, AP, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

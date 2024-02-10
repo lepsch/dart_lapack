@@ -1,4 +1,4 @@
-      void ssyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO ) {
+      void ssyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

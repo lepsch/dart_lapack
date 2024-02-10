@@ -1,4 +1,4 @@
-      void cgesvj(JOBA, JOBU, JOBV, M, N, A, LDA, SVA, MV, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO ) {
+      void cgesvj(JOBA, JOBU, JOBV, M, N, A, LDA, SVA, MV, V, LDV, CWORK, LWORK, RWORK, LRWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

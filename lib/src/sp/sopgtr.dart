@@ -1,4 +1,4 @@
-      void sopgtr(UPLO, N, AP, TAU, Q, LDQ, WORK, INFO ) {
+      void sopgtr(UPLO, N, AP, TAU, Q, LDQ, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

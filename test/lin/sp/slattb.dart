@@ -1,4 +1,4 @@
-      void slattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, B, WORK, INFO ) {
+      void slattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, B, WORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

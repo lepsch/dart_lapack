@@ -1,4 +1,4 @@
-      void cgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO ) {
+      void cgeqrt(M, N, NB, A, LDA, T, LDT, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

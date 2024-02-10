@@ -1,4 +1,4 @@
-      void schkbb(NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB, BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK, LWORK, RESULT, INFO ) {
+      void schkbb(NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB, BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK, LWORK, RESULT, Box<int> INFO ) {
 
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

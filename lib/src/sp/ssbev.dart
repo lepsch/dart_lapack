@@ -1,4 +1,4 @@
-      void ssbev(JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, INFO ) {
+      void ssbev(JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sgeqp3(M, N, A, LDA, JPVT, TAU, WORK, LWORK, INFO ) {
+      void sgeqp3(M, N, A, LDA, JPVT, TAU, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

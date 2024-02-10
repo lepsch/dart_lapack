@@ -1,4 +1,4 @@
-      void zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO ) {
+      void zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

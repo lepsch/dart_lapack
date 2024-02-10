@@ -1,4 +1,4 @@
-      void zlaed8(K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, INDXP, INDX, INDXQ, PERM, GIVPTR, GIVCOL, GIVNUM, INFO ) {
+      void zlaed8(K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, INDXP, INDX, INDXQ, PERM, GIVPTR, GIVCOL, GIVNUM, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

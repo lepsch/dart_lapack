@@ -1,4 +1,4 @@
-      void zgetf2(M, N, A, LDA, IPIV, INFO ) {
+      void zgetf2(M, N, A, LDA, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sgeequb(M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFO ) {
+      void sgeequb(M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

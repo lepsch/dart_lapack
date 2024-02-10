@@ -1,4 +1,4 @@
-      void dlatm7(MODE, COND, IRSIGN, IDIST, ISEED, D, N, RANK, INFO ) {
+      void dlatm7(MODE, COND, IRSIGN, IDIST, ISEED, D, N, RANK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

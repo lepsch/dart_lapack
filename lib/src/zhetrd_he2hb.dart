@@ -1,4 +1,4 @@
-      void zhetrd_he2hb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO ) {
+      void zhetrd_he2hb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

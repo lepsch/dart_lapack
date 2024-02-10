@@ -1,4 +1,4 @@
-      void sgglse(M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO ) {
+      void sgglse(M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

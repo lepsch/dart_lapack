@@ -1,4 +1,4 @@
-      void cgesv(N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
+      void cgesv(N, NRHS, A, LDA, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

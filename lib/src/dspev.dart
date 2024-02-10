@@ -1,4 +1,4 @@
-      void dspev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO ) {
+      void dspev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

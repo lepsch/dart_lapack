@@ -1,4 +1,4 @@
-      void cggglm(N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO ) {
+      void cggglm(N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

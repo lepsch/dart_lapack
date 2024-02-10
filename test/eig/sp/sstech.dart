@@ -1,4 +1,4 @@
-      void sstech(N, A, B, EIG, TOL, WORK, INFO ) {
+      void sstech(N, A, B, EIG, TOL, WORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

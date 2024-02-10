@@ -1,4 +1,4 @@
-      void zpteqr(COMPZ, N, D, E, Z, LDZ, WORK, INFO ) {
+      void zpteqr(COMPZ, N, D, E, Z, LDZ, WORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

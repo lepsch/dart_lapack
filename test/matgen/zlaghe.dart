@@ -1,4 +1,4 @@
-      void zlaghe(N, K, D, A, LDA, ISEED, WORK, INFO ) {
+      void zlaghe(N, K, D, A, LDA, ISEED, WORK, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

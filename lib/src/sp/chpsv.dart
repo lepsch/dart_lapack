@@ -1,4 +1,4 @@
-      void chpsv(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO ) {
+      void chpsv(UPLO, N, NRHS, AP, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zgebal(JOB, N, A, LDA, ILO, IHI, SCALE, INFO ) {
+      void zgebal(JOB, N, A, LDA, ILO, IHI, SCALE, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

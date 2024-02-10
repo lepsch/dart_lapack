@@ -1,4 +1,4 @@
-      void chetf2_rk(UPLO, N, A, LDA, E, IPIV, INFO ) {
+      void chetf2_rk(UPLO, N, A, LDA, E, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zsytri2(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO ) {
+      void zsytri2(UPLO, N, A, LDA, IPIV, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlag2c(M, N, A, LDA, SA, LDSA, INFO ) {
+      void zlag2c(M, N, A, LDA, SA, LDSA, Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

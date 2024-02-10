@@ -1,4 +1,4 @@
-      void chetrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
+      void chetrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

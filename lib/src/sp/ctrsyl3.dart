@@ -1,4 +1,4 @@
-      void ctrsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, SWORK, LDSWORK, INFO ) {
+      void ctrsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, SWORK, LDSWORK, Box<int> INFO ) {
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, LDSWORK, M, N;
       double               SCALE;

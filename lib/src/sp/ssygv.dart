@@ -1,4 +1,4 @@
-      void ssygv(ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, INFO ) {
+      void ssygv(ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ssytrd_sb2st(STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO ) {
+      void ssytrd_sb2st(STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, Box<int> INFO ) {
 
 // #if defined(_OPENMP)
       use omp_lib;

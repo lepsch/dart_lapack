@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dggglm(N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO ) {
+      void dggglm(N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sorgbr(VECT, M, N, K, A, LDA, TAU, WORK, LWORK, INFO ) {
+      void sorgbr(VECT, M, N, K, A, LDA, TAU, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlaswlq(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
+      void zlaswlq(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zhptrf(UPLO, N, AP, IPIV, INFO ) {
+      void zhptrf(UPLO, N, AP, IPIV, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

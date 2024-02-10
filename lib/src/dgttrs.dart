@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO ) {
+      void dgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

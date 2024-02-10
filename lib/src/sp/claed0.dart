@@ -1,4 +1,4 @@
-      void claed0(QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO ) {
+      void claed0(QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ztpqrt2(M, N, L, A, LDA, B, LDB, T, LDT, INFO ) {
+      void ztpqrt2(M, N, L, A, LDA, B, LDB, T, LDT, Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

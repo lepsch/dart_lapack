@@ -1,4 +1,4 @@
-      void zlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, B, WORK, RWORK, INFO ) {
+      void zlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, B, WORK, RWORK, Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

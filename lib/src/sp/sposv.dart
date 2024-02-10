@@ -1,4 +1,4 @@
-      void sposv(UPLO, N, NRHS, A, LDA, B, LDB, INFO ) {
+      void sposv(UPLO, N, NRHS, A, LDA, B, LDB, Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
