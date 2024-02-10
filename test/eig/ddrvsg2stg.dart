@@ -80,7 +80,6 @@ void ddrvsg2stg(
       KB9,
       MTYPES,
       N,
-      NERRS,
       NMATS,
       NMAX,
       NTEST = 0,
@@ -100,7 +99,7 @@ void ddrvsg2stg(
       TEMP1,
       TEMP2;
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
-  final IINFO = Box(0), M = Box(0);
+  final IINFO = Box(0), M = Box(0), NERRS = Box(0);
   final KTYPE = Array.fromList([
     1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 9, //
   ]);
@@ -165,7 +164,7 @@ void ddrvsg2stg(
 
   // Loop over sizes, types
 
-  NERRS = 0;
+  NERRS.value = 0;
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
@@ -1102,7 +1101,7 @@ void ddrvsg2stg(
   }
 
   // Summary
-  dlasum('DSG', NOUNIT, NERRS, NTESTT);
+  dlasum('DSG', NOUNIT, NERRS.value, NTESTT);
 }
 
 void _print9999(

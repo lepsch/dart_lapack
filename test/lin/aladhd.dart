@@ -316,15 +316,15 @@
 
       // Test ratios
 
- 9981 FORMAT( 3X, I2, ': norm( L * U - A )  / ( N * norm(A) * EPS )' );
- 9980 FORMAT( 3X, I2, ': norm( B - A * X )  / ( norm(A) * norm(X) * EPS )' );
- 9979 FORMAT( 3X, I2, ': norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS )' );
- 9978 FORMAT( 3X, I2, ': norm( X - XACT )   / ( norm(XACT) * (error bound) )' );
- 9977 FORMAT( 3X, I2, ': (backward error)   / EPS' );
- 9976 FORMAT( 3X, I2, ': RCOND * CNDNUM - 1.0' );
- 9975 FORMAT( 3X, I2, ': norm( U'' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L'' - A ) / ( N * norm(A) * EPS )' );
- 9974 FORMAT( 3X, I2, ': norm( U*D*U'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
- 9973 FORMAT( 3X, I2, ': norm( U''*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
- 9972 FORMAT( 3X, I2, ': abs( WORK(1) - RPVGRW ) / ( max( WORK(1), RPVGRW ) * EPS )' );
+ 9981 FORMAT('${' ' * 3}${.i2}: norm( L * U - A )  / ( N * norm(A) * EPS )' );
+ 9980 FORMAT('${' ' * 3}${.i2}: norm( B - A * X )  / ( norm(A) * norm(X) * EPS )' );
+ 9979 FORMAT('${' ' * 3}${.i2}: norm( X - XACT )   / ( norm(XACT) * CNDNUM * EPS )' );
+ 9978 FORMAT('${' ' * 3}${.i2}: norm( X - XACT )   / ( norm(XACT) * (error bound) )' );
+ 9977 FORMAT('${' ' * 3}${.i2}: (backward error)   / EPS' );
+ 9976 FORMAT('${' ' * 3}${.i2}: RCOND * CNDNUM - 1.0' );
+ 9975 FORMAT('${' ' * 3}${.i2}: norm( U'' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L'' - A ) / ( N * norm(A) * EPS )' );
+ 9974 FORMAT('${' ' * 3}${.i2}: norm( U*D*U'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
+ 9973 FORMAT('${' ' * 3}${.i2}: norm( U''*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
+ 9972 FORMAT('${' ' * 3}${.i2}: abs( WORK(1) - RPVGRW ) / ( max( WORK(1), RPVGRW ) * EPS )' );
 
       }

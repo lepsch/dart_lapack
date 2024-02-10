@@ -62,7 +62,7 @@ void dpteqr(
 
   // Call DPTTRF to factor the matrix.
 
-  dpttrf(N, D, E, INFO.value);
+  dpttrf(N, D, E, INFO);
   if (INFO.value != 0) return;
   for (I = 1; I <= N; I++) {
     D[I] = sqrt(D[I]);

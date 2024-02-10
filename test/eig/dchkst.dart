@@ -424,9 +424,9 @@ void dchkst(
       // Do tests 1 and 2
 
       dsyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT[1]);
+          RESULT(1));
       dsyt21(3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT[2]);
+          RESULT(2));
 
       // Call DSYTRD and DORGTR to compute S and U from
       // lower triangle, do tests.
@@ -463,9 +463,9 @@ void dchkst(
       }
 
       dsyt21(2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT[3]);
+          RESULT(3));
       dsyt21(3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT[4]);
+          RESULT(4));
 
       // Store the upper triangle of A in AP
 
@@ -512,8 +512,8 @@ void dchkst(
 
       // Do tests 5 and 6
 
-      dspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT[5]);
-      dspt21(3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT[6]);
+      dspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(5));
+      dspt21(3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(6));
 
       // Store the lower triangle of A in AP
 
@@ -558,8 +558,8 @@ void dchkst(
         }
       }
 
-      dspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT[7]);
-      dspt21(3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT[8]);
+      dspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(7));
+      dspt21(3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(8));
 
       // Call DSTEQR to compute D1, D2, and Z, do tests.
 
@@ -621,7 +621,7 @@ void dchkst(
 
       // Do Tests 9 and 10
 
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT[9]);
+      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(9));
 
       // Do Tests 11 and 12
 
@@ -681,7 +681,7 @@ void dchkst(
 
         // Do Tests 14 and 15
 
-        dstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT[14]);
+        dstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT(14));
 
         // Compute D5
 
@@ -912,7 +912,7 @@ void dchkst(
 
       // Do tests 20 and 21
 
-      dstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT[20]);
+      dstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT(20));
 
       // Call DSTEDC(I) to compute D1 and Z, do tests.
 
@@ -938,7 +938,7 @@ void dchkst(
 
       // Do Tests 22 and 23
 
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT[22]);
+      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(22));
 
       // Call DSTEDC(V) to compute D1 and Z, do tests.
 
@@ -964,7 +964,7 @@ void dchkst(
 
       // Do Tests 24 and 25
 
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT[24]);
+      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(24));
 
       // Call DSTEDC(N) to compute D2, do tests.
 
@@ -1194,7 +1194,8 @@ void dchkst(
 
           // Do Tests 29 and 30
 
-          dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT[29]);
+          dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+              WORK.asMatrix(M.value), M.value, RESULT(29));
 
           // Call DSTEMR to compute D2, do tests.
 
@@ -1317,7 +1318,8 @@ void dchkst(
 
           // Do Tests 32 and 33
 
-          dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT[32]);
+          dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+              WORK.asMatrix(M.value), M.value, RESULT(32));
 
           // Call DSTEMR to compute D2, do tests.
 
@@ -1425,7 +1427,8 @@ void dchkst(
 
         // Do Tests 35 and 36
 
-        dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT[35]);
+        dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU, WORK.asMatrix(M.value),
+            M.value, RESULT(35));
 
         // Call DSTEMR to compute D2, do tests.
 

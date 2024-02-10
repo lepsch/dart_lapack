@@ -301,8 +301,22 @@ void dsytrd_sb2st(
 // $OMP END TASK
             }
 // #else
-            dsb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB,
-                WORK(INDA), LDA, HOUS[INDV], HOUS[INDTAU], LDV, WORK[INDW]);
+            dsb2st_kernels(
+                UPLO,
+                WANTQ,
+                TTYPE,
+                STIND,
+                EDIND,
+                SWEEPID,
+                N,
+                KD,
+                IB,
+                WORK(INDA).asMatrix(LDA),
+                LDA,
+                HOUS(INDV),
+                HOUS(INDTAU),
+                LDV,
+                WORK(INDW));
 // #endif
             if (BLKLASTIND >= (N - 1)) {
               STT = STT + 1;

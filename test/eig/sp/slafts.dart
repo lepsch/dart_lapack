@@ -53,10 +53,10 @@
                IE = IE + 1;
                if ( RESULT( K ) < 10000.0 ) {
                   WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K );
- 9997             FORMAT( 1X, I5, ' x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is${.f8_2}');
+ 9997             FORMAT(' ${.i5} x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is${.f8_2}');
                } else {
                   WRITE( IOUNIT, FMT = 9996 )M, N, IMAT, ISEED, K, RESULT( K );
- 9996             FORMAT( 1X, I5, ' x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is', 1P, E10.3 );
+ 9996             FORMAT(' ${.i5} x${.i5} matrix, type=${.i2}, s', 'eed=${i4(3, ',')}', I4, ': result ${.i3} is', 1P, E10.3 );
                }
             }
          } // 20

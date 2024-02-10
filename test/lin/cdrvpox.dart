@@ -472,7 +472,7 @@
 
       cebchvxx(THRESH, PATH);
 
- 9999 FORMAT( 1X, A, ', UPLO=''${.a1}'', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9998 FORMAT( 1X, A, ', FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9997 FORMAT( 1X, A, ', FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, EQUED=''${.a1}'', type ${.i1}, test(${.i1}) =${.g12_5};
+ 9999 FORMAT(' ${}, UPLO=''${.a1}'', N =${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9998 FORMAT(' ${}, FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9997 FORMAT(' ${}, FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, EQUED=''${.a1}'', type ${.i1}, test(${.i1}) =${.g12_5};
       }

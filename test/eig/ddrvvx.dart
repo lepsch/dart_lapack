@@ -277,7 +277,7 @@ Future<void> ddrvvx(
                 ANORM,
                 A,
                 LDA,
-                WORK[2 * N + 1],
+                WORK(2 * N + 1),
                 IINFO);
           } else if (ITYPE == 7) {
             // Diagonal, random eigenvalues

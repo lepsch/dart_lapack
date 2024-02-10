@@ -22,5 +22,5 @@
 
  9999 FORMAT(' ${.a3} drivers: ${.i6} out of ${.i6} tests failed to pass the threshold' );
  9998 FORMAT('\n All tests for ${.a3} drivers  passed the threshold ( ${.i6} tests run)' );
- 9997 FORMAT( 14X, I6, ' error messages recorded' );
+ 9997 FORMAT('${' ' * 14}${.i6} error messages recorded' );
       }

@@ -7,7 +7,9 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacpy.dart';
 import 'package:lapack/src/dlaed0.dart';
 import 'package:lapack/src/dlanst.dart';
+import 'package:lapack/src/dlascl.dart';
 import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dlasrt.dart';
 import 'package:lapack/src/dsteqr.dart';
 import 'package:lapack/src/dsterf.dart';
 import 'package:lapack/src/ilaenv.dart';
@@ -192,8 +194,9 @@ void dstedc(
           // Scale.
 
           ORGNRM = dlanst('M', M, D[START], E[START]);
-          dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D[START], M, INFO);
-          dlascl('G', 0, 0, ORGNRM, ONE, M - 1, 1, E[START], M - 1, INFO);
+          dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D(START).asMatrix(M), M, INFO);
+          dlascl('G', 0, 0, ORGNRM, ONE, M - 1, 1, E(START).asMatrix(M - 1),
+              M - 1, INFO);
 
           if (ICOMPZ == 1) {
             STRTRW = 1;
@@ -212,7 +215,7 @@ void dstedc(
 
           // Scale back.
 
-          dlascl('G', 0, 0, ONE, ORGNRM, M, 1, D[START], M, INFO);
+          dlascl('G', 0, 0, ONE, ORGNRM, M, 1, D(START).asMatrix(M), M, INFO);
         } else {
           if (ICOMPZ == 1) {
             // Since QR won't update a Z matrix which is larger than
@@ -228,7 +231,7 @@ void dstedc(
             dsteqr(
                 'I', M, D(START), E(START), Z(START, START), LDZ, WORK, INFO);
           } else {
-            dsterf(M, D[START], E[START], INFO);
+            dsterf(M, D(START), E(START), INFO);
           }
           if (INFO.value != 0) {
             INFO.value = START * (N + 1) + FINISH;

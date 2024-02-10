@@ -90,5 +90,5 @@ void dhst01(
 
   // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 
-  dort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT(2));
+  dort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT.box(2));
 }

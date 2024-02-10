@@ -347,7 +347,7 @@
  9990 FORMAT(' SUBPROGRAM NAME ${.a12} NOT RECOGNIZED\n ******* TESTS ABANDONED *******' );
  9989 FORMAT(' ERROR IN CMMCH -  IN-LINE DOT PRODUCTS ARE BEING EVALUATED WRONGLY.\n CMMCH WAS CALLED WITH TRANSA = ${.a1}AND TRANSB = ${.a1}\n AND RETURNED SAME = ${.l1} AND  ERR = ${.f12_3}.\n THIS MAY BE DUE TO FAULTS IN THE ARITHMETIC OR THE COMPILER.\n ******* TESTS ABANDONED *******' );
  9988 FORMAT( A12,L2 );
- 9987 FORMAT( 1X, A12,' WAS NOT TESTED' );
+ 9987 FORMAT(' ${.a12} WAS NOT TESTED' );
  9986 FORMAT('\n END OF TESTS' );
  9985 FORMAT('\n ******* FATAL ERROR - TESTS ABANDONED *******' );
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
@@ -602,7 +602,7 @@
 10000 FORMAT( ' ${.a12} PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS (${.i6} CALLS)' )
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9996 FORMAT( ' ******* ${.a12} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a12}(''${.a1}'',''${.a1}'',${i3(3, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3}).' );
+ 9995 FORMAT(' ${.i6}: ${.a12}(''${.a1}'',''${.a1}'',${i3(3, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3}).' );
  9994 FORMAT(' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
 
       // End of CCHK1.
@@ -638,7 +638,7 @@
       WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CTA,CTB;
       WRITE(NOUT, FMT = 9994)M, N, K, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(${.a14},${.a14},${.a14},');
+ 9995 FORMAT(' ${.i6}: ${.a12}(${.a14},${.a14},${.a14},');
  9994 FORMAT( 10X, 3( I3, ',' ) ,' (', F4.1,',',F4.1,') , A,${.i3}, B,${.i3}, (', F4.1,',',F4.1,') , C,${.i3}).' );
       }
 
@@ -880,7 +880,7 @@
 10000 FORMAT( ' ${.a12} PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS (${.i6} CALLS)' )
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9996 FORMAT( ' ******* ${.a12} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(1X, I6, ': ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
  9994 FORMAT(' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
 
       // End of CCHK2.
@@ -912,7 +912,7 @@
       WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU;
       WRITE(NOUT, FMT = 9994)M, N, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(${.a14},${.a14},${.a14},');
+ 9995 FORMAT(' ${.i6}: ${.a12}(${.a14},${.a14},${.a14},');
  9994 FORMAT( 10X, 2( I3, ',' ),' (',F4.1,',',F4.1, '), A,${.i3}, B,${.i3}, (',F4.1,',',F4.1, '), C,${.i3}).' );
       }
 
@@ -1170,7 +1170,7 @@
 10000 FORMAT( ' ${.a12} PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS (${.i6} CALLS)' )
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9996 FORMAT(' ******* ${.a12} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(1X, I6, ': ${.a12}(', 4( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3})               .' );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 4( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3})               .' );
  9994 FORMAT(' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
 
       // End of CCHK3.
@@ -1214,7 +1214,7 @@
       WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU;
       WRITE(NOUT, FMT = 9994)CA, CD, M, N, ALPHA, LDA, LDB;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(${.a14},${.a14},${.a14},');
+ 9995 FORMAT(' ${.i6}: ${.a12}(${.a14},${.a14},${.a14},');
  9994 FORMAT( 10X, 2( A14, ',') , 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B,${.i3}).' );
       }
 
@@ -1497,8 +1497,8 @@
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9996 FORMAT( ' ******* ${.a12} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(1X, I6, ': ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})                         .' );
- 9993 FORMAT(1X, I6, ': ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}) , A,${.i3},(${.f4_1},${.f4_1}), C,${.i3})          .' );
+ 9994 FORMAT(' ${.i6}: ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})                         .' );
+ 9993 FORMAT(' ${.i6}: ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}) , A,${.i3},(${.f4_1},${.f4_1}), C,${.i3})          .' );
  9992 FORMAT(' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
 
       // End of CCHK4.
@@ -1532,7 +1532,7 @@
       WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
       WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(', 3( A14, ',') );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 3( A14, ',') );
  9994 FORMAT( 10X, 2( I3, ',' ), ' (${.f4_1},', F4.1 ,'), A,${.i3}, (', F4.1,',${.f4_1}), C,${.i3}).' );
       }
 
@@ -1564,7 +1564,7 @@
       WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
       WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(', 3( A14, ',') );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 3( A14, ',') );
  9994 FORMAT( 10X, 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
@@ -1872,8 +1872,8 @@
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9996 FORMAT( ' ******* ${.a12} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(1X, I6, ': ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})           .' );
- 9993 FORMAT(1X, I6, ': ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
+ 9994 FORMAT(' ${.i6}: ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})           .' );
+ 9993 FORMAT(' ${.i6}: ${.a12}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
  9992 FORMAT(' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
 
       // End of CCHK5.
@@ -1907,7 +1907,7 @@
       WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
       WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(', 3( A14, ',') );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 3( A14, ',') );
  9994 FORMAT( 10X, 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B${.i3}, (${.f4_1},${.f4_1}), C,${.i3}).' );
       }
 
@@ -1940,7 +1940,7 @@
       WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
       WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ${.a12}(', 3( A14, ',') );
+ 9995 FORMAT(' ${.i6}: ${.a12}(', 3( A14, ',') );
  9994 FORMAT( 10X, 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B${.i3},${.f4_1}, C,${.i3}).' );
       }
 

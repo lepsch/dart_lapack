@@ -60,23 +60,12 @@ void dstein(
       PERTOL,
       SCL,
       SEP,
-      TOL = 0,
       XJ = 0,
       XJM = 0,
       ZTR;
   final ISEED = Array<int>(4);
   final IINFO = Box(0);
-  // ..
-  // .. External Functions ..
-  //- int                idamax;
-  //- double             DDOT, DLAMCH, DNRM2;
-  // EXTERNAL idamax, DDOT, DLAMCH, DNRM2
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DAXPY, DCOPY, DLAGTF, DLAGTS, DLARNV, DSCAL, XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS, MAX, SQRT
+  final TOL = Box(0.0);
 
   // Test the input parameters.
 
@@ -206,9 +195,9 @@ void dstein(
 
         // Compute LU factors with partial pivoting  ( PT = LU )
 
-        TOL = ZERO;
-        dlagtf(BLKSIZ, WORK[INDRV4 + 1], XJ, WORK[INDRV2 + 2], WORK[INDRV3 + 1],
-            TOL, WORK[INDRV5 + 1], IWORK, IINFO);
+        TOL.value = ZERO;
+        dlagtf(BLKSIZ, WORK(INDRV4 + 1), XJ, WORK(INDRV2 + 2), WORK(INDRV3 + 1),
+            TOL.value, WORK(INDRV5 + 1), IWORK, IINFO);
 
         // Update iteration count.
         var flag = false;
@@ -233,12 +222,12 @@ void dstein(
           dlagts(
               -1,
               BLKSIZ,
-              WORK[INDRV4 + 1],
-              WORK[INDRV2 + 2],
-              WORK[INDRV3 + 1],
-              WORK[INDRV5 + 1],
+              WORK(INDRV4 + 1),
+              WORK(INDRV2 + 2),
+              WORK(INDRV3 + 1),
+              WORK(INDRV5 + 1),
               IWORK,
-              WORK[INDRV1 + 1],
+              WORK(INDRV1 + 1),
               TOL,
               IINFO);
 

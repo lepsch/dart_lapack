@@ -103,7 +103,6 @@ void ddrvst2stg(
       LWEDC,
       MTYPES,
       N,
-      NERRS,
       NMATS,
       NMAX,
       NTEST,
@@ -151,7 +150,9 @@ void ddrvst2stg(
       Array.fromList([1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3]);
   final KMODE =
       Array.fromList([0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4]);
-  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0);
+  final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0),
+      NERRS=Box(0)
+  ;
 
   // Keep ftrnchek happy
 
@@ -211,7 +212,7 @@ void ddrvst2stg(
     ISEED3[I] = ISEED[I];
   }
 
-  NERRS = 0;
+  NERRS.value = 0;
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
@@ -450,7 +451,7 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT[1]);
+          dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(1));
 
           NTEST = 3;
           for (I = 1; I <= N - 1; I++) {
@@ -520,7 +521,7 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT[4]);
+          dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(4));
 
           NTEST = 6;
           for (I = 1; I <= N - 1; I++) {
@@ -589,7 +590,7 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT[7]);
+          dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT(7));
 
           NTEST = 9;
           for (I = 1; I <= N - 1; I++) {
@@ -654,8 +655,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
-              max(1, M2.value), RESULT[10]);
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
+              max(1, M2.value), RESULT(10));
 
           NTEST = 12;
           for (I = 1; I <= N - 1; I++) {
@@ -747,8 +748,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
-              max(1, M2.value), RESULT[13]);
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
+              max(1, M2.value), RESULT(13));
 
           NTEST = 15;
           for (I = 1; I <= N - 1; I++) {
@@ -808,7 +809,7 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT[16]);
+          dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT(16));
 
           NTEST = 18;
           for (I = 1; I <= N - 1; I++) {
@@ -872,8 +873,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
-              max(1, M2.value), RESULT[19]);
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
+              max(1, M2.value), RESULT(19));
 
           NTEST = 21;
           for (I = 1; I <= N - 1; I++) {
@@ -965,8 +966,8 @@ void ddrvst2stg(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
-              max(1, M2.value), RESULT[22]);
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK.asMatrix(max(1, M2.value)),
+              max(1, M2.value), RESULT(22));
 
           NTEST = 24;
           for (I = 1; I <= N - 1; I++) {
@@ -1035,7 +1036,7 @@ void ddrvst2stg(
           // Do tests 25 and 26 (or +54)
 
           dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
@@ -1120,7 +1121,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt21(1, UPLO, N, 0, A, LDU, D1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEVX_2STAGE';
@@ -1176,7 +1177,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
@@ -1228,7 +1229,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
@@ -1311,7 +1312,7 @@ void ddrvst2stg(
           // Do tests 37 and 38 (or +54)
 
           dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1426,8 +1427,8 @@ void ddrvst2stg(
 
           // Do tests 40 and 41 (or +54)
 
-          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V.asArray(), LDU, TAU,
-              WORK, RESULT[NTEST]);
+          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1516,8 +1517,8 @@ void ddrvst2stg(
 
           // Do tests 43 and 44 (or +54)
 
-          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V.asArray(),
-              LDU, TAU, WORK, RESULT[NTEST]);
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V,
+              LDU, TAU, WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1612,8 +1613,8 @@ void ddrvst2stg(
 
           // Do tests 46 and 47 (or +54)
 
-          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V.asArray(),
-              LDU, TAU, WORK, RESULT[NTEST]);
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V,
+              LDU, TAU, WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1716,7 +1717,7 @@ void ddrvst2stg(
           // Do tests 49 and 50 (or ... )
 
           dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -1799,7 +1800,7 @@ void ddrvst2stg(
           // Do tests 52 and 53 (or +54)
 
           dsyt21(1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -1903,7 +1904,7 @@ void ddrvst2stg(
           // Do tests 55 and 56 (or +54)
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -2008,7 +2009,7 @@ void ddrvst2stg(
           // Do tests 58 and 59 (or +54)
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
 
@@ -2106,7 +2107,7 @@ void ddrvst2stg(
           // Do tests 61 and 62 (or +54)
 
           dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
@@ -2185,7 +2186,7 @@ void ddrvst2stg(
           // Do tests 64 and 65 (or +54)
 
           dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -2280,7 +2281,7 @@ void ddrvst2stg(
           // Do tests 67 and 68 (or +54)
 
           dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -2350,7 +2351,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
-              RESULT[NTEST]);
+              RESULT(NTEST));
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEVR_2STAGE';
@@ -2426,7 +2427,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
@@ -2498,7 +2499,7 @@ void ddrvst2stg(
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
-              WORK, RESULT[NTEST]);
+              WORK, RESULT(NTEST));
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
@@ -2567,7 +2568,7 @@ void ddrvst2stg(
   }
 
   // Summary
-  alasvm('DST', NOUNIT, NERRS, NTESTT, 0);
+  alasvm('DST', NOUNIT, NERRS.value, NTESTT, 0);
 }
 
 void print9999(

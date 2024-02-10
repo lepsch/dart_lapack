@@ -660,8 +660,8 @@
 
  9999 FORMAT( ' *** In SDRVGB, LA=${.i5} is too small for N=${.i5}, KU=${.i5}, KL=', I5, / ' ==> Increase LA to at least ${.i5}');
  9998 FORMAT( ' *** In SDRVGB, LAFB=${.i5} is too small for N=${.i5}, KU=${.i5}, KL=', I5, / ' ==> Increase LAFB to at least ${.i5}');
- 9997 FORMAT( 1X, A, ', N=${.i5}, KL=${.i5}, KU=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
- 9996 FORMAT( 1X, A, '( ''${.a1}'',''${.a1}'',${.i5},${.i5},${.i5},...), type ${.i1}, test(${.i1})=${.g12_5};
- 9995 FORMAT( 1X, A, '( ''${.a1}'',''${.a1}'',${.i5},${.i5},${.i5},...), EQUED=''${.a1}'', type ${.i1}, test(${.i1})=${.g12_5};
+ 9997 FORMAT(' ${}, N=${.i5}, KL=${.i5}, KU=${.i5}, type ${.i1}, test(${.i1})=${.g12_5};
+ 9996 FORMAT(' ${}( ''${.a1}'',''${.a1}'',${.i5},${.i5},${.i5},...), type ${.i1}, test(${.i1})=${.g12_5};
+ 9995 FORMAT(' ${}( ''${.a1}'',''${.a1}'',${.i5},${.i5},${.i5},...), EQUED=''${.a1}'', type ${.i1}, test(${.i1})=${.g12_5};
 
       }

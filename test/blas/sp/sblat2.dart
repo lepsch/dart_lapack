@@ -573,8 +573,8 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${i3(4, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2}) .' );
- 9994 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(4, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2}) .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
@@ -862,9 +862,9 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, AP, X,${.i2},${.f4_1}, Y,${.i2})                .' );
- 9994 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})             .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, AP, X,${.i2},${.f4_1}, Y,${.i2})                .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})             .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z ) {
@@ -1156,9 +1156,9 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(', 3( '''${.a1}'',' ), I3, ', AP, X,${.i2})                        .' );
- 9994 FORMAT( 1X, I6, ': ${.a6}(', 3( '''${.a1}'',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                 .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(', 3( '''${.a1}'',' ), I3, ', A,${.i3}, X,${.i2})                     .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', AP, X,${.i2})                        .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                 .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', A,${.i3}, X,${.i2})                     .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
@@ -1384,7 +1384,7 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT( 1X, I6, ': ${.a6}(${i3(2, ',')}${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(${i3(2, ',')}${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
@@ -1626,8 +1626,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, AP)                           .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                        .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, AP)                           .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                        .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
@@ -1900,8 +1900,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, AP)                     .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, AP)                     .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schke(ISNUM,srnamc.SRNAMT, NOUT ) {

@@ -349,14 +349,14 @@
  9998 FORMAT( ' C${.a2}SVXX: ${.i6} out of ${.i6} tests failed to pass the threshold' );
  9997 FORMAT( ' C${.a2}SVXX passed the tests of error bounds' );
       // Test ratios.
- 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error\n${' ' * 5}Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n${' ' * 5}ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
- 9995 FORMAT( 3X, I2, ': Componentwise guaranteed forward error' );
- 9994 FORMAT( 3X, I2, ': Backwards error' );
- 9993 FORMAT( 3X, I2, ': Reciprocal condition number' );
- 9992 FORMAT( 3X, I2, ': Reciprocal normwise condition number' );
- 9991 FORMAT( 3X, I2, ': Raw normwise error estimate' );
- 9990 FORMAT( 3X, I2, ': Reciprocal componentwise condition number' );
- 9989 FORMAT( 3X, I2, ': Raw componentwise error estimate' );
+ 9996 FORMAT('${' ' * 3}${.i2}: Normwise guaranteed forward error\n${' ' * 5}Guaranteed case: if norm ( abs( Xc - Xt ) / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then\n${' ' * 5}ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
+ 9995 FORMAT('${' ' * 3}${.i2}: Componentwise guaranteed forward error' );
+ 9994 FORMAT('${' ' * 3}${.i2}: Backwards error' );
+ 9993 FORMAT('${' ' * 3}${.i2}: Reciprocal condition number' );
+ 9992 FORMAT('${' ' * 3}${.i2}: Reciprocal normwise condition number' );
+ 9991 FORMAT('${' ' * 3}${.i2}: Raw normwise error estimate' );
+ 9990 FORMAT('${' ' * 3}${.i2}: Reciprocal componentwise condition number' );
+ 9989 FORMAT('${' ' * 3}${.i2}: Raw componentwise error estimate' );
 
  8000 FORMAT( ' C${.a2}SVXX: N =${.i2}, INFO = ${.i3}, ORCOND = ${.g12_5}, real RCOND = ${.g12_5};
       }

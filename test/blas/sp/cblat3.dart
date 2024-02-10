@@ -506,7 +506,7 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3}).' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3}).' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
@@ -743,7 +743,7 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
@@ -996,7 +996,7 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT( 1X, I6, ': ${.a6}(', 4( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3})               .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 4( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3})               .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
@@ -1274,8 +1274,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT( 1X, I6, ': ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})                         .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}) , A,${.i3},(${.f4_1},${.f4_1}), C,${.i3})          .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})                         .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}) , A,${.i3},(${.f4_1},${.f4_1}), C,${.i3})          .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
@@ -1578,8 +1578,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT( 1X, I6, ': ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})           .' );
- 9993 FORMAT( 1X, I6, ': ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})           .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void cchke(ISNUM,srnamc.SRNAMT, NOUT ) {

@@ -142,8 +142,27 @@ Future<void> dckcsd(
 
       NT = 15;
 
-      dcsdts(M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T,
-          THETA, IWORK, WORK, LWORK, RWORK, RESULT);
+      dcsdts(
+          M,
+          P,
+          Q,
+          X.asMatrix(LDX),
+          XF.asMatrix(LDX),
+          LDX,
+          U1.asMatrix(LDU1),
+          LDU1,
+          U2.asMatrix(LDU2),
+          LDU2,
+          V1T.asMatrix(LDV1T),
+          LDV1T,
+          V2T.asMatrix(LDV2T),
+          LDV2T,
+          THETA,
+          IWORK,
+          WORK,
+          LWORK,
+          RWORK,
+          RESULT);
 
       // Print information about the tests that did not
       // pass the threshold.

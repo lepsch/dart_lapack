@@ -258,7 +258,7 @@ void ddrves(
               'T',
               'T',
               'T',
-              WORK[N + 1],
+              WORK(N + 1),
               4,
               CONDS,
               N,
@@ -266,7 +266,7 @@ void ddrves(
               ANORM,
               A,
               LDA,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1),
               IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues

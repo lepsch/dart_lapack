@@ -83,7 +83,6 @@ void dchkhs(
       MTYPES,
       N = 0,
       N1 = 0,
-      NERRS,
       NMATS,
       NMAX,
       NSELC = 0,
@@ -107,7 +106,7 @@ void dchkhs(
   String ADUMMA = '';
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4);
   final DUMMA = Array<double>(6);
-  final IINFO = Box(0), IN = Box(0);
+  final IINFO = Box(0), IN = Box(0), NERRS = Box(0);
   final KTYPE = Array.fromList([
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ]);
@@ -173,7 +172,7 @@ void dchkhs(
 
   // Loop over sizes, types
 
-  NERRS = 0;
+  NERRS.value = 0;
   NMATS = 0;
 
   for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
@@ -657,7 +656,7 @@ void dchkhs(
         // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
         dget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK,
-            DUMMA[3]);
+            DUMMA(3));
         RESULT[10] = DUMMA[3];
         if (DUMMA[4] > THRESH) {
           print9998(NOUNIT, 'Left', 'DTREVC', DUMMA[4], N, JTYPE, IOLDSD);
@@ -738,7 +737,7 @@ void dchkhs(
           // (from inverse iteration)
 
           dget22(
-              'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA[1]);
+              'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA(1));
           if (DUMMA[1] < ULPINV) RESULT[11] = DUMMA[1] * ANINV;
           if (DUMMA[2] > THRESH) {
             print9998(NOUNIT, 'Right', 'DHSEIN', DUMMA[2], N, JTYPE, IOLDSD);
@@ -765,7 +764,7 @@ void dchkhs(
           // (from inverse iteration)
 
           dget22(
-              'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA[3]);
+              'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA(3));
           if (DUMMA[3] < ULPINV) RESULT[12] = DUMMA[3] * ANINV;
           if (DUMMA[4] > THRESH) {
             print9998(NOUNIT, 'Left', 'DHSEIN', DUMMA[4], N, JTYPE, IOLDSD);
@@ -789,7 +788,7 @@ void dchkhs(
           // (from inverse iteration)
 
           dget22(
-              'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA[1]);
+              'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA(1));
           if (DUMMA[1] < ULPINV) RESULT[13] = DUMMA[1] * ANINV;
         }
 
@@ -810,7 +809,7 @@ void dchkhs(
           // (from inverse iteration)
 
           dget22(
-              'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA[3]);
+              'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA(3));
           if (DUMMA[3] < ULPINV) RESULT[14] = DUMMA[3] * ANINV;
         }
 
@@ -835,7 +834,7 @@ void dchkhs(
 
         // (from Schur decomposition)
 
-        dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA[1]);
+        dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA(1));
         RESULT[15] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
           print9998(NOUNIT, 'Right', 'DTREVC3', DUMMA[2], N, JTYPE, IOLDSD);
@@ -861,7 +860,7 @@ void dchkhs(
         // (from Schur decomposition)
 
         dget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK,
-            DUMMA[3]);
+            DUMMA(3));
         RESULT[16] = DUMMA[3];
         if (DUMMA[4] > THRESH) {
           print9998(NOUNIT, 'Left', 'DTREVC3', DUMMA[4], N, JTYPE, IOLDSD);
@@ -877,7 +876,7 @@ void dchkhs(
   }
 
   // Summary
-  dlasum('DHS', NOUNIT, NERRS, NTESTT);
+  dlasum('DHS', NOUNIT, NERRS.value, NTESTT);
 }
 
 void print9999(

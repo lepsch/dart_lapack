@@ -82,8 +82,6 @@ void dstemr(
       R2 = 0,
       RMAX,
       RMIN,
-      RTOL1,
-      RTOL2,
       SAFMIN,
       SCALE,
       SMLNUM,
@@ -91,7 +89,11 @@ void dstemr(
       THRESH,
       TMP,
       TNRM;
-  final WL = Box(0.0), WU = Box(0.0), PIVMIN = Box(0.0);
+  final WL = Box(0.0),
+      WU = Box(0.0),
+      PIVMIN = Box(0.0),
+      RTOL1 = Box(0.0),
+      RTOL2 = Box(0.0);
   final IINFO = Box(0), NSPLIT = Box(0);
 
   // Test the input parameters.
@@ -338,7 +340,7 @@ void dstemr(
 
     if (TRYRAC.value) {
       // Test whether the matrix warrants the more expensive relative approach.
-      dlarrr(N, D, E, IINFO.value);
+      dlarrr(N, D, E, IINFO);
     } else {
       // The user does not care about relative accurately eigenvalues
       IINFO.value = -1;
@@ -358,22 +360,21 @@ void dstemr(
     }
     // Store the squares of the offdiagonal values of T
     for (J = 1; J <= N - 1; J++) {
-      // 5
       WORK[INDE2 + J - 1] = pow(E[J], 2).toDouble();
-    } // 5
+    }
 
     // Set the tolerance parameters for bisection
     if (!WANTZ) {
       // DLARRE computes the eigenvalues to full precision.
-      RTOL1 = FOUR * EPS;
-      RTOL2 = FOUR * EPS;
+      RTOL1.value = FOUR * EPS;
+      RTOL2.value = FOUR * EPS;
     } else {
       // DLARRE computes the eigenvalues to less than full precision.
       // DLARRV will refine the eigenvalue approximations, and we can
       // need less accurate initial bisection in DLARRE.
       // Note: these settings do only affect the subset case and DLARRE
-      RTOL1 = sqrt(EPS);
-      RTOL2 = max(sqrt(EPS) * 5.0e-3, FOUR * EPS);
+      RTOL1.value = sqrt(EPS);
+      RTOL2.value = max(sqrt(EPS) * 5.0e-3, FOUR * EPS);
     }
     dlarre(
         RANGE,
@@ -385,8 +386,8 @@ void dstemr(
         D,
         E,
         WORK(INDE2),
-        RTOL1,
-        RTOL2,
+        RTOL1.value,
+        RTOL2.value,
         THRESH,
         NSPLIT,
         IWORK(IINSPL),
@@ -420,7 +421,7 @@ void dstemr(
           D,
           E,
           PIVMIN.value,
-          IWORK[IINSPL],
+          IWORK(IINSPL),
           M.value,
           1,
           M.value,
@@ -428,17 +429,17 @@ void dstemr(
           RTOL1,
           RTOL2,
           W,
-          WORK[INDERR],
-          WORK[INDGP],
-          IWORK[IINDBL],
-          IWORK[IINDW],
-          WORK[INDGRS],
+          WORK(INDERR),
+          WORK(INDGP),
+          IWORK(IINDBL),
+          IWORK(IINDW),
+          WORK(INDGRS),
           Z,
           LDZ,
           ISUPPZ,
-          WORK[INDWRK],
-          IWORK[IINDWK],
-          IINFO.value);
+          WORK(INDWRK),
+          IWORK(IINDWK),
+          IINFO);
       if (IINFO.value != 0) {
         INFO.value = 20 + (IINFO.value).abs();
         return;
@@ -450,10 +451,9 @@ void dstemr(
       // to apply the corresponding shifts from DLARRE to obtain the
       // eigenvalues of the original matrix.
       for (J = 1; J <= M.value; J++) {
-        // 20
         ITMP = IWORK[IINDBL + J - 1];
         W[J] = W[J] + E[IWORK[IINSPL + ITMP - 1]];
-      } // 20
+      }
     }
 
     if (TRYRAC.value) {
@@ -462,7 +462,6 @@ void dstemr(
       IBEGIN = 1;
       WBEGIN = 1;
       for (JBLK = 1; JBLK <= IWORK[IINDBL + M.value - 1]; JBLK++) {
-        // 39
         IEND = IWORK[IINSPL + JBLK - 1];
         IN = IEND - IBEGIN + 1;
         WEND = WBEGIN - 1;
@@ -480,25 +479,25 @@ void dstemr(
         OFFSET = IWORK[IINDW + WBEGIN - 1] - 1;
         IFIRST = IWORK[IINDW + WBEGIN - 1];
         ILAST = IWORK[IINDW + WEND - 1];
-        RTOL2 = FOUR * EPS;
+        RTOL2.value = FOUR * EPS;
         dlarrj(
             IN,
-            WORK[INDD + IBEGIN - 1],
-            WORK[INDE2 + IBEGIN - 1],
+            WORK(INDD + IBEGIN - 1),
+            WORK(INDE2 + IBEGIN - 1),
             IFIRST,
             ILAST,
-            RTOL2,
+            RTOL2.value,
             OFFSET,
-            W[WBEGIN],
-            WORK[INDERR + WBEGIN - 1],
-            WORK[INDWRK],
-            IWORK[IINDWK],
+            W(WBEGIN),
+            WORK(INDERR + WBEGIN - 1),
+            WORK(INDWRK),
+            IWORK(IINDWK),
             PIVMIN.value,
             TNRM,
-            IINFO.value);
+            IINFO);
         IBEGIN = IEND + 1;
         WBEGIN = WEND + 1;
-      } // 39
+      }
     }
 
     // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -513,23 +512,21 @@ void dstemr(
 
   if (NSPLIT.value > 1 || N == 2) {
     if (!WANTZ) {
-      dlasrt('I', M.value, W, IINFO.value);
+      dlasrt('I', M.value, W, IINFO);
       if (IINFO.value != 0) {
         INFO.value = 3;
         return;
       }
     } else {
       for (J = 1; J <= M.value - 1; J++) {
-        // 60
         I = 0;
         TMP = W[J];
         for (JJ = J + 1; JJ <= M.value; JJ++) {
-          // 50
           if (W[JJ] < TMP) {
             I = JJ;
             TMP = W[JJ];
           }
-        } // 50
+        }
         if (I != 0) {
           W[I] = W[J];
           W[J] = TMP;
@@ -543,7 +540,7 @@ void dstemr(
             ISUPPZ[2 * J] = ITMP;
           }
         }
-      } // 60
+      }
     }
   }
 

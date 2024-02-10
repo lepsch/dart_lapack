@@ -546,5 +546,5 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ' M =${.i5}, N =${.i5}, NRHS =${.i5}, KMAX =${.i5}, ABSTOL =${.g12_5}, RELTOL =${.g12_5}, NB =${.i4}, NX =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${} M =${.i5}, N =${.i5}, NRHS =${.i5}, KMAX =${.i5}, ABSTOL =${.g12_5}, RELTOL =${.g12_5}, NB =${.i4}, NX =${.i4}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
       }

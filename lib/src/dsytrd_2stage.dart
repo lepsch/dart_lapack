@@ -2,102 +2,103 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dsytrd_sb2st.dart';
+import 'package:lapack/src/dsytrd_sy2sb.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrd_2stage(VECT, UPLO, N, A, LDA, D, E, TAU, HOUS2, LHOUS2, WORK, LWORK, INFO ) {
-
+void dsytrd_2stage(
+  final String VECT,
+  final String UPLO,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> D,
+  final Array<double> E,
+  final Array<double> TAU,
+  final Array<double> HOUS2,
+  final int LHOUS2,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             VECT, UPLO;
-      int                N, LDA, LWORK, LHOUS2, INFO;
-      double             D( * ), E( * );
-      double             A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
-      // ..
+  bool LQUERY, UPPER, WANTQ;
+  int KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 
-// =====================================================================
-      bool               LQUERY, UPPER, WANTQ;
-      int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, DSYTRD_SY2SB, DSYTRD_SB2ST
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV2STAGE;
-      // EXTERNAL lsame, ILAENV2STAGE
+  // Test the input parameters
 
-      // Test the input parameters
+  INFO.value = 0;
+  WANTQ = lsame(VECT, 'V');
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1) || (LHOUS2 == -1);
 
-      INFO   = 0;
-      WANTQ  = lsame( VECT, 'V' );
-      UPPER  = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 ) || ( LHOUS2 == -1 );
+  // Determine the block size, the workspace size and the hous size.
 
-      // Determine the block size, the workspace size and the hous size.
+  KD = ilaenv2stage(1, 'DSYTRD_2STAGE', VECT, N, -1, -1, -1);
+  IB = ilaenv2stage(2, 'DSYTRD_2STAGE', VECT, N, KD, -1, -1);
+  if (N == 0) {
+    LHMIN = 1;
+    LWMIN = 1;
+  } else {
+    LHMIN = ilaenv2stage(3, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1);
+    LWMIN = ilaenv2stage(4, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1);
+  }
 
-      KD     = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', VECT, N, -1, -1, -1 );
-      IB     = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', VECT, N, KD, -1, -1 );
-      if ( N == 0 ) {
-         LHMIN = 1;
-         LWMIN = 1;
-      } else {
-         LHMIN = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1 );
-         LWMIN = ILAENV2STAGE( 4, 'DSYTRD_2STAGE', VECT, N, KD, IB, -1 );
-      }
+  if (!lsame(VECT, 'N')) {
+    INFO.value = -1;
+  } else if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LHOUS2 < LHMIN && !LQUERY) {
+    INFO.value = -10;
+  } else if (LWORK < LWMIN && !LQUERY) {
+    INFO.value = -12;
+  }
 
-      if ( !lsame( VECT, 'N' ) ) {
-         INFO = -1;
-      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LHOUS2 < LHMIN && !LQUERY ) {
-         INFO = -10;
-      } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -12;
-      }
+  if (INFO.value == 0) {
+    HOUS2[1] = LHMIN.toDouble();
+    WORK[1] = LWMIN.toDouble();
+  }
 
-      if ( INFO == 0 ) {
-         HOUS2[1] = LHMIN;
-         WORK[1] = LWMIN;
-      }
+  if (INFO.value != 0) {
+    xerbla('DSYTRD_2STAGE', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DSYTRD_2STAGE', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) {
+    WORK[1] = 1;
+    return;
+  }
 
-      if ( N == 0 ) {
-         WORK[1] = 1;
-         return;
-      }
+  // Determine pointer position
 
-      // Determine pointer position
+  LDAB = KD + 1;
+  LWRK = LWORK - LDAB * N;
+  ABPOS = 1;
+  WPOS = ABPOS + LDAB * N;
+  dsytrd_sy2sb(UPLO, N, KD, A, LDA, WORK(ABPOS).asMatrix(LDAB), LDAB, TAU,
+      WORK(WPOS), LWRK, INFO);
+  if (INFO.value != 0) {
+    xerbla('DSYTRD_SY2SB', -INFO.value);
+    return;
+  }
+  dsytrd_sb2st('Y', VECT, UPLO, N, KD, WORK(ABPOS).asMatrix(LDAB), LDAB, D, E,
+      HOUS2, LHOUS2, WORK(WPOS), LWRK, INFO);
+  if (INFO.value != 0) {
+    xerbla('DSYTRD_SB2ST', -INFO.value);
+    return;
+  }
 
-      LDAB  = KD+1;
-      LWRK  = LWORK-LDAB*N;
-      ABPOS = 1;
-      WPOS  = ABPOS + LDAB*N;
-      dsytrd_sy2sb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
-      if ( INFO != 0 ) {
-         xerbla('DSYTRD_SY2SB', -INFO );
-         return;
-      }
-      dsytrd_sb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
-      if ( INFO != 0 ) {
-         xerbla('DSYTRD_SB2ST', -INFO );
-         return;
-      }
-
-
-      WORK[1] = LWMIN;
-      }
+  WORK[1] = LWMIN.toDouble();
+}

@@ -505,12 +505,12 @@ int ilaenv(
 
     case 10:
       // ISPEC = 10: ieee and infinity NaN arithmetic can be trusted not to trap
-      return ieeeck(1, 0.0, 1.0);
+      return ieeeck(1, 0.0, 1.0) ? 1 : 0;
 
     case 11:
 
       // ISPEC = 11: ieee infinity arithmetic can be trusted not to trap
-      return ieeeck(0, 0.0, 1.0);
+      return ieeeck(0, 0.0, 1.0) ? 1 : 0;
 
     case 12:
     case 13:

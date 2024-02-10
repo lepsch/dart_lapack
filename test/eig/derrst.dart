@@ -132,25 +132,25 @@ void derrst(final String PATH, final Nout NUNIT) {
 
     srnamc.SRNAMT = 'DSYTRD_2STAGE';
     infoc.INFOT = 1;
-    dsytrd_2stage('/', 'U', 0, A, 1, D, E, TAU, C, 1, W, 1, INFO);
+    dsytrd_2stage('/', 'U', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 1;
-    dsytrd_2stage('H', 'U', 0, A, 1, D, E, TAU, C, 1, W, 1, INFO);
+    dsytrd_2stage('H', 'U', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dsytrd_2stage('N', '/', 0, A, 1, D, E, TAU, C, 1, W, 1, INFO);
+    dsytrd_2stage('N', '/', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
-    dsytrd_2stage('N', 'U', -1, A, 1, D, E, TAU, C, 1, W, 1, INFO);
+    dsytrd_2stage('N', 'U', -1, A, 1, D, E, TAU, C.asArray(), 1, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
-    dsytrd_2stage('N', 'U', 2, A, 1, D, E, TAU, C, 1, W, 1, INFO);
+    dsytrd_2stage('N', 'U', 2, A, 1, D, E, TAU, C.asArray(), 1, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 10;
-    dsytrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C, 0, W, 1, INFO);
+    dsytrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C.asArray(), 0, W, 1, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 12;
-    dsytrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C, 1, W, 0, INFO);
+    dsytrd_2stage('N', 'U', 0, A, 1, D, E, TAU, C.asArray(), 1, W, 0, INFO);
     chkxer('DSYTRD_2STAGE', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 7;
 
@@ -265,10 +265,10 @@ void derrst(final String PATH, final Nout NUNIT) {
 
     srnamc.SRNAMT = 'DSPTRD';
     infoc.INFOT = 1;
-    dsptrd('/', 0, A, D, E, TAU, INFO);
+    dsptrd('/', 0, A.asArray(), D, E, TAU, INFO);
     chkxer('DSPTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dsptrd('U', -1, A, D, E, TAU, INFO);
+    dsptrd('U', -1, A.asArray(), D, E, TAU, INFO);
     chkxer('DSPTRD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 2;
 

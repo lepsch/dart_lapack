@@ -40,11 +40,9 @@ void dstebz(
       IDISCU,
       IE,
       IEND,
-      IM = 0,
       IN,
       IOFF,
       IORDER,
-      IOUT = 0,
       IRANGE,
       ITMAX,
       ITMP1,
@@ -74,7 +72,7 @@ void dstebz(
       WU = 0,
       WUL = 0;
   final IDUMMA = Array<int>(1);
-  final IINFO = Box(0);
+  final IINFO = Box(0), IM = Box(0), IOUT = Box(0);
 
   INFO.value = 0;
 
@@ -229,8 +227,27 @@ void dstebz(
     IWORK[5] = IL - 1;
     IWORK[6] = IU;
 
-    dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK[5],
-        WORK[N + 1], WORK[N + 5], IOUT, IWORK, W, IBLOCK, IINFO.value);
+    dlaebz(
+        3,
+        ITMAX,
+        N,
+        2,
+        2,
+        NB,
+        ATOLI,
+        RTOLI,
+        PIVMIN,
+        D,
+        E,
+        WORK,
+        IWORK(5),
+        WORK(N + 1).asMatrix(2),
+        WORK(N + 5),
+        IOUT,
+        IWORK.asMatrix(2),
+        W,
+        IBLOCK,
+        IINFO);
 
     if (IWORK[6] == IU) {
       WL = WORK[N + 1];
@@ -359,17 +376,17 @@ void dstebz(
           ATOLI,
           RTOLI,
           PIVMIN,
-          D[IBEGIN],
-          E[IBEGIN],
-          WORK[IBEGIN],
+          D(IBEGIN),
+          E(IBEGIN),
+          WORK(IBEGIN),
           IDUMMA,
-          WORK[N + 1],
-          WORK[N + 2 * IN + 1],
+          WORK(N + 1).asMatrix(IN),
+          WORK(N + 2 * IN + 1),
           IM,
-          IWORK,
-          W[M.value + 1],
-          IBLOCK[M.value + 1],
-          IINFO.value);
+          IWORK.asMatrix(IN),
+          W(M.value + 1),
+          IBLOCK(M.value + 1),
+          IINFO);
 
       NWL = NWL + IWORK[1];
       NWU = NWU + IWORK[IN + 1];
@@ -388,27 +405,27 @@ void dstebz(
           ATOLI,
           RTOLI,
           PIVMIN,
-          D[IBEGIN],
-          E[IBEGIN],
-          WORK[IBEGIN],
+          D(IBEGIN),
+          E(IBEGIN),
+          WORK(IBEGIN),
           IDUMMA,
-          WORK[N + 1],
-          WORK[N + 2 * IN + 1],
+          WORK(N + 1).asMatrix(IN),
+          WORK(N + 2 * IN + 1),
           IOUT,
-          IWORK,
-          W[M.value + 1],
-          IBLOCK[M.value + 1],
-          IINFO.value);
+          IWORK.asMatrix(IN),
+          W(M.value + 1),
+          IBLOCK(M.value + 1),
+          IINFO);
 
       // Copy Eigenvalues Into W and IBLOCK
       // Use -JB for block number for unconverged eigenvalues.
 
-      for (J = 1; J <= IOUT; J++) {
+      for (J = 1; J <= IOUT.value; J++) {
         TMP1 = HALF * (WORK[J + N] + WORK[J + IN + N]);
 
         // Flag non-convergence.
 
-        if (J > IOUT - IINFO.value) {
+        if (J > IOUT.value - IINFO.value) {
           NCNVRG = true;
           IB = -JB;
         } else {
@@ -420,7 +437,7 @@ void dstebz(
         }
       }
 
-      M.value = M.value + IM;
+      M.value = M.value + IM.value;
     }
   }
 
@@ -428,7 +445,7 @@ void dstebz(
   // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
 
   if (IRANGE == 3) {
-    IM = 0;
+    IM.value = 0;
     IDISCL = IL - 1 - NWL;
     IDISCU = NWU - IU;
 
@@ -439,12 +456,12 @@ void dstebz(
         } else if (W[JE] >= WUL && IDISCU > 0) {
           IDISCU = IDISCU - 1;
         } else {
-          IM = IM + 1;
-          W[IM] = W[JE];
-          IBLOCK[IM] = IBLOCK[JE];
+          IM.value = IM.value + 1;
+          W[IM.value] = W[JE];
+          IBLOCK[IM.value] = IBLOCK[JE];
         }
       }
-      M.value = IM;
+      M.value = IM.value;
     }
     if (IDISCL > 0 || IDISCU > 0) {
       // Code to deal with effects of bad arithmetic:
@@ -483,15 +500,15 @@ void dstebz(
           IBLOCK[IW] = 0;
         }
       }
-      IM = 0;
+      IM.value = 0;
       for (JE = 1; JE <= M.value; JE++) {
         if (IBLOCK[JE] != 0) {
-          IM = IM + 1;
-          W[IM] = W[JE];
-          IBLOCK[IM] = IBLOCK[JE];
+          IM.value = IM.value + 1;
+          W[IM.value] = W[JE];
+          IBLOCK[IM.value] = IBLOCK[JE];
         }
       }
-      M.value = IM;
+      M.value = IM.value;
     }
     if (IDISCL < 0 || IDISCU < 0) {
       TOOFEW = true;

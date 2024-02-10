@@ -133,7 +133,8 @@ void dsytrd(
       // matrix W which is needed to update the unreduced part of
       // the matrix
 
-      dlatrd(UPLO, N - I + 1, NB, A[I][I], LDA, E[I], TAU[I], WORK, LDWORK);
+      dlatrd(UPLO, N - I + 1, NB, A(I, I), LDA, E(I), TAU(I),
+          WORK.asMatrix(LDWORK), LDWORK);
 
       // Update the unreduced submatrix A[i+ib:n][i+ib:n], using
       // an update of the form:  A := A - V*W**T - W*V**T
