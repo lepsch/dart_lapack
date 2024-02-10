@@ -229,28 +229,8 @@ void dstebz(
     IWORK[5] = IL - 1;
     IWORK[6] = IU;
 
-    dlaebz(
-      3,
-      ITMAX,
-      N,
-      2,
-      2,
-      NB,
-      ATOLI,
-      RTOLI,
-      PIVMIN,
-      D,
-      E,
-      WORK,
-      IWORK[5],
-      WORK[N + 1],
-      WORK[N + 5],
-      IOUT,
-      IWORK,
-      W,
-      IBLOCK,
-      IINFO.value,
-    );
+    dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK[5],
+        WORK[N + 1], WORK[N + 5], IOUT, IWORK, W, IBLOCK, IINFO.value);
 
     if (IWORK[6] == IU) {
       WL = WORK[N + 1];
@@ -370,27 +350,26 @@ void dstebz(
       WORK[N + 1] = GL;
       WORK[N + IN + 1] = GU;
       dlaebz(
-        1,
-        0,
-        IN,
-        IN,
-        1,
-        NB,
-        ATOLI,
-        RTOLI,
-        PIVMIN,
-        D[IBEGIN],
-        E[IBEGIN],
-        WORK[IBEGIN],
-        IDUMMA,
-        WORK[N + 1],
-        WORK[N + 2 * IN + 1],
-        IM,
-        IWORK,
-        W[M.value + 1],
-        IBLOCK[M.value + 1],
-        IINFO.value,
-      );
+          1,
+          0,
+          IN,
+          IN,
+          1,
+          NB,
+          ATOLI,
+          RTOLI,
+          PIVMIN,
+          D[IBEGIN],
+          E[IBEGIN],
+          WORK[IBEGIN],
+          IDUMMA,
+          WORK[N + 1],
+          WORK[N + 2 * IN + 1],
+          IM,
+          IWORK,
+          W[M.value + 1],
+          IBLOCK[M.value + 1],
+          IINFO.value);
 
       NWL = NWL + IWORK[1];
       NWU = NWU + IWORK[IN + 1];
@@ -400,27 +379,26 @@ void dstebz(
 
       ITMAX = (log(GU - GL + PIVMIN) - log(PIVMIN)) ~/ log(TWO) + 2;
       dlaebz(
-        2,
-        ITMAX,
-        IN,
-        IN,
-        1,
-        NB,
-        ATOLI,
-        RTOLI,
-        PIVMIN,
-        D[IBEGIN],
-        E[IBEGIN],
-        WORK[IBEGIN],
-        IDUMMA,
-        WORK[N + 1],
-        WORK[N + 2 * IN + 1],
-        IOUT,
-        IWORK,
-        W[M.value + 1],
-        IBLOCK[M.value + 1],
-        IINFO.value,
-      );
+          2,
+          ITMAX,
+          IN,
+          IN,
+          1,
+          NB,
+          ATOLI,
+          RTOLI,
+          PIVMIN,
+          D[IBEGIN],
+          E[IBEGIN],
+          WORK[IBEGIN],
+          IDUMMA,
+          WORK[N + 1],
+          WORK[N + 2 * IN + 1],
+          IOUT,
+          IWORK,
+          W[M.value + 1],
+          IBLOCK[M.value + 1],
+          IINFO.value);
 
       // Copy Eigenvalues Into W and IBLOCK
       // Use -JB for block number for unconverged eigenvalues.

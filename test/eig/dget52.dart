@@ -97,32 +97,10 @@ void dget52(
             max((SALFR).abs() * BNORM, max((SBETA).abs() * ANORM, SAFMIN));
         ACOEF = SCALE * SBETA;
         BCOEFR = SCALE * SALFR;
-        dgemv(
-          TRANS,
-          N,
-          N,
-          ACOEF,
-          A,
-          LDA,
-          E(1, JVEC).asArray(),
-          1,
-          ZERO,
-          WORK(N * (JVEC - 1) + 1),
-          1,
-        );
-        dgemv(
-          TRANS,
-          N,
-          N,
-          -BCOEFR,
-          B,
-          LDA,
-          E(1, JVEC).asArray(),
-          1,
-          ONE,
-          WORK(N * (JVEC - 1) + 1),
-          1,
-        );
+        dgemv(TRANS, N, N, ACOEF, A, LDA, E(1, JVEC).asArray(), 1, ZERO,
+            WORK(N * (JVEC - 1) + 1), 1);
+        dgemv(TRANS, N, N, -BCOEFR, B, LDA, E(1, JVEC).asArray(), 1, ONE,
+            WORK(N * (JVEC - 1) + 1), 1);
       } else {
         // Complex conjugate pair
 
@@ -141,10 +119,8 @@ void dget52(
           SBETA = SCALE * SBETA;
         }
         SCALE = ONE /
-            max(
-              ((SALFR).abs() + (SALFI).abs()) * BNORM,
-              max((SBETA).abs() * ANORM, SAFMIN),
-            );
+            max(((SALFR).abs() + (SALFI).abs()) * BNORM,
+                max((SBETA).abs() * ANORM, SAFMIN));
         ACOEF = SCALE * SBETA;
         BCOEFR = SCALE * SALFR;
         BCOEFI = SCALE * SALFI;
@@ -152,85 +128,19 @@ void dget52(
           BCOEFI = -BCOEFI;
         }
 
-        dgemv(
-          TRANS,
-          N,
-          N,
-          ACOEF,
-          A,
-          LDA,
-          E(1, JVEC).asArray(),
-          1,
-          ZERO,
-          WORK(N * (JVEC - 1) + 1),
-          1,
-        );
-        dgemv(
-          TRANS,
-          N,
-          N,
-          -BCOEFR,
-          B,
-          LDA,
-          E(1, JVEC).asArray(),
-          1,
-          ONE,
-          WORK(N * (JVEC - 1) + 1),
-          1,
-        );
-        dgemv(
-          TRANS,
-          N,
-          N,
-          BCOEFI,
-          B,
-          LDA,
-          E(1, JVEC + 1).asArray(),
-          1,
-          ONE,
-          WORK(N * (JVEC - 1) + 1),
-          1,
-        );
+        dgemv(TRANS, N, N, ACOEF, A, LDA, E(1, JVEC).asArray(), 1, ZERO,
+            WORK(N * (JVEC - 1) + 1), 1);
+        dgemv(TRANS, N, N, -BCOEFR, B, LDA, E(1, JVEC).asArray(), 1, ONE,
+            WORK(N * (JVEC - 1) + 1), 1);
+        dgemv(TRANS, N, N, BCOEFI, B, LDA, E(1, JVEC + 1).asArray(), 1, ONE,
+            WORK(N * (JVEC - 1) + 1), 1);
 
-        dgemv(
-          TRANS,
-          N,
-          N,
-          ACOEF,
-          A,
-          LDA,
-          E(1, JVEC + 1).asArray(),
-          1,
-          ZERO,
-          WORK(N * JVEC + 1),
-          1,
-        );
-        dgemv(
-          TRANS,
-          N,
-          N,
-          -BCOEFI,
-          B,
-          LDA,
-          E(1, JVEC).asArray(),
-          1,
-          ONE,
-          WORK(N * JVEC + 1),
-          1,
-        );
-        dgemv(
-          TRANS,
-          N,
-          N,
-          -BCOEFR,
-          B,
-          LDA,
-          E(1, JVEC + 1).asArray(),
-          1,
-          ONE,
-          WORK(N * JVEC + 1),
-          1,
-        );
+        dgemv(TRANS, N, N, ACOEF, A, LDA, E(1, JVEC + 1).asArray(), 1, ZERO,
+            WORK(N * JVEC + 1), 1);
+        dgemv(TRANS, N, N, -BCOEFI, B, LDA, E(1, JVEC).asArray(), 1, ONE,
+            WORK(N * JVEC + 1), 1);
+        dgemv(TRANS, N, N, -BCOEFR, B, LDA, E(1, JVEC + 1).asArray(), 1, ONE,
+            WORK(N * JVEC + 1), 1);
       }
     }
   }

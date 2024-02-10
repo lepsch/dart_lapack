@@ -219,28 +219,27 @@ void dstevr(
           TRYRAC.value = false;
         }
         dstemr(
-          JOBZ,
-          'A',
-          N,
-          WORK(N + 1),
-          WORK,
-          VL,
-          VU,
-          IL,
-          IU,
-          M,
-          W,
-          Z,
-          LDZ,
-          N,
-          ISUPPZ,
-          TRYRAC,
-          WORK(2 * N + 1),
-          LWORK - 2 * N,
-          IWORK,
-          LIWORK,
-          INFO,
-        );
+            JOBZ,
+            'A',
+            N,
+            WORK(N + 1),
+            WORK,
+            VL,
+            VU,
+            IL,
+            IU,
+            M,
+            W,
+            Z,
+            LDZ,
+            N,
+            ISUPPZ,
+            TRYRAC,
+            WORK(2 * N + 1),
+            LWORK - 2 * N,
+            IWORK,
+            LIWORK,
+            INFO);
       }
       if (INFO.value == 0) {
         M.value = N;
@@ -256,43 +255,12 @@ void dstevr(
     } else {
       ORDER = 'E';
     }
-    dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VLL,
-      VUU,
-      IL,
-      IU,
-      ABSTOL,
-      D,
-      E,
-      M,
-      NSPLIT,
-      W,
-      IWORK(INDIBL),
-      IWORK(INDISP),
-      WORK,
-      IWORK(INDIWO),
-      INFO,
-    );
+    dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W,
+        IWORK(INDIBL), IWORK(INDISP), WORK, IWORK(INDIWO), INFO);
 
     if (WANTZ) {
-      dstein(
-        N,
-        D,
-        E,
-        M.value,
-        W,
-        IWORK(INDIBL),
-        IWORK(INDISP),
-        Z,
-        LDZ,
-        WORK,
-        IWORK(INDIWO),
-        IWORK(INDIFL),
-        INFO,
-      );
+      dstein(N, D, E, M.value, W, IWORK(INDIBL), IWORK(INDISP), Z, LDZ, WORK,
+          IWORK(INDIWO), IWORK(INDIFL), INFO);
     }
 
     break;

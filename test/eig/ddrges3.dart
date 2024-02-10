@@ -169,12 +169,11 @@ void ddrges3(
   if (INFO.value == 0 && LWORK >= 1) {
     MINWRK = max(10 * (NMAX + 1), 3 * NMAX * NMAX);
     NB = max(
-      max(1, ilaenv(1, 'DGEQRF', ' ', NMAX, NMAX, -1, -1)),
-      max(
-        ilaenv(1, 'DORMQR', 'LT', NMAX, NMAX, NMAX, -1),
-        ilaenv(1, 'DORGQR', ' ', NMAX, NMAX, NMAX, -1),
-      ),
-    );
+        max(1, ilaenv(1, 'DGEQRF', ' ', NMAX, NMAX, -1, -1)),
+        max(
+          ilaenv(1, 'DORMQR', 'LT', NMAX, NMAX, NMAX, -1),
+          ilaenv(1, 'DORGQR', ' ', NMAX, NMAX, NMAX, -1),
+        ));
     MAXWRK = max(10 * (NMAX + 1), max(2 * NMAX + NMAX * NB, 3 * NMAX * NMAX));
     WORK[1] = MAXWRK.toDouble();
   }
@@ -273,19 +272,18 @@ void ddrges3(
             IN = N;
           }
           dlatm4(
-            KATYPE[JTYPE],
-            IN,
-            KZ1[KAZERO[JTYPE]],
-            KZ2[KAZERO[JTYPE]],
-            IASIGN[JTYPE],
-            RMAGN[KAMAGN[JTYPE]],
-            ULP,
-            RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
-            2,
-            ISEED,
-            A,
-            LDA,
-          );
+              KATYPE[JTYPE],
+              IN,
+              KZ1[KAZERO[JTYPE]],
+              KZ2[KAZERO[JTYPE]],
+              IASIGN[JTYPE],
+              RMAGN[KAMAGN[JTYPE]],
+              ULP,
+              RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
+              2,
+              ISEED,
+              A,
+              LDA);
           IADD = KADD[KAZERO[JTYPE]];
           if (IADD > 0 && IADD <= N) A[IADD][IADD] = ONE;
 
@@ -298,19 +296,18 @@ void ddrges3(
             IN = N;
           }
           dlatm4(
-            KBTYPE[JTYPE],
-            IN,
-            KZ1[KBZERO[JTYPE]],
-            KZ2[KBZERO[JTYPE]],
-            IBSIGN[JTYPE],
-            RMAGN[KBMAGN[JTYPE]],
-            ONE,
-            RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
-            2,
-            ISEED,
-            B,
-            LDA,
-          );
+              KBTYPE[JTYPE],
+              IN,
+              KZ1[KBZERO[JTYPE]],
+              KZ2[KBZERO[JTYPE]],
+              IBSIGN[JTYPE],
+              RMAGN[KBMAGN[JTYPE]],
+              ONE,
+              RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
+              2,
+              ISEED,
+              B,
+              LDA);
           IADD = KADD[KBZERO[JTYPE]];
           if (IADD != 0 && IADD <= N) B[IADD][IADD] = ONE;
 
@@ -325,22 +322,12 @@ void ddrges3(
                 Q[JR][JC] = dlarnd(3, ISEED);
                 Z[JR][JC] = dlarnd(3, ISEED);
               }
-              dlarfg(
-                N + 1 - JC,
-                Q.box(JC, JC),
-                Q(JC + 1, JC).asArray(),
-                1,
-                WORK.box(JC),
-              );
+              dlarfg(N + 1 - JC, Q.box(JC, JC), Q(JC + 1, JC).asArray(), 1,
+                  WORK.box(JC));
               WORK[2 * N + JC] = sign(ONE, Q[JC][JC]).toDouble();
               Q[JC][JC] = ONE;
-              dlarfg(
-                N + 1 - JC,
-                Z.box(JC, JC),
-                Z(JC + 1, JC).asArray(),
-                1,
-                WORK.box(N + JC),
-              );
+              dlarfg(N + 1 - JC, Z.box(JC, JC), Z(JC + 1, JC).asArray(), 1,
+                  WORK.box(N + JC));
               WORK[3 * N + JC] = sign(ONE, Z[JC][JC]).toDouble();
               Z[JC][JC] = ONE;
             }
@@ -359,65 +346,17 @@ void ddrges3(
                 B[JR][JC] = WORK[2 * N + JR] * WORK[3 * N + JC] * B[JR][JC];
               }
             }
-            dorm2r(
-              'L',
-              'N',
-              N,
-              N,
-              N - 1,
-              Q,
-              LDQ,
-              WORK,
-              A,
-              LDA,
-              WORK(2 * N + 1),
-              IINFO,
-            );
+            dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, A, LDA, WORK(2 * N + 1),
+                IINFO);
             if (IINFO.value == 0) {
-              dorm2r(
-                'R',
-                'T',
-                N,
-                N,
-                N - 1,
-                Z,
-                LDQ,
-                WORK(N + 1),
-                A,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO,
-              );
+              dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), A, LDA,
+                  WORK(2 * N + 1), IINFO);
               if (IINFO.value == 0) {
-                dorm2r(
-                  'L',
-                  'N',
-                  N,
-                  N,
-                  N - 1,
-                  Q,
-                  LDQ,
-                  WORK,
-                  B,
-                  LDA,
-                  WORK(2 * N + 1),
-                  IINFO,
-                );
+                dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, B, LDA,
+                    WORK(2 * N + 1), IINFO);
                 if (IINFO.value == 0) {
-                  dorm2r(
-                    'R',
-                    'T',
-                    N,
-                    N,
-                    N - 1,
-                    Z,
-                    LDQ,
-                    WORK(N + 1),
-                    B,
-                    LDA,
-                    WORK(2 * N + 1),
-                    IINFO,
-                  );
+                  dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), B, LDA,
+                      WORK(2 * N + 1), IINFO);
                 }
               }
             }
@@ -471,29 +410,8 @@ void ddrges3(
         dlacpy('Full', N, N, B, LDA, T, LDA);
         NTEST = 1 + RSUB + ISORT;
         RESULT[1 + RSUB + ISORT] = ULPINV;
-        dgges3(
-          'V',
-          'V',
-          SORT,
-          dlctes,
-          N,
-          S,
-          LDA,
-          T,
-          LDA,
-          SDIM,
-          ALPHAR,
-          ALPHAI,
-          BETA,
-          Q,
-          LDQ,
-          Z,
-          LDQ,
-          WORK,
-          LWORK,
-          BWORK,
-          IINFO,
-        );
+        dgges3('V', 'V', SORT, dlctes, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI,
+            BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO);
         if (IINFO.value != 0 && IINFO.value != N + 2) {
           RESULT[1 + RSUB + ISORT] = ULPINV;
           _print9999(NOUNIT, 'DGGES3', IINFO.value, N, JTYPE, IOLDSD);
@@ -509,52 +427,13 @@ void ddrges3(
           dget51(1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT.box(1));
           dget51(1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT.box(2));
         } else {
-          dget54(
-            N,
-            A,
-            LDA,
-            B,
-            LDA,
-            S,
-            LDA,
-            T,
-            LDA,
-            Q,
-            LDQ,
-            Z,
-            LDQ,
-            WORK,
-            RESULT.box(7),
-          );
+          dget54(N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK,
+              RESULT.box(7));
         }
         dget51(
-          3,
-          N,
-          A,
-          LDA,
-          T,
-          LDA,
-          Q,
-          LDQ,
-          Q,
-          LDQ,
-          WORK,
-          RESULT.box(3 + RSUB),
-        );
+            3, N, A, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RESULT.box(3 + RSUB));
         dget51(
-          3,
-          N,
-          B,
-          LDA,
-          T,
-          LDA,
-          Z,
-          LDQ,
-          Z,
-          LDQ,
-          WORK,
-          RESULT.box(4 + RSUB),
-        );
+            3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RESULT.box(4 + RSUB));
 
         // Do test 5 and 6 (or Tests 10 and 11 when reordering):
         // check Schur form of A and compare eigenvalues with
@@ -607,21 +486,11 @@ void ddrges3(
               }
             }
             if (!ILABAD) {
-              dget53(
-                S(I1, I1),
-                LDA,
-                T(I1, I1),
-                LDA,
-                BETA[J],
-                ALPHAR[J],
-                ALPHAI[J],
-                TEMP2,
-                IERR,
-              );
+              dget53(S(I1, I1), LDA, T(I1, I1), LDA, BETA[J], ALPHAR[J],
+                  ALPHAI[J], TEMP2, IERR);
               if (IERR.value >= 3) {
                 NOUNIT.println(
-                  ' DDRGES3: DGET53 returned INFOe=${IERR.value.i1} for eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i4(4, ',')})',
-                );
+                    ' DDRGES3: DGET53 returned INFOe=${IERR.value.i1} for eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i4(4, ',')})');
                 INFO.value = (IERR.value).abs();
               }
             } else {
@@ -631,8 +500,7 @@ void ddrges3(
           TEMP1 = max(TEMP1, TEMP2.value);
           if (ILABAD) {
             NOUNIT.println(
-              ' DDRGES3: S not in Schur form at eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})',
-            );
+                ' DDRGES3: S not in Schur form at eigenvalue ${J.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
           }
         }
         RESULT[6 + RSUB] = TEMP1;
@@ -688,24 +556,20 @@ void ddrges3(
                 ',I), diag(I,J'
                 '))\n Diagonal Matrices:  ( D=diag(0,1,2,...) )\n   7=(D,I)   9=(large*D, small*I)  11=(large*I, small*D)  13=(large*D, large*I)\n   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D)  14=(small*D, small*I)\n  15=(D, reversed D)');
             NOUNIT.println(
-              ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.',
-            );
+                ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.');
 
             // Tests performed
 
             NOUNIT.println(
-              '\n Tests performed:  (S is Schur, T is triangular, Q and Z are orthogonal,\n${' ' * 19}l and r are the appropriate left and right\n${' ' * 19}eigenvectors, resp., a is alpha, b is beta, and\n${' ' * 19}\' means transpose.)\n Without ordering: \n  1 = | A - Q S Z\' | / ( |A| n ulp )      2 = | B - Q T Z\' | / ( |B| n ulp )\n  3 = | I - QQ\' | / ( n ulp )             4 = | I - ZZ\' | / ( n ulp )\n  5 = A is in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n With ordering: \n  7 = | (A,B) - Q (S,T) Z\' | / ( |(A,B)| n ulp )  \n  8 = | I - QQ\' | / ( n ulp )            9 = | I - ZZ\' | / ( n ulp )\n 10 = A is in Schur form S\n 11 = difference between (alpha,beta) and diagonals of (S,T)\n 12 = SDIM is the correct number of selected eigenvalues\n',
-            );
+                '\n Tests performed:  (S is Schur, T is triangular, Q and Z are orthogonal,\n${' ' * 19}l and r are the appropriate left and right\n${' ' * 19}eigenvectors, resp., a is alpha, b is beta, and\n${' ' * 19}\' means transpose.)\n Without ordering: \n  1 = | A - Q S Z\' | / ( |A| n ulp )      2 = | B - Q T Z\' | / ( |B| n ulp )\n  3 = | I - QQ\' | / ( n ulp )             4 = | I - ZZ\' | / ( n ulp )\n  5 = A is in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n With ordering: \n  7 = | (A,B) - Q (S,T) Z\' | / ( |(A,B)| n ulp )  \n  8 = | I - QQ\' | / ( n ulp )            9 = | I - ZZ\' | / ( n ulp )\n 10 = A is in Schur form S\n 11 = difference between (alpha,beta) and diagonals of (S,T)\n 12 = SDIM is the correct number of selected eigenvalues\n');
           }
           NERRS = NERRS + 1;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');
           } else {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
       }
@@ -727,6 +591,5 @@ void _print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DDRGES3: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})',
-  );
+      ' DDRGES3: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }

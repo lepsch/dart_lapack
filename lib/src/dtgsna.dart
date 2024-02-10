@@ -184,30 +184,15 @@ void dtgsna(
       if (PAIR) {
         // Complex eigenvalue pair.
 
-        RNRM = dlapy2(
-          dnrm2(N, VR(1, KS).asArray(), 1),
-          dnrm2(N, VR(1, KS + 1).asArray(), 1),
-        );
-        LNRM = dlapy2(
-          dnrm2(N, VL(1, KS).asArray(), 1),
-          dnrm2(N, VL(1, KS + 1).asArray(), 1),
-        );
+        RNRM = dlapy2(dnrm2(N, VR(1, KS).asArray(), 1),
+            dnrm2(N, VR(1, KS + 1).asArray(), 1));
+        LNRM = dlapy2(dnrm2(N, VL(1, KS).asArray(), 1),
+            dnrm2(N, VL(1, KS + 1).asArray(), 1));
         dgemv('N', N, N, ONE, A, LDA, VR(1, KS).asArray(), 1, ZERO, WORK, 1);
         TMPRR = ddot(N, WORK, 1, VL(1, KS).asArray(), 1);
         TMPRI = ddot(N, WORK, 1, VL(1, KS + 1).asArray(), 1);
         dgemv(
-          'N',
-          N,
-          N,
-          ONE,
-          A,
-          LDA,
-          VR(1, KS + 1).asArray(),
-          1,
-          ZERO,
-          WORK,
-          1,
-        );
+            'N', N, N, ONE, A, LDA, VR(1, KS + 1).asArray(), 1, ZERO, WORK, 1);
         TMPII = ddot(N, WORK, 1, VL(1, KS + 1).asArray(), 1);
         TMPIR = ddot(N, WORK, 1, VL(1, KS).asArray(), 1);
         UHAV = TMPRR + TMPII;
@@ -216,18 +201,7 @@ void dtgsna(
         TMPRR = ddot(N, WORK, 1, VL(1, KS).asArray(), 1);
         TMPRI = ddot(N, WORK, 1, VL(1, KS + 1).asArray(), 1);
         dgemv(
-          'N',
-          N,
-          N,
-          ONE,
-          B,
-          LDB,
-          VR(1, KS + 1).asArray(),
-          1,
-          ZERO,
-          WORK,
-          1,
-        );
+            'N', N, N, ONE, B, LDB, VR(1, KS + 1).asArray(), 1, ZERO, WORK, 1);
         TMPII = ddot(N, WORK, 1, VL(1, KS + 1).asArray(), 1);
         TMPIR = ddot(N, WORK, 1, VL(1, KS).asArray(), 1);
         UHBV = TMPRR + TMPII;
@@ -275,18 +249,8 @@ void dtgsna(
         WORK[6] = B[K + 1][K];
         WORK[7] = B[K][K + 1];
         WORK[8] = B[K + 1][K + 1];
-        dlag2(
-          WORK,
-          2,
-          WORK[5],
-          2,
-          SMLNUM * EPS,
-          BETA,
-          DUMMY1(1),
-          ALPHAR,
-          DUMMY(1),
-          ALPHAI,
-        );
+        dlag2(WORK, 2, WORK[5], 2, SMLNUM * EPS, BETA, DUMMY1(1), ALPHAR,
+            DUMMY(1), ALPHAI);
         ALPRQT = ONE;
         C1 = TWO * (ALPHAR * ALPHAR + ALPHAI * ALPHAI + BETA * BETA);
         C2 = FOUR * BETA * BETA * ALPHAI * ALPHAI;
@@ -304,24 +268,8 @@ void dtgsna(
       IFST = K;
       ILST = 1;
 
-      dtgexc(
-        false,
-        false,
-        N,
-        WORK,
-        N,
-        WORK[N * N + 1],
-        N,
-        DUMMY,
-        1,
-        DUMMY1,
-        1,
-        IFST,
-        ILST,
-        WORK[N * N * 2 + 1],
-        LWORK - 2 * N * N,
-        IERR,
-      );
+      dtgexc(false, false, N, WORK, N, WORK[N * N + 1], N, DUMMY, 1, DUMMY1, 1,
+          IFST, ILST, WORK[N * N * 2 + 1], LWORK - 2 * N * N, IERR);
 
       if (IERR.value > 0) {
         // Ill-conditioned problem - swap rejected.
@@ -343,29 +291,28 @@ void dtgsna(
           I = N * N + 1;
           IZ = 2 * N * N + 1;
           dtgsyl(
-            'N',
-            DIFDRI,
-            N2,
-            N1,
-            WORK[N * N1 + N1 + 1],
-            N,
-            WORK,
-            N,
-            WORK[N1 + 1],
-            N,
-            WORK[N * N1 + N1 + I],
-            N,
-            WORK[I],
-            N,
-            WORK[N1 + I],
-            N,
-            SCALE,
-            DIF[KS],
-            WORK[IZ + 1],
-            LWORK - 2 * N * N,
-            IWORK,
-            IERR.value,
-          );
+              'N',
+              DIFDRI,
+              N2,
+              N1,
+              WORK[N * N1 + N1 + 1],
+              N,
+              WORK,
+              N,
+              WORK[N1 + 1],
+              N,
+              WORK[N * N1 + N1 + I],
+              N,
+              WORK[I],
+              N,
+              WORK[N1 + I],
+              N,
+              SCALE,
+              DIF[KS],
+              WORK[IZ + 1],
+              LWORK - 2 * N * N,
+              IWORK,
+              IERR.value);
 
           if (PAIR) DIF[KS] = min(max(ONE, ALPRQT) * DIF[KS], COND);
         }

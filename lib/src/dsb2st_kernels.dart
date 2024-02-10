@@ -91,16 +91,8 @@ void dsb2st_kernels(
       LN = ED - ST + 1;
       LM = J2 - J1 + 1;
       if (LM > 0) {
-        dlarfx(
-          'Left',
-          LN,
-          LM,
-          V[VPOS],
-          (TAU[TAUPOS]),
-          A[DPOS - NB][J1],
-          LDA - 1,
-          WORK,
-        );
+        dlarfx('Left', LN, LM, V[VPOS], (TAU[TAUPOS]), A[DPOS - NB][J1],
+            LDA - 1, WORK);
 
         if (WANTZ) {
           VPOS = (SWEEP - 1 % 2) * N + J1;
@@ -120,16 +112,8 @@ void dsb2st_kernels(
         dlarfg(LM, CTMP, V(VPOS + 1), 1, TAU.box(TAUPOS));
         A[DPOS - NB][J1] = CTMP.value;
 
-        dlarfx(
-          'Right',
-          LN - 1,
-          LM,
-          V[VPOS],
-          TAU[TAUPOS],
-          A[DPOS - NB + 1][J1],
-          LDA - 1,
-          WORK,
-        );
+        dlarfx('Right', LN - 1, LM, V[VPOS], TAU[TAUPOS], A[DPOS - NB + 1][J1],
+            LDA - 1, WORK);
       }
     }
 
@@ -172,16 +156,8 @@ void dsb2st_kernels(
       LM = J2 - J1 + 1;
 
       if (LM > 0) {
-        dlarfx(
-          'Right',
-          LM,
-          LN,
-          V[VPOS],
-          TAU[TAUPOS],
-          A[DPOS + NB][ST],
-          LDA - 1,
-          WORK,
-        );
+        dlarfx('Right', LM, LN, V[VPOS], TAU[TAUPOS], A[DPOS + NB][ST], LDA - 1,
+            WORK);
 
         if (WANTZ) {
           VPOS = (SWEEP - 1 % 2) * N + J1;
@@ -199,16 +175,8 @@ void dsb2st_kernels(
         } // 40
         dlarfg(LM, A.box(DPOS + NB, ST), V(VPOS + 1), 1, TAU.box(TAUPOS));
 
-        dlarfx(
-          'Left',
-          LM,
-          LN - 1,
-          V[VPOS],
-          (TAU[TAUPOS]),
-          A[DPOS + NB - 1][ST + 1],
-          LDA - 1,
-          WORK,
-        );
+        dlarfx('Left', LM, LN - 1, V[VPOS], (TAU[TAUPOS]),
+            A[DPOS + NB - 1][ST + 1], LDA - 1, WORK);
       }
     }
   }

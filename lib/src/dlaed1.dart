@@ -69,25 +69,8 @@ void dlaed1(
 
   // Deflate eigenvalues.
 
-  dlaed2(
-    K,
-    N,
-    CUTPNT,
-    D,
-    Q,
-    LDQ,
-    INDXQ,
-    RHO,
-    WORK(IZ),
-    WORK(IDLMDA),
-    WORK(IW),
-    WORK(IQ2),
-    IWORK(INDX),
-    IWORK(INDXC),
-    IWORK(INDXP),
-    IWORK(COLTYP),
-    INFO,
-  );
+  dlaed2(K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK(IZ), WORK(IDLMDA), WORK(IW),
+      WORK(IQ2), IWORK(INDX), IWORK(INDXC), IWORK(INDXP), IWORK(COLTYP), INFO);
 
   if (INFO.value != 0) return;
 
@@ -97,22 +80,8 @@ void dlaed1(
     IS = (IWORK[COLTYP] + IWORK[COLTYP + 1]) * CUTPNT +
         (IWORK[COLTYP + 1] + IWORK[COLTYP + 2]) * (N - CUTPNT) +
         IQ2;
-    dlaed3(
-      K.value,
-      N,
-      CUTPNT,
-      D,
-      Q,
-      LDQ,
-      RHO.value,
-      WORK(IDLMDA),
-      WORK(IQ2),
-      IWORK(INDXC),
-      IWORK(COLTYP),
-      WORK(IW),
-      WORK(IS),
-      INFO,
-    );
+    dlaed3(K.value, N, CUTPNT, D, Q, LDQ, RHO.value, WORK(IDLMDA), WORK(IQ2),
+        IWORK(INDXC), IWORK(COLTYP), WORK(IW), WORK(IS), INFO);
     if (INFO.value != 0) return;
 
     // Prepare the INDXQ sorting permutation.

@@ -56,10 +56,8 @@ void dlaqtr(
 
   XNORM.value = dlange('M', N, N, T, LDT, D.asArray());
   if (!LREAL) {
-    XNORM.value = max(
-      XNORM.value,
-      max(W.abs(), dlange('M', N, 1, B.asMatrix(N), N, D.asArray())),
-    );
+    XNORM.value = max(XNORM.value,
+        max(W.abs(), dlange('M', N, 1, B.asMatrix(N), N, D.asArray())));
   }
   SMIN = max(SMLNUM, EPS * XNORM.value);
 
@@ -158,26 +156,8 @@ void dlaqtr(
 
           D[1][1] = X[J1];
           D[2][1] = X[J2];
-          dlaln2(
-            false,
-            2,
-            1,
-            SMIN,
-            ONE,
-            T(J1, J1),
-            LDT,
-            ONE,
-            ONE,
-            D,
-            2,
-            ZERO,
-            ZERO,
-            V,
-            2,
-            SCALOC,
-            XNORM,
-            IERR,
-          );
+          dlaln2(false, 2, 1, SMIN, ONE, T(J1, J1), LDT, ONE, ONE, D, 2, ZERO,
+              ZERO, V, 2, SCALOC, XNORM, IERR);
           if (IERR.value != 0) INFO.value = 2;
 
           if (SCALOC.value != ONE) {
@@ -281,26 +261,8 @@ void dlaqtr(
           D[1][1] = X[J1] - ddot(J1 - 1, T(1, J1).asArray(), 1, X, 1);
           D[2][1] = X[J2] - ddot(J1 - 1, T(1, J2).asArray(), 1, X, 1);
 
-          dlaln2(
-            true,
-            2,
-            1,
-            SMIN,
-            ONE,
-            T(J1, J1),
-            LDT,
-            ONE,
-            ONE,
-            D,
-            2,
-            ZERO,
-            ZERO,
-            V,
-            2,
-            SCALOC,
-            XNORM,
-            IERR,
-          );
+          dlaln2(true, 2, 1, SMIN, ONE, T(J1, J1), LDT, ONE, ONE, D, 2, ZERO,
+              ZERO, V, 2, SCALOC, XNORM, IERR);
           if (IERR.value != 0) INFO.value = 2;
 
           if (SCALOC.value != ONE) {
@@ -392,26 +354,8 @@ void dlaqtr(
           D[2][1] = X[J2];
           D[1][2] = X[N + J1];
           D[2][2] = X[N + J2];
-          dlaln2(
-            false,
-            2,
-            2,
-            SMINW,
-            ONE,
-            T(J1, J1),
-            LDT,
-            ONE,
-            ONE,
-            D,
-            2,
-            ZERO,
-            -W,
-            V,
-            2,
-            SCALOC,
-            XNORM,
-            IERR,
-          );
+          dlaln2(false, 2, 2, SMINW, ONE, T(J1, J1), LDT, ONE, ONE, D, 2, ZERO,
+              -W, V, 2, SCALOC, XNORM, IERR);
           if (IERR.value != 0) INFO.value = 2;
 
           if (SCALOC.value != ONE) {
@@ -552,26 +496,8 @@ void dlaqtr(
           D[1][2] = D[1][2] + B[J1] * X[1];
           D[2][2] = D[2][2] + B[J2] * X[1];
 
-          dlaln2(
-            true,
-            2,
-            2,
-            SMINW,
-            ONE,
-            T(J1, J1),
-            LDT,
-            ONE,
-            ONE,
-            D,
-            2,
-            ZERO,
-            W,
-            V,
-            2,
-            SCALOC,
-            XNORM,
-            IERR,
-          );
+          dlaln2(true, 2, 2, SMINW, ONE, T(J1, J1), LDT, ONE, ONE, D, 2, ZERO,
+              W, V, 2, SCALOC, XNORM, IERR);
           if (IERR.value != 0) INFO.value = 2;
 
           if (SCALOC.value != ONE) {
@@ -582,10 +508,8 @@ void dlaqtr(
           X[J2] = V[2][1];
           X[N + J1] = V[1][2];
           X[N + J2] = V[2][2];
-          XMAX = max(
-            (X[J1]).abs() + (X[N + J1]).abs(),
-            max((X[J2]).abs() + (X[N + J2]).abs(), XMAX),
-          );
+          XMAX = max((X[J1]).abs() + (X[N + J1]).abs(),
+              max((X[J2]).abs() + (X[N + J2]).abs(), XMAX));
         }
       }
     }

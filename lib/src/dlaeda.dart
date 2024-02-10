@@ -91,26 +91,12 @@ void dlaeda(
     // Apply Givens at CURR and CURR+1
 
     for (I = GIVPTR[CURR]; I <= GIVPTR[CURR + 1] - 1; I++) {
-      drot(
-        1,
-        Z(ZPTR1 + GIVCOL[1][I] - 1),
-        1,
-        Z(ZPTR1 + GIVCOL[2][I] - 1),
-        1,
-        GIVNUM[1][I],
-        GIVNUM[2][I],
-      );
+      drot(1, Z(ZPTR1 + GIVCOL[1][I] - 1), 1, Z(ZPTR1 + GIVCOL[2][I] - 1), 1,
+          GIVNUM[1][I], GIVNUM[2][I]);
     }
     for (I = GIVPTR[CURR + 1]; I <= GIVPTR[CURR + 2] - 1; I++) {
-      drot(
-        1,
-        Z(MID - 1 + GIVCOL[1][I]),
-        1,
-        Z(MID - 1 + GIVCOL[2][I]),
-        1,
-        GIVNUM[1][I],
-        GIVNUM[2][I],
-      );
+      drot(1, Z(MID - 1 + GIVCOL[1][I]), 1, Z(MID - 1 + GIVCOL[2][I]), 1,
+          GIVNUM[1][I], GIVNUM[2][I]);
     }
     PSIZ1 = PRMPTR[CURR + 1] - PRMPTR[CURR];
     PSIZ2 = PRMPTR[CURR + 2] - PRMPTR[CURR + 1];
@@ -130,35 +116,13 @@ void dlaeda(
     BSIZ1 = (HALF + sqrt(QPTR[CURR + 1] - QPTR[CURR])).toInt();
     BSIZ2 = (HALF + sqrt(QPTR[CURR + 2] - QPTR[CURR + 1])).toInt();
     if (BSIZ1 > 0) {
-      dgemv(
-        'T',
-        BSIZ1,
-        BSIZ1,
-        ONE,
-        Q(QPTR[CURR]).asMatrix(BSIZ1),
-        BSIZ1,
-        ZTEMP(1),
-        1,
-        ZERO,
-        Z(ZPTR1),
-        1,
-      );
+      dgemv('T', BSIZ1, BSIZ1, ONE, Q(QPTR[CURR]).asMatrix(BSIZ1), BSIZ1,
+          ZTEMP(1), 1, ZERO, Z(ZPTR1), 1);
     }
     dcopy(PSIZ1 - BSIZ1, ZTEMP(BSIZ1 + 1), 1, Z(ZPTR1 + BSIZ1), 1);
     if (BSIZ2 > 0) {
-      dgemv(
-        'T',
-        BSIZ2,
-        BSIZ2,
-        ONE,
-        Q(QPTR[CURR + 1]).asMatrix(BSIZ2),
-        BSIZ2,
-        ZTEMP(PSIZ1 + 1),
-        1,
-        ZERO,
-        Z(MID),
-        1,
-      );
+      dgemv('T', BSIZ2, BSIZ2, ONE, Q(QPTR[CURR + 1]).asMatrix(BSIZ2), BSIZ2,
+          ZTEMP(PSIZ1 + 1), 1, ZERO, Z(MID), 1);
     }
     dcopy(PSIZ2 - BSIZ2, ZTEMP(PSIZ1 + BSIZ2 + 1), 1, Z(MID + BSIZ2), 1);
 

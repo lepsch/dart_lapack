@@ -262,19 +262,18 @@ void dchkgg(
               IN.value = N;
             }
             dlatm4(
-              KATYPE[JTYPE],
-              IN.value,
-              KZ1[KAZERO[JTYPE]],
-              KZ2[KAZERO[JTYPE]],
-              IASIGN[JTYPE],
-              RMAGN[KAMAGN[JTYPE]],
-              ULP,
-              RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
-              2,
-              ISEED,
-              A,
-              LDA,
-            );
+                KATYPE[JTYPE],
+                IN.value,
+                KZ1[KAZERO[JTYPE]],
+                KZ2[KAZERO[JTYPE]],
+                IASIGN[JTYPE],
+                RMAGN[KAMAGN[JTYPE]],
+                ULP,
+                RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
+                2,
+                ISEED,
+                A,
+                LDA);
             IADD = KADD[KAZERO[JTYPE]];
             if (IADD > 0 && IADD <= N) A[IADD][IADD] = RMAGN[KAMAGN[JTYPE]];
 
@@ -287,19 +286,18 @@ void dchkgg(
               IN.value = N;
             }
             dlatm4(
-              KBTYPE[JTYPE],
-              IN.value,
-              KZ1[KBZERO[JTYPE]],
-              KZ2[KBZERO[JTYPE]],
-              IBSIGN[JTYPE],
-              RMAGN[KBMAGN[JTYPE]],
-              ONE,
-              RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
-              2,
-              ISEED,
-              B,
-              LDA,
-            );
+                KBTYPE[JTYPE],
+                IN.value,
+                KZ1[KBZERO[JTYPE]],
+                KZ2[KBZERO[JTYPE]],
+                IBSIGN[JTYPE],
+                RMAGN[KBMAGN[JTYPE]],
+                ONE,
+                RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
+                2,
+                ISEED,
+                B,
+                LDA);
             IADD = KADD[KBZERO[JTYPE]];
             if (IADD != 0 && IADD <= N) B[IADD][IADD] = RMAGN[KBMAGN[JTYPE]];
 
@@ -314,22 +312,12 @@ void dchkgg(
                   U[JR][JC] = dlarnd(3, ISEED);
                   V[JR][JC] = dlarnd(3, ISEED);
                 }
-                dlarfg(
-                  N + 1 - JC,
-                  U.box(JC, JC),
-                  U(JC + 1, JC).asArray(),
-                  1,
-                  WORK.box(JC),
-                );
+                dlarfg(N + 1 - JC, U.box(JC, JC), U(JC + 1, JC).asArray(), 1,
+                    WORK.box(JC));
                 WORK[2 * N + JC] = sign(ONE, U[JC][JC]).toDouble();
                 U[JC][JC] = ONE;
-                dlarfg(
-                  N + 1 - JC,
-                  V.box(JC, JC),
-                  V(JC + 1, JC).asArray(),
-                  1,
-                  WORK.box(N + JC),
-                );
+                dlarfg(N + 1 - JC, V.box(JC, JC), V(JC + 1, JC).asArray(), 1,
+                    WORK.box(N + JC));
                 WORK[3 * N + JC] = sign(ONE, V[JC][JC]).toDouble();
                 V[JC][JC] = ONE;
               }
@@ -348,65 +336,17 @@ void dchkgg(
                   B[JR][JC] = WORK[2 * N + JR] * WORK[3 * N + JC] * B[JR][JC];
                 }
               }
-              dorm2r(
-                'L',
-                'N',
-                N,
-                N,
-                N - 1,
-                U,
-                LDU,
-                WORK,
-                A,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO,
-              );
+              dorm2r('L', 'N', N, N, N - 1, U, LDU, WORK, A, LDA,
+                  WORK(2 * N + 1), IINFO);
               if (IINFO.value != 0) break;
-              dorm2r(
-                'R',
-                'T',
-                N,
-                N,
-                N - 1,
-                V,
-                LDU,
-                WORK(N + 1),
-                A,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO,
-              );
+              dorm2r('R', 'T', N, N, N - 1, V, LDU, WORK(N + 1), A, LDA,
+                  WORK(2 * N + 1), IINFO);
               if (IINFO.value != 0) break;
-              dorm2r(
-                'L',
-                'N',
-                N,
-                N,
-                N - 1,
-                U,
-                LDU,
-                WORK,
-                B,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO,
-              );
+              dorm2r('L', 'N', N, N, N - 1, U, LDU, WORK, B, LDA,
+                  WORK(2 * N + 1), IINFO);
               if (IINFO.value != 0) break;
-              dorm2r(
-                'R',
-                'T',
-                N,
-                N,
-                N - 1,
-                V,
-                LDU,
-                WORK(N + 1),
-                B,
-                LDA,
-                WORK(2 * N + 1),
-                IINFO,
-              );
+              dorm2r('R', 'T', N, N, N - 1, V, LDU, WORK(N + 1), B, LDA,
+                  WORK(2 * N + 1), IINFO);
               if (IINFO.value != 0) break;
             }
           } else {
@@ -649,14 +589,7 @@ void dchkgg(
         RESULT[11] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
           print9998(
-            NOUNIT,
-            'Right',
-            'DTGEVC(HOWMNY=S)',
-            DUMMA[2],
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUNIT, 'Right', 'DTGEVC(HOWMNY=S)', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // 12: Compute the right eigenvector Matrix with
@@ -678,14 +611,7 @@ void dchkgg(
         RESULT[12] = DUMMA[1];
         if (DUMMA[2] > THRESH) {
           print9998(
-            NOUNIT,
-            'Right',
-            'DTGEVC(HOWMNY=B)',
-            DUMMA[2],
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUNIT, 'Right', 'DTGEVC(HOWMNY=B)', DUMMA[2], N, JTYPE, IOLDSD);
         }
 
         // Tests 13--15 are done only on request
@@ -701,10 +627,8 @@ void dchkgg(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
           for (J = 1; J <= N; J++) {
-            TEMP1 = max(
-              TEMP1,
-              (ALPHR1[J] - ALPHR3[J]).abs() + (ALPHI1[J] - ALPHI3[J]).abs(),
-            );
+            TEMP1 = max(TEMP1,
+                (ALPHR1[J] - ALPHR3[J]).abs() + (ALPHI1[J] - ALPHI3[J]).abs());
             TEMP2 = max(TEMP2, (BETA1[J] - BETA3[J]).abs());
           }
 
@@ -744,24 +668,20 @@ void dchkgg(
                 ',I), diag(I,J'
                 '))\n Diagonal Matrices:  ( D=diag(0,1,2,...) )\n   7=(D,I)   9=(large*D, small*I)  11=(large*I, small*D)  13=(large*D, large*I)\n   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D)  14=(small*D, small*I)\n  15=(D, reversed D)');
             NOUNIT.println(
-              ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.',
-            );
+                ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.');
 
             // Tests performed
 
             NOUNIT.println(
-              '\n Tests performed:   (H is Hessenberg, S is Schur, B, T, P are triangular,\n${' ' * 20}U, V, Q, and Z are orthogonal, l and r are the\n${' ' * 20}appropriate left and right eigenvectors, resp., a is\n${' ' * 20}alpha, b is beta, and \' means transpose.)\n 1 = | A - U H V\' | / ( |A| n ulp )      2 = | B - U T V\' | / ( |B| n ulp )\n 3 = | I - UU\' | / ( n ulp )             4 = | I - VV\' | / ( n ulp )\n\n 5 = | H - Q S Z\' | / ( |H| n ulp )${' ' * 6}6 = | T - Q P Z\' | / ( |T| n ulp )\n 7 = | I - QQ\' | / ( n ulp )             8 = | I - ZZ\' | / ( n ulp )\n 9 = max | ( b S - a P )\' l | / const.  10 = max | ( b H - a T )\' l | / const.\n 11= max | ( b S - a P ) r | / const.   12 = max | ( b H - a T ) r | / const.\n ',
-            );
+                '\n Tests performed:   (H is Hessenberg, S is Schur, B, T, P are triangular,\n${' ' * 20}U, V, Q, and Z are orthogonal, l and r are the\n${' ' * 20}appropriate left and right eigenvectors, resp., a is\n${' ' * 20}alpha, b is beta, and \' means transpose.)\n 1 = | A - U H V\' | / ( |A| n ulp )      2 = | B - U T V\' | / ( |B| n ulp )\n 3 = | I - UU\' | / ( n ulp )             4 = | I - VV\' | / ( n ulp )\n\n 5 = | H - Q S Z\' | / ( |H| n ulp )${' ' * 6}6 = | T - Q P Z\' | / ( |T| n ulp )\n 7 = | I - QQ\' | / ( n ulp )             8 = | I - ZZ\' | / ( n ulp )\n 9 = max | ( b S - a P )\' l | / const.  10 = max | ( b H - a T )\' l | / const.\n 11= max | ( b S - a P ) r | / const.   12 = max | ( b H - a T ) r | / const.\n ');
           }
           NERRS = NERRS + 1;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');
           } else {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
       }
@@ -782,8 +702,7 @@ void print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DCHKGG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DCHKGG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }
 
 void print9998(
@@ -796,6 +715,5 @@ void print9998(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DCHKGG: $s Eigenvectors from $side incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DCHKGG: $s Eigenvectors from $side incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

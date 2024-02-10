@@ -55,7 +55,7 @@ void dlaed3(
   if (K == 0) return;
 
   for (J = 1; J <= K; J++) {
-    dlaed4(K, J, DLAMBDA, W, Q(1,J).asArray(), RHO, D.box(J), INFO);
+    dlaed4(K, J, DLAMBDA, W, Q(1, J).asArray(), RHO, D.box(J), INFO);
 
     // If the zero finder fails, the computation is terminated.
 
@@ -114,42 +114,16 @@ void dlaed3(
   dlacpy('A', N23, K, Q(CTOT[1] + 1, 1), LDQ, S.asMatrix(N23), N23);
   IQ2 = N1 * N12 + 1;
   if (N23 != 0) {
-    dgemm(
-      'N',
-      'N',
-      N2,
-      K,
-      N23,
-      ONE,
-      Q2(IQ2).asMatrix(N2),
-      N2,
-      S.asMatrix(N23),
-      N23,
-      ZERO,
-      Q(N1 + 1, 1),
-      LDQ,
-    );
+    dgemm('N', 'N', N2, K, N23, ONE, Q2(IQ2).asMatrix(N2), N2, S.asMatrix(N23),
+        N23, ZERO, Q(N1 + 1, 1), LDQ);
   } else {
     dlaset('A', N2, K, ZERO, ZERO, Q(N1 + 1, 1), LDQ);
   }
 
   dlacpy('A', N12, K, Q, LDQ, S.asMatrix(N12), N12);
   if (N12 != 0) {
-    dgemm(
-      'N',
-      'N',
-      N1,
-      K,
-      N12,
-      ONE,
-      Q2.asMatrix(N1),
-      N1,
-      S.asMatrix(N12),
-      N12,
-      ZERO,
-      Q,
-      LDQ,
-    );
+    dgemm('N', 'N', N1, K, N12, ONE, Q2.asMatrix(N1), N1, S.asMatrix(N12), N12,
+        ZERO, Q, LDQ);
   } else {
     dlaset('A', N1, K, ZERO, ZERO, Q(1, 1), LDQ);
   }

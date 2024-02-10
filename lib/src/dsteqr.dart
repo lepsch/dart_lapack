@@ -166,32 +166,12 @@ void dsteqr(
     if (ANORM > SSFMAX) {
       ISCALE = 1;
       dlascl(
-        'G',
-        0,
-        0,
-        ANORM,
-        SSFMAX,
-        LEND - L + 1,
-        1,
-        D(L).asMatrix(N),
-        N,
-        INFO,
-      );
+          'G', 0, 0, ANORM, SSFMAX, LEND - L + 1, 1, D(L).asMatrix(N), N, INFO);
       dlascl('G', 0, 0, ANORM, SSFMAX, LEND - L, 1, E(L).asMatrix(N), N, INFO);
     } else if (ANORM < SSFMIN) {
       ISCALE = 2;
       dlascl(
-        'G',
-        0,
-        0,
-        ANORM,
-        SSFMIN,
-        LEND - L + 1,
-        1,
-        D(L).asMatrix(N),
-        N,
-        INFO,
-      );
+          'G', 0, 0, ANORM, SSFMIN, LEND - L + 1, 1, D(L).asMatrix(N), N, INFO);
       dlascl('G', 0, 0, ANORM, SSFMIN, LEND - L, 1, E(L).asMatrix(N), N, INFO);
     }
 
@@ -235,16 +215,7 @@ void dsteqr(
               WORK[L] = C.value;
               WORK[N - 1 + L] = S.value;
               dlasr(
-                'R',
-                'V',
-                'B',
-                N,
-                2,
-                WORK[L],
-                WORK[N - 1 + L],
-                Z[1][L],
-                LDZ,
-              );
+                  'R', 'V', 'B', N, 2, WORK[L], WORK[N - 1 + L], Z[1][L], LDZ);
             } else {
               dlae2(D[L], E[L], D[L + 1], RT1, RT2);
             }
@@ -293,16 +264,7 @@ void dsteqr(
             if (ICOMPZ > 0) {
               MM = M - L + 1;
               dlasr(
-                'R',
-                'V',
-                'B',
-                N,
-                MM,
-                WORK[L],
-                WORK[N - 1 + L],
-                Z[1][L],
-                LDZ,
-              );
+                  'R', 'V', 'B', N, MM, WORK[L], WORK[N - 1 + L], Z[1][L], LDZ);
             }
 
             D[L] = D[L] - P;
@@ -355,17 +317,8 @@ void dsteqr(
             dlaev2(D[L - 1], E[L - 1], D[L], RT1, RT2, C.value, S.value);
             WORK[M] = C.value;
             WORK[N - 1 + M] = S.value;
-            dlasr(
-              'R',
-              'V',
-              'F',
-              N,
-              2,
-              WORK[M],
-              WORK[N - 1 + M],
-              Z[1][L - 1],
-              LDZ,
-            );
+            dlasr('R', 'V', 'F', N, 2, WORK[M], WORK[N - 1 + M], Z[1][L - 1],
+                LDZ);
           } else {
             dlae2(D[L - 1], E[L - 1], D[L], RT1, RT2);
           }
@@ -413,17 +366,7 @@ void dsteqr(
 
           if (ICOMPZ > 0) {
             MM = L - M + 1;
-            dlasr(
-              'R',
-              'V',
-              'F',
-              N,
-              MM,
-              WORK[M],
-              WORK[N - 1 + M],
-              Z[1][M],
-              LDZ,
-            );
+            dlasr('R', 'V', 'F', N, MM, WORK[M], WORK[N - 1 + M], Z[1][M], LDZ);
           }
 
           D[L] = D[L] - P;
@@ -437,55 +380,15 @@ void dsteqr(
     // Undo scaling if necessary
 
     if (ISCALE == 1) {
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMAX,
-        ANORM,
-        LENDSV - LSV + 1,
-        1,
-        D(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMAX,
-        ANORM,
-        LENDSV - LSV,
-        1,
-        E(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
+      dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV - LSV + 1, 1, D(LSV).asMatrix(N),
+          N, INFO);
+      dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV - LSV, 1, E(LSV).asMatrix(N), N,
+          INFO);
     } else if (ISCALE == 2) {
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMIN,
-        ANORM,
-        LENDSV - LSV + 1,
-        1,
-        D(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMIN,
-        ANORM,
-        LENDSV - LSV,
-        1,
-        E(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
+      dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV - LSV + 1, 1, D(LSV).asMatrix(N),
+          N, INFO);
+      dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV - LSV, 1, E(LSV).asMatrix(N), N,
+          INFO);
     }
 
     // Check for no convergence to an eigenvalue after a total

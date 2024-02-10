@@ -153,30 +153,8 @@ void dtgsyl(
       DSCALE = ZERO;
       DSUM = ONE;
       PQ = 0;
-      dtgsy2(
-        TRANS,
-        IFUNC,
-        M,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        C,
-        LDC,
-        D,
-        LDD,
-        E,
-        LDE,
-        F,
-        LDF,
-        SCALE.value,
-        DSUM,
-        DSCALE,
-        IWORK,
-        PQ,
-        INFO.value,
-      );
+      dtgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF,
+          SCALE.value, DSUM, DSCALE, IWORK, PQ, INFO.value);
       if (DSCALE != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
           DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE * sqrt(DSUM));
@@ -257,29 +235,28 @@ void dtgsyl(
           MB = IE - IS + 1;
           PPQQ = 0;
           dtgsy2(
-            TRANS,
-            IFUNC,
-            MB,
-            NB,
-            A[IS][IS],
-            LDA,
-            B[JS][JS],
-            LDB,
-            C[IS][JS],
-            LDC,
-            D[IS][IS],
-            LDD,
-            E[JS][JS],
-            LDE,
-            F[IS][JS],
-            LDF,
-            SCALOC,
-            DSUM,
-            DSCALE,
-            IWORK[Q + 2],
-            PPQQ,
-            LINFO,
-          );
+              TRANS,
+              IFUNC,
+              MB,
+              NB,
+              A[IS][IS],
+              LDA,
+              B[JS][JS],
+              LDB,
+              C[IS][JS],
+              LDC,
+              D[IS][IS],
+              LDD,
+              E[JS][JS],
+              LDE,
+              F[IS][JS],
+              LDF,
+              SCALOC,
+              DSUM,
+              DSCALE,
+              IWORK[Q + 2],
+              PPQQ,
+              LINFO);
           if (LINFO > 0) INFO.value = LINFO;
 
           PQ = PQ + PPQQ;
@@ -307,68 +284,16 @@ void dtgsyl(
           // equation.
 
           if (I > 1) {
-            dgemm(
-              'N',
-              'N',
-              IS - 1,
-              NB,
-              MB,
-              -ONE,
-              A(1, IS),
-              LDA,
-              C(IS, JS),
-              LDC,
-              ONE,
-              C(1, JS),
-              LDC,
-            );
-            dgemm(
-              'N',
-              'N',
-              IS - 1,
-              NB,
-              MB,
-              -ONE,
-              D(1, IS),
-              LDD,
-              C(IS, JS),
-              LDC,
-              ONE,
-              F(1, JS),
-              LDF,
-            );
+            dgemm('N', 'N', IS - 1, NB, MB, -ONE, A(1, IS), LDA, C(IS, JS), LDC,
+                ONE, C(1, JS), LDC);
+            dgemm('N', 'N', IS - 1, NB, MB, -ONE, D(1, IS), LDD, C(IS, JS), LDC,
+                ONE, F(1, JS), LDF);
           }
           if (J < Q) {
-            dgemm(
-              'N',
-              'N',
-              MB,
-              N - JE,
-              NB,
-              ONE,
-              F(IS, JS),
-              LDF,
-              B(JS, JE + 1),
-              LDB,
-              ONE,
-              C(IS, JE + 1),
-              LDC,
-            );
-            dgemm(
-              'N',
-              'N',
-              MB,
-              N - JE,
-              NB,
-              ONE,
-              F(IS, JS),
-              LDF,
-              E(JS, JE + 1),
-              LDE,
-              ONE,
-              F(IS, JE + 1),
-              LDF,
-            );
+            dgemm('N', 'N', MB, N - JE, NB, ONE, F(IS, JS), LDF, B(JS, JE + 1),
+                LDB, ONE, C(IS, JE + 1), LDC);
+            dgemm('N', 'N', MB, N - JE, NB, ONE, F(IS, JS), LDF, E(JS, JE + 1),
+                LDE, ONE, F(IS, JE + 1), LDF);
           }
         }
       }
@@ -410,29 +335,28 @@ void dtgsyl(
         JE = IWORK[J + 1] - 1;
         NB = JE - JS + 1;
         dtgsy2(
-          TRANS,
-          IFUNC,
-          MB,
-          NB,
-          A[IS][IS],
-          LDA,
-          B[JS][JS],
-          LDB,
-          C[IS][JS],
-          LDC,
-          D[IS][IS],
-          LDD,
-          E[JS][JS],
-          LDE,
-          F[IS][JS],
-          LDF,
-          SCALOC,
-          DSUM,
-          DSCALE,
-          IWORK[Q + 2],
-          PPQQ,
-          LINFO,
-        );
+            TRANS,
+            IFUNC,
+            MB,
+            NB,
+            A[IS][IS],
+            LDA,
+            B[JS][JS],
+            LDB,
+            C[IS][JS],
+            LDC,
+            D[IS][IS],
+            LDD,
+            E[JS][JS],
+            LDE,
+            F[IS][JS],
+            LDF,
+            SCALOC,
+            DSUM,
+            DSCALE,
+            IWORK[Q + 2],
+            PPQQ,
+            LINFO);
         if (LINFO > 0) INFO.value = LINFO;
         if (SCALOC != ONE) {
           for (K = 1; K <= JS - 1; K++) {
@@ -457,68 +381,16 @@ void dtgsyl(
         // Substitute R(I, J) and L(I, J) into remaining equation.
 
         if (J > P + 2) {
-          dgemm(
-            'N',
-            'T',
-            MB,
-            JS - 1,
-            NB,
-            ONE,
-            C(IS, JS),
-            LDC,
-            B(1, JS),
-            LDB,
-            ONE,
-            F(IS, 1),
-            LDF,
-          );
-          dgemm(
-            'N',
-            'T',
-            MB,
-            JS - 1,
-            NB,
-            ONE,
-            F(IS, JS),
-            LDF,
-            E(1, JS),
-            LDE,
-            ONE,
-            F(IS, 1),
-            LDF,
-          );
+          dgemm('N', 'T', MB, JS - 1, NB, ONE, C(IS, JS), LDC, B(1, JS), LDB,
+              ONE, F(IS, 1), LDF);
+          dgemm('N', 'T', MB, JS - 1, NB, ONE, F(IS, JS), LDF, E(1, JS), LDE,
+              ONE, F(IS, 1), LDF);
         }
         if (I < P) {
-          dgemm(
-            'T',
-            'N',
-            M - IE,
-            NB,
-            MB,
-            -ONE,
-            A(IS, IE + 1),
-            LDA,
-            C(IS, JS),
-            LDC,
-            ONE,
-            C(IE + 1, JS),
-            LDC,
-          );
-          dgemm(
-            'T',
-            'N',
-            M - IE,
-            NB,
-            MB,
-            -ONE,
-            D(IS, IE + 1),
-            LDD,
-            F(IS, JS),
-            LDF,
-            ONE,
-            C(IE + 1, JS),
-            LDC,
-          );
+          dgemm('T', 'N', M - IE, NB, MB, -ONE, A(IS, IE + 1), LDA, C(IS, JS),
+              LDC, ONE, C(IE + 1, JS), LDC);
+          dgemm('T', 'N', M - IE, NB, MB, -ONE, D(IS, IE + 1), LDD, F(IS, JS),
+              LDF, ONE, C(IE + 1, JS), LDC);
         }
       }
     }

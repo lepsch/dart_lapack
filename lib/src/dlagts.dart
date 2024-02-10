@@ -47,10 +47,8 @@ void dlagts(
       TOL.value = (A[1]).abs();
       if (N > 1) TOL.value = max(TOL.value, max((A[2]).abs(), (B[1]).abs()));
       for (K = 3; K <= N; K++) {
-        TOL.value = max(
-          max(TOL.value, (A[K]).abs()),
-          max((B[K - 1]).abs(), (D[K - 2]).abs()),
-        );
+        TOL.value = max(max(TOL.value, (A[K]).abs()),
+            max((B[K - 1]).abs(), (D[K - 2]).abs()));
       }
       TOL.value = TOL.value * EPS;
       if (TOL.value == ZERO) TOL.value = EPS;

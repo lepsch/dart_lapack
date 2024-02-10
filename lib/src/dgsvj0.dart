@@ -236,18 +236,8 @@ void dgsvj0(
                             AAPP.value;
                   } else {
                     dcopy(M, A(1, p).asArray(), 1, WORK, 1);
-                    dlascl(
-                      'G',
-                      0,
-                      0,
-                      AAPP.value,
-                      D[p],
-                      M,
-                      1,
-                      WORK.asMatrix(LDA),
-                      LDA,
-                      IERR,
-                    );
+                    dlascl('G', 0, 0, AAPP.value, D[p], M, 1,
+                        WORK.asMatrix(LDA), LDA, IERR);
                     AAPQ = ddot(M, WORK, 1, A(1, q).asArray(), 1) *
                         D[q] /
                         AAQQ.value;
@@ -263,18 +253,8 @@ void dgsvj0(
                             AAPP.value;
                   } else {
                     dcopy(M, A(1, q).asArray(), 1, WORK, 1);
-                    dlascl(
-                      'G',
-                      0,
-                      0,
-                      AAQQ.value,
-                      D[q],
-                      M,
-                      1,
-                      WORK.asMatrix(LDA),
-                      LDA,
-                      IERR,
-                    );
+                    dlascl('G', 0, 0, AAQQ.value, D[q], M, 1,
+                        WORK.asMatrix(LDA), LDA, IERR);
                     AAPQ = ddot(M, WORK, 1, A(1, p).asArray(), 1) *
                         D[p] /
                         AAPP.value;
@@ -305,22 +285,10 @@ void dgsvj0(
                       FASTR[3] = T.value * D[p] / D[q];
                       FASTR[4] = -T.value * D[q] / D[p];
                       drotm(
-                        M,
-                        A(1, p).asArray(),
-                        1,
-                        A(1, q).asArray(),
-                        1,
-                        FASTR,
-                      );
+                          M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, FASTR);
                       if (RSVEC) {
-                        drotm(
-                          MVL,
-                          V(1, p).asArray(),
-                          1,
-                          V(1, q).asArray(),
-                          1,
-                          FASTR,
-                        );
+                        drotm(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1,
+                            FASTR);
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
@@ -350,174 +318,66 @@ void dgsvj0(
                           FASTR[4] = -T.value * AQOAP;
                           D[p] = D[p] * CS;
                           D[q] = D[q] * CS;
-                          drotm(
-                            M,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                            FASTR,
-                          );
+                          drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
+                              FASTR);
                           if (RSVEC) {
-                            drotm(
-                              MVL,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                              FASTR,
-                            );
+                            drotm(MVL, V(1, p).asArray(), 1, V(1, q).asArray(),
+                                1, FASTR);
                           }
                         } else {
-                          daxpy(
-                            M,
-                            -T.value * AQOAP,
-                            A(1, q).asArray(),
-                            1,
-                            A(1, p).asArray(),
-                            1,
-                          );
-                          daxpy(
-                            M,
-                            CS * SN * APOAQ,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                          );
+                          daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
+                              A(1, p).asArray(), 1);
+                          daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
+                              A(1, q).asArray(), 1);
                           D[p] = D[p] * CS;
                           D[q] = D[q] / CS;
                           if (RSVEC) {
-                            daxpy(
-                              MVL,
-                              -T.value * AQOAP,
-                              V(1, q).asArray(),
-                              1,
-                              V(1, p).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              MVL,
-                              CS * SN * APOAQ,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                            );
+                            daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
+                                V(1, p).asArray(), 1);
+                            daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
+                                V(1, q).asArray(), 1);
                           }
                         }
                       } else {
                         if (D[q] >= ONE) {
-                          daxpy(
-                            M,
-                            T.value * APOAQ,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                          );
-                          daxpy(
-                            M,
-                            -CS * SN * AQOAP,
-                            A(1, q).asArray(),
-                            1,
-                            A(1, p).asArray(),
-                            1,
-                          );
+                          daxpy(M, T.value * APOAQ, A(1, p).asArray(), 1,
+                              A(1, q).asArray(), 1);
+                          daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
+                              A(1, p).asArray(), 1);
                           D[p] = D[p] / CS;
                           D[q] = D[q] * CS;
                           if (RSVEC) {
-                            daxpy(
-                              MVL,
-                              T.value * APOAQ,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              MVL,
-                              -CS * SN * AQOAP,
-                              V(1, q).asArray(),
-                              1,
-                              V(1, p).asArray(),
-                              1,
-                            );
+                            daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
+                                V(1, q).asArray(), 1);
+                            daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
+                                V(1, p).asArray(), 1);
                           }
                         } else {
                           if (D[p] >= D[q]) {
-                            daxpy(
-                              M,
-                              -T.value * AQOAP,
-                              A(1, q).asArray(),
-                              1,
-                              A(1, p).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              M,
-                              CS * SN * APOAQ,
-                              A(1, p).asArray(),
-                              1,
-                              A(1, q).asArray(),
-                              1,
-                            );
+                            daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
+                                A(1, p).asArray(), 1);
+                            daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
+                                A(1, q).asArray(), 1);
                             D[p] = D[p] * CS;
                             D[q] = D[q] / CS;
                             if (RSVEC) {
-                              daxpy(
-                                MVL,
-                                -T.value * AQOAP,
-                                V(1, q).asArray(),
-                                1,
-                                V(1, p).asArray(),
-                                1,
-                              );
-                              daxpy(
-                                MVL,
-                                CS * SN * APOAQ,
-                                V(1, p).asArray(),
-                                1,
-                                V(1, q).asArray(),
-                                1,
-                              );
+                              daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
+                                  V(1, p).asArray(), 1);
+                              daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
+                                  V(1, q).asArray(), 1);
                             }
                           } else {
-                            daxpy(
-                              M,
-                              T.value * APOAQ,
-                              A(1, p).asArray(),
-                              1,
-                              A(1, q).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              M,
-                              -CS * SN * AQOAP,
-                              A(1, q).asArray(),
-                              1,
-                              A(1, p).asArray(),
-                              1,
-                            );
+                            daxpy(M, T.value * APOAQ, A(1, p).asArray(), 1,
+                                A(1, q).asArray(), 1);
+                            daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
+                                A(1, p).asArray(), 1);
                             D[p] = D[p] / CS;
                             D[q] = D[q] * CS;
                             if (RSVEC) {
-                              daxpy(
-                                MVL,
-                                T.value * APOAQ,
-                                V(1, p).asArray(),
-                                1,
-                                V(1, q).asArray(),
-                                1,
-                              );
-                              daxpy(
-                                MVL,
-                                -CS * SN * AQOAP,
-                                V(1, q).asArray(),
-                                1,
-                                V(1, p).asArray(),
-                                1,
-                              );
+                              daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
+                                  V(1, q).asArray(), 1);
+                              daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
+                                  V(1, p).asArray(), 1);
                             }
                           }
                         }
@@ -526,44 +386,14 @@ void dgsvj0(
                   } else {
                     // .. have to use modified Gram-Schmidt like transformation
                     dcopy(M, A(1, p).asArray(), 1, WORK, 1);
+                    dlascl('G', 0, 0, AAPP.value, ONE, M, 1, WORK.asMatrix(LDA),
+                        LDA, IERR);
                     dlascl(
-                      'G',
-                      0,
-                      0,
-                      AAPP.value,
-                      ONE,
-                      M,
-                      1,
-                      WORK.asMatrix(LDA),
-                      LDA,
-                      IERR,
-                    );
-                    dlascl(
-                      'G',
-                      0,
-                      0,
-                      AAQQ.value,
-                      ONE,
-                      M,
-                      1,
-                      A(1, q),
-                      LDA,
-                      IERR,
-                    );
+                        'G', 0, 0, AAQQ.value, ONE, M, 1, A(1, q), LDA, IERR);
                     TEMP1.value = -AAPQ * D[p] / D[q];
                     daxpy(M, TEMP1.value, WORK, 1, A(1, q).asArray(), 1);
                     dlascl(
-                      'G',
-                      0,
-                      0,
-                      ONE,
-                      AAQQ.value,
-                      M,
-                      1,
-                      A(1, q),
-                      LDA,
-                      IERR,
-                    );
+                        'G', 0, 0, ONE, AAQQ.value, M, 1, A(1, q), LDA, IERR);
                     SVA[q] = AAQQ.value * sqrt(max(ZERO, ONE - AAPQ * AAPQ));
                     MXSINJ = max(MXSINJ, SFMIN);
                   }
@@ -671,7 +501,8 @@ void dgsvj0(
                             AAPP.value;
                   } else {
                     dcopy(M, A(1, p).asArray(), 1, WORK, 1);
-                    dlascl('G', 0, 0, AAPP.value, D[p], M, 1, WORK.asMatrix(LDA), LDA, IERR);
+                    dlascl('G', 0, 0, AAPP.value, D[p], M, 1,
+                        WORK.asMatrix(LDA), LDA, IERR);
                     AAPQ = ddot(M, WORK, 1, A(1, q).asArray(), 1) *
                         D[q] /
                         AAQQ.value;
@@ -691,7 +522,8 @@ void dgsvj0(
                             AAPP.value;
                   } else {
                     dcopy(M, A(1, q).asArray(), 1, WORK, 1);
-                    dlascl('G', 0, 0, AAQQ.value, D[q], M, 1, WORK.asMatrix(LDA), LDA, IERR);
+                    dlascl('G', 0, 0, AAQQ.value, D[q], M, 1,
+                        WORK.asMatrix(LDA), LDA, IERR);
                     AAPQ = ddot(M, WORK, 1, A(1, p).asArray(), 1) *
                         D[p] /
                         AAPP.value;
@@ -719,22 +551,10 @@ void dgsvj0(
                       FASTR[3] = T.value * D[p] / D[q];
                       FASTR[4] = -T.value * D[q] / D[p];
                       drotm(
-                        M,
-                        A(1, p).asArray(),
-                        1,
-                        A(1, q).asArray(),
-                        1,
-                        FASTR,
-                      );
+                          M, A(1, p).asArray(), 1, A(1, q).asArray(), 1, FASTR);
                       if (RSVEC) {
-                        drotm(
-                          MVL,
-                          V(1, p).asArray(),
-                          1,
-                          V(1, q).asArray(),
-                          1,
-                          FASTR,
-                        );
+                        drotm(MVL, V(1, p).asArray(), 1, V(1, q).asArray(), 1,
+                            FASTR);
                       }
                       SVA[q] = AAQQ.value *
                           sqrt(max(ZERO, ONE + T.value * APOAQ * AAPQ));
@@ -764,174 +584,66 @@ void dgsvj0(
                           FASTR[4] = -T.value * AQOAP;
                           D[p] = D[p] * CS;
                           D[q] = D[q] * CS;
-                          drotm(
-                            M,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                            FASTR,
-                          );
+                          drotm(M, A(1, p).asArray(), 1, A(1, q).asArray(), 1,
+                              FASTR);
                           if (RSVEC) {
-                            drotm(
-                              MVL,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                              FASTR,
-                            );
+                            drotm(MVL, V(1, p).asArray(), 1, V(1, q).asArray(),
+                                1, FASTR);
                           }
                         } else {
-                          daxpy(
-                            M,
-                            -T.value * AQOAP,
-                            A(1, q).asArray(),
-                            1,
-                            A(1, p).asArray(),
-                            1,
-                          );
-                          daxpy(
-                            M,
-                            CS * SN * APOAQ,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                          );
+                          daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
+                              A(1, p).asArray(), 1);
+                          daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
+                              A(1, q).asArray(), 1);
                           if (RSVEC) {
-                            daxpy(
-                              MVL,
-                              -T.value * AQOAP,
-                              V(1, q).asArray(),
-                              1,
-                              V(1, p).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              MVL,
-                              CS * SN * APOAQ,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                            );
+                            daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
+                                V(1, p).asArray(), 1);
+                            daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
+                                V(1, q).asArray(), 1);
                           }
                           D[p] = D[p] * CS;
                           D[q] = D[q] / CS;
                         }
                       } else {
                         if (D[q] >= ONE) {
-                          daxpy(
-                            M,
-                            T.value * APOAQ,
-                            A(1, p).asArray(),
-                            1,
-                            A(1, q).asArray(),
-                            1,
-                          );
-                          daxpy(
-                            M,
-                            -CS * SN * AQOAP,
-                            A(1, q).asArray(),
-                            1,
-                            A(1, p).asArray(),
-                            1,
-                          );
+                          daxpy(M, T.value * APOAQ, A(1, p).asArray(), 1,
+                              A(1, q).asArray(), 1);
+                          daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
+                              A(1, p).asArray(), 1);
                           if (RSVEC) {
-                            daxpy(
-                              MVL,
-                              T.value * APOAQ,
-                              V(1, p).asArray(),
-                              1,
-                              V(1, q).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              MVL,
-                              -CS * SN * AQOAP,
-                              V(1, q).asArray(),
-                              1,
-                              V(1, p).asArray(),
-                              1,
-                            );
+                            daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
+                                V(1, q).asArray(), 1);
+                            daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
+                                V(1, p).asArray(), 1);
                           }
                           D[p] = D[p] / CS;
                           D[q] = D[q] * CS;
                         } else {
                           if (D[p] >= D[q]) {
-                            daxpy(
-                              M,
-                              -T.value * AQOAP,
-                              A(1, q).asArray(),
-                              1,
-                              A(1, p).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              M,
-                              CS * SN * APOAQ,
-                              A(1, p).asArray(),
-                              1,
-                              A(1, q).asArray(),
-                              1,
-                            );
+                            daxpy(M, -T.value * AQOAP, A(1, q).asArray(), 1,
+                                A(1, p).asArray(), 1);
+                            daxpy(M, CS * SN * APOAQ, A(1, p).asArray(), 1,
+                                A(1, q).asArray(), 1);
                             D[p] = D[p] * CS;
                             D[q] = D[q] / CS;
                             if (RSVEC) {
-                              daxpy(
-                                MVL,
-                                -T.value * AQOAP,
-                                V(1, q).asArray(),
-                                1,
-                                V(1, p).asArray(),
-                                1,
-                              );
-                              daxpy(
-                                MVL,
-                                CS * SN * APOAQ,
-                                V(1, p).asArray(),
-                                1,
-                                V(1, q).asArray(),
-                                1,
-                              );
+                              daxpy(MVL, -T.value * AQOAP, V(1, q).asArray(), 1,
+                                  V(1, p).asArray(), 1);
+                              daxpy(MVL, CS * SN * APOAQ, V(1, p).asArray(), 1,
+                                  V(1, q).asArray(), 1);
                             }
                           } else {
-                            daxpy(
-                              M,
-                              T.value * APOAQ,
-                              A(1, p).asArray(),
-                              1,
-                              A(1, q).asArray(),
-                              1,
-                            );
-                            daxpy(
-                              M,
-                              -CS * SN * AQOAP,
-                              A(1, q).asArray(),
-                              1,
-                              A(1, p).asArray(),
-                              1,
-                            );
+                            daxpy(M, T.value * APOAQ, A(1, p).asArray(), 1,
+                                A(1, q).asArray(), 1);
+                            daxpy(M, -CS * SN * AQOAP, A(1, q).asArray(), 1,
+                                A(1, p).asArray(), 1);
                             D[p] = D[p] / CS;
                             D[q] = D[q] * CS;
                             if (RSVEC) {
-                              daxpy(
-                                MVL,
-                                T.value * APOAQ,
-                                V(1, p).asArray(),
-                                1,
-                                V(1, q).asArray(),
-                                1,
-                              );
-                              daxpy(
-                                MVL,
-                                -CS * SN * AQOAP,
-                                V(1, q).asArray(),
-                                1,
-                                V(1, p).asArray(),
-                                1,
-                              );
+                              daxpy(MVL, T.value * APOAQ, V(1, p).asArray(), 1,
+                                  V(1, q).asArray(), 1);
+                              daxpy(MVL, -CS * SN * AQOAP, V(1, q).asArray(), 1,
+                                  V(1, p).asArray(), 1);
                             }
                           }
                         }
@@ -940,86 +652,26 @@ void dgsvj0(
                   } else {
                     if (AAPP.value > AAQQ.value) {
                       dcopy(M, A(1, p).asArray(), 1, WORK, 1);
+                      dlascl('G', 0, 0, AAPP.value, ONE, M, 1,
+                          WORK.asMatrix(LDA), LDA, IERR);
                       dlascl(
-                        'G',
-                        0,
-                        0,
-                        AAPP.value,
-                        ONE,
-                        M,
-                        1,
-                        WORK.asMatrix(LDA),
-                        LDA,
-                        IERR,
-                      );
-                      dlascl(
-                        'G',
-                        0,
-                        0,
-                        AAQQ.value,
-                        ONE,
-                        M,
-                        1,
-                        A(1, q),
-                        LDA,
-                        IERR,
-                      );
+                          'G', 0, 0, AAQQ.value, ONE, M, 1, A(1, q), LDA, IERR);
                       TEMP1.value = -AAPQ * D[p] / D[q];
                       daxpy(M, TEMP1.value, WORK, 1, A(1, q).asArray(), 1);
                       dlascl(
-                        'G',
-                        0,
-                        0,
-                        ONE,
-                        AAQQ.value,
-                        M,
-                        1,
-                        A(1, q),
-                        LDA,
-                        IERR,
-                      );
+                          'G', 0, 0, ONE, AAQQ.value, M, 1, A(1, q), LDA, IERR);
                       SVA[q] = AAQQ.value * sqrt(max(ZERO, ONE - AAPQ * AAPQ));
                       MXSINJ = max(MXSINJ, SFMIN);
                     } else {
                       dcopy(M, A(1, q).asArray(), 1, WORK, 1);
+                      dlascl('G', 0, 0, AAQQ.value, ONE, M, 1,
+                          WORK.asMatrix(LDA), LDA, IERR);
                       dlascl(
-                        'G',
-                        0,
-                        0,
-                        AAQQ.value,
-                        ONE,
-                        M,
-                        1,
-                        WORK.asMatrix(LDA),
-                        LDA,
-                        IERR,
-                      );
-                      dlascl(
-                        'G',
-                        0,
-                        0,
-                        AAPP.value,
-                        ONE,
-                        M,
-                        1,
-                        A(1, p),
-                        LDA,
-                        IERR,
-                      );
+                          'G', 0, 0, AAPP.value, ONE, M, 1, A(1, p), LDA, IERR);
                       TEMP1.value = -AAPQ * D[q] / D[p];
                       daxpy(M, TEMP1.value, WORK, 1, A(1, p).asArray(), 1);
                       dlascl(
-                        'G',
-                        0,
-                        0,
-                        ONE,
-                        AAPP.value,
-                        M,
-                        1,
-                        A(1, p),
-                        LDA,
-                        IERR,
-                      );
+                          'G', 0, 0, ONE, AAPP.value, M, 1, A(1, p), LDA, IERR);
                       SVA[p] = AAPP.value * sqrt(max(ZERO, ONE - AAPQ * AAPQ));
                       MXSINJ = max(MXSINJ, SFMIN);
                     }

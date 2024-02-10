@@ -207,17 +207,8 @@ void dstein(
         // Compute LU factors with partial pivoting  ( PT = LU )
 
         TOL = ZERO;
-        dlagtf(
-          BLKSIZ,
-          WORK[INDRV4 + 1],
-          XJ,
-          WORK[INDRV2 + 2],
-          WORK[INDRV3 + 1],
-          TOL,
-          WORK[INDRV5 + 1],
-          IWORK,
-          IINFO,
-        );
+        dlagtf(BLKSIZ, WORK[INDRV4 + 1], XJ, WORK[INDRV2 + 2], WORK[INDRV3 + 1],
+            TOL, WORK[INDRV5 + 1], IWORK, IINFO);
 
         // Update iteration count.
         var flag = false;
@@ -240,17 +231,16 @@ void dstein(
           // Solve the system LU = Pb.
 
           dlagts(
-            -1,
-            BLKSIZ,
-            WORK[INDRV4 + 1],
-            WORK[INDRV2 + 2],
-            WORK[INDRV3 + 1],
-            WORK[INDRV5 + 1],
-            IWORK,
-            WORK[INDRV1 + 1],
-            TOL,
-            IINFO,
-          );
+              -1,
+              BLKSIZ,
+              WORK[INDRV4 + 1],
+              WORK[INDRV2 + 2],
+              WORK[INDRV3 + 1],
+              WORK[INDRV5 + 1],
+              IWORK,
+              WORK[INDRV1 + 1],
+              TOL,
+              IINFO);
 
           // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
           // close enough.

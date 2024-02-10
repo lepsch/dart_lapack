@@ -132,31 +132,8 @@ void dget23(
     ISENSM = 1;
   }
   dlacpy('F', N, N, A, LDA, H, LDA);
-  dgeevx(
-    BALANC,
-    'V',
-    'V',
-    SENSE,
-    N,
-    H,
-    LDA,
-    WR,
-    WI,
-    VL,
-    LDVL,
-    VR,
-    LDVR,
-    ILO,
-    IHI,
-    SCALE,
-    ABNRM,
-    RCONDE,
-    RCONDV,
-    WORK,
-    LWORK,
-    IWORK,
-    IINFO.value,
-  );
+  dgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO,
+      IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO.value);
   if (IINFO.value != 0) {
     RESULT[1] = ULPINV;
     _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -182,9 +159,7 @@ void dget23(
       TNRM = dnrm2(N, VR(1, J).asArray(), 1);
     } else if (WI[J] > ZERO) {
       TNRM = dlapy2(
-        dnrm2(N, VR(1, J).asArray(), 1),
-        dnrm2(N, VR(1, J + 1).asArray(), 1),
-      );
+          dnrm2(N, VR(1, J).asArray(), 1), dnrm2(N, VR(1, J + 1).asArray(), 1));
     }
     RESULT[3] = max(RESULT[3], min(ULPINV, (TNRM - ONE).abs() / ULP));
     if (WI[J] > ZERO) {
@@ -209,9 +184,7 @@ void dget23(
       TNRM = dnrm2(N, VL(1, J).asArray(), 1);
     } else if (WI[J] > ZERO) {
       TNRM = dlapy2(
-        dnrm2(N, VL(1, J).asArray(), 1),
-        dnrm2(N, VL(1, J + 1).asArray(), 1),
-      );
+          dnrm2(N, VL(1, J).asArray(), 1), dnrm2(N, VL(1, J + 1).asArray(), 1));
     }
     RESULT[4] = max(RESULT[4], min(ULPINV, (TNRM - ONE).abs() / ULP));
     if (WI[J] > ZERO) {
@@ -236,31 +209,8 @@ void dget23(
     // Compute eigenvalues only, and test them
 
     dlacpy('F', N, N, A, LDA, H, LDA);
-    dgeevx(
-      BALANC,
-      'N',
-      'N',
-      SENSE,
-      N,
-      H,
-      LDA,
-      WR1,
-      WI1,
-      DUM,
-      1,
-      DUM,
-      1,
-      ILO1,
-      IHI1,
-      SCALE1,
-      ABNRM1,
-      RCNDE1,
-      RCNDV1,
-      WORK,
-      LWORK,
-      IWORK,
-      IINFO.value,
-    );
+    dgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1,
+        IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO.value);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -297,30 +247,29 @@ void dget23(
 
     dlacpy('F', N, N, A, LDA, H, LDA);
     dgeevx(
-      BALANC,
-      'N',
-      'V',
-      SENSE,
-      N,
-      H,
-      LDA,
-      WR1,
-      WI1,
-      DUM,
-      1,
-      LRE,
-      LDLRE,
-      ILO1,
-      IHI1,
-      SCALE1,
-      ABNRM1,
-      RCNDE1,
-      RCNDV1,
-      WORK,
-      LWORK,
-      IWORK,
-      IINFO.value,
-    );
+        BALANC,
+        'N',
+        'V',
+        SENSE,
+        N,
+        H,
+        LDA,
+        WR1,
+        WI1,
+        DUM,
+        1,
+        LRE,
+        LDLRE,
+        ILO1,
+        IHI1,
+        SCALE1,
+        ABNRM1,
+        RCNDE1,
+        RCNDV1,
+        WORK,
+        LWORK,
+        IWORK,
+        IINFO.value);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -365,30 +314,29 @@ void dget23(
 
     dlacpy('F', N, N, A, LDA, H, LDA);
     dgeevx(
-      BALANC,
-      'V',
-      'N',
-      SENSE,
-      N,
-      H,
-      LDA,
-      WR1,
-      WI1,
-      LRE,
-      LDLRE,
-      DUM,
-      1,
-      ILO1,
-      IHI1,
-      SCALE1,
-      ABNRM1,
-      RCNDE1,
-      RCNDV1,
-      WORK,
-      LWORK,
-      IWORK,
-      IINFO.value,
-    );
+        BALANC,
+        'V',
+        'N',
+        SENSE,
+        N,
+        H,
+        LDA,
+        WR1,
+        WI1,
+        LRE,
+        LDLRE,
+        DUM,
+        1,
+        ILO1,
+        IHI1,
+        SCALE1,
+        ABNRM1,
+        RCNDE1,
+        RCNDV1,
+        WORK,
+        LWORK,
+        IWORK,
+        IINFO.value);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -434,43 +382,12 @@ void dget23(
 
   if (COMP) {
     dlacpy('F', N, N, A, LDA, H, LDA);
-    dgeevx(
-      'N',
-      'V',
-      'V',
-      'B',
-      N,
-      H,
-      LDA,
-      WR,
-      WI,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      ILO,
-      IHI,
-      SCALE,
-      ABNRM,
-      RCONDE,
-      RCONDV,
-      WORK,
-      LWORK,
-      IWORK,
-      IINFO.value,
-    );
+    dgeevx('N', 'V', 'V', 'B', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI,
+        SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO.value);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
-      _printResults(
-        NOUNIT,
-        JTYPE,
-        'DGEEVX5',
-        IINFO.value,
-        N,
-        BALANC,
-        ISEED,
-        comp: true,
-      );
+      _printResults(NOUNIT, JTYPE, 'DGEEVX5', IINFO.value, N, BALANC, ISEED,
+          comp: true);
       INFO.value = (IINFO.value).abs();
     } else {
       // Sort eigenvalues and condition numbers lexicographically
@@ -581,11 +498,9 @@ void _printResults(
 }) {
   if (!comp && JTYPE != 22) {
     nout.println(
-      ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${JTYPE.i6}, BALANC = $BALANC, ISEED=(${iseed.i5(4, ',')})',
-    );
+        ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${JTYPE.i6}, BALANC = $BALANC, ISEED=(${iseed.i5(4, ',')})');
   } else {
     nout.println(
-      ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${iseed[1].i4}',
-    );
+        ' DGET23: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${iseed[1].i4}');
   }
 }

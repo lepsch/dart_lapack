@@ -368,34 +368,13 @@ void dhgeqz(
                   TEMP.value = H[JCH][JCH];
                   dlartg(TEMP.value, H[JCH + 1][JCH], C, S, H.box(JCH, JCH));
                   H[JCH + 1][JCH] = ZERO;
-                  drot(
-                    ILASTM - JCH,
-                    H(JCH, JCH + 1).asArray(),
-                    LDH,
-                    H(JCH + 1, JCH + 1).asArray(),
-                    LDH,
-                    C.value,
-                    S.value,
-                  );
-                  drot(
-                    ILASTM - JCH,
-                    T(JCH, JCH + 1).asArray(),
-                    LDT,
-                    T(JCH + 1, JCH + 1).asArray(),
-                    LDT,
-                    C.value,
-                    S.value,
-                  );
+                  drot(ILASTM - JCH, H(JCH, JCH + 1).asArray(), LDH,
+                      H(JCH + 1, JCH + 1).asArray(), LDH, C.value, S.value);
+                  drot(ILASTM - JCH, T(JCH, JCH + 1).asArray(), LDT,
+                      T(JCH + 1, JCH + 1).asArray(), LDT, C.value, S.value);
                   if (ILQ) {
-                    drot(
-                      N,
-                      Q(1, JCH).asArray(),
-                      1,
-                      Q(1, JCH + 1).asArray(),
-                      1,
-                      C.value,
-                      S.value,
-                    );
+                    drot(N, Q(1, JCH).asArray(), 1, Q(1, JCH + 1).asArray(), 1,
+                        C.value, S.value);
                   }
                   if (ILAZR2) H[JCH][JCH - 1] = H[JCH][JCH - 1] * C.value;
                   ILAZR2 = false;
@@ -420,81 +399,29 @@ void dhgeqz(
               for (JCH = J; JCH <= ILAST - 1; JCH++) {
                 TEMP.value = T[JCH][JCH + 1];
                 dlartg(
-                  TEMP.value,
-                  T[JCH + 1][JCH + 1],
-                  C,
-                  S,
-                  T.box(JCH, JCH + 1),
-                );
+                    TEMP.value, T[JCH + 1][JCH + 1], C, S, T.box(JCH, JCH + 1));
                 T[JCH + 1][JCH + 1] = ZERO;
                 if (JCH < ILASTM - 1) {
-                  drot(
-                    ILASTM - JCH - 1,
-                    T(JCH, JCH + 2).asArray(),
-                    LDT,
-                    T(JCH + 1, JCH + 2).asArray(),
-                    LDT,
-                    C.value,
-                    S.value,
-                  );
+                  drot(ILASTM - JCH - 1, T(JCH, JCH + 2).asArray(), LDT,
+                      T(JCH + 1, JCH + 2).asArray(), LDT, C.value, S.value);
                 }
-                drot(
-                  ILASTM - JCH + 2,
-                  H(JCH, JCH - 1).asArray(),
-                  LDH,
-                  H(JCH + 1, JCH - 1).asArray(),
-                  LDH,
-                  C.value,
-                  S.value,
-                );
+                drot(ILASTM - JCH + 2, H(JCH, JCH - 1).asArray(), LDH,
+                    H(JCH + 1, JCH - 1).asArray(), LDH, C.value, S.value);
                 if (ILQ) {
-                  drot(
-                    N,
-                    Q(1, JCH).asArray(),
-                    1,
-                    Q(1, JCH + 1).asArray(),
-                    1,
-                    C.value,
-                    S.value,
-                  );
+                  drot(N, Q(1, JCH).asArray(), 1, Q(1, JCH + 1).asArray(), 1,
+                      C.value, S.value);
                 }
                 TEMP.value = H[JCH + 1][JCH];
                 dlartg(
-                  TEMP.value,
-                  H[JCH + 1][JCH - 1],
-                  C,
-                  S,
-                  H.box(JCH + 1, JCH),
-                );
+                    TEMP.value, H[JCH + 1][JCH - 1], C, S, H.box(JCH + 1, JCH));
                 H[JCH + 1][JCH - 1] = ZERO;
-                drot(
-                  JCH + 1 - IFRSTM,
-                  H(IFRSTM, JCH).asArray(),
-                  1,
-                  H(IFRSTM, JCH - 1).asArray(),
-                  1,
-                  C.value,
-                  S.value,
-                );
-                drot(
-                  JCH - IFRSTM,
-                  T(IFRSTM, JCH).asArray(),
-                  1,
-                  T(IFRSTM, JCH - 1).asArray(),
-                  1,
-                  C.value,
-                  S.value,
-                );
+                drot(JCH + 1 - IFRSTM, H(IFRSTM, JCH).asArray(), 1,
+                    H(IFRSTM, JCH - 1).asArray(), 1, C.value, S.value);
+                drot(JCH - IFRSTM, T(IFRSTM, JCH).asArray(), 1,
+                    T(IFRSTM, JCH - 1).asArray(), 1, C.value, S.value);
                 if (ILZ) {
-                  drot(
-                    N,
-                    Z(1, JCH).asArray(),
-                    1,
-                    Z(1, JCH - 1).asArray(),
-                    1,
-                    C.value,
-                    S.value,
-                  );
+                  drot(N, Z(1, JCH).asArray(), 1, Z(1, JCH - 1).asArray(), 1,
+                      C.value, S.value);
                 }
               }
               isDropThroughImpossible = false;
@@ -528,34 +455,13 @@ void dhgeqz(
             TEMP.value = H[ILAST][ILAST];
             dlartg(TEMP.value, H[ILAST][ILAST - 1], C, S, H.box(ILAST, ILAST));
             H[ILAST][ILAST - 1] = ZERO;
-            drot(
-              ILAST - IFRSTM,
-              H(IFRSTM, ILAST).asArray(),
-              1,
-              H(IFRSTM, ILAST - 1).asArray(),
-              1,
-              C.value,
-              S.value,
-            );
-            drot(
-              ILAST - IFRSTM,
-              T(IFRSTM, ILAST).asArray(),
-              1,
-              T(IFRSTM, ILAST - 1).asArray(),
-              1,
-              C.value,
-              S.value,
-            );
+            drot(ILAST - IFRSTM, H(IFRSTM, ILAST).asArray(), 1,
+                H(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
+            drot(ILAST - IFRSTM, T(IFRSTM, ILAST).asArray(), 1,
+                T(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
             if (ILZ) {
-              drot(
-                N,
-                Z(1, ILAST).asArray(),
-                1,
-                Z(1, ILAST - 1).asArray(),
-                1,
-                C.value,
-                S.value,
-              );
+              drot(N, Z(1, ILAST).asArray(), 1, Z(1, ILAST - 1).asArray(), 1,
+                  C.value, S.value);
             }
           }
         }
@@ -789,49 +695,21 @@ void dhgeqz(
               H(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
 
           if (ILAST < ILASTM) {
-            drot(
-              ILASTM - ILAST,
-              T(ILAST - 1, ILAST + 1).asArray(),
-              LDT,
-              T(ILAST, ILAST + 1).asArray(),
-              LDT,
-              CL.value,
-              SL.value,
-            );
+            drot(ILASTM - ILAST, T(ILAST - 1, ILAST + 1).asArray(), LDT,
+                T(ILAST, ILAST + 1).asArray(), LDT, CL.value, SL.value);
           }
           if (IFRSTM < ILAST - 1) {
-            drot(
-              IFIRST - IFRSTM,
-              T(IFRSTM, ILAST - 1).asArray(),
-              1,
-              T(IFRSTM, ILAST).asArray(),
-              1,
-              CR.value,
-              SR.value,
-            );
+            drot(IFIRST - IFRSTM, T(IFRSTM, ILAST - 1).asArray(), 1,
+                T(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
           }
 
           if (ILQ) {
-            drot(
-              N,
-              Q(1, ILAST - 1).asArray(),
-              1,
-              Q(1, ILAST).asArray(),
-              1,
-              CL.value,
-              SL.value,
-            );
+            drot(N, Q(1, ILAST - 1).asArray(), 1, Q(1, ILAST).asArray(), 1,
+                CL.value, SL.value);
           }
           if (ILZ) {
-            drot(
-              N,
-              Z(1, ILAST - 1).asArray(),
-              1,
-              Z(1, ILAST).asArray(),
-              1,
-              CR.value,
-              SR.value,
-            );
+            drot(N, Z(1, ILAST - 1).asArray(), 1, Z(1, ILAST).asArray(), 1,
+                CR.value, SR.value);
           }
 
           T[ILAST - 1][ILAST - 1] = B11.value;

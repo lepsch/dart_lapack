@@ -116,34 +116,13 @@ void dgghrd(
       TEMP = A[JROW - 1][JCOL];
       dlartg(TEMP, A[JROW][JCOL], C, S, A.box(JROW - 1, JCOL));
       A[JROW][JCOL] = ZERO;
-      drot(
-        N - JCOL,
-        A(JROW - 1, JCOL + 1).asArray(),
-        LDA,
-        A(JROW, JCOL + 1).asArray(),
-        LDA,
-        C.value,
-        S.value,
-      );
-      drot(
-        N + 2 - JROW,
-        B(JROW - 1, JROW - 1).asArray(),
-        LDB,
-        B(JROW, JROW - 1).asArray(),
-        LDB,
-        C.value,
-        S.value,
-      );
+      drot(N - JCOL, A(JROW - 1, JCOL + 1).asArray(), LDA,
+          A(JROW, JCOL + 1).asArray(), LDA, C.value, S.value);
+      drot(N + 2 - JROW, B(JROW - 1, JROW - 1).asArray(), LDB,
+          B(JROW, JROW - 1).asArray(), LDB, C.value, S.value);
       if (ILQ) {
-        drot(
-          N,
-          Q(1, JROW - 1).asArray(),
-          1,
-          Q(1, JROW).asArray(),
-          1,
-          C.value,
-          S.value,
-        );
+        drot(N, Q(1, JROW - 1).asArray(), 1, Q(1, JROW).asArray(), 1, C.value,
+            S.value);
       }
 
       // Step 2: rotate columns JROW, JROW-1 to kill B[JROW][JROW-1]
@@ -151,34 +130,13 @@ void dgghrd(
       TEMP = B[JROW][JROW];
       dlartg(TEMP, B[JROW][JROW - 1], C, S, B.box(JROW, JROW));
       B[JROW][JROW - 1] = ZERO;
-      drot(
-        IHI,
-        A(1, JROW).asArray(),
-        1,
-        A(1, JROW - 1).asArray(),
-        1,
-        C.value,
-        S.value,
-      );
-      drot(
-        JROW - 1,
-        B(1, JROW).asArray(),
-        1,
-        B(1, JROW - 1).asArray(),
-        1,
-        C.value,
-        S.value,
-      );
+      drot(IHI, A(1, JROW).asArray(), 1, A(1, JROW - 1).asArray(), 1, C.value,
+          S.value);
+      drot(JROW - 1, B(1, JROW).asArray(), 1, B(1, JROW - 1).asArray(), 1,
+          C.value, S.value);
       if (ILZ) {
-        drot(
-          N,
-          Z(1, JROW).asArray(),
-          1,
-          Z(1, JROW - 1).asArray(),
-          1,
-          C.value,
-          S.value,
-        );
+        drot(N, Z(1, JROW).asArray(), 1, Z(1, JROW - 1).asArray(), 1, C.value,
+            S.value);
       }
     }
   }

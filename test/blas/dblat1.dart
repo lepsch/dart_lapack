@@ -80,8 +80,7 @@ void header() {
     'DSDOT ',
   ];
   print(
-    ' Test of subprogram number${combla.ICASE.i3}${' ' * 12}${L[combla.ICASE - 1]}',
-  );
+      ' Test of subprogram number${combla.ICASE.i3}${' ' * 12}${L[combla.ICASE - 1]}');
 }
 
 void check0(final double SFAC) {
@@ -704,12 +703,8 @@ void check2(final double SFAC) {
 
       if (combla.ICASE == 1) {
         // .. DDOT ..
-        stest1(
-          ddot(combla.N, SX, combla.INCX, SY, combla.INCY),
-          DT7[KN][KI],
-          SSIZE1(KN),
-          SFAC,
-        );
+        stest1(ddot(combla.N, SX, combla.INCX, SY, combla.INCY), DT7[KN][KI],
+            SSIZE1(KN), SFAC);
       } else if (combla.ICASE == 2) {
         // .. DAXPY ..
         daxpy(combla.N, SA, SX, combla.INCX, SY, combla.INCY);
@@ -779,12 +774,8 @@ void check2(final double SFAC) {
         }
       } else if (combla.ICASE == 13) {
         // .. DSDOT ..
-        testdsdot(
-          dsdot(combla.N, SX, combla.INCX, SY, combla.INCY),
-          DT7[KN][KI],
-          SSIZE1[KN],
-          .3125E-1,
-        );
+        testdsdot(dsdot(combla.N, SX, combla.INCX, SY, combla.INCY),
+            DT7[KN][KI], SSIZE1[KN], .3125E-1);
       } else {
         throw UnsupportedError(' Shouldn' 't be here in CHECK2');
       }
@@ -1025,12 +1016,10 @@ void stest(
       combla.PASS = false;
       print('                                       FAIL');
       print(
-        ' CASE  combla.N combla.INCX combla.INCY  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',
-      );
+          ' CASE  combla.N combla.INCX combla.INCY  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)');
     }
     print(
-      ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i5}${I.i3}${SCOMP[I].d36_8}${STRUE[I].d36_8}${SD.d12_4}${SSIZE[I].d12_4}',
-    );
+        ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i5}${I.i3}${SCOMP[I].d36_8}${STRUE[I].d36_8}${SD.d12_4}${SSIZE[I].d12_4}');
   }
 }
 
@@ -1061,12 +1050,10 @@ void testdsdot(
     combla.PASS = false;
     print('                                       FAIL');
     print(
-      ' CASE  N INCX INCY                            COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',
-    );
+        ' CASE  N INCX INCY                            COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)');
   }
   print(
-    ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i3}${SCOMP.d36_8}${STRUE.d36_8}${SD.d12_4}${SSIZE.d12_4}',
-  );
+      ' ${combla.ICASE.i4}${combla.N.i3}${combla.INCX.i5}${combla.INCY.i3}${SCOMP.d36_8}${STRUE.d36_8}${SD.d12_4}${SSIZE.d12_4}');
 }
 
 void stest1(
@@ -1113,13 +1100,11 @@ void itest1(final int ICOMP, final int ITRUE) {
     combla.PASS = false;
     print('                                       FAIL');
     print(
-      ' CASE  combla.N combla.INCX combla.INCY                                COMP                                TRUE     DIFFERENCE',
-    );
+        ' CASE  combla.N combla.INCX combla.INCY                                COMP                                TRUE     DIFFERENCE');
   }
   ID = ICOMP - ITRUE;
   print(
-    ' ${combla.ICASE.i4},${combla.N.i3},${combla.INCX.i5},${combla.INCY.i5},${ICOMP.i36},${ITRUE.i36},${ID.i12},',
-  );
+      ' ${combla.ICASE.i4},${combla.N.i3},${combla.INCX.i5},${combla.INCY.i5},${ICOMP.i36},${ITRUE.i36},${ID.i12},');
 }
 
 void db1nrm2(
@@ -1173,8 +1158,7 @@ void db1nrm2(
 
   if (combla.N * (combla.INCX).abs() > NMAX) {
     print(
-      ' Not enough space to test DNRM2: NMAX = ${NMAX.i6}, INCX = ${combla.INCX.i6}\n   N = ${combla.N.i6}, must be at least ${(combla.N * combla.INCX.abs()).i6}',
-    );
+        ' Not enough space to test DNRM2: NMAX = ${NMAX.i6}, INCX = ${combla.INCX.i6}\n   N = ${combla.N.i6}, must be at least ${(combla.N * combla.INCX.abs()).i6}');
     return;
   }
 
@@ -1289,8 +1273,7 @@ void db1nrm2(
           print('                                       FAIL');
         }
         print(
-          ' DNRM2: N=${combla.N.i6}, INCX=${combla.INCX.i4}, IV=${IV.i2}, IW=${IW.i2}, test=${TRAT.e15_8}',
-        );
+            ' DNRM2: N=${combla.N.i6}, INCX=${combla.INCX.i4}, IV=${IV.i2}, IW=${IW.i2}, test=${TRAT.e15_8}');
       }
     }
   }

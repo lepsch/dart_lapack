@@ -133,51 +133,23 @@ void dtgsja(
         // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
         if (K + J <= M) {
-          drot(
-            L,
-            A(K + J, N - L + 1).asArray(),
-            LDA,
-            A(K + I, N - L + 1).asArray(),
-            LDA,
-            CSU.value,
-            SNU.value,
-          );
+          drot(L, A(K + J, N - L + 1).asArray(), LDA,
+              A(K + I, N - L + 1).asArray(), LDA, CSU.value, SNU.value);
         }
 
         // Update I-th and J-th rows of matrix B: V**T *B
 
-        drot(
-          L,
-          B(J, N - L + 1).asArray(),
-          LDB,
-          B(I, N - L + 1).asArray(),
-          LDB,
-          CSV.value,
-          SNV.value,
-        );
+        drot(L, B(J, N - L + 1).asArray(), LDB, B(I, N - L + 1).asArray(), LDB,
+            CSV.value, SNV.value);
 
         // Update (N-L+I)-th and (N-L+J)-th columns of matrices
         // A and B: A*Q and B*Q
 
-        drot(
-          min(K + L, M),
-          A(1, N - L + J).asArray(),
-          1,
-          A(1, N - L + I).asArray(),
-          1,
-          CSQ.value,
-          SNQ.value,
-        );
+        drot(min(K + L, M), A(1, N - L + J).asArray(), 1,
+            A(1, N - L + I).asArray(), 1, CSQ.value, SNQ.value);
 
-        drot(
-          L,
-          B(1, N - L + J).asArray(),
-          1,
-          B(1, N - L + I).asArray(),
-          1,
-          CSQ.value,
-          SNQ.value,
-        );
+        drot(L, B(1, N - L + J).asArray(), 1, B(1, N - L + I).asArray(), 1,
+            CSQ.value, SNQ.value);
 
         if (UPPER) {
           if (K + I <= M) A[K + I][N - L + J] = ZERO;
@@ -190,39 +162,18 @@ void dtgsja(
         // Update orthogonal matrices U, V, Q, if desired.
 
         if (WANTU && K + J <= M) {
-          drot(
-            M,
-            U(1, K + J).asArray(),
-            1,
-            U(1, K + I).asArray(),
-            1,
-            CSU.value,
-            SNU.value,
-          );
+          drot(M, U(1, K + J).asArray(), 1, U(1, K + I).asArray(), 1, CSU.value,
+              SNU.value);
         }
 
         if (WANTV) {
-          drot(
-            P,
-            V(1, J).asArray(),
-            1,
-            V(1, I).asArray(),
-            1,
-            CSV.value,
-            SNV.value,
-          );
+          drot(P, V(1, J).asArray(), 1, V(1, I).asArray(), 1, CSV.value,
+              SNV.value);
         }
 
         if (WANTQ) {
-          drot(
-            N,
-            Q(1, N - L + J).asArray(),
-            1,
-            Q(1, N - L + I).asArray(),
-            1,
-            CSQ.value,
-            SNQ.value,
-          );
+          drot(N, Q(1, N - L + J).asArray(), 1, Q(1, N - L + I).asArray(), 1,
+              CSQ.value, SNQ.value);
         }
       }
     }
@@ -279,32 +230,18 @@ void dtgsja(
         dlartg((GAMMA).abs(), ONE, BETA.box(K + I), ALPHA.box(K + I), RWK);
 
         if (ALPHA[K + I] >= BETA[K + I]) {
-          dscal(
-            L - I + 1,
-            ONE / ALPHA[K + I],
-            A(K + I, N - L + I).asArray(),
-            LDA,
-          );
+          dscal(L - I + 1, ONE / ALPHA[K + I], A(K + I, N - L + I).asArray(),
+              LDA);
         } else {
           dscal(L - I + 1, ONE / BETA[K + I], B(I, N - L + I).asArray(), LDB);
-          dcopy(
-            L - I + 1,
-            B(I, N - L + I).asArray(),
-            LDB,
-            A(K + I, N - L + I).asArray(),
-            LDA,
-          );
+          dcopy(L - I + 1, B(I, N - L + I).asArray(), LDB,
+              A(K + I, N - L + I).asArray(), LDA);
         }
       } else {
         ALPHA[K + I] = ZERO;
         BETA[K + I] = ONE;
-        dcopy(
-          L - I + 1,
-          B(I, N - L + I).asArray(),
-          LDB,
-          A(K + I, N - L + I).asArray(),
-          LDA,
-        );
+        dcopy(L - I + 1, B(I, N - L + I).asArray(), LDB,
+            A(K + I, N - L + I).asArray(), LDA);
       }
     }
 

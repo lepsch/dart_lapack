@@ -49,8 +49,7 @@ Future<void> alarqg(
                 continue nextChar;
               } else {
                 NOUT.println(
-                  '\n\n *** Not enough matrix types on input line/n$LINE',
-                );
+                    '\n\n *** Not enough matrix types on input line/n$LINE');
                 print9994(NOUT, NMATS);
                 return;
               }
@@ -71,8 +70,7 @@ Future<void> alarqg(
               }
               if (!isDigit) {
                 NOUT.println(
-                  '\n\n *** Invalid integer value in column ${I.i2} of input line:\n$LINE',
-                );
+                    '\n\n *** Invalid integer value in column ${I.i2} of input line:\n$LINE');
                 print9994(NOUT, NMATS);
                 return;
               }
@@ -90,20 +88,17 @@ Future<void> alarqg(
             if (FIRSTT) NOUT.println('');
             FIRSTT = false;
             NOUT.println(
-              ' *** Warning:  duplicate request of matrix type ${NT.i2} for ${PATH.a3}',
-            );
+                ' *** Warning:  duplicate request of matrix type ${NT.i2} for ${PATH.a3}');
           }
           DOTYPE[NT] = true;
         } else {
           NOUT.println(
-            ' *** Invalid type request for $PATH, type  ${NT.i4}: must satisfy  1 <= type <= ${NTYPES.i2}',
-          );
+              ' *** Invalid type request for $PATH, type  ${NT.i4}: must satisfy  1 <= type <= ${NTYPES.i2}');
         }
       }
     } on EOF catch (_) {
       NOUT.println(
-        '\n *** End of file reached when trying to read matrix types for ${PATH.a3}\n *** Check that you are requesting the right number of types for each path\n',
-      );
+          '\n *** End of file reached when trying to read matrix types for ${PATH.a3}\n *** Check that you are requesting the right number of types for each path\n');
 
       NOUT.println();
       rethrow;
@@ -113,6 +108,5 @@ Future<void> alarqg(
 
 void print9994(final Nout NOUT, final int nmats) {
   NOUT.println(
-    ' ==> Specify ${nmats.i4} matrix types on this line or adjust NTYPES on previous line',
-  );
+      ' ==> Specify ${nmats.i4} matrix types on this line or adjust NTYPES on previous line');
 }

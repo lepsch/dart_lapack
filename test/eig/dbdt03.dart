@@ -48,18 +48,7 @@ void dbdt03(
           WORK[N + I] = S[I] * VT[I][J];
         }
         dgemv(
-          'No transpose',
-          N,
-          N,
-          -ONE,
-          U,
-          LDU,
-          WORK(N + 1),
-          1,
-          ZERO,
-          WORK,
-          1,
-        );
+            'No transpose', N, N, -ONE, U, LDU, WORK(N + 1), 1, ZERO, WORK, 1);
         WORK[J] = WORK[J] + D[J];
         if (J > 1) {
           WORK[J - 1] = WORK[J - 1] + E[J - 1];
@@ -77,18 +66,7 @@ void dbdt03(
           WORK[N + I] = S[I] * VT[I][J];
         }
         dgemv(
-          'No transpose',
-          N,
-          N,
-          -ONE,
-          U,
-          LDU,
-          WORK(N + 1),
-          1,
-          ZERO,
-          WORK,
-          1,
-        );
+            'No transpose', N, N, -ONE, U, LDU, WORK(N + 1), 1, ZERO, WORK, 1);
         WORK[J] = WORK[J] + D[J];
         if (J < N) {
           WORK[J + 1] = WORK[J + 1] + E[J];

@@ -227,25 +227,24 @@ void dbdsvdx(
     dcopy(N, D, 1, WORK(IETGK), 2);
     dcopy(N - 1, E, 1, WORK(IETGK + 1), 2);
     dstevx(
-      'N',
-      'V',
-      N * 2,
-      WORK(IDTGK),
-      WORK(IETGK),
-      VLTGK,
-      VUTGK,
-      ILTGK,
-      ILTGK,
-      ABSTOL,
-      NS,
-      S,
-      Z,
-      LDZ,
-      WORK(ITEMP),
-      IWORK(IIWORK),
-      IWORK(IIFAIL),
-      INFO,
-    );
+        'N',
+        'V',
+        N * 2,
+        WORK(IDTGK),
+        WORK(IETGK),
+        VLTGK,
+        VUTGK,
+        ILTGK,
+        ILTGK,
+        ABSTOL,
+        NS,
+        S,
+        Z,
+        LDZ,
+        WORK(ITEMP),
+        IWORK(IIWORK),
+        IWORK(IIFAIL),
+        INFO);
     if (NS.value == 0) {
       return;
     } else {
@@ -268,25 +267,24 @@ void dbdsvdx(
     dcopy(N, D, 1, WORK(IETGK), 2);
     dcopy(N - 1, E, 1, WORK(IETGK + 1), 2);
     dstevx(
-      'N',
-      'I',
-      N * 2,
-      WORK(IDTGK),
-      WORK(IETGK),
-      VLTGK,
-      VLTGK,
-      ILTGK,
-      ILTGK,
-      ABSTOL,
-      NS,
-      S,
-      Z,
-      LDZ,
-      WORK(ITEMP),
-      IWORK(IIWORK),
-      IWORK(IIFAIL),
-      INFO,
-    );
+        'N',
+        'I',
+        N * 2,
+        WORK(IDTGK),
+        WORK(IETGK),
+        VLTGK,
+        VLTGK,
+        ILTGK,
+        ILTGK,
+        ABSTOL,
+        NS,
+        S,
+        Z,
+        LDZ,
+        WORK(ITEMP),
+        IWORK(IIWORK),
+        IWORK(IIFAIL),
+        INFO);
     VLTGK = S[1] - FUDGE * SMAX * ULP * N;
     for (var i = IDTGK; i <= IDTGK + 2 * N - 1; i++) {
       WORK[i] = ZERO;
@@ -294,25 +292,24 @@ void dbdsvdx(
     dcopy(N, D, 1, WORK(IETGK), 2);
     dcopy(N - 1, E, 1, WORK(IETGK + 1), 2);
     dstevx(
-      'N',
-      'I',
-      N * 2,
-      WORK(IDTGK),
-      WORK(IETGK),
-      VUTGK,
-      VUTGK,
-      IUTGK,
-      IUTGK,
-      ABSTOL,
-      NS,
-      S,
-      Z,
-      LDZ,
-      WORK(ITEMP),
-      IWORK(IIWORK),
-      IWORK(IIFAIL),
-      INFO,
-    );
+        'N',
+        'I',
+        N * 2,
+        WORK(IDTGK),
+        WORK(IETGK),
+        VUTGK,
+        VUTGK,
+        IUTGK,
+        IUTGK,
+        ABSTOL,
+        NS,
+        S,
+        Z,
+        LDZ,
+        WORK(ITEMP),
+        IWORK(IIWORK),
+        IWORK(IIFAIL),
+        INFO);
     VUTGK = S[1] + FUDGE * SMAX * ULP * N;
     VUTGK = min(VUTGK, ZERO);
 
@@ -439,25 +436,24 @@ void dbdsvdx(
           // IWORK[ 1: ]: 2*6*NTGK
 
           dstevx(
-            JOBZ,
-            RNGVX,
-            NTGK,
-            WORK(IDTGK + ISPLT - 1),
-            WORK(IETGK + ISPLT - 1),
-            VLTGK,
-            VUTGK,
-            ILTGK,
-            IUTGK,
-            ABSTOL,
-            NSL,
-            S(ISBEG),
-            Z(IROWZ, ICOLZ),
-            LDZ,
-            WORK(ITEMP),
-            IWORK(IIWORK),
-            IWORK(IIFAIL),
-            INFO,
-          );
+              JOBZ,
+              RNGVX,
+              NTGK,
+              WORK(IDTGK + ISPLT - 1),
+              WORK(IETGK + ISPLT - 1),
+              VLTGK,
+              VUTGK,
+              ILTGK,
+              IUTGK,
+              ABSTOL,
+              NSL,
+              S(ISBEG),
+              Z(IROWZ, ICOLZ),
+              LDZ,
+              WORK(ITEMP),
+              IWORK(IIWORK),
+              IWORK(IIFAIL),
+              INFO);
           if (INFO.value != 0) {
             // Exit with the error code from DSTEVX.
             return;
@@ -504,21 +500,10 @@ void dbdsvdx(
               dscal(NRU, ONE / NRMU, Z(IROWU, ICOLZ + I).asArray(), 2);
               if (NRMU != ONE && (NRMU - ORTOL).abs() * SQRT2 > ONE) {
                 for (J = 0; J <= I - 1; J++) {
-                  ZJTJI = -ddot(
-                    NRU,
-                    Z(IROWU, ICOLZ + J).asArray(),
-                    2,
-                    Z(IROWU, ICOLZ + I).asArray(),
-                    2,
-                  );
-                  daxpy(
-                    NRU,
-                    ZJTJI,
-                    Z(IROWU, ICOLZ + J).asArray(),
-                    2,
-                    Z(IROWU, ICOLZ + I).asArray(),
-                    2,
-                  );
+                  ZJTJI = -ddot(NRU, Z(IROWU, ICOLZ + J).asArray(), 2,
+                      Z(IROWU, ICOLZ + I).asArray(), 2);
+                  daxpy(NRU, ZJTJI, Z(IROWU, ICOLZ + J).asArray(), 2,
+                      Z(IROWU, ICOLZ + I).asArray(), 2);
                 }
                 NRMU = dnrm2(NRU, Z(IROWU, ICOLZ + I).asArray(), 2);
                 dscal(NRU, ONE / NRMU, Z(IROWU, ICOLZ + I).asArray(), 2);
@@ -533,21 +518,10 @@ void dbdsvdx(
               dscal(NRV, -ONE / NRMV, Z(IROWV, ICOLZ + I).asArray(), 2);
               if (NRMV != ONE && (NRMV - ORTOL).abs() * SQRT2 > ONE) {
                 for (J = 0; J <= I - 1; J++) {
-                  ZJTJI = -ddot(
-                    NRV,
-                    Z(IROWV, ICOLZ + J).asArray(),
-                    2,
-                    Z(IROWV, ICOLZ + I).asArray(),
-                    2,
-                  );
-                  daxpy(
-                    NRU,
-                    ZJTJI,
-                    Z(IROWV, ICOLZ + J).asArray(),
-                    2,
-                    Z(IROWV, ICOLZ + I).asArray(),
-                    2,
-                  );
+                  ZJTJI = -ddot(NRV, Z(IROWV, ICOLZ + J).asArray(), 2,
+                      Z(IROWV, ICOLZ + I).asArray(), 2);
+                  daxpy(NRU, ZJTJI, Z(IROWV, ICOLZ + J).asArray(), 2,
+                      Z(IROWV, ICOLZ + I).asArray(), 2);
                 }
                 NRMV = dnrm2(NRV, Z(IROWV, ICOLZ + I).asArray(), 2);
                 dscal(NRV, ONE / NRMV, Z(IROWV, ICOLZ + I).asArray(), 2);

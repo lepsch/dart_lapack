@@ -114,21 +114,8 @@ void dgeqp3(
     IWS = max(IWS, WORK[1].toInt());
     if (NA < N) {
       // CALL dorm2r( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, INFO )
-      dormqr(
-        'Left',
-        'Transpose',
-        M,
-        N - NA,
-        NA,
-        A,
-        LDA,
-        TAU,
-        A(1, NA + 1),
-        LDA,
-        WORK,
-        LWORK,
-        INFO,
-      );
+      dormqr('Left', 'Transpose', M, N - NA, NA, A, LDA, TAU, A(1, NA + 1), LDA,
+          WORK, LWORK, INFO);
       IWS = max(IWS, WORK[1].toInt());
     }
   }
@@ -191,21 +178,20 @@ void dgeqp3(
           // Factorize JB columns among columns J:N.
 
           dlaqps(
-            M,
-            N - J + 1,
-            J - 1,
-            JB,
-            FJB,
-            A(1, J),
-            LDA,
-            JPVT(J),
-            TAU(J),
-            WORK(J),
-            WORK(N + J),
-            WORK(2 * N + 1),
-            WORK(2 * N + JB + 1),
-            N - J + 1,
-          );
+              M,
+              N - J + 1,
+              J - 1,
+              JB,
+              FJB,
+              A(1, J),
+              LDA,
+              JPVT(J),
+              TAU(J),
+              WORK(J),
+              WORK(N + J),
+              WORK(2 * N + 1),
+              WORK(2 * N + JB + 1),
+              N - J + 1);
 
           J = J + FJB;
           continue;
@@ -219,18 +205,8 @@ void dgeqp3(
     // Use unblocked code to factor the last or only block.
 
     if (J <= MINMN) {
-      dlaqp2(
-        M,
-        N - J + 1,
-        J - 1,
-        A(1, J),
-        LDA,
-        JPVT(J),
-        TAU(J),
-        WORK(J),
-        WORK(N + J),
-        WORK(2 * N + 1),
-      );
+      dlaqp2(M, N - J + 1, J - 1, A(1, J), LDA, JPVT(J), TAU(J), WORK(J),
+          WORK(N + J), WORK(2 * N + 1));
     }
   }
 

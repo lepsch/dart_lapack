@@ -171,21 +171,8 @@ void dtrsen(
         // T11*R - R*T22 = scale*T12
 
         dlacpy('F', N1, N2, T(1, N1 + 1), LDT, WORK.asMatrix(N1), N1);
-        dtrsyl(
-          'N',
-          'N',
-          -1,
-          N1,
-          N2,
-          T,
-          LDT,
-          T[N1 + 1][N1 + 1],
-          LDT,
-          WORK,
-          N1,
-          SCALE,
-          IERR.value,
-        );
+        dtrsyl('N', 'N', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK, N1,
+            SCALE, IERR.value);
 
         // Estimate the reciprocal of the condition number of the cluster
         // of eigenvalues.
@@ -210,39 +197,13 @@ void dtrsen(
             if (KASE == 1) {
               // Solve  T11*R - R*T22 = scale*X.
 
-              dtrsyl(
-                'N',
-                'N',
-                -1,
-                N1,
-                N2,
-                T,
-                LDT,
-                T[N1 + 1][N1 + 1],
-                LDT,
-                WORK,
-                N1,
-                SCALE,
-                IERR.value,
-              );
+              dtrsyl('N', 'N', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK,
+                  N1, SCALE, IERR.value);
             } else {
               // Solve T11**T*R - R*T22**T = scale*X.
 
-              dtrsyl(
-                'T',
-                'T',
-                -1,
-                N1,
-                N2,
-                T,
-                LDT,
-                T[N1 + 1][N1 + 1],
-                LDT,
-                WORK,
-                N1,
-                SCALE,
-                IERR.value,
-              );
+              dtrsyl('T', 'T', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK,
+                  N1, SCALE, IERR.value);
             }
             continue;
           }

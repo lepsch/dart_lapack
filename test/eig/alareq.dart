@@ -105,8 +105,7 @@ Future<void> alareq(
     }
   } on EOF catch (_) {
     NOUT.println(
-      '\n *** End of file reached when trying to read matrix types for ${PATH.a3}\n *** Check that you are requesting the right number of types for each path\n',
-    );
+        '\n *** End of file reached when trying to read matrix types for ${PATH.a3}\n *** Check that you are requesting the right number of types for each path\n');
     NOUT.println();
     rethrow;
   }
@@ -119,20 +118,17 @@ void print9999(
   final int ntypes,
 ) {
   nout.println(
-    ' *** Invalid type request for ${path.a3}, type  ${nt.i4}: must satisfy  1 <= type <= ${ntypes.i2}',
-  );
+      ' *** Invalid type request for ${path.a3}, type  ${nt.i4}: must satisfy  1 <= type <= ${ntypes.i2}');
 }
 
 void print9997(final Nout nout, final int nt, final String path) {
   nout.println(
-    ' *** Warning:  duplicate request of matrix type ${nt.i2} for ${path.a3}',
-  );
+      ' *** Warning:  duplicate request of matrix type ${nt.i2} for ${path.a3}');
 }
 
 void print9996(final Nout nout, final int column, final String line) {
   nout.println(
-    ' *** Invalid integer value in column ${column.i2} of input line:\n ${line.a79}',
-  );
+      ' *** Invalid integer value in column ${column.i2} of input line:\n ${line.a79}');
 }
 
 void print9995(final Nout nout, final String line) {
@@ -141,6 +137,5 @@ void print9995(final Nout nout, final String line) {
 
 void print9994(final Nout nout, final int n) {
   nout.println(
-    ' ==> Specify ${n.i4} matrix types on this line or adjust NTYPES on previous line',
-  );
+      ' ==> Specify ${n.i4} matrix types on this line or adjust NTYPES on previous line');
 }

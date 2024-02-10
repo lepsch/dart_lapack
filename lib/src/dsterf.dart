@@ -110,32 +110,12 @@ void dsterf(
     if ((ANORM > SSFMAX)) {
       ISCALE = 1;
       dlascl(
-        'G',
-        0,
-        0,
-        ANORM,
-        SSFMAX,
-        LEND - L + 1,
-        1,
-        D(L).asMatrix(N),
-        N,
-        INFO,
-      );
+          'G', 0, 0, ANORM, SSFMAX, LEND - L + 1, 1, D(L).asMatrix(N), N, INFO);
       dlascl('G', 0, 0, ANORM, SSFMAX, LEND - L, 1, E(L).asMatrix(N), N, INFO);
     } else if (ANORM < SSFMIN) {
       ISCALE = 2;
       dlascl(
-        'G',
-        0,
-        0,
-        ANORM,
-        SSFMIN,
-        LEND - L + 1,
-        1,
-        D(L).asMatrix(N),
-        N,
-        INFO,
-      );
+          'G', 0, 0, ANORM, SSFMIN, LEND - L + 1, 1, D(L).asMatrix(N), N, INFO);
       dlascl('G', 0, 0, ANORM, SSFMIN, LEND - L, 1, E(L).asMatrix(N), N, INFO);
     }
 
@@ -314,32 +294,12 @@ void dsterf(
 
     // } // 150
     if (ISCALE == 1) {
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMAX,
-        ANORM,
-        LENDSV - LSV + 1,
-        1,
-        D(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
+      dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV - LSV + 1, 1, D(LSV).asMatrix(N),
+          N, INFO);
     }
     if (ISCALE == 2) {
-      dlascl(
-        'G',
-        0,
-        0,
-        SSFMIN,
-        ANORM,
-        LENDSV - LSV + 1,
-        1,
-        D(LSV).asMatrix(N),
-        N,
-        INFO,
-      );
+      dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV - LSV + 1, 1, D(LSV).asMatrix(N),
+          N, INFO);
     }
 
     // Check for no convergence to an eigenvalue after a total

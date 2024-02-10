@@ -386,55 +386,24 @@ void dlahqr(
       // Transform the 2-by-2 submatrix to standard Schur form,
       // and compute and store the eigenvalues.
 
-      dlanv2(
-        H.box(I - 1, I - 1),
-        H.box(I - 1, I),
-        H.box(I, I - 1),
-        H.box(I, I),
-        WR.box(I - 1),
-        WI.box(I - 1),
-        WR.box(I),
-        WI.box(I),
-        CS,
-        SN,
-      );
+      dlanv2(H.box(I - 1, I - 1), H.box(I - 1, I), H.box(I, I - 1), H.box(I, I),
+          WR.box(I - 1), WI.box(I - 1), WR.box(I), WI.box(I), CS, SN);
 
       if (WANTT) {
         // Apply the transformation to the rest of H.
 
         if (I2 > I) {
-          drot(
-            I2 - I,
-            H(I - 1, I + 1).asArray(),
-            LDH,
-            H(I, I + 1).asArray(),
-            LDH,
-            CS.value,
-            SN.value,
-          );
+          drot(I2 - I, H(I - 1, I + 1).asArray(), LDH, H(I, I + 1).asArray(),
+              LDH, CS.value, SN.value);
         }
-        drot(
-          I - I1 - 1,
-          H(I1, I - 1).asArray(),
-          1,
-          H(I1, I).asArray(),
-          1,
-          CS.value,
-          SN.value,
-        );
+        drot(I - I1 - 1, H(I1, I - 1).asArray(), 1, H(I1, I).asArray(), 1,
+            CS.value, SN.value);
       }
       if (WANTZ) {
         // Apply the transformation to Z.
 
-        drot(
-          NZ,
-          Z(ILOZ, I - 1).asArray(),
-          1,
-          Z(ILOZ, I).asArray(),
-          1,
-          CS.value,
-          SN.value,
-        );
+        drot(NZ, Z(ILOZ, I - 1).asArray(), 1, Z(ILOZ, I).asArray(), 1, CS.value,
+            SN.value);
       }
     }
     // reset deflation counter

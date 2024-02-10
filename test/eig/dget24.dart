@@ -127,28 +127,8 @@ void dget24(
       // Compute Schur form and Schur vectors, and test them
 
       dlacpy('F', N, N, A, LDA, H, LDA);
-      dgeesx(
-        'V',
-        SORT,
-        dslect,
-        'N',
-        N,
-        H,
-        LDA,
-        SDIM,
-        WR,
-        WI,
-        VS,
-        LDVS,
-        RCONDE,
-        RCONDV,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('V', SORT, dslect, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE,
+          RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[1 + RSUB] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX1', IINFO.value, N, ISEED);
@@ -191,39 +171,13 @@ void dget24(
 
       // Compute Q*H and store in HT.
 
-      dgemm(
-        'No transpose',
-        'No transpose',
-        N,
-        N,
-        N,
-        ONE,
-        VS,
-        LDVS,
-        H,
-        LDA,
-        ZERO,
-        HT,
-        LDA,
-      );
+      dgemm('No transpose', 'No transpose', N, N, N, ONE, VS, LDVS, H, LDA,
+          ZERO, HT, LDA);
 
       // Compute A - Q*H*Q'
 
-      dgemm(
-        'No transpose',
-        'Transpose',
-        N,
-        N,
-        N,
-        -ONE,
-        HT,
-        LDA,
-        VS,
-        LDVS,
-        ONE,
-        VS1,
-        LDVS,
-      );
+      dgemm('No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE,
+          VS1, LDVS);
 
       ANORM = max(dlange('1', N, N, A, LDA, WORK), SMLNUM);
       WNORM = dlange('1', N, N, VS1, LDVS, WORK);
@@ -256,13 +210,9 @@ void dget24(
         if (H[I + 1][I] != ZERO) {
           TMP = sqrt((H[I + 1][I]).abs()) * sqrt((H[I][I + 1]).abs());
           RESULT[4 + RSUB] = max(
-            RESULT[4 + RSUB],
-            (WI[I] - TMP).abs() / max(ULP * TMP, SMLNUM),
-          );
-          RESULT[4 + RSUB] = max(
-            RESULT[4 + RSUB],
-            (WI[I + 1] + TMP).abs() / max(ULP * TMP, SMLNUM),
-          );
+              RESULT[4 + RSUB], (WI[I] - TMP).abs() / max(ULP * TMP, SMLNUM));
+          RESULT[4 + RSUB] = max(RESULT[4 + RSUB],
+              (WI[I + 1] + TMP).abs() / max(ULP * TMP, SMLNUM));
         } else if (I > 1) {
           if (H[I + 1][I] == ZERO && H[I][I - 1] == ZERO && WI[I] != ZERO) {
             RESULT[4 + RSUB] = ULPINV;
@@ -273,28 +223,8 @@ void dget24(
       // Do Test (5) or Test (11)
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'N',
-        SORT,
-        dslect,
-        'N',
-        N,
-        HT,
-        LDA,
-        SDIM,
-        WRT,
-        WIT,
-        VS,
-        LDVS,
-        RCONDE,
-        RCONDV,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('N', SORT, dslect, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS,
+          RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[5 + RSUB] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX2', IINFO.value, N, ISEED);
@@ -346,28 +276,8 @@ void dget24(
       RESULT[14] = ZERO;
       RESULT[15] = ZERO;
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'V',
-        SORT,
-        dslect,
-        'B',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCONDE,
-        RCONDV,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('V', SORT, dslect, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[14] = ULPINV;
         RESULT[15] = ULPINV;
@@ -390,28 +300,8 @@ void dget24(
       // Compute both RCONDE and RCONDV without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'N',
-        SORT,
-        dslect,
-        'B',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCNDE1,
-        RCNDV1,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('N', SORT, dslect, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[14] = ULPINV;
         RESULT[15] = ULPINV;
@@ -439,28 +329,8 @@ void dget24(
       // Compute RCONDE with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'V',
-        SORT,
-        dslect,
-        'E',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCNDE1,
-        RCNDV1,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('V', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[14] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX5', IINFO.value, N, ISEED);
@@ -486,28 +356,8 @@ void dget24(
       // Compute RCONDE without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'N',
-        SORT,
-        dslect,
-        'E',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCNDE1,
-        RCNDV1,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('N', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[14] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX6', IINFO.value, N, ISEED);
@@ -533,28 +383,8 @@ void dget24(
       // Compute RCONDV with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'V',
-        SORT,
-        dslect,
-        'V',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCNDE1,
-        RCNDV1,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('V', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[15] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX7', IINFO.value, N, ISEED);
@@ -580,28 +410,8 @@ void dget24(
       // Compute RCONDV without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
-      dgeesx(
-        'N',
-        SORT,
-        dslect,
-        'V',
-        N,
-        HT,
-        LDA,
-        SDIM1,
-        WRT,
-        WIT,
-        VS1,
-        LDVS,
-        RCNDE1,
-        RCNDV1,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        IINFO,
-      );
+      dgeesx('N', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+          RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
       if (IINFO.value != 0 && IINFO.value != N + 2) {
         RESULT[15] = ULPINV;
         _printReport(NOUNIT, JTYPE, 'DGEESX8', IINFO.value, N, ISEED);
@@ -671,28 +481,8 @@ void dget24(
     // Compute condition numbers
 
     dlacpy('F', N, N, A, LDA, HT, LDA);
-    dgeesx(
-      'N',
-      'S',
-      dslect,
-      'B',
-      N,
-      HT,
-      LDA,
-      SDIM1,
-      WRT,
-      WIT,
-      VS1,
-      LDVS,
-      RCONDE,
-      RCONDV,
-      WORK,
-      LWORK,
-      IWORK,
-      LIWORK,
-      BWORK,
-      IINFO,
-    );
+    dgeesx('N', 'S', dslect, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
+        RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO);
     if (IINFO.value != 0 && IINFO.value != N + 2) {
       RESULT[16] = ULPINV;
       RESULT[17] = ULPINV;
@@ -772,11 +562,9 @@ void _printReport(
   if (!comp && jtype != 22) {
     //  NOUNIT.println( 9999, 'DGEESX1', info, N, JTYPE, ISEED);
     nout.println(
-      ' DGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-    );
+        ' DGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
   } else {
     nout.println(
-      ' DGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${iseed[1].i4}',
-    );
+        ' DGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${iseed[1].i4}');
   }
 }

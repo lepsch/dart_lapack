@@ -55,11 +55,8 @@ class Matrix<T> {
   Matrix.fromSlice(this._entries, this._ld, {this.offset = (x: 0, y: 0)});
 
   Matrix<T> call(int i, int j, [({int x, int y}) offset = (x: 0, y: 0)]) {
-    return Matrix.fromSlice(
-      _entries,
-      _ld,
-      offset: (x: offset.x + j - 1, y: offset.y + i - 1),
-    );
+    return Matrix.fromSlice(_entries, _ld,
+        offset: (x: offset.x + j - 1, y: offset.y + i - 1));
   }
 
   Array<T> operator [](int i) {
@@ -102,24 +99,24 @@ class _Array<T> implements Array<T> {
   @override
   Array<T> slice(int index, {int offset = 0}) {
     return _Array.fromSlice(
-      switch (T) {
-        double => (_elements as Float64List).buffer.asFloat64List(
-              (_elements as Float64List).offsetInBytes +
-                  ((index - 1) * ld + offset) *
-                      (_elements as Float64List).elementSizeInBytes,
-            ),
-        int => (_elements as Int64List).buffer.asInt64List(
-              (_elements as Int64List).offsetInBytes +
-                  ((index - 1) * ld + offset) *
-                      (_elements as Int64List).elementSizeInBytes,
-            ),
-        bool => _elements is ListSlice
-            ? _elements.slice((index - 1) * ld + offset, _elements.length)
-            : ListSlice(_elements, (index - 1) * ld + offset, _elements.length),
-        _ => throw UnimplementedError(),
-      } as List<T>,
-      ld: ld,
-    );
+        switch (T) {
+          double => (_elements as Float64List).buffer.asFloat64List(
+                (_elements as Float64List).offsetInBytes +
+                    ((index - 1) * ld + offset) *
+                        (_elements as Float64List).elementSizeInBytes,
+              ),
+          int => (_elements as Int64List).buffer.asInt64List(
+                (_elements as Int64List).offsetInBytes +
+                    ((index - 1) * ld + offset) *
+                        (_elements as Int64List).elementSizeInBytes,
+              ),
+          bool => _elements is ListSlice
+              ? _elements.slice((index - 1) * ld + offset, _elements.length)
+              : ListSlice(
+                  _elements, (index - 1) * ld + offset, _elements.length),
+          _ => throw UnimplementedError(),
+        } as List<T>,
+        ld: ld);
   }
 
   @override
@@ -150,9 +147,7 @@ class _Array<T> implements Array<T> {
   @override
   Matrix<T> asMatrix(int ld) {
     return Matrix.fromSlice(
-      _Array.fromSlice(_elements, offset: offset, ld: ld),
-      ld,
-    );
+        _Array.fromSlice(_elements, offset: offset, ld: ld), ld);
   }
 
   @override
@@ -217,11 +212,11 @@ class Matrix3d<T> {
 
   Matrix3d<T> call(int i, int j, int k,
       [({int x, int y, int z}) offset = (x: 0, y: 0, z: 0)]) {
-    return Matrix3d.fromSlice(
-      _entries,
-      _ld,
-      offset: (x: offset.x + j - 1, y: offset.y + i - 1, z: offset.z + k - 1),
-    );
+    return Matrix3d.fromSlice(_entries, _ld, offset: (
+      x: offset.x + j - 1,
+      y: offset.y + i - 1,
+      z: offset.z + k - 1
+    ));
   }
 
   Matrix<T> operator [](int i) {

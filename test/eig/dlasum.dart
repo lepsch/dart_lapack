@@ -12,11 +12,9 @@ void dlasum(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   if (IE > 0) {
     IOUNIT.println(
-      ' ${TYPE.a3}: ${IE.i4} out of ${NRUN.i5} tests failed to pass the threshold',
-    );
+        ' ${TYPE.a3}: ${IE.i4} out of ${NRUN.i5} tests failed to pass the threshold');
   } else {
     IOUNIT.println(
-      '\n All tests for ${TYPE.a3} passed the threshold ( ${NRUN.i5} tests run)',
-    );
+        '\n All tests for ${TYPE.a3} passed the threshold ( ${NRUN.i5} tests run)');
   }
 }

@@ -192,23 +192,22 @@ void dhsein(
         // Compute left eigenvector.
 
         dlaein(
-          false,
-          NOINIT,
-          N - KL + 1,
-          H(KL, KL),
-          LDH,
-          WKR,
-          WKI,
-          VL(KL, KSR).asArray(),
-          VL(KL, KSI).asArray(),
-          WORK.asMatrix(LDWORK),
-          LDWORK,
-          WORK(N * N + N + 1),
-          EPS3,
-          SMLNUM,
-          BIGNUM,
-          IINFO,
-        );
+            false,
+            NOINIT,
+            N - KL + 1,
+            H(KL, KL),
+            LDH,
+            WKR,
+            WKI,
+            VL(KL, KSR).asArray(),
+            VL(KL, KSI).asArray(),
+            WORK.asMatrix(LDWORK),
+            LDWORK,
+            WORK(N * N + N + 1),
+            EPS3,
+            SMLNUM,
+            BIGNUM,
+            IINFO);
         if (IINFO.value > 0) {
           if (PAIR) {
             INFO.value = INFO.value + 2;
@@ -234,23 +233,22 @@ void dhsein(
         // Compute right eigenvector.
 
         dlaein(
-          true,
-          NOINIT,
-          KR,
-          H,
-          LDH,
-          WKR,
-          WKI,
-          VR(1, KSR).asArray(),
-          VR(1, KSI).asArray(),
-          WORK.asMatrix(LDWORK),
-          LDWORK,
-          WORK(N * N + N + 1),
-          EPS3,
-          SMLNUM,
-          BIGNUM,
-          IINFO,
-        );
+            true,
+            NOINIT,
+            KR,
+            H,
+            LDH,
+            WKR,
+            WKI,
+            VR(1, KSR).asArray(),
+            VR(1, KSI).asArray(),
+            WORK.asMatrix(LDWORK),
+            LDWORK,
+            WORK(N * N + N + 1),
+            EPS3,
+            SMLNUM,
+            BIGNUM,
+            IINFO);
         if (IINFO.value > 0) {
           if (PAIR) {
             INFO.value = INFO.value + 2;

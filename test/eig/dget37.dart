@@ -117,22 +117,8 @@ Future<void> dget37(
 
       // Compute Schur form
 
-      dhseqr(
-        'S',
-        'N',
-        N,
-        1,
-        N,
-        T,
-        LDT,
-        WR,
-        WI,
-        DUM.asMatrix(1),
-        1,
-        WORK,
-        LWORK,
-        INFO,
-      );
+      dhseqr('S', 'N', N, 1, N, T, LDT, WR, WI, DUM.asMatrix(1), 1, WORK, LWORK,
+          INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
         NINFO[2] = NINFO[2] + 1;
@@ -142,44 +128,12 @@ Future<void> dget37(
       // Compute eigenvectors
 
       dtrevc(
-        'Both',
-        'All',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        N,
-        M,
-        WORK,
-        INFO,
-      );
+          'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, INFO);
 
       // Compute condition numbers
 
-      dtrsna(
-        'Both',
-        'All',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        S,
-        SEP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M,
+          WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -338,26 +292,8 @@ Future<void> dget37(
       DUM[1] = -ONE;
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Eigcond',
-        'All',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -372,26 +308,8 @@ Future<void> dget37(
 
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Veccond',
-        'All',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -409,26 +327,8 @@ Future<void> dget37(
       }
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Bothcond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -443,26 +343,8 @@ Future<void> dget37(
 
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Eigcond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -477,26 +359,8 @@ Future<void> dget37(
 
       dcopy(N, DUM, 0, STMP, 1);
       dcopy(N, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Veccond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -559,26 +423,8 @@ Future<void> dget37(
 
       dcopy(ICMP, DUM, 0, STMP, 1);
       dcopy(ICMP, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Bothcond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -594,26 +440,8 @@ Future<void> dget37(
 
       dcopy(ICMP, DUM, 0, STMP, 1);
       dcopy(ICMP, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Eigcond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -629,26 +457,8 @@ Future<void> dget37(
 
       dcopy(ICMP, DUM, 0, STMP, 1);
       dcopy(ICMP, DUM, 0, SEPTMP, 1);
-      dtrsna(
-        'Veccond',
-        'Some',
-        SELECT,
-        N,
-        T,
-        LDT,
-        LE,
-        LDT,
-        RE,
-        LDT,
-        STMP,
-        SEPTMP,
-        N,
-        M,
-        WORK.asMatrix(N),
-        N,
-        IWORK,
-        INFO,
-      );
+      dtrsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP,
+          SEPTMP, N, M, WORK.asMatrix(N), N, IWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;

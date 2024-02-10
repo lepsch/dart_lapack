@@ -200,20 +200,8 @@ void dstedc(
           } else {
             STRTRW = START;
           }
-          dlaed0(
-            ICOMPZ,
-            N,
-            M,
-            D(START),
-            E(START),
-            Z(STRTRW,START),
-            LDZ,
-            WORK.asMatrix(N),
-            N,
-            WORK(STOREZ),
-            IWORK,
-            INFO,
-          );
+          dlaed0(ICOMPZ, N, M, D(START), E(START), Z(STRTRW, START), LDZ,
+              WORK.asMatrix(N), N, WORK(STOREZ), IWORK, INFO);
           if (INFO.value != 0) {
             INFO.value = (INFO.value ~/ (M + 1) + START - 1) * (N + 1) +
                 (INFO.value % (M + 1)) +
@@ -231,43 +219,14 @@ void dstedc(
             // the length of D, we must solve the sub-problem in a
             // workspace and then multiply back into Z.
 
-            dsteqr(
-              'I',
-              M,
-              D(START),
-              E(START),
-              WORK.asMatrix(M),
-              M,
-              WORK(M * M + 1),
-              INFO,
-            );
+            dsteqr('I', M, D(START), E(START), WORK.asMatrix(M), M,
+                WORK(M * M + 1), INFO);
             dlacpy('A', N, M, Z(1, START), LDZ, WORK(STOREZ).asMatrix(N), N);
-            dgemm(
-              'N',
-              'N',
-              N,
-              M,
-              M,
-              ONE,
-              WORK(STOREZ).asMatrix(N),
-              N,
-              WORK.asMatrix(M),
-              M,
-              ZERO,
-              Z(1, START),
-              LDZ,
-            );
+            dgemm('N', 'N', N, M, M, ONE, WORK(STOREZ).asMatrix(N), N,
+                WORK.asMatrix(M), M, ZERO, Z(1, START), LDZ);
           } else if (ICOMPZ == 2) {
             dsteqr(
-              'I',
-              M,
-              D(START),
-              E(START),
-              Z(START, START),
-              LDZ,
-              WORK,
-              INFO,
-            );
+                'I', M, D(START), E(START), Z(START, START), LDZ, WORK, INFO);
           } else {
             dsterf(M, D[START], E[START], INFO);
           }

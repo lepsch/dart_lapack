@@ -194,10 +194,8 @@ void dget35(
                         6, ONE, CC, 6);
                     RES1 = dlange('M', M, N, CC, 6, DUM);
                     RES = RES1 /
-                        max(
-                          SMLNUM,
-                          max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM),
-                        );
+                        max(SMLNUM,
+                            max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
                     if (RES > RMAX.value) {
                       LMAX.value = KNT.value;
                       RMAX.value = RES;

@@ -258,18 +258,8 @@ void dsyevr(
 
   // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
 
-  dsytrd(
-    UPLO,
-    N,
-    A,
-    LDA,
-    WORK(INDD),
-    WORK(INDE),
-    WORK(INDTAU),
-    WORK(INDWK),
-    LLWORK,
-    IINFO,
-  );
+  dsytrd(UPLO, N, A, LDA, WORK(INDD), WORK(INDE), WORK(INDTAU), WORK(INDWK),
+      LLWORK, IINFO);
 
   // If all eigenvalues are desired
   // then call DSTERF or DSTEMR and DORMTR.
@@ -288,29 +278,8 @@ void dsyevr(
         } else {
           TRYRAC.value = false;
         }
-        dstemr(
-          JOBZ,
-          'A',
-          N,
-          WORK(INDDD),
-          WORK(INDEE),
-          VL,
-          VU,
-          IL,
-          IU,
-          M,
-          W,
-          Z,
-          LDZ,
-          N,
-          ISUPPZ,
-          TRYRAC,
-          WORK(INDWK),
-          LWORK,
-          IWORK,
-          LIWORK,
-          INFO,
-        );
+        dstemr(JOBZ, 'A', N, WORK(INDDD), WORK(INDEE), VL, VU, IL, IU, M, W, Z,
+            LDZ, N, ISUPPZ, TRYRAC, WORK(INDWK), LWORK, IWORK, LIWORK, INFO);
 
         // Apply orthogonal matrix used in reduction to tridiagonal
         // form to eigenvectors returned by DSTEMR.
@@ -318,21 +287,8 @@ void dsyevr(
         if (WANTZ && INFO.value == 0) {
           INDWKN = INDE;
           LLWRKN = LWORK - INDWKN + 1;
-          dormtr(
-            'L',
-            UPLO,
-            'N',
-            N,
-            M.value,
-            A,
-            LDA,
-            WORK(INDTAU),
-            Z,
-            LDZ,
-            WORK(INDWKN),
-            LLWRKN,
-            IINFO,
-          );
+          dormtr('L', UPLO, 'N', N, M.value, A, LDA, WORK(INDTAU), Z, LDZ,
+              WORK(INDWKN), LLWRKN, IINFO);
         }
       }
 
@@ -354,63 +310,48 @@ void dsyevr(
       ORDER = 'E';
     }
     dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VLL,
-      VUU,
-      IL,
-      IU,
-      ABSTLL,
-      WORK(INDD),
-      WORK(INDE),
-      M,
-      NSPLIT,
-      W,
-      IWORK(INDIBL),
-      IWORK(INDISP),
-      WORK(INDWK),
-      IWORK(INDIWO),
-      INFO,
-    );
-
-    if (WANTZ) {
-      dstein(
+        RANGE,
+        ORDER,
         N,
+        VLL,
+        VUU,
+        IL,
+        IU,
+        ABSTLL,
         WORK(INDD),
         WORK(INDE),
-        M.value,
+        M,
+        NSPLIT,
         W,
         IWORK(INDIBL),
         IWORK(INDISP),
-        Z,
-        LDZ,
         WORK(INDWK),
         IWORK(INDIWO),
-        IWORK(INDIFL),
-        INFO,
-      );
+        INFO);
+
+    if (WANTZ) {
+      dstein(
+          N,
+          WORK(INDD),
+          WORK(INDE),
+          M.value,
+          W,
+          IWORK(INDIBL),
+          IWORK(INDISP),
+          Z,
+          LDZ,
+          WORK(INDWK),
+          IWORK(INDIWO),
+          IWORK(INDIFL),
+          INFO);
 
       // Apply orthogonal matrix used in reduction to tridiagonal
       // form to eigenvectors returned by DSTEIN.
 
       INDWKN = INDE;
       LLWRKN = LWORK - INDWKN + 1;
-      dormtr(
-        'L',
-        UPLO,
-        'N',
-        N,
-        M.value,
-        A,
-        LDA,
-        WORK(INDTAU),
-        Z,
-        LDZ,
-        WORK(INDWKN),
-        LLWRKN,
-        IINFO,
-      );
+      dormtr('L', UPLO, 'N', N, M.value, A, LDA, WORK(INDTAU), Z, LDZ,
+          WORK(INDWKN), LLWRKN, IINFO);
     }
 
     // If matrix was scaled, then rescale eigenvalues appropriately.

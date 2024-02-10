@@ -119,92 +119,18 @@ void dggev3(
       LWKOPT = max(LWKOPT, 3 * N + WORK[1].abs().toInt());
     }
     if (ILV) {
-      dgghd3(
-        JOBVL,
-        JOBVR,
-        N,
-        1,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        WORK,
-        -1,
-        IERR,
-      );
+      dgghd3(JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK,
+          -1, IERR);
       LWKOPT = max(LWKOPT, 3 * N + WORK[1].abs().toInt());
-      dlaqz0(
-        'S',
-        JOBVL,
-        JOBVR,
-        N,
-        1,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        WORK,
-        -1,
-        0,
-        IERR,
-      );
+      dlaqz0('S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA,
+          VL, LDVL, VR, LDVR, WORK, -1, 0, IERR);
       LWKOPT = max(LWKOPT, 2 * N + WORK[1].abs().toInt());
     } else {
-      dgghd3(
-        'N',
-        'N',
-        N,
-        1,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        WORK,
-        -1,
-        IERR,
-      );
+      dgghd3('N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1,
+          IERR);
       LWKOPT = max(LWKOPT, 3 * N + WORK[1].abs().toInt());
-      dlaqz0(
-        'E',
-        JOBVL,
-        JOBVR,
-        N,
-        1,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        WORK,
-        -1,
-        0,
-        IERR,
-      );
+      dlaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA,
+          VL, LDVL, VR, LDVR, WORK, -1, 0, IERR);
       LWKOPT = max(LWKOPT, 2 * N + WORK[1].abs().toInt());
     }
     if (N == 0) {
@@ -264,20 +190,8 @@ void dggev3(
   ILEFT = 1;
   IRIGHT = N + 1;
   IWRK = IRIGHT + N;
-  dggbal(
-    'P',
-    N,
-    A,
-    LDA,
-    B,
-    LDB,
-    ILO,
-    IHI,
-    WORK(ILEFT),
-    WORK(IRIGHT),
-    WORK(IWRK),
-    IERR,
-  );
+  dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK(ILEFT), WORK(IRIGHT),
+      WORK(IWRK), IERR);
 
   // Reduce B to triangular form (QR decomposition of B)
 
@@ -289,61 +203,36 @@ void dggev3(
   }
   ITAU = IWRK;
   IWRK = ITAU + IROWS;
-  dgeqrf(
-    IROWS,
-    ICOLS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+  dgeqrf(IROWS, ICOLS, B(ILO.value, ILO.value), LDB, WORK(ITAU), WORK(IWRK),
+      LWORK + 1 - IWRK, IERR);
 
   // Apply the orthogonal transformation to matrix A
 
   dormqr(
-    'L',
-    'T',
-    IROWS,
-    ICOLS,
-    IROWS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    A(ILO.value, ILO.value),
-    LDA,
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+      'L',
+      'T',
+      IROWS,
+      ICOLS,
+      IROWS,
+      B(ILO.value, ILO.value),
+      LDB,
+      WORK(ITAU),
+      A(ILO.value, ILO.value),
+      LDA,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      IERR);
 
   // Initialize VL
 
   if (ILVL) {
     dlaset('Full', N, N, ZERO, ONE, VL, LDVL);
     if (IROWS > 1) {
-      dlacpy(
-        'L',
-        IROWS - 1,
-        IROWS - 1,
-        B(ILO.value + 1, ILO.value),
-        LDB,
-        VL(ILO.value + 1, ILO.value),
-        LDVL,
-      );
+      dlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB,
+          VL(ILO.value + 1, ILO.value), LDVL);
     }
-    dorgqr(
-      IROWS,
-      IROWS,
-      IROWS,
-      VL(ILO.value, ILO.value),
-      LDVL,
-      WORK(ITAU),
-      WORK(IWRK),
-      LWORK + 1 - IWRK,
-      IERR,
-    );
+    dorgqr(IROWS, IROWS, IROWS, VL(ILO.value, ILO.value), LDVL, WORK(ITAU),
+        WORK(IWRK), LWORK + 1 - IWRK, IERR);
   }
 
   // Initialize VR
@@ -355,43 +244,26 @@ void dggev3(
   if (ILV) {
     // Eigenvectors requested -- work on whole matrix.
 
-    dgghd3(
-      JOBVL,
-      JOBVR,
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      B,
-      LDB,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      WORK(IWRK),
-      LWORK + 1 - IWRK,
-      IERR,
-    );
+    dgghd3(JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, VL, LDVL, VR,
+        LDVR, WORK(IWRK), LWORK + 1 - IWRK, IERR);
   } else {
     dgghd3(
-      'N',
-      'N',
-      IROWS,
-      1,
-      IROWS,
-      A(ILO.value, ILO.value),
-      LDA,
-      B(ILO.value, ILO.value),
-      LDB,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      WORK(IWRK),
-      LWORK + 1 - IWRK,
-      IERR,
-    );
+        'N',
+        'N',
+        IROWS,
+        1,
+        IROWS,
+        A(ILO.value, ILO.value),
+        LDA,
+        B(ILO.value, ILO.value),
+        LDB,
+        VL,
+        LDVL,
+        VR,
+        LDVR,
+        WORK(IWRK),
+        LWORK + 1 - IWRK,
+        IERR);
   }
 
   // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -403,29 +275,8 @@ void dggev3(
   } else {
     CHTEMP = 'E';
   }
-  dlaqz0(
-    CHTEMP,
-    JOBVL,
-    JOBVR,
-    N,
-    ILO.value,
-    IHI.value,
-    A,
-    LDA,
-    B,
-    LDB,
-    ALPHAR,
-    ALPHAI,
-    BETA,
-    VL,
-    LDVL,
-    VR,
-    LDVR,
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    0,
-    IERR,
-  );
+  dlaqz0(CHTEMP, JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, ALPHAR,
+      ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK(IWRK), LWORK + 1 - IWRK, 0, IERR);
   if (IERR.value != 0) {
     if (IERR.value > 0 && IERR.value <= N) {
       INFO.value = IERR.value;
@@ -447,43 +298,16 @@ void dggev3(
       } else {
         CHTEMP = 'R';
       }
-      dtgevc(
-        CHTEMP,
-        'B',
-        LDUMMA,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        N,
-        IN,
-        WORK(IWRK),
-        IERR,
-      );
+      dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN,
+          WORK(IWRK), IERR);
       if (IERR.value != 0) {
         INFO.value = N + 2;
       } else {
         // Undo balancing on VL and VR and normalization
 
         if (ILVL) {
-          dggbak(
-            'P',
-            'L',
-            N,
-            ILO.value,
-            IHI.value,
-            WORK(ILEFT),
-            WORK(IRIGHT),
-            N,
-            VL,
-            LDVL,
-            IERR,
-          );
+          dggbak('P', 'L', N, ILO.value, IHI.value, WORK(ILEFT), WORK(IRIGHT),
+              N, VL, LDVL, IERR);
           for (JC = 1; JC <= N; JC++) {
             if (ALPHAI[JC] < ZERO) continue;
             TEMP = ZERO;
@@ -511,19 +335,8 @@ void dggev3(
           }
         }
         if (ILVR) {
-          dggbak(
-            'P',
-            'R',
-            N,
-            ILO.value,
-            IHI.value,
-            WORK(ILEFT),
-            WORK(IRIGHT),
-            N,
-            VR,
-            LDVR,
-            IERR,
-          );
+          dggbak('P', 'R', N, ILO.value, IHI.value, WORK(ILEFT), WORK(IRIGHT),
+              N, VR, LDVR, IERR);
           for (JC = 1; JC <= N; JC++) {
             if (ALPHAI[JC] < ZERO) continue;
             TEMP = ZERO;

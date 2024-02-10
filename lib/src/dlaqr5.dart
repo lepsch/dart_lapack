@@ -196,16 +196,8 @@ void dlaqr5(
 
         K = KRCOL + 2 * (M22 - 1);
         if (K == KTOP - 1) {
-          dlaqr1(
-            2,
-            H(K + 1, K + 1),
-            LDH,
-            SR[2 * M22 - 1],
-            SI[2 * M22 - 1],
-            SR[2 * M22],
-            SI[2 * M22],
-            V(1, M22).asArray(),
-          );
+          dlaqr1(2, H(K + 1, K + 1), LDH, SR[2 * M22 - 1], SI[2 * M22 - 1],
+              SR[2 * M22], SI[2 * M22], V(1, M22).asArray());
           BETA.value = V[1][M22];
           dlarfg(2, BETA, V(2, M22).asArray(), 1, V.box(1, M22));
         } else {
@@ -269,13 +261,9 @@ void dlaqr5(
               H12 = max((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
               H21 = min((H[K + 1][K]).abs(), (H[K][K + 1]).abs());
               H11 = max(
-                (H[K + 1][K + 1]).abs(),
-                (H[K][K] - H[K + 1][K + 1]).abs(),
-              );
+                  (H[K + 1][K + 1]).abs(), (H[K][K] - H[K + 1][K + 1]).abs());
               H22 = min(
-                (H[K + 1][K + 1]).abs(),
-                (H[K][K] - H[K + 1][K + 1]).abs(),
-              );
+                  (H[K + 1][K + 1]).abs(), (H[K][K] - H[K + 1][K + 1]).abs());
               SCL = H11 + H12;
               TST2 = H22 * (H11 / SCL);
 
@@ -314,16 +302,8 @@ void dlaqr5(
       for (M = MBOT; M >= MTOP; M--) {
         K = KRCOL + 2 * (M - 1);
         if (K == KTOP - 1) {
-          dlaqr1(
-            3,
-            H(KTOP, KTOP),
-            LDH,
-            SR[2 * M - 1],
-            SI[2 * M - 1],
-            SR[2 * M],
-            SI[2 * M],
-            V(1, M).asArray(),
-          );
+          dlaqr1(3, H(KTOP, KTOP), LDH, SR[2 * M - 1], SI[2 * M - 1], SR[2 * M],
+              SI[2 * M], V(1, M).asArray());
           ALPHA.value = V[1][M];
           dlarfg(3, ALPHA, V(2, M).asArray(), 1, V.box(1, M));
         } else {
@@ -367,16 +347,8 @@ void dlaqr5(
             // .    reflector is too large, then abandon it.
             // .    Otherwise, use the new one. ====
 
-            dlaqr1(
-              3,
-              H(K + 1, K + 1),
-              LDH,
-              SR[2 * M - 1],
-              SI[2 * M - 1],
-              SR[2 * M],
-              SI[2 * M],
-              VT,
-            );
+            dlaqr1(3, H(K + 1, K + 1), LDH, SR[2 * M - 1], SI[2 * M - 1],
+                SR[2 * M], SI[2 * M], VT);
             ALPHA.value = VT[1];
             dlarfg(3, ALPHA, VT(2), 1, VT.box(1));
             T1 = VT[1];
@@ -567,21 +539,8 @@ void dlaqr5(
           NH < 0 ? JCOL >= JBOT : JCOL <= JBOT;
           JCOL += NH) {
         JLEN = min(NH, JBOT - JCOL + 1);
-        dgemm(
-          'C',
-          'N',
-          NU,
-          JLEN,
-          NU,
-          ONE,
-          U(K1, K1),
-          LDU,
-          H(INCOL + K1, JCOL),
-          LDH,
-          ZERO,
-          WH,
-          LDWH,
-        );
+        dgemm('C', 'N', NU, JLEN, NU, ONE, U(K1, K1), LDU, H(INCOL + K1, JCOL),
+            LDH, ZERO, WH, LDWH);
         dlacpy('ALL', NU, JLEN, WH, LDWH, H(INCOL + K1, JCOL), LDH);
       }
 
@@ -591,21 +550,8 @@ void dlaqr5(
           NV < 0 ? JROW >= max(KTOP, INCOL) - 1 : JROW <= max(KTOP, INCOL) - 1;
           JROW += NV) {
         JLEN = min(NV, max(KTOP, INCOL) - JROW);
-        dgemm(
-          'N',
-          'N',
-          JLEN,
-          NU,
-          NU,
-          ONE,
-          H(JROW, INCOL + K1),
-          LDH,
-          U(K1, K1),
-          LDU,
-          ZERO,
-          WV,
-          LDWV,
-        );
+        dgemm('N', 'N', JLEN, NU, NU, ONE, H(JROW, INCOL + K1), LDH, U(K1, K1),
+            LDU, ZERO, WV, LDWV);
         dlacpy('ALL', JLEN, NU, WV, LDWV, H(JROW, INCOL + K1), LDH);
       }
 
@@ -614,21 +560,8 @@ void dlaqr5(
       if (WANTZ) {
         for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) {
           JLEN = min(NV, IHIZ - JROW + 1);
-          dgemm(
-            'N',
-            'N',
-            JLEN,
-            NU,
-            NU,
-            ONE,
-            Z(JROW, INCOL + K1),
-            LDZ,
-            U(K1, K1),
-            LDU,
-            ZERO,
-            WV,
-            LDWV,
-          );
+          dgemm('N', 'N', JLEN, NU, NU, ONE, Z(JROW, INCOL + K1), LDZ,
+              U(K1, K1), LDU, ZERO, WV, LDWV);
           dlacpy('ALL', JLEN, NU, WV, LDWV, Z(JROW, INCOL + K1), LDZ);
         }
       }

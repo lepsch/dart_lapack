@@ -227,17 +227,8 @@ void dsbgst(
 
           dscal(N - M, ONE / BII, X(M + 1, I).asArray(), 1);
           if (KBT > 0) {
-            dger(
-              N - M,
-              KBT,
-              -ONE,
-              X(M + 1, I).asArray(),
-              1,
-              BB(KB1 - KBT, I).asArray(),
-              1,
-              X(M + 1, I - KBT),
-              LDX,
-            );
+            dger(N - M, KBT, -ONE, X(M + 1, I).asArray(), 1,
+                BB(KB1 - KBT, I).asArray(), 1, X(M + 1, I - KBT), LDX);
           }
         }
 
@@ -259,13 +250,8 @@ void dsbgst(
           if (I - K + KA < N && I - K > 1) {
             // generate rotation to annihilate a(i,i-k+ka+1)
 
-            dlartg(
-              AB[K + 1][I - K + KA],
-              RA1,
-              WORK.box(N + I - K + KA - M),
-              WORK.box(I - K + KA - M),
-              RA,
-            );
+            dlartg(AB[K + 1][I - K + KA], RA1, WORK.box(N + I - K + KA - M),
+                WORK.box(I - K + KA - M), RA);
 
             // create nonzero element a(i-k,i-k+ka+1) outside the
             // band and store it in WORK[i-k]
@@ -301,15 +287,8 @@ void dsbgst(
         // have been created outside the band
 
         if (NRT > 0) {
-          dlargv(
-            NRT,
-            AB(1, J2T).asArray(),
-            INCA,
-            WORK(J2T - M),
-            KA1,
-            WORK(N + J2T - M),
-            KA1,
-          );
+          dlargv(NRT, AB(1, J2T).asArray(), INCA, WORK(J2T - M), KA1,
+              WORK(N + J2T - M), KA1);
         }
         if (NR > 0) {
           // apply rotations in 1st set from the right
@@ -317,30 +296,28 @@ void dsbgst(
           for (L = 1; L <= KA - 1; L++) {
             // 100
             dlartv(
-              NR,
-              AB(KA1 - L, J2).asArray(),
-              INCA,
-              AB(KA - L, J2 + 1).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NR,
+                AB(KA1 - L, J2).asArray(),
+                INCA,
+                AB(KA - L, J2 + 1).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           } // 100
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
 
           dlar2v(
-            NR,
-            AB(KA1, J2).asArray(),
-            AB(KA1, J2 + 1).asArray(),
-            AB(KA, J2 + 1).asArray(),
-            INCA,
-            WORK(N + J2 - M),
-            WORK(J2 - M),
-            KA1,
-          );
+              NR,
+              AB(KA1, J2).asArray(),
+              AB(KA1, J2 + 1).asArray(),
+              AB(KA, J2 + 1).asArray(),
+              INCA,
+              WORK(N + J2 - M),
+              WORK(J2 - M),
+              KA1);
         }
 
         // start applying rotations in 1st set from the left
@@ -350,15 +327,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J2 + KA1 - L).asArray(),
-              INCA,
-              AB(L + 1, J2 + KA1 - L).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NRT,
+                AB(L, J2 + KA1 - L).asArray(),
+                INCA,
+                AB(L + 1, J2 + KA1 - L).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           }
         } // 110
 
@@ -367,15 +343,8 @@ void dsbgst(
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
             // 120
-            drot(
-              N - M,
-              X(M + 1, J).asArray(),
-              1,
-              X(M + 1, J + 1).asArray(),
-              1,
-              WORK[N + J - M],
-              WORK[J - M],
-            );
+            drot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
+                WORK[N + J - M], WORK[J - M]);
           } // 120
         }
       } // 130
@@ -404,15 +373,14 @@ void dsbgst(
           NRT = (N - J2 + KA + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J2 - L + 1).asArray(),
-              INCA,
-              AB(L + 1, J2 - L + 1).asArray(),
-              INCA,
-              WORK(N + J2 - KA),
-              WORK(J2 - KA),
-              KA1,
-            );
+                NRT,
+                AB(L, J2 - L + 1).asArray(),
+                INCA,
+                AB(L + 1, J2 - L + 1).asArray(),
+                INCA,
+                WORK(N + J2 - KA),
+                WORK(J2 - KA),
+                KA1);
           }
         } // 140
         NR = (N - J2 + KA) ~/ KA1;
@@ -446,44 +414,28 @@ void dsbgst(
           // which have been created outside the band
 
           dlargv(
-            NR,
-            AB(1, J2).asArray(),
-            INCA,
-            WORK(J2),
-            KA1,
-            WORK(N + J2),
-            KA1,
-          );
+              NR, AB(1, J2).asArray(), INCA, WORK(J2), KA1, WORK(N + J2), KA1);
 
           // apply rotations in 2nd set from the right
 
           for (L = 1; L <= KA - 1; L++) {
             // 180
             dlartv(
-              NR,
-              AB(KA1 - L, J2).asArray(),
-              INCA,
-              AB(KA - L, J2 + 1).asArray(),
-              INCA,
-              WORK(N + J2),
-              WORK(J2),
-              KA1,
-            );
+                NR,
+                AB(KA1 - L, J2).asArray(),
+                INCA,
+                AB(KA - L, J2 + 1).asArray(),
+                INCA,
+                WORK(N + J2),
+                WORK(J2),
+                KA1);
           } // 180
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
 
-          dlar2v(
-            NR,
-            AB(KA1, J2).asArray(),
-            AB(KA1, J2 + 1).asArray(),
-            AB(KA, J2 + 1).asArray(),
-            INCA,
-            WORK(N + J2),
-            WORK(J2),
-            KA1,
-          );
+          dlar2v(NR, AB(KA1, J2).asArray(), AB(KA1, J2 + 1).asArray(),
+              AB(KA, J2 + 1).asArray(), INCA, WORK(N + J2), WORK(J2), KA1);
         }
 
         // start applying rotations in 2nd set from the left
@@ -493,15 +445,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J2 + KA1 - L).asArray(),
-              INCA,
-              AB(L + 1, J2 + KA1 - L).asArray(),
-              INCA,
-              WORK(N + J2),
-              WORK(J2),
-              KA1,
-            );
+                NRT,
+                AB(L, J2 + KA1 - L).asArray(),
+                INCA,
+                AB(L + 1, J2 + KA1 - L).asArray(),
+                INCA,
+                WORK(N + J2),
+                WORK(J2),
+                KA1);
           }
         } // 190
 
@@ -510,15 +461,8 @@ void dsbgst(
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
             // 200
-            drot(
-              N - M,
-              X(M + 1, J).asArray(),
-              1,
-              X(M + 1, J + 1).asArray(),
-              1,
-              WORK[N + J],
-              WORK[J],
-            );
+            drot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
+                WORK[N + J], WORK[J]);
           } // 200
         }
       } // 210
@@ -534,15 +478,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J2 + KA1 - L).asArray(),
-              INCA,
-              AB(L + 1, J2 + KA1 - L).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NRT,
+                AB(L, J2 + KA1 - L).asArray(),
+                INCA,
+                AB(L + 1, J2 + KA1 - L).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           }
         } // 220
       } // 230
@@ -599,16 +542,15 @@ void dsbgst(
           dscal(N - M, ONE / BII, X(M + 1, I).asArray(), 1);
           if (KBT > 0) {
             dger(
-              N - M,
-              KBT,
-              -ONE,
-              X(M + 1, I).asArray(),
-              1,
-              BB(KBT + 1, I - KBT).asArray(),
-              LDBB - 1,
-              X(M + 1, I - KBT),
-              LDX,
-            );
+                N - M,
+                KBT,
+                -ONE,
+                X(M + 1, I).asArray(),
+                1,
+                BB(KBT + 1, I - KBT).asArray(),
+                LDBB - 1,
+                X(M + 1, I - KBT),
+                LDX);
           }
         }
 
@@ -630,13 +572,8 @@ void dsbgst(
           if (I - K + KA < N && I - K > 1) {
             // generate rotation to annihilate a(i-k+ka+1,i)
 
-            dlartg(
-              AB[KA1 - K][I],
-              RA1,
-              WORK.box(N + I - K + KA - M),
-              WORK.box(I - K + KA - M),
-              RA,
-            );
+            dlartg(AB[KA1 - K][I], RA1, WORK.box(N + I - K + KA - M),
+                WORK.box(I - K + KA - M), RA);
 
             // create nonzero element a(i-k+ka+1,i-k) outside the
             // band and store it in WORK[i-k]
@@ -672,15 +609,8 @@ void dsbgst(
         // have been created outside the band
 
         if (NRT > 0) {
-          dlargv(
-            NRT,
-            AB(KA1, J2T - KA).asArray(),
-            INCA,
-            WORK(J2T - M),
-            KA1,
-            WORK(N + J2T - M),
-            KA1,
-          );
+          dlargv(NRT, AB(KA1, J2T - KA).asArray(), INCA, WORK(J2T - M), KA1,
+              WORK(N + J2T - M), KA1);
         }
         if (NR > 0) {
           // apply rotations in 1st set from the left
@@ -688,30 +618,21 @@ void dsbgst(
           for (L = 1; L <= KA - 1; L++) {
             // 330
             dlartv(
-              NR,
-              AB(L + 1, J2 - L).asArray(),
-              INCA,
-              AB(L + 2, J2 - L).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NR,
+                AB(L + 1, J2 - L).asArray(),
+                INCA,
+                AB(L + 2, J2 - L).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           } // 330
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
 
-          dlar2v(
-            NR,
-            AB(1, J2).asArray(),
-            AB(1, J2 + 1).asArray(),
-            AB(2, J2).asArray(),
-            INCA,
-            WORK(N + J2 - M),
-            WORK(J2 - M),
-            KA1,
-          );
+          dlar2v(NR, AB(1, J2).asArray(), AB(1, J2 + 1).asArray(),
+              AB(2, J2).asArray(), INCA, WORK(N + J2 - M), WORK(J2 - M), KA1);
         }
 
         // start applying rotations in 1st set from the right
@@ -721,15 +642,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J2).asArray(),
-              INCA,
-              AB(KA1 - L, J2 + 1).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J2).asArray(),
+                INCA,
+                AB(KA1 - L, J2 + 1).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           }
         } // 340
 
@@ -738,15 +658,8 @@ void dsbgst(
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
             // 350
-            drot(
-              N - M,
-              X(M + 1, J).asArray(),
-              1,
-              X(M + 1, J + 1).asArray(),
-              1,
-              WORK[N + J - M],
-              WORK[J - M],
-            );
+            drot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
+                WORK[N + J - M], WORK[J - M]);
           } // 350
         }
       } // 360
@@ -775,15 +688,14 @@ void dsbgst(
           NRT = (N - J2 + KA + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J2 - KA).asArray(),
-              INCA,
-              AB(KA1 - L, J2 - KA + 1).asArray(),
-              INCA,
-              WORK(N + J2 - KA),
-              WORK(J2 - KA),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J2 - KA).asArray(),
+                INCA,
+                AB(KA1 - L, J2 - KA + 1).asArray(),
+                INCA,
+                WORK(N + J2 - KA),
+                WORK(J2 - KA),
+                KA1);
           }
         } // 370
         NR = (N - J2 + KA) ~/ KA1;
@@ -816,45 +728,22 @@ void dsbgst(
           // generate rotations in 2nd set to annihilate elements
           // which have been created outside the band
 
-          dlargv(
-            NR,
-            AB(KA1, J2 - KA).asArray(),
-            INCA,
-            WORK(J2),
-            KA1,
-            WORK(N + J2),
-            KA1,
-          );
+          dlargv(NR, AB(KA1, J2 - KA).asArray(), INCA, WORK(J2), KA1,
+              WORK(N + J2), KA1);
 
           // apply rotations in 2nd set from the left
 
           for (L = 1; L <= KA - 1; L++) {
             // 410
-            dlartv(
-              NR,
-              AB(L + 1, J2 - L).asArray(),
-              INCA,
-              AB(L + 2, J2 - L).asArray(),
-              INCA,
-              WORK(N + J2),
-              WORK(J2),
-              KA1,
-            );
+            dlartv(NR, AB(L + 1, J2 - L).asArray(), INCA,
+                AB(L + 2, J2 - L).asArray(), INCA, WORK(N + J2), WORK(J2), KA1);
           } // 410
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
 
-          dlar2v(
-            NR,
-            AB(1, J2).asArray(),
-            AB(1, J2 + 1).asArray(),
-            AB(2, J2).asArray(),
-            INCA,
-            WORK(N + J2),
-            WORK(J2),
-            KA1,
-          );
+          dlar2v(NR, AB(1, J2).asArray(), AB(1, J2 + 1).asArray(),
+              AB(2, J2).asArray(), INCA, WORK(N + J2), WORK(J2), KA1);
         }
 
         // start applying rotations in 2nd set from the right
@@ -864,15 +753,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J2).asArray(),
-              INCA,
-              AB(KA1 - L, J2 + 1).asArray(),
-              INCA,
-              WORK(N + J2),
-              WORK(J2),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J2).asArray(),
+                INCA,
+                AB(KA1 - L, J2 + 1).asArray(),
+                INCA,
+                WORK(N + J2),
+                WORK(J2),
+                KA1);
           }
         } // 420
 
@@ -881,15 +769,8 @@ void dsbgst(
 
           for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) {
             // 430
-            drot(
-              N - M,
-              X(M + 1, J).asArray(),
-              1,
-              X(M + 1, J + 1).asArray(),
-              1,
-              WORK[N + J],
-              WORK[J],
-            );
+            drot(N - M, X(M + 1, J).asArray(), 1, X(M + 1, J + 1).asArray(), 1,
+                WORK[N + J], WORK[J]);
           } // 430
         }
       } // 440
@@ -905,15 +786,14 @@ void dsbgst(
           NRT = (N - J2 + L) ~/ KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J2).asArray(),
-              INCA,
-              AB(KA1 - L, J2 + 1).asArray(),
-              INCA,
-              WORK(N + J2 - M),
-              WORK(J2 - M),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J2).asArray(),
+                INCA,
+                AB(KA1 - L, J2 + 1).asArray(),
+                INCA,
+                WORK(N + J2 - M),
+                WORK(J2 - M),
+                KA1);
           }
         } // 450
       } // 460
@@ -1017,17 +897,8 @@ void dsbgst(
 
           dscal(NX, ONE / BII, X(1, I).asArray(), 1);
           if (KBT > 0) {
-            dger(
-              NX,
-              KBT,
-              -ONE,
-              X(1, I).asArray(),
-              1,
-              BB(KB, I + 1).asArray(),
-              LDBB - 1,
-              X(1, I + 1),
-              LDX,
-            );
+            dger(NX, KBT, -ONE, X(1, I).asArray(), 1, BB(KB, I + 1).asArray(),
+                LDBB - 1, X(1, I + 1), LDX);
           }
         }
 
@@ -1048,13 +919,8 @@ void dsbgst(
           if (I + K - KA1 > 0 && I + K < M) {
             // generate rotation to annihilate a(i+k-ka-1,i)
 
-            dlartg(
-              AB[K + 1][I],
-              RA1,
-              WORK.box(N + I + K - KA),
-              WORK.box(I + K - KA),
-              RA,
-            );
+            dlartg(AB[K + 1][I], RA1, WORK.box(N + I + K - KA),
+                WORK.box(I + K - KA), RA);
 
             // create nonzero element a(i+k-ka-1,i+k) outside the
             // band and store it in WORK[m-kb+i+k]
@@ -1090,15 +956,8 @@ void dsbgst(
         // have been created outside the band
 
         if (NRT > 0) {
-          dlargv(
-            NRT,
-            AB(1, J1 + KA).asArray(),
-            INCA,
-            WORK(J1),
-            KA1,
-            WORK(N + J1),
-            KA1,
-          );
+          dlargv(NRT, AB(1, J1 + KA).asArray(), INCA, WORK(J1), KA1,
+              WORK(N + J1), KA1);
         }
         if (NR > 0) {
           // apply rotations in 1st set from the left
@@ -1106,30 +965,21 @@ void dsbgst(
           for (L = 1; L <= KA - 1; L++) {
             // 580
             dlartv(
-              NR,
-              AB(KA1 - L, J1 + L).asArray(),
-              INCA,
-              AB(KA - L, J1 + L).asArray(),
-              INCA,
-              WORK(N + J1),
-              WORK(J1),
-              KA1,
-            );
+                NR,
+                AB(KA1 - L, J1 + L).asArray(),
+                INCA,
+                AB(KA - L, J1 + L).asArray(),
+                INCA,
+                WORK(N + J1),
+                WORK(J1),
+                KA1);
           } // 580
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
 
-          dlar2v(
-            NR,
-            AB(KA1, J1).asArray(),
-            AB(KA1, J1 - 1).asArray(),
-            AB(KA, J1).asArray(),
-            INCA,
-            WORK(N + J1),
-            WORK(J1),
-            KA1,
-          );
+          dlar2v(NR, AB(KA1, J1).asArray(), AB(KA1, J1 - 1).asArray(),
+              AB(KA, J1).asArray(), INCA, WORK(N + J1), WORK(J1), KA1);
         }
 
         // start applying rotations in 1st set from the right
@@ -1140,15 +990,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J1T).asArray(),
-              INCA,
-              AB(L + 1, J1T - 1).asArray(),
-              INCA,
-              WORK(N + J1T),
-              WORK(J1T),
-              KA1,
-            );
+                NRT,
+                AB(L, J1T).asArray(),
+                INCA,
+                AB(L + 1, J1T - 1).asArray(),
+                INCA,
+                WORK(N + J1T),
+                WORK(J1T),
+                KA1);
           }
         } // 590
 
@@ -1157,15 +1006,8 @@ void dsbgst(
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
             // 600
-            drot(
-              NX,
-              X(1, J).asArray(),
-              1,
-              X(1, J - 1).asArray(),
-              1,
-              WORK[N + J],
-              WORK[J],
-            );
+            drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
+                WORK[N + J], WORK[J]);
           } // 600
         }
       } // 610
@@ -1195,15 +1037,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J1T + KA).asArray(),
-              INCA,
-              AB(L + 1, J1T + KA - 1).asArray(),
-              INCA,
-              WORK(N + M - KB + J1T + KA),
-              WORK(M - KB + J1T + KA),
-              KA1,
-            );
+                NRT,
+                AB(L, J1T + KA).asArray(),
+                INCA,
+                AB(L + 1, J1T + KA - 1).asArray(),
+                INCA,
+                WORK(N + M - KB + J1T + KA),
+                WORK(M - KB + J1T + KA),
+                KA1);
           }
         } // 620
         NR = (J2 + KA - 1) ~/ KA1;
@@ -1238,45 +1079,36 @@ void dsbgst(
           // generate rotations in 2nd set to annihilate elements
           // which have been created outside the band
 
-          dlargv(
-            NR,
-            AB(1, J1 + KA).asArray(),
-            INCA,
-            WORK(M - KB + J1),
-            KA1,
-            WORK(N + M - KB + J1),
-            KA1,
-          );
+          dlargv(NR, AB(1, J1 + KA).asArray(), INCA, WORK(M - KB + J1), KA1,
+              WORK(N + M - KB + J1), KA1);
 
           // apply rotations in 2nd set from the left
 
           for (L = 1; L <= KA - 1; L++) {
             // 660
             dlartv(
-              NR,
-              AB(KA1 - L, J1 + L).asArray(),
-              INCA,
-              AB(KA - L, J1 + L).asArray(),
-              INCA,
-              WORK(N + M - KB + J1),
-              WORK(M - KB + J1),
-              KA1,
-            );
+                NR,
+                AB(KA1 - L, J1 + L).asArray(),
+                INCA,
+                AB(KA - L, J1 + L).asArray(),
+                INCA,
+                WORK(N + M - KB + J1),
+                WORK(M - KB + J1),
+                KA1);
           } // 660
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
 
           dlar2v(
-            NR,
-            AB(KA1, J1).asArray(),
-            AB(KA1, J1 - 1).asArray(),
-            AB(KA, J1).asArray(),
-            INCA,
-            WORK(N + M - KB + J1),
-            WORK(M - KB + J1),
-            KA1,
-          );
+              NR,
+              AB(KA1, J1).asArray(),
+              AB(KA1, J1 - 1).asArray(),
+              AB(KA, J1).asArray(),
+              INCA,
+              WORK(N + M - KB + J1),
+              WORK(M - KB + J1),
+              KA1);
         }
 
         // start applying rotations in 2nd set from the right
@@ -1287,15 +1119,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J1T).asArray(),
-              INCA,
-              AB(L + 1, J1T - 1).asArray(),
-              INCA,
-              WORK(N + M - KB + J1T),
-              WORK(M - KB + J1T),
-              KA1,
-            );
+                NRT,
+                AB(L, J1T).asArray(),
+                INCA,
+                AB(L + 1, J1T - 1).asArray(),
+                INCA,
+                WORK(N + M - KB + J1T),
+                WORK(M - KB + J1T),
+                KA1);
           }
         } // 670
 
@@ -1304,15 +1135,8 @@ void dsbgst(
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
             // 680
-            drot(
-              NX,
-              X(1, J).asArray(),
-              1,
-              X(1, J - 1).asArray(),
-              1,
-              WORK[N + M - KB + J],
-              WORK[M - KB + J],
-            );
+            drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
+                WORK[N + M - KB + J], WORK[M - KB + J]);
           } // 680
         }
       } // 690
@@ -1329,15 +1153,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(L, J1T).asArray(),
-              INCA,
-              AB(L + 1, J1T - 1).asArray(),
-              INCA,
-              WORK(N + J1T),
-              WORK(J1T),
-              KA1,
-            );
+                NRT,
+                AB(L, J1T).asArray(),
+                INCA,
+                AB(L + 1, J1T - 1).asArray(),
+                INCA,
+                WORK(N + J1T),
+                WORK(J1T),
+                KA1);
           }
         } // 700
       } // 710
@@ -1393,17 +1216,8 @@ void dsbgst(
 
           dscal(NX, ONE / BII, X(1, I).asArray(), 1);
           if (KBT > 0) {
-            dger(
-              NX,
-              KBT,
-              -ONE,
-              X(1, I).asArray(),
-              1,
-              BB(2, I).asArray(),
-              1,
-              X(1, I + 1),
-              LDX,
-            );
+            dger(NX, KBT, -ONE, X(1, I).asArray(), 1, BB(2, I).asArray(), 1,
+                X(1, I + 1), LDX);
           }
         }
 
@@ -1424,13 +1238,8 @@ void dsbgst(
           if (I + K - KA1 > 0 && I + K < M) {
             // generate rotation to annihilate a(i,i+k-ka-1)
 
-            dlartg(
-              AB[KA1 - K][I + K - KA],
-              RA1,
-              WORK.box(N + I + K - KA),
-              WORK.box(I + K - KA),
-              RA,
-            );
+            dlartg(AB[KA1 - K][I + K - KA], RA1, WORK.box(N + I + K - KA),
+                WORK.box(I + K - KA), RA);
 
             // create nonzero element a(i+k,i+k-ka-1) outside the
             // band and store it in WORK[m-kb+i+k]
@@ -1466,46 +1275,23 @@ void dsbgst(
         // have been created outside the band
 
         if (NRT > 0) {
-          dlargv(
-            NRT,
-            AB(KA1, J1).asArray(),
-            INCA,
-            WORK(J1),
-            KA1,
-            WORK(N + J1),
-            KA1,
-          );
+          dlargv(NRT, AB(KA1, J1).asArray(), INCA, WORK(J1), KA1, WORK(N + J1),
+              KA1);
         }
         if (NR > 0) {
           // apply rotations in 1st set from the right
 
           for (L = 1; L <= KA - 1; L++) {
             // 810
-            dlartv(
-              NR,
-              AB(L + 1, J1).asArray(),
-              INCA,
-              AB(L + 2, J1 - 1).asArray(),
-              INCA,
-              WORK(N + J1),
-              WORK(J1),
-              KA1,
-            );
+            dlartv(NR, AB(L + 1, J1).asArray(), INCA,
+                AB(L + 2, J1 - 1).asArray(), INCA, WORK(N + J1), WORK(J1), KA1);
           } // 810
 
           // apply rotations in 1st set from both sides to diagonal
           // blocks
 
-          dlar2v(
-            NR,
-            AB(1, J1).asArray(),
-            AB(1, J1 - 1).asArray(),
-            AB(2, J1 - 1).asArray(),
-            INCA,
-            WORK(N + J1),
-            WORK(J1),
-            KA1,
-          );
+          dlar2v(NR, AB(1, J1).asArray(), AB(1, J1 - 1).asArray(),
+              AB(2, J1 - 1).asArray(), INCA, WORK(N + J1), WORK(J1), KA1);
         }
 
         // start applying rotations in 1st set from the left
@@ -1516,15 +1302,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
-              INCA,
-              AB(KA1 - L, J1T - KA1 + L).asArray(),
-              INCA,
-              WORK(N + J1T),
-              WORK(J1T),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
+                INCA,
+                AB(KA1 - L, J1T - KA1 + L).asArray(),
+                INCA,
+                WORK(N + J1T),
+                WORK(J1T),
+                KA1);
           }
         } // 820
 
@@ -1533,15 +1318,8 @@ void dsbgst(
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
             // 830
-            drot(
-              NX,
-              X(1, J).asArray(),
-              1,
-              X(1, J - 1).asArray(),
-              1,
-              WORK[N + J],
-              WORK[J],
-            );
+            drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
+                WORK[N + J], WORK[J]);
           } // 830
         }
       } // 840
@@ -1571,15 +1349,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J1T + L - 1).asArray(),
-              INCA,
-              AB(KA1 - L, J1T + L - 1).asArray(),
-              INCA,
-              WORK(N + M - KB + J1T + KA),
-              WORK(M - KB + J1T + KA),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J1T + L - 1).asArray(),
+                INCA,
+                AB(KA1 - L, J1T + L - 1).asArray(),
+                INCA,
+                WORK(N + M - KB + J1T + KA),
+                WORK(M - KB + J1T + KA),
+                KA1);
           }
         } // 850
         NR = (J2 + KA - 1) ~/ KA1;
@@ -1614,45 +1391,36 @@ void dsbgst(
           // generate rotations in 2nd set to annihilate elements
           // which have been created outside the band
 
-          dlargv(
-            NR,
-            AB(KA1, J1).asArray(),
-            INCA,
-            WORK(M - KB + J1),
-            KA1,
-            WORK(N + M - KB + J1),
-            KA1,
-          );
+          dlargv(NR, AB(KA1, J1).asArray(), INCA, WORK(M - KB + J1), KA1,
+              WORK(N + M - KB + J1), KA1);
 
           // apply rotations in 2nd set from the right
 
           for (L = 1; L <= KA - 1; L++) {
             // 890
             dlartv(
-              NR,
-              AB(L + 1, J1).asArray(),
-              INCA,
-              AB(L + 2, J1 - 1).asArray(),
-              INCA,
-              WORK(N + M - KB + J1),
-              WORK(M - KB + J1),
-              KA1,
-            );
+                NR,
+                AB(L + 1, J1).asArray(),
+                INCA,
+                AB(L + 2, J1 - 1).asArray(),
+                INCA,
+                WORK(N + M - KB + J1),
+                WORK(M - KB + J1),
+                KA1);
           } // 890
 
           // apply rotations in 2nd set from both sides to diagonal
           // blocks
 
           dlar2v(
-            NR,
-            AB(1, J1).asArray(),
-            AB(1, J1 - 1).asArray(),
-            AB(2, J1 - 1).asArray(),
-            INCA,
-            WORK(N + M - KB + J1),
-            WORK(M - KB + J1),
-            KA1,
-          );
+              NR,
+              AB(1, J1).asArray(),
+              AB(1, J1 - 1).asArray(),
+              AB(2, J1 - 1).asArray(),
+              INCA,
+              WORK(N + M - KB + J1),
+              WORK(M - KB + J1),
+              KA1);
         }
 
         // start applying rotations in 2nd set from the left
@@ -1663,15 +1431,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
-              INCA,
-              AB(KA1 - L, J1T - KA1 + L).asArray(),
-              INCA,
-              WORK(N + M - KB + J1T),
-              WORK(M - KB + J1T),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
+                INCA,
+                AB(KA1 - L, J1T - KA1 + L).asArray(),
+                INCA,
+                WORK(N + M - KB + J1T),
+                WORK(M - KB + J1T),
+                KA1);
           }
         } // 900
 
@@ -1680,15 +1447,8 @@ void dsbgst(
 
           for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) {
             // 910
-            drot(
-              NX,
-              X(1, J).asArray(),
-              1,
-              X(1, J - 1).asArray(),
-              1,
-              WORK[N + M - KB + J],
-              WORK[M - KB + J],
-            );
+            drot(NX, X(1, J).asArray(), 1, X(1, J - 1).asArray(), 1,
+                WORK[N + M - KB + J], WORK[M - KB + J]);
           } // 910
         }
       } // 920
@@ -1705,15 +1465,14 @@ void dsbgst(
           J1T = J2 - (NRT - 1) * KA1;
           if (NRT > 0) {
             dlartv(
-              NRT,
-              AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
-              INCA,
-              AB(KA1 - L, J1T - KA1 + L).asArray(),
-              INCA,
-              WORK(N + J1T),
-              WORK(J1T),
-              KA1,
-            );
+                NRT,
+                AB(KA1 - L + 1, J1T - KA1 + L).asArray(),
+                INCA,
+                AB(KA1 - L, J1T - KA1 + L).asArray(),
+                INCA,
+                WORK(N + J1T),
+                WORK(J1T),
+                KA1);
           }
         } // 930
       } // 940

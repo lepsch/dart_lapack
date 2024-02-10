@@ -52,37 +52,11 @@ void dget51(
       // ITYPE=1: Compute W = A - UBV'
 
       dlacpy(' ', N, N, A, LDA, WORK.asMatrix(N), N);
-      dgemm(
-        'N',
-        'N',
-        N,
-        N,
-        N,
-        ONE,
-        U,
-        LDU,
-        B,
-        LDB,
-        ZERO,
-        WORK(pow(N, 2).toInt() + 1).asMatrix(N),
-        N,
-      );
+      dgemm('N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO,
+          WORK(pow(N, 2).toInt() + 1).asMatrix(N), N);
 
-      dgemm(
-        'N',
-        'C',
-        N,
-        N,
-        N,
-        -ONE,
-        WORK(pow(N, 2).toInt() + 1).asMatrix(N),
-        N,
-        V,
-        LDV,
-        ONE,
-        WORK.asMatrix(N),
-        N,
-      );
+      dgemm('N', 'C', N, N, N, -ONE, WORK(pow(N, 2).toInt() + 1).asMatrix(N), N,
+          V, LDV, ONE, WORK.asMatrix(N), N);
     } else {
       // ITYPE=2: Compute W = A - B
 

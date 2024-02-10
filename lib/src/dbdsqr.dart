@@ -275,37 +275,16 @@ void dbdsqr(
         // Compute singular vectors, if desired
 
         if (NCVT > 0) {
-          drot(
-            NCVT,
-            VT(M - 1, 1).asArray(),
-            LDVT,
-            VT(M, 1).asArray(),
-            LDVT,
-            COSR.value,
-            SINR.value,
-          );
+          drot(NCVT, VT(M - 1, 1).asArray(), LDVT, VT(M, 1).asArray(), LDVT,
+              COSR.value, SINR.value);
         }
         if (NRU > 0) {
-          drot(
-            NRU,
-            U(1, M - 1).asArray(),
-            1,
-            U(1, M).asArray(),
-            1,
-            COSL.value,
-            SINL.value,
-          );
+          drot(NRU, U(1, M - 1).asArray(), 1, U(1, M).asArray(), 1, COSL.value,
+              SINL.value);
         }
         if (NCC > 0) {
-          drot(
-            NCC,
-            C(M - 1, 1).asArray(),
-            LDC,
-            C(M, 1).asArray(),
-            LDC,
-            COSL.value,
-            SINL.value,
-          );
+          drot(NCC, C(M - 1, 1).asArray(), LDC, C(M, 1).asArray(), LDC,
+              COSL.value, SINL.value);
         }
         M = M - 2;
         continue main;
@@ -423,13 +402,8 @@ void dbdsqr(
           for (I = LL; I <= M - 1; I++) {
             dlartg(D[I] * CS.value, E[I], CS, SN, R);
             if (I > LL) E[I - 1] = OLDSN.value * R.value;
-            dlartg(
-              OLDCS.value * R.value,
-              D[I + 1] * SN.value,
-              OLDCS,
-              OLDSN,
-              D.box(I),
-            );
+            dlartg(OLDCS.value * R.value, D[I + 1] * SN.value, OLDCS, OLDSN,
+                D.box(I));
             WORK[I - LL + 1] = CS.value;
             WORK[I - LL + 1 + NM1] = SN.value;
             WORK[I - LL + 1 + NM12] = OLDCS.value;
@@ -442,43 +416,16 @@ void dbdsqr(
           // Update singular vectors
 
           if (NCVT > 0) {
-            dlasr(
-              'L',
-              'V',
-              'F',
-              M - LL + 1,
-              NCVT,
-              WORK[1],
-              WORK[N],
-              VT[LL][1],
-              LDVT,
-            );
+            dlasr('L', 'V', 'F', M - LL + 1, NCVT, WORK[1], WORK[N], VT[LL][1],
+                LDVT);
           }
           if (NRU > 0) {
-            dlasr(
-              'R',
-              'V',
-              'F',
-              NRU,
-              M - LL + 1,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              U[1][LL],
-              LDU,
-            );
+            dlasr('R', 'V', 'F', NRU, M - LL + 1, WORK[NM12 + 1],
+                WORK[NM13 + 1], U[1][LL], LDU);
           }
           if (NCC > 0) {
-            dlasr(
-              'L',
-              'V',
-              'F',
-              M - LL + 1,
-              NCC,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              C[LL][1],
-              LDC,
-            );
+            dlasr('L', 'V', 'F', M - LL + 1, NCC, WORK[NM12 + 1],
+                WORK[NM13 + 1], C[LL][1], LDC);
           }
 
           // Test convergence
@@ -493,13 +440,8 @@ void dbdsqr(
           for (I = M; I >= LL + 1; I--) {
             dlartg(D[I] * CS.value, E[I - 1], CS, SN, R);
             if (I < M) E[I] = OLDSN.value * R.value;
-            dlartg(
-              OLDCS.value * R.value,
-              D[I - 1] * SN.value,
-              OLDCS,
-              OLDSN,
-              D.box(I),
-            );
+            dlartg(OLDCS.value * R.value, D[I - 1] * SN.value, OLDCS, OLDSN,
+                D.box(I));
             WORK[I - LL] = CS.value;
             WORK[I - LL + NM1] = -SN.value;
             WORK[I - LL + NM12] = OLDCS.value;
@@ -512,43 +454,16 @@ void dbdsqr(
           // Update singular vectors
 
           if (NCVT > 0) {
-            dlasr(
-              'L',
-              'V',
-              'B',
-              M - LL + 1,
-              NCVT,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              VT[LL][1],
-              LDVT,
-            );
+            dlasr('L', 'V', 'B', M - LL + 1, NCVT, WORK[NM12 + 1],
+                WORK[NM13 + 1], VT[LL][1], LDVT);
           }
           if (NRU > 0) {
-            dlasr(
-              'R',
-              'V',
-              'B',
-              NRU,
-              M - LL + 1,
-              WORK[1],
-              WORK[N],
-              U[1][LL],
-              LDU,
-            );
+            dlasr('R', 'V', 'B', NRU, M - LL + 1, WORK[1], WORK[N], U[1][LL],
+                LDU);
           }
           if (NCC > 0) {
-            dlasr(
-              'L',
-              'V',
-              'B',
-              M - LL + 1,
-              NCC,
-              WORK[1],
-              WORK[N],
-              C[LL][1],
-              LDC,
-            );
+            dlasr('L', 'V', 'B', M - LL + 1, NCC, WORK[1], WORK[N], C[LL][1],
+                LDC);
           }
 
           // Test convergence
@@ -589,43 +504,16 @@ void dbdsqr(
           // Update singular vectors
 
           if (NCVT > 0) {
-            dlasr(
-              'L',
-              'V',
-              'F',
-              M - LL + 1,
-              NCVT,
-              WORK[1],
-              WORK[N],
-              VT[LL][1],
-              LDVT,
-            );
+            dlasr('L', 'V', 'F', M - LL + 1, NCVT, WORK[1], WORK[N], VT[LL][1],
+                LDVT);
           }
           if (NRU > 0) {
-            dlasr(
-              'R',
-              'V',
-              'F',
-              NRU,
-              M - LL + 1,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              U[1][LL],
-              LDU,
-            );
+            dlasr('R', 'V', 'F', NRU, M - LL + 1, WORK[NM12 + 1],
+                WORK[NM13 + 1], U[1][LL], LDU);
           }
           if (NCC > 0) {
-            dlasr(
-              'L',
-              'V',
-              'F',
-              M - LL + 1,
-              NCC,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              C[LL][1],
-              LDC,
-            );
+            dlasr('L', 'V', 'F', M - LL + 1, NCC, WORK[NM12 + 1],
+                WORK[NM13 + 1], C[LL][1], LDC);
           }
 
           // Test convergence
@@ -666,43 +554,16 @@ void dbdsqr(
           // Update singular vectors if desired
 
           if (NCVT > 0) {
-            dlasr(
-              'L',
-              'V',
-              'B',
-              M - LL + 1,
-              NCVT,
-              WORK[NM12 + 1],
-              WORK[NM13 + 1],
-              VT[LL][1],
-              LDVT,
-            );
+            dlasr('L', 'V', 'B', M - LL + 1, NCVT, WORK[NM12 + 1],
+                WORK[NM13 + 1], VT[LL][1], LDVT);
           }
           if (NRU > 0) {
-            dlasr(
-              'R',
-              'V',
-              'B',
-              NRU,
-              M - LL + 1,
-              WORK[1],
-              WORK[N],
-              U[1][LL],
-              LDU,
-            );
+            dlasr('R', 'V', 'B', NRU, M - LL + 1, WORK[1], WORK[N], U[1][LL],
+                LDU);
           }
           if (NCC > 0) {
-            dlasr(
-              'L',
-              'V',
-              'B',
-              M - LL + 1,
-              NCC,
-              WORK[1],
-              WORK[N],
-              C[LL][1],
-              LDC,
-            );
+            dlasr('L', 'V', 'B', M - LL + 1, NCC, WORK[1], WORK[N], C[LL][1],
+                LDC);
           }
         }
       }
@@ -742,13 +603,8 @@ void dbdsqr(
       D[ISUB] = D[N + 1 - I];
       D[N + 1 - I] = SMIN;
       if (NCVT > 0) {
-        dswap(
-          NCVT,
-          VT(ISUB, 1).asArray(),
-          LDVT,
-          VT(N + 1 - I, 1).asArray(),
-          LDVT,
-        );
+        dswap(NCVT, VT(ISUB, 1).asArray(), LDVT, VT(N + 1 - I, 1).asArray(),
+            LDVT);
       }
       if (NRU > 0) {
         dswap(NRU, U(1, ISUB).asArray(), 1, U(1, N + 1 - I).asArray(), 1);

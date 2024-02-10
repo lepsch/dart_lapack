@@ -174,18 +174,7 @@ void dlaein(
       // overwriting x on v.
 
       dlatrs(
-        'Upper',
-        TRANS,
-        'Nonunit',
-        NORMIN,
-        N,
-        B,
-        LDB,
-        VR,
-        SCALE,
-        WORK,
-        IERR,
-      );
+          'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR);
       NORMIN = 'Y';
 
       // Test for sufficient growth in the norm of v.

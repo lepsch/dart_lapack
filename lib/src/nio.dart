@@ -11,8 +11,7 @@ class Nin {
 
   Nin(Stream<List<int>> stream)
       : _lineStream = StreamQueue(
-          stream.transform(utf8.decoder).transform(const LineSplitter()),
-        );
+            stream.transform(utf8.decoder).transform(const LineSplitter()));
 
   Future<String> readLine() async {
     return await _lineStream.next;

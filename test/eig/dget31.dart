@@ -98,36 +98,16 @@ void dget31(
                     WR = VWR[IWR];
                   }
                   WI = ZERO;
-                  dlaln2(
-                    LTRANS[ITRANS],
-                    NA,
-                    NW,
-                    SMIN,
-                    CA,
-                    A,
-                    2,
-                    D1,
-                    D2,
-                    B,
-                    2,
-                    WR,
-                    WI,
-                    X,
-                    2,
-                    SCALE,
-                    XNORM,
-                    INFO,
-                  );
+                  dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
+                      WR, WI, X, 2, SCALE, XNORM, INFO);
                   if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
                   if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
                   RES = ((CA * A[1][1] - WR * D1) * X[1][1] -
                           SCALE.value * B[1][1])
                       .abs();
                   if (INFO.value == 0) {
-                    DEN = max(
-                      EPS * ((CA * A[1][1] - WR * D1) * X[1][1]).abs(),
-                      SMLNUM,
-                    );
+                    DEN = max(EPS * ((CA * A[1][1] - WR * D1) * X[1][1]).abs(),
+                        SMLNUM);
                   } else {
                     DEN = max(SMIN * X[1][1].abs(), SMLNUM);
                   }
@@ -171,26 +151,8 @@ void dget31(
                     } else {
                       WI = VWI[IWI];
                     }
-                    dlaln2(
-                      LTRANS[ITRANS],
-                      NA,
-                      NW,
-                      SMIN,
-                      CA,
-                      A,
-                      2,
-                      D1,
-                      D2,
-                      B,
-                      2,
-                      WR,
-                      WI,
-                      X,
-                      2,
-                      SCALE,
-                      XNORM,
-                      INFO,
-                    );
+                    dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
+                        WR, WI, X, 2, SCALE, XNORM, INFO);
                     if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
                     if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
                     RES = ((CA * A[1][1] - WR * D1) * X[1][1] +
@@ -204,19 +166,15 @@ void dget31(
                             .abs();
                     if (INFO.value == 0) {
                       DEN = max(
-                        EPS *
-                            (max(
-                                  (CA * A[1][1] - WR * D1).abs(),
-                                  (D1 * WI).abs(),
-                                ) *
-                                (X[1][1].abs() + X[1][2].abs())),
-                        SMLNUM,
-                      );
+                          EPS *
+                              (max(
+                                    (CA * A[1][1] - WR * D1).abs(),
+                                    (D1 * WI).abs(),
+                                  ) *
+                                  (X[1][1].abs() + X[1][2].abs())),
+                          SMLNUM);
                     } else {
-                      DEN = max(
-                        SMIN * (X[1][1].abs() + X[1][2]).abs(),
-                        SMLNUM,
-                      );
+                      DEN = max(SMIN * (X[1][1].abs() + X[1][2]).abs(), SMLNUM);
                     }
                     RES = RES / DEN;
                     if (X[1][1].abs() < UNFL &&
@@ -258,26 +216,8 @@ void dget31(
                     WR = VWR[IWR];
                   }
                   WI = ZERO;
-                  dlaln2(
-                    LTRANS[ITRANS],
-                    NA,
-                    NW,
-                    SMIN,
-                    CA,
-                    A,
-                    2,
-                    D1,
-                    D2,
-                    B,
-                    2,
-                    WR,
-                    WI,
-                    X,
-                    2,
-                    SCALE,
-                    XNORM,
-                    INFO,
-                  );
+                  dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
+                      WR, WI, X, 2, SCALE, XNORM, INFO);
                   if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
                   if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
                   if (ITRANS == 1) {
@@ -296,31 +236,29 @@ void dget31(
                           .abs();
                   if (INFO.value == 0) {
                     DEN = max(
-                      EPS *
-                          (max(
-                                (CA * A[1][1] - WR * D1).abs() +
-                                    (CA * A[1][2]).abs(),
-                                (CA * A[2][1]).abs() +
-                                    (CA * A[2][2] - WR * D2).abs(),
-                              ) *
-                              max(X[1][1].abs(), X[2][1].abs())),
-                      SMLNUM,
-                    );
-                  } else {
-                    DEN = max(
-                      EPS *
-                          (max(
-                                SMIN / EPS,
-                                max(
+                        EPS *
+                            (max(
                                   (CA * A[1][1] - WR * D1).abs() +
                                       (CA * A[1][2]).abs(),
                                   (CA * A[2][1]).abs() +
                                       (CA * A[2][2] - WR * D2).abs(),
-                                ),
-                              ) *
-                              max(X[1][1].abs(), X[2][1].abs())),
-                      SMLNUM,
-                    );
+                                ) *
+                                max(X[1][1].abs(), X[2][1].abs())),
+                        SMLNUM);
+                  } else {
+                    DEN = max(
+                        EPS *
+                            (max(
+                                  SMIN / EPS,
+                                  max(
+                                    (CA * A[1][1] - WR * D1).abs() +
+                                        (CA * A[1][2]).abs(),
+                                    (CA * A[2][1]).abs() +
+                                        (CA * A[2][2] - WR * D2).abs(),
+                                  ),
+                                ) *
+                                max(X[1][1].abs(), X[2][1].abs())),
+                        SMLNUM);
                   }
                   RES = RES / DEN;
                   if (X[1][1].abs() < UNFL &&
@@ -370,26 +308,8 @@ void dget31(
                     } else {
                       WI = VWI[IWI];
                     }
-                    dlaln2(
-                      LTRANS[ITRANS],
-                      NA,
-                      NW,
-                      SMIN,
-                      CA,
-                      A,
-                      2,
-                      D1,
-                      D2,
-                      B,
-                      2,
-                      WR,
-                      WI,
-                      X,
-                      2,
-                      SCALE,
-                      XNORM,
-                      INFO,
-                    );
+                    dlaln2(LTRANS[ITRANS], NA, NW, SMIN, CA, A, 2, D1, D2, B, 2,
+                        WR, WI, X, 2, SCALE, XNORM, INFO);
                     if (INFO.value < 0) NINFO[1] = NINFO[1] + 1;
                     if (INFO.value > 0) NINFO[2] = NINFO[2] + 1;
                     if (ITRANS == 1) {
@@ -422,41 +342,39 @@ void dget31(
                             .abs();
                     if (INFO.value == 0) {
                       DEN = max(
-                        EPS *
-                            (max(
-                                  (CA * A[1][1] - WR * D1).abs() +
-                                      (CA * A[1][2]).abs() +
-                                      (WI * D1).abs(),
-                                  (CA * A[2][1]).abs() +
-                                      (CA * A[2][2] - WR * D2).abs() +
-                                      (WI * D2).abs(),
-                                ) *
-                                max(
-                                  X[1][1].abs() + X[2][1].abs(),
-                                  X[1][2].abs() + X[2][2].abs(),
-                                )),
-                        SMLNUM,
-                      );
-                    } else {
-                      DEN = max(
-                        EPS *
-                            (max(
-                                  SMIN / EPS,
-                                  max(
+                          EPS *
+                              (max(
                                     (CA * A[1][1] - WR * D1).abs() +
                                         (CA * A[1][2]).abs() +
                                         (WI * D1).abs(),
                                     (CA * A[2][1]).abs() +
                                         (CA * A[2][2] - WR * D2).abs() +
                                         (WI * D2).abs(),
-                                  ),
-                                ) *
-                                max(
-                                  X[1][1].abs() + X[2][1].abs(),
-                                  X[1][2].abs() + X[2][2].abs(),
-                                )),
-                        SMLNUM,
-                      );
+                                  ) *
+                                  max(
+                                    X[1][1].abs() + X[2][1].abs(),
+                                    X[1][2].abs() + X[2][2].abs(),
+                                  )),
+                          SMLNUM);
+                    } else {
+                      DEN = max(
+                          EPS *
+                              (max(
+                                    SMIN / EPS,
+                                    max(
+                                      (CA * A[1][1] - WR * D1).abs() +
+                                          (CA * A[1][2]).abs() +
+                                          (WI * D1).abs(),
+                                      (CA * A[2][1]).abs() +
+                                          (CA * A[2][2] - WR * D2).abs() +
+                                          (WI * D2).abs(),
+                                    ),
+                                  ) *
+                                  max(
+                                    X[1][1].abs() + X[2][1].abs(),
+                                    X[1][2].abs() + X[2][2].abs(),
+                                  )),
+                          SMLNUM);
                     }
                     RES = RES / DEN;
                     if (X[1][1].abs() < UNFL &&

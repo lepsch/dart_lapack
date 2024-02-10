@@ -180,14 +180,10 @@ void dtrsna(
         PROD1 = PROD1 + ddot(N, VR(1, KS).asArray(), 1, VL(1, KS).asArray(), 1);
         PROD2 = ddot(N, VL(1, KS).asArray(), 1, VR(1, KS).asArray(), 1);
         PROD2 = PROD2 - ddot(N, VL(1, KS).asArray(), 1, VR(1, KS).asArray(), 1);
-        RNRM = dlapy2(
-          dnrm2(N, VR(1, KS).asArray(), 1),
-          dnrm2(N, VR(1, KS + 1).asArray(), 1),
-        );
-        LNRM = dlapy2(
-          dnrm2(N, VL(1, KS).asArray(), 1),
-          dnrm2(N, VL(1, KS + 1).asArray(), 1),
-        );
+        RNRM = dlapy2(dnrm2(N, VR(1, KS).asArray(), 1),
+            dnrm2(N, VR(1, KS + 1).asArray(), 1));
+        LNRM = dlapy2(dnrm2(N, VL(1, KS).asArray(), 1),
+            dnrm2(N, VL(1, KS + 1).asArray(), 1));
         COND = dlapy2(PROD1, PROD2) / (RNRM * LNRM);
         S[KS] = COND;
         S[KS + 1] = COND;
@@ -204,18 +200,8 @@ void dtrsna(
       dlacpy('Full', N, N, T, LDT, WORK, LDWORK);
       IFST = K;
       ILST = 1;
-      dtrexc(
-        'No Q',
-        N,
-        WORK,
-        LDWORK,
-        DUMMY,
-        1,
-        IFST,
-        ILST,
-        WORK[1][N + 1],
-        IERR.value,
-      );
+      dtrexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK[1][N + 1],
+          IERR.value);
 
       if (IERR.value == 1 || IERR.value == 2) {
         // Could not swap because blocks not well separated
@@ -278,85 +264,34 @@ void dtrsna(
         KASE.value = 0;
         // }
         while (true) {
-          dlacn2(
-            NN,
-            WORK[1][N + 2],
-            WORK[1][N + 4],
-            IWORK,
-            EST,
-            KASE.value,
-            ISAVE,
-          );
+          dlacn2(NN, WORK[1][N + 2], WORK[1][N + 4], IWORK, EST, KASE.value,
+              ISAVE);
           if (KASE.value == 0) break;
           if (KASE.value == 1) {
             if (N2 == 1) {
               // Real eigenvalue: solve C**T*x = scale*c.
 
-              dlaqtr(
-                true,
-                true,
-                N - 1,
-                WORK[2][2],
-                LDWORK,
-                DUMMY,
-                DUMM,
-                SCALE.value,
-                WORK[1][N + 4],
-                WORK[1][N + 6],
-                IERR,
-              );
+              dlaqtr(true, true, N - 1, WORK[2][2], LDWORK, DUMMY, DUMM,
+                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
             } else {
               // Complex eigenvalue: solve
               // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
-              dlaqtr(
-                true,
-                false,
-                N - 1,
-                WORK[2][2],
-                LDWORK,
-                WORK[1][N + 1],
-                MU,
-                SCALE.value,
-                WORK[1][N + 4],
-                WORK[1][N + 6],
-                IERR,
-              );
+              dlaqtr(true, false, N - 1, WORK[2][2], LDWORK, WORK[1][N + 1], MU,
+                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
             }
           } else {
             if (N2 == 1) {
               // Real eigenvalue: solve C*x = scale*c.
 
-              dlaqtr(
-                false,
-                true,
-                N - 1,
-                WORK[2][2],
-                LDWORK,
-                DUMMY,
-                DUMM,
-                SCALE.value,
-                WORK[1][N + 4],
-                WORK[1][N + 6],
-                IERR,
-              );
+              dlaqtr(false, true, N - 1, WORK[2][2], LDWORK, DUMMY, DUMM,
+                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
             } else {
               // Complex eigenvalue: solve
               // C*(p+iq) = scale*(c+id) in real arithmetic.
 
-              dlaqtr(
-                false,
-                false,
-                N - 1,
-                WORK[2][2],
-                LDWORK,
-                WORK[1][N + 1],
-                MU,
-                SCALE.value,
-                WORK[1][N + 4],
-                WORK[1][N + 6],
-                IERR,
-              );
+              dlaqtr(false, false, N - 1, WORK[2][2], LDWORK, WORK[1][N + 1],
+                  MU, SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
             }
           }
         }

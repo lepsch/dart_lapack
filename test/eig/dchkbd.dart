@@ -274,165 +274,114 @@ void dchkbd(
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
-          dlatms(
-            MNMIN,
-            MNMIN,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            0,
-            0,
-            'N',
-            A,
-            LDA,
-            WORK(MNMIN + 1),
-            IINFO,
-          );
+          dlatms(MNMIN, MNMIN, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0,
+              'N', A, LDA, WORK(MNMIN + 1), IINFO);
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
 
-          dlatms(
-            MNMIN,
-            MNMIN,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            M,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(MNMIN + 1),
-            IINFO,
-          );
+          dlatms(MNMIN, MNMIN, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, M, N,
+              'N', A, LDA, WORK(MNMIN + 1), IINFO);
         } else if (ITYPE == 6) {
           // Nonsymmetric, singular values specified
 
-          dlatms(
-            M,
-            N,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            M,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(MNMIN + 1),
-            IINFO,
-          );
+          dlatms(M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, M, N, 'N', A,
+              LDA, WORK(MNMIN + 1), IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random entries
 
           dlatmr(
-            MNMIN,
-            MNMIN,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(MNMIN + 1),
-            1,
-            ONE,
-            WORK(2 * MNMIN + 1),
-            1,
-            ONE,
-            'N',
-            IWORK,
-            0,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              MNMIN,
+              MNMIN,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(MNMIN + 1),
+              1,
+              ONE,
+              WORK(2 * MNMIN + 1),
+              1,
+              ONE,
+              'N',
+              IWORK,
+              0,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 8) {
           // Symmetric, random entries
 
           dlatmr(
-            MNMIN,
-            MNMIN,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(MNMIN + 1),
-            1,
-            ONE,
-            WORK(M + MNMIN + 1),
-            1,
-            ONE,
-            'N',
-            IWORK,
-            M,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              MNMIN,
+              MNMIN,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(MNMIN + 1),
+              1,
+              ONE,
+              WORK(M + MNMIN + 1),
+              1,
+              ONE,
+              'N',
+              IWORK,
+              M,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 9) {
           // Nonsymmetric, random entries
 
           dlatmr(
-            M,
-            N,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(MNMIN + 1),
-            1,
-            ONE,
-            WORK(M + MNMIN + 1),
-            1,
-            ONE,
-            'N',
-            IWORK,
-            M,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              M,
+              N,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(MNMIN + 1),
+              1,
+              ONE,
+              WORK(M + MNMIN + 1),
+              1,
+              ONE,
+              'N',
+              IWORK,
+              M,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 10) {
           // Bidiagonal, random entries
 
@@ -458,66 +407,64 @@ void dchkbd(
 
           if (BIDIAG) {
             dlatmr(
-              MNMIN,
-              NRHS,
-              'S',
-              ISEED,
-              'N',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(MNMIN + 1),
-              1,
-              ONE,
-              WORK(2 * MNMIN + 1),
-              1,
-              ONE,
-              'N',
-              IWORK,
-              MNMIN,
-              NRHS,
-              ZERO,
-              ONE,
-              'NO',
-              Y,
-              LDX,
-              IWORK,
-              IINFO,
-            );
+                MNMIN,
+                NRHS,
+                'S',
+                ISEED,
+                'N',
+                WORK,
+                6,
+                ONE,
+                ONE,
+                'T',
+                'N',
+                WORK(MNMIN + 1),
+                1,
+                ONE,
+                WORK(2 * MNMIN + 1),
+                1,
+                ONE,
+                'N',
+                IWORK,
+                MNMIN,
+                NRHS,
+                ZERO,
+                ONE,
+                'NO',
+                Y,
+                LDX,
+                IWORK,
+                IINFO);
           } else {
             dlatmr(
-              M,
-              NRHS,
-              'S',
-              ISEED,
-              'N',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(M + 1),
-              1,
-              ONE,
-              WORK(2 * M + 1),
-              1,
-              ONE,
-              'N',
-              IWORK,
-              M,
-              NRHS,
-              ZERO,
-              ONE,
-              'NO',
-              X,
-              LDX,
-              IWORK,
-              IINFO,
-            );
+                M,
+                NRHS,
+                'S',
+                ISEED,
+                'N',
+                WORK,
+                6,
+                ONE,
+                ONE,
+                'T',
+                'N',
+                WORK(M + 1),
+                1,
+                ONE,
+                WORK(2 * M + 1),
+                1,
+                ONE,
+                'N',
+                IWORK,
+                M,
+                NRHS,
+                ZERO,
+                ONE,
+                'NO',
+                X,
+                LDX,
+                IWORK,
+                IINFO);
           }
         }
 
@@ -537,19 +484,8 @@ void dchkbd(
         // B := Q' * A * P.
 
         dlacpy(' ', M, N, A, LDA, Q, LDQ);
-        dgebrd(
-          M,
-          N,
-          Q,
-          LDQ,
-          BD,
-          BE,
-          WORK,
-          WORK(MNMIN + 1),
-          WORK(2 * MNMIN + 1),
-          LWORK - 2 * MNMIN,
-          IINFO,
-        );
+        dgebrd(M, N, Q, LDQ, BD, BE, WORK, WORK(MNMIN + 1), WORK(2 * MNMIN + 1),
+            LWORK - 2 * MNMIN, IINFO);
 
         // Check error code from DGEBRD.
 
@@ -570,18 +506,8 @@ void dchkbd(
 
         MQ = M;
         if (NRHS <= 0) MQ = MNMIN;
-        dorgbr(
-          'Q',
-          M,
-          MQ,
-          N,
-          Q,
-          LDQ,
-          WORK,
-          WORK(2 * MNMIN + 1),
-          LWORK - 2 * MNMIN,
-          IINFO,
-        );
+        dorgbr('Q', M, MQ, N, Q, LDQ, WORK, WORK(2 * MNMIN + 1),
+            LWORK - 2 * MNMIN, IINFO);
 
         // Check error code from DORGBR.
 
@@ -593,18 +519,8 @@ void dchkbd(
 
         // Generate P'
 
-        dorgbr(
-          'P',
-          MNMIN,
-          N,
-          M,
-          PT,
-          LDPT,
-          WORK(MNMIN + 1),
-          WORK(2 * MNMIN + 1),
-          LWORK - 2 * MNMIN,
-          IINFO,
-        );
+        dorgbr('P', MNMIN, N, M, PT, LDPT, WORK(MNMIN + 1), WORK(2 * MNMIN + 1),
+            LWORK - 2 * MNMIN, IINFO);
 
         // Check error code from DORGBR.
 
@@ -616,21 +532,8 @@ void dchkbd(
 
         // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
 
-        dgemm(
-          'Transpose',
-          'No transpose',
-          M,
-          NRHS,
-          M,
-          ONE,
-          Q,
-          LDQ,
-          X,
-          LDX,
-          ZERO,
-          Y,
-          LDX,
-        );
+        dgemm('Transpose', 'No transpose', M, NRHS, M, ONE, Q, LDQ, X, LDX,
+            ZERO, Y, LDX);
 
         // Test 1:  Check the decomposition A := Q * B * PT
         // 2:  Check the orthogonality of Q
@@ -650,23 +553,8 @@ void dchkbd(
       dlaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT);
       dlaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT);
 
-      dbdsqr(
-        UPLO,
-        MNMIN,
-        MNMIN,
-        MNMIN,
-        NRHS,
-        S1,
-        WORK,
-        VT,
-        LDPT,
-        U,
-        LDPT,
-        Z,
-        LDX,
-        WORK(MNMIN + 1),
-        IINFO,
-      );
+      dbdsqr(UPLO, MNMIN, MNMIN, MNMIN, NRHS, S1, WORK, VT, LDPT, U, LDPT, Z,
+          LDX, WORK(MNMIN + 1), IINFO);
 
       // Check error code from DBDSQR.
       failed:
@@ -688,23 +576,8 @@ void dchkbd(
         dcopy(MNMIN, BD, 1, S2, 1);
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
 
-        dbdsqr(
-          UPLO,
-          MNMIN,
-          0,
-          0,
-          0,
-          S2,
-          WORK,
-          VT,
-          LDPT,
-          U,
-          LDPT,
-          Z,
-          LDX,
-          WORK(MNMIN + 1),
-          IINFO,
-        );
+        dbdsqr(UPLO, MNMIN, 0, 0, 0, S2, WORK, VT, LDPT, U, LDPT, Z, LDX,
+            WORK(MNMIN + 1), IINFO);
 
         // Check error code from DBDSQR.
 
@@ -725,19 +598,7 @@ void dchkbd(
         // 7:  Check the orthogonality of VT
 
         dbdt03(
-          UPLO,
-          MNMIN,
-          1,
-          BD,
-          BE,
-          U,
-          LDPT,
-          S1,
-          VT,
-          LDPT,
-          WORK,
-          RESULT.box(4),
-        );
+            UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT.box(4));
         dbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RESULT.box(5));
         dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT.box(6));
         dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT.box(7));
@@ -760,10 +621,8 @@ void dchkbd(
 
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
-              max(
-                sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[J]).abs(), (S2[J]).abs()),
-              );
+              max(sqrt(UNFL) * max(S1[1], ONE),
+                  ULP * max((S1[J]).abs(), (S2[J]).abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
 
@@ -789,44 +648,16 @@ void dchkbd(
           dcopy(MNMIN, BD, 1, S2, 1);
           if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
 
-          dbdsqr(
-            UPLO,
-            MNMIN,
-            N,
-            M,
-            NRHS,
-            S2,
-            WORK,
-            PT,
-            LDPT,
-            Q,
-            LDQ,
-            Y,
-            LDX,
-            WORK(MNMIN + 1),
-            IINFO,
-          );
+          dbdsqr(UPLO, MNMIN, N, M, NRHS, S2, WORK, PT, LDPT, Q, LDQ, Y, LDX,
+              WORK(MNMIN + 1), IINFO);
 
           // Test 11:  Check the decomposition A := Q*U * S2 * VT*PT
           // 12:  Check the computation Z := U' * Q' * X
           // 13:  Check the orthogonality of Q*U
           // 14:  Check the orthogonality of VT*PT
 
-          dbdt01(
-            M,
-            N,
-            0,
-            A,
-            LDA,
-            Q,
-            LDQ,
-            S2,
-            DUMMA,
-            PT,
-            LDPT,
-            WORK,
-            RESULT.box(11),
-          );
+          dbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK,
+              RESULT.box(11));
           dbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RESULT.box(12));
           dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT.box(13));
           dort01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT.box(14));
@@ -840,22 +671,8 @@ void dchkbd(
         dlaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT);
         dlaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT);
 
-        dbdsdc(
-          UPLO,
-          'I',
-          MNMIN,
-          S1,
-          WORK,
-          U,
-          LDPT,
-          VT,
-          LDPT,
-          DUM,
-          IDUM,
-          WORK(MNMIN + 1),
-          IWORK,
-          IINFO,
-        );
+        dbdsdc(UPLO, 'I', MNMIN, S1, WORK, U, LDPT, VT, LDPT, DUM, IDUM,
+            WORK(MNMIN + 1), IWORK, IINFO);
 
         // Check error code from DBDSDC.
 
@@ -876,22 +693,8 @@ void dchkbd(
         dcopy(MNMIN, BD, 1, S2, 1);
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK, 1);
 
-        dbdsdc(
-          UPLO,
-          'N',
-          MNMIN,
-          S2,
-          WORK,
-          DUM.asMatrix(1),
-          1,
-          DUM.asMatrix(1),
-          1,
-          DUM,
-          IDUM,
-          WORK(MNMIN + 1),
-          IWORK,
-          IINFO,
-        );
+        dbdsdc(UPLO, 'N', MNMIN, S2, WORK, DUM.asMatrix(1), 1, DUM.asMatrix(1),
+            1, DUM, IDUM, WORK(MNMIN + 1), IWORK, IINFO);
 
         // Check error code from DBDSDC.
 
@@ -910,20 +713,8 @@ void dchkbd(
         // 16:  Check the orthogonality of U
         // 17:  Check the orthogonality of VT
 
-        dbdt03(
-          UPLO,
-          MNMIN,
-          1,
-          BD,
-          BE,
-          U,
-          LDPT,
-          S1,
-          VT,
-          LDPT,
-          WORK,
-          RESULT.box(15),
-        );
+        dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK,
+            RESULT.box(15));
         dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT.box(16));
         dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT.box(17));
 
@@ -945,10 +736,8 @@ void dchkbd(
 
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
-              max(
-                sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[1]).abs(), (S2[1]).abs()),
-              );
+              max(sqrt(UNFL) * max(S1[1], ONE),
+                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
 
@@ -978,24 +767,23 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'V',
-          'A',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          ZERO,
-          ZERO,
-          0,
-          0,
-          NS1,
-          S1,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'V',
+            'A',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            ZERO,
+            ZERO,
+            0,
+            0,
+            NS1,
+            S1,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
@@ -1033,37 +821,29 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'N',
-          'A',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          ZERO,
-          ZERO,
-          0,
-          0,
-          NS2,
-          S2,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'N',
+            'A',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            ZERO,
+            ZERO,
+            0,
+            0,
+            NS2,
+            S2,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
           print9998(
-            NOUT,
-            'DBDSVDX(values,A)',
-            IINFO.value,
-            M,
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUT, 'DBDSVDX(values,A)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1084,40 +864,12 @@ void dchkbd(
         // non-increasing order and are non-negative
         // 24:  Compare DBDSVDX with and without singular vectors
 
-        dbdt03(
-          UPLO,
-          MNMIN,
-          1,
-          BD,
-          BE,
-          U,
-          LDPT,
-          S1,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          RESULT.box(20),
-        );
-        dort01(
-          'Columns',
-          MNMIN,
-          MNMIN,
-          U,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(21),
-        );
-        dort01(
-          'Rows',
-          MNMIN,
-          MNMIN,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(22),
-        );
+        dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT,
+            WORK(IWBS + MNMIN), RESULT.box(20));
+        dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(21));
+        dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(22));
 
         RESULT[23] = ZERO;
         for (I = 1; I <= MNMIN - 1; I++) {
@@ -1131,10 +883,8 @@ void dchkbd(
         TEMP2 = ZERO;
         for (J = 1; J <= MNMIN; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
-              max(
-                sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[1]).abs(), (S2[1]).abs()),
-              );
+              max(sqrt(UNFL) * max(S1[1], ONE),
+                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[24] = TEMP2;
@@ -1164,24 +914,23 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'V',
-          'I',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          ZERO,
-          ZERO,
-          IL,
-          IU,
-          NS1,
-          S1,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'V',
+            'I',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            ZERO,
+            ZERO,
+            IL,
+            IU,
+            NS1,
+            S1,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
@@ -1211,37 +960,29 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'N',
-          'I',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          ZERO,
-          ZERO,
-          IL,
-          IU,
-          NS2,
-          S2,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'N',
+            'I',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            ZERO,
+            ZERO,
+            IL,
+            IU,
+            NS2,
+            S2,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
           print9998(
-            NOUT,
-            'DBDSVDX(values,I)',
-            IINFO.value,
-            M,
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUT, 'DBDSVDX(values,I)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1258,40 +999,12 @@ void dchkbd(
         // non-increasing order and are non-negative
         // 29:  Compare DBDSVDX with and without singular vectors
 
-        dbdt04(
-          UPLO,
-          MNMIN,
-          BD,
-          BE,
-          S1,
-          NS1.value,
-          U,
-          LDPT,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          RESULT.box(25),
-        );
-        dort01(
-          'Columns',
-          MNMIN,
-          NS1.value,
-          U,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(26),
-        );
-        dort01(
-          'Rows',
-          NS1.value,
-          MNMIN,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(27),
-        );
+        dbdt04(UPLO, MNMIN, BD, BE, S1, NS1.value, U, LDPT, VT, LDPT,
+            WORK(IWBS + MNMIN), RESULT.box(25));
+        dort01('Columns', MNMIN, NS1.value, U, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(26));
+        dort01('Rows', NS1.value, MNMIN, VT, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(27));
 
         RESULT[28] = ZERO;
         for (I = 1; I <= NS1.value - 1; I++) {
@@ -1305,10 +1018,8 @@ void dchkbd(
         TEMP2 = ZERO;
         for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
-              max(
-                sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[1]).abs(), (S2[1]).abs()),
-              );
+              max(sqrt(UNFL) * max(S1[1], ONE),
+                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[29] = TEMP2;
@@ -1322,29 +1033,21 @@ void dchkbd(
         if (MNMIN > 0) {
           if (IL != 1) {
             VU = S1[IL] +
-                max(
-                  HALF * (S1[IL] - S1[IL - 1]).abs(),
-                  max(ULP * ANORM, TWO * RTUNFL),
-                );
+                max(HALF * (S1[IL] - S1[IL - 1]).abs(),
+                    max(ULP * ANORM, TWO * RTUNFL));
           } else {
             VU = S1[1] +
-                max(
-                  HALF * (S1[MNMIN] - S1[1]).abs(),
-                  max(ULP * ANORM, TWO * RTUNFL),
-                );
+                max(HALF * (S1[MNMIN] - S1[1]).abs(),
+                    max(ULP * ANORM, TWO * RTUNFL));
           }
           if (IU != NS1.value) {
             VL = S1[IU] -
-                max(
-                  ULP * ANORM,
-                  max(TWO * RTUNFL, HALF * (S1[IU + 1] - S1[IU]).abs()),
-                );
+                max(ULP * ANORM,
+                    max(TWO * RTUNFL, HALF * (S1[IU + 1] - S1[IU]).abs()));
           } else {
             VL = S1[NS1.value] -
-                max(
-                  ULP * ANORM,
-                  max(TWO * RTUNFL, HALF * (S1[MNMIN] - S1[1]).abs()),
-                );
+                max(ULP * ANORM,
+                    max(TWO * RTUNFL, HALF * (S1[MNMIN] - S1[1]).abs()));
           }
           VL = max(VL, ZERO);
           VU = max(VU, ZERO);
@@ -1358,24 +1061,23 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'V',
-          'V',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          VL,
-          VU,
-          0,
-          0,
-          NS1,
-          S1,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'V',
+            'V',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            VL,
+            VU,
+            0,
+            0,
+            NS1,
+            S1,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
@@ -1405,37 +1107,29 @@ void dchkbd(
         if (MNMIN > 0) dcopy(MNMIN - 1, BE, 1, WORK(IWBE), 1);
 
         dbdsvdx(
-          UPLO,
-          'N',
-          'V',
-          MNMIN,
-          WORK(IWBD),
-          WORK(IWBE),
-          VL,
-          VU,
-          0,
-          0,
-          NS2,
-          S2,
-          WORK(IWBZ).asMatrix(MNMIN2),
-          MNMIN2,
-          WORK(IWWORK),
-          IWORK,
-          IINFO,
-        );
+            UPLO,
+            'N',
+            'V',
+            MNMIN,
+            WORK(IWBD),
+            WORK(IWBE),
+            VL,
+            VU,
+            0,
+            0,
+            NS2,
+            S2,
+            WORK(IWBZ).asMatrix(MNMIN2),
+            MNMIN2,
+            WORK(IWWORK),
+            IWORK,
+            IINFO);
 
         // Check error code from DBDSVDX.
 
         if (IINFO.value != 0) {
           print9998(
-            NOUT,
-            'DBDSVDX(values,V)',
-            IINFO.value,
-            M,
-            N,
-            JTYPE,
-            IOLDSD,
-          );
+              NOUT, 'DBDSVDX(values,V)', IINFO.value, M, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
@@ -1452,40 +1146,12 @@ void dchkbd(
         // non-increasing order and are non-negative
         // 34:  Compare DBDSVDX with and without singular vectors
 
-        dbdt04(
-          UPLO,
-          MNMIN,
-          BD,
-          BE,
-          S1,
-          NS1.value,
-          U,
-          LDPT,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          RESULT.box(30),
-        );
-        dort01(
-          'Columns',
-          MNMIN,
-          NS1.value,
-          U,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(31),
-        );
-        dort01(
-          'Rows',
-          NS1.value,
-          MNMIN,
-          VT,
-          LDPT,
-          WORK(IWBS + MNMIN),
-          LWORK - MNMIN,
-          RESULT.box(32),
-        );
+        dbdt04(UPLO, MNMIN, BD, BE, S1, NS1.value, U, LDPT, VT, LDPT,
+            WORK(IWBS + MNMIN), RESULT.box(30));
+        dort01('Columns', MNMIN, NS1.value, U, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(31));
+        dort01('Rows', NS1.value, MNMIN, VT, LDPT, WORK(IWBS + MNMIN),
+            LWORK - MNMIN, RESULT.box(32));
 
         RESULT[33] = ZERO;
         for (I = 1; I <= NS1.value - 1; I++) {
@@ -1499,10 +1165,8 @@ void dchkbd(
         TEMP2 = ZERO;
         for (J = 1; J <= NS1.value; J++) {
           TEMP1 = (S1[J] - S2[J]).abs() /
-              max(
-                sqrt(UNFL) * max(S1[1], ONE),
-                ULP * max((S1[1]).abs(), (S2[1]).abs()),
-              );
+              max(sqrt(UNFL) * max(S1[1], ONE),
+                  ULP * max((S1[1]).abs(), (S2[1]).abs()));
           TEMP2 = max(TEMP1, TEMP2);
         }
         RESULT[34] = TEMP2;
@@ -1516,8 +1180,7 @@ void dchkbd(
         if (RESULT[J] >= THRESH) {
           if (NFAIL == 0) dlahd2(NOUT, PATH);
           NOUT.println(
-            ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}',
-          );
+              ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
           NFAIL = NFAIL + 1;
         }
       }
@@ -1543,6 +1206,5 @@ void print9998(
   final Array<int> iseed,
 ) {
   NOUT.println(
-    ' DCHKBD: $s returned INFO=${info.i6}.\n${' ' * 9}M=${m.i6}, N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DCHKBD: $s returned INFO=${info.i6}.\n${' ' * 9}M=${m.i6}, N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

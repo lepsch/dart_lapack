@@ -76,9 +76,8 @@ Future<void> dckglm(
         FIRSTT = false;
       }
       NOUT.println(
-        ' *** Invalid input  for GLM:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n'
-        '     must satisfy M <= N <= M+P  (this set of values will be skipped)',
-      );
+          ' *** Invalid input  for GLM:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n'
+          '     must satisfy M <= N <= M+P  (this set of values will be skipped)');
     }
   }
   FIRSTT = true;
@@ -98,45 +97,26 @@ Future<void> dckglm(
       // Set up parameters with DLATB9 and generate test
       // matrices A and B with DLATMS.
 
-      dlatb9(
-        PATH,
-        IMAT,
-        M,
-        P,
-        N,
-        TYPE,
-        KLA,
-        KUA,
-        KLB,
-        KUB,
-        ANORM,
-        BNORM,
-        MODEA,
-        MODEB,
-        CNDNMA,
-        CNDNMB,
-        DISTA,
-        DISTB,
-      );
+      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
+          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
 
       dlatms(
-        N,
-        M,
-        DISTA.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEA.value,
-        CNDNMA.value,
-        ANORM.value,
-        KLA.value,
-        KUA.value,
-        'No packing',
-        A.asMatrix(LDA),
-        LDA,
-        WORK,
-        IINFO,
-      );
+          N,
+          M,
+          DISTA.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEA.value,
+          CNDNMA.value,
+          ANORM.value,
+          KLA.value,
+          KUA.value,
+          'No packing',
+          A.asMatrix(LDA),
+          LDA,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -144,23 +124,22 @@ Future<void> dckglm(
       }
 
       dlatms(
-        N,
-        P,
-        DISTB.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEB.value,
-        CNDNMB.value,
-        BNORM.value,
-        KLB.value,
-        KUB.value,
-        'No packing',
-        B.asMatrix(LDB),
-        LDB,
-        WORK,
-        IINFO,
-      );
+          N,
+          P,
+          DISTB.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEB.value,
+          CNDNMB.value,
+          BNORM.value,
+          KLB.value,
+          KUB.value,
+          'No packing',
+          B.asMatrix(LDB),
+          LDB,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -173,25 +152,8 @@ Future<void> dckglm(
         X[I] = dlarnd(2, ISEED);
       }
 
-      dglmts(
-        N,
-        M,
-        P,
-        A,
-        AF,
-        LDA,
-        B,
-        BF,
-        LDB,
-        X,
-        X[NMAX + 1],
-        X[2 * NMAX + 1],
-        X[3 * NMAX + 1],
-        WORK,
-        LWORK,
-        RWORK,
-        RESID.value,
-      );
+      dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X[NMAX + 1], X[2 * NMAX + 1],
+          X[3 * NMAX + 1], WORK, LWORK, RWORK, RESID.value);
 
       // Print information about the tests that did not
       // pass the threshold.
@@ -202,8 +164,7 @@ Future<void> dckglm(
           alahdg(NOUT, PATH);
         }
         NOUT.println(
-          ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}',
-        );
+            ' N=${M.i4} M=${N.i4}, P=${P.i4}, type ${IMAT.i2}, test 1, ratio=${RESID.value.g13_6}');
         NFAIL = NFAIL + 1;
       }
       NRUN = NRUN + 1;

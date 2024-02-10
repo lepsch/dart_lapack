@@ -249,117 +249,83 @@ void ddrvsg2stg(
 
           KA = 0;
           KB = 0;
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            0,
-            0,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 5) {
           // symmetric, eigenvalues specified
 
           KA = max(0, N - 1);
           KB = KA;
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            N,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
 
           KA = 0;
           KB = 0;
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            0,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              0,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 8) {
           // symmetric, random eigenvalues
 
           KA = max(0, N - 1);
           KB = KA;
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'H',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'H',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 9) {
           // symmetric banded, eigenvalues specified
 
@@ -379,24 +345,8 @@ void ddrvsg2stg(
           }
           KA = max(0, min(N - 1, KA9));
           KB = max(0, min(N - 1, KB9));
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            KA,
-            KA,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N',
+              A, LDA, WORK(N + 1), IINFO);
         } else {
           IINFO.value = 1;
         }
@@ -441,24 +391,8 @@ void ddrvsg2stg(
             // Generate random well-conditioned positive definite
             // matrix B, of bandwidth not greater than that of A.
 
-            dlatms(
-              N,
-              N,
-              'U',
-              ISEED,
-              'P',
-              WORK,
-              5,
-              TEN,
-              ONE,
-              KB,
-              KB,
-              UPLO,
-              B,
-              LDB,
-              WORK(N + 1),
-              IINFO,
-            );
+            dlatms(N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B,
+                LDB, WORK(N + 1), IINFO);
 
             // Test DSYGV
 
@@ -470,13 +404,7 @@ void ddrvsg2stg(
             dsygv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSYGV(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSYGV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -488,21 +416,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // Test DSYGV_2STAGE
 
@@ -512,28 +427,10 @@ void ddrvsg2stg(
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
 
             dsygv_2stage(
-              IBTYPE,
-              'N',
-              UPLO,
-              N,
-              Z,
-              LDZ,
-              BB,
-              LDB,
-              D2,
-              WORK,
-              NWORK,
-              IINFO,
-            );
+                IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, IINFO);
             if (IINFO.value != 0) {
-              _print9999(
-                NOUNIT,
-                'DSYGV_2STAGE(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+              _print9999(NOUNIT, 'DSYGV_2STAGE(V,$UPLO)', IINFO.value, N, JTYPE,
+                  IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -568,31 +465,11 @@ void ddrvsg2stg(
             dlacpy(' ', N, N, A, LDA, Z, LDZ);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
 
-            dsygvd(
-              IBTYPE,
-              'V',
-              UPLO,
-              N,
-              Z,
-              LDZ,
-              BB,
-              LDB,
-              D,
-              WORK,
-              NWORK,
-              IWORK,
-              LIWORK,
-              IINFO,
-            );
+            dsygvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK,
+                LIWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSYGVD(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSYGVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -604,21 +481,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // Test DSYGVX
 
@@ -627,40 +491,11 @@ void ddrvsg2stg(
             dlacpy(' ', N, N, A, LDA, AB, LDA);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
 
-            dsygvx(
-              IBTYPE,
-              'V',
-              'A',
-              UPLO,
-              N,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              NWORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+            dsygvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU,
+                ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK(N + 1), IWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSYGVX(V,A$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSYGVX(V,A$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -672,21 +507,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
@@ -700,40 +522,11 @@ void ddrvsg2stg(
 
             VL = ZERO;
             VU = ANORM;
-            dsygvx(
-              IBTYPE,
-              'V',
-              'V',
-              UPLO,
-              N,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              NWORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+            dsygvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU,
+                ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK(N + 1), IWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSYGVX(V,V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSYGVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -745,61 +538,19 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
             dlacpy(' ', N, N, A, LDA, AB, LDA);
             dlacpy(UPLO, N, N, B, LDB, BB, LDB);
 
-            dsygvx(
-              IBTYPE,
-              'V',
-              'I',
-              UPLO,
-              N,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              NWORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+            dsygvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU,
+                ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK(N + 1), IWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSYGVX(V,I,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSYGVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -811,21 +562,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             break;
           }
@@ -859,13 +597,7 @@ void ddrvsg2stg(
             dspgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSPGV(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSPGV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -877,21 +609,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // Test DSPGVD
 
@@ -919,31 +638,11 @@ void ddrvsg2stg(
               }
             }
 
-            dspgvd(
-              IBTYPE,
-              'V',
-              UPLO,
-              N,
-              AP,
-              BP,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              NWORK,
-              IWORK,
-              LIWORK,
-              IINFO,
-            );
+            dspgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK,
+                LIWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSPGVD(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSPGVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -955,21 +654,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // Test DSPGVX
 
@@ -997,37 +683,11 @@ void ddrvsg2stg(
               }
             }
 
-            dspgvx(
-              IBTYPE,
-              'V',
-              'A',
-              UPLO,
-              N,
-              AP,
-              BP,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              INFO,
-            );
+            dspgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M,
+                D, Z, LDZ, WORK, IWORK(N + 1), IWORK, INFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSPGVX(V,A$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSPGVX(V,A$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1039,21 +699,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
@@ -1081,37 +728,11 @@ void ddrvsg2stg(
 
             VL = ZERO;
             VU = ANORM;
-            dspgvx(
-              IBTYPE,
-              'V',
-              'V',
-              UPLO,
-              N,
-              AP,
-              BP,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              INFO,
-            );
+            dspgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M,
+                D, Z, LDZ, WORK, IWORK(N + 1), IWORK, INFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSPGVX(V,V$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSPGVX(V,V$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1123,21 +744,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
@@ -1163,37 +771,11 @@ void ddrvsg2stg(
               }
             }
 
-            dspgvx(
-              IBTYPE,
-              'V',
-              'I',
-              UPLO,
-              N,
-              AP,
-              BP,
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              INFO,
-            );
+            dspgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M,
+                D, Z, LDZ, WORK, IWORK(N + 1), IWORK, INFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSPGVX(V,I$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSPGVX(V,I$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1205,21 +787,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             break;
           }
@@ -1252,30 +821,10 @@ void ddrvsg2stg(
             }
 
             dsbgv(
-              'V',
-              UPLO,
-              N,
-              KA,
-              KB,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IINFO,
-            );
+                'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSBGV(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSBGV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1287,21 +836,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // TEST DSBGVD
 
@@ -1329,34 +865,11 @@ void ddrvsg2stg(
               }
             }
 
-            dsbgvd(
-              'V',
-              UPLO,
-              N,
-              KA,
-              KB,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              NWORK,
-              IWORK,
-              LIWORK,
-              IINFO,
-            );
+            dsbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK,
+                NWORK, IWORK, LIWORK, IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSBGVD(V,$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSBGVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1368,21 +881,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             // Test DSBGVX
 
@@ -1411,41 +911,34 @@ void ddrvsg2stg(
             }
 
             dsbgvx(
-              'V',
-              'A',
-              UPLO,
-              N,
-              KA,
-              KB,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              BP.asMatrix(max(1, N)),
-              max(1, N),
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+                'V',
+                'A',
+                UPLO,
+                N,
+                KA,
+                KB,
+                AB,
+                LDA,
+                BB,
+                LDB,
+                BP.asMatrix(max(1, N)),
+                max(1, N),
+                VL,
+                VU,
+                IL,
+                IU,
+                ABSTOL,
+                M,
+                D,
+                Z,
+                LDZ,
+                WORK,
+                IWORK(N + 1),
+                IWORK,
+                IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSBGVX(V,A$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSBGVX(V,A$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1457,21 +950,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
@@ -1500,41 +980,34 @@ void ddrvsg2stg(
             VL = ZERO;
             VU = ANORM;
             dsbgvx(
-              'V',
-              'V',
-              UPLO,
-              N,
-              KA,
-              KB,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              BP.asMatrix(max(1, N)),
-              max(1, N),
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+                'V',
+                'V',
+                UPLO,
+                N,
+                KA,
+                KB,
+                AB,
+                LDA,
+                BB,
+                LDB,
+                BP.asMatrix(max(1, N)),
+                max(1, N),
+                VL,
+                VU,
+                IL,
+                IU,
+                ABSTOL,
+                M,
+                D,
+                Z,
+                LDZ,
+                WORK,
+                IWORK(N + 1),
+                IWORK,
+                IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSBGVX(V,V$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSBGVX(V,V$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1546,21 +1019,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             NTEST = NTEST + 1;
 
@@ -1587,41 +1047,34 @@ void ddrvsg2stg(
             }
 
             dsbgvx(
-              'V',
-              'I',
-              UPLO,
-              N,
-              KA,
-              KB,
-              AB,
-              LDA,
-              BB,
-              LDB,
-              BP.asMatrix(max(1, N)),
-              max(1, N),
-              VL,
-              VU,
-              IL,
-              IU,
-              ABSTOL,
-              M,
-              D,
-              Z,
-              LDZ,
-              WORK,
-              IWORK(N + 1),
-              IWORK,
-              IINFO,
-            );
+                'V',
+                'I',
+                UPLO,
+                N,
+                KA,
+                KB,
+                AB,
+                LDA,
+                BB,
+                LDB,
+                BP.asMatrix(max(1, N)),
+                max(1, N),
+                VL,
+                VU,
+                IL,
+                IU,
+                ABSTOL,
+                M,
+                D,
+                Z,
+                LDZ,
+                WORK,
+                IWORK(N + 1),
+                IWORK,
+                IINFO);
             if (IINFO.value != 0) {
               _print9999(
-                NOUNIT,
-                'DSBGVX(V,I$UPLO)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSBGVX(V,I$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1633,21 +1086,8 @@ void ddrvsg2stg(
 
             // Do Test
 
-            dsgt01(
-              IBTYPE,
-              UPLO,
-              N,
-              M.value,
-              A,
-              LDA,
-              B,
-              LDB,
-              Z,
-              LDZ,
-              D,
-              WORK,
-              RESULT(NTEST),
-            );
+            dsgt01(IBTYPE, UPLO, N, M.value, A, LDA, B, LDB, Z, LDZ, D, WORK,
+                RESULT(NTEST));
 
             break;
           }
@@ -1674,6 +1114,5 @@ void _print9999(
   final Array<int> iseed,
 ) {
   nout.println(
-    ' DDRVSG2STG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DDRVSG2STG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

@@ -153,21 +153,15 @@ void dgesvdx(
           // Path 1 (M much larger than N)
 
           MAXWRK = N + N * ilaenv(1, 'DGEQRF', ' ', M, N, -1, -1);
-          MAXWRK = max(
-            MAXWRK,
-            N * (N + 5) + 2 * N * ilaenv(1, 'DGEBRD', ' ', N, N, -1, -1),
-          );
+          MAXWRK = max(MAXWRK,
+              N * (N + 5) + 2 * N * ilaenv(1, 'DGEBRD', ' ', N, N, -1, -1));
           if (WANTU) {
-            MAXWRK = max(
-              MAXWRK,
-              N * (N * 3 + 6) + N * ilaenv(1, 'DORMQR', ' ', N, N, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                N * (N * 3 + 6) + N * ilaenv(1, 'DORMQR', ' ', N, N, -1, -1));
           }
           if (WANTVT) {
-            MAXWRK = max(
-              MAXWRK,
-              N * (N * 3 + 6) + N * ilaenv(1, 'DORMLQ', ' ', N, N, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                N * (N * 3 + 6) + N * ilaenv(1, 'DORMLQ', ' ', N, N, -1, -1));
           }
           MINWRK = N * (N * 3 + 20);
         } else {
@@ -175,16 +169,12 @@ void dgesvdx(
 
           MAXWRK = 4 * N + (M + N) * ilaenv(1, 'DGEBRD', ' ', M, N, -1, -1);
           if (WANTU) {
-            MAXWRK = max(
-              MAXWRK,
-              N * (N * 2 + 5) + N * ilaenv(1, 'DORMQR', ' ', N, N, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                N * (N * 2 + 5) + N * ilaenv(1, 'DORMQR', ' ', N, N, -1, -1));
           }
           if (WANTVT) {
-            MAXWRK = max(
-              MAXWRK,
-              N * (N * 2 + 5) + N * ilaenv(1, 'DORMLQ', ' ', N, N, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                N * (N * 2 + 5) + N * ilaenv(1, 'DORMLQ', ' ', N, N, -1, -1));
           }
           MINWRK = max(N * (N * 2 + 19), 4 * N + M);
         }
@@ -194,21 +184,15 @@ void dgesvdx(
           // Path 1t (N much larger than M)
 
           MAXWRK = M + M * ilaenv(1, 'DGELQF', ' ', M, N, -1, -1);
-          MAXWRK = max(
-            MAXWRK,
-            M * (M + 5) + 2 * M * ilaenv(1, 'DGEBRD', ' ', M, M, -1, -1),
-          );
+          MAXWRK = max(MAXWRK,
+              M * (M + 5) + 2 * M * ilaenv(1, 'DGEBRD', ' ', M, M, -1, -1));
           if (WANTU) {
-            MAXWRK = max(
-              MAXWRK,
-              M * (M * 3 + 6) + M * ilaenv(1, 'DORMQR', ' ', M, M, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                M * (M * 3 + 6) + M * ilaenv(1, 'DORMQR', ' ', M, M, -1, -1));
           }
           if (WANTVT) {
-            MAXWRK = max(
-              MAXWRK,
-              M * (M * 3 + 6) + M * ilaenv(1, 'DORMLQ', ' ', M, M, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                M * (M * 3 + 6) + M * ilaenv(1, 'DORMLQ', ' ', M, M, -1, -1));
           }
           MINWRK = M * (M * 3 + 20);
         } else {
@@ -216,16 +200,12 @@ void dgesvdx(
 
           MAXWRK = 4 * M + (M + N) * ilaenv(1, 'DGEBRD', ' ', M, N, -1, -1);
           if (WANTU) {
-            MAXWRK = max(
-              MAXWRK,
-              M * (M * 2 + 5) + M * ilaenv(1, 'DORMQR', ' ', M, M, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                M * (M * 2 + 5) + M * ilaenv(1, 'DORMQR', ' ', M, M, -1, -1));
           }
           if (WANTVT) {
-            MAXWRK = max(
-              MAXWRK,
-              M * (M * 2 + 5) + M * ilaenv(1, 'DORMLQ', ' ', M, M, -1, -1),
-            );
+            MAXWRK = max(MAXWRK,
+                M * (M * 2 + 5) + M * ilaenv(1, 'DORMLQ', ' ', M, M, -1, -1));
           }
           MINWRK = max(M * (M * 2 + 19), 4 * M + N);
         }
@@ -315,44 +295,16 @@ void dgesvdx(
       ITEMP = ITAUP + N;
       dlacpy('U', N, N, A, LDA, WORK(IQRF).asMatrix(N), N);
       dlaset('L', N - 1, N - 1, ZERO, ZERO, WORK(IQRF + 1).asMatrix(N), N);
-      dgebrd(
-        N,
-        N,
-        WORK(IQRF).asMatrix(N),
-        N,
-        WORK(ID),
-        WORK(IE),
-        WORK(ITAUQ),
-        WORK(ITAUP),
-        WORK(ITEMP),
-        LWORK - ITEMP + 1,
-        INFO,
-      );
+      dgebrd(N, N, WORK(IQRF).asMatrix(N), N, WORK(ID), WORK(IE), WORK(ITAUQ),
+          WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
       // Solve eigenvalue problem TGK*Z=Z*S.
       // (Workspace: need 14*N + 2*N*(N+1))
 
       ITGKZ = ITEMP;
       ITEMP = ITGKZ + N * (N * 2 + 1);
-      dbdsvdx(
-        'U',
-        JOBZ,
-        RNGTGK,
-        N,
-        WORK(ID),
-        WORK(IE),
-        VL,
-        VU,
-        ILTGK,
-        IUTGK,
-        NS,
-        S,
-        WORK(ITGKZ).asMatrix(N * 2),
-        N * 2,
-        WORK(ITEMP),
-        IWORK,
-        INFO,
-      );
+      dbdsvdx('U', JOBZ, RNGTGK, N, WORK(ID), WORK(IE), VL, VU, ILTGK, IUTGK,
+          NS, S, WORK(ITGKZ).asMatrix(N * 2), N * 2, WORK(ITEMP), IWORK, INFO);
 
       // If needed, compute left singular vectors.
 
@@ -367,41 +319,14 @@ void dgesvdx(
         // Call DORMBR to compute QB*UB.
         // (Workspace in WORK[ ITEMP ]: need N, prefer N*NB)
 
-        dormbr(
-          'Q',
-          'L',
-          'N',
-          N,
-          NS.value,
-          N,
-          WORK(IQRF).asMatrix(N),
-          N,
-          WORK(ITAUQ),
-          U,
-          LDU,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('Q', 'L', 'N', N, NS.value, N, WORK(IQRF).asMatrix(N), N,
+            WORK(ITAUQ), U, LDU, WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
         // Call DORMQR to compute Q*(QB*UB).
         // (Workspace in WORK[ ITEMP ]: need N, prefer N*NB)
 
-        dormqr(
-          'L',
-          'N',
-          M,
-          NS.value,
-          N,
-          A,
-          LDA,
-          WORK(ITAU),
-          U,
-          LDU,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormqr('L', 'N', M, NS.value, N, A, LDA, WORK(ITAU), U, LDU,
+            WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
 
       // If needed, compute right singular vectors.
@@ -416,22 +341,8 @@ void dgesvdx(
         // Call DORMBR to compute VB**T * PB**T
         // (Workspace in WORK[ ITEMP ]: need N, prefer N*NB)
 
-        dormbr(
-          'P',
-          'R',
-          'T',
-          NS.value,
-          N,
-          N,
-          WORK(IQRF).asMatrix(N),
-          N,
-          WORK(ITAUP),
-          VT,
-          LDVT,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('P', 'R', 'T', NS.value, N, N, WORK(IQRF).asMatrix(N), N,
+            WORK(ITAUP), VT, LDVT, WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
     } else {
       // Path 2 (M at least N, but not much larger)
@@ -447,44 +358,16 @@ void dgesvdx(
       ITAUQ = IE + N;
       ITAUP = ITAUQ + N;
       ITEMP = ITAUP + N;
-      dgebrd(
-        M,
-        N,
-        A,
-        LDA,
-        WORK(ID),
-        WORK(IE),
-        WORK(ITAUQ),
-        WORK(ITAUP),
-        WORK(ITEMP),
-        LWORK - ITEMP + 1,
-        INFO,
-      );
+      dgebrd(M, N, A, LDA, WORK(ID), WORK(IE), WORK(ITAUQ), WORK(ITAUP),
+          WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
       // Solve eigenvalue problem TGK*Z=Z*S.
       // (Workspace: need 14*N + 2*N*(N+1))
 
       ITGKZ = ITEMP;
       ITEMP = ITGKZ + N * (N * 2 + 1);
-      dbdsvdx(
-        'U',
-        JOBZ,
-        RNGTGK,
-        N,
-        WORK(ID),
-        WORK(IE),
-        VL,
-        VU,
-        ILTGK,
-        IUTGK,
-        NS,
-        S,
-        WORK(ITGKZ).asMatrix(N * 2),
-        N * 2,
-        WORK(ITEMP),
-        IWORK,
-        INFO,
-      );
+      dbdsvdx('U', JOBZ, RNGTGK, N, WORK(ID), WORK(IE), VL, VU, ILTGK, IUTGK,
+          NS, S, WORK(ITGKZ).asMatrix(N * 2), N * 2, WORK(ITEMP), IWORK, INFO);
 
       // If needed, compute left singular vectors.
 
@@ -499,22 +382,8 @@ void dgesvdx(
         // Call DORMBR to compute QB*UB.
         // (Workspace in WORK[ ITEMP ]: need N, prefer N*NB)
 
-        dormbr(
-          'Q',
-          'L',
-          'N',
-          M,
-          NS.value,
-          N,
-          A,
-          LDA,
-          WORK(ITAUQ),
-          U,
-          LDU,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          IERR,
-        );
+        dormbr('Q', 'L', 'N', M, NS.value, N, A, LDA, WORK(ITAUQ), U, LDU,
+            WORK(ITEMP), LWORK - ITEMP + 1, IERR);
       }
 
       // If needed, compute right singular vectors.
@@ -529,22 +398,8 @@ void dgesvdx(
         // Call DORMBR to compute VB**T * PB**T
         // (Workspace in WORK[ ITEMP ]: need N, prefer N*NB)
 
-        dormbr(
-          'P',
-          'R',
-          'T',
-          NS.value,
-          N,
-          N,
-          A,
-          LDA,
-          WORK(ITAUP),
-          VT,
-          LDVT,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          IERR,
-        );
+        dormbr('P', 'R', 'T', NS.value, N, N, A, LDA, WORK(ITAUP), VT, LDVT,
+            WORK(ITEMP), LWORK - ITEMP + 1, IERR);
       }
     }
   } else {
@@ -575,44 +430,16 @@ void dgesvdx(
       ITEMP = ITAUP + M;
       dlacpy('L', M, M, A, LDA, WORK(ILQF).asMatrix(M), M);
       dlaset('U', M - 1, M - 1, ZERO, ZERO, WORK(ILQF + M).asMatrix(M), M);
-      dgebrd(
-        M,
-        M,
-        WORK(ILQF).asMatrix(M),
-        M,
-        WORK(ID),
-        WORK(IE),
-        WORK(ITAUQ),
-        WORK(ITAUP),
-        WORK(ITEMP),
-        LWORK - ITEMP + 1,
-        INFO,
-      );
+      dgebrd(M, M, WORK(ILQF).asMatrix(M), M, WORK(ID), WORK(IE), WORK(ITAUQ),
+          WORK(ITAUP), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
       // Solve eigenvalue problem TGK*Z=Z*S.
       // (Workspace: need 2*M*M+14*M)
 
       ITGKZ = ITEMP;
       ITEMP = ITGKZ + M * (M * 2 + 1);
-      dbdsvdx(
-        'U',
-        JOBZ,
-        RNGTGK,
-        M,
-        WORK(ID),
-        WORK(IE),
-        VL,
-        VU,
-        ILTGK,
-        IUTGK,
-        NS,
-        S,
-        WORK(ITGKZ).asMatrix(M * 2),
-        M * 2,
-        WORK(ITEMP),
-        IWORK,
-        INFO,
-      );
+      dbdsvdx('U', JOBZ, RNGTGK, M, WORK(ID), WORK(IE), VL, VU, ILTGK, IUTGK,
+          NS, S, WORK(ITGKZ).asMatrix(M * 2), M * 2, WORK(ITEMP), IWORK, INFO);
 
       // If needed, compute left singular vectors.
 
@@ -626,22 +453,8 @@ void dgesvdx(
         // Call DORMBR to compute QB*UB.
         // (Workspace in WORK[ ITEMP ]: need M, prefer M*NB)
 
-        dormbr(
-          'Q',
-          'L',
-          'N',
-          M,
-          NS.value,
-          M,
-          WORK(ILQF).asMatrix(M),
-          M,
-          WORK(ITAUQ),
-          U,
-          LDU,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('Q', 'L', 'N', M, NS.value, M, WORK(ILQF).asMatrix(M), M,
+            WORK(ITAUQ), U, LDU, WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
 
       // If needed, compute right singular vectors.
@@ -657,41 +470,14 @@ void dgesvdx(
         // Call DORMBR to compute (VB**T)*(PB**T)
         // (Workspace in WORK[ ITEMP ]: need M, prefer M*NB)
 
-        dormbr(
-          'P',
-          'R',
-          'T',
-          NS.value,
-          M,
-          M,
-          WORK(ILQF).asMatrix(M),
-          M,
-          WORK(ITAUP),
-          VT,
-          LDVT,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('P', 'R', 'T', NS.value, M, M, WORK(ILQF).asMatrix(M), M,
+            WORK(ITAUP), VT, LDVT, WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
         // Call DORMLQ to compute ((VB**T)*(PB**T))*Q.
         // (Workspace in WORK[ ITEMP ]: need M, prefer M*NB)
 
-        dormlq(
-          'R',
-          'N',
-          NS.value,
-          N,
-          M,
-          A,
-          LDA,
-          WORK(ITAU),
-          VT,
-          LDVT,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormlq('R', 'N', NS.value, N, M, A, LDA, WORK(ITAU), VT, LDVT,
+            WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
     } else {
       // Path 2t (N greater than M, but not much larger)
@@ -707,44 +493,16 @@ void dgesvdx(
       ITAUQ = IE + M;
       ITAUP = ITAUQ + M;
       ITEMP = ITAUP + M;
-      dgebrd(
-        M,
-        N,
-        A,
-        LDA,
-        WORK(ID),
-        WORK(IE),
-        WORK(ITAUQ),
-        WORK(ITAUP),
-        WORK(ITEMP),
-        LWORK - ITEMP + 1,
-        INFO,
-      );
+      dgebrd(M, N, A, LDA, WORK(ID), WORK(IE), WORK(ITAUQ), WORK(ITAUP),
+          WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
       // Solve eigenvalue problem TGK*Z=Z*S.
       // (Workspace: need 2*M*M+14*M)
 
       ITGKZ = ITEMP;
       ITEMP = ITGKZ + M * (M * 2 + 1);
-      dbdsvdx(
-        'L',
-        JOBZ,
-        RNGTGK,
-        M,
-        WORK(ID),
-        WORK(IE),
-        VL,
-        VU,
-        ILTGK,
-        IUTGK,
-        NS,
-        S,
-        WORK(ITGKZ).asMatrix(M * 2),
-        M * 2,
-        WORK(ITEMP),
-        IWORK,
-        INFO,
-      );
+      dbdsvdx('L', JOBZ, RNGTGK, M, WORK(ID), WORK(IE), VL, VU, ILTGK, IUTGK,
+          NS, S, WORK(ITGKZ).asMatrix(M * 2), M * 2, WORK(ITEMP), IWORK, INFO);
 
       // If needed, compute left singular vectors.
 
@@ -758,22 +516,8 @@ void dgesvdx(
         // Call DORMBR to compute QB*UB.
         // (Workspace in WORK[ ITEMP ]: need M, prefer M*NB)
 
-        dormbr(
-          'Q',
-          'L',
-          'N',
-          M,
-          NS.value,
-          N,
-          A,
-          LDA,
-          WORK(ITAUQ),
-          U,
-          LDU,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('Q', 'L', 'N', M, NS.value, N, A, LDA, WORK(ITAUQ), U, LDU,
+            WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
 
       // If needed, compute right singular vectors.
@@ -789,22 +533,8 @@ void dgesvdx(
         // Call DORMBR to compute VB**T * PB**T
         // (Workspace in WORK[ ITEMP ]: need M, prefer M*NB)
 
-        dormbr(
-          'P',
-          'R',
-          'T',
-          NS.value,
-          N,
-          M,
-          A,
-          LDA,
-          WORK(ITAUP),
-          VT,
-          LDVT,
-          WORK(ITEMP),
-          LWORK - ITEMP + 1,
-          INFO,
-        );
+        dormbr('P', 'R', 'T', NS.value, N, M, A, LDA, WORK(ITAUP), VT, LDVT,
+            WORK(ITEMP), LWORK - ITEMP + 1, INFO);
       }
     }
   }

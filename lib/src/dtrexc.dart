@@ -159,18 +159,7 @@ void dtrexc(
           if (T[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
         }
         dlaexc(
-          WANTQ,
-          N,
-          T,
-          LDT,
-          Q,
-          LDQ,
-          HERE - NBNEXT,
-          NBNEXT,
-          NBF,
-          WORK,
-          INFO,
-        );
+            WANTQ, N, T, LDT, Q, LDQ, HERE - NBNEXT, NBNEXT, NBF, WORK, INFO);
         if (INFO.value != 0) {
           ILST.value = HERE;
           return;

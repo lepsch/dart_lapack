@@ -32,7 +32,6 @@ linter:
     unnecessary_statements: true
     prefer_null_aware_method_calls: true
     prefer_single_quotes: true
-    require_trailing_commas: true
     type_annotate_public_apis: true
     use_named_constants: true
 

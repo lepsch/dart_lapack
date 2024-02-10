@@ -166,37 +166,13 @@ void dggsvp3(
     // Update A := A*Z**T
 
     dormr2(
-      'Right',
-      'Transpose',
-      M,
-      N,
-      L.value,
-      B,
-      LDB,
-      TAU,
-      A,
-      LDA,
-      WORK,
-      INFO,
-    );
+        'Right', 'Transpose', M, N, L.value, B, LDB, TAU, A, LDA, WORK, INFO);
 
     if (WANTQ) {
       // Update Q := Q*Z**T
 
       dormr2(
-        'Right',
-        'Transpose',
-        N,
-        N,
-        L.value,
-        B,
-        LDB,
-        TAU,
-        Q,
-        LDQ,
-        WORK,
-        INFO,
-      );
+          'Right', 'Transpose', N, N, L.value, B, LDB, TAU, Q, LDQ, WORK, INFO);
     }
 
     // Clean up B
@@ -231,20 +207,8 @@ void dggsvp3(
 
   // Update A12 := U**T*A12, where A12 = A[ 1:M][ N-L.value+1:N ]
 
-  dorm2r(
-    'Left',
-    'Transpose',
-    M,
-    L.value,
-    min(M, N - L.value),
-    A,
-    LDA,
-    TAU,
-    A[1][N - L.value + 1],
-    LDA,
-    WORK,
-    INFO,
-  );
+  dorm2r('Left', 'Transpose', M, L.value, min(M, N - L.value), A, LDA, TAU,
+      A[1][N - L.value + 1], LDA, WORK, INFO);
 
   if (WANTU) {
     // Copy the details of U, and form U
@@ -270,14 +234,7 @@ void dggsvp3(
   }
   if (M > K.value) {
     dlaset(
-      'Full',
-      M - K.value,
-      N - L.value,
-      ZERO,
-      ZERO,
-      A(K.value + 1, 1),
-      LDA,
-    );
+        'Full', M - K.value, N - L.value, ZERO, ZERO, A(K.value + 1, 1), LDA);
   }
 
   if (N - L.value > K.value) {
@@ -288,20 +245,8 @@ void dggsvp3(
     if (WANTQ) {
       // Update Q[ 1:N][1:N-L.value ] = Q[ 1:N][1:N-L.value ]*Z1**T
 
-      dormr2(
-        'Right',
-        'Transpose',
-        N,
-        N - L.value,
-        K.value,
-        A,
-        LDA,
-        TAU,
-        Q,
-        LDQ,
-        WORK,
-        INFO,
-      );
+      dormr2('Right', 'Transpose', N, N - L.value, K.value, A, LDA, TAU, Q, LDQ,
+          WORK, INFO);
     }
 
     // Clean up A
@@ -317,33 +262,25 @@ void dggsvp3(
   if (M > K.value) {
     // QR factorization of A[ K.value+1:M][N-L.value+1:N ]
 
-    dgeqr2(
-      M - K.value,
-      L.value,
-      A(K.value + 1, N - L.value + 1),
-      LDA,
-      TAU,
-      WORK,
-      INFO,
-    );
+    dgeqr2(M - K.value, L.value, A(K.value + 1, N - L.value + 1), LDA, TAU,
+        WORK, INFO);
 
     if (WANTU) {
       // Update U[:][K.value+1:M] := U[:][K.value+1:M]*U1
 
       dorm2r(
-        'Right',
-        'No transpose',
-        M,
-        M - K.value,
-        min(M - K.value, L.value),
-        A[K.value + 1][N - L.value + 1],
-        LDA,
-        TAU,
-        U[1][K.value + 1],
-        LDU,
-        WORK,
-        INFO,
-      );
+          'Right',
+          'No transpose',
+          M,
+          M - K.value,
+          min(M - K.value, L.value),
+          A[K.value + 1][N - L.value + 1],
+          LDA,
+          TAU,
+          U[1][K.value + 1],
+          LDU,
+          WORK,
+          INFO);
     }
 
     // Clean up

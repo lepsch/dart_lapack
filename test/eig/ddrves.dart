@@ -227,45 +227,13 @@ void ddrves(
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            0,
-            0,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            N,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 6) {
           // General, eigenvalues specified
 
@@ -279,127 +247,123 @@ void ddrves(
 
           ADUMMA = ' ';
           dlatme(
-            N,
-            'S',
-            ISEED,
-            WORK,
-            IMODE,
-            COND,
-            ONE,
-            ADUMMA,
-            'T',
-            'T',
-            'T',
-            WORK[N + 1],
-            4,
-            CONDS,
-            N,
-            N,
-            ANORM,
-            A,
-            LDA,
-            WORK[2 * N + 1],
-            IINFO,
-          );
+              N,
+              'S',
+              ISEED,
+              WORK,
+              IMODE,
+              COND,
+              ONE,
+              ADUMMA,
+              'T',
+              'T',
+              'T',
+              WORK[N + 1],
+              4,
+              CONDS,
+              N,
+              N,
+              ANORM,
+              A,
+              LDA,
+              WORK[2 * N + 1],
+              IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            0,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              0,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 9) {
           // General, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
           if (N >= 4) {
             dlaset('Full', 2, N, ZERO, ZERO, A, LDA);
             dlaset('Full', N - 3, 1, ZERO, ZERO, A(3, 1), LDA);
@@ -410,35 +374,34 @@ void ddrves(
           // Triangular, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'N',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'N',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else {
           IINFO.value = 1;
         }
@@ -480,23 +443,8 @@ void ddrves(
           // Compute Schur form and Schur vectors, and test them
 
           dlacpy('F', N, N, A, LDA, H, LDA);
-          dgees(
-            'V',
-            SORT,
-            dslect,
-            N,
-            H,
-            LDA,
-            SDIM,
-            WR,
-            WI,
-            VS,
-            LDVS,
-            WORK,
-            NNWORK,
-            BWORK,
-            IINFO,
-          );
+          dgees('V', SORT, dslect, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK,
+              NNWORK, BWORK, IINFO);
           if (IINFO.value != 0 && IINFO.value != N + 2) {
             RESULT[1 + RSUB] = ULPINV;
             _print9992(NOUNIT, 'DGEES1', IINFO.value, N, JTYPE, IOLDSD);
@@ -548,13 +496,9 @@ void ddrves(
             if (H[I + 1][I] != ZERO) {
               TMP = sqrt((H[I + 1][I]).abs()) * sqrt((H[I][I + 1]).abs());
               RESULT[4 + RSUB] = max(
-                RESULT[4 + RSUB],
-                (WI[I] - TMP).abs() / max(ULP * TMP, UNFL),
-              );
-              RESULT[4 + RSUB] = max(
-                RESULT[4 + RSUB],
-                (WI[I + 1] + TMP).abs() / max(ULP * TMP, UNFL),
-              );
+                  RESULT[4 + RSUB], (WI[I] - TMP).abs() / max(ULP * TMP, UNFL));
+              RESULT[4 + RSUB] = max(RESULT[4 + RSUB],
+                  (WI[I + 1] + TMP).abs() / max(ULP * TMP, UNFL));
             } else if (I > 1) {
               if (H[I + 1][I] == ZERO && H[I][I - 1] == ZERO && WI[I] != ZERO) {
                 RESULT[4 + RSUB] = ULPINV;
@@ -565,23 +509,8 @@ void ddrves(
           // Do Test (5) or Test (11)
 
           dlacpy('F', N, N, A, LDA, HT, LDA);
-          dgees(
-            'N',
-            SORT,
-            dslect,
-            N,
-            HT,
-            LDA,
-            SDIM,
-            WRT,
-            WIT,
-            VS,
-            LDVS,
-            WORK,
-            NNWORK,
-            BWORK,
-            IINFO,
-          );
+          dgees('N', SORT, dslect, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK,
+              NNWORK, BWORK, IINFO);
           if (IINFO.value != 0 && IINFO.value != N + 2) {
             RESULT[5 + RSUB] = ULPINV;
             _print9992(NOUNIT, 'DGEES2', IINFO.value, N, JTYPE, IOLDSD);
@@ -639,31 +568,24 @@ void ddrves(
         if (NFAIL > 0) NTESTF = NTESTF + 1;
         if (NTESTF == 1) {
           NOUNIT.println(
-            '\n ${PATH.a3} -- Real Schur Form Decomposition Driver\n Matrix types (see DDRVES for details): ',
-          );
+              '\n ${PATH.a3} -- Real Schur Form Decomposition Driver\n Matrix types (see DDRVES for details): ');
           NOUNIT.println(
-            '\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.',
-          );
+              '\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.');
           NOUNIT.println(
-            ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex ${' ' * 6}    17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ',
-          );
+              ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex ${' ' * 6}    17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ');
           NOUNIT.println(
-            ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n',
-          );
+              ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n');
           NOUNIT.println(
-            ' Tests performed with test threshold =${THRESH.f8_2}\n ( A denotes A on input and T denotes A on output)\n\n 1 = 0 if T in Schur form (no sort),   1/ulp otherwise\n 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)\n 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) \n 4 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (no sort),  1/ulp otherwise\n 5 = 0 if T same no matter if VS computed (no sort),  1/ulp otherwise\n 6 = 0 if WR, WI same no matter if VS computed (no sort),  1/ulp otherwise',
-          );
+              ' Tests performed with test threshold =${THRESH.f8_2}\n ( A denotes A on input and T denotes A on output)\n\n 1 = 0 if T in Schur form (no sort),   1/ulp otherwise\n 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)\n 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) \n 4 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (no sort),  1/ulp otherwise\n 5 = 0 if T same no matter if VS computed (no sort),  1/ulp otherwise\n 6 = 0 if WR, WI same no matter if VS computed (no sort),  1/ulp otherwise');
           NOUNIT.println(
-            ' 7 = 0 if T in Schur form (sort),   1/ulp otherwise\n 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)\n 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) \n 10 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (sort),  1/ulp otherwise\n 11 = 0 if T same no matter if VS computed (sort),  1/ulp otherwise\n 12 = 0 if WR, WI same no matter if VS computed (sort),  1/ulp otherwise\n 13 = 0 if sorting successful, 1/ulp otherwise\n',
-          );
+              ' 7 = 0 if T in Schur form (sort),   1/ulp otherwise\n 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)\n 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) \n 10 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (sort),  1/ulp otherwise\n 11 = 0 if T same no matter if VS computed (sort),  1/ulp otherwise\n 12 = 0 if WR, WI same no matter if VS computed (sort),  1/ulp otherwise\n 13 = 0 if sorting successful, 1/ulp otherwise\n');
           NTESTF = 2;
         }
 
         for (J = 1; J <= 13; J++) {
           if (RESULT[J] >= THRESH) {
             NOUNIT.println(
-              ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}',
-            );
+                ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
           }
         }
 
@@ -686,6 +608,5 @@ void _print9992(
   final Array<int> iseed,
 ) {
   nout.println(
-    ' DDRVES: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DDRVES: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

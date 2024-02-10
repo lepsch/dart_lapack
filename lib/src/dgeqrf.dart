@@ -97,37 +97,27 @@ void dgeqrf(
         // Form the triangular factor of the block reflector
         // H = H(i) H(i+1) . . . H(i+ib-1)
 
-        dlarft(
-          'Forward',
-          'Columnwise',
-          M - I + 1,
-          IB,
-          A(I, I),
-          LDA,
-          TAU(I),
-          WORK.asMatrix(LDWORK),
-          LDWORK,
-        );
+        dlarft('Forward', 'Columnwise', M - I + 1, IB, A(I, I), LDA, TAU(I),
+            WORK.asMatrix(LDWORK), LDWORK);
 
         // Apply H**T to A(i:m,i+ib:n) from the left
 
         dlarfb(
-          'Left',
-          'Transpose',
-          'Forward',
-          'Columnwise',
-          M - I + 1,
-          N - I - IB + 1,
-          IB,
-          A(I, I),
-          LDA,
-          WORK.asMatrix(LDWORK),
-          LDWORK,
-          A(I, I + IB),
-          LDA,
-          WORK(IB + 1).asMatrix(LDWORK),
-          LDWORK,
-        );
+            'Left',
+            'Transpose',
+            'Forward',
+            'Columnwise',
+            M - I + 1,
+            N - I - IB + 1,
+            IB,
+            A(I, I),
+            LDA,
+            WORK.asMatrix(LDWORK),
+            LDWORK,
+            A(I, I + IB),
+            LDA,
+            WORK(IB + 1).asMatrix(LDWORK),
+            LDWORK);
       }
     } // 10
   } else {

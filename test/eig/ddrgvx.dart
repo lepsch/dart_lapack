@@ -135,23 +135,8 @@ Future<void> ddrgvx(
             for (IWY = 1; IWY <= 5; IWY++) {
               // generated a test matrix pair
 
-              dlatm6(
-                IPTYPE,
-                5,
-                A,
-                LDA,
-                B,
-                VR,
-                LDA,
-                VL,
-                LDA,
-                WEIGHT[IWA],
-                WEIGHT[IWB],
-                WEIGHT[IWX],
-                WEIGHT[IWY],
-                DTRU,
-                DIFTRU,
-              );
+              dlatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT[IWA],
+                  WEIGHT[IWB], WEIGHT[IWX], WEIGHT[IWY], DTRU, DIFTRU);
 
               // Compute eigenvalues/eigenvectors of (A, B).
               // Compute eigenvalue/eigenvector condition numbers
@@ -161,41 +146,39 @@ Future<void> ddrgvx(
               dlacpy('F', N, N, B, LDA, BI, LDA);
 
               dggevx(
-                'N',
-                'V',
-                'V',
-                'B',
-                N,
-                AI,
-                LDA,
-                BI,
-                LDA,
-                ALPHAR,
-                ALPHAI,
-                BETA,
-                VL,
-                LDA,
-                VR,
-                LDA,
-                ILO,
-                IHI,
-                LSCALE,
-                RSCALE,
-                ANORM,
-                BNORM,
-                S,
-                DIF,
-                WORK,
-                LWORK,
-                IWORK,
-                BWORK,
-                LINFO,
-              );
+                  'N',
+                  'V',
+                  'V',
+                  'B',
+                  N,
+                  AI,
+                  LDA,
+                  BI,
+                  LDA,
+                  ALPHAR,
+                  ALPHAI,
+                  BETA,
+                  VL,
+                  LDA,
+                  VR,
+                  LDA,
+                  ILO,
+                  IHI,
+                  LSCALE,
+                  RSCALE,
+                  ANORM,
+                  BNORM,
+                  S,
+                  DIF,
+                  WORK,
+                  LWORK,
+                  IWORK,
+                  BWORK,
+                  LINFO);
               if (LINFO.value != 0) {
                 RESULT[1] = ULPINV;
                 NOUT.println(
-                  ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${IPTYPE.i6})',
-                );
+                    ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${IPTYPE.i6})');
                 continue;
               }
 
@@ -208,65 +191,19 @@ Future<void> ddrgvx(
               // Tests (1) and (2)
 
               RESULT[1] = ZERO;
-              dget52(
-                true,
-                N,
-                A,
-                LDA,
-                B,
-                LDA,
-                VL,
-                LDA,
-                ALPHAR,
-                ALPHAI,
-                BETA,
-                WORK,
-                RESULT(1),
-              );
+              dget52(true, N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA,
+                  WORK, RESULT(1));
               if (RESULT[2] > THRESH) {
-                _print9998(
-                  NOUT,
-                  'Left',
-                  'DGGEVX',
-                  RESULT[2],
-                  N,
-                  IPTYPE,
-                  IWA,
-                  IWB,
-                  IWX,
-                  IWY,
-                );
+                _print9998(NOUT, 'Left', 'DGGEVX', RESULT[2], N, IPTYPE, IWA,
+                    IWB, IWX, IWY);
               }
 
               RESULT[2] = ZERO;
-              dget52(
-                false,
-                N,
-                A,
-                LDA,
-                B,
-                LDA,
-                VR,
-                LDA,
-                ALPHAR,
-                ALPHAI,
-                BETA,
-                WORK,
-                RESULT(2),
-              );
+              dget52(false, N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA,
+                  WORK, RESULT(2));
               if (RESULT[3] > THRESH) {
-                _print9998(
-                  NOUT,
-                  'Right',
-                  'DGGEVX',
-                  RESULT[3],
-                  N,
-                  IPTYPE,
-                  IWA,
-                  IWB,
-                  IWX,
-                  IWY,
-                );
+                _print9998(NOUT, 'Right', 'DGGEVX', RESULT[3], N, IPTYPE, IWA,
+                    IWB, IWX, IWY);
               }
 
               // Test (3)
@@ -321,11 +258,9 @@ Future<void> ddrgvx(
 
                     NOUT.println(' Matrix types:\n');
                     NOUT.println(
-                      ' TYPE 1: Da is diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n',
-                    );
+                        ' TYPE 1: Da is diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n');
                     NOUT.println(
-                      ' TYPE 2: Da is quasi-diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n',
-                    );
+                        ' TYPE 2: Da is quasi-diagonal, Db is identity, \n     A = Y^(-H) Da X^(-1), B = Y^(-H) Db X^(-1) \n     YH and X are left and right eigenvectors.\n');
 
                     // Tests performed
 
@@ -334,12 +269,10 @@ Future<void> ddrgvx(
                   NERRS = NERRS + 1;
                   if (RESULT[J] < 10000.0) {
                     NOUT.println(
-                      ' Type=$IPTYPE{.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${RESULT[J].f8_2}',
-                    );
+                        ' Type=$IPTYPE{.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${RESULT[J].f8_2}');
                   } else {
                     NOUT.println(
-                      ' Type=${IPTYPE.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${(RESULT[J] * 10).d10_3}',
-                    );
+                        ' Type=${IPTYPE.i2}, IWA=${IWA.i2}, IWB=${IWB.i2}, IWX=${IWX.i2}, IWY=${IWY.i2}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
                   }
                 }
               } // 20
@@ -374,42 +307,40 @@ Future<void> ddrgvx(
       dlacpy('F', N, N, B, LDA, BI, LDA);
 
       dggevx(
-        'N',
-        'V',
-        'V',
-        'B',
-        N,
-        AI,
-        LDA,
-        BI,
-        LDA,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        VL,
-        LDA,
-        VR,
-        LDA,
-        ILO,
-        IHI,
-        LSCALE,
-        RSCALE,
-        ANORM,
-        BNORM,
-        S,
-        DIF,
-        WORK,
-        LWORK,
-        IWORK,
-        BWORK,
-        LINFO,
-      );
+          'N',
+          'V',
+          'V',
+          'B',
+          N,
+          AI,
+          LDA,
+          BI,
+          LDA,
+          ALPHAR,
+          ALPHAI,
+          BETA,
+          VL,
+          LDA,
+          VR,
+          LDA,
+          ILO,
+          IHI,
+          LSCALE,
+          RSCALE,
+          ANORM,
+          BNORM,
+          S,
+          DIF,
+          WORK,
+          LWORK,
+          IWORK,
+          BWORK,
+          LINFO);
 
       if (LINFO.value != 0) {
         RESULT[1] = ULPINV;
         NOUT.println(
-          ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, Input example #${NPTKNT.i2})',
-        );
+            ' DDRGVX: DGGEVX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${N.i6}, Input example #${NPTKNT.i2})');
         continue;
       }
 
@@ -422,41 +353,15 @@ Future<void> ddrgvx(
       // Tests (1) and (2)
 
       RESULT[1] = ZERO;
-      dget52(
-        true,
-        N,
-        A,
-        LDA,
-        B,
-        LDA,
-        VL,
-        LDA,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        WORK,
-        RESULT(1),
-      );
+      dget52(true, N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK,
+          RESULT(1));
       if (RESULT[2] > THRESH) {
         _print9986(NOUT, 'Left', 'DGGEVX', RESULT[2], N, NPTKNT);
       }
 
       RESULT[2] = ZERO;
-      dget52(
-        false,
-        N,
-        A,
-        LDA,
-        B,
-        LDA,
-        VR,
-        LDA,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        WORK,
-        RESULT(2),
-      );
+      dget52(false, N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK,
+          RESULT(2));
       if (RESULT[3] > THRESH) {
         _print9986(NOUT, 'Right', 'DGGEVX', RESULT[3], N, NPTKNT);
       }
@@ -517,12 +422,10 @@ Future<void> ddrgvx(
           NERRS = NERRS + 1;
           if (RESULT[J] < 10000.0) {
             NOUT.println(
-              ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${RESULT[J].f8_2}',
-            );
+                ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${RESULT[J].f8_2}');
           } else {
             NOUT.println(
-              ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}',
-            );
+                ' Input example #${NPTKNT.i2}, matrix order=${N.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
           }
         }
       } // 130
@@ -550,8 +453,7 @@ void _print9998(
   final int iwy,
 ) {
   nout.println(
-    ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, IWA=${iwa.i5}, IWB=${iwb.i5}, IWX=${iwx.i5}, IWY=${iwy.i5}',
-  );
+      ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, IWA=${iwa.i5}, IWB=${iwb.i5}, IWX=${iwx.i5}, IWY=${iwy.i5}');
 }
 
 void _print9997(final Nout nout) {
@@ -560,8 +462,7 @@ void _print9997(final Nout nout) {
 
 void _print9992(final Nout nout) {
   nout.println(
-    '\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and \' means transpose.\n 1 = max | ( b A - a B )\' l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n',
-  );
+      '\n Tests performed:  \n${' ' * 4} a is alpha, b is beta, l is a left eigenvector, \n${' ' * 4} r is a right eigenvector and \' means transpose.\n 1 = max | ( b A - a B )\' l | / const.\n 2 = max | ( b A - a B ) r | / const.\n 3 = max ( Sest/Stru, Stru/Sest )  over all eigenvalues\n 4 = max( DIFest/DIFtru, DIFtru/DIFest )  over the 1st and 5th eigenvectors\n');
 }
 
 //  ' Input Example' FORMAT(  );
@@ -575,6 +476,5 @@ void _print9986(
   final int ninput,
 ) {
   nout.println(
-    ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, Input Example #${ninput.i2})',
-  );
+      ' DDRGVX: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 9}N=${n.i6}, Input Example #${ninput.i2})');
 }

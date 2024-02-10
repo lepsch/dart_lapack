@@ -79,8 +79,7 @@ Future<void> dcklse(
         FIRSTT = false;
       }
       NOUT.println(
-        ' *** Invalid input  for LSE:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n     must satisfy P <= N <= P+M  (this set of values will be skipped)',
-      );
+          ' *** Invalid input  for LSE:  M = ${M.i6}, P = ${P.i6}, N = ${N.i6};\n     must satisfy P <= N <= P+M  (this set of values will be skipped)');
     }
   }
   FIRSTT = true;
@@ -101,45 +100,26 @@ Future<void> dcklse(
       // Set up parameters with DLATB9 and generate test
       // matrices A and B with DLATMS.
 
-      dlatb9(
-        PATH,
-        IMAT,
-        M,
-        P,
-        N,
-        TYPE,
-        KLA,
-        KUA,
-        KLB,
-        KUB,
-        ANORM,
-        BNORM,
-        MODEA,
-        MODEB,
-        CNDNMA,
-        CNDNMB,
-        DISTA,
-        DISTB,
-      );
+      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
+          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
 
       dlatms(
-        M,
-        N,
-        DISTA.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEA.value,
-        CNDNMA.value,
-        ANORM.value,
-        KLA.value,
-        KUA.value,
-        'No packing',
-        A.asMatrix(LDA),
-        LDA,
-        WORK,
-        IINFO,
-      );
+          M,
+          N,
+          DISTA.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEA.value,
+          CNDNMA.value,
+          ANORM.value,
+          KLA.value,
+          KUA.value,
+          'No packing',
+          A.asMatrix(LDA),
+          LDA,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -147,23 +127,22 @@ Future<void> dcklse(
       }
 
       dlatms(
-        P,
-        N,
-        DISTB.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEB.value,
-        CNDNMB.value,
-        BNORM.value,
-        KLB.value,
-        KUB.value,
-        'No packing',
-        B.asMatrix(LDB),
-        LDB,
-        WORK,
-        IINFO,
-      );
+          P,
+          N,
+          DISTB.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEB.value,
+          CNDNMB.value,
+          BNORM.value,
+          KLB.value,
+          KUB.value,
+          'No packing',
+          B.asMatrix(LDB),
+          LDB,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -174,69 +153,66 @@ Future<void> dcklse(
       var LD1 = max(N, 1), LD2 = max(M, 1);
 
       dlarhs(
-        'DGE',
-        'New solution',
-        'Upper',
-        'N',
-        M,
-        N,
-        max(M - 1, 0),
-        max(N - 1, 0),
-        1,
-        A.asMatrix(LDA),
-        LDA,
-        X(4 * NMAX + 1).asMatrix(LD1),
-        LD1,
-        X.asMatrix(LD2),
-        LD2,
-        ISEED,
-        IINFO,
-      );
+          'DGE',
+          'New solution',
+          'Upper',
+          'N',
+          M,
+          N,
+          max(M - 1, 0),
+          max(N - 1, 0),
+          1,
+          A.asMatrix(LDA),
+          LDA,
+          X(4 * NMAX + 1).asMatrix(LD1),
+          LD1,
+          X.asMatrix(LD2),
+          LD2,
+          ISEED,
+          IINFO);
 
       LD1 = max(N, 1);
       LD2 = max(P, 1);
       dlarhs(
-        'DGE',
-        'Computed',
-        'Upper',
-        'N',
-        P,
-        N,
-        max(P - 1, 0),
-        max(N - 1, 0),
-        1,
-        B.asMatrix(LDB),
-        LDB,
-        X(4 * NMAX + 1).asMatrix(LD1),
-        LD1,
-        X(2 * NMAX + 1).asMatrix(LD2),
-        LD2,
-        ISEED,
-        IINFO,
-      );
+          'DGE',
+          'Computed',
+          'Upper',
+          'N',
+          P,
+          N,
+          max(P - 1, 0),
+          max(N - 1, 0),
+          1,
+          B.asMatrix(LDB),
+          LDB,
+          X(4 * NMAX + 1).asMatrix(LD1),
+          LD1,
+          X(2 * NMAX + 1).asMatrix(LD2),
+          LD2,
+          ISEED,
+          IINFO);
 
       NT = 2;
 
       dlsets(
-        M,
-        P,
-        N,
-        A.asMatrix(LDA),
-        AF.asMatrix(LDA),
-        LDA,
-        B.asMatrix(LDB),
-        BF.asMatrix(LDB),
-        LDB,
-        X,
-        X(NMAX + 1),
-        X(2 * NMAX + 1),
-        X(3 * NMAX + 1),
-        X(4 * NMAX + 1),
-        WORK,
-        LWORK,
-        RWORK,
-        RESULT(1),
-      );
+          M,
+          P,
+          N,
+          A.asMatrix(LDA),
+          AF.asMatrix(LDA),
+          LDA,
+          B.asMatrix(LDB),
+          BF.asMatrix(LDB),
+          LDB,
+          X,
+          X(NMAX + 1),
+          X(2 * NMAX + 1),
+          X(3 * NMAX + 1),
+          X(4 * NMAX + 1),
+          WORK,
+          LWORK,
+          RWORK,
+          RESULT(1));
 
       // Print information about the tests that did not
       // pass the threshold.
@@ -248,8 +224,7 @@ Future<void> dcklse(
             alahdg(NOUT, PATH);
           }
           NOUT.println(
-            ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}',
-          );
+              ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
           NFAIL = NFAIL + 1;
         }
       }

@@ -376,25 +376,8 @@ void dlatmr(
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J; I++) {
-            TEMP = dlatm3(
-              M,
-              N,
-              I,
-              J,
-              ISUB,
-              JSUB,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value][JSUB.value] = TEMP;
             A[JSUB.value][ISUB.value] = TEMP;
           }
@@ -402,25 +385,8 @@ void dlatmr(
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= M; I++) {
-            TEMP = dlatm3(
-              M,
-              N,
-              I,
-              J,
-              ISUB,
-              JSUB,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value][JSUB.value] = TEMP;
           }
         }
@@ -428,25 +394,8 @@ void dlatmr(
     } else if (IPACK == 1) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          TEMP = dlatm3(
-            M,
-            N,
-            I,
-            J,
-            ISUB,
-            JSUB,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
+              DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
           MXSUB = max(ISUB.value, JSUB.value);
           A[MNSUB][MXSUB] = TEMP;
@@ -456,25 +405,8 @@ void dlatmr(
     } else if (IPACK == 2) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          TEMP = dlatm3(
-            M,
-            N,
-            I,
-            J,
-            ISUB,
-            JSUB,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
+              DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
           MXSUB = max(ISUB.value, JSUB.value);
           A[MXSUB][MNSUB] = TEMP;
@@ -484,25 +416,8 @@ void dlatmr(
     } else if (IPACK == 3) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          TEMP = dlatm3(
-            M,
-            N,
-            I,
-            J,
-            ISUB,
-            JSUB,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
+              DL, DR, IPVTNG, IWORK, SPARSE);
 
           // Compute K = location of (ISUB.value,JSUB.value) entry in packed
           // array
@@ -522,25 +437,8 @@ void dlatmr(
     } else if (IPACK == 4) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          TEMP = dlatm3(
-            M,
-            N,
-            I,
-            J,
-            ISUB,
-            JSUB,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
+              DL, DR, IPVTNG, IWORK, SPARSE);
 
           // Compute K = location of (I,J) entry in packed array
 
@@ -570,25 +468,8 @@ void dlatmr(
           if (I < 1) {
             A[J - I + 1][I + N] = ZERO;
           } else {
-            TEMP = dlatm3(
-              M,
-              N,
-              I,
-              J,
-              ISUB,
-              JSUB,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             MNSUB = min(ISUB.value, JSUB.value);
             MXSUB = max(ISUB.value, JSUB.value);
             A[MXSUB - MNSUB + 1][MNSUB] = TEMP;
@@ -598,25 +479,8 @@ void dlatmr(
     } else if (IPACK == 6) {
       for (J = 1; J <= N; J++) {
         for (I = J - KUU; I <= J; I++) {
-          TEMP = dlatm3(
-            M,
-            N,
-            I,
-            J,
-            ISUB,
-            JSUB,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE,
+              DL, DR, IPVTNG, IWORK, SPARSE);
           MNSUB = min(ISUB.value, JSUB.value);
           MXSUB = max(ISUB.value, JSUB.value);
           A[MNSUB - MXSUB + KUU + 1][MXSUB] = TEMP;
@@ -626,25 +490,8 @@ void dlatmr(
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
           for (I = J - KUU; I <= J; I++) {
-            TEMP = dlatm3(
-              M,
-              N,
-              I,
-              J,
-              ISUB,
-              JSUB,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             MNSUB = min(ISUB.value, JSUB.value);
             MXSUB = max(ISUB.value, JSUB.value);
             A[MNSUB - MXSUB + KUU + 1][MXSUB] = TEMP;
@@ -657,25 +504,8 @@ void dlatmr(
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
           for (I = J - KUU; I <= J + KLL; I++) {
-            TEMP = dlatm3(
-              M,
-              N,
-              I,
-              J,
-              ISUB,
-              JSUB,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            TEMP = dlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             A[ISUB.value - JSUB.value + KUU + 1][JSUB.value] = TEMP;
           }
         }
@@ -688,92 +518,32 @@ void dlatmr(
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= J; I++) {
-            A[I][J] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[I][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
             A[J][I] = A[I][J];
           }
         }
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
           for (I = 1; I <= M; I++) {
-            A[I][J] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[I][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
           }
         }
       }
     } else if (IPACK == 1) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          A[I][J] = dlatm2(
-            M,
-            N,
-            I,
-            J,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          A[I][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR,
+              IPVTNG, IWORK, SPARSE);
           if (I != J) A[J][I] = ZERO;
         }
       }
     } else if (IPACK == 2) {
       for (J = 1; J <= N; J++) {
         for (I = 1; I <= J; I++) {
-          A[J][I] = dlatm2(
-            M,
-            N,
-            I,
-            J,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          A[J][I] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR,
+              IPVTNG, IWORK, SPARSE);
           if (I != J) A[I][J] = ZERO;
         }
       }
@@ -787,23 +557,8 @@ void dlatmr(
             ISUB.value = 1;
             JSUB.value = JSUB.value + 1;
           }
-          A[ISUB.value][JSUB.value] = dlatm2(
-            M,
-            N,
-            I,
-            J,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          A[ISUB.value][JSUB.value] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+              D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
         }
       }
     } else if (IPACK == 4) {
@@ -823,23 +578,8 @@ void dlatmr(
             JSUB.value = (K - 1) ~/ LDA + 1;
             ISUB.value = K - LDA * (JSUB.value - 1);
 
-            A[ISUB.value][JSUB.value] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[ISUB.value][JSUB.value] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+                D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           }
         }
       } else {
@@ -852,23 +592,8 @@ void dlatmr(
               ISUB.value = 1;
               JSUB.value = JSUB.value + 1;
             }
-            A[ISUB.value][JSUB.value] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[ISUB.value][JSUB.value] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+                D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           }
         }
       }
@@ -878,69 +603,24 @@ void dlatmr(
           if (I < 1) {
             A[J - I + 1][I + N] = ZERO;
           } else {
-            A[J - I + 1][I] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[J - I + 1][I] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           }
         }
       }
     } else if (IPACK == 6) {
       for (J = 1; J <= N; J++) {
         for (I = J - KUU; I <= J; I++) {
-          A[I - J + KUU + 1][J] = dlatm2(
-            M,
-            N,
-            I,
-            J,
-            KL,
-            KU,
-            IDIST,
-            ISEED,
-            D,
-            IGRADE,
-            DL,
-            DR,
-            IPVTNG,
-            IWORK,
-            SPARSE,
-          );
+          A[I - J + KUU + 1][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
         }
       }
     } else if (IPACK == 7) {
       if (ISYM == 0) {
         for (J = 1; J <= N; J++) {
           for (I = J - KUU; I <= J; I++) {
-            A[I - J + KUU + 1][J] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[I - J + KUU + 1][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             if (I < 1) A[J - I + 1 + KUU][I + N] = ZERO;
             if (I >= 1 && I != J) A[J - I + 1 + KUU][I] = A[I - J + KUU + 1][J];
           }
@@ -948,23 +628,8 @@ void dlatmr(
       } else if (ISYM == 1) {
         for (J = 1; J <= N; J++) {
           for (I = J - KUU; I <= J + KLL; I++) {
-            A[I - J + KUU + 1][J] = dlatm2(
-              M,
-              N,
-              I,
-              J,
-              KL,
-              KU,
-              IDIST,
-              ISEED,
-              D,
-              IGRADE,
-              DL,
-              DR,
-              IPVTNG,
-              IWORK,
-              SPARSE,
-            );
+            A[I - J + KUU + 1][J] = dlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
           }
         }
       }

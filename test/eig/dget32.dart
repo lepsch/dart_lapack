@@ -73,33 +73,16 @@ void dget32(
               TR[1][1] = VAL[ITR];
               B[1][1] = VAL[IB];
               KNT.value = KNT.value + 1;
-              dlasy2(
-                LTRANL,
-                LTRANR,
-                ISGN,
-                N1,
-                N2,
-                TL,
-                2,
-                TR,
-                2,
-                B,
-                2,
-                SCALE,
-                X,
-                2,
-                XNORM,
-                INFO,
-              );
+              dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X,
+                  2, XNORM, INFO);
               if (INFO.value != 0) NINFO.value = NINFO.value + 1;
               RES = ((TL[1][1] + SGN * TR[1][1]) * X[1][1] -
                       SCALE.value * B[1][1])
                   .abs();
               if (INFO.value == 0) {
                 DEN = max(
-                  EPS * ((TR[1][1].abs() + TL[1][1]).abs() * X[1][1].abs()),
-                  SMLNUM,
-                );
+                    EPS * ((TR[1][1].abs() + TL[1][1]).abs() * X[1][1].abs()),
+                    SMLNUM);
               } else {
                 DEN = SMLNUM * max(X[1][1].abs(), ONE);
               }
@@ -133,24 +116,8 @@ void dget32(
                   TL[2][2] = ITVAL[2][2][ITL] * VAL[ITLSCL];
                   TR[1][1] = VAL[ITR];
                   KNT.value = KNT.value + 1;
-                  dlasy2(
-                    LTRANL,
-                    LTRANR,
-                    ISGN,
-                    N1,
-                    N2,
-                    TL,
-                    2,
-                    TR,
-                    2,
-                    B,
-                    2,
-                    SCALE,
-                    X,
-                    2,
-                    XNORM,
-                    INFO,
-                  );
+                  dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2,
+                      SCALE, X, 2, XNORM, INFO);
                   if (INFO.value != 0) NINFO.value = NINFO.value + 1;
                   if (LTRANL) {
                     TMP = TL[1][2];
@@ -204,24 +171,8 @@ void dget32(
                   TR[2][2] = ITVAL[2][2][ITR] * VAL[ITRSCL];
                   TL[1][1] = VAL[ITL];
                   KNT.value = KNT.value + 1;
-                  dlasy2(
-                    LTRANL,
-                    LTRANR,
-                    ISGN,
-                    N1,
-                    N2,
-                    TL,
-                    2,
-                    TR,
-                    2,
-                    B,
-                    2,
-                    SCALE,
-                    X,
-                    2,
-                    XNORM,
-                    INFO,
-                  );
+                  dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2,
+                      SCALE, X, 2, XNORM, INFO);
                   if (INFO.value != 0) NINFO.value = NINFO.value + 1;
                   if (LTRANR) {
                     TMP = TR[1][2];
@@ -282,24 +233,8 @@ void dget32(
                       TL[1][2] = ITVAL[1][2][ITL] * VAL[ITLSCL];
                       TL[2][2] = ITVAL[2][2][ITL] * VAL[ITLSCL];
                       KNT.value = KNT.value + 1;
-                      dlasy2(
-                        LTRANL,
-                        LTRANR,
-                        ISGN,
-                        N1,
-                        N2,
-                        TL,
-                        2,
-                        TR,
-                        2,
-                        B,
-                        2,
-                        SCALE,
-                        X,
-                        2,
-                        XNORM,
-                        INFO,
-                      );
+                      dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2,
+                          SCALE, X, 2, XNORM, INFO);
                       if (INFO.value != 0) NINFO.value = NINFO.value + 1;
                       if (LTRANR) {
                         TMP = TR[1][2];

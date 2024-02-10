@@ -186,20 +186,8 @@ void dsbevx(
   INDD = 1;
   INDE = INDD + N;
   INDWRK = INDE + N;
-  dsbtrd(
-    JOBZ,
-    UPLO,
-    N,
-    KD,
-    AB,
-    LDAB,
-    WORK(INDD),
-    WORK(INDE),
-    Q,
-    LDQ,
-    WORK(INDWRK),
-    IINFO,
-  );
+  dsbtrd(JOBZ, UPLO, N, KD, AB, LDAB, WORK(INDD), WORK(INDE), Q, LDQ,
+      WORK(INDWRK), IINFO);
 
   // If all eigenvalues are desired and ABSTOL is less than or equal
   // to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -246,42 +234,28 @@ void dsbevx(
     INDISP = INDIBL + N;
     INDIWO = INDISP + N;
     dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VLL,
-      VUU,
-      IL,
-      IU,
-      ABSTLL,
-      WORK(INDD),
-      WORK(INDE),
-      M,
-      NSPLIT,
-      W,
-      IWORK(INDIBL),
-      IWORK(INDISP),
-      WORK(INDWRK),
-      IWORK(INDIWO),
-      INFO,
-    );
-
-    if (WANTZ) {
-      dstein(
+        RANGE,
+        ORDER,
         N,
+        VLL,
+        VUU,
+        IL,
+        IU,
+        ABSTLL,
         WORK(INDD),
         WORK(INDE),
-        M.value,
+        M,
+        NSPLIT,
         W,
         IWORK(INDIBL),
         IWORK(INDISP),
-        Z,
-        LDZ,
         WORK(INDWRK),
         IWORK(INDIWO),
-        IFAIL,
-        INFO,
-      );
+        INFO);
+
+    if (WANTZ) {
+      dstein(N, WORK(INDD), WORK(INDE), M.value, W, IWORK(INDIBL),
+          IWORK(INDISP), Z, LDZ, WORK(INDWRK), IWORK(INDIWO), IFAIL, INFO);
 
       // Apply orthogonal matrix used in reduction to tridiagonal
       // form to eigenvectors returned by DSTEIN.

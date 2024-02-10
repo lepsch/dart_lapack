@@ -198,28 +198,11 @@ void ddrvbd(
           if (JTYPE == 3) ANORM = ONE;
           if (JTYPE == 4) ANORM = UNFL / ULP;
           if (JTYPE == 5) ANORM = OVFL * ULP;
-          dlatms(
-            M,
-            N,
-            'U',
-            ISEED,
-            'N',
-            S,
-            4,
-            MNMIN.toDouble(),
-            ANORM,
-            M - 1,
-            N - 1,
-            'N',
-            A,
-            LDA,
-            WORK,
-            IINFO,
-          );
+          dlatms(M, N, 'U', ISEED, 'N', S, 4, MNMIN.toDouble(), ANORM, M - 1,
+              N - 1, 'N', A, LDA, WORK, IINFO);
           if (IINFO.value != 0) {
             NOUT.println(
-              ' DDRVBD: Generator returned INFO=${IINFO.value.i6}.\n${' ' * 9}M=${M.i6}, N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})',
-            );
+                ' DDRVBD: Generator returned INFO=${IINFO.value.i6}.\n${' ' * 9}M=${M.i6}, N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
             INFO.value = (IINFO.value).abs();
             return;
           }
@@ -247,22 +230,8 @@ void ddrvbd(
 
         if (IWS > 1) dlacpy('F', M, N, ASAV, LDA, A, LDA);
         srnamc.SRNAMT = 'DGESVD';
-        dgesvd(
-          'A',
-          'A',
-          M,
-          N,
-          A,
-          LDA,
-          SSAV,
-          USAV,
-          LDU,
-          VTSAV,
-          LDVT,
-          WORK,
-          LSWORK,
-          IINFO,
-        );
+        dgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK,
+            LSWORK, IINFO);
         if (IINFO.value != 0) {
           _print9995(NOUT, 'GESVD', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -271,21 +240,8 @@ void ddrvbd(
 
         // Do tests 1--4
 
-        dbdt01(
-          M,
-          N,
-          0,
-          ASAV,
-          LDA,
-          USAV,
-          LDU,
-          SSAV,
-          E,
-          VTSAV,
-          LDVT,
-          WORK,
-          RESULT.box(1),
-        );
+        dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+            RESULT.box(1));
         if (M != 0 && N != 0) {
           dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(2));
           dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(3));
@@ -314,75 +270,22 @@ void ddrvbd(
             JOBVT = CJOB[IJVT + 1];
             dlacpy('F', M, N, ASAV, LDA, A, LDA);
             srnamc.SRNAMT = 'DGESVD';
-            dgesvd(
-              JOBU,
-              JOBVT,
-              M,
-              N,
-              A,
-              LDA,
-              S,
-              U,
-              LDU,
-              VT,
-              LDVT,
-              WORK,
-              LSWORK,
-              IINFO,
-            );
+            dgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK,
+                IINFO);
 
             // Compare U
 
             DIF = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
-                dort03(
-                  'C',
-                  M,
-                  MNMIN,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  A,
-                  LDA,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK,
+                    DIF, IINFO);
               } else if (IJU == 2) {
-                dort03(
-                  'C',
-                  M,
-                  MNMIN,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  U,
-                  LDU,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
+                    DIF, IINFO);
               } else if (IJU == 3) {
-                dort03(
-                  'C',
-                  M,
-                  M,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  U,
-                  LDU,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF,
+                    IINFO);
               }
             }
             RESULT[5] = max(RESULT[5], DIF);
@@ -392,53 +295,14 @@ void ddrvbd(
             DIF = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
-                dort03(
-                  'R',
-                  N,
-                  MNMIN,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  A,
-                  LDA,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK,
+                    LWORK, DIF, IINFO);
               } else if (IJVT == 2) {
-                dort03(
-                  'R',
-                  N,
-                  MNMIN,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  VT,
-                  LDVT,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
+                    LWORK, DIF, IINFO);
               } else if (IJVT == 3) {
-                dort03(
-                  'R',
-                  N,
-                  N,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  VT,
-                  LDVT,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK,
+                    DIF, IINFO);
               }
             }
             RESULT[6] = max(RESULT[6], DIF);
@@ -467,22 +331,8 @@ void ddrvbd(
 
         dlacpy('F', M, N, ASAV, LDA, A, LDA);
         srnamc.SRNAMT = 'DGESDD';
-        dgesdd(
-          'A',
-          M,
-          N,
-          A,
-          LDA,
-          SSAV,
-          USAV,
-          LDU,
-          VTSAV,
-          LDVT,
-          WORK,
-          LSWORK,
-          IWORK,
-          IINFO,
-        );
+        dgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK,
+            IWORK, IINFO);
         if (IINFO.value != 0) {
           _print9995(NOUT, 'GESDD', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -491,21 +341,8 @@ void ddrvbd(
 
         // Do tests 8--11
 
-        dbdt01(
-          M,
-          N,
-          0,
-          ASAV,
-          LDA,
-          USAV,
-          LDU,
-          SSAV,
-          E,
-          VTSAV,
-          LDVT,
-          WORK,
-          RESULT.box(8),
-        );
+        dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+            RESULT.box(8));
         if (M != 0 && N != 0) {
           dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(9));
           dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(10));
@@ -530,22 +367,8 @@ void ddrvbd(
           JOBQ = CJOB[IJQ + 1];
           dlacpy('F', M, N, ASAV, LDA, A, LDA);
           srnamc.SRNAMT = 'DGESDD';
-          dgesdd(
-            JOBQ,
-            M,
-            N,
-            A,
-            LDA,
-            S,
-            U,
-            LDU,
-            VT,
-            LDVT,
-            WORK,
-            LSWORK,
-            IWORK,
-            IINFO,
-          );
+          dgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK,
+              IINFO);
 
           // Compare U
 
@@ -553,54 +376,15 @@ void ddrvbd(
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
               if (M >= N) {
-                dort03(
-                  'C',
-                  M,
-                  MNMIN,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  A,
-                  LDA,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  INFO.value,
-                );
+                dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK,
+                    DIF, INFO.value);
               } else {
-                dort03(
-                  'C',
-                  M,
-                  MNMIN,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  U,
-                  LDU,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  INFO.value,
-                );
+                dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
+                    DIF, INFO.value);
               }
             } else if (IJQ == 2) {
-              dort03(
-                'C',
-                M,
-                MNMIN,
-                M,
-                MNMIN,
-                USAV,
-                LDU,
-                U,
-                LDU,
-                WORK,
-                LWORK,
-                DIF,
-                INFO.value,
-              );
+              dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
+                  DIF, INFO.value);
             }
           }
           RESULT[12] = max(RESULT[12], DIF);
@@ -611,54 +395,15 @@ void ddrvbd(
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
               if (M >= N) {
-                dort03(
-                  'R',
-                  N,
-                  MNMIN,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  VT,
-                  LDVT,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  INFO.value,
-                );
+                dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
+                    LWORK, DIF, INFO.value);
               } else {
-                dort03(
-                  'R',
-                  N,
-                  MNMIN,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  A,
-                  LDA,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  INFO.value,
-                );
+                dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK,
+                    LWORK, DIF, INFO.value);
               }
             } else if (IJQ == 2) {
-              dort03(
-                'R',
-                N,
-                MNMIN,
-                N,
-                MNMIN,
-                VTSAV,
-                LDVT,
-                VT,
-                LDVT,
-                WORK,
-                LWORK,
-                DIF,
-                INFO.value,
-              );
+              dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
+                  LWORK, DIF, INFO.value);
             }
           }
           RESULT[13] = max(RESULT[13], DIF);
@@ -696,63 +441,20 @@ void ddrvbd(
 
           LRWORK = 2;
           LIWORK = max(N, 1);
-          dgesvdq(
-            'H',
-            'N',
-            'N',
-            'A',
-            'A',
-            M,
-            N,
-            A,
-            LDA,
-            SSAV,
-            USAV,
-            LDU,
-            VTSAV,
-            LDVT,
-            NUMRANK,
-            IWORK,
-            LIWORK,
-            WORK,
-            LWORK,
-            RWORK,
-            LRWORK,
-            IINFO,
-          );
+          dgesvdq('H', 'N', 'N', 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV,
+              LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO);
 
           if (IINFO.value != 0) {
             _print9995(
-              NOUT,
-              'DGESVDQ',
-              IINFO.value,
-              M,
-              N,
-              JTYPE,
-              LSWORK,
-              IOLDSD,
-            );
+                NOUT, 'DGESVDQ', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
             INFO.value = (IINFO.value).abs();
             return;
           }
 
           // Do tests 36--39
 
-          dbdt01(
-            M,
-            N,
-            0,
-            ASAV,
-            LDA,
-            USAV,
-            LDU,
-            SSAV,
-            E,
-            VTSAV,
-            LDVT,
-            WORK,
-            RESULT.box(36),
-          );
+          dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+              RESULT.box(36));
           if (M != 0 && N != 0) {
             dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(37));
             dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(38));
@@ -785,22 +487,8 @@ void ddrvbd(
 
           dlacpy('F', M, N, ASAV, LDA, USAV, LDA);
           srnamc.SRNAMT = 'DGESVJ';
-          dgesvj(
-            'G',
-            'U',
-            'V',
-            M,
-            N,
-            USAV,
-            LDA,
-            SSAV,
-            0,
-            A,
-            LDVT,
-            WORK,
-            LWORK,
-            INFO,
-          );
+          dgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK,
+              INFO);
 
           // DGESVJ returns V not VT
 
@@ -818,21 +506,8 @@ void ddrvbd(
 
           // Do tests 15--18
 
-          dbdt01(
-            M,
-            N,
-            0,
-            ASAV,
-            LDA,
-            USAV,
-            LDU,
-            SSAV,
-            E,
-            VTSAV,
-            LDVT,
-            WORK,
-            RESULT.box(15),
-          );
+          dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+              RESULT.box(15));
           if (M != 0 && N != 0) {
             dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(16));
             dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(17));
@@ -864,27 +539,8 @@ void ddrvbd(
 
           dlacpy('F', M, N, ASAV, LDA, VTSAV, LDA);
           srnamc.SRNAMT = 'DGEJSV';
-          dgejsv(
-            'G',
-            'U',
-            'V',
-            'R',
-            'N',
-            'N',
-            M,
-            N,
-            VTSAV,
-            LDA,
-            SSAV,
-            USAV,
-            LDU,
-            A,
-            LDVT,
-            WORK,
-            LWORK,
-            IWORK,
-            INFO,
-          );
+          dgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV,
+              LDU, A, LDVT, WORK, LWORK, IWORK, INFO);
 
           // DGEJSV returns V not VT
 
@@ -904,21 +560,8 @@ void ddrvbd(
 
           // Do tests 19--22
 
-          dbdt01(
-            M,
-            N,
-            0,
-            ASAV,
-            LDA,
-            USAV,
-            LDU,
-            SSAV,
-            E,
-            VTSAV,
-            LDVT,
-            WORK,
-            RESULT.box(19),
-          );
+          dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+              RESULT.box(19));
           if (M != 0 && N != 0) {
             dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(20));
             dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(21));
@@ -937,29 +580,8 @@ void ddrvbd(
         // Test DGESVDX
 
         dlacpy('F', M, N, ASAV, LDA, A, LDA);
-        dgesvdx(
-          'V',
-          'V',
-          'A',
-          M,
-          N,
-          A,
-          LDA,
-          VL,
-          VU,
-          IL,
-          IU,
-          NS,
-          SSAV,
-          USAV,
-          LDU,
-          VTSAV,
-          LDVT,
-          WORK,
-          LWORK,
-          IWORK,
-          IINFO,
-        );
+        dgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV,
+            LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO);
         if (IINFO.value != 0) {
           _print9995(NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -971,21 +593,8 @@ void ddrvbd(
         RESULT[23] = ZERO;
         RESULT[24] = ZERO;
         RESULT[25] = ZERO;
-        dbdt01(
-          M,
-          N,
-          0,
-          ASAV,
-          LDA,
-          USAV,
-          LDU,
-          SSAV,
-          E,
-          VTSAV,
-          LDVT,
-          WORK,
-          RESULT.box(23),
-        );
+        dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK,
+            RESULT.box(23));
         if (M != 0 && N != 0) {
           dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT.box(24));
           dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT.box(25));
@@ -1014,50 +623,16 @@ void ddrvbd(
             JOBVT = CJOBV[IJVT + 1];
             RANGE = CJOBR[1];
             dlacpy('F', M, N, ASAV, LDA, A, LDA);
-            dgesvdx(
-              JOBU,
-              JOBVT,
-              RANGE,
-              M,
-              N,
-              A,
-              LDA,
-              VL,
-              VU,
-              IL,
-              IU,
-              NS,
-              S,
-              U,
-              LDU,
-              VT,
-              LDVT,
-              WORK,
-              LWORK,
-              IWORK,
-              IINFO,
-            );
+            dgesvdx(JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U,
+                LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO);
 
             // Compare U
 
             DIF = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
-                dort03(
-                  'C',
-                  M,
-                  MNMIN,
-                  M,
-                  MNMIN,
-                  USAV,
-                  LDU,
-                  U,
-                  LDU,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
+                    DIF, IINFO);
               }
             }
             RESULT[27] = max(RESULT[27], DIF);
@@ -1067,21 +642,8 @@ void ddrvbd(
             DIF = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
-                dort03(
-                  'R',
-                  N,
-                  MNMIN,
-                  N,
-                  MNMIN,
-                  VTSAV,
-                  LDVT,
-                  VT,
-                  LDVT,
-                  WORK,
-                  LWORK,
-                  DIF,
-                  IINFO,
-                );
+                dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
+                    LWORK, DIF, IINFO);
               }
             }
             RESULT[28] = max(RESULT[28], DIF);
@@ -1119,29 +681,8 @@ void ddrvbd(
           }
         }
         dlacpy('F', M, N, ASAV, LDA, A, LDA);
-        dgesvdx(
-          'V',
-          'V',
-          'I',
-          M,
-          N,
-          A,
-          LDA,
-          VL,
-          VU,
-          IL,
-          IU,
-          NSI,
-          S,
-          U,
-          LDU,
-          VT,
-          LDVT,
-          WORK,
-          LWORK,
-          IWORK,
-          IINFO,
-        );
+        dgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT,
+            LDVT, WORK, LWORK, IWORK, IINFO);
         if (IINFO.value != 0) {
           _print9995(NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -1151,20 +692,8 @@ void ddrvbd(
         RESULT[30] = ZERO;
         RESULT[31] = ZERO;
         RESULT[32] = ZERO;
-        dbdt05(
-          M,
-          N,
-          ASAV,
-          LDA,
-          S,
-          NSI.value,
-          U,
-          LDU,
-          VT,
-          LDVT,
-          WORK,
-          RESULT.box(30),
-        );
+        dbdt05(M, N, ASAV, LDA, S, NSI.value, U, LDU, VT, LDVT, WORK,
+            RESULT.box(30));
         dort01('Columns', M, NSI.value, U, LDU, WORK, LWORK, RESULT.box(31));
         dort01('Rows', NSI.value, N, VT, LDVT, WORK, LWORK, RESULT.box(32));
 
@@ -1173,29 +702,21 @@ void ddrvbd(
         if (MNMIN > 0 && NSI.value > 1) {
           if (IL != 1) {
             VU = SSAV[IL] +
-                max(
-                  HALF * (SSAV[IL] - SSAV[IL - 1]).abs(),
-                  max(ULP * ANORM, TWO * RTUNFL),
-                );
+                max(HALF * (SSAV[IL] - SSAV[IL - 1]).abs(),
+                    max(ULP * ANORM, TWO * RTUNFL));
           } else {
             VU = SSAV[1] +
-                max(
-                  HALF * (SSAV[NS.value] - SSAV[1]).abs(),
-                  max(ULP * ANORM, TWO * RTUNFL),
-                );
+                max(HALF * (SSAV[NS.value] - SSAV[1]).abs(),
+                    max(ULP * ANORM, TWO * RTUNFL));
           }
           if (IU != NS.value) {
             VL = SSAV[IU] -
-                max(
-                  ULP * ANORM,
-                  max(TWO * RTUNFL, HALF * (SSAV[IU + 1] - SSAV[IU]).abs()),
-                );
+                max(ULP * ANORM,
+                    max(TWO * RTUNFL, HALF * (SSAV[IU + 1] - SSAV[IU]).abs()));
           } else {
             VL = SSAV[NS.value] -
-                max(
-                  ULP * ANORM,
-                  max(TWO * RTUNFL, HALF * (SSAV[NS.value] - SSAV[1]).abs()),
-                );
+                max(ULP * ANORM,
+                    max(TWO * RTUNFL, HALF * (SSAV[NS.value] - SSAV[1]).abs()));
           }
           VL = max(VL, ZERO);
           VU = max(VU, ZERO);
@@ -1205,29 +726,8 @@ void ddrvbd(
           VU = ONE;
         }
         dlacpy('F', M, N, ASAV, LDA, A, LDA);
-        dgesvdx(
-          'V',
-          'V',
-          'V',
-          M,
-          N,
-          A,
-          LDA,
-          VL,
-          VU,
-          IL,
-          IU,
-          NSV,
-          S,
-          U,
-          LDU,
-          VT,
-          LDVT,
-          WORK,
-          LWORK,
-          IWORK,
-          IINFO,
-        );
+        dgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT,
+            LDVT, WORK, LWORK, IWORK, IINFO);
         if (IINFO.value != 0) {
           _print9995(NOUT, 'GESVDX', IINFO.value, M, N, JTYPE, LSWORK, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -1237,20 +737,8 @@ void ddrvbd(
         RESULT[33] = ZERO;
         RESULT[34] = ZERO;
         RESULT[35] = ZERO;
-        dbdt05(
-          M,
-          N,
-          ASAV,
-          LDA,
-          S,
-          NSV.value,
-          U,
-          LDU,
-          VT,
-          LDVT,
-          WORK,
-          RESULT.box(33),
-        );
+        dbdt05(M, N, ASAV, LDA, S, NSV.value, U, LDU, VT, LDVT, WORK,
+            RESULT.box(33));
         dort01('Columns', M, NSV.value, U, LDU, WORK, LWORK, RESULT.box(34));
         dort01('Rows', NSV.value, N, VT, LDVT, WORK, LWORK, RESULT.box(35));
 
@@ -1261,21 +749,18 @@ void ddrvbd(
           if (RESULT[J] >= THRESH) {
             if (NFAIL == 0) {
               NOUT.println(
-                ' SVD -- Real Singular Value Decomposition Driver \n Matrix types (see DDRVBD for details):\n\n 1 = Zero matrix\n 2 = Identity matrix\n 3 = Evenly spaced singular values near 1\n 4 = Evenly spaced singular values near underflow\n 5 = Evenly spaced singular values near overflow\n\n Tests performed: ( A is dense, U and V are orthogonal,\n${' ' * 19} S is an array, and Upartial, VTpartial, and\n${' ' * 19} Spartial are partially computed U, VT and S),\n',
-              );
+                  ' SVD -- Real Singular Value Decomposition Driver \n Matrix types (see DDRVBD for details):\n\n 1 = Zero matrix\n 2 = Identity matrix\n 3 = Evenly spaced singular values near 1\n 4 = Evenly spaced singular values near underflow\n 5 = Evenly spaced singular values near overflow\n\n Tests performed: ( A is dense, U and V are orthogonal,\n${' ' * 19} S is an array, and Upartial, VTpartial, and\n${' ' * 19} Spartial are partially computed U, VT and S),\n');
               NOUT.println(
-                ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n 2 = | I - U**T U | / ( M ulp ) \n 3 = | I - VT VT**T | / ( N ulp ) \n 4 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n 5 = | U - Upartial | / ( M ulp )\n 6 = | VT - VTpartial | / ( N ulp )\n 7 = | S - Spartial | / ( min(M,N) ulp |S| )\n 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n 9 = | I - U**T U | / ( M ulp ) \n10 = | I - VT VT**T | / ( N ulp ) \n11 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n12 = | U - Upartial | / ( M ulp )\n13 = | VT - VTpartial | / ( N ulp )\n14 = | S - Spartial | / ( min(M,N) ulp |S| )\n15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n16 = | I - U**T U | / ( M ulp ) \n17 = | I - VT VT**T | / ( N ulp ) \n18 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n19 = | U - Upartial | / ( M ulp )\n20 = | VT - VTpartial | / ( N ulp )\n21 = | S - Spartial | / ( min(M,N) ulp |S| )\n22 = 0 if S contains min(M,N) nonnegative values in'
-                ' decreasing order, else 1/ulp\n23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ),'
-                ' DGESVDX(V,V,A) \n24 = | I - U**T U | / ( M ulp ) \n25 = | I - VT VT**T | / ( N ulp ) \n26 = 0 if S contains min(M,N) nonnegative values in'
-                ' decreasing order, else 1/ulp\n27 = | U - Upartial | / ( M ulp )\n28 = | VT - VTpartial | / ( N ulp )\n29 = | S - Spartial | / ( min(M,N) ulp |S| )\n30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),'
-                ' DGESVDX(V,V,I) \n31 = | I - U**T U | / ( M ulp ) \n32 = | I - VT VT**T | / ( N ulp ) \n33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),'
-                ' DGESVDX(V,V,V) \n34 = | I - U**T U | / ( M ulp ) \n35 = | I - VT VT**T | / ( N ulp ) '
-                ' DGESVDQ(H,N,N,A,A\n36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n37 = | I - U**T U | / ( M ulp ) \n38 = | I - VT VT**T | / ( N ulp ) \n39 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n\n'
-              );
+                  ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n 2 = | I - U**T U | / ( M ulp ) \n 3 = | I - VT VT**T | / ( N ulp ) \n 4 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n 5 = | U - Upartial | / ( M ulp )\n 6 = | VT - VTpartial | / ( N ulp )\n 7 = | S - Spartial | / ( min(M,N) ulp |S| )\n 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n 9 = | I - U**T U | / ( M ulp ) \n10 = | I - VT VT**T | / ( N ulp ) \n11 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n12 = | U - Upartial | / ( M ulp )\n13 = | VT - VTpartial | / ( N ulp )\n14 = | S - Spartial | / ( min(M,N) ulp |S| )\n15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n16 = | I - U**T U | / ( M ulp ) \n17 = | I - VT VT**T | / ( N ulp ) \n18 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n19 = | U - Upartial | / ( M ulp )\n20 = | VT - VTpartial | / ( N ulp )\n21 = | S - Spartial | / ( min(M,N) ulp |S| )\n22 = 0 if S contains min(M,N) nonnegative values in'
+                  ' decreasing order, else 1/ulp\n23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ),'
+                  ' DGESVDX(V,V,A) \n24 = | I - U**T U | / ( M ulp ) \n25 = | I - VT VT**T | / ( N ulp ) \n26 = 0 if S contains min(M,N) nonnegative values in'
+                  ' decreasing order, else 1/ulp\n27 = | U - Upartial | / ( M ulp )\n28 = | VT - VTpartial | / ( N ulp )\n29 = | S - Spartial | / ( min(M,N) ulp |S| )\n30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),'
+                  ' DGESVDX(V,V,I) \n31 = | I - U**T U | / ( M ulp ) \n32 = | I - VT VT**T | / ( N ulp ) \n33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),'
+                  ' DGESVDX(V,V,V) \n34 = | I - U**T U | / ( M ulp ) \n35 = | I - VT VT**T | / ( N ulp ) '
+                  ' DGESVDQ(H,N,N,A,A\n36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) \n37 = | I - U**T U | / ( M ulp ) \n38 = | I - VT VT**T | / ( N ulp ) \n39 = 0 if S contains min(M,N) nonnegative values in decreasing order, else 1/ulp\n\n');
             }
             NOUT.println(
-              ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i1}, IWS=${IWS.i1}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}',
-            );
+                ' M=${M.i5}, N=${N.i5}, type ${JTYPE.i1}, IWS=${IWS.i1}, seed=${IOLDSD.i4(4, ',')} test(${J.i2})=${RESULT[J].g11_4}');
             NFAIL = NFAIL + 1;
           }
         } // 210
@@ -1305,6 +790,5 @@ void _print9995(
   final Array<int> iseed,
 ) {
   nout.println(
-    ' DDRVBD: $s returned INFO=${info.i6}.\n${' ' * 9}M=${m.i6}, N=${n.i6}, JTYPE=${jtype.i6}, LSWORK=${lswork.i6}${' ' * 9}ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DDRVBD: $s returned INFO=${info.i6}.\n${' ' * 9}M=${m.i6}, N=${n.i6}, JTYPE=${jtype.i6}, LSWORK=${lswork.i6}${' ' * 9}ISEED=(${iseed.i5(4, ',')})');
 }

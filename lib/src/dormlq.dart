@@ -151,17 +151,8 @@ void dormlq(
       // Form the triangular factor of the block reflector
       // H = H(i) H(i+1) . . . H(i+ib-1)
 
-      dlarft(
-        'Forward',
-        'Rowwise',
-        NQ - I + 1,
-        IB,
-        A(I, I),
-        LDA,
-        TAU(I),
-        WORK(IWT).asMatrix(LDT),
-        LDT,
-      );
+      dlarft('Forward', 'Rowwise', NQ - I + 1, IB, A(I, I), LDA, TAU(I),
+          WORK(IWT).asMatrix(LDT), LDT);
       if (LEFT) {
         // H or H**T is applied to C[i:m][1:n]
 
@@ -177,22 +168,21 @@ void dormlq(
       // Apply H or H**T
 
       dlarfb(
-        SIDE,
-        TRANST,
-        'Forward',
-        'Rowwise',
-        MI,
-        NI,
-        IB,
-        A(I, I),
-        LDA,
-        WORK(IWT).asMatrix(LDT),
-        LDT,
-        C(IC, JC),
-        LDC,
-        WORK.asMatrix(LDWORK),
-        LDWORK,
-      );
+          SIDE,
+          TRANST,
+          'Forward',
+          'Rowwise',
+          MI,
+          NI,
+          IB,
+          A(I, I),
+          LDA,
+          WORK(IWT).asMatrix(LDT),
+          LDT,
+          C(IC, JC),
+          LDC,
+          WORK.asMatrix(LDWORK),
+          LDWORK);
     }
   }
   WORK[1] = LWKOPT.toDouble();

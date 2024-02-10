@@ -255,154 +255,88 @@ void dchksb2stg(
           } else if (ITYPE == 4) {
             // Diagonal Matrix, [Eigen]values Specified
 
-            dlatms(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              IMODE,
-              COND,
-              ANORM,
-              0,
-              0,
-              'Q',
-              A(K + 1, 1),
-              LDA,
-              WORK(N + 1),
-              IINFO,
-            );
+            dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q',
+                A(K + 1, 1), LDA, WORK(N + 1), IINFO);
           } else if (ITYPE == 5) {
             // Symmetric, eigenvalues specified
 
-            dlatms(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              IMODE,
-              COND,
-              ANORM,
-              K,
-              K,
-              'Q',
-              A,
-              LDA,
-              WORK(N + 1),
-              IINFO,
-            );
+            dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q',
+                A, LDA, WORK(N + 1), IINFO);
           } else if (ITYPE == 7) {
             // Diagonal, random eigenvalues
 
             dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              0,
-              0,
-              ZERO,
-              ANORM,
-              'Q',
-              A(K + 1, 1),
-              LDA,
-              IDUMMA,
-              IINFO,
-            );
+                N,
+                N,
+                'S',
+                ISEED,
+                'S',
+                WORK,
+                6,
+                ONE,
+                ONE,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                0,
+                0,
+                ZERO,
+                ANORM,
+                'Q',
+                A(K + 1, 1),
+                LDA,
+                IDUMMA,
+                IINFO);
           } else if (ITYPE == 8) {
             // Symmetric, random eigenvalues
 
             dlatmr(
-              N,
-              N,
-              'S',
-              ISEED,
-              'S',
-              WORK,
-              6,
-              ONE,
-              ONE,
-              'T',
-              'N',
-              WORK(N + 1),
-              1,
-              ONE,
-              WORK(2 * N + 1),
-              1,
-              ONE,
-              'N',
-              IDUMMA,
-              K,
-              K,
-              ZERO,
-              ANORM,
-              'Q',
-              A,
-              LDA,
-              IDUMMA,
-              IINFO,
-            );
+                N,
+                N,
+                'S',
+                ISEED,
+                'S',
+                WORK,
+                6,
+                ONE,
+                ONE,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                K,
+                K,
+                ZERO,
+                ANORM,
+                'Q',
+                A,
+                LDA,
+                IDUMMA,
+                IINFO);
           } else if (ITYPE == 9) {
             // Positive definite, eigenvalues specified.
 
-            dlatms(
-              N,
-              N,
-              'S',
-              ISEED,
-              'P',
-              WORK,
-              IMODE,
-              COND,
-              ANORM,
-              K,
-              K,
-              'Q',
-              A,
-              LDA,
-              WORK(N + 1),
-              IINFO,
-            );
+            dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q',
+                A, LDA, WORK(N + 1), IINFO);
           } else if (ITYPE == 10) {
             // Positive definite tridiagonal, eigenvalues specified.
 
             if (N > 1) K = max(1, K);
-            dlatms(
-              N,
-              N,
-              'S',
-              ISEED,
-              'P',
-              WORK,
-              IMODE,
-              COND,
-              ANORM,
-              1,
-              1,
-              'Q',
-              A(K, 1),
-              LDA,
-              WORK(N + 1),
-              IINFO,
-            );
+            dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q',
+                A(K, 1), LDA, WORK(N + 1), IINFO);
             for (I = 2; I <= N; I++) {
               TEMP1 =
                   (A[K][I]).abs() / sqrt((A[K + 1][I - 1] * A[K + 1][I]).abs());
@@ -427,20 +361,8 @@ void dchksb2stg(
           dlacpy(' ', K + 1, N, A, LDA, WORK.asMatrix(LDA), LDA);
 
           NTEST = 1;
-          dsbtrd(
-            'V',
-            'U',
-            N,
-            K,
-            WORK.asMatrix(LDA),
-            LDA,
-            SD,
-            SE,
-            U,
-            LDU,
-            WORK(LDA * N + 1),
-            IINFO,
-          );
+          dsbtrd('V', 'U', N, K, WORK.asMatrix(LDA), LDA, SD, SE, U, LDU,
+              WORK(LDA * N + 1), IINFO);
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
@@ -472,16 +394,8 @@ void dchksb2stg(
           dcopy(N, SD, 1, D1, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr(
-            'N',
-            N,
-            D1,
-            WORK,
-            WORK(N + 1).asMatrix(LDU),
-            LDU,
-            WORK(N + 1),
-            IINFO,
-          );
+          dsteqr('N', N, D1, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1),
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -503,38 +417,16 @@ void dchksb2stg(
           dlacpy(' ', K + 1, N, A, LDA, U, LDU);
           LH = max(1, 4 * N);
           LW = LWORK - LH;
-          dsytrd_sb2st(
-            'N',
-            'N',
-            'U',
-            N,
-            K,
-            U,
-            LDU,
-            SD,
-            SE,
-            WORK,
-            LH,
-            WORK(LH + 1),
-            LW,
-            IINFO,
-          );
+          dsytrd_sb2st('N', 'N', 'U', N, K, U, LDU, SD, SE, WORK, LH,
+              WORK(LH + 1), LW, IINFO);
 
           // Compute D2 from the DSYTRD_SB2ST Upper case
 
           dcopy(N, SD, 1, D2, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr(
-            'N',
-            N,
-            D2,
-            WORK,
-            WORK(N + 1).asMatrix(LDU),
-            LDU,
-            WORK(N + 1),
-            IINFO,
-          );
+          dsteqr('N', N, D2, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1),
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -565,20 +457,8 @@ void dchksb2stg(
           dlacpy(' ', K + 1, N, A, LDA, WORK.asMatrix(LDA), LDA);
 
           NTEST = 3;
-          dsbtrd(
-            'V',
-            'L',
-            N,
-            K,
-            WORK.asMatrix(LDA),
-            LDA,
-            SD,
-            SE,
-            U,
-            LDU,
-            WORK(LDA * N + 1),
-            IINFO,
-          );
+          dsbtrd('V', 'L', N, K, WORK.asMatrix(LDA), LDA, SD, SE, U, LDU,
+              WORK(LDA * N + 1), IINFO);
 
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
@@ -606,38 +486,16 @@ void dchksb2stg(
           dlacpy(' ', K + 1, N, A, LDA, U, LDU);
           LH = max(1, 4 * N);
           LW = LWORK - LH;
-          dsytrd_sb2st(
-            'N',
-            'N',
-            'L',
-            N,
-            K,
-            U,
-            LDU,
-            SD,
-            SE,
-            WORK,
-            LH,
-            WORK(LH + 1),
-            LW,
-            IINFO,
-          );
+          dsytrd_sb2st('N', 'N', 'L', N, K, U, LDU, SD, SE, WORK, LH,
+              WORK(LH + 1), LW, IINFO);
 
           // Compute D3 from the 2-stage Upper case
 
           dcopy(N, SD, 1, D3, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          dsteqr(
-            'N',
-            N,
-            D3,
-            WORK,
-            WORK(N + 1).asMatrix(LDU),
-            LDU,
-            WORK(N + 1),
-            IINFO,
-          );
+          dsteqr('N', N, D3, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1),
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -683,23 +541,18 @@ void dchksb2stg(
 
             if (NERRS == 0) {
               NOUNIT.println(
-                '\n DSB -- Real Symmetric Banded Tridiagonal Reduction Routines',
-              );
+                  '\n DSB -- Real Symmetric Banded Tridiagonal Reduction Routines');
               NOUNIT.println(' Matrix types (see DCHKSB2STG for details): ');
               NOUNIT.println(
-                '\n Special Matrices:\n  1=Zero matrix.                        \n 5=Diagonal: clustered entries.\n  2=Identity matrix.                    \n 6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.    \n 7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.',
-              );
+                  '\n Special Matrices:\n  1=Zero matrix.                        \n 5=Diagonal: clustered entries.\n  2=Identity matrix.                    \n 6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.    \n 7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.');
               NOUNIT.println(
-                ' Dense Symmetric Banded Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.',
-              );
+                  ' Dense Symmetric Banded Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.');
               NOUNIT.println(
-                '\n Tests performed:   (S is Tridiag,  U is orthogonal\',\n${' ' * 20} means transpose.\n UPLO=\'U\':\n  1= | A - U S U\' | / ( |A| n ulp )       2= | I - U U\' | / ( n ulp )\n UPLO=\'L\':\n  3= | A - U S U\' | / ( |A| n ulp )       4= | I - U U\' | / ( n ulp )\n Eig check:\n  5= | D1 - D2 | / ( |D1| ulp )           6= | D1 - D3 | / ( |D1| ulp )          ',
-              );
+                  '\n Tests performed:   (S is Tridiag,  U is orthogonal\',\n${' ' * 20} means transpose.\n UPLO=\'U\':\n  1= | A - U S U\' | / ( |A| n ulp )       2= | I - U U\' | / ( n ulp )\n UPLO=\'L\':\n  3= | A - U S U\' | / ( |A| n ulp )       4= | I - U U\' | / ( n ulp )\n Eig check:\n  5= | D1 - D2 | / ( |D1| ulp )           6= | D1 - D3 | / ( |D1| ulp )          ');
             }
             NERRS = NERRS + 1;
             NOUNIT.println(
-              ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}',
-            );
+                ' N=${N.i5}, K=${K.i4}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${JR.i2})=${RESULT[JR].g10_3}');
           }
         }
       }
@@ -719,6 +572,5 @@ void print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DCHKSB2STG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DCHKSB2STG: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

@@ -55,10 +55,8 @@ void dget53(
   SAFMIN = dlamch('Safe minimum');
   ULP = dlamch('Epsilon') * dlamch('Base');
   ABSW = (WRS).abs() + (WIS).abs();
-  ANORM = max(
-    (A[1][1]).abs() + (A[2][1]).abs(),
-    max((A[1][2]).abs() + (A[2][2]).abs(), SAFMIN),
-  );
+  ANORM = max((A[1][1]).abs() + (A[2][1]).abs(),
+      max((A[1][2]).abs() + (A[2][2]).abs(), SAFMIN));
   BNORM = max((B[1][1]).abs(), max((B[1][2]).abs() + (B[2][2]).abs(), SAFMIN));
 
   // Check for possible overflow.
@@ -94,9 +92,7 @@ void dget53(
     WIS = WIS * TEMP;
     ABSW = (WRS).abs() + (WIS).abs();
     S1 = max(
-      ULP * max(SCALES * ANORM, ABSW * BNORM),
-      SAFMIN * max(SCALES, ABSW),
-    );
+        ULP * max(SCALES * ANORM, ABSW * BNORM), SAFMIN * max(SCALES, ABSW));
     if (S1 < SAFMIN) {
       INFO.value = 3;
       RESULT.value = ONE / ULP;
@@ -120,10 +116,8 @@ void dget53(
   // sigma_min = ------------------
   // norm( s A - w B )
 
-  CNORM = max(
-    CR11.abs() + CI11.abs() + CR21.abs(),
-    max(CR12.abs() + CI12.abs() + CR22.abs() + CI22.abs(), SAFMIN),
-  );
+  CNORM = max(CR11.abs() + CI11.abs() + CR21.abs(),
+      max(CR12.abs() + CI12.abs() + CR22.abs() + CI22.abs(), SAFMIN));
   CSCALE = ONE / sqrt(CNORM);
   DETR = (CSCALE * CR11) * (CSCALE * CR22) -
       (CSCALE * CI11) * (CSCALE * CI22) -

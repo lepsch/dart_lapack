@@ -64,15 +64,8 @@ void dgrqts(
   if (M <= N) {
     if (M > 0 && M < N) dlacpy('Full', M, N - M, AF, LDA, Q(N - M + 1, 1), LDA);
     if (M > 1) {
-      dlacpy(
-        'Lower',
-        M - 1,
-        M - 1,
-        AF(2, N - M + 1),
-        LDA,
-        Q(N - M + 2, N - M + 1),
-        LDA,
-      );
+      dlacpy('Lower', M - 1, M - 1, AF(2, N - M + 1), LDA,
+          Q(N - M + 2, N - M + 1), LDA);
     }
   } else {
     if (N > 1) {
@@ -105,20 +98,7 @@ void dgrqts(
   // Compute R - A*Q'
 
   dgemm(
-    'No transpose',
-    'Transpose',
-    M,
-    N,
-    N,
-    -ONE,
-    A,
-    LDA,
-    Q,
-    LDA,
-    ONE,
-    R,
-    LDA,
-  );
+      'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA);
 
   // Compute norm( R - A*Q' ) / ( max(M,N)*norm(A)*ULP ) .
 
@@ -131,36 +111,10 @@ void dgrqts(
 
   // Compute T*Q - Z'*B
 
-  dgemm(
-    'Transpose',
-    'No transpose',
-    P,
-    N,
-    P,
-    ONE,
-    Z,
-    LDB,
-    B,
-    LDB,
-    ZERO,
-    BWK,
-    LDB,
-  );
-  dgemm(
-    'No transpose',
-    'No transpose',
-    P,
-    N,
-    N,
-    ONE,
-    T,
-    LDB,
-    Q,
-    LDA,
-    -ONE,
-    BWK,
-    LDB,
-  );
+  dgemm('Transpose', 'No transpose', P, N, P, ONE, Z, LDB, B, LDB, ZERO, BWK,
+      LDB);
+  dgemm('No transpose', 'No transpose', P, N, N, ONE, T, LDB, Q, LDA, -ONE, BWK,
+      LDB);
 
   // Compute norm( T*Q - Z'*B ) / ( max(P,N)*norm(A)*ULP ) .
 

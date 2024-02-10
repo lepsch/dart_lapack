@@ -39,18 +39,7 @@ void dbdt02(
   for (J = 1; J <= N; J++) {
     dcopy(M, B(1, J).asArray(), 1, WORK, 1);
     dgemv(
-      'No transpose',
-      M,
-      M,
-      -ONE,
-      U,
-      LDU,
-      C(1, J).asArray(),
-      1,
-      ONE,
-      WORK,
-      1,
-    );
+        'No transpose', M, M, -ONE, U, LDU, C(1, J).asArray(), 1, ONE, WORK, 1);
     RESID.value = max(RESID.value, dasum(M, WORK, 1));
   }
 

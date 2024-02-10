@@ -249,20 +249,8 @@ void dggesx(
   ILEFT = 1;
   IRIGHT = N + 1;
   IWRK = IRIGHT + N;
-  dggbal(
-    'P',
-    N,
-    A,
-    LDA,
-    B,
-    LDB,
-    ILO,
-    IHI,
-    WORK(ILEFT),
-    WORK(IRIGHT),
-    WORK(IWRK),
-    IERR,
-  );
+  dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK(ILEFT), WORK(IRIGHT),
+      WORK(IWRK), IERR);
 
   // Reduce B to triangular form (QR decomposition of B)
   // (Workspace: need N, prefer N*NB)
@@ -271,35 +259,26 @@ void dggesx(
   ICOLS = N + 1 - ILO.value;
   ITAU = IWRK;
   IWRK = ITAU + IROWS;
-  dgeqrf(
-    IROWS,
-    ICOLS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+  dgeqrf(IROWS, ICOLS, B(ILO.value, ILO.value), LDB, WORK(ITAU), WORK(IWRK),
+      LWORK + 1 - IWRK, IERR);
 
   // Apply the orthogonal transformation to matrix A
   // (Workspace: need N, prefer N*NB)
 
   dormqr(
-    'L',
-    'T',
-    IROWS,
-    ICOLS,
-    IROWS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    A(ILO.value, ILO.value),
-    LDA,
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+      'L',
+      'T',
+      IROWS,
+      ICOLS,
+      IROWS,
+      B(ILO.value, ILO.value),
+      LDB,
+      WORK(ITAU),
+      A(ILO.value, ILO.value),
+      LDA,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      IERR);
 
   // Initialize VSL
   // (Workspace: need N, prefer N*NB)
@@ -307,27 +286,11 @@ void dggesx(
   if (ILVSL) {
     dlaset('Full', N, N, ZERO, ONE, VSL, LDVSL);
     if (IROWS > 1) {
-      dlacpy(
-        'L',
-        IROWS - 1,
-        IROWS - 1,
-        B(ILO.value + 1, ILO.value),
-        LDB,
-        VSL(ILO.value + 1, ILO.value),
-        LDVSL,
-      );
+      dlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB,
+          VSL(ILO.value + 1, ILO.value), LDVSL);
     }
-    dorgqr(
-      IROWS,
-      IROWS,
-      IROWS,
-      VSL(ILO.value, ILO.value),
-      LDVSL,
-      WORK(ITAU),
-      WORK(IWRK),
-      LWORK + 1 - IWRK,
-      IERR,
-    );
+    dorgqr(IROWS, IROWS, IROWS, VSL(ILO.value, ILO.value), LDVSL, WORK(ITAU),
+        WORK(IWRK), LWORK + 1 - IWRK, IERR);
   }
 
   // Initialize VSR
@@ -337,22 +300,8 @@ void dggesx(
   // Reduce to generalized Hessenberg form
   // (Workspace: none needed)
 
-  dgghrd(
-    JOBVSL,
-    JOBVSR,
-    N,
-    ILO.value,
-    IHI.value,
-    A,
-    LDA,
-    B,
-    LDB,
-    VSL,
-    LDVSL,
-    VSR,
-    LDVSR,
-    IERR,
-  );
+  dgghrd(JOBVSL, JOBVSR, N, ILO.value, IHI.value, A, LDA, B, LDB, VSL, LDVSL,
+      VSR, LDVSR, IERR);
 
   SDIM.value = 0;
 
@@ -360,28 +309,8 @@ void dggesx(
   // (Workspace: need N)
 
   IWRK = ITAU;
-  dhgeqz(
-    'S',
-    JOBVSL,
-    JOBVSR,
-    N,
-    ILO.value,
-    IHI.value,
-    A,
-    LDA,
-    B,
-    LDB,
-    ALPHAR,
-    ALPHAI,
-    BETA,
-    VSL,
-    LDVSL,
-    VSR,
-    LDVSR,
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+  dhgeqz('S', JOBVSL, JOBVSR, N, ILO.value, IHI.value, A, LDA, B, LDB, ALPHAR,
+      ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK(IWRK), LWORK + 1 - IWRK, IERR);
   if (IERR.value != 0) {
     if (IERR.value > 0 && IERR.value <= N) {
       INFO.value = IERR.value;
@@ -418,32 +347,31 @@ void dggesx(
       // compute reciprocal condition numbers
 
       dtgsen(
-        IJOB,
-        ILVSL,
-        ILVSR,
-        BWORK,
-        N,
-        A,
-        LDA,
-        B,
-        LDB,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        VSL,
-        LDVSL,
-        VSR,
-        LDVSR,
-        SDIM.value,
-        PL,
-        PR,
-        DIF,
-        WORK(IWRK),
-        LWORK - IWRK + 1,
-        IWORK,
-        LIWORK,
-        IERR,
-      );
+          IJOB,
+          ILVSL,
+          ILVSR,
+          BWORK,
+          N,
+          A,
+          LDA,
+          B,
+          LDB,
+          ALPHAR,
+          ALPHAI,
+          BETA,
+          VSL,
+          LDVSL,
+          VSR,
+          LDVSR,
+          SDIM.value,
+          PL,
+          PR,
+          DIF,
+          WORK(IWRK),
+          LWORK - IWRK + 1,
+          IWORK,
+          LIWORK,
+          IERR);
 
       if (IJOB >= 1) MAXWRK = max(MAXWRK, 2 * SDIM.value * (N - SDIM.value));
       if (IERR.value == -22) {
@@ -467,35 +395,13 @@ void dggesx(
     // (Workspace: none needed)
 
     if (ILVSL) {
-      dggbak(
-        'P',
-        'L',
-        N,
-        ILO.value,
-        IHI.value,
-        WORK(ILEFT),
-        WORK(IRIGHT),
-        N,
-        VSL,
-        LDVSL,
-        IERR,
-      );
+      dggbak('P', 'L', N, ILO.value, IHI.value, WORK(ILEFT), WORK(IRIGHT), N,
+          VSL, LDVSL, IERR);
     }
 
     if (ILVSR) {
-      dggbak(
-        'P',
-        'R',
-        N,
-        ILO.value,
-        IHI.value,
-        WORK(ILEFT),
-        WORK(IRIGHT),
-        N,
-        VSR,
-        LDVSR,
-        IERR,
-      );
+      dggbak('P', 'R', N, ILO.value, IHI.value, WORK(ILEFT), WORK(IRIGHT), N,
+          VSR, LDVSR, IERR);
     }
 
     // Check if unscaling would cause over/underflow, if so, rescale

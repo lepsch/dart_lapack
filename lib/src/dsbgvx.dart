@@ -130,20 +130,8 @@ void dsbgvx(
   } else {
     VECT = 'N';
   }
-  dsbtrd(
-    VECT,
-    UPLO,
-    N,
-    KA,
-    AB,
-    LDAB,
-    WORK(INDD),
-    WORK(INDE),
-    Q,
-    LDQ,
-    WORK(INDWRK),
-    IINFO,
-  );
+  dsbtrd(VECT, UPLO, N, KA, AB, LDAB, WORK(INDD), WORK(INDE), Q, LDQ,
+      WORK(INDWRK), IINFO);
 
   // If all eigenvalues are desired and ABSTOL is less than or equal
   // to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -188,43 +176,12 @@ void dsbgvx(
     }
     INDISP = 1 + N;
     INDIWO = INDISP + N;
-    dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VL,
-      VU,
-      IL,
-      IU,
-      ABSTOL,
-      WORK(INDD),
-      WORK(INDE),
-      M,
-      NSPLIT,
-      W,
-      IWORK(1),
-      IWORK(INDISP),
-      WORK(INDWRK),
-      IWORK(INDIWO),
-      INFO,
-    );
+    dstebz(RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK(INDD), WORK(INDE), M,
+        NSPLIT, W, IWORK(1), IWORK(INDISP), WORK(INDWRK), IWORK(INDIWO), INFO);
 
     if (WANTZ) {
-      dstein(
-        N,
-        WORK(INDD),
-        WORK(INDE),
-        M.value,
-        W,
-        IWORK(1),
-        IWORK(INDISP),
-        Z,
-        LDZ,
-        WORK(INDWRK),
-        IWORK(INDIWO),
-        IFAIL,
-        INFO,
-      );
+      dstein(N, WORK(INDD), WORK(INDE), M.value, W, IWORK(1), IWORK(INDISP), Z,
+          LDZ, WORK(INDWRK), IWORK(INDIWO), IFAIL, INFO);
 
       // Apply transformation matrix used in reduction to tridiagonal
       // form to eigenvectors returned by DSTEIN.

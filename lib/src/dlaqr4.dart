@@ -109,21 +109,7 @@ void dlaqr4(
     LWKOPT = 1;
     if (LWORK != -1) {
       dlahqr(
-        WANTT,
-        WANTZ,
-        N,
-        ILO,
-        IHI,
-        H,
-        LDH,
-        WR,
-        WI,
-        ILOZ,
-        IHIZ,
-        Z,
-        LDZ,
-        INFO,
-      );
+          WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO);
     }
   } else {
     // ==== Use small bulge multi-shift QR with aggressive early
@@ -159,34 +145,8 @@ void dlaqr4(
 
     // ==== Workspace query call to DLAQR2 ====
 
-    dlaqr2(
-      WANTT,
-      WANTZ,
-      N,
-      ILO,
-      IHI,
-      NWR + 1,
-      H,
-      LDH,
-      ILOZ,
-      IHIZ,
-      Z,
-      LDZ,
-      LS,
-      LD,
-      WR,
-      WI,
-      H,
-      LDH,
-      N,
-      H,
-      LDH,
-      N,
-      H,
-      LDH,
-      WORK,
-      -1,
-    );
+    dlaqr2(WANTT, WANTZ, N, ILO, IHI, NWR + 1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS,
+        LD, WR, WI, H, LDH, N, H, LDH, N, H, LDH, WORK, -1);
 
     // ==== Optimal workspace = max(DLAQR5, DLAQR2) ====
 
@@ -325,33 +285,32 @@ void dlaqr4(
       // ==== Aggressive early deflation ====
 
       dlaqr2(
-        WANTT,
-        WANTZ,
-        N,
-        KTOP,
-        KBOT,
-        NW,
-        H,
-        LDH,
-        ILOZ,
-        IHIZ,
-        Z,
-        LDZ,
-        LS,
-        LD,
-        WR,
-        WI,
-        H(KV, 1),
-        LDH,
-        NHO,
-        H(KV, KT),
-        LDH,
-        NVE,
-        H(KWV, 1),
-        LDH,
-        WORK,
-        LWORK,
-      );
+          WANTT,
+          WANTZ,
+          N,
+          KTOP,
+          KBOT,
+          NW,
+          H,
+          LDH,
+          ILOZ,
+          IHIZ,
+          Z,
+          LDZ,
+          LS,
+          LD,
+          WR,
+          WI,
+          H(KV, 1),
+          LDH,
+          NHO,
+          H(KV, KT),
+          LDH,
+          NVE,
+          H(KWV, 1),
+          LDH,
+          WORK,
+          LWORK);
 
       // ==== Adjust KBOT accounting for new deflations. ====
 
@@ -392,18 +351,8 @@ void dlaqr4(
             BB.value = SS;
             CC.value = WILK2 * SS;
             DD.value = AA.value;
-            dlanv2(
-              AA,
-              BB,
-              CC,
-              DD,
-              WR.box(I - 1),
-              WI.box(I - 1),
-              WR.box(I),
-              WI.box(I),
-              CS,
-              SN,
-            );
+            dlanv2(AA, BB, CC, DD, WR.box(I - 1), WI.box(I - 1), WR.box(I),
+                WI.box(I), CS, SN);
           }
           if (KS == KTOP) {
             WR[KS + 1] = H[KS + 1][KS + 1];
@@ -422,22 +371,8 @@ void dlaqr4(
             KS = KBOT - NS + 1;
             KT = N - NS + 1;
             dlacpy('A', NS, NS, H(KS, KS), LDH, H(KT, 1), LDH);
-            dlahqr(
-              false,
-              false,
-              NS,
-              1,
-              NS,
-              H(KT, 1),
-              LDH,
-              WR(KS),
-              WI(KS),
-              1,
-              1,
-              ZDUM,
-              1,
-              INF,
-            );
+            dlahqr(false, false, NS, 1, NS, H(KT, 1), LDH, WR(KS), WI(KS), 1, 1,
+                ZDUM, 1, INF);
             KS = KS + INF.value;
 
             // ==== In case of a rare QR failure use
@@ -449,18 +384,8 @@ void dlaqr4(
               CC.value = H[KBOT][KBOT - 1];
               BB.value = H[KBOT - 1][KBOT];
               DD.value = H[KBOT][KBOT];
-              dlanv2(
-                AA,
-                BB,
-                CC,
-                DD,
-                WR.box(KBOT - 1),
-                WI.box(KBOT - 1),
-                WR.box(KBOT),
-                WI.box(KBOT),
-                CS,
-                SN,
-              );
+              dlanv2(AA, BB, CC, DD, WR.box(KBOT - 1), WI.box(KBOT - 1),
+                  WR.box(KBOT), WI.box(KBOT), CS, SN);
               KS = KBOT - 1;
             }
           }
@@ -556,32 +481,31 @@ void dlaqr4(
         // ==== Small-bulge multi-shift QR sweep ====
 
         dlaqr5(
-          WANTT,
-          WANTZ,
-          KACC22,
-          N,
-          KTOP,
-          KBOT,
-          NS,
-          WR(KS),
-          WI(KS),
-          H,
-          LDH,
-          ILOZ,
-          IHIZ,
-          Z,
-          LDZ,
-          WORK.asMatrix(3),
-          3,
-          H(KU, 1),
-          LDH,
-          NVE,
-          H(KWV, 1),
-          LDH,
-          NHO,
-          H(KU, KWH),
-          LDH,
-        );
+            WANTT,
+            WANTZ,
+            KACC22,
+            N,
+            KTOP,
+            KBOT,
+            NS,
+            WR(KS),
+            WI(KS),
+            H,
+            LDH,
+            ILOZ,
+            IHIZ,
+            Z,
+            LDZ,
+            WORK.asMatrix(3),
+            3,
+            H(KU, 1),
+            LDH,
+            NVE,
+            H(KWV, 1),
+            LDH,
+            NHO,
+            H(KU, KWH),
+            LDH);
       }
 
       // ==== Note progress (or the lack of it). ====

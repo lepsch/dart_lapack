@@ -164,19 +164,7 @@ void dget39(
 
               dcopy(N, D, 1, X, 1);
               KNT.value = KNT.value + 1;
-              dlaqtr(
-                false,
-                true,
-                N,
-                T,
-                LDT,
-                DUM,
-                DUMM,
-                SCALE,
-                X,
-                WORK,
-                INFO,
-              );
+              dlaqtr(false, true, N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO);
               if (INFO.value != 0) NINFO.value = NINFO.value + 1;
 
               // || T*x - scale*d || /
@@ -184,18 +172,7 @@ void dget39(
 
               dcopy(N, D, 1, Y, 1);
               dgemv(
-                'No transpose',
-                N,
-                N,
-                ONE,
-                T,
-                LDT,
-                X,
-                1,
-                -SCALE.value,
-                Y,
-                1,
-              );
+                  'No transpose', N, N, ONE, T, LDT, X, 1, -SCALE.value, Y, 1);
               XNORM = dasum(N, X, 1);
               RESID = dasum(N, Y, 1);
               DOMIN =
@@ -208,19 +185,7 @@ void dget39(
 
               dcopy(N, D, 1, X, 1);
               KNT.value = KNT.value + 1;
-              dlaqtr(
-                true,
-                true,
-                N,
-                T,
-                LDT,
-                DUM,
-                DUMM,
-                SCALE,
-                X,
-                WORK,
-                INFO,
-              );
+              dlaqtr(true, true, N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO);
               if (INFO.value != 0) NINFO.value = NINFO.value + 1;
 
               // || T*x - scale*d || /
@@ -240,19 +205,7 @@ void dget39(
 
               dcopy(2 * N, D, 1, X, 1);
               KNT.value = KNT.value + 1;
-              dlaqtr(
-                false,
-                false,
-                N,
-                T,
-                LDT,
-                B,
-                W,
-                SCALE,
-                X,
-                WORK,
-                INFO,
-              );
+              dlaqtr(false, false, N, T, LDT, B, W, SCALE, X, WORK, INFO);
               if (INFO.value != 0) NINFO.value = NINFO.value + 1;
 
               // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
@@ -270,28 +223,16 @@ void dget39(
               for (I = 2; I <= N; I++) {
                 Y[I + N] = W * X[I] - SCALE.value * Y[I + N];
               }
-              dgemv(
-                'No transpose',
-                N,
-                N,
-                ONE,
-                T,
-                LDT,
-                X(1 + N),
-                1,
-                ONE,
-                Y(1 + N),
-                1,
-              );
+              dgemv('No transpose', N, N, ONE, T, LDT, X(1 + N), 1, ONE,
+                  Y(1 + N), 1);
 
               RESID = dasum(2 * N, Y, 1);
               DOMIN = max(
-                SMLNUM,
-                max(
-                  (SMLNUM / EPS) * NORMTB,
-                  EPS * (NORMTB * dasum(2 * N, X, 1)),
-                ),
-              );
+                  SMLNUM,
+                  max(
+                    (SMLNUM / EPS) * NORMTB,
+                    EPS * (NORMTB * dasum(2 * N, X, 1)),
+                  ));
               RESID = RESID / DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;
@@ -300,19 +241,7 @@ void dget39(
 
               dcopy(2 * N, D, 1, X, 1);
               KNT.value = KNT.value + 1;
-              dlaqtr(
-                true,
-                false,
-                N,
-                T,
-                LDT,
-                B,
-                W,
-                SCALE,
-                X,
-                WORK,
-                INFO,
-              );
+              dlaqtr(true, false, N, T, LDT, B, W, SCALE, X, WORK, INFO);
               if (INFO.value != 0) NINFO.value = NINFO.value + 1;
 
               // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
@@ -330,28 +259,16 @@ void dget39(
               for (I = 2; I <= N; I++) {
                 Y[I + N] = B[I] * X[1] + W * X[I] + SCALE.value * Y[I + N];
               }
-              dgemv(
-                'Transpose',
-                N,
-                N,
-                ONE,
-                T,
-                LDT,
-                X(1 + N),
-                1,
-                -ONE,
-                Y(1 + N),
-                1,
-              );
+              dgemv('Transpose', N, N, ONE, T, LDT, X(1 + N), 1, -ONE, Y(1 + N),
+                  1);
 
               RESID = dasum(2 * N, Y, 1);
               DOMIN = max(
-                SMLNUM,
-                max(
-                  (SMLNUM / EPS) * NORMTB,
-                  EPS * (NORMTB * dasum(2 * N, X, 1)),
-                ),
-              );
+                  SMLNUM,
+                  max(
+                    (SMLNUM / EPS) * NORMTB,
+                    EPS * (NORMTB * dasum(2 * N, X, 1)),
+                  ));
               RESID = RESID / DOMIN;
               if (RESID > RMAX.value) {
                 RMAX.value = RESID;

@@ -94,16 +94,8 @@ void dsbt21(
 
   if (N > 1 && KS == 1) {
     for (J = 1; J <= N - 1; J++) {
-      dspr2(
-        CUPLO,
-        N,
-        -E[J],
-        U(1, J).asArray(),
-        1,
-        U(1, J + 1).asArray(),
-        1,
-        WORK,
-      );
+      dspr2(CUPLO, N, -E[J], U(1, J).asArray(), 1, U(1, J + 1).asArray(), 1,
+          WORK);
     }
   }
   WNORM = dlansp('1', CUPLO, N, WORK, WORK[LW + 1]);

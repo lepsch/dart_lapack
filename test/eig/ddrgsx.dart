@@ -118,28 +118,27 @@ Future<void> ddrgsx(
     MAXWRK =
         9 * (NSIZE + 1) + NSIZE * ilaenv(1, 'DGEQRF', ' ', NSIZE, 1, NSIZE, 0);
     MAXWRK = max(
-      MAXWRK,
-      9 * (NSIZE + 1) + NSIZE * ilaenv(1, 'DORGQR', ' ', NSIZE, 1, NSIZE, -1),
-    );
+        MAXWRK,
+        9 * (NSIZE + 1) +
+            NSIZE * ilaenv(1, 'DORGQR', ' ', NSIZE, 1, NSIZE, -1));
 
     // workspace for dgesvd
 
     BDSPAC = 5 * NSIZE * NSIZE ~/ 2;
     MAXWRK = max(
-      MAXWRK,
-      3 * NSIZE * NSIZE ~/ 2 +
-          NSIZE *
-              NSIZE *
-              ilaenv(
-                1,
-                'DGEBRD',
-                ' ',
-                NSIZE * NSIZE ~/ 2,
-                NSIZE * NSIZE ~/ 2,
-                -1,
-                -1,
-              ),
-    );
+        MAXWRK,
+        3 * NSIZE * NSIZE ~/ 2 +
+            NSIZE *
+                NSIZE *
+                ilaenv(
+                  1,
+                  'DGEBRD',
+                  ' ',
+                  NSIZE * NSIZE ~/ 2,
+                  NSIZE * NSIZE ~/ 2,
+                  -1,
+                  -1,
+                ));
     MAXWRK = max(MAXWRK, BDSPAC);
 
     MAXWRK = max(MAXWRK, MINWRK);
@@ -193,29 +192,28 @@ Future<void> ddrgsx(
             dlaset('Full', mn.MPLUSN, mn.MPLUSN, ZERO, ZERO, BI, LDA);
 
             dlatm5(
-              PRTYPE,
-              mn.M,
-              mn.N,
-              AI,
-              LDA,
-              AI[mn.M + 1][mn.M + 1],
-              LDA,
-              AI[1][mn.M + 1],
-              LDA,
-              BI,
-              LDA,
-              BI[mn.M + 1][mn.M + 1],
-              LDA,
-              BI[1][mn.M + 1],
-              LDA,
-              Q,
-              LDA,
-              Z,
-              LDA,
-              WEIGHT,
-              QBA,
-              QBB,
-            );
+                PRTYPE,
+                mn.M,
+                mn.N,
+                AI,
+                LDA,
+                AI[mn.M + 1][mn.M + 1],
+                LDA,
+                AI[1][mn.M + 1],
+                LDA,
+                BI,
+                LDA,
+                BI[mn.M + 1][mn.M + 1],
+                LDA,
+                BI[1][mn.M + 1],
+                LDA,
+                Q,
+                LDA,
+                Z,
+                LDA,
+                WEIGHT,
+                QBA,
+                QBB);
 
             // Compute the Schur factorization and swapping the
             // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -236,130 +234,60 @@ Future<void> ddrgsx(
             dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA, B, LDA);
 
             dggesx(
-              'V',
-              'V',
-              'S',
-              dlctsx,
-              SENSE,
-              mn.MPLUSN,
-              AI,
-              LDA,
-              BI,
-              LDA,
-              MM,
-              ALPHAR,
-              ALPHAI,
-              BETA,
-              Q,
-              LDA,
-              Z,
-              LDA,
-              PL,
-              DIFEST,
-              WORK,
-              LWORK,
-              IWORK,
-              LIWORK,
-              BWORK,
-              LINFO,
-            );
+                'V',
+                'V',
+                'S',
+                dlctsx,
+                SENSE,
+                mn.MPLUSN,
+                AI,
+                LDA,
+                BI,
+                LDA,
+                MM,
+                ALPHAR,
+                ALPHAI,
+                BETA,
+                Q,
+                LDA,
+                Z,
+                LDA,
+                PL,
+                DIFEST,
+                WORK,
+                LWORK,
+                IWORK,
+                LIWORK,
+                BWORK,
+                LINFO);
 
             if (LINFO.value != 0 && LINFO.value != mn.MPLUSN + 2) {
               RESULT[1] = ULPINV;
               NOUT.println(
-                ' DDRGSX: DGGESX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${mn.MPLUSN.i6}, JTYPE=${PRTYPE.i6})',
-              );
+                  ' DDRGSX: DGGESX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${mn.MPLUSN.i6}, JTYPE=${PRTYPE.i6})');
               INFO.value = LINFO.value;
               continue;
             }
 
             // Compute the norm(A, B)
 
-            dlacpy(
-              'Full',
-              mn.MPLUSN,
-              mn.MPLUSN,
-              AI,
-              LDA,
-              WORK.asMatrix(mn.MPLUSN),
-              mn.MPLUSN,
-            );
-            dlacpy(
-              'Full',
-              mn.MPLUSN,
-              mn.MPLUSN,
-              BI,
-              LDA,
-              WORK(mn.MPLUSN * mn.MPLUSN + 1).asMatrix(mn.MPLUSN),
-              mn.MPLUSN,
-            );
-            ABNRM = dlange(
-              'Fro',
-              mn.MPLUSN,
-              2 * mn.MPLUSN,
-              WORK.asMatrix(mn.MPLUSN),
-              mn.MPLUSN,
-              WORK,
-            );
+            dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA,
+                WORK.asMatrix(mn.MPLUSN), mn.MPLUSN);
+            dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA,
+                WORK(mn.MPLUSN * mn.MPLUSN + 1).asMatrix(mn.MPLUSN), mn.MPLUSN);
+            ABNRM = dlange('Fro', mn.MPLUSN, 2 * mn.MPLUSN,
+                WORK.asMatrix(mn.MPLUSN), mn.MPLUSN, WORK);
 
             // Do tests (1) to (4)
 
-            dget51(
-              1,
-              mn.MPLUSN,
-              A,
-              LDA,
-              AI,
-              LDA,
-              Q,
-              LDA,
-              Z,
-              LDA,
-              WORK,
-              RESULT.box(1),
-            );
-            dget51(
-              1,
-              mn.MPLUSN,
-              B,
-              LDA,
-              BI,
-              LDA,
-              Q,
-              LDA,
-              Z,
-              LDA,
-              WORK,
-              RESULT.box(2),
-            );
-            dget51(
-              3,
-              mn.MPLUSN,
-              B,
-              LDA,
-              BI,
-              LDA,
-              Q,
-              LDA,
-              Q,
-              LDA,
-              WORK,
-              RESULT.box(3),
-            );
-            dget51(
-              3,
-              mn.MPLUSN,
-              B,
-              LDA,
-              BI,
-              LDA,
-              Z,
-              LDA,
-              Z,
-              LDA,
-              WORK,
-              RESULT.box(4),
-            );
+            dget51(1, mn.MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK,
+                RESULT.box(1));
+            dget51(1, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK,
+                RESULT.box(2));
+            dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK,
+                RESULT.box(3));
+            dget51(3, mn.MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK,
+                RESULT.box(4));
             NTEST = 4;
 
             // Do tests (5) and (6): check Schur form of A and
@@ -415,17 +343,8 @@ Future<void> ddrgsx(
                   }
                 }
                 if (!ILABAD) {
-                  dget53(
-                    AI(I1, I1),
-                    LDA,
-                    BI(I1, I1),
-                    LDA,
-                    BETA[J],
-                    ALPHAR[J],
-                    ALPHAI[J],
-                    TEMP2,
-                    IINFO,
-                  );
+                  dget53(AI(I1, I1), LDA, BI(I1, I1), LDA, BETA[J], ALPHAR[J],
+                      ALPHAI[J], TEMP2, IINFO);
                   if (IINFO.value >= 3) {
                     print9997(NOUT, IINFO.value, J, mn.MPLUSN, PRTYPE);
                     INFO.value = (IINFO.value).abs();
@@ -462,33 +381,18 @@ Future<void> ddrgsx(
               // almost same number of test cases fail the test.
 
               dlakf2(
-                MM.value,
-                mn.MPLUSN - MM.value,
-                AI,
-                LDA,
-                AI(MM.value + 1, MM.value + 1),
-                BI,
-                BI(MM.value + 1, MM.value + 1),
-                C,
-                LDC,
-              );
+                  MM.value,
+                  mn.MPLUSN - MM.value,
+                  AI,
+                  LDA,
+                  AI(MM.value + 1, MM.value + 1),
+                  BI,
+                  BI(MM.value + 1, MM.value + 1),
+                  C,
+                  LDC);
 
-              dgesvd(
-                'N',
-                'N',
-                MN2,
-                MN2,
-                C,
-                LDC,
-                S,
-                WORK,
-                1,
-                WORK[2],
-                1,
-                WORK[3],
-                LWORK - 2,
-                INFO.value,
-              );
+              dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK[2], 1,
+                  WORK[3], LWORK - 2, INFO.value);
               DIFTRU = S[MN2];
 
               if (DIFEST[2] == ZERO) {
@@ -527,8 +431,7 @@ Future<void> ddrgsx(
                   // Matrix types
 
                   NOUT.println(
-                    ' Matrix types: \n  1:  A is a block diagonal matrix of Jordan blocks and B is the identity \n      matrix, \n  2:  A and B are upper triangular matrices, \n  3:  A and B are as type 2, but each second diagonal block in A_11 and \n      each third diagonal block in A_22 are 2x2 blocks,\n  4:  A and B are block diagonal matrices, \n  5:  (A,B) has potentially close or common eigenvalues.\n',
-                  );
+                      ' Matrix types: \n  1:  A is a block diagonal matrix of Jordan blocks and B is the identity \n      matrix, \n  2:  A and B are upper triangular matrices, \n  3:  A and B are as type 2, but each second diagonal block in A_11 and \n      each third diagonal block in A_22 are 2x2 blocks,\n  4:  A and B are block diagonal matrices, \n  5:  (A,B) has potentially close or common eigenvalues.\n');
 
                   // Tests performed
 
@@ -537,12 +440,10 @@ Future<void> ddrgsx(
                 NERRS = NERRS + 1;
                 if (RESULT[J] < 10000.0) {
                   NOUT.println(
-                    ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].f8_2}',
-                  );
+                      ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].f8_2}');
                 } else {
                   NOUT.println(
-                    ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].d10_3}',
-                  );
+                      ' Matrix order=${mn.MPLUSN.i2}, type=${PRTYPE.i2}, a=${WEIGHT.d10_3}, order(A_11)=${mn.M.i2}, result ${J.i2} is ${RESULT[J].d10_3}');
                 }
               }
             }
@@ -580,71 +481,49 @@ Future<void> ddrgsx(
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
       dggesx(
-        'V',
-        'V',
-        'S',
-        dlctsx,
-        'B',
-        mn.MPLUSN,
-        AI,
-        LDA,
-        BI,
-        LDA,
-        MM,
-        ALPHAR,
-        ALPHAI,
-        BETA,
-        Q,
-        LDA,
-        Z,
-        LDA,
-        PL,
-        DIFEST,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        BWORK,
-        LINFO,
-      );
+          'V',
+          'V',
+          'S',
+          dlctsx,
+          'B',
+          mn.MPLUSN,
+          AI,
+          LDA,
+          BI,
+          LDA,
+          MM,
+          ALPHAR,
+          ALPHAI,
+          BETA,
+          Q,
+          LDA,
+          Z,
+          LDA,
+          PL,
+          DIFEST,
+          WORK,
+          LWORK,
+          IWORK,
+          LIWORK,
+          BWORK,
+          LINFO);
 
       if (LINFO.value != 0 && LINFO.value != mn.MPLUSN + 2) {
         RESULT[1] = ULPINV;
         NOUT.println(
-          ' DDRGSX: DGGESX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${mn.MPLUSN.i6}, Input Example #${NPTKNT.i2})',
-        );
+            ' DDRGSX: DGGESX returned INFO=${LINFO.value.i6}.\n${' ' * 9}N=${mn.MPLUSN.i6}, Input Example #${NPTKNT.i2})');
         continue;
       }
 
       // Compute the norm(A, B)
       // (should this be norm of (A,B) or (AI,BI)?)
 
-      dlacpy(
-        'Full',
-        mn.MPLUSN,
-        mn.MPLUSN,
-        AI,
-        LDA,
-        WORK.asMatrix(mn.MPLUSN),
-        mn.MPLUSN,
-      );
-      dlacpy(
-        'Full',
-        mn.MPLUSN,
-        mn.MPLUSN,
-        BI,
-        LDA,
-        WORK(mn.MPLUSN * mn.MPLUSN + 1).asMatrix(mn.MPLUSN),
-        mn.MPLUSN,
-      );
-      ABNRM = dlange(
-        'Fro',
-        mn.MPLUSN,
-        2 * mn.MPLUSN,
-        WORK.asMatrix(mn.MPLUSN),
-        mn.MPLUSN,
-        WORK,
-      );
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, AI, LDA, WORK.asMatrix(mn.MPLUSN),
+          mn.MPLUSN);
+      dlacpy('Full', mn.MPLUSN, mn.MPLUSN, BI, LDA,
+          WORK(mn.MPLUSN * mn.MPLUSN + 1).asMatrix(mn.MPLUSN), mn.MPLUSN);
+      ABNRM = dlange('Fro', mn.MPLUSN, 2 * mn.MPLUSN, WORK.asMatrix(mn.MPLUSN),
+          mn.MPLUSN, WORK);
 
       // Do tests (1) to (4)
 
@@ -705,17 +584,8 @@ Future<void> ddrgsx(
             }
           }
           if (!ILABAD) {
-            dget53(
-              AI(I1, I1),
-              LDA,
-              BI(I1, I1),
-              LDA,
-              BETA[J],
-              ALPHAR[J],
-              ALPHAI[J],
-              TEMP2,
-              IINFO,
-            );
+            dget53(AI(I1, I1), LDA, BI(I1, I1), LDA, BETA[J], ALPHAR[J],
+                ALPHAI[J], TEMP2, IINFO);
             if (IINFO.value >= 3) {
               print9997(NOUT, IINFO.value, J, mn.MPLUSN, NPTKNT);
               INFO.value = (IINFO.value).abs();
@@ -795,12 +665,10 @@ Future<void> ddrgsx(
           NERRS = NERRS + 1;
           if (RESULT[J] < 10000.0) {
             NOUT.println(
-              ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${RESULT[J].f8_2}',
-            );
+                ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${RESULT[J].f8_2}');
           } else {
             NOUT.println(
-              ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}',
-            );
+                ' Input example #${NPTKNT.i2}, matrix order=${mn.MPLUSN.i4}, result ${J.i2} is${(RESULT[J] * 10).d10_3}');
           }
         }
       }
@@ -821,8 +689,7 @@ void print9997(
   final int jtype,
 ) {
   nout.println(
-    ' DDRGSX: DGET53 returned INFO=${info.i1} for eigenvalue ${eigenvalue.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6})',
-  );
+      ' DDRGSX: DGET53 returned INFO=${info.i1} for eigenvalue ${eigenvalue.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6})');
 }
 
 void print9996(
@@ -832,8 +699,7 @@ void print9996(
   final int jtype,
 ) {
   nout.println(
-    ' DDRGSX: S not in Schur form at eigenvalue ${eigenvalue.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6})',
-  );
+      ' DDRGSX: S not in Schur form at eigenvalue ${eigenvalue.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6})');
 }
 
 void print9995(final Nout nout) {
@@ -842,6 +708,5 @@ void print9995(final Nout nout) {
 
 void print9992(final Nout nout) {
   nout.println(
-    '\n Tests performed:  (S is Schur, T is triangular, Q and Z are orthogonal,\n${' ' * 19} a is alpha, b is beta, and \' means transpose.)\n  1 = | A - Q S Z\' | / ( |A| n ulp )      2 = | B - Q T Z\' | / ( |B| n ulp )\n  3 = | I - QQ\' | / ( n ulp )             4 = | I - ZZ\' | / ( n ulp )\n  5 = 1/ULP  if A is not in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n  7 = 1/ULP  if SDIM is not the correct number of selected eigenvalues\n  8 = 1/ULP  if DIFEST/DIFTRU > 10*THRESH or DIFTRU/DIFEST > 10*THRESH\n  9 = 1/ULP  if DIFEST <> 0 or DIFTRU > ULP*norm(A,B) when reordering fails\n 10 = 1/ULP  if PLEST/PLTRU > THRESH or PLTRU/PLEST > THRESH\n    ( Test 10 is only for input examples )\n',
-  );
+      '\n Tests performed:  (S is Schur, T is triangular, Q and Z are orthogonal,\n${' ' * 19} a is alpha, b is beta, and \' means transpose.)\n  1 = | A - Q S Z\' | / ( |A| n ulp )      2 = | B - Q T Z\' | / ( |B| n ulp )\n  3 = | I - QQ\' | / ( n ulp )             4 = | I - ZZ\' | / ( n ulp )\n  5 = 1/ULP  if A is not in Schur form S\n  6 = difference between (alpha,beta) and diagonals of (S,T)\n  7 = 1/ULP  if SDIM is not the correct number of selected eigenvalues\n  8 = 1/ULP  if DIFEST/DIFTRU > 10*THRESH or DIFTRU/DIFEST > 10*THRESH\n  9 = 1/ULP  if DIFEST <> 0 or DIFTRU > ULP*norm(A,B) when reordering fails\n 10 = 1/ULP  if PLEST/PLTRU > THRESH or PLTRU/PLEST > THRESH\n    ( Test 10 is only for input examples )\n');
 }

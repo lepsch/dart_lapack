@@ -152,51 +152,41 @@ void dlaed0(
       MATSIZ = IWORK[I + 1] - IWORK[I];
     }
     if (ICOMPQ == 2) {
-      dsteqr(
-        'I',
-        MATSIZ,
-        D(SUBMAT),
-        E(SUBMAT),
-        Q(SUBMAT, SUBMAT),
-        LDQ,
-        WORK,
-        INFO,
-      );
+      dsteqr('I', MATSIZ, D(SUBMAT), E(SUBMAT), Q(SUBMAT, SUBMAT), LDQ, WORK,
+          INFO);
       if (INFO.value != 0) {
         INFO.value = SUBMAT * (N + 1) + SUBMAT + MATSIZ - 1;
         return;
       }
     } else {
       dsteqr(
-        'I',
-        MATSIZ,
-        D(SUBMAT),
-        E(SUBMAT),
-        WORK(IQ - 1 + IWORK[IQPTR + CURR]).asMatrix(MATSIZ),
-        MATSIZ,
-        WORK,
-        INFO,
-      );
+          'I',
+          MATSIZ,
+          D(SUBMAT),
+          E(SUBMAT),
+          WORK(IQ - 1 + IWORK[IQPTR + CURR]).asMatrix(MATSIZ),
+          MATSIZ,
+          WORK,
+          INFO);
       if (INFO.value != 0) {
         INFO.value = SUBMAT * (N + 1) + SUBMAT + MATSIZ - 1;
         return;
       }
       if (ICOMPQ == 1) {
         dgemm(
-          'N',
-          'N',
-          QSIZ,
-          MATSIZ,
-          MATSIZ,
-          ONE,
-          Q(1, SUBMAT),
-          LDQ,
-          WORK(IQ - 1 + IWORK[IQPTR + CURR]).asMatrix(MATSIZ),
-          MATSIZ,
-          ZERO,
-          QSTORE(1, SUBMAT),
-          LDQS,
-        );
+            'N',
+            'N',
+            QSIZ,
+            MATSIZ,
+            MATSIZ,
+            ONE,
+            Q(1, SUBMAT),
+            LDQ,
+            WORK(IQ - 1 + IWORK[IQPTR + CURR]).asMatrix(MATSIZ),
+            MATSIZ,
+            ZERO,
+            QSTORE(1, SUBMAT),
+            LDQS);
       }
       IWORK[IQPTR + CURR + 1] = IWORK[IQPTR + CURR] + pow(MATSIZ, 2).toInt();
       CURR = CURR + 1;
@@ -238,43 +228,32 @@ void dlaed0(
       // tridiagonal form) are desired.
 
       if (ICOMPQ == 2) {
-        dlaed1(
-          MATSIZ,
-          D(SUBMAT),
-          Q(SUBMAT, SUBMAT),
-          LDQ,
-          IWORK(INDXQ + SUBMAT),
-          E.box(SUBMAT + MSD2 - 1),
-          MSD2,
-          WORK,
-          IWORK(SUBPBS + 1),
-          INFO,
-        );
+        dlaed1(MATSIZ, D(SUBMAT), Q(SUBMAT, SUBMAT), LDQ, IWORK(INDXQ + SUBMAT),
+            E.box(SUBMAT + MSD2 - 1), MSD2, WORK, IWORK(SUBPBS + 1), INFO);
       } else {
         dlaed7(
-          ICOMPQ,
-          MATSIZ,
-          QSIZ,
-          TLVLS,
-          CURLVL,
-          CURPRB,
-          D(SUBMAT),
-          QSTORE(1, SUBMAT),
-          LDQS,
-          IWORK(INDXQ + SUBMAT),
-          E[SUBMAT + MSD2 - 1],
-          MSD2,
-          WORK(IQ),
-          IWORK(IQPTR),
-          IWORK(IPRMPT),
-          IWORK(IPERM),
-          IWORK(IGIVPT),
-          IWORK(IGIVCL).asMatrix(2),
-          WORK(IGIVNM).asMatrix(2),
-          WORK(IWREM),
-          IWORK(SUBPBS + 1),
-          INFO,
-        );
+            ICOMPQ,
+            MATSIZ,
+            QSIZ,
+            TLVLS,
+            CURLVL,
+            CURPRB,
+            D(SUBMAT),
+            QSTORE(1, SUBMAT),
+            LDQS,
+            IWORK(INDXQ + SUBMAT),
+            E[SUBMAT + MSD2 - 1],
+            MSD2,
+            WORK(IQ),
+            IWORK(IQPTR),
+            IWORK(IPRMPT),
+            IWORK(IPERM),
+            IWORK(IGIVPT),
+            IWORK(IGIVCL).asMatrix(2),
+            WORK(IGIVNM).asMatrix(2),
+            WORK(IWREM),
+            IWORK(SUBPBS + 1),
+            INFO);
       }
       if (INFO.value != 0) {
         INFO.value = SUBMAT * (N + 1) + SUBMAT + MATSIZ - 1;

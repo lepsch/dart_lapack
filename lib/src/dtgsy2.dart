@@ -188,22 +188,10 @@ void dtgsy2(
             daxpy(IS - 1, ALPHA, D(1, IS).asArray(), 1, F(1, JS).asArray(), 1);
           }
           if (J < Q) {
-            daxpy(
-              N - JE,
-              RHS[2],
-              B(JS, JE + 1).asArray(),
-              LDB,
-              C(IS, JE + 1).asArray(),
-              LDC,
-            );
-            daxpy(
-              N - JE,
-              RHS[2],
-              E(JS, JE + 1).asArray(),
-              LDE,
-              F(IS, JE + 1).asArray(),
-              LDF,
-            );
+            daxpy(N - JE, RHS[2], B(JS, JE + 1).asArray(), LDB,
+                C(IS, JE + 1).asArray(), LDC);
+            daxpy(N - JE, RHS[2], E(JS, JE + 1).asArray(), LDE,
+                F(IS, JE + 1).asArray(), LDF);
           }
         } else if ((MB == 1) && (NB == 2)) {
           // Build a 4-by-4 system Z * x = RHS
@@ -264,62 +252,20 @@ void dtgsy2(
           // equation.
 
           if (I > 1) {
-            dger(
-              IS - 1,
-              NB,
-              -ONE,
-              A(1, IS).asArray(),
-              1,
-              RHS(1),
-              1,
-              C(1, JS),
-              LDC,
-            );
-            dger(
-              IS - 1,
-              NB,
-              -ONE,
-              D(1, IS).asArray(),
-              1,
-              RHS(1),
-              1,
-              F(1, JS),
-              LDF,
-            );
+            dger(IS - 1, NB, -ONE, A(1, IS).asArray(), 1, RHS(1), 1, C(1, JS),
+                LDC);
+            dger(IS - 1, NB, -ONE, D(1, IS).asArray(), 1, RHS(1), 1, F(1, JS),
+                LDF);
           }
           if (J < Q) {
-            daxpy(
-              N - JE,
-              RHS[3],
-              B(JS, JE + 1).asArray(),
-              LDB,
-              C(IS, JE + 1).asArray(),
-              LDC,
-            );
-            daxpy(
-              N - JE,
-              RHS[3],
-              E(JS, JE + 1).asArray(),
-              LDE,
-              F(IS, JE + 1).asArray(),
-              LDF,
-            );
-            daxpy(
-              N - JE,
-              RHS[4],
-              B(JSP1, JE + 1).asArray(),
-              LDB,
-              C(IS, JE + 1).asArray(),
-              LDC,
-            );
-            daxpy(
-              N - JE,
-              RHS[4],
-              E(JSP1, JE + 1).asArray(),
-              LDE,
-              F(IS, JE + 1).asArray(),
-              LDF,
-            );
+            daxpy(N - JE, RHS[3], B(JS, JE + 1).asArray(), LDB,
+                C(IS, JE + 1).asArray(), LDC);
+            daxpy(N - JE, RHS[3], E(JS, JE + 1).asArray(), LDE,
+                F(IS, JE + 1).asArray(), LDF);
+            daxpy(N - JE, RHS[4], B(JSP1, JE + 1).asArray(), LDB,
+                C(IS, JE + 1).asArray(), LDC);
+            daxpy(N - JE, RHS[4], E(JSP1, JE + 1).asArray(), LDE,
+                F(IS, JE + 1).asArray(), LDF);
           }
         } else if ((MB == 2) && (NB == 1)) {
           // Build a 4-by-4 system Z * x = RHS
@@ -379,56 +325,16 @@ void dtgsy2(
           // equation.
 
           if (I > 1) {
-            dgemv(
-              'N',
-              IS - 1,
-              MB,
-              -ONE,
-              A(1, IS),
-              LDA,
-              RHS(1),
-              1,
-              ONE,
-              C(1, JS).asArray(),
-              1,
-            );
-            dgemv(
-              'N',
-              IS - 1,
-              MB,
-              -ONE,
-              D(1, IS),
-              LDD,
-              RHS(1),
-              1,
-              ONE,
-              F(1, JS).asArray(),
-              1,
-            );
+            dgemv('N', IS - 1, MB, -ONE, A(1, IS), LDA, RHS(1), 1, ONE,
+                C(1, JS).asArray(), 1);
+            dgemv('N', IS - 1, MB, -ONE, D(1, IS), LDD, RHS(1), 1, ONE,
+                F(1, JS).asArray(), 1);
           }
           if (J < Q) {
-            dger(
-              MB,
-              N - JE,
-              ONE,
-              RHS(3),
-              1,
-              B(JS, JE + 1).asArray(),
-              LDB,
-              C(IS, JE + 1),
-              LDC,
-            );
-            dger(
-              MB,
-              N - JE,
-              ONE,
-              RHS(3),
-              1,
-              E(JS, JE + 1).asArray(),
-              LDE,
-              F(IS, JE + 1),
-              LDF,
-            );
+            dger(MB, N - JE, ONE, RHS(3), 1, B(JS, JE + 1).asArray(), LDB,
+                C(IS, JE + 1), LDC);
+            dger(MB, N - JE, ONE, RHS(3), 1, E(JS, JE + 1).asArray(), LDE,
+                F(IS, JE + 1), LDF);
           }
         } else if ((MB == 2) && (NB == 2)) {
           // Build an 8-by-8 system Z * x = RHS
@@ -514,69 +420,17 @@ void dtgsy2(
           // equation.
 
           if (I > 1) {
-            dgemm(
-              'N',
-              'N',
-              IS - 1,
-              NB,
-              MB,
-              -ONE,
-              A(1, IS),
-              LDA,
-              RHS(1).asMatrix(MB),
-              MB,
-              ONE,
-              C(1, JS),
-              LDC,
-            );
-            dgemm(
-              'N',
-              'N',
-              IS - 1,
-              NB,
-              MB,
-              -ONE,
-              D(1, IS),
-              LDD,
-              RHS(1).asMatrix(MB),
-              MB,
-              ONE,
-              F(1, JS),
-              LDF,
-            );
+            dgemm('N', 'N', IS - 1, NB, MB, -ONE, A(1, IS), LDA,
+                RHS(1).asMatrix(MB), MB, ONE, C(1, JS), LDC);
+            dgemm('N', 'N', IS - 1, NB, MB, -ONE, D(1, IS), LDD,
+                RHS(1).asMatrix(MB), MB, ONE, F(1, JS), LDF);
           }
           if (J < Q) {
             K = MB * NB + 1;
-            dgemm(
-              'N',
-              'N',
-              MB,
-              N - JE,
-              NB,
-              ONE,
-              RHS(K).asMatrix(MB),
-              MB,
-              B(JS, JE + 1),
-              LDB,
-              ONE,
-              C(IS, JE + 1),
-              LDC,
-            );
-            dgemm(
-              'N',
-              'N',
-              MB,
-              N - JE,
-              NB,
-              ONE,
-              RHS(K).asMatrix(MB),
-              MB,
-              E(JS, JE + 1),
-              LDE,
-              ONE,
-              F(IS, JE + 1),
-              LDF,
-            );
+            dgemm('N', 'N', MB, N - JE, NB, ONE, RHS(K).asMatrix(MB), MB,
+                B(JS, JE + 1), LDB, ONE, C(IS, JE + 1), LDC);
+            dgemm('N', 'N', MB, N - JE, NB, ONE, RHS(K).asMatrix(MB), MB,
+                E(JS, JE + 1), LDE, ONE, F(IS, JE + 1), LDF);
           }
         }
       }
@@ -638,42 +492,18 @@ void dtgsy2(
           if (J > P + 2) {
             ALPHA = RHS[1];
             daxpy(
-              JS - 1,
-              ALPHA,
-              B(1, JS).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
+                JS - 1, ALPHA, B(1, JS).asArray(), 1, F(IS, 1).asArray(), LDF);
             ALPHA = RHS[2];
             daxpy(
-              JS - 1,
-              ALPHA,
-              E(1, JS).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
+                JS - 1, ALPHA, E(1, JS).asArray(), 1, F(IS, 1).asArray(), LDF);
           }
           if (I < P) {
             ALPHA = -RHS[1];
-            daxpy(
-              M - IE,
-              ALPHA,
-              A(IS, IE + 1).asArray(),
-              LDA,
-              C(IE + 1, JS).asArray(),
-              1,
-            );
+            daxpy(M - IE, ALPHA, A(IS, IE + 1).asArray(), LDA,
+                C(IE + 1, JS).asArray(), 1);
             ALPHA = -RHS[2];
-            daxpy(
-              M - IE,
-              ALPHA,
-              D(IS, IE + 1).asArray(),
-              LDD,
-              C(IE + 1, JS).asArray(),
-              1,
-            );
+            daxpy(M - IE, ALPHA, D(IS, IE + 1).asArray(), LDD,
+                C(IE + 1, JS).asArray(), 1);
           }
         } else if ((MB == 1) && (NB == 2)) {
           // Build a 4-by-4 system Z**T * x = RHS
@@ -730,61 +560,19 @@ void dtgsy2(
 
           if (J > P + 2) {
             daxpy(
-              JS - 1,
-              RHS[1],
-              B(1, JS).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
+                JS - 1, RHS[1], B(1, JS).asArray(), 1, F(IS, 1).asArray(), LDF);
+            daxpy(JS - 1, RHS[2], B(1, JSP1).asArray(), 1, F(IS, 1).asArray(),
+                LDF);
             daxpy(
-              JS - 1,
-              RHS[2],
-              B(1, JSP1).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
-            daxpy(
-              JS - 1,
-              RHS[3],
-              E(1, JS).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
-            daxpy(
-              JS - 1,
-              RHS[4],
-              E(1, JSP1).asArray(),
-              1,
-              F(IS, 1).asArray(),
-              LDF,
-            );
+                JS - 1, RHS[3], E(1, JS).asArray(), 1, F(IS, 1).asArray(), LDF);
+            daxpy(JS - 1, RHS[4], E(1, JSP1).asArray(), 1, F(IS, 1).asArray(),
+                LDF);
           }
           if (I < P) {
-            dger(
-              M - IE,
-              NB,
-              -ONE,
-              A(IS, IE + 1).asArray(),
-              LDA,
-              RHS(1),
-              1,
-              C(IE + 1, JS),
-              LDC,
-            );
-            dger(
-              M - IE,
-              NB,
-              -ONE,
-              D(IS, IE + 1).asArray(),
-              LDD,
-              RHS(3),
-              1,
-              C(IE + 1, JS),
-              LDC,
-            );
+            dger(M - IE, NB, -ONE, A(IS, IE + 1).asArray(), LDA, RHS(1), 1,
+                C(IE + 1, JS), LDC);
+            dger(M - IE, NB, -ONE, D(IS, IE + 1).asArray(), LDD, RHS(3), 1,
+                C(IE + 1, JS), LDC);
           }
         } else if ((MB == 2) && (NB == 1)) {
           // Build a 4-by-4 system Z**T * x = RHS
@@ -841,56 +629,16 @@ void dtgsy2(
           // equation.
 
           if (J > P + 2) {
-            dger(
-              MB,
-              JS - 1,
-              ONE,
-              RHS(1),
-              1,
-              B(1, JS).asArray(),
-              1,
-              F(IS, 1),
-              LDF,
-            );
-            dger(
-              MB,
-              JS - 1,
-              ONE,
-              RHS(3),
-              1,
-              E(1, JS).asArray(),
-              1,
-              F(IS, 1),
-              LDF,
-            );
+            dger(MB, JS - 1, ONE, RHS(1), 1, B(1, JS).asArray(), 1, F(IS, 1),
+                LDF);
+            dger(MB, JS - 1, ONE, RHS(3), 1, E(1, JS).asArray(), 1, F(IS, 1),
+                LDF);
           }
           if (I < P) {
-            dgemv(
-              'T',
-              MB,
-              M - IE,
-              -ONE,
-              A(IS, IE + 1),
-              LDA,
-              RHS(1),
-              1,
-              ONE,
-              C(IE + 1, JS).asArray(),
-              1,
-            );
-            dgemv(
-              'T',
-              MB,
-              M - IE,
-              -ONE,
-              D(IS, IE + 1),
-              LDD,
-              RHS(3),
-              1,
-              ONE,
-              C(IE + 1, JS).asArray(),
-              1,
-            );
+            dgemv('T', MB, M - IE, -ONE, A(IS, IE + 1), LDA, RHS(1), 1, ONE,
+                C(IE + 1, JS).asArray(), 1);
+            dgemv('T', MB, M - IE, -ONE, D(IS, IE + 1), LDD, RHS(3), 1, ONE,
+                C(IE + 1, JS).asArray(), 1);
           }
         } else if ((MB == 2) && (NB == 2)) {
           // Build an 8-by-8 system Z**T * x = RHS
@@ -973,68 +721,16 @@ void dtgsy2(
           // equation.
 
           if (J > P + 2) {
-            dgemm(
-              'N',
-              'T',
-              MB,
-              JS - 1,
-              NB,
-              ONE,
-              C(IS, JS),
-              LDC,
-              B(1, JS),
-              LDB,
-              ONE,
-              F(IS, 1),
-              LDF,
-            );
-            dgemm(
-              'N',
-              'T',
-              MB,
-              JS - 1,
-              NB,
-              ONE,
-              F(IS, JS),
-              LDF,
-              E(1, JS),
-              LDE,
-              ONE,
-              F(IS, 1),
-              LDF,
-            );
+            dgemm('N', 'T', MB, JS - 1, NB, ONE, C(IS, JS), LDC, B(1, JS), LDB,
+                ONE, F(IS, 1), LDF);
+            dgemm('N', 'T', MB, JS - 1, NB, ONE, F(IS, JS), LDF, E(1, JS), LDE,
+                ONE, F(IS, 1), LDF);
           }
           if (I < P) {
-            dgemm(
-              'T',
-              'N',
-              M - IE,
-              NB,
-              MB,
-              -ONE,
-              A(IS, IE + 1),
-              LDA,
-              C(IS, JS),
-              LDC,
-              ONE,
-              C(IE + 1, JS),
-              LDC,
-            );
-            dgemm(
-              'T',
-              'N',
-              M - IE,
-              NB,
-              MB,
-              -ONE,
-              D(IS, IE + 1),
-              LDD,
-              F(IS, JS),
-              LDF,
-              ONE,
-              C(IE + 1, JS),
-              LDC,
-            );
+            dgemm('T', 'N', M - IE, NB, MB, -ONE, A(IS, IE + 1), LDA, C(IS, JS),
+                LDC, ONE, C(IE + 1, JS), LDC);
+            dgemm('T', 'N', M - IE, NB, MB, -ONE, D(IS, IE + 1), LDD, F(IS, JS),
+                LDF, ONE, C(IE + 1, JS), LDC);
           }
         }
       }

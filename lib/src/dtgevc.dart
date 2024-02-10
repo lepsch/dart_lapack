@@ -302,10 +302,8 @@ void dtgevc(
         // Real eigenvalue
 
         TEMP = ONE /
-            max(
-              (S[JE][JE]).abs() * ASCALE,
-              max(P[JE][JE].abs() * BSCALE, SAFMIN),
-            );
+            max((S[JE][JE]).abs() * ASCALE,
+                max(P[JE][JE].abs() * BSCALE, SAFMIN));
         SALFAR = (TEMP * S[JE][JE]) * ASCALE;
         SBETA = (TEMP * P[JE][JE]) * BSCALE;
         ACOEF = SBETA * ASCALE;
@@ -321,9 +319,7 @@ void dtgevc(
         if (LSB) SCALE = max(SCALE, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(
-            SCALE,
-            ONE / (SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs()))),
-          );
+              SCALE, ONE / (SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs()))));
           if (LSA) {
             ACOEF = ASCALE * (SCALE * SBETA);
           } else {
@@ -345,18 +341,8 @@ void dtgevc(
       } else {
         // Complex eigenvalue
 
-        dlag2(
-          S[JE][JE],
-          LDS,
-          P[JE][JE],
-          LDP,
-          SAFMIN * SAFETY,
-          ACOEF,
-          TEMP,
-          BCOEFR,
-          TEMP2,
-          BCOEFI,
-        );
+        dlag2(S[JE][JE], LDS, P[JE][JE], LDP, SAFMIN * SAFETY, ACOEF, TEMP,
+            BCOEFR, TEMP2, BCOEFI);
         BCOEFI = -BCOEFI;
         if (BCOEFI == ZERO) {
           INFO.value = JE;
@@ -440,20 +426,17 @@ void dtgevc(
 
         XSCALE = ONE / max(ONE, XMAX);
         TEMP = max(
-          WORK[J],
-          max(WORK[N + J], ACOEFA * WORK[J] + BCOEFA * WORK[N + J]),
-        );
+            WORK[J], max(WORK[N + J], ACOEFA * WORK[J] + BCOEFA * WORK[N + J]));
         if (IL2BY2) {
           TEMP = max(
-            TEMP,
-            max(
-              WORK[J + 1],
+              TEMP,
               max(
-                WORK[N + J + 1],
-                ACOEFA * WORK[J + 1] + BCOEFA * WORK[N + J + 1],
-              ),
-            ),
-          );
+                WORK[J + 1],
+                max(
+                  WORK[N + J + 1],
+                  ACOEFA * WORK[J + 1] + BCOEFA * WORK[N + J + 1],
+                ),
+              ));
         }
         if (TEMP > BIGNUM * XSCALE) {
           for (JW = 0; JW <= NW - 1; JW++) {
@@ -510,26 +493,8 @@ void dtgevc(
         // Solve  ( a A - b B )  y = SUM(,)
         // with scaling and perturbation of the denominator
 
-        dlaln2(
-          true,
-          NA,
-          NW,
-          DMIN,
-          ACOEF,
-          S[J][J],
-          LDS,
-          BDIAG(1),
-          BDIAG(2),
-          SUM,
-          2,
-          BCOEFR,
-          BCOEFI,
-          WORK[2 * N + J],
-          N,
-          SCALE,
-          TEMP,
-          IINFO,
-        );
+        dlaln2(true, NA, NW, DMIN, ACOEF, S[J][J], LDS, BDIAG(1), BDIAG(2), SUM,
+            2, BCOEFR, BCOEFI, WORK[2 * N + J], N, SCALE, TEMP, IINFO);
         if (SCALE < ONE) {
           for (JW = 0; JW <= NW - 1; JW++) {
             for (JR = JE; JR <= J - 1; JR++) {
@@ -547,19 +512,8 @@ void dtgevc(
       IEIG = IEIG + 1;
       if (ILBACK) {
         for (JW = 0; JW <= NW - 1; JW++) {
-          dgemv(
-            'N',
-            N,
-            N + 1 - JE,
-            ONE,
-            VL(1, JE),
-            LDVL,
-            WORK((JW + 2) * N + JE),
-            1,
-            ZERO,
-            WORK((JW + 4) * N + 1),
-            1,
-          );
+          dgemv('N', N, N + 1 - JE, ONE, VL(1, JE), LDVL,
+              WORK((JW + 2) * N + JE), 1, ZERO, WORK((JW + 4) * N + 1), 1);
         }
         dlacpy(' ', N, NW, WORK(4 * N + 1).asMatrix(N), N, VL(1, JE), LDVL);
         IBEG = 1;
@@ -663,10 +617,8 @@ void dtgevc(
         // Real eigenvalue
 
         TEMP = ONE /
-            max(
-              (S[JE][JE]).abs() * ASCALE,
-              max((P[JE][JE]).abs() * BSCALE, SAFMIN),
-            );
+            max((S[JE][JE]).abs() * ASCALE,
+                max((P[JE][JE]).abs() * BSCALE, SAFMIN));
         SALFAR = (TEMP * S[JE][JE]) * ASCALE;
         SBETA = (TEMP * P[JE][JE]) * BSCALE;
         ACOEF = SBETA * ASCALE;
@@ -682,9 +634,7 @@ void dtgevc(
         if (LSB) SCALE = max(SCALE, (SMALL / (SALFAR).abs()) * min(BNORM, BIG));
         if (LSA || LSB) {
           SCALE = min(
-            SCALE,
-            ONE / SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs())),
-          );
+              SCALE, ONE / SAFMIN * max(ONE, max(ACOEF.abs(), BCOEFR.abs())));
           if (LSA) {
             ACOEF = ASCALE * (SCALE * SBETA);
           } else {
@@ -713,18 +663,8 @@ void dtgevc(
       } else {
         // Complex eigenvalue
 
-        dlag2(
-          S[JE - 1][JE - 1],
-          LDS,
-          P[JE - 1][JE - 1],
-          LDP,
-          SAFMIN * SAFETY,
-          ACOEF,
-          TEMP,
-          BCOEFR,
-          TEMP2,
-          BCOEFI,
-        );
+        dlag2(S[JE - 1][JE - 1], LDS, P[JE - 1][JE - 1], LDP, SAFMIN * SAFETY,
+            ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI);
         if (BCOEFI == ZERO) {
           INFO.value = JE - 1;
           return;
@@ -826,26 +766,8 @@ void dtgevc(
 
         // Compute x(j) (and x(j+1), if 2-by-2 block)
 
-        dlaln2(
-          false,
-          NA,
-          NW,
-          DMIN,
-          ACOEF,
-          S[J][J],
-          LDS,
-          BDIAG(1),
-          BDIAG(2),
-          WORK[2 * N + J],
-          N,
-          BCOEFR,
-          BCOEFI,
-          SUM,
-          2,
-          SCALE,
-          TEMP,
-          IINFO,
-        );
+        dlaln2(false, NA, NW, DMIN, ACOEF, S[J][J], LDS, BDIAG(1), BDIAG(2),
+            WORK[2 * N + J], N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO);
         if (SCALE < ONE) {
           for (JW = 0; JW <= NW - 1; JW++) {
             for (JR = 1; JR <= JE; JR++) {

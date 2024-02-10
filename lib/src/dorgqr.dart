@@ -110,16 +110,8 @@ void dorgqr(
   // Use unblocked code for the last or only block.
 
   if (KK < N) {
-    dorg2r(
-      M - KK,
-      N - KK,
-      K - KK,
-      A(KK + 1, KK + 1),
-      LDA,
-      TAU(KK + 1),
-      WORK,
-      IINFO,
-    );
+    dorg2r(M - KK, N - KK, K - KK, A(KK + 1, KK + 1), LDA, TAU(KK + 1), WORK,
+        IINFO);
   }
 
   if (KK > 0) {
@@ -131,37 +123,27 @@ void dorgqr(
         // Form the triangular factor of the block reflector
         // H = H(i) H(i+1) . . . H(i+ib-1)
 
-        dlarft(
-          'Forward',
-          'Columnwise',
-          M - I + 1,
-          IB,
-          A(I, I),
-          LDA,
-          TAU(I),
-          WORK,
-          LDWORK,
-        );
+        dlarft('Forward', 'Columnwise', M - I + 1, IB, A(I, I), LDA, TAU(I),
+            WORK, LDWORK);
 
         // Apply H to A(i:m,i+ib:n) from the left
 
         dlarfb(
-          'Left',
-          'No transpose',
-          'Forward',
-          'Columnwise',
-          M - I + 1,
-          N - I - IB + 1,
-          IB,
-          A(I, I),
-          LDA,
-          WORK,
-          LDWORK,
-          A(I, I + IB),
-          LDA,
-          WORK(IB + 1),
-          LDWORK,
-        );
+            'Left',
+            'No transpose',
+            'Forward',
+            'Columnwise',
+            M - I + 1,
+            N - I - IB + 1,
+            IB,
+            A(I, I),
+            LDA,
+            WORK,
+            LDWORK,
+            A(I, I + IB),
+            LDA,
+            WORK(IB + 1),
+            LDWORK);
       }
 
       // Apply H to rows i:m of current block

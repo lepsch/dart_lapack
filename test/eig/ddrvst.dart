@@ -291,135 +291,85 @@ void ddrvst(
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            0,
-            0,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            N,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
 
           IDUMMA[1] = 1;
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            0,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              0,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
 
           IDUMMA[1] = 1;
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 9) {
           // Symmetric banded, eigenvalues specified
 
           IHBW = ((N - 1) * dlarnd(1, ISEED3)).toInt();
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            IHBW,
-            IHBW,
-            'Z',
-            U,
-            LDU,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW,
+              'Z', U, LDU, WORK(N + 1), IINFO);
 
           // Store as dense matrix for most routines.
 
@@ -534,26 +484,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'V',
-            'A',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA1,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -587,26 +519,8 @@ void ddrvst(
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'N',
-            'A',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -640,28 +554,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'V',
-            'A',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA1,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -694,28 +588,8 @@ void ddrvst(
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'N',
-            'A',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -748,26 +622,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'V',
-            'I',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -788,46 +644,16 @@ void ddrvst(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(
-            N,
-            M2.value,
-            0,
-            D3,
-            D4,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            WORK,
-            max(1, M2.value),
-            RESULT[10],
-          );
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
+              max(1, M2.value), RESULT[10]);
 
           NTEST = 12;
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'N',
-            'I',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -852,29 +678,21 @@ void ddrvst(
           if (N > 0) {
             if (IL != 1) {
               VL = WA1[IL] -
-                  max(
-                    HALF * (WA1[IL] - WA1[IL - 1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[IL] - WA1[IL - 1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else {
               VL = WA1[1] -
-                  max(
-                    HALF * (WA1[N] - WA1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[N] - WA1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
             if (IU != N) {
               VU = WA1[IU] +
-                  max(
-                    HALF * (WA1[IU + 1] - WA1[IU]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[IU + 1] - WA1[IU]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else {
               VU = WA1[N] +
-                  max(
-                    HALF * (WA1[N] - WA1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[N] - WA1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
           } else {
             VL = ZERO;
@@ -888,26 +706,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'V',
-            'V',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(V,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -936,46 +736,16 @@ void ddrvst(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(
-            N,
-            M2.value,
-            0,
-            D3,
-            D4,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            WORK,
-            max(1, M2.value),
-            RESULT[13],
-          );
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
+              max(1, M2.value), RESULT[13]);
 
           NTEST = 15;
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVX';
-          dstevx(
-            'N',
-            'V',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
+              WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVX(N,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1005,19 +775,7 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVD';
-          dstevd(
-            'V',
-            N,
-            D1,
-            D2,
-            Z,
-            LDU,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVD(V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1046,19 +804,7 @@ void ddrvst(
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVD';
-          dstevd(
-            'N',
-            N,
-            D3,
-            D4,
-            Z,
-            LDU,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVD(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1091,28 +837,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'V',
-            'I',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1134,48 +860,16 @@ void ddrvst(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(
-            N,
-            M2.value,
-            0,
-            D3,
-            D4,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            WORK,
-            max(1, M2.value),
-            RESULT[19],
-          );
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
+              max(1, M2.value), RESULT[19]);
 
           NTEST = 21;
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'N',
-            'I',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1200,29 +894,21 @@ void ddrvst(
           if (N > 0) {
             if (IL != 1) {
               VL = WA1[IL] -
-                  max(
-                    HALF * (WA1[IL] - WA1[IL - 1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[IL] - WA1[IL - 1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else {
               VL = WA1[1] -
-                  max(
-                    HALF * (WA1[N] - WA1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[N] - WA1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
             if (IU != N) {
               VU = WA1[IU] +
-                  max(
-                    HALF * (WA1[IU + 1] - WA1[IU]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[IU + 1] - WA1[IU]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else {
               VU = WA1[N] +
-                  max(
-                    HALF * (WA1[N] - WA1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (WA1[N] - WA1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
           } else {
             VL = ZERO;
@@ -1236,28 +922,8 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'V',
-            'V',
-            N,
-            D1,
-            D2,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1286,48 +952,16 @@ void ddrvst(
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
-          dstt22(
-            N,
-            M2.value,
-            0,
-            D3,
-            D4,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            WORK,
-            max(1, M2.value),
-            RESULT[22],
-          );
+          dstt22(N, M2.value, 0, D3, D4, WA2, D2, Z, LDU, WORK,
+              max(1, M2.value), RESULT[22]);
 
           NTEST = 24;
           for (I = 1; I <= N - 1; I++) {
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEVR';
-          dstevr(
-            'N',
-            'V',
-            N,
-            D3,
-            D4,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU,
+              IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEVR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1387,23 +1021,8 @@ void ddrvst(
 
           // Do tests 25 and 26 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            V,
-            LDU,
-            D1,
-            D2,
-            A,
-            LDU,
-            Z,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
@@ -1442,29 +1061,21 @@ void ddrvst(
             TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
             if (IL != 1) {
               VL = D1[IL] -
-                  max(
-                    HALF * (D1[IL] - D1[IL - 1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[IL] - D1[IL - 1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else if (N > 0) {
               VL = D1[1] -
-                  max(
-                    HALF * (D1[N] - D1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[N] - D1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
             if (IU != N) {
               VU = D1[IU] +
-                  max(
-                    HALF * (D1[IU + 1] - D1[IU]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[IU + 1] - D1[IU]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else if (N > 0) {
               VU = D1[N] +
-                  max(
-                    HALF * (D1[N] - D1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[N] - D1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
           } else {
             TEMP3 = ZERO;
@@ -1473,37 +1084,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'V',
-            'A',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA1,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(V,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1519,57 +1104,16 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDU,
-            D1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDU, D1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'N',
-            'A',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(N,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1596,37 +1140,11 @@ void ddrvst(
           NTEST = NTEST + 1;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'V',
-            'I',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(V,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1642,59 +1160,17 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'N',
-            'I',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(N,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1716,37 +1192,11 @@ void ddrvst(
           NTEST = NTEST + 1;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'V',
-            'V',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(V,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1762,59 +1212,17 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVX';
-          dsyevx(
-            'N',
-            'V',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            LWORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsyevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, WORK, LWORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVX(N,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVX(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -1887,23 +1295,8 @@ void ddrvst(
 
           // Do tests 37 and 38 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDA,
-            D1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -1977,29 +1370,21 @@ void ddrvst(
             TEMP3 = max((D1[1]).abs(), (D1[N]).abs());
             if (IL != 1) {
               VL = D1[IL] -
-                  max(
-                    HALF * (D1[IL] - D1[IL - 1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[IL] - D1[IL - 1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else if (N > 0) {
               VL = D1[1] -
-                  max(
-                    HALF * (D1[N] - D1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[N] - D1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
             if (IU != N) {
               VU = D1[IU] +
-                  max(
-                    HALF * (D1[IU + 1] - D1[IU]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[IU + 1] - D1[IU]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             } else if (N > 0) {
               VU = D1[N] +
-                  max(
-                    HALF * (D1[N] - D1[1]),
-                    max(TEN * ULP * TEMP3, TEN * RTUNFL),
-                  );
+                  max(HALF * (D1[N] - D1[1]),
+                      max(TEN * ULP * TEMP3, TEN * RTUNFL));
             }
           } else {
             TEMP3 = ZERO;
@@ -2008,35 +1393,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'V',
-            'A',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA1,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(V,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2050,23 +1411,8 @@ void ddrvst(
 
           // Do tests 40 and 41 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDU,
-            WA1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2089,35 +1435,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'N',
-            'A',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(N,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2162,35 +1484,11 @@ void ddrvst(
           NTEST = NTEST + 1;
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'V',
-            'I',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(V,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2204,24 +1502,8 @@ void ddrvst(
 
           // Do tests 43 and 44 (or +54)
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V.asArray(),
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V.asArray(),
+              LDU, TAU, WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2244,35 +1526,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'N',
-            'I',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(N,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2322,35 +1580,11 @@ void ddrvst(
           NTEST = NTEST + 1;
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'V',
-            'V',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(V,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2364,24 +1598,8 @@ void ddrvst(
 
           // Do tests 46 and 47 (or +54)
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V.asArray(),
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V.asArray(),
+              LDU, TAU, WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2404,35 +1622,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSPEVX';
-          dspevx(
-            'N',
-            'V',
-            UPLO,
-            N,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            V.asArray(),
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, V.asArray(), IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSPEVX(N,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSPEVX(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2507,23 +1701,8 @@ void ddrvst(
 
           // Do tests 49 and 50 (or ... )
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDA,
-            D1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -2585,39 +1764,11 @@ void ddrvst(
         while (true) {
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'V',
-            'A',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M, WA2, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(V,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2631,23 +1782,8 @@ void ddrvst(
 
           // Do tests 52 and 53 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2666,39 +1802,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'N',
-            'A',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M3, WA3, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(N,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2738,39 +1846,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'V',
-            'I',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M2, WA2, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(V,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2784,24 +1864,8 @@ void ddrvst(
 
           // Do tests 55 and 56 (or +54)
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2820,39 +1884,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'N',
-            'I',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M3, WA3, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(N,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2893,39 +1929,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'V',
-            'V',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M2, WA2, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(V,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -2939,24 +1947,8 @@ void ddrvst(
 
           // Do tests 58 and 59 (or +54)
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
 
@@ -2975,39 +1967,11 @@ void ddrvst(
           }
 
           srnamc.SRNAMT = 'DSBEVX';
-          dsbevx(
-            'N',
-            'V',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            U,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            WORK,
-            IWORK,
-            IWORK(5 * N + 1),
-            IINFO,
-          );
+          dsbevx('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL,
+              M3, WA3, Z, LDU, WORK, IWORK, IWORK(5 * N + 1), IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSBEVX(N,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSBEVX(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3043,19 +2007,7 @@ void ddrvst(
 
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSYEVD';
-          dsyevd(
-            'V',
-            UPLO,
-            N,
-            A,
-            LDU,
-            D1,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3071,41 +2023,14 @@ void ddrvst(
 
           // Do tests 61 and 62 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            V,
-            LDU,
-            D1,
-            D2,
-            A,
-            LDU,
-            Z,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEVD';
-          dsyevd(
-            'N',
-            UPLO,
-            N,
-            A,
-            LDU,
-            D3,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dsyevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3158,20 +2083,8 @@ void ddrvst(
 
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSPEVD';
-          dspevd(
-            'V',
-            UPLO,
-            N,
-            WORK,
-            D1,
-            Z,
-            LDU,
-            WORK[INDX],
-            LWEDC - INDX + 1,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK[INDX], LWEDC - INDX + 1,
+              IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3187,23 +2100,8 @@ void ddrvst(
 
           // Do tests 64 and 65 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDA,
-            D1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           if (IUPLO == 1) {
             INDX = 1;
@@ -3225,20 +2123,8 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSPEVD';
-          dspevd(
-            'N',
-            UPLO,
-            N,
-            WORK,
-            D3,
-            Z,
-            LDU,
-            WORK[INDX],
-            LWEDC - INDX + 1,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK[INDX], LWEDC - INDX + 1,
+              IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3291,22 +2177,8 @@ void ddrvst(
         while (true) {
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSBEVD';
-          dsbevd(
-            'V',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            D1,
-            Z,
-            LDU,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK,
+              LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3322,23 +2194,8 @@ void ddrvst(
 
           // Do tests 67 and 68 (or +54)
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDA,
-            D1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           if (IUPLO == 1) {
             for (J = 1; J <= N; J++) {
@@ -3356,22 +2213,8 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSBEVD';
-          dsbevd(
-            'N',
-            UPLO,
-            N,
-            KD,
-            V,
-            LDU,
-            D3,
-            Z,
-            LDU,
-            WORK,
-            LWEDC,
-            IWORK,
-            LIWEDC,
-            IINFO,
-          );
+          dsbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, IWORK,
+              LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -3400,38 +2243,11 @@ void ddrvst(
           dlacpy(' ', N, N, A, LDA, V, LDU);
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'V',
-            'A',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M,
-            WA1,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(V,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(V,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3447,58 +2263,16 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt21(
-            1,
-            UPLO,
-            N,
-            0,
-            A,
-            LDU,
-            WA1,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK,
+              RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'N',
-            'A',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(N,A,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(N,A,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3525,38 +2299,11 @@ void ddrvst(
           NTEST = NTEST + 1;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'V',
-            'I',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(V,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(V,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3572,60 +2319,17 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'N',
-            'I',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(N,I,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(N,I,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3647,38 +2351,11 @@ void ddrvst(
           NTEST = NTEST + 1;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'V',
-            'V',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M2,
-            WA2,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(V,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(V,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3694,60 +2371,17 @@ void ddrvst(
 
           dlacpy(' ', N, N, V, LDU, A, LDA);
 
-          dsyt22(
-            1,
-            UPLO,
-            N,
-            M2.value,
-            0,
-            A,
-            LDU,
-            WA2,
-            D2,
-            Z,
-            LDU,
-            V,
-            LDU,
-            TAU,
-            WORK,
-            RESULT[NTEST],
-          );
+          dsyt22(1, UPLO, N, M2.value, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU,
+              WORK, RESULT[NTEST]);
 
           NTEST = NTEST + 2;
           dlacpy(' ', N, N, V, LDU, A, LDA);
           srnamc.SRNAMT = 'DSYEVR';
-          dsyevr(
-            'N',
-            'V',
-            UPLO,
-            N,
-            A,
-            LDU,
-            VL,
-            VU,
-            IL,
-            IU,
-            ABSTOL,
-            M3,
-            WA3,
-            Z,
-            LDU,
-            IWORK,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+          dsyevr('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z,
+              LDU, IWORK, WORK, LWORK, IWORK(2 * N + 1), LIWORK - 2 * N, IINFO);
           if (IINFO.value != 0) {
             print9999(
-              NOUNIT,
-              'DSYEVR(N,V,$UPLO)',
-              IINFO.value,
-              N,
-              JTYPE,
-              IOLDSD,
-            );
+                NOUNIT, 'DSYEVR(N,V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
@@ -3799,6 +2433,5 @@ void print9999(
   final Array<int> isedd,
 ) {
   NOUNIT.println(
-    ' DDRVST: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${isedd.i5(4, ',')})',
-  );
+      ' DDRVST: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${isedd.i5(4, ',')})');
 }

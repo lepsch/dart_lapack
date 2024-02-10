@@ -68,12 +68,11 @@ void dget33(
                   T[2][1] = -VAL[I3] * VM[IM3];
                   T[2][2] = VAL[I4] * VM[IM4];
                   TNRM = max(
-                    (T[1][1]).abs(),
-                    max(
-                      (T[1][2]).abs(),
-                      max((T[2][1]).abs(), (T[2][2]).abs()),
-                    ),
-                  );
+                      (T[1][1]).abs(),
+                      max(
+                        (T[1][2]).abs(),
+                        max((T[2][1]).abs(), (T[2][2]).abs()),
+                      ));
                   T1[1][1] = T[1][1];
                   T1[1][2] = T[1][2];
                   T1[2][1] = T[2][1];
@@ -83,18 +82,8 @@ void dget33(
                   Q[2][1] = ZERO;
                   Q[2][2] = ONE;
 
-                  dlanv2(
-                    T.box(1, 1),
-                    T.box(1, 2),
-                    T.box(2, 1),
-                    T.box(2, 2),
-                    WR1,
-                    WI1,
-                    WR2,
-                    WI2,
-                    CS,
-                    SN,
-                  );
+                  dlanv2(T.box(1, 1), T.box(1, 2), T.box(2, 1), T.box(2, 2),
+                      WR1, WI1, WR2, WI2, CS, SN);
                   for (J1 = 1; J1 <= 2; J1++) {
                     RES = Q[J1][1] * CS.value + Q[J1][2] * SN.value;
                     Q[J1][2] = -Q[J1][1] * SN.value + Q[J1][2] * CS.value;

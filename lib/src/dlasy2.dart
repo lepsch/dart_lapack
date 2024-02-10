@@ -96,19 +96,18 @@ void dlasy2(
     //                                   [TR21 TR22]
 
     SMIN = max(
-      EPS *
-          max(
-            TL[1][1].abs(),
+        EPS *
             max(
-              TR[1][1].abs(),
+              TL[1][1].abs(),
               max(
-                TR[1][2].abs(),
-                max(TR[2][1].abs(), TR[2][2]),
+                TR[1][1].abs(),
+                max(
+                  TR[1][2].abs(),
+                  max(TR[2][1].abs(), TR[2][2]),
+                ),
               ),
-            ),
-          ).abs(),
-      SMLNUM,
-    );
+            ).abs(),
+        SMLNUM);
     TMP[1] = TL[1][1] + SGN * TR[1][1];
     TMP[4] = TL[1][1] + SGN * TR[2][2];
     if (LTRANR) {
@@ -126,19 +125,18 @@ void dlasy2(
     //        [TL21 TL22] [X21]         [X21]         [B21]
 
     SMIN = max(
-      EPS *
-          max(
-            TR[1][1].abs(),
+        EPS *
             max(
-              TL[1][1].abs(),
+              TR[1][1].abs(),
               max(
-                TL[1][2].abs(),
-                max(TL[2][1].abs(), TL[2][2]),
+                TL[1][1].abs(),
+                max(
+                  TL[1][2].abs(),
+                  max(TL[2][1].abs(), TL[2][2]),
+                ),
               ),
-            ),
-          ).abs(),
-      SMLNUM,
-    );
+            ).abs(),
+        SMLNUM);
     TMP[1] = TL[1][1] + SGN * TR[1][1];
     TMP[4] = TL[2][2] + SGN * TR[1][1];
     if (LTRANL) {
@@ -211,16 +209,13 @@ void dlasy2(
   // Set pivots less than SMIN to SMIN.
 
   SMIN = max(
-    TR[1][1].abs(),
-    max(TR[1][2].abs(), max(TR[2][1].abs(), TR[2][2].abs())),
-  );
+      TR[1][1].abs(), max(TR[1][2].abs(), max(TR[2][1].abs(), TR[2][2].abs())));
   SMIN = max(
-    SMIN,
-    max(
-      TL[1][1].abs(),
-      max(TL[1][2].abs(), max(TL[2][1].abs(), TL[2][2].abs())),
-    ),
-  );
+      SMIN,
+      max(
+        TL[1][1].abs(),
+        max(TL[1][2].abs(), max(TL[2][1].abs(), TL[2][2].abs())),
+      ));
   SMIN = max(EPS * SMIN, SMLNUM);
   BTMP[1] = ZERO;
   dcopy(16, BTMP, 0, T16.asArray(), 1);
@@ -303,10 +298,8 @@ void dlasy2(
       (EIGHT * SMLNUM) * BTMP[3].abs() > T16[3][3].abs() ||
       (EIGHT * SMLNUM) * BTMP[4].abs() > T16[4][4].abs()) {
     SCALE.value = (ONE / EIGHT) /
-        max(
-          BTMP[1].abs(),
-          max(BTMP[2].abs(), max(BTMP[3].abs(), BTMP[4].abs())),
-        );
+        max(BTMP[1].abs(),
+            max(BTMP[2].abs(), max(BTMP[3].abs(), BTMP[4].abs())));
     BTMP[1] = BTMP[1] * SCALE.value;
     BTMP[2] = BTMP[2] * SCALE.value;
     BTMP[3] = BTMP[3] * SCALE.value;

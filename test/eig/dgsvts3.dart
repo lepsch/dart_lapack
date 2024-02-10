@@ -60,32 +60,8 @@ void dgsvts3(
 
   // Factorize the matrices A and B in the arrays AF and BF.
 
-  dggsvd3(
-    'U',
-    'V',
-    'Q',
-    M,
-    N,
-    P,
-    K,
-    L,
-    AF,
-    LDA,
-    BF,
-    LDB,
-    ALPHA,
-    BETA,
-    U,
-    LDU,
-    V,
-    LDV,
-    Q,
-    LDQ,
-    WORK,
-    LWORK,
-    IWORK,
-    INFO,
-  );
+  dggsvd3('U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU,
+      V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO);
 
   // Copy R
 
@@ -105,37 +81,11 @@ void dgsvts3(
 
   // Compute A:= U'*A*Q - D1*R
 
-  dgemm(
-    'No transpose',
-    'No transpose',
-    M,
-    N,
-    N,
-    ONE,
-    A,
-    LDA,
-    Q,
-    LDQ,
-    ZERO,
-    WORK.asMatrix(LDA),
-    LDA,
-  );
+  dgemm('No transpose', 'No transpose', M, N, N, ONE, A, LDA, Q, LDQ, ZERO,
+      WORK.asMatrix(LDA), LDA);
 
-  dgemm(
-    'Transpose',
-    'No transpose',
-    M,
-    N,
-    M,
-    ONE,
-    U,
-    LDU,
-    WORK.asMatrix(LDA),
-    LDA,
-    ZERO,
-    A,
-    LDA,
-  );
+  dgemm('Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK.asMatrix(LDA),
+      LDA, ZERO, A, LDA);
 
   for (I = 1; I <= K; I++) {
     for (J = I; J <= K + L; J++) {
@@ -161,37 +111,11 @@ void dgsvts3(
 
   // Compute B := V'*B*Q - D2*R
 
-  dgemm(
-    'No transpose',
-    'No transpose',
-    P,
-    N,
-    N,
-    ONE,
-    B,
-    LDB,
-    Q,
-    LDQ,
-    ZERO,
-    WORK.asMatrix(LDB),
-    LDB,
-  );
+  dgemm('No transpose', 'No transpose', P, N, N, ONE, B, LDB, Q, LDQ, ZERO,
+      WORK.asMatrix(LDB), LDB);
 
-  dgemm(
-    'Transpose',
-    'No transpose',
-    P,
-    N,
-    P,
-    ONE,
-    V,
-    LDV,
-    WORK.asMatrix(LDB),
-    LDB,
-    ZERO,
-    B,
-    LDB,
-  );
+  dgemm('Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK.asMatrix(LDB),
+      LDB, ZERO, B, LDB);
 
   for (I = 1; I <= L; I++) {
     for (J = I; J <= L; J++) {

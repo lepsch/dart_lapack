@@ -122,61 +122,27 @@ void dlasq3(
         Z[4 * N0.value - PP.value] = Z[4 * I0 - PP.value];
       }
       DMIN2.value = min(DMIN2.value, Z[4 * N0.value + PP.value - 1]);
-      Z[4 * N0.value + PP.value - 1] = min(
-        Z[4 * N0.value + PP.value - 1],
-        min(Z[4 * I0 + PP.value - 1], Z[4 * I0 + PP.value + 3]),
-      );
-      Z[4 * N0.value - PP.value] = min(
-        Z[4 * N0.value - PP.value],
-        min(Z[4 * I0 - PP.value], Z[4 * I0 - PP.value + 4]),
-      );
+      Z[4 * N0.value + PP.value - 1] = min(Z[4 * N0.value + PP.value - 1],
+          min(Z[4 * I0 + PP.value - 1], Z[4 * I0 + PP.value + 3]));
+      Z[4 * N0.value - PP.value] = min(Z[4 * N0.value - PP.value],
+          min(Z[4 * I0 - PP.value], Z[4 * I0 - PP.value + 4]));
       QMAX.value = max(
-        QMAX.value,
-        max(Z[4 * I0 + PP.value - 3], Z[4 * I0 + PP.value + 1]),
-      );
+          QMAX.value, max(Z[4 * I0 + PP.value - 3], Z[4 * I0 + PP.value + 1]));
       DMIN.value = -ZERO;
     }
   }
 
   // Choose a shift.
 
-  dlasq4(
-    I0,
-    N0.value,
-    Z,
-    PP.value,
-    N0IN,
-    DMIN.value,
-    DMIN1,
-    DMIN2.value,
-    DN,
-    DN1,
-    DN2,
-    TAU.value,
-    TTYPE,
-    G,
-  );
+  dlasq4(I0, N0.value, Z, PP.value, N0IN, DMIN.value, DMIN1, DMIN2.value, DN,
+      DN1, DN2, TAU.value, TTYPE, G);
 
   // Call dqds until DMIN.value > 0.
 
   var success = false;
   while (true) {
-    dlasq5(
-      I0,
-      N0.value,
-      Z,
-      PP.value,
-      TAU.value,
-      SIGMA.value,
-      DMIN.value,
-      DMIN1,
-      DMIN2.value,
-      DN,
-      DN1,
-      DN2,
-      IEEE,
-      EPS,
-    );
+    dlasq5(I0, N0.value, Z, PP.value, TAU.value, SIGMA.value, DMIN.value, DMIN1,
+        DMIN2.value, DN, DN1, DN2, IEEE, EPS);
 
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
     ITER.value = ITER.value + 1;
@@ -237,18 +203,8 @@ void dlasq3(
   // Risk of underflow.
 
   if (!success) {
-    dlasq6(
-      I0,
-      N0.value,
-      Z,
-      PP.value,
-      DMIN.value,
-      DMIN1,
-      DMIN2.value,
-      DN,
-      DN1,
-      DN2,
-    );
+    dlasq6(I0, N0.value, Z, PP.value, DMIN.value, DMIN1, DMIN2.value, DN, DN1,
+        DN2);
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
     ITER.value = ITER.value + 1;
     TAU.value = ZERO;

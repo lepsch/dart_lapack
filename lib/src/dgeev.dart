@@ -90,58 +90,24 @@ void dgeev(
       if (WANTVL) {
         MINWRK = 4 * N;
         MAXWRK = max(
-          MAXWRK,
-          2 * N + (N - 1) * ilaenv(1, 'DORGHR', ' ', N, 1, N, -1),
-        );
+            MAXWRK, 2 * N + (N - 1) * ilaenv(1, 'DORGHR', ' ', N, 1, N, -1));
         dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO);
         HSWORK = WORK[1].toInt();
         MAXWRK = max(MAXWRK, max(N + 1, N + HSWORK));
-        dtrevc3(
-          'L',
-          'B',
-          SELECT,
-          N,
-          A,
-          LDA,
-          VL,
-          LDVL,
-          VR,
-          LDVR,
-          N,
-          NOUT,
-          WORK,
-          -1,
-          IERR,
-        );
+        dtrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK,
+            -1, IERR);
         LWORK_TREVC = WORK[1].toInt();
         MAXWRK = max(MAXWRK, N + LWORK_TREVC);
         MAXWRK = max(MAXWRK, 4 * N);
       } else if (WANTVR) {
         MINWRK = 4 * N;
         MAXWRK = max(
-          MAXWRK,
-          2 * N + (N - 1) * ilaenv(1, 'DORGHR', ' ', N, 1, N, -1),
-        );
+            MAXWRK, 2 * N + (N - 1) * ilaenv(1, 'DORGHR', ' ', N, 1, N, -1));
         dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO);
         HSWORK = WORK[1].toInt();
         MAXWRK = max(MAXWRK, max(N + 1, N + HSWORK));
-        dtrevc3(
-          'R',
-          'B',
-          SELECT,
-          N,
-          A,
-          LDA,
-          VL,
-          LDVL,
-          VR,
-          LDVR,
-          N,
-          NOUT,
-          WORK,
-          -1,
-          IERR,
-        );
+        dtrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK,
+            -1, IERR);
         LWORK_TREVC = WORK[1].toInt();
         MAXWRK = max(MAXWRK, N + LWORK_TREVC);
         MAXWRK = max(MAXWRK, 4 * N);
@@ -203,17 +169,8 @@ void dgeev(
 
   ITAU = IBAL + N;
   IWRK = ITAU + N;
-  dgehrd(
-    N,
-    ILO.value,
-    IHI.value,
-    A,
-    LDA,
-    WORK(ITAU),
-    WORK(IWRK),
-    LWORK - IWRK + 1,
-    IERR,
-  );
+  dgehrd(N, ILO.value, IHI.value, A, LDA, WORK(ITAU), WORK(IWRK),
+      LWORK - IWRK + 1, IERR);
 
   if (WANTVL) {
     // Want left eigenvectors
@@ -225,38 +182,15 @@ void dgeev(
     // Generate orthogonal matrix in VL
     // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 
-    dorghr(
-      N,
-      ILO.value,
-      IHI.value,
-      VL,
-      LDVL,
-      WORK(ITAU),
-      WORK(IWRK),
-      LWORK - IWRK + 1,
-      IERR,
-    );
+    dorghr(N, ILO.value, IHI.value, VL, LDVL, WORK(ITAU), WORK(IWRK),
+        LWORK - IWRK + 1, IERR);
 
     // Perform QR iteration, accumulating Schur vectors in VL
     // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
     IWRK = ITAU;
-    dhseqr(
-      'S',
-      'V',
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      WR,
-      WI,
-      VL,
-      LDVL,
-      WORK(IWRK),
-      LWORK - IWRK + 1,
-      INFO,
-    );
+    dhseqr('S', 'V', N, ILO.value, IHI.value, A, LDA, WR, WI, VL, LDVL,
+        WORK(IWRK), LWORK - IWRK + 1, INFO);
 
     if (WANTVR) {
       // Want left and right eigenvectors
@@ -275,59 +209,22 @@ void dgeev(
     // Generate orthogonal matrix in VR
     // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 
-    dorghr(
-      N,
-      ILO.value,
-      IHI.value,
-      VR,
-      LDVR,
-      WORK(ITAU),
-      WORK(IWRK),
-      LWORK - IWRK + 1,
-      IERR,
-    );
+    dorghr(N, ILO.value, IHI.value, VR, LDVR, WORK(ITAU), WORK(IWRK),
+        LWORK - IWRK + 1, IERR);
 
     // Perform QR iteration, accumulating Schur vectors in VR
     // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
     IWRK = ITAU;
-    dhseqr(
-      'S',
-      'V',
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      WR,
-      WI,
-      VR,
-      LDVR,
-      WORK(IWRK),
-      LWORK - IWRK + 1,
-      INFO,
-    );
+    dhseqr('S', 'V', N, ILO.value, IHI.value, A, LDA, WR, WI, VR, LDVR,
+        WORK(IWRK), LWORK - IWRK + 1, INFO);
   } else {
     // Compute eigenvalues only
     // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
     IWRK = ITAU;
-    dhseqr(
-      'E',
-      'N',
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      WR,
-      WI,
-      VR,
-      LDVR,
-      WORK(IWRK),
-      LWORK - IWRK + 1,
-      INFO,
-    );
+    dhseqr('E', 'N', N, ILO.value, IHI.value, A, LDA, WR, WI, VR, LDVR,
+        WORK(IWRK), LWORK - IWRK + 1, INFO);
   }
 
   // If INFO.value != 0 from DHSEQR, then quit
@@ -337,23 +234,8 @@ void dgeev(
       // Compute left and/or right eigenvectors
       // (Workspace: need 4*N, prefer N + N + 2*N*NB)
 
-      dtrevc3(
-        SIDE,
-        'B',
-        SELECT,
-        N,
-        A,
-        LDA,
-        VL,
-        LDVL,
-        VR,
-        LDVR,
-        N,
-        NOUT,
-        WORK(IWRK),
-        LWORK - IWRK + 1,
-        IERR,
-      );
+      dtrevc3(SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT,
+          WORK(IWRK), LWORK - IWRK + 1, IERR);
     }
 
     if (WANTVL) {
@@ -371,10 +253,8 @@ void dgeev(
           dscal(N, SCL, VL(1, I).asArray(), 1);
         } else if (WI[I] > ZERO) {
           SCL = ONE /
-              dlapy2(
-                dnrm2(N, VL(1, I).asArray(), 1),
-                dnrm2(N, VL(1, I + 1).asArray(), 1),
-              );
+              dlapy2(dnrm2(N, VL(1, I).asArray(), 1),
+                  dnrm2(N, VL(1, I + 1).asArray(), 1));
           dscal(N, SCL, VL(1, I).asArray(), 1);
           dscal(N, SCL, VL(1, I + 1).asArray(), 1);
           for (K = 1; K <= N; K++) {
@@ -384,15 +264,8 @@ void dgeev(
           } // 10
           K = idamax(N, WORK(IWRK), 1);
           dlartg(VL[K][I], VL[K][I + 1], CS, SN, R);
-          drot(
-            N,
-            VL(1, I).asArray(),
-            1,
-            VL(1, I + 1).asArray(),
-            1,
-            CS.value,
-            SN.value,
-          );
+          drot(N, VL(1, I).asArray(), 1, VL(1, I + 1).asArray(), 1, CS.value,
+              SN.value);
           VL[K][I + 1] = ZERO;
         }
       } // 20
@@ -402,18 +275,7 @@ void dgeev(
       // Undo balancing of right eigenvectors
       // (Workspace: need N)
 
-      dgebak(
-        'B',
-        'R',
-        N,
-        ILO.value,
-        IHI.value,
-        WORK(IBAL),
-        N,
-        VR,
-        LDVR,
-        IERR,
-      );
+      dgebak('B', 'R', N, ILO.value, IHI.value, WORK(IBAL), N, VR, LDVR, IERR);
 
       // Normalize right eigenvectors and make largest component real
 
@@ -424,10 +286,8 @@ void dgeev(
           dscal(N, SCL, VR(1, I).asArray(), 1);
         } else if (WI[I] > ZERO) {
           SCL = ONE /
-              dlapy2(
-                dnrm2(N, VR(1, I).asArray(), 1),
-                dnrm2(N, VR(1, I + 1).asArray(), 1),
-              );
+              dlapy2(dnrm2(N, VR(1, I).asArray(), 1),
+                  dnrm2(N, VR(1, I + 1).asArray(), 1));
           dscal(N, SCL, VR(1, I).asArray(), 1);
           dscal(N, SCL, VR(1, I + 1).asArray(), 1);
           for (K = 1; K <= N; K++) {
@@ -437,15 +297,8 @@ void dgeev(
           } // 30
           K = idamax(N, WORK(IWRK), 1);
           dlartg(VR[K][I], VR[K][I + 1], CS, SN, R);
-          drot(
-            N,
-            VR(1, I).asArray(),
-            1,
-            VR(1, I + 1).asArray(),
-            1,
-            CS.value,
-            SN.value,
-          );
+          drot(N, VR(1, I).asArray(), 1, VR(1, I + 1).asArray(), 1, CS.value,
+              SN.value);
           VR[K][I + 1] = ZERO;
         }
       } // 40
@@ -456,55 +309,15 @@ void dgeev(
 
   if (SCALEA) {
     var ld = max(N - INFO.value, 1);
-    dlascl(
-      'G',
-      0,
-      0,
-      CSCALE,
-      ANRM,
-      N - INFO.value,
-      1,
-      WR(INFO.value + 1).asMatrix(ld),
-      ld,
-      IERR,
-    );
-    dlascl(
-      'G',
-      0,
-      0,
-      CSCALE,
-      ANRM,
-      N - INFO.value,
-      1,
-      WI(INFO.value + 1).asMatrix(ld),
-      ld,
-      IERR,
-    );
+    dlascl('G', 0, 0, CSCALE, ANRM, N - INFO.value, 1,
+        WR(INFO.value + 1).asMatrix(ld), ld, IERR);
+    dlascl('G', 0, 0, CSCALE, ANRM, N - INFO.value, 1,
+        WI(INFO.value + 1).asMatrix(ld), ld, IERR);
     if (INFO.value > 0) {
       dlascl(
-        'G',
-        0,
-        0,
-        CSCALE,
-        ANRM,
-        ILO.value - 1,
-        1,
-        WR.asMatrix(N),
-        N,
-        IERR,
-      );
+          'G', 0, 0, CSCALE, ANRM, ILO.value - 1, 1, WR.asMatrix(N), N, IERR);
       dlascl(
-        'G',
-        0,
-        0,
-        CSCALE,
-        ANRM,
-        ILO.value - 1,
-        1,
-        WI.asMatrix(N),
-        N,
-        IERR,
-      );
+          'G', 0, 0, CSCALE, ANRM, ILO.value - 1, 1, WI.asMatrix(N), N, IERR);
     }
   }
 

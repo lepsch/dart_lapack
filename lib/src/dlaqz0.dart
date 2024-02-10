@@ -179,28 +179,8 @@ void dlaqz0(
   NBR = NSR + ITEMP1;
 
   if (N < NMIN || REC >= 2) {
-    dhgeqz(
-      WANTS,
-      WANTQ,
-      WANTZ,
-      N,
-      ILO,
-      IHI,
-      A,
-      LDA,
-      B,
-      LDB,
-      ALPHAR,
-      ALPHAI,
-      BETA,
-      Q,
-      LDQ,
-      Z,
-      LDZ,
-      WORK,
-      LWORK,
-      INFO,
-    );
+    dhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI,
+        BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO);
     return;
   }
 
@@ -209,65 +189,38 @@ void dlaqz0(
   // Workspace query to dlaqz3
   NW = max(NWR, NMIN);
   dlaqz3(
-    ILSCHUR,
-    ILQ,
-    ILZ,
-    N,
-    ILO,
-    IHI,
-    NW,
-    A,
-    LDA,
-    B,
-    LDB,
-    Q,
-    LDQ,
-    Z,
-    LDZ,
-    N_UNDEFLATED,
-    N_DEFLATED,
-    ALPHAR,
-    ALPHAI,
-    BETA,
-    WORK,
-    NW,
-    WORK,
-    NW,
-    WORK,
-    -1,
-    REC,
-    AED_INFO.value,
-  );
+      ILSCHUR,
+      ILQ,
+      ILZ,
+      N,
+      ILO,
+      IHI,
+      NW,
+      A,
+      LDA,
+      B,
+      LDB,
+      Q,
+      LDQ,
+      Z,
+      LDZ,
+      N_UNDEFLATED,
+      N_DEFLATED,
+      ALPHAR,
+      ALPHAI,
+      BETA,
+      WORK,
+      NW,
+      WORK,
+      NW,
+      WORK,
+      -1,
+      REC,
+      AED_INFO.value);
   ITEMP1 = WORK[1].toInt();
   // Workspace query to dlaqz4
-  dlaqz4(
-    ILSCHUR,
-    ILQ,
-    ILZ,
-    N,
-    ILO,
-    IHI,
-    NSR,
-    NBR,
-    ALPHAR,
-    ALPHAI,
-    BETA,
-    A,
-    LDA,
-    B,
-    LDB,
-    Q,
-    LDQ,
-    Z,
-    LDZ,
-    WORK,
-    NBR,
-    WORK,
-    NBR,
-    WORK,
-    -1,
-    SWEEP_INFO,
-  );
+  dlaqz4(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHAR, ALPHAI, BETA, A, LDA,
+      B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO);
   ITEMP2 = WORK[1].toInt();
 
   LWORKREQ =
@@ -393,68 +346,26 @@ void dlaqz0(
           dlartg(B[K2 - 1][K2], B[K2 - 1][K2 - 1], C1, S1, TEMP);
           B[K2 - 1][K2] = TEMP.value;
           B[K2 - 1][K2 - 1] = ZERO;
-          drot(
-            K2 - 2 - ISTARTM + 1,
-            B(ISTARTM, K2).asArray(),
-            1,
-            B(ISTARTM, K2 - 1).asArray(),
-            1,
-            C1.value,
-            S1.value,
-          );
-          drot(
-            min(K2 + 1, ISTOP) - ISTARTM + 1,
-            A(ISTARTM, K2).asArray(),
-            1,
-            A(ISTARTM, K2 - 1).asArray(),
-            1,
-            C1.value,
-            S1.value,
-          );
+          drot(K2 - 2 - ISTARTM + 1, B(ISTARTM, K2).asArray(), 1,
+              B(ISTARTM, K2 - 1).asArray(), 1, C1.value, S1.value);
+          drot(min(K2 + 1, ISTOP) - ISTARTM + 1, A(ISTARTM, K2).asArray(), 1,
+              A(ISTARTM, K2 - 1).asArray(), 1, C1.value, S1.value);
           if (ILZ) {
-            drot(
-              N,
-              Z(1, K2).asArray(),
-              1,
-              Z(1, K2 - 1).asArray(),
-              1,
-              C1.value,
-              S1.value,
-            );
+            drot(N, Z(1, K2).asArray(), 1, Z(1, K2 - 1).asArray(), 1, C1.value,
+                S1.value);
           }
 
           if (K2 < ISTOP) {
             dlartg(A[K2][K2 - 1], A[K2 + 1][K2 - 1], C1, S1, TEMP);
             A[K2][K2 - 1] = TEMP.value;
             A[K2 + 1][K2 - 1] = ZERO;
-            drot(
-              ISTOPM - K2 + 1,
-              A(K2, K2).asArray(),
-              LDA,
-              A(K2 + 1, K2).asArray(),
-              LDA,
-              C1.value,
-              S1.value,
-            );
-            drot(
-              ISTOPM - K2 + 1,
-              B(K2, K2).asArray(),
-              LDB,
-              B(K2 + 1, K2).asArray(),
-              LDB,
-              C1.value,
-              S1.value,
-            );
+            drot(ISTOPM - K2 + 1, A(K2, K2).asArray(), LDA,
+                A(K2 + 1, K2).asArray(), LDA, C1.value, S1.value);
+            drot(ISTOPM - K2 + 1, B(K2, K2).asArray(), LDB,
+                B(K2 + 1, K2).asArray(), LDB, C1.value, S1.value);
             if (ILQ) {
-              drot(
-                N,
-                Q(1, K2).asArray(),
-                1,
-                Q(1, K2 + 1).asArray(),
-                1,
-                C1.value,
-                S1.value,
-              );
+              drot(N, Q(1, K2).asArray(), 1, Q(1, K2 + 1).asArray(), 1,
+                  C1.value, S1.value);
             }
           }
         }
@@ -464,33 +375,24 @@ void dlaqz0(
           A[ISTART2][ISTART2] = TEMP.value;
           A[ISTART2 + 1][ISTART2] = ZERO;
           drot(
-            ISTOPM - (ISTART2 + 1) + 1,
-            A(ISTART2, ISTART2 + 1).asArray(),
-            LDA,
-            A(ISTART2 + 1, ISTART2 + 1).asArray(),
-            LDA,
-            C1.value,
-            S1.value,
-          );
-          drot(
-            ISTOPM - (ISTART2 + 1) + 1,
-            B(ISTART2, ISTART2 + 1).asArray(),
-            LDB,
-            B(ISTART2 + 1, ISTART2 + 1).asArray(),
-            LDB,
-            C1.value,
-            S1.value,
-          );
-          if (ILQ) {
-            drot(
-              N,
-              Q(1, ISTART2).asArray(),
-              1,
-              Q(1, ISTART2 + 1).asArray(),
-              1,
+              ISTOPM - (ISTART2 + 1) + 1,
+              A(ISTART2, ISTART2 + 1).asArray(),
+              LDA,
+              A(ISTART2 + 1, ISTART2 + 1).asArray(),
+              LDA,
               C1.value,
-              S1.value,
-            );
+              S1.value);
+          drot(
+              ISTOPM - (ISTART2 + 1) + 1,
+              B(ISTART2, ISTART2 + 1).asArray(),
+              LDB,
+              B(ISTART2 + 1, ISTART2 + 1).asArray(),
+              LDB,
+              C1.value,
+              S1.value);
+          if (ILQ) {
+            drot(N, Q(1, ISTART2).asArray(), 1, Q(1, ISTART2 + 1).asArray(), 1,
+                C1.value, S1.value);
           }
         }
 
@@ -527,35 +429,34 @@ void dlaqz0(
     // Time for AED
 
     dlaqz3(
-      ILSCHUR,
-      ILQ,
-      ILZ,
-      N,
-      ISTART2,
-      ISTOP,
-      NW,
-      A,
-      LDA,
-      B,
-      LDB,
-      Q,
-      LDQ,
-      Z,
-      LDZ,
-      N_UNDEFLATED,
-      N_DEFLATED,
-      ALPHAR,
-      ALPHAI,
-      BETA,
-      WORK,
-      NW,
-      WORK[pow(NW, 2).toInt() + 1],
-      NW,
-      WORK[2 * pow(NW, 2).toInt() + 1],
-      LWORK - 2 * pow(NW, 2),
-      REC,
-      AED_INFO.value,
-    );
+        ILSCHUR,
+        ILQ,
+        ILZ,
+        N,
+        ISTART2,
+        ISTOP,
+        NW,
+        A,
+        LDA,
+        B,
+        LDB,
+        Q,
+        LDQ,
+        Z,
+        LDZ,
+        N_UNDEFLATED,
+        N_DEFLATED,
+        ALPHAR,
+        ALPHAI,
+        BETA,
+        WORK,
+        NW,
+        WORK[pow(NW, 2).toInt() + 1],
+        NW,
+        WORK[2 * pow(NW, 2).toInt() + 1],
+        LWORK - 2 * pow(NW, 2),
+        REC,
+        AED_INFO.value);
 
     if (N_DEFLATED > 0) {
       ISTOP = ISTOP - N_DEFLATED;
@@ -622,33 +523,32 @@ void dlaqz0(
     // Time for a QZ sweep
 
     dlaqz4(
-      ILSCHUR,
-      ILQ,
-      ILZ,
-      N,
-      ISTART2,
-      ISTOP,
-      NS,
-      NBLOCK,
-      ALPHAR[SHIFTPOS],
-      ALPHAI[SHIFTPOS],
-      BETA[SHIFTPOS],
-      A,
-      LDA,
-      B,
-      LDB,
-      Q,
-      LDQ,
-      Z,
-      LDZ,
-      WORK,
-      NBLOCK,
-      WORK[pow(NBLOCK, 2).toInt() + 1],
-      NBLOCK,
-      WORK[2 * pow(NBLOCK, 2).toInt() + 1],
-      LWORK - 2 * pow(NBLOCK, 2),
-      SWEEP_INFO.value,
-    );
+        ILSCHUR,
+        ILQ,
+        ILZ,
+        N,
+        ISTART2,
+        ISTOP,
+        NS,
+        NBLOCK,
+        ALPHAR[SHIFTPOS],
+        ALPHAI[SHIFTPOS],
+        BETA[SHIFTPOS],
+        A,
+        LDA,
+        B,
+        LDB,
+        Q,
+        LDQ,
+        Z,
+        LDZ,
+        WORK,
+        NBLOCK,
+        WORK[pow(NBLOCK, 2).toInt() + 1],
+        NBLOCK,
+        WORK[2 * pow(NBLOCK, 2).toInt() + 1],
+        LWORK - 2 * pow(NBLOCK, 2),
+        SWEEP_INFO.value);
   }
 
   // Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
@@ -656,28 +556,8 @@ void dlaqz0(
   // and only normalize the blocks. In case of a rare convergence failure,
   // the single shift might perform better.
 
-  dhgeqz(
-    WANTS,
-    WANTQ,
-    WANTZ,
-    N,
-    ILO,
-    IHI,
-    A,
-    LDA,
-    B,
-    LDB,
-    ALPHAR,
-    ALPHAI,
-    BETA,
-    Q,
-    LDQ,
-    Z,
-    LDZ,
-    WORK,
-    LWORK,
-    NORM_INFO,
-  );
+  dhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA,
+      Q, LDQ, Z, LDZ, WORK, LWORK, NORM_INFO);
 
   INFO.value = NORM_INFO.value;
 }

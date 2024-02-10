@@ -73,25 +73,11 @@ void dlaexc(
     // Apply transformation to the matrix T.
 
     if (J3 <= N) {
-      drot(
-        N - J1 - 1,
-        T(J1, J3).asArray(),
-        LDT,
-        T(J2, J3).asArray(),
-        LDT,
-        CS.value,
-        SN.value,
-      );
+      drot(N - J1 - 1, T(J1, J3).asArray(), LDT, T(J2, J3).asArray(), LDT,
+          CS.value, SN.value);
     }
-    drot(
-      J1 - 1,
-      T(1, J1).asArray(),
-      1,
-      T(1, J2).asArray(),
-      1,
-      CS.value,
-      SN.value,
-    );
+    drot(J1 - 1, T(1, J1).asArray(), 1, T(1, J2).asArray(), 1, CS.value,
+        SN.value);
 
     T[J1][J1] = T22;
     T[J2][J2] = T11;
@@ -120,24 +106,8 @@ void dlaexc(
 
     // Solve T11*X - X*T22 = scale*T12 for X.
 
-    dlasy2(
-      false,
-      false,
-      -1,
-      N1,
-      N2,
-      D,
-      LDD,
-      D(N1 + 1, N1 + 1),
-      LDD,
-      D(1, N1 + 1),
-      LDD,
-      SCALE,
-      X,
-      LDX,
-      XNORM,
-      IERR,
-    );
+    dlasy2(false, false, -1, N1, N2, D, LDD, D(N1 + 1, N1 + 1), LDD,
+        D(1, N1 + 1), LDD, SCALE, X, LDX, XNORM, IERR);
 
     // Swap the adjacent diagonal blocks.
 
@@ -298,46 +268,15 @@ void dlaexc(
     if (N2 == 2) {
       // Standardize new 2-by-2 block T11
 
-      dlanv2(
-        T.box(J1, J1),
-        T.box(J1, J2),
-        T.box(J2, J1),
-        T.box(J2, J2),
-        WR1,
-        WI1,
-        WR2,
-        WI2,
-        CS,
-        SN,
-      );
-      drot(
-        N - J1 - 1,
-        T(J1, J1 + 2).asArray(),
-        LDT,
-        T(J2, J1 + 2).asArray(),
-        LDT,
-        CS.value,
-        SN.value,
-      );
-      drot(
-        J1 - 1,
-        T(1, J1).asArray(),
-        1,
-        T(1, J2).asArray(),
-        1,
-        CS.value,
-        SN.value,
-      );
+      dlanv2(T.box(J1, J1), T.box(J1, J2), T.box(J2, J1), T.box(J2, J2), WR1,
+          WI1, WR2, WI2, CS, SN);
+      drot(N - J1 - 1, T(J1, J1 + 2).asArray(), LDT, T(J2, J1 + 2).asArray(),
+          LDT, CS.value, SN.value);
+      drot(J1 - 1, T(1, J1).asArray(), 1, T(1, J2).asArray(), 1, CS.value,
+          SN.value);
       if (WANTQ) {
-        drot(
-          N,
-          Q(1, J1).asArray(),
-          1,
-          Q(1, J2).asArray(),
-          1,
-          CS.value,
-          SN.value,
-        );
+        drot(N, Q(1, J1).asArray(), 1, Q(1, J2).asArray(), 1, CS.value,
+            SN.value);
       }
     }
 
@@ -346,48 +285,17 @@ void dlaexc(
 
       J3 = J1 + N2;
       J4 = J3 + 1;
-      dlanv2(
-        T.box(J3, J3),
-        T.box(J3, J4),
-        T.box(J4, J3),
-        T.box(J4, J4),
-        WR1,
-        WI1,
-        WR2,
-        WI2,
-        CS,
-        SN,
-      );
+      dlanv2(T.box(J3, J3), T.box(J3, J4), T.box(J4, J3), T.box(J4, J4), WR1,
+          WI1, WR2, WI2, CS, SN);
       if (J3 + 2 <= N) {
-        drot(
-          N - J3 - 1,
-          T(J3, J3 + 2).asArray(),
-          LDT,
-          T(J4, J3 + 2).asArray(),
-          LDT,
-          CS.value,
-          SN.value,
-        );
+        drot(N - J3 - 1, T(J3, J3 + 2).asArray(), LDT, T(J4, J3 + 2).asArray(),
+            LDT, CS.value, SN.value);
       }
-      drot(
-        J3 - 1,
-        T(1, J3).asArray(),
-        1,
-        T(1, J4).asArray(),
-        1,
-        CS.value,
-        SN.value,
-      );
+      drot(J3 - 1, T(1, J3).asArray(), 1, T(1, J4).asArray(), 1, CS.value,
+          SN.value);
       if (WANTQ) {
-        drot(
-          N,
-          Q(1, J3).asArray(),
-          1,
-          Q(1, J4).asArray(),
-          1,
-          CS.value,
-          SN.value,
-        );
+        drot(N, Q(1, J3).asArray(), 1, Q(1, J4).asArray(), 1, CS.value,
+            SN.value);
       }
     }
   }

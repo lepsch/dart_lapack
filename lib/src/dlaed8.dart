@@ -198,15 +198,8 @@ void dlaed8(
         GIVNUM[1][GIVPTR.value] = C;
         GIVNUM[2][GIVPTR.value] = S;
         if (ICOMPQ == 1) {
-          drot(
-            QSIZ,
-            Q(1, INDXQ[INDX[JLAM]]).asArray(),
-            1,
-            Q(1, INDXQ[INDX[J]]).asArray(),
-            1,
-            C,
-            S,
-          );
+          drot(QSIZ, Q(1, INDXQ[INDX[JLAM]]).asArray(), 1,
+              Q(1, INDXQ[INDX[J]]).asArray(), 1, C, S);
         }
         T = D[JLAM] * C * C + D[J] * S * S;
         D[J] = D[JLAM] * S * S + D[J] * C * C;
@@ -268,15 +261,8 @@ void dlaed8(
       dcopy(N - K.value, DLAMBDA(K.value + 1), 1, D(K.value + 1), 1);
     } else {
       dcopy(N - K.value, DLAMBDA(K.value + 1), 1, D(K.value + 1), 1);
-      dlacpy(
-        'A',
-        QSIZ,
-        N - K.value,
-        Q2(1, K.value + 1),
-        LDQ2,
-        Q(1, K.value + 1),
-        LDQ,
-      );
+      dlacpy('A', QSIZ, N - K.value, Q2(1, K.value + 1), LDQ2,
+          Q(1, K.value + 1), LDQ);
     }
   }
 }

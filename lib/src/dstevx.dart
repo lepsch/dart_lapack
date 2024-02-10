@@ -185,43 +185,12 @@ void dstevx(
     INDWRK = 1;
     INDISP = 1 + N;
     INDIWO = INDISP + N;
-    dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VLL,
-      VUU,
-      IL,
-      IU,
-      ABSTOL,
-      D,
-      E,
-      M,
-      NSPLIT,
-      W,
-      IWORK,
-      IWORK(INDISP),
-      WORK(INDWRK),
-      IWORK(INDIWO),
-      INFO,
-    );
+    dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK,
+        IWORK(INDISP), WORK(INDWRK), IWORK(INDIWO), INFO);
 
     if (WANTZ) {
-      dstein(
-        N,
-        D,
-        E,
-        M.value,
-        W,
-        IWORK(1),
-        IWORK(INDISP),
-        Z,
-        LDZ,
-        WORK(INDWRK),
-        IWORK(INDIWO),
-        IFAIL,
-        INFO,
-      );
+      dstein(N, D, E, M.value, W, IWORK(1), IWORK(INDISP), Z, LDZ, WORK(INDWRK),
+          IWORK(INDIWO), IFAIL, INFO);
     }
     break;
   }

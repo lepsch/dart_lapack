@@ -146,24 +146,10 @@ void dtgex2(
     } else {
       dlartg(T[1][1], T[2][1], LI.box(1, 1), LI.box(2, 1), DDUM);
     }
-    drot(
-      2,
-      S(1, 1).asArray(),
-      LDST,
-      S(2, 1).asArray(),
-      LDST,
-      LI[1][1],
-      LI[2][1],
-    );
-    drot(
-      2,
-      T(1, 1).asArray(),
-      LDST,
-      T(2, 1).asArray(),
-      LDST,
-      LI[1][1],
-      LI[2][1],
-    );
+    drot(2, S(1, 1).asArray(), LDST, S(2, 1).asArray(), LDST, LI[1][1],
+        LI[2][1]);
+    drot(2, T(1, 1).asArray(), LDST, T(2, 1).asArray(), LDST, LI[1][1],
+        LI[2][1]);
     LI[2][2] = LI[1][1];
     LI[1][2] = -LI[2][1];
 
@@ -185,35 +171,9 @@ void dtgex2(
 
       dlacpy('Full', M, M, A(J1, J1), LDA, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        ONE,
-        LI,
-        LDST,
-        S,
-        LDST,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
-      dgemm(
-        'N',
-        'T',
-        M,
-        M,
-        M,
-        -ONE,
-        WORK.asMatrix(M),
-        M,
-        IR,
-        LDST,
-        ONE,
-        WORK(M * M + 1).asMatrix(M),
-        M,
-      );
+          'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK.asMatrix(M), M);
+      dgemm('N', 'T', M, M, M, -ONE, WORK.asMatrix(M), M, IR, LDST, ONE,
+          WORK(M * M + 1).asMatrix(M), M);
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       dlassq(M * M, WORK(M * M + 1), 1, DSCALE, DSUM);
@@ -221,35 +181,9 @@ void dtgex2(
 
       dlacpy('Full', M, M, B(J1, J1), LDB, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        ONE,
-        LI,
-        LDST,
-        T,
-        LDST,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
-      dgemm(
-        'N',
-        'T',
-        M,
-        M,
-        M,
-        -ONE,
-        WORK.asMatrix(M),
-        M,
-        IR,
-        LDST,
-        ONE,
-        WORK(M * M + 1).asMatrix(M),
-        M,
-      );
+          'N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK.asMatrix(M), M);
+      dgemm('N', 'T', M, M, M, -ONE, WORK.asMatrix(M), M, IR, LDST, ONE,
+          WORK(M * M + 1).asMatrix(M), M);
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       dlassq(M * M, WORK(M * M + 1), 1, DSCALE, DSUM);
@@ -265,42 +199,14 @@ void dtgex2(
     // Update (A[J1:J1+M-1][ M+J1:N], B[J1:J1+M-1][ M+J1:N]) and
     //        (A[1:J1-1][ J1:J1+M], B[1:J1-1][ J1:J1+M]).
 
-    drot(
-      J1 + 1,
-      A(1, J1).asArray(),
-      1,
-      A(1, J1 + 1).asArray(),
-      1,
-      IR[1][1],
-      IR[2][1],
-    );
-    drot(
-      J1 + 1,
-      B(1, J1).asArray(),
-      1,
-      B(1, J1 + 1).asArray(),
-      1,
-      IR[1][1],
-      IR[2][1],
-    );
-    drot(
-      N - J1 + 1,
-      A(J1, J1).asArray(),
-      LDA,
-      A(J1 + 1, J1).asArray(),
-      LDA,
-      LI[1][1],
-      LI[2][1],
-    );
-    drot(
-      N - J1 + 1,
-      B(J1, J1).asArray(),
-      LDB,
-      B(J1 + 1, J1).asArray(),
-      LDB,
-      LI[1][1],
-      LI[2][1],
-    );
+    drot(J1 + 1, A(1, J1).asArray(), 1, A(1, J1 + 1).asArray(), 1, IR[1][1],
+        IR[2][1]);
+    drot(J1 + 1, B(1, J1).asArray(), 1, B(1, J1 + 1).asArray(), 1, IR[1][1],
+        IR[2][1]);
+    drot(N - J1 + 1, A(J1, J1).asArray(), LDA, A(J1 + 1, J1).asArray(), LDA,
+        LI[1][1], LI[2][1]);
+    drot(N - J1 + 1, B(J1, J1).asArray(), LDB, B(J1 + 1, J1).asArray(), LDB,
+        LI[1][1], LI[2][1]);
 
     // Set  N1-by-N2 (2,1) - blocks to ZERO.
 
@@ -310,26 +216,12 @@ void dtgex2(
     // Accumulate transformations into Q and Z if requested.
 
     if (WANTZ) {
-      drot(
-        N,
-        Z(1, J1).asArray(),
-        1,
-        Z(1, J1 + 1).asArray(),
-        1,
-        IR[1][1],
-        IR[2][1],
-      );
+      drot(N, Z(1, J1).asArray(), 1, Z(1, J1 + 1).asArray(), 1, IR[1][1],
+          IR[2][1]);
     }
     if (WANTQ) {
-      drot(
-        N,
-        Q(1, J1).asArray(),
-        1,
-        Q(1, J1 + 1).asArray(),
-        1,
-        LI[1][1],
-        LI[2][1],
-      );
+      drot(N, Q(1, J1).asArray(), 1, Q(1, J1 + 1).asArray(), 1, LI[1][1],
+          LI[2][1]);
     }
 
     // Exit with INFO.value = 0 if swap was successfully performed.
@@ -347,29 +239,28 @@ void dtgex2(
     dlacpy('Full', N1, N2, T(1, N1 + 1), LDST, LI, LDST);
     dlacpy('Full', N1, N2, S(1, N1 + 1), LDST, IR(N2 + 1, N1 + 1), LDST);
     dtgsy2(
-      'N',
-      0,
-      N1,
-      N2,
-      S,
-      LDST,
-      S[N1 + 1][N1 + 1],
-      LDST,
-      IR[N2 + 1][N1 + 1],
-      LDST,
-      T,
-      LDST,
-      T[N1 + 1][N1 + 1],
-      LDST,
-      LI,
-      LDST,
-      SCALE,
-      DSUM.value,
-      DSCALE.value,
-      IWORK,
-      IDUM,
-      LINFO,
-    );
+        'N',
+        0,
+        N1,
+        N2,
+        S,
+        LDST,
+        S[N1 + 1][N1 + 1],
+        LDST,
+        IR[N2 + 1][N1 + 1],
+        LDST,
+        T,
+        LDST,
+        T[N1 + 1][N1 + 1],
+        LDST,
+        LI,
+        LDST,
+        SCALE,
+        DSUM.value,
+        DSCALE.value,
+        IWORK,
+        IDUM,
+        LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;
@@ -522,35 +413,9 @@ void dtgex2(
 
       dlacpy('Full', M, M, A(J1, J1), LDA, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        ONE,
-        LI,
-        LDST,
-        S,
-        LDST,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
-      dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        -ONE,
-        WORK.asMatrix(M),
-        M,
-        IR,
-        LDST,
-        ONE,
-        WORK(M * M + 1).asMatrix(M),
-        M,
-      );
+          'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK.asMatrix(M), M);
+      dgemm('N', 'N', M, M, M, -ONE, WORK.asMatrix(M), M, IR, LDST, ONE,
+          WORK(M * M + 1).asMatrix(M), M);
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       dlassq(M * M, WORK(M * M + 1), 1, DSCALE, DSUM);
@@ -558,35 +423,9 @@ void dtgex2(
 
       dlacpy('Full', M, M, B(J1, J1), LDB, WORK(M * M + 1).asMatrix(M), M);
       dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        ONE,
-        LI,
-        LDST,
-        T,
-        LDST,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
-      dgemm(
-        'N',
-        'N',
-        M,
-        M,
-        M,
-        -ONE,
-        WORK.asMatrix(M),
-        M,
-        IR,
-        LDST,
-        ONE,
-        WORK(M * M + 1).asMatrix(M),
-        M,
-      );
+          'N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK.asMatrix(M), M);
+      dgemm('N', 'N', M, M, M, -ONE, WORK.asMatrix(M), M, IR, LDST, ONE,
+          WORK(M * M + 1).asMatrix(M), M);
       DSCALE.value = ZERO;
       DSUM.value = ONE;
       dlassq(M * M, WORK(M * M + 1), 1, DSCALE, DSUM);
@@ -617,19 +456,8 @@ void dtgex2(
     T[1][1] = ONE;
     IDUM = LWORK - M * M - 2;
     if (N2 > 1) {
-      dlagv2(
-        A[J1][J1],
-        LDA,
-        B[J1][J1],
-        LDB,
-        AR,
-        AI,
-        BE,
-        WORK(1),
-        WORK(2),
-        T[1][1],
-        T[2][1],
-      );
+      dlagv2(A[J1][J1], LDA, B[J1][J1], LDB, AR, AI, BE, WORK(1), WORK(2),
+          T[1][1], T[2][1]);
       WORK[M + 1] = -WORK[2];
       WORK[M + 2] = WORK[1];
       T[N2][N2] = T[1][1];
@@ -640,118 +468,38 @@ void dtgex2(
 
     if (N1 > 1) {
       dlagv2(
-        A[J1 + N2][J1 + N2],
-        LDA,
-        B[J1 + N2][J1 + N2],
-        LDB,
-        TAUR,
-        TAUL,
-        WORK(M * M + 1),
-        WORK(N2 * M + N2 + 1),
-        WORK(N2 * M + N2 + 2),
-        T[N2 + 1][N2 + 1],
-        T[M][M - 1],
-      );
+          A[J1 + N2][J1 + N2],
+          LDA,
+          B[J1 + N2][J1 + N2],
+          LDB,
+          TAUR,
+          TAUL,
+          WORK(M * M + 1),
+          WORK(N2 * M + N2 + 1),
+          WORK(N2 * M + N2 + 2),
+          T[N2 + 1][N2 + 1],
+          T[M][M - 1]);
       WORK[M * M] = WORK[N2 * M + N2 + 1];
       WORK[M * M - 1] = -WORK[N2 * M + N2 + 2];
       T[M][M] = T[N2 + 1][N2 + 1];
       T[M - 1][M] = -T[M][M - 1];
     }
-    dgemm(
-      'T',
-      'N',
-      N2,
-      N1,
-      N2,
-      ONE,
-      WORK.asMatrix(M),
-      M,
-      A(J1, J1 + N2),
-      LDA,
-      ZERO,
-      WORK(M * M + 1).asMatrix(N2),
-      N2,
-    );
+    dgemm('T', 'N', N2, N1, N2, ONE, WORK.asMatrix(M), M, A(J1, J1 + N2), LDA,
+        ZERO, WORK(M * M + 1).asMatrix(N2), N2);
     dlacpy(
-      'Full',
-      N2,
-      N1,
-      WORK(M * M + 1).asMatrix(N2),
-      N2,
-      A(J1, J1 + N2),
-      LDA,
-    );
-    dgemm(
-      'T',
-      'N',
-      N2,
-      N1,
-      N2,
-      ONE,
-      WORK.asMatrix(M),
-      M,
-      B(J1, J1 + N2),
-      LDB,
-      ZERO,
-      WORK(M * M + 1).asMatrix(N2),
-      N2,
-    );
+        'Full', N2, N1, WORK(M * M + 1).asMatrix(N2), N2, A(J1, J1 + N2), LDA);
+    dgemm('T', 'N', N2, N1, N2, ONE, WORK.asMatrix(M), M, B(J1, J1 + N2), LDB,
+        ZERO, WORK(M * M + 1).asMatrix(N2), N2);
     dlacpy(
-      'Full',
-      N2,
-      N1,
-      WORK(M * M + 1).asMatrix(N2),
-      N2,
-      B(J1, J1 + N2),
-      LDB,
-    );
-    dgemm(
-      'N',
-      'N',
-      M,
-      M,
-      M,
-      ONE,
-      LI,
-      LDST,
-      WORK.asMatrix(M),
-      M,
-      ZERO,
-      WORK(M * M + 1).asMatrix(M),
-      M,
-    );
+        'Full', N2, N1, WORK(M * M + 1).asMatrix(N2), N2, B(J1, J1 + N2), LDB);
+    dgemm('N', 'N', M, M, M, ONE, LI, LDST, WORK.asMatrix(M), M, ZERO,
+        WORK(M * M + 1).asMatrix(M), M);
     dlacpy('Full', M, M, WORK(M * M + 1).asMatrix(M), M, LI, LDST);
-    dgemm(
-      'N',
-      'N',
-      N2,
-      N1,
-      N1,
-      ONE,
-      A(J1, J1 + N2),
-      LDA,
-      T(N2 + 1, N2 + 1),
-      LDST,
-      ZERO,
-      WORK.asMatrix(N2),
-      N2,
-    );
+    dgemm('N', 'N', N2, N1, N1, ONE, A(J1, J1 + N2), LDA, T(N2 + 1, N2 + 1),
+        LDST, ZERO, WORK.asMatrix(N2), N2);
     dlacpy('Full', N2, N1, WORK.asMatrix(N2), N2, A(J1, J1 + N2), LDA);
-    dgemm(
-      'N',
-      'N',
-      N2,
-      N1,
-      N1,
-      ONE,
-      B(J1, J1 + N2),
-      LDB,
-      T(N2 + 1, N2 + 1),
-      LDST,
-      ZERO,
-      WORK.asMatrix(N2),
-      N2,
-    );
+    dgemm('N', 'N', N2, N1, N1, ONE, B(J1, J1 + N2), LDB, T(N2 + 1, N2 + 1),
+        LDST, ZERO, WORK.asMatrix(N2), N2);
     dlacpy('Full', N2, N1, WORK.asMatrix(N2), N2, B(J1, J1 + N2), LDB);
     dgemm('T', 'N', M, M, M, ONE, IR, LDST, T, LDST, ZERO, WORK.asMatrix(M), M);
     dlacpy('Full', M, M, WORK.asMatrix(M), M, IR, LDST);
@@ -759,40 +507,14 @@ void dtgex2(
     // Accumulate transformations into Q and Z if requested.
 
     if (WANTQ) {
-      dgemm(
-        'N',
-        'N',
-        N,
-        M,
-        M,
-        ONE,
-        Q(1, J1),
-        LDQ,
-        LI,
-        LDST,
-        ZERO,
-        WORK.asMatrix(N),
-        N,
-      );
+      dgemm('N', 'N', N, M, M, ONE, Q(1, J1), LDQ, LI, LDST, ZERO,
+          WORK.asMatrix(N), N);
       dlacpy('Full', N, M, WORK.asMatrix(N), N, Q(1, J1), LDQ);
     }
 
     if (WANTZ) {
-      dgemm(
-        'N',
-        'N',
-        N,
-        M,
-        M,
-        ONE,
-        Z(1, J1),
-        LDZ,
-        IR,
-        LDST,
-        ZERO,
-        WORK.asMatrix(N),
-        N,
-      );
+      dgemm('N', 'N', N, M, M, ONE, Z(1, J1), LDZ, IR, LDST, ZERO,
+          WORK.asMatrix(N), N);
       dlacpy('Full', N, M, WORK.asMatrix(N), N, Z(1, J1), LDZ);
     }
 
@@ -801,72 +523,20 @@ void dtgex2(
 
     I = J1 + M;
     if (I <= N) {
-      dgemm(
-        'T',
-        'N',
-        M,
-        N - I + 1,
-        M,
-        ONE,
-        LI,
-        LDST,
-        A(J1, I),
-        LDA,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
+      dgemm('T', 'N', M, N - I + 1, M, ONE, LI, LDST, A(J1, I), LDA, ZERO,
+          WORK.asMatrix(M), M);
       dlacpy('Full', M, N - I + 1, WORK.asMatrix(M), M, A(J1, I), LDA);
-      dgemm(
-        'T',
-        'N',
-        M,
-        N - I + 1,
-        M,
-        ONE,
-        LI,
-        LDST,
-        B(J1, I),
-        LDB,
-        ZERO,
-        WORK.asMatrix(M),
-        M,
-      );
+      dgemm('T', 'N', M, N - I + 1, M, ONE, LI, LDST, B(J1, I), LDB, ZERO,
+          WORK.asMatrix(M), M);
       dlacpy('Full', M, N - I + 1, WORK.asMatrix(M), M, B(J1, I), LDB);
     }
     I = J1 - 1;
     if (I > 0) {
-      dgemm(
-        'N',
-        'N',
-        I,
-        M,
-        M,
-        ONE,
-        A(1, J1),
-        LDA,
-        IR,
-        LDST,
-        ZERO,
-        WORK.asMatrix(I),
-        I,
-      );
+      dgemm('N', 'N', I, M, M, ONE, A(1, J1), LDA, IR, LDST, ZERO,
+          WORK.asMatrix(I), I);
       dlacpy('Full', I, M, WORK.asMatrix(I), I, A(1, J1), LDA);
-      dgemm(
-        'N',
-        'N',
-        I,
-        M,
-        M,
-        ONE,
-        B(1, J1),
-        LDB,
-        IR,
-        LDST,
-        ZERO,
-        WORK.asMatrix(I),
-        I,
-      );
+      dgemm('N', 'N', I, M, M, ONE, B(1, J1), LDB, IR, LDST, ZERO,
+          WORK.asMatrix(I), I);
       dlacpy('Full', I, M, WORK.asMatrix(I), I, B(1, J1), LDB);
     }
 

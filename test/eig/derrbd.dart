@@ -202,93 +202,23 @@ void derrbd(
     srnamc.SRNAMT = 'DBDSDC';
     infoc.INFOT = 1;
     dbdsdc(
-      '/',
-      'N',
-      0,
-      D,
-      E,
-      U,
-      1,
-      V,
-      1,
-      Q.asArray(),
-      IQ.asArray(),
-      W,
-      IW,
-      INFO,
-    );
+        '/', 'N', 0, D, E, U, 1, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
     dbdsdc(
-      'U',
-      '/',
-      0,
-      D,
-      E,
-      U,
-      1,
-      V,
-      1,
-      Q.asArray(),
-      IQ.asArray(),
-      W,
-      IW,
-      INFO,
-    );
+        'U', '/', 0, D, E, U, 1, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
     dbdsdc(
-      'U',
-      'N',
-      -1,
-      D,
-      E,
-      U,
-      1,
-      V,
-      1,
-      Q.asArray(),
-      IQ.asArray(),
-      W,
-      IW,
-      INFO,
-    );
+        'U', 'N', -1, D, E, U, 1, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
     dbdsdc(
-      'U',
-      'I',
-      2,
-      D,
-      E,
-      U,
-      1,
-      V,
-      1,
-      Q.asArray(),
-      IQ.asArray(),
-      W,
-      IW,
-      INFO,
-    );
+        'U', 'I', 2, D, E, U, 1, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
     dbdsdc(
-      'U',
-      'I',
-      2,
-      D,
-      E,
-      U,
-      2,
-      V,
-      1,
-      Q.asArray(),
-      IQ.asArray(),
-      W,
-      IW,
-      INFO,
-    );
+        'U', 'I', 2, D, E, U, 2, V, 1, Q.asArray(), IQ.asArray(), W, IW, INFO);
     chkxer('DBDSDC', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 5;
 
@@ -338,11 +268,9 @@ void derrbd(
 
   if (infoc.OK.value) {
     infoc.NOUT.println(
-      ' ${PATH.a3} routines passed the tests of the error exits (${NT.i3} tests done)',
-    );
+        ' ${PATH.a3} routines passed the tests of the error exits (${NT.i3} tests done)');
   } else {
     infoc.NOUT.println(
-      ' *** ${PATH.a3} routines failed the tests of the error exits ***',
-    );
+        ' *** ${PATH.a3} routines failed the tests of the error exits ***');
   }
 }

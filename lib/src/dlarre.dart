@@ -200,32 +200,31 @@ void dlarre(
     // RIGHT-LEFT < RTOL*max(ABS(LEFT),ABS(RIGHT))
     // DLARRD needs a WORK of size 4*N, IWORK of size 3*N
     dlarrd(
-      RANGE,
-      'B',
-      N,
-      VL.value,
-      VU.value,
-      IL,
-      IU,
-      GERS,
-      BSRTOL,
-      D,
-      E,
-      E2,
-      PIVMIN.value,
-      NSPLIT.value,
-      ISPLIT,
-      MM,
-      W,
-      WERR,
-      VL.value,
-      VU.value,
-      IBLOCK,
-      INDEXW,
-      WORK,
-      IWORK,
-      IINFO.value,
-    );
+        RANGE,
+        'B',
+        N,
+        VL.value,
+        VU.value,
+        IL,
+        IU,
+        GERS,
+        BSRTOL,
+        D,
+        E,
+        E2,
+        PIVMIN.value,
+        NSPLIT.value,
+        ISPLIT,
+        MM,
+        W,
+        WERR,
+        VL.value,
+        VU.value,
+        IBLOCK,
+        INDEXW,
+        WORK,
+        IWORK,
+        IINFO.value);
     if (IINFO.value != 0) {
       INFO.value = -1;
       return;
@@ -322,37 +321,15 @@ void dlarre(
     if (((IRANGE == ALLRNG) && (!FORCEB)) || USEDQD) {
       // Case of DQDS
       // Find approximations to the extremal eigenvalues of the block
-      dlarrk(
-        IN,
-        1,
-        GL,
-        GU,
-        D[IBEGIN],
-        E2[IBEGIN],
-        PIVMIN.value,
-        RTL,
-        TMP,
-        TMP1,
-        IINFO.value,
-      );
+      dlarrk(IN, 1, GL, GU, D[IBEGIN], E2[IBEGIN], PIVMIN.value, RTL, TMP, TMP1,
+          IINFO.value);
       if (IINFO.value != 0) {
         INFO.value = -1;
         return;
       }
       ISLEFT = max(GL, TMP - TMP1 - HNDRD * EPS * (TMP - TMP1).abs());
-      dlarrk(
-        IN,
-        IN,
-        GL,
-        GU,
-        D[IBEGIN],
-        E2[IBEGIN],
-        PIVMIN.value,
-        RTL,
-        TMP,
-        TMP1,
-        IINFO.value,
-      );
+      dlarrk(IN, IN, GL, GU, D[IBEGIN], E2[IBEGIN], PIVMIN.value, RTL, TMP,
+          TMP1, IINFO.value);
       if (IINFO.value != 0) {
         INFO.value = -1;
         return;
@@ -364,15 +341,12 @@ void dlarre(
       // Case of bisection
       // Find approximations to the wanted extremal eigenvalues
       ISLEFT = max(
-        GL,
-        W[WBEGIN] -
-            WERR[WBEGIN] -
-            HNDRD * EPS * (W[WBEGIN] - WERR[WBEGIN]).abs(),
-      );
-      ISRGHT = min(
-        GU,
-        W[WEND] + WERR[WEND] + HNDRD * EPS * (W[WEND] + WERR[WEND]).abs(),
-      );
+          GL,
+          W[WBEGIN] -
+              WERR[WBEGIN] -
+              HNDRD * EPS * (W[WBEGIN] - WERR[WBEGIN]).abs());
+      ISRGHT = min(GU,
+          W[WEND] + WERR[WEND] + HNDRD * EPS * (W[WEND] + WERR[WEND]).abs());
     }
 
     // Decide whether the base representation for the current block
@@ -411,19 +385,8 @@ void dlarre(
 
     // Compute the negcount at the 1/4 and 3/4 points
     if (MB > 1) {
-      dlarrc(
-        'T',
-        IN,
-        S1,
-        S2,
-        D[IBEGIN],
-        E[IBEGIN],
-        PIVMIN.value,
-        CNT,
-        CNT1,
-        CNT2,
-        IINFO.value,
-      );
+      dlarrc('T', IN, S1, S2, D[IBEGIN], E[IBEGIN], PIVMIN.value, CNT, CNT1,
+          CNT2, IINFO.value);
     }
 
     if (MB == 1) {
@@ -591,24 +554,23 @@ void dlarre(
       }
       // use bisection to find EV from INDL to INDU
       dlarrb(
-        IN,
-        D[IBEGIN],
-        WORK[IBEGIN],
-        INDL,
-        INDU,
-        RTOL1,
-        RTOL2,
-        INDL - 1,
-        W[WBEGIN],
-        WGAP[WBEGIN],
-        WERR[WBEGIN],
-        WORK[2 * N + 1],
-        IWORK,
-        PIVMIN.value,
-        SPDIAM,
-        IN,
-        IINFO.value,
-      );
+          IN,
+          D[IBEGIN],
+          WORK[IBEGIN],
+          INDL,
+          INDU,
+          RTOL1,
+          RTOL2,
+          INDL - 1,
+          W[WBEGIN],
+          WGAP[WBEGIN],
+          WERR[WBEGIN],
+          WORK[2 * N + 1],
+          IWORK,
+          PIVMIN.value,
+          SPDIAM,
+          IN,
+          IINFO.value);
       if (IINFO.value != 0) {
         INFO.value = -4;
         return;

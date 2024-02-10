@@ -123,14 +123,7 @@ void dsbtrd(
             // elements which have been created outside the band
 
             dlargv(
-              NR,
-              AB(1, J1 - 1).asArray(),
-              INCA,
-              WORK(J1),
-              KD1,
-              D(J1),
-              KD1,
-            );
+                NR, AB(1, J1 - 1).asArray(), INCA, WORK(J1), KD1, D(J1), KD1);
 
             // apply rotations from the right
 
@@ -139,31 +132,16 @@ void dsbtrd(
 
             if (NR >= 2 * KD - 1) {
               for (L = 1; L <= KD - 1; L++) {
-                dlartv(
-                  NR,
-                  AB(L + 1, J1 - 1).asArray(),
-                  INCA,
-                  AB(L, J1).asArray(),
-                  INCA,
-                  D(J1),
-                  WORK(J1),
-                  KD1,
-                );
+                dlartv(NR, AB(L + 1, J1 - 1).asArray(), INCA,
+                    AB(L, J1).asArray(), INCA, D(J1), WORK(J1), KD1);
               }
             } else {
               JEND = J1 + (NR - 1) * KD1;
               for (JINC = J1;
                   KD1 < 0 ? JINC >= JEND : JINC <= JEND;
                   JINC += KD1) {
-                drot(
-                  KDM1,
-                  AB(2, JINC - 1).asArray(),
-                  1,
-                  AB(1, JINC).asArray(),
-                  1,
-                  D[JINC],
-                  WORK[JINC],
-                );
+                drot(KDM1, AB(2, JINC - 1).asArray(), 1, AB(1, JINC).asArray(),
+                    1, D[JINC], WORK[JINC]);
               }
             }
           }
@@ -173,26 +151,20 @@ void dsbtrd(
               // generate plane rotation to annihilate a[i][i+k-1]
               // within the band
 
-              dlartg(
-                AB[KD - K + 3][I + K - 2],
-                AB[KD - K + 2][I + K - 1],
-                D.box(I + K - 1),
-                WORK.box(I + K - 1),
-                TEMP,
-              );
+              dlartg(AB[KD - K + 3][I + K - 2], AB[KD - K + 2][I + K - 1],
+                  D.box(I + K - 1), WORK.box(I + K - 1), TEMP);
               AB[KD - K + 3][I + K - 2] = TEMP.value;
 
               // apply rotation from the right
 
               drot(
-                K - 3,
-                AB(KD - K + 4, I + K - 2).asArray(),
-                1,
-                AB(KD - K + 3, I + K - 1).asArray(),
-                1,
-                D[I + K - 1],
-                WORK[I + K - 1],
-              );
+                  K - 3,
+                  AB(KD - K + 4, I + K - 2).asArray(),
+                  1,
+                  AB(KD - K + 3, I + K - 1).asArray(),
+                  1,
+                  D[I + K - 1],
+                  WORK[I + K - 1]);
             }
             NR = NR + 1;
             J1 = J1 - KDN - 1;
@@ -202,16 +174,8 @@ void dsbtrd(
           // blocks
 
           if (NR > 0) {
-            dlar2v(
-              NR,
-              AB(KD1, J1 - 1).asArray(),
-              AB(KD1, J1).asArray(),
-              AB(KD, J1).asArray(),
-              INCA,
-              D(J1),
-              WORK(J1),
-              KD1,
-            );
+            dlar2v(NR, AB(KD1, J1 - 1).asArray(), AB(KD1, J1).asArray(),
+                AB(KD, J1).asArray(), INCA, D(J1), WORK(J1), KD1);
           }
 
           // apply plane rotations from the left
@@ -229,15 +193,14 @@ void dsbtrd(
                 }
                 if (NRT > 0) {
                   dlartv(
-                    NRT,
-                    AB(KD - L, J1 + L).asArray(),
-                    INCA,
-                    AB(KD - L + 1, J1 + L).asArray(),
-                    INCA,
-                    D(J1),
-                    WORK(J1),
-                    KD1,
-                  );
+                      NRT,
+                      AB(KD - L, J1 + L).asArray(),
+                      INCA,
+                      AB(KD - L + 1, J1 + L).asArray(),
+                      INCA,
+                      D(J1),
+                      WORK(J1),
+                      KD1);
                 }
               }
             } else {
@@ -246,29 +209,15 @@ void dsbtrd(
                 for (JIN = J1;
                     KD1 < 0 ? JIN >= J1END : JIN <= J1END;
                     JIN += KD1) {
-                  drot(
-                    KD - 1,
-                    AB(KD - 1, JIN + 1).asArray(),
-                    INCX,
-                    AB(KD, JIN + 1).asArray(),
-                    INCX,
-                    D[JIN],
-                    WORK[JIN],
-                  );
+                  drot(KD - 1, AB(KD - 1, JIN + 1).asArray(), INCX,
+                      AB(KD, JIN + 1).asArray(), INCX, D[JIN], WORK[JIN]);
                 }
               }
               LEND = min(KDM1, N - J2);
               LAST = J1END + KD1;
               if (LEND > 0) {
-                drot(
-                  LEND,
-                  AB(KD - 1, LAST + 1).asArray(),
-                  INCX,
-                  AB(KD, LAST + 1).asArray(),
-                  INCX,
-                  D[LAST],
-                  WORK[LAST],
-                );
+                drot(LEND, AB(KD - 1, LAST + 1).asArray(), INCX,
+                    AB(KD, LAST + 1).asArray(), INCX, D[LAST], WORK[LAST]);
               }
             }
           }
@@ -291,27 +240,13 @@ void dsbtrd(
                 IQB = max(1, J - IBL);
                 NQ = 1 + IQAEND - IQB;
                 IQAEND = min(IQAEND + KD, IQEND);
-                drot(
-                  NQ,
-                  Q(IQB, J - 1).asArray(),
-                  1,
-                  Q(IQB, J).asArray(),
-                  1,
-                  D[J],
-                  WORK[J],
-                );
+                drot(NQ, Q(IQB, J - 1).asArray(), 1, Q(IQB, J).asArray(), 1,
+                    D[J], WORK[J]);
               }
             } else {
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                drot(
-                  N,
-                  Q(1, J - 1).asArray(),
-                  1,
-                  Q(1, J).asArray(),
-                  1,
-                  D[J],
-                  WORK[J],
-                );
+                drot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
+                    WORK[J]);
               }
             }
           }
@@ -372,15 +307,8 @@ void dsbtrd(
             // generate plane rotations to annihilate nonzero
             // elements which have been created outside the band
 
-            dlargv(
-              NR,
-              AB(KD1, J1 - KD1).asArray(),
-              INCA,
-              WORK(J1),
-              KD1,
-              D(J1),
-              KD1,
-            );
+            dlargv(NR, AB(KD1, J1 - KD1).asArray(), INCA, WORK(J1), KD1, D(J1),
+                KD1);
 
             // apply plane rotations from one side
 
@@ -390,30 +318,22 @@ void dsbtrd(
             if (NR > 2 * KD - 1) {
               for (L = 1; L <= KD - 1; L++) {
                 dlartv(
-                  NR,
-                  AB(KD1 - L, J1 - KD1 + L).asArray(),
-                  INCA,
-                  AB(KD1 - L + 1, J1 - KD1 + L).asArray(),
-                  INCA,
-                  D(J1),
-                  WORK(J1),
-                  KD1,
-                );
+                    NR,
+                    AB(KD1 - L, J1 - KD1 + L).asArray(),
+                    INCA,
+                    AB(KD1 - L + 1, J1 - KD1 + L).asArray(),
+                    INCA,
+                    D(J1),
+                    WORK(J1),
+                    KD1);
               }
             } else {
               JEND = J1 + KD1 * (NR - 1);
               for (JINC = J1;
                   KD1 < 0 ? JINC >= JEND : JINC <= JEND;
                   JINC += KD1) {
-                drot(
-                  KDM1,
-                  AB(KD, JINC - KD).asArray(),
-                  INCX,
-                  AB(KD1, JINC - KD).asArray(),
-                  INCX,
-                  D[JINC],
-                  WORK[JINC],
-                );
+                drot(KDM1, AB(KD, JINC - KD).asArray(), INCX,
+                    AB(KD1, JINC - KD).asArray(), INCX, D[JINC], WORK[JINC]);
               }
             }
           }
@@ -423,26 +343,20 @@ void dsbtrd(
               // generate plane rotation to annihilate a[i+k-1][i]
               // within the band
 
-              dlartg(
-                AB[K - 1][I],
-                AB[K][I],
-                D.box(I + K - 1),
-                WORK.box(I + K - 1),
-                TEMP,
-              );
+              dlartg(AB[K - 1][I], AB[K][I], D.box(I + K - 1),
+                  WORK.box(I + K - 1), TEMP);
               AB[K - 1][I] = TEMP.value;
 
               // apply rotation from the left
 
               drot(
-                K - 3,
-                AB(K - 2, I + 1).asArray(),
-                LDAB - 1,
-                AB(K - 1, I + 1).asArray(),
-                LDAB - 1,
-                D[I + K - 1],
-                WORK[I + K - 1],
-              );
+                  K - 3,
+                  AB(K - 2, I + 1).asArray(),
+                  LDAB - 1,
+                  AB(K - 1, I + 1).asArray(),
+                  LDAB - 1,
+                  D[I + K - 1],
+                  WORK[I + K - 1]);
             }
             NR = NR + 1;
             J1 = J1 - KDN - 1;
@@ -452,16 +366,8 @@ void dsbtrd(
           // blocks
 
           if (NR > 0) {
-            dlar2v(
-              NR,
-              AB(1, J1 - 1).asArray(),
-              AB(1, J1).asArray(),
-              AB(2, J1 - 1).asArray(),
-              INCA,
-              D(J1),
-              WORK(J1),
-              KD1,
-            );
+            dlar2v(NR, AB(1, J1 - 1).asArray(), AB(1, J1).asArray(),
+                AB(2, J1 - 1).asArray(), INCA, D(J1), WORK(J1), KD1);
           }
 
           // apply plane rotations from the right
@@ -478,16 +384,8 @@ void dsbtrd(
                   NRT = NR;
                 }
                 if (NRT > 0) {
-                  dlartv(
-                    NRT,
-                    AB(L + 2, J1 - 1).asArray(),
-                    INCA,
-                    AB(L + 1, J1).asArray(),
-                    INCA,
-                    D(J1),
-                    WORK(J1),
-                    KD1,
-                  );
+                  dlartv(NRT, AB(L + 2, J1 - 1).asArray(), INCA,
+                      AB(L + 1, J1).asArray(), INCA, D(J1), WORK(J1), KD1);
                 }
               }
             } else {
@@ -496,29 +394,15 @@ void dsbtrd(
                 for (J1INC = J1;
                     KD1 < 0 ? J1INC >= J1END : J1INC <= J1END;
                     J1INC += KD1) {
-                  drot(
-                    KDM1,
-                    AB(3, J1INC - 1).asArray(),
-                    1,
-                    AB(2, J1INC).asArray(),
-                    1,
-                    D[J1INC],
-                    WORK[J1INC],
-                  );
+                  drot(KDM1, AB(3, J1INC - 1).asArray(), 1,
+                      AB(2, J1INC).asArray(), 1, D[J1INC], WORK[J1INC]);
                 }
               }
               LEND = min(KDM1, N - J2);
               LAST = J1END + KD1;
               if (LEND > 0) {
-                drot(
-                  LEND,
-                  AB(3, LAST - 1).asArray(),
-                  1,
-                  AB(2, LAST).asArray(),
-                  1,
-                  D[LAST],
-                  WORK[LAST],
-                );
+                drot(LEND, AB(3, LAST - 1).asArray(), 1, AB(2, LAST).asArray(),
+                    1, D[LAST], WORK[LAST]);
               }
             }
           }
@@ -541,27 +425,13 @@ void dsbtrd(
                 IQB = max(1, J - IBL);
                 NQ = 1 + IQAEND - IQB;
                 IQAEND = min(IQAEND + KD, IQEND);
-                drot(
-                  NQ,
-                  Q(IQB, J - 1).asArray(),
-                  1,
-                  Q(IQB, J).asArray(),
-                  1,
-                  D[J],
-                  WORK[J],
-                );
+                drot(NQ, Q(IQB, J - 1).asArray(), 1, Q(IQB, J).asArray(), 1,
+                    D[J], WORK[J]);
               }
             } else {
               for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) {
-                drot(
-                  N,
-                  Q(1, J - 1).asArray(),
-                  1,
-                  Q(1, J).asArray(),
-                  1,
-                  D[J],
-                  WORK[J],
-                );
+                drot(N, Q(1, J - 1).asArray(), 1, Q(1, J).asArray(), 1, D[J],
+                    WORK[J]);
               }
             }
           }

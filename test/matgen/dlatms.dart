@@ -324,17 +324,16 @@ void dlatms(
             if (JR < M) {
               IL = min(N, JR + JKU) + 1 - ICOL;
               dlarot(
-                true,
-                JR > JKL,
-                false,
-                IL,
-                C.value,
-                S.value,
-                A(JR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
-                ILDA,
-                EXTRA,
-                DUMMY,
-              );
+                  true,
+                  JR > JKL,
+                  false,
+                  IL,
+                  C.value,
+                  S.value,
+                  A(JR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                  ILDA,
+                  EXTRA,
+                  DUMMY);
             }
 
             // Chase "EXTRA.value" back up
@@ -345,53 +344,41 @@ void dlatms(
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
               if (IR < M) {
-                dlartg(
-                  A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
-                  EXTRA.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                dlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
+                    EXTRA.value, C, S, DUMMY);
               }
               IROW = max(1, JCH - JKU);
               IL = IR + 2 - IROW;
               TEMP.value = ZERO;
               ILTEMP = JCH > JKU;
               dlarot(
-                false,
-                ILTEMP,
-                true,
-                IL,
-                C.value,
-                -S.value,
-                A(IROW - ISKEW * IC + IOFFST, IC).asArray(),
-                ILDA,
-                TEMP,
-                EXTRA,
-              );
-              if (ILTEMP) {
-                dlartg(
-                  A[IROW + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
-                  TEMP.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
-                ICOL = max(1, JCH - JKU - JKL);
-                IL = IC + 2 - ICOL;
-                EXTRA.value = ZERO;
-                dlarot(
-                  true,
-                  JCH > JKU + JKL,
+                  false,
+                  ILTEMP,
                   true,
                   IL,
                   C.value,
                   -S.value,
-                  A(IROW - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                  A(IROW - ISKEW * IC + IOFFST, IC).asArray(),
                   ILDA,
-                  EXTRA,
                   TEMP,
-                );
+                  EXTRA);
+              if (ILTEMP) {
+                dlartg(A[IROW + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
+                    TEMP.value, C, S, DUMMY);
+                ICOL = max(1, JCH - JKU - JKL);
+                IL = IC + 2 - ICOL;
+                EXTRA.value = ZERO;
+                dlarot(
+                    true,
+                    JCH > JKU + JKL,
+                    true,
+                    IL,
+                    C.value,
+                    -S.value,
+                    A(IROW - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                    ILDA,
+                    EXTRA,
+                    TEMP);
                 IC = ICOL;
                 IR = IROW;
               }
@@ -412,17 +399,16 @@ void dlatms(
             if (JC < N) {
               IL = min(M, JC + JKL) + 1 - IROW;
               dlarot(
-                false,
-                JC > JKU,
-                false,
-                IL,
-                C.value,
-                S.value,
-                A(IROW - ISKEW * JC + IOFFST, JC).asArray(),
-                ILDA,
-                EXTRA,
-                DUMMY,
-              );
+                  false,
+                  JC > JKU,
+                  false,
+                  IL,
+                  C.value,
+                  S.value,
+                  A(IROW - ISKEW * JC + IOFFST, JC).asArray(),
+                  ILDA,
+                  EXTRA,
+                  DUMMY);
             }
 
             // Chase "EXTRA.value" back up
@@ -433,53 +419,41 @@ void dlatms(
                 -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1;
                 JCH += -JKL - JKU) {
               if (IC < N) {
-                dlartg(
-                  A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
-                  EXTRA.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                dlartg(A[IR + 1 - ISKEW * (IC + 1) + IOFFST][IC + 1],
+                    EXTRA.value, C, S, DUMMY);
               }
               ICOL = max(1, JCH - JKL);
               IL = IC + 2 - ICOL;
               TEMP.value = ZERO;
               ILTEMP = JCH > JKL;
               dlarot(
-                true,
-                ILTEMP,
-                true,
-                IL,
-                C.value,
-                -S.value,
-                A(IR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
-                ILDA,
-                TEMP,
-                EXTRA,
-              );
-              if (ILTEMP) {
-                dlartg(
-                  A[IR + 1 - ISKEW * (ICOL + 1) + IOFFST][ICOL + 1],
-                  TEMP.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
-                IROW = max(1, JCH - JKL - JKU);
-                IL = IR + 2 - IROW;
-                EXTRA.value = ZERO;
-                dlarot(
-                  false,
-                  JCH > JKL + JKU,
+                  true,
+                  ILTEMP,
                   true,
                   IL,
                   C.value,
                   -S.value,
-                  A(IROW - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                  A(IR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
                   ILDA,
-                  EXTRA,
                   TEMP,
-                );
+                  EXTRA);
+              if (ILTEMP) {
+                dlartg(A[IR + 1 - ISKEW * (ICOL + 1) + IOFFST][ICOL + 1],
+                    TEMP.value, C, S, DUMMY);
+                IROW = max(1, JCH - JKL - JKU);
+                IL = IR + 2 - IROW;
+                EXTRA.value = ZERO;
+                dlarot(
+                    false,
+                    JCH > JKL + JKU,
+                    true,
+                    IL,
+                    C.value,
+                    -S.value,
+                    A(IROW - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                    ILDA,
+                    EXTRA,
+                    TEMP);
                 IC = ICOL;
                 IR = IROW;
               }
@@ -506,17 +480,16 @@ void dlatms(
             if (JC > 0) {
               IL = min(M, JC + JKL + 1) + 1 - IROW;
               dlarot(
-                false,
-                false,
-                JC + JKL < M,
-                IL,
-                C.value,
-                S.value,
-                A(IROW - ISKEW * JC + IOFFST, JC).asArray(),
-                ILDA,
-                DUMMY,
-                EXTRA,
-              );
+                  false,
+                  false,
+                  JC + JKL < M,
+                  IL,
+                  C.value,
+                  S.value,
+                  A(IROW - ISKEW * JC + IOFFST, JC).asArray(),
+                  ILDA,
+                  DUMMY,
+                  EXTRA);
             }
 
             // Chase "EXTRA.value" back down
@@ -528,51 +501,39 @@ void dlatms(
               ILEXTR = IC > 0;
               if (ILEXTR) {
                 dlartg(
-                  A[JCH - ISKEW * IC + IOFFST][IC],
-                  EXTRA.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                    A[JCH - ISKEW * IC + IOFFST][IC], EXTRA.value, C, S, DUMMY);
               }
               IC = max(1, IC);
               ICOL = min(N - 1, JCH + JKU);
               ILTEMP = JCH + JKU < N;
               TEMP.value = ZERO;
               dlarot(
-                true,
-                ILEXTR,
-                ILTEMP,
-                ICOL + 2 - IC,
-                C.value,
-                S.value,
-                A(JCH - ISKEW * IC + IOFFST, IC).asArray(),
-                ILDA,
-                EXTRA,
-                TEMP,
-              );
+                  true,
+                  ILEXTR,
+                  ILTEMP,
+                  ICOL + 2 - IC,
+                  C.value,
+                  S.value,
+                  A(JCH - ISKEW * IC + IOFFST, IC).asArray(),
+                  ILDA,
+                  EXTRA,
+                  TEMP);
               if (ILTEMP) {
-                dlartg(
-                  A[JCH - ISKEW * ICOL + IOFFST][ICOL],
-                  TEMP.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                dlartg(A[JCH - ISKEW * ICOL + IOFFST][ICOL], TEMP.value, C, S,
+                    DUMMY);
                 IL = min(IENDCH, JCH + JKL + JKU) + 2 - JCH;
                 EXTRA.value = ZERO;
                 dlarot(
-                  false,
-                  true,
-                  JCH + JKL + JKU <= IENDCH,
-                  IL,
-                  C.value,
-                  S.value,
-                  A(JCH - ISKEW * ICOL + IOFFST, ICOL).asArray(),
-                  ILDA,
-                  TEMP,
-                  EXTRA,
-                );
+                    false,
+                    true,
+                    JCH + JKL + JKU <= IENDCH,
+                    IL,
+                    C.value,
+                    S.value,
+                    A(JCH - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                    ILDA,
+                    TEMP,
+                    EXTRA);
                 IC = ICOL;
               }
             }
@@ -596,17 +557,16 @@ void dlatms(
             if (JR > 0) {
               IL = min(N, JR + JKU + 1) + 1 - ICOL;
               dlarot(
-                true,
-                false,
-                JR + JKU < N,
-                IL,
-                C.value,
-                S.value,
-                A(JR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
-                ILDA,
-                DUMMY,
-                EXTRA,
-              );
+                  true,
+                  false,
+                  JR + JKU < N,
+                  IL,
+                  C.value,
+                  S.value,
+                  A(JR - ISKEW * ICOL + IOFFST, ICOL).asArray(),
+                  ILDA,
+                  DUMMY,
+                  EXTRA);
             }
 
             // Chase "EXTRA.value" back down
@@ -617,52 +577,40 @@ void dlatms(
                 JCH += JKL + JKU) {
               ILEXTR = IR > 0;
               if (ILEXTR) {
-                dlartg(
-                  A[IR - ISKEW * JCH + IOFFST][JCH],
-                  EXTRA.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                dlartg(A[IR - ISKEW * JCH + IOFFST][JCH], EXTRA.value, C, S,
+                    DUMMY);
               }
               IR = max(1, IR);
               IROW = min(M - 1, JCH + JKL);
               ILTEMP = JCH + JKL < M;
               TEMP.value = ZERO;
               dlarot(
-                false,
-                ILEXTR,
-                ILTEMP,
-                IROW + 2 - IR,
-                C.value,
-                S.value,
-                A(IR - ISKEW * JCH + IOFFST, JCH).asArray(),
-                ILDA,
-                EXTRA,
-                TEMP,
-              );
+                  false,
+                  ILEXTR,
+                  ILTEMP,
+                  IROW + 2 - IR,
+                  C.value,
+                  S.value,
+                  A(IR - ISKEW * JCH + IOFFST, JCH).asArray(),
+                  ILDA,
+                  EXTRA,
+                  TEMP);
               if (ILTEMP) {
-                dlartg(
-                  A[IROW - ISKEW * JCH + IOFFST][JCH],
-                  TEMP.value,
-                  C,
-                  S,
-                  DUMMY,
-                );
+                dlartg(A[IROW - ISKEW * JCH + IOFFST][JCH], TEMP.value, C, S,
+                    DUMMY);
                 IL = min(IENDCH, JCH + JKL + JKU) + 2 - JCH;
                 EXTRA.value = ZERO;
                 dlarot(
-                  true,
-                  true,
-                  JCH + JKL + JKU <= IENDCH,
-                  IL,
-                  C.value,
-                  S.value,
-                  A(IROW - ISKEW * JCH + IOFFST, JCH).asArray(),
-                  ILDA,
-                  TEMP,
-                  EXTRA,
-                );
+                    true,
+                    true,
+                    JCH + JKL + JKU <= IENDCH,
+                    IL,
+                    C.value,
+                    S.value,
+                    A(IROW - ISKEW * JCH + IOFFST, JCH).asArray(),
+                    ILDA,
+                    TEMP,
+                    EXTRA);
                 IR = IROW;
               }
             }
@@ -695,70 +643,43 @@ void dlatms(
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
             S.value = sin(ANGLE);
-            dlarot(
-              false,
-              JC > K,
-              true,
-              IL,
-              C.value,
-              S.value,
-              A(IROW - ISKEW * JC + IOFFG, JC).asArray(),
-              ILDA,
-              EXTRA,
-              TEMP,
-            );
-            dlarot(
-              true,
-              true,
-              false,
-              min(K, N - JC) + 1,
-              C.value,
-              S.value,
-              A((1 - ISKEW) * JC + IOFFG, JC).asArray(),
-              ILDA,
-              TEMP,
-              DUMMY,
-            );
+            dlarot(false, JC > K, true, IL, C.value, S.value,
+                A(IROW - ISKEW * JC + IOFFG, JC).asArray(), ILDA, EXTRA, TEMP);
+            dlarot(true, true, false, min(K, N - JC) + 1, C.value, S.value,
+                A((1 - ISKEW) * JC + IOFFG, JC).asArray(), ILDA, TEMP, DUMMY);
 
             // Chase EXTRA.value back up the matrix
 
             ICOL = JC;
             for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) {
-              dlartg(
-                A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
-                EXTRA.value,
-                C,
-                S,
-                DUMMY,
-              );
+              dlartg(A[JCH + 1 - ISKEW * (ICOL + 1) + IOFFG][ICOL + 1],
+                  EXTRA.value, C, S, DUMMY);
               TEMP.value = A[JCH - ISKEW * (JCH + 1) + IOFFG][JCH + 1];
               dlarot(
-                true,
-                true,
-                true,
-                K + 2,
-                C.value,
-                -S.value,
-                A((1 - ISKEW) * JCH + IOFFG, JCH).asArray(),
-                ILDA,
-                TEMP,
-                EXTRA,
-              );
+                  true,
+                  true,
+                  true,
+                  K + 2,
+                  C.value,
+                  -S.value,
+                  A((1 - ISKEW) * JCH + IOFFG, JCH).asArray(),
+                  ILDA,
+                  TEMP,
+                  EXTRA);
               IROW = max(1, JCH - K);
               IL = min(JCH + 1, K + 2);
               EXTRA.value = ZERO;
               dlarot(
-                false,
-                JCH > K,
-                true,
-                IL,
-                C.value,
-                -S.value,
-                A(IROW - ISKEW * JCH + IOFFG, JCH).asArray(),
-                ILDA,
-                EXTRA,
-                TEMP,
-              );
+                  false,
+                  JCH > K,
+                  true,
+                  IL,
+                  C.value,
+                  -S.value,
+                  A(IROW - ISKEW * JCH + IOFFG, JCH).asArray(),
+                  ILDA,
+                  EXTRA,
+                  TEMP);
               ICOL = JCH;
             }
           }
@@ -806,70 +727,52 @@ void dlatms(
             ANGLE = TWOPI * dlarnd(1, ISEED);
             C.value = cos(ANGLE);
             S.value = -sin(ANGLE);
-            dlarot(
-              false,
-              true,
-              N - JC > K,
-              IL,
-              C.value,
-              S.value,
-              A((1 - ISKEW) * JC + IOFFG, JC).asArray(),
-              ILDA,
-              TEMP,
-              EXTRA,
-            );
+            dlarot(false, true, N - JC > K, IL, C.value, S.value,
+                A((1 - ISKEW) * JC + IOFFG, JC).asArray(), ILDA, TEMP, EXTRA);
             ICOL = max(1, JC - K + 1);
             dlarot(
-              true,
-              false,
-              true,
-              JC + 2 - ICOL,
-              C.value,
-              S.value,
-              A(JC - ISKEW * ICOL + IOFFG, ICOL).asArray(),
-              ILDA,
-              DUMMY,
-              TEMP,
-            );
+                true,
+                false,
+                true,
+                JC + 2 - ICOL,
+                C.value,
+                S.value,
+                A(JC - ISKEW * ICOL + IOFFG, ICOL).asArray(),
+                ILDA,
+                DUMMY,
+                TEMP);
 
             // Chase EXTRA.value back down the matrix
 
             ICOL = JC;
             for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) {
-              dlartg(
-                A[JCH - ISKEW * ICOL + IOFFG][ICOL],
-                EXTRA.value,
-                C,
-                S,
-                DUMMY,
-              );
+              dlartg(A[JCH - ISKEW * ICOL + IOFFG][ICOL], EXTRA.value, C, S,
+                  DUMMY);
               TEMP.value = A[1 + (1 - ISKEW) * JCH + IOFFG][JCH];
               dlarot(
-                true,
-                true,
-                true,
-                K + 2,
-                C.value,
-                S.value,
-                A(JCH - ISKEW * ICOL + IOFFG, ICOL).asArray(),
-                ILDA,
-                EXTRA,
-                TEMP,
-              );
+                  true,
+                  true,
+                  true,
+                  K + 2,
+                  C.value,
+                  S.value,
+                  A(JCH - ISKEW * ICOL + IOFFG, ICOL).asArray(),
+                  ILDA,
+                  EXTRA,
+                  TEMP);
               IL = min(N + 1 - JCH, K + 2);
               EXTRA.value = ZERO;
               dlarot(
-                false,
-                true,
-                N - JCH > K,
-                IL,
-                C.value,
-                S.value,
-                A((1 - ISKEW) * JCH + IOFFG, JCH).asArray(),
-                ILDA,
-                TEMP,
-                EXTRA,
-              );
+                  false,
+                  true,
+                  N - JCH > K,
+                  IL,
+                  C.value,
+                  S.value,
+                  A((1 - ISKEW) * JCH + IOFFG, JCH).asArray(),
+                  ILDA,
+                  TEMP,
+                  EXTRA);
               ICOL = JCH;
             }
           }

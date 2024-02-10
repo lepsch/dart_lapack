@@ -60,39 +60,25 @@ void dhst01(
 
   // Compute Q*H
 
-  dgemm(
-    'No transpose',
-    'No transpose',
-    N,
-    N,
-    N,
-    ONE,
-    Q,
-    LDQ,
-    H,
-    LDH,
-    ZERO,
-    WORK(LDWORK * N + 1).asMatrix(LDWORK),
-    LDWORK,
-  );
+  dgemm('No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO,
+      WORK(LDWORK * N + 1).asMatrix(LDWORK), LDWORK);
 
   // Compute A - Q*H*Q'
 
   dgemm(
-    'No transpose',
-    'Transpose',
-    N,
-    N,
-    N,
-    -ONE,
-    WORK(LDWORK * N + 1).asMatrix(LDWORK),
-    LDWORK,
-    Q,
-    LDQ,
-    ONE,
-    WORK.asMatrix(LDWORK),
-    LDWORK,
-  );
+      'No transpose',
+      'Transpose',
+      N,
+      N,
+      N,
+      -ONE,
+      WORK(LDWORK * N + 1).asMatrix(LDWORK),
+      LDWORK,
+      Q,
+      LDQ,
+      ONE,
+      WORK.asMatrix(LDWORK),
+      LDWORK);
 
   ANORM = max(dlange('1', N, N, A, LDA, WORK(LDWORK * N + 1)), UNFL);
   WNORM =

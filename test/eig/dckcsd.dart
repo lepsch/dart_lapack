@@ -101,16 +101,12 @@ Future<void> dckcsd(
         dlaror('L', 'I', M, M, X.asMatrix(LDX), LDX, ISEED, WORK, IINFO);
         if (M != 0 && IINFO.value != 0) {
           NOUT.println(
-            ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}',
-          );
+              ' DLAROR in DCKCSD: M = ${M.i5}, INFO = ${IINFO.value.i15}');
           INFO.value = (IINFO.value).abs();
           continue;
         }
       } else if (IMAT == 2) {
-        R = min(
-          min(P, M - P),
-          min(Q, M - Q),
-        );
+        R = min(min(P, M - P), min(Q, M - Q));
         for (I = 1; I <= R; I++) {
           THETA[I] = PIOVER2 * dlarnd(1, ISEED);
         }
@@ -122,10 +118,7 @@ Future<void> dckcsd(
           }
         }
       } else if (IMAT == 3) {
-        R = min(
-          min(P, M - P),
-          min(Q, M - Q),
-        );
+        R = min(min(P, M - P), min(Q, M - Q));
         for (I = 1; I <= R + 1; I++) {
           THETA[I] = pow(TEN, -dlarnd(1, ISEED) * GAPDIGIT).toDouble();
         }
@@ -142,42 +135,15 @@ Future<void> dckcsd(
           J = (dlaran(ISEED) * M).toInt() + 1;
           if (J != I) {
             drot(
-              M,
-              X(1 + (I - 1) * LDX),
-              1,
-              X(1 + (J - 1) * LDX),
-              1,
-              ZERO,
-              ONE,
-            );
+                M, X(1 + (I - 1) * LDX), 1, X(1 + (J - 1) * LDX), 1, ZERO, ONE);
           }
         }
       }
 
       NT = 15;
 
-      dcsdts(
-        M,
-        P,
-        Q,
-        X,
-        XF,
-        LDX,
-        U1,
-        LDU1,
-        U2,
-        LDU2,
-        V1T,
-        LDV1T,
-        V2T,
-        LDV2T,
-        THETA,
-        IWORK,
-        WORK,
-        LWORK,
-        RWORK,
-        RESULT,
-      );
+      dcsdts(M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T,
+          THETA, IWORK, WORK, LWORK, RWORK, RESULT);
 
       // Print information about the tests that did not
       // pass the threshold.
@@ -189,8 +155,7 @@ Future<void> dckcsd(
             alahdg(NOUT, PATH);
           }
           NOUT.println(
-            ' M=${M.i4} P=${P.i4}, Q=${Q.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}',
-          );
+              ' M=${M.i4} P=${P.i4}, Q=${Q.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
           NFAIL = NFAIL + 1;
         }
       }
@@ -249,27 +214,7 @@ void dlacsg(
         cos(THETA[I]);
   }
   dlaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO);
-  dlaror(
-    'Left',
-    'No init',
-    M - P,
-    M,
-    X(P + 1, 1),
-    LDX,
-    ISEED,
-    WORK,
-    INFO,
-  );
+  dlaror('Left', 'No init', M - P, M, X(P + 1, 1), LDX, ISEED, WORK, INFO);
   dlaror('Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO);
-  dlaror(
-    'Right',
-    'No init',
-    M,
-    M - Q,
-    X(1, Q + 1),
-    LDX,
-    ISEED,
-    WORK,
-    INFO,
-  );
+  dlaror('Right', 'No init', M, M - Q, X(1, Q + 1), LDX, ISEED, WORK, INFO);
 }

@@ -72,10 +72,8 @@ void dlag2(
 
   // Scale A
 
-  ANORM = max(
-    A[1][1].abs() + A[2][1].abs(),
-    max(A[1][2].abs() + A[2][2].abs(), SAFMIN),
-  );
+  ANORM = max(A[1][1].abs() + A[2][1].abs(),
+      max(A[1][2].abs() + A[2][2].abs(), SAFMIN));
   ASCALE = ONE / ANORM;
   A11 = ASCALE * A[1][1];
   A21 = ASCALE * A[2][1];
@@ -204,10 +202,8 @@ void dlag2(
   // Scale first eigenvalue
 
   WABS = (WR1.value).abs() + (WI.value).abs();
-  WSIZE = max(
-    SAFMIN,
-    max(C1, max(FUZZY1 * (WABS * C2 + C3), min(C4, HALF * max(WABS, C5)))),
-  );
+  WSIZE = max(SAFMIN,
+      max(C1, max(FUZZY1 * (WABS * C2 + C3), min(C4, HALF * max(WABS, C5)))));
   if (WSIZE != ONE) {
     WSCALE = ONE / WSIZE;
     if (WSIZE > ONE) {
@@ -230,15 +226,14 @@ void dlag2(
 
   if (WI.value == ZERO) {
     WSIZE = max(
-      SAFMIN,
-      max(
-        C1,
+        SAFMIN,
         max(
-          FUZZY1 * ((WR2.value).abs() * C2 + C3),
-          min(C4, HALF * max((WR2.value).abs(), C5)),
-        ),
-      ),
-    );
+          C1,
+          max(
+            FUZZY1 * ((WR2.value).abs() * C2 + C3),
+            min(C4, HALF * max((WR2.value).abs(), C5)),
+          ),
+        ));
     if (WSIZE != ONE) {
       WSCALE = ONE / WSIZE;
       if (WSIZE > ONE) {

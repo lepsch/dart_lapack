@@ -29,27 +29,6 @@ void dstegr(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final TRYRAC = Box(false);
   INFO.value = 0;
-  dstemr(
-    JOBZ,
-    RANGE,
-    N,
-    D,
-    E,
-    VL,
-    VU,
-    IL,
-    IU,
-    M,
-    W,
-    Z,
-    LDZ,
-    N,
-    ISUPPZ,
-    TRYRAC,
-    WORK,
-    LWORK,
-    IWORK,
-    LIWORK,
-    INFO,
-  );
+  dstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC,
+      WORK, LWORK, IWORK, LIWORK, INFO);
 }

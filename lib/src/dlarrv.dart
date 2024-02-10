@@ -353,24 +353,23 @@ void dlarrv(
           // perform limited bisection (if necessary) to get approximate
           // eigenvalues to the precision needed.
           dlarrb(
-            IN,
-            D[IBEGIN],
-            WORK[INDLLD + IBEGIN - 1],
-            P,
-            Q,
-            RTOL1.value,
-            RTOL2.value,
-            OFFSET,
-            WORK[WBEGIN],
-            WGAP[WBEGIN],
-            WERR[WBEGIN],
-            WORK[INDWRK],
-            IWORK[IINDWK],
-            PIVMIN,
-            SPDIAM,
-            IN,
-            IINFO.value,
-          );
+              IN,
+              D[IBEGIN],
+              WORK[INDLLD + IBEGIN - 1],
+              P,
+              Q,
+              RTOL1.value,
+              RTOL2.value,
+              OFFSET,
+              WORK[WBEGIN],
+              WGAP[WBEGIN],
+              WERR[WBEGIN],
+              WORK[INDWRK],
+              IWORK[IINDWK],
+              PIVMIN,
+              SPDIAM,
+              IN,
+              IINFO.value);
           if (IINFO.value != 0) {
             INFO.value = -1;
             return;
@@ -384,21 +383,19 @@ void dlarrv(
           // this is what should happen when we decrease WERR
           if (OLDFST > 1) {
             WGAP[WBEGIN + OLDFST - 2] = max(
-              WGAP[WBEGIN + OLDFST - 2],
-              W[WBEGIN + OLDFST - 1] -
-                  WERR[WBEGIN + OLDFST - 1] -
-                  W[WBEGIN + OLDFST - 2] -
-                  WERR[WBEGIN + OLDFST - 2],
-            );
+                WGAP[WBEGIN + OLDFST - 2],
+                W[WBEGIN + OLDFST - 1] -
+                    WERR[WBEGIN + OLDFST - 1] -
+                    W[WBEGIN + OLDFST - 2] -
+                    WERR[WBEGIN + OLDFST - 2]);
           }
           if (WBEGIN + OLDLST - 1 < WEND) {
             WGAP[WBEGIN + OLDLST - 1] = max(
-              WGAP[WBEGIN + OLDLST - 1],
-              W[WBEGIN + OLDLST] -
-                  WERR[WBEGIN + OLDLST] -
-                  W[WBEGIN + OLDLST - 1] -
-                  WERR[WBEGIN + OLDLST - 1],
-            );
+                WGAP[WBEGIN + OLDLST - 1],
+                W[WBEGIN + OLDLST] -
+                    WERR[WBEGIN + OLDLST] -
+                    W[WBEGIN + OLDLST - 1] -
+                    WERR[WBEGIN + OLDLST - 1]);
           }
           // Each time the eigenvalues in WORK get refined, we store
           // the newly found approximation with all shifts applied in W
@@ -479,24 +476,23 @@ void dlarrv(
               }
               OFFSET = INDEXW[WBEGIN] - 1;
               dlarrb(
-                IN,
-                D[IBEGIN],
-                WORK[INDLLD + IBEGIN - 1],
-                P,
-                P,
-                RQTOL,
-                RQTOL,
-                OFFSET,
-                WORK[WBEGIN],
-                WGAP[WBEGIN],
-                WERR[WBEGIN],
-                WORK[INDWRK],
-                IWORK[IINDWK],
-                PIVMIN,
-                SPDIAM,
-                IN,
-                IINFO.value,
-              );
+                  IN,
+                  D[IBEGIN],
+                  WORK[INDLLD + IBEGIN - 1],
+                  P,
+                  P,
+                  RQTOL,
+                  RQTOL,
+                  OFFSET,
+                  WORK[WBEGIN],
+                  WGAP[WBEGIN],
+                  WERR[WBEGIN],
+                  WORK[INDWRK],
+                  IWORK[IINDWK],
+                  PIVMIN,
+                  SPDIAM,
+                  IN,
+                  IINFO.value);
             }
 
             if ((WBEGIN + NEWLST - 1 < DOL) || (WBEGIN + NEWFST - 1 > DOU)) {
@@ -517,25 +513,24 @@ void dlarrv(
 
             // DLARRF needs LWORK = 2*N
             dlarrf(
-              IN,
-              D[IBEGIN],
-              L[IBEGIN],
-              WORK[INDLD + IBEGIN - 1],
-              NEWFST,
-              NEWLST,
-              WORK[WBEGIN],
-              WGAP[WBEGIN],
-              WERR[WBEGIN],
-              SPDIAM,
-              LGAP,
-              RGAP,
-              PIVMIN,
-              TAU,
-              Z[IBEGIN][NEWFTT],
-              Z[IBEGIN][NEWFTT + 1],
-              WORK[INDWRK],
-              IINFO.value,
-            );
+                IN,
+                D[IBEGIN],
+                L[IBEGIN],
+                WORK[INDLD + IBEGIN - 1],
+                NEWFST,
+                NEWLST,
+                WORK[WBEGIN],
+                WGAP[WBEGIN],
+                WERR[WBEGIN],
+                SPDIAM,
+                LGAP,
+                RGAP,
+                PIVMIN,
+                TAU,
+                Z[IBEGIN][NEWFTT],
+                Z[IBEGIN][NEWFTT + 1],
+                WORK[INDWRK],
+                IINFO.value);
             if (IINFO.value == 0) {
               // a new RRR for the cluster was found by DLARRF
               // update shift and store it
@@ -652,24 +647,23 @@ void dlarrv(
                   ITMP1 = IWORK[IINDR + WINDEX];
                   OFFSET = INDEXW[WBEGIN] - 1;
                   dlarrb(
-                    IN,
-                    D[IBEGIN],
-                    WORK[INDLLD + IBEGIN - 1],
-                    INDEIG,
-                    INDEIG,
-                    ZERO,
-                    TWO * EPS,
-                    OFFSET,
-                    WORK[WBEGIN],
-                    WGAP[WBEGIN],
-                    WERR[WBEGIN],
-                    WORK[INDWRK],
-                    IWORK[IINDWK],
-                    PIVMIN,
-                    SPDIAM,
-                    ITMP1,
-                    IINFO.value,
-                  );
+                      IN,
+                      D[IBEGIN],
+                      WORK[INDLLD + IBEGIN - 1],
+                      INDEIG,
+                      INDEIG,
+                      ZERO,
+                      TWO * EPS,
+                      OFFSET,
+                      WORK[WBEGIN],
+                      WGAP[WBEGIN],
+                      WERR[WBEGIN],
+                      WORK[INDWRK],
+                      IWORK[IINDWK],
+                      PIVMIN,
+                      SPDIAM,
+                      ITMP1,
+                      IINFO.value);
                   if (IINFO.value != 0) {
                     INFO.value = -3;
                     return;
@@ -681,28 +675,27 @@ void dlarrv(
                 }
                 // Given LAMBDA, compute the eigenvector.
                 dlar1v(
-                  IN,
-                  1,
-                  IN,
-                  LAMBDA,
-                  D[IBEGIN],
-                  L[IBEGIN],
-                  WORK[INDLD + IBEGIN - 1],
-                  WORK[INDLLD + IBEGIN - 1],
-                  PIVMIN,
-                  GAPTOL,
-                  Z[IBEGIN][WINDEX],
-                  !USEDBS,
-                  NEGCNT,
-                  ZTZ,
-                  MINGMA,
-                  IWORK[IINDR + WINDEX],
-                  ISUPPZ[2 * WINDEX - 1],
-                  NRMINV,
-                  RESID,
-                  RQCORR,
-                  WORK[INDWRK],
-                );
+                    IN,
+                    1,
+                    IN,
+                    LAMBDA,
+                    D[IBEGIN],
+                    L[IBEGIN],
+                    WORK[INDLD + IBEGIN - 1],
+                    WORK[INDLLD + IBEGIN - 1],
+                    PIVMIN,
+                    GAPTOL,
+                    Z[IBEGIN][WINDEX],
+                    !USEDBS,
+                    NEGCNT,
+                    ZTZ,
+                    MINGMA,
+                    IWORK[IINDR + WINDEX],
+                    ISUPPZ[2 * WINDEX - 1],
+                    NRMINV,
+                    RESID,
+                    RQCORR,
+                    WORK[INDWRK]);
                 if (ITER == 0) {
                   BSTRES = RESID;
                   BSTW = LAMBDA;
@@ -792,28 +785,27 @@ void dlarrv(
                   if (STP2II) {
                     // improve error angle by second step
                     dlar1v(
-                      IN,
-                      1,
-                      IN,
-                      LAMBDA,
-                      D[IBEGIN],
-                      L[IBEGIN],
-                      WORK[INDLD + IBEGIN - 1],
-                      WORK[INDLLD + IBEGIN - 1],
-                      PIVMIN,
-                      GAPTOL,
-                      Z[IBEGIN][WINDEX],
-                      !USEDBS,
-                      NEGCNT,
-                      ZTZ,
-                      MINGMA,
-                      IWORK[IINDR + WINDEX],
-                      ISUPPZ[2 * WINDEX - 1],
-                      NRMINV,
-                      RESID,
-                      RQCORR,
-                      WORK[INDWRK],
-                    );
+                        IN,
+                        1,
+                        IN,
+                        LAMBDA,
+                        D[IBEGIN],
+                        L[IBEGIN],
+                        WORK[INDLD + IBEGIN - 1],
+                        WORK[INDLLD + IBEGIN - 1],
+                        PIVMIN,
+                        GAPTOL,
+                        Z[IBEGIN][WINDEX],
+                        !USEDBS,
+                        NEGCNT,
+                        ZTZ,
+                        MINGMA,
+                        IWORK[IINDR + WINDEX],
+                        ISUPPZ[2 * WINDEX - 1],
+                        NRMINV,
+                        RESID,
+                        RQCORR,
+                        WORK[INDWRK]);
                   }
                   WORK[WINDEX] = LAMBDA;
                 }
@@ -851,16 +843,12 @@ void dlarrv(
             // to WERR being too crude.)
             if (!ESKIP) {
               if (K > 1) {
-                WGAP[WINDMN] = max(
-                  WGAP[WINDMN],
-                  W[WINDEX] - WERR[WINDEX] - W[WINDMN] - WERR[WINDMN],
-                );
+                WGAP[WINDMN] = max(WGAP[WINDMN],
+                    W[WINDEX] - WERR[WINDEX] - W[WINDMN] - WERR[WINDMN]);
               }
               if (WINDEX < WEND) {
-                WGAP[WINDEX] = max(
-                  SAVGAP,
-                  W[WINDPL] - WERR[WINDPL] - W[WINDEX] - WERR[WINDEX],
-                );
+                WGAP[WINDEX] = max(SAVGAP,
+                    W[WINDPL] - WERR[WINDPL] - W[WINDEX] - WERR[WINDEX]);
               }
             }
             IDONE = IDONE + 1;

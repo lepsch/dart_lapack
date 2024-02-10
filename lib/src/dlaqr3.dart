@@ -102,23 +102,7 @@ void dlaqr3(
     // ==== Workspace query call to DLAQR4 ====
 
     dlaqr4(
-      true,
-      true,
-      JW,
-      1,
-      JW,
-      T,
-      LDT,
-      SR,
-      SI,
-      1,
-      JW,
-      V,
-      LDV,
-      WORK,
-      -1,
-      INFQR,
-    );
+        true, true, JW, 1, JW, T, LDT, SR, SI, 1, JW, V, LDV, WORK, -1, INFQR);
     LWK3 = WORK[1].toInt();
 
     // ==== Optimal workspace ====
@@ -182,52 +166,17 @@ void dlaqr3(
   // .    here and there to keep track.) ====
 
   dlacpy('U', JW, JW, H(KWTOP, KWTOP), LDH, T, LDT);
-  dcopy(
-    JW - 1,
-    H(KWTOP + 1, KWTOP).asArray(),
-    LDH + 1,
-    T(2, 1).asArray(),
-    LDT + 1,
-  );
+  dcopy(JW - 1, H(KWTOP + 1, KWTOP).asArray(), LDH + 1, T(2, 1).asArray(),
+      LDT + 1);
 
   dlaset('A', JW, JW, ZERO, ONE, V, LDV);
   NMIN = ilaenv(12, 'DLAQR3', 'SV', JW, 1, JW, LWORK);
   if (JW > NMIN) {
-    dlaqr4(
-      true,
-      true,
-      JW,
-      1,
-      JW,
-      T,
-      LDT,
-      SR(KWTOP),
-      SI(KWTOP),
-      1,
-      JW,
-      V,
-      LDV,
-      WORK,
-      LWORK,
-      INFQR,
-    );
+    dlaqr4(true, true, JW, 1, JW, T, LDT, SR(KWTOP), SI(KWTOP), 1, JW, V, LDV,
+        WORK, LWORK, INFQR);
   } else {
-    dlahqr(
-      true,
-      true,
-      JW,
-      1,
-      JW,
-      T,
-      LDT,
-      SR(KWTOP),
-      SI(KWTOP),
-      1,
-      JW,
-      V,
-      LDV,
-      INFQR,
-    );
+    dlahqr(true, true, JW, 1, JW, T, LDT, SR(KWTOP), SI(KWTOP), 1, JW, V, LDV,
+        INFQR);
   }
 
   // ==== DTREXC needs a clean margin near the diagonal ====
@@ -377,18 +326,8 @@ void dlaqr3(
       CC.value = T[I][I - 1];
       BB.value = T[I - 1][I];
       DD.value = T[I][I];
-      dlanv2(
-        AA,
-        BB,
-        CC,
-        DD,
-        SR.box(KWTOP + I - 2),
-        SI.box(KWTOP + I - 2),
-        SR.box(KWTOP + I - 1),
-        SI.box(KWTOP + I - 1),
-        CS,
-        SN,
-      );
+      dlanv2(AA, BB, CC, DD, SR.box(KWTOP + I - 2), SI.box(KWTOP + I - 2),
+          SR.box(KWTOP + I - 1), SI.box(KWTOP + I - 1), CS, SN);
       I = I - 2;
     }
   }
@@ -415,34 +354,15 @@ void dlaqr3(
 
     if (KWTOP > 1) H[KWTOP][KWTOP - 1] = S * V[1][1];
     dlacpy('U', JW, JW, T, LDT, H(KWTOP, KWTOP), LDH);
-    dcopy(
-      JW - 1,
-      T(2, 1).asArray(),
-      LDT + 1,
-      H(KWTOP + 1, KWTOP).asArray(),
-      LDH + 1,
-    );
+    dcopy(JW - 1, T(2, 1).asArray(), LDT + 1, H(KWTOP + 1, KWTOP).asArray(),
+        LDH + 1);
 
     // ==== Accumulate orthogonal matrix in order update
     // .    H and Z, if requested.  ====
 
     if (NS.value > 1 && S != ZERO) {
-      dormhr(
-        'R',
-        'N',
-        JW,
-        NS.value,
-        1,
-        NS.value,
-        T,
-        LDT,
-        WORK,
-        V,
-        LDV,
-        WORK[JW + 1],
-        LWORK - JW,
-        INFO,
-      );
+      dormhr('R', 'N', JW, NS.value, 1, NS.value, T, LDT, WORK, V, LDV,
+          WORK[JW + 1], LWORK - JW, INFO);
     }
 
     // ==== Update vertical slab in H ====
@@ -457,21 +377,8 @@ void dlaqr3(
         KROW += NV) {
       // 70
       KLN = min(NV, KWTOP - KROW);
-      dgemm(
-        'N',
-        'N',
-        KLN,
-        JW,
-        JW,
-        ONE,
-        H(KROW, KWTOP),
-        LDH,
-        V,
-        LDV,
-        ZERO,
-        WV,
-        LDWV,
-      );
+      dgemm('N', 'N', KLN, JW, JW, ONE, H(KROW, KWTOP), LDH, V, LDV, ZERO, WV,
+          LDWV);
       dlacpy('A', KLN, JW, WV, LDWV, H(KROW, KWTOP), LDH);
     } // 70
 
@@ -481,21 +388,8 @@ void dlaqr3(
       for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) {
         // 80
         KLN = min(NH, N - KCOL + 1);
-        dgemm(
-          'C',
-          'N',
-          JW,
-          KLN,
-          JW,
-          ONE,
-          V,
-          LDV,
-          H(KWTOP, KCOL),
-          LDH,
-          ZERO,
-          T,
-          LDT,
-        );
+        dgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H(KWTOP, KCOL), LDH, ZERO, T,
+            LDT);
         dlacpy('A', JW, KLN, T, LDT, H(KWTOP, KCOL), LDH);
       } // 80
     }
@@ -506,21 +400,8 @@ void dlaqr3(
       for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) {
         // 90
         KLN = min(NV, IHIZ - KROW + 1);
-        dgemm(
-          'N',
-          'N',
-          KLN,
-          JW,
-          JW,
-          ONE,
-          Z(KROW, KWTOP),
-          LDZ,
-          V,
-          LDV,
-          ZERO,
-          WV,
-          LDWV,
-        );
+        dgemm('N', 'N', KLN, JW, JW, ONE, Z(KROW, KWTOP), LDZ, V, LDV, ZERO, WV,
+            LDWV);
         dlacpy('A', KLN, JW, WV, LDWV, Z(KROW, KWTOP), LDZ);
       } // 90
     }

@@ -104,26 +104,11 @@ void dlaed7(
 
   PTR = 1 + pow(2, TLVLS).toInt();
   for (I = 1; I <= CURLVL - 1; I++) {
-
     PTR = PTR + pow(2, TLVLS - I).toInt();
   }
   CURR = PTR + CURPBM;
-  dlaeda(
-    N,
-    TLVLS,
-    CURLVL,
-    CURPBM,
-    PRMPTR,
-    PERM,
-    GIVPTR,
-    GIVCOL,
-    GIVNUM,
-    QSTORE,
-    QPTR,
-    WORK(IZ),
-    WORK(IZ + N),
-    INFO,
-  );
+  dlaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE,
+      QPTR, WORK(IZ), WORK(IZ + N), INFO);
 
   // When solving the final problem, we no longer need the stored data,
   // so we will overwrite the data from this level onto the previously
@@ -138,29 +123,28 @@ void dlaed7(
   // Sort and Deflate eigenvalues.
 
   dlaed8(
-    ICOMPQ,
-    K,
-    N,
-    QSIZ,
-    D,
-    Q,
-    LDQ,
-    INDXQ,
-    RHO,
-    CUTPNT,
-    WORK(IZ),
-    WORK(IDLMDA),
-    WORK(IQ2).asMatrix(LDQ2),
-    LDQ2,
-    WORK(IW),
-    PERM(PRMPTR[CURR]),
-    GIVPTR.box(CURR + 1),
-    GIVCOL(1, GIVPTR[CURR]),
-    GIVNUM(1, GIVPTR[CURR]),
-    IWORK(INDXP),
-    IWORK(INDX),
-    INFO,
-  );
+      ICOMPQ,
+      K,
+      N,
+      QSIZ,
+      D,
+      Q,
+      LDQ,
+      INDXQ,
+      RHO,
+      CUTPNT,
+      WORK(IZ),
+      WORK(IDLMDA),
+      WORK(IQ2).asMatrix(LDQ2),
+      LDQ2,
+      WORK(IW),
+      PERM(PRMPTR[CURR]),
+      GIVPTR.box(CURR + 1),
+      GIVCOL(1, GIVPTR[CURR]),
+      GIVNUM(1, GIVPTR[CURR]),
+      IWORK(INDXP),
+      IWORK(INDX),
+      INFO);
   PRMPTR[CURR + 1] = PRMPTR[CURR] + N;
   GIVPTR[CURR + 1] = GIVPTR[CURR + 1] + GIVPTR[CURR];
 
@@ -168,37 +152,23 @@ void dlaed7(
 
   if (K.value != 0) {
     dlaed9(
-      K.value,
-      1,
-      K.value,
-      N,
-      D,
-      WORK(IS).asMatrix(K.value),
-      K.value,
-      RHO.value,
-      WORK(IDLMDA),
-      WORK(IW),
-      QSTORE(QPTR[CURR]).asMatrix(K.value),
-      K.value,
-      INFO,
-    );
-    if (INFO.value != 0) return;
-    if (ICOMPQ == 1) {
-      dgemm(
-        'N',
-        'N',
-        QSIZ,
         K.value,
+        1,
         K.value,
-        ONE,
-        WORK(IQ2).asMatrix(LDQ2),
-        LDQ2,
+        N,
+        D,
+        WORK(IS).asMatrix(K.value),
+        K.value,
+        RHO.value,
+        WORK(IDLMDA),
+        WORK(IW),
         QSTORE(QPTR[CURR]).asMatrix(K.value),
         K.value,
-        ZERO,
-        Q,
-        LDQ,
-      );
+        INFO);
+    if (INFO.value != 0) return;
+    if (ICOMPQ == 1) {
+      dgemm('N', 'N', QSIZ, K.value, K.value, ONE, WORK(IQ2).asMatrix(LDQ2),
+          LDQ2, QSTORE(QPTR[CURR]).asMatrix(K.value), K.value, ZERO, Q, LDQ);
     }
     QPTR[CURR + 1] = QPTR[CURR] + pow(K.value, 2).toInt();
 
@@ -210,7 +180,6 @@ void dlaed7(
   } else {
     QPTR[CURR + 1] = QPTR[CURR];
     for (I = 1; I <= N; I++) {
-
       INDXQ[I] = I;
     }
   }

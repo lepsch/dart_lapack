@@ -122,14 +122,12 @@ void dchkst(
   final IINFO = Box(0), M = Box(0), M2 = Box(0), M3 = Box(0), NSPLIT = Box(0);
   final TRYRAC = Box(true);
   final KTYPE = Array.fromList(
-    [1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10],
-  );
+      [1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10]);
   // final KMAGN = Array.fromList(
   //   [1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1],
   // );
   final KMODE = Array.fromList(
-    [0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3],
-  );
+      [0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3]);
 
   // Keep ftnchek happy
   IDUMMA[1] = 1;
@@ -288,153 +286,87 @@ void dchkst(
         } else if (ITYPE == 4) {
           // Diagonal Matrix, [Eigen]values Specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            0,
-            0,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 5) {
           // Symmetric, eigenvalues specified
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            N,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 7) {
           // Diagonal, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            0,
-            0,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              0,
+              0,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 8) {
           // Symmetric, random eigenvalues
 
           dlatmr(
-            N,
-            N,
-            'S',
-            ISEED,
-            'S',
-            WORK,
-            6,
-            ONE,
-            ONE,
-            'T',
-            'N',
-            WORK(N + 1),
-            1,
-            ONE,
-            WORK(2 * N + 1),
-            1,
-            ONE,
-            'N',
-            IDUMMA,
-            N,
-            N,
-            ZERO,
-            ANORM,
-            'NO',
-            A,
-            LDA,
-            IWORK,
-            IINFO,
-          );
+              N,
+              N,
+              'S',
+              ISEED,
+              'S',
+              WORK,
+              6,
+              ONE,
+              ONE,
+              'T',
+              'N',
+              WORK(N + 1),
+              1,
+              ONE,
+              WORK(2 * N + 1),
+              1,
+              ONE,
+              'N',
+              IDUMMA,
+              N,
+              N,
+              ZERO,
+              ANORM,
+              'NO',
+              A,
+              LDA,
+              IWORK,
+              IINFO);
         } else if (ITYPE == 9) {
           // Positive definite, eigenvalues specified.
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'P',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            N,
-            N,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A,
+              LDA, WORK(N + 1), IINFO);
         } else if (ITYPE == 10) {
           // Positive definite tridiagonal, eigenvalues specified.
 
-          dlatms(
-            N,
-            N,
-            'S',
-            ISEED,
-            'P',
-            WORK,
-            IMODE,
-            COND,
-            ANORM,
-            1,
-            1,
-            'N',
-            A,
-            LDA,
-            WORK(N + 1),
-            IINFO,
-          );
+          dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A,
+              LDA, WORK(N + 1), IINFO);
           for (I = 2; I <= N; I++) {
             // 90
             TEMP1 =
@@ -491,40 +423,10 @@ void dchkst(
 
       // Do tests 1 and 2
 
-      dsyt21(
-        2,
-        'Upper',
-        N,
-        1,
-        A,
-        LDA,
-        SD,
-        SE,
-        U,
-        LDU,
-        V,
-        LDU,
-        TAU,
-        WORK,
-        RESULT[1],
-      );
-      dsyt21(
-        3,
-        'Upper',
-        N,
-        1,
-        A,
-        LDA,
-        SD,
-        SE,
-        U,
-        LDU,
-        V,
-        LDU,
-        TAU,
-        WORK,
-        RESULT[2],
-      );
+      dsyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+          RESULT[1]);
+      dsyt21(3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+          RESULT[2]);
 
       // Call DSYTRD and DORGTR to compute S and U from
       // lower triangle, do tests.
@@ -560,40 +462,10 @@ void dchkst(
         }
       }
 
-      dsyt21(
-        2,
-        'Lower',
-        N,
-        1,
-        A,
-        LDA,
-        SD,
-        SE,
-        U,
-        LDU,
-        V,
-        LDU,
-        TAU,
-        WORK,
-        RESULT[3],
-      );
-      dsyt21(
-        3,
-        'Lower',
-        N,
-        1,
-        A,
-        LDA,
-        SD,
-        SE,
-        U,
-        LDU,
-        V,
-        LDU,
-        TAU,
-        WORK,
-        RESULT[4],
-      );
+      dsyt21(2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+          RESULT[3]);
+      dsyt21(3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+          RESULT[4]);
 
       // Store the upper triangle of A in AP
 
@@ -717,15 +589,7 @@ void dchkst(
 
       NTEST = 11;
       dsteqr(
-        'N',
-        N,
-        D2,
-        WORK,
-        WORK(N + 1).asMatrix(LDU),
-        LDU,
-        WORK(N + 1),
-        IINFO,
-      );
+          'N', N, D2, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -866,26 +730,8 @@ void dchkst(
       if (JTYPE == 21) {
         NTEST = 17;
         ABSTOL = UNFL + UNFL;
-        dstebz(
-          'A',
-          'E',
-          N,
-          VL,
-          VU,
-          IL,
-          IU,
-          ABSTOL,
-          SD,
-          SE,
-          M,
-          NSPLIT,
-          WR,
-          IWORK(1),
-          IWORK(N + 1),
-          WORK,
-          IWORK(2 * N + 1),
-          IINFO,
-        );
+        dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR,
+            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -909,9 +755,7 @@ void dchkst(
         for (J = 1; J <= N; J++) {
           // 190
           TEMP1 = max(
-            TEMP1,
-            (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()),
-          );
+              TEMP1, (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
         } // 190
 
         RESULT[17] = TEMP1 / TEMP2;
@@ -923,26 +767,8 @@ void dchkst(
 
       NTEST = 18;
       ABSTOL = UNFL + UNFL;
-      dstebz(
-        'A',
-        'E',
-        N,
-        VL,
-        VU,
-        IL,
-        IU,
-        ABSTOL,
-        SD,
-        SE,
-        M,
-        NSPLIT,
-        WA1,
-        IWORK(1),
-        IWORK(N + 1),
-        WORK,
-        IWORK(2 * N + 1),
-        IINFO,
-      );
+      dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
+          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = IINFO.value.abs();
@@ -983,26 +809,8 @@ void dchkst(
         }
       }
 
-      dstebz(
-        'I',
-        'E',
-        N,
-        VL,
-        VU,
-        IL,
-        IU,
-        ABSTOL,
-        SD,
-        SE,
-        M2,
-        NSPLIT,
-        WA2,
-        IWORK(1),
-        IWORK(N + 1),
-        WORK,
-        IWORK(2 * N + 1),
-        IINFO,
-      );
+      dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2,
+          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1020,20 +828,16 @@ void dchkst(
       if (N > 0) {
         if (IL != 1) {
           VL = WA1[IL] -
-              max(
-                HALF * (WA1[IL] - WA1[IL - 1]),
-                max(ULP * ANORM, TWO * RTUNFL),
-              );
+              max(HALF * (WA1[IL] - WA1[IL - 1]),
+                  max(ULP * ANORM, TWO * RTUNFL));
         } else {
           VL = WA1[1] -
               max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
         }
         if (IU != N) {
           VU = WA1[IU] +
-              max(
-                HALF * (WA1[IU + 1] - WA1[IU]),
-                max(ULP * ANORM, TWO * RTUNFL),
-              );
+              max(HALF * (WA1[IU + 1] - WA1[IU]),
+                  max(ULP * ANORM, TWO * RTUNFL));
         } else {
           VU = WA1[N] +
               max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
@@ -1043,26 +847,8 @@ void dchkst(
         VU = ONE;
       }
 
-      dstebz(
-        'V',
-        'E',
-        N,
-        VL,
-        VU,
-        IL,
-        IU,
-        ABSTOL,
-        SD,
-        SE,
-        M3,
-        NSPLIT,
-        WA3,
-        IWORK(1),
-        IWORK(N + 1),
-        WORK,
-        IWORK(2 * N + 1),
-        IINFO,
-      );
+      dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3,
+          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1096,26 +882,8 @@ void dchkst(
       // it returns these eigenvalues in the correct order.)
 
       NTEST = 21;
-      dstebz(
-        'A',
-        'B',
-        N,
-        VL,
-        VU,
-        IL,
-        IU,
-        ABSTOL,
-        SD,
-        SE,
-        M,
-        NSPLIT,
-        WA1,
-        IWORK(1),
-        IWORK(N + 1),
-        WORK,
-        IWORK(2 * N + 1),
-        IINFO,
-      );
+      dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
+          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1128,21 +896,8 @@ void dchkst(
         }
       }
 
-      dstein(
-        N,
-        SD,
-        SE,
-        M.value,
-        WA1,
-        IWORK(1),
-        IWORK(N + 1),
-        Z,
-        LDU,
-        WORK,
-        IWORK(2 * N + 1),
-        IWORK(3 * N + 1),
-        IINFO,
-      );
+      dstein(N, SD, SE, M.value, WA1, IWORK(1), IWORK(N + 1), Z, LDU, WORK,
+          IWORK(2 * N + 1), IWORK(3 * N + 1), IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1168,19 +923,8 @@ void dchkst(
       dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
       NTEST = 22;
-      dstedc(
-        'I',
-        N,
-        D1,
-        WORK,
-        Z,
-        LDU,
-        WORK(N + 1),
-        LWEDC - N,
-        IWORK,
-        LIWEDC,
-        IINFO,
-      );
+      dstedc('I', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1205,19 +949,8 @@ void dchkst(
       dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
       NTEST = 24;
-      dstedc(
-        'V',
-        N,
-        D1,
-        WORK,
-        Z,
-        LDU,
-        WORK(N + 1),
-        LWEDC - N,
-        IWORK,
-        LIWEDC,
-        IINFO,
-      );
+      dstedc('V', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1242,19 +975,8 @@ void dchkst(
       dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
       NTEST = 26;
-      dstedc(
-        'N',
-        N,
-        D2,
-        WORK,
-        Z,
-        LDU,
-        WORK(N + 1),
-        LWEDC - N,
-        IWORK,
-        LIWEDC,
-        IINFO,
-      );
+      dstedc('N', N, D2, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUNIT, 'DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
         INFO.value = (IINFO.value).abs();
@@ -1298,28 +1020,27 @@ void dchkst(
           NTEST = 27;
           ABSTOL = UNFL + UNFL;
           dstemr(
-            'V',
-            'A',
-            N,
-            SD,
-            SE,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            WR,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK,
-            LWORK,
-            IWORK(2 * N + 1),
-            LWORK - 2 * N,
-            IINFO,
-          );
+              'V',
+              'A',
+              N,
+              SD,
+              SE,
+              VL,
+              VU,
+              IL,
+              IU,
+              M,
+              WR,
+              Z,
+              LDU,
+              N,
+              IWORK(1),
+              TRYRAC,
+              WORK,
+              LWORK,
+              IWORK(2 * N + 1),
+              LWORK - 2 * N,
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1342,10 +1063,8 @@ void dchkst(
           TEMP1 = ZERO;
           for (J = 1; J <= N; J++) {
             // 220
-            TEMP1 = max(
-              TEMP1,
-              (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()),
-            );
+            TEMP1 = max(TEMP1,
+                (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
           } // 220
 
           RESULT[27] = TEMP1 / TEMP2;
@@ -1362,38 +1081,31 @@ void dchkst(
             NTEST = 28;
             ABSTOL = UNFL + UNFL;
             dstemr(
-              'V',
-              'I',
-              N,
-              SD,
-              SE,
-              VL,
-              VU,
-              IL,
-              IU,
-              M,
-              WR,
-              Z,
-              LDU,
-              N,
-              IWORK(1),
-              TRYRAC,
-              WORK,
-              LWORK,
-              IWORK(2 * N + 1),
-              LWORK - 2 * N,
-              IINFO,
-            );
+                'V',
+                'I',
+                N,
+                SD,
+                SE,
+                VL,
+                VU,
+                IL,
+                IU,
+                M,
+                WR,
+                Z,
+                LDU,
+                N,
+                IWORK(1),
+                TRYRAC,
+                WORK,
+                LWORK,
+                IWORK(2 * N + 1),
+                LWORK - 2 * N,
+                IINFO);
 
             if (IINFO.value != 0) {
               print9999(
-                NOUNIT,
-                'DSTEMR(V,I,rel)',
-                IINFO.value,
-                N,
-                JTYPE,
-                IOLDSD,
-              );
+                  NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
@@ -1415,10 +1127,9 @@ void dchkst(
             for (J = IL; J <= IU; J++) {
               // 230
               TEMP1 = max(
-                TEMP1,
-                (WR[J - IL + 1] - D4[N - J + 1]).abs() /
-                    (ABSTOL + (WR[J - IL + 1]).abs()),
-              );
+                  TEMP1,
+                  (WR[J - IL + 1] - D4[N - J + 1]).abs() /
+                      (ABSTOL + (WR[J - IL + 1]).abs()));
             } // 230
 
             RESULT[28] = TEMP1 / TEMP2;
@@ -1449,28 +1160,27 @@ void dchkst(
             IL = ITEMP;
           }
           dstemr(
-            'V',
-            'I',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D1,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+              'V',
+              'I',
+              N,
+              D5,
+              WORK,
+              VL,
+              VU,
+              IL,
+              IU,
+              M,
+              D1,
+              Z,
+              LDU,
+              N,
+              IWORK(1),
+              TRYRAC,
+              WORK(N + 1),
+              LWORK - N,
+              IWORK(2 * N + 1),
+              LIWORK - 2 * N,
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1495,28 +1205,27 @@ void dchkst(
 
           NTEST = 31;
           dstemr(
-            'N',
-            'I',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D2,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+              'N',
+              'I',
+              N,
+              D5,
+              WORK,
+              VL,
+              VU,
+              IL,
+              IU,
+              M,
+              D2,
+              Z,
+              LDU,
+              N,
+              IWORK(1),
+              TRYRAC,
+              WORK(N + 1),
+              LWORK - N,
+              IWORK(2 * N + 1),
+              LIWORK - 2 * N,
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1554,20 +1263,16 @@ void dchkst(
           if (N > 0) {
             if (IL != 1) {
               VL = D2[IL] -
-                  max(
-                    HALF * (D2[IL] - D2[IL - 1]),
-                    max(ULP * ANORM, TWO * RTUNFL),
-                  );
+                  max(HALF * (D2[IL] - D2[IL - 1]),
+                      max(ULP * ANORM, TWO * RTUNFL));
             } else {
               VL = D2[1] -
                   max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
             }
             if (IU != N) {
               VU = D2[IU] +
-                  max(
-                    HALF * (D2[IU + 1] - D2[IU]),
-                    max(ULP * ANORM, TWO * RTUNFL),
-                  );
+                  max(HALF * (D2[IU + 1] - D2[IU]),
+                      max(ULP * ANORM, TWO * RTUNFL));
             } else {
               VU = D2[N] +
                   max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
@@ -1578,28 +1283,27 @@ void dchkst(
           }
 
           dstemr(
-            'V',
-            'V',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D1,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+              'V',
+              'V',
+              N,
+              D5,
+              WORK,
+              VL,
+              VU,
+              IL,
+              IU,
+              M,
+              D1,
+              Z,
+              LDU,
+              N,
+              IWORK(1),
+              TRYRAC,
+              WORK(N + 1),
+              LWORK - N,
+              IWORK(2 * N + 1),
+              LIWORK - 2 * N,
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1624,28 +1328,27 @@ void dchkst(
 
           NTEST = 34;
           dstemr(
-            'N',
-            'V',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D2,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO,
-          );
+              'N',
+              'V',
+              N,
+              D5,
+              WORK,
+              VL,
+              VU,
+              IL,
+              IU,
+              M,
+              D2,
+              Z,
+              LDU,
+              N,
+              IWORK(1),
+              TRYRAC,
+              WORK(N + 1),
+              LWORK - N,
+              IWORK(2 * N + 1),
+              LIWORK - 2 * N,
+              IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEMR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1688,28 +1391,27 @@ void dchkst(
         NTEST = 35;
 
         dstemr(
-          'V',
-          'A',
-          N,
-          D5,
-          WORK,
-          VL,
-          VU,
-          IL,
-          IU,
-          M,
-          D1,
-          Z,
-          LDU,
-          N,
-          IWORK(1),
-          TRYRAC,
-          WORK(N + 1),
-          LWORK - N,
-          IWORK(2 * N + 1),
-          LIWORK - 2 * N,
-          IINFO,
-        );
+            'V',
+            'A',
+            N,
+            D5,
+            WORK,
+            VL,
+            VU,
+            IL,
+            IU,
+            M,
+            D1,
+            Z,
+            LDU,
+            N,
+            IWORK(1),
+            TRYRAC,
+            WORK(N + 1),
+            LWORK - N,
+            IWORK(2 * N + 1),
+            LIWORK - 2 * N,
+            IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -1734,28 +1436,27 @@ void dchkst(
 
         NTEST = 37;
         dstemr(
-          'N',
-          'A',
-          N,
-          D5,
-          WORK,
-          VL,
-          VU,
-          IL,
-          IU,
-          M,
-          D2,
-          Z,
-          LDU,
-          N,
-          IWORK(1),
-          TRYRAC,
-          WORK(N + 1),
-          LWORK - N,
-          IWORK(2 * N + 1),
-          LIWORK - 2 * N,
-          IINFO,
-        );
+            'N',
+            'A',
+            N,
+            D5,
+            WORK,
+            VL,
+            VU,
+            IL,
+            IU,
+            M,
+            D2,
+            Z,
+            LDU,
+            N,
+            IWORK(1),
+            TRYRAC,
+            WORK(N + 1),
+            LWORK - N,
+            IWORK(2 * N + 1),
+            LIWORK - 2 * N,
+            IINFO);
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
@@ -1798,14 +1499,11 @@ void dchkst(
             NOUNIT.println(' DST -- Real Symmetric eigenvalue problem');
             NOUNIT.println(' Matrix types (see DCHKST for details): ');
             NOUNIT.println(
-              ' Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.',
-            );
+                ' Special Matrices:\n  1=Zero matrix.                          5=Diagonal: clustered entries.\n  2=Identity matrix.                      6=Diagonal: large, evenly spaced.\n  3=Diagonal: evenly spaced entries.      7=Diagonal: small, evenly spaced.\n  4=Diagonal: geometr. spaced entries.');
             NOUNIT.println(
-              ' Dense Symmetric Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.',
-            );
+                ' Dense Symmetric Matrices:\n  8=Evenly spaced eigenvals.             12=Small, evenly spaced eigenvals.\n  9=Geometrically spaced eigenvals.      13=Matrix with random O(1) entries.\n 10=Clustered eigenvalues.               14=Matrix with large random entries.\n 11=Large, evenly spaced eigenvals.      15=Matrix with small random entries.');
             NOUNIT.println(
-              ' 16=Positive definite, evenly spaced eigenvalues\n 17=Positive definite, geometrically spaced eigenvlaues\n 18=Positive definite, clustered eigenvalues\n 19=Positive definite, small evenly spaced eigenvalues\n 20=Positive definite, large evenly spaced eigenvalues\n 21=Diagonally dominant tridiagonal, geometrically spaced eigenvalues',
-            );
+                ' 16=Positive definite, evenly spaced eigenvalues\n 17=Positive definite, geometrically spaced eigenvlaues\n 18=Positive definite, clustered eigenvalues\n 19=Positive definite, small evenly spaced eigenvalues\n 20=Positive definite, large evenly spaced eigenvalues\n 21=Diagonally dominant tridiagonal, geometrically spaced eigenvalues');
 
             // Tests performed
 
@@ -1833,8 +1531,7 @@ void print9990(
   final double result,
 ) {
   NOUNIT.println(
-    ' N=${n.i5}, seed=${seed.i4(4, ',')} type ${type.i2}, test(${test.i2})=${result.g10_3}',
-  );
+      ' N=${n.i5}, seed=${seed.i4(4, ',')} type ${type.i2}, test(${test.i2})=${result.g10_3}');
 }
 
 void print9999(
@@ -1846,6 +1543,5 @@ void print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DCHKST: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})',
-  );
+      ' DCHKST: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
 }

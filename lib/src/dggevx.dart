@@ -259,35 +259,26 @@ void dggevx(
   }
   ITAU = 1;
   IWRK = ITAU + IROWS;
-  dgeqrf(
-    IROWS,
-    ICOLS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+  dgeqrf(IROWS, ICOLS, B(ILO.value, ILO.value), LDB, WORK(ITAU), WORK(IWRK),
+      LWORK + 1 - IWRK, IERR);
 
   // Apply the orthogonal transformation to A
   // (Workspace: need N, prefer N*NB)
 
   dormqr(
-    'L',
-    'T',
-    IROWS,
-    ICOLS,
-    IROWS,
-    B(ILO.value, ILO.value),
-    LDB,
-    WORK(ITAU),
-    A(ILO.value, ILO.value),
-    LDA,
-    WORK(IWRK),
-    LWORK + 1 - IWRK,
-    IERR,
-  );
+      'L',
+      'T',
+      IROWS,
+      ICOLS,
+      IROWS,
+      B(ILO.value, ILO.value),
+      LDB,
+      WORK(ITAU),
+      A(ILO.value, ILO.value),
+      LDA,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      IERR);
 
   // Initialize VL and/or VR
   // (Workspace: need N, prefer N*NB)
@@ -295,27 +286,11 @@ void dggevx(
   if (ILVL) {
     dlaset('Full', N, N, ZERO, ONE, VL, LDVL);
     if (IROWS > 1) {
-      dlacpy(
-        'L',
-        IROWS - 1,
-        IROWS - 1,
-        B(ILO.value + 1, ILO.value),
-        LDB,
-        VL(ILO.value + 1, ILO.value),
-        LDVL,
-      );
+      dlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB,
+          VL(ILO.value + 1, ILO.value), LDVL);
     }
-    dorgqr(
-      IROWS,
-      IROWS,
-      IROWS,
-      VL(ILO.value, ILO.value),
-      LDVL,
-      WORK(ITAU),
-      WORK(IWRK),
-      LWORK + 1 - IWRK,
-      IERR,
-    );
+    dorgqr(IROWS, IROWS, IROWS, VL(ILO.value, ILO.value), LDVL, WORK(ITAU),
+        WORK(IWRK), LWORK + 1 - IWRK, IERR);
   }
 
   if (ILVR) dlaset('Full', N, N, ZERO, ONE, VR, LDVR);
@@ -326,39 +301,11 @@ void dggevx(
   if (ILV || !WANTSN) {
     // Eigenvectors requested -- work on whole matrix.
 
-    dgghrd(
-      JOBVL,
-      JOBVR,
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      B,
-      LDB,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      IERR,
-    );
+    dgghrd(JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB, VL, LDVL, VR,
+        LDVR, IERR);
   } else {
-    dgghrd(
-      'N',
-      'N',
-      IROWS,
-      1,
-      IROWS,
-      A(ILO.value, ILO.value),
-      LDA,
-      B(ILO.value, ILO.value),
-      LDB,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      IERR,
-    );
+    dgghrd('N', 'N', IROWS, 1, IROWS, A(ILO.value, ILO.value), LDA,
+        B(ILO.value, ILO.value), LDB, VL, LDVL, VR, LDVR, IERR);
   }
 
   // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -371,28 +318,8 @@ void dggevx(
     CHTEMP = 'E';
   }
   try {
-    dhgeqz(
-      CHTEMP,
-      JOBVL,
-      JOBVR,
-      N,
-      ILO.value,
-      IHI.value,
-      A,
-      LDA,
-      B,
-      LDB,
-      ALPHAR,
-      ALPHAI,
-      BETA,
-      VL,
-      LDVL,
-      VR,
-      LDVR,
-      WORK,
-      LWORK,
-      IERR,
-    );
+    dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO.value, IHI.value, A, LDA, B, LDB,
+        ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR);
     if (IERR.value != 0) {
       if (IERR.value > 0 && IERR.value <= N) {
         INFO.value = IERR.value;
@@ -420,24 +347,8 @@ void dggevx(
           CHTEMP = 'R';
         }
 
-        dtgevc(
-          CHTEMP,
-          'B',
-          LDUMMA,
-          N,
-          A,
-          LDA,
-          B,
-          LDB,
-          VL,
-          LDVL,
-          VR,
-          LDVR,
-          N,
-          IN,
-          WORK,
-          IERR,
-        );
+        dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N,
+            IN, WORK, IERR);
         if (IERR.value != 0) {
           INFO.value = N + 2;
           return;
@@ -484,8 +395,16 @@ void dggevx(
           // (compute workspace: need up to 4*N + 6*N)
 
           if (WANTSE || WANTSB) {
-            dtgevc(
-              'B',
+            dtgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK.asMatrix(N), N,
+                WORK(IWRK).asMatrix(N), N, MM, M, WORK(IWRK1), IERR);
+            if (IERR.value != 0) {
+              INFO.value = N + 2;
+              return;
+            }
+          }
+
+          dtgsna(
+              SENSE,
               'S',
               BWORK,
               N,
@@ -497,39 +416,14 @@ void dggevx(
               N,
               WORK(IWRK).asMatrix(N),
               N,
+              RCONDE(I),
+              RCONDV(I),
               MM,
               M,
               WORK(IWRK1),
-              IERR,
-            );
-            if (IERR.value != 0) {
-              INFO.value = N + 2;
-              return;
-            }
-          }
-
-          dtgsna(
-            SENSE,
-            'S',
-            BWORK,
-            N,
-            A,
-            LDA,
-            B,
-            LDB,
-            WORK.asMatrix(N),
-            N,
-            WORK(IWRK).asMatrix(N),
-            N,
-            RCONDE(I),
-            RCONDV(I),
-            MM,
-            M,
-            WORK(IWRK1),
-            LWORK - IWRK1 + 1,
-            IWORK,
-            IERR,
-          );
+              LWORK - IWRK1 + 1,
+              IWORK,
+              IERR);
         }
       }
     }
@@ -538,19 +432,8 @@ void dggevx(
     // (Workspace: none needed)
 
     if (ILVL) {
-      dggbak(
-        BALANC,
-        'L',
-        N,
-        ILO.value,
-        IHI.value,
-        LSCALE,
-        RSCALE,
-        N,
-        VL,
-        LDVL,
-        IERR,
-      );
+      dggbak(BALANC, 'L', N, ILO.value, IHI.value, LSCALE, RSCALE, N, VL, LDVL,
+          IERR);
 
       for (JC = 1; JC <= N; JC++) {
         if (ALPHAI[JC] < ZERO) continue;
@@ -579,19 +462,8 @@ void dggevx(
       }
     }
     if (ILVR) {
-      dggbak(
-        BALANC,
-        'R',
-        N,
-        ILO.value,
-        IHI.value,
-        LSCALE,
-        RSCALE,
-        N,
-        VR,
-        LDVR,
-        IERR,
-      );
+      dggbak(BALANC, 'R', N, ILO.value, IHI.value, LSCALE, RSCALE, N, VR, LDVR,
+          IERR);
       for (JC = 1; JC <= N; JC++) {
         if (ALPHAI[JC] < ZERO) continue;
         TEMP = ZERO;

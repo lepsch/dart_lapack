@@ -215,22 +215,8 @@ void dsbevx_2stage(
   INDWRK = INDHOUS + LHTRD;
   LLWORK = LWORK - INDWRK + 1;
 
-  dsytrd_sb2st(
-    'N',
-    JOBZ,
-    UPLO,
-    N,
-    KD,
-    AB,
-    LDAB,
-    WORK(INDD),
-    WORK(INDE),
-    WORK(INDHOUS),
-    LHTRD,
-    WORK(INDWRK),
-    LLWORK,
-    IINFO,
-  );
+  dsytrd_sb2st('N', JOBZ, UPLO, N, KD, AB, LDAB, WORK(INDD), WORK(INDE),
+      WORK(INDHOUS), LHTRD, WORK(INDWRK), LLWORK, IINFO);
 
   // If all eigenvalues are desired and ABSTOL is less than or equal
   // to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -277,42 +263,28 @@ void dsbevx_2stage(
     INDISP = INDIBL + N;
     INDIWO = INDISP + N;
     dstebz(
-      RANGE,
-      ORDER,
-      N,
-      VLL,
-      VUU,
-      IL,
-      IU,
-      ABSTLL,
-      WORK(INDD),
-      WORK(INDE),
-      M,
-      NSPLIT,
-      W,
-      IWORK(INDIBL),
-      IWORK(INDISP),
-      WORK(INDWRK),
-      IWORK(INDIWO),
-      INFO,
-    );
-
-    if (WANTZ) {
-      dstein(
+        RANGE,
+        ORDER,
         N,
+        VLL,
+        VUU,
+        IL,
+        IU,
+        ABSTLL,
         WORK(INDD),
         WORK(INDE),
-        M.value,
+        M,
+        NSPLIT,
         W,
         IWORK(INDIBL),
         IWORK(INDISP),
-        Z,
-        LDZ,
         WORK(INDWRK),
         IWORK(INDIWO),
-        IFAIL,
-        INFO,
-      );
+        INFO);
+
+    if (WANTZ) {
+      dstein(N, WORK(INDD), WORK(INDE), M.value, W, IWORK(INDIBL),
+          IWORK(INDISP), Z, LDZ, WORK(INDWRK), IWORK(INDIWO), IFAIL, INFO);
 
       // Apply orthogonal matrix used in reduction to tridiagonal
       // form to eigenvectors returned by DSTEIN.

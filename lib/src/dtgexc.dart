@@ -115,25 +115,8 @@ void dtgexc(
         if (HERE + NBF + 1 <= N) {
           if (A[HERE + NBF + 1][HERE + NBF] != ZERO) NBNEXT = 2;
         }
-        dtgex2(
-          WANTQ,
-          WANTZ,
-          N,
-          A,
-          LDA,
-          B,
-          LDB,
-          Q,
-          LDQ,
-          Z,
-          LDZ,
-          HERE,
-          NBF,
-          NBNEXT,
-          WORK,
-          LWORK,
-          INFO.value,
-        );
+        dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF,
+            NBNEXT, WORK, LWORK, INFO.value);
         if (INFO.value != 0) {
           ILST.value = HERE;
           return;
@@ -153,25 +136,8 @@ void dtgexc(
         if (HERE + 3 <= N) {
           if (A[HERE + 3][HERE + 2] != ZERO) NBNEXT = 2;
         }
-        dtgex2(
-          WANTQ,
-          WANTZ,
-          N,
-          A,
-          LDA,
-          B,
-          LDB,
-          Q,
-          LDQ,
-          Z,
-          LDZ,
-          HERE + 1,
-          1,
-          NBNEXT,
-          WORK,
-          LWORK,
-          INFO.value,
-        );
+        dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE + 1, 1,
+            NBNEXT, WORK, LWORK, INFO.value);
         if (INFO.value != 0) {
           ILST.value = HERE;
           return;
@@ -179,25 +145,8 @@ void dtgexc(
         if (NBNEXT == 1) {
           // Swap two 1-by-1 blocks.
 
-          dtgex2(
-            WANTQ,
-            WANTZ,
-            N,
-            A,
-            LDA,
-            B,
-            LDB,
-            Q,
-            LDQ,
-            Z,
-            LDZ,
-            HERE,
-            1,
-            1,
-            WORK,
-            LWORK,
-            INFO.value,
-          );
+          dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
+              WORK, LWORK, INFO.value);
           if (INFO.value != 0) {
             ILST.value = HERE;
             return;
@@ -210,25 +159,8 @@ void dtgexc(
           if (NBNEXT == 2) {
             // 2-by-2 block did not split.
 
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE,
-              1,
-              NBNEXT,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1,
+                NBNEXT, WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
@@ -237,49 +169,15 @@ void dtgexc(
           } else {
             // 2-by-2 block did split.
 
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE,
-              1,
-              1,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
+                WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
             }
             HERE = HERE + 1;
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE,
-              1,
-              1,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
+                WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
@@ -302,25 +200,8 @@ void dtgexc(
         if (HERE >= 3) {
           if (A[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
         }
-        dtgex2(
-          WANTQ,
-          WANTZ,
-          N,
-          A,
-          LDA,
-          B,
-          LDB,
-          Q,
-          LDQ,
-          Z,
-          LDZ,
-          HERE - NBNEXT,
-          NBNEXT,
-          NBF,
-          WORK,
-          LWORK,
-          INFO.value,
-        );
+        dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE - NBNEXT,
+            NBNEXT, NBF, WORK, LWORK, INFO.value);
         if (INFO.value != 0) {
           ILST.value = HERE;
           return;
@@ -340,25 +221,8 @@ void dtgexc(
         if (HERE >= 3) {
           if (A[HERE - 1][HERE - 2] != ZERO) NBNEXT = 2;
         }
-        dtgex2(
-          WANTQ,
-          WANTZ,
-          N,
-          A,
-          LDA,
-          B,
-          LDB,
-          Q,
-          LDQ,
-          Z,
-          LDZ,
-          HERE - NBNEXT,
-          NBNEXT,
-          1,
-          WORK,
-          LWORK,
-          INFO.value,
-        );
+        dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE - NBNEXT,
+            NBNEXT, 1, WORK, LWORK, INFO.value);
         if (INFO.value != 0) {
           ILST.value = HERE;
           return;
@@ -366,25 +230,8 @@ void dtgexc(
         if (NBNEXT == 1) {
           // Swap two 1-by-1 blocks.
 
-          dtgex2(
-            WANTQ,
-            WANTZ,
-            N,
-            A,
-            LDA,
-            B,
-            LDB,
-            Q,
-            LDQ,
-            Z,
-            LDZ,
-            HERE,
-            NBNEXT,
-            1,
-            WORK,
-            LWORK,
-            INFO.value,
-          );
+          dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT,
+              1, WORK, LWORK, INFO.value);
           if (INFO.value != 0) {
             ILST.value = HERE;
             return;
@@ -397,25 +244,8 @@ void dtgexc(
           if (NBNEXT == 2) {
             // 2-by-2 block did not split.
 
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE - 1,
-              2,
-              1,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE - 1, 2,
+                1, WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
@@ -424,49 +254,15 @@ void dtgexc(
           } else {
             // 2-by-2 block did split.
 
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE,
-              1,
-              1,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
+                WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;
             }
             HERE = HERE - 1;
-            dtgex2(
-              WANTQ,
-              WANTZ,
-              N,
-              A,
-              LDA,
-              B,
-              LDB,
-              Q,
-              LDQ,
-              Z,
-              LDZ,
-              HERE,
-              1,
-              1,
-              WORK,
-              LWORK,
-              INFO.value,
-            );
+            dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1,
+                WORK, LWORK, INFO.value);
             if (INFO.value != 0) {
               ILST.value = HERE;
               return;

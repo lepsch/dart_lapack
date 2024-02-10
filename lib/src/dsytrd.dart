@@ -110,20 +110,8 @@ void dsytrd(
       // Update the unreduced submatrix A[1:i-1][1:i-1], using an
       // update of the form:  A := A - V*W**T - W*V**T
 
-      dsyr2k(
-        UPLO,
-        'No transpose',
-        I - 1,
-        NB,
-        -ONE,
-        A(1, I),
-        LDA,
-        WORK.asMatrix(LDWORK),
-        LDWORK,
-        ONE,
-        A,
-        LDA,
-      );
+      dsyr2k(UPLO, 'No transpose', I - 1, NB, -ONE, A(1, I), LDA,
+          WORK.asMatrix(LDWORK), LDWORK, ONE, A, LDA);
 
       // Copy superdiagonal elements back into A, and diagonal
       // elements into D
@@ -150,20 +138,8 @@ void dsytrd(
       // Update the unreduced submatrix A[i+ib:n][i+ib:n], using
       // an update of the form:  A := A - V*W**T - W*V**T
 
-      dsyr2k(
-        UPLO,
-        'No transpose',
-        N - I - NB + 1,
-        NB,
-        -ONE,
-        A(I + NB, I),
-        LDA,
-        WORK(NB + 1).asMatrix(LDWORK),
-        LDWORK,
-        ONE,
-        A(I + NB, I + NB),
-        LDA,
-      );
+      dsyr2k(UPLO, 'No transpose', N - I - NB + 1, NB, -ONE, A(I + NB, I), LDA,
+          WORK(NB + 1).asMatrix(LDWORK), LDWORK, ONE, A(I + NB, I + NB), LDA);
 
       // Copy subdiagonal elements back into A, and diagonal
       // elements into D

@@ -61,19 +61,8 @@ void dlaqps(
     // A[RK:M][K] := A[RK:M][K] - A[RK:M][1:K-1]*F[K,1:K-1]**T.
 
     if (K > 1) {
-      dgemv(
-        'No transpose',
-        M - RK + 1,
-        K - 1,
-        -ONE,
-        A(RK, 1),
-        LDA,
-        F(K, 1).asArray(),
-        LDF,
-        ONE,
-        A(RK, K).asArray(),
-        1,
-      );
+      dgemv('No transpose', M - RK + 1, K - 1, -ONE, A(RK, 1), LDA,
+          F(K, 1).asArray(), LDF, ONE, A(RK, K).asArray(), 1);
     }
 
     // Generate elementary reflector H(k).
@@ -92,19 +81,8 @@ void dlaqps(
     // Compute  F[K+1:N,K] := tau[K]*A[RK:M][K+1:N]**T*A[RK:M][K].
 
     if (K < N) {
-      dgemv(
-        'Transpose',
-        M - RK + 1,
-        N - K,
-        TAU[K],
-        A(RK, K + 1),
-        LDA,
-        A(RK, K).asArray(),
-        1,
-        ZERO,
-        F(K + 1, K).asArray(),
-        1,
-      );
+      dgemv('Transpose', M - RK + 1, N - K, TAU[K], A(RK, K + 1), LDA,
+          A(RK, K).asArray(), 1, ZERO, F(K + 1, K).asArray(), 1);
     }
 
     // Padding F[1:K,K] with zeros.
@@ -118,52 +96,19 @@ void dlaqps(
     // *A[RK:M][K].
 
     if (K > 1) {
-      dgemv(
-        'Transpose',
-        M - RK + 1,
-        K - 1,
-        -TAU[K],
-        A(RK, 1),
-        LDA,
-        A(RK, K).asArray(),
-        1,
-        ZERO,
-        AUXV(1),
-        1,
-      );
+      dgemv('Transpose', M - RK + 1, K - 1, -TAU[K], A(RK, 1), LDA,
+          A(RK, K).asArray(), 1, ZERO, AUXV(1), 1);
 
-      dgemv(
-        'No transpose',
-        N,
-        K - 1,
-        ONE,
-        F(1, 1),
-        LDF,
-        AUXV(1),
-        1,
-        ONE,
-        F(1, K).asArray(),
-        1,
-      );
+      dgemv('No transpose', N, K - 1, ONE, F(1, 1), LDF, AUXV(1), 1, ONE,
+          F(1, K).asArray(), 1);
     }
 
     // Update the current row of A:
     // A[RK][K+1:N] := A[RK][K+1:N] - A[RK][1:K]*F[K+1:N,1:K]**T.
 
     if (K < N) {
-      dgemv(
-        'No transpose',
-        N - K,
-        K,
-        -ONE,
-        F(K + 1, 1),
-        LDF,
-        A(RK, 1).asArray(),
-        LDA,
-        ONE,
-        A(RK, K + 1).asArray(),
-        LDA,
-      );
+      dgemv('No transpose', N - K, K, -ONE, F(K + 1, 1), LDF,
+          A(RK, 1).asArray(), LDA, ONE, A(RK, K + 1).asArray(), LDA);
     }
 
     // Update partial column norms.
@@ -198,20 +143,19 @@ void dlaqps(
 
   if (KB.value < min(N, M - OFFSET)) {
     dgemm(
-      'No transpose',
-      'Transpose',
-      M - RK,
-      N - KB.value,
-      KB.value,
-      -ONE,
-      A(RK + 1, 1),
-      LDA,
-      F(KB.value + 1, 1),
-      LDF,
-      ONE,
-      A(RK + 1, KB.value + 1),
-      LDA,
-    );
+        'No transpose',
+        'Transpose',
+        M - RK,
+        N - KB.value,
+        KB.value,
+        -ONE,
+        A(RK + 1, 1),
+        LDA,
+        F(KB.value + 1, 1),
+        LDF,
+        ONE,
+        A(RK + 1, KB.value + 1),
+        LDA);
   }
 
   // Recomputation of difficult columns.

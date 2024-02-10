@@ -572,17 +572,8 @@ void dgejsv(
           TEMP1.value = SVA[IWORK[p]];
           dscal(p, ONE / TEMP1.value, V(1, p).asArray(), 1);
         }
-        dpocon(
-          'U',
-          N,
-          V,
-          LDV,
-          ONE,
-          TEMP1.value,
-          WORK[N + 1],
-          IWORK[2 * N + M + 1],
-          IERR,
-        );
+        dpocon('U', N, V, LDV, ONE, TEMP1.value, WORK[N + 1],
+            IWORK[2 * N + M + 1], IERR);
       } else if (LSVEC) {
         // .. U is available as workspace
         dlacpy('U', N, N, A, LDA, U, LDU);
@@ -590,17 +581,8 @@ void dgejsv(
           TEMP1.value = SVA[IWORK[p]];
           dscal(p, ONE / TEMP1.value, U(1, p).asArray(), 1);
         }
-        dpocon(
-          'U',
-          N,
-          U,
-          LDU,
-          ONE,
-          TEMP1.value,
-          WORK[N + 1],
-          IWORK[2 * N + M + 1],
-          IERR,
-        );
+        dpocon('U', N, U, LDU, ONE, TEMP1.value, WORK[N + 1],
+            IWORK[2 * N + M + 1], IERR);
       } else {
         dlacpy('U', N, N, A, LDA, WORK(N + 1).asMatrix(N), N);
         for (p = 1; p <= N; p++) {
@@ -608,17 +590,8 @@ void dgejsv(
           dscal(p, ONE / TEMP1.value, WORK(N + (p - 1) * N + 1), 1);
         }
         // .. the columns of R are scaled to have unit Euclidean lengths.
-        dpocon(
-          'U',
-          N,
-          WORK[N + 1],
-          N,
-          ONE,
-          TEMP1.value,
-          WORK[N + N * N + 1],
-          IWORK[2 * N + M + 1],
-          IERR,
-        );
+        dpocon('U', N, WORK[N + 1], N, ONE, TEMP1.value, WORK[N + N * N + 1],
+            IWORK[2 * N + M + 1], IERR);
       }
       SCONDA = ONE / sqrt(TEMP1.value);
       // SCONDA is an estimate of sqrt(||(R^t * R)^(-1)||_1).
@@ -703,21 +676,7 @@ void dgejsv(
     // the part which destroys triangular form (confusing?!))
 
     dgesvj(
-      'L',
-      'NoU',
-      'NoV',
-      NR,
-      NR,
-      A,
-      LDA,
-      SVA,
-      N,
-      V,
-      LDV,
-      WORK,
-      LWORK,
-      INFO,
-    );
+        'L', 'NoU', 'NoV', NR, NR, A, LDA, SVA, N, V, LDV, WORK, LWORK, INFO);
 
     SCALEM = WORK[1];
     NUMRANK = WORK[2].round();
@@ -748,22 +707,8 @@ void dgejsv(
       }
       dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
 
-      dgesvj(
-        'Lower',
-        'U',
-        'N',
-        NR,
-        NR,
-        V,
-        LDV,
-        SVA,
-        NR,
-        U,
-        LDU,
-        WORK[N + 1],
-        LWORK,
-        INFO,
-      );
+      dgesvj('Lower', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK[N + 1],
+          LWORK, INFO);
       SCALEM = WORK[N + 1];
       NUMRANK = WORK[N + 2].round();
       if (NR < N) {
@@ -772,21 +717,8 @@ void dgejsv(
         dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
       }
 
-      dormlq(
-        'Left',
-        'Transpose',
-        N,
-        N,
-        NR,
-        A,
-        LDA,
-        WORK,
-        V,
-        LDV,
-        WORK[N + 1],
-        LWORK - N,
-        IERR,
-      );
+      dormlq('Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK[N + 1],
+          LWORK - N, IERR);
     }
 
     for (p = 1; p <= N; p++) {
@@ -814,22 +746,8 @@ void dgejsv(
     }
     dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, U(1, 2), LDU);
 
-    dgesvj(
-      'Lower',
-      'U',
-      'N',
-      NR,
-      NR,
-      U,
-      LDU,
-      SVA,
-      NR,
-      A,
-      LDA,
-      WORK[N + 1],
-      LWORK - N,
-      INFO,
-    );
+    dgesvj('Lower', 'U', 'N', NR, NR, U, LDU, SVA, NR, A, LDA, WORK[N + 1],
+        LWORK - N, INFO);
     SCALEM = WORK[N + 1];
     NUMRANK = WORK[N + 2].round();
 
@@ -841,21 +759,8 @@ void dgejsv(
       }
     }
 
-    dormqr(
-      'Left',
-      'No Tr',
-      M,
-      N1,
-      N,
-      A,
-      LDA,
-      WORK,
-      U,
-      LDU,
-      WORK(N + 1),
-      LWORK - N,
-      IERR,
-    );
+    dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
+        LWORK - N, IERR);
 
     if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
 
@@ -918,23 +823,10 @@ void dgejsv(
         for (p = 1; p <= NR; p++) {
           TEMP1.value = dnrm2(NR - p + 1, WORK(2 * N + (p - 1) * NR + p), 1);
           dscal(
-            NR - p + 1,
-            ONE / TEMP1.value,
-            WORK(2 * N + (p - 1) * NR + p),
-            1,
-          );
+              NR - p + 1, ONE / TEMP1.value, WORK(2 * N + (p - 1) * NR + p), 1);
         }
-        dpocon(
-          'Lower',
-          NR,
-          WORK[2 * N + 1],
-          NR,
-          ONE,
-          TEMP1.value,
-          WORK[2 * N + NR * NR + 1],
-          IWORK[M + 2 * N + 1],
-          IERR,
-        );
+        dpocon('Lower', NR, WORK[2 * N + 1], NR, ONE, TEMP1.value,
+            WORK[2 * N + NR * NR + 1], IWORK[M + 2 * N + 1], IERR);
         CONDR1 = ONE / sqrt(TEMP1.value);
         // .. here need a second opinion on the condition number
         // .. then assume worst case scenario
@@ -950,15 +842,7 @@ void dgejsv(
           // of a lower triangular matrix.
           // R1^t = Q2 * R2
           dgeqrf(
-            N,
-            NR,
-            V,
-            LDV,
-            WORK(N + 1),
-            WORK(2 * N + 1),
-            LWORK - 2 * N,
-            IERR,
-          );
+              N, NR, V, LDV, WORK(N + 1), WORK(2 * N + 1), LWORK - 2 * N, IERR);
 
           if (L2PERT) {
             XSC.value = sqrt(SMALL) / EPSLN;
@@ -995,17 +879,8 @@ void dgejsv(
           for (p = 1; p <= NR; p++) {
             IWORK[N + p] = 0;
           }
-          dgeqp3(
-            N,
-            NR,
-            V,
-            LDV,
-            IWORK[N + 1],
-            WORK[N + 1],
-            WORK[2 * N + 1],
-            LWORK - 2 * N,
-            IERR,
-          );
+          dgeqp3(N, NR, V, LDV, IWORK[N + 1], WORK[N + 1], WORK[2 * N + 1],
+              LWORK - 2 * N, IERR);
 // *               CALL DGEQRF( N, NR, V, LDV, WORK[N+1], WORK[2*N+1],
 // *     $              LWORK-2*N, IERR.value )
           if (L2PERT) {
@@ -1034,41 +909,25 @@ void dgejsv(
             dlaset('L', NR - 1, NR - 1, ZERO, ZERO, V(2, 1), LDV);
           }
           // Now, compute R2 = L3 * Q3, the LQ factorization.
-          dgelqf(
-            NR,
-            NR,
-            V,
-            LDV,
-            WORK[2 * N + N * NR + 1],
-            WORK[2 * N + N * NR + NR + 1],
-            LWORK - 2 * N - N * NR - NR,
-            IERR,
-          );
+          dgelqf(NR, NR, V, LDV, WORK[2 * N + N * NR + 1],
+              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, IERR);
           // .. and estimate the condition number
-          dlacpy(
-            'L',
-            NR,
-            NR,
-            V,
-            LDV,
-            WORK(2 * N + N * NR + NR + 1).asMatrix(NR),
-            NR,
-          );
+          dlacpy('L', NR, NR, V, LDV,
+              WORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR);
           for (p = 1; p <= NR; p++) {
             TEMP1.value = dnrm2(p, WORK(2 * N + N * NR + NR + p), NR);
             dscal(p, ONE / TEMP1.value, WORK(2 * N + N * NR + NR + p), NR);
           }
           dpocon(
-            'L',
-            NR,
-            WORK[2 * N + N * NR + NR + 1],
-            NR,
-            ONE,
-            TEMP1.value,
-            WORK[2 * N + N * NR + NR + NR * NR + 1],
-            IWORK[M + 2 * N + 1],
-            IERR,
-          );
+              'L',
+              NR,
+              WORK[2 * N + N * NR + NR + 1],
+              NR,
+              ONE,
+              TEMP1.value,
+              WORK[2 * N + N * NR + NR + NR * NR + 1],
+              IWORK[M + 2 * N + 1],
+              IERR);
           CONDR2 = ONE / sqrt(TEMP1.value);
 
           if (CONDR2 >= COND_OK) {
@@ -1103,21 +962,20 @@ void dgejsv(
 
         if (CONDR1 < COND_OK) {
           dgesvj(
-            'L',
-            'U',
-            'N',
-            NR,
-            NR,
-            V,
-            LDV,
-            SVA,
-            NR,
-            U,
-            LDU,
-            WORK[2 * N + N * NR + NR + 1],
-            LWORK - 2 * N - N * NR - NR,
-            INFO.value,
-          );
+              'L',
+              'U',
+              'N',
+              NR,
+              NR,
+              V,
+              LDV,
+              SVA,
+              NR,
+              U,
+              LDU,
+              WORK[2 * N + N * NR + NR + 1],
+              LWORK - 2 * N - N * NR - NR,
+              INFO.value);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           for (p = 1; p <= NR; p++) {
@@ -1138,39 +996,27 @@ void dgejsv(
             // is inverted to get the product of the Jacobi rotations
             // used in DGESVJ. The Q-factor from the second QR
             // factorization is then built in explicitly.
-            dtrsm(
-              'L',
-              'U',
-              'T',
-              'N',
-              NR,
-              NR,
-              ONE,
-              WORK(2 * N + 1).asMatrix(N),
-              N,
-              V,
-              LDV,
-            );
+            dtrsm('L', 'U', 'T', 'N', NR, NR, ONE, WORK(2 * N + 1).asMatrix(N),
+                N, V, LDV);
             if (NR < N) {
               dlaset('A', N - NR, NR, ZERO, ZERO, V(NR + 1, 1), LDV);
               dlaset('A', NR, N - NR, ZERO, ZERO, V(1, NR + 1), LDV);
               dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
             }
             dormqr(
-              'L',
-              'N',
-              N,
-              N,
-              NR,
-              WORK(2 * N + 1).asMatrix(N),
-              N,
-              WORK(N + 1),
-              V,
-              LDV,
-              WORK(2 * N + N * NR + NR + 1),
-              LWORK - 2 * N - N * NR - NR,
-              IERR,
-            );
+                'L',
+                'N',
+                N,
+                N,
+                NR,
+                WORK(2 * N + 1).asMatrix(N),
+                N,
+                WORK(N + 1),
+                V,
+                LDV,
+                WORK(2 * N + N * NR + NR + 1),
+                LWORK - 2 * N - N * NR - NR,
+                IERR);
           }
         } else if (CONDR2 < COND_OK) {
 // :)           .. the input matrix A is very likely a relative of
@@ -1179,22 +1025,8 @@ void dgejsv(
           // is Q3^T*V3 = the product of the Jacobi rotations (applied to
           // the lower triangular L3 from the LQ factorization of
           // R2=L3*Q3), pre-multiplied with the transposed Q3.
-          dgesvj(
-            'L',
-            'U',
-            'N',
-            NR,
-            NR,
-            V,
-            LDV,
-            SVA,
-            NR,
-            U,
-            LDU,
-            WORK[2 * N + N * NR + NR + 1],
-            LWORK - 2 * N - N * NR - NR,
-            INFO,
-          );
+          dgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU,
+              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, INFO);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           for (p = 1; p <= NR; p++) {
@@ -1218,20 +1050,19 @@ void dgejsv(
             dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
           }
           dormqr(
-            'L',
-            'N',
-            N,
-            N,
-            NR,
-            WORK(2 * N + 1).asMatrix(N),
-            N,
-            WORK(N + 1),
-            V,
-            LDV,
-            WORK(2 * N + N * NR + NR + 1),
-            LWORK - 2 * N - N * NR - NR,
-            IERR,
-          );
+              'L',
+              'N',
+              N,
+              N,
+              NR,
+              WORK(2 * N + 1).asMatrix(N),
+              N,
+              WORK(N + 1),
+              V,
+              LDV,
+              WORK(2 * N + N * NR + NR + 1),
+              LWORK - 2 * N - N * NR - NR,
+              IERR);
         } else {
           // Last line of defense.
 // #:(          This is a rather pathological case: no scaled condition
@@ -1244,22 +1075,8 @@ void dgejsv(
           // defense ensures that DGEJSV completes the task.
           // Compute the full SVD of L3 using DGESVJ with explicit
           // accumulation of Jacobi rotations.
-          dgesvj(
-            'L',
-            'U',
-            'V',
-            NR,
-            NR,
-            V,
-            LDV,
-            SVA,
-            NR,
-            U,
-            LDU,
-            WORK[2 * N + N * NR + NR + 1],
-            LWORK - 2 * N - N * NR - NR,
-            INFO,
-          );
+          dgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU,
+              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, INFO);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           if (NR < N) {
@@ -1268,36 +1085,34 @@ void dgejsv(
             dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
           }
           dormqr(
-            'L',
-            'N',
-            N,
-            N,
-            NR,
-            WORK(2 * N + 1).asMatrix(N),
-            N,
-            WORK(N + 1),
-            V,
-            LDV,
-            WORK(2 * N + N * NR + NR + 1),
-            LWORK - 2 * N - N * NR - NR,
-            IERR,
-          );
+              'L',
+              'N',
+              N,
+              N,
+              NR,
+              WORK(2 * N + 1).asMatrix(N),
+              N,
+              WORK(N + 1),
+              V,
+              LDV,
+              WORK(2 * N + N * NR + NR + 1),
+              LWORK - 2 * N - N * NR - NR,
+              IERR);
 
           dormlq(
-            'L',
-            'T',
-            NR,
-            NR,
-            NR,
-            WORK[2 * N + 1],
-            N,
-            WORK[2 * N + N * NR + 1],
-            U,
-            LDU,
-            WORK[2 * N + N * NR + NR + 1],
-            LWORK - 2 * N - N * NR - NR,
-            IERR,
-          );
+              'L',
+              'T',
+              NR,
+              NR,
+              NR,
+              WORK[2 * N + 1],
+              N,
+              WORK[2 * N + N * NR + 1],
+              U,
+              LDU,
+              WORK[2 * N + N * NR + NR + 1],
+              LWORK - 2 * N - N * NR - NR,
+              IERR);
           for (q = 1; q <= NR; q++) {
             for (p = 1; p <= NR; p++) {
               WORK[2 * N + N * NR + NR + IWORK[N + p]] = U[p][q];
@@ -1339,21 +1154,8 @@ void dgejsv(
         // The Q matrix from the first QRF is built into the left singular
         // matrix U. This applies to all cases.
 
-        dormqr(
-          'Left',
-          'No_Tr',
-          M,
-          N1,
-          N,
-          A,
-          LDA,
-          WORK,
-          U,
-          LDU,
-          WORK(N + 1),
-          LWORK - N,
-          IERR,
-        );
+        dormqr('Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
+            LWORK - N, IERR);
 
         // The columns of U are normalized. The cost is O(M*N) flops.
         TEMP1.value = sqrt(M.toDouble()) * EPSLN;
@@ -1387,22 +1189,8 @@ void dgejsv(
           dlaset('Lower', N - 1, N - 1, ZERO, ZERO, WORK(N + 2).asMatrix(N), N);
         }
 
-        dgesvj(
-          'Upper',
-          'U',
-          'N',
-          N,
-          N,
-          WORK[N + 1],
-          N,
-          SVA,
-          N,
-          U,
-          LDU,
-          WORK[N + N * N + 1],
-          LWORK - N - N * N,
-          INFO,
-        );
+        dgesvj('Upper', 'U', 'N', N, N, WORK[N + 1], N, SVA, N, U, LDU,
+            WORK[N + N * N + 1], LWORK - N - N * N, INFO);
 
         SCALEM = WORK[N + N * N + 1];
         NUMRANK = WORK[N + N * N + 2].round();
@@ -1411,19 +1199,8 @@ void dgejsv(
           dscal(N, SVA[p], WORK(N + (p - 1) * N + 1), 1);
         }
 
-        dtrsm(
-          'Left',
-          'Upper',
-          'NoTrans',
-          'No UD',
-          N,
-          N,
-          ONE,
-          A,
-          LDA,
-          WORK(N + 1).asMatrix(N),
-          N,
-        );
+        dtrsm('Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA,
+            WORK(N + 1).asMatrix(N), N);
         for (p = 1; p <= N; p++) {
           dcopy(N, WORK(N + p), N, V(IWORK[p], 1).asArray(), LDV);
         }
@@ -1445,21 +1222,8 @@ void dgejsv(
             dlaset('A', M - N, N1 - N, ZERO, ONE, U(N + 1, N + 1), LDU);
           }
         }
-        dormqr(
-          'Left',
-          'No Tr',
-          M,
-          N1,
-          N,
-          A,
-          LDA,
-          WORK,
-          U,
-          LDU,
-          WORK(N + 1),
-          LWORK - N,
-          IERR,
-        );
+        dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
+            LWORK - N, IERR);
         TEMP1.value = sqrt(M.toDouble()) * EPSLN;
         for (p = 1; p <= N1; p++) {
           XSC.value = ONE / dnrm2(M, U(1, p).asArray(), 1);
@@ -1520,22 +1284,8 @@ void dgejsv(
       } else {
         dlaset('U', NR - 1, NR - 1, ZERO, ZERO, U(1, 2), LDU);
       }
-      dgesvj(
-        'G',
-        'U',
-        'V',
-        NR,
-        NR,
-        U,
-        LDU,
-        SVA,
-        N,
-        V,
-        LDV,
-        WORK[2 * N + N * NR + 1],
-        LWORK - 2 * N - N * NR,
-        INFO,
-      );
+      dgesvj('G', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV,
+          WORK[2 * N + N * NR + 1], LWORK - 2 * N - N * NR, INFO);
       SCALEM = WORK[2 * N + N * NR + 1];
       NUMRANK = WORK[2 * N + N * NR + 2].round();
 
@@ -1545,20 +1295,19 @@ void dgejsv(
         dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
       }
       dormqr(
-        'L',
-        'N',
-        N,
-        N,
-        NR,
-        WORK(2 * N + 1).asMatrix(N),
-        N,
-        WORK(N + 1),
-        V,
-        LDV,
-        WORK(2 * N + N * NR + NR + 1),
-        LWORK - 2 * N - N * NR - NR,
-        IERR,
-      );
+          'L',
+          'N',
+          N,
+          N,
+          NR,
+          WORK(2 * N + 1).asMatrix(N),
+          N,
+          WORK(N + 1),
+          V,
+          LDV,
+          WORK(2 * N + N * NR + NR + 1),
+          LWORK - 2 * N - N * NR - NR,
+          IERR);
 
       // Permute the rows of V using the (column) permutation from the
       // first QRF. Also, scale the columns to make them unit in
@@ -1590,21 +1339,8 @@ void dgejsv(
         }
       }
 
-      dormqr(
-        'Left',
-        'No Tr',
-        M,
-        N1,
-        N,
-        A,
-        LDA,
-        WORK,
-        U,
-        LDU,
-        WORK(N + 1),
-        LWORK - N,
-        IERR,
-      );
+      dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
+          LWORK - N, IERR);
 
       if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
     }

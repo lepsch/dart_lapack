@@ -39,32 +39,10 @@ void dlatrd(
       if (I < N) {
         // Update A[1:i][i]
 
-        dgemv(
-          'No transpose',
-          I,
-          N - I,
-          -ONE,
-          A(1, I + 1),
-          LDA,
-          W(I, IW + 1).asArray(),
-          LDW,
-          ONE,
-          A(1, I).asArray(),
-          1,
-        );
-        dgemv(
-          'No transpose',
-          I,
-          N - I,
-          -ONE,
-          W(1, IW + 1),
-          LDW,
-          A(I, I + 1).asArray(),
-          LDA,
-          ONE,
-          A(1, I).asArray(),
-          1,
-        );
+        dgemv('No transpose', I, N - I, -ONE, A(1, I + 1), LDA,
+            W(I, IW + 1).asArray(), LDW, ONE, A(1, I).asArray(), 1);
+        dgemv('No transpose', I, N - I, -ONE, W(1, IW + 1), LDW,
+            A(I, I + 1).asArray(), LDA, ONE, A(1, I).asArray(), 1);
       }
       if (I > 1) {
         // Generate elementary reflector H(i) to annihilate
@@ -76,71 +54,17 @@ void dlatrd(
 
         // Compute W[1:i-1][i]
 
-        dsymv(
-          'Upper',
-          I - 1,
-          ONE,
-          A,
-          LDA,
-          A(1, I).asArray(),
-          1,
-          ZERO,
-          W(1, IW).asArray(),
-          1,
-        );
+        dsymv('Upper', I - 1, ONE, A, LDA, A(1, I).asArray(), 1, ZERO,
+            W(1, IW).asArray(), 1);
         if (I < N) {
-          dgemv(
-            'Transpose',
-            I - 1,
-            N - I,
-            ONE,
-            W(1, IW + 1),
-            LDW,
-            A(1, I).asArray(),
-            1,
-            ZERO,
-            W(I + 1, IW).asArray(),
-            1,
-          );
-          dgemv(
-            'No transpose',
-            I - 1,
-            N - I,
-            -ONE,
-            A(1, I + 1),
-            LDA,
-            W(I + 1, IW).asArray(),
-            1,
-            ONE,
-            W(1, IW).asArray(),
-            1,
-          );
-          dgemv(
-            'Transpose',
-            I - 1,
-            N - I,
-            ONE,
-            A(1, I + 1),
-            LDA,
-            A(1, I).asArray(),
-            1,
-            ZERO,
-            W(I + 1, IW).asArray(),
-            1,
-          );
-          dgemv(
-            'No transpose',
-            I - 1,
-            N - I,
-            -ONE,
-            W(1, IW + 1),
-            LDW,
-            W(I + 1, IW).asArray(),
-            1,
-            ONE,
-            W(1, IW).asArray(),
-            1,
-          );
+          dgemv('Transpose', I - 1, N - I, ONE, W(1, IW + 1), LDW,
+              A(1, I).asArray(), 1, ZERO, W(I + 1, IW).asArray(), 1);
+          dgemv('No transpose', I - 1, N - I, -ONE, A(1, I + 1), LDA,
+              W(I + 1, IW).asArray(), 1, ONE, W(1, IW).asArray(), 1);
+          dgemv('Transpose', I - 1, N - I, ONE, A(1, I + 1), LDA,
+              A(1, I).asArray(), 1, ZERO, W(I + 1, IW).asArray(), 1);
+          dgemv('No transpose', I - 1, N - I, -ONE, W(1, IW + 1), LDW,
+              W(I + 1, IW).asArray(), 1, ONE, W(1, IW).asArray(), 1);
         }
         dscal(I - 1, TAU[I - 1], W(1, IW).asArray(), 1);
         ALPHA = -HALF *
@@ -155,112 +79,31 @@ void dlatrd(
     for (I = 1; I <= NB; I++) {
       // Update A[i:n][i]
 
-      dgemv(
-        'No transpose',
-        N - I + 1,
-        I - 1,
-        -ONE,
-        A(I, 1),
-        LDA,
-        W(I, 1).asArray(),
-        LDW,
-        ONE,
-        A(I, I).asArray(),
-        1,
-      );
-      dgemv(
-        'No transpose',
-        N - I + 1,
-        I - 1,
-        -ONE,
-        W(I, 1),
-        LDW,
-        A(I, 1).asArray(),
-        LDA,
-        ONE,
-        A(I, I).asArray(),
-        1,
-      );
+      dgemv('No transpose', N - I + 1, I - 1, -ONE, A(I, 1), LDA,
+          W(I, 1).asArray(), LDW, ONE, A(I, I).asArray(), 1);
+      dgemv('No transpose', N - I + 1, I - 1, -ONE, W(I, 1), LDW,
+          A(I, 1).asArray(), LDA, ONE, A(I, I).asArray(), 1);
       if (I < N) {
         // Generate elementary reflector H(i) to annihilate
         // A[i+2:n][i]
 
-        dlarfg(
-          N - I,
-          A.box(I + 1, I),
-          A(min(I + 2, N), I).asArray(),
-          1,
-          TAU.box(I),
-        );
+        dlarfg(N - I, A.box(I + 1, I), A(min(I + 2, N), I).asArray(), 1,
+            TAU.box(I));
         E[I] = A[I + 1][I];
         A[I + 1][I] = ONE;
 
         // Compute W[i+1:n][i]
 
-        dsymv(
-          'Lower',
-          N - I,
-          ONE,
-          A(I + 1, I + 1),
-          LDA,
-          A(I + 1, I).asArray(),
-          1,
-          ZERO,
-          W(I + 1, I).asArray(),
-          1,
-        );
-        dgemv(
-          'Transpose',
-          N - I,
-          I - 1,
-          ONE,
-          W(I + 1, 1),
-          LDW,
-          A(I + 1, I).asArray(),
-          1,
-          ZERO,
-          W(1, I).asArray(),
-          1,
-        );
-        dgemv(
-          'No transpose',
-          N - I,
-          I - 1,
-          -ONE,
-          A(I + 1, 1),
-          LDA,
-          W(1, I).asArray(),
-          1,
-          ONE,
-          W(I + 1, I).asArray(),
-          1,
-        );
-        dgemv(
-          'Transpose',
-          N - I,
-          I - 1,
-          ONE,
-          A(I + 1, 1),
-          LDA,
-          A(I + 1, I).asArray(),
-          1,
-          ZERO,
-          W(1, I).asArray(),
-          1,
-        );
-        dgemv(
-          'No transpose',
-          N - I,
-          I - 1,
-          -ONE,
-          W(I + 1, 1),
-          LDW,
-          W(1, I).asArray(),
-          1,
-          ONE,
-          W(I + 1, I).asArray(),
-          1,
-        );
+        dsymv('Lower', N - I, ONE, A(I + 1, I + 1), LDA, A(I + 1, I).asArray(),
+            1, ZERO, W(I + 1, I).asArray(), 1);
+        dgemv('Transpose', N - I, I - 1, ONE, W(I + 1, 1), LDW,
+            A(I + 1, I).asArray(), 1, ZERO, W(1, I).asArray(), 1);
+        dgemv('No transpose', N - I, I - 1, -ONE, A(I + 1, 1), LDA,
+            W(1, I).asArray(), 1, ONE, W(I + 1, I).asArray(), 1);
+        dgemv('Transpose', N - I, I - 1, ONE, A(I + 1, 1), LDA,
+            A(I + 1, I).asArray(), 1, ZERO, W(1, I).asArray(), 1);
+        dgemv('No transpose', N - I, I - 1, -ONE, W(I + 1, 1), LDW,
+            W(1, I).asArray(), 1, ONE, W(I + 1, I).asArray(), 1);
         dscal(N - I, TAU[I], W(I + 1, I).asArray(), 1);
         ALPHA = -HALF *
             TAU[I] *

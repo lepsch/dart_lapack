@@ -131,21 +131,7 @@ Future<void> dget38(
       // Compute Schur form
 
       dhseqr(
-        'S.value',
-        'V',
-        N,
-        1,
-        N,
-        T,
-        LDT,
-        WR,
-        WI,
-        Q,
-        LDT,
-        WORK,
-        LWORK,
-        INFO,
-      );
+          'S.value', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO);
       if (INFO.value != 0) {
         LMAX[2] = KNT.value;
         NINFO[2] = NINFO[2] + 1;
@@ -187,26 +173,8 @@ Future<void> dget38(
 
       dlacpy('F', N, N, Q, LDT, QSAV, LDT);
       dlacpy('F', N, N, T, LDT, TSAV1, LDT);
-      dtrsen(
-        'B',
-        'V',
-        SELECT,
-        N,
-        T,
-        LDT,
-        Q,
-        LDT,
-        WRTMP,
-        WITMP,
-        M,
-        S,
-        SEP,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        INFO,
-      );
+      dtrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK,
+          LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -339,26 +307,8 @@ Future<void> dget38(
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
       SEPTMP.value = -ONE;
       STMP.value = -ONE;
-      dtrsen(
-        'E',
-        'V',
-        SELECT,
-        N,
-        TTMP,
-        LDT,
-        QTMP,
-        LDT,
-        WRTMP,
-        WITMP,
-        M,
-        STMP,
-        SEPTMP,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        INFO,
-      );
+      dtrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP,
+          SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -380,26 +330,8 @@ Future<void> dget38(
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
       SEPTMP.value = -ONE;
       STMP.value = -ONE;
-      dtrsen(
-        'V',
-        'V',
-        SELECT,
-        N,
-        TTMP,
-        LDT,
-        QTMP,
-        LDT,
-        WRTMP,
-        WITMP,
-        M,
-        STMP,
-        SEPTMP,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        INFO,
-      );
+      dtrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP,
+          SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -421,26 +353,8 @@ Future<void> dget38(
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
       SEPTMP.value = -ONE;
       STMP.value = -ONE;
-      dtrsen(
-        'E',
-        'N',
-        SELECT,
-        N,
-        TTMP,
-        LDT,
-        QTMP,
-        LDT,
-        WRTMP,
-        WITMP,
-        M,
-        STMP,
-        SEPTMP,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        INFO,
-      );
+      dtrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP,
+          SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;
@@ -462,26 +376,8 @@ Future<void> dget38(
       dlacpy('F', N, N, QSAV, LDT, QTMP, LDT);
       SEPTMP.value = -ONE;
       STMP.value = -ONE;
-      dtrsen(
-        'V',
-        'N',
-        SELECT,
-        N,
-        TTMP,
-        LDT,
-        QTMP,
-        LDT,
-        WRTMP,
-        WITMP,
-        M,
-        STMP,
-        SEPTMP,
-        WORK,
-        LWORK,
-        IWORK,
-        LIWORK,
-        INFO,
-      );
+      dtrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP,
+          SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO);
       if (INFO.value != 0) {
         LMAX[3] = KNT.value;
         NINFO[3] = NINFO[3] + 1;

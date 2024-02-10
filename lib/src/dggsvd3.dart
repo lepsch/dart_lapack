@@ -85,33 +85,8 @@ void dggsvd3(
   // Compute workspace
 
   if (INFO.value == 0) {
-    dggsvp3(
-      JOBU,
-      JOBV,
-      JOBQ,
-      M,
-      P,
-      N,
-      A,
-      LDA,
-      B,
-      LDB,
-      TOLA,
-      TOLB,
-      K,
-      L,
-      U,
-      LDU,
-      V,
-      LDV,
-      Q,
-      LDQ,
-      IWORK,
-      WORK,
-      WORK,
-      -1,
-      INFO,
-    );
+    dggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU,
+        V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO);
     LWKOPT = N + WORK[1].toInt();
     LWKOPT = max(2 * N, LWKOPT);
     LWKOPT = max(1, LWKOPT);
@@ -141,63 +116,13 @@ void dggsvd3(
 
   // Preprocessing
 
-  dggsvp3(
-    JOBU,
-    JOBV,
-    JOBQ,
-    M,
-    P,
-    N,
-    A,
-    LDA,
-    B,
-    LDB,
-    TOLA,
-    TOLB,
-    K,
-    L,
-    U,
-    LDU,
-    V,
-    LDV,
-    Q,
-    LDQ,
-    IWORK,
-    WORK,
-    WORK(N + 1),
-    LWORK - N,
-    INFO,
-  );
+  dggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU,
+      V, LDV, Q, LDQ, IWORK, WORK, WORK(N + 1), LWORK - N, INFO);
 
   // Compute the GSVD of two upper "triangular" matrices
 
-  dtgsja(
-    JOBU,
-    JOBV,
-    JOBQ,
-    M,
-    P,
-    N,
-    K.value,
-    L.value,
-    A,
-    LDA,
-    B,
-    LDB,
-    TOLA,
-    TOLB,
-    ALPHA,
-    BETA,
-    U,
-    LDU,
-    V,
-    LDV,
-    Q,
-    LDQ,
-    WORK,
-    NCYCLE,
-    INFO,
-  );
+  dtgsja(JOBU, JOBV, JOBQ, M, P, N, K.value, L.value, A, LDA, B, LDB, TOLA,
+      TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO);
 
   // Sort the singular values and store the pivot indices in IWORK
   // Copy ALPHA to WORK, then sort ALPHA in WORK

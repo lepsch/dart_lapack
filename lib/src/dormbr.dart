@@ -121,21 +121,8 @@ void dormbr(
         I1 = 1;
         I2 = 2;
       }
-      dormqr(
-        SIDE,
-        TRANS,
-        MI,
-        NI,
-        NQ - 1,
-        A(2,1),
-        LDA,
-        TAU,
-        C(I1,I2),
-        LDC,
-        WORK,
-        LWORK,
-        IINFO,
-      );
+      dormqr(SIDE, TRANS, MI, NI, NQ - 1, A(2, 1), LDA, TAU, C(I1, I2), LDC,
+          WORK, LWORK, IINFO);
     }
   } else {
     // Apply P
@@ -163,21 +150,8 @@ void dormbr(
         I1 = 1;
         I2 = 2;
       }
-      dormlq(
-        SIDE,
-        TRANST,
-        MI,
-        NI,
-        NQ - 1,
-        A(1, 2),
-        LDA,
-        TAU,
-        C(I1, I2),
-        LDC,
-        WORK,
-        LWORK,
-        IINFO,
-      );
+      dormlq(SIDE, TRANST, MI, NI, NQ - 1, A(1, 2), LDA, TAU, C(I1, I2), LDC,
+          WORK, LWORK, IINFO);
     }
   }
   WORK[1] = LWKOPT.toDouble();

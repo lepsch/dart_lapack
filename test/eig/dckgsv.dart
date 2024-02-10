@@ -104,47 +104,28 @@ Future<void> dckgsv(
       // Set up parameters with DLATB9 and generate test
       // matrices A and B with DLATMS.
 
-      dlatb9(
-        PATH,
-        IMAT,
-        M,
-        P,
-        N,
-        TYPE,
-        KLA,
-        KUA,
-        KLB,
-        KUB,
-        ANORM,
-        BNORM,
-        MODEA,
-        MODEB,
-        CNDNMA,
-        CNDNMB,
-        DISTA,
-        DISTB,
-      );
+      dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
+          MODEB, CNDNMA, CNDNMB, DISTA, DISTB);
 
       // Generate M by N matrix A
 
       dlatms(
-        M,
-        N,
-        DISTA.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEA.value,
-        CNDNMA.value,
-        ANORM.value,
-        KLA.value,
-        KUA.value,
-        'No packing',
-        A.asMatrix(LDA),
-        LDA,
-        WORK,
-        IINFO,
-      );
+          M,
+          N,
+          DISTA.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEA.value,
+          CNDNMA.value,
+          ANORM.value,
+          KLA.value,
+          KUA.value,
+          'No packing',
+          A.asMatrix(LDA),
+          LDA,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -152,23 +133,22 @@ Future<void> dckgsv(
       }
 
       dlatms(
-        P,
-        N,
-        DISTB.value,
-        ISEED,
-        TYPE.value,
-        RWORK,
-        MODEB.value,
-        CNDNMB.value,
-        BNORM.value,
-        KLB.value,
-        KUB.value,
-        'No packing',
-        B.asMatrix(LDB),
-        LDB,
-        WORK,
-        IINFO,
-      );
+          P,
+          N,
+          DISTB.value,
+          ISEED,
+          TYPE.value,
+          RWORK,
+          MODEB.value,
+          CNDNMB.value,
+          BNORM.value,
+          KLB.value,
+          KUB.value,
+          'No packing',
+          B.asMatrix(LDB),
+          LDB,
+          WORK,
+          IINFO);
       if (IINFO.value != 0) {
         print9999(NOUT, IINFO.value);
         INFO.value = (IINFO.value).abs();
@@ -178,31 +158,30 @@ Future<void> dckgsv(
       NT = 6;
 
       dgsvts3(
-        M,
-        P,
-        N,
-        A.asMatrix(LDA),
-        AF.asMatrix(LDA),
-        LDA,
-        B.asMatrix(LDB),
-        BF.asMatrix(LDB),
-        LDB,
-        U.asMatrix(LDU),
-        LDU,
-        V.asMatrix(LDV),
-        LDV,
-        Q.asMatrix(LDQ),
-        LDQ,
-        ALPHA,
-        BETA,
-        R.asMatrix(LDR),
-        LDR,
-        IWORK,
-        WORK,
-        LWORK,
-        RWORK,
-        RESULT,
-      );
+          M,
+          P,
+          N,
+          A.asMatrix(LDA),
+          AF.asMatrix(LDA),
+          LDA,
+          B.asMatrix(LDB),
+          BF.asMatrix(LDB),
+          LDB,
+          U.asMatrix(LDU),
+          LDU,
+          V.asMatrix(LDV),
+          LDV,
+          Q.asMatrix(LDQ),
+          LDQ,
+          ALPHA,
+          BETA,
+          R.asMatrix(LDR),
+          LDR,
+          IWORK,
+          WORK,
+          LWORK,
+          RWORK,
+          RESULT);
 
       // Print information about the tests that did not
       // pass the threshold.
@@ -214,8 +193,7 @@ Future<void> dckgsv(
             alahdg(NOUT, PATH);
           }
           NOUT.println(
-            ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}',
-          );
+              ' M=${M.i4} P=${P.i4}, N=${N.i4}, type ${IMAT.i2}, test ${I.i2}, ratio=${RESULT[I].g13_6}');
           NFAIL = NFAIL + 1;
         }
       }

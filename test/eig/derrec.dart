@@ -245,11 +245,9 @@ void derrec(
 
   if (infoc.OK.value) {
     infoc.NOUT.println(
-      ' ${PATH.a3} routines passed the tests of the error exits (${NT.i3} tests done)',
-    );
+        ' ${PATH.a3} routines passed the tests of the error exits (${NT.i3} tests done)');
   } else {
     infoc.NOUT.println(
-      ' *** ${PATH.a3} routines failed the tests of the error exits ***',
-    );
+        ' *** ${PATH.a3} routines failed the tests of the error exits ***');
   }
 }

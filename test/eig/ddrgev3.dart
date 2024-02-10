@@ -248,19 +248,18 @@ void ddrgev3(
             IN = N;
           }
           dlatm4(
-            KATYPE[JTYPE],
-            IN,
-            KZ1[KAZERO[JTYPE]],
-            KZ2[KAZERO[JTYPE]],
-            IASIGN[JTYPE],
-            RMAGN[KAMAGN[JTYPE]],
-            ULP,
-            RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
-            2,
-            ISEED,
-            A,
-            LDA,
-          );
+              KATYPE[JTYPE],
+              IN,
+              KZ1[KAZERO[JTYPE]],
+              KZ2[KAZERO[JTYPE]],
+              IASIGN[JTYPE],
+              RMAGN[KAMAGN[JTYPE]],
+              ULP,
+              RMAGN[KTRIAN[JTYPE] * KAMAGN[JTYPE]],
+              2,
+              ISEED,
+              A,
+              LDA);
           IADD = KADD[KAZERO[JTYPE]];
           if (IADD > 0 && IADD <= N) A[IADD][IADD] = ONE;
 
@@ -273,19 +272,18 @@ void ddrgev3(
             IN = N;
           }
           dlatm4(
-            KBTYPE[JTYPE],
-            IN,
-            KZ1[KBZERO[JTYPE]],
-            KZ2[KBZERO[JTYPE]],
-            IBSIGN[JTYPE],
-            RMAGN[KBMAGN[JTYPE]],
-            ONE,
-            RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
-            2,
-            ISEED,
-            B,
-            LDA,
-          );
+              KBTYPE[JTYPE],
+              IN,
+              KZ1[KBZERO[JTYPE]],
+              KZ2[KBZERO[JTYPE]],
+              IBSIGN[JTYPE],
+              RMAGN[KBMAGN[JTYPE]],
+              ONE,
+              RMAGN[KTRIAN[JTYPE] * KBMAGN[JTYPE]],
+              2,
+              ISEED,
+              B,
+              LDA);
           IADD = KADD[KBZERO[JTYPE]];
           if (IADD != 0 && IADD <= N) B[IADD][IADD] = ONE;
 
@@ -300,22 +298,12 @@ void ddrgev3(
                 Q[JR][JC] = dlarnd(3, ISEED);
                 Z[JR][JC] = dlarnd(3, ISEED);
               }
-              dlarfg(
-                N + 1 - JC,
-                Q.box(JC, JC),
-                Q(JC + 1, JC).asArray(),
-                1,
-                WORK.box(JC),
-              );
+              dlarfg(N + 1 - JC, Q.box(JC, JC), Q(JC + 1, JC).asArray(), 1,
+                  WORK.box(JC));
               WORK[2 * N + JC] = sign(ONE, Q[JC][JC]).toDouble();
               Q[JC][JC] = ONE;
-              dlarfg(
-                N + 1 - JC,
-                Z.box(JC, JC),
-                Z(JC + 1, JC).asArray(),
-                1,
-                WORK.box(N + JC),
-              );
+              dlarfg(N + 1 - JC, Z.box(JC, JC), Z(JC + 1, JC).asArray(), 1,
+                  WORK.box(N + JC));
               WORK[3 * N + JC] = sign(ONE, Z[JC][JC]).toDouble();
               Z[JC][JC] = ONE;
             }
@@ -334,65 +322,17 @@ void ddrgev3(
                 B[JR][JC] = WORK[2 * N + JR] * WORK[3 * N + JC] * B[JR][JC];
               }
             }
-            dorm2r(
-              'L',
-              'N',
-              N,
-              N,
-              N - 1,
-              Q,
-              LDQ,
-              WORK,
-              A,
-              LDA,
-              WORK(2 * N + 1),
-              IERR.value,
-            );
+            dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, A, LDA, WORK(2 * N + 1),
+                IERR.value);
             if (IERR.value == 0) {
-              dorm2r(
-                'R',
-                'T',
-                N,
-                N,
-                N - 1,
-                Z,
-                LDQ,
-                WORK(N + 1),
-                A,
-                LDA,
-                WORK(2 * N + 1),
-                IERR.value,
-              );
+              dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), A, LDA,
+                  WORK(2 * N + 1), IERR.value);
               if (IERR.value == 0) {
-                dorm2r(
-                  'L',
-                  'N',
-                  N,
-                  N,
-                  N - 1,
-                  Q,
-                  LDQ,
-                  WORK,
-                  B,
-                  LDA,
-                  WORK(2 * N + 1),
-                  IERR.value,
-                );
+                dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, B, LDA,
+                    WORK(2 * N + 1), IERR.value);
                 if (IERR.value == 0) {
-                  dorm2r(
-                    'R',
-                    'T',
-                    N,
-                    N,
-                    N - 1,
-                    Z,
-                    LDQ,
-                    WORK(N + 1),
-                    B,
-                    LDA,
-                    WORK(2 * N + 1),
-                    IERR.value,
-                  );
+                  dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), B, LDA,
+                      WORK(2 * N + 1), IERR.value);
                 }
               }
             }
@@ -453,25 +393,8 @@ void ddrgev3(
       while (true) {
         dlacpy(' ', N, N, A, LDA, S, LDA);
         dlacpy(' ', N, N, B, LDA, T, LDA);
-        dggev3(
-          'V',
-          'V',
-          N,
-          S,
-          LDA,
-          T,
-          LDA,
-          ALPHAR,
-          ALPHAI,
-          BETA,
-          Q,
-          LDQ,
-          Z,
-          LDQ,
-          WORK,
-          LWORK,
-          IERR,
-        );
+        dggev3('V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z,
+            LDQ, WORK, LWORK, IERR);
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
           _print9999(NOUNIT, 'DGGEV31', IERR.value, N, JTYPE, IOLDSD);
@@ -481,42 +404,16 @@ void ddrgev3(
 
         // Do the tests (1) and (2)
 
-        dget52(
-          true,
-          N,
-          A,
-          LDA,
-          B,
-          LDA,
-          Q,
-          LDQ,
-          ALPHAR,
-          ALPHAI,
-          BETA,
-          WORK,
-          RESULT(1),
-        );
+        dget52(true, N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK,
+            RESULT(1));
         if (RESULT[2] > THRESH) {
           _print9998(NOUNIT, 'Left', 'DGGEV31', RESULT[2], N, JTYPE, IOLDSD);
         }
 
         // Do the tests (3) and (4)
 
-        dget52(
-          false,
-          N,
-          A,
-          LDA,
-          B,
-          LDA,
-          Z,
-          LDQ,
-          ALPHAR,
-          ALPHAI,
-          BETA,
-          WORK,
-          RESULT(3),
-        );
+        dget52(false, N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK,
+            RESULT(3));
         if (RESULT[4] > THRESH) {
           _print9998(NOUNIT, 'Right', 'DGGEV31', RESULT[4], N, JTYPE, IOLDSD);
         }
@@ -525,25 +422,8 @@ void ddrgev3(
 
         dlacpy(' ', N, N, A, LDA, S, LDA);
         dlacpy(' ', N, N, B, LDA, T, LDA);
-        dggev3(
-          'N',
-          'N',
-          N,
-          S,
-          LDA,
-          T,
-          LDA,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          Q,
-          LDQ,
-          Z,
-          LDQ,
-          WORK,
-          LWORK,
-          IERR,
-        );
+        dggev3('N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z,
+            LDQ, WORK, LWORK, IERR);
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
           _print9999(NOUNIT, 'DGGEV32', IERR.value, N, JTYPE, IOLDSD);
@@ -562,25 +442,8 @@ void ddrgev3(
 
         dlacpy(' ', N, N, A, LDA, S, LDA);
         dlacpy(' ', N, N, B, LDA, T, LDA);
-        dggev3(
-          'V',
-          'N',
-          N,
-          S,
-          LDA,
-          T,
-          LDA,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          QE,
-          LDQE,
-          Z,
-          LDQ,
-          WORK,
-          LWORK,
-          IERR,
-        );
+        dggev3('V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z,
+            LDQ, WORK, LWORK, IERR);
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
           _print9999(NOUNIT, 'DGGEV33', IERR.value, N, JTYPE, IOLDSD);
@@ -605,25 +468,8 @@ void ddrgev3(
 
         dlacpy(' ', N, N, A, LDA, S, LDA);
         dlacpy(' ', N, N, B, LDA, T, LDA);
-        dggev3(
-          'N',
-          'V',
-          N,
-          S,
-          LDA,
-          T,
-          LDA,
-          ALPHR1,
-          ALPHI1,
-          BETA1,
-          Q,
-          LDQ,
-          QE,
-          LDQE,
-          WORK,
-          LWORK,
-          IERR,
-        );
+        dggev3('N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE,
+            LDQE, WORK, LWORK, IERR);
         if (IERR.value != 0 && IERR.value != N + 1) {
           RESULT[1] = ULPINV;
           _print9999(NOUNIT, 'DGGEV34', IERR.value, N, JTYPE, IOLDSD);
@@ -658,34 +504,28 @@ void ddrgev3(
 
           if (NERRS == 0) {
             NOUNIT.println(
-              '\n DGV -- Real Generalized eigenvalue problem driver',
-            );
+                '\n DGV -- Real Generalized eigenvalue problem driver');
 
             // Matrix types
 
             NOUNIT.println(' Matrix types (see DDRGEV3 for details): ');
             NOUNIT.println(
-              ' Special Matrices:${' ' * 23}(J\'=transposed Jordan block)\n   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J\',J\')  6=(diag(J\',I), diag(I,J\'))\n Diagonal Matrices:  ( D=diag(0,1,2,...) )\n   7=(D,I)   9=(large*D, small*I)  11=(large*I, small*D)  13=(large*D, large*I)\n   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D)  14=(small*D, small*I)\n  15=(D, reversed D),',
-            );
+                ' Special Matrices:${' ' * 23}(J\'=transposed Jordan block)\n   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J\',J\')  6=(diag(J\',I), diag(I,J\'))\n Diagonal Matrices:  ( D=diag(0,1,2,...) )\n   7=(D,I)   9=(large*D, small*I)  11=(large*I, small*D)  13=(large*D, large*I)\n   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D)  14=(small*D, small*I)\n  15=(D, reversed D),');
             NOUNIT.println(
-              ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.',
-            );
+                ' Matrices Rotated by Random Orthogonal Matrices U, V:\n  16=Transposed Jordan Blocks             19=geometric alpha, beta=0,1\n  17=arithm. alpha&beta                   20=arithmetic alpha, beta=0,1\n  18=clustered alpha, beta=0,1            21=random alpha, beta=0,1\n Large & Small Matrices:\n  22=(large, small)   23=(small,large)    24=(small,small)    25=(large,large)\n  26=random O(1) matrices.');
 
             // Tests performed
 
             NOUNIT.println(
-              '\n Tests performed:    \n 1 = max | ( b A - a B )\'*l | / const.,\n 2 = | |VR(i)| - 1 | / ulp,\n 3 = max | ( b A - a B )*r | / const.\n 4 = | |VL(i)| - 1 | / ulp,\n 5 = 0 if W same no matter if r or l computed,\n 6 = 0 if l same no matter if l computed,\n 7 = 0 if r same no matter if r computed,/n ',
-            );
+                '\n Tests performed:    \n 1 = max | ( b A - a B )\'*l | / const.,\n 2 = | |VR(i)| - 1 | / ulp,\n 3 = max | ( b A - a B )*r | / const.\n 4 = | |VL(i)| - 1 | / ulp,\n 5 = 0 if W same no matter if r or l computed,\n 6 = 0 if l same no matter if l computed,\n 7 = 0 if r same no matter if r computed,/n ');
           }
           NERRS = NERRS + 1;
           if (RESULT[JR] < 10000.0) {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${RESULT[JR].f8_2}');
           } else {
             NOUNIT.println(
-              ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}',
-            );
+                ' Matrix order=${N.i5}, type=${JTYPE.i2}, seed=${IOLDSD.i4(4, ',')} result ${JR.i2} is${(RESULT[JR] * 10).d10_3}');
           }
         }
       }
@@ -707,8 +547,7 @@ void _print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DDRGEV3: $s returned INFO=${info.i6}.\n${' ' * 3}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})',
-  );
+      ' DDRGEV3: $s returned INFO=${info.i6}.\n${' ' * 3}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }
 
 void _print9998(
@@ -721,6 +560,5 @@ void _print9998(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-    ' DDRGEV3: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 3}N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(4, ',')})',
-  );
+      ' DDRGEV3: $side Eigenvectors from $s incorrectly normalized.\n Bits of error=${error.g10_3},${' ' * 3}N=${n.i4}, JTYPE=${jtype.i3}, ISEED=(${iseed.i4(4, ',')})');
 }

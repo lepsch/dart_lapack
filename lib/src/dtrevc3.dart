@@ -260,25 +260,24 @@ void dtrevc3(
             // 1-by-1 diagonal block
 
             dlaln2(
-              false,
-              1,
-              1,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + IV * N).asMatrix(N),
-              N,
-              WR,
-              ZERO,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                1,
+                1,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + IV * N).asMatrix(N),
+                N,
+                WR,
+                ZERO,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale X[1][1] to avoid overflow when updating
             // the right-hand side.
@@ -302,25 +301,24 @@ void dtrevc3(
             // 2-by-2 diagonal block
 
             dlaln2(
-              false,
-              2,
-              1,
-              SMIN,
-              ONE,
-              T(J - 1, J - 1),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J - 1 + IV * N).asMatrix(N),
-              N,
-              WR,
-              ZERO,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                2,
+                1,
+                SMIN,
+                ONE,
+                T(J - 1, J - 1),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J - 1 + IV * N).asMatrix(N),
+                N,
+                WR,
+                ZERO,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale X[1][1] and X[2][1] to avoid overflow when
             // updating the right-hand side.
@@ -343,13 +341,7 @@ void dtrevc3(
             // Update right-hand side
 
             daxpy(
-              J - 2,
-              -X[1][1],
-              T(1, J - 1).asArray(),
-              1,
-              WORK(1 + IV * N),
-              1,
-            );
+                J - 2, -X[1][1], T(1, J - 1).asArray(), 1, WORK(1 + IV * N), 1);
             daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + IV * N), 1);
           }
         } // 60
@@ -373,19 +365,8 @@ void dtrevc3(
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI > 1) {
-            dgemv(
-              'N',
-              N,
-              KI - 1,
-              ONE,
-              VR,
-              LDVR,
-              WORK(1 + IV * N),
-              1,
-              WORK[KI + IV * N],
-              VR(1, KI).asArray(),
-              1,
-            );
+            dgemv('N', N, KI - 1, ONE, VR, LDVR, WORK(1 + IV * N), 1,
+                WORK[KI + IV * N], VR(1, KI).asArray(), 1);
           }
 
           II = idamax(N, VR(1, KI).asArray(), 1);
@@ -448,25 +429,24 @@ void dtrevc3(
             // 1-by-1 diagonal block
 
             dlaln2(
-              false,
-              1,
-              2,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + (IV - 1) * N).asMatrix(N),
-              N,
-              WR,
-              WI,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                1,
+                2,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + (IV - 1) * N).asMatrix(N),
+                N,
+                WR,
+                WI,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale X[1][1] and X[1][2] to avoid overflow when
             // updating the right-hand side.
@@ -490,38 +470,31 @@ void dtrevc3(
 
             // Update the right-hand side
 
-            daxpy(
-              J - 1,
-              -X[1][1],
-              T(1, J).asArray(),
-              1,
-              WORK(1 + (IV - 1) * N),
-              1,
-            );
+            daxpy(J - 1, -X[1][1], T(1, J).asArray(), 1, WORK(1 + (IV - 1) * N),
+                1);
             daxpy(J - 1, -X[1][2], T(1, J).asArray(), 1, WORK(1 + (IV) * N), 1);
           } else {
             // 2-by-2 diagonal block
 
             dlaln2(
-              false,
-              2,
-              2,
-              SMIN,
-              ONE,
-              T(J - 1, J - 1),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J - 1 + (IV - 1) * N).asMatrix(N),
-              N,
-              WR,
-              WI,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                2,
+                2,
+                SMIN,
+                ONE,
+                T(J - 1, J - 1),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J - 1 + (IV - 1) * N).asMatrix(N),
+                N,
+                WR,
+                WI,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale X to avoid overflow when updating
             // the right-hand side.
@@ -551,30 +524,12 @@ void dtrevc3(
 
             // Update the right-hand side
 
-            daxpy(
-              J - 2,
-              -X[1][1],
-              T(1, J - 1).asArray(),
-              1,
-              WORK(1 + (IV - 1) * N),
-              1,
-            );
-            daxpy(
-              J - 2,
-              -X[2][1],
-              T(1, J).asArray(),
-              1,
-              WORK(1 + (IV - 1) * N),
-              1,
-            );
-            daxpy(
-              J - 2,
-              -X[1][2],
-              T(1, J - 1).asArray(),
-              1,
-              WORK(1 + (IV) * N),
-              1,
-            );
+            daxpy(J - 2, -X[1][1], T(1, J - 1).asArray(), 1,
+                WORK(1 + (IV - 1) * N), 1);
+            daxpy(J - 2, -X[2][1], T(1, J).asArray(), 1, WORK(1 + (IV - 1) * N),
+                1);
+            daxpy(J - 2, -X[1][2], T(1, J - 1).asArray(), 1, WORK(1 + (IV) * N),
+                1);
             daxpy(J - 2, -X[2][2], T(1, J).asArray(), 1, WORK(1 + (IV) * N), 1);
           }
         } // 90
@@ -605,32 +560,10 @@ void dtrevc3(
           // ------------------------------
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI > 2) {
-            dgemv(
-              'N',
-              N,
-              KI - 2,
-              ONE,
-              VR,
-              LDVR,
-              WORK(1 + (IV - 1) * N),
-              1,
-              WORK[KI - 1 + (IV - 1) * N],
-              VR(1, KI - 1).asArray(),
-              1,
-            );
-            dgemv(
-              'N',
-              N,
-              KI - 2,
-              ONE,
-              VR,
-              LDVR,
-              WORK(1 + (IV) * N),
-              1,
-              WORK[KI + (IV) * N],
-              VR(1, KI).asArray(),
-              1,
-            );
+            dgemv('N', N, KI - 2, ONE, VR, LDVR, WORK(1 + (IV - 1) * N), 1,
+                WORK[KI - 1 + (IV - 1) * N], VR(1, KI - 1).asArray(), 1);
+            dgemv('N', N, KI - 2, ONE, VR, LDVR, WORK(1 + (IV) * N), 1,
+                WORK[KI + (IV) * N], VR(1, KI).asArray(), 1);
           } else {
             dscal(N, WORK[KI - 1 + (IV - 1) * N], VR(1, KI - 1).asArray(), 1);
             dscal(N, WORK[KI + (IV) * N], VR(1, KI).asArray(), 1);
@@ -674,20 +607,19 @@ void dtrevc3(
         // or if this was last vector, do the GEMM
         if ((IV <= 2) || (KI2 == 1)) {
           dgemm(
-            'N',
-            'N',
-            N,
-            NB - IV + 1,
-            KI2 + NB - IV,
-            ONE,
-            VR,
-            LDVR,
-            WORK(1 + (IV) * N).asMatrix(N),
-            N,
-            ZERO,
-            WORK(1 + (NB + IV) * N).asMatrix(N),
-            N,
-          );
+              'N',
+              'N',
+              N,
+              NB - IV + 1,
+              KI2 + NB - IV,
+              ONE,
+              VR,
+              LDVR,
+              WORK(1 + (IV) * N).asMatrix(N),
+              N,
+              ZERO,
+              WORK(1 + (NB + IV) * N).asMatrix(N),
+              N);
           // normalize vectors
           for (K = IV; K <= NB; K++) {
             if (ISCOMPLEX[K] == 0) {
@@ -699,10 +631,9 @@ void dtrevc3(
               EMAX = ZERO;
               for (II = 1; II <= N; II++) {
                 EMAX = max(
-                  EMAX,
-                  (WORK[II + (NB + K) * N]).abs() +
-                      (WORK[II + (NB + K + 1) * N]).abs(),
-                );
+                    EMAX,
+                    (WORK[II + (NB + K) * N]).abs() +
+                        (WORK[II + (NB + K + 1) * N]).abs());
               }
               REMAX = ONE / EMAX;
               // else if ISCOMPLEX[K] == -1
@@ -711,15 +642,8 @@ void dtrevc3(
             }
             dscal(N, REMAX, WORK(1 + (NB + K) * N), 1);
           }
-          dlacpy(
-            'F',
-            N,
-            NB - IV + 1,
-            WORK(1 + (NB + IV) * N).asMatrix(N),
-            N,
-            VR(1, KI2),
-            LDVR,
-          );
+          dlacpy('F', N, NB - IV + 1, WORK(1 + (NB + IV) * N).asMatrix(N), N,
+              VR(1, KI2), LDVR);
           IV = NB;
         } else {
           IV = IV - 1;
@@ -821,36 +745,30 @@ void dtrevc3(
             }
 
             WORK[J + IV * N] = WORK[J + IV * N] -
-                ddot(
-                  J - KI - 1,
-                  T(KI + 1, J).asArray(),
-                  1,
-                  WORK(KI + 1 + IV * N),
-                  1,
-                );
+                ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
+                    WORK(KI + 1 + IV * N), 1);
 
             // Solve [ T[J][J] - WR ]**T * X = WORK
 
             dlaln2(
-              false,
-              1,
-              1,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + IV * N).asMatrix(N),
-              N,
-              WR,
-              ZERO,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                1,
+                1,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + IV * N).asMatrix(N),
+                N,
+                WR,
+                ZERO,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale if necessary
 
@@ -875,47 +793,36 @@ void dtrevc3(
             }
 
             WORK[J + IV * N] = WORK[J + IV * N] -
-                ddot(
-                  J - KI - 1,
-                  T(KI + 1, J).asArray(),
-                  1,
-                  WORK(KI + 1 + IV * N),
-                  1,
-                );
+                ddot(J - KI - 1, T(KI + 1, J).asArray(), 1,
+                    WORK(KI + 1 + IV * N), 1);
 
             WORK[J + 1 + IV * N] = WORK[J + 1 + IV * N] -
-                ddot(
-                  J - KI - 1,
-                  T(KI + 1, J + 1).asArray(),
-                  1,
-                  WORK(KI + 1 + IV * N),
-                  1,
-                );
+                ddot(J - KI - 1, T(KI + 1, J + 1).asArray(), 1,
+                    WORK(KI + 1 + IV * N), 1);
 
             // Solve
             // [ T[J][J]-WR   T[J][J+1]      ]**T * X = SCALE.value*( WORK1 )
             // [ T[J+1][J]    T[J+1][J+1]-WR ]                ( WORK2 )
 
             dlaln2(
-              true,
-              2,
-              1,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + IV * N).asMatrix(N),
-              N,
-              WR,
-              ZERO,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                true,
+                2,
+                1,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + IV * N).asMatrix(N),
+                N,
+                WR,
+                ZERO,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale if necessary
 
@@ -925,10 +832,8 @@ void dtrevc3(
             WORK[J + IV * N] = X[1][1];
             WORK[J + 1 + IV * N] = X[2][1];
 
-            VMAX = max(
-              (WORK[J + IV * N]).abs(),
-              max(WORK[J + 1 + IV * N].abs(), VMAX),
-            );
+            VMAX = max((WORK[J + IV * N]).abs(),
+                max(WORK[J + 1 + IV * N].abs(), VMAX));
             VCRIT = BIGNUM / VMAX;
           }
         } // 170
@@ -953,18 +858,17 @@ void dtrevc3(
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI < N) {
             dgemv(
-              'N',
-              N,
-              N - KI,
-              ONE,
-              VL(1, KI + 1),
-              LDVL,
-              WORK(KI + 1 + IV * N),
-              1,
-              WORK[KI + IV * N],
-              VL(1, KI).asArray(),
-              1,
-            );
+                'N',
+                N,
+                N - KI,
+                ONE,
+                VL(1, KI + 1),
+                LDVL,
+                WORK(KI + 1 + IV * N),
+                1,
+                WORK[KI + IV * N],
+                VL(1, KI).asArray(),
+                1);
           }
 
           II = idamax(N, VL(1, KI).asArray(), 1);
@@ -1042,44 +946,33 @@ void dtrevc3(
             }
 
             WORK[J + (IV) * N] = WORK[J + (IV) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                    WORK(KI + 2 + (IV) * N), 1);
             WORK[J + (IV + 1) * N] = WORK[J + (IV + 1) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV + 1) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                    WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve [ T[J][J]-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
 
             dlaln2(
-              false,
-              1,
-              2,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + IV * N).asMatrix(N),
-              N,
-              WR,
-              -WI,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                false,
+                1,
+                2,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + IV * N).asMatrix(N),
+                N,
+                WR,
+                -WI,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale if necessary
 
@@ -1089,10 +982,8 @@ void dtrevc3(
             }
             WORK[J + (IV) * N] = X[1][1];
             WORK[J + (IV + 1) * N] = X[1][2];
-            VMAX = max(
-              (WORK[J + (IV) * N]).abs(),
-              max((WORK[J + (IV + 1) * N]).abs(), VMAX),
-            );
+            VMAX = max((WORK[J + (IV) * N]).abs(),
+                max((WORK[J + (IV + 1) * N]).abs(), VMAX));
             VCRIT = BIGNUM / VMAX;
           } else {
             // 2-by-2 diagonal block
@@ -1110,65 +1001,44 @@ void dtrevc3(
             }
 
             WORK[J + (IV) * N] = WORK[J + (IV) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                    WORK(KI + 2 + (IV) * N), 1);
 
             WORK[J + (IV + 1) * N] = WORK[J + (IV + 1) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV + 1) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J).asArray(), 1,
+                    WORK(KI + 2 + (IV + 1) * N), 1);
 
             WORK[J + 1 + (IV) * N] = WORK[J + 1 + (IV) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J + 1).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
+                    WORK(KI + 2 + (IV) * N), 1);
 
             WORK[J + 1 + (IV + 1) * N] = WORK[J + 1 + (IV + 1) * N] -
-                ddot(
-                  J - KI - 2,
-                  T(KI + 2, J + 1).asArray(),
-                  1,
-                  WORK(KI + 2 + (IV + 1) * N),
-                  1,
-                );
+                ddot(J - KI - 2, T(KI + 2, J + 1).asArray(), 1,
+                    WORK(KI + 2 + (IV + 1) * N), 1);
 
             // Solve 2-by-2 complex linear equation
             // [ (T[j][j]   T[j][j+1]  )**T - (wr-i*wi)*I ]*X = SCALE.value*B
             // [ (T[j+1][j] T[j+1][j+1])                  ]
 
             dlaln2(
-              true,
-              2,
-              2,
-              SMIN,
-              ONE,
-              T(J, J),
-              LDT,
-              ONE,
-              ONE,
-              WORK(J + IV * N).asMatrix(N),
-              N,
-              WR,
-              -WI,
-              X,
-              2,
-              SCALE,
-              XNORM,
-              IERR,
-            );
+                true,
+                2,
+                2,
+                SMIN,
+                ONE,
+                T(J, J),
+                LDT,
+                ONE,
+                ONE,
+                WORK(J + IV * N).asMatrix(N),
+                N,
+                WR,
+                -WI,
+                X,
+                2,
+                SCALE,
+                XNORM,
+                IERR);
 
             // Scale if necessary
 
@@ -1181,12 +1051,11 @@ void dtrevc3(
             WORK[J + 1 + (IV) * N] = X[2][1];
             WORK[J + 1 + (IV + 1) * N] = X[2][2];
             VMAX = max(
-              (X[1][1]).abs(),
-              max(
-                max((X[1][2]).abs(), (X[2][1]).abs()),
-                max((X[2][2]).abs(), VMAX),
-              ),
-            );
+                (X[1][1]).abs(),
+                max(
+                  max((X[1][2]).abs(), (X[2][1]).abs()),
+                  max((X[2][2]).abs(), VMAX),
+                ));
             VCRIT = BIGNUM / VMAX;
           }
         } // 200
@@ -1197,13 +1066,8 @@ void dtrevc3(
           // ------------------------------
           // no back-transform: copy x to VL and normalize.
           dcopy(N - KI + 1, WORK(KI + (IV) * N), 1, VL(KI, IS).asArray(), 1);
-          dcopy(
-            N - KI + 1,
-            WORK(KI + (IV + 1) * N),
-            1,
-            VL(KI, IS + 1).asArray(),
-            1,
-          );
+          dcopy(N - KI + 1, WORK(KI + (IV + 1) * N), 1,
+              VL(KI, IS + 1).asArray(), 1);
 
           EMAX = ZERO;
           for (K = KI; K <= N; K++) {
@@ -1224,31 +1088,29 @@ void dtrevc3(
           // version 1: back-transform each vector with GEMV, Q*x.
           if (KI < N - 1) {
             dgemv(
-              'N',
-              N,
-              N - KI - 1,
-              ONE,
-              VL(1, KI + 2),
-              LDVL,
-              WORK(KI + 2 + (IV) * N),
-              1,
-              WORK[KI + (IV) * N],
-              VL(1, KI).asArray(),
-              1,
-            );
+                'N',
+                N,
+                N - KI - 1,
+                ONE,
+                VL(1, KI + 2),
+                LDVL,
+                WORK(KI + 2 + (IV) * N),
+                1,
+                WORK[KI + (IV) * N],
+                VL(1, KI).asArray(),
+                1);
             dgemv(
-              'N',
-              N,
-              N - KI - 1,
-              ONE,
-              VL(1, KI + 2),
-              LDVL,
-              WORK(KI + 2 + (IV + 1) * N),
-              1,
-              WORK[KI + 1 + (IV + 1) * N],
-              VL(1, KI + 1).asArray(),
-              1,
-            );
+                'N',
+                N,
+                N - KI - 1,
+                ONE,
+                VL(1, KI + 2),
+                LDVL,
+                WORK(KI + 2 + (IV + 1) * N),
+                1,
+                WORK[KI + 1 + (IV + 1) * N],
+                VL(1, KI + 1).asArray(),
+                1);
           } else {
             dscal(N, WORK[KI + (IV) * N], VL(1, KI).asArray(), 1);
             dscal(N, WORK[KI + 1 + (IV + 1) * N], VL(1, KI + 1).asArray(), 1);
@@ -1293,20 +1155,19 @@ void dtrevc3(
         // or if this was last vector, do the GEMM
         if ((IV >= NB - 1) || (KI2 == N)) {
           dgemm(
-            'N',
-            'N',
-            N,
-            IV,
-            N - KI2 + IV,
-            ONE,
-            VL(1, KI2 - IV + 1),
-            LDVL,
-            WORK(KI2 - IV + 1 + (1) * N).asMatrix(N),
-            N,
-            ZERO,
-            WORK(1 + (NB + 1) * N).asMatrix(N),
-            N,
-          );
+              'N',
+              'N',
+              N,
+              IV,
+              N - KI2 + IV,
+              ONE,
+              VL(1, KI2 - IV + 1),
+              LDVL,
+              WORK(KI2 - IV + 1 + (1) * N).asMatrix(N),
+              N,
+              ZERO,
+              WORK(1 + (NB + 1) * N).asMatrix(N),
+              N);
           // normalize vectors
           for (K = 1; K <= IV; K++) {
             if (ISCOMPLEX[K] == 0) {
@@ -1318,10 +1179,9 @@ void dtrevc3(
               EMAX = ZERO;
               for (II = 1; II <= N; II++) {
                 EMAX = max(
-                  EMAX,
-                  (WORK[II + (NB + K) * N]).abs() +
-                      (WORK[II + (NB + K + 1) * N]).abs(),
-                );
+                    EMAX,
+                    (WORK[II + (NB + K) * N]).abs() +
+                        (WORK[II + (NB + K + 1) * N]).abs());
               }
               REMAX = ONE / EMAX;
               // else if ISCOMPLEX[K] == -1
@@ -1330,15 +1190,8 @@ void dtrevc3(
             }
             dscal(N, REMAX, WORK(1 + (NB + K) * N), 1);
           }
-          dlacpy(
-            'F',
-            N,
-            IV,
-            WORK(1 + (NB + 1) * N).asMatrix(N),
-            N,
-            VL(1, KI2 - IV + 1),
-            LDVL,
-          );
+          dlacpy('F', N, IV, WORK(1 + (NB + 1) * N).asMatrix(N), N,
+              VL(1, KI2 - IV + 1), LDVL);
           IV = 1;
         } else {
           IV = IV + 1;
