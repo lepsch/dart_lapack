@@ -6,23 +6,25 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgesdd(JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO ) {
+      void dgesdd(final int JOBZ, final int M, final int N,
+          final Matrix<double> A, final int LDA, final Array<double> S,
+          final Matrix<double> U, final int LDU,
+          final Matrix<double> VT, final int LDVT, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Box<int> INFO, ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ;
-      int                INFO, LDA, LDU, LDVT, LWORK, M, N;
-      int                IWORK( * );
-      double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      // String             JOBZ;
+      // int                INFO.value, LDA, LDU, LDVT, LWORK, M, N;
+      // int                IWORK( * );
+      // double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IL, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NWORK, WRKBL;
       int                LWORK_DGEBRD_MN, LWORK_DGEBRD_MM, LWORK_DGEBRD_NN, LWORK_DGELQF_MN, LWORK_DGEQRF_MN, LWORK_DORGBR_P_MM, LWORK_DORGBR_Q_NN, LWORK_DORGLQ_MN, LWORK_DORGLQ_NN, LWORK_DORGQR_MM, LWORK_DORGQR_MN, LWORK_DORMBR_PRT_MM, LWORK_DORMBR_QLN_MM, LWORK_DORMBR_PRT_MN, LWORK_DORMBR_QLN_MN, LWORK_DORMBR_PRT_NN, LWORK_DORMBR_QLN_NN;
       double             ANRM, BIGNUM, EPS, SMLNUM;
-      int                IDUM( 1 );
+      f                IDUM( 1 );
       double             DUM( 1 );
       // ..
       // .. External Subroutines ..
@@ -38,7 +40,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Test the input arguments
 
-      INFO   = 0;
+      INFO.value   = 0;
       MINMN  = min( M, N );
       WNTQA  = lsame( JOBZ, 'A' );
       WNTQS  = lsame( JOBZ, 'S' );
@@ -48,17 +50,17 @@ import 'package:lapack/src/xerbla.dart';
       LQUERY = ( LWORK == -1 );
 
       if ( !( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( M < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < max( 1, M ) ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
-         INFO = -8;
+         INFO.value = -8;
       } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M >= N && LDVT < N ) ) {
-         INFO = -10;
+         INFO.value = -10;
       }
 
       // Compute workspace
@@ -68,7 +70,7 @@ import 'package:lapack/src/xerbla.dart';
       //   NB refers to the optimal block size for the immediately
       //   following subroutine, as returned by ILAENV.
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
          MINWRK = 1;
          MAXWRK = 1;
          BDSPAC = 0;
@@ -317,12 +319,12 @@ import 'package:lapack/src/xerbla.dart';
          WORK[1] = DROUNDUP_LWORK( MAXWRK );
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -12;
+            INFO.value = -12;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DGESDD', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DGESDD', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -344,7 +346,7 @@ import 'package:lapack/src/xerbla.dart';
 
       ANRM = dlange( 'M', M, N, A, LDA, DUM );
       if ( disnan( ANRM ) ) {
-          INFO = -4;
+          INFO.value = -4;
           return;
       }
       ISCL = 0;
@@ -396,7 +398,7 @@ import 'package:lapack/src/xerbla.dart';
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   N [e] + BDSPAC
 
-               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
             } else if ( WNTQO ) {
 
@@ -453,7 +455,7 @@ import 'package:lapack/src/xerbla.dart';
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U] + BDSPAC
 
-               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite WORK(IU) by left singular vectors of R
                // and VT by right singular vectors of R
@@ -520,7 +522,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of R and VT
                // by right singular vectors of R
@@ -583,7 +585,7 @@ import 'package:lapack/src/xerbla.dart';
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite WORK(IU) by left singular vectors of R and VT
                // by right singular vectors of R
@@ -628,7 +630,7 @@ import 'package:lapack/src/xerbla.dart';
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
             } else if ( WNTQO ) {
                // Path 5o (M >= N, JOBZ='O')
                IU = NWORK;
@@ -660,7 +662,7 @@ import 'package:lapack/src/xerbla.dart';
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   3*N [e, tauq, taup] + N*N [U] + BDSPAC
 
-               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), LDWRKU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), LDWRKU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite VT by right singular vectors of A
                // Workspace: need   3*N [e, tauq, taup] + N*N [U] + N    [work]
@@ -711,7 +713,7 @@ import 'package:lapack/src/xerbla.dart';
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
                dlaset('F', M, N, ZERO, ZERO, U, LDU );
-               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
@@ -729,7 +731,7 @@ import 'package:lapack/src/xerbla.dart';
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
                dlaset('F', M, M, ZERO, ZERO, U, LDU );
-               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Set the right corner of U to identity matrix
 
@@ -788,7 +790,7 @@ import 'package:lapack/src/xerbla.dart';
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   M [e] + BDSPAC
 
-               dbdsdc('U', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
             } else if ( WNTQO ) {
 
@@ -844,7 +846,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), M, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), M, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of L and WORK(IVT)
                // by right singular vectors of L
@@ -912,7 +914,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of bidiagonal matrix in VT
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of L and VT
                // by right singular vectors of L
@@ -975,7 +977,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup] + BDSPAC
 
-               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of L and WORK(IVT)
                // by right singular vectors of L
@@ -1020,7 +1022,7 @@ import 'package:lapack/src/xerbla.dart';
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
-               dbdsdc('L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
             } else if ( WNTQO ) {
                // Path 5to (N > M, JOBZ='O')
                LDWKVT = M;
@@ -1050,7 +1052,7 @@ import 'package:lapack/src/xerbla.dart';
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + BDSPAC
 
-               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of A
                // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M    [work]
@@ -1100,7 +1102,7 @@ import 'package:lapack/src/xerbla.dart';
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
                dlaset('F', M, N, ZERO, ZERO, VT, LDVT );
-               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
@@ -1118,7 +1120,7 @@ import 'package:lapack/src/xerbla.dart';
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
                dlaset('F', N, N, ZERO, ZERO, VT, LDVT );
-               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO.value );
 
                // Set the right corner of VT to identity matrix
 

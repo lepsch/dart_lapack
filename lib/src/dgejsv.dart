@@ -496,7 +496,7 @@ void dgejsv(
     // .. all columns are free columns
     IWORK[p] = 0;
   }
-  dgeqp3(M, N, A, LDA, IWORK, WORK, WORK[N + 1], LWORK - N, IERR);
+  dgeqp3(M, N, A, LDA, IWORK, WORK, WORK(N + 1), LWORK - N, IERR);
 
   // The upper triangular matrix R1 from the first QRF is inspected for
   // rank deficiency and possibilities for deflation, or possible
@@ -572,8 +572,8 @@ void dgejsv(
           TEMP1.value = SVA[IWORK[p]];
           dscal(p, ONE / TEMP1.value, V(1, p).asArray(), 1);
         }
-        dpocon('U', N, V, LDV, ONE, TEMP1.value, WORK[N + 1],
-            IWORK[2 * N + M + 1], IERR);
+        dpocon('U', N, V, LDV, ONE, TEMP1, WORK(N + 1), IWORK(2 * N + M + 1),
+            IERR);
       } else if (LSVEC) {
         // .. U is available as workspace
         dlacpy('U', N, N, A, LDA, U, LDU);
@@ -581,8 +581,8 @@ void dgejsv(
           TEMP1.value = SVA[IWORK[p]];
           dscal(p, ONE / TEMP1.value, U(1, p).asArray(), 1);
         }
-        dpocon('U', N, U, LDU, ONE, TEMP1.value, WORK[N + 1],
-            IWORK[2 * N + M + 1], IERR);
+        dpocon('U', N, U, LDU, ONE, TEMP1, WORK(N + 1), IWORK(2 * N + M + 1),
+            IERR);
       } else {
         dlacpy('U', N, N, A, LDA, WORK(N + 1).asMatrix(N), N);
         for (p = 1; p <= N; p++) {
@@ -590,8 +590,8 @@ void dgejsv(
           dscal(p, ONE / TEMP1.value, WORK(N + (p - 1) * N + 1), 1);
         }
         // .. the columns of R are scaled to have unit Euclidean lengths.
-        dpocon('U', N, WORK[N + 1], N, ONE, TEMP1.value, WORK[N + N * N + 1],
-            IWORK[2 * N + M + 1], IERR);
+        dpocon('U', N, WORK(N + 1).asMatrix(N), N, ONE, TEMP1,
+            WORK(N + N * N + 1), IWORK(2 * N + M + 1), IERR);
       }
       SCONDA = ONE / sqrt(TEMP1.value);
       // SCONDA is an estimate of sqrt(||(R^t * R)^(-1)||_1).
@@ -698,7 +698,7 @@ void dgejsv(
       // accumulated product of Jacobi rotations, three are perfect )
 
       dlaset('Lower', NR - 1, NR - 1, ZERO, ZERO, A(2, 1), LDA);
-      dgelqf(NR, N, A, LDA, WORK, WORK[N + 1], LWORK - N, IERR.value);
+      dgelqf(NR, N, A, LDA, WORK, WORK(N + 1), LWORK - N, IERR.value);
       dlacpy('Lower', NR, NR, A, LDA, V, LDV);
       dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
       dgeqrf(NR, NR, V, LDV, WORK(N + 1), WORK(2 * N + 1), LWORK - 2 * N, IERR);
@@ -707,7 +707,7 @@ void dgejsv(
       }
       dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
 
-      dgesvj('Lower', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK[N + 1],
+      dgesvj('Lower', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(N + 1),
           LWORK, INFO);
       SCALEM = WORK[N + 1];
       NUMRANK = WORK[N + 2].round();
@@ -717,7 +717,7 @@ void dgejsv(
         dlaset('A', N - NR, N - NR, ZERO, ONE, V(NR + 1, NR + 1), LDV);
       }
 
-      dormlq('Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK[N + 1],
+      dormlq('Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK(N + 1),
           LWORK - N, IERR);
     }
 
@@ -746,7 +746,7 @@ void dgejsv(
     }
     dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, U(1, 2), LDU);
 
-    dgesvj('Lower', 'U', 'N', NR, NR, U, LDU, SVA, NR, A, LDA, WORK[N + 1],
+    dgesvj('Lower', 'U', 'N', NR, NR, U, LDU, SVA, NR, A, LDA, WORK(N + 1),
         LWORK - N, INFO);
     SCALEM = WORK[N + 1];
     NUMRANK = WORK[N + 2].round();
@@ -825,8 +825,8 @@ void dgejsv(
           dscal(
               NR - p + 1, ONE / TEMP1.value, WORK(2 * N + (p - 1) * NR + p), 1);
         }
-        dpocon('Lower', NR, WORK[2 * N + 1], NR, ONE, TEMP1.value,
-            WORK[2 * N + NR * NR + 1], IWORK[M + 2 * N + 1], IERR);
+        dpocon('Lower', NR, WORK(2 * N + 1).asMatrix(NR), NR, ONE, TEMP1,
+            WORK(2 * N + NR * NR + 1), IWORK(M + 2 * N + 1), IERR);
         CONDR1 = ONE / sqrt(TEMP1.value);
         // .. here need a second opinion on the condition number
         // .. then assume worst case scenario
@@ -879,7 +879,7 @@ void dgejsv(
           for (p = 1; p <= NR; p++) {
             IWORK[N + p] = 0;
           }
-          dgeqp3(N, NR, V, LDV, IWORK[N + 1], WORK[N + 1], WORK[2 * N + 1],
+          dgeqp3(N, NR, V, LDV, IWORK(N + 1), WORK(N + 1), WORK(2 * N + 1),
               LWORK - 2 * N, IERR);
 // *               CALL DGEQRF( N, NR, V, LDV, WORK[N+1], WORK[2*N+1],
 // *     $              LWORK-2*N, IERR.value )
@@ -921,12 +921,12 @@ void dgejsv(
           dpocon(
               'L',
               NR,
-              WORK[2 * N + N * NR + NR + 1],
+              WORK(2 * N + N * NR + NR + 1).asMatrix(NR),
               NR,
               ONE,
-              TEMP1.value,
-              WORK[2 * N + N * NR + NR + NR * NR + 1],
-              IWORK[M + 2 * N + 1],
+              TEMP1,
+              WORK(2 * N + N * NR + NR + NR * NR + 1),
+              IWORK(M + 2 * N + 1),
               IERR);
           CONDR2 = ONE / sqrt(TEMP1.value);
 
@@ -961,21 +961,8 @@ void dgejsv(
         // conditioned triangular matrix equation.
 
         if (CONDR1 < COND_OK) {
-          dgesvj(
-              'L',
-              'U',
-              'N',
-              NR,
-              NR,
-              V,
-              LDV,
-              SVA,
-              NR,
-              U,
-              LDU,
-              WORK[2 * N + N * NR + NR + 1],
-              LWORK - 2 * N - N * NR - NR,
-              INFO.value);
+          dgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU,
+              WORK(2 * N + N * NR + NR + 1), LWORK - 2 * N - N * NR - NR, INFO);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           for (p = 1; p <= NR; p++) {
@@ -1026,7 +1013,7 @@ void dgejsv(
           // the lower triangular L3 from the LQ factorization of
           // R2=L3*Q3), pre-multiplied with the transposed Q3.
           dgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU,
-              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, INFO);
+              WORK(2 * N + N * NR + NR + 1), LWORK - 2 * N - N * NR - NR, INFO);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           for (p = 1; p <= NR; p++) {
@@ -1076,7 +1063,7 @@ void dgejsv(
           // Compute the full SVD of L3 using DGESVJ with explicit
           // accumulation of Jacobi rotations.
           dgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU,
-              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, INFO);
+              WORK(2 * N + N * NR + NR + 1), LWORK - 2 * N - N * NR - NR, INFO);
           SCALEM = WORK[2 * N + N * NR + NR + 1];
           NUMRANK = WORK[2 * N + N * NR + NR + 2].round();
           if (NR < N) {
@@ -1105,12 +1092,12 @@ void dgejsv(
               NR,
               NR,
               NR,
-              WORK[2 * N + 1],
+              WORK(2 * N + 1).asMatrix(N),
               N,
-              WORK[2 * N + N * NR + 1],
+              WORK(2 * N + N * NR + 1),
               U,
               LDU,
-              WORK[2 * N + N * NR + NR + 1],
+              WORK(2 * N + N * NR + NR + 1),
               LWORK - 2 * N - N * NR - NR,
               IERR);
           for (q = 1; q <= NR; q++) {
@@ -1189,8 +1176,8 @@ void dgejsv(
           dlaset('Lower', N - 1, N - 1, ZERO, ZERO, WORK(N + 2).asMatrix(N), N);
         }
 
-        dgesvj('Upper', 'U', 'N', N, N, WORK[N + 1], N, SVA, N, U, LDU,
-            WORK[N + N * N + 1], LWORK - N - N * N, INFO);
+        dgesvj('Upper', 'U', 'N', N, N, WORK(N + 1).asMatrix(N), N, SVA, N, U,
+            LDU, WORK(N + N * N + 1), LWORK - N - N * N, INFO);
 
         SCALEM = WORK[N + N * N + 1];
         NUMRANK = WORK[N + N * N + 2].round();
@@ -1285,7 +1272,7 @@ void dgejsv(
         dlaset('U', NR - 1, NR - 1, ZERO, ZERO, U(1, 2), LDU);
       }
       dgesvj('G', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV,
-          WORK[2 * N + N * NR + 1], LWORK - 2 * N - N * NR, INFO);
+          WORK(2 * N + N * NR + 1), LWORK - 2 * N - N * NR, INFO);
       SCALEM = WORK[2 * N + N * NR + 1];
       NUMRANK = WORK[2 * N + N * NR + 2].round();
 

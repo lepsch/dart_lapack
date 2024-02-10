@@ -85,13 +85,12 @@ void dggesx(
       BNRM,
       BNRMTO = 0,
       EPS,
-      PL = 0,
-      PR = 0,
       SAFMAX,
       SAFMIN,
       SMLNUM;
   final DIF = Array<double>(2);
   final IERR = Box(0), ILO = Box(0), IHI = Box(0);
+  final PL = Box(0.0), PR = Box(0.0);
 
   // Decode the input arguments
 
@@ -363,7 +362,7 @@ void dggesx(
           LDVSL,
           VSR,
           LDVSR,
-          SDIM.value,
+          SDIM,
           PL,
           PR,
           DIF,
@@ -380,8 +379,8 @@ void dggesx(
         INFO.value = -22;
       } else {
         if (IJOB == 1 || IJOB == 4) {
-          RCONDE[1] = PL;
-          RCONDE[2] = PR;
+          RCONDE[1] = PL.value;
+          RCONDE[2] = PR.value;
         }
         if (IJOB == 2 || IJOB == 4) {
           RCONDV[1] = DIF[1];

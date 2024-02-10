@@ -1,32 +1,17 @@
 import 'common.dart';
 
-bool dlctsx(AR, AI, BETA) {
+bool dlctsx(double AR, double AI, double BETA,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double AI, AR, BETA;
-  // ..
-
-// =====================================================================
-
-  // .. Scalars in Common ..
-  // bool               mn.FS;
-  // int                mn.I, mn.M, mn.MPLUSN, mn.N;
-  // ..
-  // .. Common blocks ..
-  // COMMON / mn / mn.M, mn.N, mn.MPLUSN, mn.I, mn.FS
-  // ..
-  // .. Save statement ..
-  SAVE;
+  final bool result;
 
   if (mn.FS) {
     mn.I = mn.I + 1;
     if (mn.I <= mn.M) {
-      DLCTSX = false;
+      result = false;
     } else {
-      DLCTSX = true;
+      result = true;
     }
     if (mn.I == mn.MPLUSN) {
       mn.FS = false;
@@ -35,9 +20,9 @@ bool dlctsx(AR, AI, BETA) {
   } else {
     mn.I = mn.I + 1;
     if (mn.I <= mn.N) {
-      DLCTSX = true;
+      result = true;
     } else {
-      DLCTSX = false;
+      result = false;
     }
     if (mn.I == mn.MPLUSN) {
       mn.FS = true;
@@ -50,4 +35,6 @@ bool dlctsx(AR, AI, BETA) {
   // ELSE
   // DLCTSX = false;
   // END IF
+
+  return result;
 }

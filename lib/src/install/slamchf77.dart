@@ -170,7 +170,7 @@
          C = 1;
 
 // +       WHILE( C == ONE )LOOP
-         } // 10
+        //  } // 10
          if ( C == ONE ) {
             A = 2*A;
             C = SLAMC3( A, ONE );
@@ -188,7 +188,7 @@
          C = SLAMC3( A, B );
 
 // +       WHILE( C == A )LOOP
-         } // 20
+        //  } // 20
          if ( C == A ) {
             B = 2*B;
             C = SLAMC3( A, B );
@@ -243,7 +243,7 @@
          C = 1;
 
 // +       WHILE( C == ONE )LOOP
-         } // 30
+        //  } // 30
          if ( C == ONE ) {
             LT = LT + 1;
             A = A*LBETA;
@@ -398,7 +398,7 @@
          LEPS = 1;
 
 // +       WHILE( ( LEPS > B ) && ( B > ZERO ) )LOOP
-         } // 10
+        //  } // 10
          if ( ( LEPS > B ) && ( B > ZERO ) ) {
             LEPS = B;
             C = SLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) );

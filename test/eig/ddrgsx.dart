@@ -65,9 +65,7 @@ Future<void> ddrgsx(
       NPTKNT,
       NTEST,
       NTESTT,
-      PRTYPE,
-      QBA,
-      QBB;
+      PRTYPE;
   double ABNRM,
       // BIGNUM,
       DIFTRU = 0,
@@ -81,7 +79,7 @@ Future<void> ddrgsx(
   final DIFEST = Array<double>(2),
       PL = Array<double>(2),
       RESULT = Array<double>(10);
-  final IINFO = Box(0), LINFO = Box(0), MM = Box(0);
+  final IINFO = Box(0), LINFO = Box(0), MM = Box(0), QBA = Box(0), QBB = Box(0);
   final TEMP2 = Box(0.0);
 
   // Check for errors
@@ -172,8 +170,8 @@ Future<void> ddrgsx(
     // of test matrices, different size (M+N)
 
     PRTYPE = 0;
-    QBA = 3;
-    QBB = 4;
+    QBA.value = 3;
+    QBB.value = 4;
     WEIGHT = sqrt(ULP);
 
     for (IFUNC = 0; IFUNC <= 3; IFUNC++) {
@@ -197,15 +195,15 @@ Future<void> ddrgsx(
                 mn.N,
                 AI,
                 LDA,
-                AI[mn.M + 1][mn.M + 1],
+                AI(mn.M + 1, mn.M + 1),
                 LDA,
-                AI[1][mn.M + 1],
+                AI(1, mn.M + 1),
                 LDA,
                 BI,
                 LDA,
-                BI[mn.M + 1][mn.M + 1],
+                BI(mn.M + 1, mn.M + 1),
                 LDA,
-                BI[1][mn.M + 1],
+                BI(1, mn.M + 1),
                 LDA,
                 Q,
                 LDA,
@@ -366,7 +364,7 @@ Future<void> ddrgsx(
             RESULT[7] = ZERO;
             if (LINFO.value == mn.MPLUSN + 3) {
               RESULT[7] = ULPINV;
-            } else if (MM != mn.N) {
+            } else if (MM.value != mn.N) {
               RESULT[7] = ULPINV;
             }
             NTEST = NTEST + 1;
@@ -391,8 +389,8 @@ Future<void> ddrgsx(
                   C,
                   LDC);
 
-              dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK[2], 1,
-                  WORK[3], LWORK - 2, INFO.value);
+              dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK.asMatrix(1), 1, WORK(2).asMatrix(1), 1,
+                  WORK(3), LWORK - 2, INFO);
               DIFTRU = S[MN2];
 
               if (DIFEST[2] == ZERO) {
