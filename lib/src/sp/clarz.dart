@@ -1,4 +1,4 @@
-      void clarz(SIDE, M, N, L, V, INCV, TAU, final Matrix<double> C, final int LDC, final Array<double> WORK) {
+      void clarz(final int SIDE, final int M, final int N, final int L, final int V, final int INCV, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

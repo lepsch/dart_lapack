@@ -1,4 +1,4 @@
-      double slamch(CMACH ) {
+      double slamch(final int CMACH) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -127,7 +127,7 @@
 // >        Comms. of the ACM, 17, 276-277.
 // > \endverbatim
 // >
-      void slamc1(BETA, T, RND, final int IEEE1) {
+      void slamc1(final int BETA, final int T, final int RND, final int IEEE1) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -331,7 +331,7 @@
 // >  W. Kahan of the University of California at Berkeley.
 // > \endverbatim
 // >
-      void slamc2(BETA, T, RND, EPS, EMIN, RMIN, EMAX, final int RMAX) {
+      void slamc2(final int BETA, final int T, final int RND, final int EPS, final int EMIN, final int RMIN, final int EMAX, final int RMAX) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -536,7 +536,7 @@
 // >
 // > \ingroup lamc3
 // >
-      double slamc3(A, final int B) {
+      double slamc3(final int A, final int B) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -578,7 +578,7 @@
 // >
 // > \ingroup lamc4
 // >
-      void slamc4(EMIN, START, final int BASE) {
+      void slamc4(final int EMIN, final int START, final int BASE) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -678,7 +678,7 @@
 // >
 // > \ingroup lamc5
 // >
-      void slamc5(BETA, P, EMIN, IEEE, EMAX, final int RMAX) {
+      void slamc5(final int BETA, final int P, final int EMIN, final int IEEE, final int EMAX, final int RMAX) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..

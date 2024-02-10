@@ -1,4 +1,4 @@
-      void sspmv(UPLO,N,ALPHA,AP,X,INCX,BETA,Y, final int INCY) {
+      void sspmv(final int UPLO, final int N, final int ALPHA, final int AP, final int X, final int INCX, final int BETA, final int Y, final int INCY) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

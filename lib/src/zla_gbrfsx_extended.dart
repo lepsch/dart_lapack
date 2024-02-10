@@ -1,4 +1,4 @@
-      void zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, COLEQU, C, final Matrix<double> B, final int LDB, final Matrix<double> Y, final int LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, final Box<int> INFO ) {
+      void zla_gbrfsx_extended(final int PREC_TYPE, final int TRANS_TYPE, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int COLEQU, final int C, final Matrix<double> B, final int LDB, final Matrix<double> Y, final int LDY, final int BERR_OUT, final int N_NORMS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int RES, final int AYB, final int DY, final int Y_TAIL, final int RCOND, final int ITHRESH, final int RTHRESH, final int DZ_UB, final int IGNORE_CWISE, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

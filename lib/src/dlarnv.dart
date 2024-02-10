@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlarnv(IDIST, final Array<int> ISEED, N, final int X) {
+      void dlarnv(final int IDIST, final Array<int> ISEED, final int N, final int X) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

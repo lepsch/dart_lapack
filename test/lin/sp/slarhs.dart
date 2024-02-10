@@ -1,4 +1,4 @@
-      void slarhs(PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final Array<int> ISEED, final Box<int> INFO ) {
+      void slarhs(final int PATH, final int XTYPE, final int UPLO, final int TRANS, final int M, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final Array<int> ISEED, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

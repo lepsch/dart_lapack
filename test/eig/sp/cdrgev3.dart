@@ -1,4 +1,4 @@
-      void cdrgev3(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, B, S, T, final Matrix<double> Q, final int LDQ, Z, final Matrix<double> QE, final int LDQE, ALPHA, BETA, ALPHA1, BETA1, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT, final Box<int> INFO ) {
+      void cdrgev3(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int B, final int S, final int T, final Matrix<double> Q, final int LDQ, final int Z, final Matrix<double> QE, final int LDQE, final int ALPHA, final int BETA, final int ALPHA1, final int BETA1, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

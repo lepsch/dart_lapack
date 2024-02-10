@@ -1,4 +1,4 @@
-      void zlarge(N, final Matrix<double> A, final int LDA, final Array<int> ISEED, final Array<double> _WORK, final Box<int> INFO ) {
+      void zlarge(final int N, final Matrix<double> A, final int LDA, final Array<int> ISEED, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

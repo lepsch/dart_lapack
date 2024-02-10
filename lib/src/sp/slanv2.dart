@@ -1,4 +1,4 @@
-      void slanv2(A, B, C, D, RT1R, RT1I, RT2R, RT2I, CS, final int SN) {
+      void slanv2(final int A, final int B, final int C, final int D, final int RT1R, final int RT1I, final int RT2R, final int RT2I, final int CS, final int SN) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

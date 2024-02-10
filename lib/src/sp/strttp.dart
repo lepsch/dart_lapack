@@ -1,4 +1,4 @@
-      void strttp(UPLO, N, final Matrix<double> A, final int LDA, AP, final Box<int> INFO ) {
+      void strttp(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int AP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

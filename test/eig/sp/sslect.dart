@@ -1,4 +1,4 @@
-      bool sslect(ZR, final int ZI) {
+      bool sslect(final int ZR, final int ZI) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

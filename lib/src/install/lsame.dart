@@ -1,4 +1,4 @@
-      bool lsame(CA, final int CB) {
+      bool lsame(final int CA, final int CB) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

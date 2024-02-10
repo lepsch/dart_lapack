@@ -1,4 +1,4 @@
-      void csytf2_rk(UPLO, N, final Matrix<double> A, final int LDA, E, final Array<int> IPIV, final Box<int> INFO ) {
+      void csytf2_rk(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

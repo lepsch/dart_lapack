@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void ddrvrf4(NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, final Matrix<double> A, final int LDA, final int D_WORK_DLANGE) {
+      void ddrvrf4(final int NOUT, final int NN, final int NVAL, final int THRESH, final int C1, final int C2, final int LDC, final int CRF, final Matrix<double> A, final int LDA, final int D_WORK_DLANGE) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

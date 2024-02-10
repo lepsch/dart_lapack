@@ -1,4 +1,4 @@
-      void clarot(LROWS, LLEFT, LRIGHT, NL, C, S, final Matrix<double> A, final int LDA, XLEFT, final int XRIGHT) {
+      void clarot(final int LROWS, final int LLEFT, final int LRIGHT, final int NL, final int C, final int S, final Matrix<double> A, final int LDA, final int XLEFT, final int XRIGHT) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zdrscl(N, SA, SX, final int INCX) {
+      void zdrscl(final int N, final int SA, final int SX, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

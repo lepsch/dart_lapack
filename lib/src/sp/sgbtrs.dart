@@ -1,4 +1,4 @@
-      void sgbtrs(TRANS, N, KL, KU, NRHS, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void sgbtrs(final int TRANS, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

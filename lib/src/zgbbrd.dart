@@ -1,4 +1,4 @@
-      void zgbbrd(VECT, M, N, NCC, KL, KU, final Matrix<double> AB, final int LDAB, D, E, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void zgbbrd(final int VECT, final int M, final int N, final int NCC, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final int D, final int E, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

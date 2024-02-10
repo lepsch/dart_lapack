@@ -1,4 +1,4 @@
-      void cdrves(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, H, HT, W, WT, final Matrix<double> VS, final int LDVS, RESULT, final Array<double> _WORK, NWORK, final Array<double> RWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO ) {
+      void cdrves(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int HT, final int W, final int WT, final Matrix<double> VS, final int LDVS, final int RESULT, final Array<double> _WORK, final int NWORK, final Array<double> RWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

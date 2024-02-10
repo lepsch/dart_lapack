@@ -1,4 +1,4 @@
-      void slaed5(I, D, Z, DELTA, RHO, final int DLAM) {
+      void slaed5(final int I, final int D, final int Z, final int DELTA, final int RHO, final int DLAM) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

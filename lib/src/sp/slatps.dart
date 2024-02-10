@@ -1,4 +1,4 @@
-      void slatps(UPLO, TRANS, DIAG, NORMIN, N, AP, X, SCALE, CNORM, final Box<int> INFO ) {
+      void slatps(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final int AP, final int X, final int SCALE, final int CNORM, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

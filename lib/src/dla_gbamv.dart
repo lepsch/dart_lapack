@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dla_gbamv(TRANS, M, N, KL, KU, ALPHA, final Matrix<double> AB, final int LDAB, X, INCX, BETA, Y, final int INCY) {
+      void dla_gbamv(final int TRANS, final int M, final int N, final int KL, final int KU, final int ALPHA, final Matrix<double> AB, final int LDAB, final int X, final int INCX, final int BETA, final int Y, final int INCY) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

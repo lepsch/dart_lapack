@@ -1,4 +1,4 @@
-      void sgbmv(TRANS,M,N,KL,KU,ALPHA, final Matrix<double> A, final int LDA, X,INCX, BETA,Y, final int INCY) {
+      void sgbmv(final int TRANS, final int M, final int N, final int KL, final int KU, final int ALPHA, final Matrix<double> A, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

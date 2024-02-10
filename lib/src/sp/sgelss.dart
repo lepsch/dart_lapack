@@ -1,4 +1,4 @@
-      void sgelss(M, N, NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, S, RCOND, RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void sgelss(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int S, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

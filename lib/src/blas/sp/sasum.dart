@@ -1,4 +1,4 @@
-      double sasum(N,SX, final int INCX) {
+      double sasum(final int N, final int SX, final int INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

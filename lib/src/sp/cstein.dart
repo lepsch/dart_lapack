@@ -1,4 +1,4 @@
-      void cstein(N, D, E, M, W, IBLOCK, ISPLIT, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, IFAIL, final Box<int> INFO ) {
+      void cstein(final int N, final int D, final int E, final int M, final int W, final int IBLOCK, final int ISPLIT, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, final int IFAIL, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

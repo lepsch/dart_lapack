@@ -1,4 +1,4 @@
-      void sgeesx(JOBVS, SORT, SELECT, SENSE, N, final Matrix<double> A, final int LDA, SDIM, WR, WI, final Matrix<double> VS, final int LDVS, RCONDE, RCONDV, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Array<bool> BWORK, final Box<int> INFO ) {
+      void sgeesx(final int JOBVS, final int SORT, final int SELECT, final int SENSE, final int N, final Matrix<double> A, final int LDA, final int SDIM, final int WR, final int WI, final Matrix<double> VS, final int LDVS, final int RCONDE, final int RCONDV, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

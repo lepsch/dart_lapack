@@ -1,4 +1,4 @@
-      void zggbak(JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, final Matrix<double> V, final int LDV, final Box<int> INFO ) {
+      void zggbak(final int JOB, final int SIDE, final int N, final int ILO, final int IHI, final int LSCALE, final int RSCALE, final int M, final Matrix<double> V, final int LDV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

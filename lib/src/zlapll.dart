@@ -1,4 +1,4 @@
-      void zlapll(N, X, INCX, Y, INCY, final int SSMIN) {
+      void zlapll(final int N, final int X, final int INCX, final int Y, final int INCY, final int SSMIN) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

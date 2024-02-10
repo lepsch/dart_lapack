@@ -1,4 +1,4 @@
-      void chfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, final Matrix<double> A, final int LDA, BETA, final int C) {
+      void chfrk(final int TRANSR, final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A, final int LDA, final int BETA, final int C) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

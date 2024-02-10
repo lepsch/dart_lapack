@@ -1,5 +1,5 @@
 import 'common.dart';
-      void xlaenv(ISPEC, final int NVALUE) {
+      void xlaenv(final int ISPEC, final int NVALUE) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

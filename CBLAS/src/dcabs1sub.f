@@ -1,4 +1,4 @@
-      void dcabs1sub(z, final int cabs1) {
+      void dcabs1sub(final int z, final int cabs1) {
 
       // external dcabs1
       Complex z;

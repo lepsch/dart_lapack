@@ -1,4 +1,4 @@
-      void scabs1sub(z, final int cabs1) {
+      void scabs1sub(final int z, final int cabs1) {
 
       // external scabs1
       Complex z;

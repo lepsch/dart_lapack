@@ -1,4 +1,4 @@
-      void cckglm(NN, NVAL, MVAL, PVAL, NMATS, final Array<int> ISEED, THRESH, NMAX, A, AF, B, BF, X, final Array<double> _WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void cckglm(final int NN, final int NVAL, final int MVAL, final int PVAL, final int NMATS, final Array<int> ISEED, final int THRESH, final int NMAX, final int A, final int AF, final int B, final int BF, final int X, final Array<double> _WORK, final Array<double> RWORK, final int NIN, final int NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

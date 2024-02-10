@@ -1,4 +1,4 @@
-      void sstegr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
+      void sstegr(final int JOBZ, final int RANGE, final int N, final int D, final int E, final int VL, final int VU, final int IL, final int IU, final int ABSTOL, final int M, final int W, final Matrix<double> Z, final int LDZ, final int ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

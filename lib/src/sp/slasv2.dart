@@ -1,4 +1,4 @@
-      void slasv2(F, G, H, SSMIN, SSMAX, SNR, CSR, SNL, final int CSL) {
+      void slasv2(final int F, final int G, final int H, final int SSMIN, final int SSMAX, final int SNR, final int CSR, final int SNL, final int CSL) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -261,7 +261,7 @@
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
 
-      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
+      void schk1(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
 
 // Tests SGEMM.
 
@@ -504,7 +504,7 @@
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
 
-      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
+      void schk2(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
 
 // Tests SSYMM.
 
@@ -735,7 +735,7 @@
       }
 
 
-      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, final int C) {
+      void schk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int CT, final int G, final int C) {
 
 // Tests STRMM and STRSM.
 
@@ -984,7 +984,7 @@
  9995 FORMAT(' ${.i6}: ${.a6}(', 4( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3})        .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, final int G) {
+      void schk4(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
 
 // Tests SSYRK.
 
@@ -1217,7 +1217,7 @@
  9994 FORMAT(' ${.i6}: ${.a6}(', 2( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})           .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, final int W) {
+      void schk5(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int AB, final int AA, final int AS, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int W) {
 
 // Tests SSYR2K.
 
@@ -2027,7 +2027,7 @@
  9999 FORMAT( ' ${.a6} PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ${.a6} FAILED THE TESTS OF ERROR-EXITS *******' );
       }
-      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
+      void smake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2132,7 +2132,7 @@
       }
       return;
       }
-      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
+      void smmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2243,7 +2243,7 @@
  9998 FORMAT( 1X, I7, 2G18.6 );
  9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
       }
-      bool lse(RI, RJ, final int LR) {
+      bool lse(final int RI, final int RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2269,7 +2269,7 @@
       LSE = false;
    30 return;
       }
-      bool lseres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
+      bool lseres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2322,7 +2322,7 @@
       LSERES = false;
    80 return;
       }
-      double sbeg(RESET ) {
+      double sbeg(final int RESET) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2363,7 +2363,7 @@
       SBEG = ( I - 500 )/1001.0;
       return;
       }
-      double sdiff(X, final int Y) {
+      double sdiff(final int X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 
@@ -2401,7 +2401,7 @@
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${.i2} NOT DETECTED BY ${.a6} *****' );
       }
-      void xerbla(SRNAME, final Box<int> INFO ) {
+      void xerbla(final int SRNAME, final Box<int> INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 3 BLAS

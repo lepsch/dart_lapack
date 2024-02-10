@@ -1,4 +1,4 @@
-      void sdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, S_WORK_SLATMS, S_WORK_SPOT01, S_TEMP_SPOT02, S_TEMP_SPOT03, S_WORK_SLANSY, S_WORK_SPOT02, final int S_WORK_SPOT03) {
+      void sdrvrfp(final int NOUT, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int S_WORK_SLATMS, final int S_WORK_SPOT01, final int S_TEMP_SPOT02, final int S_TEMP_SPOT03, final int S_WORK_SLANSY, final int S_WORK_SPOT02, final int S_WORK_SPOT03) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

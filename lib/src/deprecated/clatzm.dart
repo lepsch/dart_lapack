@@ -1,4 +1,4 @@
-      void clatzm(SIDE, M, N, V, INCV, TAU, C1, C2, LDC, final Array<double> WORK) {
+      void clatzm(final int SIDE, final int M, final int N, final int V, final int INCV, final int TAU, final int C1, final int C2, final int LDC, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

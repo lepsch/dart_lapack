@@ -1,4 +1,4 @@
-      void zlatme(N, DIST, final Array<int> ISEED, D, MODE, COND, DMAX, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, final Matrix<double> A, final int LDA, final Array<double> _WORK, final Box<int> INFO ) {
+      void zlatme(final int N, final int DIST, final Array<int> ISEED, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int UPPER, final int SIM, final int DS, final int MODES, final int CONDS, final int KL, final int KU, final int ANORM, final Matrix<double> A, final int LDA, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

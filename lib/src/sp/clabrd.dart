@@ -1,4 +1,4 @@
-      void clabrd(M, N, NB, final Matrix<double> A, final int LDA, D, E, TAUQ, TAUP, final Matrix<double> X, final int LDX, Y, final int LDY) {
+      void clabrd(final int M, final int N, final int NB, final Matrix<double> A, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Matrix<double> X, final int LDX, final int Y, final int LDY) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

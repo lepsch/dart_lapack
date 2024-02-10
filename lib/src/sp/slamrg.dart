@@ -1,4 +1,4 @@
-      void slamrg(N1, N2, A, STRD1, STRD2, final int INDEX) {
+      void slamrg(final int N1, final int N2, final int A, final int STRD1, final int STRD2, final int INDEX) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

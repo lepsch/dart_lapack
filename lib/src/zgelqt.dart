@@ -1,4 +1,4 @@
-      void zgelqt(M, N, MB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> _WORK, final Box<int> INFO ) {
+      void zgelqt(final int M, final int N, final int MB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

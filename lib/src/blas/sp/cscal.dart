@@ -1,4 +1,4 @@
-      void cscal(N,CA,CX, final int INCX) {
+      void cscal(final int N, final int CA, final int CX, final int INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

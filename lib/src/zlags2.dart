@@ -1,4 +1,4 @@
-      void zlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, final int SNQ) {
+      void zlags2(final int UPPER, final int A1, final int A2, final int A3, final int B1, final int B2, final int B3, final int CSU, final int SNU, final int CSV, final int SNV, final int CSQ, final int SNQ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

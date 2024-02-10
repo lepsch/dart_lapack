@@ -1,4 +1,4 @@
-      void zheevr(JOBZ, RANGE, UPLO, N, final Matrix<double> A, final int LDA, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
+      void zheevr(final int JOBZ, final int RANGE, final int UPLO, final int N, final Matrix<double> A, final int LDA, final int VL, final int VU, final int IL, final int IU, final int ABSTOL, final int M, final int W, final Matrix<double> Z, final int LDZ, final int ISUPPZ, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

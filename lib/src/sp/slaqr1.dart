@@ -1,4 +1,4 @@
-      void slaqr1(N, final Matrix<double> H, final int LDH, SR1, SI1, SR2, SI2, final int V) {
+      void slaqr1(final int N, final Matrix<double> H, final int LDH, final int SR1, final int SI1, final int SR2, final int SI2, final int V) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

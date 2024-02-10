@@ -1,4 +1,4 @@
-      void zunghr(N, ILO, IHI, final Matrix<double> A, final int LDA, TAU, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void zunghr(final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final int TAU, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

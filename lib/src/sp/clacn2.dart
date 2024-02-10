@@ -1,4 +1,4 @@
-      void clacn2(N, V, X, EST, KASE, final int ISAVE) {
+      void clacn2(final int N, final int V, final int X, final int EST, final int KASE, final int ISAVE) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

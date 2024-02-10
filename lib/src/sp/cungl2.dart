@@ -1,4 +1,4 @@
-      void cungl2(M, N, K, final Matrix<double> A, final int LDA, TAU, final Array<double> _WORK, final Box<int> INFO ) {
+      void cungl2(final int M, final int N, final int K, final Matrix<double> A, final int LDA, final int TAU, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

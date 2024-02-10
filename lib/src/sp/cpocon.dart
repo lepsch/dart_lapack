@@ -1,4 +1,4 @@
-      void cpocon(UPLO, N, final Matrix<double> A, final int LDA, ANORM, RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cpocon(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int ANORM, final int RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

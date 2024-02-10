@@ -1,4 +1,4 @@
-      double zlanht(NORM, N, D, final int E) {
+      double zlanht(final int NORM, final int N, final int D, final int E) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

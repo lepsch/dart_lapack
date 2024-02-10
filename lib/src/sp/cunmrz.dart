@@ -1,4 +1,4 @@
-      void cunmrz(SIDE, TRANS, M, N, K, L, final Matrix<double> A, final int LDA, TAU, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void cunmrz(final int SIDE, final int TRANS, final int M, final int N, final int K, final int L, final Matrix<double> A, final int LDA, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

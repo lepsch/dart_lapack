@@ -1,4 +1,4 @@
-      void zdrvrf3(NOUT, NN, NVAL, THRESH, final Matrix<double> A, final int LDA, ARF, B1, B2, D_WORK_ZLANGE, Z_WORK_ZGEQRF, final int TAU) {
+      void zdrvrf3(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A, final int LDA, final int ARF, final int B1, final int B2, final int D_WORK_ZLANGE, final int Z_WORK_ZGEQRF, final int TAU) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

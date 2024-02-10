@@ -1,4 +1,4 @@
-      double zla_syrcond_x(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, X, INFO, final Array<double> _WORK, final Array<double> RWORK) {
+      double zla_syrcond_x(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final int X, final int INFO, final Array<double> _WORK, final Array<double> RWORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

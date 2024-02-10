@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrf_aa_2stage(UPLO, N, final Matrix<double> A, final int LDA, TB, LTB, final Array<int> IPIV, IPIV2, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void dsytrf_aa_2stage(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int TB, final int LTB, final Array<int> IPIV, final int IPIV2, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

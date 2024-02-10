@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtfsm(TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, final int LDB) {
+      void dtfsm(final int TRANSR, final int SIDE, final int UPLO, final int TRANS, final int DIAG, final int M, final int N, final int ALPHA, final int A, final int B, final int LDB) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ssbev_2stage(JOBZ, UPLO, N, KD, final Matrix<double> AB, final int LDAB, W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void ssbev_2stage(final int JOBZ, final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

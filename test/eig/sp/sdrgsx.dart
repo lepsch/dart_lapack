@@ -1,4 +1,4 @@
-      void sdrgsx(NSIZE, NCMAX, THRESH, NIN, NOUT, final Matrix<double> A, final int LDA, B, AI, BI, Z, Q, ALPHAR, ALPHAI, BETA, final Matrix<double> C, final int LDC, S, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Array<bool> BWORK, final Box<int> INFO ) {
+      void sdrgsx(final int NSIZE, final int NCMAX, final int THRESH, final int NIN, final int NOUT, final Matrix<double> A, final int LDA, final int B, final int AI, final int BI, final int Z, final int Q, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> C, final int LDC, final int S, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlargv(N, X, INCX, Y, INCY, C, final int INCC) {
+      void zlargv(final int N, final int X, final int INCX, final int Y, final int INCY, final int C, final int INCC) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

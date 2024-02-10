@@ -1,4 +1,4 @@
-      void slasq3(I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, final int TAU) {
+      void slasq3(final int I0, final int N0, final int Z, final int PP, final int DMIN, final int SIGMA, final int DESIG, final int QMAX, final int NFAIL, final int ITER, final int NDIV, final int IEEE, final int TTYPE, final int DMIN1, final int DMIN2, final int DN, final int DN1, final int DN2, final int G, final int TAU) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -355,7 +355,7 @@
       // End of CBLAT3.
 
       }
-      void cchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
+      void cchk1(final int SNAME, EPS, THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int IORDER) {
 
 // Tests CGEMM.
 
@@ -609,7 +609,7 @@
 
       }
 
-      void cprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
+      void cprcn1(final int NOUT, final int NC, final int SNAME, final int IORDER, final int TRANSA, final int TRANSB, final int M, final int N, final int K, final int ALPHA, final int LDA, final int LDB, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       Complex          ALPHA, BETA;
       String           TRANSA, TRANSB;
@@ -642,7 +642,7 @@
  9994 FORMAT( 10X, 3( I3, ',' ) ,' (', F4.1,',',F4.1,') , A,${.i3}, B,${.i3}, (', F4.1,',',F4.1,') , C,${.i3}).' );
       }
 
-      void cchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
+      void cchk2(final int SNAME, EPS, THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int IORDER) {
 
 // Tests CHEMM and CSYMM.
 
@@ -887,7 +887,7 @@
 
       }
 
-      void cprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, final int LDC) {
+      void cprcn2(final int NOUT, final int NC, final int SNAME, final int IORDER, final int SIDE, final int UPLO, final int M, final int N, final int ALPHA, final int LDA, final int LDB, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       Complex          ALPHA, BETA;
       String           SIDE, UPLO;
@@ -916,7 +916,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ),' (',F4.1,',',F4.1, '), A,${.i3}, B,${.i3}, (',F4.1,',',F4.1, '), C,${.i3}).' );
       }
 
-      void cchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, final int IORDER) {
+      void cchk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int CT, final int G, final int C, final int IORDER) {
 
 // Tests CTRMM and CTRSM.
 
@@ -1177,7 +1177,7 @@
 
       }
 
-      void cprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, final int LDB) {
+      void cprcn3(final int NOUT, final int NC, final int SNAME, final int IORDER, final int SIDE, final int UPLO, final int TRANSA, final int DIAG, final int M, final int N, final int ALPHA, final int LDA, final int LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
       Complex          ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
@@ -1218,7 +1218,7 @@
  9994 FORMAT( 10X, 2( A14, ',') , 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B,${.i3}).' );
       }
 
-      void cchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, final int IORDER) {
+      void cchk4(final int SNAME, EPS, THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int IORDER) {
 
 // Tests CHERK and CSYRK.
 
@@ -1505,7 +1505,7 @@
 
       }
 
-      void cprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, final int LDC) {
+      void cprcn4(final int NOUT, final int NC, final int SNAME, final int IORDER, final int UPLO, final int TRANSA, final int N, final int K, final int ALPHA, final int LDA, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       Complex          ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1537,7 +1537,7 @@
       }
 
 
-      void cprcn6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, final int LDC) {
+      void cprcn6(final int NOUT, final int NC, final int SNAME, final int IORDER, final int UPLO, final int TRANSA, final int N, final int K, final int ALPHA, final int LDA, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       double             ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1568,7 +1568,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void cchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, final int IORDER) {
+      void cchk5(final int SNAME, EPS, THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int AB, final int AA, final int AS, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int W, final int IORDER) {
 
 // Tests CHER2K and CSYR2K.
 
@@ -1880,7 +1880,7 @@
 
       }
 
-      void cprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
+      void cprcn5(final int NOUT, final int NC, final int SNAME, final int IORDER, final int UPLO, final int TRANSA, final int N, final int K, final int ALPHA, final int LDA, final int LDB, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       Complex          ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1912,7 +1912,7 @@
       }
 
 
-      void cprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, final int LDC) {
+      void cprcn7(final int NOUT, final int NC, final int SNAME, final int IORDER, final int UPLO, final int TRANSA, final int N, final int K, final int ALPHA, final int LDA, final int LDB, final int BETA, final int LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       Complex          ALPHA;
       double             BETA;
@@ -1944,7 +1944,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), ' (${.f4_1},${.f4_1}), A,${.i3}, B${.i3},${.f4_1}, C,${.i3}).' );
       }
 
-      void cmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, final int TRANSL) {
+      void cmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2066,7 +2066,7 @@
       // End of CMAKE.
 
       }
-      void cmmch(TRANSA, TRANSB, M, N, KK, ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA, final Matrix<double> C, final int LDC, CT, G, final Matrix<double> CC, final int LDCC, EPS, ERR, FATAL, NOUT, final int MV) {
+      void cmmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2235,7 +2235,7 @@
       // End of CMMCH.
 
       }
-      bool lce(RI, RJ, final int LR) {
+      bool lce(final int RI, final int RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2264,7 +2264,7 @@
       // End of LCE.
 
       }
-      bool lceres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
+      bool lceres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2321,7 +2321,7 @@
       // End of LCERES.
 
       }
-      Complex cbeg(RESET ) {
+      Complex cbeg(final int RESET) {
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.
@@ -2373,7 +2373,7 @@
       // End of CBEG.
 
       }
-      double sdiff(X, final int Y) {
+      double sdiff(final int X, final int Y) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

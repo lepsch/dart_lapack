@@ -2,7 +2,7 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-      void zget24(COMP, JTYPE, THRESH, final Array<int> ISEED, NOUNIT, N, final Matrix<double> A, final int LDA, H, HT, W, WT, WTMP, final Matrix<double> VS, final int LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO ) {
+      void zget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED, final int NOUNIT, final int N, final Matrix<double> A, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int ISRT, final int RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

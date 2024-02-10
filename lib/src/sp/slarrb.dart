@@ -1,4 +1,4 @@
-      void slarrb(N, D, LLD, IFIRST, ILAST, RTOL1, RTOL2, OFFSET, W, WGAP, WERR, final Array<double> _WORK, final Array<int> IWORK, PIVMIN, SPDIAM, TWIST, final Box<int> INFO ) {
+      void slarrb(final int N, final int D, final int LLD, final int IFIRST, final int ILAST, final int RTOL1, final int RTOL2, final int OFFSET, final int W, final int WGAP, final int WERR, final Array<double> _WORK, final Array<int> IWORK, final int PIVMIN, final int SPDIAM, final int TWIST, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

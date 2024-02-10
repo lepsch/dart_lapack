@@ -1,4 +1,4 @@
-      void schksb(NSIZES, NN, NWDTHS, KK, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, SD, SE, final Matrix<double> U, final int LDU, final Array<double> WORK, final int LWORK, RESULT, final Box<int> INFO ) {
+      void schksb(final int NSIZES, final int NN, final int NWDTHS, final int KK, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int SD, final int SE, final Matrix<double> U, final int LDU, final Array<double> WORK, final int LWORK, final int RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

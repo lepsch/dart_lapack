@@ -1,4 +1,4 @@
-      void cptts2(IUPLO, N, NRHS, D, E, B, final int LDB) {
+      void cptts2(final int IUPLO, final int N, final int NRHS, final int D, final int E, final int B, final int LDB) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

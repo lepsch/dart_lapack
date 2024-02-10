@@ -1,4 +1,4 @@
-      void slauu2(UPLO, N, final Matrix<double> A, final int LDA, final Box<int> INFO ) {
+      void slauu2(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

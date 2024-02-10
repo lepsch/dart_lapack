@@ -1,4 +1,4 @@
-      void slas2(F, G, H, SSMIN, final int SSMAX) {
+      void slas2(final int F, final int G, final int H, final int SSMIN, final int SSMAX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

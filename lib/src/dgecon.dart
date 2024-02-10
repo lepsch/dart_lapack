@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgecon(NORM, N, final Matrix<double> A, final int LDA, ANORM, RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void dgecon(final int NORM, final int N, final Matrix<double> A, final int LDA, final int ANORM, final int RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

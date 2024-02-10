@@ -1,4 +1,4 @@
-      void csytri_3x(UPLO, N, final Matrix<double> A, final int LDA, E, final Array<int> IPIV, final Array<double> _WORK, NB, final Box<int> INFO ) {
+      void csytri_3x(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Array<double> _WORK, final int NB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

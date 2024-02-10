@@ -1,4 +1,4 @@
-      void zdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, final int D_WORK_ZPOT03) {
+      void zdrvrfp(final int NOUT, NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int Z_WORK_ZLATMS, final int Z_WORK_ZPOT02, final int Z_WORK_ZPOT03, final int D_WORK_ZLATMS, final int D_WORK_ZLANHE, final int D_WORK_ZPOT01, final int D_WORK_ZPOT02, final int D_WORK_ZPOT03) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

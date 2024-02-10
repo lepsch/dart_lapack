@@ -1,4 +1,4 @@
-      void slasq1(N, D, E, final Array<double> _WORK, final Box<int> INFO ) {
+      void slasq1(final int N, final int D, final int E, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

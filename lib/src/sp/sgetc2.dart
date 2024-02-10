@@ -1,4 +1,4 @@
-      void sgetc2(N, final Matrix<double> A, final int LDA, final Array<int> IPIV, JPIV, final Box<int> INFO ) {
+      void sgetc2(final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final int JPIV, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

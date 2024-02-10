@@ -1,4 +1,4 @@
-      void sspr(UPLO,N,ALPHA,X,INCX, final int AP) {
+      void sspr(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int AP) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

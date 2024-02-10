@@ -1,4 +1,4 @@
-      void zget35(RMAX, LMAX, NINFO, KNT, final int NIN) {
+      void zget35(final int RMAX, final int LMAX, final int NINFO, final int KNT, final int NIN) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

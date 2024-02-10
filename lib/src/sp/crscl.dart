@@ -1,4 +1,4 @@
-      void crscl(N, A, X, final int INCX) {
+      void crscl(final int N, final int A, final int X, final int INCX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void chkxer(SRNAMT, INFOT, NOUT, LERR, final int OK) {
+      void chkxer(final int SRNAMT, final int INFOT, final int NOUT, final int LERR, final int OK) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

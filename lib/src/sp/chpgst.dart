@@ -1,4 +1,4 @@
-      void chpgst(ITYPE, UPLO, N, AP, BP, final Box<int> INFO ) {
+      void chpgst(final int ITYPE, final int UPLO, final int N, final int AP, final int BP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

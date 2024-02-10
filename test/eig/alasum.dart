@@ -1,4 +1,4 @@
-      void alasum(TYPE, NOUT, NFAIL, NRUN, final int NERRS) {
+      void alasum(final int TYPE, final int NOUT, final int NFAIL, final int NRUN, final int NERRS) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

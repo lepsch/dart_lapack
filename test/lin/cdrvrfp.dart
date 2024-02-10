@@ -1,4 +1,4 @@
-      void cdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, C_WORK_CLATMS, C_WORK_CPOT02, C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE, S_WORK_CPOT01, S_WORK_CPOT02, final int S_WORK_CPOT03) {
+      void cdrvrfp(final int NOUT, NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int C_WORK_CLATMS, final int C_WORK_CPOT02, final int C_WORK_CPOT03, final int S_WORK_CLATMS, final int S_WORK_CLANHE, final int S_WORK_CPOT01, final int S_WORK_CPOT02, final int S_WORK_CPOT03) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

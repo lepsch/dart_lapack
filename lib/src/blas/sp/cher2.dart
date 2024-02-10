@@ -1,4 +1,4 @@
-      void cher2(UPLO,N,ALPHA,X,INCX,Y,INCY,A, final int LDA) {
+      void cher2(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int Y, final int INCY, final int A, final int LDA) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

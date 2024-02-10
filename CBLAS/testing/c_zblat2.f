@@ -387,7 +387,7 @@
       // End of ZBLAT2.
 
       }
-      void zchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
+      void zchk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
 
 // Tests CGEMV and CGBMV.
 
@@ -691,7 +691,7 @@
       // End of ZCHK1.
 
       }
-      void zchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
+      void zchk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
 
 // Tests CHEMV, CHBMV and CHPMV.
 
@@ -994,7 +994,7 @@
       // End of CZHK2.
 
       }
-      void zchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z, final int IORDER) {
+      void zchk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER) {
 
 // Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
 
@@ -1313,7 +1313,7 @@
       // End of ZCHK3.
 
       }
-      void zchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void zchk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests ZGERC and ZGERU.
 
@@ -1553,7 +1553,7 @@
       // End of ZCHK4.
 
       }
-      void zchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void zchk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests ZHER and ZHPR.
 
@@ -1810,7 +1810,7 @@
       // End of CZHK5.
 
       }
-      void zchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void zchk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests ZHER2 and ZHPR2.
 
@@ -2097,7 +2097,7 @@
       // End of ZCHK6.
 
       }
-      void zmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, final int MV) {
+      void zmvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2222,7 +2222,7 @@
       // End of ZMVCH.
 
       }
-      bool lze(RI, RJ, final int LR) {
+      bool lze(final int RI, final int RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2249,7 +2249,7 @@
       // End of LZE.
 
       }
-      bool lzeres(TYPE, UPLO, M, N, AA, AS, final int LDA) {
+      bool lzeres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2354,7 +2354,7 @@
       // End of ZBEG.
 
       }
-      double ddiff(X, final int Y) {
+      double ddiff(final int X, final int Y) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2368,7 +2368,7 @@
       // End of DDIFF.
 
       }
-      void zmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, final int TRANSL) {
+      void zmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.

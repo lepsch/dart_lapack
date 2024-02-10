@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlarfgp(N, ALPHA, X, INCX, final int TAU) {
+      void dlarfgp(final int N, final int ALPHA, final int X, final int INCX, final int TAU) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

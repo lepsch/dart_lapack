@@ -1,4 +1,4 @@
-      void cpttrf(N, D, E, final Box<int> INFO ) {
+      void cpttrf(final int N, final int D, final int E, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

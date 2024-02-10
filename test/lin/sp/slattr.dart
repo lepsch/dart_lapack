@@ -1,4 +1,4 @@
-      void slattr(IMAT, UPLO, TRANS, DIAG, final Array<int> ISEED, N, final Matrix<double> A, final int LDA, B, final Array<double> _WORK, final Box<int> INFO ) {
+      void slattr(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED, final int N, final Matrix<double> A, final int LDA, final int B, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

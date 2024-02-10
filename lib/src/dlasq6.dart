@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, final int DNM2) {
+      void dlasq6(final int I0, final int N0, final int Z, final int PP, final int DMIN, final int DMIN1, final int DMIN2, final int DN, final int DNM1, final int DNM2) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

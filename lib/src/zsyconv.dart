@@ -1,4 +1,4 @@
-      void zsyconv(UPLO, WAY, N, final Matrix<double> A, final int LDA, final Array<int> IPIV, E, final Box<int> INFO ) {
+      void zsyconv(final int UPLO, final int WAY, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final int E, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlas2(F, G, H, SSMIN, final int SSMAX) {
+      void dlas2(final int F, final int G, final int H, final int SSMIN, final int SSMAX) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

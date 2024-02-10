@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void derrorhr_col(PATH, final int NUNIT) {
+      void derrorhr_col(final int PATH, final int NUNIT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

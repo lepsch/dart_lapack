@@ -1,4 +1,4 @@
-      void ctpt01(UPLO, DIAG, N, AP, AINVP, RCOND, final Array<double> RWORK, final int RESID) {
+      void ctpt01(final int UPLO, final int DIAG, final int N, final int AP, final int AINVP, final int RCOND, final Array<double> RWORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

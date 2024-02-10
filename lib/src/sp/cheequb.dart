@@ -1,4 +1,4 @@
-      void cheequb(UPLO, N, final Matrix<double> A, final int LDA, S, SCOND, AMAX, final Array<double> _WORK, final Box<int> INFO ) {
+      void cheequb(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int S, final int SCOND, final int AMAX, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

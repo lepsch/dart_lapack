@@ -1,4 +1,4 @@
-      bool sgennd(M, N, A, final int LDA) {
+      bool sgennd(final int M, final int N, final int A, final int LDA) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

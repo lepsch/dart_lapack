@@ -1,4 +1,4 @@
-      void ssymm(SIDE,UPLO,M,N,ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, BETA,C, final int LDC) {
+      void ssymm(final int SIDE, final int UPLO, final int M, final int N, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final int C, final int LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

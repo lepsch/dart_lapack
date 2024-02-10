@@ -1,4 +1,4 @@
-      void chetrd_hb2st(STAGE1, VECT, UPLO, N, KD, final Matrix<double> AB, final int LDAB, D, E, HOUS, LHOUS, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void chetrd_hb2st(final int STAGE1, final int VECT, final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int D, final int E, final int HOUS, final int LHOUS, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 
 // #if defined(_OPENMP)

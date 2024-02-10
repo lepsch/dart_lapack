@@ -1,4 +1,4 @@
-      double crzt02(M, N, AF, LDA, TAU, final Array<double> WORK, final int LWORK) {
+      double crzt02(final int M, final int N, final int AF, final int LDA, final int TAU, final Array<double> WORK, final int LWORK) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

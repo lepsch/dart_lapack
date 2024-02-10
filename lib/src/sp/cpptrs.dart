@@ -1,4 +1,4 @@
-      void cpptrs(UPLO, N, NRHS, AP, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void cpptrs(final int UPLO, final int N, final int NRHS, final int AP, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zgeevx(BALANC, JOBVL, JOBVR, SENSE, N, final Matrix<double> A, final int LDA, W, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void zgeevx(final int BALANC, final int JOBVL, final int JOBVR, final int SENSE, final int N, final Matrix<double> A, final int LDA, final int W, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int ILO, final int IHI, final int SCALE, final int ABNRM, final int RCONDE, final int RCONDV, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

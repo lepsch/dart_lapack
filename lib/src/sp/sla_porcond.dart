@@ -1,4 +1,4 @@
-      double sla_porcond(UPLO, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, CMODE, C, INFO, final Array<double> _WORK, final Array<int> IWORK) {
+      double sla_porcond(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final int CMODE, final int C, final int INFO, final Array<double> _WORK, final Array<int> IWORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

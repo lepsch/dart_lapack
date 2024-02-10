@@ -1,4 +1,4 @@
-      void zpstf2(UPLO, N, final Matrix<double> A, final int LDA, PIV, RANK, TOL, final Array<double> _WORK, final Box<int> INFO ) {
+      void zpstf2(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int PIV, final int RANK, final int TOL, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

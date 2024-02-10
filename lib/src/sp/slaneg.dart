@@ -1,4 +1,4 @@
-      int slaneg(N, D, LLD, SIGMA, PIVMIN, final int R) {
+      int slaneg(final int N, final int D, final int LLD, final int SIGMA, final int PIVMIN, final int R) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

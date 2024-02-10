@@ -1,4 +1,4 @@
-      double clanhs(NORM, N, final Matrix<double> A, final int LDA, final Array<double> WORK) {
+      double clanhs(final int NORM, final int N, final Matrix<double> A, final int LDA, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

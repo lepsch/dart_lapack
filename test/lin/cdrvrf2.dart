@@ -1,4 +1,4 @@
-      void cdrvrf2(NOUT, NN, NVAL, final Matrix<double> A, final int LDA, ARF, AP, final int ASAV) {
+      void cdrvrf2(final int NOUT, final int NN, final int NVAL, final Matrix<double> A, final int LDA, final int ARF, final int AP, final int ASAV) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

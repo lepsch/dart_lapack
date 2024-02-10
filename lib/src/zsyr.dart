@@ -1,4 +1,4 @@
-      void zsyr(UPLO, N, ALPHA, X, INCX, A, final int LDA) {
+      void zsyr(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int A, final int LDA) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

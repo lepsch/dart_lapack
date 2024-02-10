@@ -1,4 +1,4 @@
-      void ctbcon(NORM, UPLO, DIAG, N, KD, final Matrix<double> AB, final int LDAB, RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void ctbcon(final int NORM, final int UPLO, final int DIAG, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

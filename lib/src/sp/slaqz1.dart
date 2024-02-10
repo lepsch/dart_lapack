@@ -1,4 +1,4 @@
-      void slaqz1(A, LDA, final Matrix<double> B, final int LDB, SR1, SR2, SI, BETA1, BETA2, final int V) {
+      void slaqz1(final int A, final int LDA, final Matrix<double> B, final int LDB, final int SR1, final int SR2, final int SI, final int BETA1, final int BETA2, final int V) {
       // Arguments
       int    , INTENT( IN ) :: LDA, LDB;
       double, INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;

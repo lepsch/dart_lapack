@@ -1,4 +1,4 @@
-      void sgebd2(M, N, final Matrix<double> A, final int LDA, D, E, TAUQ, TAUP, final Array<double> _WORK, final Box<int> INFO ) {
+      void sgebd2(final int M, final int N, final Matrix<double> A, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

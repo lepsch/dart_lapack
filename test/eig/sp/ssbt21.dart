@@ -1,4 +1,4 @@
-      void ssbt21(UPLO, N, KA, KS, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Array<double> _WORK, final int RESULT) {
+      void ssbt21(final int UPLO, final int N, final int KA, final int KS, final Matrix<double> A, final int LDA, final int D, final int E, final Matrix<double> U, final int LDU, final Array<double> _WORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

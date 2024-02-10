@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dla_lin_berr(N, NZ, NRHS, RES, AYB, final int BERR) {
+      void dla_lin_berr(final int N, final int NZ, final int NRHS, final int RES, final int AYB, final int BERR) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sgegv(JOBVL, JOBVR, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHAR, ALPHAI, BETA, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void sgegv(final int JOBVL, final int JOBVR, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

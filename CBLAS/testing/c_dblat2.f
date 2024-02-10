@@ -384,7 +384,7 @@
       // End of DBLAT2.
 
       }
-      void dchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
+      void dchk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
 
 // Tests DGEMV and DGBMV.
 
@@ -687,7 +687,7 @@
       // End of DCHK1.
 
       }
-      void dchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, final int IORDER) {
+      void dchk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
 
 // Tests DSYMV, DSBMV and DSPMV.
 
@@ -991,7 +991,7 @@
       // End of DCHK2.
 
       }
-      void dchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z, final int IORDER) {
+      void dchk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER) {
 
 // Tests DTRMV, DTBMV, DTPMV, DTRSV, DTBSV and DTPSV.
 
@@ -1311,7 +1311,7 @@
       // End of DCHK3.
 
       }
-      void dchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void dchk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests DGER.
 
@@ -1545,7 +1545,7 @@
       // End of DCHK4.
 
       }
-      void dchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void dchk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests DSYR and DSPR.
 
@@ -1802,7 +1802,7 @@
       // End of DCHK5.
 
       }
-      void dchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, final int IORDER) {
+      void dchk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
 
 // Tests DSYR2 and DSPR2.
 
@@ -2090,7 +2090,7 @@
       // End of DCHK6.
 
       }
-      void dmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, final int TRANSL) {
+      void dmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.
@@ -2260,7 +2260,7 @@
       // End of DMAKE.
 
       }
-      void dmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, final int MV) {
+      void dmvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
 
 // Checks the results of the computational tests.
 
@@ -2369,7 +2369,7 @@
       // End of DMVCH.
 
       }
-      bool lde(RI, RJ, final int LR) {
+      bool lde(final int RI, final int RJ, final int LR) {
 
 // Tests if two arrays are identical.
 
@@ -2396,7 +2396,7 @@
       // End of LDE.
 
       }
-      bool lderes(TYPE, UPLO, M, N, AA, AS, final int LDA) {
+      bool lderes(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2451,7 +2451,7 @@
       // End of LDERES.
 
       }
-      double dbeg(RESET ) {
+      double dbeg(final int RESET) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2495,7 +2495,7 @@
       // End of DBEG.
 
       }
-      double ddiff(X, final int Y) {
+      double ddiff(final int X, final int Y) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 

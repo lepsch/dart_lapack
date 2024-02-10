@@ -1,4 +1,4 @@
-      void slaqz2(ILQ, ILZ, K, ISTARTM, ISTOPM, IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, NQ, QSTART, final Matrix<double> Q, final int LDQ, NZ, ZSTART, Z, final int LDZ) {
+      void slaqz2(final int ILQ, final int ILZ, final int K, final int ISTARTM, final int ISTOPM, final int IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int NQ, final int QSTART, final Matrix<double> Q, final int LDQ, final int NZ, final int ZSTART, final int Z, final int LDZ) {
       // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;

@@ -1,4 +1,4 @@
-      void dsvdch(N, S, E, SVD, TOL, final Box<int> INFO ) {
+      void dsvdch(final int N, final int S, final int E, final int SVD, final int TOL, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

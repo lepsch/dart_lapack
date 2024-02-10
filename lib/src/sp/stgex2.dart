@@ -1,4 +1,4 @@
-      void stgex2(WANTQ, WANTZ, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, J1, N1, N2, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void stgex2(final int WANTQ, final int WANTZ, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final int J1, final int N1, final int N2, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

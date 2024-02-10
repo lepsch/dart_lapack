@@ -1,3 +1,5 @@
+import 'package:lapack/src/intrinsics/epsilon.dart';
+
 double droundup_lwork(int LWORK) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,7 +9,7 @@ double droundup_lwork(int LWORK) {
 
   if (result.toInt() < LWORK) {
     // Force round up of LWORK
-    result = result * (1.0 + EPSILON(0.0));
+    result = result * (1.0 + epsilon(0.0));
   }
   return result;
 }

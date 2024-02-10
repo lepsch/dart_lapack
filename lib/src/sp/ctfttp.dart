@@ -1,4 +1,4 @@
-      void ctfttp(TRANSR, UPLO, N, ARF, AP, final Box<int> INFO ) {
+      void ctfttp(final int TRANSR, final int UPLO, final int N, final int ARF, final int AP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

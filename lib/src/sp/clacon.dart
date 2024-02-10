@@ -1,4 +1,4 @@
-      void clacon(N, V, X, EST, final int KASE) {
+      void clacon(final int N, final int V, final int X, final int EST, final int KASE) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

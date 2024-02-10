@@ -1,4 +1,4 @@
-      double zqrt12(M, N, final Matrix<double> A, final int LDA, S, final Array<double> WORK, final int LWORK, final Array<double> RWORK) {
+      double zqrt12(final int M, final int N, final Matrix<double> A, final int LDA, final int S, final Array<double> WORK, final int LWORK, final Array<double> RWORK) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

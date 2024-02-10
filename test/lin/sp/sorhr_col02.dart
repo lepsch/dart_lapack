@@ -1,4 +1,4 @@
-      void sorhr_col02(M, N, MB1, NB1, NB2, final int RESULT) {
+      void sorhr_col02(final int M, final int N, final int MB1, final int NB1, final int NB2, final int RESULT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

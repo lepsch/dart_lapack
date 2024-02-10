@@ -1,4 +1,4 @@
-      void slaed6(KNITER, ORGATI, RHO, D, Z, FINIT, TAU, final Box<int> INFO ) {
+      void slaed6(final int KNITER, final int ORGATI, final int RHO, final int D, final int Z, final int FINIT, final int TAU, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

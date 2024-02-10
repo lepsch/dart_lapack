@@ -1,4 +1,4 @@
-      void slaord(JOB, N, X, final int INCX) {
+      void slaord(final int JOB, final int N, final int X, final int INCX) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

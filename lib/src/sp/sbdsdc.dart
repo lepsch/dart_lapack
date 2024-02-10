@@ -1,4 +1,4 @@
-      void sbdsdc(UPLO, COMPQ, N, D, E, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, Q, IQ, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void sbdsdc(final int UPLO, final int COMPQ, final int N, final int D, final int E, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final int Q, final int IQ, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

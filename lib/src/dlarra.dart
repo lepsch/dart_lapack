@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlarra(N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, final Box<int> INFO ) {
+      void dlarra(final int N, final int D, final int E, final int E2, final int SPLTOL, final int TNRM, final int NSPLIT, final int ISPLIT, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

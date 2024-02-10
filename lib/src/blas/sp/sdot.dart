@@ -1,4 +1,4 @@
-      double sdot(N,SX,INCX,SY, final int INCY) {
+      double sdot(final int N, final int SX, final int INCX, final int SY, final int INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

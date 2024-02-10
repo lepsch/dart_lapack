@@ -1,4 +1,4 @@
-      void cgeequ(M, N, final Matrix<double> A, final int LDA, R, C, ROWCND, COLCND, AMAX, final Box<int> INFO ) {
+      void cgeequ(final int M, final int N, final Matrix<double> A, final int LDA, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

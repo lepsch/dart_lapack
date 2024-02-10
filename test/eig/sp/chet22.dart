@@ -1,4 +1,4 @@
-      void chet22(ITYPE, UPLO, N, M, KBAND, final Matrix<double> A, final int LDA, D, E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, TAU, final Array<double> _WORK, final Array<double> RWORK, final int RESULT) {
+      void chet22(final int ITYPE, final int UPLO, final int N, final int M, final int KBAND, final Matrix<double> A, final int LDA, final int D, final int E, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final int TAU, final Array<double> _WORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

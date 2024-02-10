@@ -1,4 +1,4 @@
-      void ssymv(UPLO,N,ALPHA, final Matrix<double> A, final int LDA, X,INCX,BETA,Y, final int INCY) {
+      void ssymv(final int UPLO, final int N, final int ALPHA, final Matrix<double> A, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

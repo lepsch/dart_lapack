@@ -1,4 +1,4 @@
-      double zlangb(NORM, N, KL, KU, final Matrix<double> AB, final int LDAB, final Array<double> WORK) {
+      double zlangb(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ztrt01(UPLO, DIAG, N, final Matrix<double> A, final int LDA, final Matrix<double> AINV, final int LDAINV, RCOND, final Array<double> RWORK, final int RESID) {
+      void ztrt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AINV, final int LDAINV, final int RCOND, final Array<double> RWORK, final int RESID) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

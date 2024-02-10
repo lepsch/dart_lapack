@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasdq(UPLO, SQRE, N, NCVT, NRU, NCC, D, E, final Matrix<double> VT, final int LDVT, final Matrix<double> U, final int LDU, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Box<int> INFO ) {
+      void dlasdq(final int UPLO, final int SQRE, final int N, final int NCVT, final int NRU, final int NCC, final int D, final int E, final Matrix<double> VT, final int LDVT, final Matrix<double> U, final int LDU, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlqt03(M, N, K, AF, C, CC, Q, LDA, TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
+      void zlqt03(final int M, final int N, final int K, final int AF, final int C, final int CC, final int Q, final int LDA, final int TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void csgt01(ITYPE, UPLO, N, M, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Z, final int LDZ, D, final Array<double> _WORK, final Array<double> RWORK, final int RESULT) {
+      void csgt01(final int ITYPE, final int UPLO, final int N, final int M, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Z, final int LDZ, final int D, final Array<double> _WORK, final Array<double> RWORK, final int RESULT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

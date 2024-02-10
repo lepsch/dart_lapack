@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void ddrvgb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, LA, AFB, LAFB, ASAV, B, BSAV, X, XACT, S, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, final int NOUT) {
+      void ddrvgb(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int A, final int LA, final int AFB, final int LAFB, final int ASAV, final int B, final int BSAV, final int X, final int XACT, final int S, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

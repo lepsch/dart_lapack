@@ -1,4 +1,4 @@
-      void sptcon(N, D, E, ANORM, RCOND, final Array<double> _WORK, final Box<int> INFO ) {
+      void sptcon(final int N, final int D, final int E, final int ANORM, final int RCOND, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

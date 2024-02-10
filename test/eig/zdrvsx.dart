@@ -2,7 +2,7 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-      void zdrvsx(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NIUNIT, NOUNIT, final Matrix<double> A, final int LDA, H, HT, W, WT, WTMP, final Matrix<double> VS, final int LDVS, VS1, RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO ) {
+      void zdrvsx(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NIUNIT, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS, final int LDVS, final int VS1, final int RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

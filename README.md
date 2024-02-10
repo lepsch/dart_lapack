@@ -203,6 +203,12 @@ $1 final Array<bool> DOTYPE, $6) {
 $1 final Array<double> WORK) {
 ```
 
+### First arg
+```
+^(\s+\w+\s+\w+\(\s*)(\w+)\s*((,\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*)*\)\s*\{)$
+$1final int $2$3
+```
+
 ### Unknown args
 ```
 ^(\s+\w+\s+\w+\((\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*,)+)\s*(\w+)\s*,\s*(.+)\)\s*\{$

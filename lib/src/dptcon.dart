@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dptcon(N, D, E, ANORM, RCOND, final Array<double> _WORK, final Box<int> INFO ) {
+      void dptcon(final int N, final int D, final int E, final int ANORM, final int RCOND, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zla_wwaddw(N, X, Y, final int W) {
+      void zla_wwaddw(final int N, final int X, final int Y, final int W) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

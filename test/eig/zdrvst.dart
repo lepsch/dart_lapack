@@ -1,4 +1,4 @@
-      void zdrvst(NSIZES, NN, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, D1, D2, D3, WA1, WA2, WA3, final Matrix<double> U, final int LDU, V, TAU, Z, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, RESULT, final Box<int> INFO ) {
+      void zdrvst(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int D1, final int D2, final int D3, final int WA1, final int WA2, final int WA3, final Matrix<double> U, final int LDU, final int V, final int TAU, final int Z, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final int RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

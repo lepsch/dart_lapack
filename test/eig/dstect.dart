@@ -1,4 +1,4 @@
-      void dstect(N, A, B, SHIFT, final int NUM) {
+      void dstect(final int N, final int A, final int B, final int SHIFT, final int NUM) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

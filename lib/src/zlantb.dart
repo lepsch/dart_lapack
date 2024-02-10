@@ -1,4 +1,4 @@
-      double zlantb(NORM, UPLO, DIAG, N, K, final Matrix<double> AB, final int LDAB, final Array<double> WORK) {
+      double zlantb(final int NORM, final int UPLO, final int DIAG, final int N, final int K, final Matrix<double> AB, final int LDAB, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

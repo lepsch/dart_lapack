@@ -1,4 +1,4 @@
-      void dnrm2sub(n,x,incx, final int nrm2) {
+      void dnrm2sub(final int n, final int x, final int incx, final int nrm2) {
 
       // external dnrm2
       double           dnrm2,nrm2;

@@ -1,4 +1,4 @@
-      void zgttrf(N, DL, D, DU, DU2, final Array<int> IPIV, final Box<int> INFO ) {
+      void zgttrf(final int N, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

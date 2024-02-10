@@ -1,4 +1,4 @@
-      void clattp(IMAT, UPLO, TRANS, DIAG, final Array<int> ISEED, N, AP, B, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void clattp(final int IMAT, final int UPLO, final int TRANS, final int DIAG, final Array<int> ISEED, final int N, final int AP, final int B, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

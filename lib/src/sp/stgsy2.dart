@@ -1,4 +1,4 @@
-      void stgsy2(TRANS, IJOB, M, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> D, final int LDD, final Matrix<double> E, final int LDE, final Matrix<double> F, final int LDF, SCALE, RDSUM, RDSCAL, final Array<int> IWORK, PQ, final Box<int> INFO ) {
+      void stgsy2(final int TRANS, final int IJOB, final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> D, final int LDD, final Matrix<double> E, final int LDE, final Matrix<double> F, final int LDF, final int SCALE, final int RDSUM, final int RDSCAL, final Array<int> IWORK, final int PQ, final Box<int> INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

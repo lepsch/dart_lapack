@@ -1,4 +1,4 @@
-      void zlalsa(ICOMPQ, SMLSIZ, N, NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, final Matrix<double> U, final int LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void zlalsa(final int ICOMPQ, final int SMLSIZ, final int N, final int NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, final Matrix<double> U, final int LDU, final int VT, final int K, final int DIFL, final int DIFR, final int Z, final int POLES, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int PERM, final int GIVNUM, final int C, final int S, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

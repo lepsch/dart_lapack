@@ -1,4 +1,4 @@
-      void slae2(A, B, C, RT1, final int RT2) {
+      void slae2(final int A, final int B, final int C, final int RT1, final int RT2) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

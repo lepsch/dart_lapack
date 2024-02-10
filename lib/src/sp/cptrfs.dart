@@ -1,4 +1,4 @@
-      void cptrfs(UPLO, N, NRHS, D, E, DF, EF, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cptrfs(final int UPLO, final int N, final int NRHS, final int D, final int E, final int DF, final int EF, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

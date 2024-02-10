@@ -1,4 +1,4 @@
-      void srotmg(SD1,SD2,SX1,SY1, final int SPARAM) {
+      void srotmg(final int SD1, final int SD2, final int SX1, final int SY1, final int SPARAM) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

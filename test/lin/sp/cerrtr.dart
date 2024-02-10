@@ -1,4 +1,4 @@
-      void cerrtr(PATH, final int NUNIT) {
+      void cerrtr(final int PATH, final int NUNIT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

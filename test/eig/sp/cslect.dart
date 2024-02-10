@@ -1,4 +1,4 @@
-      bool cslect(Z ) {
+      bool cslect(final int Z) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

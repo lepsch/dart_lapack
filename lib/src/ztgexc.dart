@@ -1,4 +1,4 @@
-      void ztgexc(WANTQ, WANTZ, N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, IFST, ILST, final Box<int> INFO ) {
+      void ztgexc(final int WANTQ, final int WANTZ, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final int IFST, final int ILST, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

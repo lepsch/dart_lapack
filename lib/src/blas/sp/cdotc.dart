@@ -1,4 +1,4 @@
-      Complex cdotc(N,CX,INCX,CY, final int INCY) {
+      Complex cdotc(final int N, final int CX, final int INCX, final int CY, final int INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slartv(N, X, INCX, Y, INCY, C, S, final int INCC) {
+      void slartv(final int N, final int X, final int INCX, final int Y, final int INCY, final int C, final int S, final int INCC) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

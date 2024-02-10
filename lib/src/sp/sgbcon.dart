@@ -1,4 +1,4 @@
-      void sgbcon(NORM, N, KL, KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, ANORM, RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void sgbcon(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final int ANORM, final int RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

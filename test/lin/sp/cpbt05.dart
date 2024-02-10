@@ -1,4 +1,4 @@
-      void cpbt05(UPLO, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, FERR, BERR, final int RESLTS) {
+      void cpbt05(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, final int FERR, final int BERR, final int RESLTS) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

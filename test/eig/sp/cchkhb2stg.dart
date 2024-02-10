@@ -1,4 +1,4 @@
-      void cchkhb2stg(NSIZES, NN, NWDTHS, KK, NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, THRESH, NOUNIT, final Matrix<double> A, final int LDA, SD, SE, D1, D2, D3, final Matrix<double> U, final int LDU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, RESULT, final Box<int> INFO ) {
+      void cchkhb2stg(final int NSIZES, final int NN, final int NWDTHS, final int KK, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int SD, final int SE, final int D1, final int D2, final int D3, final Matrix<double> U, final int LDU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

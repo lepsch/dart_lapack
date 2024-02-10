@@ -1,4 +1,4 @@
-      void cckcsd(NM, MVAL, PVAL, QVAL, NMATS, final Array<int> ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, final Array<int> IWORK, final Array<double> _WORK, final Array<double> RWORK, NIN, NOUT, final Box<int> INFO ) {
+      void cckcsd(final int NM, final int MVAL, final int PVAL, final int QVAL, final int NMATS, final Array<int> ISEED, final int THRESH, final int MMAX, final int X, final int XF, final int U1, final int U2, final int V1T, final int V2T, final int THETA, final Array<int> IWORK, final Array<double> _WORK, final Array<double> RWORK, final int NIN, final int NOUT, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -138,7 +138,7 @@
 
 
 
-      void clacsg(M, P, Q, THETA, final Array<int> ISEED, final Matrix<double> X, final int LDX, final Array<double> WORK) {
+      void clacsg(final int M, final int P, final int Q, final int THETA, final Array<int> ISEED, final Matrix<double> X, final int LDX, final Array<double> WORK) {
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double               THETA( * );

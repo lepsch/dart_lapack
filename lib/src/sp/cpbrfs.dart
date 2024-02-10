@@ -1,4 +1,4 @@
-      void cpbrfs(UPLO, N, KD, NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, FERR, BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cpbrfs(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zdrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, final Array<double> _WORK, final Array<double> RWORK, SWORK, final int NOUT) {
+      void zdrvac(final int DOTYPE, final int NM, final int MVAL, final int NNS, final int NSVAL, final int THRESH, final int NMAX, final int A, final int AFAC, final int B, final int X, final Array<double> _WORK, final Array<double> RWORK, final int SWORK, final int NOUT) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

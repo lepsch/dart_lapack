@@ -1,4 +1,4 @@
-      double zlange(NORM, M, N, final Matrix<double> A, final int LDA, final Array<double> WORK) {
+      double zlange(final int NORM, final int M, final int N, final Matrix<double> A, final int LDA, final Array<double> WORK) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

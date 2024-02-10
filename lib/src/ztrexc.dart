@@ -1,4 +1,4 @@
-      void ztrexc(COMPQ, N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, IFST, ILST, final Box<int> INFO ) {
+      void ztrexc(final int COMPQ, final int N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, final int IFST, final int ILST, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void cgbtf2(M, N, KL, KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Box<int> INFO ) {
+      void cgbtf2(final int M, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

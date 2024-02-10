@@ -1,5 +1,5 @@
 import 'common.dart';
-      void xerbla(SRNAME, final Box<int> INFO ) {
+      void xerbla(final int SRNAME, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

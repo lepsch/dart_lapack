@@ -1,4 +1,4 @@
-      void zget23(COMP, ISRT, BALANC, JTYPE, THRESH, final Array<int> ISEED, NOUNIT, N, final Matrix<double> A, final int LDA, H, W, W1, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Matrix<double> LRE, final int LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void zget23(final int COMP, final int ISRT, final int BALANC, final int JTYPE, final int THRESH, final Array<int> ISEED, final int NOUNIT, final int N, final Matrix<double> A, final int LDA, final int H, final int W, final int W1, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Matrix<double> LRE, final int LDLRE, final int RCONDV, final int RCNDV1, final int RCDVIN, final int RCONDE, final int RCNDE1, final int RCDEIN, final int SCALE, final int SCALE1, final int RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

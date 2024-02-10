@@ -1,4 +1,4 @@
-      void sstevx(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, IFAIL, final Box<int> INFO ) {
+      void sstevx(final int JOBZ, final int RANGE, final int N, final int D, final int E, final int VL, final int VU, final int IL, final int IU, final int ABSTOL, final int M, final int W, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, final int IFAIL, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

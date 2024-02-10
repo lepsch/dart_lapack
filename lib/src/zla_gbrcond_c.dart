@@ -1,4 +1,4 @@
-      double zla_gbrcond_c(TRANS, N, KL, KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, C, CAPPLY, INFO, final Array<double> _WORK, final Array<double> RWORK) {
+      double zla_gbrcond_c(final int TRANS, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int C, final int CAPPLY, final int INFO, final Array<double> _WORK, final Array<double> RWORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

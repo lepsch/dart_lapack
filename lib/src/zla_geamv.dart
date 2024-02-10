@@ -1,4 +1,4 @@
-      void zla_geamv(TRANS, M, N, ALPHA, final Matrix<double> A, final int LDA, X, INCX, BETA, Y, final int INCY) {
+      void zla_geamv(final int TRANS, final int M, final int N, final int ALPHA, final Matrix<double> A, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

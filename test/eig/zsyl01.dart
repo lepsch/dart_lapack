@@ -1,6 +1,6 @@
 
 // -- LAPACK test routine --
-      void zsyl01(THRESH, NFAIL, RMAX, NINFO, final int KNT) {
+      void zsyl01(final int THRESH, final int NFAIL, final int RMAX, final int NINFO, final int KNT) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

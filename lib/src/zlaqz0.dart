@@ -1,4 +1,4 @@
-      void ZLAQZ0( WANTS, WANTQ, WANTZ, N, ILO, IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, ALPHA, BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Array<double> RWORK, REC, final Box<int> INFO) {
+      void ZLAQZ0( final int WANTS, final int WANTQ, final int WANTZ, final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHA, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int REC, final Box<int> INFO) {
       // Arguments
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;

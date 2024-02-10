@@ -1,4 +1,4 @@
-      void zhecon(UPLO, N, final Matrix<double> A, final int LDA, final Array<int> IPIV, ANORM, RCOND, final Array<double> _WORK, final Box<int> INFO ) {
+      void zhecon(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final int ANORM, final int RCOND, final Array<double> _WORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

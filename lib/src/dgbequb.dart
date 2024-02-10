@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgbequb(M, N, KL, KU, final Matrix<double> AB, final int LDAB, R, C, ROWCND, COLCND, AMAX, final Box<int> INFO ) {
+      void dgbequb(final int M, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

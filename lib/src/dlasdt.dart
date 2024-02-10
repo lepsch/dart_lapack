@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasdt(N, LVL, ND, INODE, NDIML, NDIMR, final int MSUB) {
+      void dlasdt(final int N, final int LVL, final int ND, final int INODE, final int NDIML, final int NDIMR, final int MSUB) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

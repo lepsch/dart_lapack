@@ -1,4 +1,4 @@
-      void cspr(UPLO, N, ALPHA, X, INCX, final int AP) {
+      void cspr(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int AP) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

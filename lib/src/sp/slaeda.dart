@@ -1,4 +1,4 @@
-      void slaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, Q, QPTR, Z, ZTEMP, final Box<int> INFO ) {
+      void slaeda(final int N, final int TLVLS, final int CURLVL, final int CURPBM, final int PRMPTR, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final int Q, final int QPTR, final int Z, final int ZTEMP, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

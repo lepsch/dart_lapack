@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlatrz(M, N, L, final Matrix<double> A, final int LDA, TAU, final Array<double> WORK) {
+      void dlatrz(final int M, final int N, final int L, final Matrix<double> A, final int LDA, final int TAU, final Array<double> WORK) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
