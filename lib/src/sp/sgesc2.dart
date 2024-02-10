@@ -1,4 +1,4 @@
-      void sgesc2(N, final Matrix<double> A, final int LDA, RHS, IPIV, JPIV, SCALE ) {
+      void sgesc2(N, final Matrix<double> A, final int LDA, RHS, final Array<int> IPIV, JPIV, SCALE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

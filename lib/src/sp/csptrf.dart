@@ -1,4 +1,4 @@
-      void csptrf(UPLO, N, AP, IPIV, final Box<int> INFO ) {
+      void csptrf(UPLO, N, AP, final Array<int> IPIV, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

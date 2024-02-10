@@ -1,4 +1,4 @@
-      void ssytrs_3(UPLO, N, NRHS, final Matrix<double> A, final int LDA, E, IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void ssytrs_3(UPLO, N, NRHS, final Matrix<double> A, final int LDA, E, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

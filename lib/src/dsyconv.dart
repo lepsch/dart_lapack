@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsyconv(UPLO, WAY, N, final Matrix<double> A, final int LDA, IPIV, E, final Box<int> INFO ) {
+      void dsyconv(UPLO, WAY, N, final Matrix<double> A, final int LDA, final Array<int> IPIV, E, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void chetrs_aa_2stage(UPLO, N, NRHS, final Matrix<double> A, final int LDA, TB, LTB, IPIV, IPIV2, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void chetrs_aa_2stage(UPLO, N, NRHS, final Matrix<double> A, final int LDA, TB, LTB, final Array<int> IPIV, IPIV2, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

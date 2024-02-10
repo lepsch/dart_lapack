@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasyf(UPLO, N, NB, KB, final Matrix<double> A, final int LDA, IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
+      void dlasyf(UPLO, N, NB, KB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlahef_aa(UPLO, J1, M, NB, final Matrix<double> A, final int LDA, IPIV, final Matrix<double> H, final int LDH, WORK ) {
+      void zlahef_aa(UPLO, J1, M, NB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> H, final int LDH, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

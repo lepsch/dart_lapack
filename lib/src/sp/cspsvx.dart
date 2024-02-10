@@ -1,4 +1,4 @@
-      void cspsvx(FACT, UPLO, N, NRHS, AP, AFP, IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, FERR, BERR, WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void cspsvx(FACT, UPLO, N, NRHS, AP, AFP, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, RCOND, FERR, BERR, WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

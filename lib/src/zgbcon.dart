@@ -1,4 +1,4 @@
-      void zgbcon(NORM, N, KL, KU, final Matrix<double> AB, final int LDAB, IPIV, ANORM, RCOND, WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void zgbcon(NORM, N, KL, KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, ANORM, RCOND, WORK, final Array<double> RWORK, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

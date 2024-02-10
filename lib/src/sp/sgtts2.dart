@@ -1,4 +1,4 @@
-      void sgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB ) {
+      void sgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, final Array<int> IPIV, B, LDB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

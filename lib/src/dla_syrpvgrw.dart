@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dla_syrpvgrw(UPLO, N, INFO, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, WORK ) {
+      double dla_syrpvgrw(UPLO, N, INFO, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

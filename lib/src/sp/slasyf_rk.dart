@@ -1,4 +1,4 @@
-      void slasyf_rk(UPLO, N, NB, KB, final Matrix<double> A, final int LDA, E, IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
+      void slasyf_rk(UPLO, N, NB, KB, final Matrix<double> A, final int LDA, E, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

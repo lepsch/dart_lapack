@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dla_gbrcond(TRANS, N, KL, KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK ) {
+      double dla_gbrcond(TRANS, N, KL, KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, CMODE, C, INFO, WORK, IWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

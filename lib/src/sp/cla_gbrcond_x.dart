@@ -1,4 +1,4 @@
-      double cla_gbrcond_x(TRANS, N, KL, KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, IPIV, X, INFO, WORK, RWORK ) {
+      double cla_gbrcond_x(TRANS, N, KL, KU, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, X, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

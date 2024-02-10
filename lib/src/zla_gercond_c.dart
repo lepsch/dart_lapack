@@ -1,4 +1,4 @@
-      double zla_gercond_c(TRANS, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK ) {
+      double zla_gercond_c(TRANS, N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, C, CAPPLY, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

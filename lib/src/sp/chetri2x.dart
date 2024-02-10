@@ -1,4 +1,4 @@
-      void chetri2x(UPLO, N, final Matrix<double> A, final int LDA, IPIV, WORK, NB, final Box<int> INFO ) {
+      void chetri2x(UPLO, N, final Matrix<double> A, final int LDA, final Array<int> IPIV, WORK, NB, final Box<int> INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
