@@ -870,7 +870,7 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
           if ( S[q] > ZERO ) GO TO 4002;
           NR = NR - 1;
       } // 4001
-      } // 4002
+      // } // 4002x
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.

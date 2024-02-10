@@ -56,7 +56,7 @@ import 'package:lapack/src/xerbla.dart';
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
          K = N;
-         } // 10
+        //  } // 10
 
          // KW is the column of W which corresponds to column K of A
 
@@ -118,7 +118,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Loop until pivot found
 
-               } // 12
+              //  } // 12
 
                   // Begin pivot search loop body
 
@@ -304,7 +304,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K - KSTEP;
          GO TO 10;
 
-         } // 30
+        //  } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -330,7 +330,7 @@ import 'package:lapack/src/xerbla.dart';
          // in columns k+1:n
 
          J = K + 1;
-         } // 60
+        //  } // 60
 
             KSTEP = 1;
             JP1 = 1;
@@ -347,7 +347,7 @@ import 'package:lapack/src/xerbla.dart';
             if (JP2 != JJ && J <= N) dswap( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = J - 1;
             if (JP1 != JJ && KSTEP == 2) dswap( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA );
-         IF( J <= N ) GO TO 60;
+            if( J <= N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -362,7 +362,7 @@ import 'package:lapack/src/xerbla.dart';
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1;
-        } // 70
+        // } // 70
 
          // Exit from loop
 
@@ -420,7 +420,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Loop until pivot found
 
-               } // 72
+              //  } // 72
 
                   // Begin pivot search loop body
 
@@ -598,7 +598,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K + KSTEP;
          GO TO 70;
 
-         } // 90
+        //  } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -624,7 +624,7 @@ import 'package:lapack/src/xerbla.dart';
          // in columns 1:k-1
 
          J = K - 1;
-         } // 120
+        //  } // 120
 
             KSTEP = 1;
             JP1 = 1;

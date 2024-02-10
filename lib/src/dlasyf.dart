@@ -52,7 +52,7 @@ import 'package:lapack/src/xerbla.dart';
          // KW is the column of W which corresponds to column K of A
 
          K = N;
-         } // 10
+        //  } // 10
          KW = NB + K - N;
 
          // Exit from loop
@@ -271,7 +271,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K - KSTEP;
          GO TO 10;
 
-         } // 30
+        //  } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -297,7 +297,7 @@ import 'package:lapack/src/xerbla.dart';
          // in columns k+1:n looping backwards from k+1 to n
 
          J = K + 1;
-         } // 60
+        //  } // 60
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J
@@ -329,7 +329,7 @@ import 'package:lapack/src/xerbla.dart';
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1;
-         } // 70
+        //  } // 70
 
          // Exit from loop
 
@@ -485,24 +485,24 @@ import 'package:lapack/src/xerbla.dart';
                   // block D in the following way to reduce the number
                   // of FLOPS when we myltiply panel ( W(k) W(k+1) ) by
                   // this inverse
-
+                  //
                   // D**(-1) = ( d11 d21 )**(-1) =
                   //           ( d21 d22 )
-
+                  //
                   // = 1/(d11*d22-d21**2) * ( ( d22 ) (-d21 ) ) =
                   //                        ( (-d21 ) ( d11 ) )
-
+                  //
                   // = 1/d21 * 1/((d11/d21)*(d22/d21)-1) *
-
-                    // * ( ( d22/d21 ) (      -1 ) ) =
-                    //   ( (      -1 ) ( d11/d21 ) )
-
+                  //
+                  //   * ( ( d22/d21 ) (      -1 ) ) =
+                  //     ( (      -1 ) ( d11/d21 ) )
+                  //
                   // = 1/d21 * 1/(D22*D11-1) * ( ( D11 ) (  -1 ) ) =
                   //                           ( ( -1  ) ( D22 ) )
-
+                  //
                   // = 1/d21 * T * ( ( D11 ) (  -1 ) )
                   //               ( (  -1 ) ( D22 ) )
-
+                  //
                   // = D21 * ( ( D11 ) (  -1 ) )
                   //         ( (  -1 ) ( D22 ) )
 
@@ -546,7 +546,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K + KSTEP;
          GO TO 70;
 
-         } // 90
+        //  } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -572,7 +572,7 @@ import 'package:lapack/src/xerbla.dart';
          // of rows in columns 1:k-1 looping backwards from k-1 to 1
 
          J = K - 1;
-         } // 120
+        //  } // 120
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J

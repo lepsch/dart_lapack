@@ -1,3 +1,5 @@
+// ignore_for_file: type_annotate_public_apis
+
 import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';

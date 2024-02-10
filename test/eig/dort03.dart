@@ -1,106 +1,117 @@
-      void dort03(RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO ) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/f2c/sign.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import 'dort01.dart';
+
+void dort03(
+  final String RC,
+  final int MU,
+  final int MV,
+  final int N,
+  final int K,
+  final Matrix<double> U,
+  final int LDU,
+  final Matrix<double> V,
+  final int LDV,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<double> RESULT,
+  final Box<int> INFO,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      List<String>       RC;
-      int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-      double             RESULT;
-      double             U( LDU, * ), V( LDV, * ), WORK( * );
-      // ..
+  // List<String>       RC;
+  // int                INFO.value, K, LDU, LDV, LWORK, MU, MV, N;
+  // double             RESULT.value;
+  // double             U( LDU, * ), V( LDV, * ), WORK( * );
+  // // ..
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, IRC, J, LMX;
-      double             RES1, RES2, S, ULP;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                idamax;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, idamax, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, MIN, SIGN
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DORT01, XERBLA
+  // double             ZERO, ONE;
+  const ZERO = 0.0, ONE = 1.0;
+  int I, IRC, J, LMX;
+  double RES1, S, ULP;
+  final RES2 = Box(0.0);
 
-      // Check inputs
+  // Check inputs
 
-      INFO = 0;
-      if ( lsame( RC, 'R' ) ) {
-         IRC = 0;
-      } else if ( lsame( RC, 'C' ) ) {
-         IRC = 1;
-      } else {
-         IRC = -1;
+  INFO.value = 0;
+  if (lsame(RC, 'R')) {
+    IRC = 0;
+  } else if (lsame(RC, 'C')) {
+    IRC = 1;
+  } else {
+    IRC = -1;
+  }
+  if (IRC == -1) {
+    INFO.value = -1;
+  } else if (MU < 0) {
+    INFO.value = -2;
+  } else if (MV < 0) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (K < 0 || K > max(MU, MV)) {
+    INFO.value = -5;
+  } else if ((IRC == 0 && LDU < max(1, MU)) || (IRC == 1 && LDU < max(1, N))) {
+    INFO.value = -7;
+  } else if ((IRC == 0 && LDV < max(1, MV)) || (IRC == 1 && LDV < max(1, N))) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('DORT03', -INFO.value);
+    return;
+  }
+
+  // Initialize result
+
+  RESULT.value = ZERO;
+  if (MU == 0 || MV == 0 || N == 0) return;
+
+  // Machine constants
+
+  ULP = dlamch('Precision');
+
+  if (IRC == 0) {
+    // Compare rows
+
+    RES1 = ZERO;
+    for (I = 1; I <= K; I++) {
+      LMX = idamax(N, U(I, 1).asArray(), LDU);
+      S = sign(ONE, U[I][LMX]) * sign(ONE, V[I][LMX]).toDouble();
+      for (J = 1; J <= N; J++) {
+        RES1 = max(RES1, (U[I][J] - S * V[I][J]).abs());
       }
-      if ( IRC == -1 ) {
-         INFO = -1;
-      } else if ( MU < 0 ) {
-         INFO = -2;
-      } else if ( MV < 0 ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( K < 0 || K > max( MU, MV ) ) {
-         INFO = -5;
-      } else if ( ( IRC == 0 && LDU < max( 1, MU ) ) || ( IRC == 1 && LDU < max( 1, N ) ) ) {
-         INFO = -7;
-      } else if ( ( IRC == 0 && LDV < max( 1, MV ) ) || ( IRC == 1 && LDV < max( 1, N ) ) ) {
-         INFO = -9;
+    }
+    RES1 = RES1 / (N.toDouble() * ULP);
+
+    // Compute orthogonality of rows of V.
+
+    dort01('Rows', MV, N, V, LDV, WORK, LWORK, RES2);
+  } else {
+    // Compare columns
+
+    RES1 = ZERO;
+    for (I = 1; I <= K; I++) {
+      LMX = idamax(N, U(1, I).asArray(), 1);
+      S = sign(ONE, U[LMX][I]) * sign(ONE, V[LMX][I]).toDouble();
+      for (J = 1; J <= N; J++) {
+        RES1 = max(RES1, (U[J][I] - S * V[J][I]).abs());
       }
-      if ( INFO != 0 ) {
-         xerbla('DORT03', -INFO );
-         return;
-      }
+    }
+    RES1 = RES1 / (N.toDouble() * ULP);
 
-      // Initialize result
+    // Compute orthogonality of columns of V.
 
-      RESULT = ZERO;
-      if (MU == 0 || MV == 0 || N == 0) return;
+    dort01('Columns', N, MV, V, LDV, WORK, LWORK, RES2);
+  }
 
-      // Machine constants
-
-      ULP = dlamch( 'Precision' );
-
-      if ( IRC == 0 ) {
-
-         // Compare rows
-
-         RES1 = ZERO;
-         for (I = 1; I <= K; I++) { // 20
-            LMX = idamax( N, U( I, 1 ), LDU );
-            S = sign( ONE, U( I, LMX ) )*sign( ONE, V( I, LMX ) );
-            for (J = 1; J <= N; J++) { // 10
-               RES1 = max( RES1, ABS( U( I, J )-S*V( I, J ) ) );
-            } // 10
-         } // 20
-         RES1 = RES1 / ( N.toDouble()*ULP );
-
-         // Compute orthogonality of rows of V.
-
-         dort01('Rows', MV, N, V, LDV, WORK, LWORK, RES2 );
-
-      } else {
-
-         // Compare columns
-
-         RES1 = ZERO;
-         for (I = 1; I <= K; I++) { // 40
-            LMX = idamax( N, U( 1, I ), 1 );
-            S = sign( ONE, U( LMX, I ) )*sign( ONE, V( LMX, I ) );
-            for (J = 1; J <= N; J++) { // 30
-               RES1 = max( RES1, ABS( U( J, I )-S*V( J, I ) ) );
-            } // 30
-         } // 40
-         RES1 = RES1 / ( N.toDouble()*ULP );
-
-         // Compute orthogonality of columns of V.
-
-         dort01('Columns', N, MV, V, LDV, WORK, LWORK, RES2 );
-      }
-
-      RESULT = min( max( RES1, RES2 ), ONE / ULP );
-      }
+  RESULT.value = min(max(RES1, RES2.value), ONE / ULP);
+}

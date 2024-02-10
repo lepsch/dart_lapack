@@ -1,23 +1,13 @@
-double droundup_lwork(LWORK) {
+double droundup_lwork(int LWORK) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  // .. Scalar Arguments ..
-  int LWORK;
-  // ..
+  var result = LWORK.toDouble();
 
-// =====================================================================
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC EPSILON, DBLE, INT
-  // ..
-  // .. Executable Statements ..
-  // ..
-  DROUNDUP_LWORK = LWORK.toDouble();
-
-  if (INT(DROUNDUP_LWORK) < LWORK) {
+  if (result.toInt() < LWORK) {
     // Force round up of LWORK
-    DROUNDUP_LWORK = DROUNDUP_LWORK * (1.0 + EPSILON(0.0));
+    result = result * (1.0 + EPSILON(0.0));
   }
+  return result;
 }

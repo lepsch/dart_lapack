@@ -149,7 +149,7 @@ import 'common.dart';
       WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * );
 
-      } // 80
+      // } // 80
 
       // Read a test path and the number of matrix types to use.
 
@@ -157,7 +157,7 @@ import 'common.dart';
       PATH = ALINE( 1: 3 );
       NMATS = MATMAX;
       I = 3;
-      } // 90
+      // } // 90
       I = I + 1;
       if ( I > 72 ) {
          NMATS = MATMAX;
@@ -165,7 +165,7 @@ import 'common.dart';
       }
       if( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0;
-      } // 100
+      // } // 100
       C1 = ALINE( I: I );
       for (K = 1; K <= 10; K++) { // 110
          if ( C1 == INTSTR( K: K ) ) {
@@ -174,12 +174,12 @@ import 'common.dart';
          }
       } // 110
       GO TO 130;
-      } // 120
+      // } // 120
       NMATS = NMATS*10 + IC;
       I = I + 1;
       if (I > 72) GO TO 130;
       GO TO 100;
-      } // 130
+      // } // 130
       C1 = PATH( 1: 1 );
       C2 = PATH( 2: 3 );
       NRHS = NSVAL( 1 );
@@ -241,7 +241,7 @@ import 'common.dart';
 
       // Branch to this line when the last record is read.
 
-      } // 140
+      // } // 140
       CLOSE ( NIN );
       S2 = DSECND( );
       WRITE( NOUT, FMT = 9998 );

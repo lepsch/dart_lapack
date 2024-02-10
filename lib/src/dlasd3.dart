@@ -159,7 +159,7 @@ import 'package:lapack/src/xerbla.dart';
 
       // Generate the right singular vectors.
 
-      } // 100
+      // } // 100
       for (I = 1; I <= K; I++) { // 120
          TEMP = dnrm2( K, VT( 1, I ), 1 );
          Q[I][1] = VT( 1, I ) / TEMP;

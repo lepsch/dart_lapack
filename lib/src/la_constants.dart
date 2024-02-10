@@ -1,27 +1,34 @@
 // import 'dart:math';
 
+import 'dart:math';
+
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/f2c/digits.dart';
+import 'package:lapack/src/f2c/epsilon.dart';
+import 'package:lapack/src/f2c/maxexponent.dart';
+import 'package:lapack/src/f2c/minexponent.dart';
+import 'package:lapack/src/f2c/radix.dart';
 
 // -- LAPACK auxiliary module --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
 // Standard constants for
-const sp = 1;
+// const sp = 1;
 
-const szero = 0.0;
-const shalf = 0.5;
-const sone = 1.0;
-const stwo = 2.0;
-const sthree = 3.0;
-const sfour = 4.0;
-const seight = 8.0;
-const sten = 10.0;
-const czero = Complex.zero;
-const chalf = Complex(0.5, 0.0);
-const cone = Complex.one;
-const sprefix = 'S';
-const cprefix = 'C';
+// const szero = 0.0;
+// const shalf = 0.5;
+// const sone = 1.0;
+// const stwo = 2.0;
+// const sthree = 3.0;
+// const sfour = 4.0;
+// const seight = 8.0;
+// const sten = 10.0;
+// const czero = Complex.zero;
+// const chalf = Complex(0.5, 0.0);
+// const cone = Complex.one;
+// const sprefix = 'S';
+// const cprefix = 'C';
 
 // Scaling constants
 // const sulp = epsilon(0.0);
@@ -64,24 +71,24 @@ const dprefix = 'D';
 const zprefix = 'Z';
 
 // Scaling constants
-// const dulp = epsilon(0.0);
-// const deps = dulp * 0.5;
-// const dsafmin =
-//     pow(real(radix(0.0), dp), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));
-// const dsafmax = done / dsafmin;
-// const dsmlnum = dsafmin / dulp;
-// const dbignum = dsafmax * dulp;
-// const drtmin = sqrt(dsmlnum);
-// const drtmax = sqrt(dbignum);
+final dulp = epsilon(0.0);
+final deps = dulp * 0.5;
+final dsafmin =
+    pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));
+final dsafmax = done / dsafmin;
+final dsmlnum = dsafmin / dulp;
+final dbignum = dsafmax * dulp;
+final drtmin = sqrt(dsmlnum);
+final drtmax = sqrt(dbignum);
 
 // Blue's scaling constants
-// const dtsml = pow(real(radix(0.0), dp), ceiling((minexponent(0.0) - 1) * 0.5));
-// const dtbig = pow(
-//     real(radix(0.0), dp), floor((maxexponent(0.0) - digits(0.0) + 1) * 0.5));
-// // ssml >= 1/s, where s was defined in https://doi.org/10.1145/355769.355771
-// // The correction was added in https://doi.org/10.1145/3061665 to scale denormalized numbers correctly
-// const dssml =
-//     pow(real(radix(0.0), dp), (-floor((minexponent(0.0) - digits(0.0)) * 0.5)));
-// // sbig = 1/S, where S was defined in https://doi.org/10.1145/355769.355771
-// const dsbig = pow(real(radix(0.0), dp),
-//     (-ceiling((maxexponent(0.0) + digits(0.0) - 1) * 0.5)));
+final dtsml = pow(radix(0.0), ((minexponent(0.0) - 1) * 0.5).ceil());
+final dtbig =
+    pow(radix(0.0), ((maxexponent(0.0) - digits(0.0) + 1) * 0.5).floor());
+// ssml >= 1/s, where s was defined in https://doi.org/10.1145/355769.355771
+// The correction was added in https://doi.org/10.1145/3061665 to scale denormalized numbers correctly
+final dssml =
+    pow(radix(0.0), (-((minexponent(0.0) - digits(0.0)) * 0.5).floor()));
+// sbig = 1/S, where S was defined in https://doi.org/10.1145/355769.355771
+final dsbig =
+    pow(radix(0.0), (-((maxexponent(0.0) + digits(0.0) - 1) * 0.5).ceil()));

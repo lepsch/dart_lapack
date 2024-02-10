@@ -128,7 +128,7 @@
    50 LTEST( I ) = LTESTT;
       GO TO 30;
 
-      } // 60
+      // } // 60
       CLOSE ( NIN );
 
       // Compute EPS (the machine precision).
@@ -210,35 +210,35 @@
             FATAL = false;
             GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM;
             // Test SGEMM, 01.
-  140       CALL SCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
+  // 140       CALL SCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
             GO TO 190;
             // Test SSYMM, 02.
-  150       CALL SCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
+  // 150       CALL SCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
             GO TO 190;
             // Test STRMM, 03, STRSM, 04.
-  160       CALL SCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C );
+  // 160       CALL SCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C );
             GO TO 190;
             // Test SSYRK, 05.
-  170       CALL SCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
+  // 170       CALL SCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G );
             GO TO 190;
             // Test SSYR2K, 06.
-  180       CALL SCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W );
+  // 180       CALL SCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W );
             GO TO 190;
 
-  190       IF( FATAL && SFATAL ) GO TO 210;
+  // 190       IF( FATAL && SFATAL ) GO TO 210;
          }
       } // 200
       WRITE( NOUT, FMT = 9986 );
       GO TO 230;
 
-      } // 210
+      // } // 210
       WRITE( NOUT, FMT = 9985 );
       GO TO 230;
 
-      } // 220
+      // } // 220
       WRITE( NOUT, FMT = 9991 );
 
-      } // 230
+      // } // 230
       if (TRACE) CLOSE ( NTRA );
       CLOSE ( NOUT );
       STOP;
@@ -260,6 +260,7 @@
  9985 FORMAT('\n ******* FATAL ERROR - TESTS ABANDONED *******' );
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
+
       void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests SGEMM.
@@ -488,11 +489,11 @@
       }
       GO TO 130;
 
-      } // 120
+      // } // 120
       WRITE( NOUT, FMT = 9996 )SNAME;
       WRITE( NOUT, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC;
 
-      } // 130
+      // } // 130
       return;
 
  9999 FORMAT( ' ${.a6} PASSED THE COMPUTATIONAL TESTS (${.i6} CALLS)' );
@@ -502,6 +503,7 @@
  9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}${.f4_1}, A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
+
       void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests SSYMM.
@@ -717,20 +719,22 @@
       }
       GO TO 120;
 
-      } // 110
+      // } // 110
       WRITE( NOUT, FMT = 9996 )SNAME;
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC;
 
-      } // 120
+      // } // 120
       return;
 
  9999 FORMAT( ' ${.a6} PASSED THE COMPUTATIONAL TESTS (${.i6} CALLS)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})    .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 2( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})    .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
+
+
       void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
 
 // Tests STRMM and STRSM.
@@ -966,18 +970,18 @@
       }
       GO TO 160;
 
-      } // 150
+      // } // 150
       WRITE( NOUT, FMT = 9996 )SNAME;
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
 
-      } // 160
+      // } // 160
       return;
 
  9999 FORMAT( ' ${.a6} PASSED THE COMPUTATIONAL TESTS (${.i6} CALLS)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(', 4( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3})        .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 4( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3})        .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
@@ -1195,14 +1199,14 @@
       }
       GO TO 130;
 
-      } // 110
+      // } // 110
       if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
-      } // 120
+      // } // 120
       WRITE( NOUT, FMT = 9996 )SNAME;
       WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC;
 
-      } // 130
+      // } // 130
       return;
 
  9999 FORMAT( ' ${.a6} PASSED THE COMPUTATIONAL TESTS (${.i6} CALLS)' );
@@ -1210,7 +1214,7 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})           .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3},${.f4_1}, C,${.i3})           .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
@@ -1456,14 +1460,14 @@
       }
       GO TO 160;
 
-      } // 140
+      // } // 140
       if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
-      } // 150
+      // } // 150
       WRITE( NOUT, FMT = 9996 )SNAME;
       WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC;
 
-      } // 160
+      // } // 160
       return;
 
  9999 FORMAT( ' ${.a6} PASSED THE COMPUTATIONAL TESTS (${.i6} CALLS)' );
@@ -1471,7 +1475,7 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})    .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 2( '\'${.a1}\',' ), 2( I3, ',' ), F4.1, ', A,${.i3}, B,${.i3},${.f4_1}, C,${.i3})    .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schke(ISNUM,srnamc.SRNAMT, NOUT ) {
@@ -2012,7 +2016,8 @@
       ssyr2k('L', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
       chkxer(srnamc.SRNAMT, INFOT, NOUT, LERR, OK );
 
-   70 IF( OK )THEN;
+      // } 70
+      if( OK ) {
          WRITE( NOUT, FMT = 9999 srnamc.SRNAMT;
       } else {
          WRITE( NOUT, FMT = 9998 srnamc.SRNAMT;
@@ -2083,7 +2088,7 @@
             }
          } // 10
          if (TRI) A( J, J ) = A( J, J ) + ONE;
-         IF[UNIT ) A( J][J] = ONE;
+         if(UNIT ) A[J][J] = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2231,7 +2236,7 @@
       } // 140
       if (N > 1) WRITE( NOUT, FMT = 9997 )J;
 
-      } // 150
+      // } // 150
       return;
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HALF ACCURATE *******\n           EXPECTED RESULT   COMPUTED RESULT' );
@@ -2260,7 +2265,7 @@
       } // 10
       LSE = true;
       GO TO 30;
-      } // 20
+      // } // 20
       LSE = false;
    30 return;
       }
@@ -2313,7 +2318,7 @@
 
       LSERES = true;
       GO TO 80;
-      } // 70
+      // } // 70xx
       LSERES = false;
    80 return;
       }
@@ -2334,7 +2339,7 @@
       // .. Save statement ..
       SAVE               I, IC, MI;
       // .. Executable Statements ..
-      if ( RESET ) {
+    if ( RESET ) {
          // Initialize local variables.
          MI = 891;
          I = 7;

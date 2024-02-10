@@ -146,7 +146,7 @@ import 'package:lapack/src/xerbla.dart';
       ITER = 0;
       return;
 
-      } // 10
+      // } // 10
 
       for (IITER = 1; IITER <= ITERMAX; IITER++) { // 30
 
@@ -195,7 +195,7 @@ import 'package:lapack/src/xerbla.dart';
 
          return;
 
-         } // 20
+        //  } // 20
 
       } // 30
 
@@ -206,7 +206,7 @@ import 'package:lapack/src/xerbla.dart';
 
       ITER = -ITERMAX - 1;
 
-      } // 40
+      // } // 40
 
       // Single-precision iterative refinement failed to converge to a
       // satisfactory solution, so we resort to double precision.

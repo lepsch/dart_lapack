@@ -171,8 +171,8 @@ import 'package:lapack/src/xerbla.dart';
 
          // Compute the LU factorization of A.
 
-         DO 40, J = 1, N;
-            DO 30, I = KL+1, 2*KL+KU+1;
+         for (J = 1; J<= N; J++) {
+            for (I = KL+1;I<= 2*KL+KU+1; I++){
                AFB[I][J] = AB( I-KL, J );
             } // 30
          } // 40

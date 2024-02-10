@@ -69,4 +69,4 @@ import 'package:lapack/src/xerbla.dart';
          if (I2 < N) dswap( N-I2, A(I2+1,I1), 1, A(I2+1,I2), 1 );
 
       }
-      END SUBROUTINE DSYSWAPR;
+      }

@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE ZLAQZ0( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, REC, INFO );
+      void ZLAQZ0( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, REC, INFO ){
       // Arguments
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
@@ -344,8 +344,9 @@
       // and only normalize the blocks. In case of a rare convergence failure,
       // the single shift might perform better.
 
-   80 CALL ZHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, NORM_INFO );
+      ZHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, NORM_INFO );
+      // } // 80
 
       INFO = NORM_INFO;
 
-      END SUBROUTINE;
+      }

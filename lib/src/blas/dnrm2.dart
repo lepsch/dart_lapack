@@ -1,27 +1,29 @@
 import 'dart:math';
 
+import 'package:lapack/src/f2c/digits.dart';
+import 'package:lapack/src/f2c/huge.dart';
+import 'package:lapack/src/f2c/maxexponent.dart';
+import 'package:lapack/src/f2c/minexponent.dart';
+import 'package:lapack/src/f2c/radix.dart';
 import 'package:lapack/src/matrix.dart';
 
 double dnrm2(final int n, Array<double> x, final int incx) {
 // -- Reference BLAS level1 routine (version 3.9.1) --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-//    March 2021
-
-  // .. Constants ..
   const zero = 0.0;
   const one = 1.0;
-  const maxN = huge(0.0);
+  final maxN = huge(0.0);
 
   // .. Blue's scaling constants ..
-  //  const tsml = pow(real(radix(0.0), wp),ceiling(
-  //      (minexponent(0.0) - 1) * 0.5));
-  //  const tbig = pow(real(radix(0.0), wp),floor(
-  //      (maxexponent(0.0) - digits(0.0) + 1) * 0.5));
-  //  const ssml = pow(real(radix(0.0), wp),( - floor(
-  //      (minexponent(0.0) - digits(0.0)) * 0.5)));
-  //  const sbig = pow(real(radix(0.0), wp),( - ceiling(
-  //      (maxexponent(0.0) + digits(0.0) - 1) * 0.5)));
+  final tsml =
+      pow(radix(0.0).toDouble(), ((minexponent(0.0) - 1) * 0.5).ceil());
+  final tbig = pow(radix(0.0).toDouble(),
+      ((maxexponent(0.0) - digits(0.0) + 1) * 0.5).floor());
+  final ssml = pow(radix(0.0).toDouble(),
+      (-((minexponent(0.0) - digits(0.0)) * 0.5).floor()));
+  final sbig = pow(radix(0.0).toDouble(),
+      (-((maxexponent(0.0) + digits(0.0) - 1) * 0.5).ceil()));
 
   int i, ix;
   bool notbig;

@@ -81,7 +81,7 @@ void ddrvbd(
       NFAIL,
       NMAX,
       NTEST;
-  double ANORM = 0, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL = 0, VU = 0;
+  double ANORM = 0, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL = 0, VU = 0;
   int LIWORK, LRWORK;
   final RWORK = Array<double>(2);
   final IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
@@ -94,6 +94,7 @@ void ddrvbd(
       NS = Box(0),
       NSI = Box(0),
       NSV = Box(0);
+  final DIF = Box(0.0);
 
   // Check for errors
 
@@ -275,7 +276,7 @@ void ddrvbd(
 
             // Compare U
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
                 dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK,
@@ -288,11 +289,11 @@ void ddrvbd(
                     IINFO);
               }
             }
-            RESULT[5] = max(RESULT[5], DIF);
+            RESULT[5] = max(RESULT[5], DIF.value);
 
             // Compare VT
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
                 dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK,
@@ -305,19 +306,19 @@ void ddrvbd(
                     DIF, IINFO);
               }
             }
-            RESULT[6] = max(RESULT[6], DIF);
+            RESULT[6] = max(RESULT[6], DIF.value);
 
             // Compare S
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], UNFL);
             for (I = 1; I <= MNMIN - 1; I++) {
               // 60
-              if (SSAV[I] < SSAV[I + 1]) DIF = ULPINV;
-              if (SSAV[I] < ZERO) DIF = ULPINV;
-              DIF = max(DIF, (SSAV[I] - S[I]).abs() / DIV);
+              if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
+              if (SSAV[I] < ZERO) DIF.value = ULPINV;
+              DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
             } // 60
-            RESULT[7] = max(RESULT[7], DIF);
+            RESULT[7] = max(RESULT[7], DIF.value);
           } // 70
         } // 80
 
@@ -372,53 +373,53 @@ void ddrvbd(
 
           // Compare U
 
-          DIF = ZERO;
+          DIF.value = ZERO;
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
               if (M >= N) {
                 dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK,
-                    DIF, INFO.value);
+                    DIF, INFO);
               } else {
                 dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
-                    DIF, INFO.value);
+                    DIF, INFO);
               }
             } else if (IJQ == 2) {
               dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
-                  DIF, INFO.value);
+                  DIF, INFO);
             }
           }
-          RESULT[12] = max(RESULT[12], DIF);
+          RESULT[12] = max(RESULT[12], DIF.value);
 
           // Compare VT
 
-          DIF = ZERO;
+          DIF.value = ZERO;
           if (M > 0 && N > 0) {
             if (IJQ == 1) {
               if (M >= N) {
                 dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
-                    LWORK, DIF, INFO.value);
+                    LWORK, DIF, INFO);
               } else {
                 dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK,
-                    LWORK, DIF, INFO.value);
+                    LWORK, DIF, INFO);
               }
             } else if (IJQ == 2) {
               dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
-                  LWORK, DIF, INFO.value);
+                  LWORK, DIF, INFO);
             }
           }
-          RESULT[13] = max(RESULT[13], DIF);
+          RESULT[13] = max(RESULT[13], DIF.value);
 
           // Compare S
 
-          DIF = ZERO;
+          DIF.value = ZERO;
           DIV = max(MNMIN * ULP * S[1], UNFL);
           for (I = 1; I <= MNMIN - 1; I++) {
             // 100
-            if (SSAV[I] < SSAV[I + 1]) DIF = ULPINV;
-            if (SSAV[I] < ZERO) DIF = ULPINV;
-            DIF = max(DIF, (SSAV[I] - S[I]).abs() / DIV);
+            if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
+            if (SSAV[I] < ZERO) DIF.value = ULPINV;
+            DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
           } // 100
-          RESULT[14] = max(RESULT[14], DIF);
+          RESULT[14] = max(RESULT[14], DIF.value);
         } // 110
 
         // Test DGESVDQ
@@ -628,37 +629,37 @@ void ddrvbd(
 
             // Compare U
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJU == 1) {
                 dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK,
                     DIF, IINFO);
               }
             }
-            RESULT[27] = max(RESULT[27], DIF);
+            RESULT[27] = max(RESULT[27], DIF.value);
 
             // Compare VT
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             if (M > 0 && N > 0) {
               if (IJVT == 1) {
                 dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK,
                     LWORK, DIF, IINFO);
               }
             }
-            RESULT[28] = max(RESULT[28], DIF);
+            RESULT[28] = max(RESULT[28], DIF.value);
 
             // Compare S
 
-            DIF = ZERO;
+            DIF.value = ZERO;
             DIV = max(MNMIN * ULP * S[1], UNFL);
             for (I = 1; I <= MNMIN - 1; I++) {
               // 190
-              if (SSAV[I] < SSAV[I + 1]) DIF = ULPINV;
-              if (SSAV[I] < ZERO) DIF = ULPINV;
-              DIF = max(DIF, (SSAV[I] - S[I]).abs() / DIV);
+              if (SSAV[I] < SSAV[I + 1]) DIF.value = ULPINV;
+              if (SSAV[I] < ZERO) DIF.value = ULPINV;
+              DIF.value = max(DIF.value, (SSAV[I] - S[I]).abs() / DIV);
             } // 190
-            RESULT[29] = max(RESULT[29], DIF);
+            RESULT[29] = max(RESULT[29], DIF.value);
           } // 170
         } // 180
 
