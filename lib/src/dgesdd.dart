@@ -40,11 +40,6 @@ void dgesdd(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  // String             JOBZ;
-  // int                INFO.value, LDA, LDU, LDVT, LWORK, M, N;
-  // int                IWORK( * );
-  // double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-  // ..
 
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
@@ -153,7 +148,7 @@ void dgesdd(
           DUM(1), -1, IERR);
       LWORK_DGEBRD_NN = DUM[1].toInt();
 
-      dgeqrf(M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR);
+      dgeqrf(M, N, DUM(1).asMatrix(M), M, DUM(1), DUM(1), -1, IERR);
       LWORK_DGEQRF_MN = DUM[1].toInt();
 
       dorgbr('Q', N, N, N, DUM(1).asMatrix(N), N, DUM(1), DUM(1), -1, IERR);

@@ -7,7 +7,7 @@ import 'package:lapack/src/f2c/minexponent.dart';
 import 'package:lapack/src/f2c/radix.dart';
 import 'package:lapack/src/matrix.dart';
 
-double dnrm2(final int n, Array<double> x, final int incx) {
+double dnrm2(final int n, final Array<double> x, final int incx) {
 // -- Reference BLAS level1 routine (version 3.9.1) --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
@@ -51,7 +51,7 @@ double dnrm2(final int n, Array<double> x, final int incx) {
   ix = 1;
   if (incx < 0) ix = 1 - (n - 1) * incx;
   for (i = 1; i <= n; i++) {
-    ax = x(ix).abs();
+    ax = x[ix].abs();
     if (ax > tbig) {
       abig = abig + pow((ax * sbig), 2);
       notbig = false;

@@ -1,129 +1,141 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dgemm.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dpbstf.dart';
+import 'package:lapack/src/dsbgst.dart';
+import 'package:lapack/src/dsbtrd.dart';
+import 'package:lapack/src/dstedc.dart';
+import 'package:lapack/src/dsterf.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsbgvd(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO ) {
-
+void dsbgvd(
+  final String JOBZ,
+  final String UPLO,
+  final int N,
+  final int KA,
+  final int KB,
+  final Matrix<double> AB,
+  final int LDAB,
+  final Matrix<double> BB,
+  final int LDBB,
+  final Array<double> W,
+  final Matrix<double> Z,
+  final int LDZ,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<int> IWORK,
+  final int LIWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ, UPLO;
-      int                INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LWORK, N;
-      int                IWORK( * );
-      double             AB( LDAB, * ), BB( LDBB, * ), W( * ), WORK( * ), Z( LDZ, * );
-      // ..
+  const ONE = 1.0, ZERO = 0.0;
+  bool LQUERY, UPPER, WANTZ;
+  String VECT;
+  int INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
+  final IINFO = Box(0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               LQUERY, UPPER, WANTZ;
-      String             VECT;
-      int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DLACPY, DPBSTF, DSBGST, DSBTRD, DSTEDC, DSTERF, XERBLA
+  // Test the input parameters.
 
-      // Test the input parameters.
+  WANTZ = lsame(JOBZ, 'V');
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1 || LIWORK == -1);
 
-      WANTZ = lsame( JOBZ, 'V' );
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 || LIWORK == -1 );
+  INFO.value = 0;
+  if (N <= 1) {
+    LIWMIN = 1;
+    LWMIN = 1;
+  } else if (WANTZ) {
+    LIWMIN = 3 + 5 * N;
+    LWMIN = 1 + 5 * N + 2 * pow(N, 2).toInt();
+  } else {
+    LIWMIN = 1;
+    LWMIN = 2 * N;
+  }
 
-      INFO = 0;
-      if ( N <= 1 ) {
-         LIWMIN = 1;
-         LWMIN = 1;
-      } else if ( WANTZ ) {
-         LIWMIN = 3 + 5*N;
-         LWMIN = 1 + 5*N + 2*N**2;
-      } else {
-         LIWMIN = 1;
-         LWMIN = 2*N;
-      }
+  if (!(WANTZ || lsame(JOBZ, 'N'))) {
+    INFO.value = -1;
+  } else if (!(UPPER || lsame(UPLO, 'L'))) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (KA < 0) {
+    INFO.value = -4;
+  } else if (KB < 0 || KB > KA) {
+    INFO.value = -5;
+  } else if (LDAB < KA + 1) {
+    INFO.value = -7;
+  } else if (LDBB < KB + 1) {
+    INFO.value = -9;
+  } else if (LDZ < 1 || (WANTZ && LDZ < N)) {
+    INFO.value = -12;
+  }
 
-      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO = -1;
-      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( KA < 0 ) {
-         INFO = -4;
-      } else if ( KB < 0 || KB > KA ) {
-         INFO = -5;
-      } else if ( LDAB < KA+1 ) {
-         INFO = -7;
-      } else if ( LDBB < KB+1 ) {
-         INFO = -9;
-      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -12;
-      }
+  if (INFO.value == 0) {
+    WORK[1] = LWMIN.toDouble();
+    IWORK[1] = LIWMIN;
 
-      if ( INFO == 0 ) {
-         WORK[1] = LWMIN;
-         IWORK[1] = LIWMIN;
+    if (LWORK < LWMIN && !LQUERY) {
+      INFO.value = -14;
+    } else if (LIWORK < LIWMIN && !LQUERY) {
+      INFO.value = -16;
+    }
+  }
 
-         if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -14;
-         } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -16;
-         }
-      }
+  if (INFO.value != 0) {
+    xerbla('DSBGVD', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DSBGVD', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  // Form a split Cholesky factorization of B.
 
-      // Form a split Cholesky factorization of B.
+  dpbstf(UPLO, N, KB, BB, LDBB, INFO);
+  if (INFO.value != 0) {
+    INFO.value = N + INFO.value;
+    return;
+  }
 
-      dpbstf(UPLO, N, KB, BB, LDBB, INFO );
-      if ( INFO != 0 ) {
-         INFO = N + INFO;
-         return;
-      }
+  // Transform problem to standard eigenvalue problem.
 
-      // Transform problem to standard eigenvalue problem.
+  INDE = 1;
+  INDWRK = INDE + N;
+  INDWK2 = INDWRK + N * N;
+  LLWRK2 = LWORK - INDWK2 + 1;
+  dsbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, IINFO);
 
-      INDE = 1;
-      INDWRK = INDE + N;
-      INDWK2 = INDWRK + N*N;
-      LLWRK2 = LWORK - INDWK2 + 1;
-      dsbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, IINFO );
+  // Reduce to tridiagonal form.
 
-      // Reduce to tridiagonal form.
+  if (WANTZ) {
+    VECT = 'U';
+  } else {
+    VECT = 'N';
+  }
+  dsbtrd(
+      VECT, UPLO, N, KA, AB, LDAB, W, WORK(INDE), Z, LDZ, WORK(INDWRK), IINFO);
 
-      if ( WANTZ ) {
-         VECT = 'U';
-      } else {
-         VECT = 'N';
-      }
-      dsbtrd(VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO );
+  // For eigenvalues only, call DSTERF. For eigenvectors, call SSTEDC.
 
-      // For eigenvalues only, call DSTERF. For eigenvectors, call SSTEDC.
+  if (!WANTZ) {
+    dsterf(N, W, WORK(INDE), INFO);
+  } else {
+    dstedc('I', N, W, WORK(INDE), WORK(INDWRK).asMatrix(N), N, WORK(INDWK2), LLWRK2, IWORK,
+        LIWORK, INFO);
+    dgemm(
+        'N', 'N', N, N, N, ONE, Z, LDZ, WORK(INDWRK).asMatrix(N), N, ZERO, WORK(INDWK2).asMatrix(N), N);
+    dlacpy('A', N, N, WORK(INDWK2).asMatrix(N), N, Z, LDZ);
+  }
 
-      if ( !WANTZ ) {
-         dsterf(N, W, WORK( INDE ), INFO );
-      } else {
-         dstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO );
-         dgemm('N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N );
-         dlacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
-      }
-
-      WORK[1] = LWMIN;
-      IWORK[1] = LIWMIN;
-
-      }
+  WORK[1] = LWMIN.toDouble();
+  IWORK[1] = LIWMIN;
+}

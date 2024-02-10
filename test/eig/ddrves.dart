@@ -71,13 +71,12 @@ void ddrves(
       NTEST,
       NTESTF,
       NTESTT,
-      RSUB,
-      SDIM = 0;
+      RSUB;
   double ANORM = 0, COND, CONDS, OVFL, RTULP, RTULPI, TMP, ULP, ULPINV, UNFL;
   String ADUMMA;
   final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4);
   final RES = Array<double>(2);
-  final IINFO = Box(0);
+  final IINFO = Box(0), SDIM = Box(0);
   final KTYPE = Array.fromList([
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ]);
@@ -548,7 +547,7 @@ void ddrves(
                     IINFO.value != N + 2) RESULT[13] = ULPINV;
               }
             }
-            if (SDIM != KNTEIG) {
+            if (SDIM.value != KNTEIG) {
               RESULT[13] = ULPINV;
             }
           }

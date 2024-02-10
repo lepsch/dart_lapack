@@ -26,7 +26,7 @@ void derred(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const NMAX = 4, ONE = 1.0, ZERO = 0.0;
   String C2;
-  int I, J, NT, SDIM = 0;
+  int I, J, NT;
   final ABNRM = Box(0.0);
   final B = Array<bool>(NMAX);
   final IW = Array<int>(2 * NMAX);
@@ -41,7 +41,7 @@ void derred(
       W = Array<double>(10 * NMAX),
       WI = Array<double>(NMAX),
       WR = Array<double>(NMAX);
-  final INFO = Box(0), NS = Box(0), IHI = Box(0), ILO = Box(0);
+  final INFO = Box(0), NS = Box(0), IHI = Box(0), ILO = Box(0), SDIM = Box(0);
 
   infoc.NOUT = NUNIT;
   infoc.NOUT.println('');
@@ -50,16 +50,13 @@ void derred(
   // Initialize A
 
   for (J = 1; J <= NMAX; J++) {
-    // 20
     for (I = 1; I <= NMAX; I++) {
-      // 10
       A[I][J] = ZERO;
-    } // 10
-  } // 20
+    }
+  }
   for (I = 1; I <= NMAX; I++) {
-    // 30
     A[I][I] = ONE;
-  } // 30
+  }
   infoc.OK.value = true;
   NT = 0;
 
