@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasyf_aa(final int UPLO, final int J1, final int M, final int NB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> H, final int LDH, final Array<double> WORK) {
+      void dlasyf_aa(final int UPLO, final int J1, final int M, final int NB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> H, final int LDH, final Array<double> WORK,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -51,7 +51,7 @@ import 'package:lapack/src/xerbla.dart';
          // Factorize A as U**T*D*U using the upper triangle of A
          // .....................................................
 
-         } // 10
+        //  } // 10
          if ( J > min(M, NB) ) GO TO 20;
 
          // K is the column to be factorized
@@ -183,7 +183,7 @@ import 'package:lapack/src/xerbla.dart';
          }
          J = J + 1;
          GO TO 10;
-         } // 20
+        //  } // 20
 
       } else {
 
@@ -191,7 +191,7 @@ import 'package:lapack/src/xerbla.dart';
          // Factorize A as L*D*L**T using the lower triangle of A
          // .....................................................
 
-         } // 30
+        //  } // 30
          if( J > min( M, NB ) ) GO TO 40;
 
          // K is the column to be factorized
@@ -323,6 +323,6 @@ import 'package:lapack/src/xerbla.dart';
          }
          J = J + 1;
          GO TO 30;
-         } // 40
+        //  } // 40
       }
       }

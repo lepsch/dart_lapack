@@ -185,7 +185,7 @@ void dstein(
 
         // Get random starting vector.
 
-        dlarnv(2, ISEED, BLKSIZ, WORK[INDRV1 + 1]);
+        dlarnv(2, ISEED, BLKSIZ, WORK(INDRV1 + 1));
 
         // Copy the matrix T so it won't be destroyed in factorization.
 

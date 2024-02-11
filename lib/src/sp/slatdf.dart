@@ -1,4 +1,4 @@
-      void slatdf(final int IJOB, final int N, final Matrix<double> Z, final int LDZ, final int RHS, final int RDSUM, final int RDSCAL, final Array<int> IPIV, final int JPIV) {
+      void slatdf(final int IJOB, final int N, final Matrix<double> Z, final int LDZ, final int RHS, final int RDSUM, final int RDSCAL, final Array<int> IPIV, final int JPIV,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

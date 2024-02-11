@@ -1,4 +1,4 @@
-      void alasmg(final int TYPE, final int NOUT, final int NFAIL, final int NRUN, final int NERRS) {
+      void alasmg(final int TYPE, final int NOUT, final int NFAIL, final int NRUN, final int NERRS,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

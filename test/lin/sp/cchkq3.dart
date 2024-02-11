@@ -1,4 +1,4 @@
-      void cchkq3(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int A, final int COPYA, final int S, final int TAU, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, final int NOUT) {
+      void cchkq3(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int A, final int COPYA, final int S, final int TAU, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, final int NOUT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

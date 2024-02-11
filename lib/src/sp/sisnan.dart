@@ -1,4 +1,4 @@
-      bool sisnan(final int SIN) {
+      bool sisnan(final int SIN,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

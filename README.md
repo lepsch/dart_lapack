@@ -1,14 +1,25 @@
 # FORTRAN to Dart
 
+## References
+ - LAPACK constants: https://netlib.org/lapack/explore-html/d4/d69/namespacela__constants.html
+ - Format specifiers: https://docs.oracle.com/cd/E19957-01/805-4939/z40007437a2e/index.html
+ - Intrisics
+    - https://gcc.gnu.org/onlinedocs/gfortran/Intrinsic-Procedures.html
+    - https://www.ibm.com/docs/en/xl-fortran-aix/16.1.0
+ - Online compiler: https://onecompiler.com/fortran/
+
+
+
 ## Regex Helpers
 
 ### Quick
- - Cleanup ->  // \d+$
- - To Matrix -> \b([XY])\(([^())]+),([^()]+)\) -> $1[$2][$3]
- - To Array -> \b([XY])\(([^())]+)\) -> $1[$2]
+ - Cleanup -> ` // \d+$`
+ - To Matrix -> `\b([XY])\(([^())]+),([^()]+)\)` -> $1[$2][$3]
+ - To Array -> `\b([XY])\(([^())]+)\)` -> $1[$2]
+ - Goto? -> `^\s+\} // \d+`
 
 #### WARN:
- - Fix `Box.value` in strings -> '[^']*\.value.*'
+ - Fix `Box.value` in strings -> `'[^']*\.value.*'`
 
 ### Line continuations
 ```
@@ -166,19 +177,6 @@ $1\L$2();
 ^(\s+)CALL\s+(\w+)\s*\(\s*(.*)\s*\)$
 $1\L$2($3);
 ```
-
-### DO
-Simple
-```
-^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*(\w+)\s*,\s*(\w*)$
-$1for ($3 = $4; $3 <= $5; $3++) { // $2
-```
-
-```
-\) \{ //$
-) {
-```
-
 ### Matrix args
 ```
 ^(\s+\w+\s+\w+\((\s*\w+\s*,)+)\s*(\w+)\s*,\s*LD\3\s*,\s*(.+)\)\s*\{$
@@ -213,6 +211,24 @@ $1final int $2$3
 ```
 ^(\s+\w+\s+\w+\((\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*,)+)\s*(\w+)\s*,\s*(.+)\)\s*\{$
 $1 final int $6, $7) {
+```
+
+### Trailing args comma
+```
+^(\s+\w+\s+\w+\(\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*(,\s*((final\s+)\w+(<\w+>)?\s+)?\w+\s*?)*)\s*\)\s*\{$
+$1,) {
+```
+
+### DO
+Simple
+```
+^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*(\w+)\s*,\s*(\w*)$
+$1for ($3 = $4; $3 <= $5; $3++) { // $2
+```
+
+```
+\) \{ //$
+) {
 ```
 
 Improved

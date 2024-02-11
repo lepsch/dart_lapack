@@ -98,7 +98,7 @@ void dsbt21(
           WORK);
     }
   }
-  WNORM = dlansp('1', CUPLO, N, WORK, WORK[LW + 1]);
+  WNORM = dlansp('1', CUPLO, N, WORK, WORK(LW + 1));
 
   if (ANORM > WNORM) {
     RESULT[1] = (WNORM / ANORM) / (N * ULP);

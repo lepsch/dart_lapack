@@ -1,4 +1,4 @@
-      void slascl(final int TYPE, final int KL, final int KU, final int CFROM, final int CTO, final int M, final int N, final Matrix<double> A, final int LDA, final Box<int> INFO ) {
+      void slascl(final int TYPE, final int KL, final int KU, final int CFROM, final int CTO, final int M, final int N, final Matrix<double> A, final int LDA, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

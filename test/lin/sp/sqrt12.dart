@@ -1,4 +1,4 @@
-      double sqrt12(final int M, final int N, final Matrix<double> A, final int LDA, final int S, final Array<double> WORK, final int LWORK) {
+      double sqrt12(final int M, final int N, final Matrix<double> A, final int LDA, final int S, final Array<double> WORK, final int LWORK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ctftri(final int TRANSR, final int UPLO, final int DIAG, final int N, final int A, final Box<int> INFO ) {
+      void ctftri(final int TRANSR, final int UPLO, final int DIAG, final int N, final int A, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

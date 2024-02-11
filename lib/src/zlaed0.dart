@@ -1,4 +1,4 @@
-      void zlaed0(final int QSIZ, final int N, final int D, final int E, final Matrix<double> Q, final int LDQ, final int QSTORE, final int LDQS, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void zlaed0(final int QSIZ, final int N, final int D, final int E, final Matrix<double> Q, final int LDQ, final int QSTORE, final int LDQS, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -63,7 +63,7 @@
       IWORK[1] = N;
       SUBPBS = 1;
       TLVLS = 0;
-      } // 10
+      // } // 10
       if ( IWORK( SUBPBS ) > SMLSIZ ) {
          for (J = SUBPBS; J >= 1; J--) { // 20
             IWORK[2*J] = ( IWORK( J )+1 ) / 2;
@@ -147,7 +147,7 @@
       // while ( SUBPBS > 1 )
 
       CURLVL = 1;
-      } // 80
+      // } // 80
       if ( SUBPBS > 1 ) {
          SPM2 = SUBPBS - 2;
          for (I = 0; I <= SPM2; I += 2) { // 90

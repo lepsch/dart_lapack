@@ -26,7 +26,7 @@ void dsyl01(
   const MAXM = 245, MAXN = 192, LDSWORK = 36;
   String TRANA = '', TRANB = '';
   int I, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N;
-  double ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE3, SMLNUM, TNRM, XNRM;
+  double ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SMLNUM, TNRM, XNRM;
   final DUML = Array<double>(MAXM),
       DUMR = Array<double>(MAXN),
       D = Array<double>(max(MAXM, MAXN)),
@@ -40,7 +40,7 @@ void dsyl01(
       X = Matrix<double>(MAXM, MAXN),
       SWORK = Matrix<double>(LDSWORK, 126);
   final INFO = Box(0), IINFO = Box(0);
-  final SCALE = Box(0.0);
+  final SCALE = Box(0.0), SCALE3 = Box(0.0);
 
   // Get machine parameters
 
@@ -65,7 +65,7 @@ void dsyl01(
     ISEED[I] = 1;
   }
   SCALE.value = ONE;
-  SCALE3 = ONE;
+  SCALE3.value = ONE;
   LIWORK = MAXM + MAXN + 2;
   for (J = 1; J <= 2; J++) {
     for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
@@ -212,8 +212,9 @@ void dsyl01(
 
               dlacpy('All', M, N, C, MAXM, X, MAXM);
               dlacpy('All', M, N, C, MAXM, CC, MAXM);
+              final LDSWORKINOUT = Box(LDSWORK);
               dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM,
-                  SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO);
+                  SCALE3, IWORK, LIWORK, SWORK, LDSWORKINOUT, INFO);
               if (INFO.value != 0) NINFO[2] = NINFO[2] + 1;
               XNRM = dlange('M', M, N, X, MAXM, DUM);
               RMUL = ONE;
@@ -222,8 +223,8 @@ void dsyl01(
                   RMUL = ONE / max(XNRM, TNRM);
                 }
               }
-              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3 * RMUL,
-                  CC, MAXM);
+              dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM,
+                  -SCALE3.value * RMUL, CC, MAXM);
               dgemm('N', TRANB, M, N, N, ISGN.toDouble() * RMUL, X, MAXM, B,
                   MAXN, ONE, CC, MAXM);
               RES1 = dlange('M', M, N, CC, MAXM, DUM);
@@ -231,7 +232,7 @@ void dsyl01(
                   max(SMLNUM, max(SMLNUM * XNRM, ((RMUL * TNRM) * EPS) * XNRM));
               // Verify that TRSYL3 only flushes if TRSYL flushes (but
               // there may be cases where TRSYL3 avoid flushing).
-              if (SCALE3 == ZERO && SCALE.value > ZERO ||
+              if (SCALE3.value == ZERO && SCALE.value > ZERO ||
                   IINFO.value != INFO.value) {
                 NFAIL[3] = NFAIL[3] + 1;
               }

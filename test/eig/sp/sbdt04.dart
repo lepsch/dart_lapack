@@ -1,4 +1,4 @@
-      void sbdt04(final int UPLO, final int N, final int D, final int E, final int S, final int NS, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID) {
+      void sbdt04(final int UPLO, final int N, final int D, final int E, final int S, final int NS, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void ctgsja(final int JOBU, final int JOBV, final int JOBQ, final int M, final int P, final int N, final int K, final int L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int TOLA, final int TOLB, final int ALPHA, final int BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final int NCYCLE, final Box<int> INFO ) {
+      void ctgsja(final int JOBU, final int JOBV, final int JOBQ, final int M, final int P, final int N, final int K, final int L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int TOLA, final int TOLB, final int ALPHA, final int BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final int NCYCLE, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

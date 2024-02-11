@@ -265,7 +265,7 @@ import 'common.dart';
  9985 FORMAT('\n ******* FATAL ERROR - TESTS ABANDONED *******' );
  9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
       }
-      void zchk1(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
+      void zchk1(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G,) {
 
 // Tests ZGEMM.
 
@@ -511,7 +511,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3}).' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void zchk2(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
+      void zchk2(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G,) {
 
 // Tests ZHEMM and ZSYMM.
 
@@ -748,7 +748,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3},(${.f4_1},${.f4_1}), C,${.i3})    .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void zchk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int CT, final int G, final int C) {
+      void zchk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int CT, final int G, final int C,) {
 
 // Tests ZTRMM and ZTRSM.
 
@@ -1001,7 +1001,7 @@ import 'common.dart';
  9995 FORMAT(' ${.i6}: ${.a6}(', 4( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}), A,${.i3}, B,${.i3})               .' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void zchk4(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G) {
+      void zchk4(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int A, final int AA, final int AS, final int B, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G,) {
 
 // Tests ZHERK and ZSYRK.
 
@@ -1280,7 +1280,7 @@ import 'common.dart';
  9993 FORMAT(' ${.i6}: ${.a6}(', 2( '''${.a1}'',' ), 2( I3, ',' ), '(${.f4_1},${.f4_1}) , A,${.i3},(${.f4_1},${.f4_1}), C,${.i3})          .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
-      void zchk5(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int AB, final int AA, final int AS, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int W) {
+      void zchk5(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NBET, final int BET, final int NMAX, final int AB, final int AA, final int AS, final int BB, final int BS, final int C, final int CC, final int CS, final int CT, final int G, final int W,) {
 
 // Tests ZHER2K and ZSYR2K.
 
@@ -2520,7 +2520,7 @@ import 'common.dart';
  9999 FORMAT( ' ${.a6} PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ${.a6} FAILED THE TESTS OF ERROR-EXITS *******' );
       }
-      void zmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int RESET, final int TRANSL) {
+      void zmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int RESET, final int TRANSL,) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2639,7 +2639,7 @@ import 'common.dart';
       }
       return;
       }
-      void zmmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
+      void zmmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV,) {
 
 // Checks the results of the computational tests.
 
@@ -2803,7 +2803,7 @@ import 'common.dart';
  9998 FORMAT( 1X, I7, 2( '  (${.g15_6},${.g15_6})' ) );
  9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
       }
-      bool lze(final int RI, final int RJ, final int LR) {
+      bool lze(final int RI, final int RJ, final int LR,) {
 
 // Tests if two arrays are identical.
 
@@ -2829,7 +2829,7 @@ import 'common.dart';
       LZE = false;
    30 return;
       }
-      bool lzeres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
+      bool lzeres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA,) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2931,7 +2931,7 @@ import 'common.dart';
       ZBEG = DCMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 );
       return;
       }
-      double ddiff(final int X, final int Y) {
+      double ddiff(final int X, final int Y,) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 
@@ -2969,7 +2969,7 @@ import 'common.dart';
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ${.i2} NOT DETECTED BY ${.a6} *****' );
       }
-      void xerbla(final int SRNAME, final Box<int> INFO ) {
+      void xerbla(final int SRNAME, final Box<int> INFO,) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 3 BLAS

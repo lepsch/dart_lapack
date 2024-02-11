@@ -1,4 +1,4 @@
-      void ccopy(final int N, final int CX, final int INCX, final int CY, final int INCY) {
+      void ccopy(final int N, final int CX, final int INCX, final int CY, final int INCY,) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

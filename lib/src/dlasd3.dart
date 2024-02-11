@@ -1,196 +1,221 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlasd4.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasd3(final int NL, final int NR, final int SQRE, final int K, final int D, final Matrix<double> Q, final int LDQ, final int DSIGMA, final Matrix<double> U, final int LDU, final Matrix<double> U2, final int LDU2, final Matrix<double> VT, final int LDVT, final Matrix<double> VT2, final int LDVT2, final int IDXC, final int CTOT, final int Z, final Box<int> INFO ) {
-
+void dlasd3(
+  final int NL,
+  final int NR,
+  final int SQRE,
+  final int K,
+  final Array<double> D,
+  final Matrix<double> Q,
+  final int LDQ,
+  final Array<double> DSIGMA,
+  final Matrix<double> U,
+  final int LDU,
+  final Matrix<double> U2,
+  final int LDU2,
+  final Matrix<double> VT,
+  final int LDVT,
+  final Matrix<double> VT2,
+  final int LDVT2,
+  final Array<int> IDXC,
+  final Array<int> CTOT,
+  final Array<double> Z,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
-      int                CTOT( * ), IDXC( * );
-      double             D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
-      // ..
+  const ONE = 1.0, ZERO = 0.0, NEGONE = -1.0;
+  int CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
+  double RHO, TEMP;
 
-      double             ONE, ZERO, NEGONE;
-      const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
-      int                CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
-      double             RHO, TEMP;
-      // ..
-      // .. External Functions ..
-      //- double             DNRM2;
-      // EXTERNAL DNRM2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DGEMM, DLACPY, DLASCL, DLASD4, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SIGN, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
 
-      INFO = 0;
+  if (NL < 1) {
+    INFO.value = -1;
+  } else if (NR < 1) {
+    INFO.value = -2;
+  } else if ((SQRE != 1) && (SQRE != 0)) {
+    INFO.value = -3;
+  }
 
-      if ( NL < 1 ) {
-         INFO = -1;
-      } else if ( NR < 1 ) {
-         INFO = -2;
-      } else if ( ( SQRE != 1 ) && ( SQRE != 0 ) ) {
-         INFO = -3;
+  N = NL + NR + 1;
+  M = N + SQRE;
+  NLP1 = NL + 1;
+  NLP2 = NL + 2;
+
+  if ((K < 1) || (K > N)) {
+    INFO.value = -4;
+  } else if (LDQ < K) {
+    INFO.value = -7;
+  } else if (LDU < N) {
+    INFO.value = -10;
+  } else if (LDU2 < N) {
+    INFO.value = -12;
+  } else if (LDVT < M) {
+    INFO.value = -14;
+  } else if (LDVT2 < M) {
+    INFO.value = -16;
+  }
+  if (INFO.value != 0) {
+    xerbla('DLASD3', -INFO.value);
+    return;
+  }
+
+  // Quick return if possible
+
+  if (K == 1) {
+    D[1] = (Z[1]).abs();
+    dcopy(M, VT2(1, 1).asArray(), LDVT2, VT(1, 1).asArray(), LDVT);
+    if (Z[1] > ZERO) {
+      dcopy(N, U2(1, 1).asArray(), 1, U(1, 1).asArray(), 1);
+    } else {
+      for (I = 1; I <= N; I++) {
+        U[I][1] = -U2[I][1];
       }
+    }
+    return;
+  }
 
-      N = NL + NR + 1;
-      M = N + SQRE;
-      NLP1 = NL + 1;
-      NLP2 = NL + 2;
+  // Keep a copy of Z.
 
-      if ( ( K < 1 ) || ( K > N ) ) {
-         INFO = -4;
-      } else if ( LDQ < K ) {
-         INFO = -7;
-      } else if ( LDU < N ) {
-         INFO = -10;
-      } else if ( LDU2 < N ) {
-         INFO = -12;
-      } else if ( LDVT < M ) {
-         INFO = -14;
-      } else if ( LDVT2 < M ) {
-         INFO = -16;
+  dcopy(K, Z, 1, Q.asArray(), 1);
+
+  // Normalize Z.
+
+  RHO = dnrm2(K, Z, 1);
+  dlascl('G', 0, 0, RHO, ONE, K, 1, Z.asMatrix(K), K, INFO);
+  RHO = RHO * RHO;
+
+  // Find the new singular values.
+
+  for (J = 1; J <= K; J++) {
+    dlasd4(K, J, DSIGMA, Z, U(1, J).asArray(), RHO, D.box(J),
+        VT(1, J).asArray(), INFO);
+
+    // If the zero finder fails, report the convergence failure.
+
+    if (INFO.value != 0) {
+      return;
+    }
+  }
+
+  // Compute updated Z.
+
+  for (I = 1; I <= K; I++) {
+    Z[I] = U[I][K] * VT[I][K];
+    for (J = 1; J <= I - 1; J++) {
+      Z[I] = Z[I] *
+          (U[I][J] *
+              VT[I][J] /
+              (DSIGMA[I] - DSIGMA[J]) /
+              (DSIGMA[I] + DSIGMA[J]));
+    }
+    for (J = I; J <= K - 1; J++) {
+      Z[I] = Z[I] *
+          (U[I][J] *
+              VT[I][J] /
+              (DSIGMA[I] - DSIGMA[J + 1]) /
+              (DSIGMA[I] + DSIGMA[J + 1]));
+    }
+    Z[I] = sign(sqrt((Z[I]).abs()), Q[I][1]).toDouble();
+  }
+
+  // Compute left singular vectors of the modified diagonal matrix,
+  // and store related information for the right singular vectors.
+
+  for (I = 1; I <= K; I++) {
+    VT[1][I] = Z[1] / U[1][I] / VT[1][I];
+    U[1][I] = NEGONE;
+    for (J = 2; J <= K; J++) {
+      VT[J][I] = Z[J] / U[J][I] / VT[J][I];
+      U[J][I] = DSIGMA[J] * VT[J][I];
+    }
+    TEMP = dnrm2(K, U(1, I).asArray(), 1);
+    Q[1][I] = U[1][I] / TEMP;
+    for (J = 2; J <= K; J++) {
+      JC = IDXC[J];
+      Q[J][I] = U[JC][I] / TEMP;
+    }
+  }
+
+  // Update the left singular vector matrix.
+
+  if (K == 2) {
+    dgemm('N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU);
+  } else {
+    if (CTOT[1] > 0) {
+      dgemm('N', 'N', NL, K, CTOT[1], ONE, U2(1, 2), LDU2, Q(2, 1), LDQ, ZERO,
+          U(1, 1), LDU);
+      if (CTOT[3] > 0) {
+        KTEMP = 2 + CTOT[1] + CTOT[2];
+        dgemm('N', 'N', NL, K, CTOT[3], ONE, U2(1, KTEMP), LDU2, Q(KTEMP, 1),
+            LDQ, ONE, U(1, 1), LDU);
       }
-      if ( INFO != 0 ) {
-         xerbla('DLASD3', -INFO );
-         return;
-      }
+    } else if (CTOT[3] > 0) {
+      KTEMP = 2 + CTOT[1] + CTOT[2];
+      dgemm('N', 'N', NL, K, CTOT[3], ONE, U2(1, KTEMP), LDU2, Q(KTEMP, 1), LDQ,
+          ZERO, U(1, 1), LDU);
+    } else {
+      dlacpy('F', NL, K, U2, LDU2, U, LDU);
+    }
+    dcopy(K, Q(1, 1).asArray(), LDQ, U(NLP1, 1).asArray(), LDU);
+    KTEMP = 2 + CTOT[1];
+    CTEMP = CTOT[2] + CTOT[3];
+    dgemm('N', 'N', NR, K, CTEMP, ONE, U2(NLP2, KTEMP), LDU2, Q(KTEMP, 1), LDQ,
+        ZERO, U(NLP2, 1), LDU);
+  }
 
-      // Quick return if possible
+  // Generate the right singular vectors.
 
-      if ( K == 1 ) {
-         D[1] = ( Z( 1 ) ).abs();
-         dcopy(M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT );
-         if ( Z( 1 ) > ZERO ) {
-            dcopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
-         } else {
-            for (I = 1; I <= N; I++) { // 10
-               U[I][1] = -U2( I, 1 );
-            } // 10
-         }
-         return;
-      }
+  for (I = 1; I <= K; I++) {
+    TEMP = dnrm2(K, VT(1, I).asArray(), 1);
+    Q[I][1] = VT[1][I] / TEMP;
+    for (J = 2; J <= K; J++) {
+      JC = IDXC[J];
+      Q[I][J] = VT[JC][I] / TEMP;
+    }
+  }
 
-      // Keep a copy of Z.
+  // Update the right singular vector matrix.
 
-      dcopy(K, Z, 1, Q, 1 );
+  if (K == 2) {
+    dgemm('N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT);
+    return;
+  }
+  KTEMP = 1 + CTOT[1];
+  dgemm('N', 'N', K, NLP1, KTEMP, ONE, Q(1, 1), LDQ, VT2(1, 1), LDVT2, ZERO,
+      VT(1, 1), LDVT);
+  KTEMP = 2 + CTOT[1] + CTOT[2];
+  if (KTEMP <= LDVT2) {
+    dgemm('N', 'N', K, NLP1, CTOT[3], ONE, Q(1, KTEMP), LDQ, VT2(KTEMP, 1),
+        LDVT2, ONE, VT(1, 1), LDVT);
+  }
 
-      // Normalize Z.
-
-      RHO = dnrm2( K, Z, 1 );
-      dlascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
-      RHO = RHO*RHO;
-
-      // Find the new singular values.
-
-      for (J = 1; J <= K; J++) { // 30
-         dlasd4(K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO );
-
-         // If the zero finder fails, report the convergence failure.
-
-         if ( INFO != 0 ) {
-            return;
-         }
-      } // 30
-
-      // Compute updated Z.
-
-      for (I = 1; I <= K; I++) { // 60
-         Z[I] = U( I, K )*VT( I, K );
-         for (J = 1; J <= I - 1; J++) { // 40
-            Z[I] = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J ) ) / ( DSIGMA( I )+DSIGMA( J ) ) );
-         } // 40
-         for (J = I; J <= K - 1; J++) { // 50
-            Z[I] = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) );
-         } // 50
-         Z[I] = sign( sqrt( ( Z( I ) ).abs() ), Q( I, 1 ) );
-      } // 60
-
-      // Compute left singular vectors of the modified diagonal matrix,
-      // and store related information for the right singular vectors.
-
-      for (I = 1; I <= K; I++) { // 90
-         VT[1][I] = Z( 1 ) / U( 1, I ) / VT( 1, I );
-         U[1][I] = NEGONE;
-         for (J = 2; J <= K; J++) { // 70
-            VT[J][I] = Z( J ) / U( J, I ) / VT( J, I );
-            U[J][I] = DSIGMA( J )*VT( J, I );
-         } // 70
-         TEMP = dnrm2( K, U( 1, I ), 1 );
-         Q[1][I] = U( 1, I ) / TEMP;
-         for (J = 2; J <= K; J++) { // 80
-            JC = IDXC( J );
-            Q[J][I] = U( JC, I ) / TEMP;
-         } // 80
-      } // 90
-
-      // Update the left singular vector matrix.
-
-      if ( K == 2 ) {
-         dgemm('N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU );
-         GO TO 100;
-      }
-      if ( CTOT( 1 ) > 0 ) {
-         dgemm('N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2, Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
-         if ( CTOT( 3 ) > 0 ) {
-            KTEMP = 2 + CTOT( 1 ) + CTOT( 2 );
-            dgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU );
-         }
-      } else if ( CTOT( 3 ) > 0 ) {
-         KTEMP = 2 + CTOT( 1 ) + CTOT( 2 );
-         dgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
-      } else {
-         dlacpy('F', NL, K, U2, LDU2, U, LDU );
-      }
-      dcopy(K, Q( 1, 1 ), LDQ, U( NLP1, 1 ), LDU );
-      KTEMP = 2 + CTOT( 1 );
-      CTEMP = CTOT( 2 ) + CTOT( 3 );
-      dgemm('N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU );
-
-      // Generate the right singular vectors.
-
-      // } // 100
-      for (I = 1; I <= K; I++) { // 120
-         TEMP = dnrm2( K, VT( 1, I ), 1 );
-         Q[I][1] = VT( 1, I ) / TEMP;
-         for (J = 2; J <= K; J++) { // 110
-            JC = IDXC( J );
-            Q[I][J] = VT( JC, I ) / TEMP;
-         } // 110
-      } // 120
-
-      // Update the right singular vector matrix.
-
-      if ( K == 2 ) {
-         dgemm('N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT );
-         return;
-      }
-      KTEMP = 1 + CTOT( 1 );
-      dgemm('N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT );
-      KTEMP = 2 + CTOT( 1 ) + CTOT( 2 );
-      if (KTEMP <= LDVT2) dgemm( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ), LDVT );
-
-      KTEMP = CTOT( 1 ) + 1;
-      NRP1 = NR + SQRE;
-      if ( KTEMP > 1 ) {
-         for (I = 1; I <= K; I++) { // 130
-            Q[I][KTEMP] = Q( I, 1 );
-         } // 130
-         for (I = NLP2; I <= M; I++) { // 140
-            VT2[KTEMP][I] = VT2( 1, I );
-         } // 140
-      }
-      CTEMP = 1 + CTOT( 2 ) + CTOT( 3 );
-      dgemm('N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT );
-
-      }
+  KTEMP = CTOT[1] + 1;
+  NRP1 = NR + SQRE;
+  if (KTEMP > 1) {
+    for (I = 1; I <= K; I++) {
+      Q[I][KTEMP] = Q[I][1];
+    }
+    for (I = NLP2; I <= M; I++) {
+      VT2[KTEMP][I] = VT2[1][I];
+    }
+  }
+  CTEMP = 1 + CTOT[2] + CTOT[3];
+  dgemm('N', 'N', K, NRP1, CTEMP, ONE, Q(1, KTEMP), LDQ, VT2(KTEMP, NLP2),
+      LDVT2, ZERO, VT(1, NLP2), LDVT);
+}

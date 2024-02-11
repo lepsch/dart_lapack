@@ -1,4 +1,4 @@
-      void ssytri2x(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Array<double> _WORK, final int NB, final Box<int> INFO ) {
+      void ssytri2x(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Array<double> _WORK, final int NB, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

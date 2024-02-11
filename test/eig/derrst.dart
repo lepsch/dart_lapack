@@ -290,22 +290,22 @@ void derrst(final String PATH, final Nout NUNIT) {
 
     srnamc.SRNAMT = 'DOPMTR';
     infoc.INFOT = 1;
-    dopmtr('/', 'U', 'N', 0, 0, A, TAU, C, 1, W, INFO);
+    dopmtr('/', 'U', 'N', 0, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dopmtr('L', '/', 'N', 0, 0, A, TAU, C, 1, W, INFO);
+    dopmtr('L', '/', 'N', 0, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
-    dopmtr('L', 'U', '/', 0, 0, A, TAU, C, 1, W, INFO);
+    dopmtr('L', 'U', '/', 0, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
-    dopmtr('L', 'U', 'N', -1, 0, A, TAU, C, 1, W, INFO);
+    dopmtr('L', 'U', 'N', -1, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
-    dopmtr('L', 'U', 'N', 0, -1, A, TAU, C, 1, W, INFO);
+    dopmtr('L', 'U', 'N', 0, -1, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dopmtr('L', 'U', 'N', 2, 0, A, TAU, C, 1, W, INFO);
+    dopmtr('L', 'U', 'N', 2, 0, A.asArray(), TAU, C, 1, W, INFO);
     chkxer('DOPMTR', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 6;
 
@@ -881,34 +881,34 @@ void derrst(final String PATH, final Nout NUNIT) {
 
     srnamc.SRNAMT = 'DSPEVD';
     infoc.INFOT = 1;
-    dspevd('/', 'U', 0, A, X, Z, 1, W, 1, IW, 1, INFO);
+    dspevd('/', 'U', 0, A.asArray(), X, Z, 1, W, 1, IW, 1, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dspevd('N', '/', 0, A, X, Z, 1, W, 1, IW, 1, INFO);
+    dspevd('N', '/', 0, A.asArray(), X, Z, 1, W, 1, IW, 1, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
-    dspevd('N', 'U', -1, A, X, Z, 1, W, 1, IW, 1, INFO);
+    dspevd('N', 'U', -1, A.asArray(), X, Z, 1, W, 1, IW, 1, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
-    dspevd('V', 'U', 2, A, X, Z, 1, W, 23, IW, 12, INFO);
+    dspevd('V', 'U', 2, A.asArray(), X, Z, 1, W, 23, IW, 12, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dspevd('N', 'U', 1, A, X, Z, 1, W, 0, IW, 1, INFO);
+    dspevd('N', 'U', 1, A.asArray(), X, Z, 1, W, 0, IW, 1, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dspevd('N', 'U', 2, A, X, Z, 1, W, 3, IW, 1, INFO);
+    dspevd('N', 'U', 2, A.asArray(), X, Z, 1, W, 3, IW, 1, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 9;
-    dspevd('V', 'U', 2, A, X, Z, 2, W, 16, IW, 12, INFO);
+    dspevd('V', 'U', 2, A.asArray(), X, Z, 2, W, 16, IW, 12, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
-    dspevd('N', 'U', 1, A, X, Z, 1, W, 1, IW, 0, INFO);
+    dspevd('N', 'U', 1, A.asArray(), X, Z, 1, W, 1, IW, 0, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
-    dspevd('N', 'U', 2, A, X, Z, 1, W, 4, IW, 0, INFO);
+    dspevd('N', 'U', 2, A.asArray(), X, Z, 1, W, 4, IW, 0, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 11;
-    dspevd('V', 'U', 2, A, X, Z, 2, W, 23, IW, 11, INFO);
+    dspevd('V', 'U', 2, A.asArray(), X, Z, 2, W, 23, IW, 11, INFO);
     chkxer('DSPEVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 10;
 
@@ -916,16 +916,16 @@ void derrst(final String PATH, final Nout NUNIT) {
 
     srnamc.SRNAMT = 'DSPEV ';
     infoc.INFOT = 1;
-    dspev('/', 'U', 0, A, W, Z, 1, X, INFO);
+    dspev('/', 'U', 0, A.asArray(), W, Z, 1, X, INFO);
     chkxer('DSPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dspev('N', '/', 0, A, W, Z, 1, X, INFO);
+    dspev('N', '/', 0, A.asArray(), W, Z, 1, X, INFO);
     chkxer('DSPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 3;
-    dspev('N', 'U', -1, A, W, Z, 1, X, INFO);
+    dspev('N', 'U', -1, A.asArray(), W, Z, 1, X, INFO);
     chkxer('DSPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
-    dspev('V', 'U', 2, A, W, Z, 1, X, INFO);
+    dspev('V', 'U', 2, A.asArray(), W, Z, 1, X, INFO);
     chkxer('DSPEV ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 4;
 

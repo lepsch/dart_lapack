@@ -1,4 +1,4 @@
-      void sqrt15(final int SCALE, final int RKSEL, final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int S, final int RANK, final int NORMA, final int NORMB, final Array<int> ISEED, final Array<double> WORK, final int LWORK) {
+      void sqrt15(final int SCALE, final int RKSEL, final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int S, final int RANK, final int NORMA, final int NORMB, final Array<int> ISEED, final Array<double> WORK, final int LWORK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

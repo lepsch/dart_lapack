@@ -68,7 +68,7 @@ void dstt22(
     }
   }
 
-  WNORM = dlansy('1', 'L', M, WORK, M, WORK[1][M + 1]);
+  WNORM = dlansy('1', 'L', M, WORK, M, WORK(1,M + 1).asArray());
 
   if (ANORM > WNORM) {
     RESULT[1] = (WNORM / ANORM) / (M * ULP);

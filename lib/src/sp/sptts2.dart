@@ -1,4 +1,4 @@
-      void sptts2(final int N, final int NRHS, final int D, final int E, final int B, final int LDB) {
+      void sptts2(final int N, final int NRHS, final int D, final int E, final int B, final int LDB,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

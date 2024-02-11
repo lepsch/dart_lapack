@@ -1,4 +1,4 @@
-      void shseqr(final int JOB, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final int WR, final int WI, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void shseqr(final int JOB, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final int WR, final int WI, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

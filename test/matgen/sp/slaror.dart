@@ -1,4 +1,4 @@
-      void slaror(final int SIDE, final int INIT, final int M, final int N, final Matrix<double> A, final int LDA, final Array<int> ISEED, final int X, final Box<int> INFO ) {
+      void slaror(final int SIDE, final int INIT, final int M, final int N, final Matrix<double> A, final int LDA, final Array<int> ISEED, final int X, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

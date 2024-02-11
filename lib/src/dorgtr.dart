@@ -73,22 +73,19 @@ void dorgtr(
     // those of the unit matrix
 
     for (J = 1; J <= N - 1; J++) {
-      // 20
       for (I = 1; I <= J - 1; I++) {
-        // 10
         A[I][J] = A[I][J + 1];
-      } // 10
+      }
       A[N][J] = ZERO;
-    } // 20
+    }
     for (I = 1; I <= N - 1; I++) {
-      // 30
       A[I][N] = ZERO;
-    } // 30
+    }
     A[N][N] = ONE;
 
     // Generate Q(1:n-1,1:n-1)
 
-    dorgql(N - 1, N - 1, N - 1, A, LDA, TAU, WORK, LWORK, IINFO.value);
+    dorgql(N - 1, N - 1, N - 1, A, LDA, TAU, WORK, LWORK, IINFO);
   } else {
     // Q was determined by a call to DSYTRD with UPLO = 'L'.
 
@@ -97,18 +94,15 @@ void dorgtr(
     // those of the unit matrix
 
     for (J = N; J >= 2; J--) {
-      // 50
       A[1][J] = ZERO;
       for (I = J + 1; I <= N; I++) {
-        // 40
         A[I][J] = A[I][J - 1];
-      } // 40
-    } // 50
+      }
+    }
     A[1][1] = ONE;
     for (I = 2; I <= N; I++) {
-      // 60
       A[I][1] = ZERO;
-    } // 60
+    }
     if (N > 1) {
       // Generate Q(2:n,2:n)
 

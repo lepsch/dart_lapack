@@ -145,7 +145,7 @@ void dorgbr(
       if (N > 1) {
         // Form P**T(2:n,2:n)
 
-        dorglq(N - 1, N - 1, N - 1, A[2][2], LDA, TAU, WORK, LWORK, IINFO);
+        dorglq(N - 1, N - 1, N - 1, A(2,2), LDA, TAU, WORK, LWORK, IINFO);
       }
     }
   }

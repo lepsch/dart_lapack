@@ -1,4 +1,4 @@
-      void slaln2(final int LTRANS, final int NA, final int NW, final int SMIN, final int CA, final Matrix<double> A, final int LDA, final int D1, final int D2, final Matrix<double> B, final int LDB, final int WR, final int WI, final Matrix<double> X, final int LDX, final int SCALE, final int XNORM, final Box<int> INFO ) {
+      void slaln2(final int LTRANS, final int NA, final int NW, final int SMIN, final int CA, final Matrix<double> A, final int LDA, final int D1, final int D2, final Matrix<double> B, final int LDB, final int WR, final int WI, final Matrix<double> X, final int LDX, final int SCALE, final int XNORM, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zpst01(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, final int PIV, final Array<double> RWORK, final int RESID, final int RANK) {
+      void zpst01(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, final int PIV, final Array<double> RWORK, final int RESID, final int RANK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

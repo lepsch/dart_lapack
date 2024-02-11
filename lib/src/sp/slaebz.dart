@@ -1,4 +1,4 @@
-      void slaebz(final int IJOB, final int NITMAX, final int N, final int MMAX, final int MINP, final int NBMIN, final int ABSTOL, final int RELTOL, final int PIVMIN, final int D, final int E, final int E2, final int NVAL, final int AB, final int C, final int MOUT, final int NAB, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void slaebz(final int IJOB, final int NITMAX, final int N, final int MMAX, final int MINP, final int NBMIN, final int ABSTOL, final int RELTOL, final int PIVMIN, final int D, final int E, final int E2, final int NVAL, final int AB, final int C, final int MOUT, final int NAB, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

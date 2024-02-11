@@ -1,4 +1,4 @@
-      void csytri2(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void csytri2(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

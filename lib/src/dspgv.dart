@@ -56,7 +56,7 @@ void dspgv(
 
   // Form a Cholesky factorization of B.
 
-  dpptrf(UPLO, N, BP, INFO.value);
+  dpptrf(UPLO, N, BP, INFO);
   if (INFO.value != 0) {
     INFO.value = N + INFO.value;
     return;
@@ -64,8 +64,8 @@ void dspgv(
 
   // Transform problem to standard eigenvalue problem and solve.
 
-  dspgst(ITYPE, UPLO, N, AP, BP, INFO.value);
-  dspev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO.value);
+  dspgst(ITYPE, UPLO, N, AP, BP, INFO);
+  dspev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO);
 
   if (WANTZ) {
     // Backtransform eigenvectors to the original problem.

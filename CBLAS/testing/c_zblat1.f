@@ -73,7 +73,7 @@
 
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       }
-      void check1(final int SFAC) {
+      void check1(final int SFAC,) {
       // .. Parameters ..
       int               NOUT;
       const             NOUT=6;
@@ -185,7 +185,7 @@
       }
       return;
       }
-      void check2(final int SFAC) {
+      void check2(final int SFAC,) {
       // .. Parameters ..
       int               NOUT;
       const             NOUT=6;
@@ -282,7 +282,7 @@
       } // 60
       return;
       }
-      void stest(final int LEN, final int SCOMP, final int STRUE, final int SSIZE, final int SFAC) {
+      void stest(final int LEN, final int SCOMP, final int STRUE, final int SSIZE, final int SFAC,) {
       // ********************************* STEST **************************
 
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -333,7 +333,7 @@
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                             COMP(I)                             TRUE(I)  DIFFERENCE     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
-      void stest1(final int SCOMP1, final int STRUE1, final int SSIZE, final int SFAC) {
+      void stest1(final int SCOMP1, final int STRUE1, final int SSIZE, final int SFAC,) {
       // ************************* STEST1 *****************************
 
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
@@ -356,7 +356,7 @@
 
       return;
       }
-      double sdiff(final int SA, final int SB) {
+      double sdiff(final int SA, final int SB,) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                          SA, SB;
@@ -364,7 +364,7 @@
       SDIFF = SA - SB;
       return;
       }
-      void ctest(final int LEN, final int CCOMP, final int CTRUE, final int CSIZE, final int SFAC) {
+      void ctest(final int LEN, final int CCOMP, final int CTRUE, final int CSIZE, final int SFAC,) {
       // **************************** CTEST *****************************
 
       // C.L. LAWSON, JPL, 1978 DEC 6
@@ -393,7 +393,7 @@
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
       return;
       }
-      void itest1(final int ICOMP, final int ITRUE) {
+      void itest1(final int ICOMP, final int ITRUE,) {
       // ********************************* ITEST1 *************************
 
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR

@@ -1,4 +1,4 @@
-      void slaqps(final int M, final int N, final int OFFSET, final int NB, final int KB, final Matrix<double> A, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final int AUXV, final int F, final int LDF) {
+      void slaqps(final int M, final int N, final int OFFSET, final int NB, final int KB, final Matrix<double> A, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final int AUXV, final int F, final int LDF,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

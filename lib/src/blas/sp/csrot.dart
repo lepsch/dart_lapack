@@ -1,4 +1,4 @@
-      void csrot(final int N, final int CX, final int INCX, final int CY, final int INCY, final int C, final int S) {
+      void csrot(final int N, final int CX, final int INCX, final int CY, final int INCY, final int C, final int S,) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

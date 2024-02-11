@@ -1,4 +1,4 @@
-      void cppt03(final int UPLO, final int N, final int A, final int AINV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RCOND, final int RESID) {
+      void cppt03(final int UPLO, final int N, final int A, final int AINV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RCOND, final int RESID,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

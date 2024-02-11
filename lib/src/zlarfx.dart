@@ -1,4 +1,4 @@
-      void zlarfx(final int SIDE, final int M, final int N, final int V, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK) {
+      void zlarfx(final int SIDE, final int M, final int N, final int V, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

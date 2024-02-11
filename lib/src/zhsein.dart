@@ -1,4 +1,4 @@
-      void zhsein(final int SIDE, final int EIGSRC, final int INITV, final int SELECT, final int N, final Matrix<double> H, final int LDH, final int W, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int MM, final int M, final Array<double> _WORK, final Array<double> RWORK, final int IFAILL, final int IFAILR, final Box<int> INFO ) {
+      void zhsein(final int SIDE, final int EIGSRC, final int INITV, final int SELECT, final int N, final Matrix<double> H, final int LDH, final int W, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int MM, final int M, final Array<double> _WORK, final Array<double> RWORK, final int IFAILL, final int IFAILR, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

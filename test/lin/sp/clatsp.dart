@@ -1,4 +1,4 @@
-      void clatsp(final int UPLO, final int N, final int X, final int ISEED) {
+      void clatsp(final int UPLO, final int N, final int X, final int ISEED,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

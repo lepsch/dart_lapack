@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dlantr(final int NORM, final int UPLO, final int DIAG, final int M, final int N, final Matrix<double> A, final int LDA, final Array<double> WORK) {
+      double dlantr(final int NORM, final int UPLO, final int DIAG, final int M, final int N, final Matrix<double> A, final int LDA, final Array<double> WORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

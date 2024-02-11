@@ -1,4 +1,4 @@
-      void zlatms(final int M, final int N, final int DIST, final Array<int> ISEED, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int KL, final int KU, final int PACK, final Matrix<double> A, final int LDA, final Array<double> _WORK, final Box<int> INFO ) {
+      void zlatms(final int M, final int N, final int DIST, final Array<int> ISEED, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int KL, final int KU, final int PACK, final Matrix<double> A, final int LDA, final Array<double> _WORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -124,7 +124,7 @@ void dsytrd(
 
     // Use unblocked code to reduce the last or only block
 
-    dsytd2(UPLO, KK, A, LDA, D, E, TAU, IINFO.value);
+    dsytd2(UPLO, KK, A, LDA, D, E, TAU, IINFO);
   } else {
     // Reduce the lower triangle of A
 
@@ -153,7 +153,7 @@ void dsytrd(
 
     // Use unblocked code to reduce the last or only block
 
-    dsytd2(UPLO, N - I + 1, A[I][I], LDA, D[I], E[I], TAU[I], IINFO.value);
+    dsytd2(UPLO, N - I + 1, A(I, I), LDA, D(I), E(I), TAU(I), IINFO);
   }
 
   WORK[1] = LWKOPT.toDouble();

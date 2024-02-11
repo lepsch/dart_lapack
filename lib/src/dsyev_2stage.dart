@@ -1,145 +1,154 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dsterf.dart';
+import 'package:lapack/src/dsytrd_2stage.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsyev_2stage(final int JOBZ, final int UPLO, final int N, final Matrix<double> A, final int LDA, final int W, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
-
+void dsyev_2stage(
+  final String JOBZ,
+  final String UPLO,
+  final int N,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> W,
+  final Array<double> WORK,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ, UPLO;
-      int                INFO, LDA, LWORK, N;
-      double             A( LDA, * ), W( * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool LOWER, LQUERY, WANTZ;
+  int IMAX,
+      INDE,
+      INDTAU,
+      INDWRK,
+      ISCALE,
+      LLWORK,
+      LWMIN = 0,
+      LHTRD = 0,
+      LWTRD,
+      KD,
+      IB,
+      INDHOUS;
+  double ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA = 0, SMLNUM;
+  final IINFO = Box(0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               LOWER, LQUERY, WANTZ;
-      int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
-      double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV2STAGE;
-      //- double             DLAMCH, DLANSY;
-      // EXTERNAL lsame, DLAMCH, DLANSY, ILAENV2STAGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASCL, DORGTR, DSCAL, DSTEQR, DSTERF, XERBLA, DSYTRD_2STAGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  WANTZ = lsame(JOBZ, 'V');
+  LOWER = lsame(UPLO, 'L');
+  LQUERY = (LWORK == -1);
 
-      WANTZ = lsame( JOBZ, 'V' );
-      LOWER = lsame( UPLO, 'L' );
-      LQUERY = ( LWORK == -1 );
+  INFO.value = 0;
+  if (!(lsame(JOBZ, 'N'))) {
+    INFO.value = -1;
+  } else if (!(LOWER || lsame(UPLO, 'U'))) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  }
 
-      INFO = 0;
-      if ( !( lsame( JOBZ, 'N' ) ) ) {
-         INFO = -1;
-      } else if ( !( LOWER || lsame( UPLO, 'U' ) ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      }
+  if (INFO.value == 0) {
+    KD = ilaenv2stage(1, 'DSYTRD_2STAGE', JOBZ, N, -1, -1, -1);
+    IB = ilaenv2stage(2, 'DSYTRD_2STAGE', JOBZ, N, KD, -1, -1);
+    LHTRD = ilaenv2stage(3, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1);
+    LWTRD = ilaenv2stage(4, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1);
+    LWMIN = 2 * N + LHTRD + LWTRD;
+    WORK[1] = LWMIN.toDouble();
 
-      if ( INFO == 0 ) {
-         KD    = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', JOBZ, N, -1, -1, -1 );
-         IB    = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', JOBZ, N, KD, -1, -1 );
-         LHTRD = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
-         LWTRD = ILAENV2STAGE( 4, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
-         LWMIN = 2*N + LHTRD + LWTRD;
-         WORK[1] = LWMIN;
+    if (LWORK < LWMIN && !LQUERY) INFO.value = -8;
+  }
 
-         if (LWORK < LWMIN && !LQUERY) INFO = -8;
-      }
+  if (INFO.value != 0) {
+    xerbla('DSYEV_2STAGE ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DSYEV_2STAGE ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) {
+    return;
+  }
 
-      if ( N == 0 ) {
-         return;
-      }
+  if (N == 1) {
+    W[1] = A[1][1];
+    WORK[1] = 2;
+    if (WANTZ) A[1][1] = ONE;
+    return;
+  }
 
-      if ( N == 1 ) {
-         W[1] = A( 1, 1 );
-         WORK[1] = 2;
-         if (WANTZ) A( 1, 1 ) = ONE;
-         return;
-      }
+  // Get machine constants.
 
-      // Get machine constants.
+  SAFMIN = dlamch('Safe minimum');
+  EPS = dlamch('Precision');
+  SMLNUM = SAFMIN / EPS;
+  BIGNUM = ONE / SMLNUM;
+  RMIN = sqrt(SMLNUM);
+  RMAX = sqrt(BIGNUM);
 
-      SAFMIN = dlamch( 'Safe minimum' );
-      EPS    = dlamch( 'Precision' );
-      SMLNUM = SAFMIN / EPS;
-      BIGNUM = ONE / SMLNUM;
-      RMIN   = sqrt( SMLNUM );
-      RMAX   = sqrt( BIGNUM );
+  // Scale matrix to allowable range, if necessary.
 
-      // Scale matrix to allowable range, if necessary.
+  ANRM = dlansy('M', UPLO, N, A, LDA, WORK);
+  ISCALE = 0;
+  if (ANRM > ZERO && ANRM < RMIN) {
+    ISCALE = 1;
+    SIGMA = RMIN / ANRM;
+  } else if (ANRM > RMAX) {
+    ISCALE = 1;
+    SIGMA = RMAX / ANRM;
+  }
+  if (ISCALE == 1) dlascl(UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO);
 
-      ANRM = dlansy( 'M', UPLO, N, A, LDA, WORK );
-      ISCALE = 0;
-      if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1;
-         SIGMA = RMIN / ANRM;
-      } else if ( ANRM > RMAX ) {
-         ISCALE = 1;
-         SIGMA = RMAX / ANRM;
-      }
-      if (ISCALE == 1) dlascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+  // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 
-      // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
+  INDE = 1;
+  INDTAU = INDE + N;
+  INDHOUS = INDTAU + N;
+  INDWRK = INDHOUS + LHTRD;
+  LLWORK = LWORK - INDWRK + 1;
 
-      INDE    = 1;
-      INDTAU  = INDE + N;
-      INDHOUS = INDTAU + N;
-      INDWRK  = INDHOUS + LHTRD;
-      LLWORK  = LWORK - INDWRK + 1;
+  dsytrd_2stage(JOBZ, UPLO, N, A, LDA, W, WORK(INDE), WORK(INDTAU),
+      WORK(INDHOUS), LHTRD, WORK(INDWRK), LLWORK, IINFO);
 
-      dsytrd_2stage(JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
+  // For eigenvalues only, call DSTERF.  For eigenvectors, first call
+  // DORGTR to generate the orthogonal matrix, then call DSTEQR.
 
-      // For eigenvalues only, call DSTERF.  For eigenvectors, first call
-      // DORGTR to generate the orthogonal matrix, then call DSTEQR.
+  if (!WANTZ) {
+    dsterf(N, W, WORK(INDE), INFO);
+  } else {
+    // Not available in this release, and argument checking should not
+    // let it getting here
+    return;
+    // dorgtr(UPLO, N, A, LDA, WORK(INDTAU), WORK(INDWRK), LLWORK, IINFO);
+    // dsteqr(JOBZ, N, W, WORK(INDE), A, LDA, WORK(INDTAU), INFO);
+  }
 
-      if ( !WANTZ ) {
-         dsterf(N, W, WORK( INDE ), INFO );
-      } else {
-         // Not available in this release, and argument checking should not
-         // let it getting here
-         return;
-         dorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
-         dsteqr(JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
-      }
+  // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      // If matrix was scaled, then rescale eigenvalues appropriately.
+  if (ISCALE == 1) {
+    if (INFO.value == 0) {
+      IMAX = N;
+    } else {
+      IMAX = INFO.value - 1;
+    }
+    dscal(IMAX, ONE / SIGMA, W, 1);
+  }
 
-      if ( ISCALE == 1 ) {
-         if ( INFO == 0 ) {
-            IMAX = N;
-         } else {
-            IMAX = INFO - 1;
-         }
-         dscal(IMAX, ONE / SIGMA, W, 1 );
-      }
+  // Set WORK(1) to optimal workspace size.
 
-      // Set WORK(1) to optimal workspace size.
-
-      WORK[1] = LWMIN;
-
-      }
+  WORK[1] = LWMIN.toDouble();
+}

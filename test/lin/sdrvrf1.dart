@@ -1,4 +1,4 @@
-      void sdrvrf1(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A, final int LDA, final int ARF, final Array<double> WORK) {
+      void sdrvrf1(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A, final int LDA, final int ARF, final Array<double> WORK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

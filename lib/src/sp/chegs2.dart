@@ -1,4 +1,4 @@
-      void chegs2(final int ITYPE, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void chegs2(final int ITYPE, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

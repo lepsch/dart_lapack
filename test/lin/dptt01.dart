@@ -1,4 +1,4 @@
-      void dptt01(final int N, final int D, final int E, final int DF, final int EF, final Array<double> _WORK, final int RESID) {
+      void dptt01(final int N, final int D, final int E, final int DF, final int EF, final Array<double> _WORK, final int RESID,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

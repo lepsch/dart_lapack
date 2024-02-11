@@ -1,4 +1,4 @@
-      void cher2k(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final int C, final int LDC) {
+      void cher2k(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final int C, final int LDC,) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

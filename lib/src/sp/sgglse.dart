@@ -1,4 +1,4 @@
-      void sgglse(final int M, final int N, final int P, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int C, final int D, final int X, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void sgglse(final int M, final int N, final int P, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int C, final int D, final int X, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

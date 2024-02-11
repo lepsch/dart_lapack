@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasyf_rk(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
+      void dlasyf_rk(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -61,7 +61,7 @@ import 'package:lapack/src/xerbla.dart';
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
          K = N;
-         } // 10
+        //  } // 10
 
          // KW is the column of W which corresponds to column K of A
 
@@ -128,7 +128,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Loop until pivot found
 
-               } // 12
+              //  } // 12
 
                   // Begin pivot search loop body
 
@@ -327,7 +327,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K - KSTEP;
          GO TO 10;
 
-         } // 30
+        //  } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -366,7 +366,7 @@ import 'package:lapack/src/xerbla.dart';
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1;
-        } // 70
+        // } // 70
 
          // Exit from loop
 
@@ -429,7 +429,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Loop until pivot found
 
-               } // 72
+              //  } // 72
 
                   // Begin pivot search loop body
 
@@ -620,7 +620,7 @@ import 'package:lapack/src/xerbla.dart';
          K = K + KSTEP;
          GO TO 70;
 
-         } // 90
+        //  } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 

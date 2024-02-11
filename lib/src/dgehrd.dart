@@ -127,7 +127,8 @@ void dgehrd(
       // matrices V and T of the block reflector H = I - V*T*V**T
       // which performs the reduction, and also the matrix Y = A*V*T
 
-      dlahr2(IHI, I, IB, A(1, I), LDA, TAU(I), WORK(IWT), LDT, WORK, LDWORK);
+      dlahr2(IHI, I, IB, A(1, I), LDA, TAU(I), WORK(IWT).asMatrix(LDT), LDT,
+          WORK.asMatrix(LDWORK), LDWORK);
 
       // Apply the block reflector H to A(1:ihi,i+ib:ihi) from the
       // right, computing  A := A - Y * V**T. V(i+ib,ib-1) must be set

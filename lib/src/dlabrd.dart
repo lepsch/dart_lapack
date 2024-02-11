@@ -1,129 +1,158 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/dlarfg.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlabrd(final int M, final int N, final int NB, final Matrix<double> A, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Matrix<double> X, final int LDX, final int Y, final int LDY) {
-
+void dlabrd(
+  final int M,
+  final int N,
+  final int NB,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> D,
+  final Array<double> E,
+  final Array<double> TAUQ,
+  final Array<double> TAUP,
+  final Matrix<double> X,
+  final int LDX,
+  final Matrix<double> Y,
+  final int LDY,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDX, LDY, M, N, NB;
-      double             A( LDA, * ), D( * ), E( * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  int I;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMV, DLARFG, DSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (M <= 0 || N <= 0) return;
 
-      if (M <= 0 || N <= 0) return;
+  if (M >= N) {
+    // Reduce to upper bidiagonal form
 
-      if ( M >= N ) {
+    for (I = 1; I <= NB; I++) {
+      // Update A(i:m,i)
 
-         // Reduce to upper bidiagonal form
+      dgemv('No transpose', M - I + 1, I - 1, -ONE, A(I, 1), LDA,
+          Y(I, 1).asArray(), LDY, ONE, A(I, I).asArray(), 1);
+      dgemv('No transpose', M - I + 1, I - 1, -ONE, X(I, 1), LDX,
+          A(1, I).asArray(), 1, ONE, A(I, I).asArray(), 1);
 
-         for (I = 1; I <= NB; I++) { // 10
+      // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
-            // Update A(i:m,i)
+      dlarfg(M - I + 1, A.box(I, I), A(min(I + 1, M), I).asArray(), 1,
+          TAUQ.box(I));
+      D[I] = A[I][I];
+      if (I < N) {
+        A[I][I] = ONE;
 
-            dgemv('No transpose', M-I+1, I-1, -ONE, A( I, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I, I ), 1 );
-            dgemv('No transpose', M-I+1, I-1, -ONE, X( I, 1 ), LDX, A( 1, I ), 1, ONE, A( I, I ), 1 );
+        // Compute Y(i+1:n,i)
 
-            // Generate reflection Q(i) to annihilate A(i+1:m,i)
+        dgemv('Transpose', M - I + 1, N - I, ONE, A(I, I + 1), LDA,
+            A(I, I).asArray(), 1, ZERO, Y(I + 1, I).asArray(), 1);
+        dgemv('Transpose', M - I + 1, I - 1, ONE, A(I, 1), LDA,
+            A(I, I).asArray(), 1, ZERO, Y(1, I).asArray(), 1);
+        dgemv('No transpose', N - I, I - 1, -ONE, Y(I + 1, 1), LDY,
+            Y(1, I).asArray(), 1, ONE, Y(I + 1, I).asArray(), 1);
+        dgemv('Transpose', M - I + 1, I - 1, ONE, X(I, 1), LDX,
+            A(I, I).asArray(), 1, ZERO, Y(1, I).asArray(), 1);
+        dgemv('Transpose', I - 1, N - I, -ONE, A(1, I + 1), LDA,
+            Y(1, I).asArray(), 1, ONE, Y(I + 1, I).asArray(), 1);
+        dscal(N - I, TAUQ[I], Y(I + 1, I).asArray(), 1);
 
-            dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D[I] = A( I, I );
-            if ( I < N ) {
-               A[I][I] = ONE;
+        // Update A(i,i+1:n)
 
-               // Compute Y(i+1:n,i)
+        dgemv('No transpose', N - I, I, -ONE, Y(I + 1, 1), LDY,
+            A(I, 1).asArray(), LDA, ONE, A(I, I + 1).asArray(), LDA);
+        dgemv('Transpose', I - 1, N - I, -ONE, A(1, I + 1), LDA,
+            X(I, 1).asArray(), LDX, ONE, A(I, I + 1).asArray(), LDA);
 
-               dgemv('Transpose', M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, Y( I+1, I ), 1 );
-               dgemv('Transpose', M-I+1, I-1, ONE, A( I, 1 ), LDA, A( I, I ), 1, ZERO, Y( 1, I ), 1 );
-               dgemv('No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               dgemv('Transpose', M-I+1, I-1, ONE, X( I, 1 ), LDX, A( I, I ), 1, ZERO, Y( 1, I ), 1 );
-               dgemv('Transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               dscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
+        // Generate reflection P(i) to annihilate A(i,i+2:n)
 
-               // Update A(i,i+1:n)
+        dlarfg(N - I, A.box(I, I + 1), A(I, min(I + 2, N)).asArray(), LDA,
+            TAUP.box(I));
+        E[I] = A[I][I + 1];
+        A[I][I + 1] = ONE;
 
-               dgemv('No transpose', N-I, I, -ONE, Y( I+1, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I+1 ), LDA );
-               dgemv('Transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, X( I, 1 ), LDX, ONE, A( I, I+1 ), LDA );
+        // Compute X(i+1:m,i)
 
-               // Generate reflection P(i) to annihilate A(i,i+2:n)
-
-               dlarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E[I] = A( I, I+1 );
-               A[I][I+1] = ONE;
-
-               // Compute X(i+1:m,i)
-
-               dgemv('No transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( I+1, I ), 1 );
-               dgemv('Transpose', N-I, I, ONE, Y( I+1, 1 ), LDY, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 );
-               dgemv('No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               dgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 );
-               dgemv('No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               dscal(M-I, TAUP( I ), X( I+1, I ), 1 );
-            }
-         } // 10
-      } else {
-
-         // Reduce to lower bidiagonal form
-
-         for (I = 1; I <= NB; I++) { // 20
-
-            // Update A(i,i:n)
-
-            dgemv('No transpose', N-I+1, I-1, -ONE, Y( I, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I ), LDA );
-            dgemv('Transpose', I-1, N-I+1, -ONE, A( 1, I ), LDA, X( I, 1 ), LDX, ONE, A( I, I ), LDA );
-
-            // Generate reflection P(i) to annihilate A(i,i+1:n)
-
-            dlarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D[I] = A( I, I );
-            if ( I < M ) {
-               A[I][I] = ONE;
-
-               // Compute X(i+1:m,i)
-
-               dgemv('No transpose', M-I, N-I+1, ONE, A( I+1, I ), LDA, A( I, I ), LDA, ZERO, X( I+1, I ), 1 );
-               dgemv('Transpose', N-I+1, I-1, ONE, Y( I, 1 ), LDY, A( I, I ), LDA, ZERO, X( 1, I ), 1 );
-               dgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               dgemv('No transpose', I-1, N-I+1, ONE, A( 1, I ), LDA, A( I, I ), LDA, ZERO, X( 1, I ), 1 );
-               dgemv('No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               dscal(M-I, TAUP( I ), X( I+1, I ), 1 );
-
-               // Update A(i+1:m,i)
-
-               dgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I+1, I ), 1 );
-               dgemv('No transpose', M-I, I, -ONE, X( I+1, 1 ), LDX, A( 1, I ), 1, ONE, A( I+1, I ), 1 );
-
-               // Generate reflection Q(i) to annihilate A(i+2:m,i)
-
-               dlarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E[I] = A( I+1, I );
-               A[I+1][I] = ONE;
-
-               // Compute Y(i+1:n,i)
-
-               dgemv('Transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, Y( I+1, I ), 1 );
-               dgemv('Transpose', M-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 );
-               dgemv('No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               dgemv('Transpose', M-I, I, ONE, X( I+1, 1 ), LDX, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 );
-               dgemv('Transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               dscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
-            }
-         } // 20
+        dgemv('No transpose', M - I, N - I, ONE, A(I + 1, I + 1), LDA,
+            A(I, I + 1).asArray(), LDA, ZERO, X(I + 1, I).asArray(), 1);
+        dgemv('Transpose', N - I, I, ONE, Y(I + 1, 1), LDY,
+            A(I, I + 1).asArray(), LDA, ZERO, X(1, I).asArray(), 1);
+        dgemv('No transpose', M - I, I, -ONE, A(I + 1, 1), LDA,
+            X(1, I).asArray(), 1, ONE, X(I + 1, I).asArray(), 1);
+        dgemv('No transpose', I - 1, N - I, ONE, A(1, I + 1), LDA,
+            A(I, I + 1).asArray(), LDA, ZERO, X(1, I).asArray(), 1);
+        dgemv('No transpose', M - I, I - 1, -ONE, X(I + 1, 1), LDX,
+            X(1, I).asArray(), 1, ONE, X(I + 1, I).asArray(), 1);
+        dscal(M - I, TAUP[I], X(I + 1, I).asArray(), 1);
       }
+    }
+  } else {
+    // Reduce to lower bidiagonal form
+
+    for (I = 1; I <= NB; I++) {
+      // Update A(i,i:n)
+
+      dgemv('No transpose', N - I + 1, I - 1, -ONE, Y(I, 1), LDY,
+          A(I, 1).asArray(), LDA, ONE, A(I, I).asArray(), LDA);
+      dgemv('Transpose', I - 1, N - I + 1, -ONE, A(1, I), LDA,
+          X(I, 1).asArray(), LDX, ONE, A(I, I).asArray(), LDA);
+
+      // Generate reflection P(i) to annihilate A(i,i+1:n)
+
+      dlarfg(N - I + 1, A.box(I, I), A(I, min(I + 1, N)).asArray(), LDA,
+          TAUP.box(I));
+      D[I] = A[I][I];
+      if (I < M) {
+        A[I][I] = ONE;
+
+        // Compute X(i+1:m,i)
+
+        dgemv('No transpose', M - I, N - I + 1, ONE, A(I + 1, I), LDA,
+            A(I, I).asArray(), LDA, ZERO, X(I + 1, I).asArray(), 1);
+        dgemv('Transpose', N - I + 1, I - 1, ONE, Y(I, 1), LDY,
+            A(I, I).asArray(), LDA, ZERO, X(1, I).asArray(), 1);
+        dgemv('No transpose', M - I, I - 1, -ONE, A(I + 1, 1), LDA,
+            X(1, I).asArray(), 1, ONE, X(I + 1, I).asArray(), 1);
+        dgemv('No transpose', I - 1, N - I + 1, ONE, A(1, I), LDA,
+            A(I, I).asArray(), LDA, ZERO, X(1, I).asArray(), 1);
+        dgemv('No transpose', M - I, I - 1, -ONE, X(I + 1, 1), LDX,
+            X(1, I).asArray(), 1, ONE, X(I + 1, I).asArray(), 1);
+        dscal(M - I, TAUP[I], X(I + 1, I).asArray(), 1);
+
+        // Update A(i+1:m,i)
+
+        dgemv('No transpose', M - I, I - 1, -ONE, A(I + 1, 1), LDA,
+            Y(I, 1).asArray(), LDY, ONE, A(I + 1, I).asArray(), 1);
+        dgemv('No transpose', M - I, I, -ONE, X(I + 1, 1), LDX,
+            A(1, I).asArray(), 1, ONE, A(I + 1, I).asArray(), 1);
+
+        // Generate reflection Q(i) to annihilate A(i+2:m,i)
+
+        dlarfg(M - I, A.box(I + 1, I), A(min(I + 2, M), I).asArray(), 1,
+            TAUQ.box(I));
+        E[I] = A[I + 1][I];
+        A[I + 1][I] = ONE;
+
+        // Compute Y(i+1:n,i)
+
+        dgemv('Transpose', M - I, N - I, ONE, A(I + 1, I + 1), LDA,
+            A(I + 1, I).asArray(), 1, ZERO, Y(I + 1, I).asArray(), 1);
+        dgemv('Transpose', M - I, I - 1, ONE, A(I + 1, 1), LDA,
+            A(I + 1, I).asArray(), 1, ZERO, Y(1, I).asArray(), 1);
+        dgemv('No transpose', N - I, I - 1, -ONE, Y(I + 1, 1), LDY,
+            Y(1, I).asArray(), 1, ONE, Y(I + 1, I).asArray(), 1);
+        dgemv('Transpose', M - I, I, ONE, X(I + 1, 1), LDX,
+            A(I + 1, I).asArray(), 1, ZERO, Y(1, I).asArray(), 1);
+        dgemv('Transpose', I, N - I, -ONE, A(1, I + 1), LDA, Y(1, I).asArray(),
+            1, ONE, Y(I + 1, I).asArray(), 1);
+        dscal(N - I, TAUQ[I], Y(I + 1, I).asArray(), 1);
       }
+    }
+  }
+}

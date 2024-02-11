@@ -1,4 +1,4 @@
-      void ssbtrd(final int VECT, final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int D, final int E, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final Box<int> INFO ) {
+      void ssbtrd(final int VECT, final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int D, final int E, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

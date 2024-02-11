@@ -1,4 +1,4 @@
-      void zspsvx(final int FACT, final int UPLO, final int N, final int NRHS, final int AP, final int AFP, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void zspsvx(final int FACT, final int UPLO, final int N, final int NRHS, final int AP, final int AFP, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

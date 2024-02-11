@@ -1,4 +1,4 @@
-      void clqt01(final int M, final int N, final int A, final int AF, final int Q, final int L, final int LDA, final int TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT) {
+      void clqt01(final int M, final int N, final int A, final int AF, final int Q, final int L, final int LDA, final int TAU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

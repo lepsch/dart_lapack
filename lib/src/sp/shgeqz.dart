@@ -1,4 +1,4 @@
-      void shgeqz(final int JOB, final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final Matrix<double> T, final int LDT, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void shgeqz(final int JOB, final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final Matrix<double> T, final int LDT, final int ALPHAR, final int ALPHAI, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

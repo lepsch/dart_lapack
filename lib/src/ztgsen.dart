@@ -1,4 +1,4 @@
-      void ztgsen(final int IJOB, final int WANTQ, final int WANTZ, final int SELECT, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHA, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final int M, final int PL, final int PR, final int DIF, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
+      void ztgsen(final int IJOB, final int WANTQ, final int WANTZ, final int SELECT, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHA, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final int M, final int PL, final int PR, final int DIF, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -384,7 +384,7 @@
       // End of SBLAT2.
 
       }
-      void schk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
+      void schk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER,) {
 
 // Tests SGEMV and SGBMV.
 
@@ -687,7 +687,7 @@
       // End of SCHK1.
 
       }
-      void schk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
+      void schk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER,) {
 
 // Tests SSYMV, SSBMV and SSPMV.
 
@@ -991,7 +991,7 @@
       // End of SCHK2.
 
       }
-      void schk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER) {
+      void schk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER,) {
 
 // Tests STRMV, STBMV, STPMV, STRSV, STBSV and STPSV.
 
@@ -1311,7 +1311,7 @@
       // End of SCHK3.
 
       }
-      void schk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void schk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests SGER.
 
@@ -1545,7 +1545,7 @@
       // End of SCHK4.
 
       }
-      void schk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void schk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests SSYR and SSPR.
 
@@ -1802,7 +1802,7 @@
       // End of SCHK5.
 
       }
-      void schk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void schk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests SSYR2 and SSPR2.
 
@@ -2090,7 +2090,7 @@
       // End of SCHK6.
 
       }
-      void smake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL) {
+      void smake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL,) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.
@@ -2260,7 +2260,7 @@
       // End of SMAKE.
 
       }
-      void smvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
+      void smvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV,) {
 
 // Checks the results of the computational tests.
 
@@ -2369,7 +2369,7 @@
       // End of SMVCH.
 
       }
-      bool lse(final int RI, final int RJ, final int LR) {
+      bool lse(final int RI, final int RJ, final int LR,) {
 
 // Tests if two arrays are identical.
 
@@ -2396,7 +2396,7 @@
       // End of LSE.
 
       }
-      bool lseres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
+      bool lseres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA,) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2451,7 +2451,7 @@
       // End of LSERES.
 
       }
-      double sbeg(final int RESET) {
+      double sbeg(final int RESET,) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2495,7 +2495,7 @@
       // End of SBEG.
 
       }
-      double sdiff(final int X, final int Y) {
+      double sdiff(final int X, final int Y,) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 

@@ -1,4 +1,4 @@
-      void sget40(final int RMAX, final int LMAX, final int NINFO, final int KNT, final int NIN) {
+      void sget40(final int RMAX, final int LMAX, final int NINFO, final int KNT, final int NIN,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

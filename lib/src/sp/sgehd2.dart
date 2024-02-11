@@ -1,4 +1,4 @@
-      void sgehd2(final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final int TAU, final Array<double> _WORK, final Box<int> INFO ) {
+      void sgehd2(final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final int TAU, final Array<double> _WORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slaqr2(final int WANTT, final int WANTZ, final int N, final int KTOP, final int KBOT, final int NW, final Matrix<double> H, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z, final int LDZ, final int NS, final int ND, final int SR, final int SI, final Matrix<double> V, final int LDV, final int NH, final Matrix<double> T, final int LDT, final int NV, final Matrix<double> WV, final int LDWV, final Array<double> WORK, final int LWORK) {
+      void slaqr2(final int WANTT, final int WANTZ, final int N, final int KTOP, final int KBOT, final int NW, final Matrix<double> H, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z, final int LDZ, final int NS, final int ND, final int SR, final int SI, final Matrix<double> V, final int LDV, final int NH, final Matrix<double> T, final int LDT, final int NV, final Matrix<double> WV, final int LDWV, final Array<double> WORK, final int LWORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zdotusub(final int n, final int x, final int incx, final int y, final int incy, final int dotu) {
+      void zdotusub(final int n, final int x, final int incx, final int y, final int incy, final int dotu,) {
 
       // external zdotu
       Complex zdotu,dotu;

@@ -1,4 +1,4 @@
-      void clacrm(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Array<double> RWORK) {
+      void clacrm(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Array<double> RWORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

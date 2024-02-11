@@ -417,7 +417,7 @@ void dgesvdx(
 
       ITAU = 1;
       ITEMP = ITAU + M;
-      dgelqf(M, N, A, LDA, WORK[ITAU], WORK[ITEMP], LWORK - ITEMP + 1, INFO);
+      dgelqf(M, N, A, LDA, WORK(ITAU), WORK(ITEMP), LWORK - ITEMP + 1, INFO);
 
       // Copy L into WORK and bidiagonalize it:
       // (Workspace in WORK[ ITEMP ]: need M*M+5*N, prefer M*M+4*M+2*M*NB)

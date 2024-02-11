@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgbrfsx(final int TRANS, final int EQUED, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int R, final int C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO ) {
+      void dgbrfsx(final int TRANS, final int EQUED, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int R, final int C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

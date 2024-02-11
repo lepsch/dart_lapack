@@ -1,74 +1,68 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dtrsm.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtrtrs(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
-
+void dtrtrs(
+  final String UPLO,
+  final String TRANS,
+  final String DIAG,
+  final int N,
+  final int NRHS,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, TRANS, UPLO;
-      int                INFO, LDA, LDB, N, NRHS;
-      double             A( LDA, * ), B( LDB, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool NOUNIT;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               NOUNIT;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DTRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  NOUNIT = lsame(DIAG, 'N');
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -2;
+  } else if (!NOUNIT && !lsame(DIAG, 'U')) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (NRHS < 0) {
+    INFO.value = -5;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('DTRTRS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      NOUNIT = lsame( DIAG, 'N' );
-      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -2;
-      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( NRHS < 0 ) {
-         INFO = -5;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DTRTRS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  // Check for singularity.
 
-      // Check for singularity.
+  if (NOUNIT) {
+    for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+      // 10
+      if (A[INFO.value][INFO.value] == ZERO) return;
+    } // 10
+  }
+  INFO.value = 0;
 
-      if ( NOUNIT ) {
-         for (INFO = 1; INFO <= N; INFO++) { // 10
-            if( A( INFO, INFO ) == ZERO ) return;
-         } // 10
-      }
-      INFO = 0;
+  // Solve A * x = b  or  A**T * x = b.
 
-      // Solve A * x = b  or  A**T * x = b.
-
-      dtrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
-
-      }
+  dtrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB);
+}

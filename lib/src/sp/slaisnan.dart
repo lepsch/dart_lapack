@@ -1,4 +1,4 @@
-      bool slaisnan(final int SIN1, final int SIN2) {
+      bool slaisnan(final int SIN1, final int SIN2,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

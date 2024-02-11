@@ -152,8 +152,7 @@ void dbdsdc(
     // Ignore WSTART, instead using WORK[ 1 ], since the two vectors
     // for CS.value and -SN.value above are added only if ICOMPQ == 2,
     // and adding them exceeds documented WORK size of 4*n.
-    dlasdq('U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK[1],
-        INFO.value);
+    dlasdq('U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK(1), INFO);
   } else
 
   // If N is smaller than the minimum divide size SMLSIZ, then solve
@@ -163,8 +162,8 @@ void dbdsdc(
     if (ICOMPQ == 2) {
       dlaset('A', N, N, ZERO, ONE, U, LDU);
       dlaset('A', N, N, ZERO, ONE, VT, LDVT);
-      dlasdq('U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK[WSTART],
-          INFO.value);
+      dlasdq('U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK(WSTART),
+          INFO);
     } else if (ICOMPQ == 1) {
       IU = 1;
       IVT = IU + N;
@@ -179,14 +178,14 @@ void dbdsdc(
           0,
           D,
           E,
-          Q(IVT + (QSTART - 1) * N),
+          Q(IVT + (QSTART - 1) * N).asMatrix(N),
           N,
-          Q(IU + (QSTART - 1) * N),
+          Q(IU + (QSTART - 1) * N).asMatrix(N),
           N,
-          Q(IU + (QSTART - 1) * N),
+          Q(IU + (QSTART - 1) * N).asMatrix(N),
           N,
-          WORK[WSTART],
-          INFO.value);
+          WORK(WSTART),
+          INFO);
     }
   } else {
     if (ICOMPQ == 2) {
@@ -261,34 +260,34 @@ void dbdsdc(
           D[N] = (D[N]).abs();
         }
         if (ICOMPQ == 2) {
-          dlasd0(NSIZE, SQRE, D[START], E[START], U[START][START], LDU,
-              VT[START][START], LDVT, SMLSIZ, IWORK, WORK[WSTART], INFO.value);
+          dlasd0(NSIZE, SQRE, D(START), E(START), U(START, START), LDU,
+              VT(START, START), LDVT, SMLSIZ, IWORK, WORK(WSTART), INFO);
         } else {
           dlasda(
               ICOMPQ,
               SMLSIZ,
               NSIZE,
               SQRE,
-              D[START],
-              E[START],
-              Q(START + (IU + QSTART - 2) * N),
+              D(START),
+              E(START),
+              Q(START + (IU + QSTART - 2) * N).asMatrix(N),
               N,
-              Q(START + (IVT + QSTART - 2) * N),
-              IQ[START + K * N],
-              Q(START + (DIFL + QSTART - 2) * N),
-              Q(START + (DIFR + QSTART - 2) * N),
-              Q(START + (Z + QSTART - 2) * N),
-              Q(START + (POLES + QSTART - 2) * N),
-              IQ[START + GIVPTR * N],
-              IQ[START + GIVCOL * N],
+              Q(START + (IVT + QSTART - 2) * N).asMatrix(N),
+              IQ(START + K * N),
+              Q(START + (DIFL + QSTART - 2) * N).asMatrix(N),
+              Q(START + (DIFR + QSTART - 2) * N).asMatrix(N),
+              Q(START + (Z + QSTART - 2) * N).asMatrix(N),
+              Q(START + (POLES + QSTART - 2) * N).asMatrix(N),
+              IQ(START + GIVPTR * N),
+              IQ(START + GIVCOL * N).asMatrix(N),
               N,
-              IQ[START + PERM * N],
-              Q(START + (GIVNUM + QSTART - 2) * N),
+              IQ(START + PERM * N).asMatrix(N),
+              Q(START + (GIVNUM + QSTART - 2) * N).asMatrix(N),
               Q(START + (IC + QSTART - 2) * N),
               Q(START + (IS + QSTART - 2) * N),
-              WORK[WSTART],
+              WORK(WSTART),
               IWORK,
-              INFO.value);
+              INFO);
         }
         if (INFO.value != 0) {
           return;
@@ -341,6 +340,6 @@ void dbdsdc(
   // which rotated B to be upper bidiagonal
 
   if ((IUPLO == 2) && (ICOMPQ == 2)) {
-    dlasr('L', 'V', 'B', N, N, WORK[1], WORK[N], U, LDU);
+    dlasr('L', 'V', 'B', N, N, WORK(1), WORK(N), U, LDU);
   }
 }

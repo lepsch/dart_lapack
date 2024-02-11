@@ -1,4 +1,4 @@
-      void clatmr(final int M, final int N, final int DIST, final Array<int> ISEED, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int GRADE, final int DL, final int MODEL, final int CONDL, final int DR, final int MODER, final int CONDR, final int PIVTNG, final int IPIVOT, final int KL, final int KU, final int SPARSE, final int ANORM, final int PACK, final Matrix<double> A, final int LDA, final Array<int> IWORK, final Box<int> INFO ) {
+      void clatmr(final int M, final int N, final int DIST, final Array<int> ISEED, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int GRADE, final int DL, final int MODEL, final int CONDL, final int DR, final int MODER, final int CONDR, final int PIVTNG, final int IPIVOT, final int KL, final int KU, final int SPARSE, final int ANORM, final int PACK, final Matrix<double> A, final int LDA, final Array<int> IWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

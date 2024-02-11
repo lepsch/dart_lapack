@@ -388,7 +388,7 @@
       // End of CBLAT2.
 
       }
-      void cchk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
+      void cchk1(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER,) {
 
 // Tests CGEMV and CGBMV.
 
@@ -692,7 +692,7 @@
       // End of CCHK1.
 
       }
-      void cchk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER) {
+      void cchk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int IORDER,) {
 
 // Tests CHEMV, CHBMV and CHPMV.
 
@@ -995,7 +995,7 @@
       // End of CCHK2.
 
       }
-      void cchk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER) {
+      void cchk3(final int SNAME, EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z, final int IORDER,) {
 
 // Tests CTRMV, CTBMV, CTPMV, CTRSV, CTBSV and CTPSV.
 
@@ -1314,7 +1314,7 @@
       // End of CCHK3.
 
       }
-      void cchk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void cchk4(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests CGERC and CGERU.
 
@@ -1554,7 +1554,7 @@
       // End of CCHK4.
 
       }
-      void cchk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void cchk5(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests CHER and CHPR.
 
@@ -1811,7 +1811,7 @@
       // End of CCHK5.
 
       }
-      void cchk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER) {
+      void cchk6(final int SNAME, EPS, THRESH, NOUT, NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z, final int IORDER,) {
 
 // Tests CHER2 and CHPR2.
 
@@ -2098,7 +2098,7 @@
       // End of CCHK6.
 
       }
-      void cmvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV) {
+      void cmvch(final int TRANS, final int M, final int N, final int ALPHA, final int A, final int NMAX, final int X, final int INCX, final int BETA, final int Y, final int INCY, final int YT, final int G, final int YY, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV,) {
 
 // Checks the results of the computational tests.
 
@@ -2223,7 +2223,7 @@
       // End of CMVCH.
 
       }
-      bool lce(final int RI, final int RJ, final int LR) {
+      bool lce(final int RI, final int RJ, final int LR,) {
 
 // Tests if two arrays are identical.
 
@@ -2250,7 +2250,7 @@
       // End of LCE.
 
       }
-      bool lceres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA) {
+      bool lceres(final int TYPE, final int UPLO, final int M, final int N, final int AA, final int AS, final int LDA,) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2305,7 +2305,7 @@
       // End of LCERES.
 
       }
-      Complex cbeg(final int RESET) {
+      Complex cbeg(final int RESET,) {
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.
@@ -2355,7 +2355,7 @@
       // End of CBEG.
 
       }
-      double sdiff(final int X, final int Y) {
+      double sdiff(final int X, final int Y,) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2369,7 +2369,7 @@
       // End of SDIFF.
 
       }
-      void cmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL) {
+      void cmake(final int TYPE, final int UPLO, final int DIAG, final int M, final int N, final int A, final int NMAX, final int AA, final int LDA, final int KL, final int KU, final int RESET, final int TRANSL,) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.

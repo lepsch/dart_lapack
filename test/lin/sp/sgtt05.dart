@@ -1,4 +1,4 @@
-      void sgtt05(final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, final int FERR, final int BERR, final int RESLTS) {
+      void sgtt05(final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

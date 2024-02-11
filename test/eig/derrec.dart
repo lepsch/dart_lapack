@@ -83,36 +83,44 @@ void derrec(
 
   srnamc.SRNAMT = 'DTRSYL3';
   infoc.INFOT = 1;
-  dtrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  var NMAXINOUT = Box(NMAX);
+  dtrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
-  dtrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
-  dtrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
-  dtrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
-  dtrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 7;
-  dtrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 9;
-  dtrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 11;
-  dtrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, IWORK, NMAX, WORK, NMAX,
-      INFO);
+  NMAXINOUT = Box(NMAX);
+  dtrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, IWORK, NMAX,
+      WORK.asMatrix(NMAX), NMAXINOUT, INFO);
   chkxer('DTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   NT = NT + 8;
 

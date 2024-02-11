@@ -327,7 +327,7 @@ void dgesvdq(
           if (CONDA) OPTWRK = max(OPTWRK, LWCON);
           OPTWRK = N + OPTWRK;
           if (WNTVA) {
-            dgelqf(N / 2, N, U, LDU, RDUMMY, RDUMMY, -1, IERR);
+            dgelqf(N ~/ 2, N, U, LDU, RDUMMY, RDUMMY, -1, IERR);
             LWRK_DGELQF = RDUMMY[1].toInt();
             dgesvd('S', 'O', N ~/ 2, N ~/ 2, V, LDV, S, U, LDU, V, LDV, RDUMMY,
                 -1, IERR);
@@ -902,7 +902,7 @@ void dgesvdq(
           if (NR > 1) {
             dlaset('L', NR - 1, NR - 1, ZERO, ZERO, U(NR + 2, 1), LDU);
           }
-          dgelqf(NR, N, U[NR + 1][1], LDU, WORK(N + 1), WORK(N + NR + 1),
+          dgelqf(NR, N, U(NR + 1,1), LDU, WORK(N + 1), WORK(N + NR + 1),
               LWORK - N - NR, IERR);
           dlacpy('L', NR, NR, U(NR + 1, 1), LDU, V, LDV);
           if (NR > 1) dlaset('U', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
@@ -953,8 +953,9 @@ void dgesvdq(
   if (NR < N) dlaset('G', N - NR, 1, ZERO, ZERO, S(NR + 1).asMatrix(N), N);
   // .. undo scaling; this may cause overflow in the largest singular
   // values.
-  if (ASCALED)
+  if (ASCALED) {
     dlascl('G', 0, 0, ONE, sqrt(M.toDouble()), NR, 1, S.asMatrix(N), N, IERR);
+  }
   if (CONDA) RWORK[1] = SCONDA;
   RWORK[2] = (p - NR).toDouble();
   // .. p-NR is the number of singular values that are computed as

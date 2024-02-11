@@ -1,4 +1,4 @@
-      void csyswapr(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int I1, final int I2) {
+      void csyswapr(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int I1, final int I2,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,37 +1,24 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dtrmm.dart';
+import 'package:lapack/src/blas/dtrsm.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dsyevd.dart';
+import 'package:lapack/src/dsygst.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/cholesky/top/dpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsygvd(final int ITYPE, final int JOBZ, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int W, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO ) {
+      void dsygvd(final int ITYPE, final String JOBZ, final String UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Array<double> W, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDA, LDB, LIWORK, LWORK, N;
-      int                IWORK( * );
-      double             A( LDA, * ), B( LDB, * ), W( * ), WORK( * );
-      // ..
-
-      double             ONE;
       const              ONE = 1.0 ;
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                LIOPT, LIWMIN, LOPT, LWMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DPOTRF, DSYEVD, DSYGST, DTRMM, DTRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX
 
       // Test the input parameters.
 
@@ -39,13 +26,13 @@ import 'package:lapack/src/xerbla.dart';
       UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      INFO = 0;
+      INFO.value = 0;
       if ( N <= 1 ) {
          LIWMIN = 1;
          LWMIN = 1;
       } else if ( WANTZ ) {
          LIWMIN = 3 + 5*N;
-         LWMIN = 1 + 6*N + 2*N**2;
+         LWMIN = 1 + 6*N + 2*pow(N,2).toInt();
       } else {
          LIWMIN = 1;
          LWMIN = 2*N + 1;
@@ -53,32 +40,32 @@ import 'package:lapack/src/xerbla.dart';
       LOPT = LWMIN;
       LIOPT = LIWMIN;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       }
 
-      if ( INFO == 0 ) {
-         WORK[1] = LOPT;
+      if ( INFO.value == 0 ) {
+         WORK[1] = LOPT.toDouble();
          IWORK[1] = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11;
+            INFO.value = -11;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -13;
+            INFO.value = -13;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DSYGVD', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DSYGVD', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -91,8 +78,8 @@ import 'package:lapack/src/xerbla.dart';
       // Form a Cholesky factorization of B.
 
       dpotrf(UPLO, N, B, LDB, INFO );
-      if ( INFO != 0 ) {
-         INFO = N + INFO;
+      if ( INFO.value != 0 ) {
+         INFO.value = N + INFO.value;
          return;
       }
 
@@ -100,10 +87,10 @@ import 'package:lapack/src/xerbla.dart';
 
       dsygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
       dsyevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO );
-      LOPT = INT( max( LOPT.toDouble(), (WORK( 1 )).toDouble() ) );
-      LIOPT = INT( max( LIOPT.toDouble(), (IWORK( 1 )).toDouble() ) );
+      LOPT = ( max( LOPT.toDouble(), (WORK[1]).toDouble() ) ).toInt();
+      LIOPT = ( max( LIOPT.toDouble(), (IWORK[1]).toDouble() ) ).toInt();
 
-      if ( WANTZ && INFO == 0 ) {
+      if ( WANTZ && INFO.value == 0 ) {
 
          // Backtransform eigenvectors to the original problem.
 
@@ -135,7 +122,7 @@ import 'package:lapack/src/xerbla.dart';
          }
       }
 
-      WORK[1] = LOPT;
+      WORK[1] = LOPT.toDouble();
       IWORK[1] = LIOPT;
 
       }

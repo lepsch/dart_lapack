@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgelsy(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int JPVT, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void dgelsy(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int JPVT, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -161,7 +161,7 @@ import 'package:lapack/src/xerbla.dart';
          RANK = 1;
       }
 
-      } // 10
+      // } // 10
       if ( RANK < MN ) {
          I = RANK + 1;
          dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
@@ -245,7 +245,7 @@ import 'package:lapack/src/xerbla.dart';
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-      } // 70
+      // } // 70
       WORK[1] = LWKOPT;
 
       }

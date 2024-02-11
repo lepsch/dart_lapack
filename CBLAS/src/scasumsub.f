@@ -1,4 +1,4 @@
-      void scasumsub(final int n, final int x, final int incx, final int asum) {
+      void scasumsub(final int n, final int x, final int incx, final int asum,) {
 
       // external scasum
       double scasum,asum;

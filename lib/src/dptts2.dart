@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dptts2(final int N, final int NRHS, final int D, final int E, final int B, final int LDB) {
+      void dptts2(final int N, final int NRHS, final int D, final int E, final int B, final int LDB,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

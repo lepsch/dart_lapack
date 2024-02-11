@@ -1,4 +1,4 @@
-      void dtbt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final int KD, final Matrix<double> AB, final int LDAB, final Array<double> _WORK, final int RAT) {
+      void dtbt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final int KD, final Matrix<double> AB, final int LDAB, final Array<double> _WORK, final int RAT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

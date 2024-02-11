@@ -1,4 +1,4 @@
-      void cgesc2(final int N, final Matrix<double> A, final int LDA, final int RHS, final Array<int> IPIV, final int JPIV, final int SCALE) {
+      void cgesc2(final int N, final Matrix<double> A, final int LDA, final int RHS, final Array<int> IPIV, final int JPIV, final int SCALE,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

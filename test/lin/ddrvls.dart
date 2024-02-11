@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void ddrvls(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int B, final int COPYB, final int C, final int S, final int COPYS, final int NOUT) {
+      void ddrvls(final int DOTYPE, final int NM, final int MVAL, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNB, final int NBVAL, final int NXVAL, final int THRESH, final int TSTERR, final int A, final int COPYA, final int B, final int COPYB, final int C, final int S, final int COPYS, final int NOUT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

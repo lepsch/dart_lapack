@@ -1,4 +1,4 @@
-      void csrscl(final int N, final int SA, final int SX, final int INCX) {
+      void csrscl(final int N, final int SA, final int SX, final int INCX,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

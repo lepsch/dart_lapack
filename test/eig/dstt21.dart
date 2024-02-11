@@ -70,7 +70,7 @@ void dstt21(
     }
   }
 
-  WNORM = dlansy('1', 'L', N, WORK, N, WORK[pow(N, 2).toInt() + 1]);
+  WNORM = dlansy('1', 'L', N, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1));
 
   if (ANORM > WNORM) {
     RESULT[1] = (WNORM / ANORM) / (N * ULP);

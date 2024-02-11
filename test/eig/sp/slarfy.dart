@@ -1,4 +1,4 @@
-      void slarfy(final int UPLO, final int N, final int V, final int INCV, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK) {
+      void slarfy(final int UPLO, final int N, final int V, final int INCV, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

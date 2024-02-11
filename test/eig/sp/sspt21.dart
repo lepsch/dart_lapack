@@ -1,4 +1,4 @@
-      void sspt21(final int ITYPE, final int UPLO, final int N, final int KBAND, final int AP, final int D, final int E, final Matrix<double> U, final int LDU, final int VP, final int TAU, final Array<double> _WORK, final int RESULT) {
+      void sspt21(final int ITYPE, final int UPLO, final int N, final int KBAND, final int AP, final int D, final int E, final Matrix<double> U, final int LDU, final int VP, final int TAU, final Array<double> _WORK, final int RESULT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

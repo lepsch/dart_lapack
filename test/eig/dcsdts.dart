@@ -76,13 +76,13 @@ void dcsdts(
       M,
       P,
       Q,
-      XF(1,1),
+      XF(1, 1),
       LDX,
-      XF(1,Q + 1),
+      XF(1, Q + 1),
       LDX,
-      XF(P + 1,1),
+      XF(P + 1, 1),
       LDX,
-      XF(P + 1,Q + 1),
+      XF(P + 1, Q + 1),
       LDX,
       THETA,
       U1,
@@ -189,7 +189,7 @@ void dcsdts(
 
   // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
-  RESID = dlansy('1', 'Upper', P, WORK, LDU1, RWORK);
+  RESID = dlansy('1', 'Upper', P, WORK.asMatrix(LDU1), LDU1, RWORK);
   RESULT[5] = (RESID / (max(1, P))).toDouble() / ULP;
 
   // Compute I - U2'*U2
@@ -200,7 +200,7 @@ void dcsdts(
 
   // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
-  RESID = dlansy('1', 'Upper', M - P, WORK, LDU2, RWORK);
+  RESID = dlansy('1', 'Upper', M - P, WORK.asMatrix(LDU2), LDU2, RWORK);
   RESULT[6] = (RESID / (max(1, M - P))).toDouble() / ULP;
 
   // Compute I - V1T*V1T'
@@ -258,7 +258,7 @@ void dcsdts(
 
   // Compute the CSD
 
-  dorcsd2by1('Y', 'Y', 'Y', M, P, Q, XF[1][1], LDX, XF[P + 1][1], LDX, THETA,
+  dorcsd2by1('Y', 'Y', 'Y', M, P, Q, XF(1, 1), LDX, XF(P + 1, 1), LDX, THETA,
       U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, IWORK, INFO);
 
   // Compute [X11;X21] := diag(U1,U2)'*[X11;X21]*V1 - [D11;D21]

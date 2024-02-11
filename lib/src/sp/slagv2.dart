@@ -1,4 +1,4 @@
-      void slagv2(final int A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHAR, final int ALPHAI, final int BETA, final int CSL, final int SNL, final int CSR, final int SNR) {
+      void slagv2(final int A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHAR, final int ALPHAI, final int BETA, final int CSL, final int SNL, final int CSR, final int SNR,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

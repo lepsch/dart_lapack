@@ -1,4 +1,4 @@
-      double clangt(final int NORM, final int N, final int DL, final int D, final int DU) {
+      double clangt(final int NORM, final int N, final int DL, final int D, final int DU,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

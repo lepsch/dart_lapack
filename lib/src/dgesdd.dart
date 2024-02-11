@@ -269,7 +269,7 @@ void dgesdd(
       dgelqf(M, N, A, M, DUM(1), DUM(1), -1, IERR);
       LWORK_DGELQF_MN = DUM[1].toInt();
 
-      dorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR);
+      dorglq(N, N, M, DUM(1).asMatrix(N), N, DUM(1), DUM(1), -1, IERR);
       LWORK_DORGLQ_NN = DUM[1].toInt();
 
       dorglq(M, N, M, A, M, DUM(1), DUM(1), -1, IERR);

@@ -1,4 +1,4 @@
-      void cpot03(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AINV, final int LDAINV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RCOND, final int RESID) {
+      void cpot03(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AINV, final int LDAINV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RCOND, final int RESID,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void sppequ(final int UPLO, final int N, final int AP, final int S, final int SCOND, final int AMAX, final Box<int> INFO ) {
+      void sppequ(final int UPLO, final int N, final int AP, final int S, final int SCOND, final int AMAX, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

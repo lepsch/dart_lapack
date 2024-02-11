@@ -1,4 +1,4 @@
-      void slasr(final int SIDE, final int PIVOT, final int DIRECT, final int M, final int N, final int C, final int S, final int A, final int LDA) {
+      void slasr(final int SIDE, final int PIVOT, final int DIRECT, final int M, final int N, final int C, final int S, final int A, final int LDA,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

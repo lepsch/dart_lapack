@@ -1,4 +1,4 @@
-      void cpbstf(final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final Box<int> INFO ) {
+      void cpbstf(final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

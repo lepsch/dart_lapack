@@ -1,4 +1,4 @@
-      void ssyconvf(final int UPLO, final int WAY, final int N, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Box<int> INFO ) {
+      void ssyconvf(final int UPLO, final int WAY, final int N, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -99,7 +99,7 @@ void dlarhs(
   }
   if (!lsame(XTYPE, 'C')) {
     for (J = 1; J <= NRHS; J++) {
-      dlarnv(2, ISEED, N, X(1, J));
+      dlarnv(2, ISEED, N, X(1, J).asArray());
     }
   }
 

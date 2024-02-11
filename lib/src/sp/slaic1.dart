@@ -1,4 +1,4 @@
-      void slaic1(final int JOB, final int J, final int X, final int SEST, final int W, final int GAMMA, final int SESTPR, final int S, final int C) {
+      void slaic1(final int JOB, final int J, final int X, final int SEST, final int W, final int GAMMA, final int SESTPR, final int S, final int C,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

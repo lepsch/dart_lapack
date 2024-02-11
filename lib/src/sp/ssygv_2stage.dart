@@ -1,4 +1,4 @@
-      void ssygv_2stage(final int ITYPE, final int JOBZ, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int W, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void ssygv_2stage(final int ITYPE, final int JOBZ, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int W, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

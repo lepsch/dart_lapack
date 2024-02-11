@@ -1,6 +1,6 @@
 import 'common.dart';
 
-      void ddrvrfp(final int NOUT, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int D_WORK_DLATMS, final int D_WORK_DPOT01, final int D_TEMP_DPOT02, final int D_TEMP_DPOT03, final int D_WORK_DLANSY, final int D_WORK_DPOT02, final int D_WORK_DPOT03) {
+      void ddrvrfp(final int NOUT, final int NN, final int NVAL, final int NNS, final int NSVAL, final int NNT, final int NTVAL, final int THRESH, final int A, final int ASAV, final int AFAC, final int AINV, final int B, final int BSAV, final int XACT, final int X, final int ARF, final int ARFINV, final int D_WORK_DLATMS, final int D_WORK_DPOT01, final int D_TEMP_DPOT02, final int D_TEMP_DPOT03, final int D_WORK_DLANSY, final int D_WORK_DPOT02, final int D_WORK_DPOT03,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

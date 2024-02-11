@@ -1,4 +1,4 @@
-      void chptri(final int UPLO, final int N, final int AP, final Array<int> IPIV, final Array<double> _WORK, final Box<int> INFO ) {
+      void chptri(final int UPLO, final int N, final int AP, final Array<int> IPIV, final Array<double> _WORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -34,8 +34,6 @@ void dsterf(
       OLDGAM,
       P,
       R,
-      RT1 = 0,
-      RT2 = 0,
       RTE,
       S,
       SAFMAX,
@@ -44,6 +42,7 @@ void dsterf(
       SSFMAX,
       SSFMIN;
   // RMAX;
+  final RT1 = Box(0.0), RT2 = Box(0.0);
 
   // Test the input parameters.
 
@@ -104,7 +103,7 @@ void dsterf(
 
     // Scale submatrix in rows and columns L to LEND
 
-    ANORM = dlanst('M', LEND - L + 1, D[L], E[L]);
+    ANORM = dlanst('M', LEND - L + 1, D(L), E(L));
     ISCALE = 0;
     if (ANORM == ZERO) continue;
     if ((ANORM > SSFMAX)) {
@@ -158,8 +157,8 @@ void dsterf(
           if (M == L + 1) {
             RTE = sqrt(E[L]);
             dlae2(D[L], RTE, D[L + 1], RT1, RT2);
-            D[L] = RT1;
-            D[L + 1] = RT2;
+            D[L] = RT1.value;
+            D[L + 1] = RT2.value;
             E[L] = ZERO;
             L = L + 2;
             continue;
@@ -236,8 +235,8 @@ void dsterf(
           if (M == L - 1) {
             RTE = sqrt(E[L - 1]);
             dlae2(D[L], RTE, D[L - 1], RT1, RT2);
-            D[L] = RT1;
-            D[L - 1] = RT2;
+            D[L] = RT1.value;
+            D[L - 1] = RT2.value;
             E[L - 1] = ZERO;
             L = L - 2;
             continue;

@@ -1,4 +1,4 @@
-      void ssbgv(final int JOBZ, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final int W, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Box<int> INFO ) {
+      void ssbgv(final int JOBZ, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final int W, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

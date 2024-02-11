@@ -1,4 +1,4 @@
-      void claunhr_col_getrfnp(final int M, final int N, final Matrix<double> A, final int LDA, final int D, final Box<int> INFO ) {
+      void claunhr_col_getrfnp(final int M, final int N, final Matrix<double> A, final int LDA, final int D, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

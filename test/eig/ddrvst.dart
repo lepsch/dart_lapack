@@ -419,7 +419,7 @@ void ddrvst(
             D2[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEV';
-          dstev('V', N, D1, D2, Z, LDU, WORK, IINFO.value);
+          dstev('V', N, D1, D2, Z, LDU, WORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEV(V)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -448,7 +448,7 @@ void ddrvst(
             D4[I] = (A[I + 1][I]).toDouble();
           }
           srnamc.SRNAMT = 'DSTEV';
-          dstev('N', N, D3, D4, Z, LDU, WORK, IINFO.value);
+          dstev('N', N, D3, D4, Z, LDU, WORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSTEV(N)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1004,7 +1004,7 @@ void ddrvst(
 
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSYEV';
-          dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO.value);
+          dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1027,7 +1027,7 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSYEV';
-          dsyev('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO.value);
+          dsyev('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSYEV(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1278,7 +1278,7 @@ void ddrvst(
 
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSPEV';
-          dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO.value);
+          dspev('V', UPLO, N, WORK, D1, Z, LDU, V.asArray(), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1317,7 +1317,7 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSPEV';
-          dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO.value);
+          dspev('N', UPLO, N, WORK, D3, Z, LDU, V.asArray(), IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEV(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1684,7 +1684,7 @@ void ddrvst(
         while (true) {
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSBEV';
-          dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO.value);
+          dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEV(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -1719,7 +1719,7 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSBEV';
-          dsbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, IINFO.value);
+          dsbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSBEV(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
@@ -2082,7 +2082,7 @@ void ddrvst(
 
           NTEST = NTEST + 1;
           srnamc.SRNAMT = 'DSPEVD';
-          dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK[INDX], LWEDC - INDX + 1,
+          dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK(INDX), LWEDC - INDX + 1,
               IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(V,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);
@@ -2122,7 +2122,7 @@ void ddrvst(
 
           NTEST = NTEST + 2;
           srnamc.SRNAMT = 'DSPEVD';
-          dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK[INDX], LWEDC - INDX + 1,
+          dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK(INDX), LWEDC - INDX + 1,
               IWORK, LIWEDC, IINFO);
           if (IINFO.value != 0) {
             print9999(NOUNIT, 'DSPEVD(N,$UPLO)', IINFO.value, N, JTYPE, IOLDSD);

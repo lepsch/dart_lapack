@@ -1,4 +1,4 @@
-      void icopy(final int N, final int SX, final int INCX, final int SY, final int INCY) {
+      void icopy(final int N, final int SX, final int INCX, final int SY, final int INCY,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void zlaset(final int UPLO, final int M, final int N, final int ALPHA, final int BETA, final int A, final int LDA) {
+      void zlaset(final int UPLO, final int M, final int N, final int ALPHA, final int BETA, final int A, final int LDA,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

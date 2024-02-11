@@ -645,9 +645,9 @@ void dlatmr(
   } else if (IPACK == 2) {
     ONORM = dlansy('M', 'L', N, A, LDA, TEMPA);
   } else if (IPACK == 3) {
-    ONORM = dlansp('M', 'U', N, A, TEMPA);
+    ONORM = dlansp('M', 'U', N, A.asArray(), TEMPA);
   } else if (IPACK == 4) {
-    ONORM = dlansp('M', 'L', N, A, TEMPA);
+    ONORM = dlansp('M', 'L', N, A.asArray(), TEMPA);
   } else if (IPACK == 5) {
     ONORM = dlansb('M', 'L', N, KLL, A, LDA, TEMPA);
   } else if (IPACK == 6) {

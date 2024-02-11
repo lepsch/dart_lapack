@@ -1,4 +1,4 @@
-      double slatm3(final int M, final int N, final int I, final int J, final int ISUB, final int JSUB, final int KL, final int KU, final int IDIST, final Array<int> ISEED, final int D, final int IGRADE, final int DL, final int DR, final int IPVTNG, final Array<int> IWORK, final int SPARSE) {
+      double slatm3(final int M, final int N, final int I, final int J, final int ISUB, final int JSUB, final int KL, final int KU, final int IDIST, final Array<int> ISEED, final int D, final int IGRADE, final int DL, final int DR, final int IPVTNG, final Array<int> IWORK, final int SPARSE,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

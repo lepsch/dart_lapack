@@ -193,7 +193,7 @@ void dstedc(
         if (M > SMLSIZ) {
           // Scale.
 
-          ORGNRM = dlanst('M', M, D[START], E[START]);
+          ORGNRM = dlanst('M', M, D(START), E(START));
           dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D(START).asMatrix(M), M, INFO);
           dlascl('G', 0, 0, ORGNRM, ONE, M - 1, 1, E(START).asMatrix(M - 1),
               M - 1, INFO);

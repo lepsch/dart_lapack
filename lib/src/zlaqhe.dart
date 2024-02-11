@@ -1,4 +1,4 @@
-      void zlaqhe(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int S, final int SCOND, final int AMAX, final int EQUED) {
+      void zlaqhe(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int S, final int SCOND, final int AMAX, final int EQUED,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

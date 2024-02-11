@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlatdf(final int IJOB, final int N, final Matrix<double> Z, final int LDZ, final int RHS, final int RDSUM, final int RDSCAL, final Array<int> IPIV, final int JPIV) {
+      void dlatdf(final int IJOB, final int N, final Matrix<double> Z, final int LDZ, final int RHS, final int RDSUM, final int RDSCAL, final Array<int> IPIV, final int JPIV,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

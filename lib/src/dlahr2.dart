@@ -1,104 +1,123 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/blas/dtrmm.dart';
+import 'package:lapack/src/blas/dtrmv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlarfg.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlahr2(final int N, final int K, final int NB, final Matrix<double> A, final int LDA, final int TAU, final Matrix<double> T, final int LDT, final int Y, final int LDY) {
-
+void dlahr2(
+  final int N,
+  final int K,
+  final int NB,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<double> TAU,
+  final Matrix<double> T,
+  final int LDT,
+  final Matrix<double> Y,
+  final int LDY,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                K, LDA, LDT, LDY, N, NB;
-      double            A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  int I;
+  double EI = 0;
 
-      double            ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I;
-      double            EI;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DCOPY, DGEMM, DGEMV, DLACPY, DLARFG, DSCAL, DTRMM, DTRMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 1) return;
 
-      if (N <= 1) return;
+  for (I = 1; I <= NB; I++) {
+    // 10
+    if (I > 1) {
+      // Update A(K+1:N,I)
 
-      for (I = 1; I <= NB; I++) { // 10
-         if ( I > 1 ) {
+      // Update I-th column of A - Y * V**T
 
-            // Update A(K+1:N,I)
+      dgemv('NO TRANSPOSE', N - K, I - 1, -ONE, Y(K + 1, 1), LDY,
+          A(K + I - 1, 1).asArray(), LDA, ONE, A(K + 1, I).asArray(), 1);
 
-            // Update I-th column of A - Y * V**T
+      // Apply I - V * T**T * V**T to this column (call it b) from the
+      // left, using the last column of T as workspace
+      //
+      // Let  V = ( V1 )   and   b = ( b1 )   (first I-1 rows)
+      //          ( V2 )             ( b2 )
+      //
+      // where V1 is unit lower triangular
+      //
+      // w := V1**T * b1
 
-            dgemv('NO TRANSPOSE', N-K, I-1, -ONE, Y(K+1,1), LDY, A( K+I-1, 1 ), LDA, ONE, A( K+1, I ), 1 );
+      dcopy(I - 1, A(K + 1, I).asArray(), 1, T(1, NB).asArray(), 1);
+      dtrmv('Lower', 'Transpose', 'UNIT', I - 1, A(K + 1, 1), LDA,
+          T(1, NB).asArray(), 1);
 
-            // Apply I - V * T**T * V**T to this column (call it b) from the
-            // left, using the last column of T as workspace
+      // w := w + V2**T * b2
 
-            // Let  V = ( V1 )   and   b = ( b1 )   (first I-1 rows)
-            //          ( V2 )             ( b2 )
+      dgemv('Transpose', N - K - I + 1, I - 1, ONE, A(K + I, 1), LDA,
+          A(K + I, I).asArray(), 1, ONE, T(1, NB).asArray(), 1);
 
-            // where V1 is unit lower triangular
+      // w := T**T * w
 
-            // w := V1**T * b1
+      dtrmv('Upper', 'Transpose', 'NON-UNIT', I - 1, T, LDT, T(1, NB).asArray(),
+          1);
 
-            dcopy(I-1, A( K+1, I ), 1, T( 1, NB ), 1 );
-            dtrmv('Lower', 'Transpose', 'UNIT', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
+      // b2 := b2 - V2*w
 
-            // w := w + V2**T * b2
+      dgemv('NO TRANSPOSE', N - K - I + 1, I - 1, -ONE, A(K + I, 1), LDA,
+          T(1, NB).asArray(), 1, ONE, A(K + I, I).asArray(), 1);
 
-            dgemv('Transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ONE, T( 1, NB ), 1 );
+      // b1 := b1 - V1*w
 
-            // w := T**T * w
+      dtrmv('Lower', 'NO TRANSPOSE', 'UNIT', I - 1, A(K + 1, 1), LDA,
+          T(1, NB).asArray(), 1);
+      daxpy(I - 1, -ONE, T(1, NB).asArray(), 1, A(K + 1, I).asArray(), 1);
 
-            dtrmv('Upper', 'Transpose', 'NON-UNIT', I-1, T, LDT, T( 1, NB ), 1 );
+      A[K + I - 1][I - 1] = EI;
+    }
 
-            // b2 := b2 - V2*w
+    // Generate the elementary reflector H(I) to annihilate
+    // A(K+I+1:N,I)
 
-            dgemv('NO TRANSPOSE', N-K-I+1, I-1, -ONE, A( K+I, 1 ), LDA, T( 1, NB ), 1, ONE, A( K+I, I ), 1 );
+    dlarfg(N - K - I + 1, A.box(K + I, I), A(min(K + I + 1, N), I).asArray(), 1,
+        TAU.box(I));
+    EI = A[K + I][I];
+    A[K + I][I] = ONE;
 
-            // b1 := b1 - V1*w
+    // Compute  Y(K+1:N,I)
 
-            dtrmv('Lower', 'NO TRANSPOSE', 'UNIT', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
-            daxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
+    dgemv('NO TRANSPOSE', N - K, N - K - I + 1, ONE, A(K + 1, I + 1), LDA,
+        A(K + I, I).asArray(), 1, ZERO, Y(K + 1, I).asArray(), 1);
+    dgemv('Transpose', N - K - I + 1, I - 1, ONE, A(K + I, 1), LDA,
+        A(K + I, I).asArray(), 1, ZERO, T(1, I).asArray(), 1);
+    dgemv('NO TRANSPOSE', N - K, I - 1, -ONE, Y(K + 1, 1), LDY,
+        T(1, I).asArray(), 1, ONE, Y(K + 1, I).asArray(), 1);
+    dscal(N - K, TAU[I], Y(K + 1, I).asArray(), 1);
 
-            A[K+I-1][I-1] = EI;
-         }
+    // Compute T(1:I,I)
 
-         // Generate the elementary reflector H(I) to annihilate
-         // A(K+I+1:N,I)
+    dscal(I - 1, -TAU[I], T(1, I).asArray(), 1);
+    dtrmv('Upper', 'No Transpose', 'NON-UNIT', I - 1, T, LDT, T(1, I).asArray(),
+        1);
+    T[I][I] = TAU[I];
+  } // 10
+  A[K + NB][NB] = EI;
 
-         dlarfg(N-K-I+1, A( K+I, I ), A( min( K+I+1, N ), I ), 1, TAU( I ) );
-         EI = A( K+I, I );
-         A[K+I][I] = ONE;
+  // Compute Y(1:K,1:NB)
 
-         // Compute  Y(K+1:N,I)
-
-         dgemv('NO TRANSPOSE', N-K, N-K-I+1, ONE, A( K+1, I+1 ), LDA, A( K+I, I ), 1, ZERO, Y( K+1, I ), 1 );
-         dgemv('Transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ZERO, T( 1, I ), 1 );
-         dgemv('NO TRANSPOSE', N-K, I-1, -ONE, Y( K+1, 1 ), LDY, T( 1, I ), 1, ONE, Y( K+1, I ), 1 );
-         dscal(N-K, TAU( I ), Y( K+1, I ), 1 );
-
-         // Compute T(1:I,I)
-
-         dscal(I-1, -TAU( I ), T( 1, I ), 1 );
-         dtrmv('Upper', 'No Transpose', 'NON-UNIT', I-1, T, LDT, T( 1, I ), 1 );
-         T[I][I] = TAU( I );
-
-      } // 10
-      A[K+NB][NB] = EI;
-
-      // Compute Y(1:K,1:NB)
-
-      dlacpy('ALL', K, NB, A( 1, 2 ), LDA, Y, LDY );
-      dtrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A( K+1, 1 ), LDA, Y, LDY )       IF( N > K+NB ) CALL DGEMM( 'NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N-K-NB, ONE, A( 1, 2+NB ), LDA, A( K+1+NB, 1 ), LDA, ONE, Y, LDY );
-      dtrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY );
-
-      }
+  dlacpy('ALL', K, NB, A(1, 2), LDA, Y, LDY);
+  dtrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A(K + 1, 1), LDA,
+      Y, LDY);
+  if (N > K + NB) {
+    dgemm('NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N - K - NB, ONE, A(1, 2 + NB),
+        LDA, A(K + 1 + NB, 1), LDA, ONE, Y, LDY);
+  }
+  dtrmm(
+      'RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY);
+}

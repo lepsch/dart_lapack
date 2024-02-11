@@ -19,8 +19,9 @@ void dstech(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0;
-  int BPNT, COUNT, I, ISUB, J, NUML = 0, NUMU = 0, TPNT;
+  int BPNT, COUNT, I, ISUB, J, TPNT;
   double EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;
+  final NUML = Box(0), NUMU = Box(0);
 
   // Check input parameters
 
@@ -97,7 +98,7 @@ void dstech(
 
     dstect(N, A, B, LOWER, NUML);
     dstect(N, A, B, UPPER, NUMU);
-    COUNT = NUMU - NUML;
+    COUNT = NUMU.value - NUML.value;
     if (COUNT != BPNT - TPNT + 1) {
       // Wrong number of singular values in interval
 

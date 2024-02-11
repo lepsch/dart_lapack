@@ -1,71 +1,60 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlas2(final int F, final int G, final int H, final int SSMIN, final int SSMAX) {
-
+void dlas2(
+  final double F,
+  final double G,
+  final double H,
+  final Box<double> SSMIN,
+  final Box<double> SSMAX,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      double             F, G, H, SSMAX, SSMIN;
-      // ..
+  const ZERO = 0.0;
+  const ONE = 1.0;
+  const TWO = 2.0;
+  double AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
 
-// ====================================================================
+  FA = (F).abs();
+  GA = (G).abs();
+  HA = (H).abs();
+  FHMN = min(FA, HA);
+  FHMX = max(FA, HA);
+  if (FHMN == ZERO) {
+    SSMIN.value = ZERO;
+    if (FHMX == ZERO) {
+      SSMAX.value = GA;
+    } else {
+      SSMAX.value =
+          max(FHMX, GA) * sqrt(ONE + pow(min(FHMX, GA) / max(FHMX, GA), 2));
+    }
+  } else {
+    if (GA < FHMX) {
+      AS = ONE + FHMN / FHMX;
+      AT = (FHMX - FHMN) / FHMX;
+      AU = pow(GA / FHMX, 2).toDouble();
+      C = TWO / (sqrt(AS * AS + AU) + sqrt(AT * AT + AU));
+      SSMIN.value = FHMN * C;
+      SSMAX.value = FHMX / C;
+    } else {
+      AU = FHMX / GA;
+      if (AU == ZERO) {
+        // Avoid possible harmful underflow if exponent range
+        // asymmetric (true SSMIN.value may not underflow even if
+        // AU underflows)
 
-      // .. Parameters ..
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      double             ONE;
-      const              ONE = 1.0 ;
-      double             TWO;
-      const              TWO = 2.0 ;
-      double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN, SQRT
-
-      FA = ( F ).abs();
-      GA = ( G ).abs();
-      HA = ( H ).abs();
-      FHMN = min( FA, HA );
-      FHMX = max( FA, HA );
-      if ( FHMN == ZERO ) {
-         SSMIN = ZERO;
-         if ( FHMX == ZERO ) {
-            SSMAX = GA;
-         } else {
-            SSMAX = max( FHMX, GA )*sqrt( ONE+ ( min( FHMX, GA ) / max( FHMX, GA ) )**2 );
-         }
+        SSMIN.value = (FHMN * FHMX) / GA;
+        SSMAX.value = GA;
       } else {
-         if ( GA < FHMX ) {
-            AS = ONE + FHMN / FHMX;
-            AT = ( FHMX-FHMN ) / FHMX;
-            AU = ( GA / FHMX )**2;
-            C = TWO / ( sqrt( AS*AS+AU )+sqrt( AT*AT+AU ) );
-            SSMIN = FHMN*C;
-            SSMAX = FHMX / C;
-         } else {
-            AU = FHMX / GA;
-            if ( AU == ZERO ) {
-
-               // Avoid possible harmful underflow if exponent range
-               // asymmetric (true SSMIN may not underflow even if
-               // AU underflows)
-
-               SSMIN = ( FHMN*FHMX ) / GA;
-               SSMAX = GA;
-            } else {
-               AS = ONE + FHMN / FHMX;
-               AT = ( FHMX-FHMN ) / FHMX;
-               C = ONE / ( sqrt( ONE+( AS*AU )**2 )+ sqrt( ONE+( AT*AU )**2 ) );
-               SSMIN = ( FHMN*C )*AU;
-               SSMIN = SSMIN + SSMIN;
-               SSMAX = GA / ( C+C );
-            }
-         }
+        AS = ONE + FHMN / FHMX;
+        AT = (FHMX - FHMN) / FHMX;
+        C = ONE / (sqrt(ONE + pow(AS * AU, 2)) + sqrt(ONE + pow(AT * AU, 2)));
+        SSMIN.value = (FHMN * C) * AU;
+        SSMIN.value = SSMIN.value + SSMIN.value;
+        SSMAX.value = GA / (C + C);
       }
-      }
+    }
+  }
+}

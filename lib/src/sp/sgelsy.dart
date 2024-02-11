@@ -1,4 +1,4 @@
-      void sgelsy(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int JPVT, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void sgelsy(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int JPVT, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

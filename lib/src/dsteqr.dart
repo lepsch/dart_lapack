@@ -52,21 +52,12 @@ void dsteqr(
       MM1,
       NM1,
       NMAXIT;
-  double ANORM,
-      B,
-      EPS,
-      EPS2,
-      F,
-      G,
-      P,
-      RT1 = 0,
-      RT2 = 0,
-      SAFMAX,
-      SAFMIN,
-      SSFMAX,
-      SSFMIN,
-      TST;
-  final C = Box(0.0), S = Box(0.0), R = Box(0.0);
+  double ANORM, B, EPS, EPS2, F, G, P, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
+  final C = Box(0.0),
+      S = Box(0.0),
+      R = Box(0.0),
+      RT1 = Box(0.0),
+      RT2 = Box(0.0);
 
   // Test the input parameters.
 
@@ -160,7 +151,7 @@ void dsteqr(
 
     // Scale submatrix in rows and columns L to LEND
 
-    ANORM = dlanst('M', LEND - L + 1, D[L], E[L]);
+    ANORM = dlanst('M', LEND - L + 1, D(L), E(L));
     ISCALE = 0;
     if (ANORM == ZERO) continue;
     if (ANORM > SSFMAX) {
@@ -211,16 +202,16 @@ void dsteqr(
 
           if (M == L + 1) {
             if (ICOMPZ > 0) {
-              dlaev2(D[L], E[L], D[L + 1], RT1, RT2, C.value, S.value);
+              dlaev2(D[L], E[L], D[L + 1], RT1, RT2, C, S);
               WORK[L] = C.value;
               WORK[N - 1 + L] = S.value;
               dlasr(
-                  'R', 'V', 'B', N, 2, WORK[L], WORK[N - 1 + L], Z[1][L], LDZ);
+                  'R', 'V', 'B', N, 2, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
             } else {
               dlae2(D[L], E[L], D[L + 1], RT1, RT2);
             }
-            D[L] = RT1;
-            D[L + 1] = RT2;
+            D[L] = RT1.value;
+            D[L + 1] = RT2.value;
             E[L] = ZERO;
             L = L + 2;
             if (L <= LEND) continue;
@@ -264,7 +255,7 @@ void dsteqr(
             if (ICOMPZ > 0) {
               MM = M - L + 1;
               dlasr(
-                  'R', 'V', 'B', N, MM, WORK[L], WORK[N - 1 + L], Z[1][L], LDZ);
+                  'R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
             }
 
             D[L] = D[L] - P;
@@ -314,16 +305,16 @@ void dsteqr(
 
         if (M == L - 1) {
           if (ICOMPZ > 0) {
-            dlaev2(D[L - 1], E[L - 1], D[L], RT1, RT2, C.value, S.value);
+            dlaev2(D[L - 1], E[L - 1], D[L], RT1, RT2, C, S);
             WORK[M] = C.value;
             WORK[N - 1 + M] = S.value;
-            dlasr('R', 'V', 'F', N, 2, WORK[M], WORK[N - 1 + M], Z[1][L - 1],
+            dlasr('R', 'V', 'F', N, 2, WORK(M), WORK(N - 1 + M), Z(1, L - 1),
                 LDZ);
           } else {
             dlae2(D[L - 1], E[L - 1], D[L], RT1, RT2);
           }
-          D[L - 1] = RT1;
-          D[L] = RT2;
+          D[L - 1] = RT1.value;
+          D[L] = RT2.value;
           E[L - 1] = ZERO;
           L = L - 2;
           if (L >= LEND) continue;
@@ -366,7 +357,7 @@ void dsteqr(
 
           if (ICOMPZ > 0) {
             MM = L - M + 1;
-            dlasr('R', 'V', 'F', N, MM, WORK[M], WORK[N - 1 + M], Z[1][M], LDZ);
+            dlasr('R', 'V', 'F', N, MM, WORK(M), WORK(N - 1 + M), Z(1, M), LDZ);
           }
 
           D[L] = D[L] - P;

@@ -1,4 +1,4 @@
-      void zlaqgb(final int M, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final int EQUED) {
+      void zlaqgb(final int M, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final int EQUED,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

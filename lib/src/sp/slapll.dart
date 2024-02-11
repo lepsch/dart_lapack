@@ -1,4 +1,4 @@
-      void slapll(final int N, final int X, final int INCX, final int Y, final int INCY, final int SSMIN) {
+      void slapll(final int N, final int X, final int INCX, final int Y, final int INCY, final int SSMIN,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

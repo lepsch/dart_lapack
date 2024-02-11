@@ -1,4 +1,4 @@
-      void zlarfg(final int N, final int ALPHA, final int X, final int INCX, final int TAU) {
+      void zlarfg(final int N, final int ALPHA, final int X, final int INCX, final int TAU,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slarscl2(final int M, final int N, final int D, final int X, final int LDX) {
+      void slarscl2(final int M, final int N, final int D, final int X, final int LDX,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      void slasd5(final int I, final int D, final int Z, final int DELTA, final int RHO, final int DSIGMA, final Array<double> WORK) {
+      void slasd5(final int I, final int D, final int Z, final int DELTA, final int RHO, final int DSIGMA, final Array<double> WORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

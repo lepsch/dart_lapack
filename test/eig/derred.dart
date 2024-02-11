@@ -163,32 +163,32 @@ void derred(
 
     srnamc.SRNAMT = 'DGEESX';
     infoc.INFOT = 1;
-    dgeesx('X', 'N', dslect, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        1, IW, 1, B, INFO);
+    dgeesx('X', 'N', dslect, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 1, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 2;
-    dgeesx('N', 'X', dslect, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        1, IW, 1, B, INFO);
+    dgeesx('N', 'X', dslect, 'N', 0, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 1, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 4;
-    dgeesx('N', 'N', dslect, 'X', 0, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        1, IW, 1, B, INFO);
+    dgeesx('N', 'N', dslect, 'X', 0, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 1, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 5;
-    dgeesx('N', 'N', dslect, 'N', -1, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1),
-        W, 1, IW, 1, B, INFO);
+    dgeesx('N', 'N', dslect, 'N', -1, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 1, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 7;
-    dgeesx('N', 'N', dslect, 'N', 2, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        6, IW, 1, B, INFO);
+    dgeesx('N', 'N', dslect, 'N', 2, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 6, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 12;
-    dgeesx('V', 'N', dslect, 'N', 2, A, 2, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        6, IW, 1, B, INFO);
+    dgeesx('V', 'N', dslect, 'N', 2, A, 2, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 6, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     infoc.INFOT = 16;
-    dgeesx('N', 'N', dslect, 'N', 1, A, 1, SDIM, WR, WI, VL, 1, R1(1), R2(1), W,
-        2, IW, 1, B, INFO);
+    dgeesx('N', 'N', dslect, 'N', 1, A, 1, SDIM, WR, WI, VL, 1, R1.box(1),
+        R2.box(1), W, 2, IW, 1, B, INFO);
     chkxer('DGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
     NT = NT + 7;
   } else if (lsamen(2, C2, 'BD')) {

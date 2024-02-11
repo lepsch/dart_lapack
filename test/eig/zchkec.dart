@@ -1,4 +1,4 @@
-      void zchkec(final int THRESH, final int TSTERR, final int NIN, final int NOUT) {
+      void zchkec(final int THRESH, final int TSTERR, final int NIN, final int NOUT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

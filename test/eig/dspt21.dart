@@ -97,7 +97,7 @@ void dspt21(
             WORK);
       }
     }
-    WNORM = dlansp('1', CUPLO, N, WORK, WORK[pow(N, 2).toInt() + 1]);
+    WNORM = dlansp('1', CUPLO, N, WORK, WORK(pow(N, 2).toInt() + 1));
   } else if (ITYPE == 2) {
     // ITYPE=2: error = V S V**T - A
 
@@ -157,13 +157,13 @@ void dspt21(
     for (J = 1; J <= LAP; J++) {
       WORK[J] = WORK[J] - AP[J];
     }
-    WNORM = dlansp('1', CUPLO, N, WORK, WORK[LAP + 1]);
+    WNORM = dlansp('1', CUPLO, N, WORK, WORK(LAP + 1));
   } else if (ITYPE == 3) {
     // ITYPE=3: error = U V**T - I
 
     if (N < 2) return;
     dlacpy(' ', N, N, U, LDU, WORK.asMatrix(N), N);
-    dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK[pow(N, 2).toInt() + 1],
+    dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK.asMatrix(N), N, WORK(pow(N, 2).toInt() + 1),
         IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = TEN / ULP;

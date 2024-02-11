@@ -1,4 +1,4 @@
-      void ztrsyl3(final int TRANA, final int TRANB, final int ISGN, final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final int SCALE, final Matrix<double> SWORK, final int LDSWORK, final Box<int> INFO ) {
+      void ztrsyl3(final int TRANA, final int TRANB, final int ISGN, final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final int SCALE, final Matrix<double> SWORK, final int LDSWORK, final Box<int> INFO,) {
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, LDSWORK, M, N;
       double             SCALE;

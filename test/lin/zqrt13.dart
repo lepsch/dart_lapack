@@ -1,4 +1,4 @@
-      void zqrt13(final int SCALE, final int M, final int N, final Matrix<double> A, final int LDA, final int NORMA, final int ISEED) {
+      void zqrt13(final int SCALE, final int M, final int N, final Matrix<double> A, final int LDA, final int NORMA, final int ISEED,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

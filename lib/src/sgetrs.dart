@@ -1,45 +1,39 @@
-      void sgetrs(final int TRANS, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/strsm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/sp/slaswp.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void sgetrs(final String TRANS, final int N, final int NRHS,
+  final Matrix<double> A, final int LDA, final Array<int> IPIV,
+  final Matrix<double> B, final int LDB, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, LDA, LDB, N, NRHS;
-      int                IPIV( * );
-      double               A( LDA, * ), B( LDB, * );
-      // ..
-
-      double               ONE;
       const              ONE = 1.0 ;
       bool               NOTRAN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL SLASWP, STRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       NOTRAN = lsame( TRANS, 'N' );
       if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       }
-      if ( INFO != 0 ) {
-         xerbla('SGETRS', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('SGETRS', -INFO.value );
          return;
       }
 

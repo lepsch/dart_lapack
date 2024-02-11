@@ -1,4 +1,4 @@
-      double clanhf(final int NORM, final int TRANSR, final int UPLO, final int N, final int A, final Array<double> WORK) {
+      double clanhf(final int NORM, final int TRANSR, final int UPLO, final int N, final int A, final Array<double> WORK,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

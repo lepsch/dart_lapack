@@ -1,4 +1,4 @@
-      void stbmv(final int UPLO, final int TRANS, final int DIAG, final int N, final int K, final Matrix<double> A, final int LDA, final int X, final int INCX) {
+      void stbmv(final int UPLO, final int TRANS, final int DIAG, final int N, final int K, final Matrix<double> A, final int LDA, final int X, final int INCX,) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

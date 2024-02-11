@@ -1,4 +1,4 @@
-      void sgetsqrhrt(final int M, final int N, final int MB1, final int NB1, final int NB2, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> WORK, final int LWORK, final Box<int> INFO ) {
+      void sgetsqrhrt(final int M, final int N, final int MB1, final int NB1, final int NB2, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--

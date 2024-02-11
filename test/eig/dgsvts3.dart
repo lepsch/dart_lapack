@@ -142,7 +142,7 @@ void dgsvts3(
 
   // Compute norm( I - U'*U ) / ( M * ULP ) .
 
-  RESID = dlansy('1', 'Upper', M, WORK, LDU, RWORK);
+  RESID = dlansy('1', 'Upper', M, WORK.asMatrix(LDU), LDU, RWORK);
   RESULT[3] = (RESID / (max(1, M)).toDouble()) / ULP;
 
   // Compute I - V'*V
@@ -152,7 +152,7 @@ void dgsvts3(
 
   // Compute norm( I - V'*V ) / ( P * ULP ) .
 
-  RESID = dlansy('1', 'Upper', P, WORK, LDV, RWORK);
+  RESID = dlansy('1', 'Upper', P, WORK.asMatrix(LDV), LDV, RWORK);
   RESULT[4] = (RESID / (max(1, P)).toDouble()) / ULP;
 
   // Compute I - Q'*Q
@@ -162,7 +162,7 @@ void dgsvts3(
 
   // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-  RESID = dlansy('1', 'Upper', N, WORK, LDQ, RWORK);
+  RESID = dlansy('1', 'Upper', N, WORK.asMatrix(LDQ), LDQ, RWORK);
   RESULT[5] = (RESID / (max(1, N)).toDouble()) / ULP;
 
   // Check sorting

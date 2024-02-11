@@ -1,4 +1,4 @@
-      double sqpt01(final int M, final int N, final int K, final int A, final int AF, final int LDA, final int TAU, final int JPVT, final Array<double> WORK, final int LWORK) {
+      double sqpt01(final int M, final int N, final int K, final int A, final int AF, final int LDA, final int TAU, final int JPVT, final Array<double> WORK, final int LWORK,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

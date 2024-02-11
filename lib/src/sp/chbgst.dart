@@ -1,4 +1,4 @@
-      void chbgst(final int VECT, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final Matrix<double> X, final int LDX, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO ) {
+      void chbgst(final int VECT, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final Matrix<double> X, final int LDX, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

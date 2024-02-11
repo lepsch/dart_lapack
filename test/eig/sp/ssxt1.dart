@@ -1,4 +1,4 @@
-      double ssxt1(final int IJOB, final int D1, final int N1, final int D2, final int N2, final int ABSTOL, final int ULP, final int UNFL) {
+      double ssxt1(final int IJOB, final int D1, final int N1, final int D2, final int N2, final int ABSTOL, final int ULP, final int UNFL,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

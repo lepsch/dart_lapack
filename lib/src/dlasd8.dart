@@ -1,140 +1,150 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/ddot.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlasd4.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlasd8(final int ICOMPQ, final int K, final int D, final int Z, final int VF, final int VL, final int DIFL, final Matrix<double> DIFR, final int LDDIFR, final int DSIGMA, final Array<double> _WORK, final Box<int> INFO ) {
-
+void dlasd8(
+  final int ICOMPQ,
+  final int K,
+  final Array<double> D,
+  final Array<double> Z,
+  final Array<double> VF,
+  final Array<double> VL,
+  final Array<double> DIFL,
+  final Matrix<double> DIFR,
+  final int LDDIFR,
+  final Array<double> DSIGMA,
+  final Array<double> WORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                ICOMPQ, INFO, K, LDDIFR;
-      double             D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
-      // ..
+  const ONE = 1.0;
+  int I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
+  double DIFLJ, DIFRJ = 0, DJ, DSIGJ, DSIGJP = 0, RHO, TEMP;
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
-      double             DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DLASCL, DLASD4, DLASET, XERBLA
-      // ..
-      // .. External Functions ..
-      //- double             DDOT, DLAMC3, DNRM2;
-      // EXTERNAL DDOT, DLAMC3, DNRM2
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SIGN, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
 
-      INFO = 0;
+  if ((ICOMPQ < 0) || (ICOMPQ > 1)) {
+    INFO.value = -1;
+  } else if (K < 1) {
+    INFO.value = -2;
+  } else if (LDDIFR < K) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('DLASD8', -INFO.value);
+    return;
+  }
 
-      if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
-         INFO = -1;
-      } else if ( K < 1 ) {
-         INFO = -2;
-      } else if ( LDDIFR < K ) {
-         INFO = -9;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DLASD8', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (K == 1) {
+    D[1] = (Z[1]).abs();
+    DIFL[1] = D[1];
+    if (ICOMPQ == 1) {
+      DIFL[2] = ONE;
+      DIFR[1][2] = ONE;
+    }
+    return;
+  }
 
-      if ( K == 1 ) {
-         D[1] = ( Z( 1 ) ).abs();
-         DIFL[1] = D( 1 );
-         if ( ICOMPQ == 1 ) {
-            DIFL[2] = ONE;
-            DIFR[1][2] = ONE;
-         }
-         return;
-      }
+  // Book keeping.
 
-      // Book keeping.
+  IWK1 = 1;
+  IWK2 = IWK1 + K;
+  IWK3 = IWK2 + K;
+  IWK2I = IWK2 - 1;
+  IWK3I = IWK3 - 1;
 
-      IWK1 = 1;
-      IWK2 = IWK1 + K;
-      IWK3 = IWK2 + K;
-      IWK2I = IWK2 - 1;
-      IWK3I = IWK3 - 1;
+  // Normalize Z.
 
-      // Normalize Z.
+  RHO = dnrm2(K, Z, 1);
+  dlascl('G', 0, 0, RHO, ONE, K, 1, Z.asMatrix(K), K, INFO);
+  RHO = RHO * RHO;
 
-      RHO = dnrm2( K, Z, 1 );
-      dlascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
-      RHO = RHO*RHO;
+  // Initialize WORK(IWK3).
 
-      // Initialize WORK(IWK3).
+  dlaset('A', K, 1, ONE, ONE, WORK(IWK3).asMatrix(K), K);
 
-      dlaset('A', K, 1, ONE, ONE, WORK( IWK3 ), K );
+  // Compute the updated singular values, the arrays DIFL, DIFR,
+  // and the updated Z.
 
-      // Compute the updated singular values, the arrays DIFL, DIFR,
-      // and the updated Z.
+  for (J = 1; J <= K; J++) {
+    dlasd4(K, J, DSIGMA, Z, WORK(IWK1), RHO, D.box(J), WORK(IWK2), INFO);
 
-      for (J = 1; J <= K; J++) { // 40
-         dlasd4(K, J, DSIGMA, Z, WORK( IWK1 ), RHO, D( J ), WORK( IWK2 ), INFO );
+    // If the root finder fails, report the convergence failure.
 
-         // If the root finder fails, report the convergence failure.
+    if (INFO.value != 0) {
+      return;
+    }
+    WORK[IWK3I + J] = WORK[IWK3I + J] * WORK[J] * WORK[IWK2I + J];
+    DIFL[J] = -WORK[J];
+    DIFR[J][1] = -WORK[J + 1];
+    for (I = 1; I <= J - 1; I++) {
+      WORK[IWK3I + I] = WORK[IWK3I + I] *
+          WORK[I] *
+          WORK[IWK2I + I] /
+          (DSIGMA[I] - DSIGMA[J]) /
+          (DSIGMA[I] + DSIGMA[J]);
+    }
+    for (I = J + 1; I <= K; I++) {
+      WORK[IWK3I + I] = WORK[IWK3I + I] *
+          WORK[I] *
+          WORK[IWK2I + I] /
+          (DSIGMA[I] - DSIGMA[J]) /
+          (DSIGMA[I] + DSIGMA[J]);
+    }
+  }
 
-         if ( INFO != 0 ) {
-            return;
-         }
-         WORK[IWK3I+J] = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J );
-         DIFL[J] = -WORK( J );
-         DIFR[J][1] = -WORK( J+1 );
-         for (I = 1; I <= J - 1; I++) { // 20
-            WORK[IWK3I+I] = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
-         } // 20
-         for (I = J + 1; I <= K; I++) { // 30
-            WORK[IWK3I+I] = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) );
-         } // 30
-      } // 40
+  // Compute updated Z.
 
-      // Compute updated Z.
+  for (I = 1; I <= K; I++) {
+    Z[I] = sign(sqrt((WORK[IWK3I + I]).abs()), Z[I]).toDouble();
+  }
 
-      for (I = 1; I <= K; I++) { // 50
-         Z[I] = sign( sqrt( ( WORK( IWK3I+I ) ).abs() ), Z( I ) );
-      } // 50
+  // Update VF and VL.
 
-      // Update VF and VL.
+  for (J = 1; J <= K; J++) {
+    DIFLJ = DIFL[J];
+    DJ = D[J];
+    DSIGJ = -DSIGMA[J];
+    if (J < K) {
+      DIFRJ = -DIFR[J][1];
+      DSIGJP = -DSIGMA[J + 1];
+    }
+    WORK[J] = -Z[J] / DIFLJ / (DSIGMA[J] + DJ);
 
-      for (J = 1; J <= K; J++) { // 80
-         DIFLJ = DIFL( J );
-         DJ = D( J );
-         DSIGJ = -DSIGMA( J );
-         if ( J < K ) {
-            DIFRJ = -DIFR( J, 1 );
-            DSIGJP = -DSIGMA( J+1 );
-         }
-         WORK[J] = -Z( J ) / DIFLJ / ( DSIGMA( J )+DJ );
+    // Use calls to the subroutine DLAMC3 to enforce the parentheses
+    // (x+y)+z. The goal is to prevent optimizing compilers
+    // from doing x+(y+z).
 
-         // Use calls to the subroutine DLAMC3 to enforce the parentheses
-         // (x+y)+z. The goal is to prevent optimizing compilers
-         // from doing x+(y+z).
+    for (I = 1; I <= J - 1; I++) {
+      WORK[I] = Z[I] / (dlamc3(DSIGMA[I], DSIGJ) - DIFLJ) / (DSIGMA[I] + DJ);
+    }
+    for (I = J + 1; I <= K; I++) {
+      WORK[I] = Z[I] / (dlamc3(DSIGMA[I], DSIGJP) + DIFRJ) / (DSIGMA[I] + DJ);
+    }
+    TEMP = dnrm2(K, WORK, 1);
+    WORK[IWK2I + J] = ddot(K, WORK, 1, VF, 1) / TEMP;
+    WORK[IWK3I + J] = ddot(K, WORK, 1, VL, 1) / TEMP;
+    if (ICOMPQ == 1) {
+      DIFR[J][2] = TEMP;
+    }
+  }
 
-         for (I = 1; I <= J - 1; I++) { // 60
-            WORK[I] = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJ )-DIFLJ ) / ( DSIGMA( I )+DJ );
-         } // 60
-         for (I = J + 1; I <= K; I++) { // 70
-            WORK[I] = Z( I ) / ( DLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ );
-         } // 70
-         TEMP = dnrm2( K, WORK, 1 );
-         WORK[IWK2I+J] = ddot( K, WORK, 1, VF, 1 ) / TEMP;
-         WORK[IWK3I+J] = ddot( K, WORK, 1, VL, 1 ) / TEMP;
-         if ( ICOMPQ == 1 ) {
-            DIFR[J][2] = TEMP;
-         }
-      } // 80
-
-      dcopy(K, WORK( IWK2 ), 1, VF, 1 );
-      dcopy(K, WORK( IWK3 ), 1, VL, 1 );
-
-      }
+  dcopy(K, WORK(IWK2), 1, VF, 1);
+  dcopy(K, WORK(IWK3), 1, VL, 1);
+}

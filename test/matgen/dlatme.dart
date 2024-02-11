@@ -243,7 +243,7 @@ void dlatme(
       } else {
         JR = JC - 1;
       }
-      dlarnv(IDIST, ISEED, JR, A[1][JC]);
+      dlarnv(IDIST, ISEED, JR, A(1, JC).asArray());
     }
   }
 
@@ -251,7 +251,7 @@ void dlatme(
 
   // -1
   // Transform is  X A X  , where X = U S V, thus
-
+  //
   // it is  U S V A V' (1/S) U'
 
   if (ISIM != 0) {

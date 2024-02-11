@@ -1,4 +1,4 @@
-      void claipd(final int N, final int A, final int INDA, final int VINDA) {
+      void claipd(final int N, final int A, final int INDA, final int VINDA,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

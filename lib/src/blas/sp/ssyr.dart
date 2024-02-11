@@ -1,4 +1,4 @@
-      void ssyr(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int A, final int LDA) {
+      void ssyr(final int UPLO, final int N, final int ALPHA, final int X, final int INCX, final int A, final int LDA,) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -64,28 +64,21 @@ void dstemr(
       INDGP,
       INDGRS,
       INDWRK,
-      ITMP = 0,
-      ITMP2 = 0,
       J,
       JBLK,
       JJ,
       LIWMIN,
       LWMIN,
-      NZCMIN = 0,
       OFFSET,
       WBEGIN,
       WEND = 0;
   double BIGNUM,
-      CS = 0,
       EPS,
-      R1 = 0,
-      R2 = 0,
       RMAX,
       RMIN,
       SAFMIN,
       SCALE,
       SMLNUM,
-      SN = 0,
       THRESH,
       TMP,
       TNRM;
@@ -93,8 +86,16 @@ void dstemr(
       WU = Box(0.0),
       PIVMIN = Box(0.0),
       RTOL1 = Box(0.0),
-      RTOL2 = Box(0.0);
-  final IINFO = Box(0), NSPLIT = Box(0);
+      RTOL2 = Box(0.0),
+            CS = Box(0.0),
+      SN = Box(0.0),
+      R1 = Box(0.0),
+      R2 = Box(0.0);
+;
+  final IINFO = Box(0), NSPLIT = Box(0),
+      ITMP = Box(0), ITMP2 = Box(0),
+      NZCMIN = Box(0)
+  ;
 
   // Test the input parameters.
 
@@ -172,18 +173,18 @@ void dstemr(
     IWORK[1] = LIWMIN;
 
     if (WANTZ && ALLEIG) {
-      NZCMIN = N;
+      NZCMIN.value = N;
     } else if (WANTZ && VALEIG) {
-      dlarrc('T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO.value);
+      dlarrc('T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO);
     } else if (WANTZ && INDEIG) {
-      NZCMIN = IIU - IIL + 1;
+      NZCMIN.value = IIU - IIL + 1;
     } else {
       // WANTZ == FALSE.
-      NZCMIN = 0;
+      NZCMIN.value = 0;
     }
     if (ZQUERY && INFO.value == 0) {
-      Z[1][1] = NZCMIN.toDouble();
-    } else if (NZC < NZCMIN && !ZQUERY) {
+      Z[1][1] = NZCMIN.value.toDouble();
+    } else if (NZC < NZCMIN.value && !ZQUERY) {
       INFO.value = -14;
     }
   }
@@ -225,31 +226,31 @@ void dstemr(
     } else if (WANTZ && (!ZQUERY)) {
       dlaev2(D[1], E[1], D[2], R1, R2, CS, SN);
     }
-    // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
-    // the following code requires R1 >= R2. Hence, we correct
-    // the order of R1, R2, CS, SN if R1 < R2 before further processing.
-    if (R1 < R2) {
-      E[2] = R1;
-      R1 = R2;
-      R2 = E[2];
+    // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1.value| >= |R2.value|. However,
+    // the following code requires R1.value >= R2.value. Hence, we correct
+    // the order of R1.value, R2.value, CS, SN if R1.value < R2.value before further processing.
+    if (R1.value < R2.value) {
+      E[2] = R1.value;
+      R1.value = R2.value;
+      R2.value = E[2];
       LAESWAP = true;
     }
     if (ALLEIG ||
-        (VALEIG && (R2 > WL.value) && (R2 <= WU.value)) ||
+        (VALEIG && (R2.value > WL.value) && (R2.value <= WU.value)) ||
         (INDEIG && (IIL == 1))) {
       M.value = M.value + 1;
-      W[M.value] = R2;
+      W[M.value] = R2.value;
       if (WANTZ && (!ZQUERY)) {
         if (LAESWAP) {
-          Z[1][M.value] = CS;
-          Z[2][M.value] = SN;
+          Z[1][M.value] = CS.value;
+          Z[2][M.value] = SN.value;
         } else {
-          Z[1][M.value] = -SN;
-          Z[2][M.value] = CS;
+          Z[1][M.value] = -SN.value;
+          Z[2][M.value] = CS.value;
         }
         // Note: At most one of SN and CS can be zero.
-        if (SN != ZERO) {
-          if (CS != ZERO) {
+        if (SN.value != ZERO) {
+          if (CS.value != ZERO) {
             ISUPPZ[2 * M.value - 1] = 1;
             ISUPPZ[2 * M.value] = 2;
           } else {
@@ -263,21 +264,21 @@ void dstemr(
       }
     }
     if (ALLEIG ||
-        (VALEIG && (R1 > WL.value) && (R1 <= WU.value)) ||
+        (VALEIG && (R1.value > WL.value) && (R1.value <= WU.value)) ||
         (INDEIG && (IIU == 2))) {
       M.value = M.value + 1;
-      W[M.value] = R1;
+      W[M.value] = R1.value;
       if (WANTZ && (!ZQUERY)) {
         if (LAESWAP) {
-          Z[1][M.value] = -SN;
-          Z[2][M.value] = CS;
+          Z[1][M.value] = -SN.value;
+          Z[2][M.value] = CS.value;
         } else {
-          Z[1][M.value] = CS;
-          Z[2][M.value] = SN;
+          Z[1][M.value] = CS.value;
+          Z[2][M.value] = SN.value;
         }
         // Note: At most one of SN and CS can be zero.
-        if (SN != ZERO) {
-          if (CS != ZERO) {
+        if (SN.value != ZERO) {
+          if (CS.value != ZERO) {
             ISUPPZ[2 * M.value - 1] = 1;
             ISUPPZ[2 * M.value] = 2;
           } else {
@@ -451,8 +452,8 @@ void dstemr(
       // to apply the corresponding shifts from DLARRE to obtain the
       // eigenvalues of the original matrix.
       for (J = 1; J <= M.value; J++) {
-        ITMP = IWORK[IINDBL + J - 1];
-        W[J] = W[J] + E[IWORK[IINSPL + ITMP - 1]];
+        ITMP.value = IWORK[IINDBL + J - 1];
+        W[J] = W[J] + E[IWORK[IINSPL + ITMP.value - 1]];
       }
     }
 
@@ -532,12 +533,12 @@ void dstemr(
           W[J] = TMP;
           if (WANTZ) {
             dswap(N, Z(1, I).asArray(), 1, Z(1, J).asArray(), 1);
-            ITMP = ISUPPZ[2 * I - 1];
+            ITMP.value = ISUPPZ[2 * I - 1];
             ISUPPZ[2 * I - 1] = ISUPPZ[2 * J - 1];
-            ISUPPZ[2 * J - 1] = ITMP;
-            ITMP = ISUPPZ[2 * I];
+            ISUPPZ[2 * J - 1] = ITMP.value;
+            ITMP.value = ISUPPZ[2 * I];
             ISUPPZ[2 * I] = ISUPPZ[2 * J];
-            ISUPPZ[2 * J] = ITMP;
+            ISUPPZ[2 * J] = ITMP.value;
           }
         }
       }

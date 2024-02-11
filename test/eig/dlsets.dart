@@ -49,9 +49,11 @@ void dlsets(
 
   dcopy(M, C, 1, CF, 1);
   dcopy(P, D, 1, DF, 1);
-  dget02('No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT[1]);
+  dget02('No transpose', M, N, 1, A, LDA, X.asMatrix(N), N, CF.asMatrix(M), M,
+      RWORK, RESULT.box(1));
 
   // Compute result[2] = norm( B*x - d ) / norm(B)*norm(X)*EPS
 
-  dget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT[2]);
+  dget02('No transpose', P, N, 1, B, LDB, X.asMatrix(N), N, DF.asMatrix(P), P,
+      RWORK, RESULT.box(2));
 }

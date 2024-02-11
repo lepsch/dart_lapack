@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgttrf(final int N, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV, final Box<int> INFO ) {
+      void dgttrf(final int N, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

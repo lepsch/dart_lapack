@@ -6,30 +6,14 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dlansp(final int NORM, final int UPLO, final int N, final int AP, final Array<double> WORK) {
+      double dlansp(final String NORM, final String UPLO, final int N, final Array<double> AP, final Array<double> WORK,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             NORM, UPLO;
-      int                N;
-      double             AP( * ), WORK( * );
-      // ..
-
-      double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                I, J, K;
       double             ABSA, SCALE, SUM, VALUE;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASSQ
-      // ..
-      // .. External Functions ..
-      //- bool               lsame, DISNAN;
-      // EXTERNAL lsame, DISNAN
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, SQRT
 
       if ( N == 0 ) {
          VALUE = ZERO;

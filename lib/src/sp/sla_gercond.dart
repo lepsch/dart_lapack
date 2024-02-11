@@ -1,4 +1,4 @@
-      double sla_gercond(final int TRANS, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final int CMODE, final int C, final int INFO, final Array<double> _WORK, final Array<int> IWORK) {
+      double sla_gercond(final int TRANS, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final int CMODE, final int C, final int INFO, final Array<double> _WORK, final Array<int> IWORK,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

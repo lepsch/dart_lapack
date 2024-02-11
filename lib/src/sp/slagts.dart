@@ -1,4 +1,4 @@
-      void slagts(final int JOB, final int N, final int A, final int B, final int C, final int D, final int IN, final int Y, final int TOL, final Box<int> INFO ) {
+      void slagts(final int JOB, final int N, final int A, final int B, final int C, final int D, final int IN, final int Y, final int TOL, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

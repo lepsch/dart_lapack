@@ -1,108 +1,102 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlanst.dart';
+import 'package:lapack/src/dsteqr.dart';
+import 'package:lapack/src/dsterf.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dstev(final int JOBZ, final int N, final int D, final int E, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Box<int> INFO ) {
-
+void dstev(
+  final String JOBZ,
+  final int N,
+  final Array<double> D,
+  final Array<double> E,
+  final Matrix<double> Z,
+  final int LDZ,
+  final Array<double> WORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ;
-      int                INFO, LDZ, N;
-      double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool WANTZ;
+  int IMAX, ISCALE;
+  double BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA = 0, SMLNUM, TNRM;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               WANTZ;
-      int                IMAX, ISCALE;
-      double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANST;
-      // EXTERNAL lsame, DLAMCH, DLANST
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSCAL, DSTEQR, DSTERF, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  WANTZ = lsame(JOBZ, 'V');
 
-      WANTZ = lsame( JOBZ, 'V' );
+  INFO.value = 0;
+  if (!(WANTZ || lsame(JOBZ, 'N'))) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDZ < 1 || (WANTZ && LDZ < N)) {
+    INFO.value = -6;
+  }
 
-      INFO = 0;
-      if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -6;
-      }
+  if (INFO.value != 0) {
+    xerbla('DSTEV ', -INFO.value);
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('DSTEV ', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  if (N == 1) {
+    if (WANTZ) Z[1][1] = ONE;
+    return;
+  }
 
-      if ( N == 1 ) {
-         if (WANTZ) Z( 1, 1 ) = ONE;
-         return;
-      }
+  // Get machine constants.
 
-      // Get machine constants.
+  SAFMIN = dlamch('Safe minimum');
+  EPS = dlamch('Precision');
+  SMLNUM = SAFMIN / EPS;
+  BIGNUM = ONE / SMLNUM;
+  RMIN = sqrt(SMLNUM);
+  RMAX = sqrt(BIGNUM);
 
-      SAFMIN = dlamch( 'Safe minimum' );
-      EPS = dlamch( 'Precision' );
-      SMLNUM = SAFMIN / EPS;
-      BIGNUM = ONE / SMLNUM;
-      RMIN = sqrt( SMLNUM );
-      RMAX = sqrt( BIGNUM );
+  // Scale matrix to allowable range, if necessary.
 
-      // Scale matrix to allowable range, if necessary.
+  ISCALE = 0;
+  TNRM = dlanst('M', N, D, E);
+  if (TNRM > ZERO && TNRM < RMIN) {
+    ISCALE = 1;
+    SIGMA = RMIN / TNRM;
+  } else if (TNRM > RMAX) {
+    ISCALE = 1;
+    SIGMA = RMAX / TNRM;
+  }
+  if (ISCALE == 1) {
+    dscal(N, SIGMA, D, 1);
+    dscal(N - 1, SIGMA, E(1), 1);
+  }
 
-      ISCALE = 0;
-      TNRM = dlanst( 'M', N, D, E );
-      if ( TNRM > ZERO && TNRM < RMIN ) {
-         ISCALE = 1;
-         SIGMA = RMIN / TNRM;
-      } else if ( TNRM > RMAX ) {
-         ISCALE = 1;
-         SIGMA = RMAX / TNRM;
-      }
-      if ( ISCALE == 1 ) {
-         dscal(N, SIGMA, D, 1 );
-         dscal(N-1, SIGMA, E( 1 ), 1 );
-      }
+  // For eigenvalues only, call DSTERF.  For eigenvalues and
+  // eigenvectors, call DSTEQR.
 
-      // For eigenvalues only, call DSTERF.  For eigenvalues and
-      // eigenvectors, call DSTEQR.
+  if (!WANTZ) {
+    dsterf(N, D, E, INFO);
+  } else {
+    dsteqr('I', N, D, E, Z, LDZ, WORK, INFO);
+  }
 
-      if ( !WANTZ ) {
-         dsterf(N, D, E, INFO );
-      } else {
-         dsteqr('I', N, D, E, Z, LDZ, WORK, INFO );
-      }
+  // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      // If matrix was scaled, then rescale eigenvalues appropriately.
-
-      if ( ISCALE == 1 ) {
-         if ( INFO == 0 ) {
-            IMAX = N;
-         } else {
-            IMAX = INFO - 1;
-         }
-         dscal(IMAX, ONE / SIGMA, D, 1 );
-      }
-
-      }
+  if (ISCALE == 1) {
+    if (INFO.value == 0) {
+      IMAX = N;
+    } else {
+      IMAX = INFO.value - 1;
+    }
+    dscal(IMAX, ONE / SIGMA, D, 1);
+  }
+}

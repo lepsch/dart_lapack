@@ -6,7 +6,7 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlaqsp(final int UPLO, final int N, final int AP, final int S, final int SCOND, final int AMAX, final int EQUED) {
+      void dlaqsp(final int UPLO, final int N, final int AP, final int S, final int SCOND, final int AMAX, final int EQUED,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

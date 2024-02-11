@@ -1,4 +1,4 @@
-      void stzrqf(final int M, final int N, final Matrix<double> A, final int LDA, final int TAU, final Box<int> INFO ) {
+      void stzrqf(final int M, final int N, final Matrix<double> A, final int LDA, final int TAU, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

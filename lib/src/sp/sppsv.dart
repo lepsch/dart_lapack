@@ -1,4 +1,4 @@
-      void sppsv(final int UPLO, final int N, final int NRHS, final int AP, final Matrix<double> B, final int LDB, final Box<int> INFO ) {
+      void sppsv(final int UPLO, final int N, final int NRHS, final int AP, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

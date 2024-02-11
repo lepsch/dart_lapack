@@ -57,8 +57,8 @@ void dort01(
 
     // Compute norm( I - U*U' ) / ( K * EPS ) .
 
-    RESID.value =
-        dlansy('1', 'Upper', MNMIN, WORK, LDWORK, WORK[LDWORK * MNMIN + 1]);
+    RESID.value = dlansy('1', 'Upper', MNMIN, WORK.asMatrix(LDWORK), LDWORK,
+        WORK(LDWORK * MNMIN + 1));
     RESID.value = (RESID.value / K.toDouble()) / EPS;
   } else if (TRANSU == 'T') {
     // Find the maximum element in abs( I - U'*U ) / ( m * EPS )

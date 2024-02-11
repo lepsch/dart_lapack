@@ -1,4 +1,4 @@
-      void zlag2c(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> SA, final int LDSA, final Box<int> INFO ) {
+      void zlag2c(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> SA, final int LDSA, final Box<int> INFO,) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

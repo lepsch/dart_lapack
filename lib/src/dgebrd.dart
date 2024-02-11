@@ -102,8 +102,20 @@ void dgebrd(
     // the matrices X and Y which are needed to update the unreduced
     // part of the matrix
 
-    dlabrd(M - I + 1, N - I + 1, NB, A[I][I], LDA, D[I], E[I], TAUQ[I], TAUP[I],
-        WORK, LDWRKX, WORK[LDWRKX * NB + 1], LDWRKY);
+    dlabrd(
+        M - I + 1,
+        N - I + 1,
+        NB,
+        A(I, I),
+        LDA,
+        D(I),
+        E(I),
+        TAUQ(I),
+        TAUP(I),
+        WORK.asMatrix(LDWRKX),
+        LDWRKX,
+        WORK(LDWRKX * NB + 1).asMatrix(LDWRKY),
+        LDWRKY);
 
     // Update the trailing submatrix A[i+nb:m][i+nb:n], using an update
     // of the form  A := A - V*Y**T - X*U**T
@@ -154,7 +166,7 @@ void dgebrd(
 
   // Use unblocked code to reduce the remainder of the matrix
 
-  dgebd2(M - I + 1, N - I + 1, A[I][I], LDA, D[I], E[I], TAUQ[I], TAUP[I], WORK,
+  dgebd2(M - I + 1, N - I + 1, A(I, I), LDA, D(I), E(I), TAUQ(I), TAUP(I), WORK,
       IINFO);
   WORK[1] = WS.toDouble();
 }

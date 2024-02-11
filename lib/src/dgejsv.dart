@@ -474,7 +474,7 @@ void dgejsv(
         WORK[M + N + q] = TEMP1.value;
       }
     }
-    dlaswp(N, A, LDA, 1, M - 1, IWORK[2 * N + 1], 1);
+    dlaswp(N, A, LDA, 1, M - 1, IWORK(2 * N + 1), 1);
   }
 
   // End of the preparation phase (scaling, optional sorting and
@@ -698,7 +698,7 @@ void dgejsv(
       // accumulated product of Jacobi rotations, three are perfect )
 
       dlaset('Lower', NR - 1, NR - 1, ZERO, ZERO, A(2, 1), LDA);
-      dgelqf(NR, N, A, LDA, WORK, WORK(N + 1), LWORK - N, IERR.value);
+      dgelqf(NR, N, A, LDA, WORK, WORK(N + 1), LWORK - N, IERR);
       dlacpy('Lower', NR, NR, A, LDA, V, LDV);
       dlaset('Upper', NR - 1, NR - 1, ZERO, ZERO, V(1, 2), LDV);
       dgeqrf(NR, NR, V, LDV, WORK(N + 1), WORK(2 * N + 1), LWORK - 2 * N, IERR);
@@ -762,7 +762,7 @@ void dgejsv(
     dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
         LWORK - N, IERR);
 
-    if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
+    if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
 
     for (p = 1; p <= N1; p++) {
       XSC.value = ONE / dnrm2(M, U(1, p).asArray(), 1);
@@ -909,8 +909,8 @@ void dgejsv(
             dlaset('L', NR - 1, NR - 1, ZERO, ZERO, V(2, 1), LDV);
           }
           // Now, compute R2 = L3 * Q3, the LQ factorization.
-          dgelqf(NR, NR, V, LDV, WORK[2 * N + N * NR + 1],
-              WORK[2 * N + N * NR + NR + 1], LWORK - 2 * N - N * NR - NR, IERR);
+          dgelqf(NR, NR, V, LDV, WORK(2 * N + N * NR + 1),
+              WORK(2 * N + N * NR + NR + 1), LWORK - 2 * N - N * NR - NR, IERR);
           // .. and estimate the condition number
           dlacpy('L', NR, NR, V, LDV,
               WORK(2 * N + N * NR + NR + 1).asMatrix(NR), NR);
@@ -1157,7 +1157,7 @@ void dgejsv(
         // If the initial QRF is computed with row pivoting, the left
         // singular vectors must be adjusted.
 
-        if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
+        if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
       } else {
         // .. the initial matrix A has almost orthogonal columns and
         // the second QRF is not needed
@@ -1220,7 +1220,7 @@ void dgejsv(
           }
         }
 
-        if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
+        if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
       }
 
       // end of the  >> almost orthogonal case <<  in the full SVD
@@ -1329,7 +1329,7 @@ void dgejsv(
       dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N + 1),
           LWORK - N, IERR);
 
-      if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK[2 * N + 1], -1);
+      if (ROWPIV) dlaswp(N1, U, LDU, 1, M - 1, IWORK(2 * N + 1), -1);
     }
     if (TRANSP) {
       // .. swap U and V because the procedure worked on A^t

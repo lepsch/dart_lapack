@@ -1,4 +1,4 @@
-      void clasyf_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO ) {
+      void clasyf_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO,) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

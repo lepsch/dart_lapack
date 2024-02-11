@@ -1,4 +1,4 @@
-      void izamaxsub(final int n, final int x, final int incx, final int iamax) {
+      void izamaxsub(final int n, final int x, final int incx, final int iamax,) {
 
       // external izamax
       int      izamax,iamax;
