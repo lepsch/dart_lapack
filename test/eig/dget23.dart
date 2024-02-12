@@ -56,10 +56,8 @@ void dget23(
   const EPSIN = 5.9605e-8;
   bool BALOK, NOBAL;
   String SENSE;
-  int I, IHI = 0, IHI1 = 0, ILO = 0, ILO1 = 0, ISENS, ISENSM, J, JJ, KMIN;
-  double ABNRM = 0,
-      ABNRM1 = 0,
-      EPS,
+  int I, ISENS, ISENSM, J, JJ, KMIN;
+  double EPS,
       SMLNUM,
       TNRM,
       TOL,
@@ -75,7 +73,12 @@ void dget23(
       VTST;
   final DUM = Array<double>(1), RES = Array<double>(2);
   const SENS = ['N', 'V'];
-  final IINFO = Box(0);
+  final IINFO = Box(0),
+      ILO = Box(0),
+      IHI = Box(0),
+      IHI1 = Box(0),
+      ILO1 = Box(0);
+  final ABNRM = Box(0.0), ABNRM1 = Box(0.0);
 
   // Check for errors
 
@@ -133,7 +136,7 @@ void dget23(
   }
   dlacpy('F', N, N, A, LDA, H, LDA);
   dgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO,
-      IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO.value);
+      IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO);
   if (IINFO.value != 0) {
     RESULT[1] = ULPINV;
     _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -209,8 +212,30 @@ void dget23(
     // Compute eigenvalues only, and test them
 
     dlacpy('F', N, N, A, LDA, H, LDA);
-    dgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1,
-        IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO.value);
+    dgeevx(
+        BALANC,
+        'N',
+        'N',
+        SENSE,
+        N,
+        H,
+        LDA,
+        WR1,
+        WI1,
+        DUM.asMatrix(1),
+        1,
+        DUM.asMatrix(1),
+        1,
+        ILO1,
+        IHI1,
+        SCALE1,
+        ABNRM1,
+        RCNDE1,
+        RCNDV1,
+        WORK,
+        LWORK,
+        IWORK,
+        IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -230,9 +255,9 @@ void dget23(
       for (J = 1; J <= N; J++) {
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
       }
-      if (ILO != ILO1) RESULT[8] = ULPINV;
-      if (IHI != IHI1) RESULT[8] = ULPINV;
-      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+      if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
+      if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
+      if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
     }
 
     // Do Test (9)
@@ -256,7 +281,7 @@ void dget23(
         LDA,
         WR1,
         WI1,
-        DUM,
+        DUM.asMatrix(1),
         1,
         LRE,
         LDLRE,
@@ -269,7 +294,7 @@ void dget23(
         WORK,
         LWORK,
         IWORK,
-        IINFO.value);
+        IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -297,9 +322,9 @@ void dget23(
       for (J = 1; J <= N; J++) {
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
       }
-      if (ILO != ILO1) RESULT[8] = ULPINV;
-      if (IHI != IHI1) RESULT[8] = ULPINV;
-      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+      if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
+      if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
+      if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
     }
 
     // Do Test (9) again
@@ -325,7 +350,7 @@ void dget23(
         WI1,
         LRE,
         LDLRE,
-        DUM,
+        DUM.asMatrix(1),
         1,
         ILO1,
         IHI1,
@@ -336,7 +361,7 @@ void dget23(
         WORK,
         LWORK,
         IWORK,
-        IINFO.value);
+        IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX4', IINFO.value, N, BALANC, ISEED);
@@ -364,9 +389,9 @@ void dget23(
       for (J = 1; J <= N; J++) {
         if (SCALE[J] != SCALE1[J]) RESULT[8] = ULPINV;
       }
-      if (ILO != ILO1) RESULT[8] = ULPINV;
-      if (IHI != IHI1) RESULT[8] = ULPINV;
-      if (ABNRM != ABNRM1) RESULT[8] = ULPINV;
+      if (ILO.value != ILO1.value) RESULT[8] = ULPINV;
+      if (IHI.value != IHI1.value) RESULT[8] = ULPINV;
+      if (ABNRM.value != ABNRM1.value) RESULT[8] = ULPINV;
     }
 
     // Do Test (9) again
@@ -383,7 +408,7 @@ void dget23(
   if (COMP) {
     dlacpy('F', N, N, A, LDA, H, LDA);
     dgeevx('N', 'V', 'V', 'B', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI,
-        SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO.value);
+        SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO);
     if (IINFO.value != 0) {
       RESULT[1] = ULPINV;
       _printResults(NOUNIT, JTYPE, 'DGEEVX5', IINFO.value, N, BALANC, ISEED,
@@ -421,8 +446,8 @@ void dget23(
 
       RESULT[10] = ZERO;
       EPS = max(EPSIN, ULP);
-      V = max(N.toDouble() * EPS * ABNRM, SMLNUM);
-      if (ABNRM == ZERO) V = ONE;
+      V = max(N.toDouble() * EPS * ABNRM.value, SMLNUM);
+      if (ABNRM.value == ZERO) V = ONE;
       for (I = 1; I <= N; I++) {
         if (V > RCONDV[I] * RCONDE[I]) {
           TOL = RCONDV[I];
@@ -482,8 +507,6 @@ void dget23(
       }
     }
   }
-
-//  9999 FORMAT( );
 }
 
 void _printResults(

@@ -45,11 +45,11 @@ void dtgsen(
   const IDIFJB = 3;
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP;
-  int I, IJB, K, KASE, LIWMIN, LWMIN = 0, MN2, N1, N2;
+  int I, IJB, K, LIWMIN, LWMIN = 0, MN2, N1, N2;
   double EPS, SMLNUM;
   final ISAVE = Array<int>(3);
   final DSCALE = Box(0.0), DSUM = Box(0.0), RDSCAL = Box(0.0);
-  final KK = Box(0), KS = Box(0), IERR = Box(0);
+  final KK = Box(0), KS = Box(0), IERR = Box(0), KASE = Box(0);
 
   // Decode and test the input parameters
 
@@ -225,22 +225,22 @@ void dtgsen(
             N2,
             A,
             LDA,
-            A[I][I],
+            A(I, I),
             LDA,
-            WORK,
+            WORK.asMatrix(N1),
             N1,
             B,
             LDB,
-            B[I][I],
+            B(I, I),
             LDB,
-            WORK[N1 * N2 + 1],
+            WORK(N1 * N2 + 1).asMatrix(N1),
             N1,
-            DSCALE.value,
-            DIF[1],
-            WORK[N1 * N2 * 2 + 1],
+            DSCALE,
+            DIF.box(1),
+            WORK(N1 * N2 * 2 + 1),
             LWORK - 2 * N1 * N2,
             IWORK,
-            IERR.value);
+            IERR);
 
         // Estimate the reciprocal of norms of "projections" onto left
         // and right eigenspaces.
@@ -287,22 +287,22 @@ void dtgsen(
               N2,
               A,
               LDA,
-              A[I][I],
+              A(I, I),
               LDA,
-              WORK,
+              WORK.asMatrix(N1),
               N1,
               B,
               LDB,
-              B[I][I],
+              B(I, I),
               LDB,
-              WORK[N1 * N2 + 1],
+              WORK(N1 * N2 + 1).asMatrix(N1),
               N1,
-              DSCALE.value,
-              DIF[1],
-              WORK[2 * N1 * N2 + 1],
+              DSCALE,
+              DIF.box(1),
+              WORK(2 * N1 * N2 + 1),
               LWORK - 2 * N1 * N2,
               IWORK,
-              IERR.value);
+              IERR);
 
           // Frobenius norm-based Difl-estimate.
 
@@ -311,31 +311,31 @@ void dtgsen(
               IJB,
               N2,
               N1,
-              A[I][I],
+              A(I, I),
               LDA,
               A,
               LDA,
-              WORK,
+              WORK.asMatrix(N2),
               N2,
-              B[I][I],
+              B(I, I),
               LDB,
               B,
               LDB,
-              WORK[N1 * N2 + 1],
+              WORK(N1 * N2 + 1).asMatrix(N2),
               N2,
-              DSCALE.value,
-              DIF[2],
-              WORK[2 * N1 * N2 + 1],
+              DSCALE,
+              DIF.box(2),
+              WORK(2 * N1 * N2 + 1),
               LWORK - 2 * N1 * N2,
               IWORK,
-              IERR.value);
+              IERR);
         } else {
           // Compute 1-norm-based estimates of Difu and Difl using
           // reversed communication with DLACN2. In each step a
           // generalized Sylvester equation or a transposed variant
           // is solved.
 
-          KASE = 0;
+          KASE.value = 0;
           N1 = M.value;
           N2 = N - M.value;
           I = N1 + 1;
@@ -346,9 +346,9 @@ void dtgsen(
 
           // }
           while (true) {
-            dlacn2(MN2, WORK[MN2 + 1], WORK, IWORK, DIF[1], KASE, ISAVE);
-            if (KASE != 0) {
-              if (KASE == 1) {
+            dlacn2(MN2, WORK(MN2 + 1), WORK, IWORK, DIF.box(1), KASE, ISAVE);
+            if (KASE.value != 0) {
+              if (KASE.value == 1) {
                 // Solve generalized Sylvester equation.
 
                 dtgsyl(
@@ -358,22 +358,22 @@ void dtgsen(
                     N2,
                     A,
                     LDA,
-                    A[I][I],
+                    A(I, I),
                     LDA,
-                    WORK,
+                    WORK.asMatrix(N1),
                     N1,
                     B,
                     LDB,
-                    B[I][I],
+                    B(I, I),
                     LDB,
-                    WORK[N1 * N2 + 1],
+                    WORK(N1 * N2 + 1).asMatrix(N1),
                     N1,
-                    DSCALE.value,
-                    DIF[1],
-                    WORK[2 * N1 * N2 + 1],
+                    DSCALE,
+                    DIF.box(1),
+                    WORK(2 * N1 * N2 + 1),
                     LWORK - 2 * N1 * N2,
                     IWORK,
-                    IERR.value);
+                    IERR);
               } else {
                 // Solve the transposed variant.
 
@@ -384,22 +384,22 @@ void dtgsen(
                     N2,
                     A,
                     LDA,
-                    A[I][I],
+                    A(I, I),
                     LDA,
-                    WORK,
+                    WORK.asMatrix(N1),
                     N1,
                     B,
                     LDB,
-                    B[I][I],
+                    B(I, I),
                     LDB,
-                    WORK[N1 * N2 + 1],
+                    WORK(N1 * N2 + 1).asMatrix(N1),
                     N1,
-                    DSCALE.value,
-                    DIF[1],
-                    WORK[2 * N1 * N2 + 1],
+                    DSCALE,
+                    DIF.box(1),
+                    WORK(2 * N1 * N2 + 1),
                     LWORK - 2 * N1 * N2,
                     IWORK,
-                    IERR.value);
+                    IERR);
               }
               continue;
             }
@@ -411,9 +411,9 @@ void dtgsen(
 
           // }
           while (true) {
-            dlacn2(MN2, WORK[MN2 + 1], WORK, IWORK, DIF[2], KASE, ISAVE);
-            if (KASE != 0) {
-              if (KASE == 1) {
+            dlacn2(MN2, WORK(MN2 + 1), WORK, IWORK, DIF.box(2), KASE, ISAVE);
+            if (KASE.value != 0) {
+              if (KASE.value == 1) {
                 // Solve generalized Sylvester equation.
 
                 dtgsyl(
@@ -421,24 +421,24 @@ void dtgsen(
                     IJB,
                     N2,
                     N1,
-                    A[I][I],
+                    A(I, I),
                     LDA,
                     A,
                     LDA,
-                    WORK,
+                    WORK.asMatrix(N2),
                     N2,
-                    B[I][I],
+                    B(I, I),
                     LDB,
                     B,
                     LDB,
-                    WORK[N1 * N2 + 1],
+                    WORK(N1 * N2 + 1).asMatrix(N2),
                     N2,
-                    DSCALE.value,
-                    DIF[2],
-                    WORK[2 * N1 * N2 + 1],
+                    DSCALE,
+                    DIF.box(2),
+                    WORK(2 * N1 * N2 + 1),
                     LWORK - 2 * N1 * N2,
                     IWORK,
-                    IERR.value);
+                    IERR);
               } else {
                 // Solve the transposed variant.
 
@@ -447,24 +447,24 @@ void dtgsen(
                     IJB,
                     N2,
                     N1,
-                    A[I][I],
+                    A(I, I),
                     LDA,
                     A,
                     LDA,
-                    WORK,
+                    WORK.asMatrix(N2),
                     N2,
-                    B[I][I],
+                    B(I, I),
                     LDB,
                     B,
                     LDB,
-                    WORK[N1 * N2 + 1],
+                    WORK(N1 * N2 + 1).asMatrix(N2),
                     N2,
-                    DSCALE.value,
-                    DIF[2],
-                    WORK[2 * N1 * N2 + 1],
+                    DSCALE,
+                    DIF.box(2),
+                    WORK(2 * N1 * N2 + 1),
                     LWORK - 2 * N1 * N2,
                     IWORK,
-                    IERR.value);
+                    IERR);
               }
               continue;
             }

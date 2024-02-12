@@ -8,10 +8,10 @@ import 'package:lapack/src/matrix.dart';
 const wp = dp;
 const zero = dzero;
 const one = done;
-// const sbig = dsbig;
-// const ssml = dssml;
-// const tbig = dtbig;
-// const tsml = dtsml;
+final sbig = dsbig;
+final ssml = dssml;
+final tbig = dtbig;
+final tsml = dtsml;
 
 void dlassq(
   final int n,

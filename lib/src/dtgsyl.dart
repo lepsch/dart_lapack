@@ -40,25 +40,10 @@ void dtgsyl(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, NOTRAN;
-  int I,
-      IE,
-      IFUNC,
-      IROUND,
-      IS,
-      ISOLVE,
-      J,
-      JE,
-      JS,
-      K,
-      LINFO = 0,
-      LWMIN = 0,
-      MB,
-      NB,
-      P,
-      PPQQ = 0,
-      PQ,
-      Q;
-  double DSCALE = 0, DSUM = 0, SCALE2 = 0, SCALOC = 0;
+  int I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LWMIN = 0, MB, NB, P, Q;
+  double  SCALE2 = 0;
+  final PQ = Box(0), PPQQ = Box(0), LINFO = Box(0);
+  final SCALOC = Box(0.0), DSCALE = Box(0.0), DSUM = Box(0.0);
 
   // Decode and test input parameters
 
@@ -150,16 +135,16 @@ void dtgsyl(
     for (IROUND = 1; IROUND <= ISOLVE; IROUND++) {
       // Use unblocked Level 2 solver
 
-      DSCALE = ZERO;
-      DSUM = ONE;
-      PQ = 0;
+      DSCALE.value = ZERO;
+      DSUM.value = ONE;
+      PQ.value = 0;
       dtgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF,
-          SCALE.value, DSUM, DSCALE, IWORK, PQ, INFO.value);
-      if (DSCALE != ZERO) {
+          SCALE, DSUM, DSCALE, IWORK, PQ, INFO);
+      if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE * sqrt(DSUM));
+          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value = sqrt(PQ.toDouble()) / (DSCALE * sqrt(DSUM));
+          DIF.value = sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
 
@@ -221,9 +206,9 @@ void dtgsyl(
       // D[I][ I] * R(I, J) - L(I, J) * E[J][ J] = F[I][ J]
       // for I = P, P - 1,..., 1; J = 1, 2,..., Q
 
-      DSCALE = ZERO;
-      DSUM = ONE;
-      PQ = 0;
+      DSCALE.value = ZERO;
+      DSUM.value = ONE;
+      PQ.value = 0;
       SCALE.value = ONE;
       for (J = P + 2; J <= Q; J++) {
         JS = IWORK[J];
@@ -233,51 +218,51 @@ void dtgsyl(
           IS = IWORK[I];
           IE = IWORK[I + 1] - 1;
           MB = IE - IS + 1;
-          PPQQ = 0;
+          PPQQ.value = 0;
           dtgsy2(
               TRANS,
               IFUNC,
               MB,
               NB,
-              A[IS][IS],
+              A(IS, IS),
               LDA,
-              B[JS][JS],
+              B(JS, JS),
               LDB,
-              C[IS][JS],
+              C(IS, JS),
               LDC,
-              D[IS][IS],
+              D(IS, IS),
               LDD,
-              E[JS][JS],
+              E(JS, JS),
               LDE,
-              F[IS][JS],
+              F(IS, JS),
               LDF,
               SCALOC,
               DSUM,
               DSCALE,
-              IWORK[Q + 2],
+              IWORK(Q + 2),
               PPQQ,
               LINFO);
-          if (LINFO > 0) INFO.value = LINFO;
+          if (LINFO.value > 0) INFO.value = LINFO.value;
 
-          PQ = PQ + PPQQ;
-          if (SCALOC != ONE) {
+          PQ.value = PQ.value + PPQQ.value;
+          if (SCALOC.value != ONE) {
             for (K = 1; K <= JS - 1; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
             for (K = JS; K <= JE; K++) {
-              dscal(IS - 1, SCALOC, C(1, K).asArray(), 1);
-              dscal(IS - 1, SCALOC, F(1, K).asArray(), 1);
+              dscal(IS - 1, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(IS - 1, SCALOC.value, F(1, K).asArray(), 1);
             }
             for (K = JS; K <= JE; K++) {
-              dscal(M - IE, SCALOC, C(IE + 1, K).asArray(), 1);
-              dscal(M - IE, SCALOC, F(IE + 1, K).asArray(), 1);
+              dscal(M - IE, SCALOC.value, C(IE + 1, K).asArray(), 1);
+              dscal(M - IE, SCALOC.value, F(IE + 1, K).asArray(), 1);
             }
             for (K = JE + 1; K <= N; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC;
+            SCALE.value = SCALE.value * SCALOC.value;
           }
 
           // Substitute R(I, J) and L(I, J) into remaining
@@ -297,11 +282,11 @@ void dtgsyl(
           }
         }
       }
-      if (DSCALE != ZERO) {
+      if (DSCALE.value != ZERO) {
         if (IJOB == 1 || IJOB == 3) {
-          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE * sqrt(DSUM));
+          DIF.value = sqrt((2 * M * N).toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         } else {
-          DIF.value = sqrt(PQ.toDouble()) / (DSCALE * sqrt(DSUM));
+          DIF.value = sqrt(PQ.value.toDouble()) / (DSCALE.value * sqrt(DSUM.value));
         }
       }
       if (ISOLVE == 2 && IROUND == 1) {
@@ -339,43 +324,43 @@ void dtgsyl(
             IFUNC,
             MB,
             NB,
-            A[IS][IS],
+            A(IS, IS),
             LDA,
-            B[JS][JS],
+            B(JS, JS),
             LDB,
-            C[IS][JS],
+            C(IS, JS),
             LDC,
-            D[IS][IS],
+            D(IS, IS),
             LDD,
-            E[JS][JS],
+            E(JS, JS),
             LDE,
-            F[IS][JS],
+            F(IS, JS),
             LDF,
             SCALOC,
             DSUM,
             DSCALE,
-            IWORK[Q + 2],
+            IWORK(Q + 2),
             PPQQ,
             LINFO);
-        if (LINFO > 0) INFO.value = LINFO;
-        if (SCALOC != ONE) {
+        if (LINFO.value > 0) INFO.value = LINFO.value;
+        if (SCALOC.value != ONE) {
           for (K = 1; K <= JS - 1; K++) {
-            dscal(M, SCALOC, C(1, K).asArray(), 1);
-            dscal(M, SCALOC, F(1, K).asArray(), 1);
+            dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+            dscal(M, SCALOC.value, F(1, K).asArray(), 1);
           }
           for (K = JS; K <= JE; K++) {
-            dscal(IS - 1, SCALOC, C(1, K).asArray(), 1);
-            dscal(IS - 1, SCALOC, F(1, K).asArray(), 1);
+            dscal(IS - 1, SCALOC.value, C(1, K).asArray(), 1);
+            dscal(IS - 1, SCALOC.value, F(1, K).asArray(), 1);
           }
           for (K = JS; K <= JE; K++) {
-            dscal(M - IE, SCALOC, C(IE + 1, K).asArray(), 1);
-            dscal(M - IE, SCALOC, F(IE + 1, K).asArray(), 1);
+            dscal(M - IE, SCALOC.value, C(IE + 1, K).asArray(), 1);
+            dscal(M - IE, SCALOC.value, F(IE + 1, K).asArray(), 1);
           }
           for (K = JE + 1; K <= N; K++) {
-            dscal(M, SCALOC, C(1, K).asArray(), 1);
-            dscal(M, SCALOC, F(1, K).asArray(), 1);
+            dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+            dscal(M, SCALOC.value, F(1, K).asArray(), 1);
           }
-          SCALE.value = SCALE.value * SCALOC;
+          SCALE.value = SCALE.value * SCALOC.value;
         }
 
         // Substitute R(I, J) and L(I, J) into remaining equation.

@@ -63,9 +63,7 @@ void dlaln2(
       UR12S,
       UR22,
       XI1 = 0,
-      XI2 = 0,
-      XR1 = 0,
-      XR2 = 0;
+      XR1 = 0;
   final CI = Matrix<double>(2, 2), CR = Matrix<double>(2, 2);
   final CIV = CI(1, 1).asArray(), CRV = CR(1, 1).asArray();
   final ZSWAP = Array.fromList([false, false, true, true]);
@@ -76,6 +74,7 @@ void dlaln2(
     [3, 4, 1, 2],
     [4, 3, 2, 1],
   ]);
+  final XI2 = Box(0.0), XR2 = Box(0.0);
 
   // Compute BIGNUM
 
@@ -148,8 +147,8 @@ void dlaln2(
 
       // Compute X
 
-      dladiv(SCALE.value * B[1][1], SCALE.value * B[1][2], CSR, CSI, X[1][1],
-          X[1][2]);
+      dladiv(SCALE.value * B[1][1], SCALE.value * B[1][2], CSR, CSI,
+          X.box(1, 1), X.box(1, 2));
       XNORM.value = (X[1][1]).abs() + (X[1][2]).abs();
     }
   } else {
@@ -227,16 +226,16 @@ void dlaln2(
         if (BBND >= BIGNUM * (UR22).abs()) SCALE.value = ONE / BBND;
       }
 
-      XR2 = (BR2 * SCALE.value) / UR22;
-      XR1 = (SCALE.value * BR1) * UR11R - XR2 * (UR11R * UR12);
+      XR2.value = (BR2 * SCALE.value) / UR22;
+      XR1 = (SCALE.value * BR1) * UR11R - XR2.value * (UR11R * UR12);
       if (ZSWAP[ICMAX]) {
-        X[1][1] = XR2;
+        X[1][1] = XR2.value;
         X[2][1] = XR1;
       } else {
         X[1][1] = XR1;
-        X[2][1] = XR2;
+        X[2][1] = XR2.value;
       }
-      XNORM.value = max((XR1).abs(), (XR2).abs());
+      XNORM.value = max((XR1).abs(), (XR2.value).abs());
 
       // Further scaling if  norm(A) norm(X) > overflow
 
@@ -364,20 +363,21 @@ void dlaln2(
       }
 
       dladiv(BR2, BI2, UR22, UI22, XR2, XI2);
-      XR1 = UR11R * BR1 - UI11R * BI1 - UR12S * XR2 + UI12S * XI2;
-      XI1 = UI11R * BR1 + UR11R * BI1 - UI12S * XR2 - UR12S * XI2;
+      XR1 = UR11R * BR1 - UI11R * BI1 - UR12S * XR2.value + UI12S * XI2.value;
+      XI1 = UI11R * BR1 + UR11R * BI1 - UI12S * XR2.value - UR12S * XI2.value;
       if (ZSWAP[ICMAX]) {
-        X[1][1] = XR2;
+        X[1][1] = XR2.value;
         X[2][1] = XR1;
-        X[1][2] = XI2;
+        X[1][2] = XI2.value;
         X[2][2] = XI1;
       } else {
         X[1][1] = XR1;
-        X[2][1] = XR2;
+        X[2][1] = XR2.value;
         X[1][2] = XI1;
-        X[2][2] = XI2;
+        X[2][2] = XI2.value;
       }
-      XNORM.value = max(XR1.abs() + XI1.abs(), XR2.abs() + XI2.abs());
+      XNORM.value =
+          max(XR1.abs() + XI1.abs(), XR2.value.abs() + XI2.value.abs());
 
       // Further scaling if  norm(A) norm(X) > overflow
 

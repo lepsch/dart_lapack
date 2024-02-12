@@ -54,13 +54,9 @@ void dget24(
   const ZERO = 0.0, ONE = 1.0;
   const EPSIN = 5.9605e-8;
   String SORT;
-  int I, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM = 0, SDIM1 = 0;
+  int I, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB;
   double ANORM,
       EPS,
-      RCNDE1 = 0,
-      RCNDV1 = 0,
-      RCONDE = 0,
-      RCONDV = 0,
       SMLNUM,
       TMP,
       TOL,
@@ -72,7 +68,11 @@ void dget24(
       VRMIN,
       WNORM;
   final IPNT = Array<int>(20);
-  final IINFO = Box(0);
+  final IINFO = Box(0), SDIM = Box(0), SDIM1 = Box(0);
+  final RCONDE = Box(0.0),
+      RCONDV = Box(0.0),
+      RCNDE1 = Box(0.0),
+      RCNDV1 = Box(0.0);
 
   // Check for errors
 
@@ -194,7 +194,7 @@ void dget24(
 
       // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 
-      dort01('Columns', N, N, VS, LDVS, WORK, LWORK, RESULT[3 + RSUB]);
+      dort01('Columns', N, N, VS, LDVS, WORK, LWORK, RESULT.box(3 + RSUB));
 
       // Do Test (4) or Test (10)
 
@@ -262,7 +262,7 @@ void dget24(
                 IINFO.value != N + 2) RESULT[13] = ULPINV;
           }
         }
-        if (SDIM != KNTEIG) RESULT[13] = ULPINV;
+        if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
       }
     }
 
@@ -270,7 +270,7 @@ void dget24(
     // as well as (10) through (13)
 
     if (LWORK >= N + (N * N) / 2) {
-      // Compute both RCONDE and RCONDV with VS
+      // Compute both RCONDE.value and RCONDV.value with VS
 
       SORT = 'S';
       RESULT[14] = ZERO;
@@ -295,9 +295,9 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute both RCONDE and RCONDV without VS, and compare
+      // Compute both RCONDE.value and RCONDV.value without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -312,8 +312,8 @@ void dget24(
 
       // Perform tests (14) and (15)
 
-      if (RCNDE1 != RCONDE) RESULT[14] = ULPINV;
-      if (RCNDV1 != RCONDV) RESULT[15] = ULPINV;
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
 
       // Perform tests (10), (11), (12), and (13)
 
@@ -324,9 +324,9 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDE with VS, and compare
+      // Compute RCONDE.value with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('V', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -340,7 +340,7 @@ void dget24(
 
       // Perform test (14)
 
-      if (RCNDE1 != RCONDE) RESULT[14] = ULPINV;
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
 
       // Perform tests (10), (11), (12), and (13)
 
@@ -351,9 +351,9 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDE without VS, and compare
+      // Compute RCONDE.value without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -367,7 +367,7 @@ void dget24(
 
       // Perform test (14)
 
-      if (RCNDE1 != RCONDE) RESULT[14] = ULPINV;
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
 
       // Perform tests (10), (11), (12), and (13)
 
@@ -378,9 +378,9 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDV with VS, and compare
+      // Compute RCONDV.value with VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('V', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -394,7 +394,7 @@ void dget24(
 
       // Perform test (15)
 
-      if (RCNDV1 != RCONDV) RESULT[15] = ULPINV;
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
 
       // Perform tests (10), (11), (12), and (13)
 
@@ -405,9 +405,9 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
 
-      // Compute RCONDV without VS, and compare
+      // Compute RCONDV.value without VS, and compare
 
       dlacpy('F', N, N, A, LDA, HT, LDA);
       dgeesx('N', SORT, dslect, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS,
@@ -421,7 +421,7 @@ void dget24(
 
       // Perform test (15)
 
-      if (RCNDV1 != RCONDV) RESULT[15] = ULPINV;
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
 
       // Perform tests (10), (11), (12), and (13)
 
@@ -432,7 +432,7 @@ void dget24(
           if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
         }
       }
-      if (SDIM != SDIM1) RESULT[13] = ULPINV;
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
     }
 
     break;
@@ -497,10 +497,10 @@ void dget24(
     ANORM = dlange('1', N, N, A, LDA, WORK);
     V = max(N.toDouble() * EPS * ANORM, SMLNUM);
     if (ANORM == ZERO) V = ONE;
-    if (V > RCONDV) {
+    if (V > RCONDV.value) {
       TOL = ONE;
     } else {
-      TOL = V / RCONDV;
+      TOL = V / RCONDV.value;
     }
     if (V > RCDVIN) {
       TOLIN = ONE;
@@ -509,14 +509,14 @@ void dget24(
     }
     TOL = max(TOL, SMLNUM / EPS);
     TOLIN = max(TOLIN, SMLNUM / EPS);
-    if (EPS * (RCDEIN - TOLIN) > RCONDE + TOL) {
+    if (EPS * (RCDEIN - TOLIN) > RCONDE.value + TOL) {
       RESULT[16] = ULPINV;
-    } else if (RCDEIN - TOLIN > RCONDE + TOL) {
-      RESULT[16] = (RCDEIN - TOLIN) / (RCONDE + TOL);
-    } else if (RCDEIN + TOLIN < EPS * (RCONDE - TOL)) {
+    } else if (RCDEIN - TOLIN > RCONDE.value + TOL) {
+      RESULT[16] = (RCDEIN - TOLIN) / (RCONDE.value + TOL);
+    } else if (RCDEIN + TOLIN < EPS * (RCONDE.value - TOL)) {
       RESULT[16] = ULPINV;
-    } else if (RCDEIN + TOLIN < RCONDE - TOL) {
-      RESULT[16] = (RCONDE - TOL) / (RCDEIN + TOLIN);
+    } else if (RCDEIN + TOLIN < RCONDE.value - TOL) {
+      RESULT[16] = (RCONDE.value - TOL) / (RCDEIN + TOLIN);
     } else {
       RESULT[16] = ONE;
     }
@@ -524,10 +524,10 @@ void dget24(
     // Compare condition numbers for right invariant subspace
     // taking its condition number into account
 
-    if (V > RCONDV * RCONDE) {
-      TOL = RCONDV;
+    if (V > RCONDV.value * RCONDE.value) {
+      TOL = RCONDV.value;
     } else {
-      TOL = V / RCONDE;
+      TOL = V / RCONDE.value;
     }
     if (V > RCDVIN * RCDEIN) {
       TOLIN = RCDVIN;
@@ -536,14 +536,14 @@ void dget24(
     }
     TOL = max(TOL, SMLNUM / EPS);
     TOLIN = max(TOLIN, SMLNUM / EPS);
-    if (EPS * (RCDVIN - TOLIN) > RCONDV + TOL) {
+    if (EPS * (RCDVIN - TOLIN) > RCONDV.value + TOL) {
       RESULT[17] = ULPINV;
-    } else if (RCDVIN - TOLIN > RCONDV + TOL) {
-      RESULT[17] = (RCDVIN - TOLIN) / (RCONDV + TOL);
-    } else if (RCDVIN + TOLIN < EPS * (RCONDV - TOL)) {
+    } else if (RCDVIN - TOLIN > RCONDV.value + TOL) {
+      RESULT[17] = (RCDVIN - TOLIN) / (RCONDV.value + TOL);
+    } else if (RCDVIN + TOLIN < EPS * (RCONDV.value - TOL)) {
       RESULT[17] = ULPINV;
-    } else if (RCDVIN + TOLIN < RCONDV - TOL) {
-      RESULT[17] = (RCONDV - TOL) / (RCDVIN + TOLIN);
+    } else if (RCDVIN + TOLIN < RCONDV.value - TOL) {
+      RESULT[17] = (RCONDV.value - TOL) / (RCDVIN + TOLIN);
     } else {
       RESULT[17] = ONE;
     }

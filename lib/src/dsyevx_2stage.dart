@@ -216,8 +216,8 @@ void dsyevx_2stage(
   INDWRK = INDHOUS + LHTRD;
   LLWORK = LWORK - INDWRK + 1;
 
-  dsytrd_2stage(JOBZ, UPLO, N, A, LDA, WORK[INDD], WORK[INDE], WORK[INDTAU],
-      WORK[INDHOUS], LHTRD, WORK[INDWRK], LLWORK, IINFO);
+  dsytrd_2stage(JOBZ, UPLO, N, A, LDA, WORK(INDD), WORK(INDE), WORK(INDTAU),
+      WORK(INDHOUS), LHTRD, WORK(INDWRK), LLWORK, IINFO);
 
   // If all eigenvalues are desired and ABSTOL is less than or equal to
   // zero, then call DSTERF or DORGTR and SSTEQR.  If this fails for

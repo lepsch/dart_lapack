@@ -60,8 +60,6 @@ void dlaqz0(
       NW,
       NMIN,
       NIBBLE,
-      N_UNDEFLATED = 0,
-      N_DEFLATED = 0,
       NS,
       SHIFTPOS,
       LWORKREQ,
@@ -80,7 +78,11 @@ void dlaqz0(
       I;
   bool ILSCHUR = false, ILQ = false, ILZ = false;
   String JBCMPZ;
-  final AED_INFO = Box(0), SWEEP_INFO = Box(0), NORM_INFO = Box(0);
+  final AED_INFO = Box(0),
+      SWEEP_INFO = Box(0),
+      NORM_INFO = Box(0),
+      N_UNDEFLATED = Box(0),
+      N_DEFLATED = Box(0);
   final C1 = Box(0.0), S1 = Box(0.0), TEMP = Box(0.0);
 
   // Decode wantS,wantQ,wantZ
@@ -209,18 +211,43 @@ void dlaqz0(
       ALPHAR,
       ALPHAI,
       BETA,
-      WORK,
+      WORK.asMatrix(NW),
       NW,
-      WORK,
+      WORK.asMatrix(NW),
       NW,
       WORK,
       -1,
       REC,
-      AED_INFO.value);
+      AED_INFO);
   ITEMP1 = WORK[1].toInt();
   // Workspace query to dlaqz4
-  dlaqz4(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHAR, ALPHAI, BETA, A, LDA,
-      B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO);
+  dlaqz4(
+      ILSCHUR,
+      ILQ,
+      ILZ,
+      N,
+      ILO,
+      IHI,
+      NSR,
+      NBR,
+      ALPHAR,
+      ALPHAI,
+      BETA,
+      A,
+      LDA,
+      B,
+      LDB,
+      Q,
+      LDQ,
+      Z,
+      LDZ,
+      WORK.asMatrix(NBR),
+      NBR,
+      WORK.asMatrix(NBR),
+      NBR,
+      WORK,
+      -1,
+      SWEEP_INFO);
   ITEMP2 = WORK[1].toInt();
 
   LWORKREQ =
@@ -243,7 +270,7 @@ void dlaqz0(
 
   // Get machine constants
   SAFMIN = dlamch('SAFE MINIMUM');
-  SAFMAX = ONE / SAFMIN;
+  // SAFMAX = ONE / SAFMIN;
   ULP = dlamch('PRECISION');
   SMLNUM = SAFMIN * (N.toDouble() / ULP);
 
@@ -449,21 +476,22 @@ void dlaqz0(
         ALPHAR,
         ALPHAI,
         BETA,
-        WORK,
+        WORK.asMatrix(NW),
         NW,
-        WORK[pow(NW, 2).toInt() + 1],
+        WORK(pow(NW, 2).toInt() + 1).asMatrix(NW),
         NW,
-        WORK[2 * pow(NW, 2).toInt() + 1],
-        LWORK - 2 * pow(NW, 2),
+        WORK(2 * pow(NW, 2).toInt() + 1),
+        LWORK - 2 * pow(NW, 2).toInt(),
         REC,
-        AED_INFO.value);
+        AED_INFO);
 
-    if (N_DEFLATED > 0) {
-      ISTOP = ISTOP - N_DEFLATED;
+    if (N_DEFLATED.value > 0) {
+      ISTOP = ISTOP - N_DEFLATED.value;
       LD = 0;
       ESHIFT = ZERO;
     }
-    if (100 * N_DEFLATED > NIBBLE * (N_DEFLATED + N_UNDEFLATED) ||
+    if (100 * N_DEFLATED.value >
+            NIBBLE * (N_DEFLATED.value + N_UNDEFLATED.value) ||
         ISTOP - ISTART2 + 1 < NMIN) {
       // AED has uncovered many eigenvalues. Skip a QZ sweep and run
       // AED again.
@@ -473,16 +501,16 @@ void dlaqz0(
     LD = LD + 1;
 
     NS = min(NSHIFTS, ISTOP - ISTART2);
-    NS = min(NS, N_UNDEFLATED);
-    SHIFTPOS = ISTOP - N_UNDEFLATED + 1;
+    NS = min(NS, N_UNDEFLATED.value);
+    SHIFTPOS = ISTOP - N_UNDEFLATED.value + 1;
 
     // Shuffle shifts to put double shifts in front
     // This ensures that we don't split up a double shift
 
     for (I = SHIFTPOS;
         2 < 0
-            ? I >= SHIFTPOS + N_UNDEFLATED - 1
-            : I <= SHIFTPOS + N_UNDEFLATED - 1;
+            ? I >= SHIFTPOS + N_UNDEFLATED.value - 1
+            : I <= SHIFTPOS + N_UNDEFLATED.value - 1;
         I += 2) {
       if (ALPHAI[I] != -ALPHAI[I + 1]) {
         SWAP = ALPHAR[I];
@@ -531,9 +559,9 @@ void dlaqz0(
         ISTOP,
         NS,
         NBLOCK,
-        ALPHAR[SHIFTPOS],
-        ALPHAI[SHIFTPOS],
-        BETA[SHIFTPOS],
+        ALPHAR(SHIFTPOS),
+        ALPHAI(SHIFTPOS),
+        BETA(SHIFTPOS),
         A,
         LDA,
         B,
@@ -542,13 +570,13 @@ void dlaqz0(
         LDQ,
         Z,
         LDZ,
-        WORK,
+        WORK.asMatrix(NBLOCK),
         NBLOCK,
-        WORK[pow(NBLOCK, 2).toInt() + 1],
+        WORK(pow(NBLOCK, 2).toInt() + 1).asMatrix(NBLOCK),
         NBLOCK,
-        WORK[2 * pow(NBLOCK, 2).toInt() + 1],
-        LWORK - 2 * pow(NBLOCK, 2),
-        SWEEP_INFO.value);
+        WORK(2 * pow(NBLOCK, 2).toInt() + 1),
+        LWORK - 2 * pow(NBLOCK, 2).toInt(),
+        SWEEP_INFO);
   }
 
   // Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues

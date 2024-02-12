@@ -46,7 +46,7 @@ void dtgex2(
   const LDST = 4;
   const WANDS = true;
   bool STRONG, WEAK;
-  int I, IDUM = 0, M;
+  int I, M;
   double BQRA21,
       BRQA21,
       DNORMA,
@@ -56,12 +56,11 @@ void dtgex2(
       G,
       SA,
       SB,
-      SCALE = 0,
       SMLNUM,
       THRESHA,
       THRESHB;
-  final DSCALE = Box(0.0), DSUM = Box(0.0), DDUM = Box(0.0);
-  final LINFO = Box(0);
+  final DSCALE = Box(0.0), DSUM = Box(0.0), DDUM = Box(0.0), SCALE = Box(0.0);
+  final LINFO = Box(0), IDUM = Box(0);
   final IWORK = Array<int>(LDST + 2);
   final AI = Array<double>(2),
       AR = Array<double>(2),
@@ -232,8 +231,8 @@ void dtgex2(
     //         and 2-by-2 blocks.
 
     // Solve the generalized Sylvester equation
-    //          S11 * R - L * S22 = SCALE * S12
-    //          T11 * R - L * T22 = SCALE * T12
+    //          S11 * R - L * S22 = SCALE.value * S12
+    //          T11 * R - L * T22 = SCALE.value * T12
     // for R and L. Solutions in LI and IR.
 
     dlacpy('Full', N1, N2, T(1, N1 + 1), LDST, LI, LDST);
@@ -245,19 +244,19 @@ void dtgex2(
         N2,
         S,
         LDST,
-        S[N1 + 1][N1 + 1],
+        S(N1 + 1, N1 + 1),
         LDST,
-        IR[N2 + 1][N1 + 1],
+        IR(N2 + 1, N1 + 1),
         LDST,
         T,
         LDST,
-        T[N1 + 1][N1 + 1],
+        T(N1 + 1, N1 + 1),
         LDST,
         LI,
         LDST,
         SCALE,
-        DSUM.value,
-        DSCALE.value,
+        DSUM,
+        DSCALE,
         IWORK,
         IDUM,
         LINFO);
@@ -273,12 +272,12 @@ void dtgex2(
     //                          [ 0  ]
     // where
     //             LI =  [      -L              ]
-    //                   [ SCALE * identity(N2) ]
+    //                   [ SCALE.value * identity(N2) ]
 
     for (I = 1; I <= N2; I++) {
       // 10
       dscal(N1, -ONE, LI(1, I).asArray(), 1);
-      LI[N1 + I][I] = SCALE;
+      LI[N1 + I][I] = SCALE.value;
     } // 10
     dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO);
     if (LINFO.value != 0) {
@@ -297,13 +296,13 @@ void dtgex2(
 
     // IR * RQ**T =   [ 0  TR],
 
-    // where IR = [ SCALE * identity(N1), R ]
+    // where IR = [ SCALE.value * identity(N1), R ]
 
     for (I = 1; I <= N1; I++) {
       // 20
-      IR[N2 + I][I] = SCALE;
+      IR[N2 + I][I] = SCALE.value;
     } // 20
-    dgerq2(N1, M, IR[N2 + 1][1], LDST, TAUR, WORK, LINFO);
+    dgerq2(N1, M, IR(N2 + 1, 1), LDST, TAUR, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;
@@ -336,13 +335,13 @@ void dtgex2(
       INFO.value = 1;
       return;
     }
-    dormr2('R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO.value);
+    dormr2('R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;
       return;
     }
-    dormr2('L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO.value);
+    dormr2('L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;
@@ -368,8 +367,8 @@ void dtgex2(
       INFO.value = 1;
       return;
     }
-    dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO.value);
-    dorm2r('R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO.value);
+    dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO);
+    dorm2r('R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO);
     if (LINFO.value != 0) {
       // Exit with INFO.value = 1 if swap was rejected.
       INFO.value = 1;
@@ -454,10 +453,10 @@ void dtgex2(
     dlaset('Full', M, M, ZERO, ZERO, WORK.asMatrix(M), M);
     WORK[1] = ONE;
     T[1][1] = ONE;
-    IDUM = LWORK - M * M - 2;
+    IDUM.value = LWORK - M * M - 2;
     if (N2 > 1) {
-      dlagv2(A[J1][J1], LDA, B[J1][J1], LDB, AR, AI, BE, WORK(1), WORK(2),
-          T[1][1], T[2][1]);
+      dlagv2(A(J1, J1), LDA, B(J1, J1), LDB, AR, AI, BE, WORK.box(1),
+          WORK.box(2), T.box(1, 1), T.box(2, 1));
       WORK[M + 1] = -WORK[2];
       WORK[M + 2] = WORK[1];
       T[N2][N2] = T[1][1];
@@ -468,17 +467,18 @@ void dtgex2(
 
     if (N1 > 1) {
       dlagv2(
-          A[J1 + N2][J1 + N2],
-          LDA,
-          B[J1 + N2][J1 + N2],
-          LDB,
-          TAUR,
-          TAUL,
-          WORK(M * M + 1),
-          WORK(N2 * M + N2 + 1),
-          WORK(N2 * M + N2 + 2),
-          T[N2 + 1][N2 + 1],
-          T[M][M - 1]);
+        A(J1 + N2, J1 + N2),
+        LDA,
+        B(J1 + N2, J1 + N2),
+        LDB,
+        TAUR,
+        TAUL,
+        WORK(M * M + 1),
+        WORK.box(N2 * M + N2 + 1),
+        WORK.box(N2 * M + N2 + 2),
+        T.box(N2 + 1, N2 + 1),
+        T.box(M, M - 1),
+      );
       WORK[M * M] = WORK[N2 * M + N2 + 1];
       WORK[M * M - 1] = -WORK[N2 * M + N2 + 2];
       T[M][M] = T[N2 + 1][N2 + 1];

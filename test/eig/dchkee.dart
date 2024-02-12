@@ -58,7 +58,8 @@ void main() async {
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  final NIN = Nin(stdin), NOUT = Nout(stdout);
+  final input = File('/Users/lepsch/_/tmp/lapack/test/nep.in').openRead();
+  final NIN = Nin(input), NOUT = Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
   const NEED = 14;
@@ -110,10 +111,7 @@ void main() async {
       NN,
       NPARMS = 0,
       NRHS,
-      NTYPES = 0,
-      VERS_MAJOR = 0,
-      VERS_MINOR = 0,
-      VERS_PATCH = 0;
+      NTYPES = 0;
   // int          N_THREADS, ONE_THREAD;
   double EPS, THRESH, THRSHN;
   final DOTYPE = Array<bool>(MAXT), LOGWRK = Array<bool>(NMAX);
@@ -147,6 +145,7 @@ void main() async {
       B = Matrix<double>(NMAX * NMAX, 5),
       C = Matrix<double>(NCMAX * NCMAX, NCMAX * NCMAX),
       WORK = Array<double>(LWORK);
+  final VERS_MAJOR = Box(0), VERS_MINOR = Box(0), VERS_PATCH = Box(0);
 
   final S1 = Stopwatch()..start();
   FATAL = false;

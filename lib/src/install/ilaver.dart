@@ -1,14 +1,10 @@
-void ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH) {
+import 'package:lapack/src/box.dart';
+
+void ilaver(final Box<int> VERS_MAJOR, final Box<int> VERS_MINOR, final Box<int> VERS_PATCH) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-// =====================================================================
-
-  int VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-// =====================================================================
-  VERS_MAJOR = 3;
-  VERS_MINOR = 12;
-  VERS_PATCH = 0;
-// =====================================================================
+  VERS_MAJOR.value = 3;
+  VERS_MINOR.value = 12;
+  VERS_PATCH.value = 0;
 }

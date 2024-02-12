@@ -1,36 +1,20 @@
-import 'dart:math';
-
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/dlartgp.dart';
+import 'package:lapack/src/install/dlamch.dart';
 
-void dlartgs(X, Y, SIGMA, CS, SN) {
+void dlartgs(
+  final double X,
+  final double Y,
+  final double SIGMA,
+  final Box<double> CS,
+  final Box<double> SN,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double CS, SIGMA, SN, X, Y;
-  // ..
-
-// ===================================================================
-
-  // .. Parameters ..
-  double NEGONE, ONE, ZERO;
   const NEGONE = -1.0, ONE = 1.0, ZERO = 0.0;
-  // ..
-  // .. Local Scalars ..
-  double R, S, THRESH, W, Z;
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DLARTGP
-  // ..
-  // .. External Functions ..
-  //- double                  DLAMCH;
-  // EXTERNAL DLAMCH
-  // .. Executable Statements ..
+  double S, THRESH, W, Z;
+  final R = Box(0.0);
 
   THRESH = dlamch('E');
 
@@ -68,8 +52,4 @@ void dlartgs(X, Y, SIGMA, CS, SN) {
   // is by PI/2.
 
   dlartgp(W, Z, SN, CS, R);
-
-  return;
-
-  // End DLARTGS
 }

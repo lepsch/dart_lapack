@@ -102,7 +102,7 @@ import 'package:lapack/src/xerbla.dart';
 
          COUNT = 1;
          LSTRES = THREE;
-         } // 20
+        //  } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -203,7 +203,7 @@ import 'package:lapack/src/xerbla.dart';
          } // 90
 
          KASE = 0;
-         } // 100
+        //  } // 100
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE != 0 ) {
             if ( KASE == 1 ) {

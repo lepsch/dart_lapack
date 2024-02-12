@@ -67,7 +67,7 @@ void dsyt22(
       WORK[JJ2] = WORK[JJ2] - E[J - 1];
     }
   }
-  WNORM = dlansy('1', UPLO, M, WORK[NNP1], N, WORK[1]);
+  WNORM = dlansy('1', UPLO, M, WORK(NNP1).asMatrix(N), N, WORK(1));
 
   if (ANORM > WNORM) {
     RESULT[1] = (WNORM / ANORM) / (M * ULP);

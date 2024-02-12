@@ -1,47 +1,27 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/install/dlamch.dart';
 
-void dladiv(A, B, C, D, P, Q) {
+void dladiv(
+  final double A,
+  final double B,
+  final double C,
+  final double D,
+  final Box<double> P,
+  final Box<double> Q,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double A, B, C, D, P, Q;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double BS;
   const BS = 2.0;
-  double HALF;
   const HALF = 0.5;
-  double TWO;
   const TWO = 2.0;
+  double CC, DD, AB, CD, S, OV, UN, BE, EPS;
+  final AA = Box(0.0), BB = Box(0.0);
 
-  // .. Local Scalars ..
-  double AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
-  // ..
-  // .. External Functions ..
-  //- double             DLAMCH;
-  // EXTERNAL DLAMCH
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DLADIV1
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS, MAX
-  // ..
-  // .. Executable Statements ..
-
-  AA = A;
-  BB = B;
+  AA.value = A;
+  BB.value = B;
   CC = C;
   DD = D;
   AB = max((A).abs(), (B).abs());
@@ -54,8 +34,8 @@ void dladiv(A, B, C, D, P, Q) {
   BE = BS / (EPS * EPS);
 
   if (AB >= HALF * OV) {
-    AA = HALF * AA;
-    BB = HALF * BB;
+    AA.value = HALF * AA.value;
+    BB.value = HALF * BB.value;
     S = TWO * S;
   }
   if (CD >= HALF * OV) {
@@ -64,8 +44,8 @@ void dladiv(A, B, C, D, P, Q) {
     S = HALF * S;
   }
   if (AB <= UN * BS / EPS) {
-    AA = AA * BE;
-    BB = BB * BE;
+    AA.value = AA.value * BE;
+    BB.value = BB.value * BE;
     S = S / BE;
   }
   if (CD <= UN * BS / EPS) {
@@ -74,82 +54,58 @@ void dladiv(A, B, C, D, P, Q) {
     S = S * BE;
   }
   if ((D).abs() <= (C).abs()) {
-    dladiv1(AA, BB, CC, DD, P, Q);
+    dladiv1(AA, BB.value, CC, DD, P, Q);
   } else {
-    dladiv1(BB, AA, DD, CC, P, Q);
-    Q = -Q;
+    dladiv1(BB, AA.value, DD, CC, P, Q);
+    Q.value = -Q.value;
   }
-  P = P * S;
-  Q = Q * S;
-
-  return;
+  P.value = P.value * S;
+  Q.value = Q.value * S;
 }
 
-// > \ingroup ladiv
-
-void dladiv1(A, B, C, D, P, Q) {
+void dladiv1(
+  final Box<double> A,
+  final double B,
+  final double C,
+  final double D,
+  final Box<double> P,
+  final Box<double> Q,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double A, B, C, D, P, Q;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double ONE;
   const ONE = 1.0;
-
-  // .. Local Scalars ..
   double R, T;
-  // ..
-  // .. External Functions ..
-  //- double             DLADIV2;
-  // EXTERNAL DLADIV2
-  // ..
-  // .. Executable Statements ..
 
   R = D / C;
   T = ONE / (C + D * R);
-  P = DLADIV2(A, B, C, D, R, T);
-  A = -A;
-  Q = DLADIV2(B, A, C, D, R, T);
-
-  return;
+  P.value = dladiv2(A.value, B, C, D, R, T);
+  A.value = -A.value;
+  Q.value = dladiv2(B, A.value, C, D, R, T);
 }
 
-// > \ingroup ladiv
-
-double dladiv2(A, B, C, D, R, T) {
+double dladiv2(
+  final double A,
+  final double B,
+  final double C,
+  final double D,
+  final double R,
+  final double T,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  double A, B, C, D, R, T;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  double ZERO;
   const ZERO = 0.0;
-
-  // .. Local Scalars ..
   double BR;
-  // ..
-  // .. Executable Statements ..
 
   if (R != ZERO) {
     BR = B * R;
     if (BR != ZERO) {
-      DLADIV2 = (A + BR) * T;
+      return (A + BR) * T;
     } else {
-      DLADIV2 = A * T + (B * T) * R;
+      return A * T + (B * T) * R;
     }
   } else {
-    DLADIV2 = (A + D * (B / C)) * T;
+    return (A + D * (B / C)) * T;
   }
 }

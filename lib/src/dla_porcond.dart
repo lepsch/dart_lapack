@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlacn2.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
@@ -117,7 +118,7 @@ import 'package:lapack/src/xerbla.dart';
       AINVNM = 0.0;
 
       KASE = 0;
-      } // 10
+      // } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
          if ( KASE == 2 ) {

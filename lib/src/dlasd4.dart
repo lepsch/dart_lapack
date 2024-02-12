@@ -77,7 +77,7 @@ void dlasd4(
     return;
   }
   if (N == 2) {
-    dlasd5(I, D, Z, DELTA, RHO, SIGMA.value, WORK);
+    dlasd5(I, D, Z, DELTA, RHO, SIGMA, WORK);
     return;
   }
 

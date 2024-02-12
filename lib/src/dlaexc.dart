@@ -143,8 +143,8 @@ void dlaexc(
 
         // Accept swap: apply transformation to the entire matrix T.
 
-        dlarfx('L', 3, N - J1 + 1, U, TAU.value, T[J1][J1], LDT, WORK);
-        dlarfx('R', J2, 3, U, TAU.value, T[1][J1], LDT, WORK);
+        dlarfx('L', 3, N - J1 + 1, U, TAU.value, T(J1, J1), LDT, WORK);
+        dlarfx('R', J2, 3, U, TAU.value, T(1, J1), LDT, WORK);
 
         T[J3][J1] = ZERO;
         T[J3][J2] = ZERO;
@@ -153,7 +153,7 @@ void dlaexc(
         if (WANTQ) {
           // Accumulate transformation in the matrix Q.
 
-          dlarfx('R', N, 3, U, TAU.value, Q[1][J1], LDQ, WORK);
+          dlarfx('R', N, 3, U, TAU.value, Q(1, J1), LDQ, WORK);
         }
         break;
 
@@ -188,8 +188,8 @@ void dlaexc(
 
         // Accept swap: apply transformation to the entire matrix T.
 
-        dlarfx('R', J3, 3, U, TAU.value, T[1][J1], LDT, WORK);
-        dlarfx('L', 3, N - J1, U, TAU.value, T[J1][J2], LDT, WORK);
+        dlarfx('R', J3, 3, U, TAU.value, T(1, J1), LDT, WORK);
+        dlarfx('L', 3, N - J1, U, TAU.value, T(J1, J2), LDT, WORK);
 
         T[J1][J1] = T33;
         T[J2][J1] = ZERO;
@@ -198,7 +198,7 @@ void dlaexc(
         if (WANTQ) {
           // Accumulate transformation in the matrix Q.
 
-          dlarfx('R', N, 3, U, TAU.value, Q[1][J1], LDQ, WORK);
+          dlarfx('R', N, 3, U, TAU.value, Q(1, J1), LDQ, WORK);
         }
         break;
 
@@ -229,8 +229,8 @@ void dlaexc(
 
         dlarfx('L', 3, 4, U1, TAU1.value, D, LDD, WORK);
         dlarfx('R', 4, 3, U1, TAU1.value, D, LDD, WORK);
-        dlarfx('L', 3, 4, U2, TAU2.value, D[2][1], LDD, WORK);
-        dlarfx('R', 4, 3, U2, TAU2.value, D[1][2], LDD, WORK);
+        dlarfx('L', 3, 4, U2, TAU2.value, D(2, 1), LDD, WORK);
+        dlarfx('R', 4, 3, U2, TAU2.value, D(1, 2), LDD, WORK);
 
         // Test whether to reject swap.
 
@@ -246,10 +246,10 @@ void dlaexc(
 
         // Accept swap: apply transformation to the entire matrix T.
 
-        dlarfx('L', 3, N - J1 + 1, U1, TAU1.value, T[J1][J1], LDT, WORK);
-        dlarfx('R', J4, 3, U1, TAU1.value, T[1][J1], LDT, WORK);
-        dlarfx('L', 3, N - J1 + 1, U2, TAU2.value, T[J2][J1], LDT, WORK);
-        dlarfx('R', J4, 3, U2, TAU2.value, T[1][J2], LDT, WORK);
+        dlarfx('L', 3, N - J1 + 1, U1, TAU1.value, T(J1, J1), LDT, WORK);
+        dlarfx('R', J4, 3, U1, TAU1.value, T(1, J1), LDT, WORK);
+        dlarfx('L', 3, N - J1 + 1, U2, TAU2.value, T(J2, J1), LDT, WORK);
+        dlarfx('R', J4, 3, U2, TAU2.value, T(1, J2), LDT, WORK);
 
         T[J3][J1] = ZERO;
         T[J3][J2] = ZERO;
@@ -259,11 +259,11 @@ void dlaexc(
         if (WANTQ) {
           // Accumulate transformation in the matrix Q.
 
-          dlarfx('R', N, 3, U1, TAU1.value, Q[1][J1], LDQ, WORK);
-          dlarfx('R', N, 3, U2, TAU2.value, Q[1][J2], LDQ, WORK);
+          dlarfx('R', N, 3, U1, TAU1.value, Q(1, J1), LDQ, WORK);
+          dlarfx('R', N, 3, U2, TAU2.value, Q(1, J2), LDQ, WORK);
         }
         break;
-    } // 40
+    }
 
     if (N2 == 2) {
       // Standardize new 2-by-2 block T11

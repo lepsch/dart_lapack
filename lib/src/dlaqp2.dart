@@ -1,102 +1,94 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/blas/dnrm2.dart';
+import 'package:lapack/src/blas/dswap.dart';
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/dlarf.dart';
+import 'package:lapack/src/dlarfg.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlaqp2(final int M, final int N, final int OFFSET, final Matrix<double> A, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final Array<double> WORK,) {
-
+void dlaqp2(
+  final int M,
+  final int N,
+  final int OFFSET,
+  final Matrix<double> A,
+  final int LDA,
+  final Array<int> JPVT,
+  final Array<double> TAU,
+  final Array<double> VN1,
+  final Array<double> VN2,
+  final Array<double> WORK,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, M, N, OFFSET;
-      int                JPVT( * );
-      double             A( LDA, * ), TAU( * ), VN1( * ), VN2( * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  int I, ITEMP, J, MN, OFFPI, PVT;
+  double AII, TEMP, TEMP2, TOL3Z;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, ITEMP, J, MN, OFFPI, PVT;
-      double             AII, TEMP, TEMP2, TOL3Z;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLARF, DLARFG, DSWAP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN, SQRT
-      // ..
-      // .. External Functions ..
-      //- int                idamax;
-      //- double             DLAMCH, DNRM2;
-      // EXTERNAL idamax, DLAMCH, DNRM2
+  MN = min(M - OFFSET, N);
+  TOL3Z = sqrt(dlamch('Epsilon'));
 
-      MN = min( M-OFFSET, N );
-      TOL3Z = sqrt(dlamch('Epsilon'));
+  // Compute factorization.
 
-      // Compute factorization.
+  for (I = 1; I <= MN; I++) {
+    OFFPI = OFFSET + I;
 
-      for (I = 1; I <= MN; I++) { // 20
+    // Determine ith pivot column and swap if necessary.
 
-         OFFPI = OFFSET + I;
+    PVT = (I - 1) + idamax(N - I + 1, VN1(I), 1);
 
-         // Determine ith pivot column and swap if necessary.
+    if (PVT != I) {
+      dswap(M, A(1, PVT).asArray(), 1, A(1, I).asArray(), 1);
+      ITEMP = JPVT[PVT];
+      JPVT[PVT] = JPVT[I];
+      JPVT[I] = ITEMP;
+      VN1[PVT] = VN1[I];
+      VN2[PVT] = VN2[I];
+    }
 
-         PVT = ( I-1 ) + idamax( N-I+1, VN1( I ), 1 );
+    // Generate elementary reflector H(i).
 
-         if ( PVT != I ) {
-            dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
-            ITEMP = JPVT( PVT );
-            JPVT[PVT] = JPVT( I );
-            JPVT[I] = ITEMP;
-            VN1[PVT] = VN1( I );
-            VN2[PVT] = VN2( I );
-         }
+    if (OFFPI < M) {
+      dlarfg(M - OFFPI + 1, A.box(OFFPI, I), A(OFFPI + 1, I).asArray(), 1,
+          TAU.box(I));
+    } else {
+      dlarfg(1, A.box(M, I), A(M, I).asArray(), 1, TAU.box(I));
+    }
 
-         // Generate elementary reflector H(i).
+    if (I < N) {
+      // Apply H(i)**T to A(offset+i:m,i+1:n) from the left.
 
-         if ( OFFPI < M ) {
-            dlarfg(M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) );
-         } else {
-            dlarfg(1, A( M, I ), A( M, I ), 1, TAU( I ) );
-         }
+      AII = A[OFFPI][I];
+      A[OFFPI][I] = ONE;
+      dlarf('Left', M - OFFPI + 1, N - I, A(OFFPI, I).asArray(), 1, TAU[I],
+          A(OFFPI, I + 1), LDA, WORK(1));
+      A[OFFPI][I] = AII;
+    }
 
-         if ( I < N ) {
+    // Update partial column norms.
 
-            // Apply H(i)**T to A(offset+i:m,i+1:n) from the left.
+    for (J = I + 1; J <= N; J++) {
+      if (VN1[J] != ZERO) {
+        // NOTE: The following 4 lines follow from the analysis in
+        // Lapack Working Note 176.
 
-            AII = A( OFFPI, I );
-            A[OFFPI][I] = ONE;
-            dlarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
-            A[OFFPI][I] = AII;
-         }
-
-         // Update partial column norms.
-
-         for (J = I + 1; J <= N; J++) { // 10
-            if ( VN1( J ) != ZERO ) {
-
-               // NOTE: The following 4 lines follow from the analysis in
-               // Lapack Working Note 176.
-
-               TEMP = ONE - ( ( A( OFFPI, J ) ).abs() / VN1( J ) )**2;
-               TEMP = max( TEMP, ZERO );
-               TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
-               if ( TEMP2 <= TOL3Z ) {
-                  if ( OFFPI < M ) {
-                     VN1[J] = dnrm2( M-OFFPI, A( OFFPI+1, J ), 1 );
-                     VN2[J] = VN1( J );
-                  } else {
-                     VN1[J] = ZERO;
-                     VN2[J] = ZERO;
-                  }
-               } else {
-                  VN1[J] = VN1( J )*sqrt( TEMP );
-               }
-            }
-         } // 10
-
-      } // 20
-
+        TEMP = ONE - pow((A[OFFPI][J].abs() / VN1[J]), 2);
+        TEMP = max(TEMP, ZERO);
+        TEMP2 = TEMP * pow((VN1[J] / VN2[J]), 2);
+        if (TEMP2 <= TOL3Z) {
+          if (OFFPI < M) {
+            VN1[J] = dnrm2(M - OFFPI, A(OFFPI + 1, J).asArray(), 1);
+            VN2[J] = VN1[J];
+          } else {
+            VN1[J] = ZERO;
+            VN2[J] = ZERO;
+          }
+        } else {
+          VN1[J] = VN1[J] * sqrt(TEMP);
+        }
       }
+    }
+  }
+}

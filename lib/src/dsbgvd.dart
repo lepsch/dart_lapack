@@ -129,10 +129,10 @@ void dsbgvd(
   if (!WANTZ) {
     dsterf(N, W, WORK(INDE), INFO);
   } else {
-    dstedc('I', N, W, WORK(INDE), WORK(INDWRK).asMatrix(N), N, WORK(INDWK2), LLWRK2, IWORK,
-        LIWORK, INFO);
-    dgemm(
-        'N', 'N', N, N, N, ONE, Z, LDZ, WORK(INDWRK).asMatrix(N), N, ZERO, WORK(INDWK2).asMatrix(N), N);
+    dstedc('I', N, W, WORK(INDE), WORK(INDWRK).asMatrix(N), N, WORK(INDWK2),
+        LLWRK2, IWORK, LIWORK, INFO);
+    dgemm('N', 'N', N, N, N, ONE, Z, LDZ, WORK(INDWRK).asMatrix(N), N, ZERO,
+        WORK(INDWK2).asMatrix(N), N);
     dlacpy('A', N, N, WORK(INDWK2).asMatrix(N), N, Z, LDZ);
   }
 

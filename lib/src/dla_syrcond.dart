@@ -126,7 +126,7 @@ import 'package:lapack/src/xerbla.dart';
       NORMIN = 'N';
 
       KASE = 0;
-      } // 10
+      // } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
          if ( KASE == 2 ) {

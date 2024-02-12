@@ -91,12 +91,9 @@ void dbbcsd(
       B12BULGE,
       B21BULGE,
       B22BULGE,
-      DUMMY = 0,
       EPS,
       MU,
       NU,
-      SIGMA11 = 0,
-      SIGMA21 = 0,
       TEMP,
       THETAMAX,
       THETAMIN,
@@ -108,7 +105,7 @@ void dbbcsd(
       X2,
       Y1,
       Y2;
-  final R = Box(0.0);
+  final R = Box(0.0), DUMMY = Box(0.0), SIGMA11 = Box(0.0), SIGMA21 = Box(0.0);
   // Test input arguments
 
   INFO.value = 0;
@@ -277,15 +274,15 @@ void dbbcsd(
       dlas2(B11D[IMAX - 1], B11E[IMAX - 1], B11D[IMAX], SIGMA11, DUMMY);
       dlas2(B21D[IMAX - 1], B21E[IMAX - 1], B21D[IMAX], SIGMA21, DUMMY);
 
-      if (SIGMA11 <= SIGMA21) {
-        MU = SIGMA11;
+      if (SIGMA11.value <= SIGMA21.value) {
+        MU = SIGMA11.value;
         NU = sqrt(ONE - pow(MU, 2));
         if (MU < THRESH) {
           MU = ZERO;
           NU = ONE;
         }
       } else {
-        NU = SIGMA21;
+        NU = SIGMA21.value;
         MU = sqrt(1.0 - pow(NU, 2));
         if (NU < THRESH) {
           MU = ONE;
@@ -297,11 +294,11 @@ void dbbcsd(
     // Rotate to produce bulges in B11 and B21
 
     if (MU <= NU) {
-      dlartgs(B11D[IMIN], B11E[IMIN], MU, WORK[IV1TCS + IMIN - 1],
-          WORK[IV1TSN + IMIN - 1]);
+      dlartgs(B11D[IMIN], B11E[IMIN], MU, WORK.box(IV1TCS + IMIN - 1),
+          WORK.box(IV1TSN + IMIN - 1));
     } else {
-      dlartgs(B21D[IMIN], B21E[IMIN], NU, WORK[IV1TCS + IMIN - 1],
-          WORK[IV1TSN + IMIN - 1]);
+      dlartgs(B21D[IMIN], B21E[IMIN], NU, WORK.box(IV1TCS + IMIN - 1),
+          WORK.box(IV1TSN + IMIN - 1));
     }
 
     TEMP = WORK[IV1TCS + IMIN - 1] * B11D[IMIN] +
@@ -328,23 +325,23 @@ void dbbcsd(
 
     if (pow(B11D[IMIN], 2) + pow(B11BULGE, 2) > pow(THRESH, 2)) {
       dlartgp(B11BULGE, B11D[IMIN], WORK.box(IU1SN + IMIN - 1),
-          WORK[IU1CS + IMIN - 1], R);
+          WORK.box(IU1CS + IMIN - 1), R);
     } else if (MU <= NU) {
-      dlartgs(B11E[IMIN], B11D[IMIN + 1], MU, WORK[IU1CS + IMIN - 1],
-          WORK[IU1SN + IMIN - 1]);
+      dlartgs(B11E[IMIN], B11D[IMIN + 1], MU, WORK.box(IU1CS + IMIN - 1),
+          WORK.box(IU1SN + IMIN - 1));
     } else {
-      dlartgs(B12D[IMIN], B12E[IMIN], NU, WORK[IU1CS + IMIN - 1],
-          WORK[IU1SN + IMIN - 1]);
+      dlartgs(B12D[IMIN], B12E[IMIN], NU, WORK.box(IU1CS + IMIN - 1),
+          WORK.box(IU1SN + IMIN - 1));
     }
     if (pow(B21D[IMIN], 2) + pow(B21BULGE, 2) > pow(THRESH, 2)) {
       dlartgp(B21BULGE, B21D[IMIN], WORK.box(IU2SN + IMIN - 1),
-          WORK[IU2CS + IMIN - 1], R);
+          WORK.box(IU2CS + IMIN - 1), R);
     } else if (NU < MU) {
-      dlartgs(B21E[IMIN], B21D[IMIN + 1], NU, WORK[IU2CS + IMIN - 1],
-          WORK[IU2SN + IMIN - 1]);
+      dlartgs(B21E[IMIN], B21D[IMIN + 1], NU, WORK.box(IU2CS + IMIN - 1),
+          WORK.box(IU2SN + IMIN - 1));
     } else {
-      dlartgs(B22D[IMIN], B22E[IMIN], MU, WORK[IU2CS + IMIN - 1],
-          WORK[IU2SN + IMIN - 1]);
+      dlartgs(B22D[IMIN], B22E[IMIN], MU, WORK.box(IU2CS + IMIN - 1),
+          WORK.box(IU2SN + IMIN - 1));
     }
     WORK[IU2CS + IMIN - 1] = -WORK[IU2CS + IMIN - 1];
     WORK[IU2SN + IMIN - 1] = -WORK[IU2SN + IMIN - 1];
@@ -410,36 +407,37 @@ void dbbcsd(
       // chasing by applying the original shift again.
 
       if (!RESTART11 && !RESTART21) {
-        dlartgp(X2, X1, WORK[IV1TSN + I - 1], WORK[IV1TCS + I - 1], R);
+        dlartgp(X2, X1, WORK.box(IV1TSN + I - 1), WORK.box(IV1TCS + I - 1), R);
       } else if (!RESTART11 && RESTART21) {
-        dlartgp(B11BULGE, B11E[I - 1], WORK[IV1TSN + I - 1],
-            WORK[IV1TCS + I - 1], R);
+        dlartgp(B11BULGE, B11E[I - 1], WORK.box(IV1TSN + I - 1),
+            WORK.box(IV1TCS + I - 1), R);
       } else if (RESTART11 && !RESTART21) {
-        dlartgp(B21BULGE, B21E[I - 1], WORK[IV1TSN + I - 1],
-            WORK[IV1TCS + I - 1], R);
+        dlartgp(B21BULGE, B21E[I - 1], WORK.box(IV1TSN + I - 1),
+            WORK.box(IV1TCS + I - 1), R);
       } else if (MU <= NU) {
-        dlartgs(
-            B11D[I], B11E[I], MU, WORK[IV1TCS + I - 1], WORK[IV1TSN + I - 1]);
+        dlartgs(B11D[I], B11E[I], MU, WORK.box(IV1TCS + I - 1),
+            WORK.box(IV1TSN + I - 1));
       } else {
-        dlartgs(
-            B21D[I], B21E[I], NU, WORK[IV1TCS + I - 1], WORK[IV1TSN + I - 1]);
+        dlartgs(B21D[I], B21E[I], NU, WORK.box(IV1TCS + I - 1),
+            WORK.box(IV1TSN + I - 1));
       }
       WORK[IV1TCS + I - 1] = -WORK[IV1TCS + I - 1];
       WORK[IV1TSN + I - 1] = -WORK[IV1TSN + I - 1];
       if (!RESTART12 && !RESTART22) {
-        dlartgp(Y2, Y1, WORK[IV2TSN + I - 1 - 1], WORK[IV2TCS + I - 1 - 1], R);
+        dlartgp(Y2, Y1, WORK.box(IV2TSN + I - 1 - 1),
+            WORK.box(IV2TCS + I - 1 - 1), R);
       } else if (!RESTART12 && RESTART22) {
-        dlartgp(B12BULGE, B12D[I - 1], WORK[IV2TSN + I - 1 - 1],
-            WORK[IV2TCS + I - 1 - 1], R);
+        dlartgp(B12BULGE, B12D[I - 1], WORK.box(IV2TSN + I - 1 - 1),
+            WORK.box(IV2TCS + I - 1 - 1), R);
       } else if (RESTART12 && !RESTART22) {
-        dlartgp(B22BULGE, B22D[I - 1], WORK[IV2TSN + I - 1 - 1],
-            WORK[IV2TCS + I - 1 - 1], R);
+        dlartgp(B22BULGE, B22D[I - 1], WORK.box(IV2TSN + I - 1 - 1),
+            WORK.box(IV2TCS + I - 1 - 1), R);
       } else if (NU < MU) {
-        dlartgs(B12E[I - 1], B12D[I], NU, WORK[IV2TCS + I - 1 - 1],
-            WORK[IV2TSN + I - 1 - 1]);
+        dlartgs(B12E[I - 1], B12D[I], NU, WORK.box(IV2TCS + I - 1 - 1),
+            WORK.box(IV2TSN + I - 1 - 1));
       } else {
-        dlartgs(B22E[I - 1], B22D[I], MU, WORK[IV2TCS + I - 1 - 1],
-            WORK[IV2TSN + I - 1 - 1]);
+        dlartgs(B22E[I - 1], B22D[I], MU, WORK.box(IV2TCS + I - 1 - 1),
+            WORK.box(IV2TSN + I - 1 - 1));
       }
 
       TEMP = WORK[IV1TCS + I - 1] * B11D[I] + WORK[IV1TSN + I - 1] * B11E[I];
@@ -490,30 +488,34 @@ void dbbcsd(
       // chasing by applying the original shift again.
 
       if (!RESTART11 && !RESTART12) {
-        dlartgp(X2, X1, WORK[IU1SN + I - 1], WORK[IU1CS + I - 1], R);
+        dlartgp(X2, X1, WORK.box(IU1SN + I - 1), WORK.box(IU1CS + I - 1), R);
       } else if (!RESTART11 && RESTART12) {
-        dlartgp(B11BULGE, B11D[I], WORK[IU1SN + I - 1], WORK[IU1CS + I - 1], R);
+        dlartgp(B11BULGE, B11D[I], WORK.box(IU1SN + I - 1),
+            WORK.box(IU1CS + I - 1), R);
       } else if (RESTART11 && !RESTART12) {
-        dlartgp(
-            B12BULGE, B12E[I - 1], WORK[IU1SN + I - 1], WORK[IU1CS + I - 1], R);
+        dlartgp(B12BULGE, B12E[I - 1], WORK.box(IU1SN + I - 1),
+            WORK.box(IU1CS + I - 1), R);
       } else if (MU <= NU) {
-        dlartgs(
-            B11E[I], B11D[I + 1], MU, WORK[IU1CS + I - 1], WORK[IU1SN + I - 1]);
+        dlartgs(B11E[I], B11D[I + 1], MU, WORK.box(IU1CS + I - 1),
+            WORK.box(IU1SN + I - 1));
       } else {
-        dlartgs(B12D[I], B12E[I], NU, WORK[IU1CS + I - 1], WORK[IU1SN + I - 1]);
+        dlartgs(B12D[I], B12E[I], NU, WORK.box(IU1CS + I - 1),
+            WORK.box(IU1SN + I - 1));
       }
       if (!RESTART21 && !RESTART22) {
-        dlartgp(Y2, Y1, WORK[IU2SN + I - 1], WORK[IU2CS + I - 1], R);
+        dlartgp(Y2, Y1, WORK.box(IU2SN + I - 1), WORK.box(IU2CS + I - 1), R);
       } else if (!RESTART21 && RESTART22) {
-        dlartgp(B21BULGE, B21D[I], WORK[IU2SN + I - 1], WORK[IU2CS + I - 1], R);
+        dlartgp(B21BULGE, B21D[I], WORK.box(IU2SN + I - 1),
+            WORK.box(IU2CS + I - 1), R);
       } else if (RESTART21 && !RESTART22) {
-        dlartgp(
-            B22BULGE, B22E[I - 1], WORK[IU2SN + I - 1], WORK[IU2CS + I - 1], R);
+        dlartgp(B22BULGE, B22E[I - 1], WORK.box(IU2SN + I - 1),
+            WORK.box(IU2CS + I - 1), R);
       } else if (NU < MU) {
-        dlartgs(
-            B21E[I], B21E[I + 1], NU, WORK[IU2CS + I - 1], WORK[IU2SN + I - 1]);
+        dlartgs(B21E[I], B21E[I + 1], NU, WORK.box(IU2CS + I - 1),
+            WORK.box(IU2SN + I - 1));
       } else {
-        dlartgs(B22D[I], B22E[I], MU, WORK[IU2CS + I - 1], WORK[IU2SN + I - 1]);
+        dlartgs(B22D[I], B22E[I], MU, WORK.box(IU2CS + I - 1),
+            WORK.box(IU2SN + I - 1));
       }
       WORK[IU2CS + I - 1] = -WORK[IU2CS + I - 1];
       WORK[IU2SN + I - 1] = -WORK[IU2SN + I - 1];
@@ -562,20 +564,20 @@ void dbbcsd(
     RESTART22 = pow(B22D[IMAX - 1], 2) + pow(B22BULGE, 2) <= pow(THRESH, 2);
 
     if (!RESTART12 && !RESTART22) {
-      dlartgp(
-          Y2, Y1, WORK[IV2TSN + IMAX - 1 - 1], WORK[IV2TCS + IMAX - 1 - 1], R);
+      dlartgp(Y2, Y1, WORK.box(IV2TSN + IMAX - 1 - 1),
+          WORK.box(IV2TCS + IMAX - 1 - 1), R);
     } else if (!RESTART12 && RESTART22) {
-      dlartgp(B12BULGE, B12D[IMAX - 1], WORK[IV2TSN + IMAX - 1 - 1],
-          WORK[IV2TCS + IMAX - 1 - 1], R);
+      dlartgp(B12BULGE, B12D[IMAX - 1], WORK.box(IV2TSN + IMAX - 1 - 1),
+          WORK.box(IV2TCS + IMAX - 1 - 1), R);
     } else if (RESTART12 && !RESTART22) {
-      dlartgp(B22BULGE, B22D[IMAX - 1], WORK[IV2TSN + IMAX - 1 - 1],
-          WORK[IV2TCS + IMAX - 1 - 1], R);
+      dlartgp(B22BULGE, B22D[IMAX - 1], WORK.box(IV2TSN + IMAX - 1 - 1),
+          WORK.box(IV2TCS + IMAX - 1 - 1), R);
     } else if (NU < MU) {
-      dlartgs(B12E[IMAX - 1], B12D[IMAX], NU, WORK[IV2TCS + IMAX - 1 - 1],
-          WORK[IV2TSN + IMAX - 1 - 1]);
+      dlartgs(B12E[IMAX - 1], B12D[IMAX], NU, WORK.box(IV2TCS + IMAX - 1 - 1),
+          WORK.box(IV2TSN + IMAX - 1 - 1));
     } else {
-      dlartgs(B22E[IMAX - 1], B22D[IMAX], MU, WORK[IV2TCS + IMAX - 1 - 1],
-          WORK[IV2TSN + IMAX - 1 - 1]);
+      dlartgs(B22E[IMAX - 1], B22D[IMAX], MU, WORK.box(IV2TCS + IMAX - 1 - 1),
+          WORK.box(IV2TSN + IMAX - 1 - 1));
     }
 
     TEMP = WORK[IV2TCS + IMAX - 1 - 1] * B12E[IMAX - 1] +
@@ -593,38 +595,46 @@ void dbbcsd(
 
     if (WANTU1) {
       if (COLMAJOR) {
-        dlasr('R.value', 'V', 'F', P, IMAX - IMIN + 1, WORK[IU1CS + IMIN - 1],
-            WORK[IU1SN + IMIN - 1], U1[1][IMIN], LDU1);
+        dlasr('R.value', 'V', 'F', P, IMAX - IMIN + 1, WORK(IU1CS + IMIN - 1),
+            WORK(IU1SN + IMIN - 1), U1(1, IMIN), LDU1);
       } else {
-        dlasr('L', 'V', 'F', IMAX - IMIN + 1, P, WORK[IU1CS + IMIN - 1],
-            WORK[IU1SN + IMIN - 1], U1[IMIN][1], LDU1);
+        dlasr('L', 'V', 'F', IMAX - IMIN + 1, P, WORK(IU1CS + IMIN - 1),
+            WORK(IU1SN + IMIN - 1), U1(IMIN, 1), LDU1);
       }
     }
     if (WANTU2) {
       if (COLMAJOR) {
-        dlasr('R.value', 'V', 'F', M - P, IMAX - IMIN + 1, WORK[IU2CS + IMIN - 1],
-            WORK[IU2SN + IMIN - 1], U2[1][IMIN], LDU2);
+        dlasr('R.value', 'V', 'F', M - P, IMAX - IMIN + 1,
+            WORK(IU2CS + IMIN - 1), WORK(IU2SN + IMIN - 1), U2(1, IMIN), LDU2);
       } else {
-        dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - P, WORK[IU2CS + IMIN - 1],
-            WORK[IU2SN + IMIN - 1], U2[IMIN][1], LDU2);
+        dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - P, WORK(IU2CS + IMIN - 1),
+            WORK(IU2SN + IMIN - 1), U2(IMIN, 1), LDU2);
       }
     }
     if (WANTV1T) {
       if (COLMAJOR) {
-        dlasr('L', 'V', 'F', IMAX - IMIN + 1, Q, WORK[IV1TCS + IMIN - 1],
-            WORK[IV1TSN + IMIN - 1], V1T[IMIN][1], LDV1T);
+        dlasr('L', 'V', 'F', IMAX - IMIN + 1, Q, WORK(IV1TCS + IMIN - 1),
+            WORK(IV1TSN + IMIN - 1), V1T(IMIN, 1), LDV1T);
       } else {
-        dlasr('R.value', 'V', 'F', Q, IMAX - IMIN + 1, WORK[IV1TCS + IMIN - 1],
-            WORK[IV1TSN + IMIN - 1], V1T[1][IMIN], LDV1T);
+        dlasr('R.value', 'V', 'F', Q, IMAX - IMIN + 1, WORK(IV1TCS + IMIN - 1),
+            WORK(IV1TSN + IMIN - 1), V1T(1, IMIN), LDV1T);
       }
     }
     if (WANTV2T) {
       if (COLMAJOR) {
-        dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - Q, WORK[IV2TCS + IMIN - 1],
-            WORK[IV2TSN + IMIN - 1], V2T[IMIN][1], LDV2T);
+        dlasr('L', 'V', 'F', IMAX - IMIN + 1, M - Q, WORK(IV2TCS + IMIN - 1),
+            WORK(IV2TSN + IMIN - 1), V2T(IMIN, 1), LDV2T);
       } else {
-        dlasr('R.value', 'V', 'F', M - Q, IMAX - IMIN + 1, WORK[IV2TCS + IMIN - 1],
-            WORK[IV2TSN + IMIN - 1], V2T[1][IMIN], LDV2T);
+        dlasr(
+            'R.value',
+            'V',
+            'F',
+            M - Q,
+            IMAX - IMIN + 1,
+            WORK(IV2TCS + IMIN - 1),
+            WORK(IV2TSN + IMIN - 1),
+            V2T(1, IMIN),
+            LDV2T);
       }
     }
 
@@ -635,9 +645,9 @@ void dbbcsd(
       B21D[IMAX] = -B21D[IMAX];
       if (WANTV1T) {
         if (COLMAJOR) {
-          dscal(Q, NEGONE, V1T(IMAX, 1), LDV1T);
+          dscal(Q, NEGONE, V1T(IMAX, 1).asArray(), LDV1T);
         } else {
-          dscal(Q, NEGONE, V1T(1, IMAX), 1);
+          dscal(Q, NEGONE, V1T(1, IMAX).asArray(), 1);
         }
       }
     }
@@ -656,9 +666,9 @@ void dbbcsd(
       B12D[IMAX] = -B12D[IMAX];
       if (WANTU1) {
         if (COLMAJOR) {
-          dscal(P, NEGONE, U1(1, IMAX), 1);
+          dscal(P, NEGONE, U1(1, IMAX).asArray(), 1);
         } else {
-          dscal(P, NEGONE, U1(IMAX, 1), LDU1);
+          dscal(P, NEGONE, U1(IMAX, 1).asArray(), LDU1);
         }
       }
     }
@@ -666,9 +676,9 @@ void dbbcsd(
       B22D[IMAX] = -B22D[IMAX];
       if (WANTU2) {
         if (COLMAJOR) {
-          dscal(M - P, NEGONE, U2(1, IMAX), 1);
+          dscal(M - P, NEGONE, U2(1, IMAX).asArray(), 1);
         } else {
-          dscal(M - P, NEGONE, U2(IMAX, 1), LDU2);
+          dscal(M - P, NEGONE, U2(IMAX, 1).asArray(), LDU2);
         }
       }
     }
@@ -678,9 +688,9 @@ void dbbcsd(
     if (B12D[IMAX] + B22D[IMAX] < 0) {
       if (WANTV2T) {
         if (COLMAJOR) {
-          dscal(M - Q, NEGONE, V2T(IMAX, 1), LDV2T);
+          dscal(M - Q, NEGONE, V2T(IMAX, 1).asArray(), LDV2T);
         } else {
-          dscal(M - Q, NEGONE, V2T(1, IMAX), 1);
+          dscal(M - Q, NEGONE, V2T(1, IMAX).asArray(), 1);
         }
       }
     }
@@ -737,15 +747,30 @@ void dbbcsd(
       THETA[MINI] = THETA[I];
       THETA[I] = THETAMIN;
       if (COLMAJOR) {
-        if (WANTU1) dswap(P, U1(1, I), 1, U1(1, MINI), 1);
-        if (WANTU2) dswap(M - P, U2(1, I), 1, U2(1, MINI), 1);
-        if (WANTV1T) dswap(Q, V1T(I, 1), LDV1T, V1T(MINI, 1), LDV1T);
-        if (WANTV2T) dswap(M - Q, V2T(I, 1), LDV2T, V2T(MINI, 1), LDV2T);
+        if (WANTU1) dswap(P, U1(1, I).asArray(), 1, U1(1, MINI).asArray(), 1);
+        if (WANTU2) {
+          dswap(M - P, U2(1, I).asArray(), 1, U2(1, MINI).asArray(), 1);
+        }
+        if (WANTV1T) {
+          dswap(Q, V1T(I, 1).asArray(), LDV1T, V1T(MINI, 1).asArray(), LDV1T);
+        }
+        if (WANTV2T) {
+          dswap(
+              M - Q, V2T(I, 1).asArray(), LDV2T, V2T(MINI, 1).asArray(), LDV2T);
+        }
       } else {
-        if (WANTU1) dswap(P, U1(I, 1), LDU1, U1(MINI, 1), LDU1);
-        if (WANTU2) dswap(M - P, U2(I, 1), LDU2, U2(MINI, 1), LDU2);
-        if (WANTV1T) dswap(Q, V1T(1, I), 1, V1T(1, MINI), 1);
-        if (WANTV2T) dswap(M - Q, V2T(1, I), 1, V2T(1, MINI), 1);
+        if (WANTU1) {
+          dswap(P, U1(I, 1).asArray(), LDU1, U1(MINI, 1).asArray(), LDU1);
+        }
+        if (WANTU2) {
+          dswap(M - P, U2(I, 1).asArray(), LDU2, U2(MINI, 1).asArray(), LDU2);
+        }
+        if (WANTV1T) {
+          dswap(Q, V1T(1, I).asArray(), 1, V1T(1, MINI).asArray(), 1);
+        }
+        if (WANTV2T) {
+          dswap(M - Q, V2T(1, I).asArray(), 1, V2T(1, MINI).asArray(), 1);
+        }
       }
     }
   }

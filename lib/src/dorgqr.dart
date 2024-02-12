@@ -1,20 +1,12 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
-
-import 'dart:math';
-
-import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlarfb.dart';
 import 'package:lapack/src/dlarft.dart';
 import 'package:lapack/src/dorg2r.dart';
-import 'package:lapack/src/ilaenv.dart';
-import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
 void dorgqr(
   final int M,
@@ -124,7 +116,7 @@ void dorgqr(
         // H = H(i) H(i+1) . . . H(i+ib-1)
 
         dlarft('Forward', 'Columnwise', M - I + 1, IB, A(I, I), LDA, TAU(I),
-            WORK, LDWORK);
+            WORK.asMatrix(LDWORK), LDWORK);
 
         // Apply H to A(i:m,i+ib:n) from the left
 
@@ -138,11 +130,11 @@ void dorgqr(
             IB,
             A(I, I),
             LDA,
-            WORK,
+            WORK.asMatrix(LDWORK),
             LDWORK,
             A(I, I + IB),
             LDA,
-            WORK(IB + 1),
+            WORK(IB + 1).asMatrix(LDWORK),
             LDWORK);
       }
 

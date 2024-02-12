@@ -84,7 +84,7 @@ import 'package:lapack/src/xerbla.dart';
       KD = KL + KU + 1;
       LNOTI = KL > 0;
       KASE = 0;
-      } // 10
+      // } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
          if ( KASE == KASE1 ) {
@@ -134,7 +134,7 @@ import 'package:lapack/src/xerbla.dart';
          NORMIN = 'Y';
          if ( SCALE != ONE ) {
             IX = idamax( N, WORK, 1 );
-            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 40;
+            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) return;
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;
@@ -143,6 +143,4 @@ import 'package:lapack/src/xerbla.dart';
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
-
-      } // 40
       }

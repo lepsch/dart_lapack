@@ -7,131 +7,133 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dpptrf.dart';
 import 'package:lapack/src/dspevd.dart';
 import 'package:lapack/src/dspgst.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dspgvd(final int ITYPE, final String JOBZ, final String UPLO, final int N,
-          final Array<double> AP,
-          final Array<double> BP,
-          final Array<double> W,
-          final Matrix<double> Z, final int LDZ,
-          final Array<double> WORK, final int LWORK,
-          final Array<int> IWORK, final int LIWORK, final Box<int> INFO, ) {
-
+void dspgvd(
+  final int ITYPE,
+  final String JOBZ,
+  final String UPLO,
+  final int N,
+  final Array<double> AP,
+  final Array<double> BP,
+  final Array<double> W,
+  final Matrix<double> Z,
+  final int LDZ,
+  final Array<double> WORK,
+  final int LWORK,
+  final Array<int> IWORK,
+  final int LIWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               LQUERY, UPPER, WANTZ;
-      String             TRANS;
-      int                J, LIWMIN=0, LWMIN=0, NEIG;
+  bool LQUERY, UPPER, WANTZ;
+  String TRANS;
+  int J, LIWMIN = 0, LWMIN = 0, NEIG;
 
-      // Test the input parameters.
+  // Test the input parameters.
 
-      WANTZ = lsame( JOBZ, 'V' );
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 || LIWORK == -1 );
+  WANTZ = lsame(JOBZ, 'V');
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1 || LIWORK == -1);
 
-      INFO.value = 0;
-      if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO.value = -1;
-      } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO.value = -2;
-      } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
-         INFO.value = -3;
-      } else if ( N < 0 ) {
-         INFO.value = -4;
-      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO.value = -9;
+  INFO.value = 0;
+  if (ITYPE < 1 || ITYPE > 3) {
+    INFO.value = -1;
+  } else if (!(WANTZ || lsame(JOBZ, 'N'))) {
+    INFO.value = -2;
+  } else if (!(UPPER || lsame(UPLO, 'L'))) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (LDZ < 1 || (WANTZ && LDZ < N)) {
+    INFO.value = -9;
+  }
+
+  if (INFO.value == 0) {
+    if (N <= 1) {
+      LIWMIN = 1;
+      LWMIN = 1;
+    } else {
+      if (WANTZ) {
+        LIWMIN = 3 + 5 * N;
+        LWMIN = 1 + 6 * N + 2 * pow(N, 2).toInt();
+      } else {
+        LIWMIN = 1;
+        LWMIN = 2 * N;
+      }
+    }
+    WORK[1] = LWMIN.toDouble();
+    IWORK[1] = LIWMIN;
+    if (LWORK < LWMIN && !LQUERY) {
+      INFO.value = -11;
+    } else if (LIWORK < LIWMIN && !LQUERY) {
+      INFO.value = -13;
+    }
+  }
+
+  if (INFO.value != 0) {
+    xerbla('DSPGVD', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
+
+  // Quick return if possible
+
+  if (N == 0) return;
+
+  // Form a Cholesky factorization of BP.
+
+  dpptrf(UPLO, N, BP, INFO);
+  if (INFO.value != 0) {
+    INFO.value = N + INFO.value;
+    return;
+  }
+
+  // Transform problem to standard eigenvalue problem and solve.
+
+  dspgst(ITYPE, UPLO, N, AP, BP, INFO);
+  dspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO);
+  LWMIN = max(LWMIN, WORK[1]).toInt();
+  LIWMIN = max(LIWMIN, IWORK[1]);
+
+  if (WANTZ) {
+    // Backtransform eigenvectors to the original problem.
+
+    NEIG = N;
+    if (INFO.value > 0) NEIG = INFO.value - 1;
+    if (ITYPE == 1 || ITYPE == 2) {
+      // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+      // backtransform eigenvectors: x = inv(L)**T *y or inv(U)*y
+
+      if (UPPER) {
+        TRANS = 'N';
+      } else {
+        TRANS = 'T';
       }
 
-      if ( INFO.value == 0 ) {
-         if ( N <= 1 ) {
-            LIWMIN = 1;
-            LWMIN = 1;
-         } else {
-            if ( WANTZ ) {
-               LIWMIN = 3 + 5*N;
-               LWMIN = 1 + 6*N + 2*pow(N,2).toInt();
-            } else {
-               LIWMIN = 1;
-               LWMIN = 2*N;
-            }
-         }
-         WORK[1] = LWMIN.toDouble();
-         IWORK[1] = LIWMIN;
-         if ( LWORK < LWMIN && !LQUERY ) {
-            INFO.value = -11;
-         } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO.value = -13;
-         }
+      for (J = 1; J <= NEIG; J++) {
+        dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z(1, J).asArray(), 1);
+      }
+    } else if (ITYPE == 3) {
+      // For B*A*x=(lambda)*x;
+      // backtransform eigenvectors: x = L*y or U**T *y
+
+      if (UPPER) {
+        TRANS = 'T';
+      } else {
+        TRANS = 'N';
       }
 
-      if ( INFO.value != 0 ) {
-         xerbla('DSPGVD', -INFO.value );
-         return;
-      } else if ( LQUERY ) {
-         return;
+      for (J = 1; J <= NEIG; J++) {
+        dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z(1, J).asArray(), 1);
       }
+    }
+  }
 
-      // Quick return if possible
-
-      if (N == 0) return;
-
-      // Form a Cholesky factorization of BP.
-
-      dpptrf(UPLO, N, BP, INFO );
-      if ( INFO.value != 0 ) {
-         INFO.value = N + INFO.value;
-         return;
-      }
-
-      // Transform problem to standard eigenvalue problem and solve.
-
-      dspgst(ITYPE, UPLO, N, AP, BP, INFO );
-      dspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO.value );
-      LWMIN = max( LWMIN, WORK[1] ).toInt();
-      LIWMIN = max( LIWMIN, IWORK[1] );
-
-      if ( WANTZ ) {
-
-         // Backtransform eigenvectors to the original problem.
-
-         NEIG = N;
-         if (INFO.value > 0) NEIG = INFO.value - 1;
-         if ( ITYPE == 1 || ITYPE == 2 ) {
-
-            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-            // backtransform eigenvectors: x = inv(L)**T *y or inv(U)*y
-
-            if ( UPPER ) {
-               TRANS = 'N';
-            } else {
-               TRANS = 'T';
-            }
-
-            for (J = 1; J <= NEIG; J++) {
-               dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
-            }
-
-         } else if ( ITYPE == 3 ) {
-
-            // For B*A*x=(lambda)*x;
-            // backtransform eigenvectors: x = L*y or U**T *y
-
-            if ( UPPER ) {
-               TRANS = 'T';
-            } else {
-               TRANS = 'N';
-            }
-
-            for (J = 1; J <= NEIG; J++) {
-               dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
-            }
-         }
-      }
-
-      WORK[1] = LWMIN;
-      IWORK[1] = LIWMIN;
-
-      }
+  WORK[1] = LWMIN.toDouble();
+  IWORK[1] = LIWMIN;
+}

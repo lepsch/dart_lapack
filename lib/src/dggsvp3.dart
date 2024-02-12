@@ -208,7 +208,7 @@ void dggsvp3(
   // Update A12 := U**T*A12, where A12 = A[ 1:M][ N-L.value+1:N ]
 
   dorm2r('Left', 'Transpose', M, L.value, min(M, N - L.value), A, LDA, TAU,
-      A[1][N - L.value + 1], LDA, WORK, INFO);
+      A(1, N - L.value + 1), LDA, WORK, INFO);
 
   if (WANTU) {
     // Copy the details of U, and form U
@@ -274,10 +274,10 @@ void dggsvp3(
           M,
           M - K.value,
           min(M - K.value, L.value),
-          A[K.value + 1][N - L.value + 1],
+          A(K.value + 1, N - L.value + 1),
           LDA,
           TAU,
-          U[1][K.value + 1],
+          U(1, K.value + 1),
           LDU,
           WORK,
           INFO);

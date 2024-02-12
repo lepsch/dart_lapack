@@ -145,7 +145,7 @@ void dormqr(
       // H = H(i) H(i+1) . . . H(i+ib-1)
 
       dlarft('Forward', 'Columnwise', NQ - I + 1, IB, A(I, I), LDA, TAU(I),
-          WORK(IWT), LDT);
+          WORK(IWT).asMatrix(LDT), LDT);
       if (LEFT) {
         // H or H**T is applied to C(i:m,1:n)
 
@@ -160,8 +160,22 @@ void dormqr(
 
       // Apply H or H**T
 
-      dlarfb(SIDE, TRANS, 'Forward', 'Columnwise', MI, NI, IB, A(I, I), LDA,
-          WORK(IWT), LDT, C(IC, JC), LDC, WORK, LDWORK);
+      dlarfb(
+          SIDE,
+          TRANS,
+          'Forward',
+          'Columnwise',
+          MI,
+          NI,
+          IB,
+          A(I, I),
+          LDA,
+          WORK(IWT).asMatrix(LDT),
+          LDT,
+          C(IC, JC),
+          LDC,
+          WORK.asMatrix(LDWORK),
+          LDWORK);
     }
   }
   WORK[1] = LWKOPT.toDouble();

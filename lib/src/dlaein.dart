@@ -43,7 +43,6 @@ void dlaein(
       NRMSML,
       REC,
       ROOTN,
-      SCALE = 0,
       TEMP,
       VCRIT,
       VMAX,
@@ -55,6 +54,7 @@ void dlaein(
       XR,
       Y;
   final IERR = Box(0);
+  final SCALE = Box(0.0);
 
   INFO.value = 0;
 
@@ -69,13 +69,11 @@ void dlaein(
   // the imaginary parts of the diagonal elements are not stored).
 
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = 1; I <= J - 1; I++) {
-      // 10
       B[I][J] = H[I][J];
-    } // 10
+    }
     B[J][J] = H[J][J] - WR;
-  } // 20
+  }
 
   if (WI == ZERO) {
     // Real eigenvalue.
@@ -84,9 +82,8 @@ void dlaein(
       // Set initial vector.
 
       for (I = 1; I <= N; I++) {
-        // 30
         VR[I] = EPS3;
-      } // 30
+      }
     } else {
       // Scale supplied initial vector.
 
@@ -99,7 +96,6 @@ void dlaein(
       // pivots by EPS3.
 
       for (I = 1; I <= N - 1; I++) {
-        // 60
         EI = H[I + 1][I];
         if ((B[I][I]).abs() < (EI).abs()) {
           // Interchange rows and eliminate.
@@ -107,11 +103,10 @@ void dlaein(
           X = B[I][I] / EI;
           B[I][I] = EI;
           for (J = I + 1; J <= N; J++) {
-            // 40
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - X * TEMP;
             B[I][J] = TEMP;
-          } // 40
+          }
         } else {
           // Eliminate without interchange.
 
@@ -119,12 +114,11 @@ void dlaein(
           X = EI / B[I][I];
           if (X != ZERO) {
             for (J = I + 1; J <= N; J++) {
-              // 50
               B[I + 1][J] = B[I + 1][J] - X * B[I][J];
-            } // 50
+            }
           }
         }
-      } // 60
+      }
       if (B[N][N] == ZERO) B[N][N] = EPS3;
 
       TRANS = 'N';
@@ -133,7 +127,6 @@ void dlaein(
       // pivots by EPS3.
 
       for (J = N; J >= 2; J--) {
-        // 90
         EJ = H[J][J - 1];
         if ((B[J][J]).abs() < (EJ).abs()) {
           // Interchange columns and eliminate.
@@ -141,11 +134,10 @@ void dlaein(
           X = B[J][J] / EJ;
           B[J][J] = EJ;
           for (I = 1; I <= J - 1; I++) {
-            // 70
             TEMP = B[I][J - 1];
             B[I][J - 1] = B[I][J] - X * TEMP;
             B[I][J] = TEMP;
-          } // 70
+          }
         } else {
           // Eliminate without interchange.
 
@@ -153,12 +145,11 @@ void dlaein(
           X = EJ / B[J][J];
           if (X != ZERO) {
             for (I = 1; I <= J - 1; I++) {
-              // 80
               B[I][J - 1] = B[I][J - 1] - X * B[I][J];
-            } // 80
+            }
           }
         }
-      } // 90
+      }
       if (B[1][1] == ZERO) B[1][1] = EPS3;
 
       TRANS = 'T';
@@ -167,8 +158,6 @@ void dlaein(
     NORMIN = 'N';
     var eigenvectorFound = false;
     for (ITS = 1; ITS <= N; ITS++) {
-      // 110
-
       // Solve U*x = scale*v for a right eigenvector
       //    or U**T*x = scale*v for a left eigenvector,
       // overwriting x on v.
@@ -180,9 +169,9 @@ void dlaein(
       // Test for sufficient growth in the norm of v.
 
       VNORM = dasum(N, VR, 1);
-      if (VNORM < GROWTO * SCALE) {
+      if (VNORM < GROWTO * SCALE.value) {
         eigenvectorFound = true;
-        break; // 120
+        break;
       }
 
       // Choose new orthogonal starting vector and try again.
@@ -190,16 +179,15 @@ void dlaein(
       TEMP = EPS3 / (ROOTN + ONE);
       VR[1] = EPS3;
       for (I = 2; I <= N; I++) {
-        // 100
         VR[I] = TEMP;
-      } // 100
+      }
       VR[N - ITS + 1] = VR[N - ITS + 1] - EPS3 * ROOTN;
-    } // 110
+    }
 
     // Failure to find eigenvector in N iterations.
     if (!eigenvectorFound) {
       INFO.value = 1;
-    } // 120
+    }
 
     // Normalize eigenvector.
 
@@ -212,10 +200,9 @@ void dlaein(
       // Set initial vector.
 
       for (I = 1; I <= N; I++) {
-        // 130
         VR[I] = EPS3;
         VI[I] = ZERO;
-      } // 130
+      }
     } else {
       // Scale supplied initial vector.
 
@@ -234,12 +221,10 @@ void dlaein(
 
       B[2][1] = -WI;
       for (I = 2; I <= N; I++) {
-        // 140
         B[I + 1][1] = ZERO;
-      } // 140
+      }
 
       for (I = 1; I <= N - 1; I++) {
-        // 170
         ABSBII = dlapy2(B[I][I], B[I + 1][I]);
         EI = H[I + 1][I];
         if (ABSBII < (EI).abs()) {
@@ -250,13 +235,12 @@ void dlaein(
           B[I][I] = EI;
           B[I + 1][I] = ZERO;
           for (J = I + 1; J <= N; J++) {
-            // 150
             TEMP = B[I + 1][J];
             B[I + 1][J] = B[I][J] - XR * TEMP;
             B[J + 1][I + 1] = B[J + 1][I] - XI * TEMP;
             B[I][J] = TEMP;
             B[J + 1][I] = ZERO;
-          } // 150
+          }
           B[I + 2][I] = -WI;
           B[I + 1][I + 1] = B[I + 1][I + 1] - XI * WI;
           B[I + 2][I + 1] = B[I + 2][I + 1] + XR * WI;
@@ -272,10 +256,9 @@ void dlaein(
           XR = B[I][I] * EI;
           XI = -B[I + 1][I] * EI;
           for (J = I + 1; J <= N; J++) {
-            // 160
             B[I + 1][J] = B[I + 1][J] - XR * B[I][J] + XI * B[J + 1][I];
             B[J + 1][I + 1] = -XR * B[J + 1][I] - XI * B[I][J];
-          } // 160
+          }
           B[I + 2][I + 1] = B[I + 2][I + 1] - WI;
         }
 
@@ -283,7 +266,7 @@ void dlaein(
 
         WORK[I] = dasum(N - I, B(I, I + 1).asArray(), LDB) +
             dasum(N - I, B(I + 2, I).asArray(), 1);
-      } // 170
+      }
       if (B[N][N] == ZERO && B[N + 1][N] == ZERO) B[N][N] = EPS3;
       WORK[N] = ZERO;
 
@@ -299,12 +282,10 @@ void dlaein(
 
       B[N + 1][N] = WI;
       for (J = 1; J <= N - 1; J++) {
-        // 180
         B[N + 1][J] = ZERO;
-      } // 180
+      }
 
       for (J = N; J >= 2; J--) {
-        // 210
         EJ = H[J][J - 1];
         ABSBJJ = dlapy2(B[J][J], B[J + 1][J]);
         if (ABSBJJ < (EJ).abs()) {
@@ -315,13 +296,12 @@ void dlaein(
           B[J][J] = EJ;
           B[J + 1][J] = ZERO;
           for (I = 1; I <= J - 1; I++) {
-            // 190
             TEMP = B[I][J - 1];
             B[I][J - 1] = B[I][J] - XR * TEMP;
             B[J][I] = B[J + 1][I] - XI * TEMP;
             B[I][J] = TEMP;
             B[J + 1][I] = ZERO;
-          } // 190
+          }
           B[J + 1][J - 1] = WI;
           B[J - 1][J - 1] = B[J - 1][J - 1] + XI * WI;
           B[J][J - 1] = B[J][J - 1] - XR * WI;
@@ -337,10 +317,9 @@ void dlaein(
           XR = B[J][J] * EJ;
           XI = -B[J + 1][J] * EJ;
           for (I = 1; I <= J - 1; I++) {
-            // 200
             B[I][J - 1] = B[I][J - 1] - XR * B[I][J] + XI * B[J + 1][I];
             B[J][I] = -XR * B[J + 1][I] - XI * B[I][J];
-          } // 200
+          }
           B[J][J - 1] = B[J][J - 1] + WI;
         }
 
@@ -348,7 +327,7 @@ void dlaein(
 
         WORK[J] = dasum(J - 1, B(1, J).asArray(), 1) +
             dasum(J - 1, B(J + 1, 1).asArray(), LDB);
-      } // 210
+      }
       if (B[1][1] == ZERO && B[2][1] == ZERO) B[1][1] = EPS3;
       WORK[1] = ZERO;
 
@@ -359,8 +338,7 @@ void dlaein(
 
     var eigenvectorFound = false;
     for (ITS = 1; ITS <= N; ITS++) {
-      // 270
-      SCALE = ONE;
+      SCALE.value = ONE;
       VMAX = ONE;
       VCRIT = BIGNUM;
 
@@ -369,13 +347,11 @@ void dlaein(
       // overwriting (xr,xi) on (vr,vi).
 
       for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
-        // 250
-
         if (WORK[I] > VCRIT) {
           REC = ONE / VMAX;
           dscal(N, REC, VR, 1);
           dscal(N, REC, VI, 1);
-          SCALE = SCALE * REC;
+          SCALE.value = SCALE.value * REC;
           VMAX = ONE;
           VCRIT = BIGNUM;
         }
@@ -384,16 +360,14 @@ void dlaein(
         XI = VI[I];
         if (RIGHTV) {
           for (J = I + 1; J <= N; J++) {
-            // 220
             XR = XR - B[I][J] * VR[J] + B[J + 1][I] * VI[J];
             XI = XI - B[I][J] * VI[J] - B[J + 1][I] * VR[J];
-          } // 220
+          }
         } else {
           for (J = 1; J <= I - 1; J++) {
-            // 230
             XR = XR - B[J][I] * VR[J] + B[I + 1][J] * VI[J];
             XI = XI - B[J][I] * VI[J] - B[I + 1][J] * VR[J];
-          } // 230
+          }
         }
 
         W = (B[I][I]).abs() + (B[I + 1][I]).abs();
@@ -406,34 +380,33 @@ void dlaein(
               dscal(N, REC, VI, 1);
               XR = VR[I];
               XI = VI[I];
-              SCALE = SCALE * REC;
+              SCALE.value = SCALE.value * REC;
               VMAX = VMAX * REC;
             }
           }
 
           // Divide by diagonal element of B.
 
-          dladiv(XR, XI, B[I][I], B[I + 1][I], VR[I], VI[I]);
+          dladiv(XR, XI, B[I][I], B[I + 1][I], VR.box(I), VI.box(I));
           VMAX = max((VR[I]).abs() + (VI[I]).abs(), VMAX);
           VCRIT = BIGNUM / VMAX;
         } else {
           for (J = 1; J <= N; J++) {
-            // 240
             VR[J] = ZERO;
             VI[J] = ZERO;
-          } // 240
+          }
           VR[I] = ONE;
           VI[I] = ONE;
-          SCALE = ZERO;
+          SCALE.value = ZERO;
           VMAX = ONE;
           VCRIT = BIGNUM;
         }
-      } // 250
+      }
 
       // Test for sufficient growth in the norm of (VR,VI).
 
       VNORM = dasum(N, VR, 1) + dasum(N, VI, 1);
-      if (VNORM >= GROWTO * SCALE) {
+      if (VNORM >= GROWTO * SCALE.value) {
         eigenvectorFound = true;
         break;
       }
@@ -445,25 +418,23 @@ void dlaein(
       VI[1] = ZERO;
 
       for (I = 2; I <= N; I++) {
-        // 260
         VR[I] = Y;
         VI[I] = ZERO;
-      } // 260
+      }
       VR[N - ITS + 1] = VR[N - ITS + 1] - EPS3 * ROOTN;
-    } // 270
+    }
 
     // Failure to find eigenvector in N iterations
     if (!eigenvectorFound) {
       INFO.value = 1;
-    } // 280
+    }
 
     // Normalize eigenvector.
 
     VNORM = ZERO;
     for (I = 1; I <= N; I++) {
-      // 290
       VNORM = max(VNORM, (VR[I]).abs() + (VI[I]).abs());
-    } // 290
+    }
     dscal(N, ONE / VNORM, VR, 1);
     dscal(N, ONE / VNORM, VI, 1);
   }

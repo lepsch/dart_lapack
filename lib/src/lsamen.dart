@@ -11,7 +11,7 @@ bool lsamen(final int N, final String CA, final String CB) {
 
   for (var I = 1; I <= N; I++) {
     // Test if the characters are equal using lsame.
-    if (!lsame(CA[I], CB[I])) return false;
+    if (!lsame(CA[I - 1], CB[I - 1])) return false;
   }
   return true;
 }

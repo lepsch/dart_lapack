@@ -32,7 +32,7 @@ double dlamch(final String CMACH) {
   double RMACH = 0, SMALL = 0;
 
   if (_dlamchCache.FIRST) {
-    var EPS=Box(0.0), RMIN=Box(0.0), RMAX=Box(0.0);
+    var EPS = Box(0.0), RMIN = Box(0.0), RMAX = Box(0.0);
     dlamc2(BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX);
     _dlamchCache.EPS = EPS.value;
     _dlamchCache.RMIN = RMIN.value;
@@ -419,9 +419,8 @@ void dlamc2(
     RBASE = ONE / LBETA.value;
     SMALL = ONE;
     for (I = 1; I <= 3; I++) {
-      // 20
       SMALL = dlamc3(SMALL * RBASE, ZERO);
-    } // 20
+    }
     A = dlamc3(ONE, SMALL);
     dlamc4(NGPMIN, ONE, LBETA.value);
     dlamc4(NGNMIN, -ONE, LBETA.value);
@@ -493,9 +492,8 @@ void dlamc2(
 
     LRMIN = 1;
     for (I = 1; I <= 1 - LEMIN; I++) {
-      // 30
       LRMIN = dlamc3(LRMIN * RBASE, ZERO);
-    } // 30
+    }
 
     // Finally, call DLAMC5 to compute EMAX and RMAX.
 
@@ -587,16 +585,14 @@ void dlamc4(final Box<int> EMIN, final double START, final int BASE) {
     C1 = dlamc3(B1 * BASE, ZERO);
     D1 = ZERO;
     for (I = 1; I <= BASE; I++) {
-      // 20
       D1 = D1 + B1;
-    } // 20
+    }
     B2 = dlamc3(A * RBASE, ZERO);
     C2 = dlamc3(B2 / RBASE, ZERO);
     D2 = ZERO;
     for (I = 1; I <= BASE; I++) {
-      // 30
       D2 = D2 + B2;
-    } // 30
+    }
   }
 }
 
@@ -732,19 +728,17 @@ void dlamc5(
   Z = BETA - ONE;
   Y = ZERO;
   for (I = 1; I <= P; I++) {
-    // 20
     Z = Z * RECBAS;
     if (Y < ONE) OLDY = Y;
     Y = dlamc3(Y, Z);
-  } // 20
+  }
   if (Y >= ONE) Y = OLDY;
 
   // Now multiply by BETA**EMAX to get RMAX.
 
   for (I = 1; I <= EMAX.value; I++) {
-    // 30
     Y = dlamc3(Y * BETA, ZERO);
-  } // 30
+  }
 
   RMAX.value = Y;
 }

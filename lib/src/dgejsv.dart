@@ -219,7 +219,6 @@ void dgejsv(
   }
 
   // Quick return for zero M x N matrix
-// #:)
   if (AAPP.value == ZERO) {
     if (LSVEC) dlaset('G', M, N1, ZERO, ONE, U, LDU);
     if (RSVEC) dlaset('G', N, N, ZERO, ONE, V, LDV);
@@ -834,7 +833,7 @@ void dgejsv(
         // more conservative    <=> CONDR1 < sqrt(N.toDouble())
 
         COND_OK = sqrt(NR.toDouble());
-// [TP]       COND_OK is a tuning parameter.
+        // [TP] COND_OK is a tuning parameter.
 
         if (CONDR1 < COND_OK) {
           // .. the second QRF without pivoting. Note: in an optimized
@@ -881,8 +880,7 @@ void dgejsv(
           }
           dgeqp3(N, NR, V, LDV, IWORK(N + 1), WORK(N + 1), WORK(2 * N + 1),
               LWORK - 2 * N, IERR);
-// *               CALL DGEQRF( N, NR, V, LDV, WORK[N+1], WORK[2*N+1],
-// *     $              LWORK-2*N, IERR.value )
+          // CALL DGEQRF( N, NR, V, LDV, WORK[N+1], WORK[2*N+1], LWORK-2*N, IERR )
           if (L2PERT) {
             XSC.value = sqrt(SMALL);
             for (p = 2; p <= NR; p++) {
@@ -973,7 +971,7 @@ void dgejsv(
           // .. pick the right matrix equation and solve it
 
           if (NR == N) {
-// :))             .. best case, R1 is inverted. The solution of this matrix
+            // .. best case, R1 is inverted. The solution of this matrix
             // equation is Q2*V2 = the product of the Jacobi rotations
             // used in DGESVJ, premultiplied with the orthogonal matrix
             // from the second QR factorization.
@@ -1006,7 +1004,7 @@ void dgejsv(
                 IERR);
           }
         } else if (CONDR2 < COND_OK) {
-// :)           .. the input matrix A is very likely a relative of
+          // .. the input matrix A is very likely a relative of
           // the Kahan matrix :)
           // The matrix R2 is inverted. The solution of the matrix equation
           // is Q3^T*V3 = the product of the Jacobi rotations (applied to
@@ -1052,7 +1050,7 @@ void dgejsv(
               IERR);
         } else {
           // Last line of defense.
-// #:(          This is a rather pathological case: no scaled condition
+          // .. This is a rather pathological case: no scaled condition
           // improvement after two pivoted QR factorizations. Other
           // possibility is that the rank revealing QR factorization
           // or the condition estimator has failed, or the COND_OK

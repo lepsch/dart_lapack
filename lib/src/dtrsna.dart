@@ -38,14 +38,13 @@ void dtrsna(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   bool PAIR, SOMCON, WANTBH, WANTS, WANTSP;
-  int I, IFST, ILST, J, K, KS, N2 = 0, NN = 0;
+  int I, J, K, KS, N2 = 0, NN = 0;
   double BIGNUM,
       COND,
       CS,
       DELTA,
       DUMM = 0,
       EPS,
-      EST,
       LNRM,
       MU = 0,
       PROD,
@@ -56,8 +55,8 @@ void dtrsna(
       SN;
   final ISAVE = Array<int>(3);
   final DUMMY = Array<double>(1);
-  final IERR = Box(0), KASE = Box(0);
-  final SCALE = Box(0.0);
+  final IERR = Box(0), KASE = Box(0), IFST = Box(0), ILST = Box(0);
+  final SCALE = Box(0.0), EST = Box(0.0);
 
   // Decode and test the input parameters
 
@@ -198,16 +197,16 @@ void dtrsna(
       // block beginning at T[k][k] to the (1,1) position.
 
       dlacpy('Full', N, N, T, LDT, WORK, LDWORK);
-      IFST = K;
-      ILST = 1;
-      dtrexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK[1][N + 1],
-          IERR.value);
+      IFST.value = K;
+      ILST.value = 1;
+      dtrexc('No Q', N, WORK, LDWORK, DUMMY.asMatrix(1), 1, IFST, ILST,
+          WORK(1, N + 1).asArray(), IERR);
 
       if (IERR.value == 1 || IERR.value == 2) {
         // Could not swap because blocks not well separated
 
         SCALE.value = ONE;
-        EST = BIGNUM;
+        EST.value = BIGNUM;
       } else {
         // Reordering successful
 
@@ -260,44 +259,64 @@ void dtrsna(
 
         // Estimate norm(inv(C**T))
 
-        EST = ZERO;
+        EST.value = ZERO;
         KASE.value = 0;
         // }
         while (true) {
-          dlacn2(NN, WORK[1][N + 2], WORK[1][N + 4], IWORK, EST, KASE.value,
-              ISAVE);
+          dlacn2(NN, WORK(1, N + 2).asArray(), WORK(1, N + 4).asArray(), IWORK,
+              EST, KASE, ISAVE);
           if (KASE.value == 0) break;
           if (KASE.value == 1) {
             if (N2 == 1) {
               // Real eigenvalue: solve C**T*x = scale*c.
 
-              dlaqtr(true, true, N - 1, WORK[2][2], LDWORK, DUMMY, DUMM,
-                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
+              dlaqtr(true, true, N - 1, WORK(2, 2), LDWORK, DUMMY, DUMM, SCALE,
+                  WORK(1, N + 4).asArray(), WORK(1, N + 6).asArray(), IERR);
             } else {
               // Complex eigenvalue: solve
               // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
-              dlaqtr(true, false, N - 1, WORK[2][2], LDWORK, WORK[1][N + 1], MU,
-                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
+              dlaqtr(
+                  true,
+                  false,
+                  N - 1,
+                  WORK(2, 2),
+                  LDWORK,
+                  WORK(1, N + 1).asArray(),
+                  MU,
+                  SCALE,
+                  WORK(1, N + 4).asArray(),
+                  WORK(1, N + 6).asArray(),
+                  IERR);
             }
           } else {
             if (N2 == 1) {
               // Real eigenvalue: solve C*x = scale*c.
 
-              dlaqtr(false, true, N - 1, WORK[2][2], LDWORK, DUMMY, DUMM,
-                  SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
+              dlaqtr(false, true, N - 1, WORK(2, 2), LDWORK, DUMMY, DUMM, SCALE,
+                  WORK(1, N + 4).asArray(), WORK(1, N + 6).asArray(), IERR);
             } else {
               // Complex eigenvalue: solve
               // C*(p+iq) = scale*(c+id) in real arithmetic.
 
-              dlaqtr(false, false, N - 1, WORK[2][2], LDWORK, WORK[1][N + 1],
-                  MU, SCALE.value, WORK[1][N + 4], WORK[1][N + 6], IERR);
+              dlaqtr(
+                  false,
+                  false,
+                  N - 1,
+                  WORK(2, 2),
+                  LDWORK,
+                  WORK(1, N + 1).asArray(),
+                  MU,
+                  SCALE,
+                  WORK(1, N + 4).asArray(),
+                  WORK(1, N + 6).asArray(),
+                  IERR);
             }
           }
         }
       }
 
-      SEP[KS] = SCALE.value / max(EST, SMLNUM);
+      SEP[KS] = SCALE.value / max(EST.value, SMLNUM);
       if (PAIR) SEP[KS + 1] = SEP[KS];
     }
 

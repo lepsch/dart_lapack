@@ -230,16 +230,17 @@ void dgees(
       for (I = I1; I <= I2; I++) {
         // 20
         if (I < INXT) continue;
-        if (WI(I) == ZERO) {
+        if (WI[I] == ZERO) {
           INXT = I + 1;
         } else {
-          if (A(I + 1, I) == ZERO) {
+          if (A[I + 1][ I] == ZERO) {
             WI[I] = ZERO;
             WI[I + 1] = ZERO;
-          } else if (A(I + 1, I) != ZERO && A(I, I + 1) == ZERO) {
+          } else if (A(I + 1, I) != ZERO && A[I][I + 1] == ZERO) {
             WI[I] = ZERO;
             WI[I + 1] = ZERO;
             if (I > 1)
+              // ignore: curly_braces_in_flow_control_structures
               dswap(I - 1, A(1, I).asArray(), 1, A(1, I + 1).asArray(), 1);
             if (N > I + 1) {
               dswap(N - I - 1, A(I, I + 2).asArray(), LDA,
@@ -272,7 +273,7 @@ void dgees(
     for (I = 1; I <= N; I++) {
       // 30
       CURSL = SELECT(WR[I], WI[I]);
-      if (WI(I) == ZERO) {
+      if (WI[I] == ZERO) {
         if (CURSL) SDIM.value = SDIM.value + 1;
         IP = 0;
         if (CURSL && !LASTSL) INFO.value = N + 2;

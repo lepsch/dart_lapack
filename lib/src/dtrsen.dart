@@ -35,10 +35,11 @@ void dtrsen(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
-  int K, KASE = 0, LIWMIN = 0, LWMIN = 0, N1 = 0, N2 = 0, NN = 0;
-  double EST = 0, RNORM = 0, SCALE = 0;
+  int K, LIWMIN = 0, LWMIN = 0, N1 = 0, N2 = 0, NN = 0;
+  double RNORM = 0;
   final ISAVE = Array<int>(3);
-  final IERR = Box(0), KK = Box(0), KS = Box(0);
+  final IERR = Box(0), KK = Box(0), KS = Box(0), KASE = Box(0);
+  final SCALE = Box(0.0), EST = Box(0.0);
 
   // Decode and test the input parameters
 
@@ -66,7 +67,6 @@ void dtrsen(
     M.value = 0;
     PAIR = false;
     for (K = 1; K <= N; K++) {
-      // 10
       if (PAIR) {
         PAIR = false;
       } else {
@@ -81,7 +81,7 @@ void dtrsen(
           if (SELECT[N]) M.value = M.value + 1;
         }
       }
-    } // 10
+    }
 
     N1 = M.value;
     N2 = N - M.value;
@@ -129,7 +129,6 @@ void dtrsen(
     PAIR = false;
     var error = false;
     for (K = 1; K <= N; K++) {
-      // 20
       if (PAIR) {
         PAIR = false;
       } else {
@@ -162,7 +161,7 @@ void dtrsen(
           if (PAIR) KS.value = KS.value + 1;
         }
       }
-    } // 20
+    }
 
     if (!error) {
       if (WANTS) {
@@ -171,8 +170,8 @@ void dtrsen(
         // T11*R - R*T22 = scale*T12
 
         dlacpy('F', N1, N2, T(1, N1 + 1), LDT, WORK.asMatrix(N1), N1);
-        dtrsyl('N', 'N', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK, N1,
-            SCALE, IERR.value);
+        dtrsyl('N', 'N', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
+            WORK.asMatrix(N1), N1, SCALE, IERR);
 
         // Estimate the reciprocal of the condition number of the cluster
         // of eigenvalues.
@@ -181,54 +180,52 @@ void dtrsen(
         if (RNORM == ZERO) {
           S.value = ONE;
         } else {
-          S.value = SCALE / (sqrt(SCALE * SCALE / RNORM + RNORM) * sqrt(RNORM));
+          S.value = SCALE.value /
+              (sqrt(SCALE.value * SCALE.value / RNORM + RNORM) * sqrt(RNORM));
         }
       }
 
       if (WANTSP) {
         // Estimate sep(T11,T22).
 
-        EST = ZERO;
-        KASE = 0;
+        EST.value = ZERO;
+        KASE.value = 0;
         while (true) {
-          // 30
-          dlacn2(NN, WORK[NN + 1], WORK, IWORK, EST, KASE, ISAVE);
-          if (KASE != 0) {
-            if (KASE == 1) {
+          dlacn2(NN, WORK(NN + 1), WORK, IWORK, EST, KASE, ISAVE);
+          if (KASE.value != 0) {
+            if (KASE.value == 1) {
               // Solve  T11*R - R*T22 = scale*X.
 
-              dtrsyl('N', 'N', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK,
-                  N1, SCALE, IERR.value);
+              dtrsyl('N', 'N', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
+                  WORK.asMatrix(N1), N1, SCALE, IERR);
             } else {
               // Solve T11**T*R - R*T22**T = scale*X.
 
-              dtrsyl('T', 'T', -1, N1, N2, T, LDT, T[N1 + 1][N1 + 1], LDT, WORK,
-                  N1, SCALE, IERR.value);
+              dtrsyl('T', 'T', -1, N1, N2, T, LDT, T(N1 + 1, N1 + 1), LDT,
+                  WORK.asMatrix(N1), N1, SCALE, IERR);
             }
             continue;
           }
           break;
         }
 
-        SEP.value = SCALE / EST;
+        SEP.value = SCALE.value / EST.value;
       }
     }
-  } // 40
+  }
 
   // Store the output eigenvalues in WR and WI.
 
   for (K = 1; K <= N; K++) {
-    // 50
     WR[K] = T[K][K];
     WI[K] = ZERO;
-  } // 50
+  }
   for (K = 1; K <= N - 1; K++) {
-    // 60
     if (T[K + 1][K] != ZERO) {
       WI[K] = sqrt((T[K][K + 1]).abs()) * sqrt((T[K + 1][K]).abs());
       WI[K + 1] = -WI[K];
     }
-  } // 60
+  }
 
   WORK[1] = LWMIN.toDouble();
   IWORK[1] = LIWMIN;

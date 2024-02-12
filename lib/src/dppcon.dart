@@ -70,7 +70,7 @@ import 'package:lapack/src/xerbla.dart';
 
       KASE = 0;
       NORMIN = 'N';
-      } // 10
+      // } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
          if ( UPPER ) {
@@ -100,7 +100,7 @@ import 'package:lapack/src/xerbla.dart';
          SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
             IX = idamax( N, WORK, 1 );
-            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 20;
+            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) return;
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;
@@ -110,5 +110,5 @@ import 'package:lapack/src/xerbla.dart';
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      } // 20
+      // } // 20
       }

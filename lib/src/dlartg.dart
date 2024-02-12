@@ -8,6 +8,8 @@ const wp = dp;
 const zero = dzero;
 const one = done;
 const half = dhalf;
+final safmin = dsafmin;
+final safmax = dsafmax;
 
 void dlartg(
   final double f,

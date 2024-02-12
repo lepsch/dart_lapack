@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlacn2.dart';
@@ -26,10 +27,11 @@ void dpocon(
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   String NORMIN;
-  int IX, KASE;
-  double AINVNM = 0, SCALE, SMLNUM;
+  int IX;
+  double SCALE, SMLNUM;
   final ISAVE = Array<int>(3);
-  final SCALEL = Box(0.0), SCALEU = Box(0.0);
+  final SCALEL = Box(0.0), SCALEU = Box(0.0), AINVNM = Box(0.0);
+  final KASE = Box(0);
 
   // Test the input parameters.
 
@@ -63,11 +65,11 @@ void dpocon(
 
   // Estimate the 1-norm of inv(A).
 
-  KASE = 0;
+  KASE.value = 0;
   NORMIN = 'N';
   while (true) {
     dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
-    if (KASE == 0) break;
+    if (KASE.value == 0) break;
 
     if (UPPER) {
       // Multiply by inv(U**T).
@@ -104,5 +106,5 @@ void dpocon(
   }
 
   // Compute the estimate of the reciprocal condition number.
-  if (AINVNM != ZERO) RCOND.value = (ONE / AINVNM) / ANORM;
+  if (AINVNM.value != ZERO) RCOND.value = (ONE / AINVNM.value) / ANORM;
 }

@@ -46,7 +46,7 @@ void dtgsja(
   const ZERO = 0.0, ONE = 1.0;
   bool INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
   int I, J, KCYCLE;
-  double A1, A2, A3, B1, B2, B3, ERROR, GAMMA, SSMIN = 0;
+  double A1, A2, A3, B1, B2, B3, ERROR, GAMMA;
   const HUGENUM = double.maxFinite;
   final CSU = Box(0.0),
       SNU = Box(0.0),
@@ -54,7 +54,8 @@ void dtgsja(
       SNV = Box(0.0),
       CSQ = Box(0.0),
       SNQ = Box(0.0),
-      RWK = Box(0.0);
+      RWK = Box(0.0),
+      SSMIN = Box(0.0);
 
   // Decode and test the input parameters
 
@@ -189,8 +190,8 @@ void dtgsja(
       for (I = 1; I <= min(L, M - K); I++) {
         dcopy(L - I + 1, A(K + I, N - L + I).asArray(), LDA, WORK, 1);
         dcopy(L - I + 1, B(I, N - L + I).asArray(), LDB, WORK(L + 1), 1);
-        dlapll(L - I + 1, WORK, 1, WORK[L + 1], 1, SSMIN);
-        ERROR = max(ERROR, SSMIN);
+        dlapll(L - I + 1, WORK, 1, WORK(L + 1), 1, SSMIN);
+        ERROR = max(ERROR, SSMIN.value);
       }
 
       if ((ERROR).abs() <= min(TOLA, TOLB)) {

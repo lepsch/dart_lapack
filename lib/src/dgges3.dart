@@ -282,7 +282,7 @@ void dgges3(
   // Reduce to generalized Hessenberg form
 
   dgghd3(JOBVSL, JOBVSR, N, ILO.value, IHI.value, A, LDA, B, LDB, VSL, LDVSL,
-      VSR, LDVSR, WORK[IWRK], LWORK + 1 - IWRK, IERR);
+      VSR, LDVSR, WORK(IWRK), LWORK + 1 - IWRK, IERR);
 
   // Perform QZ algorithm, computing Schur vectors if desired
 

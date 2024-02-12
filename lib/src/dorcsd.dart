@@ -231,12 +231,34 @@ void dorcsd(
     LORGQRWORKOPT = WORK[1].toInt();
     LORGQRWORKMIN = max(1, M - Q);
     IORGLQ = ITAUQ2 + max(1, M - Q);
-    dorglq(M - Q, M - Q, M - Q, U1, max(1, M - Q), U1, WORK, -1, CHILDINFO);
+    dorglq(M - Q, M - Q, M - Q, U1, max(1, M - Q), U1.asArray(), WORK, -1,
+        CHILDINFO);
     LORGLQWORKOPT = WORK[1].toInt();
     LORGLQWORKMIN = max(1, M - Q);
     IORBDB = ITAUQ2 + max(1, M - Q);
-    dorbdb(TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22,
-        LDX22, THETA, V1T, U1, U2, V1T, V2T, WORK, -1, CHILDINFO);
+    dorbdb(
+        TRANS,
+        SIGNS,
+        M,
+        P,
+        Q,
+        X11,
+        LDX11,
+        X12,
+        LDX12,
+        X21,
+        LDX21,
+        X22,
+        LDX22,
+        THETA,
+        V1T.asArray(),
+        U1.asArray(),
+        U2.asArray(),
+        V1T.asArray(),
+        V2T.asArray(),
+        WORK,
+        -1,
+        CHILDINFO);
     LORBDBWORKOPT = WORK[1].toInt();
     // LORBDBWORKMIN = LORBDBWORKOPT;
     IB11D = ITAUQ2 + max(1, M - Q);
@@ -328,12 +350,12 @@ void dorcsd(
       X22,
       LDX22,
       THETA,
-      WORK[IPHI],
-      WORK[ITAUP1],
-      WORK[ITAUP2],
-      WORK[ITAUQ1],
-      WORK[ITAUQ2],
-      WORK[IORBDB],
+      WORK(IPHI),
+      WORK(ITAUP1),
+      WORK(ITAUP2),
+      WORK(ITAUQ1),
+      WORK(ITAUQ2),
+      WORK(IORBDB),
       LORBDBWORK,
       CHILDINFO);
 
@@ -356,7 +378,7 @@ void dorcsd(
         V1T[1][J] = ZERO;
         V1T[J][1] = ZERO;
       }
-      dorglq(Q - 1, Q - 1, Q - 1, V1T(2, 2), LDV1T, WORK[ITAUQ1], WORK[IORGLQ],
+      dorglq(Q - 1, Q - 1, Q - 1, V1T(2, 2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ),
           LORGLQWORK, INFO);
     }
     if (WANTV2T && M - Q > 0) {
@@ -366,18 +388,18 @@ void dorcsd(
             V2T(P + 1, P + 1), LDV2T);
       }
       if (M > Q) {
-        dorglq(M - Q, M - Q, M - Q, V2T, LDV2T, WORK[ITAUQ2], WORK[IORGLQ],
+        dorglq(M - Q, M - Q, M - Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ),
             LORGLQWORK, INFO);
       }
     }
   } else {
     if (WANTU1 && P > 0) {
       dlacpy('U', Q, P, X11, LDX11, U1, LDU1);
-      dorglq(P, P, Q, U1, LDU1, WORK[ITAUP1], WORK[IORGLQ], LORGLQWORK, INFO);
+      dorglq(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO);
     }
     if (WANTU2 && M - P > 0) {
       dlacpy('U', Q, M - P, X21, LDX21, U2, LDU2);
-      dorglq(M - P, M - P, Q, U2, LDU2, WORK[ITAUP2], WORK[IORGLQ], LORGLQWORK,
+      dorglq(M - P, M - P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK,
           INFO);
     }
     if (WANTV1T && Q > 0) {

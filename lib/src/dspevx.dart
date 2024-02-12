@@ -168,7 +168,7 @@ void dspevx(
   INDE = INDTAU + N;
   INDD = INDE + N;
   INDWRK = INDD + N;
-  dsptrd(UPLO, N, AP, WORK[INDD], WORK[INDE], WORK[INDTAU], IINFO);
+  dsptrd(UPLO, N, AP, WORK(INDD), WORK(INDE), WORK(INDTAU), IINFO);
 
   // If all eigenvalues are desired and ABSTOL is less than or equal
   // to zero, then call DSTERF or DOPGTR and SSTEQR.  If this fails
@@ -223,7 +223,7 @@ void dspevx(
       // Apply orthogonal matrix used in reduction to tridiagonal
       // form to eigenvectors returned by DSTEIN.
 
-      dopmtr('L', UPLO, 'N', N, M.value, AP, WORK[INDTAU], Z, LDZ, WORK[INDWRK],
+      dopmtr('L', UPLO, 'N', N, M.value, AP, WORK(INDTAU), Z, LDZ, WORK(INDWRK),
           IINFO);
     }
 

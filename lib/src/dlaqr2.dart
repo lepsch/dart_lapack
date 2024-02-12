@@ -154,10 +154,9 @@ void dlaqr2(
   // ==== DTREXC needs a clean margin near the diagonal ====
 
   for (J = 1; J <= JW - 3; J++) {
-    // 10
     T[J + 2][J] = ZERO;
     T[J + 3][J] = ZERO;
-  } // 10
+  }
   if (JW > 2) T[JW][JW - 2] = ZERO;
 
   // ==== Deflation detection loop ====
@@ -333,7 +332,7 @@ void dlaqr2(
 
     if (NS.value > 1 && S != ZERO) {
       dormhr('R', 'N', JW, NS.value, 1, NS.value, T, LDT, WORK, V, LDV,
-          WORK[JW + 1], LWORK - JW, INFO);
+          WORK(JW + 1), LWORK - JW, INFO);
     }
 
     // ==== Update vertical slab in H ====
@@ -346,35 +345,32 @@ void dlaqr2(
     for (KROW = LTOP;
         NV < 0 ? KROW >= KWTOP - 1 : KROW <= KWTOP - 1;
         KROW += NV) {
-      // 70
       KLN = min(NV, KWTOP - KROW);
       dgemm('N', 'N', KLN, JW, JW, ONE, H(KROW, KWTOP), LDH, V, LDV, ZERO, WV,
           LDWV);
       dlacpy('A', KLN, JW, WV, LDWV, H(KROW, KWTOP), LDH);
-    } // 70
+    }
 
     // ==== Update horizontal slab in H ====
 
     if (WANTT) {
       for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) {
-        // 80
         KLN = min(NH, N - KCOL + 1);
         dgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H(KWTOP, KCOL), LDH, ZERO, T,
             LDT);
         dlacpy('A', JW, KLN, T, LDT, H(KWTOP, KCOL), LDH);
-      } // 80
+      }
     }
 
     // ==== Update vertical slab in Z ====
 
     if (WANTZ) {
       for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) {
-        // 90
         KLN = min(NV, IHIZ - KROW + 1);
         dgemm('N', 'N', KLN, JW, JW, ONE, Z(KROW, KWTOP), LDZ, V, LDV, ZERO, WV,
             LDWV);
         dlacpy('A', KLN, JW, WV, LDWV, Z(KROW, KWTOP), LDZ);
-      } // 90
+      }
     }
   }
 

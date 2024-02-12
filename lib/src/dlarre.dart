@@ -56,10 +56,7 @@ void dlarre(
       FUDGE = 2.0;
   const MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3;
   bool FORCEB, NOREP, USEDQD;
-  int CNT = 0,
-      CNT1 = 0,
-      CNT2 = 0,
-      I,
+  int I,
       IBEGIN,
       IDUM,
       IEND = 0,
@@ -70,7 +67,6 @@ void dlarre(
       J,
       JBLK,
       MB = 0,
-      MM = 0,
       WBEGIN,
       WEND = 0;
   double AVGAP,
@@ -94,11 +90,10 @@ void dlarre(
       SGNDEF,
       SIGMA,
       SPDIAM,
-      TAU,
-      TMP = 0,
-      TMP1 = 0;
+      TAU;
   final ISEED = Array<int>(4);
-  final IINFO = Box(0);
+  final CNT = Box(0), CNT1 = Box(0), CNT2 = Box(0), IINFO = Box(0), MM = Box(0);
+  final TMP = Box(0.0), TMP1 = Box(0.0);
 
   INFO.value = 0;
   NSPLIT.value = 0;
@@ -164,10 +159,10 @@ void dlarre(
     if (EABS >= EMAX) {
       EMAX = EABS;
     }
-    TMP1 = EABS + EOLD;
-    GERS[2 * I - 1] = D[I] - TMP1;
+    TMP1.value = EABS + EOLD;
+    GERS[2 * I - 1] = D[I] - TMP1.value;
     GL = min(GL, GERS[2 * I - 1]);
-    GERS[2 * I] = D[I] + TMP1;
+    GERS[2 * I] = D[I] + TMP1.value;
     GU = max(GU, GERS[2 * I]);
     EOLD = EABS;
   }
@@ -178,7 +173,7 @@ void dlarre(
   SPDIAM = GU - GL;
 
   // Compute splitting points
-  dlarra(N, D, E, E2, SPLTOL, SPDIAM, NSPLIT.value, ISPLIT, IINFO.value);
+  dlarra(N, D, E, E2, SPLTOL, SPDIAM, NSPLIT, ISPLIT, IINFO);
 
   // Can force use of bisection instead of faster DQDS.
   // Option left in the code for future multisection work.
@@ -218,19 +213,19 @@ void dlarre(
         MM,
         W,
         WERR,
-        VL.value,
-        VU.value,
+        VL,
+        VU,
         IBLOCK,
         INDEXW,
         WORK,
         IWORK,
-        IINFO.value);
+        IINFO);
     if (IINFO.value != 0) {
       INFO.value = -1;
       return;
     }
     // Make sure that the entries M.value+1 to N in W, WERR, IBLOCK, INDEXW are 0
-    for (I = MM + 1; I <= N; I++) {
+    for (I = MM.value + 1; I <= N; I++) {
       W[I] = ZERO;
       WERR[I] = ZERO;
       IBLOCK[I] = 0;
@@ -286,7 +281,7 @@ void dlarre(
     if (!((IRANGE == ALLRNG) && (!FORCEB))) {
       // Count the number of eigenvalues in the current block.
       MB = 0;
-      for (I = WBEGIN; I <= MM; I++) {
+      for (I = WBEGIN; I <= MM.value; I++) {
         if (IBLOCK[I] == JBLK) {
           MB = MB + 1;
         } else {
@@ -321,20 +316,28 @@ void dlarre(
     if (((IRANGE == ALLRNG) && (!FORCEB)) || USEDQD) {
       // Case of DQDS
       // Find approximations to the extremal eigenvalues of the block
-      dlarrk(IN, 1, GL, GU, D[IBEGIN], E2[IBEGIN], PIVMIN.value, RTL, TMP, TMP1,
-          IINFO.value);
+      dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN.value, RTL, TMP, TMP1,
+          IINFO);
       if (IINFO.value != 0) {
         INFO.value = -1;
         return;
       }
-      ISLEFT = max(GL, TMP - TMP1 - HNDRD * EPS * (TMP - TMP1).abs());
-      dlarrk(IN, IN, GL, GU, D[IBEGIN], E2[IBEGIN], PIVMIN.value, RTL, TMP,
-          TMP1, IINFO.value);
+      ISLEFT = max(
+          GL,
+          TMP.value -
+              TMP1.value -
+              HNDRD * EPS * (TMP.value - TMP1.value).abs());
+      dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN.value, RTL, TMP,
+          TMP1, IINFO);
       if (IINFO.value != 0) {
         INFO.value = -1;
         return;
       }
-      ISRGHT = min(GU, TMP + TMP1 + HNDRD * EPS * (TMP + TMP1).abs());
+      ISRGHT = min(
+          GU,
+          TMP.value +
+              TMP1.value +
+              HNDRD * EPS * (TMP.value + TMP1.value).abs());
       // Improve the estimate of the spectral diameter
       SPDIAM = ISRGHT - ISLEFT;
     } else {
@@ -377,22 +380,22 @@ void dlarre(
         S1 = ISLEFT + FOURTH * SPDIAM;
         S2 = ISRGHT - FOURTH * SPDIAM;
       } else {
-        TMP = min(ISRGHT, VU.value) - max(ISLEFT, VL.value);
-        S1 = max(ISLEFT, VL.value) + FOURTH * TMP;
-        S2 = min(ISRGHT, VU.value) - FOURTH * TMP;
+        TMP.value = min(ISRGHT, VU.value) - max(ISLEFT, VL.value);
+        S1 = max(ISLEFT, VL.value) + FOURTH * TMP.value;
+        S2 = min(ISRGHT, VU.value) - FOURTH * TMP.value;
       }
     }
 
     // Compute the negcount at the 1/4 and 3/4 points
     if (MB > 1) {
-      dlarrc('T', IN, S1, S2, D[IBEGIN], E[IBEGIN], PIVMIN.value, CNT, CNT1,
-          CNT2, IINFO.value);
+      dlarrc('T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN.value, CNT, CNT1,
+          CNT2, IINFO);
     }
 
     if (MB == 1) {
       SIGMA = GL;
       SGNDEF = ONE;
-    } else if (CNT1 - INDL >= INDU - CNT2) {
+    } else if (CNT1.value - INDL >= INDU - CNT2.value) {
       if ((IRANGE == ALLRNG) && (!FORCEB)) {
         SIGMA = max(ISLEFT, GL);
       } else if (USEDQD) {
@@ -456,9 +459,9 @@ void dlarre(
       J = IBEGIN;
       for (I = 1; I <= IN - 1; I++) {
         WORK[2 * IN + I] = ONE / WORK[I];
-        TMP = E[J] * WORK[2 * IN + I];
-        WORK[IN + I] = TMP;
-        DPIVOT = (D[J + 1] - SIGMA) - TMP * E[J];
+        TMP.value = E[J] * WORK[2 * IN + I];
+        WORK[IN + I] = TMP.value;
+        DPIVOT = (D[J + 1] - SIGMA) - TMP.value * E[J];
         WORK[I + 1] = DPIVOT;
         DMAX = max(DMAX, (DPIVOT).abs());
         J = J + 1;
@@ -473,8 +476,8 @@ void dlarre(
         // Ensure the definiteness of the representation
         // All entries of D (of L D L^T) must have the same sign
         for (I = 1; I <= IN; I++) {
-          TMP = SGNDEF * WORK[I];
-          if (TMP < ZERO) NOREP = true;
+          TMP.value = SGNDEF * WORK[I];
+          if (TMP.value < ZERO) NOREP = true;
         }
       }
       if (NOREP) {
@@ -522,7 +525,7 @@ void dlarre(
         ISEED[I] = 1;
       }
 
-      dlarnv(2, ISEED, 2 * IN - 1, WORK[1]);
+      dlarnv(2, ISEED, 2 * IN - 1, WORK(1));
       for (I = 1; I <= IN - 1; I++) {
         D[IBEGIN + I - 1] = D[IBEGIN + I - 1] * (ONE + EPS * PERT * WORK[I]);
         E[IBEGIN + I - 1] =
@@ -555,22 +558,22 @@ void dlarre(
       // use bisection to find EV from INDL to INDU
       dlarrb(
           IN,
-          D[IBEGIN],
-          WORK[IBEGIN],
+          D(IBEGIN),
+          WORK(IBEGIN),
           INDL,
           INDU,
           RTOL1,
           RTOL2,
           INDL - 1,
-          W[WBEGIN],
-          WGAP[WBEGIN],
-          WERR[WBEGIN],
-          WORK[2 * N + 1],
+          W(WBEGIN),
+          WGAP(WBEGIN),
+          WERR(WBEGIN),
+          WORK(2 * N + 1),
           IWORK,
           PIVMIN.value,
           SPDIAM,
           IN,
-          IINFO.value);
+          IINFO);
       if (IINFO.value != 0) {
         INFO.value = -4;
         return;

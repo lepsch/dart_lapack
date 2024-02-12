@@ -83,7 +83,7 @@ import 'package:lapack/src/xerbla.dart';
       // Estimate the 1-norm of the inverse.
 
       KASE = 0;
-      } // 30
+      // } // 30
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
 

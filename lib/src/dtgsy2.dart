@@ -33,8 +33,8 @@ void dtgsy2(
   final Matrix<double> F,
   final int LDF,
   final Box<double> SCALE,
-  final double RDSUM,
-  final double RDSCAL,
+  final Box<double> RDSUM,
+  final Box<double> RDSCAL,
   final Array<int> IWORK,
   final Box<int> PQ,
   final Box<int> INFO,
@@ -46,10 +46,11 @@ void dtgsy2(
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRAN;
   int I, IE, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM;
-  double ALPHA, SCALOC;
+  double ALPHA;
   final IPIV = Array<int>(LDZ), JPIV = Array<int>(LDZ);
   final RHS = Array<double>(LDZ), Z = Matrix<double>(LDZ, LDZ);
   final IERR = Box(0);
+  final SCALOC = Box(0.0);
 
   // Decode and test input parameters
 
@@ -130,7 +131,7 @@ void dtgsy2(
     // for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
 
     SCALE.value = ONE;
-    SCALOC = ONE;
+    SCALOC.value = ONE;
     for (J = P + 2; J <= Q; J++) {
       JS = IWORK[J];
       JSP1 = JS + 1;
@@ -158,17 +159,17 @@ void dtgsy2(
 
           // Solve Z * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
 
           if (IJOB == 0) {
             dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-            if (SCALOC != ONE) {
+            if (SCALOC.value != ONE) {
               for (K = 1; K <= N; K++) {
-                dscal(M, SCALOC, C(1, K).asArray(), 1);
-                dscal(M, SCALOC, F(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC;
+              SCALE.value = SCALE.value * SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -225,17 +226,17 @@ void dtgsy2(
 
           // Solve Z * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
 
           if (IJOB == 0) {
             dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-            if (SCALOC != ONE) {
+            if (SCALOC.value != ONE) {
               for (K = 1; K <= N; K++) {
-                dscal(M, SCALOC, C(1, K).asArray(), 1);
-                dscal(M, SCALOC, F(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC;
+              SCALE.value = SCALE.value * SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -299,16 +300,16 @@ void dtgsy2(
 
           // Solve Z * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
           if (IJOB == 0) {
             dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-            if (SCALOC != ONE) {
+            if (SCALOC.value != ONE) {
               for (K = 1; K <= N; K++) {
-                dscal(M, SCALOC, C(1, K).asArray(), 1);
-                dscal(M, SCALOC, F(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC;
+              SCALE.value = SCALE.value * SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -390,16 +391,16 @@ void dtgsy2(
 
           // Solve Z * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
           if (IJOB == 0) {
             dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-            if (SCALOC != ONE) {
+            if (SCALOC.value != ONE) {
               for (K = 1; K <= N; K++) {
-                dscal(M, SCALOC, C(1, K).asArray(), 1);
-                dscal(M, SCALOC, F(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+                dscal(M, SCALOC.value, F(1, K).asArray(), 1);
               }
-              SCALE.value = SCALE.value * SCALOC;
+              SCALE.value = SCALE.value * SCALOC.value;
             }
           } else {
             dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV);
@@ -442,7 +443,7 @@ void dtgsy2(
     // for I = 1, 2, ..., P, J = Q, Q - 1, ..., 1
 
     SCALE.value = ONE;
-    SCALOC = ONE;
+    SCALOC.value = ONE;
     for (I = 1; I <= P; I++) {
       IS = IWORK[I];
       ISP1 = IS + 1;
@@ -469,16 +470,16 @@ void dtgsy2(
 
           // Solve Z**T * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
 
           dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-          if (SCALOC != ONE) {
+          if (SCALOC.value != ONE) {
             for (K = 1; K <= N; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC;
+            SCALE.value = SCALE.value * SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -537,15 +538,15 @@ void dtgsy2(
 
           // Solve Z**T * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
           dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-          if (SCALOC != ONE) {
+          if (SCALOC.value != ONE) {
             for (K = 1; K <= N; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC;
+            SCALE.value = SCALE.value * SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -606,16 +607,16 @@ void dtgsy2(
 
           // Solve Z**T * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
 
           dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-          if (SCALOC != ONE) {
+          if (SCALOC.value != ONE) {
             for (K = 1; K <= N; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC;
+            SCALE.value = SCALE.value * SCALOC.value;
           }
 
           // Unpack solution vector(s)
@@ -694,16 +695,16 @@ void dtgsy2(
 
           // Solve Z**T * x = RHS
 
-          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR.value);
+          dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR);
           if (IERR.value > 0) INFO.value = IERR.value;
 
           dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC);
-          if (SCALOC != ONE) {
+          if (SCALOC.value != ONE) {
             for (K = 1; K <= N; K++) {
-              dscal(M, SCALOC, C(1, K).asArray(), 1);
-              dscal(M, SCALOC, F(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, C(1, K).asArray(), 1);
+              dscal(M, SCALOC.value, F(1, K).asArray(), 1);
             }
-            SCALE.value = SCALE.value * SCALOC;
+            SCALE.value = SCALE.value * SCALOC.value;
           }
 
           // Unpack solution vector(s)

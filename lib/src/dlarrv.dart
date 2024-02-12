@@ -70,7 +70,6 @@ void dlarrv(
       MINWSIZE,
       NCLUS = 0,
       NDEPTH = 0,
-      NEGCNT = 0,
       NEWCLS,
       NEWFST,
       NEWFTT,
@@ -106,23 +105,23 @@ void dlarrv(
       LAMBDA,
       LEFT,
       LGAP,
-      MINGMA = 0,
-      NRMINV = 0,
-      RESID = 0,
       RGAP,
       RIGHT,
-      RQCORR = 0,
       RQTOL,
       SAVGAP = 0,
       SGNDEF,
       SIGMA = 0,
       SPDIAM,
       SSIGMA,
-      TAU = 0,
       TMP,
-      TOL,
-      ZTZ = 0;
-  final IINFO = Box(0);
+      TOL;
+  final IINFO = Box(0), NEGCNT = Box(0);
+  final TAU = Box(0.0),
+      RESID = Box(0.0),
+      RQCORR = Box(0.0),
+      MINGMA = Box(0.0),
+      NRMINV = Box(0.0),
+      ZTZ = Box(0.0);
 
   INFO.value = 0;
 
@@ -354,22 +353,22 @@ void dlarrv(
           // eigenvalues to the precision needed.
           dlarrb(
               IN,
-              D[IBEGIN],
-              WORK[INDLLD + IBEGIN - 1],
+              D(IBEGIN),
+              WORK(INDLLD + IBEGIN - 1),
               P,
               Q,
               RTOL1.value,
               RTOL2.value,
               OFFSET,
-              WORK[WBEGIN],
-              WGAP[WBEGIN],
-              WERR[WBEGIN],
-              WORK[INDWRK],
-              IWORK[IINDWK],
+              WORK(WBEGIN),
+              WGAP(WBEGIN),
+              WERR(WBEGIN),
+              WORK(INDWRK),
+              IWORK(IINDWK),
               PIVMIN,
               SPDIAM,
               IN,
-              IINFO.value);
+              IINFO);
           if (IINFO.value != 0) {
             INFO.value = -1;
             return;
@@ -477,22 +476,22 @@ void dlarrv(
               OFFSET = INDEXW[WBEGIN] - 1;
               dlarrb(
                   IN,
-                  D[IBEGIN],
-                  WORK[INDLLD + IBEGIN - 1],
+                  D(IBEGIN),
+                  WORK(INDLLD + IBEGIN - 1),
                   P,
                   P,
                   RQTOL,
                   RQTOL,
                   OFFSET,
-                  WORK[WBEGIN],
-                  WGAP[WBEGIN],
-                  WERR[WBEGIN],
-                  WORK[INDWRK],
-                  IWORK[IINDWK],
+                  WORK(WBEGIN),
+                  WGAP(WBEGIN),
+                  WERR(WBEGIN),
+                  WORK(INDWRK),
+                  IWORK(IINDWK),
                   PIVMIN,
                   SPDIAM,
                   IN,
-                  IINFO.value);
+                  IINFO);
             }
 
             if ((WBEGIN + NEWLST - 1 < DOL) || (WBEGIN + NEWFST - 1 > DOU)) {
@@ -514,33 +513,33 @@ void dlarrv(
             // DLARRF needs LWORK = 2*N
             dlarrf(
                 IN,
-                D[IBEGIN],
-                L[IBEGIN],
-                WORK[INDLD + IBEGIN - 1],
+                D(IBEGIN),
+                L(IBEGIN),
+                WORK(INDLD + IBEGIN - 1),
                 NEWFST,
                 NEWLST,
-                WORK[WBEGIN],
-                WGAP[WBEGIN],
-                WERR[WBEGIN],
+                WORK(WBEGIN),
+                WGAP(WBEGIN),
+                WERR(WBEGIN),
                 SPDIAM,
                 LGAP,
                 RGAP,
                 PIVMIN,
                 TAU,
-                Z[IBEGIN][NEWFTT],
-                Z[IBEGIN][NEWFTT + 1],
-                WORK[INDWRK],
-                IINFO.value);
+                Z(IBEGIN, NEWFTT).asArray(),
+                Z(IBEGIN, NEWFTT + 1).asArray(),
+                WORK(INDWRK),
+                IINFO);
             if (IINFO.value == 0) {
               // a new RRR for the cluster was found by DLARRF
               // update shift and store it
-              SSIGMA = SIGMA + TAU;
+              SSIGMA = SIGMA + TAU.value;
               Z[IEND][NEWFTT + 1] = SSIGMA;
               // WORK() are the midpoints and WERR() the semi-width
               // Note that the entries in W are unchanged.
               for (K = NEWFST; K <= NEWLST; K++) {
                 FUDGE = THREE * EPS * (WORK[WBEGIN + K - 1]).abs();
-                WORK[WBEGIN + K - 1] = WORK[WBEGIN + K - 1] - TAU;
+                WORK[WBEGIN + K - 1] = WORK[WBEGIN + K - 1] - TAU.value;
                 FUDGE = FUDGE + FOUR * EPS * (WORK[WBEGIN + K - 1]).abs();
                 // Fudge errors
                 WERR[WBEGIN + K - 1] = WERR[WBEGIN + K - 1] + FUDGE;
@@ -648,29 +647,29 @@ void dlarrv(
                   OFFSET = INDEXW[WBEGIN] - 1;
                   dlarrb(
                       IN,
-                      D[IBEGIN],
-                      WORK[INDLLD + IBEGIN - 1],
+                      D(IBEGIN),
+                      WORK(INDLLD + IBEGIN - 1),
                       INDEIG,
                       INDEIG,
                       ZERO,
                       TWO * EPS,
                       OFFSET,
-                      WORK[WBEGIN],
-                      WGAP[WBEGIN],
-                      WERR[WBEGIN],
-                      WORK[INDWRK],
-                      IWORK[IINDWK],
+                      WORK(WBEGIN),
+                      WGAP(WBEGIN),
+                      WERR(WBEGIN),
+                      WORK(INDWRK),
+                      IWORK(IINDWK),
                       PIVMIN,
                       SPDIAM,
                       ITMP1,
-                      IINFO.value);
+                      IINFO);
                   if (IINFO.value != 0) {
                     INFO.value = -3;
                     return;
                   }
                   LAMBDA = WORK[WINDEX];
                   // Reset twist index from inaccurate LAMBDA to
-                  // force computation of true MINGMA
+                  // force computation of true MINGMA.value
                   IWORK[IINDR + WINDEX] = 0;
                 }
                 // Given LAMBDA, compute the eigenvector.
@@ -679,28 +678,28 @@ void dlarrv(
                     1,
                     IN,
                     LAMBDA,
-                    D[IBEGIN],
-                    L[IBEGIN],
-                    WORK[INDLD + IBEGIN - 1],
-                    WORK[INDLLD + IBEGIN - 1],
+                    D(IBEGIN),
+                    L(IBEGIN),
+                    WORK(INDLD + IBEGIN - 1),
+                    WORK(INDLLD + IBEGIN - 1),
                     PIVMIN,
                     GAPTOL,
-                    Z[IBEGIN][WINDEX],
+                    Z(IBEGIN, WINDEX).asArray(),
                     !USEDBS,
                     NEGCNT,
                     ZTZ,
                     MINGMA,
-                    IWORK[IINDR + WINDEX],
-                    ISUPPZ[2 * WINDEX - 1],
+                    IWORK.box(IINDR + WINDEX),
+                    ISUPPZ(2 * WINDEX - 1),
                     NRMINV,
                     RESID,
                     RQCORR,
-                    WORK[INDWRK]);
+                    WORK(INDWRK));
                 if (ITER == 0) {
-                  BSTRES = RESID;
+                  BSTRES = RESID.value;
                   BSTW = LAMBDA;
-                } else if (RESID < BSTRES) {
-                  BSTRES = RESID;
+                } else if (RESID.value < BSTRES) {
+                  BSTRES = RESID.value;
                   BSTW = LAMBDA;
                 }
                 ISUPMN = min(ISUPMN, ISUPPZ[2 * WINDEX - 1]);
@@ -715,24 +714,24 @@ void dlarrv(
                 // Convergence test for Rayleigh-Quotient iteration
                 // (omitted when Bisection has been used)
 
-                if (RESID > TOL * GAP &&
-                    (RQCORR).abs() > RQTOL * (LAMBDA).abs() &&
+                if (RESID.value > TOL * GAP &&
+                    (RQCORR.value).abs() > RQTOL * (LAMBDA).abs() &&
                     !USEDBS) {
-                  // We need to check that the RQCORR update doesn't
+                  // We need to check that the RQCORR.value update doesn't
                   // move the eigenvalue away from the desired one and
                   // towards a neighbor. -> protection with bisection
-                  if (INDEIG <= NEGCNT) {
+                  if (INDEIG <= NEGCNT.value) {
                     // The wanted eigenvalue lies to the left
                     SGNDEF = -ONE;
                   } else {
                     // The wanted eigenvalue lies to the right
                     SGNDEF = ONE;
                   }
-                  // We only use the RQCORR if it improves the
+                  // We only use the RQCORR.value if it improves the
                   // the iterate reasonably.
-                  if ((RQCORR * SGNDEF >= ZERO) &&
-                      (LAMBDA + RQCORR <= RIGHT) &&
-                      (LAMBDA + RQCORR >= LEFT)) {
+                  if ((RQCORR.value * SGNDEF >= ZERO) &&
+                      (LAMBDA + RQCORR.value <= RIGHT) &&
+                      (LAMBDA + RQCORR.value >= LEFT)) {
                     USEDRQ = true;
                     // Store new midpoint of bisection interval in WORK
                     if (SGNDEF == ONE) {
@@ -741,22 +740,22 @@ void dlarrv(
                       LEFT = LAMBDA;
                       // We prefer to assume that the error estimate
                       // is correct. We could make the interval not
-                      // as a bracket but to be modified if the RQCORR
+                      // as a bracket but to be modified if the RQCORR.value
                       // chooses to. In this case, the RIGHT side should
                       // be modified as follows:
-                      // RIGHT = max(RIGHT, LAMBDA + RQCORR)
+                      // RIGHT = max(RIGHT, LAMBDA + RQCORR.value)
                     } else {
                       // The current LAMBDA is on the right of the true
                       // eigenvalue
                       RIGHT = LAMBDA;
                       // See comment about assuming the error estimate is
                       // correct above.
-                      // LEFT = min(LEFT, LAMBDA + RQCORR)
+                      // LEFT = min(LEFT, LAMBDA + RQCORR.value)
                     }
                     WORK[WINDEX] = HALF * (RIGHT + LEFT);
-                    // Take RQCORR since it has the correct sign and
+                    // Take RQCORR.value since it has the correct sign and
                     // improves the iterate reasonably
-                    LAMBDA = LAMBDA + RQCORR;
+                    LAMBDA = LAMBDA + RQCORR.value;
                     // Update width of error interval
                     WERR[WINDEX] = HALF * (RIGHT - LEFT);
                   } else {
@@ -778,7 +777,7 @@ void dlarrv(
                   }
                 } else {
                   STP2II = false;
-                  if (USEDRQ && USEDBS && BSTRES <= RESID) {
+                  if (USEDRQ && USEDBS && BSTRES <= RESID.value) {
                     LAMBDA = BSTW;
                     STP2II = true;
                   }
@@ -789,23 +788,23 @@ void dlarrv(
                         1,
                         IN,
                         LAMBDA,
-                        D[IBEGIN],
-                        L[IBEGIN],
-                        WORK[INDLD + IBEGIN - 1],
-                        WORK[INDLLD + IBEGIN - 1],
+                        D(IBEGIN),
+                        L(IBEGIN),
+                        WORK(INDLD + IBEGIN - 1),
+                        WORK(INDLLD + IBEGIN - 1),
                         PIVMIN,
                         GAPTOL,
-                        Z[IBEGIN][WINDEX],
+                        Z(IBEGIN, WINDEX).asArray(),
                         !USEDBS,
                         NEGCNT,
                         ZTZ,
                         MINGMA,
-                        IWORK[IINDR + WINDEX],
-                        ISUPPZ[2 * WINDEX - 1],
+                        IWORK.box(IINDR + WINDEX),
+                        ISUPPZ(2 * WINDEX - 1),
                         NRMINV,
                         RESID,
                         RQCORR,
-                        WORK[INDWRK]);
+                        WORK(INDWRK));
                   }
                   WORK[WINDEX] = LAMBDA;
                 }
@@ -831,7 +830,8 @@ void dlarrv(
                   Z[II][WINDEX] = ZERO;
                 }
               }
-              dscal(ZTO - ZFROM + 1, NRMINV, Z(ZFROM, WINDEX).asArray(), 1);
+              dscal(
+                  ZTO - ZFROM + 1, NRMINV.value, Z(ZFROM, WINDEX).asArray(), 1);
             }
             // Update W
             W[WINDEX] = LAMBDA + SIGMA;

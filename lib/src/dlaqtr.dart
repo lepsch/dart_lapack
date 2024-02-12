@@ -5,15 +5,12 @@ import 'package:lapack/src/blas/daxpy.dart';
 import 'package:lapack/src/blas/ddot.dart';
 import 'package:lapack/src/blas/dscal.dart';
 import 'package:lapack/src/blas/idamax.dart';
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dladiv.dart';
 import 'package:lapack/src/dlaln2.dart';
 import 'package:lapack/src/dlange.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
 void dlaqtr(
   final bool LTRAN,
@@ -319,7 +316,7 @@ void dlaqtr(
               XMAX = XMAX * REC;
             }
           }
-          dladiv(X[J1], X[N + J1], TMP, Z, SR.value, SI.value);
+          dladiv(X[J1], X[N + J1], TMP, Z, SR, SI);
           X[J1] = SR.value;
           X[N + J1] = SI.value;
           XJ = X[J1].abs() + X[N + J1].abs();
@@ -462,7 +459,7 @@ void dlaqtr(
               XMAX = XMAX * REC;
             }
           }
-          dladiv(X[J1], X[N + J1], TMP, -Z, SR.value, SI.value);
+          dladiv(X[J1], X[N + J1], TMP, -Z, SR, SI);
           X[J1] = SR.value;
           X[J1 + N] = SI.value;
           XMAX = max((X[J1]).abs() + (X[J1 + N]).abs(), XMAX);

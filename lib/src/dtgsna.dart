@@ -42,11 +42,8 @@ void dtgsna(
   const DIFDRI = 3;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR = 4.0;
   bool LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;
-  int I, IFST, ILST, IZ, K, KS, LWMIN = 0, N1, N2;
-  double ALPHAI = 0,
-      ALPHAR = 0,
-      ALPRQT = 0,
-      BETA = 0,
+  int I, IZ, K, KS, LWMIN = 0, N1, N2;
+  double ALPRQT = 0,
       C1,
       C2,
       COND = 0,
@@ -55,7 +52,6 @@ void dtgsna(
       RNRM,
       ROOT1,
       ROOT2,
-      SCALE = 0,
       SMLNUM,
       TMPII,
       TMPIR,
@@ -66,7 +62,8 @@ void dtgsna(
       UHBV,
       UHBVI;
   final DUMMY = Array<double>(1), DUMMY1 = Array<double>(1);
-  final IERR = Box(0);
+  final IERR = Box(0), IFST = Box(0), ILST = Box(0);
+  final BETA = Box(0.0), ALPHAR = Box(0.0), ALPHAI = Box(0.0), SCALE = Box(0.0);
 
   // Decode and test the input parameters
 
@@ -249,11 +246,14 @@ void dtgsna(
         WORK[6] = B[K + 1][K];
         WORK[7] = B[K][K + 1];
         WORK[8] = B[K + 1][K + 1];
-        dlag2(WORK, 2, WORK[5], 2, SMLNUM * EPS, BETA, DUMMY1(1), ALPHAR,
-            DUMMY(1), ALPHAI);
+        dlag2(WORK.asMatrix(2), 2, WORK(5).asMatrix(2), 2, SMLNUM * EPS, BETA,
+            DUMMY1.box(1), ALPHAR, DUMMY.box(1), ALPHAI);
         ALPRQT = ONE;
-        C1 = TWO * (ALPHAR * ALPHAR + ALPHAI * ALPHAI + BETA * BETA);
-        C2 = FOUR * BETA * BETA * ALPHAI * ALPHAI;
+        C1 = TWO *
+            (ALPHAR.value * ALPHAR.value +
+                ALPHAI.value * ALPHAI.value +
+                BETA.value * BETA.value);
+        C2 = FOUR * BETA.value * BETA.value * ALPHAI.value * ALPHAI.value;
         ROOT1 = C1 + sqrt(C1 * C1 - 4.0 * C2);
         ROOT1 = ROOT1 / TWO;
         ROOT2 = C2 / ROOT1;
@@ -265,11 +265,26 @@ void dtgsna(
 
       dlacpy('Full', N, N, A, LDA, WORK.asMatrix(N), N);
       dlacpy('Full', N, N, B, LDB, WORK(N * N + 1).asMatrix(N), N);
-      IFST = K;
-      ILST = 1;
+      IFST.value = K;
+      ILST.value = 1;
 
-      dtgexc(false, false, N, WORK, N, WORK[N * N + 1], N, DUMMY, 1, DUMMY1, 1,
-          IFST, ILST, WORK[N * N * 2 + 1], LWORK - 2 * N * N, IERR);
+      dtgexc(
+          false,
+          false,
+          N,
+          WORK.asMatrix(N),
+          N,
+          WORK(N * N + 1).asMatrix(N),
+          N,
+          DUMMY.asMatrix(1),
+          1,
+          DUMMY1.asMatrix(1),
+          1,
+          IFST,
+          ILST,
+          WORK(N * N * 2 + 1),
+          LWORK - 2 * N * N,
+          IERR);
 
       if (IERR.value > 0) {
         // Ill-conditioned problem - swap rejected.
@@ -295,24 +310,24 @@ void dtgsna(
               DIFDRI,
               N2,
               N1,
-              WORK[N * N1 + N1 + 1],
+              WORK(N * N1 + N1 + 1).asMatrix(N),
               N,
-              WORK,
+              WORK.asMatrix(N),
               N,
-              WORK[N1 + 1],
+              WORK(N1 + 1).asMatrix(N),
               N,
-              WORK[N * N1 + N1 + I],
+              WORK(N * N1 + N1 + I).asMatrix(N),
               N,
-              WORK[I],
+              WORK(I).asMatrix(N),
               N,
-              WORK[N1 + I],
+              WORK(N1 + I).asMatrix(N),
               N,
               SCALE,
-              DIF[KS],
-              WORK[IZ + 1],
+              DIF.box(KS),
+              WORK(IZ + 1),
               LWORK - 2 * N * N,
               IWORK,
-              IERR.value);
+              IERR);
 
           if (PAIR) DIF[KS] = min(max(ONE, ALPRQT) * DIF[KS], COND);
         }

@@ -117,7 +117,7 @@ void dlasd2(
     IDXC[I] = COLTYP[IDXQ[I]];
   }
 
-  dlamrg(NL, NR, DSIGMA[2], 1, 1, IDX[2]);
+  dlamrg(NL, NR, DSIGMA(2), 1, 1, IDX(2));
 
   for (I = 2; I <= N; I++) {
     IDXI = 1 + IDX[I];

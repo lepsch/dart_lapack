@@ -107,7 +107,7 @@ void dormtr(
   if (UPPER) {
     // Q was determined by a call to DSYTRD with UPLO = 'U'
 
-    dormql(SIDE, TRANS, MI, NI, NQ - 1, A[1][2], LDA, TAU, C, LDC, WORK, LWORK,
+    dormql(SIDE, TRANS, MI, NI, NQ - 1, A(1, 2), LDA, TAU, C, LDC, WORK, LWORK,
         IINFO);
   } else {
     // Q was determined by a call to DSYTRD with UPLO = 'L'

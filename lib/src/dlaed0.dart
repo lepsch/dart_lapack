@@ -242,7 +242,7 @@ void dlaed0(
             QSTORE(1, SUBMAT),
             LDQS,
             IWORK(INDXQ + SUBMAT),
-            E[SUBMAT + MSD2 - 1],
+            E.box(SUBMAT + MSD2 - 1),
             MSD2,
             WORK(IQ),
             IWORK(IQPTR),

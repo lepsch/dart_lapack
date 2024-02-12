@@ -21,13 +21,13 @@ void dlasq3(
   final Box<int> ITER,
   final Box<int> NDIV,
   final bool IEEE,
-  final int TTYPE,
-  final double DMIN1,
+  final Box<int> TTYPE,
+  final Box<double> DMIN1,
   final Box<double> DMIN2,
-  final double DN,
-  final double DN1,
-  final double DN2,
-  final double G,
+  final Box<double> DN,
+  final Box<double> DN1,
+  final Box<double> DN2,
+  final Box<double> G,
   final Box<double> TAU,
 ) {
 // -- LAPACK computational routine --
@@ -40,7 +40,7 @@ void dlasq3(
       ONE = 1.0,
       TWO = 2.0,
       HUNDRD = 100.0;
-  int IPN4, J4, N0IN, NN, TTYPE = 0;
+  int IPN4, J4, N0IN, NN;
   double EPS, S, T, TEMP, TOL, TOL2;
 
   N0IN = N0.value;
@@ -50,7 +50,6 @@ void dlasq3(
 
   // Check for deflation.
 
-  // } // 10
   while (true) {
     if (N0.value < I0) return;
     if (N0.value == I0) {
@@ -103,7 +102,6 @@ void dlasq3(
     if (CBIAS * Z[4 * I0 + PP.value - 3] < Z[4 * N0.value + PP.value - 3]) {
       IPN4 = 4 * (I0 + N0.value);
       for (J4 = 4 * I0; J4 <= 2 * (I0 + N0.value - 1); J4 += 4) {
-        // 60
         TEMP = Z[J4 - 3];
         Z[J4 - 3] = Z[IPN4 - J4 - 3];
         Z[IPN4 - J4 - 3] = TEMP;
@@ -116,7 +114,7 @@ void dlasq3(
         TEMP = Z[J4];
         Z[J4] = Z[IPN4 - J4 - 4];
         Z[IPN4 - J4 - 4] = TEMP;
-      } // 60
+      }
       if (N0.value - I0 <= 4) {
         Z[4 * N0.value + PP.value - 1] = Z[4 * I0 + PP.value - 1];
         Z[4 * N0.value - PP.value] = Z[4 * I0 - PP.value];
@@ -134,31 +132,31 @@ void dlasq3(
 
   // Choose a shift.
 
-  dlasq4(I0, N0.value, Z, PP.value, N0IN, DMIN.value, DMIN1, DMIN2.value, DN,
-      DN1, DN2, TAU.value, TTYPE, G);
+  dlasq4(I0, N0.value, Z, PP.value, N0IN, DMIN.value, DMIN1.value, DMIN2.value,
+      DN.value, DN1.value, DN2.value, TAU, TTYPE, G);
 
   // Call dqds until DMIN.value > 0.
 
   var success = false;
   while (true) {
-    dlasq5(I0, N0.value, Z, PP.value, TAU.value, SIGMA.value, DMIN.value, DMIN1,
-        DMIN2.value, DN, DN1, DN2, IEEE, EPS);
+    dlasq5(I0, N0.value, Z, PP.value, TAU.value, SIGMA.value, DMIN, DMIN1,
+        DMIN2, DN, DN1, DN2, IEEE, EPS);
 
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
     ITER.value = ITER.value + 1;
 
     // Check status.
 
-    if (DMIN.value >= ZERO && DMIN1 >= ZERO) {
+    if (DMIN.value >= ZERO && DMIN1.value >= ZERO) {
       // Success.
 
       success = true;
       break;
     } else if (DMIN.value < ZERO &&
-        DMIN1 > ZERO &&
-        Z[4 * (N0.value - 1) - PP.value] < TOL * (SIGMA.value + DN1) &&
-        (DN).abs() < TOL * SIGMA.value) {
-      // Convergence hidden by negative DN.
+        DMIN1.value > ZERO &&
+        Z[4 * (N0.value - 1) - PP.value] < TOL * (SIGMA.value + DN1.value) &&
+        (DN.value).abs() < TOL * SIGMA.value) {
+      // Convergence hidden by negative DN.value.
 
       Z[4 * (N0.value - 1) - PP.value + 2] = ZERO;
       DMIN.value = ZERO;
@@ -169,20 +167,20 @@ void dlasq3(
       // TAU.value too big. Select new TAU.value and try again.
 
       NFAIL.value = NFAIL.value + 1;
-      if (TTYPE < -22) {
+      if (TTYPE.value < -22) {
         // Failed twice. Play it safe.
 
         TAU.value = ZERO;
-      } else if (DMIN1 > ZERO) {
+      } else if (DMIN1.value > ZERO) {
         // Late failure. Gives excellent shift.
 
         TAU.value = (TAU.value + DMIN.value) * (ONE - TWO * EPS);
-        TTYPE = TTYPE - 11;
+        TTYPE.value = TTYPE.value - 11;
       } else {
         // Early failure. Divide by 4.
 
         TAU.value = QURTR * TAU.value;
-        TTYPE = TTYPE - 12;
+        TTYPE.value = TTYPE.value - 12;
       }
       continue;
     } else if (disnan(DMIN.value)) {
@@ -203,8 +201,7 @@ void dlasq3(
   // Risk of underflow.
 
   if (!success) {
-    dlasq6(I0, N0.value, Z, PP.value, DMIN.value, DMIN1, DMIN2.value, DN, DN1,
-        DN2);
+    dlasq6(I0, N0.value, Z, PP.value, DMIN, DMIN1, DMIN2, DN, DN1, DN2);
     NDIV.value = NDIV.value + (N0.value - I0 + 2);
     ITER.value = ITER.value + 1;
     TAU.value = ZERO;

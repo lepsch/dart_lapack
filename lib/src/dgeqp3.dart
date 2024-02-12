@@ -27,8 +27,7 @@ void dgeqp3(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   const INB = 1, INBMIN = 2, IXOVER = 3;
   bool LQUERY;
-  int FJB = 0,
-      IWS = 0,
+  int IWS = 0,
       J,
       JB,
       LWKOPT,
@@ -43,6 +42,7 @@ void dgeqp3(
       SMINMN,
       SN,
       TOPBMN = 0;
+  final FJB = Box(0);
 
   // Test input arguments
   // ====================
@@ -178,22 +178,23 @@ void dgeqp3(
           // Factorize JB columns among columns J:N.
 
           dlaqps(
-              M,
-              N - J + 1,
-              J - 1,
-              JB,
-              FJB,
-              A(1, J),
-              LDA,
-              JPVT(J),
-              TAU(J),
-              WORK(J),
-              WORK(N + J),
-              WORK(2 * N + 1),
-              WORK(2 * N + JB + 1),
-              N - J + 1);
+            M,
+            N - J + 1,
+            J - 1,
+            JB,
+            FJB,
+            A(1, J),
+            LDA,
+            JPVT(J),
+            TAU(J),
+            WORK(J),
+            WORK(N + J),
+            WORK(2 * N + 1),
+            WORK(2 * N + JB + 1).asMatrix(N - J + 1),
+            N - J + 1,
+          );
 
-          J = J + FJB;
+          J = J + FJB.value;
           continue;
         }
         break;

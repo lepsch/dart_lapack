@@ -24,46 +24,19 @@ void dlasq2(
       FOUR = 4.0,
       HUNDRD = 100.0;
   bool IEEE;
-  int I0,
-      I1,
-      I4 = 0,
-      IPN4,
-      ITER,
-      IWHILA,
-      IWHILB,
-      K,
-      KMIN,
-      N0,
-      N1,
-      NBIG,
-      NDIV,
-      NFAIL,
-      PP,
-      SPLT,
-      TTYPE;
+  int I0, I1, I4 = 0, IPN4, IWHILA, IWHILB, K, KMIN, N1, NBIG, SPLT;
   double D,
       DEE,
       DEEMIN,
-      DESIG = 0,
-      DMIN,
-      DMIN1,
-      DMIN2,
-      DN,
-      DN1,
-      DN2,
       E,
       EMAX = 0,
       EMIN = 0,
       EPS,
-      G,
       OLDEMN,
-      QMAX = 0,
       QMIN = 0,
       S,
       SAFMIN,
-      SIGMA = 0,
       T,
-      TAU,
       TEMP,
       TOL,
       TOL2,
@@ -71,7 +44,25 @@ void dlasq2(
       ZMAX,
       TEMPE,
       TEMPQ;
-  final IINFO = Box(0);
+  final IINFO = Box(0),
+      N0 = Box(0),
+      NFAIL = Box(0),
+      ITER = Box(0),
+      NDIV = Box(0),
+      PP = Box(0),
+      TTYPE = Box(0);
+
+  final DMIN = Box(0.0),
+      DESIG = Box(0.0),
+      SIGMA = Box(0.0),
+      QMAX = Box(0.0),
+      DMIN1 = Box(0.0),
+      DMIN2 = Box(0.0),
+      DN = Box(0.0),
+      DN1 = Box(0.0),
+      DN2 = Box(0.0),
+      G = Box(0.0),
+      TAU = Box(0.0);
 
   // Test the input arguments.
   // (in case DLASQ2 is not called by DLASQ1)
@@ -138,7 +129,7 @@ void dlasq2(
 
   Z[2 * N] = ZERO;
   EMIN = Z[2];
-  QMAX = ZERO;
+  QMAX.value = ZERO;
   ZMAX = ZERO;
   D = ZERO;
   E = ZERO;
@@ -155,9 +146,9 @@ void dlasq2(
     }
     D = D + Z[K];
     E = E + Z[K + 1];
-    QMAX = max(QMAX, Z[K]);
+    QMAX.value = max(QMAX.value, Z[K]);
     EMIN = min(EMIN, Z[K + 1]);
-    ZMAX = max(QMAX, max(ZMAX, Z[K + 1]));
+    ZMAX = max(QMAX.value, max(ZMAX, Z[K + 1]));
   }
   if (Z[2 * N - 1] < ZERO) {
     INFO.value = -(200 + 2 * N - 1);
@@ -165,8 +156,8 @@ void dlasq2(
     return;
   }
   D = D + Z[2 * N - 1];
-  QMAX = max(QMAX, Z[2 * N - 1]);
-  ZMAX = max(QMAX, ZMAX);
+  QMAX.value = max(QMAX.value, Z[2 * N - 1]);
+  ZMAX = max(QMAX.value, ZMAX);
 
   // Check for diagonality.
 
@@ -202,13 +193,13 @@ void dlasq2(
   }
 
   I0 = 1;
-  N0 = N;
+  N0.value = N;
 
   // Reverse the qd-array, if warranted.
 
-  if (CBIAS * Z[4 * I0 - 3] < Z[4 * N0 - 3]) {
-    IPN4 = 4 * (I0 + N0);
-    for (I4 = 4 * I0; I4 <= 2 * (I0 + N0 - 1); I4 += 4) {
+  if (CBIAS * Z[4 * I0 - 3] < Z[4 * N0.value - 3]) {
+    IPN4 = 4 * (I0 + N0.value);
+    for (I4 = 4 * I0; I4 <= 2 * (I0 + N0.value - 1); I4 += 4) {
       TEMP = Z[I4 - 3];
       Z[I4 - 3] = Z[IPN4 - I4 - 3];
       Z[IPN4 - I4 - 3] = TEMP;
@@ -220,11 +211,11 @@ void dlasq2(
 
   // Initial split checking via dqd and Li's test.
 
-  PP = 0;
+  PP.value = 0;
 
   for (K = 1; K <= 2; K++) {
-    D = Z[4 * N0 + PP - 3];
-    for (I4 = 4 * (N0 - 1) + PP; I4 >= 4 * I0 + PP; I4 -= 4) {
+    D = Z[4 * N0.value + PP.value - 3];
+    for (I4 = 4 * (N0.value - 1) + PP.value; I4 >= 4 * I0 + PP.value; I4 -= 4) {
       if (Z[I4 - 1] <= TOL2 * D) {
         Z[I4 - 1] = -ZERO;
         D = Z[I4 - 3];
@@ -235,93 +226,96 @@ void dlasq2(
 
     // dqd maps Z to ZZ plus Li's test.
 
-    EMIN = Z[4 * I0 + PP + 1];
-    D = Z[4 * I0 + PP - 3];
-    for (I4 = 4 * I0 + PP; I4 <= 4 * (N0 - 1) + PP; I4 += 4) {
-      Z[I4 - 2 * PP - 2] = D + Z[I4 - 1];
+    EMIN = Z[4 * I0 + PP.value + 1];
+    D = Z[4 * I0 + PP.value - 3];
+    for (I4 = 4 * I0 + PP.value; I4 <= 4 * (N0.value - 1) + PP.value; I4 += 4) {
+      Z[I4 - 2 * PP.value - 2] = D + Z[I4 - 1];
       if (Z[I4 - 1] <= TOL2 * D) {
         Z[I4 - 1] = -ZERO;
-        Z[I4 - 2 * PP - 2] = D;
-        Z[I4 - 2 * PP] = ZERO;
+        Z[I4 - 2 * PP.value - 2] = D;
+        Z[I4 - 2 * PP.value] = ZERO;
         D = Z[I4 + 1];
-      } else if (SAFMIN * Z[I4 + 1] < Z[I4 - 2 * PP - 2] &&
-          SAFMIN * Z[I4 - 2 * PP - 2] < Z[I4 + 1]) {
-        TEMP = Z[I4 + 1] / Z[I4 - 2 * PP - 2];
-        Z[I4 - 2 * PP] = Z[I4 - 1] * TEMP;
+      } else if (SAFMIN * Z[I4 + 1] < Z[I4 - 2 * PP.value - 2] &&
+          SAFMIN * Z[I4 - 2 * PP.value - 2] < Z[I4 + 1]) {
+        TEMP = Z[I4 + 1] / Z[I4 - 2 * PP.value - 2];
+        Z[I4 - 2 * PP.value] = Z[I4 - 1] * TEMP;
         D = D * TEMP;
       } else {
-        Z[I4 - 2 * PP] = Z[I4 + 1] * (Z[I4 - 1] / Z[I4 - 2 * PP - 2]);
-        D = Z[I4 + 1] * (D / Z[I4 - 2 * PP - 2]);
+        Z[I4 - 2 * PP.value] =
+            Z[I4 + 1] * (Z[I4 - 1] / Z[I4 - 2 * PP.value - 2]);
+        D = Z[I4 + 1] * (D / Z[I4 - 2 * PP.value - 2]);
       }
-      EMIN = min(EMIN, Z[I4 - 2 * PP]);
+      EMIN = min(EMIN, Z[I4 - 2 * PP.value]);
     }
-    Z[4 * N0 - PP - 2] = D;
+    Z[4 * N0.value - PP.value - 2] = D;
 
     // Now find qmax.
 
-    QMAX = Z[4 * I0 - PP - 2];
-    for (I4 = 4 * I0 - PP + 2;
-        4 < 0 ? I4 >= 4 * N0 - PP - 2 : I4 <= 4 * N0 - PP - 2;
+    QMAX.value = Z[4 * I0 - PP.value - 2];
+    for (I4 = 4 * I0 - PP.value + 2;
+        4 < 0
+            ? I4 >= 4 * N0.value - PP.value - 2
+            : I4 <= 4 * N0.value - PP.value - 2;
         I4 += 4) {
-      QMAX = max(QMAX, Z[I4]);
+      QMAX.value = max(QMAX.value, Z[I4]);
     }
 
     // Prepare for the next iteration on K.
 
-    PP = 1 - PP;
+    PP.value = 1 - PP.value;
   }
 
   // Initialise variables to pass to DLASQ3.
 
-  TTYPE = 0;
-  DMIN1 = ZERO;
-  DMIN2 = ZERO;
-  DN = ZERO;
-  DN1 = ZERO;
-  DN2 = ZERO;
-  G = ZERO;
-  TAU = ZERO;
+  TTYPE.value = 0;
+  DMIN1.value = ZERO;
+  DMIN2.value = ZERO;
+  DN.value = ZERO;
+  DN1.value = ZERO;
+  DN2.value = ZERO;
+  G.value = ZERO;
+  TAU.value = ZERO;
 
-  ITER = 2;
-  NFAIL = 0;
-  NDIV = 2 * (N0 - I0);
+  ITER.value = 2;
+  NFAIL.value = 0;
+  NDIV.value = 2 * (N0.value - I0);
   var flag = false;
   iwhilaLoop:
   for (IWHILA = 1; IWHILA <= N + 1; IWHILA++) {
-    if (N0 < 1) {
+    if (N0.value < 1) {
       flag = true;
       break;
     }
 
     // While array unfinished do
 
-    // E(N0) holds the value of SIGMA when submatrix in I0:N0
+    // E(N0.value) holds the value of SIGMA.value when submatrix in I0:N0.value
     // splits from the rest of the array, but is negated.
 
-    DESIG = ZERO;
-    if (N0 == N) {
-      SIGMA = ZERO;
+    DESIG.value = ZERO;
+    if (N0.value == N) {
+      SIGMA.value = ZERO;
     } else {
-      SIGMA = -Z[4 * N0 - 1];
+      SIGMA.value = -Z[4 * N0.value - 1];
     }
-    if (SIGMA < ZERO) {
+    if (SIGMA.value < ZERO) {
       INFO.value = 1;
       return;
     }
 
-    // Find last unreduced submatrix's top index I0, find QMAX and
+    // Find last unreduced submatrix's top index I0, find QMAX.value and
     // EMIN. Find Gershgorin-type bound if Q's much greater than E's.
 
     EMAX = ZERO;
-    if (N0 > I0) {
-      EMIN = (Z[4 * N0 - 5]).abs();
+    if (N0.value > I0) {
+      EMIN = (Z[4 * N0.value - 5]).abs();
     } else {
       EMIN = ZERO;
     }
-    QMIN = Z[4 * N0 - 3];
-    QMAX = QMIN;
+    QMIN = Z[4 * N0.value - 3];
+    QMAX.value = QMIN;
     var topIndexFound = false;
-    for (I4 = 4 * N0; I4 >= 8; I4 -= 4) {
+    for (I4 = 4 * N0.value; I4 >= 8; I4 -= 4) {
       if (Z[I4 - 5] <= ZERO) {
         topIndexFound = true;
         break;
@@ -330,7 +324,7 @@ void dlasq2(
         QMIN = min(QMIN, Z[I4 - 3]);
         EMAX = max(EMAX, Z[I4 - 5]);
       }
-      QMAX = max(QMAX, Z[I4 - 7] + Z[I4 - 5]);
+      QMAX.value = max(QMAX.value, Z[I4 - 7] + Z[I4 - 5]);
       EMIN = min(EMIN, Z[I4 - 5]);
     }
     if (!topIndexFound) {
@@ -339,14 +333,14 @@ void dlasq2(
 
     //  }
     I0 = I4 ~/ 4;
-    PP = 0;
+    PP.value = 0;
 
-    if (N0 - I0 > 1) {
+    if (N0.value - I0 > 1) {
       DEE = Z[4 * I0 - 3];
       DEEMIN = DEE;
       KMIN = I0;
       for (I4 = 4 * I0 + 1;
-          4 < 0 ? I4 >= 4 * N0 - 3 : I4 <= 4 * N0 - 3;
+          4 < 0 ? I4 >= 4 * N0.value - 3 : I4 <= 4 * N0.value - 3;
           I4 += 4) {
         DEE = Z[I4] * (DEE / (DEE + Z[I4 - 2]));
         if (DEE <= DEEMIN) {
@@ -354,10 +348,11 @@ void dlasq2(
           KMIN = (I4 + 3) ~/ 4;
         }
       }
-      if ((KMIN - I0) * 2 < N0 - KMIN && DEEMIN <= HALF * Z[4 * N0 - 3]) {
-        IPN4 = 4 * (I0 + N0);
-        PP = 2;
-        for (I4 = 4 * I0; I4 <= 2 * (I0 + N0 - 1); I4 += 4) {
+      if ((KMIN - I0) * 2 < N0.value - KMIN &&
+          DEEMIN <= HALF * Z[4 * N0.value - 3]) {
+        IPN4 = 4 * (I0 + N0.value);
+        PP.value = 2;
+        for (I4 = 4 * I0; I4 <= 2 * (I0 + N0.value - 1); I4 += 4) {
           TEMP = Z[I4 - 3];
           Z[I4 - 3] = Z[IPN4 - I4 - 3];
           Z[IPN4 - I4 - 3] = TEMP;
@@ -374,50 +369,51 @@ void dlasq2(
       }
     }
 
-    // Put -(initial shift) into DMIN.
+    // Put -(initial shift) into DMIN.value.
 
-    DMIN = -max(ZERO, QMIN - TWO * sqrt(QMIN) * sqrt(EMAX));
+    DMIN.value = -max(ZERO, QMIN - TWO * sqrt(QMIN) * sqrt(EMAX));
 
-    // Now I0:N0 is unreduced.
-    // PP = 0 for ping, PP = 1 for pong.
-    // PP = 2 indicates that flipping was applied to the Z array and
+    // Now I0:N0.value is unreduced.
+    // PP.value = 0 for ping, PP.value = 1 for pong.
+    // PP.value = 2 indicates that flipping was applied to the Z array and
     //        and that the tests for deflation upon entry in DLASQ3
     //        should not be performed.
 
-    NBIG = 100 * (N0 - I0 + 1);
+    NBIG = 100 * (N0.value - I0 + 1);
     for (IWHILB = 1; IWHILB <= NBIG; IWHILB++) {
-      if (I0 > N0) continue iwhilaLoop;
+      if (I0 > N0.value) continue iwhilaLoop;
 
       // While submatrix unfinished take a good dqds step.
 
       dlasq3(I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE,
           TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU);
 
-      PP = 1 - PP;
+      PP.value = 1 - PP.value;
 
       // When EMIN is very small check for splits.
 
-      if (PP == 0 && N0 - I0 >= 3) {
-        if (Z[4 * N0] <= TOL2 * QMAX || Z[4 * N0 - 1] <= TOL2 * SIGMA) {
+      if (PP.value == 0 && N0.value - I0 >= 3) {
+        if (Z[4 * N0.value] <= TOL2 * QMAX.value ||
+            Z[4 * N0.value - 1] <= TOL2 * SIGMA.value) {
           SPLT = I0 - 1;
-          QMAX = Z[4 * I0 - 3];
+          QMAX.value = Z[4 * I0 - 3];
           EMIN = Z[4 * I0 - 1];
           OLDEMN = Z[4 * I0];
-          for (I4 = 4 * I0; I4 <= 4 * (N0 - 3); I4 += 4) {
-            if (Z[I4] <= TOL2 * Z[I4 - 3] || Z[I4 - 1] <= TOL2 * SIGMA) {
-              Z[I4 - 1] = -SIGMA;
+          for (I4 = 4 * I0; I4 <= 4 * (N0.value - 3); I4 += 4) {
+            if (Z[I4] <= TOL2 * Z[I4 - 3] || Z[I4 - 1] <= TOL2 * SIGMA.value) {
+              Z[I4 - 1] = -SIGMA.value;
               SPLT = I4 ~/ 4;
-              QMAX = ZERO;
+              QMAX.value = ZERO;
               EMIN = Z[I4 + 3];
               OLDEMN = Z[I4 + 4];
             } else {
-              QMAX = max(QMAX, Z[I4 + 1]);
+              QMAX.value = max(QMAX.value, Z[I4 + 1]);
               EMIN = min(EMIN, Z[I4 - 1]);
               OLDEMN = min(OLDEMN, Z[I4]);
             }
           }
-          Z[4 * N0 - 1] = EMIN;
-          Z[4 * N0] = OLDEMN;
+          Z[4 * N0.value - 1] = EMIN;
+          Z[4 * N0.value] = OLDEMN;
           I0 = SPLT + 1;
         }
       }
@@ -426,19 +422,19 @@ void dlasq2(
     INFO.value = 2;
 
     // Maximum number of iterations exceeded, restore the shift
-    // SIGMA and place the new d's and e's in a qd array.
+    // SIGMA.value and place the new d's and e's in a qd array.
     // This might need to be done for several blocks
 
     I1 = I0;
-    N1 = N0;
+    N1 = N0.value;
     while (true) {
       TEMPQ = Z[4 * I0 - 3];
-      Z[4 * I0 - 3] = Z[4 * I0 - 3] + SIGMA;
-      for (K = I0 + 1; K <= N0; K++) {
+      Z[4 * I0 - 3] = Z[4 * I0 - 3] + SIGMA.value;
+      for (K = I0 + 1; K <= N0.value; K++) {
         TEMPE = Z[4 * K - 5];
         Z[4 * K - 5] = Z[4 * K - 5] * (TEMPQ / Z[4 * K - 7]);
         TEMPQ = Z[4 * K - 3];
-        Z[4 * K - 3] = Z[4 * K - 3] + SIGMA + TEMPE - Z[4 * K - 5];
+        Z[4 * K - 3] = Z[4 * K - 3] + SIGMA.value + TEMPE - Z[4 * K - 5];
       }
 
       // Prepare to do this on the previous block if there is one
@@ -448,7 +444,7 @@ void dlasq2(
         while ((I1 >= 2) && (Z[4 * I1 - 5] >= ZERO)) {
           I1 = I1 - 1;
         }
-        SIGMA = -Z[4 * N1 - 1];
+        SIGMA.value = -Z[4 * N1 - 1];
         continue;
       }
       break;
@@ -457,11 +453,11 @@ void dlasq2(
     for (K = 1; K <= N; K++) {
       Z[2 * K - 1] = Z[4 * K - 3];
 
-      // Only the block 1..N0 is unfinished.  The rest of the e's
+      // Only the block 1..N0.value is unfinished.  The rest of the e's
       // must be essentially zero, although sometimes other data
       // has been stored in them.
 
-      if (K < N0) {
+      if (K < N0.value) {
         Z[2 * K] = Z[4 * K - 1];
       } else {
         Z[2 * K] = 0;
@@ -498,7 +494,7 @@ void dlasq2(
 
   Z[2 * N + 1] = TRACE;
   Z[2 * N + 2] = E;
-  Z[2 * N + 3] = ITER.toDouble();
-  Z[2 * N + 4] = NDIV.toDouble() / pow(N, 2).toDouble();
-  Z[2 * N + 5] = HUNDRD * NFAIL / ITER.toDouble();
+  Z[2 * N + 3] = ITER.value.toDouble();
+  Z[2 * N + 4] = NDIV.value.toDouble() / pow(N, 2).toDouble();
+  Z[2 * N + 5] = HUNDRD * NFAIL.value / ITER.value.toDouble();
 }

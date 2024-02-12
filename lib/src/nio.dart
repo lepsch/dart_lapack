@@ -20,7 +20,7 @@ class Nin {
   Future<void> readArray<T>(Array<T> a, int n) async {
     List<String> parts;
     try {
-      parts = (await readLine()).split(RegExp(r'\s+'));
+      parts = (await readLine()).trim().split(RegExp(r'\s+'));
     } on StateError catch (_) {
       throw EOF();
     }

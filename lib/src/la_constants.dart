@@ -74,7 +74,7 @@ const zprefix = 'Z';
 final dulp = epsilon(0.0);
 final deps = dulp * 0.5;
 final dsafmin =
-    pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)));
+    pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0))).toDouble();
 final dsafmax = done / dsafmin;
 final dsmlnum = dsafmin / dulp;
 final dbignum = dsafmax * dulp;

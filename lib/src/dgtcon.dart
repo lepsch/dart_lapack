@@ -71,7 +71,7 @@ import 'package:lapack/src/xerbla.dart';
          KASE1 = 2;
       }
       KASE = 0;
-      } // 20
+      // } // 20
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
          if ( KASE == KASE1 ) {
