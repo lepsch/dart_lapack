@@ -3,7 +3,7 @@
 ## References
  - LAPACK constants: https://netlib.org/lapack/explore-html/d4/d69/namespacela__constants.html
  - Format specifiers: https://docs.oracle.com/cd/E19957-01/805-4939/z40007437a2e/index.html
- - Intrisics
+ - Intrinsics
     - https://gcc.gnu.org/onlinedocs/gfortran/Intrinsic-Procedures.html
     - https://www.ibm.com/docs/en/xl-fortran-aix/16.1.0
  - Online compiler: https://onecompiler.com/fortran/
