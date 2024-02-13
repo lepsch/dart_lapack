@@ -310,6 +310,19 @@ void main() {
       // expect(a[8], 0);
       // expect(a[9], 0);
     });
+
+    test('fill sliced', () {
+      const NMAX = 132;
+      const NEED = 14, M = 10, N = 10;
+      final m = Matrix<double>(NMAX * NMAX, NEED);
+      final s = m(1, 7);
+
+      for (var J = 1; J <= N; J++) {
+        for (var I = 1; I <= M; I++) {
+          s[I][J] = 1;
+        }
+      }
+    });
   });
 }
 

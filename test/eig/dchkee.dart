@@ -58,7 +58,7 @@ void main() async {
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  final input = File('/Users/lepsch/_/tmp/lapack/test/nep.in').openRead();
+  final input = File('/Users/lepsch/_/lapack/test/dgd.in').openRead();
   final NIN = Nin(input), NOUT = Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
@@ -188,7 +188,6 @@ void main() async {
       DGK = lsamen(3, PATH, 'DGK');
 
       // Report values of parameters.
-
       if (NEP) {
         NOUT.println(' Tests of the Nonsymmetric Eigenvalue Problem routines');
       } else if (SEP) {
@@ -197,31 +196,31 @@ void main() async {
         NOUT.println(' Tests of the Singular Value Decomposition routines');
       } else if (DEV) {
         NOUT.println(
-            ' Tests of the Nonsymmetric Eigenvalue Problem Driver\n    DGEEV (eigenvalues and eigevectors)');
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    DGEEV (eigenvalues and eigevectors)');
       } else if (DES) {
         NOUT.println(
-            ' Tests of the Nonsymmetric Eigenvalue Problem Driver\n    DGEES (Schur form)');
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    DGEES (Schur form)');
       } else if (DVX) {
         NOUT.println(
-            ' Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEEVX (eigenvalues, eigenvectors and  condition numbers)');
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEEVX (eigenvalues, eigenvectors and  condition numbers)');
       } else if (DSX) {
         NOUT.println(
-            ' Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEESX (Schur form and condition numbers)');
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEESX (Schur form and condition numbers)');
       } else if (DGG) {
         NOUT.println(
-            ' Tests of the Generalized Nonsymmetric Eigenvalue Problem routines');
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem routines');
       } else if (DGS) {
         NOUT.println(
-            ' Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver DGGES');
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver DGGES');
       } else if (DGX) {
         NOUT.println(
-            ' Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver DGGESX');
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver DGGESX');
       } else if (DGV) {
         NOUT.println(
-            ' Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver DGGEV');
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver DGGEV');
       } else if (DXV) {
         NOUT.println(
-            ' Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver DGGEVX');
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver DGGEVX');
       } else if (DSB) {
         NOUT.println(
             ' Tests of DSBTRD\n (reduction of a symmetric band matrix to tridiagonal form)');
@@ -230,16 +229,16 @@ void main() async {
             ' Tests of DGBBRD\n (reduction of a general band matrix to real bidiagonal form)');
       } else if (GLM) {
         NOUT.println(
-            ' Tests of the Generalized Linear Regression Model routines');
+            '\n Tests of the Generalized Linear Regression Model routines');
       } else if (GQR) {
-        NOUT.println(' Tests of the Generalized QR and RQ routines');
+        NOUT.println('\n Tests of the Generalized QR and RQ routines');
       } else if (GSV) {
         NOUT.println(
-            ' Tests of the Generalized Singular Value Decomposition routines');
+            '\n Tests of the Generalized Singular Value Decomposition routines');
       } else if (CSD) {
-        NOUT.println(' Tests of the CS Decomposition routines');
+        NOUT.println('\n Tests of the CS Decomposition routines');
       } else if (LSE) {
-        NOUT.println(' Tests of the Linear Least Squares routines');
+        NOUT.println('\n Tests of the Linear Least Squares routines');
       } else if (DBL) {
         // DGEBAL:  Balancing
         await dchkbl(NIN, NOUT);
@@ -274,8 +273,8 @@ void main() async {
       }
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
-      NOUT.println(' LAPACK VERSION $VERS_MAJOR.$VERS_MINOR.$VERS_PATCH');
-      NOUT.println(' The following parameter values will be used:');
+      NOUT.println('\n LAPACK VERSION $VERS_MAJOR.$VERS_MINOR.$VERS_PATCH');
+      NOUT.println('\n The following parameter values will be used:');
 
       // Read the number of values of M, P, and N.
 
@@ -428,8 +427,8 @@ void main() async {
         // For the nonsymmetric generalized driver routines, only one set
         // of parameters is allowed.
 
-        final PARAMS = Array<int>(8);
-        await NIN.readArray(PARAMS, 8);
+        final PARAMS = Array<int>(5);
+        await NIN.readArray(PARAMS, 5);
         NBVAL[1] = PARAMS[1];
         NBMIN[1] = PARAMS[2];
         NXVAL[1] = PARAMS[3];
@@ -694,7 +693,7 @@ void main() async {
 
       THRESH = await NIN.readDouble();
       NOUT.println(
-          ' Routines pass computational tests if test ratio is less than ${THRESH.toStringAsFixed(2)}');
+          '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
       if (SEP || SVD || DGG) {
         // Read the flag that indicates whether to test LAPACK routines.
 
@@ -722,7 +721,7 @@ void main() async {
       }
 
       if (FATAL) {
-        NOUT.println(' Execution not attempted due to input errors');
+        NOUT.println('\n Execution not attempted due to input errors');
         return;
       }
 
@@ -769,7 +768,7 @@ void main() async {
                 }
                 if (!isValidDigit) {
                   NOUT.println(
-                      ' *** Invalid integer value in column $I of input line:\n$LINE');
+                      '\n *** Invalid integer value in column ${I.i2} of input line:\n$LINE');
                   continue nextLine;
                 }
 
@@ -835,7 +834,7 @@ void main() async {
               }
             }
             NOUT.println(
-                ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
+                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
             dchkhs(
                 NN,
                 NVAL,
@@ -1141,7 +1140,7 @@ void main() async {
               }
             }
             NOUT.println(
-                ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS = $NRHS');
+                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS = $NRHS');
             if (TSTCHK) {
               dchkbd(
                   NN,
@@ -1244,7 +1243,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DGEEV', INFO.value);
           }
-          NOUT.println(' ${'-' * 71}');
+          NOUT.println('\n ${'-' * 71}');
           continue;
         } else if (lsamen(3, C3, 'DES')) {
           // --------------------------------------------
@@ -1415,7 +1414,7 @@ void main() async {
               }
             }
             NOUT.println(
-                ' $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
+                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
             TSTDIF = false;
             THRSHN = 10.0;
             if (TSTCHK) {
@@ -1749,7 +1748,7 @@ void main() async {
                 ISEED[K] = IOLDSD[K];
               }
             }
-            NOUT.println(' $C3:  NRHS =$NRHS');
+            NOUT.println('\n\n $C3:  NRHS =${NRHS.i4}');
             dchkbb(
                 NN,
                 MVAL,
@@ -1944,9 +1943,9 @@ void main() async {
   } on EOF catch (_) {
     // do nothing
   }
-  NOUT.println(' End of tests');
+  NOUT.println('\n\n End of tests');
   NOUT.println(
-      ' Total time used =${(S1.elapsed.inMicroseconds / 100).f12_2} seconds');
+      ' Total time used =${(S1.elapsed.inMicroseconds / 100).f12_2} seconds\n');
 }
 
 void _print9980(final Nout NOUT, final String s, final int v) {
@@ -1960,11 +1959,11 @@ void _print9997(
   final int nbmin,
   final int nx,
 ) {
-  NOUT.println(' $s:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}');
+  NOUT.println('\n\n $s:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}');
 }
 
 void _print9990(final Nout NOUT, final String s) {
-  NOUT.println(' $s routines were not tested');
+  NOUT.println('\n\n $s routines were not tested');
 }
 
 void _print9981(final Nout NOUT, final String s, final double precision) {
@@ -1979,7 +1978,7 @@ void _print9983(
 ) {
   String prefix = ' ' * 4;
   while (n > 0) {
-    NOUT.println('$prefix$s ${a.i6(min(n, 10))}');
+    NOUT.println('$prefix$s${a.i6(min(n, 10))}');
     prefix = ' ' * 10;
     n -= 10;
   }
