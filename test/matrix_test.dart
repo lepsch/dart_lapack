@@ -150,14 +150,16 @@ void main() {
         [1, 2, 3],
         [4, 5, 6],
         [7, 8, 9],
-      ])(2, 1);
-      m[2][3] = 999;
-      expect(m[1][1], 4);
-      expect(m[1][2], 5);
-      expect(m[1][3], 6);
-      expect(m[2][1], 7);
-      expect(m[2][2], 8);
-      expect(m[2][3], 999);
+      ]);
+
+      final s = m(2, 1);
+      s[2][3] = 999;
+      expect(s[1][1], 4);
+      expect(s[1][2], 5);
+      expect(s[1][3], 6);
+      expect(s[2][1], 7);
+      expect(s[2][2], 8);
+      expect(s[2][3], 999);
     });
 
     test('slice line', () {
@@ -311,11 +313,51 @@ void main() {
       // expect(a[9], 0);
     });
 
+    test('with new dimention', () {
+      final m = Matrix.fromList([
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+        List.filled(10, 0),
+      ]);
+
+      final s = m(2, 7, ld: 3);
+      for (var i = 1; i <= 3; i++) {
+        for (var j = 1; j <= 3; j++) {
+          s[i][j] = i * 10 + j;
+        }
+      }
+
+      const expected = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 11, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 21, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 31, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 12, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 22, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 32, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 13, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 23, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 33, 0, 0, 0],
+      ];
+
+      for (var i = 1; i <= 10; i++) {
+        expect([for (var j = 1; j <= 10; j++) m[i][j]], expected[i - 1],
+            reason: 'i=$i');
+      }
+    });
+
     test('fill sliced', () {
       const NMAX = 132;
       const NEED = 14, M = 10, N = 10;
       final m = Matrix<double>(NMAX * NMAX, NEED);
-      final s = m(1, 7);
+      final s = m(1, 7, ld: 132);
 
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= M; I++) {
@@ -324,7 +366,67 @@ void main() {
       }
     });
   });
+
+  group('Matrix3d', () {
+    test('fromList', () {
+      final m = Matrix3d.fromList([
+        [
+          [11, 12, 13],
+          [14, 15, 16],
+          [17, 18, 19],
+        ],
+        [
+          [21, 22, 23],
+          [24, 25, 26],
+          [27, 28, 29],
+        ],
+        [
+          [31, 32, 33],
+          [34, 35, 36],
+          [37, 38, 39],
+        ],
+      ]);
+      expect(m.toRawList(), [
+        11, 14, 17, 21, 24, 27, 31, 34, 37, 12, 15, 18, 22, //
+        25, 28, 32, 35, 38, 13, 16, 19, 23, 26, 29, 33, 36, 39
+      ]);
+
+      for (var i = 1; i <= 3; i++) {
+        var b = 1;
+        for (var j = 1; j <= 3; j++) {
+          for (var k = 1; k <= 3; k++) {
+            expect(m[i][j][k], i * 10 + b, reason: 'i=$i, j=$j, k=$k');
+            b += 1;
+          }
+        }
+      }
+    });
+
+    test('slice', () {
+      final m = Matrix3d.fromList([
+        [
+          [11, 12, 13],
+          [14, 15, 16],
+          [17, 18, 19],
+        ],
+        [
+          [21, 22, 23],
+          [24, 25, 26],
+          [27, 28, 29],
+        ],
+        [
+          [31, 32, 33],
+          [34, 35, 36],
+          [37, 38, 39],
+        ],
+      ]);
+      final s = m(3, 2, 1);
+      expect([s[1][1][1], s[1][1][2], s[1][1][3]], [34, 35, 36]);
+      expect([s[1][2][1], s[1][2][2], s[1][2][3]], [37, 38, 39]);
+    });
+  });
 }
+
 
 /*
 The program:
