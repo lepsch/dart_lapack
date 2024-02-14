@@ -14,22 +14,24 @@ class Nin {
             stream.transform(utf8.decoder).transform(const LineSplitter()));
 
   Future<String> readLine() async {
-    return await _lineStream.next;
-  }
-
-  Future<void> readArray<T>(Array<T> a, int n) async {
-    List<String> parts;
     try {
-      parts = (await readLine()).trim().split(RegExp(r'\s+'));
+      return await _lineStream.next;
     } on StateError catch (_) {
       throw EOF();
     }
+  }
+
+  Future<void> readArray<T>(Array<T> a, int n) async {
+    final parts = (await readLine()).trim().split(RegExp(r'\s+'));
     if (parts.length < n) throw EOF();
     for (var i = 1; i <= n; i++) {
       a[i] = switch (T) {
         int => int.parse(parts[i - 1]),
-        double => double.parse(parts[i - 1]),
-        bool => parts[i - 1].contains(RegExp('Tt')),
+        double => double.parse(
+              parts[i - 1].replaceFirstMapped(RegExp('[Dd]([+-])?'), (match) {
+            return 'e${match[1] ?? ''}';
+          })),
+        bool => parts[i - 1].contains(RegExp('[Tt]')),
         _ => throw UnimplementedError(),
       } as T;
     }

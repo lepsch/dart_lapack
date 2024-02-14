@@ -55,7 +55,7 @@ void dgges(
   final WORK = WORK_.dim();
   final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
-  bool CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST;
+  bool CURSL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST;
   int I,
       ICOLS,
       IJOBVL,
@@ -66,17 +66,8 @@ void dgges(
       IROWS,
       ITAU,
       IWRK,
-      MAXWRK = 0,
-      MINWRK;
-  double ANRM = 0,
-      ANRMTO = 0,
-      BIGNUM,
-      BNRM = 0,
-      BNRMTO = 0,
-      EPS,
-      SAFMAX,
-      SAFMIN,
-      SMLNUM;
+      MAXWRK = 0;
+  double ANRMTO = 0, BNRMTO = 0;
   final IDUM = Array<int>(1);
   final DIF = Array<double>(2);
   final IHI = Box(0), ILO = Box(0), IERR = Box(0);
@@ -138,6 +129,7 @@ void dgges(
   // following subroutine, as returned by ILAENV.)
 
   if (INFO.value == 0) {
+    final int MINWRK;
     if (N > 0) {
       MINWRK = max(8 * N, 6 * N + 16);
       MAXWRK = MINWRK - N + N * ilaenv(1, 'DGEQRF', ' ', N, 1, N, 0);
@@ -172,16 +164,16 @@ void dgges(
 
   // Get machine constants
 
-  EPS = dlamch('P');
-  SAFMIN = dlamch('S');
-  SAFMAX = ONE / SAFMIN;
-  SMLNUM = sqrt(SAFMIN) / EPS;
-  BIGNUM = ONE / SMLNUM;
+  final EPS = dlamch('P');
+  final SAFMIN = dlamch('S');
+  final SAFMAX = ONE / SAFMIN;
+  final SMLNUM = sqrt(SAFMIN) / EPS;
+  final BIGNUM = ONE / SMLNUM;
 
   // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-  ANRM = dlange('M', N, N, A, LDA, WORK);
-  ILASCL = false;
+  final ANRM = dlange('M', N, N, A, LDA, WORK);
+  var ILASCL = false;
   if (ANRM > ZERO && ANRM < SMLNUM) {
     ANRMTO = SMLNUM;
     ILASCL = true;
@@ -193,8 +185,8 @@ void dgges(
 
   // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-  BNRM = dlange('M', N, N, B, LDB, WORK);
-  ILBSCL = false;
+  final BNRM = dlange('M', N, N, B, LDB, WORK);
+  var ILBSCL = false;
   if (BNRM > ZERO && BNRM < SMLNUM) {
     BNRMTO = SMLNUM;
     ILBSCL = true;

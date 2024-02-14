@@ -1,4 +1,6 @@
-      void zdrgev3(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int B, final int S, final int T, final Matrix<double> Q_, final int LDQ, final int Z, final Matrix<double> QE_, final int LDQE, final int ALPHA, final int BETA, final int ALPHA1, final int BETA1, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Box<int> INFO,) {
+      import 'package:lapack/src/matrix.dart';
+
+void zdrgev3(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int B, final int S, final int T, final Matrix<double> Q_, final int LDQ, final int Z, final Matrix<double> QE_, final int LDQE, final int ALPHA, final int BETA, final int ALPHA1, final int BETA1, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Box<int> INFO,) {
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();
   final A = A_.dim();
@@ -45,19 +47,19 @@
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, SIGN
       // ..
       // .. Data statements ..
-      const KCLASS = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,];
-      const KZ1 = [ 0, 1, 2, 1, 3, 3 ];
-      const KZ2 = [ 0, 0, 1, 2, 1, 1 ];
-      const KADD = [ 0, 0, 0, 0, 3, 2 ];
-      const KATYPE = [ 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4, 0 ];
-      const KBTYPE = [ 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8, 8, 8, 8, 8, 8, 8, 8, 0 ];
-      const KAZERO = [ 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 2, 3, 1, 3, 5, 5, 5, 5, 3, 3, 3, 3, 1 ];
-      const KBZERO = [ 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 4, 1, 4, 6, 6, 6, 6, 4, 4, 4, 4, 1 ];
-      const KAMAGN = [ 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, 3, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 1 ];
-      const KBMAGN = [ 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 1 ];
-      const KTRIAN = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,];
-      const LASIGN = [ false, false, false, false, false, false, true , false , true, true, false, false, true, true, true, false , true , false, false, false, true, true, true, true, true, false ];
-      const LBSIGN = [ false, false, false, false, false, false, false, true , false, false, true, true, false, false, true , false , true , false, false, false, false, false, false, false, false, false,];
+      const KCLASS = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,]);
+      const KZ1 = Array.fromList([ 0, 1, 2, 1, 3, 3 ]);
+      const KZ2 = Array.fromList([ 0, 0, 1, 2, 1, 1 ]);
+      const KADD = Array.fromList([ 0, 0, 0, 0, 3, 2 ]);
+      const KATYPE = Array.fromList([ 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4, 0 ]);
+      const KBTYPE = Array.fromList([ 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8, 8, 8, 8, 8, 8, 8, 8, 0 ]);
+      const KAZERO = Array.fromList([ 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 2, 3, 1, 3, 5, 5, 5, 5, 3, 3, 3, 3, 1 ]);
+      const KBZERO = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 4, 1, 4, 6, 6, 6, 6, 4, 4, 4, 4, 1 ]);
+      const KAMAGN = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, 3, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 1 ]);
+      const KBMAGN = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 1 ]);
+      const KTRIAN = Array.fromList([ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]);
+      const LASIGN = Array.fromList([ false, false, false, false, false, false, true , false , true, true, false, false, true, true, true, false , true , false, false, false, true, true, true, true, true, false ]);
+      const LBSIGN = Array.fromList([ false, false, false, false, false, false, false, true , false, false, true, true, false, false, true , false , true , false, false, false, false, false, false, false, false, false,]);
 
       // Check for errors
 

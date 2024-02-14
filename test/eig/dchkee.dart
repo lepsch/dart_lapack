@@ -3,11 +3,13 @@ import 'dart:math';
 
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/ilaver.dart';
 import 'package:lapack/src/lsamen.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
 
 import 'alareq.dart';
 import 'common.dart';
@@ -47,6 +49,8 @@ import 'derred.dart';
 import 'derrgg.dart';
 import 'derrhs.dart';
 import 'derrst.dart';
+import 'ilaenv.dart' as test;
+import 'xerbla.dart' as test;
 import 'xlaenv.dart';
 
 void main() async {
@@ -57,6 +61,8 @@ void main() async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  ilaenv = test.ilaenv;
+  xerbla = test.xerbla;
 
   final input = File('/Users/lepsch/_/lapack/test/dgd.in').openRead();
   final NIN = Nin(input), NOUT = Nout(stdout);
@@ -67,8 +73,7 @@ void main() async {
   const LIWORK = NMAX * (5 * NMAX + 20);
   const MAXIN = 20;
   const MAXT = 30;
-  bool
-      CSD,
+  bool CSD,
       DBB = false,
       DBK,
       DBL,
@@ -154,6 +159,7 @@ void main() async {
 
   try {
     // Return to here to read multiple sets of data
+    nextPath:
     while (true) {
       // Read the first line and set the 3-character test path
       do {
@@ -243,19 +249,19 @@ void main() async {
       } else if (DBL) {
         // DGEBAL:  Balancing
         await dchkbl(NIN, NOUT);
-        continue;
+        continue nextPath;
       } else if (DBK) {
         // DGEBAK:  Back transformation
         await dchkbk(NIN, NOUT);
-        continue;
+        continue nextPath;
       } else if (DGL) {
         // DGGBAL:  Balancing
         await dchkgl(NIN, NOUT);
-        continue;
+        continue nextPath;
       } else if (DGK) {
         // DGGBAK:  Back transformation
         await dchkgk(NIN, NOUT);
-        continue;
+        continue nextPath;
       } else if (lsamen(3, PATH, 'DEC')) {
         // DEC:  Eigencondition estimation
         THRESH = await NIN.readDouble();
@@ -267,10 +273,10 @@ void main() async {
         xlaenv(16, 2);
         TSTERR = true;
         await dchkec(THRESH, TSTERR, NIN, NOUT);
-        continue;
+        continue nextPath;
       } else {
         NOUT.println(' $PATH:  Unrecognized path name');
-        continue;
+        continue nextPath;
       }
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
@@ -680,7 +686,7 @@ void main() async {
         }
       }
 
-      // Calculate and NOUT.println the machine dependent constants.
+      // Calculate and write the machine dependent constants.
 
       NOUT.println('');
       EPS = dlamch('Underflow threshold');
@@ -732,7 +738,6 @@ void main() async {
       // 4-80.
 
       do {
-        // }
         if (!(DGX || DXV)) {
           nextLine:
           while (true) {
@@ -1245,7 +1250,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DGEEV', INFO.value);
           }
           NOUT.println('\n ${'-' * 71}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DES')) {
           // --------------------------------------------
           // DES:  Nonsymmetric Eigenvalue Problem Driver
@@ -1286,7 +1291,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DGEES', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DVX')) {
           // --------------------------------------------------------------
           // DVX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -1338,7 +1343,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DGEEVX', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DSX')) {
           // ---------------------------------------------------
           // DSX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -1383,7 +1388,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DGEESX', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DGG')) {
           // -------------------------------------------------
           // DGG:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1528,7 +1533,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DDRGES3', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (DGX) {
           // -------------------------------------------------
           // DGX:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1571,7 +1576,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DDRGSX', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DGV')) {
           // -------------------------------------------------
           // DGV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1648,7 +1653,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DDRGEV3', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (DXV) {
           // -------------------------------------------------
           // DXV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1696,7 +1701,7 @@ void main() async {
             if (INFO.value != 0) _print9980(NOUT, 'DDRGVX', INFO.value);
           }
           NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
-          continue;
+          continue nextPath;
         } else if (lsamen(3, C3, 'DSB')) {
           // ------------------------------
           // DSB:  Symmetric Band Reduction

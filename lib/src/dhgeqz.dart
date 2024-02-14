@@ -454,7 +454,6 @@ void dhgeqz(
             WORK[1] = N.toDouble();
             return;
           }
-          // }
 
           if (splitOff1x1Block) {
             // T[ILAST][ILAST]=0 -- clear H[ILAST][ILAST-1] to split off a
@@ -473,403 +472,401 @@ void dhgeqz(
             }
           }
         }
+      }
 
-        if (standardizeB) {
-          // H[ILAST][ILAST-1]=0 -- Standardize B, set ALPHAR, ALPHAI, and BETA
+      if (standardizeB) {
+        // H[ILAST][ILAST-1]=0 -- Standardize B, set ALPHAR, ALPHAI, and BETA
 
-          //}
-          if (T[ILAST][ILAST] < ZERO) {
-            if (ILSCHR) {
-              for (J = IFRSTM; J <= ILAST; J++) {
-                H[J][ILAST] = -H[J][ILAST];
-                T[J][ILAST] = -T[J][ILAST];
-              }
-            } else {
-              H[ILAST][ILAST] = -H[ILAST][ILAST];
-              T[ILAST][ILAST] = -T[ILAST][ILAST];
-            }
-            if (ILZ) {
-              for (J = 1; J <= N; J++) {
-                Z[J][ILAST] = -Z[J][ILAST];
-              }
-            }
-          }
-          ALPHAR[ILAST] = H[ILAST][ILAST];
-          ALPHAI[ILAST] = ZERO;
-          BETA[ILAST] = T[ILAST][ILAST];
-
-          // Gotonext block -- exit if finished.
-
-          ILAST = ILAST - 1;
-          if (ILAST < ILO) {
-            dropThroughNonConvergence = false;
-            break mainQzLoop;
-          }
-
-          // Reset counters
-
-          IITER = 0;
-          ESHIFT = ZERO;
-          if (!ILSCHR) {
-            ILASTM = ILAST;
-            if (IFRSTM > ILAST) IFRSTM = ILO;
-          }
-          break mainQzLoop;
-        }
-
-        // QZ step
-
-        // This iteration only involves rows/columns IFIRST:ILAST. We
-        // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
-
-        IITER = IITER + 1;
-        if (!ILSCHR) {
-          IFRSTM = IFIRST;
-        }
-
-        // Compute single shifts.
-
-        // At this point, IFIRST < ILAST, and the diagonal elements of
-        // T[IFIRST:ILAST,IFIRST][ILAST] are larger than BTOL (in
-        // magnitude)
-
-        var useFrancisDoubleShift = false;
-        if ((IITER ~/ 10) * 10 == IITER) {
-          // Exceptional shift.  Chosen for no particularly good reason.
-          // (Single shift only.)
-
-          if ((MAXIT.toDouble() * SAFMIN) * H[ILAST][ILAST - 1].abs() <
-              T[ILAST - 1][ILAST - 1].abs()) {
-            ESHIFT = H[ILAST][ILAST - 1] / T[ILAST - 1][ILAST - 1];
-          } else {
-            ESHIFT = ESHIFT + ONE / (SAFMIN * MAXIT.toDouble());
-          }
-          S1.value = ONE;
-          WR.value = ESHIFT;
-        } else {
-          // Shifts based on the generalized eigenvalues of the
-          // bottom-right 2x2 block of A and B. The first eigenvalue
-          // returned by DLAG2 is the Wilkinson shift (AEP p.512),
-
-          dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
-              SAFMIN * SAFETY, S1, S2, WR, WR2, WI);
-
-          if (((WR.value / S1.value) * T[ILAST][ILAST] - H[ILAST][ILAST])
-                  .abs() >
-              ((WR2.value / S2.value) * T[ILAST][ILAST] - H[ILAST][ILAST])
-                  .abs()) {
-            TEMP.value = WR.value;
-            WR.value = WR2.value;
-            WR2.value = TEMP.value;
-            TEMP.value = S1.value;
-            S1.value = S2.value;
-            S2.value = TEMP.value;
-          }
-          TEMP.value = max(
-              S1.value, SAFMIN * max(ONE, max(WR.value.abs(), WI.value.abs())));
-          if (WI.value != ZERO) {
-            useFrancisDoubleShift = true;
-          }
-        }
-
-        if (!useFrancisDoubleShift) {
-          // Fiddle with shift to avoid overflow
-
-          TEMP.value = min(ASCALE, ONE) * (HALF * SAFMAX);
-          if (S1.value > TEMP.value) {
-            SCALE = TEMP.value / S1.value;
-          } else {
-            SCALE = ONE;
-          }
-
-          TEMP.value = min(BSCALE, ONE) * (HALF * SAFMAX);
-          if ((WR.value).abs() > TEMP.value) {
-            SCALE = min(SCALE, TEMP.value / (WR.value).abs());
-          }
-          S1.value = SCALE * S1.value;
-          WR.value = SCALE * WR.value;
-
-          // Now check for two consecutive small subdiagonals.
-          var hasConsecutiveSmallSubdiagonals = false;
-          for (J = ILAST - 1; J >= IFIRST + 1; J--) {
-            ISTART = J;
-            TEMP.value = (S1.value * H[J][J - 1]).abs();
-            TEMP2.value = (S1.value * H[J][J] - WR.value * T[J][J]).abs();
-            TEMPR.value = max(TEMP.value, TEMP2.value);
-            if (TEMPR.value < ONE && TEMPR.value != ZERO) {
-              TEMP.value = TEMP.value / TEMPR.value;
-              TEMP2.value = TEMP2.value / TEMPR.value;
-            }
-            if (((ASCALE * H[J + 1][J]) * TEMP.value).abs() <=
-                (ASCALE * ATOL) * TEMP2.value) {
-              hasConsecutiveSmallSubdiagonals = true;
-              break;
-            }
-          }
-
-          if (!hasConsecutiveSmallSubdiagonals) {
-            ISTART = IFIRST;
-          }
-
-          // Do an implicit single-shift QZ sweep.
-
-          // Initial Q
-
-          TEMP.value =
-              S1.value * H[ISTART][ISTART] - WR.value * T[ISTART][ISTART];
-          TEMP2.value = S1.value * H[ISTART + 1][ISTART];
-          dlartg(TEMP.value, TEMP2.value, C, S, TEMPR);
-
-          // Sweep
-
-          for (J = ISTART; J <= ILAST - 1; J++) {
-            if (J > ISTART) {
-              TEMP.value = H[J][J - 1];
-              dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
-              H[J + 1][J - 1] = ZERO;
-            }
-
-            for (JC = J; JC <= ILASTM; JC++) {
-              TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
-              H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
-              H[J][JC] = TEMP.value;
-              TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
-              T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
-              T[J][JC] = TEMP2.value;
-            }
-            if (ILQ) {
-              for (JR = 1; JR <= N; JR++) {
-                TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
-                Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
-                Q[JR][J] = TEMP.value;
-              }
-            }
-
-            TEMP.value = T[J + 1][J + 1];
-            dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
-            T[J + 1][J] = ZERO;
-
-            for (JR = IFRSTM; JR <= min(J + 2, ILAST); JR++) {
-              TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
-              H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
-              H[JR][J + 1] = TEMP.value;
-            }
-            for (JR = IFRSTM; JR <= J; JR++) {
-              TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
-              T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
-              T[JR][J + 1] = TEMP.value;
-            }
-            if (ILZ) {
-              for (JR = 1; JR <= N; JR++) {
-                TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
-                Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
-                Z[JR][J + 1] = TEMP.value;
-              }
-            }
-          }
-
-          continue mainQzLoop;
-        }
-
-        // Use Francis double-shift
-
-        // Note: the Francis double-shift should work with real shifts,
-        // but only if the block is at least 3x3.
-        // This code may break if this point is reached with
-        // a 2x2 block with real eigenvalues.
-
-        if (IFIRST + 1 == ILAST) {
-          // Special case -- 2x2 block with complex eigenvectors
-
-          // Step 1: Standardize, that is, rotate so that
-
-          // ( B11.value  0  )
-          // B = (         )  with B11.value non-negative.
-          // (  0  B22.value )
-
-          dlasv2(T[ILAST - 1][ILAST - 1], T[ILAST - 1][ILAST], T[ILAST][ILAST],
-              B22, B11, SR, CR, SL, CL);
-
-          if (B11.value < ZERO) {
-            CR.value = -CR.value;
-            SR.value = -SR.value;
-            B11.value = -B11.value;
-            B22.value = -B22.value;
-          }
-
-          drot(ILASTM + 1 - IFIRST, H(ILAST - 1, ILAST - 1).asArray(), LDH,
-              H(ILAST, ILAST - 1).asArray(), LDH, CL.value, SL.value);
-          drot(ILAST + 1 - IFRSTM, H(IFRSTM, ILAST - 1).asArray(), 1,
-              H(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
-
-          if (ILAST < ILASTM) {
-            drot(ILASTM - ILAST, T(ILAST - 1, ILAST + 1).asArray(), LDT,
-                T(ILAST, ILAST + 1).asArray(), LDT, CL.value, SL.value);
-          }
-          if (IFRSTM < ILAST - 1) {
-            drot(IFIRST - IFRSTM, T(IFRSTM, ILAST - 1).asArray(), 1,
-                T(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
-          }
-
-          if (ILQ) {
-            drot(N, Q(1, ILAST - 1).asArray(), 1, Q(1, ILAST).asArray(), 1,
-                CL.value, SL.value);
-          }
-          if (ILZ) {
-            drot(N, Z(1, ILAST - 1).asArray(), 1, Z(1, ILAST).asArray(), 1,
-                CR.value, SR.value);
-          }
-
-          T[ILAST - 1][ILAST - 1] = B11.value;
-          T[ILAST - 1][ILAST] = ZERO;
-          T[ILAST][ILAST - 1] = ZERO;
-          T[ILAST][ILAST] = B22.value;
-
-          // If B22.value is negative, negate column ILAST
-
-          if (B22.value < ZERO) {
+        if (T[ILAST][ILAST] < ZERO) {
+          if (ILSCHR) {
             for (J = IFRSTM; J <= ILAST; J++) {
               H[J][ILAST] = -H[J][ILAST];
               T[J][ILAST] = -T[J][ILAST];
             }
-
-            if (ILZ) {
-              for (J = 1; J <= N; J++) {
-                Z[J][ILAST] = -Z[J][ILAST];
-              }
-            }
-            B22.value = -B22.value;
-          }
-
-          // Step 2: Compute ALPHAR, ALPHAI, and BETA (see refs.)
-
-          // Recompute shift
-
-          dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
-              SAFMIN * SAFETY, S1, TEMP, WR, TEMP2, WI);
-
-          // If standardization has perturbed the shift onto real line,
-          // do another (real single-shift) QR step.
-
-          if (WI.value == ZERO) continue mainQzLoop;
-          S1INV = ONE / S1.value;
-
-          // Do EISPACK (QZVAL) computation of alpha and beta
-
-          A11 = H[ILAST - 1][ILAST - 1];
-          A21 = H[ILAST][ILAST - 1];
-          A12 = H[ILAST - 1][ILAST];
-          A22 = H[ILAST][ILAST];
-
-          // Compute complex Givens rotation on right
-          // (Assume some element of C.value = (sA - wB) > unfl )
-          // __
-          // (sA - wB) ( CZ   -SZ )
-          // ( SZ    CZ )
-
-          C11R = S1.value * A11 - WR.value * B11.value;
-          C11I = -WI.value * B11.value;
-          C12 = S1.value * A12;
-          C21 = S1.value * A21;
-          C22R = S1.value * A22 - WR.value * B22.value;
-          C22I = -WI.value * B22.value;
-
-          if (C11R.abs() + C11I.abs() + C12.abs() >
-              C21.abs() + C22R.abs() + C22I.abs()) {
-            T1 = dlapy3(C12, C11R, C11I);
-            CZ = C12 / T1;
-            SZR = -C11R / T1;
-            SZI = -C11I / T1;
           } else {
-            CZ = dlapy2(C22R, C22I);
-            if (CZ <= SAFMIN) {
-              CZ = ZERO;
-              SZR = ONE;
-              SZI = ZERO;
-            } else {
-              TEMPR.value = C22R / CZ;
-              TEMPI = C22I / CZ;
-              T1 = dlapy2(CZ, C21);
-              CZ = CZ / T1;
-              SZR = -C21 * TEMPR.value / T1;
-              SZI = C21 * TEMPI / T1;
+            H[ILAST][ILAST] = -H[ILAST][ILAST];
+            T[ILAST][ILAST] = -T[ILAST][ILAST];
+          }
+          if (ILZ) {
+            for (J = 1; J <= N; J++) {
+              Z[J][ILAST] = -Z[J][ILAST];
             }
           }
+        }
+        ALPHAR[ILAST] = H[ILAST][ILAST];
+        ALPHAI[ILAST] = ZERO;
+        BETA[ILAST] = T[ILAST][ILAST];
 
-          // Compute Givens rotation on left
+        // Gotonext block -- exit if finished.
 
-          // (  CQ   SQ )
-          // (  __      )  A or B
-          // ( -SQ   CQ )
-
-          AN = (A11).abs() + (A12).abs() + (A21).abs() + (A22).abs();
-          BN = (B11.value).abs() + (B22.value).abs();
-          WABS = (WR.value).abs() + (WI.value).abs();
-          if (S1.value * AN > WABS * BN) {
-            CQ = CZ * B11.value;
-            SQR = SZR * B22.value;
-            SQI = -SZI * B22.value;
-          } else {
-            A1R = CZ * A11 + SZR * A12;
-            A1I = SZI * A12;
-            A2R = CZ * A21 + SZR * A22;
-            A2I = SZI * A22;
-            CQ = dlapy2(A1R, A1I);
-            if (CQ <= SAFMIN) {
-              CQ = ZERO;
-              SQR = ONE;
-              SQI = ZERO;
-            } else {
-              TEMPR.value = A1R / CQ;
-              TEMPI = A1I / CQ;
-              SQR = TEMPR.value * A2R + TEMPI * A2I;
-              SQI = TEMPI * A2R - TEMPR.value * A2I;
-            }
-          }
-          T1 = dlapy3(CQ, SQR, SQI);
-          CQ = CQ / T1;
-          SQR = SQR / T1;
-          SQI = SQI / T1;
-
-          // Compute diagonal elements of QBZ
-
-          TEMPR.value = SQR * SZR - SQI * SZI;
-          TEMPI = SQR * SZI + SQI * SZR;
-          B1R = CQ * CZ * B11.value + TEMPR.value * B22.value;
-          B1I = TEMPI * B22.value;
-          B1A = dlapy2(B1R, B1I);
-          B2R = CQ * CZ * B22.value + TEMPR.value * B11.value;
-          B2I = -TEMPI * B11.value;
-          B2A = dlapy2(B2R, B2I);
-
-          // Normalize so beta > 0, and Im( alpha1 ) > 0
-
-          BETA[ILAST - 1] = B1A;
-          BETA[ILAST] = B2A;
-          ALPHAR[ILAST - 1] = (WR.value * B1A) * S1INV;
-          ALPHAI[ILAST - 1] = (WI.value * B1A) * S1INV;
-          ALPHAR[ILAST] = (WR.value * B2A) * S1INV;
-          ALPHAI[ILAST] = -(WI.value * B2A) * S1INV;
-
-          // Step 3: Gotonext block -- exit if finished.
-
-          ILAST = IFIRST - 1;
-          if (ILAST < ILO) {
-            dropThroughNonConvergence = false;
-            break mainQzLoop;
-          }
-
-          // Reset counters
-
-          IITER = 0;
-          ESHIFT = ZERO;
-          if (!ILSCHR) {
-            ILASTM = ILAST;
-            if (IFRSTM > ILAST) IFRSTM = ILO;
-          }
+        ILAST = ILAST - 1;
+        if (ILAST < ILO) {
+          dropThroughNonConvergence = false;
           break mainQzLoop;
         }
 
+        // Reset counters
+
+        IITER = 0;
+        ESHIFT = ZERO;
+        if (!ILSCHR) {
+          ILASTM = ILAST;
+          if (IFRSTM > ILAST) IFRSTM = ILO;
+        }
+        break mainQzLoop;
+      }
+
+      // QZ step
+
+      // This iteration only involves rows/columns IFIRST:ILAST. We
+      // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
+
+      IITER = IITER + 1;
+      if (!ILSCHR) {
+        IFRSTM = IFIRST;
+      }
+
+      // Compute single shifts.
+
+      // At this point, IFIRST < ILAST, and the diagonal elements of
+      // T[IFIRST:ILAST,IFIRST][ILAST] are larger than BTOL (in
+      // magnitude)
+
+      var useFrancisDoubleShift = false;
+      if ((IITER ~/ 10) * 10 == IITER) {
+        // Exceptional shift.  Chosen for no particularly good reason.
+        // (Single shift only.)
+
+        if ((MAXIT.toDouble() * SAFMIN) * H[ILAST][ILAST - 1].abs() <
+            T[ILAST - 1][ILAST - 1].abs()) {
+          ESHIFT = H[ILAST][ILAST - 1] / T[ILAST - 1][ILAST - 1];
+        } else {
+          ESHIFT = ESHIFT + ONE / (SAFMIN * MAXIT.toDouble());
+        }
+        S1.value = ONE;
+        WR.value = ESHIFT;
+      } else {
+        // Shifts based on the generalized eigenvalues of the
+        // bottom-right 2x2 block of A and B. The first eigenvalue
+        // returned by DLAG2 is the Wilkinson shift (AEP p.512),
+
+        dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
+            SAFMIN * SAFETY, S1, S2, WR, WR2, WI);
+
+        if (((WR.value / S1.value) * T[ILAST][ILAST] - H[ILAST][ILAST]).abs() >
+            ((WR2.value / S2.value) * T[ILAST][ILAST] - H[ILAST][ILAST])
+                .abs()) {
+          TEMP.value = WR.value;
+          WR.value = WR2.value;
+          WR2.value = TEMP.value;
+          TEMP.value = S1.value;
+          S1.value = S2.value;
+          S2.value = TEMP.value;
+        }
+        TEMP.value = max(
+            S1.value, SAFMIN * max(ONE, max(WR.value.abs(), WI.value.abs())));
+        if (WI.value != ZERO) {
+          useFrancisDoubleShift = true;
+        }
+      }
+
+      if (!useFrancisDoubleShift) {
+        // Fiddle with shift to avoid overflow
+
+        TEMP.value = min(ASCALE, ONE) * (HALF * SAFMAX);
+        if (S1.value > TEMP.value) {
+          SCALE = TEMP.value / S1.value;
+        } else {
+          SCALE = ONE;
+        }
+
+        TEMP.value = min(BSCALE, ONE) * (HALF * SAFMAX);
+        if ((WR.value).abs() > TEMP.value) {
+          SCALE = min(SCALE, TEMP.value / (WR.value).abs());
+        }
+        S1.value = SCALE * S1.value;
+        WR.value = SCALE * WR.value;
+
+        // Now check for two consecutive small subdiagonals.
+        var hasConsecutiveSmallSubdiagonals = false;
+        for (J = ILAST - 1; J >= IFIRST + 1; J--) {
+          ISTART = J;
+          TEMP.value = (S1.value * H[J][J - 1]).abs();
+          TEMP2.value = (S1.value * H[J][J] - WR.value * T[J][J]).abs();
+          TEMPR.value = max(TEMP.value, TEMP2.value);
+          if (TEMPR.value < ONE && TEMPR.value != ZERO) {
+            TEMP.value = TEMP.value / TEMPR.value;
+            TEMP2.value = TEMP2.value / TEMPR.value;
+          }
+          if (((ASCALE * H[J + 1][J]) * TEMP.value).abs() <=
+              (ASCALE * ATOL) * TEMP2.value) {
+            hasConsecutiveSmallSubdiagonals = true;
+            break;
+          }
+        }
+
+        if (!hasConsecutiveSmallSubdiagonals) {
+          ISTART = IFIRST;
+        }
+
+        // Do an implicit single-shift QZ sweep.
+
+        // Initial Q
+
+        TEMP.value =
+            S1.value * H[ISTART][ISTART] - WR.value * T[ISTART][ISTART];
+        TEMP2.value = S1.value * H[ISTART + 1][ISTART];
+        dlartg(TEMP.value, TEMP2.value, C, S, TEMPR);
+
+        // Sweep
+
+        for (J = ISTART; J <= ILAST - 1; J++) {
+          if (J > ISTART) {
+            TEMP.value = H[J][J - 1];
+            dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
+            H[J + 1][J - 1] = ZERO;
+          }
+
+          for (JC = J; JC <= ILASTM; JC++) {
+            TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
+            H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
+            H[J][JC] = TEMP.value;
+            TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
+            T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
+            T[J][JC] = TEMP2.value;
+          }
+          if (ILQ) {
+            for (JR = 1; JR <= N; JR++) {
+              TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
+              Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
+              Q[JR][J] = TEMP.value;
+            }
+          }
+
+          TEMP.value = T[J + 1][J + 1];
+          dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
+          T[J + 1][J] = ZERO;
+
+          for (JR = IFRSTM; JR <= min(J + 2, ILAST); JR++) {
+            TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
+            H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
+            H[JR][J + 1] = TEMP.value;
+          }
+          for (JR = IFRSTM; JR <= J; JR++) {
+            TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
+            T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
+            T[JR][J + 1] = TEMP.value;
+          }
+          if (ILZ) {
+            for (JR = 1; JR <= N; JR++) {
+              TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
+              Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
+              Z[JR][J + 1] = TEMP.value;
+            }
+          }
+        }
+
+        continue mainQzLoop;
+      }
+
+      // Use Francis double-shift
+
+      // Note: the Francis double-shift should work with real shifts,
+      // but only if the block is at least 3x3.
+      // This code may break if this point is reached with
+      // a 2x2 block with real eigenvalues.
+
+      if (IFIRST + 1 == ILAST) {
+        // Special case -- 2x2 block with complex eigenvectors
+
+        // Step 1: Standardize, that is, rotate so that
+
+        // ( B11.value  0  )
+        // B = (         )  with B11.value non-negative.
+        // (  0  B22.value )
+
+        dlasv2(T[ILAST - 1][ILAST - 1], T[ILAST - 1][ILAST], T[ILAST][ILAST],
+            B22, B11, SR, CR, SL, CL);
+
+        if (B11.value < ZERO) {
+          CR.value = -CR.value;
+          SR.value = -SR.value;
+          B11.value = -B11.value;
+          B22.value = -B22.value;
+        }
+
+        drot(ILASTM + 1 - IFIRST, H(ILAST - 1, ILAST - 1).asArray(), LDH,
+            H(ILAST, ILAST - 1).asArray(), LDH, CL.value, SL.value);
+        drot(ILAST + 1 - IFRSTM, H(IFRSTM, ILAST - 1).asArray(), 1,
+            H(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
+
+        if (ILAST < ILASTM) {
+          drot(ILASTM - ILAST, T(ILAST - 1, ILAST + 1).asArray(), LDT,
+              T(ILAST, ILAST + 1).asArray(), LDT, CL.value, SL.value);
+        }
+        if (IFRSTM < ILAST - 1) {
+          drot(IFIRST - IFRSTM, T(IFRSTM, ILAST - 1).asArray(), 1,
+              T(IFRSTM, ILAST).asArray(), 1, CR.value, SR.value);
+        }
+
+        if (ILQ) {
+          drot(N, Q(1, ILAST - 1).asArray(), 1, Q(1, ILAST).asArray(), 1,
+              CL.value, SL.value);
+        }
+        if (ILZ) {
+          drot(N, Z(1, ILAST - 1).asArray(), 1, Z(1, ILAST).asArray(), 1,
+              CR.value, SR.value);
+        }
+
+        T[ILAST - 1][ILAST - 1] = B11.value;
+        T[ILAST - 1][ILAST] = ZERO;
+        T[ILAST][ILAST - 1] = ZERO;
+        T[ILAST][ILAST] = B22.value;
+
+        // If B22.value is negative, negate column ILAST
+
+        if (B22.value < ZERO) {
+          for (J = IFRSTM; J <= ILAST; J++) {
+            H[J][ILAST] = -H[J][ILAST];
+            T[J][ILAST] = -T[J][ILAST];
+          }
+
+          if (ILZ) {
+            for (J = 1; J <= N; J++) {
+              Z[J][ILAST] = -Z[J][ILAST];
+            }
+          }
+          B22.value = -B22.value;
+        }
+
+        // Step 2: Compute ALPHAR, ALPHAI, and BETA (see refs.)
+
+        // Recompute shift
+
+        dlag2(H(ILAST - 1, ILAST - 1), LDH, T(ILAST - 1, ILAST - 1), LDT,
+            SAFMIN * SAFETY, S1, TEMP, WR, TEMP2, WI);
+
+        // If standardization has perturbed the shift onto real line,
+        // do another (real single-shift) QR step.
+
+        if (WI.value == ZERO) continue mainQzLoop;
+        S1INV = ONE / S1.value;
+
+        // Do EISPACK (QZVAL) computation of alpha and beta
+
+        A11 = H[ILAST - 1][ILAST - 1];
+        A21 = H[ILAST][ILAST - 1];
+        A12 = H[ILAST - 1][ILAST];
+        A22 = H[ILAST][ILAST];
+
+        // Compute complex Givens rotation on right
+        // (Assume some element of C.value = (sA - wB) > unfl )
+        // __
+        // (sA - wB) ( CZ   -SZ )
+        // ( SZ    CZ )
+
+        C11R = S1.value * A11 - WR.value * B11.value;
+        C11I = -WI.value * B11.value;
+        C12 = S1.value * A12;
+        C21 = S1.value * A21;
+        C22R = S1.value * A22 - WR.value * B22.value;
+        C22I = -WI.value * B22.value;
+
+        if (C11R.abs() + C11I.abs() + C12.abs() >
+            C21.abs() + C22R.abs() + C22I.abs()) {
+          T1 = dlapy3(C12, C11R, C11I);
+          CZ = C12 / T1;
+          SZR = -C11R / T1;
+          SZI = -C11I / T1;
+        } else {
+          CZ = dlapy2(C22R, C22I);
+          if (CZ <= SAFMIN) {
+            CZ = ZERO;
+            SZR = ONE;
+            SZI = ZERO;
+          } else {
+            TEMPR.value = C22R / CZ;
+            TEMPI = C22I / CZ;
+            T1 = dlapy2(CZ, C21);
+            CZ = CZ / T1;
+            SZR = -C21 * TEMPR.value / T1;
+            SZI = C21 * TEMPI / T1;
+          }
+        }
+
+        // Compute Givens rotation on left
+
+        // (  CQ   SQ )
+        // (  __      )  A or B
+        // ( -SQ   CQ )
+
+        AN = (A11).abs() + (A12).abs() + (A21).abs() + (A22).abs();
+        BN = (B11.value).abs() + (B22.value).abs();
+        WABS = (WR.value).abs() + (WI.value).abs();
+        if (S1.value * AN > WABS * BN) {
+          CQ = CZ * B11.value;
+          SQR = SZR * B22.value;
+          SQI = -SZI * B22.value;
+        } else {
+          A1R = CZ * A11 + SZR * A12;
+          A1I = SZI * A12;
+          A2R = CZ * A21 + SZR * A22;
+          A2I = SZI * A22;
+          CQ = dlapy2(A1R, A1I);
+          if (CQ <= SAFMIN) {
+            CQ = ZERO;
+            SQR = ONE;
+            SQI = ZERO;
+          } else {
+            TEMPR.value = A1R / CQ;
+            TEMPI = A1I / CQ;
+            SQR = TEMPR.value * A2R + TEMPI * A2I;
+            SQI = TEMPI * A2R - TEMPR.value * A2I;
+          }
+        }
+        T1 = dlapy3(CQ, SQR, SQI);
+        CQ = CQ / T1;
+        SQR = SQR / T1;
+        SQI = SQI / T1;
+
+        // Compute diagonal elements of QBZ
+
+        TEMPR.value = SQR * SZR - SQI * SZI;
+        TEMPI = SQR * SZI + SQI * SZR;
+        B1R = CQ * CZ * B11.value + TEMPR.value * B22.value;
+        B1I = TEMPI * B22.value;
+        B1A = dlapy2(B1R, B1I);
+        B2R = CQ * CZ * B22.value + TEMPR.value * B11.value;
+        B2I = -TEMPI * B11.value;
+        B2A = dlapy2(B2R, B2I);
+
+        // Normalize so beta > 0, and Im( alpha1 ) > 0
+
+        BETA[ILAST - 1] = B1A;
+        BETA[ILAST] = B2A;
+        ALPHAR[ILAST - 1] = (WR.value * B1A) * S1INV;
+        ALPHAI[ILAST - 1] = (WI.value * B1A) * S1INV;
+        ALPHAR[ILAST] = (WR.value * B2A) * S1INV;
+        ALPHAI[ILAST] = -(WI.value * B2A) * S1INV;
+
+        // Step 3: Gotonext block -- exit if finished.
+
+        ILAST = IFIRST - 1;
+        if (ILAST < ILO) {
+          dropThroughNonConvergence = false;
+          break mainQzLoop;
+        }
+
+        // Reset counters
+
+        IITER = 0;
+        ESHIFT = ZERO;
+        if (!ILSCHR) {
+          ILASTM = ILAST;
+          if (IFRSTM > ILAST) IFRSTM = ILO;
+        }
+        break mainQzLoop;
+      } else {
         // Usual case: 3x3 or larger block, using Francis implicit
         //             double-shift
         //

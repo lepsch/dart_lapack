@@ -3,7 +3,17 @@ import 'dart:math';
 import 'package:lapack/src/ieeeck.dart';
 import 'package:lapack/src/iparmq.dart';
 
-int ilaenv(
+int Function(
+  int ISPEC,
+  String NAME,
+  String OPTS,
+  int N1,
+  int N2,
+  int N3,
+  int N4,
+) ilaenv = _ilaenv;
+
+int _ilaenv(
   final int ISPEC,
   final String NAME,
   final String OPTS,

@@ -914,7 +914,7 @@ void print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DCHKHS: $s returned INFO=${info.i6}.\n         N=${n.i6}, JTYPE=${ntype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})');
+      ' DCHKHS: $s returned INFO=${info.i6}.\n         N=${n.i6}, JTYPE=${ntype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }
 
 void print9997(
@@ -926,7 +926,7 @@ void print9997(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DCHKHS: Selected $s1 Eigenvectors from $s2 do not match other eigenvectors          N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})');
+      ' DCHKHS: Selected $s1 Eigenvectors from $s2 do not match other eigenvectors          N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }
 
 void print9998(
@@ -939,5 +939,5 @@ void print9998(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DCHKHS: $s1 Eigenvectors from $s2 incorrectly normalized.\n Bits of error=${error.g10_3},         N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})');
+      ' DCHKHS: $s1 Eigenvectors from $s2 incorrectly normalized.\n Bits of error=${error.g10_3},         N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }

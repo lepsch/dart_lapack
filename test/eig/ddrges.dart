@@ -101,15 +101,9 @@ void ddrges(
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3, //
   ]);
-  final KZ1 = Array.fromList([
-    0, 1, 2, 1, 3, 3, //
-  ]);
-  final KZ2 = Array.fromList([
-    0, 0, 1, 2, 1, 1, //
-  ]);
-  final KADD = Array.fromList([
-    0, 0, 0, 0, 3, 2, //
-  ]);
+  final KZ1 = Array.fromList([0, 1, 2, 1, 3, 3]);
+  final KZ2 = Array.fromList([0, 0, 1, 2, 1, 1]);
+  final KADD = Array.fromList([0, 0, 0, 0, 3, 2]);
   final KATYPE = Array.fromList([
     0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4,
     0, //
@@ -275,7 +269,6 @@ void ddrges(
       // RMAGN: used to implement KAMAGN and KBMAGN.
 
       if (MTYPES <= MAXTYP) {
-        //GOTO110;
         IINFO.value = 0;
         if (KCLASS[JTYPE] < 3) {
           // Generate A (w/o rotation)
@@ -388,11 +381,9 @@ void ddrges(
           }
         }
 
-        // }
-
         if (IINFO.value != 0) {
           print9999(NOUNIT, 'Generator', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           return;
         }
       }
@@ -423,7 +414,7 @@ void ddrges(
         if (IINFO.value != 0 && IINFO.value != N + 2) {
           RESULT[1 + RSUB + ISORT] = ULPINV;
           print9999(NOUNIT, 'DGGES', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
+          INFO.value = IINFO.value.abs();
           break;
         }
 

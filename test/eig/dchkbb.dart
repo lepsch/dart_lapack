@@ -443,5 +443,5 @@ void print9999(
   final Array<int> iseed,
 ) {
   NOUNIT.println(
-      ' DCHKBB: $s returned INFO=${info.i5}.\n         M=${m.i5} N=${n.i5} K=${k.i5}, JTYPE=${jtype.i5}, ISEED=(${iseed[1].i5},${iseed[2].i5},${iseed[3].i5},${iseed[4].i5})');
+      ' DCHKBB: $s returned INFO=${info.i5}.\n         M=${m.i5} N=${n.i5} K=${k.i5}, JTYPE=${jtype.i5}, ISEED=(${iseed.i5(4, ',')})');
 }

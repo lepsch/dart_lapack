@@ -67,8 +67,7 @@ Future<void> ddrgsx(
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1;
   bool ILABAD;
   String SENSE = '';
-  int BDSPAC,
-      // I,
+  int // I,
       I1,
       IFUNC,
       J,
@@ -136,7 +135,7 @@ Future<void> ddrgsx(
 
     // workspace for dgesvd
 
-    BDSPAC = 5 * NSIZE * NSIZE ~/ 2;
+    final BDSPAC = 5 * NSIZE * NSIZE ~/ 2;
     MAXWRK = max(
         MAXWRK,
         3 * NSIZE * NSIZE ~/ 2 +
@@ -403,8 +402,8 @@ Future<void> ddrgsx(
                   C,
                   LDC);
 
-              dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK.asMatrix(1), 1, WORK(2).asMatrix(1), 1,
-                  WORK(3), LWORK - 2, INFO);
+              dgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK.asMatrix(1), 1,
+                  WORK(2).asMatrix(1), 1, WORK(3), LWORK - 2, INFO);
               DIFTRU = S[MN2];
 
               if (DIFEST[2] == ZERO) {
