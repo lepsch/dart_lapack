@@ -1,4 +1,10 @@
-      void cget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED, final int NOUNIT, final int N, final Matrix<double> A, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int ISRT, final int RESULT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO,) {
+      void cget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED_, final int NOUNIT, final int N, final Matrix<double> A_, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int ISRT, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final VS = VS_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

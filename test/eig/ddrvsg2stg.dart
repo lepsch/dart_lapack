@@ -29,34 +29,49 @@ import 'dsgt01.dart';
 
 void ddrvsg2stg(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> D,
-  final Array<double> D2,
-  final Matrix<double> Z,
+  final Array<double> D_,
+  final Array<double> D2_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Matrix<double> AB,
-  final Matrix<double> BB,
-  final Array<double> AP,
-  final Array<double> BP,
-  final Array<double> WORK,
+  final Matrix<double> AB_,
+  final Matrix<double> BB_,
+  final Array<double> AP_,
+  final Array<double> BP_,
+  final Array<double> WORK_,
   final int NWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final D = D_.dim();
+  final D2 = D2_.dim();
+  final Z = Z_.dim(LDZ);
+  final AB = AB_.dim(LDA);
+  final BB = BB_.dim(LDB);
+  final AP = AP_.dim();
+  final BP = BP_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const MAXTYP = 21;
   bool BADNN;

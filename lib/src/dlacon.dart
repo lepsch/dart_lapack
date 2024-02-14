@@ -11,15 +11,18 @@ int _ITER = 0, _J = 0, _JUMP = 0;
 
 void dlacon(
   final int N,
-  final Array<double> V,
-  final Array<double> X,
-  final Array<int> ISGN,
+  final Array<double> V_,
+  final Array<double> X_,
+  final Array<int> ISGN_,
   final Box<double> EST,
   final Box<int> KASE,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim();
+  final X = X_.dim();
+  final ISGN = ISGN_.dim();
   const ITMAX = 5;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
 

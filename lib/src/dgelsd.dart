@@ -6,7 +6,11 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgelsd(final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int S, final int RCOND, final int RANK, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void dgelsd(final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int S, final int RCOND, final int RANK, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

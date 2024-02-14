@@ -6,7 +6,10 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlalsd(final int UPLO, final int SMLSIZ, final int N, final int NRHS, final int D, final int E, final Matrix<double> B, final int LDB, final int RCOND, final int RANK, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void dlalsd(final int UPLO, final int SMLSIZ, final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final int RCOND, final int RANK, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final B = B_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

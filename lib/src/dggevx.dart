@@ -26,34 +26,48 @@ void dggevx(
   final String JOBVR,
   final String SENSE,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> VL,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
   final Box<int> ILO,
   final Box<int> IHI,
-  final Array<double> LSCALE,
-  final Array<double> RSCALE,
+  final Array<double> LSCALE_,
+  final Array<double> RSCALE_,
   final Box<double> ABNRM,
   final Box<double> BBNRM,
-  final Array<double> RCONDE,
-  final Array<double> RCONDV,
-  final Array<double> WORK,
+  final Array<double> RCONDE_,
+  final Array<double> RCONDV_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
-  final Array<bool> BWORK,
+  final Array<int> IWORK_,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final LSCALE = LSCALE_.dim();
+  final RSCALE = RSCALE_.dim();
+  final RCONDE = RCONDE_.dim();
+  final RCONDV = RCONDV_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool ILASCL,
       ILBSCL,

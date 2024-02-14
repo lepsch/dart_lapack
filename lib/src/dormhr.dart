@@ -14,18 +14,22 @@ void dormhr(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAU,
-  final Matrix<double> C,
+  final Array<double> TAU_,
+  final Matrix<double> C_,
   final int LDC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
   bool LEFT, LQUERY;
   int I1, I2, LWKOPT = 0, MI, NB, NH, NI, NQ, NW;
   final IINFO = Box(0);

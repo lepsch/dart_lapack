@@ -22,28 +22,38 @@ void dlaqz3(
   final int ILO,
   final int IHI,
   final int NW,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
   final Box<int> NS,
   final Box<int> ND,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> QC,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> QC_,
   final int LDQC,
-  final Matrix<double> ZC,
+  final Matrix<double> ZC_,
   final int LDZC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final int REC,
   final Box<int> INFO,
 ) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final QC = QC_.dim(LDQC);
+  final ZC = ZC_.dim(LDZC);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool BULGE;
   int JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, LWORKREQ = 0;

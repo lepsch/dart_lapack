@@ -13,26 +13,33 @@ import 'package:lapack/src/xerbla.dart';
 void dtrsen(
   final String JOB,
   final String COMPQ,
-  final Array<bool> SELECT,
+  final Array<bool> SELECT_,
   final int N,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> WR,
-  final Array<double> WI,
+  final Array<double> WR_,
+  final Array<double> WI_,
   final Box<int> M,
   final Box<double> S,
   final Box<double> SEP,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SELECT = SELECT_.dim();
+  final T = T_.dim(LDT);
+  final Q = Q_.dim(LDQ);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
   int K, LIWMIN = 0, LWMIN = 0, N1 = 0, N2 = 0, NN = 0;

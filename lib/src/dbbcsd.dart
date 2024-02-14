@@ -21,31 +21,46 @@ void dbbcsd(
   final int M,
   final int P,
   final int Q,
-  final Array<double> THETA,
-  final Array<double> PHI,
-  final Matrix<double> U1,
+  final Array<double> THETA_,
+  final Array<double> PHI_,
+  final Matrix<double> U1_,
   final int LDU1,
-  final Matrix<double> U2,
+  final Matrix<double> U2_,
   final int LDU2,
-  final Matrix<double> V1T,
+  final Matrix<double> V1T_,
   final int LDV1T,
-  final Matrix<double> V2T,
+  final Matrix<double> V2T_,
   final int LDV2T,
-  final Array<double> B11D,
-  final Array<double> B11E,
-  final Array<double> B12D,
-  final Array<double> B12E,
-  final Array<double> B21D,
-  final Array<double> B21E,
-  final Array<double> B22D,
-  final Array<double> B22E,
-  final Array<double> WORK,
+  final Array<double> B11D_,
+  final Array<double> B11E_,
+  final Array<double> B12D_,
+  final Array<double> B12E_,
+  final Array<double> B21D_,
+  final Array<double> B21E_,
+  final Array<double> B22D_,
+  final Array<double> B22E_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final THETA = THETA_.dim();
+  final PHI = PHI_.dim();
+  final U1 = U1_.dim(LDU1);
+  final U2 = U2_.dim(LDU2);
+  final V1T = V1T_.dim(LDV1T);
+  final V2T = V2T_.dim(LDV2T);
+  final B11D = B11D_.dim();
+  final B11E = B11E_.dim();
+  final B12D = B12D_.dim();
+  final B12E = B12E_.dim();
+  final B21D = B21D_.dim();
+  final B21E = B21E_.dim();
+  final B22D = B22D_.dim();
+  final B22E = B22E_.dim();
+  final WORK = WORK_.dim();
 
   // // .. Scalar Arguments ..
   // String             JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS;

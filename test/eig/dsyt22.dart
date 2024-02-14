@@ -14,21 +14,29 @@ void dsyt22(
   final int N,
   final int M,
   final int KBAND,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> U,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Array<double> TAU,
-  final Array<double> WORK,
-  final Array<double> RESULT,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
+  final Array<double> RESULT_,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  final E = E_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int J, JJ, JJ1, JJ2, NN, NNP1;
   double ANORM, ULP, UNFL, WNORM;
@@ -83,5 +91,6 @@ void dsyt22(
 
   // Compute  U**T U - I
 
-  if (ITYPE == 1) dort01('Columns', N, M, U, LDU, WORK, 2 * N * N, RESULT.box(2));
+  if (ITYPE == 1)
+    dort01('Columns', N, M, U, LDU, WORK, 2 * N * N, RESULT.box(2));
 }

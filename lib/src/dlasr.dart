@@ -10,14 +10,17 @@ void dlasr(
   final String DIRECT,
   final int M,
   final int N,
-  final Array<double> C,
-  final Array<double> S,
-  final Matrix<double> A,
+  final Array<double> C_,
+  final Array<double> S_,
+  final Matrix<double> A_,
   final int LDA,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final C = C_.dim();
+  final S = S_.dim();
+  final A = A_.dim(LDA);
   const ONE = 1.0, ZERO = 0.0;
   int I, INFO, J;
   double CTEMP, STEMP, TEMP;

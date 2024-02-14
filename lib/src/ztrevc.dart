@@ -1,4 +1,9 @@
-      void ztrevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T, final int LDT, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int MM, final int M, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void ztrevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final T = T_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

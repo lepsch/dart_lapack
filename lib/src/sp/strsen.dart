@@ -1,4 +1,8 @@
-      void strsen(final int JOB, final int COMPQ, final int SELECT, final int N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, final int WR, final int WI, final int M, final int S, final int SEP, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO,) {
+      void strsen(final int JOB, final int COMPQ, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> Q_, final int LDQ, final int WR, final int WI, final int M, final int S, final int SEP, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
+  final T = T_.dim();
+  final Q = Q_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

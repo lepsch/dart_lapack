@@ -16,19 +16,26 @@ void dlaqps(
   final int OFFSET,
   final int NB,
   final Box<int> KB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> JPVT,
-  final Array<double> TAU,
-  final Array<double> VN1,
-  final Array<double> VN2,
-  final Array<double> AUXV,
-  final Matrix<double> F,
+  final Array<int> JPVT_,
+  final Array<double> TAU_,
+  final Array<double> VN1_,
+  final Array<double> VN2_,
+  final Array<double> AUXV_,
+  final Matrix<double> F_,
   final int LDF,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final JPVT = JPVT_.dim();
+  final TAU = TAU_.dim();
+  final VN1 = VN1_.dim();
+  final VN2 = VN2_.dim();
+  final AUXV = AUXV_.dim();
+  final F = F_.dim(LDF);
   const ZERO = 0.0, ONE = 1.0;
   int ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
   double AKK, TEMP, TEMP2, TOL3Z;

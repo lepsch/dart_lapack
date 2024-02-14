@@ -2,16 +2,18 @@ import 'package:lapack/src/matrix.dart';
 
 void dlaswp(
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
   final int K1,
   final int K2,
-  final Array<int> IPIV,
+  final Array<int> IPIV_,
   final int INCX,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
   int I, I1, I2, INC, IP, IX, IX0, J, K, N32;
   double TEMP;
 

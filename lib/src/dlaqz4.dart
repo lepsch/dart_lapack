@@ -20,25 +20,35 @@ void dlaqz4(
   final int IHI,
   final int NSHIFTS,
   final int NBLOCK_DESIRED,
-  final Array<double> SR,
-  final Array<double> SI,
-  final Array<double> SS,
-  final Matrix<double> A,
+  final Array<double> SR_,
+  final Array<double> SI_,
+  final Array<double> SS_,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Matrix<double> QC,
+  final Matrix<double> QC_,
   final int LDQC,
-  final Matrix<double> ZC,
+  final Matrix<double> ZC_,
   final int LDZC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
+  final SR = SR_.dim();
+  final SI = SI_.dim();
+  final SS = SS_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final QC = QC_.dim(LDQC);
+  final ZC = ZC_.dim(LDZC);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
 
   // Local scalars

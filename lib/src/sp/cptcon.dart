@@ -1,4 +1,5 @@
-      void cptcon(final int N, final int D, final int E, final int ANORM, final int RCOND, final Array<double> RWORK, final Box<int> INFO,) {
+      void cptcon(final int N, final int D, final int E, final int ANORM, final int RCOND, final Array<double> RWORK_, final Box<int> INFO,) {
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

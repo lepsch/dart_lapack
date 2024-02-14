@@ -16,18 +16,22 @@ void dsygv(
   final String JOBZ,
   final String UPLO,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> W,
-  final Array<double> WORK,
+  final Array<double> W_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final W = W_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0;
   bool LQUERY, UPPER, WANTZ;
   String TRANS;

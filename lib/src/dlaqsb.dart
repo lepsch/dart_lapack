@@ -6,7 +6,8 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlaqsb(final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int S, final int SCOND, final int AMAX, final int EQUED,) {
+      void dlaqsb(final int UPLO, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int S, final int SCOND, final int AMAX, final int EQUED,) {
+  final AB = AB_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

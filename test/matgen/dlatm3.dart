@@ -14,18 +14,23 @@ double dlatm3(
   final int KL,
   final int KU,
   final int IDIST,
-  final Array<int> ISEED,
-  final Array<double> D,
+  final Array<int> ISEED_,
+  final Array<double> D_,
   final int IGRADE,
-  final Array<double> DL,
-  final Array<double> DR,
+  final Array<double> DL_,
+  final Array<double> DR_,
   final int IPVTNG,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final double SPARSE,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
+  final DL = DL_.dim();
+  final DR = DR_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0;
   double TEMP;
 

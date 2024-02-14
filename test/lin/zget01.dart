@@ -1,4 +1,8 @@
-      void zget01(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Array<int> IPIV, final Array<double> RWORK, final int RESID,) {
+      void zget01(final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Array<int> IPIV_, final Array<double> RWORK_, final int RESID,) {
+  final A = A_.dim();
+  final AFAC = AFAC_.dim();
+  final IPIV = IPIV_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

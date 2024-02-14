@@ -1,4 +1,7 @@
-      void sgtcon(final int NORM, final int N, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV, final int ANORM, final int RCOND, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void sgtcon(final int NORM, final int N, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV_, final int ANORM, final int RCOND, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final IPIV = IPIV_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

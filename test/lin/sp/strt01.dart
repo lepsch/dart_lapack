@@ -1,4 +1,7 @@
-      void strt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AINV, final int LDAINV, final int RCOND, final Array<double> _WORK, final int RESID,) {
+      void strt01(final int UPLO, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AINV_, final int LDAINV, final int RCOND, final Array<double> _WORK_, final int RESID,) {
+  final A = A_.dim();
+  final AINV = AINV_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -14,20 +14,25 @@ void dtprfb(
   final int N,
   final int K,
   final int L,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> WORK,
+  final Matrix<double> WORK_,
   final int LDWORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim();
+  final T = T_.dim();
+  final A = A_.dim();
+  final B = B_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int I, J, MP, NP, KP;
   bool LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;

@@ -1,4 +1,6 @@
-      void ctrexc(final int COMPQ, final int N, final Matrix<double> T, final int LDT, final Matrix<double> Q, final int LDQ, final int IFST, final int ILST, final Box<int> INFO,) {
+      void ctrexc(final int COMPQ, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> Q_, final int LDQ, final int IFST, final int ILST, final Box<int> INFO,) {
+  final T = T_.dim();
+  final Q = Q_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

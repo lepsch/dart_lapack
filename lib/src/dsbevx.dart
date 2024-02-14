@@ -24,9 +24,9 @@ void dsbevx(
   final String UPLO,
   final int N,
   final int KD,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
   final double VL,
   final double VU,
@@ -34,17 +34,24 @@ void dsbevx(
   final int IU,
   final double ABSTOL,
   final Box<int> M,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
-  final Array<int> IFAIL,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final Q = Q_.dim(LDQ);
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final IFAIL = IFAIL_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ;
   String ORDER;

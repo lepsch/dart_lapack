@@ -15,20 +15,20 @@ import 'dlsets.dart';
 
 Future<void> dcklse(
   final int NN,
-  final Array<int> MVAL,
-  final Array<int> PVAL,
-  final Array<int> NVAL,
+  final Array<int> MVAL_,
+  final Array<int> PVAL_,
+  final Array<int> NVAL_,
   final int NMATS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
   final int NMAX,
-  final Array<double> A,
-  final Array<double> AF,
-  final Array<double> B,
-  final Array<double> BF,
-  final Array<double> X,
-  final Array<double> WORK,
-  final Array<double> RWORK,
+  final Array<double> A_,
+  final Array<double> AF_,
+  final Array<double> B_,
+  final Array<double> BF_,
+  final Array<double> X_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
@@ -36,6 +36,17 @@ Future<void> dcklse(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim();
+  final PVAL = PVAL_.dim();
+  final NVAL = NVAL_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final AF = AF_.dim();
+  final B = B_.dim();
+  final BF = BF_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const NTESTS = 7;
   const NTYPES = 8;
   bool FIRSTT;

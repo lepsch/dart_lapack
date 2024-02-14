@@ -1,4 +1,7 @@
-      void sgesvj(final int JOBA, final int JOBU, final int JOBV, final int M, final int N, final Matrix<double> A, final int LDA, final int SVA, final int MV, final Matrix<double> V, final int LDV, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void sgesvj(final int JOBA, final int JOBU, final int JOBV, final int M, final int N, final Matrix<double> A_, final int LDA, final int SVA, final int MV, final Matrix<double> V_, final int LDV, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final V = V_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

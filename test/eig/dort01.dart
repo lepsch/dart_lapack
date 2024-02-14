@@ -13,15 +13,17 @@ void dort01(
   final String ROWCOL,
   final int M,
   final int N,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<double> RESID,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final U = U_.dim(LDU);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   String TRANSU;
   int I, J, K, LDWORK, MNMIN;

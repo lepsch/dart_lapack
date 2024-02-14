@@ -12,14 +12,17 @@ import 'package:lapack/src/xerbla.dart';
 
 void dlasq1(
   final int N,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> WORK,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   int I;
   double EPS, SCALE, SAFMIN;

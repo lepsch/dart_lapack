@@ -11,29 +11,22 @@ import 'package:lapack/src/matrix.dart';
 void dget10(
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int J;
   double ANORM, EPS, UNFL, WNORM;
-  // ..
-  // .. External Functions ..
-  //- double             DASUM, DLAMCH, DLANGE;
-  // EXTERNAL DASUM, DLAMCH, DLANGE
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DAXPY, DCOPY
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DBLE, MAX, MIN
 
   // Quick return if possible
 

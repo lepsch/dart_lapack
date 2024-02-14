@@ -16,27 +16,37 @@ void dcsdts(
   final int M,
   final int P,
   final int Q,
-  final Matrix<double> X,
-  final Matrix<double> XF,
+  final Matrix<double> X_,
+  final Matrix<double> XF_,
   final int LDX,
-  final Matrix<double> U1,
+  final Matrix<double> U1_,
   final int LDU1,
-  final Matrix<double> U2,
+  final Matrix<double> U2_,
   final int LDU2,
-  final Matrix<double> V1T,
+  final Matrix<double> V1T_,
   final int LDV1T,
-  final Matrix<double> V2T,
+  final Matrix<double> V2T_,
   final int LDV2T,
-  final Array<double> THETA,
-  final Array<int> IWORK,
-  final Array<double> WORK,
+  final Array<double> THETA_,
+  final Array<int> IWORK_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim(LDX);
+  final XF = XF_.dim(LDX);
+  final U1 = U1_.dim(LDU1);
+  final U2 = U2_.dim(LDU2);
+  final V1T = V1T_.dim(LDV1T);
+  final V2T = V2T_.dim(LDV2T);
+  final THETA = THETA_.dim();
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const REALONE = 1.0, REALZERO = 0.0;
   const ZERO = 0.0, ONE = 1.0;
   const PIOVER2 = 1.57079632679489661923132169163975144210;

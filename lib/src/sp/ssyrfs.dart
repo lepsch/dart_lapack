@@ -1,4 +1,11 @@
-      void ssyrfs(final int UPLO, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int FERR, final int BERR, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void ssyrfs(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int FERR, final int BERR, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final AF = AF_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

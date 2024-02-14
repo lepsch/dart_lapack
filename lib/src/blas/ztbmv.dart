@@ -11,14 +11,16 @@ void ztbmv(
   final String DIAG,
   final int N,
   final int K,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
-  final Array<Complex> X,
+  final Array<Complex> X_,
   final int INCX,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final X = X_.dim();
   Complex TEMP;
   int I, INFO, IX, J, JX, KPLUS1, KX = 0, L;
   bool NOCONJ, NOUNIT;

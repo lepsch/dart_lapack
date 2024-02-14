@@ -8,14 +8,16 @@ import 'package:lapack/src/xerbla.dart';
 void sgetrf(
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> IPIV,
+  final Array<int> IPIV_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
   const ONE = 1.0;
   int I, J, JB, NB;
   final IINFO = Box(0);

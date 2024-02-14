@@ -9,8 +9,8 @@ void dlarrc(
   final int N,
   final double VL,
   final double VU,
-  final Array<double> D,
-  final Array<double> E,
+  final Array<double> D_,
+  final Array<double> E_,
   final double PIVMIN,
   final Box<int> EIGCNT,
   final Box<int> LCNT,
@@ -20,6 +20,8 @@ void dlarrc(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
   const ZERO = 0.0;
   int I;
   bool MATT;

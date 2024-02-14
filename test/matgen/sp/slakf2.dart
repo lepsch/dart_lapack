@@ -1,4 +1,5 @@
-      void slakf2(final int M, final int N, final Matrix<double> A, final int LDA, final int B, final int D, final int E, final int Z, final int LDZ,) {
+      void slakf2(final int M, final int N, final Matrix<double> A_, final int LDA, final int B, final int D, final int E, final int Z, final int LDZ,) {
+  final A = A_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

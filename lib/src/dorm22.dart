@@ -15,17 +15,20 @@ void dorm22(
   final int N,
   final int N1,
   final int N2,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Q = Q_.dim(LDQ);
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
   const ONE = 1.0;
   bool LEFT, LQUERY, NOTRAN;
   int I, LDWORK, LEN, LWKOPT = 0, NB, NQ, NW;

@@ -16,20 +16,25 @@ import 'package:lapack/src/xerbla.dart';
 void dggbal(
   final String JOB,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final Box<int> ILO,
   final Box<int> IHI,
-  final Array<double> LSCALE,
-  final Array<double> RSCALE,
-  final Array<double> WORK,
+  final Array<double> LSCALE_,
+  final Array<double> RSCALE_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final LSCALE = LSCALE_.dim();
+  final RSCALE = RSCALE_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const THREE = 3.0, SCLFAC = 1.0e+1;
   int I = 0,

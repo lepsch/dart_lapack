@@ -13,18 +13,23 @@ void dget22(
   final String TRANSE,
   final String TRANSW,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> E,
+  final Matrix<double> E_,
   final int LDE,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Array<double> WORK,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Array<double> WORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final E = E_.dim(LDE);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   String NORMA, NORME;
   int IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC;

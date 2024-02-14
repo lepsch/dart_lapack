@@ -2,7 +2,15 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-      void zchkbd(final int NSIZES, final int MVAL, final int NVAL, final int NTYPES, final Array<bool> DOTYPE, final int NRHS, final Array<int> ISEED, final int THRESH, final Matrix<double> A, final int LDA, final int BD, final int BE, final int S1, final int S2, final Matrix<double> X, final int LDX, final int Y, final int Z, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final int U, final int VT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int NOUT, final Box<int> INFO,) {
+      void zchkbd(final int NSIZES, final int MVAL, final int NVAL, final int NTYPES, final Array<bool> DOTYPE_, final int NRHS, final Array<int> ISEED_, final int THRESH, final Matrix<double> A_, final int LDA, final int BD, final int BE, final int S1, final int S2, final Matrix<double> X_, final int LDX, final int Y, final int Z, final Matrix<double> Q_, final int LDQ, final Matrix<double> PT_, final int LDPT, final int U, final int VT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int NOUT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final X = X_.dim();
+  final Q = Q_.dim();
+  final PT = PT_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

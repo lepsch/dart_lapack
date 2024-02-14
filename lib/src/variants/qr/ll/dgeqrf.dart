@@ -12,16 +12,19 @@ import 'package:lapack/src/xerbla.dart';
 void dgeqrf(
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
   bool LQUERY;
   int I, IB, IWS, J, K, LWKOPT, NB, NBMIN, NX, LBWORK, NT, LLWORK;
   final IINFO = Box(0);

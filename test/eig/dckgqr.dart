@@ -13,28 +13,28 @@ import 'dlatb9.dart';
 
 Future<void> dckgqr(
   final int NM,
-  final Array<int> MVAL,
+  final Array<int> MVAL_,
   final int NP,
-  final Array<int> PVAL,
+  final Array<int> PVAL_,
   final int NN,
-  final Array<int> NVAL,
+  final Array<int> NVAL_,
   final int NMATS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
   final int NMAX,
-  final Array<double> A,
-  final Array<double> AF,
-  final Array<double> AQ,
-  final Array<double> AR,
-  final Array<double> TAUA,
-  final Array<double> B,
-  final Array<double> BF,
-  final Array<double> BZ,
-  final Array<double> BT,
-  final Array<double> BWK,
-  final Array<double> TAUB,
-  final Array<double> WORK,
-  final Array<double> RWORK,
+  final Array<double> A_,
+  final Array<double> AF_,
+  final Array<double> AQ_,
+  final Array<double> AR_,
+  final Array<double> TAUA_,
+  final Array<double> B_,
+  final Array<double> BF_,
+  final Array<double> BZ_,
+  final Array<double> BT_,
+  final Array<double> BWK_,
+  final Array<double> TAUB_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
@@ -42,6 +42,23 @@ Future<void> dckgqr(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim();
+  final PVAL = PVAL_.dim();
+  final NVAL = NVAL_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final AF = AF_.dim();
+  final AQ = AQ_.dim();
+  final AR = AR_.dim();
+  final TAUA = TAUA_.dim();
+  final B = B_.dim();
+  final BF = BF_.dim();
+  final BZ = BZ_.dim();
+  final BT = BT_.dim();
+  final BWK = BWK_.dim();
+  final TAUB = TAUB_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const NTESTS = 7;
   const NTYPES = 8;
   bool FIRSTT;

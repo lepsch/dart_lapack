@@ -1,4 +1,7 @@
-      void cgbsv(final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void cgbsv(final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB_, final int LDAB, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

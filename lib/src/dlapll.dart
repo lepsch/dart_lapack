@@ -12,15 +12,17 @@ import 'package:lapack/src/xerbla.dart';
 
 void dlapll(
   final int N,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
   final Box<double> SSMIN,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
   const ZERO = 0.0, ONE = 1.0;
   double A11, A12, A22, C;
   final SSMAX = Box(0.0), TAU = Box(0.0);

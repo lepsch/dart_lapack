@@ -1,4 +1,9 @@
-      void zdrgvx(final int NSIZE, final int THRESH, final int NIN, final int NOUT, final Matrix<double> A, final int LDA, final int B, final int AI, final int BI, final int ALPHA, final int BETA, final int VL, final int VR, final int ILO, final int IHI, final int LSCALE, final int RSCALE, final int S, final int DTRU, final int DIF, final int DIFTRU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<int> IWORK, final int LIWORK, final int RESULT, final Array<bool> BWORK, final Box<int> INFO,) {
+      void zdrgvx(final int NSIZE, final int THRESH, final int NIN, final int NOUT, final Matrix<double> A_, final int LDA, final int B, final int AI, final int BI, final int ALPHA, final int BETA, final int VL, final int VR, final int ILO, final int IHI, final int LSCALE, final int RSCALE, final int S, final int DTRU, final int DIF, final int DIFTRU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final int LIWORK, final int RESULT, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

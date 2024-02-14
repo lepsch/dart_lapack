@@ -1,7 +1,12 @@
-      void ztrevc3(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T, final int LDT, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int MM, final int M, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Box<int> INFO,) {
+      void ztrevc3(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final T = T_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
       String             HOWMNY, SIDE;
       int                INFO, LDT, LDVL, LDVR, LWORK, LRWORK, M, MM, N;
       bool               SELECT( * );

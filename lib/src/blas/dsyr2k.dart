@@ -10,17 +10,20 @@ void dsyr2k(
   final int N,
   final int K,
   final double ALPHA,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double BETA,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
 ) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
   double TEMP1, TEMP2;
   int I, INFO, J, L, NROWA;
   bool UPPER;

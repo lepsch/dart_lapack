@@ -8,15 +8,18 @@ import 'package:lapack/src/matrix.dart';
 
 void dgetc2(
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> IPIV,
-  final Array<int> JPIV,
+  final Array<int> IPIV_,
+  final Array<int> JPIV_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final JPIV = JPIV_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I, IP, IPV = 0, J, JP, JPV = 0;
   double

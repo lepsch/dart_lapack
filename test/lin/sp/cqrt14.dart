@@ -1,4 +1,7 @@
-      double cqrt14(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final Array<double> WORK, final int LWORK,) {
+      double cqrt14(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final Array<double> WORK_, final int LWORK,) {
+  final A = A_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

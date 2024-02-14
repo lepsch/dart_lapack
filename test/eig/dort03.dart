@@ -16,11 +16,11 @@ void dort03(
   final int MV,
   final int N,
   final int K,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<double> RESULT,
   final Box<int> INFO,
@@ -28,6 +28,9 @@ void dort03(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final WORK = WORK_.dim();
   // List<String>       RC;
   // int                INFO.value, K, LDU, LDV, LWORK, MU, MV, N;
   // double             RESULT.value;

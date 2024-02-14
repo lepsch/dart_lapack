@@ -13,19 +13,24 @@ void dlaed9(
   final int KSTART,
   final int KSTOP,
   final int N,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
   final double RHO,
-  final Array<double> DLAMBDA,
-  final Array<double> W,
-  final Matrix<double> S,
+  final Array<double> DLAMBDA_,
+  final Array<double> W_,
+  final Matrix<double> S_,
   final int LDS,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final DLAMBDA = DLAMBDA_.dim();
+  final W = W_.dim();
+  final S = S_.dim(LDS);
   int I, J;
   double TEMP;
 

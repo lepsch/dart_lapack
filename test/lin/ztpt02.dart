@@ -1,4 +1,8 @@
-      void ztpt02(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> X, final int LDX, final Matrix<double> B, final int LDB, final Array<double> _WORK, final Array<double> RWORK, final int RESID,) {
+      void ztpt02(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> X_, final int LDX, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final Array<double> RWORK_, final int RESID,) {
+  final X = X_.dim();
+  final B = B_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

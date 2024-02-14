@@ -1,4 +1,8 @@
-      void zgghrd(final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Box<int> INFO,) {
+      void zgghrd(final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final Q = Q_.dim();
+  final Z = Z_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

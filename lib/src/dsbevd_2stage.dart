@@ -20,20 +20,25 @@ void dsbevd_2stage(
   final String UPLO,
   final int N,
   final int KD,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool LOWER, LQUERY, WANTZ;
   int INDE,

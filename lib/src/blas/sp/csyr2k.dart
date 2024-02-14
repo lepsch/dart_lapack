@@ -1,4 +1,6 @@
-      void csyr2k(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final int C, final int LDC,) {
+      void csyr2k(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int BETA, final int C, final int LDC,) {
+  final A = A_.dim();
+  final B = B_.dim();
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

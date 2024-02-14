@@ -13,14 +13,14 @@ void dlasy2(
   final int ISGN,
   final int N1,
   final int N2,
-  final Matrix<double> TL,
+  final Matrix<double> TL_,
   final int LDTL,
-  final Matrix<double> TR,
+  final Matrix<double> TR_,
   final int LDTR,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final Box<double> SCALE,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
   final Box<double> XNORM,
   final Box<int> INFO,
@@ -28,6 +28,10 @@ void dlasy2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final TL = TL_.dim(LDTL);
+  final TR = TR_.dim(LDTR);
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0, HALF = 0.5, EIGHT = 8.0;
   bool BSWAP, XSWAP;

@@ -15,20 +15,28 @@ import 'package:lapack/src/xerbla.dart';
 void dlasd8(
   final int ICOMPQ,
   final int K,
-  final Array<double> D,
-  final Array<double> Z,
-  final Array<double> VF,
-  final Array<double> VL,
-  final Array<double> DIFL,
-  final Matrix<double> DIFR,
+  final Array<double> D_,
+  final Array<double> Z_,
+  final Array<double> VF_,
+  final Array<double> VL_,
+  final Array<double> DIFL_,
+  final Matrix<double> DIFR_,
   final int LDDIFR,
-  final Array<double> DSIGMA,
-  final Array<double> WORK,
+  final Array<double> DSIGMA_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Z = Z_.dim();
+  final VF = VF_.dim();
+  final VL = VL_.dim();
+  final DIFL = DIFL_.dim();
+  final DIFR = DIFR_.dim(LDDIFR);
+  final DSIGMA = DSIGMA_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0;
   int I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
   double DIFLJ, DIFRJ = 0, DJ, DSIGJ, DSIGJP = 0, RHO, TEMP;

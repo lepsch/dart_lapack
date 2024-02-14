@@ -2,14 +2,16 @@ import 'package:lapack/src/matrix.dart';
 
 void scopy(
   final int N,
-  final Array<double> SX,
+  final Array<double> SX_,
   final int INCX,
-  final Array<double> SY,
+  final Array<double> SY_,
   final int INCY,
 ) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SX = SX_.dim();
+  final SY = SY_.dim();
   int I, IX, IY, M, MP1;
 
   if (N <= 0) return;

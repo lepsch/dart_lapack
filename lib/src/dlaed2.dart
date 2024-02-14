@@ -16,24 +16,35 @@ void dlaed2(
   final Box<int> K,
   final int N,
   final int N1,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<int> INDXQ,
+  final Array<int> INDXQ_,
   final Box<double> RHO,
-  final Array<double> Z,
-  final Array<double> DLAMBDA,
-  final Array<double> W,
-  final Array<double> Q2,
-  final Array<int> INDX,
-  final Array<int> INDXC,
-  final Array<int> INDXP,
-  final Array<int> COLTYP,
+  final Array<double> Z_,
+  final Array<double> DLAMBDA_,
+  final Array<double> W_,
+  final Array<double> Q2_,
+  final Array<int> INDX_,
+  final Array<int> INDXC_,
+  final Array<int> INDXP_,
+  final Array<int> COLTYP_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final INDXQ = INDXQ_.dim();
+  final Z = Z_.dim();
+  final DLAMBDA = DLAMBDA_.dim();
+  final W = W_.dim();
+  final Q2 = Q2_.dim();
+  final INDX = INDX_.dim();
+  final INDXC = INDXC_.dim();
+  final INDXP = INDXP_.dim();
+  final COLTYP = COLTYP_.dim();
   const MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
   final CTOT = Array<int>(4), PSM = Array<int>(4);
   int CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ = 0;

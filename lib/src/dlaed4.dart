@@ -9,9 +9,9 @@ import 'package:lapack/src/matrix.dart';
 void dlaed4(
   final int N,
   final int I,
-  final Array<double> D,
-  final Array<double> Z,
-  final Array<double> DELTA,
+  final Array<double> D_,
+  final Array<double> Z_,
+  final Array<double> DELTA_,
   final double RHO,
   final Box<double> DLAM,
   final Box<int> INFO,
@@ -19,6 +19,9 @@ void dlaed4(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Z = Z_.dim();
+  final DELTA = DELTA_.dim();
   const MAXIT = 30;
   const ZERO = 0.0,
       ONE = 1.0,

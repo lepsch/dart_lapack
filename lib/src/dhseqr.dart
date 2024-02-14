@@ -16,19 +16,24 @@ void dhseqr(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Matrix<double> Z,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
 
   // ==== Matrices of order NTINY or smaller must be processed by
   // .    DLAHQR because of insufficient subdiagonal scratch space.

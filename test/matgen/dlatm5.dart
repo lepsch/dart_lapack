@@ -8,21 +8,21 @@ void dlatm5(
   final int PRTYPE,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Matrix<double> D,
+  final Matrix<double> D_,
   final int LDD,
-  final Matrix<double> E,
+  final Matrix<double> E_,
   final int LDE,
-  final Matrix<double> F,
+  final Matrix<double> F_,
   final int LDF,
-  final Matrix<double> R,
+  final Matrix<double> R_,
   final int LDR,
-  final Matrix<double> L,
+  final Matrix<double> L_,
   final int LDL,
   final double ALPHA,
   final Box<int> QBLCKA,
@@ -31,6 +31,14 @@ void dlatm5(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
+  final D = D_.dim(LDD);
+  final E = E_.dim(LDE);
+  final F = F_.dim(LDF);
+  final R = R_.dim(LDR);
+  final L = L_.dim(LDL);
   const ONE = 1.0, ZERO = 0.0, TWENTY = 2.0e+1, HALF = 0.5, TWO = 2.0;
   int I, J, K;
   double IMEPS, REEPS;

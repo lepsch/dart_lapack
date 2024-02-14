@@ -5,9 +5,9 @@ import 'package:lapack/src/matrix.dart';
 
 void dlasd5(
   final int I,
-  final Array<double> D,
-  final Array<double> Z,
-  final Array<double> DELTA,
+  final Array<double> D_,
+  final Array<double> Z_,
+  final Array<double> DELTA_,
   final double RHO,
   final Box<double> DSIGMA,
   final Array<double> WORK,
@@ -15,6 +15,9 @@ void dlasd5(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Z = Z_.dim();
+  final DELTA = DELTA_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0;
   double B, C, DEL, DELSQ, TAU, W;
 

@@ -29,43 +29,69 @@ import 'dlasum.dart';
 
 void dchkhs(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> H,
-  final Matrix<double> T1,
-  final Matrix<double> T2,
-  final Matrix<double> U,
+  final Matrix<double> H_,
+  final Matrix<double> T1_,
+  final Matrix<double> T2_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> Z,
-  final Matrix<double> UZ,
-  final Array<double> WR1,
-  final Array<double> WI1,
-  final Array<double> WR2,
-  final Array<double> WI2,
-  final Array<double> WR3,
-  final Array<double> WI3,
-  final Matrix<double> EVECTL,
-  final Matrix<double> EVECTR,
-  final Matrix<double> EVECTY,
-  final Matrix<double> EVECTX,
-  final Matrix<double> UU,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Matrix<double> Z_,
+  final Matrix<double> UZ_,
+  final Array<double> WR1_,
+  final Array<double> WI1_,
+  final Array<double> WR2_,
+  final Array<double> WI2_,
+  final Array<double> WR3_,
+  final Array<double> WI3_,
+  final Matrix<double> EVECTL_,
+  final Matrix<double> EVECTR_,
+  final Matrix<double> EVECTY_,
+  final Matrix<double> EVECTX_,
+  final Matrix<double> UU_,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final int NWORK,
-  final Array<int> IWORK,
-  final Array<bool> SELECT,
-  final Array<double> RESULT,
+  final Array<int> IWORK_,
+  final Array<bool> SELECT_,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final T1 = T1_.dim(LDA);
+  final T2 = T2_.dim(LDA);
+  final U = U_.dim(LDU);
+  final Z = Z_.dim(LDU);
+  final UZ = UZ_.dim(LDU);
+  final WR1 = WR1_.dim();
+  final WI1 = WI1_.dim();
+  final WR2 = WR2_.dim();
+  final WI2 = WI2_.dim();
+  final WR3 = WR3_.dim();
+  final WI3 = WI3_.dim();
+  final EVECTL = EVECTL_.dim(LDU);
+  final EVECTR = EVECTR_.dim(LDU);
+  final EVECTY = EVECTY_.dim(LDU);
+  final EVECTX = EVECTX_.dim(LDU);
+  final UU = UU_.dim(LDU);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final SELECT = SELECT_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
   bool BADNN, MATCH;

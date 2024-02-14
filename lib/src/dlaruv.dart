@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:lapack/src/matrix.dart';
 
 void dlaruv(
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final int N,
   final Array<double> X,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
   const ONE = 1.0;
   const LV = 128, IPW2 = 4096, R = ONE / IPW2;
   int I, I1, I2, I3, I4, IT1 = 0, IT2 = 0, IT3 = 0, IT4 = 0;

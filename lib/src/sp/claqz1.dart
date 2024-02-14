@@ -1,4 +1,7 @@
-      void claqz1(final int ILQ, final int ILZ, final int K, final int ISTARTM, final int ISTOPM, final int IHI, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int NQ, final int QSTART, final Matrix<double> Q, final int LDQ, final int NZ, final int ZSTART, final int Z, final int LDZ,) {
+      void claqz1(final int ILQ, final int ILZ, final int K, final int ISTARTM, final int ISTOPM, final int IHI, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int NQ, final int QSTART, final Matrix<double> Q_, final int LDQ, final int NZ, final int ZSTART, final int Z, final int LDZ,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final Q = Q_.dim();
       // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;

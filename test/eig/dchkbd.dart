@@ -30,38 +30,56 @@ import 'dort01.dart';
 
 void dchkbd(
   final int NSIZES,
-  final Array<int> MVAL,
-  final Array<int> NVAL,
+  final Array<int> MVAL_,
+  final Array<int> NVAL_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
+  final Array<bool> DOTYPE_,
   final int NRHS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> BD,
-  final Array<double> BE,
-  final Array<double> S1,
-  final Array<double> S2,
-  final Matrix<double> X,
+  final Array<double> BD_,
+  final Array<double> BE_,
+  final Array<double> S1_,
+  final Array<double> S2_,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> Y,
-  final Matrix<double> Z,
-  final Matrix<double> Q,
+  final Matrix<double> Y_,
+  final Matrix<double> Z_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> PT,
+  final Matrix<double> PT_,
   final int LDPT,
-  final Matrix<double> U,
-  final Matrix<double> VT,
-  final Array<double> WORK,
+  final Matrix<double> U_,
+  final Matrix<double> VT_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Nout NOUT,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim();
+  final NVAL = NVAL_.dim();
+  final DOTYPE = DOTYPE_.dim(NTYPES);
+  final ISEED = ISEED_.dim(4);
+  final A = A_.dim(LDA);
+  final BD = BD_.dim();
+  final BE = BE_.dim();
+  final S1 = S1_.dim();
+  final S2 = S2_.dim();
+  final X = X_.dim(LDX);
+  final Y = Y_.dim(LDX);
+  final Z = Z_.dim(LDX);
+  final Q = Q_.dim(LDQ);
+  final PT = PT_.dim(LDPT);
+  final U = U_.dim(LDPT);
+  final VT = VT_.dim(LDPT);
+  final WORK = WORK_.dim(LWORK);
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5;
   const MAXTYP = 16;
   bool BADMM, BADNN, BIDIAG = false;

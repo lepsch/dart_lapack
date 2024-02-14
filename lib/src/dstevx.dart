@@ -18,25 +18,32 @@ void dstevx(
   final String JOBZ,
   final String RANGE,
   final int N,
-  final Array<double> D,
-  final Array<double> E,
+  final Array<double> D_,
+  final Array<double> E_,
   final double VL,
   final double VU,
   final int IL,
   final int IU,
   final double ABSTOL,
   final Box<int> M,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
-  final Array<int> IFAIL,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final IFAIL = IFAIL_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool ALLEIG, INDEIG, TEST, VALEIG, WANTZ;
   String ORDER;

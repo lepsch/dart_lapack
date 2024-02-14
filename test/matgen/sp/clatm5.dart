@@ -1,4 +1,12 @@
-      void clatm5(final int PRTYPE, final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final Matrix<double> D, final int LDD, final Matrix<double> E, final int LDE, final Matrix<double> F, final int LDF, final Matrix<double> R, final int LDR, final Matrix<double> L, final int LDL, final int ALPHA, final int QBLCKA, final int QBLCKB,) {
+      void clatm5(final int PRTYPE, final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> C_, final int LDC, final Matrix<double> D_, final int LDD, final Matrix<double> E_, final int LDE, final Matrix<double> F_, final int LDF, final Matrix<double> R_, final int LDR, final Matrix<double> L_, final int LDL, final int ALPHA, final int QBLCKA, final int QBLCKB,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final C = C_.dim();
+  final D = D_.dim();
+  final E = E_.dim();
+  final F = F_.dim();
+  final R = R_.dim();
+  final L = L_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -16,22 +16,31 @@ import 'package:lapack/src/xerbla.dart';
 
 void dstein(
   final int N,
-  final Array<double> D,
-  final Array<double> E,
+  final Array<double> D_,
+  final Array<double> E_,
   final int M,
-  final Array<double> W,
-  final Array<int> IBLOCK,
-  final Array<int> ISPLIT,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Array<int> IBLOCK_,
+  final Array<int> ISPLIT_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
-  final Array<int> IFAIL,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final W = W_.dim();
+  final IBLOCK = IBLOCK_.dim();
+  final ISPLIT = ISPLIT_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final IFAIL = IFAIL_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1;
   const MAXITS = 5, EXTRA = 2;
   int B1 = 0,

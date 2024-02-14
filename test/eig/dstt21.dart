@@ -12,18 +12,24 @@ import 'package:lapack/src/matrix.dart';
 void dstt21(
   final int N,
   final int KBAND,
-  final Array<double> AD,
-  final Array<double> AE,
-  final Array<double> SD,
-  final Array<double> SE,
-  final Matrix<double> U,
+  final Array<double> AD_,
+  final Array<double> AE_,
+  final Array<double> SD_,
+  final Array<double> SE_,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AD = AD_.dim();
+  final AE = AE_.dim();
+  final SD = SD_.dim();
+  final SE = SE_.dim();
+  final U = U_.dim(LDU);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;

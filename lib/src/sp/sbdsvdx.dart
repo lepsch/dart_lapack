@@ -1,4 +1,7 @@
-      void sbdsvdx(final int UPLO, final int JOBZ, final int RANGE, final int N, final int D, final int E, final int VL, final int VU, final int IL, final int IU, final int NS, final int S, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void sbdsvdx(final int UPLO, final int JOBZ, final int RANGE, final int N, final int D, final int E, final int VL, final int VU, final int IL, final int IU, final int NS, final int S, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final Z = Z_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,7 @@
-      void sormtr(final int SIDE, final int UPLO, final int TRANS, final int M, final int N, final Matrix<double> A, final int LDA, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void sormtr(final int SIDE, final int UPLO, final int TRANS, final int M, final int N, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final C = C_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

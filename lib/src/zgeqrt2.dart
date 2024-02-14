@@ -1,4 +1,6 @@
-      void zgeqrt2(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Box<int> INFO,) {
+      void zgeqrt2(final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Box<int> INFO,) {
+  final A = A_.dim();
+  final T = T_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

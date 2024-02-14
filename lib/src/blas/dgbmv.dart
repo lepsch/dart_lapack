@@ -11,17 +11,20 @@ void dgbmv(
   final int KL,
   final int KU,
   final double ALPHA,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
   final double BETA,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final X = X_.dim();
+  final Y = Y_.dim();
   const ONE = 1.0, ZERO = 0.0;
   double TEMP;
   int I, INFO, IX, IY, J, JX, JY, K, KUP1, KX, KY, LENX, LENY;

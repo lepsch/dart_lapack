@@ -16,36 +16,54 @@ import 'dlasum.dart';
 
 Future<void> ddrvsx(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nin NIUNIT,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> H,
-  final Matrix<double> HT,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Array<double> WRT,
-  final Array<double> WIT,
-  final Array<double> WRTMP,
-  final Array<double> WITMP,
-  final Matrix<double> VS,
+  final Matrix<double> H_,
+  final Matrix<double> HT_,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Array<double> WRT_,
+  final Array<double> WIT_,
+  final Array<double> WRTMP_,
+  final Array<double> WITMP_,
+  final Matrix<double> VS_,
   final int LDVS,
-  final Matrix<double> VS1,
-  final Array<double> RESULT,
-  final Array<double> WORK,
+  final Matrix<double> VS1_,
+  final Array<double> RESULT_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
-  final Array<bool> BWORK,
+  final Array<int> IWORK_,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final HT = HT_.dim(LDA);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final WRT = WRT_.dim();
+  final WIT = WIT_.dim();
+  final WRTMP = WRTMP_.dim();
+  final WITMP = WITMP_.dim();
+  final VS = VS_.dim(LDVS);
+  final VS1 = VS1_.dim(LDVS);
+  final RESULT = RESULT_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 21;
   bool BADNN;

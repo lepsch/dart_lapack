@@ -13,21 +13,30 @@ void dlaebz(
   final double ABSTOL,
   final double RELTOL,
   final double PIVMIN,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> E2,
-  final Array<int> NVAL,
-  final Matrix<double> AB,
-  final Array<double> C,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> E2_,
+  final Array<int> NVAL_,
+  final Matrix<double> AB_,
+  final Array<double> C_,
   final Box<int> MOUT,
-  final Matrix<int> NAB,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Matrix<int> NAB_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final E2 = E2_.dim();
+  final NVAL = NVAL_.dim();
+  final AB = AB_.dim(MMAX);
+  final C = C_.dim();
+  final NAB = NAB_.dim(MMAX);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, TWO = 2.0, HALF = 1.0 / TWO;
   int ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;
   double TMP1, TMP2;

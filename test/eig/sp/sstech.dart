@@ -1,4 +1,5 @@
-      void sstech(final int N, final int A, final int B, final int EIG, final int TOL, final Array<double> _WORK, final Box<int> INFO,) {
+      void sstech(final int N, final int A, final int B, final int EIG, final int TOL, final Array<double> _WORK_, final Box<int> INFO,) {
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

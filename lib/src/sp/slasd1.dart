@@ -1,4 +1,8 @@
-      void slasd1(final int NL, final int NR, final int SQRE, final int D, final int ALPHA, final int BETA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final int IDXQ, final Array<int> IWORK, final Array<double> _WORK, final Box<int> INFO,) {
+      void slasd1(final int NL, final int NR, final int SQRE, final int D, final int ALPHA, final int BETA, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final int IDXQ, final Array<int> IWORK_, final Array<double> _WORK_, final Box<int> INFO,) {
+  final U = U_.dim();
+  final VT = VT_.dim();
+  final IWORK = IWORK_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,6 @@
-      void clag2z(final int M, final int N, final Matrix<double> SA, final int LDSA, final Matrix<double> A, final int LDA, final Box<int> INFO,) {
+      void clag2z(final int M, final int N, final Matrix<double> SA_, final int LDSA, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
+  final SA = SA_.dim();
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

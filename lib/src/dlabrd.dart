@@ -9,20 +9,27 @@ void dlabrd(
   final int M,
   final int N,
   final int NB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> TAUQ,
-  final Array<double> TAUP,
-  final Matrix<double> X,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> TAUQ_,
+  final Array<double> TAUP_,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> Y,
+  final Matrix<double> Y_,
   final int LDY,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  final E = E_.dim();
+  final TAUQ = TAUQ_.dim();
+  final TAUP = TAUP_.dim();
+  final X = X_.dim(LDX);
+  final Y = Y_.dim(LDY);
   const ZERO = 0.0, ONE = 1.0;
   int I;
 

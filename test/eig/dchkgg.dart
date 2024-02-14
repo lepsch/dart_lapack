@@ -25,45 +25,71 @@ import 'dlatm4.dart';
 
 void dchkgg(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final bool TSTDIF,
   final double THRSHN,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> H,
-  final Matrix<double> T,
-  final Matrix<double> S1,
-  final Matrix<double> S2,
-  final Matrix<double> P1,
-  final Matrix<double> P2,
-  final Matrix<double> U,
+  final Matrix<double> B_,
+  final Matrix<double> H_,
+  final Matrix<double> T_,
+  final Matrix<double> S1_,
+  final Matrix<double> S2_,
+  final Matrix<double> P1_,
+  final Matrix<double> P2_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
-  final Matrix<double> Q,
-  final Matrix<double> Z,
-  final Array<double> ALPHR1,
-  final Array<double> ALPHI1,
-  final Array<double> BETA1,
-  final Array<double> ALPHR3,
-  final Array<double> ALPHI3,
-  final Array<double> BETA3,
-  final Matrix<double> EVECTL,
-  final Matrix<double> EVECTR,
-  final Array<double> WORK,
+  final Matrix<double> V_,
+  final Matrix<double> Q_,
+  final Matrix<double> Z_,
+  final Array<double> ALPHR1_,
+  final Array<double> ALPHI1_,
+  final Array<double> BETA1_,
+  final Array<double> ALPHR3_,
+  final Array<double> ALPHI3_,
+  final Array<double> BETA3_,
+  final Matrix<double> EVECTL_,
+  final Matrix<double> EVECTR_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<bool> LLWORK,
-  final Array<double> RESULT,
+  final Array<bool> LLWORK_,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final H = H_.dim(LDA);
+  final T = T_.dim(LDA);
+  final S1 = S1_.dim(LDA);
+  final S2 = S2_.dim(LDA);
+  final P1 = P1_.dim(LDA);
+  final P2 = P2_.dim(LDA);
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDU);
+  final Q = Q_.dim(LDU);
+  final Z = Z_.dim(LDU);
+  final ALPHR1 = ALPHR1_.dim();
+  final ALPHI1 = ALPHI1_.dim();
+  final BETA1 = BETA1_.dim();
+  final ALPHR3 = ALPHR3_.dim();
+  final ALPHI3 = ALPHI3_.dim();
+  final BETA3 = BETA3_.dim();
+  final EVECTL = EVECTL_.dim(LDU);
+  final EVECTR = EVECTR_.dim(LDU);
+  final WORK = WORK_.dim();
+  final LLWORK = LLWORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 26;
   bool BADNN;

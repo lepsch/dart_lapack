@@ -8,16 +8,19 @@ void zgerc(
   final int M,
   final int N,
   final double ALPHA,
-  final Array<Complex> X,
+  final Array<Complex> X_,
   final int INCX,
-  final Array<Complex> Y,
+  final Array<Complex> Y_,
   final int INCY,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final A = A_.dim();
 
   Complex TEMP;
   int I, INFO, IX, J, JY, KX;

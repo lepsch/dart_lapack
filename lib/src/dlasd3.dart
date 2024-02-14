@@ -16,26 +16,36 @@ void dlasd3(
   final int NR,
   final int SQRE,
   final int K,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> DSIGMA,
-  final Matrix<double> U,
+  final Array<double> DSIGMA_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> U2,
+  final Matrix<double> U2_,
   final int LDU2,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Matrix<double> VT2,
+  final Matrix<double> VT2_,
   final int LDVT2,
-  final Array<int> IDXC,
-  final Array<int> CTOT,
-  final Array<double> Z,
+  final Array<int> IDXC_,
+  final Array<int> CTOT_,
+  final Array<double> Z_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final DSIGMA = DSIGMA_.dim();
+  final U = U_.dim(LDU);
+  final U2 = U2_.dim(LDU2);
+  final VT = VT_.dim(LDVT);
+  final VT2 = VT2_.dim(LDVT2);
+  final IDXC = IDXC_.dim();
+  final CTOT = CTOT_.dim();
+  final Z = Z_.dim();
   const ONE = 1.0, ZERO = 0.0, NEGONE = -1.0;
   int CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
   double RHO, TEMP;

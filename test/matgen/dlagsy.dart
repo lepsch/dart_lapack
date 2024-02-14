@@ -17,16 +17,20 @@ import 'package:lapack/src/xerbla.dart';
 void dlagsy(
   final int N,
   final int K,
-  final Array<double> D,
-  final Matrix<double> A,
+  final Array<double> D_,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> ISEED,
-  final Array<double> WORK,
+  final Array<int> ISEED_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final A = A_.dim(LDA);
+  final ISEED = ISEED_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0, HALF = 0.5;
   int I, J;
   double ALPHA, TAU, WA, WB, WN;

@@ -13,21 +13,26 @@ void dorbdb5(
   final int M1,
   final int M2,
   final int N,
-  final Array<double> X1,
+  final Array<double> X1_,
   final int INCX1,
-  final Array<double> X2,
+  final Array<double> X2_,
   final int INCX2,
-  final Matrix<double> Q1,
+  final Matrix<double> Q1_,
   final int LDQ1,
-  final Matrix<double> Q2,
+  final Matrix<double> Q2_,
   final int LDQ2,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X1 = X1_.dim();
+  final X2 = X2_.dim();
+  final Q1 = Q1_.dim(LDQ1);
+  final Q2 = Q2_.dim(LDQ2);
+  final WORK = WORK_.dim();
   const REALZERO = 0.0;
   const ONE = 1.0, ZERO = 0.0;
   int I, J;

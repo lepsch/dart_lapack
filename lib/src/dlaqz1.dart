@@ -5,9 +5,9 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dlaqz1(
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double SR1,
   final double SR2,
@@ -16,6 +16,8 @@ void dlaqz1(
   final double BETA2,
   final Array<double> V,
 ) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   const ZERO = 0.0, ONE = 1.0;
   double SAFMIN, SAFMAX, SCALE1, SCALE2;
   final W = Array<double>(2);

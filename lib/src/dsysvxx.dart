@@ -1,18 +1,23 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsysvxx(final int FACT, final int UPLO, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final int EQUED, final int S, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int RPVGRW, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void dsysvxx(final int FACT, final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int EQUED, final int S, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int RPVGRW, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDAF);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       String             EQUED, FACT, UPLO;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
+      // int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       double             RCOND, RPVGRW;
       int                IPIV( * ), IWORK( * );
       double             A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );;

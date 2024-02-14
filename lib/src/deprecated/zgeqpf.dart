@@ -1,4 +1,7 @@
-      void zgeqpf(final int M, final int N, final Matrix<double> A, final int LDA, final int JPVT, final int TAU, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void zgeqpf(final int M, final int N, final Matrix<double> A_, final int LDA, final int JPVT, final int TAU, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

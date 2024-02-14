@@ -10,13 +10,13 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dlagv2(
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
   final Box<double> CSL,
   final Box<double> SNL,
   final Box<double> CSR,
@@ -25,6 +25,11 @@ void dlagv2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
   const ZERO = 0.0, ONE = 1.0;
   double ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, RR, SAFMIN = 0, ULP;
   final R = Box(0.0),

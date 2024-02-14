@@ -15,20 +15,26 @@ void dspgvd(
   final String JOBZ,
   final String UPLO,
   final int N,
-  final Array<double> AP,
-  final Array<double> BP,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> AP_,
+  final Array<double> BP_,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final BP = BP_.dim();
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   bool LQUERY, UPPER, WANTZ;
   String TRANS;
   int J, LIWMIN = 0, LWMIN = 0, NEIG;

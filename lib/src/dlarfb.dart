@@ -12,18 +12,22 @@ void dlarfb(
   final int M,
   final int N,
   final int K,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Matrix<double> WORK,
+  final Matrix<double> WORK_,
   final int LDWORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim(LDV);
+  final T = T_.dim(LDT);
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim(LDWORK);
   const ONE = 1.0;
   String TRANST;
   int I, J;

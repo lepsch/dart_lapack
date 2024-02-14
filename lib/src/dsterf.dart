@@ -13,13 +13,15 @@ import 'package:lapack/src/xerbla.dart';
 
 void dsterf(
   final int N,
-  final Array<double> D,
-  final Array<double> E,
+  final Array<double> D_,
+  final Array<double> E_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0;
   const MAXIT = 30;
   int I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;

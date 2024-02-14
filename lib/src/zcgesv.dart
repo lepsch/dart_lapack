@@ -1,4 +1,10 @@
-      void zcgesv(final int N, final int NRHS, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Array<double> _WORK, final int SWORK, final Array<double> RWORK, final int ITER, final Box<int> INFO,) {
+      void zcgesv(final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Array<double> _WORK_, final int SWORK, final Array<double> RWORK_, final int ITER, final Box<int> INFO,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

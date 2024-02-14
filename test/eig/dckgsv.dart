@@ -12,26 +12,26 @@ import 'dlatb9.dart';
 
 Future<void> dckgsv(
   final int NM,
-  final Array<int> MVAL,
-  final Array<int> PVAL,
-  final Array<int> NVAL,
+  final Array<int> MVAL_,
+  final Array<int> PVAL_,
+  final Array<int> NVAL_,
   final int NMATS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
   final int NMAX,
-  final Array<double> A,
-  final Array<double> AF,
-  final Array<double> B,
-  final Array<double> BF,
-  final Array<double> U,
-  final Array<double> V,
-  final Array<double> Q,
-  final Array<double> ALPHA,
-  final Array<double> BETA,
-  final Array<double> R,
-  final Array<int> IWORK,
-  final Array<double> WORK,
-  final Array<double> RWORK,
+  final Array<double> A_,
+  final Array<double> AF_,
+  final Array<double> B_,
+  final Array<double> BF_,
+  final Array<double> U_,
+  final Array<double> V_,
+  final Array<double> Q_,
+  final Array<double> ALPHA_,
+  final Array<double> BETA_,
+  final Array<double> R_,
+  final Array<int> IWORK_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
@@ -39,6 +39,23 @@ Future<void> dckgsv(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim();
+  final PVAL = PVAL_.dim();
+  final NVAL = NVAL_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final AF = AF_.dim();
+  final B = B_.dim();
+  final BF = BF_.dim();
+  final U = U_.dim();
+  final V = V_.dim();
+  final Q = Q_.dim();
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  final R = R_.dim();
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const NTESTS = 12;
   const NTYPES = 8;
   bool FIRSTT;

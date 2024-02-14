@@ -1,4 +1,6 @@
-      void zspt03(final int UPLO, final int N, final int A, final int AINV, final Array<double> _WORK, final int LDW, final Array<double> RWORK, final int RCOND, final int RESID,) {
+      void zspt03(final int UPLO, final int N, final int A, final int AINV, final Array<double> _WORK_, final int LDW, final Array<double> RWORK_, final int RCOND, final int RESID,) {
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -22,19 +22,26 @@ void dspt21(
   final String UPLO,
   final int N,
   final int KBAND,
-  final Array<double> AP,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> U,
+  final Array<double> AP_,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> VP,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Array<double> VP_,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final D = D_.dim();
+  final E = E_.dim();
+  final U = U_.dim(LDU);
+  final VP = VP_.dim();
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   const HALF = 1.0 / 2.0;
   bool LOWER;

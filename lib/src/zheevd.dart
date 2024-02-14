@@ -1,4 +1,8 @@
-      void zheevd(final int JOBZ, final int UPLO, final int N, final Matrix<double> A, final int LDA, final int W, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO,) {
+      void zheevd(final int JOBZ, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int W, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

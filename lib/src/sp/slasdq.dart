@@ -1,4 +1,8 @@
-      void slasdq(final int UPLO, final int SQRE, final int N, final int NCVT, final int NRU, final int NCC, final int D, final int E, final Matrix<double> VT, final int LDVT, final Matrix<double> U, final int LDU, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Box<int> INFO,) {
+      void slasdq(final int UPLO, final int SQRE, final int N, final int NCVT, final int NRU, final int NCC, final int D, final int E, final Matrix<double> VT_, final int LDVT, final Matrix<double> U_, final int LDU, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
+  final VT = VT_.dim();
+  final U = U_.dim();
+  final C = C_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

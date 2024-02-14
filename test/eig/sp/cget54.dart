@@ -1,4 +1,11 @@
-      void cget54(final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> S, final int LDS, final Matrix<double> T, final int LDT, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Array<double> _WORK, final int RESULT,) {
+      void cget54(final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> S_, final int LDS, final Matrix<double> T_, final int LDT, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Array<double> _WORK_, final int RESULT,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final S = S_.dim();
+  final T = T_.dim();
+  final U = U_.dim();
+  final V = V_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

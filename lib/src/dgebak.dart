@@ -13,15 +13,17 @@ void dgebak(
   final int N,
   final int ILO,
   final int IHI,
-  final Array<double> SCALE,
+  final Array<double> SCALE_,
   final int M,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SCALE = SCALE_.dim();
+  final V = V_.dim(LDV);
   const ONE = 1.0;
   bool LEFTV, RIGHTV;
   int I, II, K;

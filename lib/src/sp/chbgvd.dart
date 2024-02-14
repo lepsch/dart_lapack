@@ -1,4 +1,10 @@
-      void chbgvd(final int JOBZ, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final int W, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final Box<int> INFO,) {
+      void chbgvd(final int JOBZ, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB_, final int LDAB, final Matrix<double> BB_, final int LDBB, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final BB = BB_.dim();
+  final Z = Z_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

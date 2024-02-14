@@ -1,4 +1,7 @@
-      void zlatsqr(final int M, final int N, final int MB, final int NB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void zlatsqr(final int M, final int N, final int MB, final int NB, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final T = T_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

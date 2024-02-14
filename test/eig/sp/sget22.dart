@@ -1,4 +1,7 @@
-      void sget22(final int TRANSA, final int TRANSE, final int TRANSW, final int N, final Matrix<double> A, final int LDA, final Matrix<double> E, final int LDE, final int WR, final int WI, final Array<double> _WORK, final int RESULT,) {
+      void sget22(final int TRANSA, final int TRANSE, final int TRANSW, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> E_, final int LDE, final int WR, final int WI, final Array<double> _WORK_, final int RESULT,) {
+  final A = A_.dim();
+  final E = E_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

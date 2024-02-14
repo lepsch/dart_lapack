@@ -44,37 +44,56 @@ import 'dsyt22.dart';
 
 void ddrvst2stg(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> D1,
-  final Array<double> D2,
-  final Array<double> D3,
-  final Array<double> D4,
-  final Array<double> EVEIGS,
-  final Array<double> WA1,
-  final Array<double> WA2,
-  final Array<double> WA3,
-  final Matrix<double> U,
+  final Array<double> D1_,
+  final Array<double> D2_,
+  final Array<double> D3_,
+  final Array<double> D4_,
+  final Array<double> EVEIGS_,
+  final Array<double> WA1_,
+  final Array<double> WA2_,
+  final Array<double> WA3_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
-  final Array<double> TAU,
-  final Matrix<double> Z,
-  final Array<double> WORK,
+  final Matrix<double> V_,
+  final Array<double> TAU_,
+  final Matrix<double> Z_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final D1 = D1_.dim();
+  final D2 = D2_.dim();
+  final D3 = D3_.dim();
+  final D4 = D4_.dim();
+  final EVEIGS = EVEIGS_.dim();
+  final WA1 = WA1_.dim();
+  final WA2 = WA2_.dim();
+  final WA3 = WA3_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDU);
+  final TAU = TAU_.dim();
+  final Z = Z_.dim(LDU);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = 0.5;
   const MAXTYP = 18;

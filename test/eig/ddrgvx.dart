@@ -20,35 +20,54 @@ Future<void> ddrgvx(
   final double THRESH,
   final Nin NIN,
   final Nout NOUT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> AI,
-  final Matrix<double> BI,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> VL,
-  final Matrix<double> VR,
+  final Matrix<double> B_,
+  final Matrix<double> AI_,
+  final Matrix<double> BI_,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> VL_,
+  final Matrix<double> VR_,
   final Box<int> ILO,
   final Box<int> IHI,
-  final Array<double> LSCALE,
-  final Array<double> RSCALE,
-  final Array<double> S,
-  final Array<double> DTRU,
-  final Array<double> DIF,
-  final Array<double> DIFTRU,
-  final Array<double> WORK,
+  final Array<double> LSCALE_,
+  final Array<double> RSCALE_,
+  final Array<double> S_,
+  final Array<double> DTRU_,
+  final Array<double> DIF_,
+  final Array<double> DIFTRU_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Array<double> RESULT,
-  final Array<bool> BWORK,
+  final Array<double> RESULT_,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final AI = AI_.dim(LDA);
+  final BI = BI_.dim(LDA);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final VL = VL_.dim(LDA);
+  final VR = VR_.dim(LDA);
+  final LSCALE = LSCALE_.dim();
+  final RSCALE = RSCALE_.dim();
+  final S = S_.dim();
+  final DTRU = DTRU_.dim();
+  final DIF = DIF_.dim();
+  final DIFTRU = DIFTRU_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final RESULT = RESULT_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, TNTH = 1.0e-1, HALF = 0.5;
   int I,
       IPTYPE,

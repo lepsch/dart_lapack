@@ -15,24 +15,24 @@ void dlasd7(
   final int NR,
   final int SQRE,
   final Box<int> K,
-  final Array<double> D,
-  final Array<double> Z,
-  final Array<double> ZW,
-  final Array<double> VF,
-  final Array<double> VFW,
-  final Array<double> VL,
-  final Array<double> VLW,
+  final Array<double> D_,
+  final Array<double> Z_,
+  final Array<double> ZW_,
+  final Array<double> VF_,
+  final Array<double> VFW_,
+  final Array<double> VL_,
+  final Array<double> VLW_,
   final double ALPHA,
   final double BETA,
-  final Array<double> DSIGMA,
-  final Array<int> IDX,
-  final Array<int> IDXP,
-  final Array<int> IDXQ,
-  final Array<int> PERM,
+  final Array<double> DSIGMA_,
+  final Array<int> IDX_,
+  final Array<int> IDXP_,
+  final Array<int> IDXQ_,
+  final Array<int> PERM_,
   final Box<int> GIVPTR,
-  final Matrix<int> GIVCOL,
+  final Matrix<int> GIVCOL_,
   final int LDGCOL,
-  final Matrix<double> GIVNUM,
+  final Matrix<double> GIVNUM_,
   final int LDGNUM,
   final Box<double> C,
   final Box<double> S,
@@ -41,6 +41,20 @@ void dlasd7(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Z = Z_.dim();
+  final ZW = ZW_.dim();
+  final VF = VF_.dim();
+  final VFW = VFW_.dim();
+  final VL = VL_.dim();
+  final VLW = VLW_.dim();
+  final DSIGMA = DSIGMA_.dim();
+  final IDX = IDX_.dim();
+  final IDXP = IDXP_.dim();
+  final IDXQ = IDXQ_.dim();
+  final PERM = PERM_.dim();
+  final GIVCOL = GIVCOL_.dim(LDGCOL);
+  final GIVNUM = GIVNUM_.dim(LDGNUM);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
 
   int I, IDXI, IDXJ, IDXJP, J, JP, JPREV = 0, K2, M, N, NLP1, NLP2;

@@ -1,4 +1,6 @@
-      void csytf2(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Box<int> INFO,) {
+      void csytf2(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

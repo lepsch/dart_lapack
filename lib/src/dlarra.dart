@@ -5,18 +5,22 @@ import 'package:lapack/src/matrix.dart';
 
 void dlarra(
   final int N,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> E2,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> E2_,
   final double SPLTOL,
   final double TNRM,
   final Box<int> NSPLIT,
-  final Array<int> ISPLIT,
+  final Array<int> ISPLIT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final E2 = E2_.dim();
+  final ISPLIT = ISPLIT_.dim();
   const ZERO = 0.0;
   int I;
   double EABS, TMP1;

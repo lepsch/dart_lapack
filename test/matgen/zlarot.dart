@@ -1,4 +1,5 @@
-      void zlarot(final int LROWS, final int LLEFT, final int LRIGHT, final int NL, final int C, final int S, final Matrix<double> A, final int LDA, final int XLEFT, final int XRIGHT,) {
+      void zlarot(final int LROWS, final int LLEFT, final int LRIGHT, final int NL, final int C, final int S, final Matrix<double> A_, final int LDA, final int XLEFT, final int XRIGHT,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

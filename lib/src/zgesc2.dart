@@ -1,4 +1,6 @@
-      void zgesc2(final int N, final Matrix<double> A, final int LDA, final int RHS, final Array<int> IPIV, final int JPIV, final int SCALE,) {
+      void zgesc2(final int N, final Matrix<double> A_, final int LDA, final int RHS, final Array<int> IPIV_, final int JPIV, final int SCALE,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

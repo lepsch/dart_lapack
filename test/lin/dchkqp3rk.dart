@@ -2,23 +2,37 @@ import 'package:lapack/src/matrix.dart';
 
 import 'common.dart';
 
-      void dchkqp3rk(final Array<bool> DOTYPE, final int NM,
-        final Array<int> MVAL, final int NN,
-        final Array<int> NVAL, final int NNS,
-        final Array<int> NSVAL, final int NNB,
-        final Array<int> NBVAL,
-        final Array<int> NXVAL, final double THRESH,
-        final Array<double> A,
-        final Array<double> COPYA,
-        final Array<double> B,
-        final Array<double> COPYB,
-        final Array<double> S,
-        final Array<double> TAU,
-        final Array<double> WORK,
-        final Array<int> IWORK, final int NOUT ,) {
+      void dchkqp3rk(final Array<bool> DOTYPE_, final int NM,
+        final Array<int> MVAL_, final int NN,
+        final Array<int> NVAL_, final int NNS,
+        final Array<int> NSVAL_, final int NNB,
+        final Array<int> NBVAL_,
+        final Array<int> NXVAL_, final double THRESH,
+        final Array<double> A_,
+        final Array<double> COPYA_,
+        final Array<double> B_,
+        final Array<double> COPYB_,
+        final Array<double> S_,
+        final Array<double> TAU_,
+        final Array<double> WORK_,
+        final Array<int> IWORK_, final int NOUT ,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final DOTYPE = DOTYPE_.dim();
+  final MVAL = MVAL_.dim();
+  final NVAL = NVAL_.dim();
+  final NSVAL = NSVAL_.dim();
+  final NBVAL = NBVAL_.dim();
+  final NXVAL = NXVAL_.dim();
+  final A = A_.dim();
+  final COPYA = COPYA_.dim();
+  final B = B_.dim();
+  final COPYB = COPYB_.dim();
+  final S = S_.dim();
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
       // int                NM, NN, NNB, NNS, NOUT;
       // double             THRESH;
       // final                IWORK=Array<int>)(), NBVAL=Array<int>)(), MVAL=Array<int>)(), NVAL=Array<int>)(), NSVAL=Array<int>)(), NXVAL=Array<int>)();

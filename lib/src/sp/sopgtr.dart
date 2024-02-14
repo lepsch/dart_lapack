@@ -1,4 +1,6 @@
-      void sopgtr(final int UPLO, final int N, final int AP, final int TAU, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final Box<int> INFO,) {
+      void sopgtr(final int UPLO, final int N, final int AP, final int TAU, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final Box<int> INFO,) {
+  final Q = Q_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

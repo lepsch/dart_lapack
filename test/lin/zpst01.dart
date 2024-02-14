@@ -1,4 +1,8 @@
-      void zpst01(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Matrix<double> AFAC, final int LDAFAC, final Matrix<double> PERM, final int LDPERM, final int PIV, final Array<double> RWORK, final int RESID, final int RANK,) {
+      void zpst01(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AFAC_, final int LDAFAC, final Matrix<double> PERM_, final int LDPERM, final int PIV, final Array<double> RWORK_, final int RESID, final int RANK,) {
+  final A = A_.dim();
+  final AFAC = AFAC_.dim();
+  final PERM = PERM_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

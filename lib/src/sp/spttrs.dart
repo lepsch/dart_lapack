@@ -1,4 +1,5 @@
-      void spttrs(final int N, final int NRHS, final int D, final int E, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void spttrs(final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final B = B_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

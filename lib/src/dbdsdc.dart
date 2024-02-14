@@ -22,21 +22,29 @@ void dbdsdc(
   final String UPLO,
   final String COMPQ,
   final int N,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> U,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Array<double> Q,
-  final Array<int> IQ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> Q_,
+  final Array<int> IQ_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDVT);
+  final Q = Q_.dim();
+  final IQ = IQ_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int DIFL = 0,
       DIFR = 0,

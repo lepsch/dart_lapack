@@ -7,18 +7,23 @@ import 'package:lapack/src/xerbla.dart';
 
 void dlagtf(
   final int N,
-  final Array<double> A,
+  final Array<double> A_,
   final double LAMBDA,
-  final Array<double> B,
-  final Array<double> C,
+  final Array<double> B_,
+  final Array<double> C_,
   final double TOL,
-  final Array<double> D,
-  final Array<int> IN,
+  final Array<double> D_,
+  final Array<int> IN_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final B = B_.dim();
+  final C = C_.dim();
+  final D = D_.dim();
+  final IN = IN_.dim();
   const ZERO = 0.0;
   int K;
   double EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;

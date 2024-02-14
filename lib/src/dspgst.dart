@@ -16,13 +16,15 @@ void dspgst(
   final int ITYPE,
   final String UPLO,
   final int N,
-  final Array<double> AP,
-  final Array<double> BP,
+  final Array<double> AP_,
+  final Array<double> BP_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final BP = BP_.dim();
   const ONE = 1.0, HALF = 0.5;
   bool UPPER;
   int J, J1, J1J1, JJ, K, K1, K1K1, KK;

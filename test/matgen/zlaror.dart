@@ -1,4 +1,6 @@
-      void zlaror(final int SIDE, final int INIT, final int M, final int N, final Matrix<double> A, final int LDA, final Array<int> ISEED, final int X, final Box<int> INFO,) {
+      void zlaror(final int SIDE, final int INIT, final int M, final int N, final Matrix<double> A_, final int LDA, final Array<int> ISEED_, final int X, final Box<int> INFO,) {
+  final A = A_.dim();
+  final ISEED = ISEED_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

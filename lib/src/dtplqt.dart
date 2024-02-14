@@ -11,18 +11,22 @@ void dtplqt(
   final int N,
   final int L,
   final int MB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final T = T_.dim(LDT);
+  final WORK = WORK_.dim();
   int I, IB, LB, NB;
   final IINFO = Box(0);
 
@@ -70,24 +74,25 @@ void dtplqt(
 
     if (I + IB <= M) {
       dtprfb(
-          'R',
-          'N',
-          'F',
-          'R',
-          M - I - IB + 1,
-          NB,
-          IB,
-          LB,
-          B(I, 1),
-          LDB,
-          T(1, I),
-          LDT,
-          A(I + IB, I),
-          LDA,
-          B(I + IB, 1),
-          LDB,
-          WORK,
-          M - I - IB + 1);
+        'R',
+        'N',
+        'F',
+        'R',
+        M - I - IB + 1,
+        NB,
+        IB,
+        LB,
+        B(I, 1),
+        LDB,
+        T(1, I),
+        LDT,
+        A(I + IB, I),
+        LDA,
+        B(I + IB, 1),
+        LDB,
+        WORK.asMatrix(M - I - IB + 1),
+        M - I - IB + 1,
+      );
     }
   }
 }

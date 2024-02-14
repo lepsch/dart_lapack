@@ -1,4 +1,9 @@
-      void sorbdb(final int TRANS, final int SIGNS, final int M, final int P, final int Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X12, final int LDX12, final Matrix<double> X21, final int LDX21, final Matrix<double> X22, final int LDX22, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final int TAUQ2, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void sorbdb(final int TRANS, final int SIGNS, final int M, final int P, final int Q, final Matrix<double> X11_, final int LDX11, final Matrix<double> X12_, final int LDX12, final Matrix<double> X21_, final int LDX21, final Matrix<double> X22_, final int LDX22, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final int TAUQ2, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final X11 = X11_.dim();
+  final X12 = X12_.dim();
+  final X21 = X21_.dim();
+  final X22 = X22_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

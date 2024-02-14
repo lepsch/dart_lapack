@@ -22,36 +22,54 @@ import 'xlaenv.dart';
 
 void ddrgev3(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> S,
-  final Matrix<double> T,
-  final Matrix<double> Q,
+  final Matrix<double> B_,
+  final Matrix<double> S_,
+  final Matrix<double> T_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
-  final Matrix<double> QE,
+  final Matrix<double> Z_,
+  final Matrix<double> QE_,
   final int LDQE,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Array<double> ALPHR1,
-  final Array<double> ALPHI1,
-  final Array<double> BETA1,
-  final Array<double> WORK,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Array<double> ALPHR1_,
+  final Array<double> ALPHI1_,
+  final Array<double> BETA1_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final S = S_.dim(LDA);
+  final T = T_.dim(LDA);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDQ);
+  final QE = QE_.dim(LDQE);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final ALPHR1 = ALPHR1_.dim();
+  final ALPHI1 = ALPHI1_.dim();
+  final BETA1 = BETA1_.dim();
+  final WORK = WORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 27;
   bool BADNN;
@@ -76,49 +94,49 @@ void ddrgev3(
   final IERR = Box(0);
   final IOLDSD = Array<int>(4);
   final RMAGN = Array<double>(4, offset: 1);
-  const KCLASS = [
+  final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3, 4, //
-  ];
-  const KZ1 = [0, 1, 2, 1, 3, 3];
-  const KZ2 = [0, 0, 1, 2, 1, 1];
-  const KADD = [0, 0, 0, 0, 3, 2];
-  const KATYPE = [
-    0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4,
-    0, 0, //
-  ];
-  const KBTYPE = [
+  ]);
+  final KZ1 = Array.fromList([0, 1, 2, 1, 3, 3]);
+  final KZ2 = Array.fromList([0, 0, 1, 2, 1, 1]);
+  final KADD = Array.fromList([0, 0, 0, 0, 3, 2]);
+  final KATYPE = Array.fromList([
+    0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, //
+    4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4, 0, 0, //
+  ]);
+  final KBTYPE = Array.fromList([
     0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8, 8, 8, 8, 8, 8, 8,
     8, 0, 0, //
-  ];
-  const KAZERO = [
+  ]);
+  final KAZERO = Array.fromList([
     1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 2, 3, 1, 3, 5, 5, 5, 5, 3, 3, 3, 3,
     1, 1, //
-  ];
-  const KBZERO = [
+  ]);
+  final KBZERO = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 4, 1, 4, 6, 6, 6, 6, 4, 4, 4, 4,
     1, 1, //
-  ];
-  const KAMAGN = [
+  ]);
+  final KAMAGN = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, 3, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2,
     1, 3, //
-  ];
-  const KBMAGN = [
+  ]);
+  final KBMAGN = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2,
     1, 3, //
-  ];
-  const KTRIAN = [
+  ]);
+  final KTRIAN = Array.fromList([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, //
-  ];
-  const IASIGN = [
+  ]);
+  final IASIGN = Array.fromList([
     0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 2, 2, 2, 2,
     0, 0, //
-  ];
-  const IBSIGN = [
+  ]);
+  final IBSIGN = Array.fromList([
     0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, //
-  ];
+  ]);
 
   // Check for errors
 

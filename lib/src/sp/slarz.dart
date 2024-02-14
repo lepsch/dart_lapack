@@ -1,4 +1,6 @@
-      void slarz(final int SIDE, final int M, final int N, final int L, final int V, final int INCV, final int TAU, final Matrix<double> C, final int LDC, final Array<double> WORK,) {
+      void slarz(final int SIDE, final int M, final int N, final int L, final int V, final int INCV, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_,) {
+  final C = C_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

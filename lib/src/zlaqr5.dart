@@ -1,7 +1,12 @@
-      void zlaqr5(final int WANTT, final int WANTZ, final int KACC22, final int N, final int KTOP, final int KBOT, final int NSHFTS, final int S, final Matrix<double> H, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z, final int LDZ, final Matrix<double> V, final int LDV, final Matrix<double> U, final int LDU, final int NV, final Matrix<double> WV, final int LDWV, final int NH, final int WH, final int LDWH,) {
+      void zlaqr5(final int WANTT, final int WANTZ, final int KACC22, final int N, final int KTOP, final int KBOT, final int NSHFTS, final int S, final Matrix<double> H_, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final Matrix<double> V_, final int LDV, final Matrix<double> U_, final int LDU, final int NV, final Matrix<double> WV_, final int LDWV, final int NH, final int WH, final int LDWH,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim();
+  final Z = Z_.dim();
+  final V = V_.dim();
+  final U = U_.dim();
+  final WV = WV_.dim();
       int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV;
       bool               WANTT, WANTZ;
       Complex         H( LDH, * ), S( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );

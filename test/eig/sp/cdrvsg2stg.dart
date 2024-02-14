@@ -1,4 +1,12 @@
-      void cdrvsg2stg(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int D, final int D2, final Matrix<double> Z, final int LDZ, final int AB, final int BB, final int AP, final int BP, final Array<double> _WORK, final int NWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final int RESULT, final Box<int> INFO,) {
+      void cdrvsg2stg(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int D, final int D2, final Matrix<double> Z_, final int LDZ, final int AB, final int BB, final int AP, final int BP, final Array<double> _WORK_, final int NWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final int RESULT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final B = B_.dim();
+  final Z = Z_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

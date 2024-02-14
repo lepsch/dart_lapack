@@ -12,13 +12,14 @@ import 'dhst01.dart';
 Future<void> dget36(
   final Box<double> RMAX,
   final Box<int> LMAX,
-  final Array<int> NINFO,
+  final Array<int> NINFO_,
   final Box<int> KNT,
   final Nin NIN,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NINFO = NINFO_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const LDT = 10, LWORK = 2 * LDT * LDT;
   int I, IFST = 0, IFSTSV, ILST = 0, ILSTSV, J, LOC, N = 0;

@@ -30,6 +30,8 @@ abstract interface class Array<T> {
   Matrix<T> asMatrix(int ld);
 
   T maxval(int start, int end);
+
+  Array<T> dim([int? ld]);
 }
 
 class Matrix<T> {
@@ -72,6 +74,8 @@ class Matrix<T> {
   Box<T> box(int i, int j) => this[i].box(j);
 
   Array<T> asArray() => _Array.fromSlice(_entries.toRawList());
+
+  Matrix<T> dim(int ld) => this(1, 1, ld: ld);
 }
 
 class _MatrixArrayAdapter<T> implements Array<T> {
@@ -120,6 +124,9 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   void operator []=(int j, T value) {
     _entries(j, offset: i - 1)[1] = value;
   }
+
+  @override
+  Array<T> dim([int? ld]) => this;
 }
 
 class _Array<T> implements Array<T> {
@@ -222,6 +229,9 @@ class _Array<T> implements Array<T> {
         throw UnimplementedError();
     }
   }
+
+  @override
+  Array<T> dim([int? ld]) => this;
 }
 
 class _ArrayElementBox<T> implements Box<T> {

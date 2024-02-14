@@ -14,23 +14,32 @@ void dorbdb4(
   final int M,
   final int P,
   final int Q,
-  final Matrix<double> X11,
+  final Matrix<double> X11_,
   final int LDX11,
-  final Matrix<double> X21,
+  final Matrix<double> X21_,
   final int LDX21,
-  final Array<double> THETA,
-  final Array<double> PHI,
-  final Array<double> TAUP1,
-  final Array<double> TAUP2,
-  final Array<double> TAUQ1,
-  final Array<double> PHANTOM,
-  final Array<double> WORK,
+  final Array<double> THETA_,
+  final Array<double> PHI_,
+  final Array<double> TAUP1_,
+  final Array<double> TAUP2_,
+  final Array<double> TAUQ1_,
+  final Array<double> PHANTOM_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X11 = X11_.dim(LDX11);
+  final X21 = X21_.dim(LDX21);
+  final THETA = THETA_.dim();
+  final PHI = PHI_.dim();
+  final TAUP1 = TAUP1_.dim();
+  final TAUP2 = TAUP2_.dim();
+  final TAUQ1 = TAUQ1_.dim();
+  final PHANTOM = PHANTOM_.dim();
+  final WORK = WORK_.dim();
   const NEGONE = -1.0, ONE = 1.0, ZERO = 0.0;
   double C, S;
   int I, ILARF = 0, IORBDB5 = 0, J, LLARF, LORBDB5 = 0, LWORKMIN = 0, LWORKOPT;

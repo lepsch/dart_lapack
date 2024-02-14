@@ -1,4 +1,9 @@
-      void zhst01(final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final Matrix<double> H, final int LDH, final Matrix<double> Q, final int LDQ, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT,) {
+      void zhst01(final int N, final int ILO, final int IHI, final Matrix<double> A_, final int LDA, final Matrix<double> H_, final int LDH, final Matrix<double> Q_, final int LDQ, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
+  final A = A_.dim();
+  final H = H_.dim();
+  final Q = Q_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

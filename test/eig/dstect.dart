@@ -6,14 +6,16 @@ import 'package:lapack/src/matrix.dart';
 
 void dstect(
   final int N,
-  final Array<double> A,
-  final Array<double> B,
+  final Array<double> A_,
+  final Array<double> B_,
   final double SHIFT,
   final Box<int> NUM,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final B = B_.dim();
   const ZERO = 0.0, ONE = 1.0, THREE = 3.0;
   int I;
   double M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;

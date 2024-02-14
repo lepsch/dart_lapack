@@ -1,4 +1,5 @@
-      void strsv(final int UPLO, final int TRANS, final int DIAG, final int N, final Matrix<double> A, final int LDA, final int X, final int INCX,) {
+      void strsv(final int UPLO, final int TRANS, final int DIAG, final int N, final Matrix<double> A_, final int LDA, final int X, final int INCX,) {
+  final A = A_.dim();
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

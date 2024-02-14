@@ -1,4 +1,9 @@
-      void strsyl3(final int TRANA, final int TRANB, final int ISGN, final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> C, final int LDC, final int SCALE, final Array<int> IWORK, final int LIWORK, final Matrix<double> SWORK, final int LDSWORK, final Box<int> INFO,) {
+      void strsyl3(final int TRANA, final int TRANB, final int ISGN, final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> C_, final int LDC, final int SCALE, final Array<int> IWORK_, final int LIWORK, final Matrix<double> SWORK_, final int LDSWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final C = C_.dim();
+  final IWORK = IWORK_.dim();
+  final SWORK = SWORK_.dim();
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
       double               SCALE;

@@ -17,27 +17,40 @@ void dgrqts(
   final int M,
   final int P,
   final int N,
-  final Matrix<double> A,
-  final Matrix<double> AF,
-  final Matrix<double> Q,
-  final Matrix<double> R,
+  final Matrix<double> A_,
+  final Matrix<double> AF_,
+  final Matrix<double> Q_,
+  final Matrix<double> R_,
   final int LDA,
-  final Array<double> TAUA,
-  final Matrix<double> B,
-  final Matrix<double> BF,
-  final Matrix<double> Z,
-  final Matrix<double> T,
-  final Matrix<double> BWK,
+  final Array<double> TAUA_,
+  final Matrix<double> B_,
+  final Matrix<double> BF_,
+  final Matrix<double> Z_,
+  final Matrix<double> T_,
+  final Matrix<double> BWK_,
   final int LDB,
-  final Array<double> TAUB,
-  final Array<double> WORK,
+  final Array<double> TAUB_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDA);
+  final Q = Q_.dim(LDA);
+  final R = R_.dim(LDA);
+  final TAUA = TAUA_.dim();
+  final B = B_.dim(LDB);
+  final BF = BF_.dim(LDB);
+  final Z = Z_.dim(LDB);
+  final T = T_.dim(LDB);
+  final BWK = BWK_.dim(LDB);
+  final TAUB = TAUB_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const ROGUE = -1.0e+10;
   final INFO = Box(0);

@@ -3,13 +3,15 @@ import 'package:lapack/src/matrix.dart';
 void dlascl2(
   final int M,
   final int N,
-  final Array<double> D,
-  final Matrix<double> X,
+  final Array<double> D_,
+  final Matrix<double> X_,
   final int LDX,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final X = X_.dim(LDX);
   int I, J;
 
   for (J = 1; J <= N; J++) {

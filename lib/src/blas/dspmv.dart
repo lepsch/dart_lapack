@@ -6,16 +6,19 @@ void dspmv(
   final String UPLO,
   final int N,
   final double ALPHA,
-  final Array<double> AP,
-  final Array<double> X,
+  final Array<double> AP_,
+  final Array<double> X_,
   final int INCX,
   final double BETA,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final X = X_.dim();
+  final Y = Y_.dim();
   const ONE = 1.0, ZERO = 0.0;
   double TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY;

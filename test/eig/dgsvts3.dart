@@ -16,31 +16,44 @@ void dgsvts3(
   final int M,
   final int P,
   final int N,
-  final Matrix<double> A,
-  final Matrix<double> AF,
+  final Matrix<double> A_,
+  final Matrix<double> AF_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> BF,
+  final Matrix<double> B_,
+  final Matrix<double> BF_,
   final int LDB,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> ALPHA,
-  final Array<double> BETA,
-  final Matrix<double> R,
+  final Array<double> ALPHA_,
+  final Array<double> BETA_,
+  final Matrix<double> R_,
   final int LDR,
-  final Array<int> IWORK,
-  final Array<double> WORK,
+  final Array<int> IWORK_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDA);
+  final B = B_.dim(LDB);
+  final BF = BF_.dim(LDB);
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final Q = Q_.dim(LDQ);
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  final R = R_.dim(LDR);
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I, J;
   double ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;

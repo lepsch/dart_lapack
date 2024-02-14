@@ -6,7 +6,9 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgbtf2(final int M, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final Box<int> INFO,) {
+      void dgbtf2(final int M, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Array<int> IPIV_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

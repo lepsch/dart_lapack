@@ -16,25 +16,32 @@ void dspgvx(
   final String RANGE,
   final String UPLO,
   final int N,
-  final Array<double> AP,
-  final Array<double> BP,
+  final Array<double> AP_,
+  final Array<double> BP_,
   final double VL,
   final double VU,
   final int IL,
   final int IU,
   final double ABSTOL,
   final Box<int> M,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
-  final Array<int> IFAIL,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final BP = BP_.dim();
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final IFAIL = IFAIL_.dim();
   bool ALLEIG, INDEIG, UPPER, VALEIG, WANTZ;
   String TRANS;
   int J;

@@ -1,4 +1,5 @@
-      void slatm7(final int MODE, final int COND, final int IRSIGN, final int IDIST, final Array<int> ISEED, final int D, final int N, final int RANK, final Box<int> INFO,) {
+      void slatm7(final int MODE, final int COND, final int IRSIGN, final int IDIST, final Array<int> ISEED_, final int D, final int N, final int RANK, final Box<int> INFO,) {
+  final ISEED = ISEED_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -30,22 +30,29 @@ void dgesvdq(
   final String JOBV,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> S,
-  final Matrix<double> U,
+  final Array<double> S_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
   final Box<int> NUMRANK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final int LRWORK,
   final Box<int> INFO,
 ) {
+  final A = A_.dim(LDA);
+  final S = S_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int IWOFF, NR, N1 = 0, OPTRATIO, p, q;
   int LWCON,

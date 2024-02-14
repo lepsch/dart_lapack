@@ -1,4 +1,12 @@
-      void cdrvbd(final int NSIZES, final int MM, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final Matrix<double> A, final int LDA, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final int ASAV, final int USAV, final int VTSAV, final int S, final int SSAV, final int E, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<int> IWORK, final int NOUNIT, final Box<int> INFO,) {
+      void cdrvbd(final int NSIZES, final int MM, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final Matrix<double> A_, final int LDA, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final int ASAV, final int USAV, final int VTSAV, final int S, final int SSAV, final int E, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final int NOUNIT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final U = U_.dim();
+  final VT = VT_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

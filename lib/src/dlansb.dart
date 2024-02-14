@@ -11,13 +11,14 @@ double dlansb(
   final String UPLO,
   final int N,
   final int K,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
   final Array<double> WORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
   const ONE = 1.0, ZERO = 0.0;
   int I, J, L;
   double ABSA, VALUE = 0;

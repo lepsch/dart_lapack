@@ -12,19 +12,23 @@ void dhst01(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDH);
+  final Q = Q_.dim(LDQ);
+  final WORK = WORK_.dim();
   // int                IHI, ILO, LDA, LDH, LDQ, LWORK, N;
   // double             A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK );
   // ..

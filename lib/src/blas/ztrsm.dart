@@ -13,14 +13,16 @@ void ztrsm(
   final int M,
   final int N,
   final Complex ALPHA,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
-  final Matrix<Complex> B,
+  final Matrix<Complex> B_,
   final int LDB,
 ) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final B = B_.dim();
   Complex TEMP;
   int I, INFO, J, K, NROWA;
   bool LSIDE, NOCONJ, NOUNIT, UPPER;

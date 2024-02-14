@@ -1,4 +1,5 @@
-      void ztrttf(final int TRANSR, final int UPLO, final int N, final Matrix<double> A, final int LDA, final int ARF, final Box<int> INFO,) {
+      void ztrttf(final int TRANSR, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int ARF, final Box<int> INFO,) {
+  final A = A_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

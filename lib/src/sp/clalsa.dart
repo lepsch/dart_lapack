@@ -1,4 +1,9 @@
-      void clalsa(final int ICOMPQ, final int SMLSIZ, final int N, final int NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, final Matrix<double> U, final int LDU, final int VT, final int K, final int DIFL, final int DIFR, final int Z, final int POLES, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int PERM, final int GIVNUM, final int C, final int S, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void clalsa(final int ICOMPQ, final int SMLSIZ, final int N, final int NRHS, final Matrix<double> B_, final int LDB, final Matrix<double> BX_, final int LDBX, final Matrix<double> U_, final int LDU, final int VT, final int K, final int DIFL, final int DIFR, final int Z, final int POLES, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int PERM, final int GIVNUM, final int C, final int S, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final B = B_.dim();
+  final BX = BX_.dim();
+  final U = U_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

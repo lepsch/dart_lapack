@@ -1,4 +1,11 @@
-      void sgbsvx(final int FACT, final int TRANS, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int EQUED, final int R, final int C, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void sgbsvx(final int FACT, final int TRANS, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final Array<int> IPIV_, final int EQUED, final int R, final int C, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final AFB = AFB_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

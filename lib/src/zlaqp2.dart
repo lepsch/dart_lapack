@@ -1,4 +1,6 @@
-      void zlaqp2(final int M, final int N, final int OFFSET, final Matrix<double> A, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final Array<double> WORK,) {
+      void zlaqp2(final int M, final int N, final int OFFSET, final Matrix<double> A_, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final Array<double> WORK_,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

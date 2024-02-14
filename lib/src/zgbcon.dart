@@ -1,4 +1,8 @@
-      void zgbcon(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<int> IPIV, final int ANORM, final int RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void zgbcon(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Array<int> IPIV_, final int ANORM, final int RCOND, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final IPIV = IPIV_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

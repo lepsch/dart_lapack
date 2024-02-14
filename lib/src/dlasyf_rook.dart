@@ -16,16 +16,19 @@ void dlasyf_rook(
   final int N,
   final int NB,
   final Box<int> KB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> IPIV,
-  final Matrix<double> W,
+  final Array<int> IPIV_,
+  final Matrix<double> W_,
   final int LDW,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final W = W_.dim(LDW);
   const ZERO = 0.0, ONE = 1.0;
   const EIGHT = 8.0, SEVTEN = 17.0;
   bool DONE;

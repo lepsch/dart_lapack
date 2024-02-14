@@ -10,12 +10,13 @@ import 'package:lapack/src/xerbla.dart';
 
 void dlasq2(
   final int N,
-  final Array<double> Z,
+  final Array<double> Z_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.dim();
   const CBIAS = 1.50;
   const ZERO = 0.0,
       HALF = 0.5,

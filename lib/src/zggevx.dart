@@ -1,4 +1,12 @@
-      void zggevx(final int BALANC, final int JOBVL, final int JOBVR, final int SENSE, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int ALPHA, final int BETA, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int ILO, final int IHI, final int LSCALE, final int RSCALE, final int ABNRM, final int BBNRM, final int RCONDE, final int RCONDV, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO,) {
+      void zggevx(final int BALANC, final int JOBVL, final int JOBVR, final int SENSE, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int ALPHA, final int BETA, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int ILO, final int IHI, final int LSCALE, final int RSCALE, final int ABNRM, final int BBNRM, final int RCONDE, final int RCONDV, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -9,7 +9,7 @@ import 'package:lapack/src/xerbla.dart';
 void dlasq4(
   final int I0,
   final int N0,
-  final Array<double> Z,
+  final Array<double> Z_,
   final int PP,
   final int N0IN,
   final double DMIN,
@@ -25,6 +25,7 @@ void dlasq4(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.dim();
   const CNST1 = 0.5630, CNST2 = 1.010, CNST3 = 1.050;
   const QURTR = 0.250,
       THIRD = 0.3330,

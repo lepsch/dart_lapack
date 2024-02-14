@@ -10,19 +10,23 @@ void dlaqz2(
   final int ISTARTM,
   final int ISTOPM,
   final int IHI,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final int NQ,
   final int QSTART,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
   final int NZ,
   final int ZSTART,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
 ) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
   const ZERO = 0.0;
   final C1 = Box(0.0),
       S1 = Box(0.0),

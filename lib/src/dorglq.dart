@@ -12,16 +12,19 @@ void dorglq(
   final int M,
   final int N,
   final int K,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   bool LQUERY;
   int I, IB, IWS, J, KI = 0, KK, L, LDWORK = 0, LWKOPT, NB, NBMIN, NX;

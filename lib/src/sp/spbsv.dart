@@ -1,4 +1,6 @@
-      void spbsv(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void spbsv(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final B = B_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

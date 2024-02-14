@@ -1,4 +1,6 @@
-      void ctpcon(final int NORM, final int UPLO, final int DIAG, final int N, final int AP, final int RCOND, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void ctpcon(final int NORM, final int UPLO, final int DIAG, final int N, final int AP, final int RCOND, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

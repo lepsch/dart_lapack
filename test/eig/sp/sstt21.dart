@@ -1,4 +1,6 @@
-      void sstt21(final int N, final int KBAND, final int AD, final int AE, final int SD, final int SE, final Matrix<double> U, final int LDU, final Array<double> _WORK, final int RESULT,) {
+      void sstt21(final int N, final int KBAND, final int AD, final int AE, final int SD, final int SE, final Matrix<double> U_, final int LDU, final Array<double> _WORK_, final int RESULT,) {
+  final U = U_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

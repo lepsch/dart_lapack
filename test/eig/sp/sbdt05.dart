@@ -1,4 +1,8 @@
-      void sbdt05(final int M, final int N, final Matrix<double> A, final int LDA, final int S, final int NS, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID,) {
+      void sbdt05(final int M, final int N, final Matrix<double> A_, final int LDA, final int S, final int NS, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final Array<double> _WORK_, final int RESID,) {
+  final A = A_.dim();
+  final U = U_.dim();
+  final VT = VT_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

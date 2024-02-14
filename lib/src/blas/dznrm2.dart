@@ -1,17 +1,23 @@
 import 'dart:math';
 
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/intrinsics/digits.dart';
+import 'package:lapack/src/intrinsics/huge.dart';
+import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:lapack/src/intrinsics/minexponent.dart';
+import 'package:lapack/src/intrinsics/radix.dart';
 import 'package:lapack/src/matrix.dart';
 
 double dznrm2(
   final int n,
-  final Array<Complex> x,
+  final Array<Complex> x_,
   final int incx,
 ) {
 // -- Reference BLAS level1 routine (version 3.9.1) --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 //    March 2021
+  final x = x_.dim();
   const wp = 1;
   const zero = 0.0;
   const one = 1.0;

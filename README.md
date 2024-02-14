@@ -544,6 +544,17 @@ $1($2).toDouble()
 $1($2).toDouble()
 ```
 
+### Functios
+```
+^\s*\b(void|String|int|double|Complex|bool)\s+\w+\((((\s*\n?\s*final\s+\w+(<\w+>)?\s+\w+),\s*)*(\4\n?,?)?)\)\s*\{
+^( *\b(void|String|int|double|Complex|bool)\s+\w+\(((\s*final\s+\w+(<\w+>)?\s+\w+)\s*,\s*)*)(\s*final\s+\w+(<\w+>)?\s+\w+\s*,?)(((\s*\n?\s*final\s+\w+(<\w+>)?\s+\w+)\s*,\s*)*\s*\)\s*\{)
+^( *\b(void|String|int|double|Complex|bool)\s+\w+\(((\s*final\s+\w+(<\w+>)?\s+\w+)\s*,\s*)*?)((\s*final\s+\w+<\w+>\s+)(\w+)(\s*,?))(((\s*\n?\s*final\s+\w+(<\w+>)?\s+\w+)\s*,\s*)*\s*\)\s*\{)
+```
+Add trailing `_` to Matrix/Array args
+```sh
+find . -type f -regex '.*\.dart' | xargs -I % perl -0777 -i'' -pe 's/(\n? *\b(void|String|int|double|Complex|bool)\s+\w+\((([\s\n]*final\s+\w+(<\w+>)?\s+\w+)\s*,[\s\n]*)*)(([\s\n]*final\s+((Matrix|Array)+<\w+>)\s+)(\b(\w*)[^_]\b)([\s\n]*,?))((([\s\n]*final\s+\w+(<\w+>)?\s+\w+)[\s\n]*,?\s*)*\)\s*\{[^\n]*(\n\/\/[^\n]*)*)/$1$7$10_$12$13\\n  final $10 = $10_.dim();/g' %
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

@@ -15,21 +15,29 @@ void dlaed3(
   final int K,
   final int N,
   final int N1,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
   final double RHO,
-  final Array<double> DLAMBDA,
-  final Array<double> Q2,
-  final Array<int> INDX,
-  final Array<int> CTOT,
-  final Array<double> W,
-  final Array<double> S,
+  final Array<double> DLAMBDA_,
+  final Array<double> Q2_,
+  final Array<int> INDX_,
+  final Array<int> CTOT_,
+  final Array<double> W_,
+  final Array<double> S_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final DLAMBDA = DLAMBDA_.dim();
+  final Q2 = Q2_.dim();
+  final INDX = INDX_.dim();
+  final CTOT = CTOT_.dim();
+  final W = W_.dim();
+  final S = S_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int I, II, IQ2, J, N12, N2, N23;
   double TEMP;

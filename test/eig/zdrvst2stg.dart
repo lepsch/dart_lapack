@@ -1,4 +1,11 @@
-      void zdrvst2stg(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int D1, final int D2, final int D3, final int WA1, final int WA2, final int WA3, final Matrix<double> U, final int LDU, final int V, final int TAU, final int Z, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Array<int> IWORK, final int LIWORK, final int RESULT, final Box<int> INFO,) {
+      void zdrvst2stg(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int D1, final int D2, final int D3, final int WA1, final int WA2, final int WA3, final Matrix<double> U_, final int LDU, final int V, final int TAU, final int Z, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final int RESULT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final U = U_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

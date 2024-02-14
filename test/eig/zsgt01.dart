@@ -1,4 +1,9 @@
-      void zsgt01(final int ITYPE, final int UPLO, final int N, final int M, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Z, final int LDZ, final int D, final Array<double> _WORK, final Array<double> RWORK, final int RESULT,) {
+      void zsgt01(final int ITYPE, final int UPLO, final int N, final int M, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> Z_, final int LDZ, final int D, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final Z = Z_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

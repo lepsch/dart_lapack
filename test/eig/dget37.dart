@@ -14,15 +14,18 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 
 Future<void> dget37(
-  final Array<double> RMAX,
-  final Array<int> LMAX,
-  final Array<int> NINFO,
+  final Array<double> RMAX_,
+  final Array<int> LMAX_,
+  final Array<int> NINFO_,
   final Box<int> KNT,
   final Nin NIN,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final RMAX = RMAX_.dim();
+  final LMAX = LMAX_.dim();
+  final NINFO = NINFO_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const EPSIN = 5.9605e-8;
   const LDT = 20, LWORK = 2 * LDT * (10 + LDT);

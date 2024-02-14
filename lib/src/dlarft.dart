@@ -10,15 +10,18 @@ void dlarft(
   final String STOREV,
   final int N,
   final int K,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Array<double> TAU,
-  final Matrix<double> T,
+  final Array<double> TAU_,
+  final Matrix<double> T_,
   final int LDT,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim(LDV);
+  final TAU = TAU_.dim();
+  final T = T_.dim(LDT);
   const ONE = 1.0, ZERO = 0.0;
   int I, J, PREVLASTV, LASTV;
 

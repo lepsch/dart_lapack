@@ -26,19 +26,23 @@ void dgesvj(
   final String JOBV,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> SVA,
+  final Array<double> SVA_,
   final int MV,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final SVA = SVA_.dim();
+  final V = V_.dim(LDV);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const NSWEEP = 30;
   double AAPP0,

@@ -20,34 +20,49 @@ import 'dlasum.dart';
 
 void ddrvev(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> H,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Array<double> WR1,
-  final Array<double> WI1,
-  final Matrix<double> VL,
+  final Matrix<double> H_,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Array<double> WR1_,
+  final Array<double> WI1_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
-  final Matrix<double> LRE,
+  final Matrix<double> LRE_,
   final int LDLRE,
-  final Array<double> RESULT,
-  final Array<double> WORK,
+  final Array<double> RESULT_,
+  final Array<double> WORK_,
   final int NWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final WR1 = WR1_.dim();
+  final WI1 = WI1_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final LRE = LRE_.dim(LDLRE);
+  final RESULT = RESULT_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const TWO = 2.0;
   const MAXTYP = 21;

@@ -10,14 +10,16 @@ import 'package:lapack/src/matrix.dart';
 void cgetrf(
   final int M,
   final int N,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
-  final Array<int> IPIV,
+  final Array<int> IPIV_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
   int I, J, JB, NB;
   final IINFO = Box(0);
 

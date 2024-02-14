@@ -13,17 +13,20 @@ import 'package:lapack/src/xerbla.dart';
 void dpocon(
   final String UPLO,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
   final double ANORM,
   final Box<double> RCOND,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   String NORMIN;

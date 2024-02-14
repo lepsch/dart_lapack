@@ -9,12 +9,13 @@ void dlaset(
   final int N,
   final double ALPHA,
   final double BETA,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
   int I, J;
 
   if (lsame(UPLO, 'U')) {

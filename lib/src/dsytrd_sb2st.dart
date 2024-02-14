@@ -15,17 +15,22 @@ void dsytrd_sb2st(
   final String UPLO,
   final int N,
   final int KD,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> HOUS,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> HOUS_,
   final int LHOUS,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // #if defined(_OPENMP)
+  final AB = AB_.dim(LDAB);
+  final D = D_.dim();
+  final E = E_.dim();
+  final HOUS = HOUS_.dim();
+  final WORK = WORK_.dim();
   // use omp_lib;
 // #endif
 

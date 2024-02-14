@@ -25,26 +25,32 @@ void dgesvdx(
   final String RANGE,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
   final double VL,
   final double VU,
   final int IL,
   final int IU,
   final Box<int> NS,
-  final Array<double> S,
-  final Matrix<double> U,
+  final Array<double> S_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final S = S_.dim();
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDVT);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   String JOBZ, RNGTGK;
   bool ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;

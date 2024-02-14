@@ -1,4 +1,5 @@
-      void strmm(final int SIDE, final int UPLO, final int TRANSA, final int DIAG, final int M, final int N, final int ALPHA, final Matrix<double> A, final int LDA, final int B, final int LDB,) {
+      void strmm(final int SIDE, final int UPLO, final int TRANSA, final int DIAG, final int M, final int N, final int ALPHA, final Matrix<double> A_, final int LDA, final int B, final int LDB,) {
+  final A = A_.dim();
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

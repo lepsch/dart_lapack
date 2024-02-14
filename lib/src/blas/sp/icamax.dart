@@ -1,7 +1,8 @@
       import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 
-int icamax(final int N,final Array<Complex> CX,final int INCX,) {
+int icamax(final int N,final Array<Complex> CX,_final int INCX,) {
+  final CX, = CX,_.dim();
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

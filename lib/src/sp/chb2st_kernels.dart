@@ -1,4 +1,6 @@
-      void chb2st_kernels(final int UPLO, final int WANTZ, final int TTYPE, final int ST, final int ED, final int SWEEP, final int N, final int NB, final int IB, final Matrix<double> A, final int LDA, final int V, final int TAU, final int LDVT, final Array<double> WORK,) {
+      void chb2st_kernels(final int UPLO, final int WANTZ, final int TTYPE, final int ST, final int ED, final int SWEEP, final int N, final int NB, final int IB, final Matrix<double> A_, final int LDA, final int V, final int TAU, final int LDVT, final Array<double> WORK_,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

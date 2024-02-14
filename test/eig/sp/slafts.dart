@@ -1,4 +1,5 @@
-      void slafts(final int TYPE, final int M, final int N, final int IMAT, final int NTESTS, final int RESULT, final Array<int> ISEED, final int THRESH, final int IOUNIT, final int IE,) {
+      void slafts(final int TYPE, final int M, final int N, final int IMAT, final int NTESTS, final int RESULT, final Array<int> ISEED_, final int THRESH, final int IOUNIT, final int IE,) {
+  final ISEED = ISEED_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

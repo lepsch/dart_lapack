@@ -1,4 +1,7 @@
-      void zbdt03(final int UPLO, final int N, final int KD, final int D, final int E, final Matrix<double> U, final int LDU, final int S, final Matrix<double> VT, final int LDVT, final Array<double> _WORK, final int RESID,) {
+      void zbdt03(final int UPLO, final int N, final int KD, final int D, final int E, final Matrix<double> U_, final int LDU, final int S, final Matrix<double> VT_, final int LDVT, final Array<double> _WORK_, final int RESID,) {
+  final U = U_.dim();
+  final VT = VT_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

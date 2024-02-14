@@ -11,8 +11,8 @@ void dlafts(
   final int N,
   final int IMAT,
   final int NTESTS,
-  final Array<double> RESULT,
-  final Array<int> ISEED,
+  final Array<double> RESULT_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout IOUNIT,
   final Box<int> IE,
@@ -20,6 +20,8 @@ void dlafts(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final RESULT = RESULT_.dim();
+  final ISEED = ISEED_.dim();
   int K;
 
   if (M == N) {

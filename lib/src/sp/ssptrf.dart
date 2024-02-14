@@ -1,4 +1,5 @@
-      void ssptrf(final int UPLO, final int N, final int AP, final Array<int> IPIV, final Box<int> INFO,) {
+      void ssptrf(final int UPLO, final int N, final int AP, final Array<int> IPIV_, final Box<int> INFO,) {
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

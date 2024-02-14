@@ -1,4 +1,10 @@
-      void sgesvdq(final int JOBA, final int JOBP, final int JOBR, final int JOBU, final int JOBV, final int M, final int N, final Matrix<double> A, final int LDA, final int S, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final int NUMRANK, final Array<int> IWORK, final int LIWORK, final Array<double> WORK, final int LWORK, final Array<int> RWORK, final int LRWORK, final Box<int> INFO,) {
+      void sgesvdq(final int JOBA, final int JOBP, final int JOBR, final int JOBU, final int JOBV, final int M, final int N, final Matrix<double> A_, final int LDA, final int S, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final int NUMRANK, final Array<int> IWORK_, final int LIWORK, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final U = U_.dim();
+  final V = V_.dim();
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
       // .. Scalar Arguments ..
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;

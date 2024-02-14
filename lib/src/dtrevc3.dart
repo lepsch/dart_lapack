@@ -20,23 +20,28 @@ import 'package:lapack/src/xerbla.dart';
 void dtrevc3(
   final String SIDE,
   final String HOWMNY,
-  final Array<bool> SELECT,
+  final Array<bool> SELECT_,
   final int N,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> VL,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
   final int MM,
   final Box<int> M,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SELECT = SELECT_.dim();
+  final T = T_.dim(LDT);
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const NBMIN = 8, NBMAX = 128;
   bool ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV;

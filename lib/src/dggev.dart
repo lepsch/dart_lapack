@@ -23,24 +23,32 @@ void dggev(
   final String JOBVL,
   final String JOBVR,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> VL,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
   String CHTEMP;

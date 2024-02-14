@@ -1,4 +1,6 @@
-      void slasd6(final int ICOMPQ, final int NL, final int NR, final int SQRE, final int D, final int VF, final int VL, final int ALPHA, final int BETA, final int IDXQ, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int POLES, final int DIFL, final int DIFR, final int Z, final int K, final int C, final int S, final Array<double> _WORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void slasd6(final int ICOMPQ, final int NL, final int NR, final int SQRE, final int D, final int VF, final int VL, final int ALPHA, final int BETA, final int IDXQ, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int POLES, final int DIFL, final int DIFR, final int Z, final int K, final int C, final int S, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

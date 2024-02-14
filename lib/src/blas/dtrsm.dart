@@ -12,14 +12,16 @@ void dtrsm(
   final int M,
   final int N,
   final double ALPHA,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
 ) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   double TEMP;
   int I, INFO, J, K, NROWA;
   bool LSIDE, NOUNIT, UPPER;

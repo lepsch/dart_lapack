@@ -16,16 +16,19 @@ void dsyev_2stage(
   final String JOBZ,
   final String UPLO,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> W,
-  final Array<double> WORK,
+  final Array<double> W_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final W = W_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool LOWER, LQUERY, WANTZ;
   int IMAX,

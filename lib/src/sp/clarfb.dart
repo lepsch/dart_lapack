@@ -1,4 +1,8 @@
-      void clarfb(final int SIDE, final int TRANS, final int DIRECT, final int STOREV, final int M, final int N, final int K, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> C, final int LDC, final Array<double> _WORK, final int LDWORK,) {
+      void clarfb(final int SIDE, final int TRANS, final int DIRECT, final int STOREV, final int M, final int N, final int K, final Matrix<double> V_, final int LDV, final Matrix<double> T_, final int LDT, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final int LDWORK,) {
+  final V = V_.dim();
+  final T = T_.dim();
+  final C = C_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

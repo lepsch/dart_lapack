@@ -19,39 +19,60 @@ void dget23(
   final String BALANC,
   final int JTYPE,
   final double THRESH,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final Nout NOUNIT,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> H,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Array<double> WR1,
-  final Array<double> WI1,
-  final Matrix<double> VL,
+  final Matrix<double> H_,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Array<double> WR1_,
+  final Array<double> WI1_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
-  final Matrix<double> LRE,
+  final Matrix<double> LRE_,
   final int LDLRE,
-  final Array<double> RCONDV,
-  final Array<double> RCNDV1,
-  final Array<double> RCDVIN,
-  final Array<double> RCONDE,
-  final Array<double> RCNDE1,
-  final Array<double> RCDEIN,
-  final Array<double> SCALE,
-  final Array<double> SCALE1,
-  final Array<double> RESULT,
-  final Array<double> WORK,
+  final Array<double> RCONDV_,
+  final Array<double> RCNDV1_,
+  final Array<double> RCDVIN_,
+  final Array<double> RCONDE_,
+  final Array<double> RCNDE1_,
+  final Array<double> RCDEIN_,
+  final Array<double> SCALE_,
+  final Array<double> SCALE1_,
+  final Array<double> RESULT_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final WR1 = WR1_.dim();
+  final WI1 = WI1_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final LRE = LRE_.dim(LDLRE);
+  final RCONDV = RCONDV_.dim();
+  final RCNDV1 = RCNDV1_.dim();
+  final RCDVIN = RCDVIN_.dim();
+  final RCONDE = RCONDE_.dim();
+  final RCNDE1 = RCNDE1_.dim();
+  final RCDEIN = RCDEIN_.dim();
+  final SCALE = SCALE_.dim();
+  final SCALE1 = SCALE1_.dim();
+  final RESULT = RESULT_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const EPSIN = 5.9605e-8;
   bool BALOK, NOBAL;

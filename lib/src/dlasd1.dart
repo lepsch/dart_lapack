@@ -12,21 +12,27 @@ void dlasd1(
   final int NL,
   final int NR,
   final int SQRE,
-  final Array<double> D,
+  final Array<double> D_,
   final Box<double> ALPHA,
   final Box<double> BETA,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Array<int> IDXQ,
-  final Array<int> IWORK,
-  final Array<double> WORK,
+  final Array<int> IDXQ_,
+  final Array<int> IWORK_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDVT);
+  final IDXQ = IDXQ_.dim();
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int COLTYP,
       I,

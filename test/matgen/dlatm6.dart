@@ -10,23 +10,28 @@ import 'dlakf2.dart';
 void dlatm6(
   final int TYPE,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> X,
+  final Matrix<double> B_,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> Y,
+  final Matrix<double> Y_,
   final int LDY,
   final double ALPHA,
   final double BETA,
   final double WX,
   final double WY,
-  final Array<double> S,
+  final Array<double> S_,
   final Array<double> DIF,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final X = X_.dim(LDX);
+  final Y = Y_.dim(LDY);
+  final S = S_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0;
   int I, J;
   final WORK = Array<double>(100);

@@ -1,4 +1,7 @@
-      void stpt05(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final Matrix<double> XACT, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
+      void stpt05(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Matrix<double> XACT_, final int LDXACT, final int FERR, final int BERR, final int RESLTS,) {
+  final B = B_.dim();
+  final X = X_.dim();
+  final XACT = XACT_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,5 @@
-      double sla_gbrpvgrw(final int N, final int KL, final int KU, final int NCOLS, final Matrix<double> AB, final int LDAB, final int AFB, final int LDAFB,) {
+      double sla_gbrpvgrw(final int N, final int KL, final int KU, final int NCOLS, final Matrix<double> AB_, final int LDAB, final int AFB, final int LDAFB,) {
+  final AB = AB_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,5 @@
-      void sppt01(final int UPLO, final int N, final int A, final int AFAC, final Array<double> RWORK, final int RESID,) {
+      void sppt01(final int UPLO, final int N, final int A, final int AFAC, final Array<double> RWORK_, final int RESID,) {
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

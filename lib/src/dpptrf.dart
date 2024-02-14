@@ -12,12 +12,13 @@ import 'package:lapack/src/xerbla.dart';
 void dpptrf(
   final String UPLO,
   final int N,
-  final Array<double> AP,
+  final Array<double> AP_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
   const ONE = 1.0, ZERO = 0.0;
   bool UPPER;
   int J, JC, JJ;

@@ -5,16 +5,16 @@ import 'package:lapack/src/matrix.dart';
 
 void dlarrj(
   final int N,
-  final Array<double> D,
-  final Array<double> E2,
+  final Array<double> D_,
+  final Array<double> E2_,
   final int IFIRST,
   final int ILAST,
   final double RTOL,
   final int OFFSET,
-  final Array<double> W,
-  final Array<double> WERR,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> W_,
+  final Array<double> WERR_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final double PIVMIN,
   final double SPDIAM,
   final Box<int> INFO,
@@ -22,6 +22,12 @@ void dlarrj(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E2 = E2_.dim();
+  final W = W_.dim();
+  final WERR = WERR_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5;
   int MAXITR;
   int CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1;

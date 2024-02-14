@@ -6,18 +6,18 @@ import 'package:lapack/src/matrix.dart';
 
 void dlarrb(
   final int N,
-  final Array<double> D,
-  final Array<double> LLD,
+  final Array<double> D_,
+  final Array<double> LLD_,
   final int IFIRST,
   final int ILAST,
   final double RTOL1,
   final double RTOL2,
   final int OFFSET,
-  final Array<double> W,
-  final Array<double> WGAP,
-  final Array<double> WERR,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> W_,
+  final Array<double> WGAP_,
+  final Array<double> WERR_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final double PIVMIN,
   final double SPDIAM,
   final int TWIST,
@@ -26,6 +26,13 @@ void dlarrb(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final LLD = LLD_.dim();
+  final W = W_.dim();
+  final WGAP = WGAP_.dim();
+  final WERR = WERR_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, TWO = 2.0, HALF = 0.5;
   int MAXITR;
   int I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R;

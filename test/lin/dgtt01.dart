@@ -1,4 +1,7 @@
-      void dgtt01(final int N, final int DL, final int D, final int DU, final int DLF, final int DF, final int DUF, final int DU2, final Array<int> IPIV, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RESID,) {
+      void dgtt01(final int N, final int DL, final int D, final int DU, final int DLF, final int DF, final int DUF, final int DU2, final Array<int> IPIV_, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RESID,) {
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,6 @@
-      void schkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> _WORK, final Array<double> RWORK, final int NOUT,) {
+      void schkps(final int DOTYPE, final int NN, final int NVAL, final int NNB, final int NBVAL, final int NRANK, final int RANKVAL, final int THRESH, final int TSTERR, final int NMAX, final int A, final int AFAC, final int PERM, final int PIV, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

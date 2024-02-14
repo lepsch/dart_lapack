@@ -23,24 +23,29 @@ void dtgex2(
   final bool WANTQ,
   final bool WANTZ,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
   final int J1,
   final int N1,
   final int N2,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const TWENTY = 2.0e+01;
   const LDST = 4;

@@ -1,4 +1,7 @@
-      void ztpqrt2(final int M, final int N, final int L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> T, final int LDT, final Box<int> INFO,) {
+      void ztpqrt2(final int M, final int N, final int L, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> T_, final int LDT, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final T = T_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,6 @@
-      void ztrtrs(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void ztrtrs(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

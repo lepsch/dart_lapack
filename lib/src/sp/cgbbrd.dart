@@ -1,4 +1,10 @@
-      void cgbbrd(final int VECT, final int M, final int N, final int NCC, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final int D, final int E, final Matrix<double> Q, final int LDQ, final Matrix<double> PT, final int LDPT, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void cgbbrd(final int VECT, final int M, final int N, final int NCC, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final int D, final int E, final Matrix<double> Q_, final int LDQ, final Matrix<double> PT_, final int LDPT, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final Q = Q_.dim();
+  final PT = PT_.dim();
+  final C = C_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

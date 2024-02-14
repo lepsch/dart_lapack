@@ -17,20 +17,26 @@ void dgglse(
   final int M,
   final int N,
   final int P,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> C,
-  final Array<double> D,
-  final Array<double> X,
-  final Array<double> WORK,
+  final Array<double> C_,
+  final Array<double> D_,
+  final Array<double> X_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim();
+  final D = D_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0;
   bool LQUERY;
   int LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR;

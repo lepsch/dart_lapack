@@ -25,26 +25,35 @@ void dgges(
   final String SORT,
   final bool Function(double ZR, double ZI, double D) SELCTG,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final Box<int> SDIM,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> VSL,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> VSL_,
   final int LDVSL,
-  final Matrix<double> VSR,
+  final Matrix<double> VSR_,
   final int LDVSR,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<bool> BWORK,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final VSL = VSL_.dim(LDVSL);
+  final VSR = VSR_.dim(LDVSR);
+  final WORK = WORK_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST;
   int I,

@@ -17,23 +17,23 @@ import 'dcsdts.dart';
 
 Future<void> dckcsd(
   final int NM,
-  final Array<int> MVAL,
-  final Array<int> PVAL,
-  final Array<int> QVAL,
+  final Array<int> MVAL_,
+  final Array<int> PVAL_,
+  final Array<int> QVAL_,
   final int NMATS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
   final int MMAX,
-  final Array<double> X,
-  final Array<double> XF,
-  final Array<double> U1,
-  final Array<double> U2,
-  final Array<double> V1T,
-  final Array<double> V2T,
-  final Array<double> THETA,
-  final Array<int> IWORK,
-  final Array<double> WORK,
-  final Array<double> RWORK,
+  final Array<double> X_,
+  final Array<double> XF_,
+  final Array<double> U1_,
+  final Array<double> U2_,
+  final Array<double> V1T_,
+  final Array<double> V2T_,
+  final Array<double> THETA_,
+  final Array<int> IWORK_,
+  final Array<double> WORK_,
+  final Array<double> RWORK_,
   final Nin NIN,
   final Nout NOUT,
   final Box<int> INFO,
@@ -41,6 +41,20 @@ Future<void> dckcsd(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim();
+  final PVAL = PVAL_.dim();
+  final QVAL = QVAL_.dim();
+  final ISEED = ISEED_.dim();
+  final X = X_.dim();
+  final XF = XF_.dim();
+  final U1 = U1_.dim();
+  final U2 = U2_.dim();
+  final V1T = V1T_.dim();
+  final V2T = V2T_.dim();
+  final THETA = THETA_.dim();
+  final IWORK = IWORK_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const NTESTS = 15;
   const NTYPES = 4;
   const GAPDIGIT = 18.0, ONE = 1.0, ORTH = 1.0e-12, TEN = 10.0, ZERO = 0.0;
@@ -191,12 +205,15 @@ void dlacsg(
   final int M,
   final int P,
   final int Q,
-  final Array<double> THETA,
-  final Array<int> ISEED,
-  final Matrix<double> X,
+  final Array<double> THETA_,
+  final Array<int> ISEED_,
+  final Matrix<double> X_,
   final int LDX,
   final Array<double> WORK,
 ) {
+  final THETA = THETA_.dim();
+  final ISEED = ISEED_.dim();
+  final X = X_.dim(LDX);
   const ONE = 1.0, ZERO = 0.0;
   int I, R;
   final INFO = Box(0);

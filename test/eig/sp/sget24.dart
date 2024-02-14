@@ -1,4 +1,10 @@
-      void sget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED, final int NOUNIT, final int N, final Matrix<double> A, final int LDA, final int H, final int HT, final int WR, final int WI, final int WRT, final int WIT, final int WRTMP, final int WITMP, final Matrix<double> VS, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int RESULT, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO,) {
+      void sget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED_, final int NOUNIT, final int N, final Matrix<double> A_, final int LDA, final int H, final int HT, final int WR, final int WI, final int WRT, final int WIT, final int WRTMP, final int WITMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final VS = VS_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

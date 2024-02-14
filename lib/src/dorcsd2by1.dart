@@ -23,25 +23,33 @@ void dorcsd2by1(
   final int M,
   final int P,
   final int Q,
-  final Matrix<double> X11,
+  final Matrix<double> X11_,
   final int LDX11,
-  final Matrix<double> X21,
+  final Matrix<double> X21_,
   final int LDX21,
-  final Array<double> THETA,
-  final Matrix<double> U1,
+  final Array<double> THETA_,
+  final Matrix<double> U1_,
   final int LDU1,
-  final Matrix<double> U2,
+  final Matrix<double> U2_,
   final int LDU2,
-  final Matrix<double> V1T,
+  final Matrix<double> V1T_,
   final int LDV1T,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine (3.5.0) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X11 = X11_.dim(LDX11);
+  final X21 = X21_.dim(LDX21);
+  final THETA = THETA_.dim();
+  final U1 = U1_.dim(LDU1);
+  final U2 = U2_.dim(LDU2);
+  final V1T = V1T_.dim(LDV1T);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int I,
       IB11D = 0,

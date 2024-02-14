@@ -1,4 +1,9 @@
-      void zla_gbrfsx_extended(final int PREC_TYPE, final int TRANS_TYPE, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final Array<int> IPIV, final int COLEQU, final int C, final Matrix<double> B, final int LDB, final Matrix<double> Y, final int LDY, final int BERR_OUT, final int N_NORMS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int RES, final int AYB, final int DY, final int Y_TAIL, final int RCOND, final int ITHRESH, final int RTHRESH, final int DZ_UB, final int IGNORE_CWISE, final Box<int> INFO,) {
+      void zla_gbrfsx_extended(final int PREC_TYPE, final int TRANS_TYPE, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final Array<int> IPIV_, final int COLEQU, final int C, final Matrix<double> B_, final int LDB, final Matrix<double> Y_, final int LDY, final int BERR_OUT, final int N_NORMS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int RES, final int AYB, final int DY, final int Y_TAIL, final int RCOND, final int ITHRESH, final int RTHRESH, final int DZ_UB, final int IGNORE_CWISE, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final AFB = AFB_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final Y = Y_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -26,18 +26,22 @@ void dlarhs(
   final int KL,
   final int KU,
   final int NRHS,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final X = X_.dim(LDX);
+  final B = B_.dim(LDB);
+  final ISEED = ISEED_.dim();
   const ONE = 1.0, ZERO = 0.0;
   bool BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
   String C1, DIAG;

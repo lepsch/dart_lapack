@@ -1,4 +1,9 @@
-      void stgevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> S, final int LDS, final Matrix<double> P, final int LDP, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int MM, final int M, final Array<double> _WORK, final Box<int> INFO,) {
+      void stgevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> S_, final int LDS, final Matrix<double> P_, final int LDP, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Box<int> INFO,) {
+  final S = S_.dim();
+  final P = P_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

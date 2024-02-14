@@ -10,19 +10,24 @@ void dsgt01(
   final String UPLO,
   final int N,
   final int M,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> D,
-  final Array<double> WORK,
+  final Array<double> D_,
+  final Array<double> WORK_,
   final Array<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Z = Z_.dim(LDZ);
+  final D = D_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I;
   double ANORM, ULP;

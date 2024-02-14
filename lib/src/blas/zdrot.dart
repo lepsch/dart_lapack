@@ -3,9 +3,9 @@ import 'package:lapack/src/matrix.dart';
 
 void zdrot(
   final int N,
-  final Array<Complex> ZX,
+  final Array<Complex> ZX_,
   final int INCX,
-  final Array<Complex> ZY,
+  final Array<Complex> ZY_,
   final int INCY,
   final double C,
   final double S,
@@ -13,6 +13,8 @@ void zdrot(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ZX = ZX_.dim();
+  final ZY = ZY_.dim();
   int I, IX, IY;
   Complex CTEMP;
 

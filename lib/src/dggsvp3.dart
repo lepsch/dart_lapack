@@ -21,29 +21,37 @@ void dggsvp3(
   final int M,
   final int P,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double TOLA,
   final double TOLB,
   final Box<int> K,
   final Box<int> L,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<int> IWORK,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Array<int> IWORK_,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final Q = Q_.dim(LDQ);
+  final IWORK = IWORK_.dim();
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool FORWRD, WANTQ, WANTU, WANTV, LQUERY;
   int I, J, LWKOPT;

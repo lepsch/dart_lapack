@@ -23,13 +23,20 @@ import 'package:lapack/src/zunmlq.dart';
 import 'package:lapack/src/zunmqr.dart';
 
 void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final String JOBU, final String JOBV, final int M, final int N,
-    final Matrix<Complex> A, final int LDA,
-    final Array<double> S,
-    final Matrix<Complex> U, final int LDU,
-    final Matrix<Complex> V, final int LDV, final Box<int> NUMRANK,
-    final Array<int> IWORK, final int LIWORK,
-    final Array<Complex> CWORK, final int LCWORK,
-    final Array<double> RWORK, final int LRWORK, final Box<int> INFO, ) {
+    final Matrix<Complex> A_, final int LDA,
+    final Array<double> S_,
+    final Matrix<Complex> U_, final int LDU,
+    final Matrix<Complex> V_, final int LDV, final Box<int> NUMRANK,
+    final Array<int> IWORK_, final int LIWORK,
+    final Array<Complex> CWORK_, final int LCWORK,
+    final Array<double> RWORK_, final int LRWORK, final Box<int> INFO, ) {
+  final A = A_.dim();
+  final S = S_.dim();
+  final U = U_.dim();
+  final V = V_.dim();
+  final IWORK = IWORK_.dim();
+  final CWORK = CWORK_.dim();
+  final RWORK = RWORK_.dim();
 
       const          ZERO = 0.0, ONE = 1.0 ;
       const          CZERO = Complex(0.0,0.0), CONE = Complex(1.0,0.0) ;

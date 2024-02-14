@@ -17,11 +17,11 @@ void dtrsyl(
   final int ISGN,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
   final Box<double> SCALE,
   final Box<int> INFO,
@@ -29,6 +29,9 @@ void dtrsyl(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRNA, NOTRNB;
   int J, K, K1, K2, KNEXT, L, L1, L2, LNEXT;

@@ -1,4 +1,7 @@
-      void zstein(final int N, final int D, final int E, final int M, final int W, final int IBLOCK, final int ISPLIT, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Array<int> IWORK, final int IFAIL, final Box<int> INFO,) {
+      void zstein(final int N, final int D, final int E, final int M, final int W, final int IBLOCK, final int ISPLIT, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Array<int> IWORK_, final int IFAIL, final Box<int> INFO,) {
+  final Z = Z_.dim();
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

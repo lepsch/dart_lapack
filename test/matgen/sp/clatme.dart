@@ -1,4 +1,7 @@
-      void clatme(final int N, final int DIST, final Array<int> ISEED, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int UPPER, final int SIM, final int DS, final int MODES, final int CONDS, final int KL, final int KU, final int ANORM, final Matrix<double> A, final int LDA, final Array<double> _WORK, final Box<int> INFO,) {
+      void clatme(final int N, final int DIST, final Array<int> ISEED_, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int UPPER, final int SIM, final int DS, final int MODES, final int CONDS, final int KL, final int KU, final int ANORM, final Matrix<double> A_, final int LDA, final Array<double> _WORK_, final Box<int> INFO,) {
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

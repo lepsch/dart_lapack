@@ -1,4 +1,5 @@
-      void slarrf(final int N, final int D, final int L, final int LD, final int CLSTRT, final int CLEND, final int W, final int WGAP, final int WERR, final int SPDIAM, final int CLGAPL, final int CLGAPR, final int PIVMIN, final int SIGMA, final int DPLUS, final int LPLUS, final Array<double> _WORK, final Box<int> INFO,) {
+      void slarrf(final int N, final int D, final int L, final int LD, final int CLSTRT, final int CLEND, final int W, final int WGAP, final int WERR, final int SPDIAM, final int CLGAPL, final int CLGAPR, final int PIVMIN, final int SIGMA, final int DPLUS, final int LPLUS, final Array<double> _WORK_, final Box<int> INFO,) {
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

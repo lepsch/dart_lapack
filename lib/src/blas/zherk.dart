@@ -11,15 +11,17 @@ void zherk(
   final int N,
   final int K,
   final double ALPHA,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
   final double BETA,
-  final Matrix<Complex> C,
+  final Matrix<Complex> C_,
   final int LDC,
 ) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final C = C_.dim();
   Complex TEMP;
   double RTEMP;
   int I, INFO, J, L, NROWA;

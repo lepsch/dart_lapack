@@ -1,4 +1,5 @@
-      void alareq(final int PATH, final int NMATS, final Array<bool> DOTYPE, final int NTYPES, final int NIN, final int NOUT,) {
+      void alareq(final int PATH, final int NMATS, final Array<bool> DOTYPE_, final int NTYPES, final int NIN, final int NOUT,) {
+  final DOTYPE = DOTYPE_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

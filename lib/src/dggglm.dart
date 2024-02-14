@@ -15,20 +15,26 @@ void dggglm(
   final int N,
   final int M,
   final int P,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> D,
-  final Array<double> X,
-  final Array<double> Y,
-  final Array<double> WORK,
+  final Array<double> D_,
+  final Array<double> X_,
+  final Array<double> Y_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final D = D_.dim();
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;
   int I, LOPT = 0, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP;

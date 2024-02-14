@@ -19,16 +19,19 @@ void dlatrs(
   final String DIAG,
   final String NORMIN,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> X,
+  final Array<double> X_,
   final Box<double> SCALE,
-  final Array<double> CNORM,
+  final Array<double> CNORM_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final X = X_.dim();
+  final CNORM = CNORM_.dim();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   bool NOTRAN, NOUNIT, UPPER;
   int I, IMAX, J, JFIRST, JINC, JLAST;

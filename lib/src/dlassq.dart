@@ -15,11 +15,12 @@ final tsml = dtsml;
 
 void dlassq(
   final int n,
-  final Array<double> x,
+  final Array<double> x_,
   final int incx,
   final Box<double> scale,
   final Box<double> sumsq,
 ) {
+  final x = x_.dim();
   //  use LA_XISNAN
 
 // -- LAPACK auxiliary routine --

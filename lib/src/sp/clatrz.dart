@@ -1,4 +1,6 @@
-      void clatrz(final int M, final int N, final int L, final Matrix<double> A, final int LDA, final int TAU, final Array<double> WORK,) {
+      void clatrz(final int M, final int N, final int L, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> WORK_,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

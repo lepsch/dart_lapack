@@ -1,4 +1,10 @@
-      void zlaqr3(final int WANTT, final int WANTZ, final int N, final int KTOP, final int KBOT, final int NW, final Matrix<double> H, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z, final int LDZ, final int NS, final int ND, final int SH, final Matrix<double> V, final int LDV, final int NH, final Matrix<double> T, final int LDT, final int NV, final Matrix<double> WV, final int LDWV, final Array<double> WORK, final int LWORK,) {
+      void zlaqr3(final int WANTT, final int WANTZ, final int N, final int KTOP, final int KBOT, final int NW, final Matrix<double> H_, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final int NS, final int ND, final int SH, final Matrix<double> V_, final int LDV, final int NH, final Matrix<double> T_, final int LDT, final int NV, final Matrix<double> WV_, final int LDWV, final Array<double> WORK_, final int LWORK,) {
+  final H = H_.dim();
+  final Z = Z_.dim();
+  final V = V_.dim();
+  final T = T_.dim();
+  final WV = WV_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

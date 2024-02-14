@@ -1,4 +1,6 @@
-      double slatm2(final int M, final int N, final int I, final int J, final int KL, final int KU, final int IDIST, final Array<int> ISEED, final int D, final int IGRADE, final int DL, final int DR, final int IPVTNG, final Array<int> IWORK, final int SPARSE,) {
+      double slatm2(final int M, final int N, final int I, final int J, final int KL, final int KU, final int IDIST, final Array<int> ISEED_, final int D, final int IGRADE, final int DL, final int DR, final int IPVTNG, final Array<int> IWORK_, final int SPARSE,) {
+  final ISEED = ISEED_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

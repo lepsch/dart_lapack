@@ -17,28 +17,40 @@ void dlaed8(
   final Box<int> K,
   final int N,
   final int QSIZ,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<int> INDXQ,
+  final Array<int> INDXQ_,
   final Box<double> RHO,
   final int CUTPNT,
-  final Array<double> Z,
-  final Array<double> DLAMBDA,
-  final Matrix<double> Q2,
+  final Array<double> Z_,
+  final Array<double> DLAMBDA_,
+  final Matrix<double> Q2_,
   final int LDQ2,
-  final Array<double> W,
-  final Array<int> PERM,
+  final Array<double> W_,
+  final Array<int> PERM_,
   final Box<int> GIVPTR,
-  final Matrix<int> GIVCOL,
-  final Matrix<double> GIVNUM,
-  final Array<int> INDXP,
-  final Array<int> INDX,
+  final Matrix<int> GIVCOL_,
+  final Matrix<double> GIVNUM_,
+  final Array<int> INDXP_,
+  final Array<int> INDX_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final INDXQ = INDXQ_.dim();
+  final Z = Z_.dim();
+  final DLAMBDA = DLAMBDA_.dim();
+  final Q2 = Q2_.dim(LDQ2);
+  final W = W_.dim();
+  final PERM = PERM_.dim();
+  final GIVCOL = GIVCOL_.dim(2);
+  final GIVNUM = GIVNUM_.dim(2);
+  final INDXP = INDXP_.dim();
+  final INDX = INDX_.dim();
   const MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
 
   int I, IMAX, J, JLAM = 0, JMAX, JP, K2, N1, N1P1, N2;

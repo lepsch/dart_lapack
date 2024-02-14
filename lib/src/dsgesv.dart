@@ -19,21 +19,27 @@ import 'package:lapack/src/xerbla.dart';
 void dsgesv(
   final int N,
   final int NRHS,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> IPIV,
-  final Matrix<double> B,
+  final Array<int> IPIV_,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> WORK,
-  final Array<double> SWORK,
+  final Matrix<double> WORK_,
+  final Array<double> SWORK_,
   final Box<int> ITER,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
+  final SWORK = SWORK_.dim();
   const DOITREF = true;
   const ITERMAX = 30;
   const BWDMAX = 1.0e+00;

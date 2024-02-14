@@ -1,4 +1,10 @@
-      void zhgeqz(final int JOB, final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final Matrix<double> T, final int LDT, final int ALPHA, final int BETA, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void zhgeqz(final int JOB, final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H_, final int LDH, final Matrix<double> T_, final int LDT, final int ALPHA, final int BETA, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Box<int> INFO,) {
+  final H = H_.dim();
+  final T = T_.dim();
+  final Q = Q_.dim();
+  final Z = Z_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

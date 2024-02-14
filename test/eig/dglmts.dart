@@ -14,24 +14,34 @@ void dglmts(
   final int N,
   final int M,
   final int P,
-  final Matrix<double> A,
-  final Matrix<double> AF,
+  final Matrix<double> A_,
+  final Matrix<double> AF_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> BF,
+  final Matrix<double> B_,
+  final Matrix<double> BF_,
   final int LDB,
-  final Array<double> D,
-  final Array<double> DF,
-  final Array<double> X,
-  final Array<double> U,
-  final Array<double> WORK,
+  final Array<double> D_,
+  final Array<double> DF_,
+  final Array<double> X_,
+  final Array<double> U_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final Box<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDA);
+  final B = B_.dim(LDB);
+  final BF = BF_.dim(LDB);
+  final D = D_.dim();
+  final DF = DF_.dim();
+  final X = X_.dim();
+  final U = U_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   final INFO = Box(0);
   double ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;

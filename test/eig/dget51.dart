@@ -10,20 +10,25 @@ import 'package:lapack/src/matrix.dart';
 void dget51(
   final int ITYPE,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<double> RESULT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0;
   int JCOL, JDIAG, JROW;
   double ANORM, ULP, UNFL, WNORM;

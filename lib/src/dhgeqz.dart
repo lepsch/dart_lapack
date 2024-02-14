@@ -22,24 +22,32 @@ void dhgeqz(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> Q,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
+  final T = T_.dim(LDT);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
   const HALF = 0.5, ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2;
   bool ILAZR2,
       ILAZRO,

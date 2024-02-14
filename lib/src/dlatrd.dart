@@ -13,16 +13,20 @@ void dlatrd(
   final String UPLO,
   final int N,
   final int NB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> E,
-  final Array<double> TAU,
-  final Matrix<double> W,
+  final Array<double> E_,
+  final Array<double> TAU_,
+  final Matrix<double> W_,
   final int LDW,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final E = E_.dim();
+  final TAU = TAU_.dim();
+  final W = W_.dim(LDW);
   const ZERO = 0.0, ONE = 1.0, HALF = 0.5;
   int I, IW;
   double ALPHA;

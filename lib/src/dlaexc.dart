@@ -15,19 +15,22 @@ import 'package:lapack/src/matrix.dart';
 void dlaexc(
   final bool WANTQ,
   final int N,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
   final int J1,
   final int N1,
   final int N2,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final T = T_.dim(LDT);
+  final Q = Q_.dim(LDQ);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const TEN = 1.0e+1;
   const LDD = 4, LDX = 2;

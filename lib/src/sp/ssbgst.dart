@@ -1,4 +1,8 @@
-      void ssbgst(final int VECT, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB, final int LDAB, final Matrix<double> BB, final int LDBB, final Matrix<double> X, final int LDX, final Array<double> _WORK, final Box<int> INFO,) {
+      void ssbgst(final int VECT, final int UPLO, final int N, final int KA, final int KB, final Matrix<double> AB_, final int LDAB, final Matrix<double> BB_, final int LDBB, final Matrix<double> X_, final int LDX, final Array<double> _WORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final BB = BB_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -15,17 +15,20 @@ import 'package:lapack/src/matrix.dart';
 void dlatdf(
   final int IJOB,
   final int N,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> RHS,
+  final Array<double> RHS_,
   final Box<double> RDSUM,
   final Box<double> RDSCAL,
-  final Array<int> IPIV,
+  final Array<int> IPIV_,
   final Array<int> JPIV,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.dim(LDZ);
+  final RHS = RHS_.dim();
+  final IPIV = IPIV_.dim();
   const MAXDIM = 8;
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;

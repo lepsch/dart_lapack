@@ -1,4 +1,7 @@
-      void sptsvx(final int FACT, final int N, final int NRHS, final int D, final int E, final int DF, final int EF, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK, final Box<int> INFO,) {
+      void sptsvx(final int FACT, final int N, final int NRHS, final int D, final int E, final int DF, final int EF, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Box<int> INFO,) {
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

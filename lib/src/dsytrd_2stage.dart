@@ -12,20 +12,26 @@ void dsytrd_2stage(
   final String VECT,
   final String UPLO,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> TAU,
-  final Array<double> HOUS2,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> TAU_,
+  final Array<double> HOUS2_,
   final int LHOUS2,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  final E = E_.dim();
+  final TAU = TAU_.dim();
+  final HOUS2 = HOUS2_.dim();
+  final WORK = WORK_.dim();
   bool LQUERY, UPPER, WANTQ;
   int KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 

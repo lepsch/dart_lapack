@@ -20,8 +20,8 @@ import 'dlatm1.dart';
 void dlatme(
   final int N,
   final String DIST,
-  final Array<int> ISEED,
-  final Array<double> D,
+  final Array<int> ISEED_,
+  final Array<double> D_,
   final int MODE,
   final double COND,
   final double DMAX,
@@ -29,20 +29,25 @@ void dlatme(
   final String RSIGN,
   final String UPPER,
   final String SIM,
-  final Array<double> DS,
+  final Array<double> DS_,
   final int MODES,
   final double CONDS,
   final int KL,
   final int KU,
   final double ANORM,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
+  final DS = DS_.dim();
+  final A = A_.dim(LDA);
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   const ONE = 1.0;
   const HALF = 1.0 / 2.0;

@@ -27,29 +27,43 @@ Future<void> ddrgsx(
   final double THRESH,
   final Nin NIN,
   final Nout NOUT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> AI,
-  final Matrix<double> BI,
-  final Matrix<double> Z,
-  final Matrix<double> Q,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> C,
+  final Matrix<double> B_,
+  final Matrix<double> AI_,
+  final Matrix<double> BI_,
+  final Matrix<double> Z_,
+  final Matrix<double> Q_,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> C_,
   final int LDC,
-  final Array<double> S,
-  final Array<double> WORK,
+  final Array<double> S_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Array<bool> BWORK,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final AI = AI_.dim(LDA);
+  final BI = BI_.dim(LDA);
+  final Z = Z_.dim(LDA);
+  final Q = Q_.dim(LDA);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final C = C_.dim(LDC);
+  final S = S_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1;
   bool ILABAD;
   String SENSE = '';

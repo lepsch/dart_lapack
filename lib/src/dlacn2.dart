@@ -6,9 +6,9 @@ import 'package:lapack/src/matrix.dart';
 
 void dlacn2(
   final int N,
-  final Array<double> V,
-  final Array<double> X,
-  final Array<int> ISGN,
+  final Array<double> V_,
+  final Array<double> X_,
+  final Array<int> ISGN_,
   final Box<double> EST,
   final Box<int> KASE,
   final Array<int> ISAVE,
@@ -16,6 +16,9 @@ void dlacn2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim();
+  final X = X_.dim();
+  final ISGN = ISGN_.dim();
   const ITMAX = 5;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int I, JLAST;

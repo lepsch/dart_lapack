@@ -1,4 +1,5 @@
-      void cdrvrf3(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A, final int LDA, final int ARF, final int B1, final int B2, final int S_WORK_CLANGE, final int C_WORK_CGEQRF, final int TAU,) {
+      void cdrvrf3(final int NOUT, final int NN, final int NVAL, final int THRESH, final Matrix<double> A_, final int LDA, final int ARF, final int B1, final int B2, final int S_WORK_CLANGE, final int C_WORK_CGEQRF, final int TAU,) {
+  final A = A_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

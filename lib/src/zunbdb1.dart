@@ -1,4 +1,7 @@
-      void zunbdb1(final int M, final int P, final int Q, final Matrix<double> X11, final int LDX11, final Matrix<double> X21, final int LDX21, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void zunbdb1(final int M, final int P, final int Q, final Matrix<double> X11_, final int LDX11, final Matrix<double> X21_, final int LDX21, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final X11 = X11_.dim();
+  final X21 = X21_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

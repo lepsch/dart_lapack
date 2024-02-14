@@ -9,18 +9,24 @@ import 'package:lapack/src/xerbla.dart';
 void dlagts(
   final int JOB,
   final int N,
-  final Array<double> A,
-  final Array<double> B,
-  final Array<double> C,
-  final Array<double> D,
-  final Array<int> IN,
-  final Array<double> Y,
+  final Array<double> A_,
+  final Array<double> B_,
+  final Array<double> C_,
+  final Array<double> D_,
+  final Array<int> IN_,
+  final Array<double> Y_,
   final Box<double> TOL,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final B = B_.dim();
+  final C = C_.dim();
+  final D = D_.dim();
+  final IN = IN_.dim();
+  final Y = Y_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int K = 0;
   double ABSAK = 0, AK = 0, BIGNUM = 0, EPS = 0, PERT = 0, SFMIN = 0, TEMP = 0;

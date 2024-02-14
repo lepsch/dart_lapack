@@ -1,4 +1,5 @@
-      void cherk(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A, final int LDA, final int BETA, final int C, final int LDC,) {
+      void cherk(final int UPLO, final int TRANS, final int N, final int K, final int ALPHA, final Matrix<double> A_, final int LDA, final int BETA, final int C, final int LDC,) {
+  final A = A_.dim();
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

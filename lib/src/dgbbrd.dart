@@ -17,22 +17,29 @@ void dgbbrd(
   final int NCC,
   final int KL,
   final int KU,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> PT,
+  final Matrix<double> PT_,
   final int LDPT,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final D = D_.dim();
+  final E = E_.dim();
+  final Q = Q_.dim(LDQ);
+  final PT = PT_.dim(LDPT);
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool WANTB, WANTC, WANTPT, WANTQ;
   int I,

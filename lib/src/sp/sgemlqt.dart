@@ -1,4 +1,8 @@
-      void sgemlqt(final int SIDE, final int TRANS, final int M, final int N, final int K, final int MB, final Matrix<double> V, final int LDV, final Matrix<double> T, final int LDT, final Matrix<double> C, final int LDC, final Array<double> _WORK, final Box<int> INFO,) {
+      void sgemlqt(final int SIDE, final int TRANS, final int M, final int N, final int K, final int MB, final Matrix<double> V_, final int LDV, final Matrix<double> T_, final int LDT, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
+  final V = V_.dim();
+  final T = T_.dim();
+  final C = C_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

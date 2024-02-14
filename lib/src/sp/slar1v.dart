@@ -1,4 +1,5 @@
-      void slar1v(final int N, final int B1, final int BN, final int LAMBDA, final int D, final int L, final int LD, final int LLD, final int PIVMIN, final int GAPTOL, final int Z, final int WANTNC, final int NEGCNT, final int ZTZ, final int MINGMA, final int R, final int ISUPPZ, final int NRMINV, final int RESID, final int RQCORR, final Array<double> WORK,) {
+      void slar1v(final int N, final int B1, final int BN, final int LAMBDA, final int D, final int L, final int LD, final int LLD, final int PIVMIN, final int GAPTOL, final int Z, final int WANTNC, final int NEGCNT, final int ZTZ, final int MINGMA, final int R, final int ISUPPZ, final int NRMINV, final int RESID, final int RQCORR, final Array<double> WORK_,) {
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

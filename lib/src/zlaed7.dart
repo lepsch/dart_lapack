@@ -1,4 +1,8 @@
-      void zlaed7(final int N, final int CUTPNT, final int QSIZ, final int TLVLS, final int CURLVL, final int CURPBM, final int D, final Matrix<double> Q, final int LDQ, final int RHO, final int INDXQ, final int QSTORE, final int QPTR, final int PRMPTR, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final Array<double> _WORK, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void zlaed7(final int N, final int CUTPNT, final int QSIZ, final int TLVLS, final int CURLVL, final int CURPBM, final int D, final Matrix<double> Q_, final int LDQ, final int RHO, final int INDXQ, final int QSTORE, final int QPTR, final int PRMPTR, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final Array<double> _WORK_, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final Q = Q_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

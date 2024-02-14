@@ -1,4 +1,6 @@
-      void ssyequb(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int S, final int SCOND, final int AMAX, final Array<double> _WORK, final Box<int> INFO,) {
+      void ssyequb(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int S, final int SCOND, final int AMAX, final Array<double> _WORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

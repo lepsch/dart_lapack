@@ -1,7 +1,10 @@
-      void zlaqp3rk(final int M, final int N, final int NRHS, final int IOFFSET, final int NB, final int ABSTOL, final int RELTOL, final int KP1, final int MAXC2NRM, final Matrix<double> A, final int LDA, final int DONE, final int KB, final int MAXC2NRMK, final int RELMAXC2NRMK, final int JPIV, final int TAU, final int VN1, final int VN2, final int AUXV, final Matrix<double> F, final int LDF, final Array<int> IWORK, final Box<int> INFO,) {
+      void zlaqp3rk(final int M, final int N, final int NRHS, final int IOFFSET, final int NB, final int ABSTOL, final int RELTOL, final int KP1, final int MAXC2NRM, final Matrix<double> A_, final int LDA, final int DONE, final int KB, final int MAXC2NRMK, final int RELMAXC2NRMK, final int JPIV, final int TAU, final int VN1, final int VN2, final int AUXV, final Matrix<double> F_, final int LDF, final Array<int> IWORK_, final Box<int> INFO,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final F = F_.dim();
+  final IWORK = IWORK_.dim();
       bool               DONE;
       int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS;
       double             ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;

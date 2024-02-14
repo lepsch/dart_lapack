@@ -1,4 +1,7 @@
-      void slaein(final int RIGHTV, final int NOINIT, final int N, final Matrix<double> H, final int LDH, final int WR, final int WI, final int VR, final int VI, final Matrix<double> B, final int LDB, final Array<double> _WORK, final int EPS3, final int SMLNUM, final int BIGNUM, final Box<int> INFO,) {
+      void slaein(final int RIGHTV, final int NOINIT, final int N, final Matrix<double> H_, final int LDH, final int WR, final int WI, final int VR, final int VI, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final int EPS3, final int SMLNUM, final int BIGNUM, final Box<int> INFO,) {
+  final H = H_.dim();
+  final B = B_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

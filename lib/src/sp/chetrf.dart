@@ -1,4 +1,7 @@
-      void chetrf(final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void chetrf(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

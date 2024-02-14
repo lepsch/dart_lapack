@@ -4,16 +4,19 @@ import 'package:lapack/src/matrix.dart';
 
 void dlargv(
   final int N,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
-  final Array<double> C,
+  final Array<double> C_,
   final int INCC,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final C = C_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I, IC, IX, IY;
   double F, G, T, TT;

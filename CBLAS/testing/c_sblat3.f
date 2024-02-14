@@ -1878,7 +1878,8 @@
       // End of SMAKE.
 
       }
-      void smmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV,) {
+      void smmch(final int TRANSA, final int TRANSB, final int M, final int N, final int KK, final int ALPHA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int BETA, final Matrix<double> C, final int LDC, final int CT, final int G, final Matrix<double> CC_, final int LDCC, final int EPS, final int ERR, final int FATAL, final int NOUT, final int MV,) {
+  final CC = CC_.dim();
 
 // Checks the results of the computational tests.
 

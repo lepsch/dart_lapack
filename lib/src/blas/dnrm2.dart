@@ -7,10 +7,11 @@ import 'package:lapack/src/intrinsics/minexponent.dart';
 import 'package:lapack/src/intrinsics/radix.dart';
 import 'package:lapack/src/matrix.dart';
 
-double dnrm2(final int n, final Array<double> x, final int incx) {
+double dnrm2(final int n, final Array<double> x_, final int incx) {
 // -- Reference BLAS level1 routine (version 3.9.1) --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final x = x_.dim();
   const zero = 0.0;
   const one = 1.0;
   final maxN = huge(0.0);

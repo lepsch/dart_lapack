@@ -11,18 +11,22 @@ import 'package:lapack/src/matrix.dart';
 void dbdt02(
   final int M,
   final int N,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<double> RESID,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
+  final U = U_.dim(LDU);
+  final WORK = WORK_.dim(M);
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double BNORM, EPS, REALMN;

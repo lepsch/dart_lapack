@@ -1,8 +1,9 @@
 import 'package:lapack/src/matrix.dart';
 
-double dlaran(final Array<int> ISEED) {
+double dlaran(final Array<int> ISEED_) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
+  final ISEED = ISEED_.dim();
   const M1 = 494, M2 = 322, M3 = 2508, M4 = 2549;
   const ONE = 1.0;
   const IPW2 = 4096, R = ONE / IPW2;

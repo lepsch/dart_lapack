@@ -10,19 +10,24 @@ import 'package:lapack/src/xerbla.dart';
 
 void dlaed1(
   final int N,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<int> INDXQ,
+  final Array<int> INDXQ_,
   final Box<double> RHO,
   final int CUTPNT,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final INDXQ = INDXQ_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   int COLTYP, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, N1, N2, ZPP1;
   final K = Box(0);
 

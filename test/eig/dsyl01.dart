@@ -14,14 +14,17 @@ import '../matgen/dlatmr.dart';
 
 void dsyl01(
   final double THRESH,
-  final Array<int> NFAIL,
-  final Array<double> RMAX,
-  final Array<int> NINFO,
+  final Array<int> NFAIL_,
+  final Array<double> RMAX_,
+  final Array<int> NINFO_,
   final Box<int> KNT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NFAIL = NFAIL_.dim();
+  final RMAX = RMAX_.dim();
+  final NINFO = NINFO_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXM = 245, MAXN = 192, LDSWORK = 36;
   String TRANA = '', TRANB = '';

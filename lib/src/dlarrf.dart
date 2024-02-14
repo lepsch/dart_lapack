@@ -8,27 +8,36 @@ import 'package:lapack/src/matrix.dart';
 
 void dlarrf(
   final int N,
-  final Array<double> D,
-  final Array<double> L,
-  final Array<double> LD,
+  final Array<double> D_,
+  final Array<double> L_,
+  final Array<double> LD_,
   final int CLSTRT,
   final int CLEND,
-  final Array<double> W,
-  final Array<double> WGAP,
-  final Array<double> WERR,
+  final Array<double> W_,
+  final Array<double> WGAP_,
+  final Array<double> WERR_,
   final double SPDIAM,
   final double CLGAPL,
   final double CLGAPR,
   final double PIVMIN,
   final Box<double> SIGMA,
-  final Array<double> DPLUS,
-  final Array<double> LPLUS,
-  final Array<double> WORK,
+  final Array<double> DPLUS_,
+  final Array<double> LPLUS_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final L = L_.dim();
+  final LD = LD_.dim();
+  final W = W_.dim();
+  final WGAP = WGAP_.dim();
+  final WERR = WERR_.dim();
+  final DPLUS = DPLUS_.dim();
+  final LPLUS = LPLUS_.dim();
+  final WORK = WORK_.dim();
   const ONE = 1.0,
       TWO = 2.0,
       FOUR = 4.0,

@@ -1,4 +1,5 @@
-      void slaqge(final int M, final int N, final Matrix<double> A, final int LDA, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final int EQUED,) {
+      void slaqge(final int M, final int N, final Matrix<double> A_, final int LDA, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final int EQUED,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

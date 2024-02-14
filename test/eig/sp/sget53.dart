@@ -1,4 +1,5 @@
-      void sget53(final int A, final int LDA, final Matrix<double> B, final int LDB, final int SCALE, final int WR, final int WI, final int RESULT, final Box<int> INFO,) {
+      void sget53(final int A, final int LDA, final Matrix<double> B_, final int LDB, final int SCALE, final int WR, final int WI, final int RESULT, final Box<int> INFO,) {
+  final B = B_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

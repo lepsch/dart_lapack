@@ -24,30 +24,38 @@ void dlaqr3(
   final int KTOP,
   final int KBOT,
   final int NW,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
   final int ILOZ,
   final int IHIZ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
   final Box<int> NS,
   final Box<int> ND,
-  final Array<double> SR,
-  final Array<double> SI,
-  final Matrix<double> V,
+  final Array<double> SR_,
+  final Array<double> SI_,
+  final Matrix<double> V_,
   final int LDV,
   final int NH,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
   final int NV,
-  final Matrix<double> WV,
+  final Matrix<double> WV_,
   final int LDWV,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
+  final Z = Z_.dim(LDZ);
+  final SR = SR_.dim();
+  final SI = SI_.dim();
+  final V = V_.dim(LDV);
+  final T = T_.dim(LDT);
+  final WV = WV_.dim(LDWV);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   double EVI,
       EVK,

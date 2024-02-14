@@ -6,7 +6,8 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgtts2(final int ITRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV, final int B, final int LDB,) {
+      void dgtts2(final int ITRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV_, final int B, final int LDB,) {
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -7,14 +7,17 @@ void dlasdt(
   final int N,
   final Box<int> LVL,
   final Box<int> ND,
-  final Array<int> INODE,
-  final Array<int> NDIML,
-  final Array<int> NDIMR,
+  final Array<int> INODE_,
+  final Array<int> NDIML_,
+  final Array<int> NDIMR_,
   final int MSUB,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final INODE = INODE_.dim();
+  final NDIML = NDIML_.dim();
+  final NDIMR = NDIMR_.dim();
   const TWO = 2.0;
   int I, IL, IR, LLST, MAXN, NCRNT, NLVL;
   double TEMP;

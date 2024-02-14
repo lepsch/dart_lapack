@@ -1,4 +1,5 @@
-      void slaqr1(final int N, final Matrix<double> H, final int LDH, final int SR1, final int SI1, final int SR2, final int SI2, final int V,) {
+      void slaqr1(final int N, final Matrix<double> H_, final int LDH, final int SR1, final int SI1, final int SR2, final int SI2, final int V,) {
+  final H = H_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

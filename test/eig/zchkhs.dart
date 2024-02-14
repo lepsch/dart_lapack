@@ -1,4 +1,11 @@
-      void zchkhs(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int T1, final int T2, final Matrix<double> U, final int LDU, final int Z, final int UZ, final int W1, final int W3, final int EVECTL, final int EVECTR, final int EVECTY, final int EVECTX, final int UU, final int TAU, final Array<double> _WORK, final int NWORK, final Array<double> RWORK, final Array<int> IWORK, final int SELECT, final int RESULT, final Box<int> INFO,) {
+      void zchkhs(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int H, final int T1, final int T2, final Matrix<double> U_, final int LDU, final int Z, final int UZ, final int W1, final int W3, final int EVECTL, final int EVECTR, final int EVECTY, final int EVECTX, final int UU, final int TAU, final Array<double> _WORK_, final int NWORK, final Array<double> RWORK_, final Array<int> IWORK_, final int SELECT, final int RESULT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final U = U_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

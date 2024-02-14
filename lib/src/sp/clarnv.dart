@@ -1,4 +1,5 @@
-      void clarnv(final int IDIST, final Array<int> ISEED, final int N, final int X,) {
+      void clarnv(final int IDIST, final Array<int> ISEED_, final int N, final int X,) {
+  final ISEED = ISEED_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

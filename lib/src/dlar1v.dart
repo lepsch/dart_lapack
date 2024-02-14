@@ -10,19 +10,19 @@ void dlar1v(
   final int B1,
   final int BN,
   final double LAMBDA,
-  final Array<double> D,
-  final Array<double> L,
-  final Array<double> LD,
-  final Array<double> LLD,
+  final Array<double> D_,
+  final Array<double> L_,
+  final Array<double> LD_,
+  final Array<double> LLD_,
   final double PIVMIN,
   final double GAPTOL,
-  final Array<double> Z,
+  final Array<double> Z_,
   final bool WANTNC,
   final Box<int> NEGCNT,
   final Box<double> ZTZ,
   final Box<double> MINGMA,
   final Box<int> R,
-  final Array<int> ISUPPZ,
+  final Array<int> ISUPPZ_,
   final Box<double> NRMINV,
   final Box<double> RESID,
   final Box<double> RQCORR,
@@ -31,6 +31,12 @@ void dlar1v(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final L = L_.dim();
+  final LD = LD_.dim();
+  final LLD = LLD_.dim();
+  final Z = Z_.dim();
+  final ISUPPZ = ISUPPZ_.dim();
   const ZERO = 0.0, ONE = 1.0;
 
   bool SAWNAN1, SAWNAN2;

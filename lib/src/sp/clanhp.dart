@@ -1,4 +1,5 @@
-      double clanhp(final int NORM, final int UPLO, final int N, final int AP, final Array<double> WORK,) {
+      double clanhp(final int NORM, final int UPLO, final int N, final int AP, final Array<double> WORK_,) {
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

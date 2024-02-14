@@ -1,4 +1,6 @@
-      void clahrd(final int N, final int K, final int NB, final Matrix<double> A, final int LDA, final int TAU, final Matrix<double> T, final int LDT, final int Y, final int LDY,) {
+      void clahrd(final int N, final int K, final int NB, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> T_, final int LDT, final int Y, final int LDY,) {
+  final A = A_.dim();
+  final T = T_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

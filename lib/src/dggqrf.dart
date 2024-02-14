@@ -5,26 +5,31 @@ import 'package:lapack/src/dgerqf.dart';
 import 'package:lapack/src/dormqr.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/qr/ll/dgeqrf.dart';
+import 'package:lapack/src/dgeqrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
 void dggqrf(
   final int N,
   final int M,
   final int P,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAUA,
-  final Matrix<double> B,
+  final Array<double> TAUA_,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> TAUB,
-  final Array<double> WORK,
+  final Array<double> TAUB_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TAUA = TAUA_.dim();
+  final B = B_.dim(LDB);
+  final TAUB = TAUB_.dim();
+  final WORK = WORK_.dim();
   bool LQUERY;
   int LOPT, LWKOPT, NB, NB1, NB2, NB3;
 

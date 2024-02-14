@@ -1,4 +1,7 @@
-      void cstt22(final int N, final int M, final int KBAND, final int AD, final int AE, final int SD, final int SE, final Matrix<double> U, final int LDU, final Matrix<double> WORK, final int LDWORK, final Array<double> RWORK, final int RESULT,) {
+      void cstt22(final int N, final int M, final int KBAND, final int AD, final int AE, final int SD, final int SE, final Matrix<double> U_, final int LDU, final Matrix<double> WORK_, final int LDWORK, final Array<double> RWORK_, final int RESULT,) {
+  final U = U_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

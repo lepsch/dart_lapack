@@ -14,19 +14,24 @@ void dsbgv(
   final int N,
   final int KA,
   final int KB,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Matrix<double> BB,
+  final Matrix<double> BB_,
   final int LDBB,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final BB = BB_.dim(LDBB);
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
   bool UPPER, WANTZ;
   String VECT;
   int INDE, INDWRK;

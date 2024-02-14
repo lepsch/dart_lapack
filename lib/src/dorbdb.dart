@@ -16,27 +16,38 @@ void dorbdb(
   final int M,
   final int P,
   final int Q,
-  final Matrix<double> X11,
+  final Matrix<double> X11_,
   final int LDX11,
-  final Matrix<double> X12,
+  final Matrix<double> X12_,
   final int LDX12,
-  final Matrix<double> X21,
+  final Matrix<double> X21_,
   final int LDX21,
-  final Matrix<double> X22,
+  final Matrix<double> X22_,
   final int LDX22,
-  final Array<double> THETA,
-  final Array<double> PHI,
-  final Array<double> TAUP1,
-  final Array<double> TAUP2,
-  final Array<double> TAUQ1,
-  final Array<double> TAUQ2,
-  final Array<double> WORK,
+  final Array<double> THETA_,
+  final Array<double> PHI_,
+  final Array<double> TAUP1_,
+  final Array<double> TAUP2_,
+  final Array<double> TAUQ1_,
+  final Array<double> TAUQ2_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X11 = X11_.dim(LDX11);
+  final X12 = X12_.dim(LDX12);
+  final X21 = X21_.dim(LDX21);
+  final X22 = X22_.dim(LDX22);
+  final THETA = THETA_.dim();
+  final PHI = PHI_.dim();
+  final TAUP1 = TAUP1_.dim();
+  final TAUP2 = TAUP2_.dim();
+  final TAUQ1 = TAUQ1_.dim();
+  final TAUQ2 = TAUQ2_.dim();
+  final WORK = WORK_.dim();
   const REALONE = 1.0;
   const ONE = 1.0;
   bool COLMAJOR, LQUERY;

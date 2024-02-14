@@ -1,4 +1,6 @@
-      void sspev(final int JOBZ, final int UPLO, final int N, final int AP, final int W, final Matrix<double> Z, final int LDZ, final Array<double> _WORK, final Box<int> INFO,) {
+      void sspev(final int JOBZ, final int UPLO, final int N, final int AP, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Box<int> INFO,) {
+  final Z = Z_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

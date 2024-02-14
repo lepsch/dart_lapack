@@ -10,20 +10,26 @@ import 'package:lapack/src/matrix.dart';
 void dbdt04(
   final String UPLO,
   final int N,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> S,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> S_,
   final int NS,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<double> RESID,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim(N);
+  final E = E_.dim(N - 1);
+  final S = S_.dim(NS);
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDVT);
+  final WORK = WORK_.dim(2 * N);
   const ZERO = 0.0, ONE = 1.0;
   int I, J, K;
   double BNORM, EPS;

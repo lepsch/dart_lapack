@@ -8,8 +8,8 @@ void dlaed6(
   final int KNITER,
   final bool ORGATI,
   final double RHO,
-  final Array<double> D,
-  final Array<double> Z,
+  final Array<double> D_,
+  final Array<double> Z_,
   final double FINIT,
   final Box<double> TAU,
   final Box<int> INFO,
@@ -17,6 +17,8 @@ void dlaed6(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Z = Z_.dim();
   const MAXIT = 40;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0;
   final DSCALE = Array<double>(3), ZSCALE = Array<double>(3);

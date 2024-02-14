@@ -1,4 +1,5 @@
-      void slatm4(final int ITYPE, final int N, final int NZ1, final int NZ2, final int ISIGN, final int AMAGN, final int RCOND, final int TRIANG, final int IDIST, final Array<int> ISEED, final int A, final int LDA,) {
+      void slatm4(final int ITYPE, final int N, final int NZ1, final int NZ2, final int ISIGN, final int AMAGN, final int RCOND, final int TRIANG, final int IDIST, final Array<int> ISEED_, final int A, final int LDA,) {
+  final ISEED = ISEED_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

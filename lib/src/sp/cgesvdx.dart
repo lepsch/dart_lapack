@@ -1,4 +1,10 @@
-      void cgesvdx(final int JOBU, final int JOBVT, final int RANGE, final int M, final int N, final Matrix<double> A, final int LDA, final int VL, final int VU, final int IL, final int IU, final int NS, final int S, final Matrix<double> U, final int LDU, final Matrix<double> VT, final int LDVT, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void cgesvdx(final int JOBU, final int JOBVT, final int RANGE, final int M, final int N, final Matrix<double> A_, final int LDA, final int VL, final int VU, final int IL, final int IU, final int NS, final int S, final Matrix<double> U_, final int LDU, final Matrix<double> VT_, final int LDVT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final U = U_.dim();
+  final VT = VT_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

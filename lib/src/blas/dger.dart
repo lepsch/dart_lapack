@@ -7,16 +7,19 @@ void dger(
   final int M,
   final int N,
   final double ALPHA,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final A = A_.dim(LDA);
   const ZERO = 0.0;
   double TEMP;
   int I, INFO, IX, J, JY, KX;

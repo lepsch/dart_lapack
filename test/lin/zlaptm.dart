@@ -1,4 +1,5 @@
-      void zlaptm(final int UPLO, final int N, final int NRHS, final int ALPHA, final int D, final int E, final Matrix<double> X, final int LDX, final int BETA, final int B, final int LDB,) {
+      void zlaptm(final int UPLO, final int N, final int NRHS, final int ALPHA, final int D, final int E, final Matrix<double> X_, final int LDX, final int BETA, final int B, final int LDB,) {
+  final X = X_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

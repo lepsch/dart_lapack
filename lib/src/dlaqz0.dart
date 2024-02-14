@@ -21,25 +21,32 @@ void dlaqz0(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Matrix<double> Q,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final int REC,
   final Box<int> INFO,
 ) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0; //, HALF = 0.5;
 
-  // Local scalars
   double SMLNUM,
       ULP,
       ESHIFT = 0,

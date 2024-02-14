@@ -13,18 +13,22 @@ void dget02(
   final int M,
   final int N,
   final int NRHS,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> RWORK,
+  final Array<double> RWORK_,
   final Box<double> RESID,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final X = X_.dim(LDX);
+  final B = B_.dim(LDB);
+  final RWORK = RWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int J, N1, N2;
   double ANORM, BNORM, EPS, XNORM;

@@ -1,4 +1,9 @@
-      void zgeesx(final int JOBVS, final int SORT, final int SELECT, final int SENSE, final int N, final Matrix<double> A, final int LDA, final int SDIM, final int W, final Matrix<double> VS, final int LDVS, final int RCONDE, final int RCONDV, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final Array<bool> BWORK, final Box<int> INFO,) {
+      void zgeesx(final int JOBVS, final int SORT, final int SELECT, final int SENSE, final int N, final Matrix<double> A_, final int LDA, final int SDIM, final int W, final Matrix<double> VS_, final int LDVS, final int RCONDE, final int RCONDV, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final VS = VS_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

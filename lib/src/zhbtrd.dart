@@ -1,4 +1,7 @@
-      void zhbtrd(final int VECT, final int UPLO, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int D, final int E, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final Box<int> INFO,) {
+      void zhbtrd(final int VECT, final int UPLO, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int D, final int E, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final Q = Q_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

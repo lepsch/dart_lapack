@@ -21,27 +21,35 @@ void dtgsja(
   final int N,
   final int K,
   final int L,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double TOLA,
   final double TOLB,
-  final Array<double> ALPHA,
-  final Array<double> BETA,
-  final Matrix<double> U,
+  final Array<double> ALPHA_,
+  final Array<double> BETA_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> NCYCLE,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final Q = Q_.dim(LDQ);
+  final WORK = WORK_.dim();
   const MAXIT = 40;
   const ZERO = 0.0, ONE = 1.0;
   bool INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;

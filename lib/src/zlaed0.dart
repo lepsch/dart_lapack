@@ -1,4 +1,7 @@
-      void zlaed0(final int QSIZ, final int N, final int D, final int E, final Matrix<double> Q, final int LDQ, final int QSTORE, final int LDQS, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void zlaed0(final int QSIZ, final int N, final int D, final int E, final Matrix<double> Q_, final int LDQ, final int QSTORE, final int LDQS, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final Q = Q_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

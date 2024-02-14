@@ -1,4 +1,5 @@
-      void zlatrd(final int UPLO, final int N, final int NB, final Matrix<double> A, final int LDA, final int E, final int TAU, final int W, final int LDW,) {
+      void zlatrd(final int UPLO, final int N, final int NB, final Matrix<double> A_, final int LDA, final int E, final int TAU, final int W, final int LDW,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

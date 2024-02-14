@@ -1,4 +1,13 @@
-      void zdrvev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int W, final int W1, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final Matrix<double> LRE, final int LDLRE, final int RESULT, final Array<double> _WORK, final int NWORK, final Array<double> RWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void zdrvev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int H, final int W, final int W1, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final Matrix<double> LRE_, final int LDLRE, final int RESULT, final Array<double> _WORK_, final int NWORK, final Array<double> RWORK_, final Array<int> IWORK_, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final LRE = LRE_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

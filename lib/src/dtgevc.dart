@@ -13,24 +13,30 @@ import 'package:lapack/src/matrix.dart';
 void dtgevc(
   final String SIDE,
   final String HOWMNY,
-  final Array<bool> SELECT,
+  final Array<bool> SELECT_,
   final int N,
-  final Matrix<double> S,
+  final Matrix<double> S_,
   final int LDS,
-  final Matrix<double> P,
+  final Matrix<double> P_,
   final int LDP,
-  final Matrix<double> VL,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
   final int MM,
   final Box<int> M,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SELECT = SELECT_.dim();
+  final S = S_.dim(LDS);
+  final P = P_.dim(LDP);
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2;
   bool COMPL = false,
       COMPR = false,

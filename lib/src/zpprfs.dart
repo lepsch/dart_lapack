@@ -1,4 +1,8 @@
-      void zpprfs(final int UPLO, final int N, final int NRHS, final int AP, final int AFP, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void zpprfs(final int UPLO, final int N, final int NRHS, final int AP, final int AFP, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

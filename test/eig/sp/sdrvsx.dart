@@ -1,4 +1,11 @@
-      void sdrvsx(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NIUNIT, final int NOUNIT, final Matrix<double> A, final int LDA, final int H, final int HT, final int WR, final int WI, final int WRT, final int WIT, final int WRTMP, final int WITMP, final Matrix<double> VS, final int LDVS, final int VS1, final int RESULT, final Array<double> WORK, final int LWORK, final Array<int> IWORK, final Array<bool> BWORK, final Box<int> INFO,) {
+      void sdrvsx(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NIUNIT, final int NOUNIT, final Matrix<double> A_, final int LDA, final int H, final int HT, final int WR, final int WI, final int WRT, final int WIT, final int WRTMP, final int WITMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<int> IWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final VS = VS_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

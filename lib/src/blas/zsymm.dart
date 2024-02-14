@@ -11,17 +11,20 @@ void zsymm(
   final int M,
   final int N,
   final Complex ALPHA,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
-  final Matrix<Complex> B,
+  final Matrix<Complex> B_,
   final int LDB,
   final Complex BETA,
-  final Matrix<Complex> C,
+  final Matrix<Complex> C_,
   final int LDC,
 ) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final B = B_.dim();
+  final C = C_.dim();
   Complex TEMP1, TEMP2;
   int I, INFO, J, K, NROWA;
   bool UPPER;

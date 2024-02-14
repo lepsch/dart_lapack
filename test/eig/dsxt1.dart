@@ -4,9 +4,9 @@ import 'package:lapack/src/matrix.dart';
 
 double dsxt1(
   final int IJOB,
-  final Array<double> D1,
+  final Array<double> D1_,
   final int N1,
-  final Array<double> D2,
+  final Array<double> D2_,
   final int N2,
   final double ABSTOL,
   final double ULP,
@@ -15,6 +15,8 @@ double dsxt1(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D1 = D1_.dim();
+  final D2 = D2_.dim();
   const ZERO = 0.0;
   int I, J;
   double TEMP1, TEMP2;

@@ -1,4 +1,7 @@
-      void slatrs3(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> X, final int LDX, final int SCALE, final int CNORM, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void slatrs3(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> X_, final int LDX, final int SCALE, final int CNORM, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
       String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       double               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );

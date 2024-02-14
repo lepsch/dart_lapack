@@ -5,8 +5,8 @@ import 'package:lapack/src/matrix.dart';
 
 int dlaneg(
   final int N,
-  final Array<double> D,
-  final Array<double> LLD,
+  final Array<double> D_,
+  final Array<double> LLD_,
   final double SIGMA,
   final double PIVMIN,
   final int R,
@@ -14,6 +14,8 @@ int dlaneg(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final LLD = LLD_.dim();
   const ZERO = 0.0, ONE = 1.0;
   // Some architectures propagate Infinities and NaNs very slowly, so
   // the code computes counts in BLKLEN chunks.  Then a NaN can

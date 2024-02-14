@@ -10,7 +10,7 @@ void dlarot(
   final int NL,
   final double C,
   final double S,
-  final Array<double> A,
+  final Array<double> A_,
   final int LDA,
   final Box<double> XLEFT,
   final Box<double> XRIGHT,
@@ -18,6 +18,7 @@ void dlarot(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
   int IINC, INEXT, IX, IY, IYT = 0, NT;
   final XT = Array<double>(2), YT = Array<double>(2);
 

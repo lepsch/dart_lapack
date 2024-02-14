@@ -5,9 +5,9 @@ import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dget53(
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double SCALE,
   final double WR,
@@ -18,6 +18,8 @@ void dget53(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   const ZERO = 0.0, ONE = 1.0;
   double ABSW,
       ANORM,

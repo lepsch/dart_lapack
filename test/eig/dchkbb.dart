@@ -20,37 +20,52 @@ import 'dort01.dart';
 
 void dchkbb(
   final int NSIZES,
-  final Array<int> MVAL,
-  final Array<int> NVAL,
+  final Array<int> MVAL_,
+  final Array<int> NVAL_,
   final int NWDTHS,
-  final Array<int> KK,
+  final Array<int> KK_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
+  final Array<bool> DOTYPE_,
   final int NRHS,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Array<double> BD,
-  final Array<double> BE,
-  final Matrix<double> Q,
+  final Array<double> BD_,
+  final Array<double> BE_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> P,
+  final Matrix<double> P_,
   final int LDP,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Matrix<double> CC,
-  final Array<double> WORK,
+  final Matrix<double> CC_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MVAL = MVAL_.dim(NSIZES);
+  final NVAL = NVAL_.dim(NSIZES);
+  final KK = KK_.dim(NWDTHS);
+  final DOTYPE = DOTYPE_.dim(NTYPES);
+  final ISEED = ISEED_.dim(4);
+  final A = A_.dim(LDA);
+  final AB = AB_.dim(LDAB);
+  final BD = BD_.dim();
+  final BE = BE_.dim();
+  final Q = Q_.dim(LDQ);
+  final P = P_.dim(LDP);
+  final C = C_.dim(LDC);
+  final CC = CC_.dim(LDC);
+  final WORK = WORK_.dim(LWORK);
+  final RESULT = RESULT_.dim(4);
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 15;
   bool BADMM, BADNN, BADNNB;
@@ -407,11 +422,12 @@ void print9998(
   final int m,
   final int n,
   final int k,
-  final Array<int> seed,
+  final Array<int> seed_,
   final int type,
   final int test,
   final double result,
 ) {
+  final seed = seed_.dim();
   NOUNIT.println(
       ' M =${m.i4} N=${n.i4}, K=${m.i3}, seed=${seed[1].i4},${seed[2].i4},${seed[3].i4},${seed[4].i4} type ${type.i2}, test(${test.i2})=${result.g10_3}');
 }

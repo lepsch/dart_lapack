@@ -1,4 +1,5 @@
-      void zlatsy(final int UPLO, final int N, final Matrix<double> X, final int LDX, final int ISEED,) {
+      void zlatsy(final int UPLO, final int N, final Matrix<double> X_, final int LDX, final int ISEED,) {
+  final X = X_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

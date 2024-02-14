@@ -1,4 +1,5 @@
-      void zheswapr(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int I1, final int I2,) {
+      void zheswapr(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int I1, final int I2,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

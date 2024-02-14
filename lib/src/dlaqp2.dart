@@ -12,17 +12,22 @@ void dlaqp2(
   final int M,
   final int N,
   final int OFFSET,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> JPVT,
-  final Array<double> TAU,
-  final Array<double> VN1,
-  final Array<double> VN2,
+  final Array<int> JPVT_,
+  final Array<double> TAU_,
+  final Array<double> VN1_,
+  final Array<double> VN2_,
   final Array<double> WORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final JPVT = JPVT_.dim();
+  final TAU = TAU_.dim();
+  final VN1 = VN1_.dim();
+  final VN2 = VN2_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I, ITEMP, J, MN, OFFPI, PVT;
   double AII, TEMP, TEMP2, TOL3Z;

@@ -1,4 +1,8 @@
-      void sget52(final int LEFT, final int N, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> E, final int LDE, final int ALPHAR, final int ALPHAI, final int BETA, final Array<double> _WORK, final int RESULT,) {
+      void sget52(final int LEFT, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> E_, final int LDE, final int ALPHAR, final int ALPHAI, final int BETA, final Array<double> _WORK_, final int RESULT,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final E = E_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

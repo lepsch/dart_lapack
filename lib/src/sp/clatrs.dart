@@ -1,4 +1,5 @@
-      void clatrs(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final Matrix<double> A, final int LDA, final int X, final int SCALE, final int CNORM, final Box<int> INFO,) {
+      void clatrs(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final Matrix<double> A_, final int LDA, final int X, final int SCALE, final int CNORM, final Box<int> INFO,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

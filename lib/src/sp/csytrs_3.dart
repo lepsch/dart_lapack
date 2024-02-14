@@ -1,4 +1,7 @@
-      void csytrs_3(final int UPLO, final int N, final int NRHS, final Matrix<double> A, final int LDA, final int E, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void csytrs_3(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final int E, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

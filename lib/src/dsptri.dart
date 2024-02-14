@@ -6,7 +6,9 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsptri(final int UPLO, final int N, final int AP, final Array<int> IPIV, final Array<double> _WORK, final Box<int> INFO,) {
+      void dsptri(final int UPLO, final int N, final int AP, final Array<int> IPIV_, final Array<double> _WORK_, final Box<int> INFO,) {
+  final IPIV = IPIV_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,7 @@
-      void cunt01(final int ROWCOL, final int M, final int N, final Matrix<double> U, final int LDU, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESID,) {
+      void cunt01(final int ROWCOL, final int M, final int N, final Matrix<double> U_, final int LDU, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESID,) {
+  final U = U_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

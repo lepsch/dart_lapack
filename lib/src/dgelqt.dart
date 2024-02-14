@@ -6,7 +6,10 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgelqt(final int M, final int N, final int MB, final Matrix<double> A, final int LDA, final Matrix<double> T, final int LDT, final Array<double> _WORK, final Box<int> INFO,) {
+      void dgelqt(final int M, final int N, final int MB, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Array<double> _WORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final T = T_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

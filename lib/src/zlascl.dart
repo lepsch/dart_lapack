@@ -1,4 +1,5 @@
-      void zlascl(final int TYPE, final int KL, final int KU, final int CFROM, final int CTO, final int M, final int N, final Matrix<double> A, final int LDA, final Box<int> INFO,) {
+      void zlascl(final int TYPE, final int KL, final int KU, final int CFROM, final int CTO, final int M, final int N, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

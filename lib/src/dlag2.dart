@@ -5,9 +5,9 @@ import 'package:lapack/src/intrinsics/sign.dart';
 import 'package:lapack/src/matrix.dart';
 
 void dlag2(
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
   final double SAFMIN,
   final Box<double> SCALE1,
@@ -19,6 +19,8 @@ void dlag2(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const HALF = ONE / TWO;
   const FUZZY1 = ONE + 1.0e-5;

@@ -9,16 +9,19 @@ void zher2(
   final String UPLO,
   final int N,
   final Complex ALPHA,
-  final Array<Complex> X,
+  final Array<Complex> X_,
   final int INCX,
-  final Array<Complex> Y,
+  final Array<Complex> Y_,
   final int INCY,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final A = A_.dim();
   Complex TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX = 0, JY = 0, KX = 0, KY = 0;
 

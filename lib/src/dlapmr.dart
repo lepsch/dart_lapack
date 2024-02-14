@@ -4,13 +4,14 @@ void dlapmr(
   final bool FORWRD,
   final int M,
   final int N,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
   final Array<int> K,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim(LDX);
   int I, IN, J, JJ;
   double TEMP;
 

@@ -1,4 +1,6 @@
-      double zqrt11(final int M, final int K, final Matrix<double> A, final int LDA, final int TAU, final Array<double> WORK, final int LWORK,) {
+      double zqrt11(final int M, final int K, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -15,19 +15,25 @@ void dlaed0(
   final int ICOMPQ,
   final int QSIZ,
   final int N,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> QSTORE,
+  final Matrix<double> QSTORE_,
   final int LDQS,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final Q = Q_.dim(LDQ);
+  final QSTORE = QSTORE_.dim(LDQS);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   int CURLVL,
       CURPRB = 0,

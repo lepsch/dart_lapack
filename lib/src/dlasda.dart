@@ -14,30 +14,47 @@ void dlasda(
   final int SMLSIZ,
   final int N,
   final int SQRE,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> U,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
-  final Array<int> K,
-  final Matrix<double> DIFL,
-  final Matrix<double> DIFR,
-  final Matrix<double> Z,
-  final Matrix<double> POLES,
-  final Array<int> GIVPTR,
-  final Matrix<int> GIVCOL,
+  final Matrix<double> VT_,
+  final Array<int> K_,
+  final Matrix<double> DIFL_,
+  final Matrix<double> DIFR_,
+  final Matrix<double> Z_,
+  final Matrix<double> POLES_,
+  final Array<int> GIVPTR_,
+  final Matrix<int> GIVCOL_,
   final int LDGCOL,
-  final Matrix<int> PERM,
-  final Matrix<double> GIVNUM,
-  final Array<double> C,
-  final Array<double> S,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Matrix<int> PERM_,
+  final Matrix<double> GIVNUM_,
+  final Array<double> C_,
+  final Array<double> S_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDU);
+  final K = K_.dim();
+  final DIFL = DIFL_.dim(LDU);
+  final DIFR = DIFR_.dim(LDU);
+  final Z = Z_.dim(LDU);
+  final POLES = POLES_.dim(LDU);
+  final GIVPTR = GIVPTR_.dim();
+  final GIVCOL = GIVCOL_.dim(LDGCOL);
+  final PERM = PERM_.dim(LDGCOL);
+  final GIVNUM = GIVNUM_.dim(LDU);
+  final C = C_.dim();
+  final S = S_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I,
       I1,

@@ -17,28 +17,37 @@ import 'package:lapack/src/xerbla.dart';
 void dtgsna(
   final String JOB,
   final String HOWMNY,
-  final Array<bool> SELECT,
+  final Array<bool> SELECT_,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> VL,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
-  final Array<double> S,
-  final Array<double> DIF,
+  final Array<double> S_,
+  final Array<double> DIF_,
   final int MM,
   final Box<int> M,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SELECT = SELECT_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final S = S_.dim();
+  final DIF = DIF_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const DIFDRI = 3;
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR = 4.0;
   bool LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;

@@ -7,7 +7,7 @@ import 'package:lapack/src/matrix.dart';
 void dlasq6(
   final int I0,
   final int N0,
-  final Array<double> Z,
+  final Array<double> Z_,
   final int PP,
   final Box<double> DMIN,
   final Box<double> DMIN1,
@@ -19,6 +19,7 @@ void dlasq6(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.dim();
   const ZERO = 0.0;
   int J4, J4P2;
   double D, EMIN, SAFMIN, TEMP;

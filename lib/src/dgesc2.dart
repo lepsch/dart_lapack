@@ -7,16 +7,20 @@ import 'package:lapack/src/matrix.dart';
 
 void dgesc2(
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> RHS,
-  final Array<int> IPIV,
-  final Array<int> JPIV,
+  final Array<double> RHS_,
+  final Array<int> IPIV_,
+  final Array<int> JPIV_,
   final Box<double> SCALE,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final RHS = RHS_.dim();
+  final IPIV = IPIV_.dim();
+  final JPIV = JPIV_.dim();
   const ONE = 1.0, TWO = 2.0;
   int I, J;
   double

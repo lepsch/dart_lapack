@@ -20,19 +20,24 @@ void dtrsyl3(
   final int ISGN,
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
   final Box<double> SCALE,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final int LIWORK,
-  final Matrix<double> SWORK,
+  final Matrix<double> SWORK_,
   final Box<int> LDSWORK,
   final Box<int> INFO,
 ) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
+  final IWORK = IWORK_.dim();
+  final SWORK = SWORK_.dim(LDSWORK.value == -1 ? 1 : LDSWORK.value);
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRNA, NOTRNB, LQUERY, SKIP;
   int AWRK,

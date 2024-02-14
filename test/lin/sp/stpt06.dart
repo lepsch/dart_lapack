@@ -1,4 +1,5 @@
-      void stpt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final int AP, final Array<double> _WORK, final int RAT,) {
+      void stpt06(final int RCOND, final int RCONDC, final int UPLO, final int DIAG, final int N, final int AP, final Array<double> _WORK_, final int RAT,) {
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

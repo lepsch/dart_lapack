@@ -1,4 +1,6 @@
-      double zlanhe(final int NORM, final int UPLO, final int N, final Matrix<double> A, final int LDA, final Array<double> WORK,) {
+      double zlanhe(final int NORM, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<double> WORK_,) {
+  final A = A_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,5 @@
-      void stpttr(final int UPLO, final int N, final int AP, final Matrix<double> A, final int LDA, final Box<int> INFO,) {
+      void stpttr(final int UPLO, final int N, final int AP, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
+  final A = A_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

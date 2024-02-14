@@ -1,4 +1,7 @@
-      void zlaein(final int RIGHTV, final int NOINIT, final int N, final Matrix<double> H, final int LDH, final int W, final int V, final Matrix<double> B, final int LDB, final Array<double> RWORK, final int EPS3, final int SMLNUM, final Box<int> INFO,) {
+      void zlaein(final int RIGHTV, final int NOINIT, final int N, final Matrix<double> H_, final int LDH, final int W, final int V, final Matrix<double> B_, final int LDB, final Array<double> RWORK_, final int EPS3, final int SMLNUM, final Box<int> INFO,) {
+  final H = H_.dim();
+  final B = B_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

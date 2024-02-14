@@ -12,20 +12,29 @@ void dlaeda(
   final int TLVLS,
   final int CURLVL,
   final int CURPBM,
-  final Array<int> PRMPTR,
-  final Array<int> PERM,
-  final Array<int> GIVPTR,
-  final Matrix<int> GIVCOL,
-  final Matrix<double> GIVNUM,
-  final Array<double> Q,
-  final Array<int> QPTR,
-  final Array<double> Z,
-  final Array<double> ZTEMP,
+  final Array<int> PRMPTR_,
+  final Array<int> PERM_,
+  final Array<int> GIVPTR_,
+  final Matrix<int> GIVCOL_,
+  final Matrix<double> GIVNUM_,
+  final Array<double> Q_,
+  final Array<int> QPTR_,
+  final Array<double> Z_,
+  final Array<double> ZTEMP_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final PRMPTR = PRMPTR_.dim();
+  final PERM = PERM_.dim();
+  final GIVPTR = GIVPTR_.dim();
+  final GIVCOL = GIVCOL_.dim(2);
+  final GIVNUM = GIVNUM_.dim(2);
+  final Q = Q_.dim();
+  final QPTR = QPTR_.dim();
+  final Z = Z_.dim();
+  final ZTEMP = ZTEMP_.dim();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   int BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
 

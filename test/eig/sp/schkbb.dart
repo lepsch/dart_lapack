@@ -1,4 +1,12 @@
-      void schkbb(final int NSIZES, final int MVAL, final int NVAL, final int NWDTHS, final int KK, final int NTYPES, final Array<bool> DOTYPE, final int NRHS, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final Matrix<double> AB, final int LDAB, final int BD, final int BE, final Matrix<double> Q, final int LDQ, final Matrix<double> P, final int LDP, final Matrix<double> C, final int LDC, final int CC, final Array<double> WORK, final int LWORK, final int RESULT, final Box<int> INFO,) {
+      void schkbb(final int NSIZES, final int MVAL, final int NVAL, final int NWDTHS, final int KK, final int NTYPES, final Array<bool> DOTYPE_, final int NRHS, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final Matrix<double> AB_, final int LDAB, final int BD, final int BE, final Matrix<double> Q_, final int LDQ, final Matrix<double> P_, final int LDP, final Matrix<double> C_, final int LDC, final int CC, final Array<double> WORK_, final int LWORK, final int RESULT, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final AB = AB_.dim();
+  final Q = Q_.dim();
+  final P = P_.dim();
+  final C = C_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK test routine (input) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

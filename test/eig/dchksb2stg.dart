@@ -20,31 +20,44 @@ import 'dsbt21.dart';
 
 void dchksb2stg(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NWDTHS,
-  final Array<int> KK,
+  final Array<int> KK_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> SD,
-  final Array<double> SE,
-  final Array<double> D1,
-  final Array<double> D2,
-  final Array<double> D3,
-  final Matrix<double> U,
+  final Array<double> SD_,
+  final Array<double> SE_,
+  final Array<double> D1_,
+  final Array<double> D2_,
+  final Array<double> D3_,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final KK = KK_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final SD = SD_.dim();
+  final SE = SE_.dim();
+  final D1 = D1_.dim();
+  final D2 = D2_.dim();
+  final D3 = D3_.dim();
+  final U = U_.dim(LDU);
+  final WORK = WORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = ONE / TWO;
   const MAXTYP = 15;

@@ -11,7 +11,7 @@ import 'package:lapack/src/matrix.dart';
 void dlasq3(
   final int I0,
   final Box<int> N0,
-  final Array<double> Z,
+  final Array<double> Z_,
   final Box<int> PP,
   final Box<double> DMIN,
   final Box<double> SIGMA,
@@ -33,6 +33,7 @@ void dlasq3(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final Z = Z_.dim();
   const CBIAS = 1.50;
   const ZERO = 0.0,
       QURTR = 0.250,

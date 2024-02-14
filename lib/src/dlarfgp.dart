@@ -9,13 +9,14 @@ import 'package:lapack/src/matrix.dart';
 void dlarfgp(
   final int N,
   final Box<double> ALPHA,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
   final Box<double> TAU,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
   const TWO = 2.0, ONE = 1.0, ZERO = 0.0;
   int J, KNT = 0;
   double BETA = 0, BIGNUM = 0, EPS, SAVEALPHA, SMLNUM = 0, XNORM;

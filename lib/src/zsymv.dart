@@ -1,4 +1,5 @@
-      void zsymv(final int UPLO, final int N, final int ALPHA, final Matrix<double> A, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY,) {
+      void zsymv(final int UPLO, final int N, final int ALPHA, final Matrix<double> A_, final int LDA, final int X, final int INCX, final int BETA, final int Y, final int INCY,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

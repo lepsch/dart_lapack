@@ -1,4 +1,7 @@
-      void sorm22(final int SIDE, final int TRANS, final int M, final int N, final int N1, final int N2, final Matrix<double> Q, final int LDQ, final Matrix<double> C, final int LDC, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void sorm22(final int SIDE, final int TRANS, final int M, final int N, final int N1, final int N2, final Matrix<double> Q_, final int LDQ, final Matrix<double> C_, final int LDC, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final Q = Q_.dim();
+  final C = C_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

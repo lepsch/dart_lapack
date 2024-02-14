@@ -25,32 +25,47 @@ import 'xlaenv.dart';
 
 void ddrges3(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> S,
-  final Matrix<double> T,
-  final Matrix<double> Q,
+  final Matrix<double> B_,
+  final Matrix<double> S_,
+  final Matrix<double> T_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Matrix<double> Z,
-  final Array<double> ALPHAR,
-  final Array<double> ALPHAI,
-  final Array<double> BETA,
-  final Array<double> WORK,
+  final Matrix<double> Z_,
+  final Array<double> ALPHAR_,
+  final Array<double> ALPHAI_,
+  final Array<double> BETA_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RESULT,
-  final Array<bool> BWORK,
+  final Array<double> RESULT_,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final S = S_.dim(LDA);
+  final T = T_.dim(LDA);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDQ);
+  final ALPHAR = ALPHAR_.dim();
+  final ALPHAI = ALPHAI_.dim();
+  final BETA = BETA_.dim();
+  final WORK = WORK_.dim();
+  final RESULT = RESULT_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   const MAXTYP = 26;
   bool BADNN, ILABAD;

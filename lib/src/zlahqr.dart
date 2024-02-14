@@ -1,7 +1,9 @@
-      void zlahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI, final Matrix<double> H, final int LDH, final int W, final int ILOZ, final int IHIZ, final Matrix<double> Z, final int LDZ, final Box<int> INFO,) {
+      void zlahqr(final int WANTT, final int WANTZ, final int N, final int ILO, final int IHI, final Matrix<double> H_, final int LDH, final int W, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final Box<int> INFO,) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim();
+  final Z = Z_.dim();
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
       Complex         H( LDH, * ), W( * ), Z( LDZ, * );

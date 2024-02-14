@@ -1,4 +1,6 @@
-      void claswp(final int N, final Matrix<double> A, final int LDA, final int K1, final int K2, final Array<int> IPIV, final int INCX,) {
+      void claswp(final int N, final Matrix<double> A_, final int LDA, final int K1, final int K2, final Array<int> IPIV_, final int INCX,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

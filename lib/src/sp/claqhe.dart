@@ -1,4 +1,5 @@
-      void claqhe(final int UPLO, final int N, final Matrix<double> A, final int LDA, final int S, final int SCOND, final int AMAX, final int EQUED,) {
+      void claqhe(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int S, final int SCOND, final int AMAX, final int EQUED,) {
+  final A = A_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

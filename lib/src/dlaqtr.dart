@@ -16,18 +16,22 @@ void dlaqtr(
   final bool LTRAN,
   final bool LREAL,
   final int N,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Array<double> B,
+  final Array<double> B_,
   final double W,
   final Box<double> SCALE,
-  final Array<double> X,
-  final Array<double> WORK,
+  final Array<double> X_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final T = T_.dim(LDT);
+  final B = B_.dim();
+  final X = X_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool NOTRAN;
   int I, J, J1, J2, JNEXT, K, N1, N2;

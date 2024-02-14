@@ -26,21 +26,27 @@ void dgeev(
   final String JOBVL,
   final String JOBVR,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Matrix<double> VL,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY, SCALEA, WANTVL, WANTVR;
   String SIDE = '';

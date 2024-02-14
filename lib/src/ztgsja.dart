@@ -1,4 +1,10 @@
-      void ztgsja(final int JOBU, final int JOBV, final int JOBQ, final int M, final int P, final int N, final int K, final int L, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final int TOLA, final int TOLB, final int ALPHA, final int BETA, final Matrix<double> U, final int LDU, final Matrix<double> V, final int LDV, final Matrix<double> Q, final int LDQ, final Array<double> _WORK, final int NCYCLE, final Box<int> INFO,) {
+      void ztgsja(final int JOBU, final int JOBV, final int JOBQ, final int M, final int P, final int N, final int K, final int L, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int TOLA, final int TOLB, final int ALPHA, final int BETA, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final int NCYCLE, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final U = U_.dim();
+  final V = V_.dim();
+  final Q = Q_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

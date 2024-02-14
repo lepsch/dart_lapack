@@ -1,4 +1,5 @@
-      void slag2(final int A, final int LDA, final Matrix<double> B, final int LDB, final int SAFMIN, final int SCALE1, final int SCALE2, final int WR1, final int WR2, final int WI,) {
+      void slag2(final int A, final int LDA, final Matrix<double> B_, final int LDB, final int SAFMIN, final int SCALE1, final int SCALE2, final int WR1, final int WR2, final int WI,) {
+  final B = B_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

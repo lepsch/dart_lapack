@@ -1,4 +1,5 @@
-      void cgebak(final int JOB, final int SIDE, final int N, final int ILO, final int IHI, final int SCALE, final int M, final Matrix<double> V, final int LDV, final Box<int> INFO,) {
+      void cgebak(final int JOB, final int SIDE, final int N, final int ILO, final int IHI, final int SCALE, final int M, final Matrix<double> V_, final int LDV, final Box<int> INFO,) {
+  final V = V_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

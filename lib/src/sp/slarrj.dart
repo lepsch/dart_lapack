@@ -1,4 +1,6 @@
-      void slarrj(final int N, final int D, final int E2, final int IFIRST, final int ILAST, final int RTOL, final int OFFSET, final int W, final int WERR, final Array<double> _WORK, final Array<int> IWORK, final int PIVMIN, final int SPDIAM, final Box<int> INFO,) {
+      void slarrj(final int N, final int D, final int E2, final int IFIRST, final int ILAST, final int RTOL, final int OFFSET, final int W, final int WERR, final Array<double> _WORK_, final Array<int> IWORK_, final int PIVMIN, final int SPDIAM, final Box<int> INFO,) {
+  final _WORK = _WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

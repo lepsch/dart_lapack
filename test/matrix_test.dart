@@ -357,7 +357,7 @@ void main() {
       const NMAX = 132;
       const NEED = 14, M = 10, N = 10;
       final m = Matrix<double>(NMAX * NMAX, NEED);
-      final s = m(1, 7, ld: 132);
+      final s = m.dim(NMAX);
 
       for (var J = 1; J <= N; J++) {
         for (var I = 1; I <= M; I++) {

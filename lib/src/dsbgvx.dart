@@ -13,7 +13,6 @@ import 'package:lapack/src/dstebz.dart';
 import 'package:lapack/src/dstein.dart';
 import 'package:lapack/src/dsteqr.dart';
 import 'package:lapack/src/dsterf.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
@@ -24,11 +23,11 @@ void dsbgvx(
   final int N,
   final int KA,
   final int KB,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Matrix<double> BB,
+  final Matrix<double> BB_,
   final int LDBB,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
   final double VL,
   final double VU,
@@ -36,17 +35,25 @@ void dsbgvx(
   final int IU,
   final double ABSTOL,
   final Box<int> M,
-  final Array<double> W,
-  final Matrix<double> Z,
+  final Array<double> W_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
-  final Array<int> IFAIL,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Array<int> IFAIL_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final BB = BB_.dim(LDBB);
+  final Q = Q_.dim(LDQ);
+  final W = W_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  final IFAIL = IFAIL_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
   String ORDER, VECT;

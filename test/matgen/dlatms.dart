@@ -19,23 +19,27 @@ void dlatms(
   final int M,
   final int N,
   final String DIST,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final String SYM,
-  final Array<double> D,
+  final Array<double> D_,
   final int MODE,
   final double COND,
   final double DMAX,
   final int KL,
   final int KU,
   final String PACK,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
+  final A = A_.dim(LDA);
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   const ONE = 1.0;
   const TWOPI = 6.28318530717958647692528676655900576839;

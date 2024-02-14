@@ -17,16 +17,19 @@ void dsb2st_kernels(
   final int N,
   final int NB,
   final int IB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> V,
-  final Array<double> TAU,
+  final Array<double> V_,
+  final Array<double> TAU_,
   final int LDVT,
   final Array<double> WORK,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final V = V_.dim();
+  final TAU = TAU_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool UPPER;
   int I,

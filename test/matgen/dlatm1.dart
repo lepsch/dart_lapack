@@ -12,14 +12,16 @@ void dlatm1(
   final double COND,
   final int IRSIGN,
   final int IDIST,
-  final Array<int> ISEED,
-  final Array<double> D,
+  final Array<int> ISEED_,
+  final Array<double> D_,
   final int N,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
   const ONE = 1.0;
   const HALF = 0.5;
   int I;

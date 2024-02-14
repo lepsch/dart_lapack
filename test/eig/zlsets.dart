@@ -1,4 +1,6 @@
-      void zlsets(final int M, final int P, final int N, final int A, final int AF, final int LDA, final int B, final int BF, final int LDB, final int C, final int CF, final int D, final int DF, final int X, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT,) {
+      void zlsets(final int M, final int P, final int N, final int A, final int AF, final int LDA, final int B, final int BF, final int LDB, final int C, final int CF, final int D, final int DF, final int X, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

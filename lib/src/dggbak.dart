@@ -13,16 +13,19 @@ void dggbak(
   final int N,
   final int ILO,
   final int IHI,
-  final Array<double> LSCALE,
-  final Array<double> RSCALE,
+  final Array<double> LSCALE_,
+  final Array<double> RSCALE_,
   final int M,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final LSCALE = LSCALE_.dim();
+  final RSCALE = RSCALE_.dim();
+  final V = V_.dim(LDV);
   bool LEFTV, RIGHTV;
   int I, K;
 

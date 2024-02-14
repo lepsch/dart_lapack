@@ -14,15 +14,15 @@ void dlaein(
   final bool RIGHTV,
   final bool NOINIT,
   final int N,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
   final double WR,
   final double WI,
-  final Array<double> VR,
-  final Array<double> VI,
-  final Matrix<double> B,
+  final Array<double> VR_,
+  final Array<double> VI_,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final double EPS3,
   final double SMLNUM,
   final double BIGNUM,
@@ -31,6 +31,11 @@ void dlaein(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
+  final VR = VR_.dim();
+  final VI = VI_.dim();
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TENTH = 1.0e-1;
   String NORMIN, TRANS;
   int I, I1, I2, I3, ITS, J;

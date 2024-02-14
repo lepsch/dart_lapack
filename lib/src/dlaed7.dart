@@ -16,26 +16,38 @@ void dlaed7(
   final int TLVLS,
   final int CURLVL,
   final int CURPBM,
-  final Array<double> D,
-  final Matrix<double> Q,
+  final Array<double> D_,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<int> INDXQ,
+  final Array<int> INDXQ_,
   final Box<double> RHO,
   final int CUTPNT,
-  final Array<double> QSTORE,
-  final Array<int> QPTR,
-  final Array<int> PRMPTR,
-  final Array<int> PERM,
-  final Array<int> GIVPTR,
-  final Matrix<int> GIVCOL,
-  final Matrix<double> GIVNUM,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> QSTORE_,
+  final Array<int> QPTR_,
+  final Array<int> PRMPTR_,
+  final Array<int> PERM_,
+  final Array<int> GIVPTR_,
+  final Matrix<int> GIVCOL_,
+  final Matrix<double> GIVNUM_,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final Q = Q_.dim(LDQ);
+  final INDXQ = INDXQ_.dim();
+  final QSTORE = QSTORE_.dim();
+  final QPTR = QPTR_.dim();
+  final PRMPTR = PRMPTR_.dim();
+  final PERM = PERM_.dim();
+  final GIVPTR = GIVPTR_.dim();
+  final GIVCOL = GIVCOL_.dim(2);
+  final GIVNUM = GIVNUM_.dim(2);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int COLTYP,
       CURR,

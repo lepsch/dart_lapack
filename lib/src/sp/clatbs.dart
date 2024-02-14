@@ -1,4 +1,5 @@
-      void clatbs(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final int KD, final Matrix<double> AB, final int LDAB, final int X, final int SCALE, final int CNORM, final Box<int> INFO,) {
+      void clatbs(final int UPLO, final int TRANS, final int DIAG, final int NORMIN, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final int X, final int SCALE, final int CNORM, final Box<int> INFO,) {
+  final AB = AB_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

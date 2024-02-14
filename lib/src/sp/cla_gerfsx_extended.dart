@@ -1,4 +1,9 @@
-      void cla_gerfsx_extended(final int PREC_TYPE, final int TRANS_TYPE, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> AF, final int LDAF, final Array<int> IPIV, final int COLEQU, final int C, final Matrix<double> B, final int LDB, final Matrix<double> Y, final int LDY, final int BERR_OUT, final int N_NORMS, final int ERRS_N, final int ERRS_C, final int RES, final int AYB, final int DY, final int Y_TAIL, final int RCOND, final int ITHRESH, final int RTHRESH, final int DZ_UB, final int IGNORE_CWISE, final Box<int> INFO,) {
+      void cla_gerfsx_extended(final int PREC_TYPE, final int TRANS_TYPE, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int COLEQU, final int C, final Matrix<double> B_, final int LDB, final Matrix<double> Y_, final int LDY, final int BERR_OUT, final int N_NORMS, final int ERRS_N, final int ERRS_C, final int RES, final int AYB, final int DY, final int Y_TAIL, final int RCOND, final int ITHRESH, final int RTHRESH, final int DZ_UB, final int IGNORE_CWISE, final Box<int> INFO,) {
+  final A = A_.dim();
+  final AF = AF_.dim();
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
+  final Y = Y_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

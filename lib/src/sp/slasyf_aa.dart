@@ -1,4 +1,8 @@
-      void slasyf_aa(final int UPLO, final int J1, final int M, final int NB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> H, final int LDH, final Array<double> WORK,) {
+      void slasyf_aa(final int UPLO, final int J1, final int M, final int NB, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> H_, final int LDH, final Array<double> WORK_,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final H = H_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

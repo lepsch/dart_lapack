@@ -2,9 +2,9 @@ import 'package:lapack/src/matrix.dart';
 
 void drot(
   final int N,
-  final Array<double> DX,
+  final Array<double> DX_,
   final int INCX,
-  final Array<double> DY,
+  final Array<double> DY_,
   final int INCY,
   final double C,
   final double S,
@@ -12,6 +12,8 @@ void drot(
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final DX = DX_.dim();
+  final DY = DY_.dim();
   double DTEMP;
   int I, IX, IY;
 

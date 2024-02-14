@@ -1,4 +1,10 @@
-      void cpbsvx(final int FACT, final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB, final int LDAB, final Matrix<double> AFB, final int LDAFB, final int EQUED, final int S, final Matrix<double> B, final int LDB, final Matrix<double> X, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK, final Array<double> RWORK, final Box<int> INFO,) {
+      void cpbsvx(final int FACT, final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final int EQUED, final int S, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final AB = AB_.dim();
+  final AFB = AFB_.dim();
+  final B = B_.dim();
+  final X = X_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

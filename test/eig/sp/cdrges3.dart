@@ -1,4 +1,11 @@
-      void cdrges3(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE, final Array<int> ISEED, final int THRESH, final int NOUNIT, final Matrix<double> A, final int LDA, final int B, final int S, final int T, final Matrix<double> Q, final int LDQ, final int Z, final int ALPHA, final int BETA, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT, final Array<bool> BWORK, final Box<int> INFO,) {
+      void cdrges3(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int B, final int S, final int T, final Matrix<double> Q_, final int LDQ, final int Z, final int ALPHA, final int BETA, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Array<bool> BWORK_, final Box<int> INFO,) {
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final Q = Q_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final BWORK = BWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

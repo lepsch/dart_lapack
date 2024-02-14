@@ -9,18 +9,24 @@ import 'package:lapack/src/xerbla.dart';
 void dgebd2(
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> TAUQ,
-  final Array<double> TAUP,
-  final Array<double> WORK,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> TAUQ_,
+  final Array<double> TAUP_,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  final E = E_.dim();
+  final TAUQ = TAUQ_.dim();
+  final TAUP = TAUP_.dim();
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   int I;
 

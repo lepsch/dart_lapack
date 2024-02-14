@@ -1,4 +1,5 @@
-      double drzt01(final int M, final int N, final int A, final int AF, final int LDA, final int TAU, final Array<double> WORK, final int LWORK,) {
+      double drzt01(final int M, final int N, final int A, final int AF, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK,) {
+  final WORK = WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

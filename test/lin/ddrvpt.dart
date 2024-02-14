@@ -1,6 +1,8 @@
 import 'common.dart';
 
-      void ddrvpt(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> _WORK, final Array<double> RWORK, final int NOUT,) {
+      void ddrvpt(final int DOTYPE, final int NN, final int NVAL, final int NRHS, final int THRESH, final int TSTERR, final int A, final int D, final int E, final int B, final int X, final int XACT, final Array<double> _WORK_, final Array<double> RWORK_, final int NOUT,) {
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

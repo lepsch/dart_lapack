@@ -2,17 +2,21 @@ import 'package:lapack/src/matrix.dart';
 
 void dlartv(
   final int N,
-  final Array<double> X,
+  final Array<double> X_,
   final int INCX,
-  final Array<double> Y,
+  final Array<double> Y_,
   final int INCY,
-  final Array<double> C,
-  final Array<double> S,
+  final Array<double> C_,
+  final Array<double> S_,
   final int INCC,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final C = C_.dim();
+  final S = S_.dim();
   int I, IC, IX, IY;
   double XI, YI;
 

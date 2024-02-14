@@ -26,33 +26,48 @@ import 'dort03.dart';
 
 void ddrvbd(
   final int NSIZES,
-  final Array<int> MM,
-  final Array<int> NN,
+  final Array<int> MM_,
+  final Array<int> NN_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final double THRESH,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> VT,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Matrix<double> ASAV,
-  final Matrix<double> USAV,
-  final Matrix<double> VTSAV,
-  final Array<double> S,
-  final Array<double> SSAV,
-  final Array<double> E,
-  final Array<double> WORK,
+  final Matrix<double> ASAV_,
+  final Matrix<double> USAV_,
+  final Matrix<double> VTSAV_,
+  final Array<double> S_,
+  final Array<double> SSAV_,
+  final Array<double> E_,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Nout NOUT,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final MM = MM_.dim();
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim(LDA);
+  final U = U_.dim(LDU);
+  final VT = VT_.dim(LDVT);
+  final ASAV = ASAV_.dim(LDA);
+  final USAV = USAV_.dim(LDU);
+  final VTSAV = VTSAV_.dim(LDVT);
+  final S = S_.dim();
+  final SSAV = SSAV_.dim();
+  final E = E_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5;
   const MAXTYP = 5;
   bool BADMM, BADNN;

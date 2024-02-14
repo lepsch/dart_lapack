@@ -5,13 +5,14 @@ import 'package:lapack/src/matrix.dart';
 
 void dlarnv(
   final int IDIST,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final int N,
   final Array<double> X,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
   const ONE = 1.0, TWO = 2.0;
   const LV = 128;
   const TWOPI = 6.28318530717958647692528676655900576839;

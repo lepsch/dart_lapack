@@ -1,4 +1,6 @@
-      void slavsp(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int A, final Array<int> IPIV, final Matrix<double> B, final int LDB, final Box<int> INFO,) {
+      void slavsp(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int A, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
+  final IPIV = IPIV_.dim();
+  final B = B_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

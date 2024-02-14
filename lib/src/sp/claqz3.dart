@@ -1,4 +1,11 @@
-      void claqz3(final int ILSCHUR, final int ILQ, final int ILZ, final int N, final int ILO, final int IHI, final int NSHIFTS, final int NBLOCK_DESIRED, final int ALPHA, final int BETA, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Matrix<double> Q, final int LDQ, final Matrix<double> Z, final int LDZ, final Matrix<double> QC, final int LDQC, final Matrix<double> ZC, final int LDZC, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void claqz3(final int ILSCHUR, final int ILQ, final int ILZ, final int N, final int ILO, final int IHI, final int NSHIFTS, final int NBLOCK_DESIRED, final int ALPHA, final int BETA, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final Matrix<double> QC_, final int LDQC, final Matrix<double> ZC_, final int LDZC, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim();
+  final B = B_.dim();
+  final Q = Q_.dim();
+  final Z = Z_.dim();
+  final QC = QC_.dim();
+  final ZC = ZC_.dim();
+  final WORK = WORK_.dim();
       // Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;

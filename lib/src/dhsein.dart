@@ -13,26 +13,35 @@ void dhsein(
   final String SIDE,
   final String EIGSRC,
   final String INITV,
-  final Array<bool> SELECT,
+  final Array<bool> SELECT_,
   final int N,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Matrix<double> VL,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Matrix<double> VL_,
   final int LDVL,
-  final Matrix<double> VR,
+  final Matrix<double> VR_,
   final int LDVR,
   final int MM,
   final Box<int> M,
-  final Array<double> WORK,
-  final Array<int> IFAILL,
-  final Array<int> IFAILR,
+  final Array<double> WORK_,
+  final Array<int> IFAILL_,
+  final Array<int> IFAILR_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final SELECT = SELECT_.dim();
+  final H = H_.dim(LDH);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
+  final IFAILL = IFAILL_.dim();
+  final IFAILR = IFAILR_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
   int I, K, KL, KLN, KR, KSI, KSR, LDWORK;

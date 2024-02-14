@@ -20,26 +20,35 @@ void dggsvd3(
   final int P,
   final Box<int> K,
   final Box<int> L,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
+  final Matrix<double> B_,
   final int LDB,
-  final Array<double> ALPHA,
-  final Array<double> BETA,
-  final Matrix<double> U,
+  final Array<double> ALPHA_,
+  final Array<double> BETA_,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> V,
+  final Matrix<double> V_,
   final int LDV,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final Q = Q_.dim(LDQ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   bool WANTQ, WANTU, WANTV, LQUERY;
   int I, IBND, ISUB, J, LWKOPT;
   double ANORM, BNORM, SMAX, TEMP, TOLA = 0, TOLB = 0, ULP, UNFL;

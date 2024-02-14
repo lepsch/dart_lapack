@@ -6,15 +6,17 @@ void dlarfx(
   final String SIDE,
   final int M,
   final int N,
-  final Array<double> V,
+  final Array<double> V_,
   final double TAU,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
   final Array<double> WORK,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final V = V_.dim();
+  final C = C_.dim(LDC);
   const ZERO = 0.0, ONE = 1.0;
   int J;
   double SUM,

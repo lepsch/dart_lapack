@@ -19,18 +19,22 @@ void dsbgst(
   final int N,
   final int KA,
   final int KB,
-  final Matrix<double> AB,
+  final Matrix<double> AB_,
   final int LDAB,
-  final Matrix<double> BB,
+  final Matrix<double> BB_,
   final int LDBB,
-  final Matrix<double> X,
+  final Matrix<double> X_,
   final int LDX,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AB = AB_.dim(LDAB);
+  final BB = BB_.dim(LDBB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool UPDATE, UPPER, WANTX;
   int I,

@@ -1,4 +1,6 @@
-      void slaqtr(final int LTRAN, final int LREAL, final int N, final Matrix<double> T, final int LDT, final int B, final int W, final int SCALE, final int X, final Array<double> _WORK, final Box<int> INFO,) {
+      void slaqtr(final int LTRAN, final int LREAL, final int N, final Matrix<double> T_, final int LDT, final int B, final int W, final int SCALE, final int X, final Array<double> _WORK_, final Box<int> INFO,) {
+  final T = T_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

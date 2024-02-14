@@ -14,19 +14,23 @@ void dlahqr(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
-  final Array<double> WR,
-  final Array<double> WI,
+  final Array<double> WR_,
+  final Array<double> WI_,
   final int ILOZ,
   final int IHIZ,
-  final Matrix<double> Z,
+  final Matrix<double> Z_,
   final int LDZ,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final Z = Z_.dim(LDZ);
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
   const DAT1 = 3.0 / 4.0, DAT2 = -0.4375;
   const KEXSH = 10;

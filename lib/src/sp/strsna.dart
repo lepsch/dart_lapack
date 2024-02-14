@@ -1,4 +1,9 @@
-      void strsna(final int JOB, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T, final int LDT, final Matrix<double> VL, final int LDVL, final Matrix<double> VR, final int LDVR, final int S, final int SEP, final int MM, final int M, final Matrix<double> WORK, final int LDWORK, final Array<int> IWORK, final Box<int> INFO,) {
+      void strsna(final int JOB, final int HOWMNY, final int SELECT, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int S, final int SEP, final int MM, final int M, final Matrix<double> WORK_, final int LDWORK, final Array<int> IWORK_, final Box<int> INFO,) {
+  final T = T_.dim();
+  final VL = VL_.dim();
+  final VR = VR_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

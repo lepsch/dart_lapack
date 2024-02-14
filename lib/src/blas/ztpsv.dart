@@ -8,13 +8,15 @@ void ztpsv(
   final String TRANS,
   final String DIAG,
   final int N,
-  final Array<Complex> AP,
-  final Array<Complex> X,
+  final Array<Complex> AP_,
+  final Array<Complex> X_,
   final int INCX,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final X = X_.dim();
   Complex TEMP;
   int I, INFO, IX, J, JX, K, KK, KX = 0;
   bool NOCONJ, NOUNIT;

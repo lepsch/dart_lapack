@@ -3,7 +3,7 @@ import 'package:lapack/src/matrix.dart';
 
 void dlaqr1(
   final int N,
-  final Matrix<double> H,
+  final Matrix<double> H_,
   final int LDH,
   final double SR1,
   final double SI1,
@@ -14,6 +14,7 @@ void dlaqr1(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final H = H_.dim(LDH);
   const ZERO = 0.0;
   double H21S, H31S, S;
 

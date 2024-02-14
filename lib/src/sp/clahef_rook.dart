@@ -1,4 +1,7 @@
-      void clahef_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A, final int LDA, final Array<int> IPIV, final Matrix<double> W, final int LDW, final Box<int> INFO,) {
+      void clahef_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> W_, final int LDW, final Box<int> INFO,) {
+  final A = A_.dim();
+  final IPIV = IPIV_.dim();
+  final W = W_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

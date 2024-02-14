@@ -5,14 +5,16 @@ import 'package:lapack/src/matrix.dart';
 void zaxpy(
   final int N,
   final Complex ZA,
-  final Array<Complex> ZX,
+  final Array<Complex> ZX_,
   final int INCX,
-  final Array<Complex> ZY,
+  final Array<Complex> ZY_,
   final int INCY,
 ) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ZX = ZX_.dim();
+  final ZY = ZY_.dim();
   int I, IX, IY;
 
   if (N <= 0) return;

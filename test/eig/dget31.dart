@@ -8,12 +8,13 @@ import 'package:lapack/src/matrix.dart';
 void dget31(
   final Box<double> RMAX,
   final Box<int> LMAX,
-  final Array<int> NINFO,
+  final Array<int> NINFO_,
   final Box<int> KNT,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NINFO = NINFO_.dim();
   const ZERO = 0.0, HALF = 0.5, ONE = 1.0;
   const TWO = 2.0, THREE = 3.0, FOUR = 4.0;
   const SEVEN = 7.0, TEN = 10.0;

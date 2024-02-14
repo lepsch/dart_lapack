@@ -15,17 +15,21 @@ void dlahr2(
   final int N,
   final int K,
   final int NB,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAU,
-  final Matrix<double> T,
+  final Array<double> TAU_,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> Y,
+  final Matrix<double> Y_,
   final int LDY,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final T = T_.dim(LDT);
+  final Y = Y_.dim(LDY);
   const ZERO = 0.0, ONE = 1.0;
   int I;
   double EI = 0;

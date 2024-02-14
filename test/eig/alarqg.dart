@@ -5,7 +5,7 @@ import 'package:lapack/src/nio.dart';
 Future<void> alarqg(
   final String PATH,
   final int NMATS,
-  final Array<bool> DOTYPE,
+  final Array<bool> DOTYPE_,
   final int NTYPES,
   final Nin NIN,
   final Nout NOUT,
@@ -13,6 +13,7 @@ Future<void> alarqg(
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final DOTYPE = DOTYPE_.dim();
   bool FIRSTT;
   String C1;
   String LINE;

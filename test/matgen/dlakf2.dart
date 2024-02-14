@@ -4,17 +4,22 @@ import 'package:lapack/src/matrix.dart';
 void dlakf2(
   final int M,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> B,
-  final Matrix<double> D,
-  final Matrix<double> E,
-  final Matrix<double> Z,
+  final Matrix<double> B_,
+  final Matrix<double> D_,
+  final Matrix<double> E_,
+  final Matrix<double> Z_,
   final int LDZ,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final D = D_.dim(LDA);
+  final E = E_.dim(LDA);
+  final Z = Z_.dim(LDZ);
   const ZERO = 0.0;
   int I, IK, J, JK, L, MN, MN2;
 

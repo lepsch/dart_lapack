@@ -988,11 +988,14 @@ void check3(final double SFAC) {
 
 void stest(
   final int LEN,
-  final Array<double> SCOMP,
-  final Array<double> STRUE,
-  final Array<double> SSIZE,
+  final Array<double> SCOMP_,
+  final Array<double> STRUE_,
+  final Array<double> SSIZE_,
   final double SFAC,
 ) {
+  final SCOMP = SCOMP_.dim();
+  final STRUE = STRUE_.dim();
+  final SSIZE = SSIZE_.dim();
   // ********************************* STEST **************************
 
   // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -1059,9 +1062,10 @@ void testdsdot(
 void stest1(
   final double SCOMP1,
   final double STRUE1,
-  final Array<double> SSIZE,
+  final Array<double> SSIZE_,
   final double SFAC,
 ) {
+  final SSIZE = SSIZE_.dim();
   // ************************* STEST1 *****************************
 
   // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN

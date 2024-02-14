@@ -20,29 +20,41 @@ void dlarre(
   final Box<double> VU,
   final int IL,
   final int IU,
-  final Array<double> D,
-  final Array<double> E,
-  final Array<double> E2,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> E2_,
   final double RTOL1,
   final double RTOL2,
   final double SPLTOL,
   final Box<int> NSPLIT,
-  final Array<int> ISPLIT,
+  final Array<int> ISPLIT_,
   final Box<int> M,
-  final Array<double> W,
-  final Array<double> WERR,
-  final Array<double> WGAP,
-  final Array<int> IBLOCK,
-  final Array<int> INDEXW,
-  final Array<double> GERS,
+  final Array<double> W_,
+  final Array<double> WERR_,
+  final Array<double> WGAP_,
+  final Array<int> IBLOCK_,
+  final Array<int> INDEXW_,
+  final Array<double> GERS_,
   final Box<double> PIVMIN,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final E2 = E2_.dim();
+  final ISPLIT = ISPLIT_.dim();
+  final W = W_.dim();
+  final WERR = WERR_.dim();
+  final WGAP = WGAP_.dim();
+  final IBLOCK = IBLOCK_.dim();
+  final INDEXW = INDEXW_.dim();
+  final GERS = GERS_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0,
       ONE = 1.0,
       TWO = 2.0,

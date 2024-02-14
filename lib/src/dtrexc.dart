@@ -9,18 +9,21 @@ import 'package:lapack/src/xerbla.dart';
 void dtrexc(
   final String COMPQ,
   final int N,
-  final Matrix<double> T,
+  final Matrix<double> T_,
   final int LDT,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
   final Box<int> IFST,
   final Box<int> ILST,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final T = T_.dim(LDT);
+  final Q = Q_.dim(LDQ);
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   bool WANTQ;
   int HERE = 0, NBF, NBL, NBNEXT;

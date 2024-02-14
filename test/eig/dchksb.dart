@@ -17,28 +17,38 @@ import 'dsbt21.dart';
 
 void dchksb(
   final int NSIZES,
-  final Array<int> NN,
+  final Array<int> NN_,
   final int NWDTHS,
-  final Array<int> KK,
+  final Array<int> KK_,
   final int NTYPES,
-  final Array<bool> DOTYPE,
-  final Array<int> ISEED,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
   final int THRESH,
   final Nout NOUNIT,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> SD,
-  final Array<double> SE,
-  final Matrix<double> U,
+  final Array<double> SD_,
+  final Array<double> SE_,
+  final Matrix<double> U_,
   final int LDU,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<double> RESULT,
+  final Array<double> RESULT_,
   final Box<int> INFO,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final NN = NN_.dim();
+  final KK = KK_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim();
+  final A = A_.dim();
+  final SD = SD_.dim();
+  final SE = SE_.dim();
+  final U = U_.dim();
+  final WORK = WORK_.dim();
+  final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;
   const HALF = ONE / TWO;
   const MAXTYP = 15;

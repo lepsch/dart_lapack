@@ -7,13 +7,14 @@ void zhpr(
   final String UPLO,
   final int N,
   final double ALPHA,
-  final Array<Complex> X,
+  final Array<Complex> X_,
   final int INCX,
   final Array<Complex> AP,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final X = X_.dim();
   Complex TEMP;
   int I, INFO, IX, J, JX, K, KK = 0, KX = 0;
 

@@ -6,7 +6,9 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlag2s(final int M, final int N, final Matrix<double> A, final int LDA, final Matrix<double> SA, final int LDSA, final Box<int> INFO,) {
+      void dlag2s(final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> SA_, final int LDSA, final Box<int> INFO,) {
+  final A = A_.dim();
+  final SA = SA_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

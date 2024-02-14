@@ -7,16 +7,19 @@ void zhpmv(
   final String UPLO,
   final int N,
   final Complex ALPHA,
-  final Array<Complex> AP,
-  final Array<Complex> X,
+  final Array<Complex> AP_,
+  final Array<Complex> X_,
   final int INCX,
   final Complex BETA,
-  final Array<Complex> Y,
+  final Array<Complex> Y_,
   final int INCY,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final X = X_.dim();
+  final Y = Y_.dim();
   Complex TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX, JY, K, KK, KX, KY;
 

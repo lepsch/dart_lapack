@@ -15,16 +15,19 @@ void dgehrd(
   final int N,
   final int ILO,
   final int IHI,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<double> TAU,
-  final Array<double> WORK,
+  final Array<double> TAU_,
+  final Array<double> WORK_,
   final int LWORK,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
   const NBMAX = 64, LDT = NBMAX + 1, TSIZE = LDT * NBMAX;
   const ZERO = 0.0, ONE = 1.0;
   bool LQUERY;

@@ -1,4 +1,7 @@
-      void zlals0(final int ICOMPQ, final int NL, final int NR, final int SQRE, final int NRHS, final Matrix<double> B, final int LDB, final Matrix<double> BX, final int LDBX, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int POLES, final int DIFL, final int DIFR, final int Z, final int K, final int C, final int S, final Array<double> RWORK, final Box<int> INFO,) {
+      void zlals0(final int ICOMPQ, final int NL, final int NR, final int SQRE, final int NRHS, final Matrix<double> B_, final int LDB, final Matrix<double> BX_, final int LDBX, final int PERM, final int GIVPTR, final int GIVCOL, final int LDGCOL, final int GIVNUM, final int LDGNUM, final int POLES, final int DIFL, final int DIFR, final int Z, final int K, final int C, final int S, final Array<double> RWORK_, final Box<int> INFO,) {
+  final B = B_.dim();
+  final BX = BX_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

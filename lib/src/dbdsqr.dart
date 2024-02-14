@@ -21,20 +21,26 @@ void dbdsqr(
   final int NCVT,
   final int NRU,
   final int NCC,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> VT,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> VT_,
   final int LDVT,
-  final Matrix<double> U,
+  final Matrix<double> U_,
   final int LDU,
-  final Matrix<double> C,
+  final Matrix<double> C_,
   final int LDC,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final VT = VT_.dim(LDVT);
+  final U = U_.dim(LDU);
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
   const ZERO = 0.0;
   const ONE = 1.0;
   const NEGONE = -1.0;

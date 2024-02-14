@@ -19,35 +19,42 @@ void dlatmr(
   final int M,
   final int N,
   final String DIST,
-  final Array<int> ISEED,
+  final Array<int> ISEED_,
   final String SYM,
-  final Array<double> D,
+  final Array<double> D_,
   final int MODE,
   final double COND,
   final double DMAX,
   final String RSIGN,
   final String GRADE,
-  final Array<double> DL,
+  final Array<double> DL_,
   final int MODEL,
   final double CONDL,
-  final Array<double> DR,
+  final Array<double> DR_,
   final int MODER,
   final double CONDR,
   final String PIVTNG,
-  final Array<int> IPIVOT,
+  final Array<int> IPIVOT_,
   final int KL,
   final int KU,
   final double SPARSE,
   final double ANORM,
   final String PACK,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Array<int> IWORK,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
+  final DL = DL_.dim();
+  final DR = DR_.dim();
+  final IPIVOT = IPIVOT_.dim();
+  final A = A_.dim(LDA);
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0;
   const ONE = 1.0;
   bool BADPVT, DZERO, FULBND;

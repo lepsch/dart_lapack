@@ -1,4 +1,6 @@
-      void cgehd2(final int N, final int ILO, final int IHI, final Matrix<double> A, final int LDA, final int TAU, final Array<double> _WORK, final Box<int> INFO,) {
+      void cgehd2(final int N, final int ILO, final int IHI, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> _WORK_, final Box<int> INFO,) {
+  final A = A_.dim();
+  final _WORK = _WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

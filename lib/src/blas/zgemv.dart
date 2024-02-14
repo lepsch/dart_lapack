@@ -10,17 +10,20 @@ void zgemv(
   final int M,
   final int N,
   final Complex ALPHA,
-  final Matrix<Complex> A,
+  final Matrix<Complex> A_,
   final int LDA,
-  final Array<Complex> X,
+  final Array<Complex> X_,
   final int INCX,
   final Complex BETA,
-  final Array<Complex> Y,
+  final Array<Complex> Y_,
   final int INCY,
 ) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim();
+  final X = X_.dim();
+  final Y = Y_.dim();
   Complex TEMP;
   int I, INFO, IX, IY, J, JX, JY, KX, KY, LENX, LENY;
   bool NOCONJ;

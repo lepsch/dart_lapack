@@ -1,4 +1,8 @@
-      void zckgsv(final int NM, final int MVAL, final int PVAL, final int NVAL, final int NMATS, final Array<int> ISEED, final int THRESH, final int NMAX, final int A, final int AF, final int B, final int BF, final int U, final int V, final int Q, final int ALPHA, final int BETA, final int R, final Array<int> IWORK, final Array<double> _WORK, final Array<double> RWORK, final int NIN, final int NOUT, final Box<int> INFO,) {
+      void zckgsv(final int NM, final int MVAL, final int PVAL, final int NVAL, final int NMATS, final Array<int> ISEED_, final int THRESH, final int NMAX, final int A, final int AF, final int B, final int BF, final int U, final int V, final int Q, final int ALPHA, final int BETA, final int R, final Array<int> IWORK_, final Array<double> _WORK_, final Array<double> RWORK_, final int NIN, final int NOUT, final Box<int> INFO,) {
+  final ISEED = ISEED_.dim();
+  final IWORK = IWORK_.dim();
+  final _WORK = _WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

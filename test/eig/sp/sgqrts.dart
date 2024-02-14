@@ -1,4 +1,6 @@
-      void sgqrts(final int N, final int M, final int P, final int A, final int AF, final int Q, final int R, final int LDA, final int TAUA, final int B, final int BF, final int Z, final int T, final int BWK, final int LDB, final int TAUB, final Array<double> WORK, final int LWORK, final Array<double> RWORK, final int RESULT,) {
+      void sgqrts(final int N, final int M, final int P, final int A, final int AF, final int Q, final int R, final int LDA, final int TAUA, final int B, final int BF, final int Z, final int T, final int BWK, final int LDB, final int TAUB, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

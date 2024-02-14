@@ -23,21 +23,27 @@ void dgees(
   final String SORT,
   final bool Function(double, double) SELECT,
   final int N,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
   final Box<int> SDIM,
-  final Array<double> WR,
-  final Array<double> WI,
-  final Matrix<double> VS,
+  final Array<double> WR_,
+  final Array<double> WI_,
+  final Matrix<double> VS_,
   final int LDVS,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final int LWORK,
-  final Array<bool> BWORK,
+  final Array<bool> BWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final WR = WR_.dim();
+  final WI = WI_.dim();
+  final VS = VS_.dim(LDVS);
+  final WORK = WORK_.dim();
+  final BWORK = BWORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS;
   int HSWORK, I, I1, I2, IBAL, INXT, IP, ITAU, IWRK, MAXWRK = 0, MINWRK;

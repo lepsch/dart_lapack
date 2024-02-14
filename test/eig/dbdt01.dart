@@ -12,20 +12,26 @@ void dbdt01(
   final int M,
   final int N,
   final int KD,
-  final Matrix<double> A,
+  final Matrix<double> A_,
   final int LDA,
-  final Matrix<double> Q,
+  final Matrix<double> Q_,
   final int LDQ,
-  final Array<double> D,
-  final Array<double> E,
-  final Matrix<double> PT,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<double> PT_,
   final int LDPT,
-  final Array<double> WORK,
+  final Array<double> WORK_,
   final Box<double> RESID,
 ) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final Q = Q_.dim(LDQ);
+  final D = D_.dim(min(M, N));
+  final E = E_.dim(min(M, N) - 1);
+  final PT = PT_.dim(LDPT);
+  final WORK = WORK_.dim(M + N);
   const ZERO = 0.0, ONE = 1.0;
   int I, J;
   double ANORM, EPS;

@@ -12,15 +12,19 @@ void dopmtr(
     final String TRANS,
     final int M,
     final int N,
-    final Array<double> AP,
-    final Array<double> TAU,
-    final Matrix<double> C,
+    final Array<double> AP_,
+    final Array<double> TAU_,
+    final Matrix<double> C_,
     final int LDC,
-    final Array<double> WORK,
+    final Array<double> WORK_,
     final Box<int> INFO) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final AP = AP_.dim();
+  final TAU = TAU_.dim();
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
   const ONE = 1.0;
   bool FORWRD, LEFT, NOTRAN, UPPER;
   int I, I1, I2, I3, IC = 0, II, JC = 0, MI = 0, NI = 0, NQ;

@@ -21,23 +21,29 @@ void dbdsvdx(
   final String JOBZ,
   final String RANGE,
   final int N,
-  final Array<double> D,
-  final Array<double> E,
+  final Array<double> D_,
+  final Array<double> E_,
   final double VL,
   final double VU,
   final int IL,
   final int IU,
   final Box<int> NS,
-  final Array<double> S,
-  final Matrix<double> Z,
+  final Array<double> S_,
+  final Matrix<double> Z_,
   final int LDZ,
-  final Array<double> WORK,
-  final Array<int> IWORK,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
   final Box<int> INFO,
 ) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final D = D_.dim();
+  final E = E_.dim();
+  final S = S_.dim();
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
   const ZERO = 0.0, ONE = 1.0, TEN = 10.0, HNDRD = 100.0, MEIGTH = -0.1250;
   const FUDGE = 2.0;
   String RNGVX = '';

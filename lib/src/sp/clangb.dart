@@ -1,4 +1,6 @@
-      double clangb(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB, final int LDAB, final Array<double> WORK,) {
+      double clangb(final int NORM, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Array<double> WORK_,) {
+  final AB = AB_.dim();
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -6,13 +6,16 @@ import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgels(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A, final int LDA, final Matrix<double> B, final int LDB, final Array<double> WORK, final int LWORK, final Box<int> INFO,) {
+      void dgels(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       String             TRANS;
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
+      // int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       double             A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
