@@ -1,134 +1,126 @@
-import 'dart:math';
-
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dgtts2(final int ITRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV_, final int B, final int LDB,) {
-  final IPIV = IPIV_.dim();
-
+void dgtts2(
+  final int ITRANS,
+  final int N,
+  final int NRHS,
+  final Array<double> DL_,
+  final Array<double> D_,
+  final Array<double> DU_,
+  final Array<double> DU2_,
+  final Array<int> IPIV_,
+  final Matrix<double> B_,
+  final int LDB,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                ITRANS, LDB, N, NRHS;
-      int                IPIV( * );
-      double             B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
-      // ..
+  final IPIV = IPIV_.dim();
+  final DL = DL_.dim();
+  final D = D_.dim();
+  final DU = DU_.dim();
+  final DU2 = DU2_.dim();
+  final B = B_.dim(LDB);
+  int I, IP, J;
+  double TEMP;
 
-// =====================================================================
+  // Quick return if possible
 
-      // .. Local Scalars ..
-      int                I, IP, J;
-      double             TEMP;
+  if (N == 0 || NRHS == 0) return;
 
-      // Quick return if possible
+  if (ITRANS == 0) {
+    // Solve A*X = B using the LU factorization of A,
+    // overwriting each right hand side vector with its solution.
 
-      if (N == 0 || NRHS == 0) return;
+    if (NRHS <= 1) {
+      for (J = 1; J <= NRHS; J++) {
+        // Solve L*x = b.
 
-      if ( ITRANS == 0 ) {
+        for (I = 1; I <= N - 1; I++) {
+          IP = IPIV[I];
+          TEMP = B[I + 1 - IP + I][J] - DL[I] * B[IP][J];
+          B[I][J] = B[IP][J];
+          B[I + 1][J] = TEMP;
+        }
 
-         // Solve A*X = B using the LU factorization of A,
-         // overwriting each right hand side vector with its solution.
+        // Solve U*x = b.
 
-         if ( NRHS <= 1 ) {
-            J = 1;
-            } // 10
-
-            // Solve L*x = b.
-
-            for (I = 1; I <= N - 1; I++) { // 20
-               IP = IPIV( I );
-               TEMP = B( I+1-IP+I, J ) - DL( I )*B( IP, J );
-               B[I][J] = B( IP, J );
-               B[I+1][J] = TEMP;
-            } // 20
-
-            // Solve U*x = b.
-
-            B[N][J] = B( N, J ) / D( N );
-            if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-            for (I = N - 2; I >= 1; I--) { // 30
-               B[I][J] = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I );
-            } // 30
-            if ( J < NRHS ) {
-               J = J + 1;
-               GO TO 10;
-            }
-         } else {
-            for (J = 1; J <= NRHS; J++) { // 60
-
-               // Solve L*x = b.
-
-               for (I = 1; I <= N - 1; I++) { // 40
-                  if ( IPIV( I ) == I ) {
-                     B[I+1][J] = B( I+1, J ) - DL( I )*B( I, J );
-                  } else {
-                     TEMP = B( I, J );
-                     B[I][J] = B( I+1, J );
-                     B[I+1][J] = TEMP - DL( I )*B( I, J );
-                  }
-               } // 40
-
-               // Solve U*x = b.
-
-               B[N][J] = B( N, J ) / D( N );
-               if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-               for (I = N - 2; I >= 1; I--) { // 50
-                  B[I][J] = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I );
-               } // 50
-            } // 60
-         }
-      } else {
-
-         // Solve A**T * X = B.
-
-         if ( NRHS <= 1 ) {
-
-            // Solve U**T*x = b.
-
-            J = 1;
-            } // 70
-            B[1][J] = B( 1, J ) / D( 1 );
-            if (N > 1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
-            for (I = 3; I <= N; I++) { // 80
-               B[I][J] = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I );
-            } // 80
-
-            // Solve L**T*x = b.
-
-            for (I = N - 1; I >= 1; I--) { // 90
-               IP = IPIV( I );
-               TEMP = B( I, J ) - DL( I )*B( I+1, J );
-               B[I][J] = B( IP, J );
-               B[IP][J] = TEMP;
-            } // 90
-            if ( J < NRHS ) {
-               J = J + 1;
-               GO TO 70;
-            }
-
-         } else {
-            for (J = 1; J <= NRHS; J++) { // 120
-
-               // Solve U**T*x = b.
-
-               B[1][J] = B( 1, J ) / D( 1 );
-               if (N > 1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
-               for (I = 3; I <= N; I++) { // 100
-                  B[I][J] = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I );
-               } // 100
-               for (I = N - 1; I >= 1; I--) { // 110
-                  if ( IPIV( I ) == I ) {
-                     B[I][J] = B( I, J ) - DL( I )*B( I+1, J );
-                  } else {
-                     TEMP = B( I+1, J );
-                     B[I+1][J] = B( I, J ) - DL( I )*TEMP;
-                     B[I][J] = TEMP;
-                  }
-               } // 110
-            } // 120
-         }
+        B[N][J] = B[N][J] / D[N];
+        if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
+        for (I = N - 2; I >= 1; I--) {
+          B[I][J] =
+              (B[I][J] - DU[I] * B[I + 1][J] - DU2[I] * B[I + 2][J]) / D[I];
+        }
       }
+    } else {
+      for (J = 1; J <= NRHS; J++) {
+        // Solve L*x = b.
+
+        for (I = 1; I <= N - 1; I++) {
+          if (IPIV[I] == I) {
+            B[I + 1][J] = B[I + 1][J] - DL[I] * B[I][J];
+          } else {
+            TEMP = B[I][J];
+            B[I][J] = B[I + 1][J];
+            B[I + 1][J] = TEMP - DL[I] * B[I][J];
+          }
+        }
+
+        // Solve U*x = b.
+
+        B[N][J] = B[N][J] / D[N];
+        if (N > 1) B[N - 1][J] = (B[N - 1][J] - DU[N - 1] * B[N][J]) / D[N - 1];
+        for (I = N - 2; I >= 1; I--) {
+          B[I][J] =
+              (B[I][J] - DU[I] * B[I + 1][J] - DU2[I] * B[I + 2][J]) / D[I];
+        }
       }
+    }
+  } else {
+    // Solve A**T * X = B.
+
+    if (NRHS <= 1) {
+      // Solve U**T*x = b.
+
+      for (J = 1; J <= NRHS; J++) {
+        B[1][J] = B[1][J] / D[1];
+        if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
+        for (I = 3; I <= N; I++) {
+          B[I][J] =
+              (B[I][J] - DU[I - 1] * B[I - 1][J] - DU2[I - 2] * B[I - 2][J]) /
+                  D[I];
+        }
+
+        // Solve L**T*x = b.
+
+        for (I = N - 1; I >= 1; I--) {
+          IP = IPIV[I];
+          TEMP = B[I][J] - DL[I] * B[I + 1][J];
+          B[I][J] = B[IP][J];
+          B[IP][J] = TEMP;
+        }
+      }
+    } else {
+      for (J = 1; J <= NRHS; J++) {
+        // Solve U**T*x = b.
+
+        B[1][J] = B[1][J] / D[1];
+        if (N > 1) B[2][J] = (B[2][J] - DU[1] * B[1][J]) / D[2];
+        for (I = 3; I <= N; I++) {
+          B[I][J] =
+              (B[I][J] - DU[I - 1] * B[I - 1][J] - DU2[I - 2] * B[I - 2][J]) /
+                  D[I];
+        }
+        for (I = N - 1; I >= 1; I--) {
+          if (IPIV[I] == I) {
+            B[I][J] = B[I][J] - DL[I] * B[I + 1][J];
+          } else {
+            TEMP = B[I + 1][J];
+            B[I + 1][J] = B[I][J] - DL[I] * TEMP;
+            B[I][J] = TEMP;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,31 +1,13 @@
-      void ctrsm(final int SIDE, final int UPLO, final int TRANSA, final int DIAG, final int M, final int N, final int ALPHA, final Matrix<double> A_, final int LDA, final int B, final int LDB,) {
-  final A = A_.dim();
-
+      void ctrsm(final String SIDE, final String UPLO, final String TRANSA, final String DIAG, final int M, final int N, final Complex ALPHA,
+        final Matrix<Complex> A_, final int LDA, final Matrix<Complex> B_, final int LDB,) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      Complex ALPHA;
-      int     LDA,LDB,M,N;
-      String    DIAG,SIDE,TRANSA,UPLO;
-      Complex A(LDA,*),B(LDB,*);
-      // ..
-
-// =====================================================================
-
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC CONJG,MAX
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
       Complex TEMP;
       int     I,INFO,J,K,NROWA;
       bool    LSIDE,NOCONJ,NOUNIT,UPPER;
-      // ..
-      // .. Parameters ..
       Complex ONE;
       const     ONE= (1.0,0.0);
       Complex ZERO;

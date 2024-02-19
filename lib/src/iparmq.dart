@@ -26,7 +26,7 @@ int iparmq(
       RCOST = 10;
   const TWO = 2.0;
   int NH = 0, NS = 0;
-  int I, IC, IZ;
+  // int I, IC, IZ;
   String SUBNAM;
 
   if ((ISPEC == ISHFTS) || (ISPEC == INWIN) || (ISPEC == IACC22)) {

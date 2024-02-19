@@ -30,6 +30,7 @@ abstract interface class Array<T> {
   Matrix<T> asMatrix(int ld);
 
   T maxval(int start, int end);
+  int maxloc(int start, int end, {int dim = 1});
 
   Array<T> dim([int? ld]);
 }
@@ -113,6 +114,11 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   @override
   T maxval(int start, int end) {
     return _entries(1, offset: i - 1).maxval(start, end);
+  }
+
+  @override
+  int maxloc(int start, int end, {int dim=1}) {
+    return _entries(1, offset: i - 1).maxloc(start, end,dim: dim);
   }
 
   @override
@@ -225,6 +231,31 @@ class _Array<T> implements Array<T> {
           if (this[start] as bool) return true as T;
         }
         return false as T;
+      default:
+        throw UnimplementedError();
+    }
+  }
+
+  @override
+  int maxloc(int start, int end, {int dim = 1}) {
+    switch (T) {
+      case double:
+      case int:
+        int loc = 0;
+        num value = 0;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[start] as num)) {
+            value = this[start] as num;
+            loc = i;
+          }
+        }
+        return loc;
+
+      case bool:
+        for (var i = start + 1; i <= end; i++) {
+          if (this[start] as bool) return i;
+        }
+        return start + 1;
       default:
         throw UnimplementedError();
     }

@@ -1,24 +1,26 @@
-      void slag2d(final int M, final int N, final Matrix<double> SA_, final int LDSA, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
-  final SA = SA_.dim();
-  final A = A_.dim();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/matrix.dart';
 
+void slag2d(
+  final int M,
+  final int N,
+  final Matrix<double> SA_,
+  final int LDSA,
+  final Matrix<double> A_,
+  final int LDA,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDSA, M, N;
-      double               SA( LDSA, * );
-      double             A( LDA, * );
-      // ..
+  final SA = SA_.dim(LDSA);
+  final A = A_.dim(LDA);
+  int I, J;
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, J;
-
-      INFO = 0;
-      for (J = 1; J <= N; J++) { // 20
-         for (I = 1; I <= M; I++) { // 10
-            A[I][J] = SA( I, J );
-         } // 10
-      } // 20
-      }
+  INFO.value = 0;
+  for (J = 1; J <= N; J++) {
+    for (I = 1; I <= M; I++) {
+      A[I][J] = SA[I][J];
+    }
+  }
+}

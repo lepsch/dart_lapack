@@ -30,7 +30,7 @@ void dstegr(
   final D = D_.dim();
   final E = E_.dim();
   final W = W_.dim();
-  final Z = Z_.dim();
+  final Z = Z_.dim(LDZ);
   final ISUPPZ = ISUPPZ_.dim();
   final WORK = WORK_.dim();
   final IWORK = IWORK_.dim();

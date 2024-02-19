@@ -2,117 +2,127 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dgemqrt.dart';
+import 'package:lapack/src/dlamtsqr.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgemqr(final int SIDE, final int TRANS, final int M, final int N, final int K, final Matrix<double> A_, final int LDA, final int T, final int TSIZE, final Matrix<double> C_, final int LDC, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final C = C_.dim();
-  final WORK = WORK_.dim();
-
+void dgemqr(
+  final String SIDE,
+  final String TRANS,
+  final int M,
+  final int N,
+  final int K,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> T_,
+  final int TSIZE,
+  final Matrix<double> C_,
+  final int LDC,
+  final Array<double> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             SIDE, TRANS;
-      int                INFO, LDA, M, N, K, TSIZE, LWORK, LDC;
-      double             A( LDA, * ), T( * ), C( LDC, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final T = T_.dim();
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
 
-// =====================================================================
+  bool LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
+  int MB,
+      NB,
+      LW,
+      // NBLCKS,
+      MN,
+      MINMNK,
+      LWMIN;
 
-      bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
-      int                MB, NB, LW, NBLCKS, MN, MINMNK, LWMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMQRT, DLAMTSQR, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC INT, MAX, MIN, MOD
+  // Test the input arguments
 
-      // Test the input arguments
+  LQUERY = (LWORK == -1);
+  NOTRAN = lsame(TRANS, 'N');
+  TRAN = lsame(TRANS, 'T');
+  LEFT = lsame(SIDE, 'L');
+  RIGHT = lsame(SIDE, 'R');
 
-      LQUERY  = ( LWORK == -1 );
-      NOTRAN  = lsame( TRANS, 'N' );
-      TRAN    = lsame( TRANS, 'T' );
-      LEFT    = lsame( SIDE, 'L' );
-      RIGHT   = lsame( SIDE, 'R' );
+  MB = T[2].abs().toInt();
+  NB = T[3].abs().toInt();
+  if (LEFT) {
+    LW = N * NB;
+    MN = M;
+  } else {
+    LW = MB * NB;
+    MN = N;
+  }
 
-      MB = INT( T( 2 ) );
-      NB = INT( T( 3 ) );
-      if ( LEFT ) {
-        LW = N * NB;
-        MN = M;
-      } else {
-        LW = MB * NB;
-        MN = N;
-      }
+  MINMNK = min(M, min(N, K));
+  if (MINMNK == 0) {
+    LWMIN = 1;
+  } else {
+    LWMIN = max(1, LW);
+  }
 
-      MINMNK = min( M, N, K );
-      if ( MINMNK == 0 ) {
-         LWMIN = 1;
-      } else {
-         LWMIN = max( 1, LW );
-      }
+  // if ((MB > K) && (MN > K)) {
+  //   if ((MN - K % MB - K) == 0) {
+  //     NBLCKS = (MN - K) ~/ (MB - K);
+  //   } else {
+  //     NBLCKS = (MN - K) ~/ (MB - K) + 1;
+  //   }
+  // } else {
+  //   NBLCKS = 1;
+  // }
 
-      if ( ( MB > K ) && ( MN > K ) ) {
-        if ( (MN - K % MB - K) == 0 ) {
-          NBLCKS = ( MN - K ) / ( MB - K );
-        } else {
-          NBLCKS = ( MN - K ) / ( MB - K ) + 1;
-        }
-      } else {
-        NBLCKS = 1;
-      }
+  INFO.value = 0;
+  if (!LEFT && !RIGHT) {
+    INFO.value = -1;
+  } else if (!TRAN && !NOTRAN) {
+    INFO.value = -2;
+  } else if (M < 0) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (K < 0 || K > MN) {
+    INFO.value = -5;
+  } else if (LDA < max(1, MN)) {
+    INFO.value = -7;
+  } else if (TSIZE < 5) {
+    INFO.value = -9;
+  } else if (LDC < max(1, M)) {
+    INFO.value = -11;
+  } else if (LWORK < LWMIN && !LQUERY) {
+    INFO.value = -13;
+  }
 
-      INFO = 0;
-      if ( !LEFT && !RIGHT ) {
-        INFO = -1;
-      } else if ( !TRAN && !NOTRAN ) {
-        INFO = -2;
-      } else if ( M < 0 ) {
-        INFO = -3;
-      } else if ( N < 0 ) {
-        INFO = -4;
-      } else if ( K < 0 || K > MN ) {
-        INFO = -5;
-      } else if ( LDA < max( 1, MN ) ) {
-        INFO = -7;
-      } else if ( TSIZE < 5 ) {
-        INFO = -9;
-      } else if ( LDC < max( 1, M ) ) {
-        INFO = -11;
-      } else if ( LWORK < LWMIN && !LQUERY ) {
-        INFO = -13;
-      }
+  if (INFO.value == 0) {
+    WORK[1] = LWMIN.toDouble();
+  }
 
-      if ( INFO == 0 ) {
-        WORK[1] = LWMIN;
-      }
+  if (INFO.value != 0) {
+    xerbla('DGEMQR', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-        xerbla('DGEMQR', -INFO );
-        return;
-      } else if ( LQUERY ) {
-        return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (MINMNK == 0) {
+    return;
+  }
 
-      if ( MINMNK == 0 ) {
-        return;
-      }
+  if ((LEFT && M <= K) ||
+      (RIGHT && N <= K) ||
+      (MB <= K) ||
+      (MB >= max(M, max(N, K)))) {
+    dgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T(6).asMatrix(NB), NB, C, LDC,
+        WORK, INFO);
+  } else {
+    dlamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T(6).asMatrix(NB), NB, C,
+        LDC, WORK, LWORK, INFO);
+  }
 
-      if( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( MB <= K ) || ( MB >= max( M, N, K ) ) ) {
-        CALL DGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO );
-      } else {
-        dlamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO );
-      }
-
-      WORK[1] = LWMIN;
-
-      }
+  WORK[1] = LWMIN.toDouble();
+}

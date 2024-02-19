@@ -6,7 +6,6 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dggsvp3.dart';
 import 'package:lapack/src/dlange.dart';
 import 'package:lapack/src/dtgsja.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';

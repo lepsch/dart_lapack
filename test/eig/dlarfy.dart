@@ -1,38 +1,38 @@
-      void dlarfy(final int UPLO, final int N, final int V, final int INCV, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_,) {
-  final C = C_.dim();
-  final WORK = WORK_.dim();
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/ddot.dart';
+import 'package:lapack/src/blas/dsymv.dart';
+import 'package:lapack/src/blas/dsyr2.dart';
+import 'package:lapack/src/matrix.dart';
 
+void dlarfy(
+  final String UPLO,
+  final int N,
+  final Array<double> V_,
+  final int INCV,
+  final double TAU,
+  final Matrix<double> C_,
+  final int LDC,
+  final Array<double> WORK_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INCV, LDC, N;
-      double             TAU;
-      double             C( LDC, * ), V( * ), WORK( * );
-      // ..
+  final V = V_.dim();
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
+  const ONE = 1.0, ZERO = 0.0, HALF = 0.5;
+  double ALPHA;
 
-      double             ONE, ZERO, HALF;
-      const              ONE = 1.0, ZERO = 0.0, HALF = 0.5 ;
-      double             ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DSYMV, DSYR2
-      // ..
-      // .. External Functions ..
-      //- double             DDOT;
-      // EXTERNAL DDOT
+  if (TAU == ZERO) return;
 
-      if (TAU == ZERO) return;
+  // Form  w:= C * v
 
-      // Form  w:= C * v
+  dsymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1);
 
-      dsymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
+  ALPHA = -HALF * TAU * ddot(N, WORK, 1, V, INCV);
+  daxpy(N, ALPHA, V, INCV, WORK, 1);
 
-      ALPHA = -HALF*TAU*ddot( N, WORK, 1, V, INCV );
-      daxpy(N, ALPHA, V, INCV, WORK, 1 );
+  // C := C - v * w' - w * v'
 
-      // C := C - v * w' - w * v'
-
-      dsyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
-
-      }
+  dsyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC);
+}

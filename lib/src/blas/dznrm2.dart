@@ -18,21 +18,21 @@ double dznrm2(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 //    March 2021
   final x = x_.dim();
-  const wp = 1;
+  // const wp = 1;
   const zero = 0.0;
   const one = 1.0;
   final maxN = huge(0.0);
-  double tsml = pow(real(radix(0.0), wp), ceiling((minexponent(0.0) - 1) * 0.5))
-      .toDouble();
-  double tbig = pow(real(radix(0.0), wp),
-          floor((maxexponent(0.0) - digits(0.0) + 1) * 0.5))
-      .toDouble();
-  double ssml = pow(real(radix(0.0), wp),
-          (-floor((minexponent(0.0) - digits(0.0)) * 0.5)))
-      .toDouble();
-  double sbig = pow(real(radix(0.0), wp),
-          (-ceiling((maxexponent(0.0) + digits(0.0) - 1) * 0.5)))
-      .toDouble();
+  double tsml =
+      pow(radix(0.0), ((minexponent(0.0) - 1) * 0.5).ceil()).toDouble();
+  double tbig =
+      pow(radix(0.0), ((maxexponent(0.0) - digits(0.0) + 1) * 0.5).floor())
+          .toDouble();
+  double ssml =
+      pow(radix(0.0), (-((minexponent(0.0) - digits(0.0)) * 0.5).floor()))
+          .toDouble();
+  double sbig =
+      pow(radix(0.0), (-((maxexponent(0.0) + digits(0.0) - 1) * 0.5).floor()))
+          .toDouble();
   int i, ix;
   bool notbig;
   double abig, amed, asml, ax, scl, sumsq, ymax, ymin;

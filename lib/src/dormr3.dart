@@ -2,117 +2,110 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlarz.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dormr3(final int SIDE, final int TRANS, final int M, final int N, final int K, final int L, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final C = C_.dim();
-  final _WORK = _WORK_.dim();
-
+void dormr3(
+  final String SIDE,
+  final String TRANS,
+  final int M,
+  final int N,
+  final int K,
+  final int L,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> TAU_,
+  final Matrix<double> C_,
+  final int LDC,
+  final Array<double> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             SIDE, TRANS;
-      int                INFO, K, L, LDA, LDC, M, N;
-      double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final C = C_.dim(LDC);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  bool LEFT, NOTRAN;
+  int I, I1, I2, I3, IC = 0, JA, JC = 0, MI = 0, NI = 0, NQ;
 
-// =====================================================================
+  // Test the input arguments
 
-      // .. Local Scalars ..
-      bool               LEFT, NOTRAN;
-      int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLARZ, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  LEFT = lsame(SIDE, 'L');
+  NOTRAN = lsame(TRANS, 'N');
 
-      // Test the input arguments
+  // NQ is the order of Q
 
-      INFO = 0;
-      LEFT = lsame( SIDE, 'L' );
-      NOTRAN = lsame( TRANS, 'N' );
+  if (LEFT) {
+    NQ = M;
+  } else {
+    NQ = N;
+  }
+  if (!LEFT && !lsame(SIDE, 'R')) {
+    INFO.value = -1;
+  } else if (!NOTRAN && !lsame(TRANS, 'T')) {
+    INFO.value = -2;
+  } else if (M < 0) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (K < 0 || K > NQ) {
+    INFO.value = -5;
+  } else if (L < 0 || (LEFT && (L > M)) || (!LEFT && (L > N))) {
+    INFO.value = -6;
+  } else if (LDA < max(1, K)) {
+    INFO.value = -8;
+  } else if (LDC < max(1, M)) {
+    INFO.value = -11;
+  }
+  if (INFO.value != 0) {
+    xerbla('DORMR3', -INFO.value);
+    return;
+  }
 
-      // NQ is the order of Q
+  // Quick return if possible
 
-      if ( LEFT ) {
-         NQ = M;
-      } else {
-         NQ = N;
-      }
-      if ( !LEFT && !lsame( SIDE, 'R' ) ) {
-         INFO = -1;
-      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) ) {
-         INFO = -2;
-      } else if ( M < 0 ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( K < 0 || K > NQ ) {
-         INFO = -5;
-      } else if ( L < 0 || ( LEFT && ( L > M ) ) || ( !LEFT && ( L > N ) ) ) {
-         INFO = -6;
-      } else if ( LDA < max( 1, K ) ) {
-         INFO = -8;
-      } else if ( LDC < max( 1, M ) ) {
-         INFO = -11;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DORMR3', -INFO );
-         return;
-      }
+  if (M == 0 || N == 0 || K == 0) return;
 
-      // Quick return if possible
+  if ((LEFT && !NOTRAN || !LEFT && NOTRAN)) {
+    I1 = 1;
+    I2 = K;
+    I3 = 1;
+  } else {
+    I1 = K;
+    I2 = 1;
+    I3 = -1;
+  }
 
-      if (M == 0 || N == 0 || K == 0) return;
+  if (LEFT) {
+    NI = N;
+    JA = M - L + 1;
+    JC = 1;
+  } else {
+    MI = M;
+    JA = N - L + 1;
+    IC = 1;
+  }
 
-      if ( ( LEFT && !NOTRAN || !LEFT && NOTRAN ) ) {
-         I1 = 1;
-         I2 = K;
-         I3 = 1;
-      } else {
-         I1 = K;
-         I2 = 1;
-         I3 = -1;
-      }
+  for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) {
+    if (LEFT) {
+      // H(i) or H(i)**T is applied to C(i:m,1:n)
 
-      if ( LEFT ) {
-         NI = N;
-         JA = M - L + 1;
-         JC = 1;
-      } else {
-         MI = M;
-         JA = N - L + 1;
-         IC = 1;
-      }
+      MI = M - I + 1;
+      IC = I;
+    } else {
+      // H(i) or H(i)**T is applied to C(1:m,i:n)
 
-      for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 10
-         if ( LEFT ) {
+      NI = N - I + 1;
+      JC = I;
+    }
 
-            // H(i) or H(i)**T is applied to C(i:m,1:n)
+    // Apply H(i) or H(i)**T
 
-            MI = M - I + 1;
-            IC = I;
-         } else {
-
-            // H(i) or H(i)**T is applied to C(1:m,i:n)
-
-            NI = N - I + 1;
-            JC = I;
-         }
-
-         // Apply H(i) or H(i)**T
-
-         dlarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
-
-      } // 10
-
-      }
+    dlarz(
+        SIDE, MI, NI, L, A(I, JA).asArray(), LDA, TAU[I], C(IC, JC), LDC, WORK);
+  }
+}

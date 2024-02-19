@@ -56,7 +56,7 @@ void dlaqz3(
   final WORK = WORK_.dim();
   const ZERO = 0.0, ONE = 1.0;
   bool BULGE;
-  int JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, LWORKREQ = 0;
+  int KWBOT, ISTOPM, ISTARTM, K, K2, LWORKREQ = 0;
   double S, SMLNUM, ULP, SAFMIN
       // SAFMAX
       ;
@@ -69,8 +69,8 @@ void dlaqz3(
   INFO.value = 0;
 
   // Set up deflation window
-  JW = min(NW, IHI - ILO + 1);
-  KWTOP = IHI - JW + 1;
+  final JW = min(NW, IHI - ILO + 1);
+  final KWTOP = IHI - JW + 1;
   if (KWTOP == ILO) {
     S = ZERO;
   } else {
@@ -268,8 +268,9 @@ void dlaqz3(
 
   if (KWTOP != ILO && S != ZERO) {
     // Reflect spike back, this will create optimally packed bulges
+    final v = A[KWTOP][KWTOP - 1];
     for (var i = KWTOP, j = 1; i <= KWBOT && j <= JW - ND.value; i++, j++) {
-      A[i][KWTOP - 1] = A[KWTOP][KWTOP - 1] * QC[1][j];
+      A[i][KWTOP - 1] = v * QC[1][j];
     }
     //  A[KWTOP:KWBOT][KWTOP-1] = A[KWTOP][ KWTOP-1] *QC( 1, 1:JW-ND.value );
     for (K = KWBOT - 1; K >= KWTOP; K--) {

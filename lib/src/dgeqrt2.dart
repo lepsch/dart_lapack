@@ -1,91 +1,93 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/dger.dart';
+import 'package:lapack/src/blas/dtrmv.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlarfg.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgeqrt2(final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Box<int> INFO,) {
-  final A = A_.dim();
-  final T = T_.dim();
-
+void dgeqrt2(
+  final int M,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> T_,
+  final int LDT,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int       INFO, LDA, LDT, M, N;
-      double             A( LDA, * ), T( LDT, * );
-      // ..
+  final A = A_.dim(LDA);
+  final T = T_.dim(LDT);
+  const ONE = 1.0e+00, ZERO = 0.0e+00;
+  int I, K;
+  double AII, ALPHA;
 
-      double            ONE, ZERO;
-      const    ONE = 1.0e+00, ZERO = 0.0e+00 ;
-      int       I, K;
-      double             AII, ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLARFG, DGEMV, DGER, DTRMV, XERBLA
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  if (N < 0) {
+    INFO.value = -2;
+  } else if (M < N) {
+    INFO.value = -1;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -4;
+  } else if (LDT < max(1, N)) {
+    INFO.value = -6;
+  }
+  if (INFO.value != 0) {
+    xerbla('DGEQRT2', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( N < 0 ) {
-         INFO = -2;
-      } else if ( M < N ) {
-         INFO = -1;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -4;
-      } else if ( LDT < max( 1, N ) ) {
-         INFO = -6;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DGEQRT2', -INFO );
-         return;
-      }
+  K = min(M, N);
 
-      K = min( M, N );
+  for (I = 1; I <= K; I++) {
+    // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
-      for (I = 1; I <= K; I++) {
+    dlarfg(
+        M - I + 1, A.box(I, I), A(min(I + 1, M), I).asArray(), 1, T.box(I, 1));
+    if (I < N) {
+      // Apply H(i) to A(I:M,I+1:N) from the left
 
-         // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
+      AII = A[I][I];
+      A[I][I] = ONE;
 
-         dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, T( I, 1 ) );
-         if ( I < N ) {
+      // W(1:N-I) := A(I:M,I+1:N)^H * A(I:M,I) [W = T(:,N)]
 
-            // Apply H(i) to A(I:M,I+1:N) from the left
+      dgemv('T', M - I + 1, N - I, ONE, A(I, I + 1), LDA, A(I, I).asArray(), 1,
+          ZERO, T(1, N).asArray(), 1);
 
-            AII = A( I, I );
-            A[I][I] = ONE;
+      // A(I:M,I+1:N) = A(I:m,I+1:N) + alpha*A(I:M,I)*W(1:N-1)^H
 
-            // W(1:N-I) := A(I:M,I+1:N)^H * A(I:M,I) [W = T(:,N)]
+      ALPHA = -T[I][1];
+      dger(M - I + 1, N - I, ALPHA, A(I, I).asArray(), 1, T(1, N).asArray(), 1,
+          A(I, I + 1), LDA);
+      A[I][I] = AII;
+    }
+  }
 
-            dgemv('T',M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, T( 1, N ), 1 );
+  for (I = 2; I <= N; I++) {
+    AII = A[I][I];
+    A[I][I] = ONE;
 
-            // A(I:M,I+1:N) = A(I:m,I+1:N) + alpha*A(I:M,I)*W(1:N-1)^H
+    // T(1:I-1,I) := alpha * A(I:M,1:I-1)**T * A(I:M,I)
 
-            ALPHA = -(T( I, 1 ));
-            dger(M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA );
-            A[I][I] = AII;
-         }
-      }
+    ALPHA = -T[I][1];
+    dgemv('T', M - I + 1, I - 1, ALPHA, A(I, 1), LDA, A(I, I).asArray(), 1,
+        ZERO, T(1, I).asArray(), 1);
+    A[I][I] = AII;
 
-      for (I = 2; I <= N; I++) {
-         AII = A( I, I );
-         A[I][I] = ONE;
+    // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 
-         // T(1:I-1,I) := alpha * A(I:M,1:I-1)**T * A(I:M,I)
+    dtrmv('U', 'N', 'N', I - 1, T, LDT, T(1, I).asArray(), 1);
 
-         ALPHA = -T( I, 1 );
-         dgemv('T', M-I+1, I-1, ALPHA, A( I, 1 ), LDA, A( I, I ), 1, ZERO, T( 1, I ), 1 );
-         A[I][I] = AII;
+    // T(I,I) = tau(I)
 
-         // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
-
-         dtrmv('U', 'N', 'N', I-1, T, LDT, T( 1, I ), 1 );
-
-            // T(I,I) = tau(I)
-
-            T[I][I] = T( I, 1 );
-            T[I][1] = ZERO;
-      }
-
-      }
+    T[I][I] = T[I][1];
+    T[I][1] = ZERO;
+  }
+}

@@ -2,53 +2,38 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dtfsm.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dpftrs(final int TRANSR, final int UPLO, final int N, final int NRHS, final int A, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final B = B_.dim();
-
+      void dpftrs(final String TRANSR, final String UPLO, final int N, final int NRHS, final Array<double> A_, final Matrix<double> B_, final int LDB,
+      final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANSR, UPLO;
-      int                INFO, LDB, N, NRHS;
-      double             A( 0: * ), B( LDB, * );
-      // ..
-
-      double             ONE;
+  final A = A_.dim()(1,offset: 1);
+  final B = B_.dim(LDB)(1,1,offset:1);
       const              ONE = 1.0 ;
       bool               LOWER, NORMALTRANSR;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, DTFSM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       NORMALTRANSR = lsame( TRANSR, 'N' );
       LOWER = lsame( UPLO, 'L' );
       if ( !NORMALTRANSR && !lsame( TRANSR, 'T' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !LOWER && !lsame( UPLO, 'U' ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -7;
+         INFO.value = -7;
       }
-      if ( INFO != 0 ) {
-         xerbla('DPFTRS', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DPFTRS', -INFO.value );
          return;
       }
 

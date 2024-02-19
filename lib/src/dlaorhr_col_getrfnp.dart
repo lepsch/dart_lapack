@@ -1,86 +1,91 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/dgemm.dart';
+import 'package:lapack/src/blas/dtrsm.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlaorhr_col_getrfnp2.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dlaorhr_col_getrfnp(final int M, final int N, final Matrix<double> A_, final int LDA, final int D, final Box<int> INFO,) {
+void dlaorhr_col_getrfnp(
+  final int M,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> D_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-      int                INFO, LDA, M, N;
-      double             A( LDA, * ), D( * );
-      // ..
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  const ONE = 1.0;
+  int J, JB, NB;
+  final IINFO = Box(0);
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                IINFO, J, JB, NB;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEMM, DLAORHR_COL_GETRFNP2, DTRSM, XERBLA
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -4;
+  }
+  if (INFO.value != 0) {
+    xerbla('DLAORHR_COL_GETRFNP', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -4;
+  // Quick return if possible
+
+  if (min(M, N) == 0) return;
+
+  // Determine the block size for this environment.
+
+  NB = ilaenv(1, 'DLAORHR_COL_GETRFNP', ' ', M, N, -1, -1);
+
+  if (NB <= 1 || NB >= min(M, N)) {
+    // Use unblocked code.
+
+    dlaorhr_col_getrfnp2(M, N, A, LDA, D, INFO);
+  } else {
+    // Use blocked code.
+
+    for (J = 1; NB < 0 ? J >= min(M, N) : J <= min(M, N); J += NB) {
+      JB = min(min(M, N) - J + 1, NB);
+
+      // Factor diagonal and subdiagonal blocks.
+
+      dlaorhr_col_getrfnp2(M - J + 1, JB, A(J, J), LDA, D(J), IINFO);
+
+      if (J + JB <= N) {
+        // Compute block row of U.
+
+        dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N - J - JB + 1, ONE,
+            A(J, J), LDA, A(J, J + JB), LDA);
+        if (J + JB <= M) {
+          // Update trailing submatrix.
+
+          dgemm(
+              'No transpose',
+              'No transpose',
+              M - J - JB + 1,
+              N - J - JB + 1,
+              JB,
+              -ONE,
+              A(J + JB, J),
+              LDA,
+              A(J, J + JB),
+              LDA,
+              ONE,
+              A(J + JB, J + JB),
+              LDA);
+        }
       }
-      if ( INFO != 0 ) {
-         xerbla('DLAORHR_COL_GETRFNP', -INFO );
-         return;
-      }
-
-      // Quick return if possible
-
-      if( min( M, N ) == 0 ) return;
-
-      // Determine the block size for this environment.
-
-
-      NB = ilaenv( 1, 'DLAORHR_COL_GETRFNP', ' ', M, N, -1, -1 );
-
-      if ( NB <= 1 || NB >= min( M, N ) ) {
-
-         // Use unblocked code.
-
-         dlaorhr_col_getrfnp2(M, N, A, LDA, D, INFO );
-      } else {
-
-         // Use blocked code.
-
-         for (J = 1; NB < 0 ? J >= min( M, N ) : J <= min( M, N ); J += NB) {
-            JB = min( min( M, N )-J+1, NB );
-
-            // Factor diagonal and subdiagonal blocks.
-
-            dlaorhr_col_getrfnp2(M-J+1, JB, A( J, J ), LDA, D( J ), IINFO );
-
-            if ( J+JB <= N ) {
-
-               // Compute block row of U.
-
-               dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
-               if ( J+JB <= M ) {
-
-                  // Update trailing submatrix.
-
-                  dgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
-               }
-            }
-         }
-      }
-      }
+    }
+  }
+}

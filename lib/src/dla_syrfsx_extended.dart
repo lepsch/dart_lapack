@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dla_wwaddw.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
@@ -197,7 +198,7 @@ import 'package:lapack/src/xerbla.dart';
                if (X_STATE > WORKING_STATE) FINAL_DX_X = DX_X;
             }
              if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE;
-            IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
+            if ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z <= EPS ) {
                   Z_STATE = CONV_STATE;
@@ -238,8 +239,8 @@ import 'package:lapack/src/xerbla.dart';
             }
 
          }
-         // Target of "IF (Z_STOP && X_STOP)".  Sun's f77 won't EXIT.
-         } // 666
+         // Target of "if (Z_STOP && X_STOP)".  Sun's f77 won't EXIT.
+        //  } // 666
 
       // Set final_* when cnt hits ithresh.
 

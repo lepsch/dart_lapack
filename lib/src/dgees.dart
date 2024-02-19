@@ -190,9 +190,8 @@ void dgees(
       dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WI.asMatrix(N), N, IERR);
     }
     for (I = 1; I <= N; I++) {
-      // 10
       BWORK[I] = SELECT(WR[I], WI[I]);
-    } // 10
+    }
 
     // Reorder eigenvalues and transform Schur vectors
     // (Workspace: none needed)
@@ -234,15 +233,14 @@ void dgees(
       }
       INXT = I1 - 1;
       for (I = I1; I <= I2; I++) {
-        // 20
         if (I < INXT) continue;
         if (WI[I] == ZERO) {
           INXT = I + 1;
         } else {
-          if (A[I + 1][ I] == ZERO) {
+          if (A[I + 1][I] == ZERO) {
             WI[I] = ZERO;
             WI[I + 1] = ZERO;
-          } else if (A(I + 1, I) != ZERO && A[I][I + 1] == ZERO) {
+          } else if (A[I + 1][I] != ZERO && A[I][I + 1] == ZERO) {
             WI[I] = ZERO;
             WI[I + 1] = ZERO;
             if (I > 1)
@@ -260,7 +258,7 @@ void dgees(
           }
           INXT = I + 2;
         }
-      } // 20
+      }
     }
 
     // Undo scaling for the imaginary part of the eigenvalues
@@ -277,7 +275,6 @@ void dgees(
     SDIM.value = 0;
     IP = 0;
     for (I = 1; I <= N; I++) {
-      // 30
       CURSL = SELECT(WR[I], WI[I]);
       if (WI[I] == ZERO) {
         if (CURSL) SDIM.value = SDIM.value + 1;
@@ -300,7 +297,7 @@ void dgees(
       }
       LST2SL = LASTSL;
       LASTSL = CURSL;
-    } // 30
+    }
   }
 
   WORK[1] = MAXWRK.toDouble();

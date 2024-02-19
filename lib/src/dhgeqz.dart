@@ -308,20 +308,20 @@ void dhgeqz(
     for (JITER = 1; JITER <= MAXIT; JITER++) {
       // Split the matrix if possible.
 
+      // Split the matrix if possible.
+      //
       // Two tests:
-      // 1: H[j][j-1]=0  or  j=ILO
-      // 2: T[j][j]=0
+      //   1: H[j][j-1]=0  or  j=ILO
+      //   2: T[j][j]=0
 
       var standardizeB = true;
-      if (ILAST != ILO // Special case: j=ILAST
-          &&
-          (H[ILAST][ILAST - 1]).abs() >
-              max(
-                SAFMIN,
-                ULP * (H[ILAST][ILAST].abs() + H[ILAST - 1][ILAST - 1].abs()),
-              )) {
+      if (ILAST == ILO) {
+        // Special case: j=ILAST
+      } else if (H[ILAST][ILAST - 1].abs() <=
+          max(SAFMIN,
+              ULP * (H[ILAST][ILAST].abs() + H[ILAST - 1][ILAST - 1].abs()))) {
         H[ILAST][ILAST - 1] = ZERO;
-
+      } else {
         var splitOff1x1Block = true;
         if ((T[ILAST][ILAST]).abs() <= BTOL) {
           T[ILAST][ILAST] = ZERO;
@@ -454,6 +454,7 @@ void dhgeqz(
             WORK[1] = N.toDouble();
             return;
           }
+          }
 
           if (splitOff1x1Block) {
             // T[ILAST][ILAST]=0 -- clear H[ILAST][ILAST-1] to split off a
@@ -513,7 +514,7 @@ void dhgeqz(
           ILASTM = ILAST;
           if (IFRSTM > ILAST) IFRSTM = ILO;
         }
-        break mainQzLoop;
+        continue mainQzLoop;
       }
 
       // QZ step
@@ -681,9 +682,9 @@ void dhgeqz(
 
         // Step 1: Standardize, that is, rotate so that
 
-        // ( B11.value  0  )
-        // B = (         )  with B11.value non-negative.
-        // (  0  B22.value )
+        //     ( B11  0  )
+        // B = (         )  with B11 non-negative.
+        //     (  0  B22 )
 
         dlasv2(T[ILAST - 1][ILAST - 1], T[ILAST - 1][ILAST], T[ILAST][ILAST],
             B22, B11, SR, CR, SL, CL);
@@ -723,7 +724,7 @@ void dhgeqz(
         T[ILAST][ILAST - 1] = ZERO;
         T[ILAST][ILAST] = B22.value;
 
-        // If B22.value is negative, negate column ILAST
+        // If B22 is negative, negate column ILAST
 
         if (B22.value < ZERO) {
           for (J = IFRSTM; J <= ILAST; J++) {
@@ -849,7 +850,7 @@ void dhgeqz(
         ALPHAR[ILAST] = (WR.value * B2A) * S1INV;
         ALPHAI[ILAST] = -(WI.value * B2A) * S1INV;
 
-        // Step 3: Gotonext block -- exit if finished.
+        // Step 3: Go to next block -- exit if finished.
 
         ILAST = IFIRST - 1;
         if (ILAST < ILO) {
@@ -865,7 +866,7 @@ void dhgeqz(
           ILASTM = ILAST;
           if (IFRSTM > ILAST) IFRSTM = ILO;
         }
-        break mainQzLoop;
+        continue mainQzLoop;
       } else {
         // Usual case: 3x3 or larger block, using Francis implicit
         //             double-shift
@@ -873,9 +874,11 @@ void dhgeqz(
         //                          2
         // Eigenvalue equation is  w  - c w + d = 0,
         //
-        //                              -1 2        -1
+        //                               -1 2        -1
         // so compute 1st column of  (A B  )  - c A B   + d
         // using the formula in QZIT (from EISPACK)
+        //
+        // We assume that the block is at least 3x3
 
         AD11 = (ASCALE * H[ILAST - 1][ILAST - 1]) /
             (BSCALE * T[ILAST - 1][ILAST - 1]);
@@ -1004,8 +1007,7 @@ void dhgeqz(
             SCALE = ZERO;
             U2 = ONE;
             U1 = -W12 / W11;
-            continue;
-          }
+          } else {
           if ((W22).abs() < (U2).abs()) SCALE = (W22 / U2).abs();
           if ((W11).abs() < (U1).abs()) SCALE = min(SCALE, (W11 / U1).abs());
 
@@ -1014,6 +1016,7 @@ void dhgeqz(
           U2 = (SCALE * U2) / W22;
           U1 = (SCALE * U1 - W12 * U2) / W11;
         }
+
         if (ILPIVT) {
           TEMP.value = U2;
           U2 = U1;

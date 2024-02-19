@@ -1,53 +1,38 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgtts2.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dgttrs(final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DU2, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-
+      void dgttrs(final String TRANS, final int N, final int NRHS, final Array<double> DL_, final Array<double> D_, final Array<double> DU_, final Array<double> DU2_, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, LDB, N, NRHS;
-      int                IPIV( * );
-      double             B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
-      // ..
+  final IPIV = IPIV_.dim();
+  final DL=DL_.dim();
+  final D=D_.dim();
+  final DU=DU_.dim();
+  final DU2=DU2_.dim();
+  final B = B_.dim(LDB);
 
-// =====================================================================
-
-      // .. Local Scalars ..
       bool               NOTRAN;
       int                ITRANS, J, JB, NB;
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGTTS2, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
 
-      INFO = 0;
+      INFO.value = 0;
       NOTRAN = ( TRANS == 'N' || TRANS == 'n' );
       if ( !NOTRAN && !( TRANS == 'T' || TRANS == 't' ) && !( TRANS == 'C' || TRANS == 'c' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDB < max( N, 1 ) ) {
-         INFO = -10;
+         INFO.value = -10;
       }
-      if ( INFO != 0 ) {
-         xerbla('DGTTRS', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DGTTRS', -INFO.value );
          return;
       }
 
@@ -74,9 +59,9 @@ import 'package:lapack/src/xerbla.dart';
       if ( NB >= NRHS ) {
          dgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB );
       } else {
-         for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) { // 10
+         for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) { 
             JB = min( NRHS-J+1, NB );
             dgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB );
-         } // 10
+         } 
       }
       }

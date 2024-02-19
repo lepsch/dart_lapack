@@ -173,19 +173,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
-            } // 40
+            // } // 40
             ANORM = ONE;
             GO TO 70;
 
-            } // 50
+            // } // 50
             ANORM = ( RTOVFL*ULP )*ANINV;
             GO TO 70;
 
-            } // 60
+            // } // 60
             ANORM = RTUNFL*N*ULPINV;
             GO TO 70;
 
-            } // 70
+            // } // 70
 
             zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0;
@@ -586,7 +586,7 @@
                TEMP1 = TEMP1*TWO;
             } // 160
 
-            } // 170
+            // } // 170
             RESULT[13] = TEMP1;
 
             // For positive definite matrices ( JTYPE > 15 ) call ZPTEQR
@@ -1196,8 +1196,8 @@
 
                RESULT[37] = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
             }
-            } // 270
-            } // 280
+            // } // 270
+            // } // 280
             NTESTT = NTESTT + NTEST;
 
             // End of Loop -- Check for RESULT(j) > THRESH

@@ -97,7 +97,7 @@ void dtgsen(
   WANTD2 = IJOB == 3 || IJOB == 5;
   WANTD = WANTD1 || WANTD2;
 
-  // Set M.value to the dimension of the specified pair of deflating
+  // Set M to the dimension of the specified pair of deflating
   // subspaces.
 
   M.value = 0;
@@ -106,7 +106,9 @@ void dtgsen(
     for (K = 1; K <= N; K++) {
       if (PAIR) {
         PAIR = false;
-      } else {
+        continue;
+      }
+
         if (K < N) {
           if (A[K + 1][K] == ZERO) {
             if (SELECT[K]) M.value = M.value + 1;
@@ -116,7 +118,6 @@ void dtgsen(
           }
         } else {
           if (SELECT[N]) M.value = M.value + 1;
-        }
       }
     }
   }
@@ -174,7 +175,9 @@ void dtgsen(
     for (K = 1; K <= N; K++) {
       if (PAIR) {
         PAIR = false;
-      } else {
+        continue;
+      }
+
         SWAP = SELECT[K];
         if (K < N) {
           if (A[K + 1][K] != ZERO) {
@@ -193,8 +196,8 @@ void dtgsen(
 
           KK.value = K;
           if (K != KS.value) {
-            dtgexc(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS,
-                WORK, LWORK, IERR);
+          dtgexc(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK,
+              LWORK, IERR);
           }
 
           if (IERR.value > 0) {
@@ -214,7 +217,6 @@ void dtgsen(
           }
 
           if (PAIR) KS.value = KS.value + 1;
-        }
       }
     }
     if (!isRejected) {

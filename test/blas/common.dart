@@ -18,7 +18,7 @@ class _Infoc {
 final infoc = _Infoc();
 
 class _Srnamc {
-  String(srnamc.SRNAMT = '';
+  String SRNAMT = '';
 }
 
 final srnamc = _Srnamc();

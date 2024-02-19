@@ -2,104 +2,96 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacn2.dart';
+import 'package:lapack/src/dsytrs_3.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsycon_3(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int E, final Array<int> IPIV_, final int ANORM, final int RCOND, final Array<double> _WORK_, final Array<int> IWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final _WORK = _WORK_.dim();
-  final IWORK = IWORK_.dim();
-
+void dsycon_3(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> E_,
+  final Array<int> IPIV_,
+  final double ANORM,
+  final Box<double> RCOND,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, N;
-      double             ANORM, RCOND;
-      int                IPIV( * ), IWORK( * );
-      double             A( LDA, * ), E( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final E = E_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
+  const ONE = 1.0, ZERO = 0.0;
+  bool UPPER;
+  int I;
+  final KASE = Box(0);
+  final AINVNM = Box(0.0);
+  final ISAVE = Array<int>(3);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               UPPER;
-      int                I, KASE;
-      double             AINVNM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLACN2, DSYTRS_3, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (ANORM < ZERO) {
+    INFO.value = -7;
+  }
+  if (INFO.value != 0) {
+    xerbla('DSYCON_3', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( ANORM < ZERO ) {
-         INFO = -7;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DSYCON_3', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  RCOND.value = ZERO;
+  if (N == 0) {
+    RCOND.value = ONE;
+    return;
+  } else if (ANORM <= ZERO) {
+    return;
+  }
 
-      RCOND = ZERO;
-      if ( N == 0 ) {
-         RCOND = ONE;
-         return;
-      } else if ( ANORM <= ZERO ) {
-         return;
-      }
+  // Check that the diagonal matrix D is nonsingular.
 
-      // Check that the diagonal matrix D is nonsingular.
+  if (UPPER) {
+    // Upper triangular storage: examine D from bottom to top
 
-      if ( UPPER ) {
+    for (I = N; I >= 1; I--) {
+      if (IPIV[I] > 0 && A[I][I] == ZERO) return;
+    }
+  } else {
+    // Lower triangular storage: examine D from top to bottom.
 
-         // Upper triangular storage: examine D from bottom to top
+    for (I = 1; I <= N; I++) {
+      if (IPIV[I] > 0 && A[I][I] == ZERO) return;
+    }
+  }
 
-         for (I = N; I >= 1; I--) {
-            if( IPIV( I ) > 0 && A( I, I ) == ZERO ) return;
-         }
-      } else {
+  // Estimate the 1-norm of the inverse.
 
-         // Lower triangular storage: examine D from top to bottom.
+  KASE.value = 0;
+  while (true) {
+    dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
 
-         for (I = 1; I <= N; I++) {
-            if( IPIV( I ) > 0 && A( I, I ) == ZERO ) return;
-         }
-      }
+    // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-      // Estimate the 1-norm of the inverse.
+    dsytrs_3(UPLO, N, 1, A, LDA, E, IPIV, WORK.asMatrix(N), N, INFO);
+  }
 
-      KASE = 0;
-      // } // 30
-      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
+  // Compute the estimate of the reciprocal condition number.
 
-         // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
-
-         dsytrs_3(UPLO, N, 1, A, LDA, E, IPIV, WORK, N, INFO );
-         GO TO 30;
-      }
-
-      // Compute the estimate of the reciprocal condition number.
-
-      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
-
-      }
+  if (AINVNM.value != ZERO) RCOND.value = (ONE / AINVNM.value) / ANORM;
+}

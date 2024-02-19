@@ -77,8 +77,8 @@ void dgesdd(
       LWORK_DGEBRD_NN,
       LWORK_DGELQF_MN,
       LWORK_DGEQRF_MN,
-      LWORK_DORGBR_P_MM,
-      LWORK_DORGBR_Q_NN,
+      // LWORK_DORGBR_P_MM,
+      // LWORK_DORGBR_Q_NN,
       LWORK_DORGLQ_MN,
       LWORK_DORGLQ_NN,
       LWORK_DORGQR_MM,
@@ -158,7 +158,7 @@ void dgesdd(
       LWORK_DGEQRF_MN = DUM[1].toInt();
 
       dorgbr('Q', N, N, N, DUM(1).asMatrix(N), N, DUM(1), DUM(1), -1, IERR);
-      LWORK_DORGBR_Q_NN = DUM[1].toInt();
+      // LWORK_DORGBR_Q_NN = DUM[1].toInt();
 
       dorgqr(M, M, N, DUM(1).asMatrix(M), M, DUM(1), DUM(1), -1, IERR);
       LWORK_DORGQR_MM = DUM[1].toInt();
@@ -282,7 +282,7 @@ void dgesdd(
       LWORK_DORGLQ_MN = DUM[1].toInt();
 
       dorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR);
-      LWORK_DORGBR_P_MM = DUM[1].toInt();
+      // LWORK_DORGBR_P_MM = DUM[1].toInt();
 
       dormbr('P', 'R', 'T', M, M, M, DUM(1).asMatrix(M), M, DUM(1),
           DUM(1).asMatrix(M), M, DUM(1), -1, IERR);

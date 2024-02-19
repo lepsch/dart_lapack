@@ -43,10 +43,10 @@ void dchksb(
   final KK = KK_.dim();
   final DOTYPE = DOTYPE_.dim();
   final ISEED = ISEED_.dim();
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   final SD = SD_.dim();
   final SE = SE_.dim();
-  final U = U_.dim();
+  final U = U_.dim(LDU);
   final WORK = WORK_.dim();
   final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0;

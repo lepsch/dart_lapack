@@ -1,112 +1,103 @@
-import 'dart:math';
-
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/blas/dtpmv.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dtptri(final int UPLO, final int DIAG, final int N, final int AP, final Box<int> INFO,) {
-
+void dtptri(
+  final String UPLO,
+  final String DIAG,
+  final int N,
+  final Array<double> AP_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, UPLO;
-      int                INFO, N;
-      double             AP( * );
-      // ..
+  final AP = AP_.dim();
+  const ONE = 1.0, ZERO = 0.0;
+  bool NOUNIT, UPPER;
+  int J, JC, JCLAST = 0, JJ;
+  double AJJ;
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               NOUNIT, UPPER;
-      int                J, JC, JCLAST, JJ;
-      double             AJJ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSCAL, DTPMV, XERBLA
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  NOUNIT = lsame(DIAG, 'N');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (!NOUNIT && !lsame(DIAG, 'U')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  }
+  if (INFO.value != 0) {
+    xerbla('DTPTRI', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      NOUNIT = lsame( DIAG, 'N' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DTPTRI', -INFO );
-         return;
-      }
+  // Check for singularity if non-unit.
 
-      // Check for singularity if non-unit.
+  if (NOUNIT) {
+    if (UPPER) {
+      JJ = 0;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 10
+        JJ = JJ + INFO.value;
+        if (AP[JJ] == ZERO) return;
+      } // 10
+    } else {
+      JJ = 1;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 20
+        if (AP[JJ] == ZERO) return;
+        JJ = JJ + N - INFO.value + 1;
+      } // 20
+    }
+    INFO.value = 0;
+  }
 
-      if ( NOUNIT ) {
-         if ( UPPER ) {
-            JJ = 0;
-            for (INFO = 1; INFO <= N; INFO++) { // 10
-               JJ = JJ + INFO;
-               if( AP( JJ ) == ZERO ) return;
-            } // 10
-         } else {
-            JJ = 1;
-            for (INFO = 1; INFO <= N; INFO++) { // 20
-               if( AP( JJ ) == ZERO ) return;
-               JJ = JJ + N - INFO + 1;
-            } // 20
-         }
-         INFO = 0;
-      }
+  if (UPPER) {
+    // Compute inverse of upper triangular matrix.
 
-      if ( UPPER ) {
-
-         // Compute inverse of upper triangular matrix.
-
-         JC = 1;
-         for (J = 1; J <= N; J++) { // 30
-            if ( NOUNIT ) {
-               AP[JC+J-1] = ONE / AP( JC+J-1 );
-               AJJ = -AP( JC+J-1 );
-            } else {
-               AJJ = -ONE;
-            }
-
-            // Compute elements 1:j-1 of j-th column.
-
-            dtpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
-            dscal(J-1, AJJ, AP( JC ), 1 );
-            JC = JC + J;
-         } // 30
-
+    JC = 1;
+    for (J = 1; J <= N; J++) {
+      // 30
+      if (NOUNIT) {
+        AP[JC + J - 1] = ONE / AP[JC + J - 1];
+        AJJ = -AP[JC + J - 1];
       } else {
-
-         // Compute inverse of lower triangular matrix.
-
-         JC = N*( N+1 ) / 2;
-         for (J = N; J >= 1; J--) { // 40
-            if ( NOUNIT ) {
-               AP[JC] = ONE / AP( JC );
-               AJJ = -AP( JC );
-            } else {
-               AJJ = -ONE;
-            }
-            if ( J < N ) {
-
-               // Compute elements j+1:n of j-th column.
-
-               dtpmv('Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 );
-               dscal(N-J, AJJ, AP( JC+1 ), 1 );
-            }
-            JCLAST = JC;
-            JC = JC - N + J - 2;
-         } // 40
+        AJJ = -ONE;
       }
 
+      // Compute elements 1:j-1 of j-th column.
+
+      dtpmv('Upper', 'No transpose', DIAG, J - 1, AP, AP(JC), 1);
+      dscal(J - 1, AJJ, AP(JC), 1);
+      JC = JC + J;
+    } // 30
+  } else {
+    // Compute inverse of lower triangular matrix.
+
+    JC = N * (N + 1) ~/ 2;
+    for (J = N; J >= 1; J--) {
+      // 40
+      if (NOUNIT) {
+        AP[JC] = ONE / AP[JC];
+        AJJ = -AP[JC];
+      } else {
+        AJJ = -ONE;
       }
+      if (J < N) {
+        // Compute elements j+1:n of j-th column.
+
+        dtpmv('Lower', 'No transpose', DIAG, N - J, AP(JCLAST), AP(JC + 1), 1);
+        dscal(N - J, AJJ, AP(JC + 1), 1);
+      }
+      JCLAST = JC;
+      JC = JC - N + J - 2;
+    } // 40
+  }
+}

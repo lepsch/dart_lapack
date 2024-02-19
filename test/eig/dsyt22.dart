@@ -33,8 +33,8 @@ void dsyt22(
   final D = D_.dim();
   final E = E_.dim();
   final U = U_.dim(LDU);
-  final V = V_.dim(LDV);
-  final TAU = TAU_.dim();
+  // final V = V_.dim(LDV);
+  // final TAU = TAU_.dim();
   final WORK = WORK_.dim();
   final RESULT = RESULT_.dim();
   const ZERO = 0.0, ONE = 1.0;
@@ -91,6 +91,7 @@ void dsyt22(
 
   // Compute  U**T U - I
 
-  if (ITYPE == 1)
+  if (ITYPE == 1) {
     dort01('Columns', N, M, U, LDU, WORK, 2 * N * N, RESULT.box(2));
+  }
 }

@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:lapack/src/intrinsics/minexponent.dart';
+import 'package:lapack/src/intrinsics/radix.dart';
 import 'package:lapack/src/intrinsics/sign.dart';
 
 void drotg(
@@ -16,14 +19,12 @@ void drotg(
   const zero = 0.0;
   const one = 1.0;
   // const wp = 1.0;
-  //  double safmin = real(radix(0._wp),wp)**max(
-  //     minexponent(0._wp)-1,
-  //     1-maxexponent(0._wp)
-  //  );
-  //  double safmax = real(radix(0._wp),wp)**max(
-  //     1-minexponent(0._wp),
-  //     maxexponent(0._wp)-1
-  //  );
+  final safmin =
+      pow(radix(0.0), max(minexponent(0.0) - 1, 1 - maxexponent(0.0)))
+          .toDouble();
+  final safmax =
+      pow(radix(0.0), max(1 - minexponent(0.0), maxexponent(0.0) - 1))
+          .toDouble();
   double anorm, bnorm, scl, sigma, r, z;
 
   anorm = a.value.abs();

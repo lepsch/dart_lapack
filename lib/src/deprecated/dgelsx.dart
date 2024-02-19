@@ -18,16 +18,6 @@
       const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;
       double             ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL DLAMCH, DLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEQPF, DLAIC1, DLASCL, DLASET, DLATZM, DORM2R, DTRSM, DTZRQF, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN
 
       MN = min( M, N );
       ISMIN = MN + 1;
@@ -128,7 +118,7 @@
          RANK = 1;
       }
 
-      } // 10
+      // } // 10
       if ( RANK < MN ) {
          I = RANK + 1;
          dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
@@ -196,7 +186,7 @@
                   K = I;
                   T1 = B( K, J );
                   T2 = B( JPVT( K ), J );
-                  } // 70
+                  // } // 70
                   B[JPVT( K )][J] = T1;
                   WORK[2*MN+K] = DONE;
                   T1 = T2;
@@ -225,6 +215,6 @@
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-      } // 100
+      // } // 100
 
       }

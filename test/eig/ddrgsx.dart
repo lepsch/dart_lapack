@@ -232,7 +232,7 @@ Future<void> ddrgsx(
             // which is supplied below.
 
             if (IFUNC == 0) {
-              SENSE = 'mn.N';
+              SENSE = 'N';
             } else if (IFUNC == 1) {
               SENSE = 'E';
             } else if (IFUNC == 2) {

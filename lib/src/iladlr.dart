@@ -8,21 +8,18 @@ int iladlr(final int M, final int N, final Matrix<double> A_, final int LDA) {
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.dim(LDA);
   const ZERO = 0.0;
-  int I, J;
 
   // Quick test for the common case where one corner is non-zero.
-  if (M == 0) {
-    return M;
-  }
+  if (M == 0) return M;
 
-  if (A(M, 1) != ZERO || A(M, N) != ZERO) {
+  if (A[M][1] != ZERO || A[M][N] != ZERO) {
     return M;
   }
 
   // Scan up each column tracking the last zero row seen.
   var result = 0;
-  for (J = 1; J <= N; J++) {
-    I = M;
+  for (var J = 1; J <= N; J++) {
+    var I = M;
     while ((A[max(I, 1)][J] == ZERO) && (I >= 1)) {
       I = I - 1;
     }

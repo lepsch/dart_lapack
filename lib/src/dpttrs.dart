@@ -1,48 +1,32 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dptts2.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dpttrs(final int N, final int NRHS, final int D, final int E, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final B = B_.dim();
-
+      void dpttrs(final int N, final int NRHS, final Array<double> D_, final Array<double> E_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDB, N, NRHS;
-      double             B( LDB, * ), D( * ), E( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
+  final D = D_.dim();
+  final E = E_.dim();
+  final B = B_.dim(LDB);
       int                J, JB, NB;
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DPTTS2, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
 
       // Test the input arguments.
 
-      INFO = 0;
+      INFO.value = 0;
       if ( N < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( NRHS < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -6;
+         INFO.value = -6;
       }
-      if ( INFO != 0 ) {
-         xerbla('DPTTRS', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DPTTRS', -INFO.value );
          return;
       }
 
@@ -61,10 +45,10 @@ import 'package:lapack/src/xerbla.dart';
       if ( NB >= NRHS ) {
          dptts2(N, NRHS, D, E, B, LDB );
       } else {
-         for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) { // 10
+         for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) { 
             JB = min( NRHS-J+1, NB );
             dptts2(N, JB, D, E, B( 1, J ), LDB );
-         } // 10
+         } 
       }
 
       }

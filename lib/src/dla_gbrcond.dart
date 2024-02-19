@@ -2,177 +2,174 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dgbtrs.dart';
+import 'package:lapack/src/dlacn2.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      double dla_gbrcond(final int TRANS, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final Array<int> IPIV_, final int CMODE, final int C, final int INFO, final Array<double> _WORK_, final Array<int> IWORK_,) {
-  final AB = AB_.dim();
-  final AFB = AFB_.dim();
-  final IPIV = IPIV_.dim();
-  final _WORK = _WORK_.dim();
-  final IWORK = IWORK_.dim();
-
+double dla_gbrcond(
+  final String TRANS,
+  final int N,
+  final int KL,
+  final int KU,
+  final Matrix<double> AB_,
+  final int LDAB,
+  final Matrix<double> AFB_,
+  final int LDAFB,
+  final Array<int> IPIV_,
+  final int CMODE,
+  final Array<double> C_,
+  final Box<int> INFO,
+  final Array<double> WORK_,
+  final Array<int> IWORK_,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                N, LDAB, LDAFB, INFO, KL, KU, CMODE;
-      int                IWORK( * ), IPIV( * );
-      double             AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * );
-      // ..
+  final AB = AB_.dim(LDAB);
+  final AFB = AFB_.dim(LDAFB);
+  final IPIV = IPIV_.dim();
+  final C = C_.dim();
+  final WORK = WORK_.dim();
+  final IWORK = IWORK_.dim();
 
-// =====================================================================
+  bool NOTRANS;
+  int I, J, KD, KE;
+  double TMP;
+  final ISAVE = Array<int>(3);
+  final AINVNM = Box(0.0);
+  final KASE = Box(0);
 
-      // .. Local Scalars ..
-      bool               NOTRANS;
-      int                KASE, I, J, KD, KE;
-      double             AINVNM, TMP;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLACN2, DGBTRS, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
+  INFO.value = 0;
+  NOTRANS = lsame(TRANS, 'N');
+  if (!NOTRANS && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KL < 0 || KL > N - 1) {
+    INFO.value = -3;
+  } else if (KU < 0 || KU > N - 1) {
+    INFO.value = -4;
+  } else if (LDAB < KL + KU + 1) {
+    INFO.value = -6;
+  } else if (LDAFB < 2 * KL + KU + 1) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('DLA_GBRCOND', -INFO.value);
+    return 0;
+  }
+  if (N == 0) {
+    return 1;
+  }
 
-      DLA_GBRCOND = 0.0;
+  // Compute the equilibration matrix R such that
+  // inv(R)*A*C has unit 1-norm.
 
-      INFO = 0;
-      NOTRANS = lsame( TRANS, 'N' );
-      if ( !NOTRANS && !lsame(TRANS, 'T') && !lsame(TRANS, 'C') ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KL < 0 || KL > N-1 ) {
-         INFO = -3;
-      } else if ( KU < 0 || KU > N-1 ) {
-         INFO = -4;
-      } else if ( LDAB < KL+KU+1 ) {
-         INFO = -6;
-      } else if ( LDAFB < 2*KL+KU+1 ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DLA_GBRCOND', -INFO );
-         return;
-      }
-      if ( N == 0 ) {
-         DLA_GBRCOND = 1.0;
-         return;
-      }
-
-      // Compute the equilibration matrix R such that
-      // inv(R)*A*C has unit 1-norm.
-
-      KD = KU + 1;
-      KE = KL + 1;
-      if ( NOTRANS ) {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-               if ( CMODE == 1 ) {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                     TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) );
-                  }
-               } else if ( CMODE == 0 ) {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                     TMP = TMP + ( AB( KD+I-J, J ) ).abs();
-                  }
-               } else {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                     TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) );
-                  }
-               }
-            WORK[2*N+I] = TMP;
-         }
+  KD = KU + 1;
+  KE = KL + 1;
+  if (NOTRANS) {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      if (CMODE == 1) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KD + I - J][J] * C[J]).abs();
+        }
+      } else if (CMODE == 0) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KD + I - J][J]).abs();
+        }
       } else {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-            if ( CMODE == 1 ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) );
-               }
-            } else if ( CMODE == 0 ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + ( AB( KE-I+J, I ) ).abs();
-               }
-            } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) );
-               }
-            }
-            WORK[2*N+I] = TMP;
-         }
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KD + I - J][J] / C[J]).abs();
+        }
+      }
+      WORK[2 * N + I] = TMP;
+    }
+  } else {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      if (CMODE == 1) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KE - I + J][I] * C[J]).abs();
+        }
+      } else if (CMODE == 0) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KE - I + J][I]).abs();
+        }
+      } else {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + (AB[KE - I + J][I] / C[J]).abs();
+        }
+      }
+      WORK[2 * N + I] = TMP;
+    }
+  }
+
+  // Estimate the norm of inv(op(A)).
+
+  AINVNM.value = 0.0;
+
+  KASE.value = 0;
+  while (true) {
+    dlacn2(N, WORK(N + 1), WORK, IWORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
+    if (KASE.value == 2) {
+      // Multiply by R.
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * WORK[2 * N + I];
       }
 
-      // Estimate the norm of inv(op(A)).
-
-      AINVNM = 0.0;
-
-      KASE = 0;
-      // } // 10
-      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
-         if ( KASE == 2 ) {
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * WORK( 2*N+I );
-            }
-
-            if ( NOTRANS ) {
-               dgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            } else {
-               dgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by inv(C).
-
-            if ( CMODE == 1 ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) / C( I );
-               }
-            } else if ( CMODE == -1 ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) * C( I );
-               }
-            }
-         } else {
-
-            // Multiply by inv(C**T).
-
-            if ( CMODE == 1 ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) / C( I );
-               }
-            } else if ( CMODE == -1 ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) * C( I );
-               }
-            }
-
-            if ( NOTRANS ) {
-               dgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            } else {
-               dgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * WORK( 2*N+I );
-            }
-         }
-         GO TO 10;
+      if (NOTRANS) {
+        dgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N),
+            N, INFO);
+      } else {
+        dgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N,
+            INFO);
       }
 
-      // Compute the estimate of the reciprocal condition number.
+      // Multiply by inv(C).
 
-      if (AINVNM != 0.0) DLA_GBRCOND = ( 1.0 / AINVNM );
-
+      if (CMODE == 1) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] / C[I];
+        }
+      } else if (CMODE == -1) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] * C[I];
+        }
       }
+    } else {
+      // Multiply by inv(C**T).
+
+      if (CMODE == 1) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] / C[I];
+        }
+      } else if (CMODE == -1) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] * C[I];
+        }
+      }
+
+      if (NOTRANS) {
+        dgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N,
+            INFO);
+      } else {
+        dgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N),
+            N, INFO);
+      }
+
+      // Multiply by R.
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * WORK[2 * N + I];
+      }
+    }
+  }
+
+  // Compute the estimate of the reciprocal condition number.
+
+  return AINVNM.value != 0.0 ? 1.0 / AINVNM.value : 0;
+}

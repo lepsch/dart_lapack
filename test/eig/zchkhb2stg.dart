@@ -160,19 +160,19 @@
 
                GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
-               } // 40
+              //  } // 40
                ANORM = ONE;
                GO TO 70;
 
-               } // 50
+              //  } // 50
                ANORM = ( RTOVFL*ULP )*ANINV;
                GO TO 70;
 
-               } // 60
+              //  } // 60
                ANORM = RTUNFL*N*ULPINV;
                GO TO 70;
 
-               } // 70
+              //  } // 70
 
                zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
                IINFO = 0;
@@ -251,7 +251,7 @@
                   return;
                }
 
-               } // 100
+              //  } // 100
 
                // Call ZHBTRD to compute S and U from upper triangle.
 
@@ -419,7 +419,7 @@
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-               } // 150
+              //  } // 150
                NTESTT = NTESTT + NTEST;
 
                // Print out tests which fail.

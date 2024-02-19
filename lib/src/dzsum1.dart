@@ -1,54 +1,33 @@
-import 'dart:math';
-
-import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      double dzsum1(final int N, final int CX, final int INCX,) {
-
+double dzsum1(final int N, final Array<Complex> CX_, final int INCX) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INCX, N;
-      Complex         CX( * );
-      // ..
+  final CX = CX_.dim();
+  int I, NINCX;
+  double STEMP;
 
-// =====================================================================
+  STEMP = 0.0;
+  if (N <= 0) return 0;
+  if (INCX != 1) {
+    // CODE FOR INCREMENT NOT EQUAL TO 1
 
-      // .. Local Scalars ..
-      int                I, NINCX;
-      double             STEMP;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS
+    NINCX = N * INCX;
+    for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
+      // NEXT LINE MODIFIED.
 
-      DZSUM1 = 0.0;
-      STEMP = 0.0;
-      if (N <= 0) return;
-      IF( INCX == 1 ) GO TO 20;
+      STEMP = STEMP + CX[I].abs();
+    }
+    return STEMP;
 
-      // CODE FOR INCREMENT NOT EQUAL TO 1
+    // CODE FOR INCREMENT EQUAL TO 1
+  }
+  for (I = 1; I <= N; I++) {
+    // NEXT LINE MODIFIED.
 
-      NINCX = N*INCX;
-      for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { // 10
-
-         // NEXT LINE MODIFIED.
-
-         STEMP = STEMP + ( CX( I ) ).abs();
-      } // 10
-      DZSUM1 = STEMP;
-      return;
-
-      // CODE FOR INCREMENT EQUAL TO 1
-
-      } // 20
-      for (I = 1; I <= N; I++) { // 30
-
-         // NEXT LINE MODIFIED.
-
-         STEMP = STEMP + ( CX( I ) ).abs();
-      } // 30
-      DZSUM1 = STEMP;
-      }
+    STEMP = STEMP + CX[I].abs();
+  }
+  return STEMP;
+}

@@ -1,83 +1,73 @@
-import 'dart:math';
-
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/dger.dart';
 import 'package:lapack/src/blas/lsame.dart';
-import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
-      void dlarz(final int SIDE, final int M, final int N, final int L, final int V, final int INCV, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_,) {
-  final C = C_.dim();
-  final WORK = WORK_.dim();
-
+void dlarz(
+  final String SIDE,
+  final int M,
+  final int N,
+  final int L,
+  final Array<double> V_,
+  final int INCV,
+  final double TAU,
+  final Matrix<double> C_,
+  final int LDC,
+  final Array<double> WORK_,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             SIDE;
-      int                INCV, L, LDC, M, N;
-      double             TAU;
-      double             C( LDC, * ), V( * ), WORK( * );
-      // ..
+  final V = V_.dim();
+  final C = C_.dim(LDC);
+  final WORK = WORK_.dim();
+  const ONE = 1.0, ZERO = 0.0;
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DCOPY, DGEMV, DGER
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
+  if (lsame(SIDE, 'L')) {
+    // Form  H * C
 
-      if ( lsame( SIDE, 'L' ) ) {
+    if (TAU != ZERO) {
+      // w( 1:n ) = C( 1, 1:n )
 
-         // Form  H * C
+      dcopy(N, C.asArray(), LDC, WORK, 1);
 
-         if ( TAU != ZERO ) {
+      // w( 1:n ) = w( 1:n ) + C( m-l+1:m, 1:n )**T * v( 1:l )
 
-            // w( 1:n ) = C( 1, 1:n )
+      dgemv(
+          'Transpose', L, N, ONE, C(M - L + 1, 1), LDC, V, INCV, ONE, WORK, 1);
 
-            dcopy(N, C, LDC, WORK, 1 );
+      // C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
 
-            // w( 1:n ) = w( 1:n ) + C( m-l+1:m, 1:n )**T * v( 1:l )
+      daxpy(N, -TAU, WORK, 1, C.asArray(), LDC);
 
-            dgemv('Transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 );
+      // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
+      //                     tau * v( 1:l ) * w( 1:n )**T
 
-            // C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
+      dger(L, N, -TAU, V, INCV, WORK, 1, C(M - L + 1, 1), LDC);
+    }
+  } else {
+    // Form  C * H
 
-            daxpy(N, -TAU, WORK, 1, C, LDC );
+    if (TAU != ZERO) {
+      // w( 1:m ) = C( 1:m, 1 )
 
-            // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-            //                     tau * v( 1:l ) * w( 1:n )**T
+      dcopy(M, C.asArray(), 1, WORK, 1);
 
-            dger(L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC );
-         }
+      // w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
 
-      } else {
+      dgemv('No transpose', M, L, ONE, C(1, N - L + 1), LDC, V, INCV, ONE, WORK,
+          1);
 
-         // Form  C * H
+      // C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
 
-         if ( TAU != ZERO ) {
+      daxpy(M, -TAU, WORK, 1, C.asArray(), 1);
 
-            // w( 1:m ) = C( 1:m, 1 )
+      // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
+      //                     tau * w( 1:m ) * v( 1:l )**T
 
-            dcopy(M, C, 1, WORK, 1 );
-
-            // w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
-
-            dgemv('No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 );
-
-            // C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
-
-            daxpy(M, -TAU, WORK, 1, C, 1 );
-
-            // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-            //                     tau * w( 1:m ) * v( 1:l )**T
-
-            dger(M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC );
-
-         }
-
-      }
-
-      }
+      dger(M, L, -TAU, WORK, 1, V, INCV, C(1, N - L + 1), LDC);
+    }
+  }
+}

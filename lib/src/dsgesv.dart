@@ -34,11 +34,11 @@ void dsgesv(
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final WORK = WORK_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim(N);
   final SWORK = SWORK_.dim();
   const DOITREF = true;
   const ITERMAX = 30;
@@ -80,7 +80,7 @@ void dsgesv(
     // ignore: dead_code
     if (!DOITREF) {
       ITER.value = -1;
-      break goto;
+      break;
     }
 
     // Compute some constants.
@@ -101,7 +101,7 @@ void dsgesv(
 
     if (INFO.value != 0) {
       ITER.value = -2;
-      break goto;
+      break;
     }
 
     // Convert A from double precision to single precision and store the
@@ -111,7 +111,7 @@ void dsgesv(
 
     if (INFO.value != 0) {
       ITER.value = -2;
-      break goto;
+      break;
     }
 
     // Compute the LU factorization of SA.
@@ -120,7 +120,7 @@ void dsgesv(
 
     if (INFO.value != 0) {
       ITER.value = -3;
-      break goto;
+      break;
     }
 
     // Solve the system SA*SX = SB.
@@ -130,7 +130,7 @@ void dsgesv(
 
     // Convert SX back to double precision
 
-    slag2d(N, NRHS, SWORK(PTSX), N, X, LDX, INFO);
+    slag2d(N, NRHS, SWORK(PTSX).asMatrix(N), N, X, LDX, INFO);
 
     // Compute R = B - AX (R is WORK).
 
@@ -159,11 +159,7 @@ void dsgesv(
       return;
     }
 
-    // } // 10
-
     for (IITER = 1; IITER <= ITERMAX; IITER++) {
-      // 30
-
       // Convert R (in WORK) from double precision to single precision
       // and store the result in SX.
 
@@ -182,7 +178,7 @@ void dsgesv(
       // Convert SX back to double precision and update the current
       // iterate.
 
-      slag2d(N, NRHS, SWORK(PTSX), N, WORK, N, INFO);
+      slag2d(N, NRHS, SWORK(PTSX).asMatrix(N), N, WORK, N, INFO);
 
       for (I = 1; I <= NRHS; I++) {
         daxpy(N, ONE, WORK(1, I).asArray(), 1, X(1, I).asArray(), 1);
@@ -216,7 +212,7 @@ void dsgesv(
 
         return;
       }
-    } // 30
+    }
 
     // If we are at this place of the code, this is because we have
     // performed ITER.value=ITERMAX iterations and never satisfied the
@@ -224,7 +220,7 @@ void dsgesv(
     // on double precision routine.
 
     ITER.value = -ITERMAX - 1;
-  } // 40
+  }
 
   // Single-precision iterative refinement failed to converge to a
   // satisfactory solution, so we resort to double precision.

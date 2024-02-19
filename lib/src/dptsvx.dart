@@ -1,97 +1,106 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dcopy.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlanst.dart';
+import 'package:lapack/src/dptcon.dart';
+import 'package:lapack/src/dptrfs.dart';
+import 'package:lapack/src/dpttrf.dart';
+import 'package:lapack/src/dpttrs.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dptsvx(final int FACT, final int N, final int NRHS, final int D, final int E, final int DF, final int EF, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Box<int> INFO,) {
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-
+void dptsvx(
+  final String FACT,
+  final int N,
+  final int NRHS,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<double> DF_,
+  final Array<double> EF_,
+  final Matrix<double> B_,
+  final int LDB,
+  final Matrix<double> X_,
+  final int LDX,
+  final Box<double> RCOND,
+  final Array<double> FERR_,
+  final Array<double> BERR_,
+  final Array<double> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             FACT;
-      int                INFO, LDB, LDX, N, NRHS;
-      double             RCOND;
-      double             B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * );
-      // ..
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final D = D_.dim();
+  final E = E_.dim();
+  final DF = DF_.dim();
+  final EF = EF_.dim();
+  final FERR = FERR_.dim();
+  final BERR = BERR_.dim();
+  final WORK = WORK_.dim();
+  const ZERO = 0.0;
+  bool NOFACT;
+  double ANORM;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      bool               NOFACT;
-      double             ANORM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, DLANST;
-      // EXTERNAL lsame, DLAMCH, DLANST
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DLACPY, DPTCON, DPTRFS, DPTTRF, DPTTRS, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  NOFACT = lsame(FACT, 'N');
+  if (!NOFACT && !lsame(FACT, 'F')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  } else if (LDX < max(1, N)) {
+    INFO.value = -11;
+  }
+  if (INFO.value != 0) {
+    xerbla('DPTSVX', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      NOFACT = lsame( FACT, 'N' );
-      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      } else if ( LDX < max( 1, N ) ) {
-         INFO = -11;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DPTSVX', -INFO );
-         return;
-      }
+  if (NOFACT) {
+    // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
-      if ( NOFACT ) {
+    dcopy(N, D, 1, DF, 1);
+    if (N > 1) dcopy(N - 1, E, 1, EF, 1);
+    dpttrf(N, DF, EF, INFO);
 
-         // Compute the L*D*L**T (or U**T*D*U) factorization of A.
+    // Return if INFO.value is non-zero.
 
-         dcopy(N, D, 1, DF, 1 );
-         if (N > 1) dcopy( N-1, E, 1, EF, 1 );
-         dpttrf(N, DF, EF, INFO );
+    if (INFO.value > 0) {
+      RCOND.value = ZERO;
+      return;
+    }
+  }
 
-         // Return if INFO is non-zero.
+  // Compute the norm of the matrix A.
 
-         if ( INFO > 0 ) {
-            RCOND = ZERO;
-            return;
-         }
-      }
+  ANORM = dlanst('1', N, D, E);
 
-      // Compute the norm of the matrix A.
+  // Compute the reciprocal of the condition number of A.
 
-      ANORM = dlanst( '1', N, D, E );
+  dptcon(N, DF, EF, ANORM, RCOND, WORK, INFO);
 
-      // Compute the reciprocal of the condition number of A.
+  // Compute the solution vectors X.
 
-      dptcon(N, DF, EF, ANORM, RCOND, WORK, INFO );
+  dlacpy('Full', N, NRHS, B, LDB, X, LDX);
+  dpttrs(N, NRHS, DF, EF, X, LDX, INFO);
 
-      // Compute the solution vectors X.
+  // Use iterative refinement to improve the computed solutions and
+  // compute error bounds and backward error estimates for them.
 
-      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
-      dpttrs(N, NRHS, DF, EF, X, LDX, INFO );
+  dptrfs(N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO);
 
-      // Use iterative refinement to improve the computed solutions and
-      // compute error bounds and backward error estimates for them.
+  // Set INFO.value = N+1 if the matrix is singular to working precision.
 
-      dptrfs(N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO );
-
-      // Set INFO = N+1 if the matrix is singular to working precision.
-
-      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
-
-      }
+  if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
+}

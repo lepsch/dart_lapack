@@ -1,91 +1,117 @@
-      import 'package:lapack/src/matrix.dart';
+import 'dart:math';
 
-void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NOUNIT, final Matrix<double> A_, final int LDA, final int B, final int S, final int T, final Matrix<double> Q_, final int LDQ, final int Z, final Matrix<double> QE_, final int LDQE, final int ALPHA, final int BETA, final int ALPHA1, final int BETA1, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Box<int> INFO,) {
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim();
-  final Q = Q_.dim();
-  final QE = QE_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/intrinsics/sign.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlarfg.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zggev.dart';
+import 'package:lapack/src/zunm2r.dart';
 
+import '../matgen/zlarnd.dart';
+import 'alasvm.dart';
+import 'zget52.dart';
+import 'zlatm4.dart';
+
+void zdrgev(final int NSIZES, final Array<int> NN_, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final double THRESH,
+final int NOUNIT, final Matrix<Complex> A_, final int LDA, final Matrix<Complex> B_, final Matrix<Complex> S_, final Matrix<Complex> T_, final Matrix<Complex> Q_, final int LDQ,
+final Matrix<Complex> Z_, final Matrix<Complex> QE_, final int LDQE, final Array<Complex> ALPHA_, final Array<Complex> BETA_, final Array<Complex> ALPHA1_, final Array<Complex> BETA1_,
+final Array<Complex> WORK_, final int LWORK, final Array<double> RWORK_, final Array<double> RESULT_, final Box<int> INFO,) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES;
-      double             THRESH;
-      bool               DOTYPE( * );
-      int                ISEED( 4 ), NN( * );
-      double             RESULT( * ), RWORK( * );
-      Complex         A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
-      // ..
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim(4);
+  final NN = NN_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final S = S_.dim(LDA);
+  final T = T_.dim(LDA);
+  final Q = Q_.dim(LDQ);
+  final QE = QE_.dim(LDQE);
+  final Z = Z_.dim(LDQ);
+final ALPHA=ALPHA_.dim();
+final BETA=BETA_.dim();
+final ALPHA1=ALPHA1_.dim();
+final BETA1=BETA1_.dim();
+  final RESULT = RESULT_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      int                MAXTYP;
       const              MAXTYP = 26 ;
       bool               BADNN;
-      int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT;
+      int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N=0, N1, NB, NERRS, NMATS, NMAX, NTESTT;
       double             SAFMAX, SAFMIN, ULP, ULPINV;
       Complex         CTEMP;
-      bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
-      int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      double             RMAGN( 0: 3 );
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      //- double             DLAMCH;
-      //- Complex         ZLARND;
-      // EXTERNAL ILAENV, DLAMCH, ZLARND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALASVM, XERBLA, ZGET52, ZGGEV, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZUNM2R
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, SIGN
-      // ..
-      // .. Data statements ..
-      const KCLASS = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,]);
-      const KZ1 = Array.fromList([ 0, 1, 2, 1, 3, 3 ]);
-      const KZ2 = Array.fromList([ 0, 0, 1, 2, 1, 1 ]);
-      const KADD = Array.fromList([ 0, 0, 0, 0, 3, 2 ]);
-      const KATYPE = Array.fromList([ 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4, 0 ]);
-      const KBTYPE = Array.fromList([ 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8, 8, 8, 8, 8, 8, 8, 8, 0 ]);
-      const KAZERO = Array.fromList([ 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 2, 3, 1, 3, 5, 5, 5, 5, 3, 3, 3, 3, 1 ]);
-      const KBZERO = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 4, 1, 4, 6, 6, 6, 6, 4, 4, 4, 4, 1 ]);
-      const KAMAGN = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, 3, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 1 ]);
-      const KBMAGN = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 1 ]);
-      const KTRIAN = Array.fromList([ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]);
-      const LASIGN = Array.fromList([ false, false, false, false, false, false, true , false , true, true, false, false, true, true, true, false , true , false, false, false, true, true, true, true, true, false ]);
-      const LBSIGN = Array.fromList([ false, false, false, false, false, false, false, true , false, false, true, true, false, false, true , false , true , false, false, false, false, false, false, false, false, false,]);
+      final                IOLDSD=Array<int>( 4 );
+      final             RMAGN=Array<double>( 4)(1,offset: 1);
+      final KCLASS = Array.fromList([
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //
+        1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,]);
+      final KZ1 = Array.fromList([ 0, 1, 2, 1, 3, 3 ]);
+      final KZ2 = Array.fromList([ 0, 0, 1, 2, 1, 1 ]);
+      final KADD = Array.fromList([ 0, 0, 0, 0, 3, 2 ]);
+      final KATYPE = Array.fromList([
+        0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, //
+        4, 4, 2, 4, 5, 8, 7, 9, 4, 4, 4, 4, 0 ]);
+      final KBTYPE = Array.fromList([
+        0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, //
+        1, -4, 2, -4, 8, 8, 8, 8, 8, 8, 8, 8, 0 ]);
+      final KAZERO = Array.fromList([
+        1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, //
+        2, 3, 1, 3, 5, 5, 5, 5, 3, 3, 3, 3, 1 ]);
+      final KBZERO = Array.fromList([
+        1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, //
+        1, 4, 1, 4, 6, 6, 6, 6, 4, 4, 4, 4, 1 ]);
+      final KAMAGN = Array.fromList([
+        1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 3, 2, //
+        3, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 1 ]);
+      final KBMAGN = Array.fromList([
+        1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 2, //
+        3, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 2, 1 ]);
+      final KTRIAN = Array.fromList([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //
+        0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,]);
+      final LASIGN = Array.fromList([
+        false, false, false, false, false, false, true , false , true, true, //
+        false, false, true, true, true, false , true , false, false, false, //
+        true, true, true, true, true, false ]);
+      final LBSIGN = Array.fromList([
+        false, false, false, false, false, false, false, true , false, false, //
+        true, true, false, false, true , false , true , false, false, false, //
+        false, false, false, false, false, false,]);
 
       // Check for errors
 
-      INFO = 0;
+      INFO.value = 0;
 
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = max( NMAX, NN( J ) );
-         if( NN( J ) < 0 ) BADNN = true;
+         NMAX = max( NMAX, NN[J] );
+         if( NN[J] < 0 ) BADNN = true;
       } // 10
 
       if ( NSIZES < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( BADNN ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NTYPES < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( THRESH < ZERO ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDA <= 1 || LDA < NMAX ) {
-         INFO = -9;
+         INFO.value = -9;
       } else if ( LDQ <= 1 || LDQ < NMAX ) {
-         INFO = -14;
+         INFO.value = -14;
       } else if ( LDQE <= 1 || LDQE < NMAX ) {
-         INFO = -17;
+         INFO.value = -17;
       }
 
       // Compute workspace
@@ -96,17 +122,17 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
       //   following subroutine, as returned by ILAENV.
 
       MINWRK = 1;
-      if ( INFO == 0 && LWORK >= 1 ) {
+      if ( INFO.value == 0 && LWORK >= 1 ) {
          MINWRK = NMAX*( NMAX+1 );
-         NB = max( 1, ilaenv( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ilaenv( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ilaenv( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
-         MAXWRK = max( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) );
-         WORK[1] = MAXWRK;
+         NB = max( max(1, ilaenv( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 )), max(ilaenv( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ilaenv( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 )) );
+         MAXWRK = max( 2*NMAX, max(NMAX*( NB+1 ), NMAX*( NMAX+1 )) );
+         WORK[1] = MAXWRK.toComplex();
       }
 
-      if (LWORK < MINWRK) INFO = -23;
+      if (LWORK < MINWRK) INFO.value = -23;
 
-      if ( INFO != 0 ) {
-         xerbla('ZDRGEV', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZDRGEV', -INFO.value );
          return;
       }
 
@@ -132,7 +158,7 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
       NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
-         N = NN( JSIZE );
+         N = NN[ JSIZE ];
          N1 = max( 1, N );
          RMAGN[2] = SAFMAX*ULP / N1.toDouble();
          RMAGN[3] = SAFMIN*ULPINV*N1;
@@ -144,13 +170,13 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 210
-            if( !DOTYPE( JTYPE ) ) GO TO 210;
+            if( !DOTYPE[ JTYPE ] ) continue;
             NMATS = NMATS + 1;
 
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD[J] = ISEED( J );
+               IOLDSD[J] = ISEED[J];
             } // 20
 
             // Generate test matrices A and B
@@ -176,13 +202,13 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
 
             if (MTYPES > MAXTYP) GO TO 100;
             IERR = 0;
-            if ( KCLASS( JTYPE ) < 3 ) {
+            if ( KCLASS[ JTYPE ] < 3 ) {
 
                // Generate A (w/o rotation)
 
-               if ( ( KATYPE( JTYPE ) ).abs() == 3 ) {
-                  IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) zlaset( 'Full', N, N, CZERO, CZERO, A, LDA );
+               if ( ( KATYPE[ JTYPE ] ).abs() == 3 ) {
+                  IN = 2*( ( N-1 ) ~/ 2 ) + 1;
+                  if (IN != N) zlaset( 'Full', N, N, Complex.zero, Complex.zero, A, LDA );
                } else {
                   IN = N;
                }
@@ -192,9 +218,9 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
 
                // Generate B (w/o rotation)
 
-               if ( ( KBTYPE( JTYPE ) ).abs() == 3 ) {
-                  IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) zlaset( 'Full', N, N, CZERO, CZERO, B, LDA );
+               if ( ( KBTYPE[ JTYPE ] ).abs() == 3 ) {
+                  IN = 2*( ( N-1 ) ~/ 2 ) + 1;
+                  if (IN != N) zlaset( 'Full', N, N, Complex.zero, Complex.zero, B, LDA );
                } else {
                   IN = N;
                }
@@ -202,7 +228,7 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
                IADD = KADD( KBZERO( JTYPE ) );
                if (IADD != 0 && IADD <= N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ) == 2 && N > 0 ) {
+               if ( KCLASS[ JTYPE ] == 2 && N > 0 ) {
 
                   // Include rotations
 
@@ -211,36 +237,41 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
 
                   for (JC = 1; JC <= N - 1; JC++) { // 40
                      for (JR = JC; JR <= N; JR++) { // 30
-                        Q[JR][JC] = ZLARND( 3, ISEED );
-                        Z[JR][JC] = ZLARND( 3, ISEED );
+                        Q[JR][JC] = zlarnd( 3, ISEED );
+                        Z[JR][JC] = zlarnd( 3, ISEED );
                      } // 30
-                     zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = sign( ONE, (Q( JC, JC )).toDouble() );
-                     Q[JC][JC] = CONE;
+                     zlarfg(N+1-JC, Q[JC][ JC] , Q( JC+1, JC ), 1, WORK( JC ) );
+                     WORK[2*N+JC] = sign( ONE, (Q[JC][ JC] ).toDouble() );
+                     Q[JC][JC] = Complex.one;
                      zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = sign( ONE, (Z( JC, JC )).toDouble() );
-                     Z[JC][JC] = CONE;
+                     WORK[3*N+JC] = sign( ONE, (Z[JC][ JC] ).toDouble() );
+                     Z[JC][JC] = Complex.one;
                   } // 40
-                  CTEMP = ZLARND( 3, ISEED );
-                  Q[N][N] = CONE;
-                  WORK[N] = CZERO;
+                  CTEMP = zlarnd( 3, ISEED );
+                  Q[N][N] = Complex.one;
+                  WORK[N] = Complex.zero;
                   WORK[3*N] = CTEMP / ( CTEMP ).abs();
-                  CTEMP = ZLARND( 3, ISEED );
-                  Z[N][N] = CONE;
-                  WORK[2*N] = CZERO;
+                  CTEMP = zlarnd( 3, ISEED );
+                  Z[N][N] = Complex.one;
+                  WORK[2*N] = Complex.zero;
                   WORK[4*N] = CTEMP / ( CTEMP ).abs();
 
                   // Apply the diagonal matrices
 
                   for (JC = 1; JC <= N; JC++) { // 60
                      for (JR = 1; JR <= N; JR++) { // 50
-                        A[JR][JC] = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* B( JR, JC );
+                        A[JR][JC] = WORK( 2*N+JR )* dconjg( WORK( 3*N+JC ) )* A( JR, JC )                         ;
+                        B( JR, JC ) = WORK( 2*N+JR )* dconjg( WORK( 3*N+JC ) )* B( JR, JC );
                      } // 50
+                  zunm2r( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   ;
                   } // 60
-                  CALL ZUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
-                  CALL ZUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
-                  CALL ZUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
-                  CALL ZUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
+                  if( IERR != 0 ) GO TO 90;
+                  zunm2r( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   ;
+                  if( IERR != 0 ) GO TO 90;
+                  zunm2r( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   ;
+                  if( IERR != 0 ) GO TO 90;
+                  zunm2r( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   ;
+                  if( IERR != 0 ) GO TO 90;
                }
             } else {
 
@@ -248,20 +279,21 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
 
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
-                     A[JR][JC] = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED );
+                     A[JR][JC] = RMAGN( KAMAGN[ JTYPE ] )* zlarnd( 4, ISEED )                      ;
+                     B[JR][ JC]  = RMAGN( KBMAGN[ JTYPE ] )* zlarnd( 4, ISEED );
                   } // 70
                } // 80
             }
 
-            } // 90
+            // } // 90
 
             if ( IERR != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD;
-               INFO = ( IERR ).abs();
+               INFO.value = ( IERR ).abs();
                return;
             }
 
-            } // 100
+            // } // 100
 
             for (I = 1; I <= 7; I++) { // 110
                RESULT[I] = -ONE;
@@ -275,7 +307,7 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV1', IERR, N, JTYPE, IOLDSD;
-               INFO = ( IERR ).abs();
+               INFO.value = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -301,12 +333,12 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV2', IERR, N, JTYPE, IOLDSD;
-               INFO = ( IERR ).abs();
+               INFO.value = ( IERR ).abs();
                GO TO 190;
             }
 
             for (J = 1; J <= N; J++) { // 120
-               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 5 ) = ULPINV;
+               if( ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J] )RESULT( 5 ) = ULPINV;
             } // 120
 
             // Do test (6): Compute eigenvalues and left eigenvectors,
@@ -318,12 +350,12 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV3', IERR, N, JTYPE, IOLDSD;
-               INFO = ( IERR ).abs();
+               INFO.value = ( IERR ).abs();
                GO TO 190;
             }
 
             for (J = 1; J <= N; J++) { // 130
-               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 6 ) = ULPINV;
+               if( ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J] )RESULT( 6 ) = ULPINV;
             } // 130
 
             for (J = 1; J <= N; J++) { // 150
@@ -341,30 +373,30 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT[1] = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV4', IERR, N, JTYPE, IOLDSD;
-               INFO = ( IERR ).abs();
+               INFO.value = ( IERR ).abs();
                GO TO 190;
             }
 
             for (J = 1; J <= N; J++) { // 160
-               if( ALPHA( J ) != ALPHA1( J ) || BETA( J ) != BETA1( J ) )RESULT( 7 ) = ULPINV;
+               if( ALPHA[J] != ALPHA1[J] || BETA[J] != BETA1[J] )RESULT[7] = ULPINV;
             } // 160
 
             for (J = 1; J <= N; J++) { // 180
                for (JC = 1; JC <= N; JC++) { // 170
-                  if( Z( J, JC ) != QE( J, JC ) ) RESULT( 7 ) = ULPINV;
+                  if( Z( J, JC ) != QE( J, JC ) ) RESULT[7] = ULPINV;
                } // 170
             } // 180
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-            } // 190
+            // } // 190
 
             NTESTT = NTESTT + 7;
 
             // Print out tests which fail.
 
             for (JR = 1; JR <= 7; JR++) { // 200
-               if ( RESULT( JR ) >= THRESH ) {
+               if ( RESULT[ JR ] >= THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.
@@ -403,7 +435,7 @@ void zdrgev(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
 
       return;
 
- 9999 FORMAT( ' ZDRGEV: ${} returned INFO=${.i6}.\n${' ' * 3}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
+ 9999 FORMAT( ' ZDRGEV: ${} returned INFO.value=${.i6}.\n${' ' * 3}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
 
  9998 FORMAT( ' ZDRGEV: ${} Eigenvectors from ${} incorrectly normalized.\n Bits of error=${.g10_3},${' ' * 3}N=${.i4}, JTYPE=${.i3}, ISEED=(${i4(3, ',')}', I5, ')' );
 

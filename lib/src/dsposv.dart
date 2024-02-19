@@ -1,228 +1,237 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/daxpy.dart';
+import 'package:lapack/src/blas/dsymm.dart';
+import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlag2s.dart';
+import 'package:lapack/src/dlansy.dart';
+import 'package:lapack/src/dlat2s.dart';
+import 'package:lapack/src/dpotrs.dart';
+import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/slag2d.dart';
+import 'package:lapack/src/spotrf.dart';
+import 'package:lapack/src/spotrs.dart';
+import 'package:lapack/src/variants/cholesky/top/dpotrf.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsposv(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Array<double> _WORK_, final int SWORK, final int ITER, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-
+void dsposv(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<double> A_,
+  final int LDA,
+  final Matrix<double> B_,
+  final int LDB,
+  final Matrix<double> X_,
+  final int LDX,
+  final Matrix<double> WORK_,
+  final Array<double> SWORK_,
+  final Box<int> ITER,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
-      double               SWORK( * );
-      double             A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final SWORK = SWORK_.dim();
+  final WORK = WORK_.dim(N);
 
-      bool               DOITREF;
-      const              DOITREF = true ;
+  const DOITREF = true;
+  const ITERMAX = 30;
+  const BWDMAX = 1.0e+00;
+  const NEGONE = -1.0, ONE = 1.0;
+  int I, IITER, PTSA, PTSX;
+  double ANRM, CTE, EPS, RNRM, XNRM;
 
-      int                ITERMAX;
-      const              ITERMAX = 30 ;
+  INFO.value = 0;
+  ITER.value = 0;
 
-      double             BWDMAX;
-      const              BWDMAX = 1.0e+00 ;
+  // Test the input parameters.
 
-      double             NEGONE, ONE;
-      const              NEGONE = -1.0, ONE = 1.0 ;
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -7;
+  } else if (LDX < max(1, N)) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('DSPOSV', -INFO.value);
+    return;
+  }
 
-      // .. Local Scalars ..
-      int                I, IITER, PTSA, PTSX;
-      double             ANRM, CTE, EPS, RNRM, XNRM;
+  // Quick return if (N == 0).
 
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DSYMM, DLACPY, DLAT2S, DLAG2S, SLAG2D, SPOTRF, SPOTRS, DPOTRF, DPOTRS, XERBLA
-      // ..
-      // .. External Functions ..
-      //- int                idamax;
-      //- double             DLAMCH, DLANSY;
-      //- bool               lsame;
-      // EXTERNAL idamax, DLAMCH, DLANSY, lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, SQRT
+  if (N == 0) return;
 
-      INFO = 0;
-      ITER = 0;
+  fallbackToFullPrecision:
+  while (true) {
+    // Skip single precision iterative refinement if a priori slower
+    // than double precision factorization.
 
-      // Test the input parameters.
+    // ignore: dead_code
+    if (!DOITREF) {
+      ITER.value = -1;
+      break fallbackToFullPrecision;
+    }
 
-      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -7;
-      } else if ( LDX < max( 1, N ) ) {
-         INFO = -9;
+    // Compute some constants.
+
+    ANRM = dlansy('I', UPLO, N, A, LDA, WORK.asArray());
+    EPS = dlamch('Epsilon');
+    CTE = ANRM * EPS * sqrt(N.toDouble()) * BWDMAX;
+
+    // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
+
+    PTSA = 1;
+    PTSX = PTSA + N * N;
+
+    // Convert B from double precision to single precision and store the
+    // result in SX.
+
+    dlag2s(N, NRHS, B, LDB, SWORK(PTSX).asMatrix(N), N, INFO);
+
+    if (INFO.value != 0) {
+      ITER.value = -2;
+      break fallbackToFullPrecision;
+    }
+
+    // Convert A from double precision to single precision and store the
+    // result in SA.
+
+    dlat2s(UPLO, N, A, LDA, SWORK(PTSA).asMatrix(N), N, INFO);
+
+    if (INFO.value != 0) {
+      ITER.value = -2;
+      break fallbackToFullPrecision;
+    }
+
+    // Compute the Cholesky factorization of SA.
+
+    spotrf(UPLO, N, SWORK(PTSA).asMatrix(N), N, INFO);
+
+    if (INFO.value != 0) {
+      ITER.value = -3;
+      break fallbackToFullPrecision;
+    }
+
+    // Solve the system SA*SX = SB.
+
+    spotrs(UPLO, N, NRHS, SWORK(PTSA).asMatrix(N), N, SWORK(PTSX).asMatrix(N),
+        N, INFO);
+
+    // Convert SX back to double precision
+
+    slag2d(N, NRHS, SWORK(PTSX).asMatrix(N), N, X, LDX, INFO);
+
+    // Compute R = B - AX (R is WORK).
+
+    dlacpy('All', N, NRHS, B, LDB, WORK, N);
+
+    dsymm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N);
+
+    // Check whether the NRHS normwise backward errors satisfy the
+    // stopping criterion. If yes, set ITER.value=0 and return.
+    var satisfy = true;
+    for (I = 1; I <= NRHS; I++) {
+      XNRM = X[idamax(N, X(1, I).asArray(), 1)][I].abs();
+      RNRM = WORK[idamax(N, WORK(1, I).asArray(), 1)][I].abs();
+      if (RNRM > XNRM * CTE) {
+        satisfy = false;
+        break;
       }
-      if ( INFO != 0 ) {
-         xerbla('DSPOSV', -INFO );
-         return;
-      }
+    }
 
-      // Quick return if (N == 0).
-
-      if (N == 0) return;
-
-      // Skip single precision iterative refinement if a priori slower
-      // than double precision factorization.
-
-      if ( !DOITREF ) {
-         ITER = -1;
-         GO TO 40;
-      }
-
-      // Compute some constants.
-
-      ANRM = dlansy( 'I', UPLO, N, A, LDA, WORK );
-      EPS = dlamch( 'Epsilon' );
-      CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
-
-      // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
-
-      PTSA = 1;
-      PTSX = PTSA + N*N;
-
-      // Convert B from double precision to single precision and store the
-      // result in SX.
-
-      dlag2s(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
-
-      if ( INFO != 0 ) {
-         ITER = -2;
-         GO TO 40;
-      }
-
-      // Convert A from double precision to single precision and store the
-      // result in SA.
-
-      dlat2s(UPLO, N, A, LDA, SWORK( PTSA ), N, INFO );
-
-      if ( INFO != 0 ) {
-         ITER = -2;
-         GO TO 40;
-      }
-
-      // Compute the Cholesky factorization of SA.
-
-      spotrf(UPLO, N, SWORK( PTSA ), N, INFO );
-
-      if ( INFO != 0 ) {
-         ITER = -3;
-         GO TO 40;
-      }
-
-      // Solve the system SA*SX = SB.
-
-      spotrs(UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO );
-
-      // Convert SX back to double precision
-
-      slag2d(N, NRHS, SWORK( PTSX ), N, X, LDX, INFO );
-
-      // Compute R = B - AX (R is WORK).
-
-      dlacpy('All', N, NRHS, B, LDB, WORK, N );
-
-      dsymm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
-
-      // Check whether the NRHS normwise backward errors satisfy the
-      // stopping criterion. If yes, set ITER=0 and return.
-
-      for (I = 1; I <= NRHS; I++) {
-         XNRM = ABS( X( idamax( N, X( 1, I ), 1 ), I ) );
-         RNRM = ABS( WORK( idamax( N, WORK( 1, I ), 1 ), I ) );
-         if (RNRM > XNRM*CTE) GO TO 10;
-      }
-
+    if (satisfy) {
       // If we are here, the NRHS normwise backward errors satisfy the
       // stopping criterion. We are good to exit.
 
-      ITER = 0;
+      ITER.value = 0;
       return;
+    }
 
-      // } // 10
+    for (IITER = 1; IITER <= ITERMAX; IITER++) {
+      // Convert R (in WORK) from double precision to single precision
+      // and store the result in SX.
 
-      for (IITER = 1; IITER <= ITERMAX; IITER++) { // 30
+      dlag2s(N, NRHS, WORK, N, SWORK(PTSX).asMatrix(N), N, INFO);
 
-         // Convert R (in WORK) from double precision to single precision
-         // and store the result in SX.
-
-         dlag2s(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
-
-         if ( INFO != 0 ) {
-            ITER = -2;
-            GO TO 40;
-         }
-
-         // Solve the system SA*SX = SR.
-
-         spotrs(UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO );
-
-         // Convert SX back to double precision and update the current
-         // iterate.
-
-         slag2d(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
-
-         for (I = 1; I <= NRHS; I++) {
-            daxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
-         }
-
-         // Compute R = B - AX (R is WORK).
-
-         dlacpy('All', N, NRHS, B, LDB, WORK, N );
-
-         dsymm('L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
-
-         // Check whether the NRHS normwise backward errors satisfy the
-         // stopping criterion. If yes, set ITER=IITER>0 and return.
-
-         for (I = 1; I <= NRHS; I++) {
-            XNRM = ABS( X( idamax( N, X( 1, I ), 1 ), I ) );
-            RNRM = ABS( WORK( idamax( N, WORK( 1, I ), 1 ), I ) );
-            if (RNRM > XNRM*CTE) GO TO 20;
-         }
-
-         // If we are here, the NRHS normwise backward errors satisfy the
-         // stopping criterion, we are good to exit.
-
-         ITER = IITER;
-
-         return;
-
-        //  } // 20
-
-      } // 30
-
-      // If we are at this place of the code, this is because we have
-      // performed ITER=ITERMAX iterations and never satisfied the
-      // stopping criterion, set up the ITER flag accordingly and follow
-      // up on double precision routine.
-
-      ITER = -ITERMAX - 1;
-
-      // } // 40
-
-      // Single-precision iterative refinement failed to converge to a
-      // satisfactory solution, so we resort to double precision.
-
-      dpotrf(UPLO, N, A, LDA, INFO );
-
-      if (INFO != 0) return;
-
-      dlacpy('All', N, NRHS, B, LDB, X, LDX );
-      dpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );
-
+      if (INFO.value != 0) {
+        ITER.value = -2;
+        break fallbackToFullPrecision;
       }
+
+      // Solve the system SA*SX = SR.
+
+      spotrs(UPLO, N, NRHS, SWORK(PTSA).asMatrix(N), N, SWORK(PTSX).asMatrix(N),
+          N, INFO);
+
+      // Convert SX back to double precision and update the current
+      // iterate.
+
+      slag2d(N, NRHS, SWORK(PTSX).asMatrix(N), N, WORK, N, INFO);
+
+      for (I = 1; I <= NRHS; I++) {
+        daxpy(N, ONE, WORK(1, I).asArray(), 1, X(1, I).asArray(), 1);
+      }
+
+      // Compute R = B - AX (R is WORK).
+
+      dlacpy('All', N, NRHS, B, LDB, WORK, N);
+
+      dsymm('L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N);
+
+      // Check whether the NRHS normwise backward errors satisfy the
+      // stopping criterion. If yes, set ITER=IITER>0 and return.
+
+      var satisfy = true;
+      for (I = 1; I <= NRHS; I++) {
+        XNRM = X[idamax(N, X(1, I).asArray(), 1)][I].abs();
+        RNRM = WORK[idamax(N, WORK(1, I).asArray(), 1)][I].abs();
+        if (RNRM > XNRM * CTE) {
+          satisfy = false;
+          break;
+        }
+      }
+
+      if (satisfy) {
+        // If we are here, the NRHS normwise backward errors satisfy the
+        // stopping criterion, we are good to exit.
+
+        ITER.value = IITER;
+        return;
+      }
+    }
+
+    // If we are at this place of the code, this is because we have
+    // performed ITER=ITERMAX iterations and never satisfied the
+    // stopping criterion, set up the ITER flag accordingly and follow
+    // up on double precision routine.
+
+    ITER.value = -ITERMAX - 1;
+
+    break;
+  }
+
+  // Single-precision iterative refinement failed to converge to a
+  // satisfactory solution, so we resort to double precision.
+
+  dpotrf(UPLO, N, A, LDA, INFO);
+
+  if (INFO.value != 0) return;
+
+  dlacpy('All', N, NRHS, B, LDB, X, LDX);
+  dpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO);
+}

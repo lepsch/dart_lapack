@@ -36,7 +36,7 @@ void dsyevd_2stage(
   bool LOWER, LQUERY, WANTZ;
   int INDE,
       INDTAU,
-      INDWK2,
+      // INDWK2,
       INDWRK,
       ISCALE,
       LIWMIN = 0,
@@ -141,7 +141,7 @@ void dsyevd_2stage(
   INDHOUS = INDTAU + N;
   INDWRK = INDHOUS + LHTRD;
   LLWORK = LWORK - INDWRK + 1;
-  INDWK2 = INDWRK + N * N;
+  // INDWK2 = INDWRK + N * N;
   // LLWRK2 = LWORK - INDWK2 + 1;
 
   dsytrd_2stage(JOBZ, UPLO, N, A, LDA, W, WORK(INDE), WORK(INDTAU),

@@ -53,7 +53,6 @@ void dlatm4(
     }
     ISDB = 1;
     ISDE = 0;
-    //  GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )( ITYPE ).abs();
     switch (ITYPE.abs()) {
       case 1:
         // abs(ITYPE) = 1: Identity

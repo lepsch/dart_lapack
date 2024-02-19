@@ -280,7 +280,8 @@ void main() async {
       }
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
-      NOUT.println('\n LAPACK VERSION $VERS_MAJOR.$VERS_MINOR.$VERS_PATCH');
+      NOUT.println(
+          '\n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}');
       NOUT.println('\n The following parameter values will be used:');
 
       // Read the number of values of M, P, and N.
@@ -1290,7 +1291,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DGEES', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DVX')) {
           // --------------------------------------------------------------
@@ -1342,7 +1343,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DGEEVX', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DSX')) {
           // ---------------------------------------------------
@@ -1387,7 +1388,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DGEESX', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DGG')) {
           // -------------------------------------------------
@@ -1532,7 +1533,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DDRGES3', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DGX) {
           // -------------------------------------------------
@@ -1575,7 +1576,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DDRGSX', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DGV')) {
           // -------------------------------------------------
@@ -1652,7 +1653,7 @@ void main() async {
                 INFO);
             if (INFO.value != 0) _print9980(NOUT, 'DDRGEV3', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (DXV) {
           // -------------------------------------------------
@@ -1700,7 +1701,7 @@ void main() async {
 
             if (INFO.value != 0) _print9980(NOUT, 'DDRGVX', INFO.value);
           }
-          NOUT.println(' ${Iterable.generate(71, (_) => '-').join()}');
+          NOUT.println('\n ${'-' * 71}');
           continue nextPath;
         } else if (lsamen(3, C3, 'DSB')) {
           // ------------------------------
@@ -1973,7 +1974,7 @@ void _print9990(final Nout NOUT, final String s) {
 }
 
 void _print9981(final Nout NOUT, final String s, final double precision) {
-  NOUT.println(' Relative machine $s is taken to be ${precision.d16_6}');
+  NOUT.println(' Relative machine $s is taken to be${precision.d16_6}');
 }
 
 void _print9983(
