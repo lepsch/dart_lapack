@@ -1,116 +1,133 @@
-      void zgebd2(final int M, final int N, final Matrix<double> A_, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlarf.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void zgebd2(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<Complex> TAUQ_,
+  final Array<Complex> TAUP_,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, M, N;
-      double             D( * ), E( * );
-      Complex         A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final D = D_.dim();
+  final E = E_.dim();
+  final TAUQ = TAUQ_.dim();
+  final TAUP = TAUP_.dim();
+  final WORK = WORK_.dim();
+  int I;
+  final ALPHA = Box(Complex.zero);
 
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      int                I;
-      Complex         ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLACGV, ZLARF, ZLARFG
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG, MAX, MIN
+  // Test the input parameters
 
-      // Test the input parameters
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -4;
+  }
+  if (INFO.value < 0) {
+    xerbla('ZGEBD2', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -4;
+  if (M >= N) {
+    // Reduce to upper bidiagonal form
+
+    for (I = 1; I <= N; I++) {
+      // 10
+
+      // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
+
+      ALPHA.value = A[I][I];
+      zlarfg(M - I + 1, ALPHA, A(min(I + 1, M), I).asArray(), 1, TAUQ.box(I));
+      D[I] = ALPHA.value.toDouble();
+      A[I][I] = Complex.one;
+
+      // Apply H(i)**H to A(i:m,i+1:n) from the left
+
+      if (I < N) {
+        zlarf('Left', M - I + 1, N - I, A(I, I).asArray(), 1,
+            TAUQ[I].conjugate(), A(I, I + 1), LDA, WORK);
       }
-      if ( INFO < 0 ) {
-         xerbla('ZGEBD2', -INFO );
-         return;
-      }
+      A[I][I] = D[I].toComplex();
 
-      if ( M >= N ) {
+      if (I < N) {
+        // Generate elementary reflector G(i) to annihilate
+        // A(i,i+2:n)
 
-         // Reduce to upper bidiagonal form
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+        ALPHA.value = A[I][I + 1];
+        zlarfg(N - I, ALPHA, A(I, min(I + 2, N)).asArray(), LDA, TAUP.box(I));
+        E[I] = ALPHA.value.toDouble();
+        A[I][I + 1] = Complex.one;
 
-         for (I = 1; I <= N; I++) { // 10
+        // Apply G(i) to A(i+1:m,i+1:n) from the right
 
-            // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
-
-            ALPHA = A( I, I );
-            zlarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D[I] = ALPHA.toDouble();
-            A[I][I] = ONE;
-
-            // Apply H(i)**H to A(i:m,i+1:n) from the left
-
-            if (I < N) zlarf( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAUQ( I ) ), A( I, I+1 ), LDA, WORK );
-            A[I][I] = D( I );
-
-            if ( I < N ) {
-
-               // Generate elementary reflector G(i) to annihilate
-               // A(i,i+2:n)
-
-               zlacgv(N-I, A( I, I+1 ), LDA );
-               ALPHA = A( I, I+1 );
-               zlarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E[I] = ALPHA.toDouble();
-               A[I][I+1] = ONE;
-
-               // Apply G(i) to A(i+1:m,i+1:n) from the right
-
-               zlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
-               zlacgv(N-I, A( I, I+1 ), LDA );
-               A[I][I+1] = E( I );
-            } else {
-               TAUP[I] = ZERO;
-            }
-         } // 10
+        zlarf('Right', M - I, N - I, A(I, I + 1).asArray(), LDA, TAUP[I],
+            A(I + 1, I + 1), LDA, WORK);
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+        A[I][I + 1] = E[I].toComplex();
       } else {
-
-         // Reduce to lower bidiagonal form
-
-         for (I = 1; I <= M; I++) { // 20
-
-            // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
-
-            zlacgv(N-I+1, A( I, I ), LDA );
-            ALPHA = A( I, I );
-            zlarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D[I] = ALPHA.toDouble();
-            A[I][I] = ONE;
-
-            // Apply G(i) to A(i+1:m,i:n) from the right
-
-            if (I < M) zlarf( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
-            zlacgv(N-I+1, A( I, I ), LDA );
-            A[I][I] = D( I );
-
-            if ( I < M ) {
-
-               // Generate elementary reflector H(i) to annihilate
-               // A(i+2:m,i)
-
-               ALPHA = A( I+1, I );
-               zlarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E[I] = ALPHA.toDouble();
-               A[I+1][I] = ONE;
-
-               // Apply H(i)**H to A(i+1:m,i+1:n) from the left
-
-               zlarf('Left', M-I, N-I, A( I+1, I ), 1, DCONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK );
-               A[I+1][I] = E( I );
-            } else {
-               TAUQ[I] = ZERO;
-            }
-         } // 20
+        TAUP[I] = Complex.zero;
       }
+    } // 10
+  } else {
+    // Reduce to lower bidiagonal form
+
+    for (I = 1; I <= M; I++) {
+      // 20
+
+      // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
+
+      zlacgv(N - I + 1, A(I, I).asArray(), LDA);
+      ALPHA.value = A[I][I];
+      zlarfg(N - I + 1, ALPHA, A(I, min(I + 1, N)).asArray(), LDA, TAUP.box(I));
+      D[I] = ALPHA.value.toDouble();
+      A[I][I] = Complex.one;
+
+      // Apply G(i) to A(i+1:m,i:n) from the right
+
+      if (I < M) {
+        zlarf('Right', M - I, N - I + 1, A(I, I).asArray(), LDA, TAUP[I],
+            A(I + 1, I), LDA, WORK);
       }
+      zlacgv(N - I + 1, A(I, I).asArray(), LDA);
+      A[I][I] = D[I].toComplex();
+
+      if (I < M) {
+        // Generate elementary reflector H(i) to annihilate
+        // A(i+2:m,i)
+
+        ALPHA.value = A[I + 1][I];
+        zlarfg(M - I, ALPHA, A(min(I + 2, M), I).asArray(), 1, TAUQ.box(I));
+        E[I] = ALPHA.value.toDouble();
+        A[I + 1][I] = Complex.one;
+
+        // Apply H(i)**H to A(i+1:m,i+1:n) from the left
+
+        zlarf('Left', M - I, N - I, A(I + 1, I).asArray(), 1,
+            TAUQ[I].conjugate(), A(I + 1, I + 1), LDA, WORK);
+        A[I + 1][I] = E[I].toComplex();
+      } else {
+        TAUQ[I] = Complex.zero;
+      }
+    } // 20
+  }
+}

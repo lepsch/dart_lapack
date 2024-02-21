@@ -1,22 +1,15 @@
-void dlabad(SMALL, LARGE) {
+import 'package:lapack/src/box.dart';
+
+void dlabad(Box<double> SMALL, Box<double> LARGE) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  // .. Scalar Arguments ..
-  double LARGE, SMALL;
-  // ..
-
-// =====================================================================
-
-  // .. Intrinsic Functions ..
-  // INTRINSIC LOG10, SQRT
-
   // If it looks like we're on a Cray, take the square root of
   // SMALL and LARGE to avoid overflow and underflow problems.
 
-  // IF( LOG10( LARGE ) > 2000.0 ) THEN
-  // SMALL = sqrt( SMALL )
-  // LARGE = sqrt( LARGE )
-  // END IF
+  // if (log10(LARGE.value) > 2000.0) {
+  //   SMALL.value = sqrt(SMALL.value);
+  //   LARGE.value = sqrt(LARGE.value);
+  // }
 }

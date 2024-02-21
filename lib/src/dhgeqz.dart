@@ -304,6 +304,7 @@ void dhgeqz(
     MAXIT = 30 * (IHI - ILO + 1);
 
     var dropThroughNonConvergence = true;
+    var standardizeB = true;
     mainQzLoop:
     for (JITER = 1; JITER <= MAXIT; JITER++) {
       // Split the matrix if possible.
@@ -314,7 +315,6 @@ void dhgeqz(
       //   1: H[j][j-1]=0  or  j=ILO
       //   2: T[j][j]=0
 
-      var standardizeB = true;
       if (ILAST == ILO) {
         // Special case: j=ILAST
       } else if (H[ILAST][ILAST - 1].abs() <=
@@ -454,26 +454,26 @@ void dhgeqz(
             WORK[1] = N.toDouble();
             return;
           }
-          }
+        }
 
-          if (splitOff1x1Block) {
-            // T[ILAST][ILAST]=0 -- clear H[ILAST][ILAST-1] to split off a
-            // 1x1 block.
+        if (splitOff1x1Block) {
+          // T[ILAST][ILAST]=0 -- clear H[ILAST][ILAST-1] to split off a
+          // 1x1 block.
 
-            TEMP.value = H[ILAST][ILAST];
-            dlartg(TEMP.value, H[ILAST][ILAST - 1], C, S, H.box(ILAST, ILAST));
-            H[ILAST][ILAST - 1] = ZERO;
-            drot(ILAST - IFRSTM, H(IFRSTM, ILAST).asArray(), 1,
-                H(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
-            drot(ILAST - IFRSTM, T(IFRSTM, ILAST).asArray(), 1,
-                T(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
-            if (ILZ) {
-              drot(N, Z(1, ILAST).asArray(), 1, Z(1, ILAST - 1).asArray(), 1,
-                  C.value, S.value);
-            }
+          TEMP.value = H[ILAST][ILAST];
+          dlartg(TEMP.value, H[ILAST][ILAST - 1], C, S, H.box(ILAST, ILAST));
+          H[ILAST][ILAST - 1] = ZERO;
+          drot(ILAST - IFRSTM, H(IFRSTM, ILAST).asArray(), 1,
+              H(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
+          drot(ILAST - IFRSTM, T(IFRSTM, ILAST).asArray(), 1,
+              T(IFRSTM, ILAST - 1).asArray(), 1, C.value, S.value);
+          if (ILZ) {
+            drot(N, Z(1, ILAST).asArray(), 1, Z(1, ILAST - 1).asArray(), 1,
+                C.value, S.value);
           }
         }
       }
+      // }
 
       if (standardizeB) {
         // H[ILAST][ILAST-1]=0 -- Standardize B, set ALPHAR, ALPHAI, and BETA
@@ -1008,110 +1008,111 @@ void dhgeqz(
             U2 = ONE;
             U1 = -W12 / W11;
           } else {
-          if ((W22).abs() < (U2).abs()) SCALE = (W22 / U2).abs();
-          if ((W11).abs() < (U1).abs()) SCALE = min(SCALE, (W11 / U1).abs());
+            if ((W22).abs() < (U2).abs()) SCALE = (W22 / U2).abs();
+            if ((W11).abs() < (U1).abs()) SCALE = min(SCALE, (W11 / U1).abs());
 
-          // Solve
+            // Solve
 
-          U2 = (SCALE * U2) / W22;
-          U1 = (SCALE * U1 - W12 * U2) / W11;
-        }
-
-        if (ILPIVT) {
-          TEMP.value = U2;
-          U2 = U1;
-          U1 = TEMP.value;
-        }
-
-        // Compute Householder Vector
-
-        T1 = sqrt(pow(SCALE, 2) + pow(U1, 2) + pow(U2, 2));
-        TAU.value = ONE + SCALE / T1;
-        VS = -ONE / (SCALE + T1);
-        V[1] = ONE;
-        V[2] = VS * U1;
-        V[3] = VS * U2;
-
-        // Apply transformations from the right.
-
-        T2 = TAU.value * V[2];
-        T3 = TAU.value * V[3];
-        for (JR = IFRSTM; JR <= min(J + 3, ILAST); JR++) {
-          TEMP.value = H[JR][J] + V[2] * H[JR][J + 1] + V[3] * H[JR][J + 2];
-          H[JR][J] = H[JR][J] - TEMP.value * TAU.value;
-          H[JR][J + 1] = H[JR][J + 1] - TEMP.value * T2;
-          H[JR][J + 2] = H[JR][J + 2] - TEMP.value * T3;
-        }
-        for (JR = IFRSTM; JR <= J + 2; JR++) {
-          TEMP.value = T[JR][J] + V[2] * T[JR][J + 1] + V[3] * T[JR][J + 2];
-          T[JR][J] = T[JR][J] - TEMP.value * TAU.value;
-          T[JR][J + 1] = T[JR][J + 1] - TEMP.value * T2;
-          T[JR][J + 2] = T[JR][J + 2] - TEMP.value * T3;
-        }
-        if (ILZ) {
-          for (JR = 1; JR <= N; JR++) {
-            TEMP.value = Z[JR][J] + V[2] * Z[JR][J + 1] + V[3] * Z[JR][J + 2];
-            Z[JR][J] = Z[JR][J] - TEMP.value * TAU.value;
-            Z[JR][J + 1] = Z[JR][J + 1] - TEMP.value * T2;
-            Z[JR][J + 2] = Z[JR][J + 2] - TEMP.value * T3;
+            U2 = (SCALE * U2) / W22;
+            U1 = (SCALE * U1 - W12 * U2) / W11;
           }
-        }
-        T[J + 1][J] = ZERO;
-        T[J + 2][J] = ZERO;
 
-        // Last elements: Use Givens rotations
-
-        // Rotations from the left
-
-        J = ILAST - 1;
-        TEMP.value = H[J][J - 1];
-        dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
-        H[J + 1][J - 1] = ZERO;
-
-        for (JC = J; JC <= ILASTM; JC++) {
-          TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
-          H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
-          H[J][JC] = TEMP.value;
-          TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
-          T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
-          T[J][JC] = TEMP2.value;
-        }
-        if (ILQ) {
-          for (JR = 1; JR <= N; JR++) {
-            TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
-            Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
-            Q[JR][J] = TEMP.value;
+          if (ILPIVT) {
+            TEMP.value = U2;
+            U2 = U1;
+            U1 = TEMP.value;
           }
-        }
 
-        // Rotations from the right.
+          // Compute Householder Vector
 
-        TEMP.value = T[J + 1][J + 1];
-        dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
-        T[J + 1][J] = ZERO;
+          T1 = sqrt(pow(SCALE, 2) + pow(U1, 2) + pow(U2, 2));
+          TAU.value = ONE + SCALE / T1;
+          VS = -ONE / (SCALE + T1);
+          V[1] = ONE;
+          V[2] = VS * U1;
+          V[3] = VS * U2;
 
-        for (JR = IFRSTM; JR <= ILAST; JR++) {
-          TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
-          H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
-          H[JR][J + 1] = TEMP.value;
-        }
-        for (JR = IFRSTM; JR <= ILAST - 1; JR++) {
-          TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
-          T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
-          T[JR][J + 1] = TEMP.value;
-        }
-        if (ILZ) {
-          for (JR = 1; JR <= N; JR++) {
-            TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
-            Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
-            Z[JR][J + 1] = TEMP.value;
+          // Apply transformations from the right.
+
+          T2 = TAU.value * V[2];
+          T3 = TAU.value * V[3];
+          for (JR = IFRSTM; JR <= min(J + 3, ILAST); JR++) {
+            TEMP.value = H[JR][J] + V[2] * H[JR][J + 1] + V[3] * H[JR][J + 2];
+            H[JR][J] = H[JR][J] - TEMP.value * TAU.value;
+            H[JR][J + 1] = H[JR][J + 1] - TEMP.value * T2;
+            H[JR][J + 2] = H[JR][J + 2] - TEMP.value * T3;
           }
+          for (JR = IFRSTM; JR <= J + 2; JR++) {
+            TEMP.value = T[JR][J] + V[2] * T[JR][J + 1] + V[3] * T[JR][J + 2];
+            T[JR][J] = T[JR][J] - TEMP.value * TAU.value;
+            T[JR][J + 1] = T[JR][J + 1] - TEMP.value * T2;
+            T[JR][J + 2] = T[JR][J + 2] - TEMP.value * T3;
+          }
+          if (ILZ) {
+            for (JR = 1; JR <= N; JR++) {
+              TEMP.value = Z[JR][J] + V[2] * Z[JR][J + 1] + V[3] * Z[JR][J + 2];
+              Z[JR][J] = Z[JR][J] - TEMP.value * TAU.value;
+              Z[JR][J + 1] = Z[JR][J + 1] - TEMP.value * T2;
+              Z[JR][J + 2] = Z[JR][J + 2] - TEMP.value * T3;
+            }
+          }
+          T[J + 1][J] = ZERO;
+          T[J + 2][J] = ZERO;
+
+          // Last elements: Use Givens rotations
+
+          // Rotations from the left
+
+          J = ILAST - 1;
+          TEMP.value = H[J][J - 1];
+          dlartg(TEMP.value, H[J + 1][J - 1], C, S, H.box(J, J - 1));
+          H[J + 1][J - 1] = ZERO;
+
+          for (JC = J; JC <= ILASTM; JC++) {
+            TEMP.value = C.value * H[J][JC] + S.value * H[J + 1][JC];
+            H[J + 1][JC] = -S.value * H[J][JC] + C.value * H[J + 1][JC];
+            H[J][JC] = TEMP.value;
+            TEMP2.value = C.value * T[J][JC] + S.value * T[J + 1][JC];
+            T[J + 1][JC] = -S.value * T[J][JC] + C.value * T[J + 1][JC];
+            T[J][JC] = TEMP2.value;
+          }
+          if (ILQ) {
+            for (JR = 1; JR <= N; JR++) {
+              TEMP.value = C.value * Q[JR][J] + S.value * Q[JR][J + 1];
+              Q[JR][J + 1] = -S.value * Q[JR][J] + C.value * Q[JR][J + 1];
+              Q[JR][J] = TEMP.value;
+            }
+          }
+
+          // Rotations from the right.
+
+          TEMP.value = T[J + 1][J + 1];
+          dlartg(TEMP.value, T[J + 1][J], C, S, T.box(J + 1, J + 1));
+          T[J + 1][J] = ZERO;
+
+          for (JR = IFRSTM; JR <= ILAST; JR++) {
+            TEMP.value = C.value * H[JR][J + 1] + S.value * H[JR][J];
+            H[JR][J] = -S.value * H[JR][J + 1] + C.value * H[JR][J];
+            H[JR][J + 1] = TEMP.value;
+          }
+          for (JR = IFRSTM; JR <= ILAST - 1; JR++) {
+            TEMP.value = C.value * T[JR][J + 1] + S.value * T[JR][J];
+            T[JR][J] = -S.value * T[JR][J + 1] + C.value * T[JR][J];
+            T[JR][J + 1] = TEMP.value;
+          }
+          if (ILZ) {
+            for (JR = 1; JR <= N; JR++) {
+              TEMP.value = C.value * Z[JR][J + 1] + S.value * Z[JR][J];
+              Z[JR][J] = -S.value * Z[JR][J + 1] + C.value * Z[JR][J];
+              Z[JR][J + 1] = TEMP.value;
+            }
+          }
+
+          // End of Double-Shift code
         }
 
-        // End of Double-Shift code
       }
-
-      // End of iteration loop
+        // End of iteration loop
     }
 
     if (dropThroughNonConvergence) {

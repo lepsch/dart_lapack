@@ -2,88 +2,77 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dsytrf_aa.dart';
+import 'package:lapack/src/dsytrs_aa.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsysv_aa(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final WORK = WORK_.dim();
-
+void dsysv_aa(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Matrix<double> B_,
+  final int LDB,
+  final Array<double> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LDB, LWORK, N, NRHS;
-      int                IPIV( * );
-      double             A( LDA, * ), B( LDB, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
+  bool LQUERY;
+  int LWKMIN, LWKOPT = 0, LWKOPT_SYTRF, LWKOPT_SYTRS;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               LQUERY;
-      int                LWKMIN, LWKOPT, LWKOPT_SYTRF, LWKOPT_SYTRS;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL ILAENV, lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, DSYTRF_AA, DSYTRS_AA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  LQUERY = (LWORK == -1);
+  LWKMIN = max(1, max(2 * N, 3 * N - 2));
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  } else if (LWORK < LWKMIN && !LQUERY) {
+    INFO.value = -10;
+  }
 
-      // Test the input parameters.
+  if (INFO.value == 0) {
+    dsytrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO);
+    LWKOPT_SYTRF = WORK[1].toInt();
+    dsytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO);
+    LWKOPT_SYTRS = WORK[1].toInt();
+    LWKOPT = max(LWKMIN, max(LWKOPT_SYTRF, LWKOPT_SYTRS));
+    WORK[1] = LWKOPT.toDouble();
+  }
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 );
-      LWKMIN = max( 1, 2*N, 3*N-2 );
-      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -10;
-      }
+  if (INFO.value != 0) {
+    xerbla('DSYSV_AA ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO == 0 ) {
-         dsytrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
-         LWKOPT_SYTRF = INT( WORK( 1 ) );
-         dsytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
-         LWKOPT_SYTRS = INT( WORK( 1 ) );
-         LWKOPT = max( LWKMIN, LWKOPT_SYTRF, LWKOPT_SYTRS );
-         WORK[1] = LWKOPT;
-      }
+  // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
-      if ( INFO != 0 ) {
-         xerbla('DSYSV_AA ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  dsytrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO);
+  if (INFO.value == 0) {
+    // Solve the system A*X = B, overwriting B with X.
 
-      // Compute the factorization A = U**T*T*U or A = L*T*L**T.
+    dsytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO);
+  }
 
-      dsytrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO == 0 ) {
-
-         // Solve the system A*X = B, overwriting B with X.
-
-         dsytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
-
-      }
-
-      WORK[1] = LWKOPT;
-
-      }
+  WORK[1] = LWKOPT.toDouble();
+}

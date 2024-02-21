@@ -1,147 +1,210 @@
-      void zlabrd(final int M, final int N, final int NB, final Matrix<double> A_, final int LDA, final int D, final int E, final int TAUQ, final int TAUP, final Matrix<double> X_, final int LDX, final int Y, final int LDY,) {
-  final A = A_.dim();
-  final X = X_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void zlabrd(
+  final int M,
+  final int N,
+  final int NB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<Complex> TAUQ_,
+  final Array<Complex> TAUP_,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Matrix<Complex> Y_,
+  final int LDY,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDX, LDY, M, N, NB;
-      double             D( * ), E( * );
-      Complex         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
-      // ..
+  final A = A_.dim(LDA);
+  final X = X_.dim(LDX);
+  final Y = Y_.dim(LDY);
+  final D = D_.dim();
+  final E = E_.dim();
+  final TAUQ = TAUQ_.dim();
+  final TAUP = TAUP_.dim();
+  int I;
+  final ALPHA = Box(Complex.zero);
 
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      int                I;
-      Complex         ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMV, ZLACGV, ZLARFG, ZSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (M <= 0 || N <= 0) return;
 
-      if (M <= 0 || N <= 0) return;
+  if (M >= N) {
+    // Reduce to upper bidiagonal form
 
-      if ( M >= N ) {
+    for (I = 1; I <= NB; I++) {
+      // 10
 
-         // Reduce to upper bidiagonal form
+      // Update A(i:m,i)
 
-         for (I = 1; I <= NB; I++) { // 10
+      zlacgv(I - 1, Y(I, 1).asArray(), LDY);
+      zgemv('No transpose', M - I + 1, I - 1, -Complex.one, A(I, 1), LDA,
+          Y(I, 1).asArray(), LDY, Complex.one, A(I, I).asArray(), 1);
+      zlacgv(I - 1, Y(I, 1).asArray(), LDY);
+      zgemv('No transpose', M - I + 1, I - 1, -Complex.one, X(I, 1), LDX,
+          A(1, I).asArray(), 1, Complex.one, A(I, I).asArray(), 1);
 
-            // Update A(i:m,i)
+      // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
-            zlacgv(I-1, Y( I, 1 ), LDY );
-            zgemv('No transpose', M-I+1, I-1, -ONE, A( I, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I, I ), 1 );
-            zlacgv(I-1, Y( I, 1 ), LDY );
-            zgemv('No transpose', M-I+1, I-1, -ONE, X( I, 1 ), LDX, A( 1, I ), 1, ONE, A( I, I ), 1 );
+      ALPHA.value = A[I][I];
+      zlarfg(M - I + 1, ALPHA, A(min(I + 1, M), I).asArray(), 1, TAUQ.box(I));
+      D[I] = ALPHA.value.toDouble();
+      if (I < N) {
+        A[I][I] = Complex.one;
 
-            // Generate reflection Q(i) to annihilate A(i+1:m,i)
+        // Compute Y(i+1:n,i)
 
-            ALPHA = A( I, I );
-            zlarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D[I] = ALPHA.toDouble();
-            if ( I < N ) {
-               A[I][I] = ONE;
+        zgemv('Conjugate transpose', M - I + 1, N - I, Complex.one, A(I, I + 1),
+            LDA, A(I, I).asArray(), 1, Complex.zero, Y(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', M - I + 1, I - 1, Complex.one, A(I, 1),
+            LDA, A(I, I).asArray(), 1, Complex.zero, Y(1, I).asArray(), 1);
+        zgemv('No transpose', N - I, I - 1, -Complex.one, Y(I + 1, 1), LDY,
+            Y(1, I).asArray(), 1, Complex.one, Y(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', M - I + 1, I - 1, Complex.one, X(I, 1),
+            LDX, A(I, I).asArray(), 1, Complex.zero, Y(1, I).asArray(), 1);
+        zgemv('Conjugate transpose', I - 1, N - I, -Complex.one, A(1, I + 1),
+            LDA, Y(1, I).asArray(), 1, Complex.one, Y(I + 1, I).asArray(), 1);
+        zscal(N - I, TAUQ[I], Y(I + 1, I).asArray(), 1);
 
-               // Compute Y(i+1:n,i)
+        // Update A(i,i+1:n)
 
-               zgemv('Conjugate transpose', M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, Y( I+1, I ), 1 );
-               zgemv('Conjugate transpose', M-I+1, I-1, ONE, A( I, 1 ), LDA, A( I, I ), 1, ZERO, Y( 1, I ), 1 );
-               zgemv('No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               zgemv('Conjugate transpose', M-I+1, I-1, ONE, X( I, 1 ), LDX, A( I, I ), 1, ZERO, Y( 1, I ), 1 );
-               zgemv('Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               zscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+        zlacgv(I, A(I, 1).asArray(), LDA);
+        zgemv('No transpose', N - I, I, -Complex.one, Y(I + 1, 1), LDY,
+            A(I, 1).asArray(), LDA, Complex.one, A(I, I + 1).asArray(), LDA);
+        zlacgv(I, A(I, 1).asArray(), LDA);
+        zlacgv(I - 1, X(I, 1).asArray(), LDX);
+        zgemv(
+            'Conjugate transpose',
+            I - 1,
+            N - I,
+            -Complex.one,
+            A(1, I + 1),
+            LDA,
+            X(I, 1).asArray(),
+            LDX,
+            Complex.one,
+            A(I, I + 1).asArray(),
+            LDA);
+        zlacgv(I - 1, X(I, 1).asArray(), LDX);
 
-               // Update A(i,i+1:n)
+        // Generate reflection P(i) to annihilate A(i,i+2:n)
 
-               zlacgv(N-I, A( I, I+1 ), LDA );
-               zlacgv(I, A( I, 1 ), LDA );
-               zgemv('No transpose', N-I, I, -ONE, Y( I+1, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I+1 ), LDA );
-               zlacgv(I, A( I, 1 ), LDA );
-               zlacgv(I-1, X( I, 1 ), LDX );
-               zgemv('Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, X( I, 1 ), LDX, ONE, A( I, I+1 ), LDA );
-               zlacgv(I-1, X( I, 1 ), LDX );
+        ALPHA.value = A[I][I + 1];
+        zlarfg(N - I, ALPHA, A(I, min(I + 2, N)).asArray(), LDA, TAUP.box(I));
+        E[I] = ALPHA.value.toDouble();
+        A[I][I + 1] = Complex.one;
 
-               // Generate reflection P(i) to annihilate A(i,i+2:n)
+        // Compute X(i+1:m,i)
 
-               ALPHA = A( I, I+1 );
-               zlarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E[I] = ALPHA.toDouble();
-               A[I][I+1] = ONE;
+        zgemv('No transpose', M - I, N - I, Complex.one, A(I + 1, I + 1), LDA,
+            A(I, I + 1).asArray(), LDA, Complex.zero, X(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', N - I, I, Complex.one, Y(I + 1, 1), LDY,
+            A(I, I + 1).asArray(), LDA, Complex.zero, X(1, I).asArray(), 1);
+        zgemv('No transpose', M - I, I, -Complex.one, A(I + 1, 1), LDA,
+            X(1, I).asArray(), 1, Complex.one, X(I + 1, I).asArray(), 1);
+        zgemv('No transpose', I - 1, N - I, Complex.one, A(1, I + 1), LDA,
+            A(I, I + 1).asArray(), LDA, Complex.zero, X(1, I).asArray(), 1);
+        zgemv('No transpose', M - I, I - 1, -Complex.one, X(I + 1, 1), LDX,
+            X(1, I).asArray(), 1, Complex.one, X(I + 1, I).asArray(), 1);
+        zscal(M - I, TAUP[I], X(I + 1, I).asArray(), 1);
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+      }
+    } // 10
+  } else {
+    // Reduce to lower bidiagonal form
 
-               // Compute X(i+1:m,i)
+    for (I = 1; I <= NB; I++) {
+      // 20
 
-               zgemv('No transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( I+1, I ), 1 );
-               zgemv('Conjugate transpose', N-I, I, ONE, Y( I+1, 1 ), LDY, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 );
-               zgemv('No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               zgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 );
-               zgemv('No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               zscal(M-I, TAUP( I ), X( I+1, I ), 1 );
-               zlacgv(N-I, A( I, I+1 ), LDA );
-            }
-         } // 10
+      // Update A(i,i:n)
+
+      zlacgv(N - I + 1, A(I, I).asArray(), LDA);
+      zlacgv(I - 1, A(I, 1).asArray(), LDA);
+      zgemv('No transpose', N - I + 1, I - 1, -Complex.one, Y(I, 1), LDY,
+          A(I, 1).asArray(), LDA, Complex.one, A(I, I).asArray(), LDA);
+      zlacgv(I - 1, A(I, 1).asArray(), LDA);
+      zlacgv(I - 1, X(I, 1).asArray(), LDX);
+      zgemv('Conjugate transpose', I - 1, N - I + 1, -Complex.one, A(1, I), LDA,
+          X(I, 1).asArray(), LDX, Complex.one, A(I, I).asArray(), LDA);
+      zlacgv(I - 1, X(I, 1).asArray(), LDX);
+
+      // Generate reflection P(i) to annihilate A(i,i+1:n)
+
+      ALPHA.value = A[I][I];
+      zlarfg(N - I + 1, ALPHA, A(I, min(I + 1, N)).asArray(), LDA, TAUP.box(I));
+      D[I] = ALPHA.value.toDouble();
+      if (I < M) {
+        A[I][I] = Complex.one;
+
+        // Compute X(i+1:m,i)
+
+        zgemv('No transpose', M - I, N - I + 1, Complex.one, A(I + 1, I), LDA,
+            A(I, I).asArray(), LDA, Complex.zero, X(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', N - I + 1, I - 1, Complex.one, Y(I, 1),
+            LDY, A(I, I).asArray(), LDA, Complex.zero, X(1, I).asArray(), 1);
+        zgemv('No transpose', M - I, I - 1, -Complex.one, A(I + 1, 1), LDA,
+            X(1, I).asArray(), 1, Complex.one, X(I + 1, I).asArray(), 1);
+        zgemv('No transpose', I - 1, N - I + 1, Complex.one, A(1, I), LDA,
+            A(I, I).asArray(), LDA, Complex.zero, X(1, I).asArray(), 1);
+        zgemv('No transpose', M - I, I - 1, -Complex.one, X(I + 1, 1), LDX,
+            X(1, I).asArray(), 1, Complex.one, X(I + 1, I).asArray(), 1);
+        zscal(M - I, TAUP[I], X(I + 1, I).asArray(), 1);
+        zlacgv(N - I + 1, A(I, I).asArray(), LDA);
+
+        // Update A(i+1:m,i)
+
+        zlacgv(I - 1, Y(I, 1).asArray(), LDY);
+        zgemv('No transpose', M - I, I - 1, -Complex.one, A(I + 1, 1), LDA,
+            Y(I, 1).asArray(), LDY, Complex.one, A(I + 1, I).asArray(), 1);
+        zlacgv(I - 1, Y(I, 1).asArray(), LDY);
+        zgemv('No transpose', M - I, I, -Complex.one, X(I + 1, 1), LDX,
+            A(1, I).asArray(), 1, Complex.one, A(I + 1, I).asArray(), 1);
+
+        // Generate reflection Q(i) to annihilate A(i+2:m,i)
+
+        ALPHA.value = A[I + 1][I];
+        zlarfg(M - I, ALPHA, A(min(I + 2, M), I).asArray(), 1, TAUQ.box(I));
+        E[I] = ALPHA.value.toDouble();
+        A[I + 1][I] = Complex.one;
+
+        // Compute Y(i+1:n,i)
+
+        zgemv(
+            'Conjugate transpose',
+            M - I,
+            N - I,
+            Complex.one,
+            A(I + 1, I + 1),
+            LDA,
+            A(I + 1, I).asArray(),
+            1,
+            Complex.zero,
+            Y(I + 1, I).asArray(),
+            1);
+        zgemv('Conjugate transpose', M - I, I - 1, Complex.one, A(I + 1, 1),
+            LDA, A(I + 1, I).asArray(), 1, Complex.zero, Y(1, I).asArray(), 1);
+        zgemv('No transpose', N - I, I - 1, -Complex.one, Y(I + 1, 1), LDY,
+            Y(1, I).asArray(), 1, Complex.one, Y(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', M - I, I, Complex.one, X(I + 1, 1), LDX,
+            A(I + 1, I).asArray(), 1, Complex.zero, Y(1, I).asArray(), 1);
+        zgemv('Conjugate transpose', I, N - I, -Complex.one, A(1, I + 1), LDA,
+            Y(1, I).asArray(), 1, Complex.one, Y(I + 1, I).asArray(), 1);
+        zscal(N - I, TAUQ[I], Y(I + 1, I).asArray(), 1);
       } else {
-
-         // Reduce to lower bidiagonal form
-
-         for (I = 1; I <= NB; I++) { // 20
-
-            // Update A(i,i:n)
-
-            zlacgv(N-I+1, A( I, I ), LDA );
-            zlacgv(I-1, A( I, 1 ), LDA );
-            zgemv('No transpose', N-I+1, I-1, -ONE, Y( I, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I ), LDA );
-            zlacgv(I-1, A( I, 1 ), LDA );
-            zlacgv(I-1, X( I, 1 ), LDX );
-            zgemv('Conjugate transpose', I-1, N-I+1, -ONE, A( 1, I ), LDA, X( I, 1 ), LDX, ONE, A( I, I ), LDA );
-            zlacgv(I-1, X( I, 1 ), LDX );
-
-            // Generate reflection P(i) to annihilate A(i,i+1:n)
-
-            ALPHA = A( I, I );
-            zlarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D[I] = ALPHA.toDouble();
-            if ( I < M ) {
-               A[I][I] = ONE;
-
-               // Compute X(i+1:m,i)
-
-               zgemv('No transpose', M-I, N-I+1, ONE, A( I+1, I ), LDA, A( I, I ), LDA, ZERO, X( I+1, I ), 1 );
-               zgemv('Conjugate transpose', N-I+1, I-1, ONE, Y( I, 1 ), LDY, A( I, I ), LDA, ZERO, X( 1, I ), 1 );
-               zgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               zgemv('No transpose', I-1, N-I+1, ONE, A( 1, I ), LDA, A( I, I ), LDA, ZERO, X( 1, I ), 1 );
-               zgemv('No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
-               zscal(M-I, TAUP( I ), X( I+1, I ), 1 );
-               zlacgv(N-I+1, A( I, I ), LDA );
-
-               // Update A(i+1:m,i)
-
-               zlacgv(I-1, Y( I, 1 ), LDY );
-               zgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I+1, I ), 1 );
-               zlacgv(I-1, Y( I, 1 ), LDY );
-               zgemv('No transpose', M-I, I, -ONE, X( I+1, 1 ), LDX, A( 1, I ), 1, ONE, A( I+1, I ), 1 );
-
-               // Generate reflection Q(i) to annihilate A(i+2:m,i)
-
-               ALPHA = A( I+1, I );
-               zlarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E[I] = ALPHA.toDouble();
-               A[I+1][I] = ONE;
-
-               // Compute Y(i+1:n,i)
-
-               zgemv('Conjugate transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, Y( I+1, I ), 1 );
-               zgemv('Conjugate transpose', M-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 );
-               zgemv('No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               zgemv('Conjugate transpose', M-I, I, ONE, X( I+1, 1 ), LDX, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 );
-               zgemv('Conjugate transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
-               zscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
-            } else {
-               zlacgv(N-I+1, A( I, I ), LDA );
-            }
-         } // 20
+        zlacgv(N - I + 1, A(I, I).asArray(), LDA);
       }
-      }
+    } // 20
+  }
+}

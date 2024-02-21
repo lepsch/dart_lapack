@@ -1,23 +1,16 @@
-      Complex     FUNCTION ZLADIV( X, Y );
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dladiv.dart';
 
+Complex zladiv(
+  final Complex X,
+  final Complex Y,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      Complex         X, Y;
-      // ..
+  final ZI = Box(0.0), ZR = Box(0.0);
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      double             ZI, ZR;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLADIV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, DIMAG
-
-      dladiv((X).toDouble(), DIMAG( X ), Y.toDouble(), DIMAG( Y ), ZR, ZI );
-      ZLADIV = DCMPLX( ZR, ZI );
-
-      }
+  dladiv((X).toDouble(), X.imaginary, Y.toDouble(), Y.imaginary, ZR, ZI);
+  return Complex(ZR.value, ZI.value);
+}

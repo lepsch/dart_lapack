@@ -1,20 +1,12 @@
-      int                NMAX, ITS;
+import 'package:lapack/src/matrix.dart';
+
+void main() { // DSECNDTST
       const              NMAX = 1000, ITS = 50000 ;
       int                I, J;
       double             ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
-      double             X( NMAX ), Y( NMAX );
-      // ..
-      // .. External Functions ..
-      //- double             DSECND;
-      // EXTERNAL DSECND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL MYSUB
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+      final             X=Array<double>( NMAX ), Y=Array<double>( NMAX );
 
-// .. Figure TOTAL flops ..
+      // .. Figure TOTAL flops ..
       TOTAL = (NMAX).toDouble() * ITS.toDouble() * 2.0;
 
       // Initialize X and Y

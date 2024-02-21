@@ -1,96 +1,98 @@
-      void zlarot(final int LROWS, final int LLEFT, final int LRIGHT, final int NL, final int C, final int S, final Matrix<double> A_, final int LDA, final int XLEFT, final int XRIGHT,) {
-  final A = A_.dim();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
 
+void zlarot(
+  final bool LROWS,
+  final bool LLEFT,
+  final bool LRIGHT,
+  final int NL,
+  final Complex C,
+  final Complex S,
+  final Array<Complex> A_,
+  final int LDA,
+  final Box<Complex> XLEFT,
+  final Box<Complex> XRIGHT,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               LLEFT, LRIGHT, LROWS;
-      int                LDA, NL;
-      Complex         C, S, XLEFT, XRIGHT;
-      Complex         A( * );
-      // ..
+  final A = A_.dim();
+  int IINC, INEXT, IX, IY, IYT = 0, J, NT;
+  Complex TEMPX;
+  final XT = Array<Complex>(2), YT = Array<Complex>(2);
 
-// =====================================================================
+  // Set up indices, arrays for ends
 
-      // .. Local Scalars ..
-      int                IINC, INEXT, IX, IY, IYT, J, NT;
-      Complex         TEMPX;
-      Complex         XT( 2 ), YT( 2 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG
+  if (LROWS) {
+    IINC = LDA;
+    INEXT = 1;
+  } else {
+    IINC = 1;
+    INEXT = LDA;
+  }
 
-      // Set up indices, arrays for ends
+  if (LLEFT) {
+    NT = 1;
+    IX = 1 + IINC;
+    IY = 2 + LDA;
+    XT[1] = A[1];
+    YT[1] = XLEFT.value;
+  } else {
+    NT = 0;
+    IX = 1;
+    IY = 1 + INEXT;
+  }
 
-      if ( LROWS ) {
-         IINC = LDA;
-         INEXT = 1;
-      } else {
-         IINC = 1;
-         INEXT = LDA;
-      }
+  if (LRIGHT) {
+    IYT = 1 + INEXT + (NL - 1) * IINC;
+    NT = NT + 1;
+    XT[NT] = XRIGHT.value;
+    YT[NT] = A[IYT];
+  }
 
-      if ( LLEFT ) {
-         NT = 1;
-         IX = 1 + IINC;
-         IY = 2 + LDA;
-         XT[1] = A( 1 );
-         YT[1] = XLEFT;
-      } else {
-         NT = 0;
-         IX = 1;
-         IY = 1 + INEXT;
-      }
+  // Check for errors
 
-      if ( LRIGHT ) {
-         IYT = 1 + INEXT + ( NL-1 )*IINC;
-         NT = NT + 1;
-         XT[NT] = XRIGHT;
-         YT[NT] = A( IYT );
-      }
+  if (NL < NT) {
+    xerbla('ZLAROT', 4);
+    return;
+  }
+  if (LDA <= 0 || (!LROWS && LDA < NL - NT)) {
+    xerbla('ZLAROT', 8);
+    return;
+  }
 
-      // Check for errors
+  // Rotate
 
-      if ( NL < NT ) {
-         xerbla('ZLAROT', 4 );
-         return;
-      }
-      if ( LDA <= 0 || ( !LROWS && LDA < NL-NT ) ) {
-         xerbla('ZLAROT', 8 );
-         return;
-      }
+  // ZROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
 
-      // Rotate
+  for (J = 0; J <= NL - NT - 1; J++) {
+    // 10
+    TEMPX = C * A[IX + J * IINC] + S * A[IY + J * IINC];
+    A[IY + J * IINC] =
+        -S.conjugate() * A[IX + J * IINC] + C.conjugate() * A[IY + J * IINC];
+    A[IX + J * IINC] = TEMPX;
+  } // 10
 
-      // ZROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
+  // ZROT( NT, XT,1, YT,1, C, S ) with complex C, S
 
-      for (J = 0; J <= NL - NT - 1; J++) { // 10
-         TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC );
-         A[IY+J*IINC] = -DCONJG( S )*A( IX+J*IINC ) + DCONJG( C )*A( IY+J*IINC );
-         A[IX+J*IINC] = TEMPX;
-      } // 10
+  for (J = 1; J <= NT; J++) {
+    // 20
+    TEMPX = C * XT[J] + S * YT[J];
+    YT[J] = -S.conjugate() * XT[J] + C.conjugate() * YT[J];
+    XT[J] = TEMPX;
+  } // 20
 
-      // ZROT( NT, XT,1, YT,1, C, S ) with complex C, S
+  // Stuff values back into XLEFT.value, XRIGHT.value, etc.
 
-      for (J = 1; J <= NT; J++) { // 20
-         TEMPX = C*XT( J ) + S*YT( J );
-         YT[J] = -DCONJG( S )*XT( J ) + DCONJG( C )*YT( J );
-         XT[J] = TEMPX;
-      } // 20
+  if (LLEFT) {
+    A[1] = XT[1];
+    XLEFT.value = YT[1];
+  }
 
-      // Stuff values back into XLEFT, XRIGHT, etc.
-
-      if ( LLEFT ) {
-         A[1] = XT( 1 );
-         XLEFT = YT( 1 );
-      }
-
-      if ( LRIGHT ) {
-         XRIGHT = XT( NT );
-         A[IYT] = YT( NT );
-      }
-
-      }
+  if (LRIGHT) {
+    XRIGHT.value = XT[NT];
+    A[IYT] = YT[NT];
+  }
+}

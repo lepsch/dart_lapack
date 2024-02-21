@@ -1,67 +1,72 @@
-      void zbdt02(final int M, final int N, final Matrix<double> B_, final int LDB, final Matrix<double> C_, final int LDC, final Matrix<double> U_, final int LDU, final Array<double> _WORK_, final Array<double> RWORK_, final int RESID,) {
-  final B = B_.dim();
-  final C = C_.dim();
-  final U = U_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dzasum.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+
+void zbdt02(
+  final int M,
+  final int N,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> C_,
+  final int LDC,
+  final Matrix<Complex> U_,
+  final int LDU,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<double> RESID,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDB, LDC, LDU, M, N;
-      double             RESID;
-      double             RWORK( * );
-      Complex         B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
-      // ..
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
+  final U = U_.dim(LDU);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  int J;
+  double BNORM, EPS, REALMN;
 
-// ======================================================================
+  // Quick return if possible
 
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                J;
-      double             BNORM, EPS, REALMN;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DZASUM, ZLANGE;
-      // EXTERNAL DLAMCH, DZASUM, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZCOPY, ZGEMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX, MIN
+  RESID.value = ZERO;
+  if (M <= 0 || N <= 0) return;
+  REALMN = max(M, N).toDouble();
+  EPS = dlamch('Precision');
 
-      // Quick return if possible
+  // Compute norm(B - U * C)
 
-      RESID = ZERO;
-      if (M <= 0 || N <= 0) return;
-      REALMN = (max( M, N )).toDouble();
-      EPS = dlamch( 'Precision' );
+  for (J = 1; J <= N; J++) {
+    // 10
+    zcopy(M, B(1, J).asArray(), 1, WORK, 1);
+    zgemv('No transpose', M, M, -Complex.one, U, LDU, C(1, J).asArray(), 1,
+        Complex.one, WORK, 1);
+    RESID.value = max(RESID.value, dzasum(M, WORK, 1));
+  } // 10
 
-      // Compute norm(B - U * C)
+  // Compute norm of B.
 
-      for (J = 1; J <= N; J++) { // 10
-         zcopy(M, B( 1, J ), 1, WORK, 1 );
-         zgemv('No transpose', M, M, -DCMPLX( ONE ), U, LDU, C( 1, J ), 1, DCMPLX( ONE ), WORK, 1 );
-         RESID = max( RESID, DZASUM( M, WORK, 1 ) );
-      } // 10
+  BNORM = zlange('1', M, N, B, LDB, RWORK);
 
-      // Compute norm of B.
-
-      BNORM = ZLANGE( '1', M, N, B, LDB, RWORK );
-
-      if ( BNORM <= ZERO ) {
-         if (RESID != ZERO) RESID = ONE / EPS;
+  if (BNORM <= ZERO) {
+    if (RESID.value != ZERO) RESID.value = ONE / EPS;
+  } else {
+    if (BNORM >= RESID.value) {
+      RESID.value = (RESID.value / BNORM) / (REALMN * EPS);
+    } else {
+      if (BNORM < ONE) {
+        RESID.value =
+            (min(RESID.value, REALMN * BNORM) / BNORM) / (REALMN * EPS);
       } else {
-         if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( REALMN*EPS );
-         } else {
-            if ( BNORM < ONE ) {
-               RESID = ( min( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS );
-            } else {
-               RESID = min( RESID / BNORM, REALMN ) / ( REALMN*EPS );
-            }
-         }
+        RESID.value = min(RESID.value / BNORM, REALMN) / (REALMN * EPS);
       }
-      }
+    }
+  }
+}

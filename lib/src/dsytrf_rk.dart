@@ -1,68 +1,53 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlasyf_rk.dart';
+import 'package:lapack/src/dsytf2_rk.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrf_rk(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int E, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
-
+      void dsytrf_rk(final String UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<double> E_, final Array<int> IPIV_,
+      final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      double             A( LDA, * ), E( * ), WORK( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
+  final A = A_.dim(LDA);
+  final E = E_.dim();
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
       bool               LQUERY, UPPER;
-      int                I, IINFO, IP, IWS, K, KB, LDWORK, LWKOPT, NB, NBMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASYF_RK, DSYTF2_RK, DSWAP, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
+      int                I, IP, IWS, K, LDWORK, LWKOPT=0, NB=0, NBMIN;
+      final IINFO=Box(0), KB=Box(0);
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
       if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -8;
+         INFO.value = -8;
       }
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
 
          // Determine the block size
 
          NB = ilaenv( 1, 'DSYTRF_RK', UPLO, N, -1, -1, -1 );
          LWKOPT = max( 1, N*NB );
-         WORK[1] = LWKOPT;
+         WORK[1] = LWKOPT.toDouble();
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DSYTRF_RK', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DSYTRF_RK', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -73,7 +58,7 @@ import 'package:lapack/src/xerbla.dart';
       if ( NB > 1 && NB < N ) {
          IWS = LDWORK*NB;
          if ( LWORK < IWS ) {
-            NB = max( LWORK / LDWORK, 1 );
+            NB = max( LWORK ~/ LDWORK, 1 );
             NBMIN = max( 2, ilaenv( 2, 'DSYTRF_RK', UPLO, N, -1, -1, -1 ) );
          }
       } else {
@@ -86,33 +71,29 @@ import 'package:lapack/src/xerbla.dart';
          // Factorize A as U*D*U**T using the upper triangle of A
 
          // K is the main loop index, decreasing from N to 1 in steps of
-         // KB, where KB is the number of columns factorized by DLASYF_RK;
-         // KB is either NB or NB-1, or K for the last block
+         // KB.value, where KB.value is the number of columns factorized by DLASYF_RK;
+         // KB.value is either NB or NB-1, or K for the last block
 
          K = N;
-         } // 10
-
-         // If K < 1, exit from loop
-
-         if (K < 1) GO TO 15;
+         while (K >= 1) {
 
          if ( K > NB ) {
 
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
 
-            dlasyf_rk(UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO );
+            dlasyf_rk(UPLO, K, NB, KB, A, LDA, E, IPIV, WORK.asMatrix(LDWORK), LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
             dsytf2_rk(UPLO, K, A, LDA, E, IPIV, IINFO );
-            KB = K;
+            KB.value = K;
          }
 
-         // Set INFO on the first occurrence of a zero pivot
+         // Set INFO.value on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO > 0) INFO = IINFO;
+         if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
          // No need to adjust IPIV
 
@@ -127,45 +108,35 @@ import 'package:lapack/src/xerbla.dart';
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K < N ) {
-            for (I = K; I >= ( K - KB + 1 ); I--) {
-               IP = ( IPIV( I ) ).abs();
+            for (I = K; I >= ( K - KB.value + 1 ); I--) {
+               IP = ( IPIV[I] ).abs();
                if ( IP != I ) {
-                  dswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
+                  dswap(N-K, A( I, K+1 ).asArray(), LDA, A( IP, K+1 ).asArray(), LDA );
                }
             }
          }
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KB;
-         GO TO 10;
-
-         // This label is the exit from main loop over K decreasing
-         // from N to 1 in steps of KB
-
-         } // 15
-
+         K = K - KB.value;
+      }
       } else {
 
          // Factorize A as L*D*L**T using the lower triangle of A
 
          // K is the main loop index, increasing from 1 to N in steps of
-         // KB, where KB is the number of columns factorized by DLASYF_RK;
-         // KB is either NB or NB-1, or N-K+1 for the last block
+         // KB.value, where KB.value is the number of columns factorized by DLASYF_RK;
+         // KB.value is either NB or NB-1, or N-K+1 for the last block
 
          K = 1;
-         } // 20
-
-         // If K > N, exit from loop
-
-         if (K > N) GO TO 35;
+         while (K <=  N) {
 
          if ( K <= N-NB ) {
 
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
 
-            dlasyf_rk(UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO );
+            dlasyf_rk(UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK.asMatrix(LDWORK), LDWORK, IINFO );
 
 
          } else {
@@ -173,21 +144,21 @@ import 'package:lapack/src/xerbla.dart';
             // Use unblocked code to factorize columns k:n of A
 
             dsytf2_rk(UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO );
-            KB = N - K + 1;
+            KB.value = N - K + 1;
 
          }
 
-         // Set INFO on the first occurrence of a zero pivot
+         // Set INFO.value on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO > 0) INFO = IINFO + K - 1;
+         if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + K - 1;
 
          // Adjust IPIV
 
-         for (I = K; I <= K + KB - 1; I++) {
-            if ( IPIV( I ) > 0 ) {
-               IPIV[I] = IPIV( I ) + K - 1;
+         for (I = K; I <= K + KB.value - 1; I++) {
+            if ( IPIV[I] > 0 ) {
+               IPIV[I] = IPIV[I] + K - 1;
             } else {
-               IPIV[I] = IPIV( I ) - K + 1;
+               IPIV[I] = IPIV[I] - K + 1;
             }
          }
 
@@ -201,27 +172,20 @@ import 'package:lapack/src/xerbla.dart';
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K > 1 ) {
-            for (I = K; I <= ( K + KB - 1 ); I++) {
-               IP = ( IPIV( I ) ).abs();
+            for (I = K; I <= ( K + KB.value - 1 ); I++) {
+               IP = ( IPIV[I] ).abs();
                if ( IP != I ) {
-                  dswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
+                  dswap(K-1, A( I, 1 ).asArray(), LDA, A( IP, 1 ).asArray(), LDA );
                }
             }
          }
 
          // Increase K and return to the start of the main loop
 
-         K = K + KB;
-         GO TO 20;
-
-         // This label is the exit from main loop over K increasing
-         // from 1 to N in steps of KB
-
-         } // 35
-
+         K = K + KB.value;
+      }
       // End Lower
-
       }
 
-      WORK[1] = LWKOPT;
+      WORK[1] = LWKOPT.toDouble();
       }

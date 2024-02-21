@@ -29,7 +29,7 @@ void dlaebz(
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.dim();
-  final E = E_.dim();
+  // final E = E_.dim();
   final E2 = E2_.dim();
   final NVAL = NVAL_.dim();
   final AB = AB_.dim(MMAX);

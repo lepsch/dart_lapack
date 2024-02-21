@@ -1,46 +1,48 @@
-      void zlacpy(final int UPLO, final int M, final int N, final Matrix<double> A_, final int LDA, final int B, final int LDB,) {
-  final A = A_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zlacpy(
+  final String UPLO,
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDB, M, N;
-      Complex         A( LDA, * ), B( LDB, * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  int I, J;
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, J;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
-
-      if ( lsame( UPLO, 'U' ) ) {
-         for (J = 1; J <= N; J++) { // 20
-            for (I = 1; I <= min( J, M ); I++) { // 10
-               B[I][J] = A( I, J );
-            } // 10
-         } // 20
-
-      } else if ( lsame( UPLO, 'L' ) ) {
-         for (J = 1; J <= N; J++) { // 40
-            for (I = J; I <= M; I++) { // 30
-               B[I][J] = A( I, J );
-            } // 30
-         } // 40
-
-      } else {
-         for (J = 1; J <= N; J++) { // 60
-            for (I = 1; I <= M; I++) { // 50
-               B[I][J] = A( I, J );
-            } // 50
-         } // 60
-      }
-
-      }
+  if (lsame(UPLO, 'U')) {
+    for (J = 1; J <= N; J++) {
+      // 20
+      for (I = 1; I <= min(J, M); I++) {
+        // 10
+        B[I][J] = A[I][J];
+      } // 10
+    } // 20
+  } else if (lsame(UPLO, 'L')) {
+    for (J = 1; J <= N; J++) {
+      // 40
+      for (I = J; I <= M; I++) {
+        // 30
+        B[I][J] = A[I][J];
+      } // 30
+    } // 40
+  } else {
+    for (J = 1; J <= N; J++) {
+      // 60
+      for (I = 1; I <= M; I++) {
+        // 50
+        B[I][J] = A[I][J];
+      } // 50
+    } // 60
+  }
+}

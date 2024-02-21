@@ -32,13 +32,15 @@ void dsytrd_2stage(
   final TAU = TAU_.dim();
   final HOUS2 = HOUS2_.dim();
   final WORK = WORK_.dim();
-  bool LQUERY, UPPER, WANTQ;
+  bool LQUERY, UPPER
+      // WANTQ
+      ;
   int KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 
   // Test the input parameters
 
   INFO.value = 0;
-  WANTQ = lsame(VECT, 'V');
+  // WANTQ = lsame(VECT, 'V');
   UPPER = lsame(UPLO, 'U');
   LQUERY = (LWORK == -1) || (LHOUS2 == -1);
 

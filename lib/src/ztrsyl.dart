@@ -1,269 +1,284 @@
-      void ztrsyl(final int TRANA, final int TRANB, final int ISGN, final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> C_, final int LDC, final int SCALE, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final C = C_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zdotu.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zladiv.dart';
+import 'package:lapack/src/zlange.dart';
+
+void ztrsyl(
+  final String TRANA,
+  final String TRANB,
+  final int ISGN,
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> C_,
+  final int LDC,
+  final Box<double> SCALE,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANA, TRANB;
-      int                INFO, ISGN, LDA, LDB, LDC, M, N;
-      double             SCALE;
-      Complex         A( LDA, * ), B( LDB, * ), C( LDC, * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
+  const ONE = 1.0;
+  bool NOTRNA, NOTRNB;
+  int J, K, L;
+  double BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN = 0, SMLNUM;
+  Complex A11, SUML, SUMR, VEC, X11;
+  final DUM = Array<double>(1);
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      bool               NOTRNA, NOTRNB;
-      int                J, K, L;
-      double             BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
-      Complex         A11, SUML, SUMR, VEC, X11;
-      double             DUM( 1 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANGE;
-      //- Complex         ZDOTC, ZDOTU, ZLADIV;
-      // EXTERNAL lsame, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN
+  // Decode and Test input parameters
 
-      // Decode and Test input parameters
+  NOTRNA = lsame(TRANA, 'N');
+  NOTRNB = lsame(TRANB, 'N');
 
-      NOTRNA = lsame( TRANA, 'N' );
-      NOTRNB = lsame( TRANB, 'N' );
+  INFO.value = 0;
+  if (!NOTRNA && !lsame(TRANA, 'C')) {
+    INFO.value = -1;
+  } else if (!NOTRNB && !lsame(TRANB, 'C')) {
+    INFO.value = -2;
+  } else if (ISGN != 1 && ISGN != -1) {
+    INFO.value = -3;
+  } else if (M < 0) {
+    INFO.value = -4;
+  } else if (N < 0) {
+    INFO.value = -5;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  } else if (LDC < max(1, M)) {
+    INFO.value = -11;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZTRSYL', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( !NOTRNA && !lsame( TRANA, 'C' ) ) {
-         INFO = -1;
-      } else if ( !NOTRNB && !lsame( TRANB, 'C' ) ) {
-         INFO = -2;
-      } else if ( ISGN != 1 && ISGN != -1 ) {
-         INFO = -3;
-      } else if ( M < 0 ) {
-         INFO = -4;
-      } else if ( N < 0 ) {
-         INFO = -5;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      } else if ( LDC < max( 1, M ) ) {
-         INFO = -11;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZTRSYL', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  SCALE.value = ONE;
+  if (M == 0 || N == 0) return;
 
-      SCALE = ONE;
-      if (M == 0 || N == 0) return;
+  // Set constants to control overflow
 
-      // Set constants to control overflow
+  EPS = dlamch('P');
+  SMLNUM = dlamch('S');
+  BIGNUM = ONE / SMLNUM;
+  SMLNUM = SMLNUM * (M * N).toDouble() / EPS;
+  BIGNUM = ONE / SMLNUM;
+  SMIN = max(
+      SMLNUM,
+      max(EPS * zlange('M', M, M, A, LDA, DUM),
+          EPS * zlange('M', N, N, B, LDB, DUM)));
+  SGN = ISGN.toDouble();
 
-      EPS = dlamch( 'P' );
-      SMLNUM = dlamch( 'S' );
-      BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM*(M*N).toDouble() / EPS;
-      BIGNUM = ONE / SMLNUM;
-      SMIN = max( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) );
-      SGN = ISGN;
+  if (NOTRNA && NOTRNB) {
+    // Solve    A*X + ISGN*X*B = scale*C.
+    //
+    // The (K,L)th block of X is determined starting from
+    // bottom-left corner column by column by
+    //
+    //     A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+    //
+    // Where
+    //             M                        L-1
+    //   R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
+    //           I=K+1                      J=1
 
-      if ( NOTRNA && NOTRNB ) {
+    for (L = 1; L <= N; L++) {
+      // 30
+      for (K = M; K >= 1; K--) {
+        // 20
 
-         // Solve    A*X + ISGN*X*B = scale*C.
+        SUML = zdotu(M - K, A(K, min(K + 1, M)).asArray(), LDA,
+            C(min(K + 1, M), L).asArray(), 1);
+        SUMR = zdotu(L - 1, C(K, 1).asArray(), LDC, B(1, L).asArray(), 1);
+        VEC = C[K][L] - (SUML + SGN.toComplex() * SUMR);
 
-         // The (K,L)th block of X is determined starting from
-         // bottom-left corner column by column by
+        SCALOC = ONE;
+        A11 = A[K][K] + SGN.toComplex() * B[L][L];
+        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        if (DA11 <= SMIN) {
+          A11 = SMIN.toComplex();
+          DA11 = SMIN;
+          INFO.value = 1;
+        }
+        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        if (DA11 < ONE && DB > ONE) {
+          if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
+        }
+        X11 = zladiv(VEC * Complex(SCALOC), A11);
 
-             // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+        if (SCALOC != ONE) {
+          for (J = 1; J <= N; J++) {
+            // 10
+            zdscal(M, SCALOC, C(1, J).asArray(), 1);
+          } // 10
+          SCALE.value = SCALE.value * SCALOC;
+        }
+        C[K][L] = X11;
+      } // 20
+    } // 30
+  } else if (!NOTRNA && NOTRNB) {
+    // Solve    A**H *X + ISGN*X*B = scale*C.
 
-         // Where
-         //             M                        L-1
-         //   R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
-         //           I=K+1                      J=1
+    // The (K,L)th block of X is determined starting from
+    // upper-left corner column by column by
 
-         for (L = 1; L <= N; L++) { // 30
-            for (K = M; K >= 1; K--) { // 20
+    // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 
-               SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 );
-               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
-               VEC = C( K, L ) - ( SUML+SGN*SUMR );
+    // Where
+    //            K-1                           L-1
+    //   R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
+    //            I=1                           J=1
 
-               SCALOC = ONE;
-               A11 = A( K, K ) + SGN*B( L, L );
-               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
-               if ( DA11 <= SMIN ) {
-                  A11 = SMIN;
-                  DA11 = SMIN;
-                  INFO = 1;
-               }
-               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
-               if ( DA11 < ONE && DB > ONE ) {
-                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
-               }
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
+    for (L = 1; L <= N; L++) {
+      // 60
+      for (K = 1; K <= M; K++) {
+        // 50
 
-               if ( SCALOC != ONE ) {
-                  for (J = 1; J <= N; J++) { // 10
-                     zdscal(M, SCALOC, C( 1, J ), 1 );
-                  } // 10
-                  SCALE = SCALE*SCALOC;
-               }
-               C[K][L] = X11;
+        SUML = zdotc(K - 1, A(1, K).asArray(), 1, C(1, L).asArray(), 1);
+        SUMR = zdotu(L - 1, C(K, 1).asArray(), LDC, B(1, L).asArray(), 1);
+        VEC = C[K][L] - (SUML + SGN.toComplex() * SUMR);
 
-            } // 20
-         } // 30
+        SCALOC = ONE;
+        A11 = A[K][K].conjugate() + SGN.toComplex() * B[L][L];
+        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        if (DA11 <= SMIN) {
+          A11 = SMIN.toComplex();
+          DA11 = SMIN;
+          INFO.value = 1;
+        }
+        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        if (DA11 < ONE && DB > ONE) {
+          if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
+        }
 
-      } else if ( !NOTRNA && NOTRNB ) {
+        X11 = zladiv(VEC * Complex(SCALOC), A11);
 
-         // Solve    A**H *X + ISGN*X*B = scale*C.
+        if (SCALOC != ONE) {
+          for (J = 1; J <= N; J++) {
+            // 40
+            zdscal(M, SCALOC, C(1, J).asArray(), 1);
+          } // 40
+          SCALE.value = SCALE.value * SCALOC;
+        }
+        C[K][L] = X11;
+      } // 50
+    } // 60
+  } else if (!NOTRNA && !NOTRNB) {
+    // Solve    A**H*X + ISGN*X*B**H = C.
+    //
+    // The (K,L)th block of X is determined starting from
+    // upper-right corner column by column by
+    //
+    //     A**H(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
+    //
+    // Where
+    //             K-1
+    //    R(K,L) = SUM [A**H(I,K)*X(I,L)] +
+    //             I=1
+    //                    N
+    //              ISGN*SUM [X(K,J)*B**H(L,J)].
+    //                   J=L+1
 
-         // The (K,L)th block of X is determined starting from
-         // upper-left corner column by column by
+    for (L = N; L >= 1; L--) {
+      // 90
+      for (K = 1; K <= M; K++) {
+        // 80
 
-             // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+        SUML = zdotc(K - 1, A(1, K).asArray(), 1, C(1, L).asArray(), 1);
+        SUMR = zdotc(N - L, C(K, min(L + 1, N)).asArray(), LDC,
+            B(L, min(L + 1, N)).asArray(), LDB);
+        VEC = C[K][L] - (SUML + SGN.toComplex() * SUMR.conjugate());
 
-         // Where
-         //            K-1                           L-1
-         //   R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
-         //            I=1                           J=1
+        SCALOC = ONE;
+        A11 = (A[K][K] + SGN.toComplex() * B[L][L]).conjugate();
+        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        if (DA11 <= SMIN) {
+          A11 = SMIN.toComplex();
+          DA11 = SMIN;
+          INFO.value = 1;
+        }
+        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        if (DA11 < ONE && DB > ONE) {
+          if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
+        }
 
-         for (L = 1; L <= N; L++) { // 60
-            for (K = 1; K <= M; K++) { // 50
+        X11 = zladiv(VEC * Complex(SCALOC), A11);
 
-               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
-               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
-               VEC = C( K, L ) - ( SUML+SGN*SUMR );
+        if (SCALOC != ONE) {
+          for (J = 1; J <= N; J++) {
+            // 70
+            zdscal(M, SCALOC, C(1, J).asArray(), 1);
+          } // 70
+          SCALE.value = SCALE.value * SCALOC;
+        }
+        C[K][L] = X11;
+      } // 80
+    } // 90
+  } else if (NOTRNA && !NOTRNB) {
+    // Solve    A*X + ISGN*X*B**H = C.
 
-               SCALOC = ONE;
-               A11 = DCONJG( A( K, K ) ) + SGN*B( L, L );
-               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
-               if ( DA11 <= SMIN ) {
-                  A11 = SMIN;
-                  DA11 = SMIN;
-                  INFO = 1;
-               }
-               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
-               if ( DA11 < ONE && DB > ONE ) {
-                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
-               }
+    // The (K,L)th block of X is determined starting from
+    // bottom-left corner column by column by
 
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
+    // A(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
 
-               if ( SCALOC != ONE ) {
-                  for (J = 1; J <= N; J++) { // 40
-                     zdscal(M, SCALOC, C( 1, J ), 1 );
-                  } // 40
-                  SCALE = SCALE*SCALOC;
-               }
-               C[K][L] = X11;
+    // Where
+    //             M                          N
+    //   R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
+    //           I=K+1                      J=L+1
 
-            } // 50
-         } // 60
+    for (L = N; L >= 1; L--) {
+      // 120
+      for (K = M; K >= 1; K--) {
+        // 110
 
-      } else if ( !NOTRNA && !NOTRNB ) {
+        SUML = zdotu(M - K, A(K, min(K + 1, M)).asArray(), LDA,
+            C(min(K + 1, M), L).asArray(), 1);
+        SUMR = zdotc(N - L, C(K, min(L + 1, N)).asArray(), LDC,
+            B(L, min(L + 1, N)).asArray(), LDB);
+        VEC = C[K][L] - (SUML + SGN.toComplex() * SUMR.conjugate());
 
-         // Solve    A**H*X + ISGN*X*B**H = C.
+        SCALOC = ONE;
+        A11 = A[K][K] + SGN.toComplex() * B[L][L].conjugate();
+        DA11 = (A11.toDouble()).abs() + A11.imaginary.abs();
+        if (DA11 <= SMIN) {
+          A11 = SMIN.toComplex();
+          DA11 = SMIN;
+          INFO.value = 1;
+        }
+        DB = (VEC.toDouble()).abs() + VEC.imaginary.abs();
+        if (DA11 < ONE && DB > ONE) {
+          if (DB > BIGNUM * DA11) SCALOC = ONE / DB;
+        }
 
-         // The (K,L)th block of X is determined starting from
-         // upper-right corner column by column by
+        X11 = zladiv(VEC * Complex(SCALOC), A11);
 
-             // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
-
-         // Where
-         //             K-1
-         //    R(K,L) = SUM [A**H(I,K)*X(I,L)] +
-         //             I=1
-         //                    N
-         //              ISGN*SUM [X(K,J)*B**H(L,J)].
-         //                   J=L+1
-
-         for (L = N; L >= 1; L--) { // 90
-            for (K = 1; K <= M; K++) { // 80
-
-               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
-               SUMR = ZDOTC( N-L, C( K, min( L+1, N ) ), LDC, B( L, min( L+1, N ) ), LDB );
-               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
-
-               SCALOC = ONE;
-               A11 = DCONJG( A( K, K )+SGN*B( L, L ) );
-               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
-               if ( DA11 <= SMIN ) {
-                  A11 = SMIN;
-                  DA11 = SMIN;
-                  INFO = 1;
-               }
-               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
-               if ( DA11 < ONE && DB > ONE ) {
-                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
-               }
-
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
-
-               if ( SCALOC != ONE ) {
-                  for (J = 1; J <= N; J++) { // 70
-                     zdscal(M, SCALOC, C( 1, J ), 1 );
-                  } // 70
-                  SCALE = SCALE*SCALOC;
-               }
-               C[K][L] = X11;
-
-            } // 80
-         } // 90
-
-      } else if ( NOTRNA && !NOTRNB ) {
-
-         // Solve    A*X + ISGN*X*B**H = C.
-
-         // The (K,L)th block of X is determined starting from
-         // bottom-left corner column by column by
-
-            // A(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
-
-         // Where
-         //             M                          N
-         //   R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
-         //           I=K+1                      J=L+1
-
-         for (L = N; L >= 1; L--) { // 120
-            for (K = M; K >= 1; K--) { // 110
-
-               SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, min( L+1, N ) ), LDC, B( L, min( L+1, N ) ), LDB );
-               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
-
-               SCALOC = ONE;
-               A11 = A( K, K ) + SGN*DCONJG( B( L, L ) );
-               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
-               if ( DA11 <= SMIN ) {
-                  A11 = SMIN;
-                  DA11 = SMIN;
-                  INFO = 1;
-               }
-               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
-               if ( DA11 < ONE && DB > ONE ) {
-                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
-               }
-
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
-
-               if ( SCALOC != ONE ) {
-                  for (J = 1; J <= N; J++) { // 100
-                     zdscal(M, SCALOC, C( 1, J ), 1 );
-                  } // 100
-                  SCALE = SCALE*SCALOC;
-               }
-               C[K][L] = X11;
-
-            } // 110
-         } // 120
-
-      }
-
-      }
+        if (SCALOC != ONE) {
+          for (J = 1; J <= N; J++) {
+            // 100
+            zdscal(M, SCALOC, C(1, J).asArray(), 1);
+          } // 100
+          SCALE.value = SCALE.value * SCALOC;
+        }
+        C[K][L] = X11;
+      } // 110
+    } // 120
+  }
+}

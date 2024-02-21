@@ -1,743 +1,859 @@
-      void zlatmr(final int M, final int N, final int DIST, final Array<int> ISEED_, final int SYM, final int D, final int MODE, final int COND, final int DMAX, final int RSIGN, final int GRADE, final int DL, final int MODEL, final int CONDL, final int DR, final int MODER, final int CONDR, final int PIVTNG, final int IPIVOT, final int KL, final int KU, final int SPARSE, final int ANORM, final int PACK, final Matrix<double> A_, final int LDA, final Array<int> IWORK_, final Box<int> INFO,) {
-  final ISEED = ISEED_.dim();
-  final A = A_.dim();
-  final IWORK = IWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlangb.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlansb.dart';
+import 'package:lapack/src/zlansp.dart';
+import 'package:lapack/src/zlansy.dart';
+
+import 'zlatm1.dart';
+import 'zlatm2.dart';
+import 'zlatm3.dart';
+
+void zlatmr(
+  final int M,
+  final int N,
+  final String DIST,
+  final Array<int> ISEED_,
+  final String SYM,
+  final Array<Complex> D_,
+  final int MODE,
+  final double COND,
+  final Complex DMAX,
+  final String RSIGN,
+  final String GRADE,
+  final Array<Complex> DL_,
+  final int MODEL,
+  final double CONDL,
+  final Array<Complex> DR_,
+  final int MODER,
+  final double CONDR,
+  final String PIVTNG,
+  final Array<int> IPIVOT_,
+  final int KL,
+  final int KU,
+  final double SPARSE,
+  final double ANORM,
+  final String PACK,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
-      int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
-      double             ANORM, COND, CONDL, CONDR, SPARSE;
-      Complex         DMAX;
-      int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
-      Complex         A( LDA, * ), D( * ), DL( * ), DR( * );
-      // ..
+  final ISEED = ISEED_.dim();
+  final D = D_.dim();
+  final DL = DL_.dim();
+  final DR = DR_.dim();
+  final A = A_.dim(LDA);
+  final IPIVOT = IPIVOT_.dim();
+  final IWORK = IWORK_.dim();
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      double             ONE;
-      const              ONE = 1.0 ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      Complex         CZERO;
-      const              CZERO = ( 0.0, 0.0 ) ;
-      bool               BADPVT, DZERO, FULBND;
-      int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
-      double             ONORM, TEMP;
-      Complex         CALPHA, CTEMP;
-      double             TEMPA( 1 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY;
-      //- Complex         ZLATM2, ZLATM3;
-      // EXTERNAL lsame, ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY, ZLATM2, ZLATM3
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDSCAL, ZLATM1
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, MOD
+  const ZERO = 0.0;
+  const ONE = 1.0;
+  bool BADPVT, DZERO, FULBND;
+  int I,
+      IDIST,
+      IGRADE,
+      IISUB,
+      IPACK,
+      IPVTNG,
+      IRSIGN,
+      ISYM,
+      J,
+      JJSUB,
+      K,
+      KLL,
+      KUU,
+      MNMIN,
+      MNSUB,
+      MXSUB,
+      NPVTS = 0;
+  double ONORM = 0, TEMP;
+  Complex CALPHA, CTEMP;
+  final TEMPA = Array<double>(1);
+  final ISUB = Box(0), JSUB = Box(0);
 
-      // 1)      Decode and Test the input parameters.
-      //         Initialize flags & seed.
+  // 1)      Decode and Test the input parameters.
+  //         Initialize flags & seed.
 
-      INFO = 0;
+  INFO.value = 0;
 
-      // Quick return if possible
+  // Quick return if possible
 
-      if (M == 0 || N == 0) return;
+  if (M == 0 || N == 0) return;
 
-      // Decode DIST
+  // Decode DIST
 
-      if ( lsame( DIST, 'U' ) ) {
-         IDIST = 1;
-      } else if ( lsame( DIST, 'S' ) ) {
-         IDIST = 2;
-      } else if ( lsame( DIST, 'N' ) ) {
-         IDIST = 3;
-      } else if ( lsame( DIST, 'D' ) ) {
-         IDIST = 4;
-      } else {
-         IDIST = -1;
+  if (lsame(DIST, 'U')) {
+    IDIST = 1;
+  } else if (lsame(DIST, 'S')) {
+    IDIST = 2;
+  } else if (lsame(DIST, 'N')) {
+    IDIST = 3;
+  } else if (lsame(DIST, 'D')) {
+    IDIST = 4;
+  } else {
+    IDIST = -1;
+  }
+
+  // Decode SYM
+
+  if (lsame(SYM, 'H')) {
+    ISYM = 0;
+  } else if (lsame(SYM, 'N')) {
+    ISYM = 1;
+  } else if (lsame(SYM, 'S')) {
+    ISYM = 2;
+  } else {
+    ISYM = -1;
+  }
+
+  // Decode RSIGN
+
+  if (lsame(RSIGN, 'F')) {
+    IRSIGN = 0;
+  } else if (lsame(RSIGN, 'T')) {
+    IRSIGN = 1;
+  } else {
+    IRSIGN = -1;
+  }
+
+  // Decode PIVTNG
+
+  if (lsame(PIVTNG, 'N')) {
+    IPVTNG = 0;
+  } else if (lsame(PIVTNG, ' ')) {
+    IPVTNG = 0;
+  } else if (lsame(PIVTNG, 'L')) {
+    IPVTNG = 1;
+    NPVTS = M;
+  } else if (lsame(PIVTNG, 'R')) {
+    IPVTNG = 2;
+    NPVTS = N;
+  } else if (lsame(PIVTNG, 'B')) {
+    IPVTNG = 3;
+    NPVTS = min(N, M);
+  } else if (lsame(PIVTNG, 'F')) {
+    IPVTNG = 3;
+    NPVTS = min(N, M);
+  } else {
+    IPVTNG = -1;
+  }
+
+  // Decode GRADE
+
+  if (lsame(GRADE, 'N')) {
+    IGRADE = 0;
+  } else if (lsame(GRADE, 'L')) {
+    IGRADE = 1;
+  } else if (lsame(GRADE, 'R')) {
+    IGRADE = 2;
+  } else if (lsame(GRADE, 'B')) {
+    IGRADE = 3;
+  } else if (lsame(GRADE, 'E')) {
+    IGRADE = 4;
+  } else if (lsame(GRADE, 'H')) {
+    IGRADE = 5;
+  } else if (lsame(GRADE, 'S')) {
+    IGRADE = 6;
+  } else {
+    IGRADE = -1;
+  }
+
+  // Decode PACK
+
+  if (lsame(PACK, 'N')) {
+    IPACK = 0;
+  } else if (lsame(PACK, 'U')) {
+    IPACK = 1;
+  } else if (lsame(PACK, 'L')) {
+    IPACK = 2;
+  } else if (lsame(PACK, 'C')) {
+    IPACK = 3;
+  } else if (lsame(PACK, 'R')) {
+    IPACK = 4;
+  } else if (lsame(PACK, 'B')) {
+    IPACK = 5;
+  } else if (lsame(PACK, 'Q')) {
+    IPACK = 6;
+  } else if (lsame(PACK, 'Z')) {
+    IPACK = 7;
+  } else {
+    IPACK = -1;
+  }
+
+  // Set certain internal parameters
+
+  MNMIN = min(M, N);
+  KLL = min(KL, M - 1);
+  KUU = min(KU, N - 1);
+
+  // If inv(DL) is used, check to see if DL has a zero entry.
+
+  DZERO = false;
+  if (IGRADE == 4 && MODEL == 0) {
+    for (I = 1; I <= M; I++) {
+      // 10
+      if (DL[I] == Complex.zero) DZERO = true;
+    } // 10
+  }
+
+  // Check values in IPIVOT
+
+  BADPVT = false;
+  if (IPVTNG > 0) {
+    for (J = 1; J <= NPVTS; J++) {
+      // 20
+      if (IPIVOT[J] <= 0 || IPIVOT[J] > NPVTS) BADPVT = true;
+    } // 20
+  }
+
+  // Set INFO.value if an error
+
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (M != N && (ISYM == 0 || ISYM == 2)) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (IDIST == -1) {
+    INFO.value = -3;
+  } else if (ISYM == -1) {
+    INFO.value = -5;
+  } else if (MODE < -6 || MODE > 6) {
+    INFO.value = -7;
+  } else if ((MODE != -6 && MODE != 0 && MODE != 6) && COND < ONE) {
+    INFO.value = -8;
+  } else if ((MODE != -6 && MODE != 0 && MODE != 6) && IRSIGN == -1) {
+    INFO.value = -10;
+  } else if (IGRADE == -1 ||
+      (IGRADE == 4 && M != N) ||
+      ((IGRADE == 1 ||
+              IGRADE == 2 ||
+              IGRADE == 3 ||
+              IGRADE == 4 ||
+              IGRADE == 6) &&
+          ISYM == 0) ||
+      ((IGRADE == 1 ||
+              IGRADE == 2 ||
+              IGRADE == 3 ||
+              IGRADE == 4 ||
+              IGRADE == 5) &&
+          ISYM == 2)) {
+    INFO.value = -11;
+  } else if (IGRADE == 4 && DZERO) {
+    INFO.value = -12;
+  } else if ((IGRADE == 1 ||
+          IGRADE == 3 ||
+          IGRADE == 4 ||
+          IGRADE == 5 ||
+          IGRADE == 6) &&
+      (MODEL < -6 || MODEL > 6)) {
+    INFO.value = -13;
+  } else if ((IGRADE == 1 ||
+          IGRADE == 3 ||
+          IGRADE == 4 ||
+          IGRADE == 5 ||
+          IGRADE == 6) &&
+      (MODEL != -6 && MODEL != 0 && MODEL != 6) &&
+      CONDL < ONE) {
+    INFO.value = -14;
+  } else if ((IGRADE == 2 || IGRADE == 3) && (MODER < -6 || MODER > 6)) {
+    INFO.value = -16;
+  } else if ((IGRADE == 2 || IGRADE == 3) &&
+      (MODER != -6 && MODER != 0 && MODER != 6) &&
+      CONDR < ONE) {
+    INFO.value = -17;
+  } else if (IPVTNG == -1 ||
+      (IPVTNG == 3 && M != N) ||
+      ((IPVTNG == 1 || IPVTNG == 2) && (ISYM == 0 || ISYM == 2))) {
+    INFO.value = -18;
+  } else if (IPVTNG != 0 && BADPVT) {
+    INFO.value = -19;
+  } else if (KL < 0) {
+    INFO.value = -20;
+  } else if (KU < 0 || ((ISYM == 0 || ISYM == 2) && KL != KU)) {
+    INFO.value = -21;
+  } else if (SPARSE < ZERO || SPARSE > ONE) {
+    INFO.value = -22;
+  } else if (IPACK == -1 ||
+      ((IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6) && ISYM == 1) ||
+      (IPACK == 3 && ISYM == 1 && (KL != 0 || M != N)) ||
+      (IPACK == 4 && ISYM == 1 && (KU != 0 || M != N))) {
+    INFO.value = -24;
+  } else if (((IPACK == 0 || IPACK == 1 || IPACK == 2) && LDA < max(1, M)) ||
+      ((IPACK == 3 || IPACK == 4) && LDA < 1) ||
+      ((IPACK == 5 || IPACK == 6) && LDA < KUU + 1) ||
+      (IPACK == 7 && LDA < KLL + KUU + 1)) {
+    INFO.value = -26;
+  }
+
+  if (INFO.value != 0) {
+    xerbla('ZLATMR', -INFO.value);
+    return;
+  }
+
+  // Decide if we can pivot consistently
+
+  FULBND = false;
+  if (KUU == N - 1 && KLL == M - 1) FULBND = true;
+
+  // Initialize random number generator
+
+  for (I = 1; I <= 4; I++) {
+    // 30
+    ISEED[I] = ISEED[I].abs() % 4096;
+  } // 30
+
+  ISEED[4] = 2 * (ISEED[4] ~/ 2) + 1;
+
+  // 2)      Set up D, DL, and DR, if indicated.
+
+  // Compute D according to COND and MODE
+
+  zlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO);
+  if (INFO.value != 0) {
+    INFO.value = 1;
+    return;
+  }
+  if (MODE != 0 && MODE != -6 && MODE != 6) {
+    // Scale by DMAX
+
+    TEMP = D[1].abs();
+    for (I = 2; I <= MNMIN; I++) {
+      // 40
+      TEMP = max(TEMP, (D[I]).abs());
+    } // 40
+    if (TEMP == ZERO && DMAX != Complex.zero) {
+      INFO.value = 2;
+      return;
+    }
+    if (TEMP != ZERO) {
+      CALPHA = DMAX / TEMP.toComplex();
+    } else {
+      CALPHA = Complex.one;
+    }
+    for (I = 1; I <= MNMIN; I++) {
+      // 50
+      D[I] = CALPHA * D[I];
+    } // 50
+  }
+
+  // If matrix Hermitian, make D real
+
+  if (ISYM == 0) {
+    for (I = 1; I <= MNMIN; I++) {
+      // 60
+      D[I] = D[I].toDouble().toComplex();
+    } // 60
+  }
+
+  // Compute DL if grading set
+
+  if (IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6) {
+    zlatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO);
+    if (INFO.value != 0) {
+      INFO.value = 3;
+      return;
+    }
+  }
+
+  // Compute DR if grading set
+
+  if (IGRADE == 2 || IGRADE == 3) {
+    zlatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO);
+    if (INFO.value != 0) {
+      INFO.value = 4;
+      return;
+    }
+  }
+
+  // 3)     Generate IWORK if pivoting
+
+  if (IPVTNG > 0) {
+    for (I = 1; I <= NPVTS; I++) {
+      // 70
+      IWORK[I] = I;
+    } // 70
+    if (FULBND) {
+      for (I = 1; I <= NPVTS; I++) {
+        // 80
+        K = IPIVOT[I];
+        J = IWORK[I];
+        IWORK[I] = IWORK[K];
+        IWORK[K] = J;
+      } // 80
+    } else {
+      for (I = NPVTS; I >= 1; I--) {
+        // 90
+        K = IPIVOT[I];
+        J = IWORK[I];
+        IWORK[I] = IWORK[K];
+        IWORK[K] = J;
+      } // 90
+    }
+  }
+
+  // 4)      Generate matrices for each kind of PACKing
+  //         Always sweep matrix columnwise (if symmetric, upper
+  //         half only) so that matrix generated does not depend
+  //         on PACK
+
+  if (FULBND) {
+    // Use ZLATM3 so matrices generated with differing PIVOTing only
+    // differ only in the order of their rows and/or columns.
+
+    if (IPACK == 0) {
+      if (ISYM == 0) {
+        for (J = 1; J <= N; J++) {
+          // 110
+          for (I = 1; I <= J; I++) {
+            // 100
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            A[ISUB.value][JSUB.value] = CTEMP;
+            A[JSUB.value][ISUB.value] = CTEMP.conjugate();
+          } // 100
+        } // 110
+      } else if (ISYM == 1) {
+        for (J = 1; J <= N; J++) {
+          // 130
+          for (I = 1; I <= M; I++) {
+            // 120
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            A[ISUB.value][JSUB.value] = CTEMP;
+          } // 120
+        } // 130
+      } else if (ISYM == 2) {
+        for (J = 1; J <= N; J++) {
+          // 150
+          for (I = 1; I <= J; I++) {
+            // 140
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            A[ISUB.value][JSUB.value] = CTEMP;
+            A[JSUB.value][ISUB.value] = CTEMP;
+          } // 140
+        } // 150
       }
-
-      // Decode SYM
-
-      if ( lsame( SYM, 'H' ) ) {
-         ISYM = 0;
-      } else if ( lsame( SYM, 'N' ) ) {
-         ISYM = 1;
-      } else if ( lsame( SYM, 'S' ) ) {
-         ISYM = 2;
-      } else {
-         ISYM = -1;
-      }
-
-      // Decode RSIGN
-
-      if ( lsame( RSIGN, 'F' ) ) {
-         IRSIGN = 0;
-      } else if ( lsame( RSIGN, 'T' ) ) {
-         IRSIGN = 1;
-      } else {
-         IRSIGN = -1;
-      }
-
-      // Decode PIVTNG
-
-      if ( lsame( PIVTNG, 'N' ) ) {
-         IPVTNG = 0;
-      } else if ( lsame( PIVTNG, ' ' ) ) {
-         IPVTNG = 0;
-      } else if ( lsame( PIVTNG, 'L' ) ) {
-         IPVTNG = 1;
-         NPVTS = M;
-      } else if ( lsame( PIVTNG, 'R' ) ) {
-         IPVTNG = 2;
-         NPVTS = N;
-      } else if ( lsame( PIVTNG, 'B' ) ) {
-         IPVTNG = 3;
-         NPVTS = min( N, M );
-      } else if ( lsame( PIVTNG, 'F' ) ) {
-         IPVTNG = 3;
-         NPVTS = min( N, M );
-      } else {
-         IPVTNG = -1;
-      }
-
-      // Decode GRADE
-
-      if ( lsame( GRADE, 'N' ) ) {
-         IGRADE = 0;
-      } else if ( lsame( GRADE, 'L' ) ) {
-         IGRADE = 1;
-      } else if ( lsame( GRADE, 'R' ) ) {
-         IGRADE = 2;
-      } else if ( lsame( GRADE, 'B' ) ) {
-         IGRADE = 3;
-      } else if ( lsame( GRADE, 'E' ) ) {
-         IGRADE = 4;
-      } else if ( lsame( GRADE, 'H' ) ) {
-         IGRADE = 5;
-      } else if ( lsame( GRADE, 'S' ) ) {
-         IGRADE = 6;
-      } else {
-         IGRADE = -1;
-      }
-
-      // Decode PACK
-
-      if ( lsame( PACK, 'N' ) ) {
-         IPACK = 0;
-      } else if ( lsame( PACK, 'U' ) ) {
-         IPACK = 1;
-      } else if ( lsame( PACK, 'L' ) ) {
-         IPACK = 2;
-      } else if ( lsame( PACK, 'C' ) ) {
-         IPACK = 3;
-      } else if ( lsame( PACK, 'R' ) ) {
-         IPACK = 4;
-      } else if ( lsame( PACK, 'B' ) ) {
-         IPACK = 5;
-      } else if ( lsame( PACK, 'Q' ) ) {
-         IPACK = 6;
-      } else if ( lsame( PACK, 'Z' ) ) {
-         IPACK = 7;
-      } else {
-         IPACK = -1;
-      }
-
-      // Set certain internal parameters
-
-      MNMIN = min( M, N );
-      KLL = min( KL, M-1 );
-      KUU = min( KU, N-1 );
-
-      // If inv(DL) is used, check to see if DL has a zero entry.
-
-      DZERO = false;
-      if ( IGRADE == 4 && MODEL == 0 ) {
-         for (I = 1; I <= M; I++) { // 10
-            if( DL( I ) == CZERO ) DZERO = true;
-         } // 10
-      }
-
-      // Check values in IPIVOT
-
-      BADPVT = false;
-      if ( IPVTNG > 0 ) {
-         for (J = 1; J <= NPVTS; J++) { // 20
-            if( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
-         } // 20
-      }
-
-      // Set INFO if an error
-
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( M != N && ( ISYM == 0 || ISYM == 2 ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( IDIST == -1 ) {
-         INFO = -3;
-      } else if ( ISYM == -1 ) {
-         INFO = -5;
-      } else if ( MODE < -6 || MODE > 6 ) {
-         INFO = -7;
-      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
-         INFO = -8;
-      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
-         INFO = -10;
-      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE == 1 || IGRADE == 2 || IGRADE == 3 || IGRADE == 4 || IGRADE == 6 ) && ISYM == 0 ) || ( ( IGRADE == 1 || IGRADE == 2 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ISYM == 2 ) ) {
-         INFO = -11;
-      } else if ( IGRADE == 4 && DZERO ) {
-         INFO = -12;
-      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL < -6 || MODEL > 6 ) ) {
-         INFO = -13;
-      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL < ONE ) {
-         INFO = -14;
-      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER < -6 || MODER > 6 ) ) {
-         INFO = -16;
-      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR < ONE ) {
-         INFO = -17;
-      } else if ( IPVTNG == -1 || ( IPVTNG == 3 && M != N ) || ( ( IPVTNG == 1 || IPVTNG == 2 ) && ( ISYM == 0 || ISYM == 2 ) ) ) {
-         INFO = -18;
-      } else if ( IPVTNG != 0 && BADPVT ) {
-         INFO = -19;
-      } else if ( KL < 0 ) {
-         INFO = -20;
-      } else if ( KU < 0 || ( ( ISYM == 0 || ISYM == 2 ) && KL != KU ) ) {
-         INFO = -21;
-      } else if ( SPARSE < ZERO || SPARSE > ONE ) {
-         INFO = -22;
-      } else if ( IPACK == -1 || ( ( IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6 ) && ISYM == 1 ) || ( IPACK == 3 && ISYM == 1 && ( KL != 0 || M != N ) ) || ( IPACK == 4 && ISYM == 1 && ( KU != 0 || M != N ) ) ) {
-         INFO = -24;
-      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA < max( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA < 1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA < KUU+1 ) || ( IPACK == 7 && LDA < KLL+KUU+1 ) ) {
-         INFO = -26;
-      }
-
-      if ( INFO != 0 ) {
-         xerbla('ZLATMR', -INFO );
-         return;
-      }
-
-      // Decide if we can pivot consistently
-
-      FULBND = false;
-      if (KUU == N-1 && KLL == M-1) FULBND = true ;
-
-      // Initialize random number generator
-
-      for (I = 1; I <= 4; I++) { // 30
-         ISEED[I] = (( ISEED( I ) ).abs() % 4096);
-      } // 30
-
-      ISEED[4] = 2*( ISEED( 4 ) / 2 ) + 1;
-
-      // 2)      Set up D, DL, and DR, if indicated.
-
-              // Compute D according to COND and MODE
-
-      zlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO );
-      if ( INFO != 0 ) {
-         INFO = 1;
-         return;
-      }
-      if ( MODE != 0 && MODE != -6 && MODE != 6 ) {
-
-         // Scale by DMAX
-
-         TEMP = ( D( 1 ) ).abs();
-         for (I = 2; I <= MNMIN; I++) { // 40
-            TEMP = max( TEMP, ( D( I ) ).abs() );
-         } // 40
-         if ( TEMP == ZERO && DMAX != CZERO ) {
-            INFO = 2;
-            return;
-         }
-         if ( TEMP != ZERO ) {
-            CALPHA = DMAX / TEMP;
-         } else {
-            CALPHA = CONE;
-         }
-         for (I = 1; I <= MNMIN; I++) { // 50
-            D[I] = CALPHA*D( I );
-         } // 50
-
-      }
-
-      // If matrix Hermitian, make D real
-
-      if ( ISYM == 0 ) {
-         for (I = 1; I <= MNMIN; I++) { // 60
-            D[I] = (D( I )).toDouble();
-         } // 60
-      }
-
-      // Compute DL if grading set
-
-      if ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) {
-         zlatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
-         if ( INFO != 0 ) {
-            INFO = 3;
-            return;
-         }
-      }
-
-      // Compute DR if grading set
-
-      if ( IGRADE == 2 || IGRADE == 3 ) {
-         zlatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
-         if ( INFO != 0 ) {
-            INFO = 4;
-            return;
-         }
-      }
-
-      // 3)     Generate IWORK if pivoting
-
-      if ( IPVTNG > 0 ) {
-         for (I = 1; I <= NPVTS; I++) { // 70
-            IWORK[I] = I;
-         } // 70
-         if ( FULBND ) {
-            for (I = 1; I <= NPVTS; I++) { // 80
-               K = IPIVOT( I );
-               J = IWORK( I );
-               IWORK[I] = IWORK( K );
-               IWORK[K] = J;
-            } // 80
-         } else {
-            for (I = NPVTS; I >= 1; I--) { // 90
-               K = IPIVOT( I );
-               J = IWORK( I );
-               IWORK[I] = IWORK( K );
-               IWORK[K] = J;
-            } // 90
-         }
-      }
-
-      // 4)      Generate matrices for each kind of PACKing
-      //         Always sweep matrix columnwise (if symmetric, upper
-      //         half only) so that matrix generated does not depend
-      //         on PACK
-
-      if ( FULBND ) {
-
-         // Use ZLATM3 so matrices generated with differing PIVOTing only
-         // differ only in the order of their rows and/or columns.
-
-         if ( IPACK == 0 ) {
-            if ( ISYM == 0 ) {
-               for (J = 1; J <= N; J++) { // 110
-                  for (I = 1; I <= J; I++) { // 100
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB][JSUB] = CTEMP;
-                     A[JSUB][ISUB] = DCONJG( CTEMP );
-                  } // 100
-               } // 110
-            } else if ( ISYM == 1 ) {
-               for (J = 1; J <= N; J++) { // 130
-                  for (I = 1; I <= M; I++) { // 120
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB][JSUB] = CTEMP;
-                  } // 120
-               } // 130
-            } else if ( ISYM == 2 ) {
-               for (J = 1; J <= N; J++) { // 150
-                  for (I = 1; I <= J; I++) { // 140
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB][JSUB] = CTEMP;
-                     A[JSUB][ISUB] = CTEMP;
-                  } // 140
-               } // 150
-            }
-
-         } else if ( IPACK == 1 ) {
-
-            for (J = 1; J <= N; J++) { // 170
-               for (I = 1; I <= J; I++) { // 160
-                  CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = min( ISUB, JSUB );
-                  MXSUB = max( ISUB, JSUB );
-                  if ( MXSUB == ISUB && ISYM == 0 ) {
-                     A[MNSUB][MXSUB] = DCONJG( CTEMP );
-                  } else {
-                     A[MNSUB][MXSUB] = CTEMP;
-                  }
-                  if (MNSUB != MXSUB) A( MXSUB, MNSUB ) = CZERO;
-               } // 160
-            } // 170
-
-         } else if ( IPACK == 2 ) {
-
-            for (J = 1; J <= N; J++) { // 190
-               for (I = 1; I <= J; I++) { // 180
-                  CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = min( ISUB, JSUB );
-                  MXSUB = max( ISUB, JSUB );
-                  if ( MXSUB == JSUB && ISYM == 0 ) {
-                     A[MXSUB][MNSUB] = DCONJG( CTEMP );
-                  } else {
-                     A[MXSUB][MNSUB] = CTEMP;
-                  }
-                  if (MNSUB != MXSUB) A( MNSUB, MXSUB ) = CZERO;
-               } // 180
-            } // 190
-
-         } else if ( IPACK == 3 ) {
-
-            for (J = 1; J <= N; J++) { // 210
-               for (I = 1; I <= J; I++) { // 200
-                  CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-
-                  // Compute K = location of (ISUB,JSUB) entry in packed
-                  // array
-
-                  MNSUB = min( ISUB, JSUB );
-                  MXSUB = max( ISUB, JSUB );
-                  K = MXSUB*( MXSUB-1 ) / 2 + MNSUB;
-
-                  // Convert K to (IISUB,JJSUB) location
-
-                  JJSUB = ( K-1 ) / LDA + 1;
-                  IISUB = K - LDA*( JJSUB-1 );
-
-                  if ( MXSUB == ISUB && ISYM == 0 ) {
-                     A[IISUB][JJSUB] = DCONJG( CTEMP );
-                  } else {
-                     A[IISUB][JJSUB] = CTEMP;
-                  }
-               } // 200
-            } // 210
-
-         } else if ( IPACK == 4 ) {
-
-            for (J = 1; J <= N; J++) { // 230
-               for (I = 1; I <= J; I++) { // 220
-                  CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-
-                  // Compute K = location of (I,J) entry in packed array
-
-                  MNSUB = min( ISUB, JSUB );
-                  MXSUB = max( ISUB, JSUB );
-                  if ( MNSUB == 1 ) {
-                     K = MXSUB;
-                  } else {
-                     K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1;
-                  }
-
-                  // Convert K to (IISUB,JJSUB) location
-
-                  JJSUB = ( K-1 ) / LDA + 1;
-                  IISUB = K - LDA*( JJSUB-1 );
-
-                  if ( MXSUB == JSUB && ISYM == 0 ) {
-                     A[IISUB][JJSUB] = DCONJG( CTEMP );
-                  } else {
-                     A[IISUB][JJSUB] = CTEMP;
-                  }
-               } // 220
-            } // 230
-
-         } else if ( IPACK == 5 ) {
-
-            for (J = 1; J <= N; J++) { // 250
-               for (I = J - KUU; I <= J; I++) { // 240
-                  if ( I < 1 ) {
-                     A[J-I+1][I+N] = CZERO;
-                  } else {
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     MNSUB = min( ISUB, JSUB );
-                     MXSUB = max( ISUB, JSUB );
-                     if ( MXSUB == JSUB && ISYM == 0 ) {
-                        A[MXSUB-MNSUB+1][MNSUB] = DCONJG( CTEMP );
-                     } else {
-                        A[MXSUB-MNSUB+1][MNSUB] = CTEMP;
-                     }
-                  }
-               } // 240
-            } // 250
-
-         } else if ( IPACK == 6 ) {
-
-            for (J = 1; J <= N; J++) { // 270
-               for (I = J - KUU; I <= J; I++) { // 260
-                  CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = min( ISUB, JSUB );
-                  MXSUB = max( ISUB, JSUB );
-                  if ( MXSUB == ISUB && ISYM == 0 ) {
-                     A[MNSUB-MXSUB+KUU+1][MXSUB] = DCONJG( CTEMP );
-                  } else {
-                     A[MNSUB-MXSUB+KUU+1][MXSUB] = CTEMP;
-                  }
-               } // 260
-            } // 270
-
-         } else if ( IPACK == 7 ) {
-
-            if ( ISYM != 1 ) {
-               for (J = 1; J <= N; J++) { // 290
-                  for (I = J - KUU; I <= J; I++) { // 280
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     MNSUB = min( ISUB, JSUB );
-                     MXSUB = max( ISUB, JSUB );
-                     if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
-                     if ( MXSUB == ISUB && ISYM == 0 ) {
-                        A[MNSUB-MXSUB+KUU+1][MXSUB] = DCONJG( CTEMP );
-                     } else {
-                        A[MNSUB-MXSUB+KUU+1][MXSUB] = CTEMP;
-                     }
-                     if ( I >= 1 && MNSUB != MXSUB ) {
-                        if ( MNSUB == ISUB && ISYM == 0 ) {
-                           A[MXSUB-MNSUB+1+KUU][MNSUB] = DCONJG( CTEMP );
-                        } else {
-                           A[MXSUB-MNSUB+1+KUU][MNSUB] = CTEMP;
-                        }
-                     }
-                  } // 280
-               } // 290
-            } else if ( ISYM == 1 ) {
-               for (J = 1; J <= N; J++) { // 310
-                  for (I = J - KUU; I <= J + KLL; I++) { // 300
-                     CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[ISUB-JSUB+KUU+1][JSUB] = CTEMP;
-                  } // 300
-               } // 310
-            }
-
-         }
-
-      } else {
-
-         // Use ZLATM2
-
-         if ( IPACK == 0 ) {
-            if ( ISYM == 0 ) {
-               for (J = 1; J <= N; J++) { // 330
-                  for (I = 1; I <= J; I++) { // 320
-                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[J][I] = DCONJG( A( I, J ) );
-                  } // 320
-               } // 330
-            } else if ( ISYM == 1 ) {
-               for (J = 1; J <= N; J++) { // 350
-                  for (I = 1; I <= M; I++) { // 340
-                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  } // 340
-               } // 350
-            } else if ( ISYM == 2 ) {
-               for (J = 1; J <= N; J++) { // 370
-                  for (I = 1; I <= J; I++) { // 360
-                     A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     A[J][I] = A( I, J );
-                  } // 360
-               } // 370
-            }
-
-         } else if ( IPACK == 1 ) {
-
-            for (J = 1; J <= N; J++) { // 390
-               for (I = 1; I <= J; I++) { // 380
-                  A[I][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = CZERO;
-               } // 380
-            } // 390
-
-         } else if ( IPACK == 2 ) {
-
-            for (J = 1; J <= N; J++) { // 410
-               for (I = 1; I <= J; I++) { // 400
-                  if ( ISYM == 0 ) {
-                     A[J][I] = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) );
-                  } else {
-                     A[J][I] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  }
-                  if (I != J) A( I, J ) = CZERO;
-               } // 400
-            } // 410
-
-         } else if ( IPACK == 3 ) {
-
-            ISUB = 0;
-            JSUB = 1;
-            for (J = 1; J <= N; J++) { // 430
-               for (I = 1; I <= J; I++) { // 420
-                  ISUB = ISUB + 1;
-                  if ( ISUB > LDA ) {
-                     ISUB = 1;
-                     JSUB = JSUB + 1;
-                  }
-                  A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-               } // 420
-            } // 430
-
-         } else if ( IPACK == 4 ) {
-
-            if ( ISYM == 0 || ISYM == 2 ) {
-               for (J = 1; J <= N; J++) { // 450
-                  for (I = 1; I <= J; I++) { // 440
-
-                     // Compute K = location of (I,J) entry in packed array
-
-                     if ( I == 1 ) {
-                        K = J;
-                     } else {
-                        K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1;
-                     }
-
-                     // Convert K to (ISUB,JSUB) location
-
-                     JSUB = ( K-1 ) / LDA + 1;
-                     ISUB = K - LDA*( JSUB-1 );
-
-                     A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     if (ISYM == 0) A( ISUB, JSUB ) = DCONJG( A( ISUB, JSUB ) );
-                  } // 440
-               } // 450
+    } else if (IPACK == 1) {
+      for (J = 1; J <= N; J++) {
+        // 170
+        for (I = 1; I <= J; I++) {
+          // 160
+          CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+          MNSUB = min(ISUB.value, JSUB.value);
+          MXSUB = max(ISUB.value, JSUB.value);
+          if (MXSUB == ISUB.value && ISYM == 0) {
+            A[MNSUB][MXSUB] = CTEMP.conjugate();
+          } else {
+            A[MNSUB][MXSUB] = CTEMP;
+          }
+          if (MNSUB != MXSUB) A[MXSUB][MNSUB] = Complex.zero;
+        } // 160
+      } // 170
+    } else if (IPACK == 2) {
+      for (J = 1; J <= N; J++) {
+        // 190
+        for (I = 1; I <= J; I++) {
+          // 180
+          CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+          MNSUB = min(ISUB.value, JSUB.value);
+          MXSUB = max(ISUB.value, JSUB.value);
+          if (MXSUB == JSUB.value && ISYM == 0) {
+            A[MXSUB][MNSUB] = CTEMP.conjugate();
+          } else {
+            A[MXSUB][MNSUB] = CTEMP;
+          }
+          if (MNSUB != MXSUB) A[MNSUB][MXSUB] = Complex.zero;
+        } // 180
+      } // 190
+    } else if (IPACK == 3) {
+      for (J = 1; J <= N; J++) {
+        // 210
+        for (I = 1; I <= J; I++) {
+          // 200
+          CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+
+          // Compute K = location of (ISUB.value,JSUB.value) entry in packed
+          // array
+
+          MNSUB = min(ISUB.value, JSUB.value);
+          MXSUB = max(ISUB.value, JSUB.value);
+          K = MXSUB * (MXSUB - 1) ~/ 2 + MNSUB;
+
+          // Convert K to (IISUB,JJSUB) location
+
+          JJSUB = (K - 1) ~/ LDA + 1;
+          IISUB = K - LDA * (JJSUB - 1);
+
+          if (MXSUB == ISUB.value && ISYM == 0) {
+            A[IISUB][JJSUB] = CTEMP.conjugate();
+          } else {
+            A[IISUB][JJSUB] = CTEMP;
+          }
+        } // 200
+      } // 210
+    } else if (IPACK == 4) {
+      for (J = 1; J <= N; J++) {
+        // 230
+        for (I = 1; I <= J; I++) {
+          // 220
+          CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+
+          // Compute K = location of (I,J) entry in packed array
+
+          MNSUB = min(ISUB.value, JSUB.value);
+          MXSUB = max(ISUB.value, JSUB.value);
+          if (MNSUB == 1) {
+            K = MXSUB;
+          } else {
+            K = N * (N + 1) ~/ 2 -
+                (N - MNSUB + 1) * (N - MNSUB + 2) ~/ 2 +
+                MXSUB -
+                MNSUB +
+                1;
+          }
+
+          // Convert K to (IISUB,JJSUB) location
+
+          JJSUB = (K - 1) ~/ LDA + 1;
+          IISUB = K - LDA * (JJSUB - 1);
+
+          if (MXSUB == JSUB.value && ISYM == 0) {
+            A[IISUB][JJSUB] = CTEMP.conjugate();
+          } else {
+            A[IISUB][JJSUB] = CTEMP;
+          }
+        } // 220
+      } // 230
+    } else if (IPACK == 5) {
+      for (J = 1; J <= N; J++) {
+        // 250
+        for (I = J - KUU; I <= J; I++) {
+          // 240
+          if (I < 1) {
+            A[J - I + 1][I + N] = Complex.zero;
+          } else {
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            MNSUB = min(ISUB.value, JSUB.value);
+            MXSUB = max(ISUB.value, JSUB.value);
+            if (MXSUB == JSUB.value && ISYM == 0) {
+              A[MXSUB - MNSUB + 1][MNSUB] = CTEMP.conjugate();
             } else {
-               ISUB = 0;
-               JSUB = 1;
-               for (J = 1; J <= N; J++) { // 470
-                  for (I = J; I <= M; I++) { // 460
-                     ISUB = ISUB + 1;
-                     if ( ISUB > LDA ) {
-                        ISUB = 1;
-                        JSUB = JSUB + 1;
-                     }
-                     A[ISUB][JSUB] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  } // 460
-               } // 470
+              A[MXSUB - MNSUB + 1][MNSUB] = CTEMP;
+            }
+          }
+        } // 240
+      } // 250
+    } else if (IPACK == 6) {
+      for (J = 1; J <= N; J++) {
+        // 270
+        for (I = J - KUU; I <= J; I++) {
+          // 260
+          CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+          MNSUB = min(ISUB.value, JSUB.value);
+          MXSUB = max(ISUB.value, JSUB.value);
+          if (MXSUB == ISUB.value && ISYM == 0) {
+            A[MNSUB - MXSUB + KUU + 1][MXSUB] = CTEMP.conjugate();
+          } else {
+            A[MNSUB - MXSUB + KUU + 1][MXSUB] = CTEMP;
+          }
+        } // 260
+      } // 270
+    } else if (IPACK == 7) {
+      if (ISYM != 1) {
+        for (J = 1; J <= N; J++) {
+          // 290
+          for (I = J - KUU; I <= J; I++) {
+            // 280
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            MNSUB = min(ISUB.value, JSUB.value);
+            MXSUB = max(ISUB.value, JSUB.value);
+            if (I < 1) A[J - I + 1 + KUU][I + N] = Complex.zero;
+            if (MXSUB == ISUB.value && ISYM == 0) {
+              A[MNSUB - MXSUB + KUU + 1][MXSUB] = CTEMP.conjugate();
+            } else {
+              A[MNSUB - MXSUB + KUU + 1][MXSUB] = CTEMP;
+            }
+            if (I >= 1 && MNSUB != MXSUB) {
+              if (MNSUB == ISUB.value && ISYM == 0) {
+                A[MXSUB - MNSUB + 1 + KUU][MNSUB] = CTEMP.conjugate();
+              } else {
+                A[MXSUB - MNSUB + 1 + KUU][MNSUB] = CTEMP;
+              }
+            }
+          } // 280
+        } // 290
+      } else if (ISYM == 1) {
+        for (J = 1; J <= N; J++) {
+          // 310
+          for (I = J - KUU; I <= J + KLL; I++) {
+            // 300
+            CTEMP = zlatm3(M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            A[ISUB.value - JSUB.value + KUU + 1][JSUB.value] = CTEMP;
+          } // 300
+        } // 310
+      }
+    }
+  } else {
+    // Use ZLATM2
+
+    if (IPACK == 0) {
+      if (ISYM == 0) {
+        for (J = 1; J <= N; J++) {
+          // 330
+          for (I = 1; I <= J; I++) {
+            // 320
+            A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
+            A[J][I] = A[I][J].conjugate();
+          } // 320
+        } // 330
+      } else if (ISYM == 1) {
+        for (J = 1; J <= N; J++) {
+          // 350
+          for (I = 1; I <= M; I++) {
+            // 340
+            A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
+          } // 340
+        } // 350
+      } else if (ISYM == 2) {
+        for (J = 1; J <= N; J++) {
+          // 370
+          for (I = 1; I <= J; I++) {
+            // 360
+            A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
+            A[J][I] = A[I][J];
+          } // 360
+        } // 370
+      }
+    } else if (IPACK == 1) {
+      for (J = 1; J <= N; J++) {
+        // 390
+        for (I = 1; I <= J; I++) {
+          // 380
+          A[I][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR,
+              IPVTNG, IWORK, SPARSE);
+          if (I != J) A[J][I] = Complex.zero;
+        } // 380
+      } // 390
+    } else if (IPACK == 2) {
+      for (J = 1; J <= N; J++) {
+        // 410
+        for (I = 1; I <= J; I++) {
+          // 400
+          if (ISYM == 0) {
+            A[J][I] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                    DR, IPVTNG, IWORK, SPARSE)
+                .conjugate();
+          } else {
+            A[J][I] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL,
+                DR, IPVTNG, IWORK, SPARSE);
+          }
+          if (I != J) A[I][J] = Complex.zero;
+        } // 400
+      } // 410
+    } else if (IPACK == 3) {
+      ISUB.value = 0;
+      JSUB.value = 1;
+      for (J = 1; J <= N; J++) {
+        // 430
+        for (I = 1; I <= J; I++) {
+          // 420
+          ISUB.value = ISUB.value + 1;
+          if (ISUB.value > LDA) {
+            ISUB.value = 1;
+            JSUB.value = JSUB.value + 1;
+          }
+          A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+              D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+        } // 420
+      } // 430
+    } else if (IPACK == 4) {
+      if (ISYM == 0 || ISYM == 2) {
+        for (J = 1; J <= N; J++) {
+          // 450
+          for (I = 1; I <= J; I++) {
+            // 440
+
+            // Compute K = location of (I,J) entry in packed array
+
+            if (I == 1) {
+              K = J;
+            } else {
+              K = N * (N + 1) ~/ 2 - (N - I + 1) * (N - I + 2) ~/ 2 + J - I + 1;
             }
 
-         } else if ( IPACK == 5 ) {
+            // Convert K to (ISUB.value,JSUB.value) location
 
-            for (J = 1; J <= N; J++) { // 490
-               for (I = J - KUU; I <= J; I++) { // 480
-                  if ( I < 1 ) {
-                     A[J-I+1][I+N] = CZERO;
-                  } else {
-                     if ( ISYM == 0 ) {
-                        A[J-I+1][I] = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) );
-                     } else {
-                        A[J-I+1][I] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     }
-                  }
-               } // 480
-            } // 490
+            JSUB.value = (K - 1) ~/ LDA + 1;
+            ISUB.value = K - LDA * (JSUB.value - 1);
 
-         } else if ( IPACK == 6 ) {
-
-            for (J = 1; J <= N; J++) { // 510
-               for (I = J - KUU; I <= J; I++) { // 500
-                  A[I-J+KUU+1][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-               } // 500
-            } // 510
-
-         } else if ( IPACK == 7 ) {
-
-            if ( ISYM != 1 ) {
-               for (J = 1; J <= N; J++) { // 530
-                  for (I = J - KUU; I <= J; I++) { // 520
-                     A[I-J+KUU+1][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
-                     if ( I >= 1 && I != J ) {
-                        if ( ISYM == 0 ) {
-                           A[J-I+1+KUU][I] = DCONJG( A( I-J+KUU+1, J ) );
-                        } else {
-                           A[J-I+1+KUU][I] = A( I-J+KUU+1, J );
-                        }
-                     }
-                  } // 520
-               } // 530
-            } else if ( ISYM == 1 ) {
-               for (J = 1; J <= N; J++) { // 550
-                  for (I = J - KUU; I <= J + KLL; I++) { // 540
-                     A[I-J+KUU+1][J] = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  } // 540
-               } // 550
+            A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+                D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            if (ISYM == 0) {
+              A[ISUB.value][JSUB.value] = A[ISUB.value][JSUB.value].conjugate();
             }
-
-         }
-
-      }
-
-      // 5)      Scaling the norm
-
-      if ( IPACK == 0 ) {
-         ONORM = ZLANGE( 'M', M, N, A, LDA, TEMPA );
-      } else if ( IPACK == 1 ) {
-         ONORM = ZLANSY( 'M', 'U', N, A, LDA, TEMPA );
-      } else if ( IPACK == 2 ) {
-         ONORM = ZLANSY( 'M', 'L', N, A, LDA, TEMPA );
-      } else if ( IPACK == 3 ) {
-         ONORM = ZLANSP( 'M', 'U', N, A, TEMPA );
-      } else if ( IPACK == 4 ) {
-         ONORM = ZLANSP( 'M', 'L', N, A, TEMPA );
-      } else if ( IPACK == 5 ) {
-         ONORM = ZLANSB( 'M', 'L', N, KLL, A, LDA, TEMPA );
-      } else if ( IPACK == 6 ) {
-         ONORM = ZLANSB( 'M', 'U', N, KUU, A, LDA, TEMPA );
-      } else if ( IPACK == 7 ) {
-         ONORM = ZLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA );
-      }
-
-      if ( ANORM >= ZERO ) {
-
-         if ( ANORM > ZERO && ONORM == ZERO ) {
-
-            // Desired scaling impossible
-
-            INFO = 5;
-            return;
-
-         } else if ( ( ANORM > ONE && ONORM < ONE ) || ( ANORM < ONE && ONORM > ONE ) ) {
-
-            // Scale carefully to avoid over / underflow
-
-            if ( IPACK <= 2 ) {
-               for (J = 1; J <= N; J++) { // 560
-                  zdscal(M, ONE / ONORM, A( 1, J ), 1 );
-                  zdscal(M, ANORM, A( 1, J ), 1 );
-               } // 560
-
-            } else if ( IPACK == 3 || IPACK == 4 ) {
-
-               zdscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
-               zdscal(N*( N+1 ) / 2, ANORM, A, 1 );
-
-            } else if ( IPACK >= 5 ) {
-
-               for (J = 1; J <= N; J++) { // 570
-                  zdscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
-                  zdscal(KLL+KUU+1, ANORM, A( 1, J ), 1 );
-               } // 570
-
+          } // 440
+        } // 450
+      } else {
+        ISUB.value = 0;
+        JSUB.value = 1;
+        for (J = 1; J <= N; J++) {
+          // 470
+          for (I = J; I <= M; I++) {
+            // 460
+            ISUB.value = ISUB.value + 1;
+            if (ISUB.value > LDA) {
+              ISUB.value = 1;
+              JSUB.value = JSUB.value + 1;
             }
-
-         } else {
-
-            // Scale straightforwardly
-
-            if ( IPACK <= 2 ) {
-               for (J = 1; J <= N; J++) { // 580
-                  zdscal(M, ANORM / ONORM, A( 1, J ), 1 );
-               } // 580
-
-            } else if ( IPACK == 3 || IPACK == 4 ) {
-
-               zdscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
-
-            } else if ( IPACK >= 5 ) {
-
-               for (J = 1; J <= N; J++) { // 590
-                  zdscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );
-               } // 590
+            A[ISUB.value][JSUB.value] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED,
+                D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+          } // 460
+        } // 470
+      }
+    } else if (IPACK == 5) {
+      for (J = 1; J <= N; J++) {
+        // 490
+        for (I = J - KUU; I <= J; I++) {
+          // 480
+          if (I < 1) {
+            A[J - I + 1][I + N] = Complex.zero;
+          } else {
+            if (ISYM == 0) {
+              A[J - I + 1][I] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                      IGRADE, DL, DR, IPVTNG, IWORK, SPARSE)
+                  .conjugate();
+            } else {
+              A[J - I + 1][I] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                  IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
             }
-
-         }
-
+          }
+        } // 480
+      } // 490
+    } else if (IPACK == 6) {
+      for (J = 1; J <= N; J++) {
+        // 510
+        for (I = J - KUU; I <= J; I++) {
+          // 500
+          A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+              IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+        } // 500
+      } // 510
+    } else if (IPACK == 7) {
+      if (ISYM != 1) {
+        for (J = 1; J <= N; J++) {
+          // 530
+          for (I = J - KUU; I <= J; I++) {
+            // 520
+            A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+            if (I < 1) A[J - I + 1 + KUU][I + N] = Complex.zero;
+            if (I >= 1 && I != J) {
+              if (ISYM == 0) {
+                A[J - I + 1 + KUU][I] = A[I - J + KUU + 1][J].conjugate();
+              } else {
+                A[J - I + 1 + KUU][I] = A[I - J + KUU + 1][J];
+              }
+            }
+          } // 520
+        } // 530
+      } else if (ISYM == 1) {
+        for (J = 1; J <= N; J++) {
+          // 550
+          for (I = J - KUU; I <= J + KLL; I++) {
+            // 540
+            A[I - J + KUU + 1][J] = zlatm2(M, N, I, J, KL, KU, IDIST, ISEED, D,
+                IGRADE, DL, DR, IPVTNG, IWORK, SPARSE);
+          } // 540
+        } // 550
       }
+    }
+  }
+
+  // 5)      Scaling the norm
+
+  if (IPACK == 0) {
+    ONORM = zlange('M', M, N, A, LDA, TEMPA);
+  } else if (IPACK == 1) {
+    ONORM = zlansy('M', 'U', N, A, LDA, TEMPA);
+  } else if (IPACK == 2) {
+    ONORM = zlansy('M', 'L', N, A, LDA, TEMPA);
+  } else if (IPACK == 3) {
+    ONORM = zlansp('M', 'U', N, A.asArray(), TEMPA);
+  } else if (IPACK == 4) {
+    ONORM = zlansp('M', 'L', N, A.asArray(), TEMPA);
+  } else if (IPACK == 5) {
+    ONORM = zlansb('M', 'L', N, KLL, A, LDA, TEMPA);
+  } else if (IPACK == 6) {
+    ONORM = zlansb('M', 'U', N, KUU, A, LDA, TEMPA);
+  } else if (IPACK == 7) {
+    ONORM = zlangb('M', N, KLL, KUU, A, LDA, TEMPA);
+  }
+
+  if (ANORM >= ZERO) {
+    if (ANORM > ZERO && ONORM == ZERO) {
+      // Desired scaling impossible
+
+      INFO.value = 5;
+      return;
+    } else if ((ANORM > ONE && ONORM < ONE) || (ANORM < ONE && ONORM > ONE)) {
+      // Scale carefully to avoid over / underflow
+
+      if (IPACK <= 2) {
+        for (J = 1; J <= N; J++) {
+          // 560
+          zdscal(M, ONE / ONORM, A(1, J).asArray(), 1);
+          zdscal(M, ANORM, A(1, J).asArray(), 1);
+        } // 560
+      } else if (IPACK == 3 || IPACK == 4) {
+        zdscal(N * (N + 1) ~/ 2, ONE / ONORM, A.asArray(), 1);
+        zdscal(N * (N + 1) ~/ 2, ANORM, A.asArray(), 1);
+      } else if (IPACK >= 5) {
+        for (J = 1; J <= N; J++) {
+          // 570
+          zdscal(KLL + KUU + 1, ONE / ONORM, A(1, J).asArray(), 1);
+          zdscal(KLL + KUU + 1, ANORM, A(1, J).asArray(), 1);
+        } // 570
       }
+    } else {
+      // Scale straightforwardly
+
+      if (IPACK <= 2) {
+        for (J = 1; J <= N; J++) {
+          // 580
+          zdscal(M, ANORM / ONORM, A(1, J).asArray(), 1);
+        } // 580
+      } else if (IPACK == 3 || IPACK == 4) {
+        zdscal(N * (N + 1) ~/ 2, ANORM / ONORM, A.asArray(), 1);
+      } else if (IPACK >= 5) {
+        for (J = 1; J <= N; J++) {
+          // 590
+          zdscal(KLL + KUU + 1, ANORM / ONORM, A(1, J).asArray(), 1);
+        } // 590
+      }
+    }
+  }
+}

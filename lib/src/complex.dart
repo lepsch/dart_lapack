@@ -21,12 +21,32 @@ class Complex {
     return Complex._fromImpl(_impl - other._impl);
   }
 
+  Complex operator -() {
+    return Complex._fromImpl(-_impl);
+  }
+
   Complex operator *(Complex other) {
     return Complex._fromImpl(_impl * other._impl);
   }
 
   Complex operator /(Complex other) {
     return Complex._fromImpl(_impl / other._impl);
+  }
+
+  bool operator <(Complex other) {
+    return abs() < other.abs();
+  }
+
+  bool operator <=(Complex other) {
+    return abs() <= other.abs();
+  }
+
+  bool operator >(Complex other) {
+    return abs() > other.abs();
+  }
+
+  bool operator >=(Complex other) {
+    return abs() >= other.abs();
   }
 
   @override
@@ -41,15 +61,23 @@ class Complex {
 
   Complex conjugate() => Complex._fromImpl(_impl.conjugate());
 
+  Complex sqrt() => Complex._fromImpl(_impl.sqrt());
+
+  Complex pow(num x) => Complex._fromImpl(_impl.pow(x));
+
   double toDouble() => real;
 
+  int toInt() => real.toInt();
+
   double abs() => _impl.abs();
+
+  Complex exp() => Complex._fromImpl(_impl.exp());
 }
 
 extension DoubleComplexExtension on double {
   Complex toComplex() => Complex(this);
 }
 
-extension IntComplexExtension on int {
+extension IntComplexExtension on num {
   Complex toComplex() => Complex(toDouble());
 }

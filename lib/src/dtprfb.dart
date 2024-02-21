@@ -28,11 +28,11 @@ void dtprfb(
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final V = V_.dim();
-  final T = T_.dim();
-  final A = A_.dim();
-  final B = B_.dim();
-  final WORK = WORK_.dim();
+  final V = V_.dim(LDV);
+  final T = T_.dim(LDT);
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim(LDWORK);
   const ONE = 1.0, ZERO = 0.0;
   int I, J, MP, NP, KP;
   bool LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;

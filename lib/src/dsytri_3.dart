@@ -2,80 +2,70 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dsytri_3x.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytri_3(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int E, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
-
+void dsytri_3(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> E_,
+  final Array<int> IPIV_,
+  final Array<double> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      double             A( LDA, * ), E( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final E = E_.dim();
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
+  bool UPPER, LQUERY;
+  int LWKOPT, NB = 0;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               UPPER, LQUERY;
-      int                LWKOPT, NB;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DSYTRI_3X, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1);
 
-      // Test the input parameters.
+  // Determine the block size
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 );
+  if (N == 0) {
+    LWKOPT = 1;
+  } else {
+    NB = max(1, ilaenv(1, 'DSYTRI_3', UPLO, N, -1, -1, -1));
+    LWKOPT = (N + NB + 1) * (NB + 3);
+  }
+  WORK[1] = LWKOPT.toDouble();
 
-      // Determine the block size
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LWORK < LWKOPT && !LQUERY) {
+    INFO.value = -8;
+  }
 
-      if ( N == 0 ) {
-         LWKOPT = 1;
-      } else {
-         NB = max( 1, ilaenv( 1, 'DSYTRI_3', UPLO, N, -1, -1, -1 ) );
-         LWKOPT = ( N+NB+1 ) * ( NB+3 );
-      }
-      WORK[1] = LWKOPT;
+  if (INFO.value != 0) {
+    xerbla('DSYTRI_3', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LWORK < LWKOPT && !LQUERY ) {
-         INFO = -8;
-      }
+  // Quick return if possible
 
-      if ( INFO != 0 ) {
-         xerbla('DSYTRI_3', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  if (N == 0) return;
 
-      // Quick return if possible
+  dsytri_3x(UPLO, N, A, LDA, E, IPIV, WORK.asMatrix(NB), NB, INFO);
 
-      if (N == 0) return;
-
-      dsytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
-
-      WORK[1] = LWKOPT;
-
-      }
+  WORK[1] = LWKOPT.toDouble();
+}

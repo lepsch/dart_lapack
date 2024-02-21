@@ -1,71 +1,60 @@
-      void zdrscl(final int N, final int SA, final int SX, final int INCX,) {
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zdrscl(
+  final int N,
+  final double SA,
+  final Array<Complex> SX_,
+  final int INCX,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INCX, N;
-      double             SA;
-      Complex         SX( * );
-      // ..
+  final SX = SX_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  bool DONE;
+  double BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               DONE;
-      double             BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZDSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) return;
 
-      if (N <= 0) return;
+  // Get machine parameters
 
-      // Get machine parameters
+  SMLNUM = dlamch('S');
+  BIGNUM = ONE / SMLNUM;
 
-      SMLNUM = dlamch( 'S' );
-      BIGNUM = ONE / SMLNUM;
+  // Initialize the denominator to SA and the numerator to 1.
 
-      // Initialize the denominator to SA and the numerator to 1.
+  CDEN = SA;
+  CNUM = ONE;
 
-      CDEN = SA;
-      CNUM = ONE;
+  do {
+    CDEN1 = CDEN * SMLNUM;
+    CNUM1 = CNUM / BIGNUM;
+    if ((CDEN1).abs() > (CNUM).abs() && CNUM != ZERO) {
+      // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 
-      } // 10
-      CDEN1 = CDEN*SMLNUM;
-      CNUM1 = CNUM / BIGNUM;
-      if ( ( CDEN1 ).abs() > ( CNUM ).abs() && CNUM != ZERO ) {
+      MUL = SMLNUM;
+      DONE = false;
+      CDEN = CDEN1;
+    } else if ((CNUM1).abs() > (CDEN).abs()) {
+      // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 
-         // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
+      MUL = BIGNUM;
+      DONE = false;
+      CNUM = CNUM1;
+    } else {
+      // Multiply X by CNUM / CDEN and return.
 
-         MUL = SMLNUM;
-         DONE = false;
-         CDEN = CDEN1;
-      } else if ( ( CNUM1 ).abs() > ( CDEN ).abs() ) {
+      MUL = CNUM / CDEN;
+      DONE = true;
+    }
 
-         // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
+    // Scale the vector X by MUL
 
-         MUL = BIGNUM;
-         DONE = false;
-         CNUM = CNUM1;
-      } else {
-
-         // Multiply X by CNUM / CDEN and return.
-
-         MUL = CNUM / CDEN;
-         DONE = true;
-      }
-
-      // Scale the vector X by MUL
-
-      zdscal(N, MUL, SX, INCX );
-
-      if ( !DONE) GO TO 10;
-
-      }
+    zdscal(N, MUL, SX, INCX);
+  } while (!DONE);
+}

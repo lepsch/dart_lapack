@@ -1,133 +1,121 @@
 import 'dart:math';
 
+import 'package:lapack/src/blas/dtrsm.dart';
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
-import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/dgbtrs.dart';
+import 'package:lapack/src/dlaswp.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrs_aa_2stage(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final int TB, final int LTB, final Array<int> IPIV_, final int IPIV2, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-
+void dsytrs_aa_2stage(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<double> TB_,
+  final int LTB,
+  final Array<int> IPIV_,
+  final Array<int> IPIV2_,
+  final Matrix<double> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
+  final TB = TB_.dim();
+  final IPIV = IPIV_.dim();
+  final IPIV2 = IPIV2_.dim();
+  final B = B_.dim(LDB);
+  const ONE = 1.0;
+  int LDTB, NB;
+  bool UPPER;
 
-      String             UPLO;
-      int                N, NRHS, LDA, LTB, LDB, INFO;
-      int                IPIV( * ), IPIV2( * );
-      double             A( LDA, * ), TB( * ), B( LDB, * );
-      // ..
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LTB < (4 * N)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -11;
+  }
+  if (INFO.value != 0) {
+    xerbla('DSYTRS_AA_2STAGE', -INFO.value);
+    return;
+  }
 
-// =====================================================================
+  // Quick return if possible
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      int                LDTB, NB;
-      bool               UPPER;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGBTRS, DLASWP, DTRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  if (N == 0 || NRHS == 0) return;
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LTB < ( 4*N ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -11;
-      }
-      if ( INFO != 0 ) {
-         xerbla('DSYTRS_AA_2STAGE', -INFO );
-         return;
-      }
+  // Read NB and compute LDTB
 
-      // Quick return if possible
+  NB = TB[1].toInt();
+  LDTB = LTB ~/ N;
 
-      if (N == 0 || NRHS == 0) return;
+  if (UPPER) {
+    // Solve A*X = B, where A = U**T*T*U.
 
-      // Read NB and compute LDTB
+    if (N > NB) {
+      // Pivot, P**T * B -> B
 
-      NB = INT( TB( 1 ) );
-      LDTB = LTB/N;
+      dlaswp(NRHS, B, LDB, NB + 1, N, IPIV, 1);
 
-      if ( UPPER ) {
+      // Compute (U**T \ B) -> B    [ (U**T \P**T * B) ]
 
-         // Solve A*X = B, where A = U**T*T*U.
+      dtrsm('L', 'U', 'T', 'U', N - NB, NRHS, ONE, A(1, NB + 1), LDA,
+          B(NB + 1, 1), LDB);
+    }
 
-         if ( N > NB ) {
+    // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 
-            // Pivot, P**T * B -> B
+    dgbtrs('N', N, NB, NB, NRHS, TB.asMatrix(LDTB), LDTB, IPIV2, B, LDB, INFO);
+    if (N > NB) {
+      // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 
-            dlaswp(NRHS, B, LDB, NB+1, N, IPIV, 1 );
+      dtrsm('L', 'U', 'N', 'U', N - NB, NRHS, ONE, A(1, NB + 1), LDA,
+          B(NB + 1, 1), LDB);
 
-            // Compute (U**T \ B) -> B    [ (U**T \P**T * B) ]
+      // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 
-            dtrsm('L', 'U', 'T', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB);
+      dlaswp(NRHS, B, LDB, NB + 1, N, IPIV, -1);
+    }
+  } else {
+    // Solve A*X = B, where A = L*T*L**T.
 
-         }
+    if (N > NB) {
+      // Pivot, P**T * B -> B
 
-         // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
+      dlaswp(NRHS, B, LDB, NB + 1, N, IPIV, 1);
 
-         dgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
-         if ( N > NB ) {
+      // Compute (L \ B) -> B    [ (L \P**T * B) ]
 
-            // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
+      dtrsm('L', 'L', 'N', 'U', N - NB, NRHS, ONE, A(NB + 1, 1), LDA,
+          B(NB + 1, 1), LDB);
+    }
 
-            dtrsm('L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB);
+    // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
-            // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
+    dgbtrs('N', N, NB, NB, NRHS, TB.asMatrix(LDTB), LDTB, IPIV2, B, LDB, INFO);
+    if (N > NB) {
+      // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 
-            dlaswp(NRHS, B, LDB, NB+1, N, IPIV, -1 );
+      dtrsm('L', 'L', 'T', 'U', N - NB, NRHS, ONE, A(NB + 1, 1), LDA,
+          B(NB + 1, 1), LDB);
 
-         }
+      // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
-      } else {
-
-         // Solve A*X = B, where A = L*T*L**T.
-
-         if ( N > NB ) {
-
-            // Pivot, P**T * B -> B
-
-            dlaswp(NRHS, B, LDB, NB+1, N, IPIV, 1 );
-
-            // Compute (L \ B) -> B    [ (L \P**T * B) ]
-
-            dtrsm('L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB);
-
-         }
-
-         // Compute T \ B -> B   [ T \ (L \P**T * B) ]
-
-         dgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
-         if ( N > NB ) {
-
-            // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
-
-            dtrsm('L', 'L', 'T', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB);
-
-            // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
-
-            dlaswp(NRHS, B, LDB, NB+1, N, IPIV, -1 );
-
-         }
-      }
-
-      }
+      dlaswp(NRHS, B, LDB, NB + 1, N, IPIV, -1);
+    }
+  }
+}

@@ -7,7 +7,7 @@ import 'package:lapack/src/matrix.dart';
 void zgerc(
   final int M,
   final int N,
-  final double ALPHA,
+  final Complex ALPHA,
   final Array<Complex> X_,
   final int INCX,
   final Array<Complex> Y_,
@@ -20,7 +20,7 @@ void zgerc(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.dim();
   final Y = Y_.dim();
-  final A = A_.dim();
+  final A = A_.dim(LDA);
 
   Complex TEMP;
   int I, INFO, IX, J, JY, KX;
@@ -46,7 +46,7 @@ void zgerc(
 
   // Quick return if possible.
 
-  if ((M == 0) || (N == 0) || (ALPHA.toComplex() == Complex.zero)) return;
+  if ((M == 0) || (N == 0) || (ALPHA == Complex.zero)) return;
 
   // Start the operations. In this version the elements of A are
   // accessed sequentially with one pass through A.
@@ -59,7 +59,7 @@ void zgerc(
   if (INCX == 1) {
     for (J = 1; J <= N; J++) {
       if (Y[JY] != Complex.zero) {
-        TEMP = ALPHA.toComplex() * Y[JY].conjugate();
+        TEMP = ALPHA * Y[JY].conjugate();
         for (I = 1; I <= M; I++) {
           A[I][J] = A[I][J] + X[I] * TEMP;
         }
@@ -74,7 +74,7 @@ void zgerc(
     }
     for (J = 1; J <= N; J++) {
       if (Y[JY] != Complex.zero) {
-        TEMP = ALPHA.toComplex() * Y[JY].conjugate();
+        TEMP = ALPHA * Y[JY].conjugate();
         IX = KX;
         for (I = 1; I <= M; I++) {
           A[I][J] = A[I][J] + X[IX] * TEMP;

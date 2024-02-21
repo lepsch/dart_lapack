@@ -1,143 +1,167 @@
-      void zlaghe(final int N, final int K, final int D, final Matrix<double> A_, final int LDA, final Array<int> ISEED_, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final ISEED = ISEED_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/dznrm2.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zgerc.dart';
+import 'package:lapack/src/blas/zhemv.dart';
+import 'package:lapack/src/blas/zher2.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlarnv.dart';
+
+void zlaghe(
+  final int N,
+  final int K,
+  final Array<double> D_,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> ISEED_,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
+  final D = D_.dim();
+  final A = A_.dim(LDA);
+  final ISEED = ISEED_.dim(4);
+  final WORK = WORK_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, K, LDA, N;
-      int                ISEED( 4 );
-      double             D( * );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
+  const HALF = Complex(0.5, 0.0);
+  const ZERO = 0.0;
+  int I, J;
+  double WN;
+  Complex ALPHA, TAU, WA, WB;
 
-      Complex         ZERO, ONE, HALF;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      int                I, J;
-      double             WN;
-      Complex         ALPHA, TAU, WA, WB;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZAXPY, ZGEMV, ZGERC, ZHEMV, ZHER2, ZLARNV, ZSCAL
-      // ..
-      // .. External Functions ..
-      //- double             DZNRM2;
-      //- Complex         ZDOTC;
-      // EXTERNAL DZNRM2, ZDOTC
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, MAX
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  if (N < 0) {
+    INFO.value = -1;
+  } else if (K < 0 || K > N - 1) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  }
+  if (INFO.value < 0) {
+    xerbla('ZLAGHE', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( N < 0 ) {
-         INFO = -1;
-      } else if ( K < 0 || K > N-1 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      }
-      if ( INFO < 0 ) {
-         xerbla('ZLAGHE', -INFO );
-         return;
-      }
+  // initialize lower triangle of A to diagonal matrix
 
-      // initialize lower triangle of A to diagonal matrix
+  for (J = 1; J <= N; J++) {
+    // 20
+    for (I = J + 1; I <= N; I++) {
+      // 10
+      A[I][J] = Complex.zero;
+    } // 10
+  } // 20
+  for (I = 1; I <= N; I++) {
+    // 30
+    A[I][I] = D[I].toComplex();
+  } // 30
 
-      for (J = 1; J <= N; J++) { // 20
-         for (I = J + 1; I <= N; I++) { // 10
-            A[I][J] = ZERO;
-         } // 10
-      } // 20
-      for (I = 1; I <= N; I++) { // 30
-         A[I][I] = D( I );
-      } // 30
+  // Generate lower triangle of hermitian matrix
 
-      // Generate lower triangle of hermitian matrix
+  for (I = N - 1; I >= 1; I--) {
+    // 40
 
-      for (I = N - 1; I >= 1; I--) { // 40
+    // generate random reflection
 
-         // generate random reflection
+    zlarnv(3, ISEED, N - I + 1, WORK);
+    WN = dznrm2(N - I + 1, WORK, 1);
+    WA = (WN / (WORK[1]).abs()).toComplex() * WORK[1];
+    if (WN == ZERO) {
+      TAU = Complex.zero;
+    } else {
+      WB = WORK[1] + WA;
+      zscal(N - I, Complex.one / WB, WORK(2), 1);
+      WORK[1] = Complex.one;
+      TAU = (WB / WA).toDouble().toComplex();
+    }
 
-         zlarnv(3, ISEED, N-I+1, WORK );
-         WN = DZNRM2( N-I+1, WORK, 1 );
-         WA = ( WN / ( WORK( 1 ) ).abs() )*WORK( 1 );
-         if ( WN == ZERO ) {
-            TAU = ZERO;
-         } else {
-            WB = WORK( 1 ) + WA;
-            zscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK[1] = ONE;
-            TAU = (WB / WA).toDouble();
-         }
+    // apply random reflection to A(i:n,i:n) from the left
+    // and the right
 
-         // apply random reflection to A(i:n,i:n) from the left
-         // and the right
+    // compute  y := tau * A * u
 
-         // compute  y := tau * A * u
+    zhemv('Lower', N - I + 1, TAU, A(I, I), LDA, WORK, 1, Complex.zero,
+        WORK(N + 1), 1);
 
-         zhemv('Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
+    // compute  v := y - 1/2 * tau * ( y, u ) * u
 
-         // compute  v := y - 1/2 * tau * ( y, u ) * u
+    ALPHA = -HALF * TAU * zdotc(N - I + 1, WORK(N + 1), 1, WORK, 1);
+    zaxpy(N - I + 1, ALPHA, WORK, 1, WORK(N + 1), 1);
 
-         ALPHA = -HALF*TAU*ZDOTC( N-I+1, WORK( N+1 ), 1, WORK, 1 );
-         zaxpy(N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 );
+    // apply the transformation as a rank-2 update to A(i:n,i:n)
 
-         // apply the transformation as a rank-2 update to A(i:n,i:n)
+    zher2('Lower', N - I + 1, -Complex.one, WORK, 1, WORK(N + 1), 1, A(I, I),
+        LDA);
+  } // 40
 
-         zher2('Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA );
-      } // 40
+  // Reduce number of subdiagonals to K
 
-      // Reduce number of subdiagonals to K
+  for (I = 1; I <= N - 1 - K; I++) {
+    // 60
 
-      for (I = 1; I <= N - 1 - K; I++) { // 60
+    // generate reflection to annihilate A(k+i+1:n,i)
 
-         // generate reflection to annihilate A(k+i+1:n,i)
+    WN = dznrm2(N - K - I + 1, A(K + I, I).asArray(), 1);
+    WA = (WN / (A[K + I][I]).abs()).toComplex() * A[K + I][I];
+    if (WN == ZERO) {
+      TAU = Complex.zero;
+    } else {
+      WB = A[K + I][I] + WA;
+      zscal(N - K - I, Complex.one / WB, A(K + I + 1, I).asArray(), 1);
+      A[K + I][I] = Complex.one;
+      TAU = (WB / WA).toDouble().toComplex();
+    }
 
-         WN = DZNRM2( N-K-I+1, A( K+I, I ), 1 );
-         WA = ( WN / ( A( K+I, I ) ).abs() )*A( K+I, I );
-         if ( WN == ZERO ) {
-            TAU = ZERO;
-         } else {
-            WB = A( K+I, I ) + WA;
-            zscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
-            A[K+I][I] = ONE;
-            TAU = (WB / WA).toDouble();
-         }
+    // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 
-         // apply reflection to A(k+i:n,i+1:k+i-1) from the left
+    zgemv('Conjugate transpose', N - K - I + 1, K - 1, Complex.one,
+        A(K + I, I + 1), LDA, A(K + I, I).asArray(), 1, Complex.zero, WORK, 1);
+    zgerc(N - K - I + 1, K - 1, -TAU.toDouble(), A(K + I, I).asArray(), 1, WORK,
+        1, A(K + I, I + 1), LDA);
 
-         zgemv('Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
-         zgerc(N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
+    // apply reflection to A(k+i:n,k+i:n) from the left and the right
 
-         // apply reflection to A(k+i:n,k+i:n) from the left and the right
+    // compute  y := tau * A * u
 
-         // compute  y := tau * A * u
+    zhemv('Lower', N - K - I + 1, TAU, A(K + I, K + I), LDA,
+        A(K + I, I).asArray(), 1, Complex.zero, WORK, 1);
 
-         zhemv('Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
+    // compute  v := y - 1/2 * tau * ( y, u ) * u
 
-         // compute  v := y - 1/2 * tau * ( y, u ) * u
+    ALPHA =
+        -HALF * TAU * zdotc(N - K - I + 1, WORK, 1, A(K + I, I).asArray(), 1);
+    zaxpy(N - K - I + 1, ALPHA, A(K + I, I).asArray(), 1, WORK, 1);
 
-         ALPHA = -HALF*TAU*ZDOTC( N-K-I+1, WORK, 1, A( K+I, I ), 1 );
-         zaxpy(N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 );
+    // apply hermitian rank-2 update to A(k+i:n,k+i:n)
 
-         // apply hermitian rank-2 update to A(k+i:n,k+i:n)
+    zher2('Lower', N - K - I + 1, -Complex.one, A(K + I, I).asArray(), 1, WORK,
+        1, A(K + I, K + I), LDA);
 
-         zher2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
+    A[K + I][I] = -WA;
+    for (J = K + I + 1; J <= N; J++) {
+      // 50
+      A[J][I] = Complex.zero;
+    } // 50
+  } // 60
 
-         A[K+I][I] = -WA;
-         for (J = K + I + 1; J <= N; J++) { // 50
-            A[J][I] = ZERO;
-         } // 50
-      } // 60
+  // Store full hermitian matrix
 
-      // Store full hermitian matrix
-
-      for (J = 1; J <= N; J++) { // 80
-         for (I = J + 1; I <= N; I++) { // 70
-            A[J][I] = DCONJG( A( I, J ) );
-         } // 70
-      } // 80
-      }
+  for (J = 1; J <= N; J++) {
+    // 80
+    for (I = J + 1; I <= N; I++) {
+      // 70
+      A[J][I] = A[I][J].abs().toComplex();
+    } // 70
+  } // 80
+}

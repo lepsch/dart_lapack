@@ -112,4 +112,3 @@
 !>
 !> \endverbatim
 !
-subroutine ZLARTG( f, g, c, s, r )

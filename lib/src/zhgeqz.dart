@@ -1,55 +1,50 @@
-      void zhgeqz(final int JOB, final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> H_, final int LDH, final Matrix<double> T_, final int LDT, final int ALPHA, final int BETA, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Box<int> INFO,) {
-  final H = H_.dim();
-  final T = T_.dim();
-  final Q = Q_.dim();
-  final Z = Z_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zladiv.dart';
+import 'package:lapack/src/zlanhs.dart';
+import 'package:lapack/src/zlartg.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zrot.dart';
+
+void zhgeqz(final String JOB, final String COMPQ, final String COMPZ, final int N, final int ILO, final int IHI,
+      final Matrix<Complex> H_, final int LDH, final Matrix<Complex> T_, final int LDT, final Array<Complex> ALPHA_, final Array<Complex> BETA_,
+      final Matrix<Complex> Q_, final int LDQ, final Matrix<Complex> Z_, final int LDZ, final Array<Complex> WORK_, final int LWORK,
+      final Array<double> RWORK_, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             COMPQ, COMPZ, JOB;
-      int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
-      double             RWORK( * );
-      Complex         ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * );
-      // ..
-
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      double             ZERO, ONE;
+  final H = H_.dim(LDH);
+  final T = T_.dim(LDT);
+final ALPHA=ALPHA_.dim();
+final BETA=BETA_.dim();
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
       const              ZERO = 0.0, ONE = 1.0 ;
-      double             HALF;
       const              HALF = 0.5 ;
       bool               ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;
-      int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT;
-      double             ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP;
-      Complex         ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y;
-      // ..
-      // .. External Functions ..
-      //- Complex         ZLADIV;
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANHS;
-      // EXTERNAL ZLADIV, lsame, DLAMCH, ZLANHS
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLARTG, ZLASET, ZROT, ZSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN, SQRT
-      // ..
-      // .. Statement Functions ..
-      double             ABS1;
-      // ..
-      // .. Statement Function definitions ..
-      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
+      int                ICOMPQ, ICOMPZ, IFIRST=0, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT;
+      double             ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, SAFMIN, TEMP, TEMP2, TEMPR, ULP;
+      Complex         ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, ESHIFT, SHIFT, SIGNBC, U12, X, ABI12, Y;
+      final C=Box(0.0);
+      final S=Box(Complex.zero), CTEMP3=Box(Complex.zero);
+
+      double ABS1(Complex X) =>  X.toDouble() .abs() + X.imaginary  .abs();
 
       // Decode JOB, COMPQ, COMPZ
 
       if ( lsame( JOB, 'E' ) ) {
          ILSCHR = false;
          ISCHUR = 1;
-      } else if ( lsame( JOB, 'S' ) ) {
+      } else if ( lsame( JOB, 'S.value' ) ) {
          ILSCHR = true;
          ISCHUR = 2;
       } else {
@@ -87,34 +82,34 @@
 
       // Check Argument Values
 
-      INFO = 0;
-      WORK[1] = max( 1, N );
+      INFO.value = 0;
+      WORK[1] = max( 1, N ).toComplex();
       LQUERY = ( LWORK == -1 );
       if ( ISCHUR == 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( ICOMPQ == 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( ICOMPZ == 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( ILO < 1 ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( IHI > N || IHI < ILO-1 ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDH < N ) {
-         INFO = -8;
+         INFO.value = -8;
       } else if ( LDT < N ) {
-         INFO = -10;
+         INFO.value = -10;
       } else if ( LDQ < 1 || ( ILQ && LDQ < N ) ) {
-         INFO = -14;
+         INFO.value = -14;
       } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
-         INFO = -16;
+         INFO.value = -16;
       } else if ( LWORK < max( 1, N ) && !LQUERY ) {
-         INFO = -18;
+         INFO.value = -18;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZHGEQZ', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZHGEQZ', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -124,22 +119,22 @@
 
       // WORK( 1 ) = CMPLX( 1 )
       if ( N <= 0 ) {
-         WORK[1] = DCMPLX( 1 );
+         WORK[1] = Complex.one;
          return;
       }
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) zlaset( 'Full', N, N, CZERO, CONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) zlaset( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPQ == 3) zlaset( 'Full', N, N, Complex.zero, Complex.one, Q, LDQ );
+      if( ICOMPZ == 3 ) zlaset( 'Full', N, N, Complex.zero, Complex.one, Z, LDZ );
 
       // Machine Constants
 
       IN = IHI + 1 - ILO;
-      SAFMIN = dlamch( 'S' );
+      SAFMIN = dlamch( 'S.value' );
       ULP = dlamch( 'E' )*dlamch( 'B' );
-      ANORM = ZLANHS( 'F', IN, H( ILO, ILO ), LDH, RWORK );
-      BNORM = ZLANHS( 'F', IN, T( ILO, ILO ), LDT, RWORK );
+      ANORM = zlanhs( 'F', IN, H( ILO, ILO ), LDH, RWORK );
+      BNORM = zlanhs( 'F', IN, T( ILO, ILO ), LDT, RWORK );
       ATOL = max( SAFMIN, ULP*ANORM );
       BTOL = max( SAFMIN, ULP*BNORM );
       ASCALE = ONE / max( SAFMIN, ANORM );
@@ -149,22 +144,22 @@
       // Set Eigenvalues IHI+1:N
 
       for (J = IHI + 1; J <= N; J++) { // 10
-         ABSB = ( T( J, J ) ).abs();
+         ABSB = T[J][J].abs();
          if ( ABSB > SAFMIN ) {
-            SIGNBC = DCONJG( T( J, J ) / ABSB );
-            T[J][J] = ABSB;
+            SIGNBC = ( T[J][J] / ABSB.toComplex() ).conjugate();
+            T[J][J] = ABSB.toComplex();
             if ( ILSCHR ) {
-               zscal(J-1, SIGNBC, T( 1, J ), 1 );
-               zscal(J, SIGNBC, H( 1, J ), 1 );
+               zscal(J-1, SIGNBC, T( 1, J ).asArray(), 1 );
+               zscal(J, SIGNBC, H( 1, J ).asArray(), 1 );
             } else {
-               zscal(1, SIGNBC, H( J, J ), 1 );
+               zscal(1, SIGNBC, H( J, J ).asArray(), 1 );
             }
-            if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, J ).asArray(), 1 );
          } else {
-            T[J][J] = CZERO;
+            T[J][J] = Complex.zero;
          }
-         ALPHA[J] = H( J, J );
-         BETA[J] = T( J, J );
+         ALPHA[J] = H[J][J];
+         BETA[J] = T[J][J];
       } // 10
 
       // If IHI < ILO, skip QZ steps
@@ -195,7 +190,7 @@
          ILASTM = IHI;
       }
       IITER = 0;
-      ESHIFT = CZERO;
+      ESHIFT = Complex.zero;
       MAXIT = 30*( IHI-ILO+1 );
 
       for (JITER = 1; JITER <= MAXIT; JITER++) { // 170
@@ -215,14 +210,14 @@
          if ( ILAST == ILO ) {
             GO TO 60;
          } else {
-            if ( ABS1( H( ILAST, ILAST-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
-               H[ILAST][ILAST-1] = CZERO;
+            if ( ABS1( H[ ILAST][ILAST-1 ] ) <= max( SAFMIN, ULP*(  ABS1( H[ ILAST][ILAST ] ) + ABS1( H[ ILAST-1][ILAST-1 ] ) ) ) ) {
+               H[ILAST][ILAST-1] = Complex.zero;
                GO TO 60;
             }
          }
 
-         if ( ( T( ILAST, ILAST ) ).abs() <= BTOL ) {
-            T[ILAST][ILAST] = CZERO;
+         if ( ( T[ ILAST][ILAST ] ).abs() <= BTOL ) {
+            T[ILAST][ILAST] = Complex.zero;
             GO TO 50;
          }
 
@@ -235,8 +230,8 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS1( H( J, J-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
-                  H[J][J-1] = CZERO;
+               if ( ABS1( H[ J][J-1 ] ) <= max( SAFMIN, ULP*(  ABS1( H[J][J] ) + ABS1( H[ J-1][J-1 ] ) ) ) ) {
+                  H[J][J-1] = Complex.zero;
                   ILAZRO = true;
                } else {
                   ILAZRO = false;
@@ -245,14 +240,14 @@
 
             // Test 2: for T(j,j)=0
 
-            if ( ( T( J, J ) ).abs() < BTOL ) {
-               T[J][J] = CZERO;
+            if ( ( T[J][J] ).abs() < BTOL ) {
+               T[J][J] = Complex.zero;
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
                ILAZR2 = false;
                if ( !ILAZRO ) {
-                  if( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ) <= ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
+                  if( ABS1( H[ J][J-1 ] )*( ASCALE*ABS1( H[ J+1][J ] ) ) <= ABS1( H[J][J] )*( ASCALE*ATOL ) ) ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -263,14 +258,15 @@
 
                if ( ILAZRO || ILAZR2 ) {
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 20
-                     CTEMP = H( JCH, JCH );
-                     zlartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
-                     H[JCH+1][JCH] = CZERO;
-                     zrot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
-                     zrot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
-                     if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
+                     CTEMP = H[ JCH][JCH ];
+                     zlartg(CTEMP, H[ JCH+1][JCH ], C, S, H.box( JCH, JCH ) );
+                     H[JCH+1][JCH] = Complex.zero;
+                     zrot(ILASTM-JCH, H( JCH, JCH+1 ).asArray(), LDH, H( JCH+1, JCH+1 ).asArray(), LDH, C.value, S.value );
+                     zrot(ILASTM-JCH, T( JCH, JCH+1 ).asArray(), LDT, T( JCH+1, JCH+1 ).asArray(), LDT, C.value, S.value )                      ;
+                     if( ILQ )  zrot( N, Q( 1, JCH ).asArray(), 1, Q( 1, JCH+1 ).asArray(), 1, C.value, S.value.conjugate()  );
+                     if (ILAZR2) H[ JCH][JCH-1 ] = H[ JCH][JCH-1 ]*C.value.toComplex();
                      ILAZR2 = false;
-                     if ( ABS1( T( JCH+1, JCH+1 ) ) >= BTOL ) {
+                     if ( ABS1( T[ JCH+1][JCH+1 ] ) >= BTOL ) {
                         if ( JCH+1 >= ILAST ) {
                            GO TO 60;
                         } else {
@@ -278,7 +274,7 @@
                            GO TO 70;
                         }
                      }
-                     T[JCH+1][JCH+1] = CZERO;
+                     T[JCH+1][JCH+1] = Complex.zero;
                   } // 20
                   GO TO 50;
                } else {
@@ -287,16 +283,18 @@
                   // Then process as in the case T(ILAST,ILAST)=0
 
                   for (JCH = J; JCH <= ILAST - 1; JCH++) { // 30
-                     CTEMP = T( JCH, JCH+1 );
-                     zlartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
-                     T[JCH+1][JCH+1] = CZERO;
-                     if (JCH < ILASTM-1) zrot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
-                     zrot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
-                     CTEMP = H( JCH+1, JCH );
-                     zlartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
-                     H[JCH+1][JCH-1] = CZERO;
-                     zrot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S );
-                     zrot(JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL ZROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
+                     CTEMP = T[ JCH][JCH+1 ];
+                     zlartg(CTEMP, T[ JCH+1][JCH+1 ], C, S, T.box( JCH, JCH+1 ) );
+                     T[JCH+1][JCH+1] = Complex.zero;
+                     if (JCH < ILASTM-1) zrot( ILASTM-JCH-1, T( JCH, JCH+2 ).asArray(), LDT, T( JCH+1, JCH+2 ).asArray(), LDT, C.value, S.value );
+                     zrot(ILASTM-JCH+2, H( JCH, JCH-1 ).asArray(), LDH, H( JCH+1, JCH-1 ).asArray(), LDH, C.value, S.value )                      ;
+                     if( ILQ ) zrot( N, Q( 1, JCH ).asArray(), 1, Q( 1, JCH+1 ).asArray(), 1, C.value, S.value.conjugate() );
+                     CTEMP = H[ JCH+1][JCH ];
+                     zlartg(CTEMP, H[ JCH+1][JCH-1 ], C, S, H.box( JCH+1, JCH ) );
+                     H[JCH+1][JCH-1] = Complex.zero;
+                     zrot(JCH+1-IFRSTM, H( IFRSTM, JCH ).asArray(), 1, H( IFRSTM, JCH-1 ).asArray(), 1, C.value, S.value );
+                     zrot(JCH-IFRSTM, T( IFRSTM, JCH ).asArray(), 1, T( IFRSTM, JCH-1 ).asArray(), 1, C.value, S.value )                      ;
+                     if( ILZ ) zrot( N, Z( 1, JCH ).asArray(), 1, Z( 1, JCH-1 ).asArray(), 1, C.value, S.value );
                   } // 30
                   GO TO 50;
                }
@@ -314,38 +312,39 @@
 
          // (Drop-through is "impossible")
 
-         INFO = 2*N + 1;
+         INFO.value = 2*N + 1;
          GO TO 210;
 
          // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
          // 1x1 block.
 
-         } // 50
-         CTEMP = H( ILAST, ILAST );
-         zlartg(CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
-         H[ILAST][ILAST-1] = CZERO;
-         zrot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S );
-         zrot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL ZROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
+        //  } // 50
+         CTEMP = H[ ILAST][ILAST ];
+         zlartg(CTEMP, H[ ILAST][ILAST-1 ], C, S, H.box( ILAST, ILAST ) );
+         H[ILAST][ILAST-1] = Complex.zero;
+         zrot(ILAST-IFRSTM, H( IFRSTM, ILAST ).asArray(), 1, H( IFRSTM, ILAST-1 ).asArray(), 1, C.value, S.value );
+         zrot(ILAST-IFRSTM, T( IFRSTM, ILAST ).asArray(), 1, T( IFRSTM, ILAST-1 ).asArray(), 1, C.value, S.value )          ;
+         if( ILZ ) zrot( N, Z( 1, ILAST ).asArray(), 1, Z( 1, ILAST-1 ).asArray(), 1, C.value, S.value );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 
-         } // 60
-         ABSB = ( T( ILAST, ILAST ) ).abs();
+        //  } // 60
+         ABSB =  T[ILAST][ILAST] .abs();
          if ( ABSB > SAFMIN ) {
-            SIGNBC = DCONJG( T( ILAST, ILAST ) / ABSB );
-            T[ILAST][ILAST] = ABSB;
+            SIGNBC = ( T[ILAST][ILAST] / ABSB.toComplex() ).conjugate();
+            T[ILAST][ILAST] = ABSB.toComplex();
             if ( ILSCHR ) {
-               zscal(ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 );
-               zscal(ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 );
+               zscal(ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ).asArray(), 1 );
+               zscal(ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ).asArray(), 1 );
             } else {
-               zscal(1, SIGNBC, H( ILAST, ILAST ), 1 );
+               zscal(1, SIGNBC, H( ILAST, ILAST ).asArray(), 1 );
             }
-            if (ILZ) zscal( N, SIGNBC, Z( 1, ILAST ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, ILAST ).asArray(), 1 );
          } else {
-            T[ILAST][ILAST] = CZERO;
+            T[ILAST][ILAST] = Complex.zero;
          }
-         ALPHA[ILAST] = H( ILAST, ILAST );
-         BETA[ILAST] = T( ILAST, ILAST );
+         ALPHA[ILAST] = H[ ILAST][ILAST ];
+         BETA[ILAST] = T[ ILAST][ILAST ];
 
          // Go to next block -- exit if finished.
 
@@ -355,7 +354,7 @@
          // Reset counters
 
          IITER = 0;
-         ESHIFT = CZERO;
+         ESHIFT = Complex.zero;
          if ( !ILSCHR ) {
             ILASTM = ILAST;
             if (IFRSTM > ILAST) IFRSTM = ILO;
@@ -367,7 +366,7 @@
          // This iteration only involves rows/columns IFIRST:ILAST.  We
          // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 
-         } // 70
+        //  } // 70
          IITER = IITER + 1;
          if ( !ILSCHR ) {
             IFRSTM = IFIRST;
@@ -388,31 +387,35 @@
             // We factor B as U*D, where U has unit diagonals, and
             // compute (A*inv(D))*inv(U).
 
-            U12 = ( BSCALE*T( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) );
+            U12 = ( BSCALE.toComplex()*T[ILAST-1][ILAST] ) / ( BSCALE.toComplex()*T[ILAST][ILAST] )             ;
+            AD11 = ( ASCALE.toComplex()*H[ILAST-1][ILAST-1 ] ) / ( BSCALE.toComplex()*T[ILAST-1][ILAST-1 ] )             ;
+            AD21 = ( ASCALE.toComplex()*H[ILAST][ILAST-1] ) / ( BSCALE.toComplex()*T[ILAST-1][ILAST-1 ] )             ;
+            AD12 = ( ASCALE.toComplex()*H[ILAST-1][ILAST] ) / ( BSCALE.toComplex()*T[ILAST][ILAST] )             ;
+            AD22 = ( ASCALE.toComplex()*H[ILAST][ILAST] ) / ( BSCALE.toComplex()*T[ILAST][ILAST] );
             ABI22 = AD22 - U12*AD21;
             ABI12 = AD12 - U12*AD11;
 
             SHIFT = ABI22;
-            CTEMP = sqrt( ABI12 )*sqrt( AD21 );
+            CTEMP =  ABI12.sqrt() *AD21.sqrt();
             TEMP = ABS1( CTEMP );
-            if ( CTEMP != ZERO ) {
-               X = HALF*( AD11-SHIFT );
+            if ( CTEMP != Complex.zero ) {
+               X = HALF.toComplex()*( AD11-SHIFT );
                TEMP2 = ABS1( X );
                TEMP = max( TEMP, ABS1( X ) );
-               Y = TEMP*sqrt( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
+               Y = TEMP.toComplex()* ( ( X / TEMP.toComplex()).pow(2)+( CTEMP / TEMP.toComplex()).pow(2) ).sqrt();
                if ( TEMP2 > ZERO ) {
-                  if( (X / TEMP2).toDouble()*Y.toDouble()+ DIMAG( X / TEMP2 )*DIMAG( Y ) < ZERO )Y = -Y;
+                  if( (X / TEMP2.toComplex()).toDouble()*Y.toDouble()+ ( X / TEMP2.toComplex() ).imaginary* Y.imaginary  < ZERO )Y = -Y;
                }
-               SHIFT = SHIFT - CTEMP*ZLADIV( CTEMP, ( X+Y ) );
+               SHIFT = SHIFT - CTEMP*zladiv( CTEMP, ( X+Y ) );
             }
          } else {
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )) > SAFMIN ) {
-               ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) );
+            if( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T[ ILAST][ILAST ]) > SAFMIN ) {
+               ESHIFT = ESHIFT + ( ASCALE.toComplex()*H[ ILAST][ILAST ] )/( BSCALE.toComplex()*T[ ILAST][ILAST ] );
             } else {
-               ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) );
+               ESHIFT = ESHIFT + ( ASCALE.toComplex()*H[ ILAST][ILAST-1 ] )/( BSCALE.toComplex()*T[ ILAST-1][ILAST-1 ] );
             }
             SHIFT = ESHIFT;
          }
@@ -421,117 +424,117 @@
 
          for (J = ILAST - 1; J >= IFIRST + 1; J--) { // 80
             ISTART = J;
-            CTEMP = ASCALE*H( J, J ) - SHIFT*( BSCALE*T( J, J ) );
+            CTEMP = ASCALE.toComplex()*H[J][J] - SHIFT*( BSCALE.toComplex()*T[J][J] );
             TEMP = ABS1( CTEMP );
-            TEMP2 = ASCALE*ABS1( H( J+1, J ) );
+            TEMP2 = ASCALE*ABS1( H[ J+1][J ] );
             TEMPR = max( TEMP, TEMP2 );
             if ( TEMPR < ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR;
                TEMP2 = TEMP2 / TEMPR;
             }
-            if( ABS1( H( J, J-1 ) )*TEMP2 <= TEMP*ATOL ) GO TO 90;
+            if( ABS1( H[ J][J-1 ] )*TEMP2 <= TEMP*ATOL ) GO TO 90;
          } // 80
 
          ISTART = IFIRST;
-         CTEMP = ASCALE*H( IFIRST, IFIRST ) - SHIFT*( BSCALE*T( IFIRST, IFIRST ) );
-         } // 90
+         CTEMP = ASCALE.toComplex()*H[ IFIRST][IFIRST ] - SHIFT*( BSCALE.toComplex()*T[ IFIRST][IFIRST ] );
+        //  } // 90
 
          // Do an implicit-shift QZ sweep.
 
          // Initial Q
 
-         CTEMP2 = ASCALE*H( ISTART+1, ISTART );
+         CTEMP2 = ASCALE.toComplex()*H[ ISTART+1][ISTART ];
          zlartg(CTEMP, CTEMP2, C, S, CTEMP3 );
 
          // Sweep
 
          for (J = ISTART; J <= ILAST - 1; J++) { // 150
             if ( J > ISTART ) {
-               CTEMP = H( J, J-1 );
-               zlartg(CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
-               H[J+1][J-1] = CZERO;
+               CTEMP = H[ J][J-1 ];
+               zlartg(CTEMP, H[ J+1][J-1 ], C, S, H.box( J, J-1 ) );
+               H[J+1][J-1] = Complex.zero;
             }
 
             for (JC = J; JC <= ILASTM; JC++) { // 100
-               CTEMP = C*H( J, JC ) + S*H( J+1, JC );
-               H[J+1][JC] = -DCONJG( S )*H( J, JC ) + C*H( J+1, JC );
+               CTEMP = C.value.toComplex()*H[ J][JC ] + S.value*H[J+1][JC ];
+               H[J+1][JC] = -S.value.conjugate()*H[ J][JC ] + C.value.toComplex()*H[J+1][JC ];
                H[J][JC] = CTEMP;
-               CTEMP2 = C*T( J, JC ) + S*T( J+1, JC );
-               T[J+1][JC] = -DCONJG( S )*T( J, JC ) + C*T( J+1, JC );
+               CTEMP2 = C.value.toComplex()*T[ J][JC ] + S.value*T[J+1][JC ];
+               T[J+1][JC] = -S.value.conjugate()*T[ J][JC ] + C.value.toComplex()*T[J+1][JC ];
                T[J][JC] = CTEMP2;
             } // 100
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 110
-                  CTEMP = C*Q( JR, J ) + DCONJG( S )*Q( JR, J+1 );
-                  Q[JR][J+1] = -S*Q( JR, J ) + C*Q( JR, J+1 );
+                  CTEMP = C.value.toComplex()*Q[JR][J ] + S.value.conjugate()*Q[JR][J+1];
+                  Q[JR][J+1] = -S.value*Q[JR][J ] + C.value.toComplex()*Q[JR][J+1];
                   Q[JR][J] = CTEMP;
                } // 110
             }
 
-            CTEMP = T( J+1, J+1 );
-            zlartg(CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
-            T[J+1][J] = CZERO;
+            CTEMP = T[ J+1][J+1 ];
+            zlartg(CTEMP, T[ J+1][J ], C, S, T.box( J+1, J+1 ) );
+            T[J+1][J] = Complex.zero;
 
             for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 120
-               CTEMP = C*H( JR, J+1 ) + S*H( JR, J );
-               H[JR][J] = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J );
+               CTEMP = C.value.toComplex()*H[JR][J+1 ] + S.value*H[ JR][J ];
+               H[JR][J] = -S.value.conjugate()*H[JR][J+1 ] + C.value.toComplex()*H[ JR][J ];
                H[JR][J+1] = CTEMP;
             } // 120
             for (JR = IFRSTM; JR <= J; JR++) { // 130
-               CTEMP = C*T( JR, J+1 ) + S*T( JR, J );
-               T[JR][J] = -DCONJG( S )*T( JR, J+1 ) + C*T( JR, J );
+               CTEMP = C.value.toComplex()*T[JR][J+1 ] + S.value*T[ JR][J ];
+               T[JR][J] = -S.value.conjugate()*T[JR][J+1 ] + C.value.toComplex()*T[ JR][J ];
                T[JR][J+1] = CTEMP;
             } // 130
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 140
-                  CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J );
-                  Z[JR][J] = -DCONJG( S )*Z( JR, J+1 ) + C*Z( JR, J );
+                  CTEMP = C.value.toComplex()*Z[JR][J+1 ] + S.value*Z[ JR][J ];
+                  Z[JR][J] = -S.value.conjugate()*Z[JR][J+1 ] + C.value.toComplex()*Z[ JR][J ];
                   Z[JR][J+1] = CTEMP;
                } // 140
             }
          } // 150
 
-         } // 160
+        //  } // 160
 
       } // 170
 
       // Drop-through = non-convergence
 
-      } // 180
-      INFO = ILAST;
+      // } // 180
+      INFO.value = ILAST;
       GO TO 210;
 
       // Successful completion of all QZ steps
 
-      } // 190
+      // } // 190
 
       // Set Eigenvalues 1:ILO-1
 
       for (J = 1; J <= ILO - 1; J++) { // 200
-         ABSB = ( T( J, J ) ).abs();
+         ABSB = ( T[J][J] ).abs();
          if ( ABSB > SAFMIN ) {
-            SIGNBC = DCONJG( T( J, J ) / ABSB );
-            T[J][J] = ABSB;
+            SIGNBC =  T[J][J].conjugate() / ABSB.toComplex() ;
+            T[J][J] = ABSB.toComplex();
             if ( ILSCHR ) {
-               zscal(J-1, SIGNBC, T( 1, J ), 1 );
-               zscal(J, SIGNBC, H( 1, J ), 1 );
+               zscal(J-1, SIGNBC, T( 1, J ).asArray(), 1 );
+               zscal(J, SIGNBC, H( 1, J ).asArray(), 1 );
             } else {
-               zscal(1, SIGNBC, H( J, J ), 1 );
+               zscal(1, SIGNBC, H(J,J).asArray(), 1 );
             }
-            if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, J ).asArray(), 1 );
          } else {
-            T[J][J] = CZERO;
+            T[J][J] = Complex.zero;
          }
-         ALPHA[J] = H( J, J );
-         BETA[J] = T( J, J );
+         ALPHA[J] = H[J][J];
+         BETA[J] = T[J][J];
       } // 200
 
       // Normal Termination
 
-      INFO = 0;
+      INFO.value = 0;
 
       // Exit (other than argument error) -- return optimal workspace size
 
-      } // 210
-      WORK[1] = DCMPLX( N );
+      // } // 210
+      WORK[1] = Complex( N.toDouble() );
       }

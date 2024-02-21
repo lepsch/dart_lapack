@@ -46,6 +46,7 @@ extension DoubleFormatExtension on double {
   String get e12_3 => e(12, 3);
   String get e15_8 => e(15, 8);
   String get e16_6 => e(16, 6);
+  String get e24_16 => e(24, 16);
 
   // general
   String g(int w, [int d = 0]) {
@@ -82,6 +83,7 @@ extension DoubleFormatExtension on double {
 
 extension StringFormatExtension on String {
   String get a1 => substring(0, 1).padLeft(1);
+  String get a2 => substring(0, 2).padLeft(2);
   String get a3 => substring(0, 3).padLeft(3);
   String get a4 => substring(0, 4).padLeft(4);
   String get a6 => substring(0, 6).padLeft(6);

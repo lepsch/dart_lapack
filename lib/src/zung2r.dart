@@ -1,69 +1,80 @@
-      void zung2r(final int M, final int N, final int K, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlarf.dart';
+
+void zung2r(
+  final int M,
+  final int N,
+  final int K,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, K, LDA, M, N;
-      Complex         A( LDA, * ), TAU( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  int I, J, L;
 
-      Complex         ONE, ZERO;
-      const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
-      int                I, J, L;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLARF, ZSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0 || N > M) {
+    INFO.value = -2;
+  } else if (K < 0 || K > N) {
+    INFO.value = -3;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -5;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZUNG2R', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 || N > M ) {
-         INFO = -2;
-      } else if ( K < 0 || K > N ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -5;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZUNG2R', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) return;
 
-      if (N <= 0) return;
+  // Initialise columns k+1:n to columns of the unit matrix
 
-      // Initialise columns k+1:n to columns of the unit matrix
+  for (J = K + 1; J <= N; J++) {
+    // 20
+    for (L = 1; L <= M; L++) {
+      // 10
+      A[L][J] = Complex.zero;
+    } // 10
+    A[J][J] = Complex.one;
+  } // 20
 
-      for (J = K + 1; J <= N; J++) { // 20
-         for (L = 1; L <= M; L++) { // 10
-            A[L][J] = ZERO;
-         } // 10
-         A[J][J] = ONE;
-      } // 20
+  for (I = K; I >= 1; I--) {
+    // 40
 
-      for (I = K; I >= 1; I--) { // 40
+    // Apply H(i) to A(i:m,i:n) from the left
 
-         // Apply H(i) to A(i:m,i:n) from the left
+    if (I < N) {
+      A[I][I] = Complex.one;
+      zlarf('Left', M - I + 1, N - I, A(I, I).asArray(), 1, TAU[I], A(I, I + 1),
+          LDA, WORK);
+    }
+    if (I < M) zscal(M - I, -TAU[I], A(I + 1, I).asArray(), 1);
+    A[I][I] = Complex.one - TAU[I];
 
-         if ( I < N ) {
-            A[I][I] = ONE;
-            zlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
-         }
-         if (I < M) zscal( M-I, -TAU( I ), A( I+1, I ), 1 );
-         A[I][I] = ONE - TAU( I );
+    // Set A(1:i-1,i) to zero
 
-         // Set A(1:i-1,i) to zero
-
-         for (L = 1; L <= I - 1; L++) { // 30
-            A[L][I] = ZERO;
-         } // 30
-      } // 40
-      }
+    for (L = 1; L <= I - 1; L++) {
+      // 30
+      A[L][I] = Complex.zero;
+    } // 30
+  } // 40
+}

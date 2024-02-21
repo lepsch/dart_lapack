@@ -1,74 +1,65 @@
-      void zcposv(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final Array<double> _WORK_, final int SWORK, final Array<double> RWORK_, final int ITER, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zhemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/clag2z.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/cpotrf.dart';
+import 'package:lapack/src/cpotrs.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlag2c.dart';
+import 'package:lapack/src/zlanhe.dart';
+import 'package:lapack/src/zlat2c.dart';
+import 'package:lapack/src/zpotrf.dart';
+import 'package:lapack/src/zpotrs.dart';
+
+void zcposv(final String UPLO, final int N, final int NRHS, final Matrix<Complex> A_, final int LDA, final Matrix<Complex> B_,
+final int LDB, final Matrix<Complex> X_, final int LDX, final Matrix<Complex> WORK_, final Array<Complex> SWORK_,
+final Array<double> RWORK_, final Box<int> ITER, final Box<int> INFO,) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
-      double             RWORK( * );
-      Complex            SWORK( * );
-      Complex         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
-      // ..
-
-      bool               DOITREF;
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim(N);
+  final SWORK = SWORK_.dim();
+  final RWORK = RWORK_.dim();
       const              DOITREF = true ;
-
-      int                ITERMAX;
       const              ITERMAX = 30 ;
-
-      double             BWDMAX;
       const              BWDMAX = 1.0e+00 ;
-
-      Complex         NEGONE, ONE;
-      const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;
-
-      // .. Local Scalars ..
+      const              NEGONE = Complex( -1.0e+00, 0.0e+00 ) ;
       int                I, IITER, PTSA, PTSX;
       double             ANRM, CTE, EPS, RNRM, XNRM;
-      Complex         ZDUM;
 
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZHEMM, ZLACPY, ZLAT2C, ZLAG2C, CLAG2Z, CPOTRF, CPOTRS, XERBLA, ZPOTRF, ZPOTRS
-      // ..
-      // .. External Functions ..
-      //- int                IZAMAX;
-      //- double             DLAMCH, ZLANHE;
-      //- bool               lsame;
-      // EXTERNAL IZAMAX, DLAMCH, ZLANHE, lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX, SQRT
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      double CABS1(Complex ZDUM) =>  ZDUM.toDouble() .abs() +  ZDUM.imaginary  .abs();
 
-      INFO = 0;
-      ITER = 0;
+      INFO.value = 0;
+      ITER.value = 0;
 
       // Test the input parameters.
 
       if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -7;
+         INFO.value = -7;
       } else if ( LDX < max( 1, N ) ) {
-         INFO = -9;
+         INFO.value = -9;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZCPOSV', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZCPOSV', -INFO.value );
          return;
       }
 
@@ -78,15 +69,18 @@
 
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.
+      skipSinglePrecision:
+      while(true){
 
+      // ignore: dead_code
       if ( !DOITREF ) {
-         ITER = -1;
-         GO TO 40;
+         ITER.value = -1;
+         break skipSinglePrecision;
       }
 
       // Compute some constants.
 
-      ANRM = ZLANHE( 'I', UPLO, N, A, LDA, RWORK );
+      ANRM = zlanhe( 'I', UPLO, N, A, LDA, RWORK );
       EPS = dlamch( 'Epsilon' );
       CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
 
@@ -100,33 +94,33 @@
 
       zlag2c(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
-      if ( INFO != 0 ) {
-         ITER = -2;
-         GO TO 40;
+      if ( INFO.value != 0 ) {
+         ITER.value = -2;
+         break skipSinglePrecision;
       }
 
       // Convert A from double precision to single precision and store the
       // result in SA.
 
-      zlat2c(UPLO, N, A, LDA, SWORK( PTSA ), N, INFO );
+      zlat2c(UPLO, N, A, LDA, SWORK( PTSA ).asMatrix(N), N, INFO );
 
-      if ( INFO != 0 ) {
-         ITER = -2;
-         GO TO 40;
+      if ( INFO.value != 0 ) {
+         ITER.value = -2;
+         break skipSinglePrecision;
       }
 
       // Compute the Cholesky factorization of SA.
 
-      cpotrf(UPLO, N, SWORK( PTSA ), N, INFO );
+      cpotrf(UPLO, N, SWORK( PTSA ).asMatrix(N), N, INFO );
 
-      if ( INFO != 0 ) {
-         ITER = -3;
-         GO TO 40;
+      if ( INFO.value != 0 ) {
+         ITER.value = -3;
+         break skipSinglePrecision;
       }
 
       // Solve the system SA*SX = SB.
 
-      cpotrs(UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO );
+      cpotrs(UPLO, N, NRHS, SWORK( PTSA ).asMatrix(N), N, SWORK( PTSX ).asMatrix(N), N, INFO );
 
       // Convert SX back to Complex
 
@@ -136,24 +130,28 @@
 
       zlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-      zhemm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
+      zhemm('Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, Complex.one, WORK, N );
 
       // Check whether the NRHS normwise backward errors satisfy the
-      // stopping criterion. If yes, set ITER=0 and return.
+      // stopping criterion. If yes, set ITER.value=0 and return.
 
+      var satisfy=true;
       for (I = 1; I <= NRHS; I++) {
-         XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) );
-         RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) );
-         if (RNRM > XNRM*CTE) GO TO 10;
+         XNRM = CABS1( X[izamax( N, X( 1, I ).asArray(), 1 )][I] );
+         RNRM = CABS1( WORK[izamax( N, WORK( 1, I ).asArray(), 1 )][I] );
+         if (RNRM > XNRM*CTE) {
+          satisfy=false;
+          break;
+         }
       }
+
+      if (satisfy){
 
       // If we are here, the NRHS normwise backward errors satisfy the
       // stopping criterion. We are good to exit.
 
-      ITER = 0;
-      return;
-
-      } // 10
+      ITER.value = 0;
+      return;}
 
       for (IITER = 1; IITER <= ITERMAX; IITER++) { // 30
 
@@ -162,14 +160,14 @@
 
          zlag2c(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
-         if ( INFO != 0 ) {
-            ITER = -2;
-            GO TO 40;
+         if ( INFO.value != 0 ) {
+            ITER.value = -2;
+            break skipSinglePrecision;
          }
 
          // Solve the system SA*SX = SR.
 
-         cpotrs(UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO );
+         cpotrs(UPLO, N, NRHS, SWORK( PTSA ).asMatrix(N), N, SWORK( PTSX ).asMatrix(N), N, INFO );
 
          // Convert SX back to double precision and update the current
          // iterate.
@@ -177,32 +175,37 @@
          clag2z(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
 
          for (I = 1; I <= NRHS; I++) {
-            zaxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
+            zaxpy(N, Complex.one, WORK( 1, I ).asArray(), 1, X( 1, I ).asArray(), 1 );
          }
 
          // Compute R = B - AX (R is WORK).
 
          zlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-         zhemm('L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
+         zhemm('L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, Complex.one, WORK, N );
 
          // Check whether the NRHS normwise backward errors satisfy the
-         // stopping criterion. If yes, set ITER=IITER>0 and return.
+         // stopping criterion. If yes, set ITER.value=IITER>0 and return.
 
+         var satisfy =true;
          for (I = 1; I <= NRHS; I++) {
-            XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) );
-            RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) );
-            if (RNRM > XNRM*CTE) GO TO 20;
+            XNRM = CABS1( X[izamax( N, X( 1, I ).asArray(), 1 )][I] );
+            RNRM = CABS1( WORK[izamax( N, WORK( 1, I ).asArray(), 1 )][I] );
+            if (RNRM > XNRM*CTE) {
+              satisfy=false;
+              break;
+            }
          }
 
+         if (satisfy){
          // If we are here, the NRHS normwise backward errors satisfy the
          // stopping criterion, we are good to exit.
 
-         ITER = IITER;
+         ITER.value = IITER;
 
-         return;
+         return;}
 
-         } // 20
+        //  } // 20
 
       } // 30
 
@@ -211,16 +214,16 @@
       // stopping criterion, set up the ITER flag accordingly and follow
       // up on double precision routine.
 
-      ITER = -ITERMAX - 1;
+      ITER.value = -ITERMAX - 1;
 
-      } // 40
+      break;} // 40
 
       // Single-precision iterative refinement failed to converge to a
       // satisfactory solution, so we resort to double precision.
 
       zpotrf(UPLO, N, A, LDA, INFO );
 
-      if (INFO != 0) return;
+      if (INFO.value != 0) return;
 
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );

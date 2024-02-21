@@ -2,175 +2,157 @@ import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dlasyf_rook.dart';
+import 'package:lapack/src/dsytf2_rook.dart';
 import 'package:lapack/src/ilaenv.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
 
-      void dsytrf_rook(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
-
+void dsytrf_rook(
+  final String UPLO,
+  final int N,
+  final Matrix<double> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Array<double> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      double             A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
+  bool LQUERY, UPPER;
+  int IWS, J, K, LDWORK, LWKOPT = 0, NB = 0, NBMIN;
+  final IINFO = Box(0), KB = Box(0);
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               LQUERY, UPPER;
-      int                IINFO, IWS, J, K, KB, LDWORK, LWKOPT, NB, NBMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASYF_ROOK, DSYTF2_ROOK, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1);
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LWORK < 1 && !LQUERY) {
+    INFO.value = -7;
+  }
 
-      // Test the input parameters.
+  if (INFO.value == 0) {
+    // Determine the block size
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -7;
-      }
+    NB = ilaenv(1, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1);
+    LWKOPT = max(1, N * NB);
+    WORK[1] = LWKOPT.toDouble();
+  }
 
-      if ( INFO == 0 ) {
+  if (INFO.value != 0) {
+    xerbla('DSYTRF_ROOK', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-         // Determine the block size
+  NBMIN = 2;
+  LDWORK = N;
+  if (NB > 1 && NB < N) {
+    IWS = LDWORK * NB;
+    if (LWORK < IWS) {
+      NB = max(LWORK ~/ LDWORK, 1);
+      NBMIN = max(2, ilaenv(2, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1));
+    }
+  } else {
+    IWS = 1;
+  }
+  if (NB < NBMIN) NB = N;
 
-         NB = ilaenv( 1, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 );
-         LWKOPT = max( 1, N*NB );
-         WORK[1] = LWKOPT;
-      }
+  if (UPPER) {
+    // Factorize A as U*D*U**T using the upper triangle of A
 
-      if ( INFO != 0 ) {
-         xerbla('DSYTRF_ROOK', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+    // K is the main loop index, decreasing from N to 1 in steps of
+    // KB.value, where KB.value is the number of columns factorized by DLASYF_ROOK;
+    // KB.value is either NB or NB-1, or K for the last block
 
-      NBMIN = 2;
-      LDWORK = N;
-      if ( NB > 1 && NB < N ) {
-         IWS = LDWORK*NB;
-         if ( LWORK < IWS ) {
-            NB = max( LWORK / LDWORK, 1 );
-            NBMIN = max( 2, ilaenv( 2, 'DSYTRF_ROOK', UPLO, N, -1, -1, -1 ) );
-         }
+    K = N;
+    //  } // 10
+
+    // If K < 1, exit from loop
+
+    while (K >= 1) {
+      if (K > NB) {
+        // Factorize columns k-kb+1:k of A and use blocked code to
+        // update columns 1:k-kb
+
+        dlasyf_rook(UPLO, K, NB, KB, A, LDA, IPIV, WORK.asMatrix(LDWORK),
+            LDWORK, IINFO);
       } else {
-         IWS = 1;
+        // Use unblocked code to factorize columns 1:k of A
+
+        dsytf2_rook(UPLO, K, A, LDA, IPIV, IINFO);
+        KB.value = K;
       }
-      if (NB < NBMIN) NB = N;
 
-      if ( UPPER ) {
+      // Set INFO.value on the first occurrence of a zero pivot
 
-         // Factorize A as U*D*U**T using the upper triangle of A
+      if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
-         // K is the main loop index, decreasing from N to 1 in steps of
-         // KB, where KB is the number of columns factorized by DLASYF_ROOK;
-         // KB is either NB or NB-1, or K for the last block
+      // No need to adjust IPIV
 
-         K = N;
-         } // 10
+      // Decrease K and return to the start of the main loop
 
-         // If K < 1, exit from loop
+      K = K - KB.value;
+    }
+  } else {
+    // Factorize A as L*D*L**T using the lower triangle of A
 
-         if (K < 1) GO TO 40;
+    // K is the main loop index, increasing from 1 to N in steps of
+    // KB.value, where KB.value is the number of columns factorized by DLASYF_ROOK;
+    // KB.value is either NB or NB-1, or N-K+1 for the last block
 
-         if ( K > NB ) {
+    K = 1;
+    //  } // 20
 
-            // Factorize columns k-kb+1:k of A and use blocked code to
-            // update columns 1:k-kb
+    // If K > N, exit from loop
 
-            dlasyf_rook(UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO );
-         } else {
+    while (K <= N) {
+      if (K <= N - NB) {
+        // Factorize columns k:k+kb-1 of A and use blocked code to
+        // update columns k+kb:n
 
-            // Use unblocked code to factorize columns 1:k of A
-
-            dsytf2_rook(UPLO, K, A, LDA, IPIV, IINFO );
-            KB = K;
-         }
-
-         // Set INFO on the first occurrence of a zero pivot
-
-         if (INFO == 0 && IINFO > 0) INFO = IINFO;
-
-         // No need to adjust IPIV
-
-         // Decrease K and return to the start of the main loop
-
-         K = K - KB;
-         GO TO 10;
-
+        dlasyf_rook(UPLO, N - K + 1, NB, KB, A(K, K), LDA, IPIV(K),
+            WORK.asMatrix(LDWORK), LDWORK, IINFO);
       } else {
+        // Use unblocked code to factorize columns k:n of A
 
-         // Factorize A as L*D*L**T using the lower triangle of A
-
-         // K is the main loop index, increasing from 1 to N in steps of
-         // KB, where KB is the number of columns factorized by DLASYF_ROOK;
-         // KB is either NB or NB-1, or N-K+1 for the last block
-
-         K = 1;
-         } // 20
-
-         // If K > N, exit from loop
-
-         if (K > N) GO TO 40;
-
-         if ( K <= N-NB ) {
-
-            // Factorize columns k:k+kb-1 of A and use blocked code to
-            // update columns k+kb:n
-
-            dlasyf_rook(UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO );
-         } else {
-
-            // Use unblocked code to factorize columns k:n of A
-
-            dsytf2_rook(UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO );
-            KB = N - K + 1;
-         }
-
-         // Set INFO on the first occurrence of a zero pivot
-
-         if (INFO == 0 && IINFO > 0) INFO = IINFO + K - 1;
-
-         // Adjust IPIV
-
-         for (J = K; J <= K + KB - 1; J++) { // 30
-            if ( IPIV( J ) > 0 ) {
-               IPIV[J] = IPIV( J ) + K - 1;
-            } else {
-               IPIV[J] = IPIV( J ) - K + 1;
-            }
-         } // 30
-
-         // Increase K and return to the start of the main loop
-
-         K = K + KB;
-         GO TO 20;
-
+        dsytf2_rook(UPLO, N - K + 1, A(K, K), LDA, IPIV(K), IINFO);
+        KB.value = N - K + 1;
       }
 
-      } // 40
-      WORK[1] = LWKOPT;
-      }
+      // Set INFO.value on the first occurrence of a zero pivot
+
+      if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + K - 1;
+
+      // Adjust IPIV
+
+      for (J = K; J <= K + KB.value - 1; J++) {
+        // 30
+        if (IPIV[J] > 0) {
+          IPIV[J] = IPIV[J] + K - 1;
+        } else {
+          IPIV[J] = IPIV[J] - K + 1;
+        }
+      } // 30
+
+      // Increase K and return to the start of the main loop
+
+      K = K + KB.value;
+    }
+  }
+
+  WORK[1] = LWKOPT.toDouble();
+}

@@ -1,42 +1,50 @@
-      RECURSIVE SUBROUTINE ZLAQZ2( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, NS, ND, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, LWORK, RWORK, REC, INFO );
-      // Arguments
-      bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
-      int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
-       Complex, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * );
-      int    , INTENT( OUT ) :: NS, ND, INFO;
-      Complex :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
-      double           :: RWORK( * );
+      import 'dart:math';
 
-      // Parameters
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      double           :: ZERO, ONE, HALF;
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlaqz0.dart';
+
+void zlaqz2( final bool ILSCHUR, final bool ILQ, final bool ILZ, final int N, final int ILO, final int IHI, final int NW,
+      final Matrix<Complex> A_, final int LDA, final Matrix<Complex> B_, final int LDB, final Matrix<Complex> Q_, final int LDQ, final Matrix<Complex> Z_, final int LDZ,
+      final Box<int> NS, final Box<int> ND, final Array<Complex> ALPHA_, final Array<Complex> BETA_, final Matrix<Complex> QC_, final int LDQC, final Matrix<Complex> ZC_, final int LDZC,
+      final Array<Complex> WORK_, final int LWORK, final Array<double> RWORK_, final int REC, final Box<int> INFO, ){
+final A=A_.dim(LDA);
+final B=B_.dim(LDB);
+final Q=Q_.dim(LDQ);
+final Z=Z_.dim(LDZ);
+final ALPHA=ALPHA_.dim();
+final BETA=BETA_.dim();
+final QC=QC_.dim(LDQC);
+final ZC=ZC_.dim(LDZC);
+final WORK=WORK_.dim();
+final RWORK=RWORK_.dim();
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local Scalars
-      int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
-      double           ::SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR;
-      Complex :: S, S1, TEMP;
+      int      JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
+      double           SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR;
+      Complex  S, S1, TEMP;
 
       // External Functions
       // EXTERNAL :: XERBLA, ZLAQZ0, ZLAQZ1, ZLACPY, ZLASET, ZGEMM, ZTGEXC, ZLARTG, ZROT
-      double          , EXTERNAL :: DLAMCH;
+      // double          , EXTERNAL :: DLAMCH;
 
-      INFO = 0;
+      INFO.value = 0;
 
       // Set up deflation window
       JW = min( NW, IHI-ILO+1 );
       KWTOP = IHI-JW+1;
       if ( KWTOP == ILO ) {
-         S = CZERO;
+         S = Complex.zero;
       } else {
-         S = A( KWTOP, KWTOP-1 );
+         S = A[ KWTOP][KWTOP-1 ];
       }
 
       // Determine required workspace
       IFST = 1;
       ILST = JW;
-      zlaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO );
+      ZLAQZ0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO );
       LWORKREQ = INT( WORK( 1 ) )+2*JW**2;
       LWORKREQ = max( LWORKREQ, N*NW, 2*NW**2+N );
       if ( LWORK == -1 ) {
@@ -44,11 +52,11 @@
          WORK[1] = LWORKREQ;
          return;
       } else if ( LWORK < LWORKREQ ) {
-         INFO = -26;
+         INFO.value = -26;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('ZLAQZ2', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZLAQZ2', -INFO.value );
          return;
       }
 
@@ -62,13 +70,13 @@
          // 1 by 1 deflation window, just try a regular deflation
          ALPHA[KWTOP] = A( KWTOP, KWTOP );
          BETA[KWTOP] = B( KWTOP, KWTOP );
-         NS = 1;
-         ND = 0;
+         NS.value = 1;
+         ND.value = 0;
          if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ).abs() ) ) {
-            NS = 0;
-            ND = 1;
+            NS.value = 0;
+            ND.value = 1;
             if ( KWTOP > ILO ) {
-               A[KWTOP][KWTOP-1] = CZERO;
+               A[KWTOP][KWTOP-1] = Complex.zero;
             }
          }
       }
@@ -79,21 +87,21 @@
       zlacpy('ALL', JW, JW, B( KWTOP, KWTOP ), LDB, WORK( JW**2+ 1 ), JW );
 
       // Transform window to real schur form
-      zlaset('FULL', JW, JW, CZERO, CONE, QC, LDQC );
-      zlaset('FULL', JW, JW, CZERO, CONE, ZC, LDZC );
+      zlaset('FULL', JW, JW, Complex.zero, Complex.one, QC, LDQC );
+      zlaset('FULL', JW, JW, Complex.zero, Complex.one, ZC, LDZC );
       zlaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, RWORK, REC+1, QZ_SMALL_INFO );
 
       if ( QZ_SMALL_INFO != 0 ) {
          // Convergence failure, restore the window and exit
-         ND = 0;
-         NS = JW-QZ_SMALL_INFO;
+         ND.value = 0;
+         NS.value = JW-QZ_SMALL_INFO;
          zlacpy('ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA );
          zlacpy('ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB );
          return;
       }
 
       // Deflation detection loop
-      if ( KWTOP == ILO || S == CZERO ) {
+      if ( KWTOP == ILO || S == Complex.zero ) {
          KWBOT = KWTOP-1;
       } else {
          KWBOT = IHI;
@@ -121,8 +129,8 @@
       }
 
       // Store eigenvalues
-      ND = IHI-KWBOT;
-      NS = JW-ND;
+      ND.value = IHI-KWBOT;
+      NS.value = JW-ND.value;
       K = KWTOP;
       while (K <= IHI) {
          ALPHA[K] = A( K, K );
@@ -130,13 +138,13 @@
          K = K+1;
       }
 
-      if ( KWTOP != ILO && S != CZERO ) {
+      if ( KWTOP != ILO && S != Complex.zero ) {
          // Reflect spike back, this will create optimally packed bulges
-         A[KWTOP:KWBOT][KWTOP-1] = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) );
+         A[KWTOP:KWBOT][KWTOP-1] = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND.value ) );
          for (K = KWBOT-1; K >= KWTOP; K--) {
             zlartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
             A[K][KWTOP-1] = TEMP;
-            A[K+1][KWTOP-1] = CZERO;
+            A[K+1][KWTOP-1] = Complex.zero;
             K2 = max( KWTOP, K-1 );
             zrot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             zrot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );
@@ -169,25 +177,25 @@
       }
 
       if ( ISTOPM-IHI > 0 ) {
-         zgemm('C', 'N', JW, ISTOPM-IHI, JW, CONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, CZERO, WORK, JW );
+         zgemm('C', 'N', JW, ISTOPM-IHI, JW, Complex.one, QC, LDQC, A( KWTOP, IHI+1 ), LDA, Complex.zero, WORK, JW );
          zlacpy('ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA );
-         zgemm('C', 'N', JW, ISTOPM-IHI, JW, CONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, CZERO, WORK, JW );
+         zgemm('C', 'N', JW, ISTOPM-IHI, JW, Complex.one, QC, LDQC, B( KWTOP, IHI+1 ), LDB, Complex.zero, WORK, JW );
          zlacpy('ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB );
       }
       if ( ILQ ) {
-         zgemm('N', 'N', N, JW, JW, CONE, Q( 1, KWTOP ), LDQ, QC, LDQC, CZERO, WORK, N );
+         zgemm('N', 'N', N, JW, JW, Complex.one, Q( 1, KWTOP ), LDQ, QC, LDQC, Complex.zero, WORK, N );
          zlacpy('ALL', N, JW, WORK, N, Q( 1, KWTOP ), LDQ );
       }
 
       if ( KWTOP-1-ISTARTM+1 > 0 ) {
-         zgemm('N', 'N', KWTOP-ISTARTM, JW, JW, CONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, CZERO, WORK, KWTOP-ISTARTM );
+         zgemm('N', 'N', KWTOP-ISTARTM, JW, JW, Complex.one, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, Complex.zero, WORK, KWTOP-ISTARTM );
         zlacpy('ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA );
-         zgemm('N', 'N', KWTOP-ISTARTM, JW, JW, CONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, CZERO, WORK, KWTOP-ISTARTM );
+         zgemm('N', 'N', KWTOP-ISTARTM, JW, JW, Complex.one, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, Complex.zero, WORK, KWTOP-ISTARTM );
         zlacpy('ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB );
       }
       if ( ILZ ) {
-         zgemm('N', 'N', N, JW, JW, CONE, Z( 1, KWTOP ), LDZ, ZC, LDZC, CZERO, WORK, N );
+         zgemm('N', 'N', N, JW, JW, Complex.one, Z( 1, KWTOP ), LDZ, ZC, LDZC, Complex.zero, WORK, N );
          zlacpy('ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ );
       }
 
-      END SUBROUTINE;
+}

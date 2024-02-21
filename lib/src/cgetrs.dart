@@ -1,88 +1,84 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
 
-void cgetrs(final int TRANS, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-
+void cgetrs(
+  final String TRANS,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, LDA, LDB, N, NRHS;
-      int                IPIV( * );
-      Complex            A( LDA, * ), B( LDB, * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  bool NOTRAN;
 
-      Complex            ONE;
-      const              ONE = ( 1.0, 0.0 ) ;
-      bool               NOTRAN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL CLASWP, CTRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  NOTRAN = lsame(TRANS, 'N');
+  if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('CGETRS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      NOTRAN = lsame( TRANS, 'N' );
-      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('CGETRS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0 || NRHS == 0) return;
 
-      if (N == 0 || NRHS == 0) return;
+  if (NOTRAN) {
+    // Solve A * X = B.
 
-      if ( NOTRAN ) {
+    // Apply row interchanges to the right hand sides.
 
-         // Solve A * X = B.
+    claswp(NRHS, B, LDB, 1, N, IPIV, 1);
 
-         // Apply row interchanges to the right hand sides.
+    // Solve L*X = B, overwriting B with X.
 
-         claswp(NRHS, B, LDB, 1, N, IPIV, 1 );
+    ctrsm('Left', 'Lower', 'No transpose', 'Unit', N, NRHS, Complex.one, A, LDA,
+        B, LDB);
 
-         // Solve L*X = B, overwriting B with X.
+    // Solve U*X = B, overwriting B with X.
 
-         ctrsm('Left', 'Lower', 'No transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB );
+    ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, Complex.one, A,
+        LDA, B, LDB);
+  } else {
+    // Solve A**T * X = B  or A**H * X = B.
 
-         // Solve U*X = B, overwriting B with X.
+    // Solve U**T *X = B or U**H *X = B, overwriting B with X.
 
-         ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
-      } else {
+    ctrsm('Left', 'Upper', TRANS, 'Non-unit', N, NRHS, Complex.one, A, LDA, B,
+        LDB);
 
-         // Solve A**T * X = B  or A**H * X = B.
+    // Solve L**T *X = B, or L**H *X = B overwriting B with X.
 
-         // Solve U**T *X = B or U**H *X = B, overwriting B with X.
+    ctrsm('Left', 'Lower', TRANS, 'Unit', N, NRHS, Complex.one, A, LDA, B, LDB);
 
-         ctrsm('Left', 'Upper', TRANS, 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
+    // Apply row interchanges to the solution vectors.
 
-         // Solve L**T *X = B, or L**H *X = B overwriting B with X.
-
-         ctrsm('Left', 'Lower', TRANS, 'Unit', N, NRHS, ONE, A, LDA, B, LDB );
-
-         // Apply row interchanges to the solution vectors.
-
-         claswp(NRHS, B, LDB, 1, N, IPIV, -1 );
-      }
-
-      }
+    claswp(NRHS, B, LDB, 1, N, IPIV, -1);
+  }
+}

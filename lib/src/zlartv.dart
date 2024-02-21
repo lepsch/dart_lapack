@@ -1,32 +1,37 @@
-      void zlartv(final int N, final int X, final int INCX, final int Y, final int INCY, final int C, final int S, final int INCC,) {
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zlartv(
+  final int N,
+  final Array<Complex> X_,
+  final int INCX,
+  final Array<Complex> Y_,
+  final int INCY,
+  final Array<double> C_,
+  final Array<Complex> S_,
+  final int INCC,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INCC, INCX, INCY, N;
-      double             C( * );
-      Complex         S( * ), X( * ), Y( * );
-      // ..
+  final X = X_.dim();
+  final Y = Y_.dim();
+  final C = C_.dim();
+  final S = S_.dim();
+  int I, IC, IX, IY;
+  Complex XI, YI;
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, IC, IX, IY;
-      Complex         XI, YI;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG
-
-      IX = 1;
-      IY = 1;
-      IC = 1;
-      for (I = 1; I <= N; I++) { // 10
-         XI = X( IX );
-         YI = Y( IY );
-         X[IX] = C( IC )*XI + S( IC )*YI;
-         Y[IY] = C( IC )*YI - DCONJG( S( IC ) )*XI;
-         IX = IX + INCX;
-         IY = IY + INCY;
-         IC = IC + INCC;
-      } // 10
-      }
+  IX = 1;
+  IY = 1;
+  IC = 1;
+  for (I = 1; I <= N; I++) {
+    // 10
+    XI = X[IX];
+    YI = Y[IY];
+    X[IX] = C[IC].toComplex() * XI + S[IC] * YI;
+    Y[IY] = C[IC].toComplex() * YI - S[IC].conjugate() * XI;
+    IX = IX + INCX;
+    IY = IY + INCY;
+    IC = IC + INCC;
+  } // 10
+}

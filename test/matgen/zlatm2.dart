@@ -1,107 +1,93 @@
-      Complex   FUNCTION ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+import 'dlaran.dart';
+import 'zlarnd.dart';
+
+Complex zlatm2(
+  final int M,
+  final int N,
+  final int I,
+  final int J,
+  final int KL,
+  final int KU,
+  final int IDIST,
+  final Array<int> ISEED_,
+  final Array<Complex> D_,
+  final int IGRADE,
+  final Array<Complex> DL_,
+  final Array<Complex> DR_,
+  final int IPVTNG,
+  final Array<int> IWORK_,
+  final double SPARSE,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final ISEED = ISEED_.dim();
+  final IWORK = IWORK_.dim();
+  final D = D_.dim();
+  final DL = DL_.dim();
+  final DR = DR_.dim();
+  const ZERO = 0.0;
+  int ISUB = 0, JSUB = 0;
+  Complex CTEMP;
 
-      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
-      double             SPARSE;
-      // ..
+  // Check for I and J in range
 
-      // .. Array Arguments ..
+  if (I < 1 || I > M || J < 1 || J > N) {
+    return Complex.zero;
+  }
 
-      int                ISEED( 4 ), IWORK( * );
-      Complex         D( * ), DL( * ), DR( * );
-      // ..
+  // Check for banding
 
+  if (J > I + KU || J < I - KL) {
+    return Complex.zero;
+  }
 
-      Complex         CZERO;
-      const              CZERO = ( 0.0, 0.0 ) ;
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      // ..
+  // Check for sparsity
 
-      // .. Local Scalars ..
+  if (SPARSE > ZERO) {
+    if (dlaran(ISEED) < SPARSE) {
+      return Complex.zero;
+    }
+  }
 
-      int                ISUB, JSUB;
-      Complex         CTEMP;
-      // ..
+  // Compute subscripts depending on IPVTNG
 
-      // .. External Functions ..
+  if (IPVTNG == 0) {
+    ISUB = I;
+    JSUB = J;
+  } else if (IPVTNG == 1) {
+    ISUB = IWORK[I];
+    JSUB = J;
+  } else if (IPVTNG == 2) {
+    ISUB = I;
+    JSUB = IWORK[J];
+  } else if (IPVTNG == 3) {
+    ISUB = IWORK[I];
+    JSUB = IWORK[J];
+  }
 
-      double             DLARAN;
-      Complex         ZLARND;
-      // EXTERNAL DLARAN, ZLARND
-      // ..
+  // Compute entry and grade it according to IGRADE
 
-      // .. Intrinsic Functions ..
-
-      // INTRINSIC DCONJG
-      // ..
-
-// -----------------------------------------------------------------------
-
-      // .. Executable Statements ..
-
-
-      // Check for I and J in range
-
-      if ( I < 1 || I > M || J < 1 || J > N ) {
-         ZLATM2 = CZERO;
-         return;
-      }
-
-      // Check for banding
-
-      if ( J > I+KU || J < I-KL ) {
-         ZLATM2 = CZERO;
-         return;
-      }
-
-      // Check for sparsity
-
-      if ( SPARSE > ZERO ) {
-         if ( dlaran( ISEED ) < SPARSE ) {
-            ZLATM2 = CZERO;
-            return;
-         }
-      }
-
-      // Compute subscripts depending on IPVTNG
-
-      if ( IPVTNG == 0 ) {
-         ISUB = I;
-         JSUB = J;
-      } else if ( IPVTNG == 1 ) {
-         ISUB = IWORK( I );
-         JSUB = J;
-      } else if ( IPVTNG == 2 ) {
-         ISUB = I;
-         JSUB = IWORK( J );
-      } else if ( IPVTNG == 3 ) {
-         ISUB = IWORK( I );
-         JSUB = IWORK( J );
-      }
-
-      // Compute entry and grade it according to IGRADE
-
-      if ( ISUB == JSUB ) {
-         CTEMP = D( ISUB );
-      } else {
-         CTEMP = ZLARND( IDIST, ISEED );
-      }
-      if ( IGRADE == 1 ) {
-         CTEMP = CTEMP*DL( ISUB );
-      } else if ( IGRADE == 2 ) {
-         CTEMP = CTEMP*DR( JSUB );
-      } else if ( IGRADE == 3 ) {
-         CTEMP = CTEMP*DL( ISUB )*DR( JSUB );
-      } else if ( IGRADE == 4 && ISUB != JSUB ) {
-         CTEMP = CTEMP*DL( ISUB ) / DL( JSUB );
-      } else if ( IGRADE == 5 ) {
-         CTEMP = CTEMP*DL( ISUB )*DCONJG( DL( JSUB ) );
-      } else if ( IGRADE == 6 ) {
-         CTEMP = CTEMP*DL( ISUB )*DL( JSUB );
-      }
-      ZLATM2 = CTEMP;
-      }
+  if (ISUB == JSUB) {
+    CTEMP = D[ISUB];
+  } else {
+    CTEMP = zlarnd(IDIST, ISEED);
+  }
+  if (IGRADE == 1) {
+    CTEMP = CTEMP * DL[ISUB];
+  } else if (IGRADE == 2) {
+    CTEMP = CTEMP * DR[JSUB];
+  } else if (IGRADE == 3) {
+    CTEMP = CTEMP * DL[ISUB] * DR[JSUB];
+  } else if (IGRADE == 4 && ISUB != JSUB) {
+    CTEMP = CTEMP * DL[ISUB] / DL[JSUB];
+  } else if (IGRADE == 5) {
+    CTEMP = CTEMP * DL[ISUB] * DL[JSUB].conjugate();
+  } else if (IGRADE == 6) {
+    CTEMP = CTEMP * DL[ISUB] * DL[JSUB];
+  }
+  return CTEMP;
+}

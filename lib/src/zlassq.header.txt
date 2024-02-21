@@ -120,4 +120,3 @@
 !> \ingroup lassq
 !
 !  =====================================================================
-subroutine ZLASSQ( n, x, incx, scale, sumsq )
