@@ -18,7 +18,7 @@ void zher(
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.dim();
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   Complex TEMP;
   int I, INFO, IX, J, JX, KX = 0;
 

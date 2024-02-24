@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/install/ilaver.dart';
 import 'package:lapack/src/lsamen.dart';
@@ -62,9 +63,10 @@ void main() async {
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   ilaenv = test.ilaenv;
+  ilaenv2stage = test.ilaenv2stage;
   xerbla = test.xerbla;
 
-  final input = File('/Users/lepsch/_/lapack/test/dgd.in').openRead();
+  final input = File('/Users/lepsch/_/lapack/test/svd.in').openRead();
   final NIN = Nin(input), NOUT = Nout(stdout);
   const NMAX = 132;
   const NCMAX = 20;
@@ -209,7 +211,7 @@ void main() async {
             '\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    DGEES (Schur form)');
       } else if (DVX) {
         NOUT.println(
-            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEEVX (eigenvalues, eigenvectors and  condition numbers)');
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEEVX (eigenvalues, eigenvectors and condition numbers)');
       } else if (DSX) {
         NOUT.println(
             '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    DGEESX (Schur form and condition numbers)');
@@ -1147,7 +1149,7 @@ void main() async {
               }
             }
             NOUT.println(
-                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS = $NRHS');
+                '\n\n $C3:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
             if (TSTCHK) {
               dchkbd(
                   NN,
@@ -1952,7 +1954,7 @@ void main() async {
   }
   NOUT.println('\n\n End of tests');
   NOUT.println(
-      ' Total time used =${(S1.elapsed.inMicroseconds / 100).f12_2} seconds\n');
+      ' Total time used =${(S1.elapsed.inMilliseconds / 1000).f12_2} seconds\n');
 }
 
 void _print9980(final Nout NOUT, final String s, final int v) {
@@ -1983,11 +1985,13 @@ void _print9983(
   final Array<int> a,
   int n,
 ) {
-  String prefix = ' ' * 4;
+  var prefix = '${' ' * 4}$s';
+  var i = 1;
   while (n > 0) {
-    NOUT.println('$prefix$s${a.i6(min(n, 10))}');
+    NOUT.println('$prefix${a(i).i6(min(n, 10))}');
     prefix = ' ' * 10;
     n -= 10;
+    i += 10;
   }
 }
 

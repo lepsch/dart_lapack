@@ -169,7 +169,7 @@ void dsyt21(
       dorm2l('R', 'T', N, N - 1, N - 1, V(1, 2), LDV, TAU, WORK.asMatrix(N), N,
           WORK(pow(N, 2).toInt() + 1), IINFO);
     }
-    if (IINFO != 0) {
+    if (IINFO.value != 0) {
       RESULT[1] = TEN / ULP;
       return;
     }

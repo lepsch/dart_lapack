@@ -10,12 +10,13 @@ double dlanst(
   final String NORM,
   final int N,
   final Array<double> D_,
-  final Array<double> E,
+  final Array<double> E_,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final D = D_.dim();
+  final E = E_.dim();
   const ONE = 1.0, ZERO = 0.0;
   int I;
   double ANORM = 0;

@@ -269,7 +269,6 @@ void dtrsna(
 
         EST.value = ZERO;
         KASE.value = 0;
-        // }
         while (true) {
           dlacn2(NN, WORK(1, N + 2).asArray(), WORK(1, N + 4).asArray(), IWORK,
               EST, KASE, ISAVE);

@@ -79,7 +79,7 @@ void dlatm1(
       // Exponentially distributed D values:
       D[1] = ONE;
       if (N > 1) {
-        ALPHA = pow(COND, (-ONE / (N - 1).toDouble())).toDouble();
+        ALPHA = pow(COND, -ONE / (N - 1)).toDouble();
         for (I = 2; I <= N; I++) {
           D[I] = pow(ALPHA, I - 1).toDouble();
         }
@@ -106,7 +106,7 @@ void dlatm1(
       }
       break;
 
-    case 110:
+    case 6:
       // Randomly distributed D values from IDIST
       dlarnv(IDIST, ISEED, N, D);
       break;

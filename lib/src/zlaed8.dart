@@ -1,235 +1,273 @@
-      void zlaed8(final int K, final int N, final int QSIZ, final Matrix<double> Q_, final int LDQ, final int D, final int RHO, final int CUTPNT, final int Z, final int DLAMBDA, final Matrix<double> Q2_, final int LDQ2, final int W, final int INDXP, final int INDX, final int INDXQ, final int PERM, final int GIVPTR, final int GIVCOL, final int GIVNUM, final Box<int> INFO,) {
-  final Q = Q_.dim();
-  final Q2 = Q2_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/dscal.dart';
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zdrot.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlamrg.dart';
+import 'package:lapack/src/dlapy2.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacpy.dart';
+
+void zlaed8(
+  final Box<int> K,
+  final int N,
+  final int QSIZ,
+  final Matrix<Complex> Q_,
+  final int LDQ,
+  final Array<double> D_,
+  final Box<double> RHO,
+  final int CUTPNT,
+  final Array<double> Z_,
+  final Array<double> DLAMBDA_,
+  final Matrix<Complex> Q2_,
+  final int LDQ2,
+  final Array<double> W_,
+  final Array<int> INDXP_,
+  final Array<int> INDX_,
+  final Array<int> INDXQ_,
+  final Array<int> PERM_,
+  final Box<int> GIVPTR,
+  final Matrix<int> GIVCOL_,
+  final Matrix<double> GIVNUM_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                CUTPNT, GIVPTR, INFO, K, LDQ, LDQ2, N, QSIZ;
-      double             RHO;
-      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * );
-      double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * );
-      Complex         Q( LDQ, * ), Q2( LDQ2, * );
-      // ..
+  final Q = Q_.dim(LDQ);
+  final Q2 = Q2_.dim(LDQ2);
+  final D = D_.dim();
+  final Z = Z_.dim();
+  final DLAMBDA = DLAMBDA_.dim();
+  final W = W_.dim();
+  final GIVNUM = GIVNUM_.dim(2);
+  final INDXP = INDXP_.dim();
+  final INDX = INDX_.dim();
+  final INDXQ = INDXQ_.dim();
+  final PERM = PERM_.dim();
+  final GIVCOL = GIVCOL_.dim(2);
+  const MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0;
+  int I, IMAX, J, JLAM = 0, JMAX, JP, K2, N1, N1P1, N2;
+  double C, EPS, S, T, TAU, TOL;
 
-      double             MONE, ZERO, ONE, TWO, EIGHT;
-      const              MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
-      int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2;
-      double             C, EPS, S, T, TAU, TOL;
-      // ..
-      // .. External Functions ..
-      //- int                idamax;
-      //- double             DLAMCH, DLAPY2;
-      // EXTERNAL idamax, DLAMCH, DLAPY2
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, DLAMRG, DSCAL, XERBLA, ZCOPY, ZDROT, ZLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
 
-      INFO = 0;
+  if (N < 0) {
+    INFO.value = -2;
+  } else if (QSIZ < N) {
+    INFO.value = -3;
+  } else if (LDQ < max(1, N)) {
+    INFO.value = -5;
+  } else if (CUTPNT < min(1, N) || CUTPNT > N) {
+    INFO.value = -8;
+  } else if (LDQ2 < max(1, N)) {
+    INFO.value = -12;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZLAED8', -INFO.value);
+    return;
+  }
 
-      if ( N < 0 ) {
-         INFO = -2;
-      } else if ( QSIZ < N ) {
-         INFO = -3;
-      } else if ( LDQ < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( CUTPNT < min( 1, N ) || CUTPNT > N ) {
-         INFO = -8;
-      } else if ( LDQ2 < max( 1, N ) ) {
-         INFO = -12;
+  // Need to initialize GIVPTR.value to O here in case of quick exit
+  // to prevent an unspecified code behavior (usually sigfault)
+  // when IWORK array on entry to *stedc is not zeroed
+  // (or at least some IWORK entries which used in *laed7 for GIVPTR.value).
+
+  GIVPTR.value = 0;
+
+  // Quick return if possible
+
+  if (N == 0) return;
+
+  N1 = CUTPNT;
+  N2 = N - N1;
+  N1P1 = N1 + 1;
+
+  if (RHO.value < ZERO) {
+    dscal(N2, MONE, Z(N1P1), 1);
+  }
+
+  // Normalize z so that norm(z) = 1
+
+  T = ONE / sqrt(TWO);
+  for (J = 1; J <= N; J++) {
+    // 10
+    INDX[J] = J;
+  } // 10
+  dscal(N, T, Z, 1);
+  RHO.value = (TWO * RHO.value).abs();
+
+  // Sort the eigenvalues into increasing order
+
+  for (I = CUTPNT + 1; I <= N; I++) {
+    // 20
+    INDXQ[I] = INDXQ[I] + CUTPNT;
+  } // 20
+  for (I = 1; I <= N; I++) {
+    // 30
+    DLAMBDA[I] = D[INDXQ[I]];
+    W[I] = Z[INDXQ[I]];
+  } // 30
+  I = 1;
+  J = CUTPNT + 1;
+  dlamrg(N1, N2, DLAMBDA, 1, 1, INDX);
+  for (I = 1; I <= N; I++) {
+    // 40
+    D[I] = DLAMBDA[INDX[I]];
+    Z[I] = W[INDX[I]];
+  } // 40
+
+  // Calculate the allowable deflation tolerance
+
+  IMAX = idamax(N, Z, 1);
+  JMAX = idamax(N, D, 1);
+  EPS = dlamch('Epsilon');
+  TOL = EIGHT * EPS * D[JMAX].abs();
+
+  // If the rank-1 modifier is small enough, no more needs to be done
+  // -- except to reorganize Q so that its columns correspond with the
+  // elements in D.
+
+  if (RHO.value * Z[IMAX].abs() <= TOL) {
+    K.value = 0;
+    for (J = 1; J <= N; J++) {
+      // 50
+      PERM[J] = INDXQ[INDX[J]];
+      zcopy(QSIZ, Q(1, PERM[J]).asArray(), 1, Q2(1, J).asArray(), 1);
+    } // 50
+    zlacpy('A', QSIZ, N, Q2(1, 1), LDQ2, Q(1, 1), LDQ);
+    return;
+  }
+
+  // If there are multiple eigenvalues then the problem deflates.  Here
+  // the number of equal eigenvalues are found.  As each equal
+  // eigenvalue is found, an elementary reflector is computed to rotate
+  // the corresponding eigensubspace so that the corresponding
+  // components of Z are zero in this new basis.
+
+  K.value = 0;
+  K2 = N + 1;
+  var deflate = false;
+  for (J = 1; J <= N; J++) {
+    // 60
+    if (RHO.value * (Z[J]).abs() <= TOL) {
+      // Deflate due to small z component.
+
+      K2 = K2 - 1;
+      INDXP[K2] = J;
+      if (J == N) {
+        deflate = true;
+        break;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZLAED8', -INFO );
-         return;
-      }
+    } else {
+      JLAM = J;
+      break;
+    }
+  } // 60
 
-      // Need to initialize GIVPTR to O here in case of quick exit
-      // to prevent an unspecified code behavior (usually sigfault)
-      // when IWORK array on entry to *stedc is not zeroed
-      // (or at least some IWORK entries which used in *laed7 for GIVPTR).
+  while (!deflate) {
+    J = J + 1;
+    if (J > N) break;
+    if (RHO.value * (Z[J]).abs() <= TOL) {
+      // Deflate due to small z component.
 
-      GIVPTR = 0;
+      K2 = K2 - 1;
+      INDXP[K2] = J;
+    } else {
+      // Check if eigenvalues are close enough to allow deflation.
 
-      // Quick return if possible
+      S = Z[JLAM];
+      C = Z[J];
 
-      if (N == 0) return;
+      // Find sqrt(a**2+b**2) without overflow or
+      // destructive underflow.
 
-      N1 = CUTPNT;
-      N2 = N - N1;
-      N1P1 = N1 + 1;
+      TAU = dlapy2(C, S);
+      T = D[J] - D[JLAM];
+      C = C / TAU;
+      S = -S / TAU;
+      if ((T * C * S).abs() <= TOL) {
+        // Deflation is possible.
 
-      if ( RHO < ZERO ) {
-         dscal(N2, MONE, Z( N1P1 ), 1 );
-      }
+        Z[J] = TAU;
+        Z[JLAM] = ZERO;
 
-      // Normalize z so that norm(z) = 1
+        // Record the appropriate Givens rotation
 
-      T = ONE / sqrt( TWO );
-      for (J = 1; J <= N; J++) { // 10
-         INDX[J] = J;
-      } // 10
-      dscal(N, T, Z, 1 );
-      RHO = ( TWO*RHO ).abs();
-
-      // Sort the eigenvalues into increasing order
-
-      for (I = CUTPNT + 1; I <= N; I++) { // 20
-         INDXQ[I] = INDXQ( I ) + CUTPNT;
-      } // 20
-      for (I = 1; I <= N; I++) { // 30
-         DLAMBDA[I] = D( INDXQ( I ) );
-         W[I] = Z( INDXQ( I ) );
-      } // 30
-      I = 1;
-      J = CUTPNT + 1;
-      dlamrg(N1, N2, DLAMBDA, 1, 1, INDX );
-      for (I = 1; I <= N; I++) { // 40
-         D[I] = DLAMBDA( INDX( I ) );
-         Z[I] = W( INDX( I ) );
-      } // 40
-
-      // Calculate the allowable deflation tolerance
-
-      IMAX = idamax( N, Z, 1 );
-      JMAX = idamax( N, D, 1 );
-      EPS = dlamch( 'Epsilon' );
-      TOL = EIGHT*EPS*( D( JMAX ) ).abs();
-
-      // If the rank-1 modifier is small enough, no more needs to be done
-      // -- except to reorganize Q so that its columns correspond with the
-      // elements in D.
-
-      if ( RHO*( Z( IMAX ) ).abs() <= TOL ) {
-         K = 0;
-         for (J = 1; J <= N; J++) { // 50
-            PERM[J] = INDXQ( INDX( J ) );
-            zcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
-         } // 50
-         zlacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
-         return;
-      }
-
-      // If there are multiple eigenvalues then the problem deflates.  Here
-      // the number of equal eigenvalues are found.  As each equal
-      // eigenvalue is found, an elementary reflector is computed to rotate
-      // the corresponding eigensubspace so that the corresponding
-      // components of Z are zero in this new basis.
-
-      K = 0;
-      K2 = N + 1;
-      for (J = 1; J <= N; J++) { // 60
-         if ( RHO*( Z( J ) ).abs() <= TOL ) {
-
-            // Deflate due to small z component.
-
-            K2 = K2 - 1;
-            INDXP[K2] = J;
-            if (J == N) GO TO 100;
-         } else {
-            JLAM = J;
-            GO TO 70;
-         }
-      } // 60
-      } // 70
-      J = J + 1;
-      if (J > N) GO TO 90;
-      if ( RHO*( Z( J ) ).abs() <= TOL ) {
-
-         // Deflate due to small z component.
-
-         K2 = K2 - 1;
-         INDXP[K2] = J;
-      } else {
-
-         // Check if eigenvalues are close enough to allow deflation.
-
-         S = Z( JLAM );
-         C = Z( J );
-
-         // Find sqrt(a**2+b**2) without overflow or
-         // destructive underflow.
-
-         TAU = dlapy2( C, S );
-         T = D( J ) - D( JLAM );
-         C = C / TAU;
-         S = -S / TAU;
-         if ( ( T*C*S ).abs() <= TOL ) {
-
-            // Deflation is possible.
-
-            Z[J] = TAU;
-            Z[JLAM] = ZERO;
-
-            // Record the appropriate Givens rotation
-
-            GIVPTR = GIVPTR + 1;
-            GIVCOL[1][GIVPTR] = INDXQ( INDX( JLAM ) );
-            GIVCOL[2][GIVPTR] = INDXQ( INDX( J ) );
-            GIVNUM[1][GIVPTR] = C;
-            GIVNUM[2][GIVPTR] = S;
-            zdrot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
-            T = D( JLAM )*C*C + D( J )*S*S;
-            D[J] = D( JLAM )*S*S + D( J )*C*C;
-            D[JLAM] = T;
-            K2 = K2 - 1;
-            I = 1;
-            } // 80
-            if ( K2+I <= N ) {
-               if ( D( JLAM ) < D( INDXP( K2+I ) ) ) {
-                  INDXP[K2+I-1] = INDXP( K2+I );
-                  INDXP[K2+I] = JLAM;
-                  I = I + 1;
-                  GO TO 80;
-               } else {
-                  INDXP[K2+I-1] = JLAM;
-               }
+        GIVPTR.value = GIVPTR.value + 1;
+        GIVCOL[1][GIVPTR.value] = INDXQ[INDX[JLAM]];
+        GIVCOL[2][GIVPTR.value] = INDXQ[INDX[J]];
+        GIVNUM[1][GIVPTR.value] = C;
+        GIVNUM[2][GIVPTR.value] = S;
+        zdrot(QSIZ, Q(1, INDXQ[INDX[JLAM]]).asArray(), 1,
+            Q(1, INDXQ[INDX[J]]).asArray(), 1, C, S);
+        T = D[JLAM] * C * C + D[J] * S * S;
+        D[J] = D[JLAM] * S * S + D[J] * C * C;
+        D[JLAM] = T;
+        K2 = K2 - 1;
+        I = 1;
+        while (true) {
+          if (K2 + I <= N) {
+            if (D[JLAM] < D[INDXP[K2 + I]]) {
+              INDXP[K2 + I - 1] = INDXP[K2 + I];
+              INDXP[K2 + I] = JLAM;
+              I = I + 1;
+              continue;
             } else {
-               INDXP[K2+I-1] = JLAM;
+              INDXP[K2 + I - 1] = JLAM;
             }
-            JLAM = J;
-         } else {
-            K = K + 1;
-            W[K] = Z( JLAM );
-            DLAMBDA[K] = D( JLAM );
-            INDXP[K] = JLAM;
-            JLAM = J;
-         }
+          } else {
+            INDXP[K2 + I - 1] = JLAM;
+          }
+          break;
+        }
+        JLAM = J;
+      } else {
+        K.value = K.value + 1;
+        W[K.value] = Z[JLAM];
+        DLAMBDA[K.value] = D[JLAM];
+        INDXP[K.value] = JLAM;
+        JLAM = J;
       }
-      GO TO 70;
-      } // 90
+    }
+  }
 
-      // Record the last eigenvalue.
+  if (!deflate) {
+    // Record the last eigenvalue.
 
-      K = K + 1;
-      W[K] = Z( JLAM );
-      DLAMBDA[K] = D( JLAM );
-      INDXP[K] = JLAM;
+    K.value = K.value + 1;
+    W[K.value] = Z[JLAM];
+    DLAMBDA[K.value] = D[JLAM];
+    INDXP[K.value] = JLAM;
+  }
 
-      } // 100
+  // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
+  // and Q2 respectively.  The eigenvalues/vectors which were not
+  // deflated go into the first K.value slots of DLAMBDA and Q2 respectively,
+  // while those which were deflated go into the last N - K.value slots.
 
-      // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
-      // and Q2 respectively.  The eigenvalues/vectors which were not
-      // deflated go into the first K slots of DLAMBDA and Q2 respectively,
-      // while those which were deflated go into the last N - K slots.
+  for (J = 1; J <= N; J++) {
+    // 110
+    JP = INDXP[J];
+    DLAMBDA[J] = D[JP];
+    PERM[J] = INDXQ[INDX[JP]];
+    zcopy(QSIZ, Q(1, PERM[J]).asArray(), 1, Q2(1, J).asArray(), 1);
+  } // 110
 
-      for (J = 1; J <= N; J++) { // 110
-         JP = INDXP( J );
-         DLAMBDA[J] = D( JP );
-         PERM[J] = INDXQ( INDX( JP ) );
-         zcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
-      } // 110
+  // The deflated eigenvalues and their corresponding vectors go back
+  // into the last N - K.value slots of D and Q respectively.
 
-      // The deflated eigenvalues and their corresponding vectors go back
-      // into the last N - K slots of D and Q respectively.
-
-      if ( K < N ) {
-         dcopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
-         zlacpy('A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ );
-      }
-
-      }
+  if (K.value < N) {
+    dcopy(N - K.value, DLAMBDA(K.value + 1), 1, D(K.value + 1), 1);
+    zlacpy('A', QSIZ, N - K.value, Q2(1, K.value + 1), LDQ2, Q(1, K.value + 1),
+        LDQ);
+  }
+}

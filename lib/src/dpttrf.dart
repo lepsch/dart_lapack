@@ -32,7 +32,7 @@ void dpttrf(
 
   // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
-  I4 = (N - 1 % 4);
+  I4 = ((N - 1) % 4);
   for (I = 1; I <= I4; I++) {
     if (D[I] <= ZERO) {
       INFO.value = I;

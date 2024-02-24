@@ -20,8 +20,8 @@ void zsyrk(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final C = C_.dim();
+  final A = A_.dim(LDA);
+  final C = C_.dim(LDC);
   Complex TEMP;
   int I, INFO, J, L, NROWA;
   bool UPPER;

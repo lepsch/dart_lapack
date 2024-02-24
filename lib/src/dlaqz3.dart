@@ -272,7 +272,6 @@ void dlaqz3(
     for (var i = KWTOP, j = 1; i <= KWBOT && j <= JW - ND.value; i++, j++) {
       A[i][KWTOP - 1] = v * QC[1][j];
     }
-    //  A[KWTOP:KWBOT][KWTOP-1] = A[KWTOP][ KWTOP-1] *QC( 1, 1:JW-ND.value );
     for (K = KWBOT - 1; K >= KWTOP; K--) {
       dlartg(A[K][KWTOP - 1], A[K + 1][KWTOP - 1], C1, S1, TEMP);
       A[K][KWTOP - 1] = TEMP.value;

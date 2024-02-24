@@ -219,59 +219,59 @@ void dsteqr(
             E[L] = ZERO;
             L = L + 2;
             if (L <= LEND) continue;
-          } else if (JTOT != NMAXIT) {
-            JTOT = JTOT + 1;
+            break;
+          }
+          if (JTOT == NMAXIT) break;
 
-            // Form shift.
+          JTOT = JTOT + 1;
 
-            G = (D[L + 1] - P) / (TWO * E[L]);
-            R.value = dlapy2(G, ONE);
-            G = D[M] - P + (E[L] / (G + sign(R.value, G)));
+          // Form shift.
 
-            S.value = ONE;
-            C.value = ONE;
-            P = ZERO;
+          G = (D[L + 1] - P) / (TWO * E[L]);
+          R.value = dlapy2(G, ONE);
+          G = D[M] - P + (E[L] / (G + sign(R.value, G)));
 
-            // Inner loop
+          S.value = ONE;
+          C.value = ONE;
+          P = ZERO;
 
-            MM1 = M - 1;
-            for (I = MM1; I >= L; I--) {
-              F = S.value * E[I];
-              B = C.value * E[I];
-              dlartg(G, F, C, S, R);
-              if (I != M - 1) E[I + 1] = R.value;
-              G = D[I + 1] - P;
-              R.value = (D[I] - G) * S.value + TWO * C.value * B;
-              P = S.value * R.value;
-              D[I + 1] = G + P;
-              G = C.value * R.value - B;
+          // Inner loop
 
-              // If eigenvectors are desired, then save rotations.
+          MM1 = M - 1;
+          for (I = MM1; I >= L; I--) {
+            F = S.value * E[I];
+            B = C.value * E[I];
+            dlartg(G, F, C, S, R);
+            if (I != M - 1) E[I + 1] = R.value;
+            G = D[I + 1] - P;
+            R.value = (D[I] - G) * S.value + TWO * C.value * B;
+            P = S.value * R.value;
+            D[I + 1] = G + P;
+            G = C.value * R.value - B;
 
-              if (ICOMPZ > 0) {
-                WORK[I] = C.value;
-                WORK[N - 1 + I] = -S.value;
-              }
-            }
-
-            // If eigenvectors are desired, then apply saved rotations.
+            // If eigenvectors are desired, then save rotations.
 
             if (ICOMPZ > 0) {
-              MM = M - L + 1;
-              dlasr(
-                  'R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
+              WORK[I] = C.value;
+              WORK[N - 1 + I] = -S.value;
             }
-
-            D[L] = D[L] - P;
-            E[L] = G;
-            continue;
           }
 
-          // Eigenvalue found.
-          D[L] = P;
-          L = L + 1;
-          if (L <= LEND) continue;
+          // If eigenvectors are desired, then apply saved rotations.
+
+          if (ICOMPZ > 0) {
+            MM = M - L + 1;
+            dlasr('R', 'V', 'B', N, MM, WORK(L), WORK(N - 1 + L), Z(1, L), LDZ);
+          }
+
+          D[L] = D[L] - P;
+          E[L] = G;
+          continue;
         }
+        // Eigenvalue found.
+        D[L] = P;
+        L = L + 1;
+        if (L <= LEND) continue;
         break;
       }
     } else {

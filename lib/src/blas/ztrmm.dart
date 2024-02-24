@@ -21,8 +21,8 @@ void ztrmm(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final B = B_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   Complex TEMP;
   int I, INFO, J, K, NROWA;
   bool LSIDE, NOCONJ, NOUNIT, UPPER;

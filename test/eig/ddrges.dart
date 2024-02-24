@@ -362,10 +362,9 @@ void ddrges(
               if (IINFO.value == 0) {
                 dorm2r('L', 'N', N, N, N - 1, Q, LDQ, WORK, B, LDA,
                     WORK(2 * N + 1), IINFO);
-                if (IINFO.value != 0) {
+                if (IINFO.value == 0) {
                   dorm2r('R', 'T', N, N, N - 1, Z, LDQ, WORK(N + 1), B, LDA,
                       WORK(2 * N + 1), IINFO);
-                  //  if( IINFO.value != 0 ) GOTO100;
                 }
               }
             }

@@ -20,7 +20,7 @@ void zgeru(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.dim();
   final Y = Y_.dim();
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   Complex TEMP;
   int I, INFO, IX, J, JY, KX;
 

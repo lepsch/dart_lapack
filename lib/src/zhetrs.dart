@@ -1,307 +1,343 @@
-      void zhetrs(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zgeru.dart';
+import 'package:lapack/src/blas/zswap.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacgv.dart';
+
+void zhetrs(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LDB, N, NRHS;
-      int                IPIV( * );
-      Complex         A( LDA, * ), B( LDB, * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  bool UPPER;
+  int J, K, KP;
+  double S;
+  Complex AK, AKM1, AKM1K, BK, BKM1, DENOM;
 
-      Complex         ONE;
-      const              ONE = ( 1.0, 0.0 ) ;
-      bool               UPPER;
-      int                J, K, KP;
-      double             S;
-      Complex         AK, AKM1, AKM1K, BK, BKM1, DENOM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDSCAL, ZGEMV, ZGERU, ZLACGV, ZSWAP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCONJG, MAX
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZHETRS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZHETRS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0 || NRHS == 0) return;
 
-      if (N == 0 || NRHS == 0) return;
+  if (UPPER) {
+    // Solve A*X = B, where A = U*D*U**H.
 
-      if ( UPPER ) {
+    // First solve U*D*X = B, overwriting B with X.
 
-         // Solve A*X = B, where A = U*D*U**H.
+    // K is the main loop index, decreasing from N to 1 in steps of
+    // 1 or 2, depending on the size of the diagonal blocks.
 
-         // First solve U*D*X = B, overwriting B with X.
+    K = N;
+    while (K >= 1) {
+      if (IPIV[K] > 0) {
+        // 1 x 1 diagonal block
 
-         // K is the main loop index, decreasing from N to 1 in steps of
-         // 1 or 2, depending on the size of the diagonal blocks.
+        // Interchange rows K and IPIV(K).
 
-         K = N;
-         } // 10
+        KP = IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
 
-         // If K < 1, exit from loop.
+        // Multiply by inv(U(K)), where U(K) is the transformation
+        // stored in column K of A.
 
-         if (K < 1) GO TO 30;
+        zgeru(K - 1, NRHS, -Complex.one, A(1, K).asArray(), 1,
+            B(K, 1).asArray(), LDB, B(1, 1), LDB);
 
-         if ( IPIV( K ) > 0 ) {
+        // Multiply by the inverse of the diagonal block.
 
-            // 1 x 1 diagonal block
-
-            // Interchange rows K and IPIV(K).
-
-            KP = IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-
-            // Multiply by inv(U(K)), where U(K) is the transformation
-            // stored in column K of A.
-
-            zgeru(K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
-
-            // Multiply by the inverse of the diagonal block.
-
-            S = ONE.toDouble() / (A( K, K )).toDouble();
-            zdscal(NRHS, S, B( K, 1 ), LDB );
-            K = K - 1;
-         } else {
-
-            // 2 x 2 diagonal block
-
-            // Interchange rows K-1 and -IPIV(K).
-
-            KP = -IPIV( K );
-            if (KP != K-1) zswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
-
-            // Multiply by inv(U(K)), where U(K) is the transformation
-            // stored in columns K-1 and K of A.
-
-            zgeru(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
-            zgeru(K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
-
-            // Multiply by the inverse of the diagonal block.
-
-            AKM1K = A( K-1, K );
-            AKM1 = A( K-1, K-1 ) / AKM1K;
-            AK = A( K, K ) / DCONJG( AKM1K );
-            DENOM = AKM1*AK - ONE;
-            for (J = 1; J <= NRHS; J++) { // 20
-               BKM1 = B( K-1, J ) / AKM1K;
-               BK = B( K, J ) / DCONJG( AKM1K );
-               B[K-1][J] = ( AK*BKM1-BK ) / DENOM;
-               B[K][J] = ( AKM1*BK-BKM1 ) / DENOM;
-            } // 20
-            K = K - 2;
-         }
-
-         GO TO 10;
-         } // 30
-
-         // Next solve U**H *X = B, overwriting B with X.
-
-         // K is the main loop index, increasing from 1 to N in steps of
-         // 1 or 2, depending on the size of the diagonal blocks.
-
-         K = 1;
-         } // 40
-
-         // If K > N, exit from loop.
-
-         if (K > N) GO TO 50;
-
-         if ( IPIV( K ) > 0 ) {
-
-            // 1 x 1 diagonal block
-
-            // Multiply by inv(U**H(K)), where U(K) is the transformation
-            // stored in column K of A.
-
-            if ( K > 1 ) {
-               zlacgv(NRHS, B( K, 1 ), LDB );
-               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
-               zlacgv(NRHS, B( K, 1 ), LDB );
-            }
-
-            // Interchange rows K and IPIV(K).
-
-            KP = IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K + 1;
-         } else {
-
-            // 2 x 2 diagonal block
-
-            // Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
-            // stored in columns K and K+1 of A.
-
-            if ( K > 1 ) {
-               zlacgv(NRHS, B( K, 1 ), LDB );
-               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
-               zlacgv(NRHS, B( K, 1 ), LDB );
-
-               zlacgv(NRHS, B( K+1, 1 ), LDB );
-               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
-               zlacgv(NRHS, B( K+1, 1 ), LDB );
-            }
-
-            // Interchange rows K and -IPIV(K).
-
-            KP = -IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K + 2;
-         }
-
-         GO TO 40;
-         } // 50
-
+        S = 1.0 / A[K][K].toDouble();
+        zdscal(NRHS, S, B(K, 1).asArray(), LDB);
+        K = K - 1;
       } else {
+        // 2 x 2 diagonal block
 
-         // Solve A*X = B, where A = L*D*L**H.
+        // Interchange rows K-1 and -IPIV(K).
 
-         // First solve L*D*X = B, overwriting B with X.
+        KP = -IPIV[K];
+        if (KP != K - 1) {
+          zswap(NRHS, B(K - 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
 
-         // K is the main loop index, increasing from 1 to N in steps of
-         // 1 or 2, depending on the size of the diagonal blocks.
+        // Multiply by inv(U(K)), where U(K) is the transformation
+        // stored in columns K-1 and K of A.
 
-         K = 1;
-         } // 60
+        zgeru(K - 2, NRHS, -Complex.one, A(1, K).asArray(), 1,
+            B(K, 1).asArray(), LDB, B(1, 1), LDB);
+        zgeru(K - 2, NRHS, -Complex.one, A(1, K - 1).asArray(), 1,
+            B(K - 1, 1).asArray(), LDB, B(1, 1), LDB);
 
-         // If K > N, exit from loop.
+        // Multiply by the inverse of the diagonal block.
 
-         if (K > N) GO TO 80;
-
-         if ( IPIV( K ) > 0 ) {
-
-            // 1 x 1 diagonal block
-
-            // Interchange rows K and IPIV(K).
-
-            KP = IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-
-            // Multiply by inv(L(K)), where L(K) is the transformation
-            // stored in column K of A.
-
-            if (K < N) zgeru( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
-
-            // Multiply by the inverse of the diagonal block.
-
-            S = ONE.toDouble() / (A( K, K )).toDouble();
-            zdscal(NRHS, S, B( K, 1 ), LDB );
-            K = K + 1;
-         } else {
-
-            // 2 x 2 diagonal block
-
-            // Interchange rows K+1 and -IPIV(K).
-
-            KP = -IPIV( K );
-            if (KP != K+1) zswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
-
-            // Multiply by inv(L(K)), where L(K) is the transformation
-            // stored in columns K and K+1 of A.
-
-            if ( K < N-1 ) {
-               zgeru(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB );
-               zgeru(N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
-            }
-
-            // Multiply by the inverse of the diagonal block.
-
-            AKM1K = A( K+1, K );
-            AKM1 = A( K, K ) / DCONJG( AKM1K );
-            AK = A( K+1, K+1 ) / AKM1K;
-            DENOM = AKM1*AK - ONE;
-            for (J = 1; J <= NRHS; J++) { // 70
-               BKM1 = B( K, J ) / DCONJG( AKM1K );
-               BK = B( K+1, J ) / AKM1K;
-               B[K][J] = ( AK*BKM1-BK ) / DENOM;
-               B[K+1][J] = ( AKM1*BK-BKM1 ) / DENOM;
-            } // 70
-            K = K + 2;
-         }
-
-         GO TO 60;
-         } // 80
-
-         // Next solve L**H *X = B, overwriting B with X.
-
-         // K is the main loop index, decreasing from N to 1 in steps of
-         // 1 or 2, depending on the size of the diagonal blocks.
-
-         K = N;
-         } // 90
-
-         // If K < 1, exit from loop.
-
-         if (K < 1) GO TO 100;
-
-         if ( IPIV( K ) > 0 ) {
-
-            // 1 x 1 diagonal block
-
-            // Multiply by inv(L**H(K)), where L(K) is the transformation
-            // stored in column K of A.
-
-            if ( K < N ) {
-               zlacgv(NRHS, B( K, 1 ), LDB );
-               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
-               zlacgv(NRHS, B( K, 1 ), LDB );
-            }
-
-            // Interchange rows K and IPIV(K).
-
-            KP = IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K - 1;
-         } else {
-
-            // 2 x 2 diagonal block
-
-            // Multiply by inv(L**H(K-1)), where L(K-1) is the transformation
-            // stored in columns K-1 and K of A.
-
-            if ( K < N ) {
-               zlacgv(NRHS, B( K, 1 ), LDB );
-               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
-               zlacgv(NRHS, B( K, 1 ), LDB );
-
-               zlacgv(NRHS, B( K-1, 1 ), LDB );
-               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
-               zlacgv(NRHS, B( K-1, 1 ), LDB );
-            }
-
-            // Interchange rows K and -IPIV(K).
-
-            KP = -IPIV( K );
-            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K - 2;
-         }
-
-         GO TO 90;
-         } // 100
+        AKM1K = A[K - 1][K];
+        AKM1 = A[K - 1][K - 1] / AKM1K;
+        AK = A[K][K] / AKM1K.conjugate();
+        DENOM = AKM1 * AK - Complex.one;
+        for (J = 1; J <= NRHS; J++) {
+          // 20
+          BKM1 = B[K - 1][J] / AKM1K;
+          BK = B[K][J] / AKM1K.conjugate();
+          B[K - 1][J] = (AK * BKM1 - BK) / DENOM;
+          B[K][J] = (AKM1 * BK - BKM1) / DENOM;
+        } // 20
+        K = K - 2;
       }
+    }
 
+    // Next solve U**H *X = B, overwriting B with X.
+
+    // K is the main loop index, increasing from 1 to N in steps of
+    // 1 or 2, depending on the size of the diagonal blocks.
+
+    K = 1;
+    while (K <= N) {
+      if (IPIV[K] > 0) {
+        // 1 x 1 diagonal block
+
+        // Multiply by inv(U**H(K)), where U(K) is the transformation
+        // stored in column K of A.
+
+        if (K > 1) {
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+          zgemv('Conjugate transpose', K - 1, NRHS, -Complex.one, B, LDB,
+              A(1, K).asArray(), 1, Complex.one, B(K, 1).asArray(), LDB);
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+        }
+
+        // Interchange rows K and IPIV(K).
+
+        KP = IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+        K = K + 1;
+      } else {
+        // 2 x 2 diagonal block
+
+        // Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
+        // stored in columns K and K+1 of A.
+
+        if (K > 1) {
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+          zgemv('Conjugate transpose', K - 1, NRHS, -Complex.one, B, LDB,
+              A(1, K).asArray(), 1, Complex.one, B(K, 1).asArray(), LDB);
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+
+          zlacgv(NRHS, B(K + 1, 1).asArray(), LDB);
+          zgemv(
+              'Conjugate transpose',
+              K - 1,
+              NRHS,
+              -Complex.one,
+              B,
+              LDB,
+              A(1, K + 1).asArray(),
+              1,
+              Complex.one,
+              B(K + 1, 1).asArray(),
+              LDB);
+          zlacgv(NRHS, B(K + 1, 1).asArray(), LDB);
+        }
+
+        // Interchange rows K and -IPIV(K).
+
+        KP = -IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+        K = K + 2;
       }
+    }
+  } else {
+    // Solve A*X = B, where A = L*D*L**H.
+
+    // First solve L*D*X = B, overwriting B with X.
+
+    // K is the main loop index, increasing from 1 to N in steps of
+    // 1 or 2, depending on the size of the diagonal blocks.
+
+    K = 1;
+    while (K <= N) {
+      if (IPIV[K] > 0) {
+        // 1 x 1 diagonal block
+
+        // Interchange rows K and IPIV(K).
+
+        KP = IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+
+        // Multiply by inv(L(K)), where L(K) is the transformation
+        // stored in column K of A.
+
+        if (K < N) {
+          zgeru(N - K, NRHS, -Complex.one, A(K + 1, K).asArray(), 1,
+              B(K, 1).asArray(), LDB, B(K + 1, 1), LDB);
+        }
+
+        // Multiply by the inverse of the diagonal block.
+
+        S = Complex.one.toDouble() / (A[K][K]).toDouble();
+        zdscal(NRHS, S, B(K, 1).asArray(), LDB);
+        K = K + 1;
+      } else {
+        // 2 x 2 diagonal block
+
+        // Interchange rows K+1 and -IPIV(K).
+
+        KP = -IPIV[K];
+        if (KP != K + 1) {
+          zswap(NRHS, B(K + 1, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+
+        // Multiply by inv(L(K)), where L(K) is the transformation
+        // stored in columns K and K+1 of A.
+
+        if (K < N - 1) {
+          zgeru(N - K - 1, NRHS, -Complex.one, A(K + 2, K).asArray(), 1,
+              B(K, 1).asArray(), LDB, B(K + 2, 1), LDB);
+          zgeru(N - K - 1, NRHS, -Complex.one, A(K + 2, K + 1).asArray(), 1,
+              B(K + 1, 1).asArray(), LDB, B(K + 2, 1), LDB);
+        }
+
+        // Multiply by the inverse of the diagonal block.
+
+        AKM1K = A[K + 1][K];
+        AKM1 = A[K][K] / AKM1K.conjugate();
+        AK = A[K + 1][K + 1] / AKM1K;
+        DENOM = AKM1 * AK - Complex.one;
+        for (J = 1; J <= NRHS; J++) {
+          // 70
+          BKM1 = B[K][J] / AKM1K.conjugate();
+          BK = B[K + 1][J] / AKM1K;
+          B[K][J] = (AK * BKM1 - BK) / DENOM;
+          B[K + 1][J] = (AKM1 * BK - BKM1) / DENOM;
+        } // 70
+        K = K + 2;
+      }
+    } // 80
+
+    // Next solve L**H *X = B, overwriting B with X.
+
+    // K is the main loop index, decreasing from N to 1 in steps of
+    // 1 or 2, depending on the size of the diagonal blocks.
+
+    K = N;
+    while (K >= 1) {
+      if (IPIV[K] > 0) {
+        // 1 x 1 diagonal block
+
+        // Multiply by inv(L**H(K)), where L(K) is the transformation
+        // stored in column K of A.
+
+        if (K < N) {
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+          zgemv(
+              'Conjugate transpose',
+              N - K,
+              NRHS,
+              -Complex.one,
+              B(K + 1, 1),
+              LDB,
+              A(K + 1, K).asArray(),
+              1,
+              Complex.one,
+              B(K, 1).asArray(),
+              LDB);
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+        }
+
+        // Interchange rows K and IPIV(K).
+
+        KP = IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+        K = K - 1;
+      } else {
+        // 2 x 2 diagonal block
+
+        // Multiply by inv(L**H(K-1)), where L(K-1) is the transformation
+        // stored in columns K-1 and K of A.
+
+        if (K < N) {
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+          zgemv(
+              'Conjugate transpose',
+              N - K,
+              NRHS,
+              -Complex.one,
+              B(K + 1, 1),
+              LDB,
+              A(K + 1, K).asArray(),
+              1,
+              Complex.one,
+              B(K, 1).asArray(),
+              LDB);
+          zlacgv(NRHS, B(K, 1).asArray(), LDB);
+
+          zlacgv(NRHS, B(K - 1, 1).asArray(), LDB);
+          zgemv(
+              'Conjugate transpose',
+              N - K,
+              NRHS,
+              -Complex.one,
+              B(K + 1, 1),
+              LDB,
+              A(K + 1, K - 1).asArray(),
+              1,
+              Complex.one,
+              B(K - 1, 1).asArray(),
+              LDB);
+          zlacgv(NRHS, B(K - 1, 1).asArray(), LDB);
+        }
+
+        // Interchange rows K and -IPIV(K).
+
+        KP = -IPIV[K];
+        if (KP != K) {
+          zswap(NRHS, B(K, 1).asArray(), LDB, B(KP, 1).asArray(), LDB);
+        }
+        K = K - 2;
+      }
+    } // 100
+  }
+}

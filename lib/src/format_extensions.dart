@@ -20,12 +20,15 @@ extension DoubleFormatExtension on double {
   // fixed-point
   String f(int w, [int d = 0]) => toStringAsFixed(d).padLeft(w).w(w);
   String get f4_2 => f(4, 2);
+  String get f5_0 => f(5, 0);
   String get f8_2 => f(8, 2);
   String get f12_2 => f(12, 2);
   String get f12_3 => f(12, 3);
 
   // double
   String d(int w, [int d = 0]) {
+    if (isNaN) return 'NaN'.padLeft(w);
+
     var [num, exponent] = toStringAsExponential(d - 1).split('e');
     num = num.replaceFirstMapped(RegExp('([+-]?)(\\d).'), (match) {
       return '${match[1]}0.${match[2]}';
@@ -39,14 +42,19 @@ extension DoubleFormatExtension on double {
   String get d12_3 => d(12, 3);
   String get d12_4 => d(12, 4);
   String get d16_6 => d(16, 6);
+  String get d20_6 => d(20, 6);
+  String get d30_20 => d(30, 20);
   String get d36_8 => d(36, 8);
 
   // exponential
-  String e(int w, [int d = 0]) => this.d(w, d).replaceFirst('D', 'E');
+  String e(int w, [int d = 0, int e = 0]) =>
+      this.d(w, d).replaceFirst('D', 'E');
+  String get e8_1 => e(8, 1);
   String get e12_3 => e(12, 3);
   String get e15_8 => e(15, 8);
   String get e16_6 => e(16, 6);
   String get e24_16 => e(24, 16);
+  String get e24_16e3 => e(24, 16, 3);
 
   // general
   String g(int w, [int d = 0]) {
@@ -79,17 +87,23 @@ extension DoubleFormatExtension on double {
   String get g11_4 => g(11, 4);
   String get g13_6 => g(13, 6);
   String get g16_6 => g(16, 6);
+
+  String get p => sp;
+  String get sp => this >= 0 ? '+' : '-';
+  String get ss => this >= 0 ? '' : '-';
 }
 
 extension StringFormatExtension on String {
-  String get a1 => substring(0, 1).padLeft(1);
-  String get a2 => substring(0, 2).padLeft(2);
-  String get a3 => substring(0, 3).padLeft(3);
-  String get a4 => substring(0, 4).padLeft(4);
-  String get a6 => substring(0, 6).padLeft(6);
-  String get a10 => substring(0, 10).padLeft(10);
-  String get a15 => substring(0, 15).padLeft(15);
-  String get a79 => substring(0, 79).padLeft(79);
+  String get a1 => padLeft(1).substring(0, 1);
+  String get a2 => padLeft(2).substring(0, 2);
+  String get a3 => padLeft(3).substring(0, 3);
+  String get a4 => padLeft(4).substring(0, 4);
+  String get a6 => padLeft(6).substring(0, 6);
+  String get a7 => padLeft(7).substring(0, 7);
+  String get a10 => padLeft(10).substring(0, 10);
+  String get a15 => padLeft(15).substring(0, 15);
+  String get a17 => padLeft(17).substring(0, 17);
+  String get a79 => padLeft(79).substring(0, 79);
 
   String w(int w) => length > w ? '*' * w : this;
 }

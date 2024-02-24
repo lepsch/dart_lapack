@@ -1,23 +1,14 @@
-double sroundup_lwork(LWORK) {
+import 'package:lapack/src/intrinsics/epsilon.dart';
+
+double sroundup_lwork(final int LWORK) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  var result = LWORK.toDouble();
 
-  // .. Scalar Arguments ..
-  int LWORK;
-  // ..
-
-// =====================================================================
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC EPSILON, REAL, INT
-  // ..
-  // .. Executable Statements ..
-  // ..
-  SROUNDUP_LWORK = double(LWORK);
-
-  if (INT(SROUNDUP_LWORK) < LWORK) {
+  if (result.toInt() < LWORK) {
     // Force round up of LWORK
-    SROUNDUP_LWORK = SROUNDUP_LWORK * (1.0 + EPSILON(0.0));
+    result = result * (1.0 + epsilon(0.0));
   }
+  return result;
 }

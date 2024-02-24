@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/xerbla.dart';
 
 void zgemm(
   final String TRANSA,

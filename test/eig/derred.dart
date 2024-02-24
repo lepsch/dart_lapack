@@ -434,7 +434,7 @@ void derred(
 
 void print9999(final Nout nout, final String srnamt, final int nt) {
   nout.println(
-      ' $srnamt passed the tests of the error exits (${nt.i3} tests done)');
+      ' ${srnamt.trimRight()} passed the tests of the error exits (${nt.i3} tests done)');
 }
 
 void print9998(final Nout nout, [final String s = '']) {

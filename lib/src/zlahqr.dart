@@ -40,7 +40,7 @@
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
+      double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
 
       INFO = 0;
 
@@ -167,7 +167,7 @@
             I2 = I;
          }
 
-         if ( (KDEFL % 2*KEXSH) == 0 ) {
+         if ( (KDEFL % (2*KEXSH)) == 0 ) {
 
             // Exceptional shift.
 

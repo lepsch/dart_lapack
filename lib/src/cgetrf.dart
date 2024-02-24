@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/cgetrf2.dart';
 import 'package:lapack/src/complex.dart';

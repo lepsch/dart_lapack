@@ -233,8 +233,8 @@ void dsytrd_sb2st(
   STEPERCOL = (SHIFT / GRSIZ).ceil();
   THGRNB = (N - 1 / THGRSIZ).ceil();
 
-  dlacpy('A', KD + 1, N, AB, LDAB, WORK[APOS] as Matrix<double>, LDA);
-  dlaset('A', KD, N, ZERO, ZERO, WORK[AWPOS] as Matrix<double>, LDA);
+  dlacpy('A', KD + 1, N, AB, LDAB, WORK(APOS).asMatrix(LDA), LDA);
+  dlaset('A', KD, N, ZERO, ZERO, WORK(AWPOS).asMatrix(LDA), LDA);
 
   // openMP parallelisation start here
 

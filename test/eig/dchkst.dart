@@ -147,9 +147,9 @@ void dchkst(
   final TRYRAC = Box(true);
   final KTYPE = Array.fromList(
       [1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10]);
-  // final KMAGN = Array.fromList(
-  //   [1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1],
-  // );
+  final KMAGN = Array.fromList(
+    [1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1],
+  );
   final KMODE = Array.fromList(
       [0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3]);
 
@@ -240,7 +240,6 @@ void dchkst(
       MTYPES = min(MAXTYP + 1, NTYPES);
     }
 
-    jTypeLoop:
     for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
       if (!DOTYPE[JTYPE]) continue;
       NMATS = NMATS + 1;
@@ -272,7 +271,7 @@ void dchkst(
 
         // Compute norm
 
-        switch (JTYPE) {
+        switch (KMAGN[JTYPE]) {
           case 1:
             ANORM = ONE;
             break;
@@ -411,626 +410,340 @@ void dchkst(
         }
       } // 100
 
-      // Call DSYTRD and DORGTR to compute S and U from
-      // upper triangle.
+      failed:
+      while (true) {
+        // Call DSYTRD and DORGTR to compute S and U from
+        // upper triangle.
 
-      dlacpy('U', N, N, A, LDA, V, LDU);
+        dlacpy('U', N, N, A, LDA, V, LDU);
 
-      NTEST = 1;
-      dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
+        NTEST = 1;
+        dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
 
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSYTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[1] = ULPINV;
-          break jTypeLoop;
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSYTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[1] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      dlacpy('U', N, N, V, LDU, U, LDU);
+        dlacpy('U', N, N, V, LDU, U, LDU);
 
-      NTEST = 2;
-      dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DORGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[2] = ULPINV;
-          break jTypeLoop;
+        NTEST = 2;
+        dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DORGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[2] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      // Do tests 1 and 2
+        // Do tests 1 and 2
 
-      dsyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT(1));
-      dsyt21(3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT(2));
+        dsyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+            RESULT(1));
+        dsyt21(3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+            RESULT(2));
 
-      // Call DSYTRD and DORGTR to compute S and U from
-      // lower triangle, do tests.
+        // Call DSYTRD and DORGTR to compute S and U from
+        // lower triangle, do tests.
 
-      dlacpy('L', N, N, A, LDA, V, LDU);
+        dlacpy('L', N, N, A, LDA, V, LDU);
 
-      NTEST = 3;
-      dsytrd('L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
+        NTEST = 3;
+        dsytrd('L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO);
 
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSYTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[3] = ULPINV;
-          break jTypeLoop;
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSYTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[3] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      dlacpy('L', N, N, V, LDU, U, LDU);
+        dlacpy('L', N, N, V, LDU, U, LDU);
 
-      NTEST = 4;
-      dorgtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DORGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[4] = ULPINV;
-          break jTypeLoop;
+        NTEST = 4;
+        dorgtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DORGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[4] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      dsyt21(2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT(3));
-      dsyt21(3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
-          RESULT(4));
+        dsyt21(2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+            RESULT(3));
+        dsyt21(3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK,
+            RESULT(4));
 
-      // Store the upper triangle of A in AP
+        // Store the upper triangle of A in AP
 
-      I = 0;
-      for (JC = 1; JC <= N; JC++) {
-        // 120
-        for (JR = 1; JR <= JC; JR++) {
-          // 110
-          I = I + 1;
-          AP[I] = A[JR][JC];
-        } // 110
-      } // 120
+        I = 0;
+        for (JC = 1; JC <= N; JC++) {
+          // 120
+          for (JR = 1; JR <= JC; JR++) {
+            // 110
+            I = I + 1;
+            AP[I] = A[JR][JC];
+          } // 110
+        } // 120
 
-      // Call DSPTRD and DOPGTR to compute S and U from AP
+        // Call DSPTRD and DOPGTR to compute S and U from AP
 
-      dcopy(NAP, AP, 1, VP, 1);
+        dcopy(NAP, AP, 1, VP, 1);
 
-      NTEST = 5;
-      dsptrd('U', N, VP, SD, SE, TAU, IINFO);
+        NTEST = 5;
+        dsptrd('U', N, VP, SD, SE, TAU, IINFO);
 
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSPTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[5] = ULPINV;
-          break jTypeLoop;
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSPTRD(U)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[5] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      NTEST = 6;
-      dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DOPGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[6] = ULPINV;
-          break jTypeLoop;
+        NTEST = 6;
+        dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DOPGTR(U)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[6] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      // Do tests 5 and 6
+        // Do tests 5 and 6
 
-      dspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(5));
-      dspt21(3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(6));
+        dspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(5));
+        dspt21(3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(6));
 
-      // Store the lower triangle of A in AP
+        // Store the lower triangle of A in AP
 
-      I = 0;
-      for (JC = 1; JC <= N; JC++) {
-        // 140
-        for (JR = JC; JR <= N; JR++) {
-          // 130
-          I = I + 1;
-          AP[I] = A[JR][JC];
-        } // 130
-      } // 140
+        I = 0;
+        for (JC = 1; JC <= N; JC++) {
+          // 140
+          for (JR = JC; JR <= N; JR++) {
+            // 130
+            I = I + 1;
+            AP[I] = A[JR][JC];
+          } // 130
+        } // 140
 
-      // Call DSPTRD and DOPGTR to compute S and U from AP
+        // Call DSPTRD and DOPGTR to compute S and U from AP
 
-      dcopy(NAP, AP, 1, VP, 1);
+        dcopy(NAP, AP, 1, VP, 1);
 
-      NTEST = 7;
-      dsptrd('L', N, VP, SD, SE, TAU, IINFO);
+        NTEST = 7;
+        dsptrd('L', N, VP, SD, SE, TAU, IINFO);
 
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSPTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[7] = ULPINV;
-          break jTypeLoop;
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSPTRD(L)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[7] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      NTEST = 8;
-      dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DOPGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[8] = ULPINV;
-          break jTypeLoop;
+        NTEST = 8;
+        dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DOPGTR(L)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[8] = ULPINV;
+            break failed;
+          }
         }
-      }
 
-      dspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(7));
-      dspt21(3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(8));
+        dspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(7));
+        dspt21(3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT(8));
 
-      // Call DSTEQR to compute D1, D2, and Z, do tests.
+        // Call DSTEQR to compute D1, D2, and Z, do tests.
 
-      // Compute D1 and Z
+        // Compute D1 and Z
 
-      dcopy(N, SD, 1, D1, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-      dlaset('Full', N, N, ZERO, ONE, Z, LDU);
-
-      NTEST = 9;
-      dsteqr('V', N, D1, WORK, Z, LDU, WORK(N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[9] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Compute D2
-
-      dcopy(N, SD, 1, D2, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-
-      NTEST = 11;
-      dsteqr(
-          'N', N, D2, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[11] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Compute D3 (using PWK method)
-
-      dcopy(N, SD, 1, D3, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-
-      NTEST = 12;
-      dsterf(N, D3, WORK, IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTERF', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[12] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do Tests 9 and 10
-
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(9));
-
-      // Do Tests 11 and 12
-
-      TEMP1 = ZERO;
-      TEMP2 = ZERO;
-      TEMP3 = ZERO;
-      TEMP4 = ZERO;
-
-      for (J = 1; J <= N; J++) {
-        // 150
-        TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
-        TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-        TEMP3 = max(TEMP3, max((D1[J]).abs(), (D3[J]).abs()));
-        TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
-      } // 150
-
-      RESULT[11] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
-      RESULT[12] = TEMP4 / max(UNFL, ULP * max(TEMP3, TEMP4));
-
-      // Do Test 13 -- Sturm Sequence Test of Eigenvalues
-      // Go up by factors of two until it succeeds
-
-      NTEST = 13;
-      TEMP1 = THRESH * (HALF - ULP);
-
-      for (J = 0; J <= LOG2UI; J++) {
-        // 160
-        dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
-        if (IINFO.value == 0) break;
-        TEMP1 = TEMP1 * TWO;
-      } // 160
-
-      RESULT[13] = TEMP1;
-
-      // For positive definite matrices ( JTYPE > 15 ) call DPTEQR
-      // and do tests 14, 15, and 16 .
-
-      if (JTYPE > 15) {
-        // Compute D4 and Z4
-
-        dcopy(N, SD, 1, D4, 1);
+        dcopy(N, SD, 1, D1, 1);
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
         dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
-        NTEST = 14;
-        dpteqr('V', N, D4, WORK, Z, LDU, WORK(N + 1), IINFO);
+        NTEST = 9;
+        dsteqr('V', N, D1, WORK, Z, LDU, WORK(N + 1), IINFO);
         if (IINFO.value != 0) {
-          print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
           } else {
-            RESULT[14] = ULPINV;
-            break jTypeLoop;
+            RESULT[9] = ULPINV;
+            break failed;
           }
         }
 
-        // Do Tests 14 and 15
+        // Compute D2
 
-        dstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT(14));
-
-        // Compute D5
-
-        dcopy(N, SD, 1, D5, 1);
+        dcopy(N, SD, 1, D2, 1);
         if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-        NTEST = 16;
-        dpteqr('N', N, D5, WORK, Z, LDU, WORK(N + 1), IINFO);
+        NTEST = 11;
+        dsteqr('N', N, D2, WORK, WORK(N + 1).asMatrix(LDU), LDU, WORK(N + 1),
+            IINFO);
         if (IINFO.value != 0) {
-          print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+          print9999(NOUNIT, 'DSTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
           INFO.value = (IINFO.value).abs();
           if (IINFO.value < 0) {
             return;
           } else {
-            RESULT[16] = ULPINV;
-            break jTypeLoop;
+            RESULT[11] = ULPINV;
+            break failed;
           }
         }
 
-        // Do Test 16
+        // Compute D3 (using PWK method)
+
+        dcopy(N, SD, 1, D3, 1);
+        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+
+        NTEST = 12;
+        dsterf(N, D3, WORK, IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTERF', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[12] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do Tests 9 and 10
+
+        dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(9));
+
+        // Do Tests 11 and 12
 
         TEMP1 = ZERO;
         TEMP2 = ZERO;
-        for (J = 1; J <= N; J++) {
-          // 180
-          TEMP1 = max(TEMP1, max((D4[J]).abs(), (D5[J]).abs()));
-          TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
-        } // 180
-
-        RESULT[16] = TEMP2 / max(UNFL, HUN * ULP * max(TEMP1, TEMP2));
-      } else {
-        RESULT[14] = ZERO;
-        RESULT[15] = ZERO;
-        RESULT[16] = ZERO;
-      }
-
-      // Call DSTEBZ with different options and do tests 17-18.
-
-      // If S is positive definite and diagonally dominant,
-      // ask for all eigenvalues with high relative accuracy.
-
-      VL = ZERO;
-      VU = ZERO;
-      IL = 0;
-      IU = 0;
-      if (JTYPE == 21) {
-        NTEST = 17;
-        ABSTOL = UNFL + UNFL;
-        dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR,
-            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
-        if (IINFO.value != 0) {
-          print9999(NOUNIT, 'DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
-          if (IINFO.value < 0) {
-            return;
-          } else {
-            RESULT[17] = ULPINV;
-            break jTypeLoop;
-          }
-        }
-
-        // Do test 17
-
-        TEMP2 = TWO *
-            (TWO * N - ONE) *
-            ULP *
-            (ONE + EIGHT * pow(HALF, 2)) /
-            pow((ONE - HALF), 4);
-
-        TEMP1 = ZERO;
-        for (J = 1; J <= N; J++) {
-          // 190
-          TEMP1 = max(
-              TEMP1, (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
-        } // 190
-
-        RESULT[17] = TEMP1 / TEMP2;
-      } else {
-        RESULT[17] = ZERO;
-      }
-
-      // Now ask for all eigenvalues with high absolute accuracy.
-
-      NTEST = 18;
-      ABSTOL = UNFL + UNFL;
-      dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
-          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = IINFO.value.abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[18] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do test 18
-
-      TEMP1 = ZERO;
-      TEMP2 = ZERO;
-      for (J = 1; J <= N; J++) {
-        // 200
-        TEMP1 = max(TEMP1, max((D3[J]).abs(), (WA1[J]).abs()));
-        TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
-      } // 200
-
-      RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
-
-      // Choose random values for IL and IU, and ask for the
-      // IL-th through IU-th eigenvalues.
-
-      NTEST = 19;
-      if (N <= 1) {
-        IL = 1;
-        IU = N;
-      } else {
-        IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-        IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-        if (IU < IL) {
-          ITEMP = IU;
-          IU = IL;
-          IL = ITEMP;
-        }
-      }
-
-      dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2,
-          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[19] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Determine the values VL and VU of the IL-th and IU-th
-      // eigenvalues and ask for all eigenvalues in this range.
-
-      if (N > 0) {
-        if (IL != 1) {
-          VL = WA1[IL] -
-              max(HALF * (WA1[IL] - WA1[IL - 1]),
-                  max(ULP * ANORM, TWO * RTUNFL));
-        } else {
-          VL = WA1[1] -
-              max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
-        }
-        if (IU != N) {
-          VU = WA1[IU] +
-              max(HALF * (WA1[IU + 1] - WA1[IU]),
-                  max(ULP * ANORM, TWO * RTUNFL));
-        } else {
-          VU = WA1[N] +
-              max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
-        }
-      } else {
-        VL = ZERO;
-        VU = ONE;
-      }
-
-      dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3,
-          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[19] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      if (M3.value == 0 && N != 0) {
-        RESULT[19] = ULPINV;
-        break jTypeLoop;
-      }
-
-      // Do test 19
-
-      TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
-      TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
-      if (N > 0) {
-        TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
-      } else {
         TEMP3 = ZERO;
-      }
+        TEMP4 = ZERO;
 
-      RESULT[19] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
+        for (J = 1; J <= N; J++) {
+          // 150
+          TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+          TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
+          TEMP3 = max(TEMP3, max((D1[J]).abs(), (D3[J]).abs()));
+          TEMP4 = max(TEMP4, (D1[J] - D3[J]).abs());
+        } // 150
 
-      // Call DSTEIN to compute eigenvectors corresponding to
-      // eigenvalues in WA1.  (First call DSTEBZ again, to make sure
-      // it returns these eigenvalues in the correct order.)
+        RESULT[11] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
+        RESULT[12] = TEMP4 / max(UNFL, ULP * max(TEMP3, TEMP4));
 
-      NTEST = 21;
-      dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
-          IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
+        // Do Test 13 -- Sturm Sequence Test of Eigenvalues
+        // Go up by factors of two until it succeeds
+
+        NTEST = 13;
+        TEMP1 = THRESH * (HALF - ULP);
+
+        for (J = 0; J <= LOG2UI; J++) {
+          // 160
+          dstech(N, SD, SE, D1, TEMP1, WORK, IINFO);
+          if (IINFO.value == 0) break;
+          TEMP1 = TEMP1 * TWO;
+        } // 160
+
+        RESULT[13] = TEMP1;
+
+        // For positive definite matrices ( JTYPE > 15 ) call DPTEQR
+        // and do tests 14, 15, and 16 .
+
+        if (JTYPE > 15) {
+          // Compute D4 and Z4
+
+          dcopy(N, SD, 1, D4, 1);
+          if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+          dlaset('Full', N, N, ZERO, ONE, Z, LDU);
+
+          NTEST = 14;
+          dpteqr('V', N, D4, WORK, Z, LDU, WORK(N + 1), IINFO);
+          if (IINFO.value != 0) {
+            print9999(NOUNIT, 'DPTEQR(V)', IINFO.value, N, JTYPE, IOLDSD);
+            INFO.value = (IINFO.value).abs();
+            if (IINFO.value < 0) {
+              return;
+            } else {
+              RESULT[14] = ULPINV;
+              break failed;
+            }
+          }
+
+          // Do Tests 14 and 15
+
+          dstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT(14));
+
+          // Compute D5
+
+          dcopy(N, SD, 1, D5, 1);
+          if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+
+          NTEST = 16;
+          dpteqr('N', N, D5, WORK, Z, LDU, WORK(N + 1), IINFO);
+          if (IINFO.value != 0) {
+            print9999(NOUNIT, 'DPTEQR(N)', IINFO.value, N, JTYPE, IOLDSD);
+            INFO.value = (IINFO.value).abs();
+            if (IINFO.value < 0) {
+              return;
+            } else {
+              RESULT[16] = ULPINV;
+              break failed;
+            }
+          }
+
+          // Do Test 16
+
+          TEMP1 = ZERO;
+          TEMP2 = ZERO;
+          for (J = 1; J <= N; J++) {
+            // 180
+            TEMP1 = max(TEMP1, max((D4[J]).abs(), (D5[J]).abs()));
+            TEMP2 = max(TEMP2, (D4[J] - D5[J]).abs());
+          } // 180
+
+          RESULT[16] = TEMP2 / max(UNFL, HUN * ULP * max(TEMP1, TEMP2));
         } else {
-          RESULT[20] = ULPINV;
-          RESULT[21] = ULPINV;
-          break jTypeLoop;
+          RESULT[14] = ZERO;
+          RESULT[15] = ZERO;
+          RESULT[16] = ZERO;
         }
-      }
 
-      dstein(N, SD, SE, M.value, WA1, IWORK(1), IWORK(N + 1), Z, LDU, WORK,
-          IWORK(2 * N + 1), IWORK(3 * N + 1), IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[20] = ULPINV;
-          RESULT[21] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do tests 20 and 21
-
-      dstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT(20));
-
-      // Call DSTEDC(I) to compute D1 and Z, do tests.
-
-      // Compute D1 and Z
-
-      dcopy(N, SD, 1, D1, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-      dlaset('Full', N, N, ZERO, ONE, Z, LDU);
-
-      NTEST = 22;
-      dstedc('I', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
-          IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[22] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do Tests 22 and 23
-
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(22));
-
-      // Call DSTEDC(V) to compute D1 and Z, do tests.
-
-      // Compute D1 and Z
-
-      dcopy(N, SD, 1, D1, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-      dlaset('Full', N, N, ZERO, ONE, Z, LDU);
-
-      NTEST = 24;
-      dstedc('V', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
-          IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[24] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do Tests 24 and 25
-
-      dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(24));
-
-      // Call DSTEDC(N) to compute D2, do tests.
-
-      // Compute D2
-
-      dcopy(N, SD, 1, D2, 1);
-      if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-      dlaset('Full', N, N, ZERO, ONE, Z, LDU);
-
-      NTEST = 26;
-      dstedc('N', N, D2, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
-          IINFO);
-      if (IINFO.value != 0) {
-        print9999(NOUNIT, 'DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
-        INFO.value = (IINFO.value).abs();
-        if (IINFO.value < 0) {
-          return;
-        } else {
-          RESULT[26] = ULPINV;
-          break jTypeLoop;
-        }
-      }
-
-      // Do Test 26
-
-      TEMP1 = ZERO;
-      TEMP2 = ZERO;
-
-      for (J = 1; J <= N; J++) {
-        // 210
-        TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
-        TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-      } // 210
-
-      RESULT[26] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
-
-      // Only test DSTEMR if IEEE compliant
-
-      testDstemr:
-      while (ilaenv(10, 'DSTEMR', 'VA', 1, 0, 0, 0) == 1 &&
-          ilaenv(11, 'DSTEMR', 'VA', 1, 0, 0, 0) == 1) {
-        // Call DSTEMR, do test 27 (relative eigenvalue accuracy)
+        // Call DSTEBZ with different options and do tests 17-18.
 
         // If S is positive definite and diagonally dominant,
         // ask for all eigenvalues with high relative accuracy.
@@ -1039,44 +752,23 @@ void dchkst(
         VU = ZERO;
         IL = 0;
         IU = 0;
-        // ignore: dead_code
-        if (JTYPE == 21 && SREL) {
-          NTEST = 27;
+        if (JTYPE == 21) {
+          NTEST = 17;
           ABSTOL = UNFL + UNFL;
-          dstemr(
-              'V',
-              'A',
-              N,
-              SD,
-              SE,
-              VL,
-              VU,
-              IL,
-              IU,
-              M,
-              WR,
-              Z,
-              LDU,
-              N,
-              IWORK(1),
-              TRYRAC,
-              WORK,
-              LWORK,
-              IWORK(2 * N + 1),
-              LWORK - 2 * N,
-              IINFO);
+          dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR,
+              IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
           if (IINFO.value != 0) {
-            print9999(NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEBZ(A,rel)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
             } else {
-              RESULT[27] = ULPINV;
-              break testDstemr;
+              RESULT[17] = ULPINV;
+              break failed;
             }
           }
 
-          // Do test 27
+          // Do test 17
 
           TEMP2 = TWO *
               (TWO * N - ONE) *
@@ -1086,13 +778,53 @@ void dchkst(
 
           TEMP1 = ZERO;
           for (J = 1; J <= N; J++) {
-            // 220
+            // 190
             TEMP1 = max(TEMP1,
                 (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
-          } // 220
+          } // 190
 
-          RESULT[27] = TEMP1 / TEMP2;
+          RESULT[17] = TEMP1 / TEMP2;
+        } else {
+          RESULT[17] = ZERO;
+        }
 
+        // Now ask for all eigenvalues with high absolute accuracy.
+
+        NTEST = 18;
+        ABSTOL = UNFL + UNFL;
+        dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
+            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEBZ(A)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = IINFO.value.abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[18] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do test 18
+
+        TEMP1 = ZERO;
+        TEMP2 = ZERO;
+        for (J = 1; J <= N; J++) {
+          // 200
+          TEMP1 = max(TEMP1, max((D3[J]).abs(), (WA1[J]).abs()));
+          TEMP2 = max(TEMP2, (D3[J] - WA1[J]).abs());
+        } // 200
+
+        RESULT[18] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
+
+        // Choose random values for IL and IU, and ask for the
+        // IL-th through IU-th eigenvalues.
+
+        NTEST = 19;
+        if (N <= 1) {
+          IL = 1;
+          IU = N;
+        } else {
           IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
           IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
           if (IU < IL) {
@@ -1100,13 +832,220 @@ void dchkst(
             IU = IL;
             IL = ITEMP;
           }
+        }
 
-          if (SRANGE) {
-            NTEST = 28;
+        dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2,
+            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEBZ(I)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[19] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Determine the values VL and VU of the IL-th and IU-th
+        // eigenvalues and ask for all eigenvalues in this range.
+
+        if (N > 0) {
+          if (IL != 1) {
+            VL = WA1[IL] -
+                max(HALF * (WA1[IL] - WA1[IL - 1]),
+                    max(ULP * ANORM, TWO * RTUNFL));
+          } else {
+            VL = WA1[1] -
+                max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
+          }
+          if (IU != N) {
+            VU = WA1[IU] +
+                max(HALF * (WA1[IU + 1] - WA1[IU]),
+                    max(ULP * ANORM, TWO * RTUNFL));
+          } else {
+            VU = WA1[N] +
+                max(HALF * (WA1[N] - WA1[1]), max(ULP * ANORM, TWO * RTUNFL));
+          }
+        } else {
+          VL = ZERO;
+          VU = ONE;
+        }
+
+        dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3,
+            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEBZ(V)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[19] = ULPINV;
+            break failed;
+          }
+        }
+
+        if (M3.value == 0 && N != 0) {
+          RESULT[19] = ULPINV;
+          break failed;
+        }
+
+        // Do test 19
+
+        TEMP1 = dsxt1(1, WA2, M2.value, WA3, M3.value, ABSTOL, ULP, UNFL);
+        TEMP2 = dsxt1(1, WA3, M3.value, WA2, M2.value, ABSTOL, ULP, UNFL);
+        if (N > 0) {
+          TEMP3 = max((WA1[N]).abs(), (WA1[1]).abs());
+        } else {
+          TEMP3 = ZERO;
+        }
+
+        RESULT[19] = (TEMP1 + TEMP2) / max(UNFL, TEMP3 * ULP);
+
+        // Call DSTEIN to compute eigenvectors corresponding to
+        // eigenvalues in WA1.  (First call DSTEBZ again, to make sure
+        // it returns these eigenvalues in the correct order.)
+
+        NTEST = 21;
+        dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1,
+            IWORK(1), IWORK(N + 1), WORK, IWORK(2 * N + 1), IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEBZ(A,B)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[20] = ULPINV;
+            RESULT[21] = ULPINV;
+            break failed;
+          }
+        }
+
+        dstein(N, SD, SE, M.value, WA1, IWORK(1), IWORK(N + 1), Z, LDU, WORK,
+            IWORK(2 * N + 1), IWORK(3 * N + 1), IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEIN', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[20] = ULPINV;
+            RESULT[21] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do tests 20 and 21
+
+        dstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT(20));
+
+        // Call DSTEDC(I) to compute D1 and Z, do tests.
+
+        // Compute D1 and Z
+
+        dcopy(N, SD, 1, D1, 1);
+        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+        dlaset('Full', N, N, ZERO, ONE, Z, LDU);
+
+        NTEST = 22;
+        dstedc('I', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+            IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEDC(I)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[22] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do Tests 22 and 23
+
+        dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(22));
+
+        // Call DSTEDC(V) to compute D1 and Z, do tests.
+
+        // Compute D1 and Z
+
+        dcopy(N, SD, 1, D1, 1);
+        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+        dlaset('Full', N, N, ZERO, ONE, Z, LDU);
+
+        NTEST = 24;
+        dstedc('V', N, D1, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+            IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEDC(V)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[24] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do Tests 24 and 25
+
+        dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT(24));
+
+        // Call DSTEDC(N) to compute D2, do tests.
+
+        // Compute D2
+
+        dcopy(N, SD, 1, D2, 1);
+        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+        dlaset('Full', N, N, ZERO, ONE, Z, LDU);
+
+        NTEST = 26;
+        dstedc('N', N, D2, WORK, Z, LDU, WORK(N + 1), LWEDC - N, IWORK, LIWEDC,
+            IINFO);
+        if (IINFO.value != 0) {
+          print9999(NOUNIT, 'DSTEDC(N)', IINFO.value, N, JTYPE, IOLDSD);
+          INFO.value = (IINFO.value).abs();
+          if (IINFO.value < 0) {
+            return;
+          } else {
+            RESULT[26] = ULPINV;
+            break failed;
+          }
+        }
+
+        // Do Test 26
+
+        TEMP1 = ZERO;
+        TEMP2 = ZERO;
+
+        for (J = 1; J <= N; J++) {
+          // 210
+          TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+          TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
+        } // 210
+
+        RESULT[26] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
+
+        // Only test DSTEMR if IEEE compliant
+
+        if (ilaenv(10, 'DSTEMR', 'VA', 1, 0, 0, 0) == 1 &&
+            ilaenv(11, 'DSTEMR', 'VA', 1, 0, 0, 0) == 1) {
+          // Call DSTEMR, do test 27 (relative eigenvalue accuracy)
+
+          // If S is positive definite and diagonally dominant,
+          // ask for all eigenvalues with high relative accuracy.
+
+          VL = ZERO;
+          VU = ZERO;
+          IL = 0;
+          IU = 0;
+          // ignore: dead_code
+          if (JTYPE == 21 && SREL) {
+            NTEST = 27;
             ABSTOL = UNFL + UNFL;
             dstemr(
                 'V',
-                'I',
+                'A',
                 N,
                 SD,
                 SE,
@@ -1126,20 +1065,19 @@ void dchkst(
                 IWORK(2 * N + 1),
                 LWORK - 2 * N,
                 IINFO);
-
             if (IINFO.value != 0) {
               print9999(
-                  NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                  NOUNIT, 'DSTEMR(V,A,rel)', IINFO.value, N, JTYPE, IOLDSD);
               INFO.value = (IINFO.value).abs();
               if (IINFO.value < 0) {
                 return;
               } else {
-                RESULT[28] = ULPINV;
-                break testDstemr;
+                RESULT[27] = ULPINV;
+                break failed;
               }
             }
 
-            // Do test 28
+            // Do test 27
 
             TEMP2 = TWO *
                 (TWO * N - ONE) *
@@ -1148,134 +1086,87 @@ void dchkst(
                 pow((ONE - HALF), 4);
 
             TEMP1 = ZERO;
-            for (J = IL; J <= IU; J++) {
-              // 230
-              TEMP1 = max(
-                  TEMP1,
-                  (WR[J - IL + 1] - D4[N - J + 1]).abs() /
-                      (ABSTOL + (WR[J - IL + 1]).abs()));
-            } // 230
+            for (J = 1; J <= N; J++) {
+              // 220
+              TEMP1 = max(TEMP1,
+                  (D4[J] - WR[N - J + 1]).abs() / (ABSTOL + (D4[J]).abs()));
+            } // 220
 
-            RESULT[28] = TEMP1 / TEMP2;
+            RESULT[27] = TEMP1 / TEMP2;
+
+            IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
+            IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
+            if (IU < IL) {
+              ITEMP = IU;
+              IU = IL;
+              IL = ITEMP;
+            }
+
+            if (SRANGE) {
+              NTEST = 28;
+              ABSTOL = UNFL + UNFL;
+              dstemr(
+                  'V',
+                  'I',
+                  N,
+                  SD,
+                  SE,
+                  VL,
+                  VU,
+                  IL,
+                  IU,
+                  M,
+                  WR,
+                  Z,
+                  LDU,
+                  N,
+                  IWORK(1),
+                  TRYRAC,
+                  WORK,
+                  LWORK,
+                  IWORK(2 * N + 1),
+                  LWORK - 2 * N,
+                  IINFO);
+
+              if (IINFO.value != 0) {
+                print9999(
+                    NOUNIT, 'DSTEMR(V,I,rel)', IINFO.value, N, JTYPE, IOLDSD);
+                INFO.value = (IINFO.value).abs();
+                if (IINFO.value < 0) {
+                  return;
+                } else {
+                  RESULT[28] = ULPINV;
+                  break failed;
+                }
+              }
+
+              // Do test 28
+
+              TEMP2 = TWO *
+                  (TWO * N - ONE) *
+                  ULP *
+                  (ONE + EIGHT * pow(HALF, 2)) /
+                  pow((ONE - HALF), 4);
+
+              TEMP1 = ZERO;
+              for (J = IL; J <= IU; J++) {
+                // 230
+                TEMP1 = max(
+                    TEMP1,
+                    (WR[J - IL + 1] - D4[N - J + 1]).abs() /
+                        (ABSTOL + (WR[J - IL + 1]).abs()));
+              } // 230
+
+              RESULT[28] = TEMP1 / TEMP2;
+            } else {
+              RESULT[28] = ZERO;
+            }
           } else {
+            RESULT[27] = ZERO;
             RESULT[28] = ZERO;
           }
-        } else {
-          RESULT[27] = ZERO;
-          RESULT[28] = ZERO;
-        }
 
-        // Call DSTEMR(V,I) to compute D1 and Z, do tests.
-
-        // Compute D1 and Z
-
-        dcopy(N, SD, 1, D5, 1);
-        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-        dlaset('Full', N, N, ZERO, ONE, Z, LDU);
-
-        // ignore: dead_code
-        if (SRANGE) {
-          NTEST = 29;
-          IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-          IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
-          if (IU < IL) {
-            ITEMP = IU;
-            IU = IL;
-            IL = ITEMP;
-          }
-          dstemr(
-              'V',
-              'I',
-              N,
-              D5,
-              WORK,
-              VL,
-              VU,
-              IL,
-              IU,
-              M,
-              D1,
-              Z,
-              LDU,
-              N,
-              IWORK(1),
-              TRYRAC,
-              WORK(N + 1),
-              LWORK - N,
-              IWORK(2 * N + 1),
-              LIWORK - 2 * N,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUNIT, 'DSTEMR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
-            if (IINFO.value < 0) {
-              return;
-            } else {
-              RESULT[29] = ULPINV;
-              break jTypeLoop;
-            }
-          }
-
-          // Do Tests 29 and 30
-
-          dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
-              WORK.asMatrix(M.value), M.value, RESULT(29));
-
-          // Call DSTEMR to compute D2, do tests.
-
-          // Compute D2
-
-          dcopy(N, SD, 1, D5, 1);
-          if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-
-          NTEST = 31;
-          dstemr(
-              'N',
-              'I',
-              N,
-              D5,
-              WORK,
-              VL,
-              VU,
-              IL,
-              IU,
-              M,
-              D2,
-              Z,
-              LDU,
-              N,
-              IWORK(1),
-              TRYRAC,
-              WORK(N + 1),
-              LWORK - N,
-              IWORK(2 * N + 1),
-              LIWORK - 2 * N,
-              IINFO);
-          if (IINFO.value != 0) {
-            print9999(NOUNIT, 'DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
-            INFO.value = (IINFO.value).abs();
-            if (IINFO.value < 0) {
-              return;
-            } else {
-              RESULT[31] = ULPINV;
-              break jTypeLoop;
-            }
-          }
-
-          // Do Test 31
-
-          TEMP1 = ZERO;
-          TEMP2 = ZERO;
-
-          for (J = 1; J <= IU - IL + 1; J++) {
-            // 240
-            TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
-            TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-          } // 240
-
-          RESULT[31] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
-
-          // Call DSTEMR(V,V) to compute D1 and Z, do tests.
+          // Call DSTEMR(V,I) to compute D1 and Z, do tests.
 
           // Compute D1 and Z
 
@@ -1283,33 +1174,252 @@ void dchkst(
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
           dlaset('Full', N, N, ZERO, ONE, Z, LDU);
 
-          NTEST = 32;
+          // ignore: dead_code
+          if (SRANGE) {
+            NTEST = 29;
+            IL = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
+            IU = 1 + (N - 1) * dlarnd(1, ISEED2).toInt();
+            if (IU < IL) {
+              ITEMP = IU;
+              IU = IL;
+              IL = ITEMP;
+            }
+            dstemr(
+                'V',
+                'I',
+                N,
+                D5,
+                WORK,
+                VL,
+                VU,
+                IL,
+                IU,
+                M,
+                D1,
+                Z,
+                LDU,
+                N,
+                IWORK(1),
+                TRYRAC,
+                WORK(N + 1),
+                LWORK - N,
+                IWORK(2 * N + 1),
+                LIWORK - 2 * N,
+                IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUNIT, 'DSTEMR(V,I)', IINFO.value, N, JTYPE, IOLDSD);
+              INFO.value = (IINFO.value).abs();
+              if (IINFO.value < 0) {
+                return;
+              } else {
+                RESULT[29] = ULPINV;
+                break failed;
+              }
+            }
 
-          if (N > 0) {
-            if (IL != 1) {
-              VL = D2[IL] -
-                  max(HALF * (D2[IL] - D2[IL - 1]),
-                      max(ULP * ANORM, TWO * RTUNFL));
-            } else {
-              VL = D2[1] -
-                  max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
+            // Do Tests 29 and 30
+
+            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+                WORK.asMatrix(M.value), M.value, RESULT(29));
+
+            // Call DSTEMR to compute D2, do tests.
+
+            // Compute D2
+
+            dcopy(N, SD, 1, D5, 1);
+            if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+
+            NTEST = 31;
+            dstemr(
+                'N',
+                'I',
+                N,
+                D5,
+                WORK,
+                VL,
+                VU,
+                IL,
+                IU,
+                M,
+                D2,
+                Z,
+                LDU,
+                N,
+                IWORK(1),
+                TRYRAC,
+                WORK(N + 1),
+                LWORK - N,
+                IWORK(2 * N + 1),
+                LIWORK - 2 * N,
+                IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUNIT, 'DSTEMR(N,I)', IINFO.value, N, JTYPE, IOLDSD);
+              INFO.value = (IINFO.value).abs();
+              if (IINFO.value < 0) {
+                return;
+              } else {
+                RESULT[31] = ULPINV;
+                break failed;
+              }
             }
-            if (IU != N) {
-              VU = D2[IU] +
-                  max(HALF * (D2[IU + 1] - D2[IU]),
-                      max(ULP * ANORM, TWO * RTUNFL));
+
+            // Do Test 31
+
+            TEMP1 = ZERO;
+            TEMP2 = ZERO;
+
+            for (J = 1; J <= IU - IL + 1; J++) {
+              // 240
+              TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+              TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
+            } // 240
+
+            RESULT[31] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
+
+            // Call DSTEMR(V,V) to compute D1 and Z, do tests.
+
+            // Compute D1 and Z
+
+            dcopy(N, SD, 1, D5, 1);
+            if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+            dlaset('Full', N, N, ZERO, ONE, Z, LDU);
+
+            NTEST = 32;
+
+            if (N > 0) {
+              if (IL != 1) {
+                VL = D2[IL] -
+                    max(HALF * (D2[IL] - D2[IL - 1]),
+                        max(ULP * ANORM, TWO * RTUNFL));
+              } else {
+                VL = D2[1] -
+                    max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
+              }
+              if (IU != N) {
+                VU = D2[IU] +
+                    max(HALF * (D2[IU + 1] - D2[IU]),
+                        max(ULP * ANORM, TWO * RTUNFL));
+              } else {
+                VU = D2[N] +
+                    max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
+              }
             } else {
-              VU = D2[N] +
-                  max(HALF * (D2[N] - D2[1]), max(ULP * ANORM, TWO * RTUNFL));
+              VL = ZERO;
+              VU = ONE;
             }
+
+            dstemr(
+                'V',
+                'V',
+                N,
+                D5,
+                WORK,
+                VL,
+                VU,
+                IL,
+                IU,
+                M,
+                D1,
+                Z,
+                LDU,
+                N,
+                IWORK(1),
+                TRYRAC,
+                WORK(N + 1),
+                LWORK - N,
+                IWORK(2 * N + 1),
+                LIWORK - 2 * N,
+                IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUNIT, 'DSTEMR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
+              INFO.value = (IINFO.value).abs();
+              if (IINFO.value < 0) {
+                return;
+              } else {
+                RESULT[32] = ULPINV;
+                break failed;
+              }
+            }
+
+            // Do Tests 32 and 33
+
+            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+                WORK.asMatrix(M.value), M.value, RESULT(32));
+
+            // Call DSTEMR to compute D2, do tests.
+
+            // Compute D2
+
+            dcopy(N, SD, 1, D5, 1);
+            if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+
+            NTEST = 34;
+            dstemr(
+                'N',
+                'V',
+                N,
+                D5,
+                WORK,
+                VL,
+                VU,
+                IL,
+                IU,
+                M,
+                D2,
+                Z,
+                LDU,
+                N,
+                IWORK(1),
+                TRYRAC,
+                WORK(N + 1),
+                LWORK - N,
+                IWORK(2 * N + 1),
+                LIWORK - 2 * N,
+                IINFO);
+            if (IINFO.value != 0) {
+              print9999(NOUNIT, 'DSTEMR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
+              INFO.value = (IINFO.value).abs();
+              if (IINFO.value < 0) {
+                return;
+              } else {
+                RESULT[34] = ULPINV;
+                break failed;
+              }
+            }
+
+            // Do Test 34
+
+            TEMP1 = ZERO;
+            TEMP2 = ZERO;
+
+            for (J = 1; J <= IU - IL + 1; J++) {
+              // 250
+              TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
+              TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
+            } // 250
+
+            RESULT[34] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
           } else {
-            VL = ZERO;
-            VU = ONE;
+            RESULT[29] = ZERO;
+            RESULT[30] = ZERO;
+            RESULT[31] = ZERO;
+            RESULT[32] = ZERO;
+            RESULT[33] = ZERO;
+            RESULT[34] = ZERO;
           }
+
+          // Call DSTEMR(V,A) to compute D1 and Z, do tests.
+
+          // Compute D1 and Z
+
+          dcopy(N, SD, 1, D5, 1);
+          if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
+
+          NTEST = 35;
 
           dstemr(
               'V',
-              'V',
+              'A',
               N,
               D5,
               WORK,
@@ -1330,20 +1440,20 @@ void dchkst(
               LIWORK - 2 * N,
               IINFO);
           if (IINFO.value != 0) {
-            print9999(NOUNIT, 'DSTEMR(V,V)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
             } else {
-              RESULT[32] = ULPINV;
-              break jTypeLoop;
+              RESULT[35] = ULPINV;
+              break failed;
             }
           }
 
-          // Do Tests 32 and 33
+          // Do Tests 35 and 36
 
           dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
-              WORK.asMatrix(M.value), M.value, RESULT(32));
+              WORK.asMatrix(M.value), M.value, RESULT(35));
 
           // Call DSTEMR to compute D2, do tests.
 
@@ -1352,10 +1462,10 @@ void dchkst(
           dcopy(N, SD, 1, D5, 1);
           if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
 
-          NTEST = 34;
+          NTEST = 37;
           dstemr(
               'N',
-              'V',
+              'A',
               N,
               D5,
               WORK,
@@ -1376,13 +1486,13 @@ void dchkst(
               LIWORK - 2 * N,
               IINFO);
           if (IINFO.value != 0) {
-            print9999(NOUNIT, 'DSTEMR(N,V)', IINFO.value, N, JTYPE, IOLDSD);
+            print9999(NOUNIT, 'DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
             INFO.value = (IINFO.value).abs();
             if (IINFO.value < 0) {
               return;
             } else {
-              RESULT[34] = ULPINV;
-              break jTypeLoop;
+              RESULT[37] = ULPINV;
+              break failed;
             }
           }
 
@@ -1391,125 +1501,16 @@ void dchkst(
           TEMP1 = ZERO;
           TEMP2 = ZERO;
 
-          for (J = 1; J <= IU - IL + 1; J++) {
-            // 250
+          for (J = 1; J <= N; J++) {
             TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
             TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-          } // 250
-
-          RESULT[34] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
-        } else {
-          RESULT[29] = ZERO;
-          RESULT[30] = ZERO;
-          RESULT[31] = ZERO;
-          RESULT[32] = ZERO;
-          RESULT[33] = ZERO;
-          RESULT[34] = ZERO;
-        }
-
-        // Call DSTEMR(V,A) to compute D1 and Z, do tests.
-
-        // Compute D1 and Z
-
-        dcopy(N, SD, 1, D5, 1);
-        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-
-        NTEST = 35;
-
-        dstemr(
-            'V',
-            'A',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D1,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO);
-        if (IINFO.value != 0) {
-          print9999(NOUNIT, 'DSTEMR(V,A)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
-          if (IINFO.value < 0) {
-            return;
-          } else {
-            RESULT[35] = ULPINV;
-            break jTypeLoop;
           }
+
+          RESULT[37] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
         }
-
-        // Do Tests 35 and 36
-
-        dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU, WORK.asMatrix(M.value),
-            M.value, RESULT(35));
-
-        // Call DSTEMR to compute D2, do tests.
-
-        // Compute D2
-
-        dcopy(N, SD, 1, D5, 1);
-        if (N > 0) dcopy(N - 1, SE, 1, WORK, 1);
-
-        NTEST = 37;
-        dstemr(
-            'N',
-            'A',
-            N,
-            D5,
-            WORK,
-            VL,
-            VU,
-            IL,
-            IU,
-            M,
-            D2,
-            Z,
-            LDU,
-            N,
-            IWORK(1),
-            TRYRAC,
-            WORK(N + 1),
-            LWORK - N,
-            IWORK(2 * N + 1),
-            LIWORK - 2 * N,
-            IINFO);
-        if (IINFO.value != 0) {
-          print9999(NOUNIT, 'DSTEMR(N,A)', IINFO.value, N, JTYPE, IOLDSD);
-          INFO.value = (IINFO.value).abs();
-          if (IINFO.value < 0) {
-            return;
-          } else {
-            RESULT[37] = ULPINV;
-            break jTypeLoop;
-          }
-        }
-
-        // Do Test 34
-
-        TEMP1 = ZERO;
-        TEMP2 = ZERO;
-
-        for (J = 1; J <= N; J++) {
-          // 260
-          TEMP1 = max(TEMP1, max((D1[J]).abs(), (D2[J]).abs()));
-          TEMP2 = max(TEMP2, (D1[J] - D2[J]).abs());
-        } // 260
-
-        RESULT[37] = TEMP2 / max(UNFL, ULP * max(TEMP1, TEMP2));
         break;
       }
-      // } // 270
+
       NTESTT = NTESTT + NTEST;
 
       // End of Loop -- Check for RESULT[j] > THRESH

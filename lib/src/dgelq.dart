@@ -53,7 +53,7 @@ void dgelq(
   if (NB > N || NB <= M) NB = N;
   MINTSZ = M + 5;
   if (NB > M && N > M) {
-    if ((N - M % NB - M) == 0) {
+    if (((N - M) % (NB - M)) == 0) {
       NBLCKS = (N - M) ~/ (NB - M);
     } else {
       NBLCKS = (N - M) ~/ (NB - M) + 1;

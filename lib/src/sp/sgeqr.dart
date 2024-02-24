@@ -58,7 +58,7 @@
       if( NB > min( M, N ) || NB < 1 ) NB = 1;
       MINTSZ = N + 5;
       if ( MB > N && M > N ) {
-        if ( (M - N % MB - N) == 0 ) {
+        if ( ((M - N) % (MB - N)) == 0 ) {
           NBLCKS = ( M - N ) / ( MB - N );
         } else {
           NBLCKS = ( M - N ) / ( MB - N ) + 1;

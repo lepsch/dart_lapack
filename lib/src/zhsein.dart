@@ -1,46 +1,38 @@
-      void zhsein(final int SIDE, final int EIGSRC, final int INITV, final int SELECT, final int N, final Matrix<double> H_, final int LDH, final int W, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Array<double> RWORK_, final int IFAILL, final int IFAILR, final Box<int> INFO,) {
-  final H = H_.dim();
-  final VL = VL_.dim();
-  final VR = VR_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/disnan.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlaein.dart';
+import 'package:lapack/src/zlanhs.dart';
+
+void zhsein(final String SIDE, final String EIGSRC, final String INITV, final Array<bool> SELECT_, final int N,
+  final Matrix<Complex> H_, final int LDH, final Array<Complex>  W_, final Matrix<Complex> VL_, final int LDVL, final Matrix<Complex> VR_,
+  final int LDVR, final int MM, final Box<int> M, final Array<Complex> WORK_, final Array<double> RWORK_, final Array<int> IFAILL_,
+  final Array<int> IFAILR_, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             EIGSRC, INITV, SIDE;
-      int                INFO, LDH, LDVL, LDVR, M, MM, N;
-      bool               SELECT( * );
-      int                IFAILL( * ), IFAILR( * );
-      double             RWORK( * );
-      Complex         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
-      // ..
-
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
-      double             RZERO;
+  final SELECT = SELECT_.dim();
+  final W = W_.dim();
+  final H = H_.dim(LDH);
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+final IFAILL=IFAILL_.dim();
+final IFAILR=IFAILR_.dim();
       const              RZERO = 0.0 ;
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KS, LDWORK;
-      double             EPS3, HNORM, SMLNUM, ULP, UNFL;
-      Complex         CDUM, WK;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame, DISNAN;
-      //- double             DLAMCH, ZLANHS;
-      // EXTERNAL lsame, DLAMCH, ZLANHS, DISNAN
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLAEIN
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
+      double             EPS3=0, HNORM, SMLNUM, ULP, UNFL;
+      Complex         CDUM, WK=Complex.zero;
+
+      double CABS1(Complex CDUM) =>  CDUM.toDouble() .abs() +  CDUM.imaginary.abs();
 
       // Decode and test the input parameters.
 
@@ -52,34 +44,34 @@
 
       NOINIT = lsame( INITV, 'N' );
 
-      // Set M to the number of columns required to store the selected
+      // Set M.value to the number of columns required to store the selected
       // eigenvectors.
 
-      M = 0;
+      M.value = 0;
       for (K = 1; K <= N; K++) { // 10
-         if( SELECT( K ) ) M = M + 1;
+         if( SELECT[K] ) M.value = M.value + 1;
       } // 10
 
-      INFO = 0;
+      INFO.value = 0;
       if ( !RIGHTV && !LEFTV ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !FROMQR && !lsame( EIGSRC, 'N' ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( !NOINIT && !lsame( INITV, 'U' ) ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDH < max( 1, N ) ) {
-         INFO = -7;
+         INFO.value = -7;
       } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
-         INFO = -10;
+         INFO.value = -10;
       } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
-         INFO = -12;
-      } else if ( MM < M ) {
-         INFO = -13;
+         INFO.value = -12;
+      } else if ( MM < M.value ) {
+         INFO.value = -13;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZHSEIN', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZHSEIN', -INFO.value );
          return;
       }
 
@@ -105,7 +97,7 @@
       KS = 1;
 
       for (K = 1; K <= N; K++) { // 100
-         if ( SELECT( K ) ) {
+         if ( SELECT[K] ) {
 
             // Compute eigenvector(s) corresponding to W(K).
 
@@ -123,15 +115,13 @@
                // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
                for (I = K; I >= KL + 1; I--) { // 20
-                  if( H( I, I-1 ) == ZERO ) GO TO 30;
+                  if( H[ I][I-1 ] == Complex.zero ) break;
                } // 20
-               } // 30
                KL = I;
                if ( K > KR ) {
                   for (I = K; I <= N - 1; I++) { // 40
-                     if( H( I+1, I ) == ZERO ) GO TO 50;
+                     if( H[ I+1][I ] == Complex.zero ) break;
                   } // 40
-                  } // 50
                   KR = I;
                }
             }
@@ -142,9 +132,9 @@
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
                // has not ben computed before.
 
-               HNORM = ZLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK );
+               HNORM = zlanhs( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK );
                if ( disnan( HNORM ) ) {
-                  INFO = -6;
+                  INFO.value = -6;
                   return;
                } else if ( HNORM > RZERO ) {
                   EPS3 = HNORM*ULP;
@@ -157,11 +147,11 @@
             // selected eigenvalues affiliated to the submatrix
             // H(KL:KR,KL:KR). Close roots are modified by EPS3.
 
-            WK = W( K );
+            WK = W[K];
             } // 60
             for (I = K - 1; I >= KL; I--) { // 70
-               if ( SELECT( I ) && CABS1( W( I )-WK ) < EPS3 ) {
-                  WK = WK + EPS3;
+               if ( SELECT[I] && CABS1( W[I]-WK ) < EPS3 ) {
+                  WK = WK + EPS3.toComplex();
                   GO TO 60;
                }
             } // 70
@@ -173,13 +163,13 @@
 
                zlaein( false , NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO > 0 ) {
-                  INFO = INFO + 1;
+                  INFO.value = INFO.value + 1;
                   IFAILL[KS] = K;
                } else {
                   IFAILL[KS] = 0;
                }
                for (I = 1; I <= KL - 1; I++) { // 80
-                  VL[I][KS] = ZERO;
+                  VL[I][KS] = Complex.zero;
                } // 80
             }
             if ( RIGHTV ) {
@@ -188,13 +178,13 @@
 
                zlaein( true , NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO > 0 ) {
-                  INFO = INFO + 1;
+                  INFO.value = INFO.value + 1;
                   IFAILR[KS] = K;
                } else {
                   IFAILR[KS] = 0;
                }
                for (I = KR + 1; I <= N; I++) { // 90
-                  VR[I][KS] = ZERO;
+                  VR[I][KS] = Complex.zero;
                } // 90
             }
             KS = KS + 1;

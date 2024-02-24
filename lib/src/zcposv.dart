@@ -124,7 +124,7 @@ final Array<double> RWORK_, final Box<int> ITER, final Box<int> INFO,) {
 
       // Convert SX back to Complex
 
-      clag2z(N, NRHS, SWORK( PTSX ), N, X, LDX, INFO );
+      clag2z(N, NRHS, SWORK( PTSX ).asMatrix(N), N, X, LDX, INFO );
 
       // Compute R = B - AX (R is WORK).
 
@@ -172,7 +172,7 @@ final Array<double> RWORK_, final Box<int> ITER, final Box<int> INFO,) {
          // Convert SX back to double precision and update the current
          // iterate.
 
-         clag2z(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
+         clag2z(N, NRHS, SWORK( PTSX ).asMatrix(N), N, WORK, N, INFO );
 
          for (I = 1; I <= NRHS; I++) {
             zaxpy(N, Complex.one, WORK( 1, I ).asArray(), 1, X( 1, I ).asArray(), 1 );

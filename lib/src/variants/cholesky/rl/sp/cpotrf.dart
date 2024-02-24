@@ -1,43 +1,34 @@
-      void spotrf(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
-  final A = A_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void cpotrf(final String UPLO, final int N, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, N;
-      double               A( LDA, * );
-      // ..
-
-      double               ONE;
-      const              ONE = 1.0 ;
+  final A = A_.dim(LDA);
+      const              ONE = 1.0;
       bool               UPPER;
       int                J, JB, NB;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL SGEMM, SPOTRF2, SSYRK, STRSM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       UPPER = lsame( UPLO, 'U' );
       if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
+         INFO.value = -4;
       }
-      if ( INFO != 0 ) {
-         xerbla('SPOTRF', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('CPOTRF', -INFO.value );
          return;
       }
 
@@ -47,12 +38,12 @@
 
       // Determine the block size for this environment.
 
-      NB = ilaenv( 1, 'SPOTRF', UPLO, N, -1, -1, -1 );
+      NB = ilaenv( 1, 'CPOTRF', UPLO, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
 
-         spotrf2(UPLO, N, A, LDA, INFO );
+         cpotrf2(UPLO, N, A, LDA, INFO.value );
       } else {
 
          // Use blocked code.
@@ -68,15 +59,15 @@
 
                JB = min( NB, N-J+1 );
 
-               spotrf2('Upper', JB, A( J, J ), LDA, INFO );
-                if (INFO != 0) GO TO 30;
+               cpotrf2('Upper', JB, A( J, J ), LDA, INFO.value );
+                if (INFO.value != 0) GO TO 30;
 
                if ( J+JB <= N ) {
 
                   // Updating the trailing submatrix.
 
-                  strsm('Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
-                  ssyrk('Upper', 'Transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
+                  ctrsm('Left', 'Upper', 'Conjugate Transpose', 'Non-unit', JB, N-J-JB+1, Complex.one, A( J, J ), LDA, A( J, J+JB ), LDA );
+                  cherk('Upper', 'Conjugate transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
             } // 10
 
@@ -91,23 +82,23 @@
 
                JB = min( NB, N-J+1 );
 
-               spotrf2('Lower', JB, A( J, J ), LDA, INFO );
-                if (INFO != 0) GO TO 30;
+               cpotrf2('Lower', JB, A( J, J ), LDA, INFO.value );
+                if (INFO.value != 0) GO TO 30;
 
                if ( J+JB <= N ) {
 
                  // Updating the trailing submatrix.
 
-                 strsm('Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA );
-                  ssyrk('Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA );
+                 ctrsm('Right', 'Lower', 'Conjugate Transpose', 'Non-unit', N-J-JB+1, JB, Complex.one, A( J, J ), LDA, A( J+JB, J ), LDA );
+                  cherk('Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
             } // 20
          }
       }
       GO TO 40;
 
-      } // 30
-      INFO = INFO + J - 1;
+      // } // 30
+      INFO.value = INFO.value + J - 1;
 
-      } // 40
+      // } // 40
       }

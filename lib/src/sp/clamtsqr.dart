@@ -98,7 +98,7 @@
 
           // Multiply Q to the last block of C
 
-         KK = (M-K % MB-K);
+         KK = ((M-K) % (MB-K));
          CTR = (M-K)/(MB-K);
          if (KK > 0) {
            II=M-KK+1;
@@ -124,7 +124,7 @@
 
           // Multiply Q to the first block of C
 
-         KK = (M-K % MB-K);
+         KK = ((M-K) % (MB-K));
          II=M-KK+1;
          CTR = 1;
          cgemqrt('L','C',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
@@ -149,7 +149,7 @@
 
           // Multiply Q to the last block of C
 
-          KK = (N-K % MB-K);
+          KK = ((N-K) % (MB-K));
           CTR = (N-K)/(MB-K);
           if (KK > 0) {
             II=N-KK+1;
@@ -174,7 +174,7 @@
 
           // Multiply Q to the first block of C
 
-         KK = (N-K % MB-K);
+         KK = ((N-K) % (MB-K));
          II=N-KK+1;
          CTR = 1;
          cgemqrt('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );

@@ -492,7 +492,7 @@ void dlatrs(
 
           X[J] = X[J] - SUMJ;
           XJ = (X[J]).abs();
-          var scale = false;
+          var scale = true;
           if (NOUNIT) {
             TJJS = A[J][J] * TSCAL;
           } else {

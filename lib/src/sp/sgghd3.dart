@@ -245,7 +245,7 @@
       // $                     IHI-J, A( J+2, J ), B( J+2, J ),
       // $                     A( TOP+1, J+1 ), LDA )
 
-               JJ = (IHI-J-1 % 3);
+               JJ = ((IHI-J-1) % 3);
                for (I = IHI-J-3; I >= JJ+1; I -= 3) {
                   C = A( J+1+I, J );
                   S = -B( J+1+I, J );

@@ -34,7 +34,7 @@
       double             CABS1;
 
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;

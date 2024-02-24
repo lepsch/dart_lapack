@@ -34,7 +34,7 @@
 
       // Compute the L*D*L**H (or U**H *D*U) factorization of A.
 
-      I4 = (N-1 % 4);
+      I4 = ((N-1) % 4);
       for (I = 1; I <= I4; I++) { // 10
          if ( D( I ) <= ZERO ) {
             INFO = I;

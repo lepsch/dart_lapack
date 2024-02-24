@@ -44,6 +44,12 @@ analyzer:
     - lib/src/deprecated/**
     - lib/src/install/sp/**
     - lib/src/blas/sp/**
+    - lib/src/variants/cholesky/rl/sp/**
+    - lib/src/variants/cholesky/top/sp/**
+    - lib/src/variants/lu/cr/sp/**
+    - lib/src/variants/lu/ll/sp/**
+    - lib/src/variants/lu/rec/sp/**
+    - lib/src/variants/qr/ll/sp/**
     - lib/src/sp/**
     - test/eig/sp/**
     - test/lin/sp/**

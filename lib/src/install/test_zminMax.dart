@@ -1,82 +1,77 @@
-      void main() {
+import 'dart:math';
+
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/intrinsics/huge.dart';
+import 'package:lapack/src/matrix.dart';
+
+void main() {
 // -- LAPACK test routine --
-      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  const zero = 0.0;
+  int i, nFailingTests, nTests;
+  double aInf, aNaN, OV, R;
 
-      // ..
-      // .. Parameters ..
-      int               n;
-      const           n = 8 ;
-      double            zero;
-      const           zero = 0.0 ;
-      // ..
-      // .. Local Variables ..
-      int               i, nFailingTests, nTests;
-      double            aInf, aNaN, OV, R, X(n), Y(n);
+  // .. Initialize error counts ..
+  nFailingTests = 0;
+  nTests = 0;
 
-      // .. Intrinsic Functions ..
-      // intrinsic HUGE, MIN, MAX
+  // .. Inf and NaN entries ..
+  OV = huge(0.0);
+  aInf = OV * 2;
+  aNaN = aInf / aInf;
+  final X = Array.fromList([-aInf, zero, -aInf, zero, aInf, aInf, zero, aNaN]);
+  final Y = Array.fromList([zero, aInf, aInf, -aInf, zero, -aInf, aNaN, zero]);
 
+  // .. Tests ..
 
-      // .. Initialize error counts ..
-      nFailingTests = 0;
-      nTests = 0;
+  for (i = 1; i <= 3; i++) {
+    nTests = nTests + 2;
+    R = min(X[i], Y[i]);
+    if (R != X[i]) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MIN', X[i], Y[i], R);
+    }
+    R = max(X[i], Y[i]);
+    if (R != Y[i]) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MAX', X[i], Y[i], R);
+    }
+  }
+  for (i = 4; i <= 6; i++) {
+    nTests = nTests + 2;
+    R = min(X[i], Y[i]);
+    if (R != Y[i]) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MIN', X[i], Y[i], R);
+    }
+    R = max(X[i], Y[i]);
+    if (R != X[i]) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MAX', X[i], Y[i], R);
+    }
+  }
+  for (i = 7; i <= 8; i++) {
+    nTests = nTests + 2;
+    R = min(X[i], Y[i]);
+    if (R == R) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MIN', X[i], Y[i], R);
+    }
+    R = max(X[i], Y[i]);
+    if (R == R) {
+      nFailingTests = nFailingTests + 1;
+      _print9998('i', i, 'MAX', X[i], Y[i], R);
+    }
+  }
 
-      // .. Inf and NaN entries ..
-      OV = HUGE(0.0);
-      aInf = OV * 2;
-      aNaN = aInf / aInf;
-      X = (/ -aInf, zero, -aInf,  zero, aInf,  aInf, zero, aNaN /);
-      Y = (/  zero, aInf,  aInf, -aInf, zero, -aInf, aNaN, zero /);
+  if (nFailingTests > 0) {
+    print(
+        '# ${nTests - nFailingTests} tests out of $nTests pass for intrinsic MIN and MAX,$nFailingTests fail.');
+  } else {
+    print('# All tests pass for intrinsic MIN and MAX.');
+  }
+}
 
-
-      // .. Tests ..
-
-      for (i = 1; i <= 3; i++) { // 10
-          nTests = nTests + 2;
-          R = min( X(i), Y(i) );
-          if ( R != X(i) ) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
-          }
-          R = max( X(i), Y(i) );
-          if ( R != Y(i) ) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;
-          }
-      } // 10
-      for (i = 4; i <= 6; i++) { // 20
-          nTests = nTests + 2;
-          R = min( X(i), Y(i) );
-          if ( R != Y(i) ) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
-          }
-          R = max( X(i), Y(i) );
-          if ( R != X(i) ) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;
-          }
-      } // 20
-      for (i = 7; i <= 8; i++) { // 30
-          nTests = nTests + 2;
-          R = min( X(i), Y(i) );
-          if (R == R) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
-          }
-          R = max( X(i), Y(i) );
-          if (R == R) {
-              nFailingTests = nFailingTests + 1;
-              WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;
-          }
-      } // 30
-
-      if (nFailingTests > 0) {
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail.";
-      } else {
-         print *, "# All tests pass for intrinsic MIN and MAX.";
-      }
-
-      // .. Formats ..
- 9998 FORMAT( '[',A1,I1, '] ${.a3}(${.f5_0},${.f5_0}) = ${.f5_0}');
-      }
+void _print9998(String s, int i, String f, double d1, double d2, double d3) {
+  print('[${s.a1}${i.i1}] ${f.a3}(${d1.f5_0},${d2.f5_0}) = ${d3.f5_0}');
+}

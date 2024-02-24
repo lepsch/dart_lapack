@@ -4,12 +4,12 @@ import 'package:lapack/src/blas/izamax.dart';
 import 'package:lapack/src/blas/zaxpy.dart';
 import 'package:lapack/src/blas/zgemm.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/cgetrf.dart';
 import 'package:lapack/src/cgetrs.dart';
 import 'package:lapack/src/clag2z.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
-import 'package:lapack/src/variants/lu/cr/cgetrf.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zgetrf.dart';
 import 'package:lapack/src/zgetrs.dart';
@@ -121,7 +121,7 @@ void zcgesv(
 
     // Compute the LU factorization of SA.
 
-    cgetrf(N, N, SWORK(PTSA), N, IPIV, INFO);
+    cgetrf(N, N, SWORK(PTSA).asMatrix(N), N, IPIV, INFO);
 
     if (INFO.value != 0) {
       ITER.value = -3;
@@ -134,7 +134,7 @@ void zcgesv(
 
     // Convert SX back to double precision
 
-    clag2z(N, NRHS, SWORK(PTSX), N, X, LDX, INFO);
+    clag2z(N, NRHS, SWORK(PTSX).asMatrix(N), N, X, LDX, INFO);
 
     // Compute R = B - AX (R is WORK).
 
@@ -185,7 +185,7 @@ void zcgesv(
       // Convert SX back to double precision and update the current
       // iterate.
 
-      clag2z(N, NRHS, SWORK(PTSX), N, WORK, N, INFO);
+      clag2z(N, NRHS, SWORK(PTSX).asMatrix(N), N, WORK, N, INFO);
 
       for (I = 1; I <= NRHS; I++) {
         zaxpy(N, ONE, WORK(1, I).asArray(), 1, X(1, I).asArray(), 1);

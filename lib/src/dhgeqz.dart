@@ -279,11 +279,11 @@ void dhgeqz(
     // MAIN QZ ITERATION LOOP
 
     // Initialize dynamic indices
-
+    //
     // Eigenvalues ILAST+1:N have been found.
     //    Column operations modify rows IFRSTM:whatever.
     //    Row operations modify columns whatever:ILASTM.
-
+    //
     // If only eigenvalues are being computed, then
     //    IFRSTM is the row of the last splitting row above row ILAST;
     //    this is always at least ILO.
@@ -304,10 +304,9 @@ void dhgeqz(
     MAXIT = 30 * (IHI - ILO + 1);
 
     var dropThroughNonConvergence = true;
-    var standardizeB = true;
     mainQzLoop:
     for (JITER = 1; JITER <= MAXIT; JITER++) {
-      // Split the matrix if possible.
+      var standardizeB = true;
 
       // Split the matrix if possible.
       //
@@ -473,7 +472,6 @@ void dhgeqz(
           }
         }
       }
-      // }
 
       if (standardizeB) {
         // H[ILAST][ILAST-1]=0 -- Standardize B, set ALPHAR, ALPHAI, and BETA
@@ -1058,6 +1056,7 @@ void dhgeqz(
           }
           T[J + 1][J] = ZERO;
           T[J + 2][J] = ZERO;
+        }
 
           // Last elements: Use Givens rotations
 
@@ -1111,7 +1110,6 @@ void dhgeqz(
           // End of Double-Shift code
         }
 
-      }
         // End of iteration loop
     }
 

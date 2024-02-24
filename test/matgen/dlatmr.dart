@@ -78,16 +78,6 @@ void dlatmr(
   double ALPHA, ONORM = 0, TEMP;
   final TEMPA = Array<double>(1);
   final ISUB = Box(0), JSUB = Box(0);
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  //- double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           lsame, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DLATM1, DSCAL, XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS, MAX, MIN, MOD
 
   // 1)      Decode and Test the input parameters.
   // Initialize flags & seed.

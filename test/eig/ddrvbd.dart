@@ -101,9 +101,9 @@ void ddrvbd(
   final RWORK = Array<double>(2);
   final IOLDSD = Array<int>(4), ISEED2 = Array<int>(4);
   final RESULT = Array<double>(39);
-  final CJOB = Array.fromList(['N', 'O', 'S', 'A']);
-  final CJOBR = Array.fromList(['A', 'V', 'I']);
-  final CJOBV = Array.fromList(['N', 'V']);
+  final CJOB = ['N', 'O', 'S', 'A'];
+  final CJOBR = ['A', 'V', 'I'];
+  final CJOBV = ['N', 'V'];
   final IINFO = Box(0),
       NUMRANK = Box(0),
       NS = Box(0),
@@ -282,8 +282,8 @@ void ddrvbd(
           for (IJVT = 0; IJVT <= 3; IJVT++) {
             // 70
             if ((IJU == 3 && IJVT == 3) || (IJU == 1 && IJVT == 1)) continue;
-            JOBU = CJOB[IJU + 1];
-            JOBVT = CJOB[IJVT + 1];
+            JOBU = CJOB[IJU];
+            JOBVT = CJOB[IJVT];
             dlacpy('F', M, N, ASAV, LDA, A, LDA);
             srnamc.SRNAMT = 'DGESVD';
             dgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK,
@@ -380,7 +380,7 @@ void ddrvbd(
         RESULT[14] = ZERO;
         for (IJQ = 0; IJQ <= 2; IJQ++) {
           // 110
-          JOBQ = CJOB[IJQ + 1];
+          JOBQ = CJOB[IJQ];
           dlacpy('F', M, N, ASAV, LDA, A, LDA);
           srnamc.SRNAMT = 'DGESDD';
           dgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK,
@@ -635,9 +635,9 @@ void ddrvbd(
           for (IJVT = 0; IJVT <= 1; IJVT++) {
             // 170
             if ((IJU == 0 && IJVT == 0) || (IJU == 1 && IJVT == 1)) continue;
-            JOBU = CJOBV[IJU + 1];
-            JOBVT = CJOBV[IJVT + 1];
-            RANGE = CJOBR[1];
+            JOBU = CJOBV[IJU];
+            JOBVT = CJOBV[IJVT];
+            RANGE = CJOBR[0];
             dlacpy('F', M, N, ASAV, LDA, A, LDA);
             dgesvdx(JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U,
                 LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO);

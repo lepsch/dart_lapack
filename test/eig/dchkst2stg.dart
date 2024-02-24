@@ -1267,7 +1267,8 @@ void dchkst2stg(
 
             // Do Tests 29 and 30
 
-            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU, WORK.asMatrix(M.value), M.value, RESULT(29));
+            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+                WORK.asMatrix(M.value), M.value, RESULT(29));
 
             // Call DSTEMR to compute D2, do tests.
 
@@ -1389,7 +1390,8 @@ void dchkst2stg(
 
             // Do Tests 32 and 33
 
-            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU, WORK.asMatrix(M.value), M.value, RESULT(32));
+            dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+                WORK.asMatrix(M.value), M.value, RESULT(32));
 
             // Call DSTEMR to compute D2, do tests.
 
@@ -1496,7 +1498,8 @@ void dchkst2stg(
 
           // Do Tests 35 and 36
 
-          dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU, WORK.asMatrix(M.value), M.value, RESULT(35));
+          dstt22(N, M.value, 0, SD, SE, D1, DUMMA, Z, LDU,
+              WORK.asMatrix(M.value), M.value, RESULT(35));
 
           // Call DSTEMR to compute D2, do tests.
 

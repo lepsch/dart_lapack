@@ -1,6 +1,16 @@
 import 'package:lapack/src/iparam2stage.dart';
 
-int ilaenv2stage(
+int Function(
+  int ISPEC,
+  String NAME,
+  String OPTS,
+  int N1,
+  int N2,
+  int N3,
+  int N4,
+) ilaenv2stage = _ilaenv2stage;
+
+int _ilaenv2stage(
   final int ISPEC,
   final String NAME,
   final String OPTS,

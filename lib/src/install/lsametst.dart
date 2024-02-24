@@ -1,39 +1,40 @@
-      int                I1, I2;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ICHAR
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/format_extensions.dart';
 
+void main() {
+  int I1, I2;
 
-      // Determine the character set.
+  // Determine the character set.
 
-      I1 = ICHAR( 'A' );
-      I2 = ICHAR( 'a' );
-      if ( I2-I1 == 32 ) {
-         WRITE( *, * ) ' ASCII String    set';
-      } else {
-         WRITE( *, * ) ' Non-ASCII String    set, IOFF should be ',I2-I1;
-      }
+  I1 = 'A'.codeUnitAt(0);
+  I2 = 'a'.codeUnitAt(0);
+  if (I2 - I1 == 32) {
+    print(' ASCII String    set');
+  } else {
+    print(' Non-ASCII String    set, IOFF should be ${I2 - I1}');
+  }
 
-      // Test lsame.
+  // Test lsame.
 
-      if( !lsame( 'A', 'A' ) ) WRITE( *, 9999 )'A', 'A';
-      if( !lsame( 'A', 'a' ) ) WRITE( *, 9999 )'A', 'a';
-      if( !lsame( 'a', 'A' ) ) WRITE( *, 9999 )'a', 'A';
-      if( !lsame( 'a', 'a' ) ) WRITE( *, 9999 )'a', 'a';
-      if( lsame( 'A', 'B' ) ) WRITE( *, 9998 )'A', 'B';
-      if( lsame( 'A', 'b' ) ) WRITE( *, 9998 )'A', 'b';
-      if( lsame( 'a', 'B' ) ) WRITE( *, 9998 )'a', 'B';
-      if( lsame( 'a', 'b' ) ) WRITE( *, 9998 )'a', 'b';
-      if( lsame( 'O', '/' ) ) WRITE( *, 9998 )'O', '/';
-      if( lsame( '/', 'O' ) ) WRITE( *, 9998 )'/', 'O';
-      if( lsame( 'o', '/' ) ) WRITE( *, 9998 )'o', '/';
-      IF( lsame( '/', 'o' ) ) WRITE( *, 9998 )'/', 'o';
-      WRITE( *, * )' Tests completed';
+  if (!lsame('A', 'A')) _print9999('A', 'A');
+  if (!lsame('A', 'a')) _print9999('A', 'a');
+  if (!lsame('a', 'A')) _print9999('a', 'A');
+  if (!lsame('a', 'a')) _print9999('a', 'a');
+  if (lsame('A', 'B')) _print9998('A', 'B');
+  if (lsame('A', 'b')) _print9998('A', 'b');
+  if (lsame('a', 'B')) _print9998('a', 'B');
+  if (lsame('a', 'b')) _print9998('a', 'b');
+  if (lsame('O', '/')) _print9998('O', '/');
+  if (lsame('/', 'O')) _print9998('/', 'O');
+  if (lsame('o', '/')) _print9998('o', '/');
+  if (lsame('/', 'o')) _print9998('/', 'o');
+  print(' Tests completed');
+}
 
- 9999 FORMAT( ' *** Error:  lsame( ', A1, , '${.a1}) is false ' );
- 9998 FORMAT( ' *** Error:  lsame( ', A1, , '${.a1}) is true ' );
-      }
+void _print9999(String s1, String s2) {
+  print(' *** Error:  LSAME( ${s1.a1}, ${s2.a1}) is .FALSE. ');
+}
+
+void _print9998(String s1, String s2) {
+  print(' *** Error:  LSAME( ${s1.a1}, ${s2.a1}) is .TRUE. ');
+}

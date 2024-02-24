@@ -1,169 +1,168 @@
-      double zla_gbrcond_c(final int TRANS, final int N, final int KL, final int KU, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final Array<int> IPIV_, final int C, final int CAPPLY, final int INFO, final Array<double> _WORK_, final Array<double> RWORK_,) {
-  final AB = AB_.dim();
-  final AFB = AFB_.dim();
-  final IPIV = IPIV_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgbsvxx.dart';
+import 'package:lapack/src/zlacn2.dart';
+
+double zla_gbrcond_c(
+  final String TRANS,
+  final int N,
+  final int KL,
+  final int KU,
+  final Matrix<Complex> AB_,
+  final int LDAB,
+  final Matrix<Complex> AFB_,
+  final int LDAFB,
+  final Array<int> IPIV_,
+  final Array<double> C_,
+  final bool CAPPLY,
+  final Box<int> INFO,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      bool               CAPPLY;
-      int                N, KL, KU, KD, KE, LDAB, LDAFB, INFO;
-      int                IPIV( * );
-      Complex         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * );
-      double             C( * ), RWORK( * );
+  final AB = AB_.dim(LDAB);
+  final AFB = AFB_.dim(LDAFB);
+  final IPIV = IPIV_.dim();
+  final C = C_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  bool NOTRANS;
+  int I, J, KD, KE;
+  double ANORM, TMP;
+  final ISAVE = Array<int>(3);
+  final AINVNM = Box(0.0);
+  final KASE = Box(0);
 
+  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
-// =====================================================================
+  INFO.value = 0;
+  NOTRANS = lsame(TRANS, 'N');
+  if (!NOTRANS && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KL < 0 || KL > N - 1) {
+    INFO.value = -3;
+  } else if (KU < 0 || KU > N - 1) {
+    INFO.value = -4;
+  } else if (LDAB < KL + KU + 1) {
+    INFO.value = -6;
+  } else if (LDAFB < 2 * KL + KU + 1) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZLA_GBRCOND_C', -INFO.value);
+    return 0;
+  }
 
-      // .. Local Scalars ..
-      bool               NOTRANS;
-      int                KASE, I, J;
-      double             AINVNM, ANORM, TMP;
-      Complex         ZDUM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLACN2, ZGBTRS, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
-      ZLA_GBRCOND_C = 0.0;
+  // Compute norm of op(A)*op2(C).
 
-      INFO = 0;
-      NOTRANS = lsame( TRANS, 'N' );
-      if ( !NOTRANS && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KL < 0 || KL > N-1 ) {
-         INFO = -3;
-      } else if ( KU < 0 || KU > N-1 ) {
-         INFO = -4;
-      } else if ( LDAB < KL+KU+1 ) {
-         INFO = -6;
-      } else if ( LDAFB < 2*KL+KU+1 ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZLA_GBRCOND_C', -INFO );
-         return;
-      }
-
-      // Compute norm of op(A)*op2(C).
-
-      ANORM = 0.0;
-      KD = KU + 1;
-      KE = KL + 1;
-      if ( NOTRANS ) {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-            if ( CAPPLY ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + CABS1( AB( KD+I-J, J ) ) / C( J );
-               }
-            } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + CABS1( AB( KD+I-J, J ) );
-               }
-            }
-            RWORK[I] = TMP;
-            ANORM = max( ANORM, TMP );
-         }
+  ANORM = 0.0;
+  KD = KU + 1;
+  KE = KL + 1;
+  if (NOTRANS) {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      if (CAPPLY) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + CABS1(AB[KD + I - J][J]) / C[J];
+        }
       } else {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-            if ( CAPPLY ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + CABS1( AB( KE-I+J, I ) ) / C( J );
-               }
-            } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
-                  TMP = TMP + CABS1( AB( KE-I+J, I ) );
-               }
-            }
-            RWORK[I] = TMP;
-            ANORM = max( ANORM, TMP );
-         }
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + CABS1(AB[KD + I - J][J]);
+        }
+      }
+      RWORK[I] = TMP;
+      ANORM = max(ANORM, TMP);
+    }
+  } else {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      if (CAPPLY) {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + CABS1(AB[KE - I + J][I]) / C[J];
+        }
+      } else {
+        for (J = max(I - KL, 1); J <= min(I + KU, N); J++) {
+          TMP = TMP + CABS1(AB[KE - I + J][I]);
+        }
+      }
+      RWORK[I] = TMP;
+      ANORM = max(ANORM, TMP);
+    }
+  }
+
+  // Quick return if possible.
+
+  if (N == 0) {
+    return 1;
+  } else if (ANORM == 0.0) {
+    return 0;
+  }
+
+  // Estimate the norm of inv(op(A)).
+
+  AINVNM.value = 0.0;
+
+  KASE.value = 0;
+  while (true) {
+    zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
+    if (KASE.value == 2) {
+      // Multiply by R.
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * RWORK[I].toComplex();
       }
 
-      // Quick return if possible.
-
-      if ( N == 0 ) {
-         ZLA_GBRCOND_C = 1.0;
-         return;
-      } else if ( ANORM == 0.0 ) {
-         return;
+      if (NOTRANS) {
+        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
+            INFO.value);
+      } else {
+        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
+            INFO.value);
       }
 
-      // Estimate the norm of inv(op(A)).
+      // Multiply by inv(C).
 
-      AINVNM = 0.0;
+      if (CAPPLY) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] * C[I].toComplex();
+        }
+      }
+    } else {
+      // Multiply by inv(C**H).
 
-      KASE = 0;
-      } // 10
-      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
-         if ( KASE == 2 ) {
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * RWORK( I );
-            }
-
-            if ( NOTRANS ) {
-               zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            } else {
-               zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by inv(C).
-
-            if ( CAPPLY ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) * C( I );
-               }
-            }
-         } else {
-
-            // Multiply by inv(C**H).
-
-            if ( CAPPLY ) {
-               for (I = 1; I <= N; I++) {
-                  WORK[I] = WORK( I ) * C( I );
-               }
-            }
-
-            if ( NOTRANS ) {
-               zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,  WORK, N, INFO );
-            } else {
-               zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * RWORK( I );
-            }
-         }
-         GO TO 10;
+      if (CAPPLY) {
+        for (I = 1; I <= N; I++) {
+          WORK[I] = WORK[I] * C[I].toComplex();
+        }
       }
 
-      // Compute the estimate of the reciprocal condition number.
-
-      if (AINVNM != 0.0) ZLA_GBRCOND_C = 1.0 / AINVNM;
-
+      if (NOTRANS) {
+        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
+            INFO.value);
+      } else {
+        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
+            INFO.value);
       }
+
+      // Multiply by R.
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * RWORK[I].toComplex();
+      }
+    }
+  }
+
+  // Compute the estimate of the reciprocal condition number.
+
+  return AINVNM.value != 0.0 ? 1.0 / AINVNM.value : 0;
+}

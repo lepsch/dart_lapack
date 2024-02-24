@@ -624,7 +624,7 @@ void dbdsvdx(
 
       if (WANTZ) {
         for (var i = 1; i <= N * 2; i++) {
-          for (var j = K + 1; K <= NS.value; j++) {
+          for (var j = K + 1; j <= NS.value; j++) {
             Z[i][j] = ZERO;
           }
         }

@@ -167,7 +167,7 @@
             I2 = I;
          }
 
-         if ( (KDEFL % 2*KEXSH) == 0 ) {
+         if ( (KDEFL % (2*KEXSH)) == 0 ) {
 
             // Exceptional shift.
 

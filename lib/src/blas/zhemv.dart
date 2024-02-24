@@ -20,7 +20,7 @@ void zhemv(
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   final X = X_.dim();
   final Y = Y_.dim();
   Complex TEMP1, TEMP2;

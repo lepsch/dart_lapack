@@ -22,9 +22,9 @@ void zsymm(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
-  final B = B_.dim();
-  final C = C_.dim();
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final C = C_.dim(LDC);
   Complex TEMP1, TEMP2;
   int I, INFO, J, K, NROWA;
   bool UPPER;

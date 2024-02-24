@@ -21,7 +21,7 @@ void zher2(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final X = X_.dim();
   final Y = Y_.dim();
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   Complex TEMP1, TEMP2;
   int I, INFO, IX, IY, J, JX = 0, JY = 0, KX = 0, KY = 0;
 

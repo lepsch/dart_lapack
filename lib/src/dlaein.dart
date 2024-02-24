@@ -174,7 +174,7 @@ void dlaein(
       // Test for sufficient growth in the norm of v.
 
       VNORM = dasum(N, VR, 1);
-      if (VNORM < GROWTO * SCALE.value) {
+      if (VNORM >= GROWTO * SCALE.value) {
         eigenvectorFound = true;
         break;
       }

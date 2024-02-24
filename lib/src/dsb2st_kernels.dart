@@ -59,11 +59,11 @@ void dsb2st_kernels(
 
   if (UPPER) {
     if (WANTZ) {
-      VPOS = (SWEEP - 1 % 2) * N + ST;
-      TAUPOS = (SWEEP - 1 % 2) * N + ST;
+      VPOS = ((SWEEP - 1) % 2) * N + ST;
+      TAUPOS = ((SWEEP - 1) % 2) * N + ST;
     } else {
-      VPOS = (SWEEP - 1 % 2) * N + ST;
-      TAUPOS = (SWEEP - 1 % 2) * N + ST;
+      VPOS = ((SWEEP - 1) % 2) * N + ST;
+      TAUPOS = ((SWEEP - 1) % 2) * N + ST;
     }
 
     if (TTYPE == 1) {
@@ -97,11 +97,11 @@ void dsb2st_kernels(
             LDA - 1, WORK);
 
         if (WANTZ) {
-          VPOS = (SWEEP - 1 % 2) * N + J1;
-          TAUPOS = (SWEEP - 1 % 2) * N + J1;
+          VPOS = ((SWEEP - 1) % 2) * N + J1;
+          TAUPOS = ((SWEEP - 1) % 2) * N + J1;
         } else {
-          VPOS = (SWEEP - 1 % 2) * N + J1;
-          TAUPOS = (SWEEP - 1 % 2) * N + J1;
+          VPOS = ((SWEEP - 1) % 2) * N + J1;
+          TAUPOS = ((SWEEP - 1) % 2) * N + J1;
         }
 
         V[VPOS] = ONE;
@@ -121,11 +121,11 @@ void dsb2st_kernels(
     // Lower case
   } else {
     if (WANTZ) {
-      VPOS = (SWEEP - 1 % 2) * N + ST;
-      TAUPOS = (SWEEP - 1 % 2) * N + ST;
+      VPOS = ((SWEEP - 1) % 2) * N + ST;
+      TAUPOS = ((SWEEP - 1) % 2) * N + ST;
     } else {
-      VPOS = (SWEEP - 1 % 2) * N + ST;
-      TAUPOS = (SWEEP - 1 % 2) * N + ST;
+      VPOS = ((SWEEP - 1) % 2) * N + ST;
+      TAUPOS = ((SWEEP - 1) % 2) * N + ST;
     }
 
     if (TTYPE == 1) {
@@ -160,11 +160,11 @@ void dsb2st_kernels(
             WORK);
 
         if (WANTZ) {
-          VPOS = (SWEEP - 1 % 2) * N + J1;
-          TAUPOS = (SWEEP - 1 % 2) * N + J1;
+          VPOS = ((SWEEP - 1) % 2) * N + J1;
+          TAUPOS = ((SWEEP - 1) % 2) * N + J1;
         } else {
-          VPOS = (SWEEP - 1 % 2) * N + J1;
-          TAUPOS = (SWEEP - 1 % 2) * N + J1;
+          VPOS = ((SWEEP - 1) % 2) * N + J1;
+          TAUPOS = ((SWEEP - 1) % 2) * N + J1;
         }
 
         V[VPOS] = ONE;

@@ -45,7 +45,7 @@ void dhsein(
   const ZERO = 0.0, ONE = 1.0;
   bool BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
   int I, K, KL, KLN, KR, KSI, KSR, LDWORK;
-  double BIGNUM, EPS3 = 0, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
+  double BIGNUM, EPS3 = 0, HNORM = 0, SMLNUM, ULP, UNFL, WKI, WKR;
   final IINFO = Box(0);
 
   // Decode and test the input parameters.
@@ -132,11 +132,11 @@ void dhsein(
       if (FROMQR) {
         // If affiliation of eigenvalues is known, check whether
         // the matrix splits.
-
+        //
         // Determine KL and KR such that 1 <= KL <= K <= KR <= N
         // and H[KL][KL-1] and H[KR+1][KR] are zero (or KL = 1 or
         // KR = N).
-
+        //
         // Then inverse iteration can be performed with the
         // submatrix H[KL:N][KL:N] for a left eigenvector, and with
         // the submatrix H[1:KR][1:KR] for a right eigenvector.
@@ -144,13 +144,11 @@ void dhsein(
         for (I = K; I >= KL + 1; I--) {
           if (H[I][I - 1] == ZERO) break;
         }
-        //  }
         KL = I;
         if (K > KR) {
           for (I = K; I <= N - 1; I++) {
             if (H[I + 1][I] == ZERO) break;
           }
-          // }
           KR = I;
         }
       }
@@ -178,7 +176,7 @@ void dhsein(
 
       WKR = WR[K];
       WKI = WI[K];
-      // }
+
       restart:
       while (true) {
         for (I = K - 1; I >= KL; I--) {

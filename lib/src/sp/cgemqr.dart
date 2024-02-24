@@ -53,7 +53,7 @@
       }
 
       if ( ( MB > K ) && ( MN > K ) ) {
-        if ( (MN - K % MB - K) == 0 ) {
+        if ( ((MN - K) % (MB - K)) == 0 ) {
           NBLCKS = ( MN - K ) / ( MB - K );
         } else {
           NBLCKS = ( MN - K ) / ( MB - K ) + 1;

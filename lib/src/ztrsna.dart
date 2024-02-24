@@ -42,7 +42,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
+      double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
 
       // Decode and test the input parameters
 

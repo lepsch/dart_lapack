@@ -1,97 +1,91 @@
-      void zgbrfsx(final int TRANS, final int EQUED, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> AFB_, final int LDAFB, final Array<int> IPIV_, final int R, final int C, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final AB = AB_.dim();
-  final AFB = AFB_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaprec.dart';
+import 'package:lapack/src/ilatrans.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgbcon.dart';
+import 'package:lapack/src/zla_gbrcond_c.dart';
+import 'package:lapack/src/zla_gbrcond_x.dart';
+import 'package:lapack/src/zla_gbrfsx_extended.dart';
+import 'package:lapack/src/zlangb.dart';
+
+void zgbrfsx(final String TRANS, final String EQUED, final int N, final int KL, final int KU, final int NRHS, final Matrix<Complex> AB_, final int LDAB,
+final Matrix<Complex> AFB_, final int LDAFB, final Array<int> IPIV_, final Array<double> R_, final Array<double> C_, final Matrix<Complex> B_, final int LDB,
+final Matrix<Complex> X_, final int LDX, final Box<double> RCOND, final Array<double> BERR_, final int N_ERR_BNDS, final Matrix<double> ERR_BNDS_NORM_, final Matrix<double> ERR_BNDS_COMP_,
+final int NPARAMS, final Array<double> PARAMS_, final Array<Complex> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS, EQUED;
-      int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS;
-      double             RCOND;
-      int                IPIV( * );
-      Complex         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * );
-      double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
-      // ..
-
-// ==================================================================
-
-      // .. Parameters ..
-      double             ZERO, ONE;
+  final AB = AB_.dim(LDAB);
+  final AFB = AFB_.dim(LDAFB);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+final R=R_.dim();
+final C=C_.dim();
+final BERR=BERR_.dim();
+final ERR_BNDS_NORM=ERR_BNDS_NORM_.dim(NRHS);
+final ERR_BNDS_COMP=ERR_BNDS_COMP_.dim(NRHS);
+final PARAMS=PARAMS_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
       const              ZERO = 0.0, ONE = 1.0 ;
-      double             ITREF_DEFAULT, ITHRESH_DEFAULT;
-      double             COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT;
-      double             DZTHRESH_DEFAULT;
       const              ITREF_DEFAULT = 1.0 ;
       const              ITHRESH_DEFAULT = 10.0 ;
       const              COMPONENTWISE_DEFAULT = 1.0 ;
       const              RTHRESH_DEFAULT = 0.5 ;
       const              DZTHRESH_DEFAULT = 0.25 ;
-      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I;
       const              LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 ;
       const              LA_LINRX_CWISE_I = 3 ;
-      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       const              LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 ;
       const              LA_LINRX_RCOND_I = 3 ;
-      String   (1)       NORM;
+      String           NORM;
       bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH;
       double             ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGBCON, ZLA_GBRFSX_EXTENDED
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT, TRANSFER
-      // ..
-      // .. External Functions ..
-      // EXTERNAL lsame, ILAPREC
-      // EXTERNAL DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C
-      double             DLAMCH, ZLANGB, ZLA_GBRCOND_X, ZLA_GBRCOND_C;
-      bool               lsame;
-      int                ILATRANS, ILAPREC;
 
       // Check the input parameters.
 
-      INFO = 0;
-      TRANS_TYPE = ILATRANS( TRANS );
-      REF_TYPE = INT( ITREF_DEFAULT );
+      INFO.value = 0;
+      TRANS_TYPE = ilatrans( TRANS );
+      REF_TYPE = ITREF_DEFAULT.toInt() ;
       if ( NPARAMS >= LA_LINRX_ITREF_I ) {
-         if ( PARAMS( LA_LINRX_ITREF_I ) < 0.0 ) {
+         if ( PARAMS[ LA_LINRX_ITREF_I ] < 0.0 ) {
             PARAMS[LA_LINRX_ITREF_I] = ITREF_DEFAULT;
          } else {
-            REF_TYPE = PARAMS( LA_LINRX_ITREF_I );
+            REF_TYPE = PARAMS[ LA_LINRX_ITREF_I ].toInt();
          }
       }
 
       // Set default parameters.
 
       ILLRCOND_THRESH = N.toDouble() * dlamch( 'Epsilon' );
-      ITHRESH = INT( ITHRESH_DEFAULT );
+      ITHRESH =  ITHRESH_DEFAULT.toInt() ;
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
       IGNORE_CWISE = COMPONENTWISE_DEFAULT == 0.0;
 
       if ( NPARAMS >= LA_LINRX_ITHRESH_I ) {
-         if ( PARAMS( LA_LINRX_ITHRESH_I ) < 0.0 ) {
-            PARAMS[LA_LINRX_ITHRESH_I] = ITHRESH;
+         if ( PARAMS[ LA_LINRX_ITHRESH_I ] < 0.0 ) {
+            PARAMS[LA_LINRX_ITHRESH_I] = ITHRESH.toDouble();
          } else {
-            ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) );
+            ITHRESH =  PARAMS[ LA_LINRX_ITHRESH_I ] .toInt();
          }
       }
       if ( NPARAMS >= LA_LINRX_CWISE_I ) {
-         if ( PARAMS( LA_LINRX_CWISE_I ) < 0.0 ) {
+         if ( PARAMS[ LA_LINRX_CWISE_I ] < 0.0 ) {
             if ( IGNORE_CWISE ) {
                PARAMS[LA_LINRX_CWISE_I] = 0.0;
             } else {
                PARAMS[LA_LINRX_CWISE_I] = 1.0;
             }
          } else {
-            IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) == 0.0;
+            IGNORE_CWISE = PARAMS[ LA_LINRX_CWISE_I ] == 0.0;
          }
       }
       if ( REF_TYPE == 0 || N_ERR_BNDS == 0 ) {
@@ -109,35 +103,35 @@
       // Test input parameters.
 
       if ( TRANS_TYPE == -1 ) {
-        INFO = -1;
+        INFO.value = -1;
       } else if ( !ROWEQU && !COLEQU && !lsame( EQUED, 'N' ) ) {
-        INFO = -2;
+        INFO.value = -2;
       } else if ( N < 0 ) {
-        INFO = -3;
+        INFO.value = -3;
       } else if ( KL < 0 ) {
-        INFO = -4;
+        INFO.value = -4;
       } else if ( KU < 0 ) {
-        INFO = -5;
+        INFO.value = -5;
       } else if ( NRHS < 0 ) {
-        INFO = -6;
+        INFO.value = -6;
       } else if ( LDAB < KL+KU+1 ) {
-        INFO = -8;
+        INFO.value = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
-        INFO = -10;
+        INFO.value = -10;
       } else if ( LDB < max( 1, N ) ) {
-        INFO = -13;
+        INFO.value = -13;
       } else if ( LDX < max( 1, N ) ) {
-        INFO = -15;
+        INFO.value = -15;
       }
-      if ( INFO != 0 ) {
-        xerbla('ZGBRFSX', -INFO );
+      if ( INFO.value != 0 ) {
+        xerbla('ZGBRFSX', -INFO.value );
         return;
       }
 
       // Quick return if possible.
 
       if ( N == 0 || NRHS == 0 ) {
-         RCOND = 1.0;
+         RCOND.value = 1.0;
          for (J = 1; J <= NRHS; J++) {
             BERR[J] = 0.0;
             if ( N_ERR_BNDS >= 1 ) {
@@ -158,7 +152,7 @@
 
       // Default to failure.
 
-      RCOND = 0.0;
+      RCOND.value = 0.0;
       for (J = 1; J <= NRHS; J++) {
          BERR[J] = 1.0;
          if ( N_ERR_BNDS >= 1 ) {
@@ -183,19 +177,19 @@
       } else {
          NORM = '1';
       }
-      ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK );
+      ANORM = zlangb( NORM, N, KL, KU, AB, LDAB, RWORK );
       zgbcon(NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO );
 
       // Perform refinement on each right-hand side
 
-      if ( REF_TYPE != 0 && INFO == 0 ) {
+      if ( REF_TYPE != 0 && INFO.value == 0 ) {
 
-         PREC_TYPE = ILAPREC( 'E' );
+         PREC_TYPE = ilaprec( 'E' );
 
          if ( NOTRAN ) {
-            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
+            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND.value, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO.value );
          } else {
-            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
+            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND.value, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO.value );
          }
       }
 
@@ -205,25 +199,25 @@
       // Compute scaled normwise condition number cond(A*C).
 
          if ( COLEQU && NOTRAN ) {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, true , INFO, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, true , INFO.value, WORK, RWORK );
          } else if ( ROWEQU && !NOTRAN ) {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, true , INFO, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, true , INFO.value, WORK, RWORK );
          } else {
-            RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, false , INFO, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, false , INFO.value, WORK, RWORK );
          }
          for (J = 1; J <= NRHS; J++) {
 
       // Cap the error at 1.0.
 
-            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0;
+            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_NORM[ J][LA_LINRX_ERR_I ] > 1.0) ERR_BNDS_NORM[ J][LA_LINRX_ERR_I ] = 1.0;
 
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = 1.0;
                ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 0.0;
-               if (INFO <= N) INFO = N + J;
-            } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
+               if (INFO.value <= N) INFO.value = N + J;
+            } else if ( ERR_BNDS_NORM[ J][LA_LINRX_ERR_I ] < ERR_LBND ) {
                ERR_BNDS_NORM[J][LA_LINRX_ERR_I] = ERR_LBND;
                ERR_BNDS_NORM[J][LA_LINRX_TRUST_I] = 1.0;
             }
@@ -243,29 +237,29 @@
       // each right-hand side using the current solution as an estimate of
       // the true solution.  If the componentwise error estimate is too
       // large, then the solution is a lousy estimate of truth and the
-      // estimated RCOND may be too optimistic.  To avoid misleading users,
+      // estimated RCOND.value may be too optimistic.  To avoid misleading users,
       // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
          CWISE_WRONG = sqrt( dlamch( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
-            if (ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) {
-               RCOND_TMP = ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO, WORK, RWORK );
+            if (ERR_BNDS_COMP[ J][LA_LINRX_ERR_I ] < CWISE_WRONG ) {
+               RCOND_TMP = zla_gbrcond_x( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO.value, WORK, RWORK );
             } else {
                RCOND_TMP = 0.0;
             }
 
       // Cap the error at 1.0.
 
-            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
+            if ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_COMP[ J][LA_LINRX_ERR_I ] > 1.0 ) ERR_BNDS_COMP[ J][LA_LINRX_ERR_I ] = 1.0;
 
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = 1.0;
                ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 0.0;
-               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0 && INFO < N + J ) INFO = N + J;
-            ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
+               if ( PARAMS[ LA_LINRX_CWISE_I ] == 1.0 && INFO.value < N + J ) INFO.value = N + J;
+            } else if ( ERR_BNDS_COMP[ J][LA_LINRX_ERR_I ] < ERR_LBND ) {
                ERR_BNDS_COMP[J][LA_LINRX_ERR_I] = ERR_LBND;
                ERR_BNDS_COMP[J][LA_LINRX_TRUST_I] = 1.0;
             }

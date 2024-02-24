@@ -127,7 +127,7 @@ void dlamswlq(
   } else if (LEFT && NOTRAN) {
     // Multiply Q to the first block of C
 
-    KK = (M - K % NB - K);
+    KK = ((M - K) % (NB - K));
     II = M - KK + 1;
     CTR = 1;
     dgemlqt(
@@ -176,7 +176,7 @@ void dlamswlq(
   } else if (RIGHT && TRAN) {
     // Multiply Q to the first block of C
 
-    KK = (N - K % NB - K);
+    KK = ((N - K) % (NB - K));
     CTR = 1;
     II = N - KK + 1;
     dgemlqt(

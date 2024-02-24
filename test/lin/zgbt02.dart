@@ -37,7 +37,7 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
       // Quick return if N = 0 pr NRHS = 0
 

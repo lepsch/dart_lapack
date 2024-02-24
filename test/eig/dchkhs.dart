@@ -136,9 +136,9 @@ void dchkhs(
   final KTYPE = Array.fromList([
     1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9, //
   ]);
-  // final KMAGN = Array.fromList([
-  //   1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3, //
-  // ]);
+  final KMAGN = Array.fromList([
+    1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3, //
+  ]);
   final KMODE = Array.fromList([
     0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1, //
   ]);
@@ -231,20 +231,20 @@ void dchkhs(
       }
 
       // Compute "A"
-
+      //
       // Control parameters:
-
+      //
       //     KMAGN  KCONDS  KMODE        KTYPE
-      // =1  O(1)   1       clustered 1  zero
-      // =2  large  large   clustered 2  identity
-      // =3  small          exponential  Jordan
-      // =4                 arithmetic   diagonal, (w/ eigenvalues)
-      // =5                 random log   symmetric, w/ eigenvalues
-      // =6                 random       general, w/ eigenvalues
-      // =7                              random diagonal
-      // =8                              random symmetric
-      // =9                              random general
-      // =10                             random triangular
+      //        =1  O(1)   1       clustered 1  zero
+      //        =2  large  large   clustered 2  identity
+      //        =3  small          exponential  Jordan
+      //        =4                 arithmetic   diagonal, (w/ eigenvalues)
+      //        =5                 random log   symmetric, w/ eigenvalues
+      //        =6                 random       general, w/ eigenvalues
+      //        =7                              random diagonal
+      //        =8                              random symmetric
+      //        =9                              random general
+      //        =10                             random triangular
 
       if (MTYPES <= MAXTYP) {
         ITYPE = KTYPE[JTYPE];
@@ -252,7 +252,7 @@ void dchkhs(
 
         // Compute norm
 
-        switch (JTYPE) {
+        switch (KMAGN[JTYPE]) {
           case 1:
             ANORM = ONE;
             break;
@@ -647,7 +647,7 @@ void dchkhs(
         for (J = 1; J <= N; J++) {
           if (SELECT[J] && WI1[J] == ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
-              if (EVECTR(JJ, J) != EVECTL(JJ, K)) {
+              if (EVECTR[JJ][J] != EVECTL[JJ][K]) {
                 MATCH = false;
                 break matchRightLoop;
               }
@@ -655,8 +655,8 @@ void dchkhs(
             K = K + 1;
           } else if (SELECT[J] && WI1[J] != ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
-              if (EVECTR(JJ, J) != EVECTL(JJ, K) ||
-                  EVECTR(JJ, J + 1) != EVECTL(JJ, K + 1)) {
+              if (EVECTR[JJ][J] != EVECTL[JJ][K] ||
+                  EVECTR[JJ][J + 1] != EVECTL[JJ][K + 1]) {
                 MATCH = false;
                 break matchRightLoop;
               }
@@ -705,7 +705,7 @@ void dchkhs(
         for (J = 1; J <= N; J++) {
           if (SELECT[J] && WI1[J] == ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
-              if (EVECTL(JJ, J) != EVECTR(JJ, K)) {
+              if (EVECTL[JJ][J] != EVECTR[JJ][K]) {
                 MATCH = false;
                 break matchLeftLoop;
               }
@@ -713,8 +713,8 @@ void dchkhs(
             K = K + 1;
           } else if (SELECT[J] && WI1[J] != ZERO) {
             for (JJ = 1; JJ <= N; JJ++) {
-              if (EVECTL(JJ, J) != EVECTR(JJ, K) ||
-                  EVECTL(JJ, J + 1) != EVECTR(JJ, K + 1)) {
+              if (EVECTL[JJ][J] != EVECTR[JJ][K] ||
+                  EVECTL[JJ][J + 1] != EVECTR[JJ][K + 1]) {
                 MATCH = false;
                 break matchLeftLoop;
               }

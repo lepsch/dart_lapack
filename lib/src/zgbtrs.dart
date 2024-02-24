@@ -1,134 +1,147 @@
-      void zgbtrs(final int TRANS, final int N, final int KL, final int KU, final int NRHS, final Matrix<double> AB_, final int LDAB, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final AB = AB_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zgeru.dart';
+import 'package:lapack/src/blas/zswap.dart';
+import 'package:lapack/src/blas/ztbsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacgv.dart';
+
+void zgbtrs(
+  final String TRANS,
+  final int N,
+  final int KL,
+  final int KU,
+  final int NRHS,
+  final Matrix<Complex> AB_,
+  final int LDAB,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, KL, KU, LDAB, LDB, N, NRHS;
-      int                IPIV( * );
-      Complex         AB( LDAB, * ), B( LDB, * );
-      // ..
+  final AB = AB_.dim(LDAB);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  bool LNOTI, NOTRAN;
+  int I, J, KD, L, LM;
 
-      Complex         ONE;
-      const              ONE = ( 1.0, 0.0 ) ;
-      bool               LNOTI, NOTRAN;
-      int                I, J, KD, L, LM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEMV, ZGERU, ZLACGV, ZSWAP, ZTBSV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  NOTRAN = lsame(TRANS, 'N');
+  if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KL < 0) {
+    INFO.value = -3;
+  } else if (KU < 0) {
+    INFO.value = -4;
+  } else if (NRHS < 0) {
+    INFO.value = -5;
+  } else if (LDAB < (2 * KL + KU + 1)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -10;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGBTRS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      NOTRAN = lsame( TRANS, 'N' );
-      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KL < 0 ) {
-         INFO = -3;
-      } else if ( KU < 0 ) {
-         INFO = -4;
-      } else if ( NRHS < 0 ) {
-         INFO = -5;
-      } else if ( LDAB < ( 2*KL+KU+1 ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -10;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGBTRS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0 || NRHS == 0) return;
 
-      if (N == 0 || NRHS == 0) return;
+  KD = KU + KL + 1;
+  LNOTI = KL > 0;
 
-      KD = KU + KL + 1;
-      LNOTI = KL > 0;
+  if (NOTRAN) {
+    // Solve  A*X = B.
 
-      if ( NOTRAN ) {
+    // Solve L*X = B, overwriting B with X.
 
-         // Solve  A*X = B.
+    // L is represented as a product of permutations and unit lower
+    // triangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
+    // where each transformation L(i) is a rank-one modification of
+    // the identity matrix.
 
-         // Solve L*X = B, overwriting B with X.
+    if (LNOTI) {
+      for (J = 1; J <= N - 1; J++) {
+        // 10
+        LM = min(KL, N - J);
+        L = IPIV[J];
+        if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
+        zgeru(LM, NRHS, -Complex.one, AB(KD + 1, J).asArray(), 1,
+            B(J, 1).asArray(), LDB, B(J + 1, 1), LDB);
+      } // 10
+    }
 
-         // L is represented as a product of permutations and unit lower
-         // triangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
-         // where each transformation L(i) is a rank-one modification of
-         // the identity matrix.
+    for (I = 1; I <= NRHS; I++) {
+      // 20
 
-         if ( LNOTI ) {
-            for (J = 1; J <= N - 1; J++) { // 10
-               LM = min( KL, N-J );
-               L = IPIV( J );
-               if (L != J) zswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
-               zgeru(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
-            } // 10
-         }
+      // Solve U*X = B, overwriting B with X.
 
-         for (I = 1; I <= NRHS; I++) { // 20
+      ztbsv('Upper', 'No transpose', 'Non-unit', N, KL + KU, AB, LDAB,
+          B(1, I).asArray(), 1);
+    } // 20
+  } else if (lsame(TRANS, 'T')) {
+    // Solve A**T * X = B.
 
-            // Solve U*X = B, overwriting B with X.
+    for (I = 1; I <= NRHS; I++) {
+      // 30
 
-            ztbsv('Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
-         } // 20
+      // Solve U**T * X = B, overwriting B with X.
 
-      } else if ( lsame( TRANS, 'T' ) ) {
+      ztbsv('Upper', 'Transpose', 'Non-unit', N, KL + KU, AB, LDAB,
+          B(1, I).asArray(), 1);
+    } // 30
 
-         // Solve A**T * X = B.
+    // Solve L**T * X = B, overwriting B with X.
 
-         for (I = 1; I <= NRHS; I++) { // 30
+    if (LNOTI) {
+      for (J = N - 1; J >= 1; J--) {
+        // 40
+        LM = min(KL, N - J);
+        zgemv('Transpose', LM, NRHS, -Complex.one, B(J + 1, 1), LDB,
+            AB(KD + 1, J).asArray(), 1, Complex.one, B(J, 1).asArray(), LDB);
+        L = IPIV[J];
+        if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
+      } // 40
+    }
+  } else {
+    // Solve A**H * X = B.
 
-            // Solve U**T * X = B, overwriting B with X.
+    for (I = 1; I <= NRHS; I++) {
+      // 50
 
-            ztbsv('Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
-         } // 30
+      // Solve U**H * X = B, overwriting B with X.
 
-         // Solve L**T * X = B, overwriting B with X.
+      ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KL + KU, AB, LDAB,
+          B(1, I).asArray(), 1);
+    } // 50
 
-         if ( LNOTI ) {
-            for (J = N - 1; J >= 1; J--) { // 40
-               LM = min( KL, N-J );
-               zgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
-               L = IPIV( J );
-               if (L != J) zswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
-            } // 40
-         }
+    // Solve L**H * X = B, overwriting B with X.
 
-      } else {
-
-         // Solve A**H * X = B.
-
-         for (I = 1; I <= NRHS; I++) { // 50
-
-            // Solve U**H * X = B, overwriting B with X.
-
-            ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
-         } // 50
-
-         // Solve L**H * X = B, overwriting B with X.
-
-         if ( LNOTI ) {
-            for (J = N - 1; J >= 1; J--) { // 60
-               LM = min( KL, N-J );
-               zlacgv(NRHS, B( J, 1 ), LDB );
-               zgemv('Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
-               zlacgv(NRHS, B( J, 1 ), LDB );
-               L = IPIV( J );
-               if (L != J) zswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
-            } // 60
-         }
-      }
-      }
+    if (LNOTI) {
+      for (J = N - 1; J >= 1; J--) {
+        // 60
+        LM = min(KL, N - J);
+        zlacgv(NRHS, B(J, 1).asArray(), LDB);
+        zgemv('Conjugate transpose', LM, NRHS, -Complex.one, B(J + 1, 1), LDB,
+            AB(KD + 1, J).asArray(), 1, Complex.one, B(J, 1).asArray(), LDB);
+        zlacgv(NRHS, B(J, 1).asArray(), LDB);
+        L = IPIV[J];
+        if (L != J) zswap(NRHS, B(L, 1).asArray(), LDB, B(J, 1).asArray(), LDB);
+      } // 60
+    }
+  }
+}

@@ -586,13 +586,13 @@ void ddrges3(
 }
 
 void _print9999(
-  final Nout NOUNIT,
+  final Nout nout,
   final String s,
   final int info,
   final int n,
   final int jtype,
   final Array<int> iseed,
 ) {
-  NOUNIT.println(
+  nout.println(
       ' DDRGES3: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i4(4, ',')})');
 }

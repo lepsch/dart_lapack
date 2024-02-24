@@ -12,12 +12,13 @@ double dlange(
   final int N,
   final Matrix<double> A_,
   final int LDA,
-  final Array<double> WORK,
+  final Array<double> WORK_,
 ) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final A = A_.dim(LDA);
+  final WORK = WORK_.dim(LDA);
   const ONE = 1.0, ZERO = 0.0;
   int I, J;
   double VALUE = 0, TEMP;

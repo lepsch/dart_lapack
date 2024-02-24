@@ -1,10 +1,9 @@
 import 'dart:math';
 
 import 'package:lapack/src/blas/izamax.dart';
-import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
-import 'package:lapack/src/install/slamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/zlaswp.dart';
 
@@ -19,7 +18,7 @@ void cgetrf2(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   final IPIV = IPIV_.dim();
   double SFMIN;
   Complex TEMP;

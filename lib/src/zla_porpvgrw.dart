@@ -31,7 +31,7 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
       UPPER = lsame( 'Upper', UPLO );
 
       // DPOTRF will have factored only the NCOLSxNCOLS leading submatrix,

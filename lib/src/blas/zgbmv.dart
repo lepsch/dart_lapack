@@ -11,12 +11,12 @@ void zgbmv(
   final int N,
   final int KL,
   final int KU,
-  final double ALPHA,
+  final Complex ALPHA,
   final Matrix<Complex> A_,
   final int LDA,
   final Array<Complex> X_,
   final int INCX,
-  final double BETA,
+  final Complex BETA,
   final Array<Complex> Y_,
   final int INCY,
 ) {
@@ -59,8 +59,7 @@ void zgbmv(
 
   if ((M == 0) ||
       (N == 0) ||
-      ((ALPHA.toComplex() == Complex.zero) &&
-          (BETA.toComplex() == Complex.one))) return;
+      ((ALPHA == Complex.zero) && (BETA == Complex.one))) return;
 
   NOCONJ = lsame(TRANS, 'T');
 
@@ -90,33 +89,33 @@ void zgbmv(
 
   // First form  y := beta*y.
 
-  if (BETA.toComplex() != Complex.one) {
+  if (BETA != Complex.one) {
     if (INCY == 1) {
-      if (BETA.toComplex() == Complex.zero) {
+      if (BETA == Complex.zero) {
         for (I = 1; I <= LENY; I++) {
           Y[I] = Complex.zero;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
-          Y[I] = Complex(BETA) * Y[I];
+          Y[I] = BETA * Y[I];
         }
       }
     } else {
       IY = KY;
-      if (BETA.toComplex() == Complex.zero) {
+      if (BETA == Complex.zero) {
         for (I = 1; I <= LENY; I++) {
           Y[IY] = Complex.zero;
           IY = IY + INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
-          Y[IY] = Complex(BETA) * Y[IY];
+          Y[IY] = BETA * Y[IY];
           IY = IY + INCY;
         }
       }
     }
   }
-  if (ALPHA.toComplex() == Complex.zero) return;
+  if (ALPHA == Complex.zero) return;
   KUP1 = KU + 1;
   if (lsame(TRANS, 'N')) {
     // Form  y := alpha*A*x + y.
@@ -124,7 +123,7 @@ void zgbmv(
     JX = KX;
     if (INCY == 1) {
       for (J = 1; J <= N; J++) {
-        TEMP = Complex(ALPHA) * X[JX];
+        TEMP = ALPHA * X[JX];
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
           Y[I] = Y[I] + TEMP * A[K + I][J];
@@ -133,7 +132,7 @@ void zgbmv(
       }
     } else {
       for (J = 1; J <= N; J++) {
-        TEMP = Complex(ALPHA) * X[JX];
+        TEMP = ALPHA * X[JX];
         IY = KY;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
@@ -161,7 +160,7 @@ void zgbmv(
             TEMP = TEMP + A[K + I][J].conjugate() * X[I];
           }
         }
-        Y[JY] = Y[JY] + Complex(ALPHA) * TEMP;
+        Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
       }
     } else {
@@ -180,7 +179,7 @@ void zgbmv(
             IX = IX + INCX;
           }
         }
-        Y[JY] = Y[JY] + Complex(ALPHA) * TEMP;
+        Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
         if (J > KU) KX = KX + INCX;
       }

@@ -178,7 +178,7 @@ void dlahqr(
         I2 = I;
       }
 
-      if ((KDEFL % 2 * KEXSH) == 0) {
+      if (KDEFL % (2 * KEXSH) == 0) {
         // Exceptional shift.
 
         S = (H[I][I - 1]).abs() + (H[I - 1][I - 2]).abs();
@@ -216,7 +216,7 @@ void dlahqr(
         H22 = H22 / S;
         TR = (H11 + H22) / TWO;
         DET = (H11 - TR) * (H22 - TR) - H12 * H21;
-        RTDISC = sqrt((DET).abs());
+        RTDISC = sqrt(DET.abs());
         if (DET >= ZERO) {
           // ==== complex conjugate shifts ====
 
