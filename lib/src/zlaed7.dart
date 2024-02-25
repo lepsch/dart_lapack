@@ -20,7 +20,7 @@ void zlaed7(
   final Array<double> D_,
   final Matrix<Complex> Q_,
   final int LDQ,
-  final double RHO,
+  final Box<double> RHO,
   final Array<int> INDXQ_,
   final Array<double> QSTORE_,
   final Array<int> QPTR_,
@@ -50,20 +50,8 @@ void zlaed7(
   final D = D_.dim();
   final QSTORE = QSTORE_.dim();
   final GIVNUM = GIVNUM_.dim(2);
-  int COLTYP,
-      CURR,
-      I,
-      IDLMDA,
-      INDX,
-      INDXC,
-      INDXP,
-      IQ,
-      IW,
-      IZ,
-      K = 0,
-      N1,
-      N2,
-      PTR;
+  int COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, N1, N2, PTR;
+  final K = Box(0);
 
   // Test the input parameters.
 
@@ -139,36 +127,48 @@ void zlaed7(
       CUTPNT,
       RWORK(IZ),
       RWORK(IDLMDA),
-      WORK,
+      WORK.asMatrix(QSIZ),
       QSIZ,
       RWORK(IW),
       IWORK(INDXP),
       IWORK(INDX),
       INDXQ,
-      PERM(PRMPTR(CURR)),
-      GIVPTR(CURR + 1),
-      GIVCOL(1, GIVPTR(CURR)),
-      GIVNUM(1, GIVPTR(CURR)),
+      PERM(PRMPTR[CURR]),
+      GIVPTR.box(CURR + 1),
+      GIVCOL(1, GIVPTR[CURR]),
+      GIVNUM(1, GIVPTR[CURR]),
       INFO);
   PRMPTR[CURR + 1] = PRMPTR[CURR] + N;
   GIVPTR[CURR + 1] = GIVPTR[CURR + 1] + GIVPTR[CURR];
 
   // Solve Secular Equation.
 
-  if (K != 0) {
-    dlaed9(K, 1, K, N, D, RWORK(IQ).asMatrix(K), K, RHO, RWORK(IDLMDA),
-        RWORK(IW), QSTORE(QPTR[CURR]).asMatrix(K), K, INFO);
-    zlacrm(QSIZ, K, WORK.asMatrix(QSIZ), QSIZ, QSTORE(QPTR[CURR]).asMatrix(K),
-        K, Q, LDQ, RWORK(IQ));
-    QPTR[CURR + 1] = QPTR[CURR] + pow(K, 2).toInt();
+  if (K.value != 0) {
+    dlaed9(
+        K.value,
+        1,
+        K.value,
+        N,
+        D,
+        RWORK(IQ).asMatrix(K.value),
+        K.value,
+        RHO.value,
+        RWORK(IDLMDA),
+        RWORK(IW),
+        QSTORE(QPTR[CURR]).asMatrix(K.value),
+        K.value,
+        INFO);
+    zlacrm(QSIZ, K.value, WORK.asMatrix(QSIZ), QSIZ,
+        QSTORE(QPTR[CURR]).asMatrix(K.value), K.value, Q, LDQ, RWORK(IQ));
+    QPTR[CURR + 1] = QPTR[CURR] + pow(K.value, 2).toInt();
     if (INFO.value != 0) {
       return;
     }
 
     // Prepare the INDXQ sorting permutation.
 
-    N1 = K;
-    N2 = N - K;
+    N1 = K.value;
+    N2 = N - K.value;
     dlamrg(N1, N2, D, 1, -1, INDXQ);
   } else {
     QPTR[CURR + 1] = QPTR[CURR];

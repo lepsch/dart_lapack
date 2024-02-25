@@ -39,7 +39,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( Z.toDouble() ).abs() + ( DIMAG( Z ) ).abs();
+      double CABS1(Complex Z) => Z.toDouble().abs() + Z.imaginary.abs();
 
       INFO = 0;
 
