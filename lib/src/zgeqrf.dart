@@ -1,120 +1,136 @@
-      void zgeqrf(final int M, final int N, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgeqr2.dart';
+import 'package:lapack/src/zlarfb.dart';
+import 'package:lapack/src/zlarft.dart';
+
+void zgeqrf(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LWORK, M, N;
-      Complex         A( LDA, * ), TAU( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  bool LQUERY;
+  int I, IB, IWS, K, LDWORK = 0, LWKOPT, NB, NBMIN, NX;
+  final IINFO = Box(0);
 
-// =====================================================================
+  // Test the input arguments
 
-      // .. Local Scalars ..
-      bool               LQUERY;
-      int                I, IB, IINFO, IWS, K, LDWORK, LWKOPT, NB, NBMIN, NX;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEQR2, ZLARFB, ZLARFT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
+  K = min(M, N);
+  INFO.value = 0;
+  NB = ilaenv(1, 'ZGEQRF', ' ', M, N, -1, -1);
+  LQUERY = (LWORK == -1);
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -4;
+  } else if (!LQUERY) {
+    if (LWORK <= 0 || (M > 0 && LWORK < max(1, N))) INFO.value = -7;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGEQRF', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    if (K == 0) {
+      LWKOPT = 1;
+    } else {
+      LWKOPT = N * NB;
+    }
+    WORK[1] = LWKOPT.toComplex();
+    return;
+  }
 
-      // Test the input arguments
+  // Quick return if possible
 
-      K = min( M, N );
-      INFO = 0;
-      NB = ilaenv( 1, 'ZGEQRF', ' ', M, N, -1, -1 );
-      LQUERY = ( LWORK == -1 );
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -4;
-      } else if ( !LQUERY ) {
-         if( LWORK <= 0 || ( M > 0 && LWORK < max( 1, N ) ) ) INFO = -7;
+  if (K == 0) {
+    WORK[1] = Complex.one;
+    return;
+  }
+
+  NBMIN = 2;
+  NX = 0;
+  IWS = N;
+  if (NB > 1 && NB < K) {
+    // Determine when to cross over from blocked to unblocked code.
+
+    NX = max(0, ilaenv(3, 'ZGEQRF', ' ', M, N, -1, -1));
+    if (NX < K) {
+      // Determine if workspace is large enough for blocked code.
+
+      LDWORK = N;
+      IWS = LDWORK * NB;
+      if (LWORK < IWS) {
+        // Not enough workspace to use optimal NB:  reduce NB and
+        // determine the minimum value of NB.
+
+        NB = LWORK ~/ LDWORK;
+        NBMIN = max(2, ilaenv(2, 'ZGEQRF', ' ', M, N, -1, -1));
       }
-      if ( INFO != 0 ) {
-         xerbla('ZGEQRF', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         if ( K == 0 ) {
-            LWKOPT = 1;
-         } else {
-            LWKOPT = N*NB;
-         }
-         WORK[1] = LWKOPT;
-         return;
+    }
+  }
+
+  if (NB >= NBMIN && NB < K && NX < K) {
+    // Use blocked code initially
+
+    for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) {
+      // 10
+      IB = min(K - I + 1, NB);
+
+      // Compute the QR factorization of the current block
+      // A(i:m,i:i+ib-1)
+
+      zgeqr2(M - I + 1, IB, A(I, I), LDA, TAU(I), WORK, IINFO);
+      if (I + IB <= N) {
+        // Form the triangular factor of the block reflector
+        // H = H(i) H(i+1) . . . H(i+ib-1)
+
+        zlarft('Forward', 'Columnwise', M - I + 1, IB, A(I, I), LDA, TAU(I),
+            WORK.asMatrix(LDWORK), LDWORK);
+
+        // Apply H**H to A(i:m,i+ib:n) from the left
+
+        zlarfb(
+            'Left',
+            'Conjugate transpose',
+            'Forward',
+            'Columnwise',
+            M - I + 1,
+            N - I - IB + 1,
+            IB,
+            A(I, I),
+            LDA,
+            WORK.asMatrix(LDWORK),
+            LDWORK,
+            A(I, I + IB),
+            LDA,
+            WORK(IB + 1).asMatrix(LDWORK),
+            LDWORK);
       }
+    } // 10
+  } else {
+    I = 1;
+  }
 
-      // Quick return if possible
+  // Use unblocked code to factor the last or only block.
 
-      if ( K == 0 ) {
-         WORK[1] = 1;
-         return;
-      }
+  if (I <= K) zgeqr2(M - I + 1, N - I + 1, A(I, I), LDA, TAU(I), WORK, IINFO);
 
-      NBMIN = 2;
-      NX = 0;
-      IWS = N;
-      if ( NB > 1 && NB < K ) {
-
-         // Determine when to cross over from blocked to unblocked code.
-
-         NX = max( 0, ilaenv( 3, 'ZGEQRF', ' ', M, N, -1, -1 ) );
-         if ( NX < K ) {
-
-            // Determine if workspace is large enough for blocked code.
-
-            LDWORK = N;
-            IWS = LDWORK*NB;
-            if ( LWORK < IWS ) {
-
-               // Not enough workspace to use optimal NB:  reduce NB and
-               // determine the minimum value of NB.
-
-               NB = LWORK / LDWORK;
-               NBMIN = max( 2, ilaenv( 2, 'ZGEQRF', ' ', M, N, -1, -1 ) );
-            }
-         }
-      }
-
-      if ( NB >= NBMIN && NB < K && NX < K ) {
-
-         // Use blocked code initially
-
-         for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) { // 10
-            IB = min( K-I+1, NB );
-
-            // Compute the QR factorization of the current block
-            // A(i:m,i:i+ib-1)
-
-            zgeqr2(M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO );
-            if ( I+IB <= N ) {
-
-               // Form the triangular factor of the block reflector
-               // H = H(i) H(i+1) . . . H(i+ib-1)
-
-               zlarft('Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK );
-
-               // Apply H**H to A(i:m,i+ib:n) from the left
-
-               zlarfb('Left', 'Conjugate transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK );
-            }
-         } // 10
-      } else {
-         I = 1;
-      }
-
-      // Use unblocked code to factor the last or only block.
-
-      if (I <= K) zgeqr2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
-
-      WORK[1] = IWS;
-      }
+  WORK[1] = IWS.toComplex();
+}

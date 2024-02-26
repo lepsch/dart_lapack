@@ -232,12 +232,12 @@ void zlaed0(
           IWORK(IPRMPT),
           IWORK(IPERM),
           IWORK(IGIVPT),
-          IWORK(IGIVCL),
-          RWORK(IGIVNM),
-          Q(1, SUBMAT),
+          IWORK(IGIVCL).asMatrix(2),
+          RWORK(IGIVNM).asMatrix(2),
+          Q(1, SUBMAT).asArray(),
           RWORK(IWREM),
           IWORK(SUBPBS + 1),
-          INFO.value);
+          INFO);
       if (INFO.value > 0) {
         INFO.value = SUBMAT * (N + 1) + SUBMAT + MATSIZ - 1;
         return;

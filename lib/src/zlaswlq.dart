@@ -1,106 +1,111 @@
-      void zlaswlq(final int M, final int N, final int MB, final int NB, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final T = T_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgelqt.dart';
+import 'package:lapack/src/ztplqt.dart';
+
+void zlaswlq(
+  final int M,
+  final int N,
+  final int MB,
+  final int NB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
-      int                INFO, LDA, M, N, MB, NB, LWORK, LDT;
-      Complex         A( LDA, * ), WORK( * ), T( LDT, * );
-      // ..
+  final A = A_.dim(LDA);
+  final T = T_.dim(LDT);
+  final WORK = WORK_.dim();
+  bool LQUERY;
+  int I, II, KK, CTR, MINMN, LWMIN;
 
-// =====================================================================
+  // TEST THE INPUT ARGUMENTS
 
-      bool               LQUERY;
-      int                I, II, KK, CTR, MINMN, LWMIN;
-      // ..
-      // .. EXTERNAL FUNCTIONS ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. EXTERNAL SUBROUTINES ..
-      // EXTERNAL ZGELQT, ZTPLQT, XERBLA
-      // ..
-      // .. INTRINSIC FUNCTIONS ..
-      // INTRINSIC MAX, MIN, MOD
-      // ..
-      // .. EXECUTABLE STATEMENTS ..
+  INFO.value = 0;
 
-      // TEST THE INPUT ARGUMENTS
+  LQUERY = (LWORK == -1);
 
-      INFO = 0;
+  MINMN = min(M, N);
+  if (MINMN == 0) {
+    LWMIN = 1;
+  } else {
+    LWMIN = M * MB;
+  }
 
-      LQUERY = ( LWORK == -1 );
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0 || N < M) {
+    INFO.value = -2;
+  } else if (MB < 1 || (MB > M && M > 0)) {
+    INFO.value = -3;
+  } else if (NB <= 0) {
+    INFO.value = -4;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -6;
+  } else if (LDT < MB) {
+    INFO.value = -8;
+  } else if (LWORK < LWMIN && (!LQUERY)) {
+    INFO.value = -10;
+  }
 
-      MINMN = min( M, N );
-      if ( MINMN == 0 ) {
-        LWMIN = 1;
-      } else {
-        LWMIN = M*MB;
-      }
+  if (INFO.value == 0) {
+    WORK[1] = LWMIN.toComplex();
+  }
 
-      if ( M < 0 ) {
-        INFO = -1;
-      } else if ( N < 0 || N < M ) {
-        INFO = -2;
-      } else if ( MB < 1 || ( MB > M && M > 0 ) ) {
-        INFO = -3;
-      } else if ( NB <= 0 ) {
-        INFO = -4;
-      } else if ( LDA < max( 1, M ) ) {
-        INFO = -6;
-      } else if ( LDT < MB ) {
-        INFO = -8;
-      } else if ( LWORK < LWMIN && ( !LQUERY) ) {
-        INFO = -10;
-      }
+  if (INFO.value != 0) {
+    xerbla('ZLASWLQ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO == 0 ) {
-        WORK[1] = LWMIN;
-      }
+  // Quick return if possible
 
-      if ( INFO != 0 ) {
-        xerbla('ZLASWLQ', -INFO );
-        return;
-      } else if ( LQUERY ) {
-        return;
-      }
+  if (MINMN == 0) {
+    return;
+  }
 
-      // Quick return if possible
+  // The LQ Decomposition
 
-      if ( MINMN == 0 ) {
-        return;
-      }
+  if ((M >= N) || (NB <= M) || (NB >= N)) {
+    zgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO);
+    return;
+  }
 
-      // The LQ Decomposition
+  KK = ((N - M) % (NB - M));
+  II = N - KK + 1;
 
-      if ( (M >= N) || (NB <= M) || (NB >= N) ) {
-        zgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO );
-        return;
-      }
+  // Compute the LQ factorization of the first block A(1:M,1:NB)
 
-      KK = ((N-M) % (NB-M));
-      II = N-KK+1;
+  zgelqt(M, NB, MB, A(1, 1), LDA, T, LDT, WORK, INFO);
+  CTR = 1;
 
-      // Compute the LQ factorization of the first block A(1:M,1:NB)
+  for (I = NB + 1;
+      (NB - M) < 0 ? I >= II - NB + M : I <= II - NB + M;
+      I += (NB - M)) {
+    // Compute the QR factorization of the current block A(1:M,I:I+NB-M)
 
-      zgelqt(M, NB, MB, A(1,1), LDA, T, LDT, WORK, INFO );
-      CTR = 1;
+    ztplqt(M, NB - M, 0, MB, A(1, 1), LDA, A(1, I), LDA, T(1, CTR * M + 1), LDT,
+        WORK, INFO);
+    CTR = CTR + 1;
+  }
 
-      for (I = NB+1; (NB-M) < 0 ? I >= II-NB+M : I <= II-NB+M; I += (NB-M)) {
+  // Compute the QR factorization of the last block A(1:M,II:N)
 
-        // Compute the QR factorization of the current block A(1:M,I:I+NB-M)
+  if (II <= N) {
+    ztplqt(M, KK, 0, MB, A(1, 1), LDA, A(1, II), LDA, T(1, CTR * M + 1), LDT,
+        WORK, INFO);
+  }
 
-        ztplqt(M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO );
-        CTR = CTR + 1;
-      }
-
-      // Compute the QR factorization of the last block A(1:M,II:N)
-
-      if ( II <= N ) {
-        ztplqt(M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO );
-      }
-
-      WORK[1] = LWMIN;
-      }
+  WORK[1] = LWMIN.toComplex();
+}

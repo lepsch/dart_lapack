@@ -1,301 +1,309 @@
-      void zgelst(final int TRANS, final int M, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgelqt.dart';
+import 'package:lapack/src/zgemlqt.dart';
+import 'package:lapack/src/zgemqrt.dart';
+import 'package:lapack/src/zgeqrt.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlascl.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/ztrtrs.dart';
+
+void zgelst(
+  final String TRANS,
+  final int M,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
   final WORK = WORK_.dim();
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
-      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool LQUERY, TPSD = false;
+  int BROW,
+      I,
+      IASCL,
+      IBSCL,
+      J,
+      LWOPT = 0,
+      MN,
+      MNNRHS = 0,
+      NB = 0,
+      NBMIN,
+      SCLLEN;
+  double ANRM, BIGNUM, BNRM, SMLNUM;
+  final RWORK = Array<double>(1);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO;
-      const              CZERO = ( 0.0, 0.0 ) ;
-      bool               LQUERY, TPSD;
-      int                BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN;
-      double             ANRM, BIGNUM, BNRM, SMLNUM;
-      double             RWORK( 1 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGELQT, ZGEQRT, ZGEMLQT, ZGEMQRT, ZLASCL, ZLASET, ZTRTRS, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
+  // Test the input arguments.
 
-      // Test the input arguments.
+  INFO.value = 0;
+  MN = min(M, N);
+  LQUERY = (LWORK == -1);
+  if (!(lsame(TRANS, 'N') || lsame(TRANS, 'C'))) {
+    INFO.value = -1;
+  } else if (M < 0) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (NRHS < 0) {
+    INFO.value = -4;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -6;
+  } else if (LDB < max(1, max(M, N))) {
+    INFO.value = -8;
+  } else if (LWORK < max(1, MN + max(MN, NRHS)) && !LQUERY) {
+    INFO.value = -10;
+  }
 
-      INFO = 0;
-      MN = min( M, N );
-      LQUERY = ( LWORK == -1 );
-      if ( !( lsame( TRANS, 'N' ) || lsame( TRANS, 'C' ) ) ) {
-         INFO = -1;
-      } else if ( M < 0 ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( NRHS < 0 ) {
-         INFO = -4;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -6;
-      } else if ( LDB < max( 1, M, N ) ) {
-         INFO = -8;
-      } else if ( LWORK < max( 1, MN+max( MN, NRHS ) ) && !LQUERY ) {
-         INFO = -10;
+  // Figure out optimal block size and optimal workspace size
+
+  if (INFO.value == 0 || INFO.value == -10) {
+    TPSD = true;
+    if (lsame(TRANS, 'N')) TPSD = false;
+
+    NB = ilaenv(1, 'ZGELST', ' ', M, N, -1, -1);
+
+    MNNRHS = max(MN, NRHS);
+    LWOPT = max(1, (MN + MNNRHS) * NB);
+    WORK[1] = LWOPT.toComplex();
+  }
+
+  if (INFO.value != 0) {
+    xerbla('ZGELST ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
+
+  // Quick return if possible
+
+  if (min(M, min(N, NRHS)) == 0) {
+    zlaset('Full', max(M, N), NRHS, Complex.zero, Complex.zero, B, LDB);
+    WORK[1] = LWOPT.toComplex();
+    return;
+  }
+
+  // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
+
+  if (NB > MN) NB = MN;
+
+  // Determine the block size from the supplied LWORK
+  // ( at this stage we know that LWORK >= (minimum required workspace,
+  // but it may be less than optimal)
+
+  NB = min(NB, LWORK ~/ (MN + MNNRHS));
+
+  // The minimum value of NB, when blocked code is used
+
+  NBMIN = max(2, ilaenv(2, 'ZGELST', ' ', M, N, -1, -1));
+
+  if (NB < NBMIN) {
+    NB = 1;
+  }
+
+  // Get machine parameters
+
+  SMLNUM = dlamch('S') / dlamch('P');
+  BIGNUM = ONE / SMLNUM;
+
+  // Scale A, B if max element outside range [SMLNUM,BIGNUM]
+
+  ANRM = zlange('M', M, N, A, LDA, RWORK);
+  IASCL = 0;
+  if (ANRM > ZERO && ANRM < SMLNUM) {
+    // Scale matrix norm up to SMLNUM
+
+    zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO);
+    IASCL = 1;
+  } else if (ANRM > BIGNUM) {
+    // Scale matrix norm down to BIGNUM
+
+    zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO);
+    IASCL = 2;
+  } else if (ANRM == ZERO) {
+    // Matrix all zero. Return zero solution.
+
+    zlaset('Full', max(M, N), NRHS, Complex.zero, Complex.zero, B, LDB);
+    WORK[1] = LWOPT.toComplex();
+    return;
+  }
+
+  BROW = M;
+  if (TPSD) BROW = N;
+  BNRM = zlange('M', BROW, NRHS, B, LDB, RWORK);
+  IBSCL = 0;
+  if (BNRM > ZERO && BNRM < SMLNUM) {
+    // Scale matrix norm up to SMLNUM
+
+    zlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO);
+    IBSCL = 1;
+  } else if (BNRM > BIGNUM) {
+    // Scale matrix norm down to BIGNUM
+
+    zlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO);
+    IBSCL = 2;
+  }
+
+  if (M >= N) {
+    // M > N:
+    // Compute the blocked QR factorization of A,
+    // using the compact WY representation of Q,
+    // workspace at least N, optimally N*NB.
+
+    zgeqrt(M, N, NB, A, LDA, WORK(1).asMatrix(NB), NB, WORK(MN * NB + 1), INFO);
+
+    if (!TPSD) {
+      // M > N, A is not transposed:
+      // Overdetermined system of equations,
+      // least-squares problem, min || A * X - B ||.
+
+      // Compute B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS),
+      // using the compact WY representation of Q,
+      // workspace at least NRHS, optimally NRHS*NB.
+
+      zgemqrt('Left', 'Conjugate transpose', M, NRHS, N, NB, A, LDA,
+          WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
+
+      // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
+
+      ztrtrs(
+          'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO);
+
+      if (INFO.value > 0) {
+        return;
       }
 
-      // Figure out optimal block size and optimal workspace size
+      SCLLEN = N;
+    } else {
+      // M > N, A is transposed:
+      // Underdetermined system of equations,
+      // minimum norm solution of A**T * X = B.
 
-      if ( INFO == 0 || INFO == -10 ) {
+      // Compute B := inv(R**T) * B in two row blocks of B.
 
-         TPSD = true;
-         if( lsame( TRANS, 'N' ) ) TPSD = false;
+      // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 
-         NB = ilaenv( 1, 'ZGELST', ' ', M, N, -1, -1 );
+      ztrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B,
+          LDB, INFO);
 
-         MNNRHS = max( MN, NRHS );
-         LWOPT = max( 1, (MN+MNNRHS)*NB );
-         WORK[1] = LWOPT.toDouble();
-
+      if (INFO.value > 0) {
+        return;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('ZGELST ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
+      // Block 2: Zero out all rows below the N-th row in B:
+      // B(N+1:M,1:NRHS) = ZERO
+
+      for (J = 1; J <= NRHS; J++) {
+        for (I = N + 1; I <= M; I++) {
+          B[I][J] = Complex.zero;
+        }
       }
 
-      // Quick return if possible
+      // Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
+      // using the compact WY representation of Q,
+      // workspace at least NRHS, optimally NRHS*NB.
 
-      if ( min( M, N, NRHS ) == 0 ) {
-         zlaset('Full', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
-         WORK[1] = LWOPT.toDouble();
-         return;
+      zgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA,
+          WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
+
+      SCLLEN = M;
+    }
+  } else {
+    // M < N:
+    // Compute the blocked LQ factorization of A,
+    // using the compact WY representation of Q,
+    // workspace at least M, optimally M*NB.
+
+    zgelqt(M, N, NB, A, LDA, WORK(1).asMatrix(NB), NB, WORK(MN * NB + 1), INFO);
+
+    if (!TPSD) {
+      // M < N, A is not transposed:
+      // Underdetermined system of equations,
+      // minimum norm solution of A * X = B.
+
+      // Compute B := inv(L) * B in two row blocks of B.
+
+      // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
+
+      ztrtrs(
+          'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO);
+
+      if (INFO.value > 0) {
+        return;
       }
 
-      // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
+      // Block 2: Zero out all rows below the M-th row in B:
+      // B(M+1:N,1:NRHS) = ZERO
 
-      if (NB > MN) NB = MN;
-
-      // Determine the block size from the supplied LWORK
-      // ( at this stage we know that LWORK >= (minimum required workspace,
-      // but it may be less than optimal)
-
-      NB = min( NB, LWORK/( MN + MNNRHS ) );
-
-      // The minimum value of NB, when blocked code is used
-
-      NBMIN = max( 2, ilaenv( 2, 'ZGELST', ' ', M, N, -1, -1 ) );
-
-      if ( NB < NBMIN ) {
-         NB = 1;
+      for (J = 1; J <= NRHS; J++) {
+        for (I = M + 1; I <= N; I++) {
+          B[I][J] = Complex.zero;
+        }
       }
 
-      // Get machine parameters
+      // Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
+      // using the compact WY representation of Q,
+      // workspace at least NRHS, optimally NRHS*NB.
 
-      SMLNUM = dlamch( 'S' ) / dlamch( 'P' );
-      BIGNUM = ONE / SMLNUM;
+      zgemlqt('Left', 'Conjugate transpose', N, NRHS, M, NB, A, LDA,
+          WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
 
-      // Scale A, B if max element outside range [SMLNUM,BIGNUM]
+      SCLLEN = N;
+    } else {
+      // M < N, A is transposed:
+      // Overdetermined system of equations,
+      // least-squares problem, min || A**T * X - B ||.
 
-      ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK );
-      IASCL = 0;
-      if ( ANRM > ZERO && ANRM < SMLNUM ) {
+      // Compute B(1:N,1:NRHS) := Q * B(1:N,1:NRHS),
+      // using the compact WY representation of Q,
+      // workspace at least NRHS, optimally NRHS*NB.
 
-         // Scale matrix norm up to SMLNUM
+      zgemlqt('Left', 'No transpose', N, NRHS, M, NB, A, LDA,
+          WORK(1).asMatrix(NB), NB, B, LDB, WORK(MN * NB + 1), INFO);
 
-         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1;
-      } else if ( ANRM > BIGNUM ) {
+      // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 
-         // Scale matrix norm down to BIGNUM
+      ztrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B,
+          LDB, INFO);
 
-         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2;
-      } else if ( ANRM == ZERO ) {
-
-         // Matrix all zero. Return zero solution.
-
-         zlaset('Full', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
-         WORK[1] = LWOPT.toDouble();
-         return;
+      if (INFO.value > 0) {
+        return;
       }
 
-      BROW = M;
-      if (TPSD) BROW = N;
-      BNRM = ZLANGE( 'M', BROW, NRHS, B, LDB, RWORK );
-      IBSCL = 0;
-      if ( BNRM > ZERO && BNRM < SMLNUM ) {
+      SCLLEN = M;
+    }
+  }
 
-         // Scale matrix norm up to SMLNUM
+  // Undo scaling
 
-         zlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 1;
-      } else if ( BNRM > BIGNUM ) {
+  if (IASCL == 1) {
+    zlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO);
+  } else if (IASCL == 2) {
+    zlascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO);
+  }
+  if (IBSCL == 1) {
+    zlascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO);
+  } else if (IBSCL == 2) {
+    zlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO);
+  }
 
-         // Scale matrix norm down to BIGNUM
-
-         zlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 2;
-      }
-
-      if ( M >= N ) {
-
-         // M > N:
-         // Compute the blocked QR factorization of A,
-         // using the compact WY representation of Q,
-         // workspace at least N, optimally N*NB.
-
-         zgeqrt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
-
-         if ( !TPSD ) {
-
-            // M > N, A is not transposed:
-            // Overdetermined system of equations,
-            // least-squares problem, min || A * X - B ||.
-
-            // Compute B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS),
-            // using the compact WY representation of Q,
-            // workspace at least NRHS, optimally NRHS*NB.
-
-            zgemqrt('Left', 'Conjugate transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
-
-            // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
-
-            ztrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
-
-            if ( INFO > 0 ) {
-               return;
-            }
-
-            SCLLEN = N;
-
-         } else {
-
-            // M > N, A is transposed:
-            // Underdetermined system of equations,
-            // minimum norm solution of A**T * X = B.
-
-            // Compute B := inv(R**T) * B in two row blocks of B.
-
-            // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
-
-            ztrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
-
-            if ( INFO > 0 ) {
-               return;
-            }
-
-            // Block 2: Zero out all rows below the N-th row in B:
-            // B(N+1:M,1:NRHS) = ZERO
-
-            for (J = 1; J <= NRHS; J++) {
-               for (I = N + 1; I <= M; I++) {
-                  B[I][J] = ZERO;
-               }
-            }
-
-            // Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
-            // using the compact WY representation of Q,
-            // workspace at least NRHS, optimally NRHS*NB.
-
-            zgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
-
-            SCLLEN = M;
-
-         }
-
-      } else {
-
-         // M < N:
-         // Compute the blocked LQ factorization of A,
-         // using the compact WY representation of Q,
-         // workspace at least M, optimally M*NB.
-
-         zgelqt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
-
-         if ( !TPSD ) {
-
-            // M < N, A is not transposed:
-            // Underdetermined system of equations,
-            // minimum norm solution of A * X = B.
-
-            // Compute B := inv(L) * B in two row blocks of B.
-
-            // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
-
-            ztrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
-
-            if ( INFO > 0 ) {
-               return;
-            }
-
-            // Block 2: Zero out all rows below the M-th row in B:
-            // B(M+1:N,1:NRHS) = ZERO
-
-            for (J = 1; J <= NRHS; J++) {
-               for (I = M + 1; I <= N; I++) {
-                  B[I][J] = ZERO;
-               }
-            }
-
-            // Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
-            // using the compact WY representation of Q,
-            // workspace at least NRHS, optimally NRHS*NB.
-
-            zgemlqt('Left', 'Conjugate transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
-
-            SCLLEN = N;
-
-         } else {
-
-            // M < N, A is transposed:
-            // Overdetermined system of equations,
-            // least-squares problem, min || A**T * X - B ||.
-
-            // Compute B(1:N,1:NRHS) := Q * B(1:N,1:NRHS),
-            // using the compact WY representation of Q,
-            // workspace at least NRHS, optimally NRHS*NB.
-
-            zgemlqt('Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO );
-
-            // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
-
-            ztrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
-
-            if ( INFO > 0 ) {
-               return;
-            }
-
-            SCLLEN = M;
-
-         }
-
-      }
-
-      // Undo scaling
-
-      if ( IASCL == 1 ) {
-         zlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
-      } else if ( IASCL == 2 ) {
-         zlascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
-      }
-      if ( IBSCL == 1 ) {
-         zlascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
-      } else if ( IBSCL == 2 ) {
-         zlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
-      }
-
-      WORK[1] = LWOPT.toDouble();
-
-      }
+  WORK[1] = LWOPT.toComplex();
+}

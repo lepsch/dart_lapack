@@ -1,6 +1,43 @@
-      void zgees(final int JOBVS, final int SORT, final int SELECT, final int N, final Matrix<double> A_, final int LDA, final int SDIM, final int W, final Matrix<double> VS_, final int LDVS, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final VS = VS_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgebak.dart';
+import 'package:lapack/src/zgebal.dart';
+import 'package:lapack/src/zgehrd.dart';
+import 'package:lapack/src/zhseqr.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlascl.dart';
+import 'package:lapack/src/ztrsen.dart';
+import 'package:lapack/src/zunghr.dart';
+
+void zgees(
+  final String JOBVS,
+  final String SORT,
+  final bool Function(Complex) SELECT,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Box<int> SDIM,
+  final Array<Complex> W_,
+  final Matrix<Complex> VS_,
+  final int LDVS,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<bool> BWORK_,
+  final Box<int> INFO,
+) {
+  final A = A_.dim(LDA);
+  final W = W_.dim();
+  final VS = VS_.dim(LDVS);
   final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
   final BWORK = BWORK_.dim();
@@ -8,193 +45,179 @@
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBVS, SORT;
-      int                INFO, LDA, LDVS, LWORK, N, SDIM;
-      bool               BWORK( * );
-      double             RWORK( * );
-      Complex         A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * );
-      // ..
-      // .. Function Arguments ..
-      bool               SELECT;
-      // EXTERNAL SELECT
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  bool LQUERY, SCALEA, WANTST, WANTVS;
+  int HSWORK, I, IBAL, ITAU, IWRK, MAXWRK = 0, MINWRK;
+  double ANRM, BIGNUM, CSCALE = 0, EPS, SMLNUM;
+  final DUM = Array<double>(1);
+  final IERR = Box(0),
+      IEVAL = Box(0),
+      IHI = Box(0),
+      ILO = Box(0),
+      ICOND = Box(0);
+  final S = Box(0.0), SEP = Box(0.0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               LQUERY, SCALEA, WANTST, WANTVS;
-      int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK;
-      double             ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
-      double             DUM( 1 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZCOPY, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZTRSEN, ZUNGHR
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, ILAENV, DLAMCH, ZLANGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  LQUERY = (LWORK == -1);
+  WANTVS = lsame(JOBVS, 'V');
+  WANTST = lsame(SORT, 'S');
+  if ((!WANTVS) && (!lsame(JOBVS, 'N'))) {
+    INFO.value = -1;
+  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -6;
+  } else if (LDVS < 1 || (WANTVS && LDVS < N)) {
+    INFO.value = -10;
+  }
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 );
-      WANTVS = lsame( JOBVS, 'V' );
-      WANTST = lsame( SORT, 'S' );
-      if ( ( !WANTVS ) && ( !lsame( JOBVS, 'N' ) ) ) {
-         INFO = -1;
-      } else if ( ( !WANTST ) && ( !lsame( SORT, 'N' ) ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -6;
-      } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
-         INFO = -10;
+  // Compute workspace
+  //  (Note: Comments in the code beginning "Workspace:" describe the
+  //   minimal amount of workspace needed at that point in the code,
+  //   as well as the preferred amount for good performance.
+  //   CWorkspace refers to complex workspace, and RWorkspace to real
+  //   workspace. NB refers to the optimal block size for the
+  //   immediately following subroutine, as returned by ILAENV.
+  //   HSWORK refers to the workspace preferred by ZHSEQR, as
+  //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+  //   the worst case.)
+
+  if (INFO.value == 0) {
+    if (N == 0) {
+      MINWRK = 1;
+      MAXWRK = 1;
+    } else {
+      MAXWRK = N + N * ilaenv(1, 'ZGEHRD', ' ', N, 1, N, 0);
+      MINWRK = 2 * N;
+
+      zhseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL);
+      HSWORK = WORK[1].toInt();
+
+      if (!WANTVS) {
+        MAXWRK = max(MAXWRK, HSWORK);
+      } else {
+        MAXWRK =
+            max(MAXWRK, N + (N - 1) * ilaenv(1, 'ZUNGHR', ' ', N, 1, N, -1));
+        MAXWRK = max(MAXWRK, HSWORK);
       }
+    }
+    WORK[1] = MAXWRK.toComplex();
 
-      // Compute workspace
-      //  (Note: Comments in the code beginning "Workspace:" describe the
-      //   minimal amount of workspace needed at that point in the code,
-      //   as well as the preferred amount for good performance.
-      //   CWorkspace refers to complex workspace, and RWorkspace to real
-      //   workspace. NB refers to the optimal block size for the
-      //   immediately following subroutine, as returned by ILAENV.
-      //   HSWORK refers to the workspace preferred by ZHSEQR, as
-      //   calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-      //   the worst case.)
+    if (LWORK < MINWRK && !LQUERY) {
+      INFO.value = -12;
+    }
+  }
 
-      if ( INFO == 0 ) {
-         if ( N == 0 ) {
-            MINWRK = 1;
-            MAXWRK = 1;
-         } else {
-            MAXWRK = N + N*ilaenv( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
-            MINWRK = 2*N;
+  if (INFO.value != 0) {
+    xerbla('ZGEES ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-            zhseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL );
-            HSWORK = INT( WORK( 1 ) );
+  // Quick return if possible
 
-            if ( !WANTVS ) {
-               MAXWRK = max( MAXWRK, HSWORK );
-            } else {
-               MAXWRK = max( MAXWRK, N + ( N - 1 )*ilaenv( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
-               MAXWRK = max( MAXWRK, HSWORK );
-            }
-         }
-         WORK[1] = MAXWRK;
+  if (N == 0) {
+    SDIM.value = 0;
+    return;
+  }
 
-         if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -12;
-         }
-      }
+  // Get machine constants
 
-      if ( INFO != 0 ) {
-         xerbla('ZGEES ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  EPS = dlamch('P');
+  SMLNUM = dlamch('S');
+  BIGNUM = ONE / SMLNUM;
+  SMLNUM = sqrt(SMLNUM) / EPS;
+  BIGNUM = ONE / SMLNUM;
 
-      // Quick return if possible
+  // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      if ( N == 0 ) {
-         SDIM = 0;
-         return;
-      }
+  ANRM = zlange('M', N, N, A, LDA, DUM);
+  SCALEA = false;
+  if (ANRM > ZERO && ANRM < SMLNUM) {
+    SCALEA = true;
+    CSCALE = SMLNUM;
+  } else if (ANRM > BIGNUM) {
+    SCALEA = true;
+    CSCALE = BIGNUM;
+  }
+  if (SCALEA) zlascl('G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR);
 
-      // Get machine constants
+  // Permute the matrix to make it more nearly triangular
+  // (CWorkspace: none)
+  // (RWorkspace: need N)
 
-      EPS = dlamch( 'P' );
-      SMLNUM = dlamch( 'S' );
-      BIGNUM = ONE / SMLNUM;
-      SMLNUM = sqrt( SMLNUM ) / EPS;
-      BIGNUM = ONE / SMLNUM;
+  IBAL = 1;
+  zgebal('P', N, A, LDA, ILO, IHI, RWORK(IBAL), IERR);
 
-      // Scale A if max element outside range [SMLNUM,BIGNUM]
+  // Reduce to upper Hessenberg form
+  // (CWorkspace: need 2*N, prefer N+N*NB)
+  // (RWorkspace: none)
 
-      ANRM = ZLANGE( 'M', N, N, A, LDA, DUM );
-      SCALEA = false;
-      if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         SCALEA = true;
-         CSCALE = SMLNUM;
-      } else if ( ANRM > BIGNUM ) {
-         SCALEA = true;
-         CSCALE = BIGNUM;
-      }
-      if (SCALEA) zlascl( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
+  ITAU = 1;
+  IWRK = N + ITAU;
+  zgehrd(N, ILO.value, IHI.value, A, LDA, WORK(ITAU), WORK(IWRK),
+      LWORK - IWRK + 1, IERR);
 
-      // Permute the matrix to make it more nearly triangular
-      // (CWorkspace: none)
-      // (RWorkspace: need N)
+  if (WANTVS) {
+    // Copy Householder vectors to VS
 
-      IBAL = 1;
-      zgebal('P', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR );
+    zlacpy('L', N, N, A, LDA, VS, LDVS);
 
-      // Reduce to upper Hessenberg form
-      // (CWorkspace: need 2*N, prefer N+N*NB)
-      // (RWorkspace: none)
+    // Generate unitary matrix in VS
+    // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+    // (RWorkspace: none)
 
-      ITAU = 1;
-      IWRK = N + ITAU;
-      zgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
+    zunghr(N, ILO.value, IHI.value, VS, LDVS, WORK(ITAU), WORK(IWRK),
+        LWORK - IWRK + 1, IERR);
+  }
 
-      if ( WANTVS ) {
+  SDIM.value = 0;
 
-         // Copy Householder vectors to VS
+  // Perform QR iteration, accumulating Schur vectors in VS if desired
+  // (CWorkspace: need 1, prefer HSWORK (see comments) )
+  // (RWorkspace: none)
 
-         zlacpy('L', N, N, A, LDA, VS, LDVS );
+  IWRK = ITAU;
+  zhseqr('S', JOBVS, N, ILO.value, IHI.value, A, LDA, W, VS, LDVS, WORK(IWRK),
+      LWORK - IWRK + 1, IEVAL);
+  if (IEVAL.value > 0) INFO.value = IEVAL.value;
 
-         // Generate unitary matrix in VS
-         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-         // (RWorkspace: none)
+  // Sort eigenvalues if desired
 
-         zunghr(N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
-      }
+  if (WANTST && INFO.value == 0) {
+    if (SCALEA) zlascl('G', 0, 0, CSCALE, ANRM, N, 1, W.asMatrix(N), N, IERR);
+    for (I = 1; I <= N; I++) {
+      // 10
+      BWORK[I] = SELECT(W[I]);
+    } // 10
 
-      SDIM = 0;
+    // Reorder eigenvalues and transform Schur vectors
+    // (CWorkspace: none)
+    // (RWorkspace: none)
 
-      // Perform QR iteration, accumulating Schur vectors in VS if desired
-      // (CWorkspace: need 1, prefer HSWORK (see comments) )
-      // (RWorkspace: none)
+    ztrsen('N', JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, S, SEP, WORK(IWRK),
+        LWORK - IWRK + 1, ICOND);
+  }
 
-      IWRK = ITAU;
-      CALL ZHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL;
+  if (WANTVS) {
+    // Undo balancing
+    // (CWorkspace: none)
+    // (RWorkspace: need N)
 
-      // Sort eigenvalues if desired
+    zgebak('P', 'R', N, ILO.value, IHI.value, RWORK(IBAL), N, VS, LDVS, IERR);
+  }
 
-      if ( WANTST && INFO == 0 ) {
-         if (SCALEA) zlascl( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
-         for (I = 1; I <= N; I++) { // 10
-            BWORK[I] = SELECT( W( I ) );
-         } // 10
+  if (SCALEA) {
+    // Undo scaling for the Schur form of A
 
-         // Reorder eigenvalues and transform Schur vectors
-         // (CWorkspace: none)
-         // (RWorkspace: none)
+    zlascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR);
+    zcopy(N, A.asArray(), LDA + 1, W, 1);
+  }
 
-         ztrsen('N', JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, ICOND );
-      }
-
-      if ( WANTVS ) {
-
-         // Undo balancing
-         // (CWorkspace: none)
-         // (RWorkspace: need N)
-
-         zgebak('P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR );
-      }
-
-      if ( SCALEA ) {
-
-         // Undo scaling for the Schur form of A
-
-         zlascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
-         zcopy(N, A, LDA+1, W, 1 );
-      }
-
-      WORK[1] = MAXWRK;
-      }
+  WORK[1] = MAXWRK.toComplex();
+}

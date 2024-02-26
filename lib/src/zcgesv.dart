@@ -102,7 +102,7 @@ void zcgesv(
     // Convert B from double precision to single precision and store the
     // result in SX.
 
-    zlag2c(N, NRHS, B, LDB, SWORK(PTSX), N, INFO);
+    zlag2c(N, NRHS, B, LDB, SWORK(PTSX).asMatrix(N), N, INFO);
 
     if (INFO.value != 0) {
       ITER.value = -2;
@@ -112,7 +112,7 @@ void zcgesv(
     // Convert A from double precision to single precision and store the
     // result in SA.
 
-    zlag2c(N, N, A, LDA, SWORK(PTSA), N, INFO);
+    zlag2c(N, N, A, LDA, SWORK(PTSA).asMatrix(N), N, INFO);
 
     if (INFO.value != 0) {
       ITER.value = -2;
@@ -130,7 +130,8 @@ void zcgesv(
 
     // Solve the system SA*SX = SB.
 
-    cgetrs('No transpose', N, NRHS, SWORK(PTSA).asMatrix(N), N, IPIV, SWORK(PTSX).asMatrix(N), N, INFO);
+    cgetrs('No transpose', N, NRHS, SWORK(PTSA).asMatrix(N), N, IPIV,
+        SWORK(PTSX).asMatrix(N), N, INFO);
 
     // Convert SX back to double precision
 
@@ -170,7 +171,7 @@ void zcgesv(
       // Convert R (in WORK) from double precision to single precision
       // and store the result in SX.
 
-      zlag2c(N, NRHS, WORK, N, SWORK(PTSX), N, INFO);
+      zlag2c(N, NRHS, WORK, N, SWORK(PTSX).asMatrix(N), N, INFO);
 
       if (INFO.value != 0) {
         ITER.value = -2;

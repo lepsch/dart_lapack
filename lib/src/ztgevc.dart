@@ -1,48 +1,37 @@
-      void ztgevc(final int SIDE, final int HOWMNY, final int SELECT, final int N, final Matrix<double> S_, final int LDS, final Matrix<double> P_, final int LDP, final Matrix<double> VL_, final int LDVL, final Matrix<double> VR_, final int LDVR, final int MM, final int M, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final S = S_.dim();
-  final P = P_.dim();
-  final VL = VL_.dim();
-  final VR = VR_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zladiv.dart';
+
+void ztgevc(final String SIDE, final String HOWMNY, final Array<bool> SELECT_, final int N,
+final Matrix<Complex> S_, final int LDS, final Matrix<Complex> P_, final int LDP,
+final Matrix<Complex> VL_, final int LDVL, final Matrix<Complex> VR_,
+final int LDVR, final int MM, final Box<int> M, final Array<Complex> WORK_,
+final Array<double> RWORK_, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             HOWMNY, SIDE;
-      int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N;
-      bool               SELECT( * );
-      double             RWORK( * );
-      Complex         P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-      // ..
+  final SELECT = SELECT_.dim();
+  final S = S_.dim(LDS);
+  final P = P_.dim(LDP);
+  final VL = VL_.dim(LDVL);
+  final VR = VR_.dim(LDVR);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
-
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB;
+      bool               COMPL=false, COMPR=false, ILALL=false, ILBACK=false, ILBBAD, ILCOMP, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR;
       double             ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
-      Complex         BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH;
-      //- Complex         ZLADIV;
-      // EXTERNAL lsame, DLAMCH, ZLADIV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN
-      // ..
-      // .. Statement Functions ..
-      double             ABS1;
-      // ..
-      // .. Statement Function definitions ..
-      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
+      Complex         BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB;
+
+      double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
 
       // Decode and Test the input parameters
 
@@ -78,20 +67,20 @@
          ISIDE = -1;
       }
 
-      INFO = 0;
+      INFO.value = 0;
       if ( ISIDE < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( IHWMNY < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDS < max( 1, N ) ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDP < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZTGEVC', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZTGEVC', -INFO.value );
          return;
       }
 
@@ -100,7 +89,7 @@
       if ( !ILALL ) {
          IM = 0;
          for (J = 1; J <= N; J++) { // 10
-            if( SELECT( J ) ) IM = IM + 1;
+            if( SELECT[J] ) IM = IM + 1;
          } // 10
       } else {
          IM = N;
@@ -110,26 +99,26 @@
 
       ILBBAD = false;
       for (J = 1; J <= N; J++) { // 20
-         if( DIMAG( P( J, J ) ) != ZERO ) ILBBAD = true;
+         if( P[J][J].imaginary  != ZERO ) ILBBAD = true;
       } // 20
 
       if ( ILBBAD ) {
-         INFO = -7;
+         INFO.value = -7;
       } else if ( COMPL && LDVL < N || LDVL < 1 ) {
-         INFO = -10;
+         INFO.value = -10;
       } else if ( COMPR && LDVR < N || LDVR < 1 ) {
-         INFO = -12;
+         INFO.value = -12;
       } else if ( MM < IM ) {
-         INFO = -13;
+         INFO.value = -13;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZTGEVC', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZTGEVC', -INFO.value );
          return;
       }
 
       // Quick return if possible
 
-      M = IM;
+      M.value = IM;
       if (N == 0) return;
 
       // Machine Constants
@@ -145,19 +134,19 @@
       // part of A and B to check for possible overflow in the triangular
       // solver.
 
-      ANORM = ABS1( S( 1, 1 ) );
-      BNORM = ABS1( P( 1, 1 ) );
+      ANORM = ABS1( S[1][1] );
+      BNORM = ABS1( P[1][1] );
       RWORK[1] = ZERO;
       RWORK[N+1] = ZERO;
       for (J = 2; J <= N; J++) { // 40
          RWORK[J] = ZERO;
          RWORK[N+J] = ZERO;
          for (I = 1; I <= J - 1; I++) { // 30
-            RWORK[J] = RWORK( J ) + ABS1( S( I, J ) );
-            RWORK[N+J] = RWORK( N+J ) + ABS1( P( I, J ) );
+            RWORK[J] = RWORK[J] + ABS1( S[I][J] );
+            RWORK[N+J] = RWORK[ N+J ] + ABS1( P[I][J] );
          } // 30
-         ANORM = max( ANORM, RWORK( J )+ABS1( S( J, J ) ) );
-         BNORM = max( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) );
+         ANORM = max( ANORM, RWORK[J]+ABS1( S[J][J] ) );
+         BNORM = max( BNORM, RWORK[ N+J ]+ABS1( P[J][J] ) );
       } // 40
 
       ASCALE = ONE / max( ANORM, SAFMIN );
@@ -174,20 +163,20 @@
             if ( ILALL ) {
                ILCOMP = true;
             } else {
-               ILCOMP = SELECT( JE );
+               ILCOMP = SELECT[ JE ];
             }
             if ( ILCOMP ) {
                IEIG = IEIG + 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( (P( JE, JE )).toDouble() ) <= SAFMIN ) {
+               if ( ABS1( S[ JE][JE ] ) <= SAFMIN && P[ JE][JE ].toDouble().abs()  <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 50
-                     VL[JR][IEIG] = CZERO;
+                     VL[JR][IEIG] = Complex.zero;
                   } // 50
-                  VL[IEIG][IEIG] = CONE;
-                  GO TO 140;
+                  VL[IEIG][IEIG] = Complex.one;
+                  continue;
                }
 
                // Non-singular eigenvalue:
@@ -195,11 +184,11 @@
                //      H
                //    y  ( a A - b B ) = 0
 
-               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( (P( JE, JE )).toDouble() )*BSCALE, SAFMIN );
-               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*(P( JE, JE )).toDouble() )*BSCALE;
+               TEMP = ONE / max( ABS1( S[ JE][JE ] )*ASCALE, max(P[ JE][JE ].toDouble().abs() *BSCALE, SAFMIN) );
+               SALPHA =  TEMP.toComplex()*S[ JE][JE ] *ASCALE.toComplex();
+               SBETA = ( TEMP*(P[ JE][JE ]).toDouble() )*BSCALE;
                ACOEFF = SBETA*ASCALE;
-               BCOEFF = SALPHA*BSCALE;
+               BCOEFF = SALPHA*BSCALE.toComplex();
 
                // Scale to avoid underflow
 
@@ -208,18 +197,18 @@
 
                SCALE = ONE;
                if (LSA) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG );
-               IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
+               if( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEFF ).abs(), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, max( ACOEFF .abs(), ABS1( BCOEFF )) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
                      ACOEFF = SCALE*ACOEFF;
                   }
                   if ( LSB ) {
-                     BCOEFF = BSCALE*( SCALE*SALPHA );
+                     BCOEFF = BSCALE.toComplex()*( SCALE.toComplex()*SALPHA );
                   } else {
-                     BCOEFF = SCALE*BCOEFF;
+                     BCOEFF = SCALE.toComplex()*BCOEFF;
                   }
                }
 
@@ -227,15 +216,15 @@
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 60
-                  WORK[JR] = CZERO;
+                  WORK[JR] = Complex.zero;
                } // 60
-               WORK[JE] = CONE;
-               DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+               WORK[JE] = Complex.one;
+               DMIN = max( ULP*ACOEFA*ANORM, max(ULP*BCOEFA*BNORM, SAFMIN) );
 
                                                // H
                // Triangular solve of  (a A - b B)  y = 0
 
-                                       // H
+               //                         H
                // (rowwise in  (a A - b B) , or columnwise in a A - b B)
 
                for (J = JE + 1; J <= N; J++) { // 100
@@ -247,46 +236,46 @@
                   // (Scale if necessary)
 
                   TEMP = ONE / XMAX;
-                  if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) > BIGNUM* TEMP ) {
+                  if ( ACOEFA*RWORK[J]+BCOEFA*RWORK[ N+J ] > BIGNUM* TEMP ) {
                      for (JR = JE; JR <= J - 1; JR++) { // 70
-                        WORK[JR] = TEMP*WORK( JR );
+                        WORK[JR] = TEMP.toComplex()*WORK[ JR ];
                      } // 70
                      XMAX = ONE;
                   }
-                  SUMA = CZERO;
-                  SUMB = CZERO;
+                  SUMA = Complex.zero;
+                  SUMB = Complex.zero;
 
                   for (JR = JE; JR <= J - 1; JR++) { // 80
-                     SUMA = SUMA + DCONJG( S( JR, J ) )*WORK( JR );
-                     SUMB = SUMB + DCONJG( P( JR, J ) )*WORK( JR );
+                     SUMA = SUMA + S[JR][J ].conjugate() *WORK[ JR ];
+                     SUMB = SUMB + P[JR][J ].conjugate() *WORK[ JR ];
                   } // 80
-                  SUM = ACOEFF*SUMA - DCONJG( BCOEFF )*SUMB;
+                  SUM = ACOEFF.toComplex()*SUMA -  BCOEFF.conjugate() *SUMB;
 
                   // Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
 
                   // with scaling and perturbation of the denominator
 
-                  D = DCONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) );
-                  if( ABS1( D ) <= DMIN ) D = DCMPLX( DMIN );
+                  D = ( ACOEFF.toComplex()*S[J][J]-BCOEFF*P[J][J] ).conjugate();
+                  if( ABS1( D ) <= DMIN ) D =  DMIN.toComplex();
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM );
                         for (JR = JE; JR <= J - 1; JR++) { // 90
-                           WORK[JR] = TEMP*WORK( JR );
+                           WORK[JR] = TEMP.toComplex()*WORK[ JR ];
                         } // 90
                         XMAX = TEMP*XMAX;
-                        SUM = TEMP*SUM;
+                        SUM = TEMP.toComplex()*SUM;
                      }
                   }
-                  WORK[J] = ZLADIV( -SUM, D );
-                  XMAX = max( XMAX, ABS1( WORK( J ) ) );
+                  WORK[J] = zladiv( -SUM, D );
+                  XMAX = max( XMAX, ABS1( WORK[J] ) );
                } // 100
 
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  zgemv('N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 );
+                  zgemv('N', N, N+1-JE, Complex.one, VL( 1, JE ), LDVL, WORK( JE ), 1, Complex.zero, WORK( N+1 ), 1 );
                   ISRC = 2;
                   IBEG = 1;
                } else {
@@ -298,20 +287,20 @@
 
                XMAX = ZERO;
                for (JR = IBEG; JR <= N; JR++) { // 110
-                  XMAX = max( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
+                  XMAX = max( XMAX, ABS1( WORK[ ( ISRC-1 )*N+JR ] ) );
                } // 110
 
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = IBEG; JR <= N; JR++) { // 120
-                     VL[JR][IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VL[JR][IEIG] = TEMP.toComplex()*WORK[ ( ISRC-1 )*N+JR ];
                   } // 120
                } else {
                   IBEG = N + 1;
                }
 
                for (JR = 1; JR <= IBEG - 1; JR++) { // 130
-                  VL[JR][IEIG] = CZERO;
+                  VL[JR][IEIG] = Complex.zero;
                } // 130
 
             }
@@ -329,20 +318,20 @@
             if ( ILALL ) {
                ILCOMP = true;
             } else {
-               ILCOMP = SELECT( JE );
+               ILCOMP = SELECT[ JE ];
             }
             if ( ILCOMP ) {
                IEIG = IEIG - 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( (P( JE, JE )).toDouble() ) <= SAFMIN ) {
+               if ( ABS1( S[ JE][JE ] ) <= SAFMIN &&  P[ JE][JE ].toDouble().abs()  <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 150
-                     VR[JR][IEIG] = CZERO;
+                     VR[JR][IEIG] = Complex.zero;
                   } // 150
-                  VR[IEIG][IEIG] = CONE;
-                  GO TO 250;
+                  VR[IEIG][IEIG] = Complex.one;
+                  continue;
                }
 
                // Non-singular eigenvalue:
@@ -350,11 +339,11 @@
 
                // ( a A - b B ) x  = 0
 
-               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( (P( JE, JE )).toDouble() )*BSCALE, SAFMIN );
-               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*(P( JE, JE )).toDouble() )*BSCALE;
+               TEMP = ONE / max( ABS1( S[ JE][JE ] )*ASCALE, max(P[ JE][JE ].toDouble().abs() *BSCALE, SAFMIN) );
+               SALPHA = ( TEMP.toComplex()*S[ JE][JE ] )*ASCALE.toComplex();
+               SBETA = ( TEMP*(P[ JE][JE ]).toDouble() )*BSCALE;
                ACOEFF = SBETA*ASCALE;
-               BCOEFF = SALPHA*BSCALE;
+               BCOEFF = SALPHA*BSCALE.toComplex();
 
                // Scale to avoid underflow
 
@@ -363,18 +352,18 @@
 
                SCALE = ONE;
                if (LSA) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG );
-               IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
+               if( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEFF ).abs(), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, max( ACOEFF .abs(), ABS1( BCOEFF )) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
                      ACOEFF = SCALE*ACOEFF;
                   }
                   if ( LSB ) {
-                     BCOEFF = BSCALE*( SCALE*SALPHA );
+                     BCOEFF = BSCALE.toComplex()*( SCALE.toComplex()*SALPHA );
                   } else {
-                     BCOEFF = SCALE*BCOEFF;
+                     BCOEFF = SCALE.toComplex()*BCOEFF;
                   }
                }
 
@@ -382,10 +371,10 @@
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 160
-                  WORK[JR] = CZERO;
+                  WORK[JR] = Complex.zero;
                } // 160
-               WORK[JE] = CONE;
-               DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+               WORK[JE] = Complex.one;
+               DMIN = max( ULP*ACOEFA*ANORM, max(ULP*BCOEFA*BNORM, SAFMIN) );
 
                // Triangular solve of  (a A - b B) x = 0  (columnwise)
 
@@ -393,46 +382,46 @@
                // WORK(j+1:JE) contains x
 
                for (JR = 1; JR <= JE - 1; JR++) { // 170
-                  WORK[JR] = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE );
+                  WORK[JR] = ACOEFF.toComplex()*S[ JR][JE ] - BCOEFF*P[ JR][JE ];
                } // 170
-               WORK[JE] = CONE;
+               WORK[JE] = Complex.one;
 
                for (J = JE - 1; J >= 1; J--) { // 210
 
                   // Form x(j) := - w(j) / d
                   // with scaling and perturbation of the denominator
 
-                  D = ACOEFF*S( J, J ) - BCOEFF*P( J, J );
-                  if( ABS1( D ) <= DMIN ) D = DCMPLX( DMIN );
+                  D = ACOEFF.toComplex()*S[J][J] - BCOEFF*P[J][J];
+                  if( ABS1( D ) <= DMIN ) D = DMIN.toComplex() ;
 
                   if ( ABS1( D ) < ONE ) {
-                     if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {
-                        TEMP = ONE / ABS1( WORK( J ) );
+                     if ( ABS1( WORK[J] ) >= BIGNUM*ABS1( D ) ) {
+                        TEMP = ONE / ABS1( WORK[J] );
                         for (JR = 1; JR <= JE; JR++) { // 180
-                           WORK[JR] = TEMP*WORK( JR );
+                           WORK[JR] = TEMP.toComplex()*WORK[ JR ];
                         } // 180
                      }
                   }
 
-                  WORK[J] = ZLADIV( -WORK( J ), D );
+                  WORK[J] = zladiv( -WORK[J], D );
 
                   if ( J > 1 ) {
 
                      // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
-                     if ( ABS1( WORK( J ) ) > ONE ) {
-                        TEMP = ONE / ABS1( WORK( J ) );
-                        if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) >= BIGNUM*TEMP ) {
+                     if ( ABS1( WORK[J] ) > ONE ) {
+                        TEMP = ONE / ABS1( WORK[J] );
+                        if ( ACOEFA*RWORK[J]+BCOEFA*RWORK[ N+J ] >= BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
-                              WORK[JR] = TEMP*WORK( JR );
+                              WORK[JR] = TEMP.toComplex()*WORK[ JR ];
                            } // 190
                         }
                      }
 
-                     CA = ACOEFF*WORK( J );
-                     CB = BCOEFF*WORK( J );
+                     CA = ACOEFF.toComplex()*WORK[J];
+                     CB = BCOEFF*WORK[J];
                      for (JR = 1; JR <= J - 1; JR++) { // 200
-                        WORK[JR] = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J );
+                        WORK[JR] = WORK[ JR ] + CA*S[JR][J ] - CB*P[JR][J ];
                      } // 200
                   }
                } // 210
@@ -440,7 +429,7 @@
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  zgemv('N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 );
+                  zgemv('N', N, JE, Complex.one, VR, LDVR, WORK, 1, Complex.zero, WORK( N+1 ), 1 );
                   ISRC = 2;
                   IEND = N;
                } else {
@@ -452,20 +441,20 @@
 
                XMAX = ZERO;
                for (JR = 1; JR <= IEND; JR++) { // 220
-                  XMAX = max( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
+                  XMAX = max( XMAX, ABS1( WORK[ ( ISRC-1 )*N+JR ] ) );
                } // 220
 
                if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX;
                   for (JR = 1; JR <= IEND; JR++) { // 230
-                     VR[JR][IEIG] = TEMP*WORK( ( ISRC-1 )*N+JR );
+                     VR[JR][IEIG] = TEMP.toComplex()*WORK[ ( ISRC-1 )*N+JR ];
                   } // 230
                } else {
                   IEND = 0;
                }
 
                for (JR = IEND + 1; JR <= N; JR++) { // 240
-                  VR[JR][IEIG] = CZERO;
+                  VR[JR][IEIG] = Complex.zero;
                } // 240
 
             }

@@ -5,7 +5,7 @@ import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgbsvxx.dart';
+import 'package:lapack/src/zgbtrs.dart';
 import 'package:lapack/src/zlacn2.dart';
 
 double zla_gbrcond_x(
@@ -110,11 +110,11 @@ double zla_gbrcond_x(
       }
 
       if (NOTRANS) {
-        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
-            INFO.value);
+        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N),
+            N, INFO);
       } else {
-        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
-            INFO.value);
+        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,
+            WORK.asMatrix(N), N, INFO);
       }
 
       // Multiply by inv(X).
@@ -130,11 +130,11 @@ double zla_gbrcond_x(
       }
 
       if (NOTRANS) {
-        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
-            INFO.value);
+        zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,
+            WORK.asMatrix(N), N, INFO);
       } else {
-        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N,
-            INFO.value);
+        zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N),
+            N, INFO);
       }
 
       // Multiply by R.

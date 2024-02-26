@@ -1,118 +1,159 @@
-      void zlatrd(final int UPLO, final int N, final int NB, final Matrix<double> A_, final int LDA, final int E, final int TAU, final int W, final int LDW,) {
-  final A = A_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zhemv.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void zlatrd(
+  final String UPLO,
+  final int N,
+  final int NB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> E_,
+  final Array<Complex> TAU_,
+  final Matrix<Complex> W_,
+  final int LDW,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                LDA, LDW, N, NB;
-      double             E( * );
-      Complex         A( LDA, * ), TAU( * ), W( LDW, * );
-      // ..
+  final A = A_.dim(LDA);
+  final E = E_.dim();
+  final TAU = TAU_.dim();
+  final W = W_.dim(LDW);
+  const HALF = Complex(0.5, 0.0);
+  int I, IW;
+  final ALPHA = Box(Complex.zero);
 
-      Complex         ZERO, ONE, HALF;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      int                I, IW;
-      Complex         ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZGEMV, ZHEMV, ZLACGV, ZLARFG, ZSCAL
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- Complex         ZDOTC;
-      // EXTERNAL lsame, ZDOTC
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) return;
 
-      if (N <= 0) return;
+  if (lsame(UPLO, 'U')) {
+    // Reduce last NB columns of upper triangle
 
-      if ( lsame( UPLO, 'U' ) ) {
+    for (I = N; I >= N - NB + 1; I--) {
+      // 10
+      IW = I - N + NB;
+      if (I < N) {
+        // Update A(1:i,i)
 
-         // Reduce last NB columns of upper triangle
-
-         for (I = N; I >= N - NB + 1; I--) { // 10
-            IW = I - N + NB;
-            if ( I < N ) {
-
-               // Update A(1:i,i)
-
-               A[I][I] = (A( I, I )).toDouble();
-               zlacgv(N-I, W( I, IW+1 ), LDW );
-               zgemv('No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 );
-               zlacgv(N-I, W( I, IW+1 ), LDW );
-               zlacgv(N-I, A( I, I+1 ), LDA );
-               zgemv('No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 );
-               zlacgv(N-I, A( I, I+1 ), LDA );
-               A[I][I] = (A( I, I )).toDouble();
-            }
-            if ( I > 1 ) {
-
-               // Generate elementary reflector H(i) to annihilate
-               // A(1:i-2,i)
-
-               ALPHA = A( I-1, I );
-               zlarfg(I-1, ALPHA, A( 1, I ), 1, TAU( I-1 ) );
-               E[I-1] = ALPHA.toDouble();
-               A[I-1][I] = ONE;
-
-               // Compute W(1:i-1,i)
-
-               zhemv('Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 );
-               if ( I < N ) {
-                  zgemv('Conjugate transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 );
-                  zgemv('No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 );
-                  zgemv('Conjugate transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 );
-                  zgemv('No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 );
-               }
-               zscal(I-1, TAU( I-1 ), W( 1, IW ), 1 );
-               ALPHA = -HALF*TAU( I-1 )*ZDOTC( I-1, W( 1, IW ), 1, A( 1, I ), 1 );
-               zaxpy(I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 );
-            }
-
-         } // 10
-      } else {
-
-         // Reduce first NB columns of lower triangle
-
-         for (I = 1; I <= NB; I++) { // 20
-
-            // Update A(i:n,i)
-
-            A[I][I] = (A( I, I )).toDouble();
-            zlacgv(I-1, W( I, 1 ), LDW );
-            zgemv('No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 );
-            zlacgv(I-1, W( I, 1 ), LDW );
-            zlacgv(I-1, A( I, 1 ), LDA );
-            zgemv('No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 );
-            zlacgv(I-1, A( I, 1 ), LDA );
-            A[I][I] = (A( I, I )).toDouble();
-            if ( I < N ) {
-
-               // Generate elementary reflector H(i) to annihilate
-               // A(i+2:n,i)
-
-               ALPHA = A( I+1, I );
-               zlarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAU( I ) );
-               E[I] = ALPHA.toDouble();
-               A[I+1][I] = ONE;
-
-               // Compute W(i+1:n,i)
-
-               zhemv('Lower', N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, W( I+1, I ), 1 );
-               zgemv('Conjugate transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW, A( I+1, I ), 1, ZERO, W( 1, I ), 1 );
-               zgemv('No transpose', N-I, I-1, -ONE, A( I+1, 1 ), LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 );
-               zgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 );
-               zgemv('No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 );
-               zscal(N-I, TAU( I ), W( I+1, I ), 1 );
-               ALPHA = -HALF*TAU( I )*ZDOTC( N-I, W( I+1, I ), 1, A( I+1, I ), 1 );
-               zaxpy(N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 );
-            }
-
-         } // 20
+        A[I][I] = A[I][I].toDouble().toComplex();
+        zlacgv(N - I, W(I, IW + 1).asArray(), LDW);
+        zgemv('No transpose', I, N - I, -Complex.one, A(1, I + 1), LDA,
+            W(I, IW + 1).asArray(), LDW, Complex.one, A(1, I).asArray(), 1);
+        zlacgv(N - I, W(I, IW + 1).asArray(), LDW);
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+        zgemv('No transpose', I, N - I, -Complex.one, W(1, IW + 1), LDW,
+            A(I, I + 1).asArray(), LDA, Complex.one, A(1, I).asArray(), 1);
+        zlacgv(N - I, A(I, I + 1).asArray(), LDA);
+        A[I][I] = A[I][I].toDouble().toComplex();
       }
+      if (I > 1) {
+        // Generate elementary reflector H(i) to annihilate
+        // A(1:i-2,i)
 
+        ALPHA.value = A[I - 1][I];
+        zlarfg(I - 1, ALPHA, A(1, I).asArray(), 1, TAU(I - 1));
+        E[I - 1] = ALPHA.value.toDouble();
+        A[I - 1][I] = Complex.one;
+
+        // Compute W(1:i-1,i)
+
+        zhemv('Upper', I - 1, Complex.one, A, LDA, A(1, I).asArray(), 1,
+            Complex.zero, W(1, IW).asArray(), 1);
+        if (I < N) {
+          zgemv(
+              'Conjugate transpose',
+              I - 1,
+              N - I,
+              Complex.one,
+              W(1, IW + 1),
+              LDW,
+              A(1, I).asArray(),
+              1,
+              Complex.zero,
+              W(I + 1, IW).asArray(),
+              1);
+          zgemv('No transpose', I - 1, N - I, -Complex.one, A(1, I + 1), LDA,
+              W(I + 1, IW).asArray(), 1, Complex.one, W(1, IW).asArray(), 1);
+          zgemv(
+              'Conjugate transpose',
+              I - 1,
+              N - I,
+              Complex.one,
+              A(1, I + 1),
+              LDA,
+              A(1, I).asArray(),
+              1,
+              Complex.zero,
+              W(I + 1, IW).asArray(),
+              1);
+          zgemv('No transpose', I - 1, N - I, -Complex.one, W(1, IW + 1), LDW,
+              W(I + 1, IW).asArray(), 1, Complex.one, W(1, IW).asArray(), 1);
+        }
+        zscal(I - 1, TAU[I - 1], W(1, IW).asArray(), 1);
+        ALPHA.value = -HALF *
+            TAU[I - 1] *
+            zdotc(I - 1, W(1, IW).asArray(), 1, A(1, I).asArray(), 1);
+        zaxpy(I - 1, ALPHA.value, A(1, I).asArray(), 1, W(1, IW).asArray(), 1);
       }
+    } // 10
+  } else {
+    // Reduce first NB columns of lower triangle
+
+    for (I = 1; I <= NB; I++) {
+      // 20
+
+      // Update A(i:n,i)
+
+      A[I][I] = A[I][I].toDouble().toComplex();
+      zlacgv(I - 1, W(I, 1).asArray(), LDW);
+      zgemv('No transpose', N - I + 1, I - 1, -Complex.one, A(I, 1), LDA,
+          W(I, 1).asArray(), LDW, Complex.one, A(I, I).asArray(), 1);
+      zlacgv(I - 1, W(I, 1).asArray(), LDW);
+      zlacgv(I - 1, A(I, 1).asArray(), LDA);
+      zgemv('No transpose', N - I + 1, I - 1, -Complex.one, W(I, 1), LDW,
+          A(I, 1).asArray(), LDA, Complex.one, A(I, I).asArray(), 1);
+      zlacgv(I - 1, A(I, 1).asArray(), LDA);
+      A[I][I] = A[I][I].toDouble().toComplex();
+      if (I < N) {
+        // Generate elementary reflector H(i) to annihilate
+        // A(i+2:n,i)
+
+        ALPHA.value = A[I + 1][I];
+        zlarfg(N - I, ALPHA, A(min(I + 2, N), I).asArray(), 1, TAU(I));
+        E[I] = ALPHA.value.toDouble();
+        A[I + 1][I] = Complex.one;
+
+        // Compute W(i+1:n,i)
+
+        zhemv('Lower', N - I, Complex.one, A(I + 1, I + 1), LDA,
+            A(I + 1, I).asArray(), 1, Complex.zero, W(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', N - I, I - 1, Complex.one, W(I + 1, 1),
+            LDW, A(I + 1, I).asArray(), 1, Complex.zero, W(1, I).asArray(), 1);
+        zgemv('No transpose', N - I, I - 1, -Complex.one, A(I + 1, 1), LDA,
+            W(1, I).asArray(), 1, Complex.one, W(I + 1, I).asArray(), 1);
+        zgemv('Conjugate transpose', N - I, I - 1, Complex.one, A(I + 1, 1),
+            LDA, A(I + 1, I).asArray(), 1, Complex.zero, W(1, I).asArray(), 1);
+        zgemv('No transpose', N - I, I - 1, -Complex.one, W(I + 1, 1), LDW,
+            W(1, I).asArray(), 1, Complex.one, W(I + 1, I).asArray(), 1);
+        zscal(N - I, TAU[I], W(I + 1, I).asArray(), 1);
+        ALPHA.value = -HALF *
+            TAU[I] *
+            zdotc(N - I, W(I + 1, I).asArray(), 1, A(I + 1, I).asArray(), 1);
+        zaxpy(N - I, ALPHA.value, A(I + 1, I).asArray(), 1,
+            W(I + 1, I).asArray(), 1);
+      }
+    } // 20
+  }
+}

@@ -129,9 +129,9 @@ double zla_syrcond_c(
       }
 
       if (UP) {
-        zsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO.value);
+        zsytrs('U', N, 1, AF, LDAF, IPIV, WORK.asMatrix(N), N, INFO);
       } else {
-        zsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO.value);
+        zsytrs('L', N, 1, AF, LDAF, IPIV, WORK.asMatrix(N), N, INFO);
       }
 
       // Multiply by inv(C).
@@ -151,9 +151,9 @@ double zla_syrcond_c(
       }
 
       if (UP) {
-        zsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO.value);
+        zsytrs('U', N, 1, AF, LDAF, IPIV, WORK.asMatrix(N), N, INFO);
       } else {
-        zsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO.value);
+        zsytrs('L', N, 1, AF, LDAF, IPIV, WORK.asMatrix(N), N, INFO);
       }
 
       // Multiply by R.

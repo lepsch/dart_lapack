@@ -9,7 +9,7 @@ import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/xerbla.dart';
-import 'package:lapack/src/zgbsvxx.dart';
+import 'package:lapack/src/zgbtrs.dart';
 import 'package:lapack/src/zlacn2.dart';
 
 void zgbrfs(
@@ -188,7 +188,8 @@ void zgbrfs(
       if (BERR[J] > EPS && TWO * BERR[J] <= LSTRES && COUNT <= ITMAX) {
         // Update solution and try again.
 
-        zgbtrs(TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO.value);
+        zgbtrs(
+            TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
         zaxpy(N, Complex.one, WORK, 1, X(1, J).asArray(), 1);
         LSTRES = BERR[J];
         COUNT = COUNT + 1;
@@ -235,7 +236,8 @@ void zgbrfs(
       if (KASE.value == 1) {
         // Multiply by diag(W)*inv(op(A)**H).
 
-        zgbtrs(TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO.value);
+        zgbtrs(
+            TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
         for (I = 1; I <= N; I++) {
           // 110
           WORK[I] = RWORK[I].toComplex() * WORK[I];
@@ -247,7 +249,8 @@ void zgbrfs(
           // 120
           WORK[I] = RWORK[I].toComplex() * WORK[I];
         } // 120
-        zgbtrs(TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO.value);
+        zgbtrs(
+            TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK.asMatrix(N), N, INFO);
       }
     }
 

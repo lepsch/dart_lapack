@@ -1,134 +1,145 @@
-      void zlatdf(final int IJOB, final int N, final Matrix<double> Z_, final int LDZ, final int RHS, final int RDSUM, final int RDSCAL, final Array<int> IPIV_, final int JPIV,) {
-  final Z = Z_.dim();
-  final IPIV = IPIV_.dim();
+import 'package:lapack/src/blas/dzasum.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zgecon.dart';
+import 'package:lapack/src/zgesc2.dart';
+import 'package:lapack/src/zlassq.dart';
+import 'package:lapack/src/zlaswp.dart';
 
+void zlatdf(
+  final int IJOB,
+  final int N,
+  final Matrix<Complex> Z_,
+  final int LDZ,
+  final Array<Complex> RHS_,
+  final Box<double> RDSUM,
+  final Box<double> RDSCAL,
+  final Array<int> IPIV_,
+  final Array<int> JPIV_,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IJOB, LDZ, N;
-      double             RDSCAL, RDSUM;
-      int                IPIV( * ), JPIV( * );
-      Complex         RHS( * ), Z( LDZ, * );
-      // ..
+  final Z = Z_.dim(LDZ);
+  final RHS = RHS_.dim();
+  final IPIV = IPIV_.dim();
+  final JPIV = JPIV_.dim();
 
-      int                MAXDIM;
-      const              MAXDIM = 2 ;
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      int                I, INFO, J, K;
-      double             RTEMP, SCALE, SMINU, SPLUS;
-      Complex         BM, BP, PMONE, TEMP;
-      double             RWORK( MAXDIM );
-      Complex         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
-      // ..
-      // .. External Functions ..
-      //- double             DZASUM;
-      //- Complex         ZDOTC;
-      // EXTERNAL DZASUM, ZDOTC
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, SQRT
+  const MAXDIM = 2;
+  const ZERO = 0.0, ONE = 1.0;
+  int I, J, K;
+  double SMINU, SPLUS;
+  Complex BM, BP, PMONE, TEMP;
+  final RWORK = Array<double>(MAXDIM);
+  final WORK = Array<Complex>(4 * MAXDIM),
+      XM = Array<Complex>(MAXDIM),
+      XP = Array<Complex>(MAXDIM);
+  final INFO = Box(0);
+  final RTEMP = Box(0.0), SCALE = Box(0.0);
 
-      if ( IJOB != 2 ) {
+  if (IJOB != 2) {
+    // Apply permutations IPIV to RHS
 
-         // Apply permutations IPIV to RHS
+    zlaswp(1, RHS.asMatrix(LDZ), LDZ, 1, N - 1, IPIV, 1);
 
-         zlaswp(1, RHS, LDZ, 1, N-1, IPIV, 1 );
+    // Solve for L-part choosing RHS either to +1 or -1.
 
-         // Solve for L-part choosing RHS either to +1 or -1.
+    PMONE = -Complex.one;
+    for (J = 1; J <= N - 1; J++) {
+      // 10
+      BP = RHS[J] + Complex.one;
+      BM = RHS[J] - Complex.one;
+      SPLUS = ONE;
 
-         PMONE = -CONE;
-         for (J = 1; J <= N - 1; J++) { // 10
-            BP = RHS( J ) + CONE;
-            BM = RHS( J ) - CONE;
-            SPLUS = ONE;
+      // Look-ahead for L- part RHS(1:N-1) = +-1
+      // SPLUS and SMIN computed more efficiently than in BSOLVE[1].
 
-            // Look-ahead for L- part RHS(1:N-1) = +-1
-            // SPLUS and SMIN computed more efficiently than in BSOLVE[1].
+      SPLUS = SPLUS +
+          zdotc(N - J, Z(J + 1, J).asArray(), 1, Z(J + 1, J).asArray(), 1)
+              .toDouble();
+      SMINU = zdotc(N - J, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1).toDouble();
+      SPLUS = SPLUS * (RHS[J]).toDouble();
+      if (SPLUS > SMINU) {
+        RHS[J] = BP;
+      } else if (SMINU > SPLUS) {
+        RHS[J] = BM;
+      } else {
+        // In this case the updating sums are equal and we can
+        // choose RHS(J) +1 or -1. The first time this happens we
+        // choose -1, thereafter +1. This is a simple way to get
+        // good estimates of matrices like Byers well-known example
+        // (see [1]). (Not done in BSOLVE.)
 
-            SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) );
-            SMINU = DBLE( ZDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) );
-            SPLUS = SPLUS*(RHS( J )).toDouble();
-            if ( SPLUS > SMINU ) {
-               RHS[J] = BP;
-            } else if ( SMINU > SPLUS ) {
-               RHS[J] = BM;
-            } else {
-
-               // In this case the updating sums are equal and we can
-               // choose RHS(J) +1 or -1. The first time this happens we
-               // choose -1, thereafter +1. This is a simple way to get
-               // good estimates of matrices like Byers well-known example
-               // (see [1]). (Not done in BSOLVE.)
-
-               RHS[J] = RHS( J ) + PMONE;
-               PMONE = CONE;
-            }
-
-            // Compute the remaining r.h.s.
-
-            TEMP = -RHS( J );
-            zaxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
-         } // 10
-
-         // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
-         // In BSOLVE and will hopefully give us a better estimate because
-         // any ill-conditioning of the original matrix is transferred to U
-         // and not to L. U(N, N) is an approximation to sigma_min(LU).
-
-         zcopy(N-1, RHS, 1, WORK, 1 );
-         WORK[N] = RHS( N ) + CONE;
-         RHS[N] = RHS( N ) - CONE;
-         SPLUS = ZERO;
-         SMINU = ZERO;
-         for (I = N; I >= 1; I--) { // 30
-            TEMP = CONE / Z( I, I );
-            WORK[I] = WORK( I )*TEMP;
-            RHS[I] = RHS( I )*TEMP;
-            for (K = I + 1; K <= N; K++) { // 20
-               WORK[I] = WORK( I ) - WORK( K )*( Z( I, K )*TEMP );
-               RHS[I] = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
-            } // 20
-            SPLUS = SPLUS + ( WORK( I ) ).abs();
-            SMINU = SMINU + ( RHS( I ) ).abs();
-         } // 30
-         if (SPLUS > SMINU) zcopy( N, WORK, 1, RHS, 1 );
-
-         // Apply the permutations JPIV to the computed solution (RHS)
-
-         zlaswp(1, RHS, LDZ, 1, N-1, JPIV, -1 );
-
-         // Compute the sum of squares
-
-         zlassq(N, RHS, 1, RDSCAL, RDSUM );
-         return;
+        RHS[J] = RHS[J] + PMONE;
+        PMONE = Complex.one;
       }
 
-      // ENTRY IJOB = 2
+      // Compute the remaining r.h.s.
 
-      // Compute approximate nullvector XM of Z
+      TEMP = -RHS[J];
+      zaxpy(N - J, TEMP, Z(J + 1, J).asArray(), 1, RHS(J + 1), 1);
+    } // 10
 
-      zgecon('I', N, Z, LDZ, ONE, RTEMP, WORK, RWORK, INFO );
-      zcopy(N, WORK( N+1 ), 1, XM, 1 );
+    // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
+    // In BSOLVE and will hopefully give us a better estimate because
+    // any ill-conditioning of the original matrix is transferred to U
+    // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
-      // Compute RHS
+    zcopy(N - 1, RHS, 1, WORK, 1);
+    WORK[N] = RHS[N] + Complex.one;
+    RHS[N] = RHS[N] - Complex.one;
+    SPLUS = ZERO;
+    SMINU = ZERO;
+    for (I = N; I >= 1; I--) {
+      // 30
+      TEMP = Complex.one / Z[I][I];
+      WORK[I] = WORK[I] * TEMP;
+      RHS[I] = RHS[I] * TEMP;
+      for (K = I + 1; K <= N; K++) {
+        // 20
+        WORK[I] = WORK[I] - WORK[K] * (Z[I][K] * TEMP);
+        RHS[I] = RHS[I] - RHS[K] * (Z[I][K] * TEMP);
+      } // 20
+      SPLUS = SPLUS + WORK[I].abs();
+      SMINU = SMINU + RHS[I].abs();
+    } // 30
+    if (SPLUS > SMINU) zcopy(N, WORK, 1, RHS, 1);
 
-      zlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-      TEMP = CONE / sqrt( ZDOTC( N, XM, 1, XM, 1 ) );
-      zscal(N, TEMP, XM, 1 );
-      zcopy(N, XM, 1, XP, 1 );
-      zaxpy(N, CONE, RHS, 1, XP, 1 );
-      zaxpy(N, -CONE, XM, 1, RHS, 1 );
-      zgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
-      zgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      if( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) zcopy( N, XP, 1, RHS, 1 );
+    // Apply the permutations JPIV to the computed solution (RHS)
 
-      // Compute the sum of squares
+    zlaswp(1, RHS.asMatrix(LDZ), LDZ, 1, N - 1, JPIV, -1);
 
-      zlassq(N, RHS, 1, RDSCAL, RDSUM );
-      }
+    // Compute the sum of squares
+
+    zlassq(N, RHS, 1, RDSCAL, RDSUM);
+    return;
+  }
+
+  // ENTRY IJOB = 2
+
+  // Compute approximate nullvector XM of Z
+
+  zgecon('I', N, Z, LDZ, ONE, RTEMP, WORK, RWORK, INFO);
+  zcopy(N, WORK(N + 1), 1, XM, 1);
+
+  // Compute RHS
+
+  zlaswp(1, XM.asMatrix(LDZ), LDZ, 1, N - 1, IPIV, -1);
+  TEMP = Complex.one / zdotc(N, XM, 1, XM, 1).sqrt();
+  zscal(N, TEMP, XM, 1);
+  zcopy(N, XM, 1, XP, 1);
+  zaxpy(N, Complex.one, RHS, 1, XP, 1);
+  zaxpy(N, -Complex.one, XM, 1, RHS, 1);
+  zgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE);
+  zgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE);
+  if (dzasum(N, XP, 1) > dzasum(N, RHS, 1)) zcopy(N, XP, 1, RHS, 1);
+
+  // Compute the sum of squares
+
+  zlassq(N, RHS, 1, RDSCAL, RDSUM);
+}

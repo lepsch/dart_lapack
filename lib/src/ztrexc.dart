@@ -1,101 +1,104 @@
-      void ztrexc(final int COMPQ, final int N, final Matrix<double> T_, final int LDT, final Matrix<double> Q_, final int LDQ, final int IFST, final int ILST, final Box<int> INFO,) {
-  final T = T_.dim();
-  final Q = Q_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlartg.dart';
+import 'package:lapack/src/zrot.dart';
+
+void ztrexc(
+  final String COMPQ,
+  final int N,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Matrix<Complex> Q_,
+  final int LDQ,
+  final int IFST,
+  final int ILST,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             COMPQ;
-      int                IFST, ILST, INFO, LDQ, LDT, N;
-      Complex         Q( LDQ, * ), T( LDT, * );
-      // ..
+  final T = T_.dim(LDT);
+  final Q = Q_.dim(LDQ);
+  bool WANTQ;
+  int K, M1, M2, M3;
+  final CS = Box(0.0);
+  final SN = Box(Complex.zero), TEMP = Box(Complex.zero);
+  Complex T11, T22;
 
-// =====================================================================
+  // Decode and test the input parameters.
 
-      // .. Local Scalars ..
-      bool               WANTQ;
-      int                K, M1, M2, M3;
-      double             CS;
-      Complex         SN, T11, T22, TEMP;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLARTG, ZROT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG, MAX
+  INFO.value = 0;
+  WANTQ = lsame(COMPQ, 'V');
+  if (!lsame(COMPQ, 'N') && !WANTQ) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDT < max(1, N)) {
+    INFO.value = -4;
+  } else if (LDQ < 1 || (WANTQ && LDQ < max(1, N))) {
+    INFO.value = -6;
+  } else if ((IFST < 1 || IFST > N) && (N > 0)) {
+    INFO.value = -7;
+  } else if ((ILST < 1 || ILST > N) && (N > 0)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZTREXC', -INFO.value);
+    return;
+  }
 
-      // Decode and test the input parameters.
+  // Quick return if possible
 
-      INFO = 0;
-      WANTQ = lsame( COMPQ, 'V' );
-      if ( !lsame( COMPQ, 'N' ) && !WANTQ ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDT < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LDQ < 1 || ( WANTQ && LDQ < max( 1, N ) ) ) {
-         INFO = -6;
-      } else if (( IFST < 1 || IFST > N ) && ( N > 0 )) {
-         INFO = -7;
-      } else if (( ILST < 1 || ILST > N ) && ( N > 0 )) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZTREXC', -INFO );
-         return;
-      }
+  if (N <= 1 || IFST == ILST) return;
 
-      // Quick return if possible
+  if (IFST < ILST) {
+    // Move the IFST-th diagonal element forward down the diagonal.
 
-      if (N <= 1 || IFST == ILST) return;
+    M1 = 0;
+    M2 = -1;
+    M3 = 1;
+  } else {
+    // Move the IFST-th diagonal element backward up the diagonal.
 
-      if ( IFST < ILST ) {
+    M1 = -1;
+    M2 = 0;
+    M3 = -1;
+  }
 
-         // Move the IFST-th diagonal element forward down the diagonal.
+  for (K = IFST + M1; M3 < 0 ? K >= ILST + M2 : K <= ILST + M2; K += M3) {
+    // 10
 
-         M1 = 0;
-         M2 = -1;
-         M3 = 1;
-      } else {
+    // Interchange the k-th and (k+1)-th diagonal elements.
 
-         // Move the IFST-th diagonal element backward up the diagonal.
+    T11 = T[K][K];
+    T22 = T[K + 1][K + 1];
 
-         M1 = -1;
-         M2 = 0;
-         M3 = -1;
-      }
+    // Determine the transformation to perform the interchange.
 
-      for (K = IFST + M1; M3 < 0 ? K >= ILST + M2 : K <= ILST + M2; K += M3) { // 10
+    zlartg(T[K][K + 1], T22 - T11, CS, SN, TEMP);
 
-         // Interchange the k-th and (k+1)-th diagonal elements.
+    // Apply transformation to the matrix T.
 
-         T11 = T( K, K );
-         T22 = T( K+1, K+1 );
+    if (K + 2 <= N) {
+      zrot(N - K - 1, T(K, K + 2).asArray(), LDT, T(K + 1, K + 2).asArray(),
+          LDT, CS.value, SN.value);
+    }
+    zrot(K - 1, T(1, K).asArray(), 1, T(1, K + 1).asArray(), 1, CS.value,
+        SN.value.conjugate());
 
-         // Determine the transformation to perform the interchange.
+    T[K][K] = T22;
+    T[K + 1][K + 1] = T11;
 
-         zlartg(T( K, K+1 ), T22-T11, CS, SN, TEMP );
+    if (WANTQ) {
+      // Accumulate transformation in the matrix Q.
 
-         // Apply transformation to the matrix T.
-
-         if (K+2 <= N) zrot( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
-         zrot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) );
-
-         T[K][K] = T22;
-         T[K+1][K+1] = T11;
-
-         if ( WANTQ ) {
-
-            // Accumulate transformation in the matrix Q.
-
-            zrot(N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) );
-         }
-
-      } // 10
-
-      }
+      zrot(N, Q(1, K).asArray(), 1, Q(1, K + 1).asArray(), 1, CS.value,
+          SN.value.conjugate());
+    }
+  } // 10
+}

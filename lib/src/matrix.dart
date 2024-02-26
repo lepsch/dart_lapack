@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:lapack/src/box.dart';
 
-abstract interface class Array<T> {
+abstract interface class Array<T> implements Box<T> {
   factory Array(int length, {int offset = 0}) {
     return _Array<T>(length, offset: offset);
   }
@@ -35,7 +35,7 @@ abstract interface class Array<T> {
   Array<T> dim([int? ld]);
 }
 
-class Matrix<T> {
+class Matrix<T> implements Box<T>  {
   final Array<T> _entries;
   final int _ld;
 
@@ -77,6 +77,12 @@ class Matrix<T> {
   Array<T> asArray() => _Array.fromSlice(_entries.toRawList());
 
   Matrix<T> dim(int ld) => this(1, 1, ld: ld);
+
+  @override
+  T get value => this[1][1];
+
+  @override
+  set value(T value) => this[1][1] = value;
 }
 
 class _MatrixArrayAdapter<T> implements Array<T> {
@@ -133,6 +139,12 @@ class _MatrixArrayAdapter<T> implements Array<T> {
 
   @override
   Array<T> dim([int? ld]) => this;
+
+  @override
+  T get value => this[1];
+
+  @override
+  set value(T value) => this[1] = value;
 }
 
 class _Array<T> implements Array<T> {
@@ -263,6 +275,12 @@ class _Array<T> implements Array<T> {
 
   @override
   Array<T> dim([int? ld]) => this;
+
+  @override
+  T get value => _elements[offset];
+
+  @override
+  set value(T value) => _elements[offset] = value;
 }
 
 class _ArrayElementBox<T> implements Box<T> {

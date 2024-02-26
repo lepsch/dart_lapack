@@ -1,48 +1,52 @@
-      void zgesv(final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/lu/cr/zgetrf.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgetrs.dart';
+
+void zgesv(
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDB, N, NRHS;
-      int                IPIV( * );
-      Complex         A( LDA, * ), B( LDB, * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGETRF, ZGETRS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  if (N < 0) {
+    INFO.value = -1;
+  } else if (NRHS < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -7;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGESV ', -INFO.value);
+    return;
+  }
 
-      // Test the input parameters.
+  // Compute the LU factorization of A.
 
-      INFO = 0;
-      if ( N < 0 ) {
-         INFO = -1;
-      } else if ( NRHS < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -7;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGESV ', -INFO );
-         return;
-      }
+  zgetrf(N, N, A, LDA, IPIV, INFO);
+  if (INFO.value == 0) {
+    // Solve the system A*X = B, overwriting B with X.
 
-      // Compute the LU factorization of A.
-
-      zgetrf(N, N, A, LDA, IPIV, INFO );
-      if ( INFO == 0 ) {
-
-         // Solve the system A*X = B, overwriting B with X.
-
-         zgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
-      }
-      }
+    zgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO);
+  }
+}

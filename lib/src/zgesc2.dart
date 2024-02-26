@@ -1,72 +1,74 @@
-      void zgesc2(final int N, final Matrix<double> A_, final int LDA, final int RHS, final Array<int> IPIV_, final int JPIV, final int SCALE,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlaswp.dart';
 
+void zgesc2(
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> RHS_,
+  final Array<int> IPIV_,
+  final Array<int> JPIV_,
+  final Box<double> SCALE,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, N;
-      double             SCALE;
-      int                IPIV( * ), JPIV( * );
-      Complex         A( LDA, * ), RHS( * );
-      // ..
+  final A = A_.dim(LDA);
+  final RHS = RHS_.dim();
+  final IPIV = IPIV_.dim();
+  final JPIV = JPIV_.dim();
+  const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
+  int I, J;
+  double EPS, SMLNUM;
+  Complex TEMP;
 
-      double             ZERO, ONE, TWO;
-      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      int                I, J;
-      double             BIGNUM, EPS, SMLNUM;
-      Complex         TEMP;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLASWP, ZSCAL
-      // ..
-      // .. External Functions ..
-      //- int                IZAMAX;
-      //- double             DLAMCH;
-      // EXTERNAL IZAMAX, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX
+  // Set constant to control overflow
 
-      // Set constant to control overflow
+  EPS = dlamch('P');
+  SMLNUM = dlamch('S') / EPS;
 
-      EPS = dlamch( 'P' );
-      SMLNUM = dlamch( 'S' ) / EPS;
-      BIGNUM = ONE / SMLNUM;
+  // Apply permutations IPIV to RHS
 
-      // Apply permutations IPIV to RHS
+  zlaswp(1, RHS.asMatrix(LDA), LDA, 1, N - 1, IPIV, 1);
 
-      zlaswp(1, RHS, LDA, 1, N-1, IPIV, 1 );
+  // Solve for L part
 
-      // Solve for L part
+  for (I = 1; I <= N - 1; I++) {
+    // 20
+    for (J = I + 1; J <= N; J++) {
+      // 10
+      RHS[J] = RHS[J] - A[J][I] * RHS[I];
+    } // 10
+  } // 20
 
-      for (I = 1; I <= N - 1; I++) { // 20
-         for (J = I + 1; J <= N; J++) { // 10
-            RHS[J] = RHS( J ) - A( J, I )*RHS( I );
-         } // 10
-      } // 20
+  // Solve for U part
 
-      // Solve for U part
+  SCALE.value = ONE;
 
-      SCALE = ONE;
+  // Check for scaling
 
-      // Check for scaling
+  I = izamax(N, RHS, 1);
+  if (TWO * SMLNUM * (RHS[I]).abs() > A[N][N].abs()) {
+    TEMP = Complex(ONE / TWO, ZERO) / (RHS[I]).abs().toComplex();
+    zscal(N, TEMP, RHS(1), 1);
+    SCALE.value = SCALE.value * TEMP.toDouble();
+  }
+  for (I = N; I >= 1; I--) {
+    // 40
+    TEMP = Complex(ONE, ZERO) / A[I][I];
+    RHS[I] = RHS[I] * TEMP;
+    for (J = I + 1; J <= N; J++) {
+      // 30
+      RHS[I] = RHS[I] - RHS[J] * (A[I][J] * TEMP);
+    } // 30
+  } // 40
 
-      I = IZAMAX( N, RHS, 1 );
-      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ).abs() ) {
-         TEMP = DCMPLX( ONE / TWO, ZERO ) / ( RHS( I ) ).abs();
-         zscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*TEMP.toDouble();
-      }
-      for (I = N; I >= 1; I--) { // 40
-         TEMP = DCMPLX( ONE, ZERO ) / A( I, I );
-         RHS[I] = RHS( I )*TEMP;
-         for (J = I + 1; J <= N; J++) { // 30
-            RHS[I] = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
-         } // 30
-      } // 40
+  // Apply permutations JPIV to the solution (RHS)
 
-      // Apply permutations JPIV to the solution (RHS)
-
-      zlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      }
+  zlaswp(1, RHS.asMatrix(LDA), LDA, 1, N - 1, JPIV, -1);
+}

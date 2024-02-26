@@ -1,36 +1,28 @@
-      void zgeqr(final int M, final int N, final Matrix<double> A_, final int LDA, final int T, final int TSIZE, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final WORK = WORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgeqrt.dart';
+import 'package:lapack/src/zlatsqr.dart';
+
+void zgeqr(final int M, final int N, final Matrix<Complex> A_, final int LDA,
+final Array<Complex> T_, final int TSIZE, final Array<Complex> WORK_, final int LWORK,
+final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
-      int                INFO, LDA, M, N, TSIZE, LWORK;
-      Complex         A( LDA, * ), T( * ), WORK( * );
-      // ..
-
-// =====================================================================
-
+  final A = A_.dim(LDA);
+  final T = T_.dim();
+  final WORK = WORK_.dim();
       bool               LQUERY, LMINWS, MINT, MINW;
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLATSQR, ZGEQRT, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN, MOD
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
 
       // Test the input arguments
 
-      INFO = 0;
+      INFO.value = 0;
 
       LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 );
 
@@ -55,9 +47,9 @@
       MINTSZ = N + 5;
       if ( MB > N && M > N ) {
         if ( ((M - N) % (MB - N)) == 0 ) {
-          NBLCKS = ( M - N ) / ( MB - N );
+          NBLCKS = ( M - N ) ~/ ( MB - N );
         } else {
-          NBLCKS = ( M - N ) / ( MB - N ) + 1;
+          NBLCKS = ( M - N ) ~/ ( MB - N ) + 1;
         }
       } else {
         NBLCKS = 1;
@@ -81,33 +73,33 @@
       }
 
       if ( M < 0 ) {
-        INFO = -1;
+        INFO.value = -1;
       } else if ( N < 0 ) {
-        INFO = -2;
+        INFO.value = -2;
       } else if ( LDA < max( 1, M ) ) {
-        INFO = -4;
+        INFO.value = -4;
       } else if ( TSIZE < max( 1, NB*N*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -6;
+        INFO.value = -6;
       } else if ( ( LWORK < LWREQ ) && ( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -8;
+        INFO.value = -8;
       }
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
         if ( MINT ) {
-          T[1] = MINTSZ;
+          T[1] = MINTSZ.toComplex();
         } else {
-          T[1] = NB*N*NBLCKS + 5;
+          T[1] = (NB*N*NBLCKS + 5).toComplex();
         }
-        T[2] = MB;
-        T[3] = NB;
+        T[2] = MB.toComplex();
+        T[3] = NB.toComplex();
         if ( MINW ) {
-          WORK[1] = LWMIN;
+          WORK[1] = LWMIN.toComplex();
         } else {
-          WORK[1] = LWREQ;
+          WORK[1] = LWREQ.toComplex();
         }
       }
-      if ( INFO != 0 ) {
-        xerbla('ZGEQR', -INFO );
+      if ( INFO.value != 0 ) {
+        xerbla('ZGEQR', -INFO.value );
         return;
       } else if ( LQUERY ) {
         return;
@@ -122,11 +114,11 @@
       // The QR Decomposition
 
       if ( ( M <= N ) || ( MB <= N ) || ( MB >= M ) ) {
-        zgeqrt(M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO );
+        zgeqrt(M, N, NB, A, LDA, T( 6 ).asMatrix(NB), NB, WORK, INFO );
       } else {
-        zlatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );
+        zlatsqr(M, N, MB, NB, A, LDA, T( 6 ).asMatrix(NB), NB, WORK, LWORK, INFO );
       }
 
-      WORK[1] = LWREQ;
+      WORK[1] = LWREQ.toComplex();
 
       }

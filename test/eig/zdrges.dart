@@ -52,7 +52,7 @@ void zdrges(final int NSIZES, final int NN, final int NTYPES, final Array<bool> 
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
+      double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
       // ..
       // .. Data statements ..
       const KCLASS = Array.fromList([ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,]);

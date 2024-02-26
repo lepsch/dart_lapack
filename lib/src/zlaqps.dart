@@ -1,166 +1,194 @@
-      void zlaqps(final int M, final int N, final int OFFSET, final int NB, final int KB, final Matrix<double> A_, final int LDA, final int JPVT, final int TAU, final int VN1, final int VN2, final int AUXV, final int F, final int LDF,) {
-  final A = A_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dznrm2.dart';
+import 'package:lapack/src/blas/idamax.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zswap.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/intrinsics/nint.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void zlaqps(
+  final int M,
+  final int N,
+  final int OFFSET,
+  final int NB,
+  final Box<int> KB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> JPVT_,
+  final Array<Complex> TAU_,
+  final Array<double> VN1_,
+  final Array<double> VN2_,
+  final Array<Complex> AUXV_,
+  final Matrix<Complex> F_,
+  final int LDF,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                KB, LDA, LDF, M, N, NB, OFFSET;
-      int                JPVT( * );
-      double             VN1( * ), VN2( * );
-      Complex         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
-      // ..
+  final A = A_.dim(LDA);
+  final F = F_.dim(LDF);
+  final JPVT = JPVT_.dim();
+  final TAU = TAU_.dim();
+  final VN1 = VN1_.dim();
+  final VN2 = VN2_.dim();
+  final AUXV = AUXV_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  int ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
+  double TEMP, TEMP2, TOL3Z;
+  Complex AKK;
 
-      double             ZERO, ONE;
-      Complex         CZERO, CONE;
-      const              ZERO = 0.0, ONE = 1.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
-      double             TEMP, TEMP2, TOL3Z;
-      Complex         AKK;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM, ZGEMV, ZLARFG, ZSWAP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
-      // ..
-      // .. External Functions ..
-      //- int                idamax;
-      //- double             DLAMCH, DZNRM2;
-      // EXTERNAL idamax, DLAMCH, DZNRM2
+  LASTRK = min(M, N + OFFSET);
+  LSTICC = 0;
+  K = 0;
+  TOL3Z = sqrt(dlamch('Epsilon'));
 
-      LASTRK = min( M, N+OFFSET );
-      LSTICC = 0;
-      K = 0;
-      TOL3Z = sqrt(dlamch('Epsilon'));
+  // Beginning of while loop.
 
-      // Beginning of while loop.
+  while ((K < NB) && (LSTICC == 0)) {
+    K = K + 1;
+    RK = OFFSET + K;
 
-      } // 10
-      if ( ( K < NB ) && ( LSTICC == 0 ) ) {
-         K = K + 1;
-         RK = OFFSET + K;
+    // Determine ith pivot column and swap if necessary
 
-         // Determine ith pivot column and swap if necessary
+    PVT = (K - 1) + idamax(N - K + 1, VN1(K), 1);
+    if (PVT != K) {
+      zswap(M, A(1, PVT).asArray(), 1, A(1, K).asArray(), 1);
+      zswap(K - 1, F(PVT, 1).asArray(), LDF, F(K, 1).asArray(), LDF);
+      ITEMP = JPVT[PVT];
+      JPVT[PVT] = JPVT[K];
+      JPVT[K] = ITEMP;
+      VN1[PVT] = VN1[K];
+      VN2[PVT] = VN2[K];
+    }
 
-         PVT = ( K-1 ) + idamax( N-K+1, VN1( K ), 1 );
-         if ( PVT != K ) {
-            zswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
-            zswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );
-            ITEMP = JPVT( PVT );
-            JPVT[PVT] = JPVT( K );
-            JPVT[K] = ITEMP;
-            VN1[PVT] = VN1( K );
-            VN2[PVT] = VN2( K );
-         }
+    // Apply previous Householder reflectors to column K:
+    // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**H.
 
-         // Apply previous Householder reflectors to column K:
-         // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**H.
+    if (K > 1) {
+      for (J = 1; J <= K - 1; J++) {
+        // 20
+        F[K][J] = F[K][J].conjugate();
+      } // 20
+      zgemv('No transpose', M - RK + 1, K - 1, -Complex.one, A(RK, 1), LDA,
+          F(K, 1).asArray(), LDF, Complex.one, A(RK, K).asArray(), 1);
+      for (J = 1; J <= K - 1; J++) {
+        // 30
+        F[K][J] = F[K][J].conjugate();
+      } // 30
+    }
 
-         if ( K > 1 ) {
-            for (J = 1; J <= K - 1; J++) { // 20
-               F[K][J] = DCONJG( F( K, J ) );
-            } // 20
-            zgemv('No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 );
-            for (J = 1; J <= K - 1; J++) { // 30
-               F[K][J] = DCONJG( F( K, J ) );
-            } // 30
-         }
+    // Generate elementary reflector H(k).
 
-         // Generate elementary reflector H(k).
+    if (RK < M) {
+      zlarfg(M - RK + 1, A(RK, K), A(RK + 1, K).asArray(), 1, TAU(K));
+    } else {
+      zlarfg(1, A(RK, K), A(RK, K).asArray(), 1, TAU(K));
+    }
 
-         if ( RK < M ) {
-            zlarfg(M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) );
-         } else {
-            zlarfg(1, A( RK, K ), A( RK, K ), 1, TAU( K ) );
-         }
+    AKK = A[RK][K];
+    A[RK][K] = Complex.one;
 
-         AKK = A( RK, K );
-         A[RK][K] = CONE;
+    // Compute Kth column of F:
 
-         // Compute Kth column of F:
+    // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**H*A(RK:M,K).
 
-         // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**H*A(RK:M,K).
+    if (K < N) {
+      zgemv('Conjugate transpose', M - RK + 1, N - K, TAU[K], A(RK, K + 1), LDA,
+          A(RK, K).asArray(), 1, Complex.zero, F(K + 1, K).asArray(), 1);
+    }
 
-         if ( K < N ) {
-            zgemv('Conjugate transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, CZERO, F( K+1, K ), 1 );
-         }
+    // Padding F(1:K,K) with zeros.
 
-         // Padding F(1:K,K) with zeros.
+    for (J = 1; J <= K; J++) {
+      // 40
+      F[J][K] = Complex.zero;
+    } // 40
 
-         for (J = 1; J <= K; J++) { // 40
-            F[J][K] = CZERO;
-         } // 40
+    // Incremental updating of F:
+    // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
+    //             *A(RK:M,K).
 
-         // Incremental updating of F:
-         // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
-         //             *A(RK:M,K).
+    if (K > 1) {
+      zgemv('Conjugate transpose', M - RK + 1, K - 1, -TAU[K], A(RK, 1), LDA,
+          A(RK, K).asArray(), 1, Complex.zero, AUXV(1), 1);
 
-         if ( K > 1 ) {
-            zgemv('Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 );
+      zgemv('No transpose', N, K - 1, Complex.one, F(1, 1), LDF, AUXV(1), 1,
+          Complex.one, F(1, K).asArray(), 1);
+    }
 
-            zgemv('No transpose', N, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 );
-         }
+    // Update the current row of A:
+    // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**H.
 
-         // Update the current row of A:
-         // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**H.
+    if (K < N) {
+      zgemm('No transpose', 'Conjugate transpose', 1, N - K, K, -Complex.one,
+          A(RK, 1), LDA, F(K + 1, 1), LDF, Complex.one, A(RK, K + 1), LDA);
+    }
 
-         if ( K < N ) {
-            zgemm('No transpose', 'Conjugate transpose', 1, N-K, K, -CONE, A( RK, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( RK, K+1 ), LDA );
-         }
+    // Update partial column norms.
 
-         // Update partial column norms.
+    if (RK < LASTRK) {
+      for (J = K + 1; J <= N; J++) {
+        // 50
+        if (VN1[J] != ZERO) {
+          // NOTE: The following 4 lines follow from the analysis in
+          // Lapack Working Note 176.
 
-         if ( RK < LASTRK ) {
-            for (J = K + 1; J <= N; J++) { // 50
-               if ( VN1( J ) != ZERO ) {
+          TEMP = A[RK][J].abs() / VN1[J];
+          TEMP = max(ZERO, (ONE + TEMP) * (ONE - TEMP));
+          TEMP2 = TEMP * pow(VN1[J] / VN2[J], 2);
+          if (TEMP2 <= TOL3Z) {
+            VN2[J] = LSTICC.toDouble();
+            LSTICC = J;
+          } else {
+            VN1[J] = VN1[J] * sqrt(TEMP);
+          }
+        }
+      } // 50
+    }
 
-                  // NOTE: The following 4 lines follow from the analysis in
-                  // Lapack Working Note 176.
+    A[RK][K] = AKK;
+  }
+  KB.value = K;
+  RK = OFFSET + KB.value;
 
-                  TEMP = ( A( RK, J ) ).abs() / VN1( J );
-                  TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
-                  TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
-                  if ( TEMP2 <= TOL3Z ) {
-                     VN2[J] = LSTICC.toDouble();
-                     LSTICC = J;
-                  } else {
-                     VN1[J] = VN1( J )*sqrt( TEMP );
-                  }
-               }
-            } // 50
-         }
+  // Apply the block reflector to the rest of the matrix:
+  // A(OFFSET+KB.value+1:M,KB.value+1:N) := A(OFFSET+KB.value+1:M,KB.value+1:N) -
+  //                     A(OFFSET+KB.value+1:M,1:KB.value)*F(KB.value+1:N,1:KB.value)**H.
 
-         A[RK][K] = AKK;
+  if (KB.value < min(N, M - OFFSET)) {
+    zgemm(
+        'No transpose',
+        'Conjugate transpose',
+        M - RK,
+        N - KB.value,
+        KB.value,
+        -Complex.one,
+        A(RK + 1, 1),
+        LDA,
+        F(KB.value + 1, 1),
+        LDF,
+        Complex.one,
+        A(RK + 1, KB.value + 1),
+        LDA);
+  }
 
-         // End of while loop.
+  // Recomputation of difficult columns.
 
-         GO TO 10;
-      }
-      KB = K;
-      RK = OFFSET + KB;
+  while (LSTICC > 0) {
+    ITEMP = nint(VN2[LSTICC]);
+    VN1[LSTICC] = dznrm2(M - RK, A(RK + 1, LSTICC).asArray(), 1);
 
-      // Apply the block reflector to the rest of the matrix:
-      // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
-      //                     A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
+    // NOTE: The computation of VN1[ LSTICC ] relies on the fact that
+    // SNRM2 does not fail on vectors with norm below the value of
+    // sqrt(dlamch('S'))
 
-      if ( KB < min( N, M-OFFSET ) ) {
-         zgemm('No transpose', 'Conjugate transpose', M-RK, N-KB, KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( RK+1, KB+1 ), LDA );
-      }
-
-      // Recomputation of difficult columns.
-
-      } // 60
-      if ( LSTICC > 0 ) {
-         ITEMP = NINT( VN2( LSTICC ) );
-         VN1[LSTICC] = DZNRM2( M-RK, A( RK+1, LSTICC ), 1 );
-
-         // NOTE: The computation of VN1( LSTICC ) relies on the fact that
-         // SNRM2 does not fail on vectors with norm below the value of
-         // sqrt(dlamch('S'))
-
-         VN2[LSTICC] = VN1( LSTICC );
-         LSTICC = ITEMP;
-         GO TO 60;
-      }
-
-      }
+    VN2[LSTICC] = VN1[LSTICC];
+    LSTICC = ITEMP;
+  }
+}

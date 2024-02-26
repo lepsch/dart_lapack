@@ -1,22 +1,21 @@
-      void zlascl2(final int M, final int N, final int D, final int X, final int LDX,) {
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zlascl2(
+  final int M,
+  final int N,
+  final Array<double> D,
+  final Matrix<Complex> X_,
+  final int LDX,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                M, N, LDX;
-      double             D( * );
-      Complex         X( LDX, * );
-      // ..
+  final X = X_.dim(LDX);
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, J;
-
-      for (J = 1; J <= N; J++) {
-         for (I = 1; I <= M; I++) {
-            X[I][J] = X( I, J ) * D( I );
-         }
-      }
-
-      }
+  for (var J = 1; J <= N; J++) {
+    for (var I = 1; I <= M; I++) {
+      X[I][J] = X[I][J] * D[I].toComplex();
+    }
+  }
+}

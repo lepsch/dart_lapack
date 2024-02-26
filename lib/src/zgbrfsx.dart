@@ -34,7 +34,7 @@ final ERR_BNDS_COMP=ERR_BNDS_COMP_.dim(NRHS);
 final PARAMS=PARAMS_.dim();
   final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
-      const              ZERO = 0.0, ONE = 1.0 ;
+      const              ZERO = 0.0;
       const              ITREF_DEFAULT = 1.0 ;
       const              ITHRESH_DEFAULT = 10.0 ;
       const              COMPONENTWISE_DEFAULT = 1.0 ;
@@ -187,9 +187,17 @@ final PARAMS=PARAMS_.dim();
          PREC_TYPE = ilaprec( 'E' );
 
          if ( NOTRAN ) {
-            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND.value, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO.value );
+            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB,
+            LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS,
+            ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1),
+            TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N), RCOND.value, ITHRESH,
+            RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
          } else {
-            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND.value, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO.value );
+            zla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB,
+            LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS,
+            ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1),
+            TRANSFER (RWORK(1:2*N), ( (ZERO, ZERO) ), N), RCOND.value, ITHRESH,
+            RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
          }
       }
 
@@ -199,11 +207,11 @@ final PARAMS=PARAMS_.dim();
       // Compute scaled normwise condition number cond(A*C).
 
          if ( COLEQU && NOTRAN ) {
-            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, true , INFO.value, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, true , INFO, WORK, RWORK );
          } else if ( ROWEQU && !NOTRAN ) {
-            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, true , INFO.value, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, true , INFO, WORK, RWORK );
          } else {
-            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, false , INFO.value, WORK, RWORK );
+            RCOND_TMP = zla_gbrcond_c( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, false , INFO, WORK, RWORK );
          }
          for (J = 1; J <= NRHS; J++) {
 
@@ -244,7 +252,7 @@ final PARAMS=PARAMS_.dim();
          CWISE_WRONG = sqrt( dlamch( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
             if (ERR_BNDS_COMP[ J][LA_LINRX_ERR_I ] < CWISE_WRONG ) {
-               RCOND_TMP = zla_gbrcond_x( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO.value, WORK, RWORK );
+               RCOND_TMP = zla_gbrcond_x( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ).asArray(), INFO, WORK, RWORK );
             } else {
                RCOND_TMP = 0.0;
             }

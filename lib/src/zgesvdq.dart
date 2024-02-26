@@ -6,6 +6,8 @@ import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/blas/zdscal.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlaset.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/zgeqrf.dart';
@@ -15,6 +17,7 @@ import 'package:lapack/src/zgeqp3.dart';
 import 'package:lapack/src/zgesvd.dart';
 import 'package:lapack/src/zlacpy.dart';
 import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlapmt.dart';
 import 'package:lapack/src/zlascl.dart';
 import 'package:lapack/src/zlaset.dart';
 import 'package:lapack/src/zlaswp.dart';
@@ -30,24 +33,24 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
     final Array<int> IWORK_, final int LIWORK,
     final Array<Complex> CWORK_, final int LCWORK,
     final Array<double> RWORK_, final int LRWORK, final Box<int> INFO, ) {
-  final A = A_.dim();
+  final A = A_.dim(LDA);
   final S = S_.dim();
-  final U = U_.dim();
-  final V = V_.dim();
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
   final IWORK = IWORK_.dim();
   final CWORK = CWORK_.dim();
   final RWORK = RWORK_.dim();
 
       const          ZERO = 0.0, ONE = 1.0 ;
-      const          CZERO = Complex(0.0,0.0), CONE = Complex(1.0,0.0) ;
-      int         NR, N1, OPTRATIO, p, q;
+      int         NR, N1=0, OPTRATIO, p, q;
       int         LWCON, LWQP3, LWRK_ZGELQF, LWRK_ZGESVD, LWRK_ZGESVD2, LWRK_ZGEQP3=0, LWRK_ZGEQRF, LWRK_ZUNMLQ, LWRK_ZUNMQR=0, LWRK_ZUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ=0, LWUNQ2, LWUNLQ, MINWRK=0, MINWRK2, OPTWRK=0, OPTWRK2, IMINWRK, RMINWRK=0;
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
-      double           BIG, EPSLN, RTMP=0, SCONDA, SFMIN;
+      double           BIG, EPSLN, SCONDA=0, SFMIN;
       Complex       CTMP;
       final IERR=Box(0);
       final         CDUMMY=Array<Complex>(1);
       final             RDUMMY=Array<double>(1);
+      final RTMP=Box(0.0);
 
       // Test the input arguments
 
@@ -242,11 +245,11 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                    if (CONDA) OPTWRK = max( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK;
                    if ( WNTVA ) {
-                       zgeqrf(N,N/2,U,LDU,CDUMMY,CDUMMY,-1,IERR);
+                       zgeqrf(N,N~/2,U,LDU,CDUMMY,CDUMMY,-1,IERR);
                        LWRK_ZGEQRF = CDUMMY[1].real.toInt();
-                       zgesvd('S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
+                       zgesvd('S', 'O', N~/2,N~/2, V,LDV, S, U,LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                        LWRK_ZGESVD2 = CDUMMY[1].real.toInt();
-                       zunmqr('R', 'C', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR );
+                       zunmqr('R', 'C', N, N, N~/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                        LWRK_ZUNMQR2 = CDUMMY[1].real.toInt();
                        OPTWRK2 = max(max(LWRK_ZGEQP3, N~/2+LWRK_ZGEQRF), max(N~/2+LWRK_ZGESVD2, N~/2+LWRK_ZUNMQR2 ));
                        if (CONDA) OPTWRK2 = max( OPTWRK2, LWCON );
@@ -260,11 +263,11 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                    if (CONDA) OPTWRK = max( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK;
                    if ( WNTVA ) {
-                      zgelqf(N/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR);
+                      zgelqf(N~/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR);
                       LWRK_ZGELQF = CDUMMY[1].real.toInt();
-                      zgesvd('S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
+                      zgesvd('S','O', N~/2,N~/2, V, LDV, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                       LWRK_ZGESVD2 = CDUMMY[1].real.toInt();
-                      zunmlq('R', 'N', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR );
+                      zunmlq('R', 'N', N, N, N~/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR );
                       LWRK_ZUNMLQ = CDUMMY[1].real.toInt();
                       OPTWRK2 = max(max(LWRK_ZGEQP3, N~/2+LWRK_ZGELQF), max(N~/2+LWRK_ZGESVD2, N~/2+LWRK_ZUNMLQ ));
                        if (CONDA) OPTWRK2 = max( OPTWRK2, LWCON );
@@ -314,7 +317,7 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
             for (p = 1; p <= M; p++) { // 1904
                 // RWORK[p] = ABS( A(p,IZAMAX(N,A[p][1],LDA)) )
                 // [[zlange will return NaN if an entry of the p-th row is Nan]]
-                RWORK[p] = zlange( 'M', 1, N, A[p][1], LDA, RDUMMY );
+                RWORK[p] = zlange( 'M', 1, N, A(p,1), LDA, RDUMMY );
                 // .. check for NaN's and Inf's
                 if ( ( RWORK[p] != RWORK[p] ) || ( (RWORK[p]*ZERO) != ZERO ) ) {
                     INFO.value = -8;
@@ -326,22 +329,22 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
             q = idamax( M-p+1, RWORK(p), 1 ) + p - 1;
             IWORK[N+p] = q;
             if ( p != q ) {
-               RTMP     = RWORK[p];
+               RTMP.value     = RWORK[p];
                RWORK[p] = RWORK[q];
-               RWORK[q] = RTMP;
+               RWORK[q] = RTMP.value;
             }
             } // 1952
 
             if ( RWORK[1] == ZERO ) {
                // Quick return: A is the M x N zero matrix.
                NUMRANK.value = 0;
-               dlaset('G', N, 1, ZERO, ZERO, S, N );
-               if (WNTUS) zlaset('G', M, N, CZERO, CONE, U, LDU);
-               if (WNTUA) zlaset('G', M, M, CZERO, CONE, U, LDU);
-               if (WNTVA) zlaset('G', N, N, CZERO, CONE, V, LDV);
+               dlaset('G', N, 1, ZERO, ZERO, S.asMatrix(N), N );
+               if (WNTUS) zlaset('G', M, N, Complex.zero, Complex.one, U, LDU);
+               if (WNTUA) zlaset('G', M, M, Complex.zero, Complex.one, U, LDU);
+               if (WNTVA) zlaset('G', N, N, Complex.zero, Complex.one, V, LDV);
                if ( WNTUF ) {
-                   zlaset('G', N, 1, CZERO, CZERO, CWORK, N );
-                   zlaset('G', M, N, CZERO, CONE, U, LDU );
+                   zlaset('G', N, 1, Complex.zero, Complex.zero, CWORK.asMatrix(N), N );
+                   zlaset('G', M, N, Complex.zero, Complex.one, U, LDU );
                }
                for (p = 1; p <= N; p++) { // 5001
                    IWORK[p] = p;
@@ -362,7 +365,7 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                 zlascl('G',0,0,sqrt(M.toDouble()),ONE, M,N, A,LDA, IERR);
                 ASCALED = true;
             }
-            zlaswp(N, A, LDA, 1, M-1, IWORK[N+1], 1 );
+            zlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
 
 // .. At this stage, preemptive scaling is done only to avoid column
@@ -371,13 +374,13 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
 // underflows. That depends on the SVD procedure.
 
       if ( !ROWPRM ) {
-          RTMP = zlange( 'M', M, N, A, LDA, RWORK );
-          if ( ( RTMP != RTMP ) || ( (RTMP*ZERO) != ZERO ) ) {
+          RTMP.value = zlange( 'M', M, N, A, LDA, RWORK );
+          if ( ( RTMP.value != RTMP.value ) || ( (RTMP.value*ZERO) != ZERO ) ) {
                INFO.value = -8;
                xerbla('ZGESVDQ', -INFO.value );
                return;
           }
-          if ( RTMP > BIG / sqrt(M.toDouble()) ) {
+          if ( RTMP.value > BIG / sqrt(M.toDouble()) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
               zlascl('G',0,0, sqrt(M.toDouble()),ONE, M,N, A,LDA, IERR);
@@ -394,7 +397,7 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
          // .. all columns are free columns
          IWORK[p] = 0;
       } // 1963
-      zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK[N+1], LCWORK-N, RWORK, IERR );
+      zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR );
 
       // If the user requested accuracy level allows truncation in the
       // computed upper triangular factor, the matrix R is examined and,
@@ -412,9 +415,9 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPS*||A||_F.
          NR = 1;
-         RTMP = sqrt(N.toDouble())*EPSLN;
+         RTMP.value = sqrt(N.toDouble())*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( (A[p][p]).abs() < (RTMP*(A[1][1] ).abs() ) ) break;
+            if ( (A[p][p]).abs() < (RTMP.value*(A[1][1] ).abs() ) ) break;
                NR = NR + 1;
          } // 3001
 
@@ -453,15 +456,15 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                // expert level and obtain useful information in the sense of
                // perturbation theory.
                for (p = 1; p <= NR; p++) { // 3053
-                  RTMP = dznrm2( p, V(1,p).asArray(), 1 );
-                  zdscal(p, ONE/RTMP, V(1,p).asArray(), 1 );
+                  RTMP.value = dznrm2( p, V(1,p).asArray(), 1 );
+                  zdscal(p, ONE/RTMP.value, V(1,p).asArray(), 1 );
                } // 3053
                if ( !( LSVEC || RSVEC ) ) {
                    zpocon('U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR );
                } else {
-                   zpocon('U', NR, V, LDV, ONE, RTMP, CWORK[N+1], RWORK, IERR );
+                   zpocon('U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR );
                }
-               SCONDA = ONE / sqrt(RTMP);
+               SCONDA = ONE / sqrt(RTMP.value);
             // For NR=N, SCONDA is an estimate of sqrt(||(R^* * R)^(-1)||_1),
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
             // See the reference [1] for more details.
@@ -487,21 +490,21 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
           //   .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
           //   the upper triangle of [A] to zero.
             for (p = 1; p <= min( N, NR ); p++) { // 1146
-               A[p][p] = conjg(A[p][p]);
+               A[p][p] = A[p][p].conjugate();
                for (q = p + 1; q <= N; q++) { // 1147
-                  A[q][p] = conjg(A[p][q]);
-                  if (q <= NR) A[p][q] = CZERO;
+                  A[q][p] = A[p][q].conjugate();
+                  if (q <= NR) A[p][q] = Complex.zero;
                } // 1147
             } // 1146
 
-            zgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO.value );
+            zgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          } else {
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR > 1) zlaset( 'L', NR-1,NR-1, CZERO,CZERO, A[2][1], LDA );
-            zgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO.value );
+            if (NR > 1) zlaset( 'L', NR-1,NR-1, Complex.zero,Complex.zero, A(2,1), LDA );
+            zgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          }
 
@@ -515,20 +518,20 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              // vectors of R
             for (p = 1; p <= NR; p++) { // 1192
                for (q = p; q <= N; q++) { // 1193
-                  U[q][p] = conjg(A[p][q]);
+                  U[q][p] = A[p][q].conjugate();
                } // 1193
             } // 1192
-            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, U[1][2], LDU );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, Complex.zero,Complex.zero, U(1,2), LDU );
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
-               zgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+               zgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1119
-                   U[p][p] = conjg(U[p][p]);
+                   U[p][p] = U[p][p].conjugate();
                    for (q = p + 1; q <= NR; q++) { // 1120
-                      CTMP   = conjg(U[q][p]);
-                      U[q][p] = conjg(U[p][q]);
+                      CTMP   = U[q][p].conjugate();
+                      U[q][p] = U[p][q].conjugate();
                       U[p][q] = CTMP;
                    } // 1120
                } // 1119
@@ -537,10 +540,10 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              // .. apply ZGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              zlacpy('U', NR, N, A, LDA, U, LDU );
-             if (NR > 1) zlaset( 'L', NR-1, NR-1, CZERO, CZERO, U[2][1], LDU );
+             if (NR > 1) zlaset( 'L', NR-1, NR-1, Complex.zero, Complex.zero, U(2,1), LDU );
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
-                zgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                zgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 // .. now [U](1:NR,1:NR) contains the NR left singular vectors of
                 // R. These will be pre-multiplied by Q to build the left singular
                 // vectors of A.
@@ -549,18 +552,18 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
             // .. assemble the left singular vector matrix U of dimensions
             //    (M x NR) or (M x N) or (M x M).
          if ( ( NR < M ) && ( !WNTUF ) ) {
-             zlaset('A', M-NR, NR, CZERO, CZERO, U[NR+1][1], LDU);
+             zlaset('A', M-NR, NR, Complex.zero, Complex.zero, U(NR+1,1), LDU);
              if ( NR < N1 ) {
-                zlaset('A',NR,N1-NR,CZERO,CZERO,U[1][NR+1], LDU );
-                zlaset('A',M-NR,N1-NR,CZERO,CONE, U[NR+1][NR+1], LDU );
+                zlaset('A',NR,N1-NR,Complex.zero,Complex.zero,U(1,NR+1), LDU );
+                zlaset('A',M-NR,N1-NR,Complex.zero,Complex.one, U(NR+1,NR+1), LDU );
              }
          }
 
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK[N+1], LCWORK-N, IERR );
-         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK[N+1], -1 );
+         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       } else if ( RSVEC && ( !LSVEC ) ) {
 // .......................................................................
@@ -571,20 +574,20 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              // .. copy R**H into V and overwrite V with the left singular vectors
             for (p = 1; p <= NR; p++) { // 1165
                for (q = p; q <= N; q++) { // 1166
-                  V[q][p] = conjg(A[p][q]);
+                  V[q][p] = A[p][q].conjugate();
                } // 1166
             } // 1165
-            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V[1][2], LDV );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, Complex.zero,Complex.zero, V(1,2), LDV );
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
             if ( WNTVR || ( NR == N ) ) {
-               zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+               zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                for (p = 1; p <= NR; p++) { // 1121
-                   V[p][p] = conjg(V[p][p]);
+                   V[p][p] = V[p][p].conjugate();
                    for (q = p + 1; q <= NR; q++) { // 1122
-                      CTMP   = conjg(V[q][p]);
-                      V[q][p] = conjg(V[p][q]);
+                      CTMP   = V[q][p].conjugate();
+                      V[q][p] = V[p][q].conjugate();
                       V[p][q] = CTMP;
                    } // 1122
                } // 1121
@@ -592,7 +595,7 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       for (q = NR + 1; q <= N; q++) { // 1104
-                          V[p][q] = conjg(V[q][p]);
+                          V[p][q] = V[q][p].conjugate();
                       } // 1104
                    } // 1103
                }
@@ -603,14 +606,14 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the QR factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                zlaset('G', N, N-NR, CZERO, CZERO, V[1][NR+1], LDV);
-                zgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                zlaset('G', N, N-NR, Complex.zero, Complex.zero, V(1,NR+1), LDV);
+                zgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                 for (p = 1; p <= N; p++) { // 1123
-                   V[p][p] = conjg(V[p][p]);
+                   V[p][p] = V[p][p].conjugate();
                    for (q = p + 1; q <= N; q++) { // 1124
-                      CTMP   = conjg(V[q][p]);
-                      V[q][p] = conjg(V[p][q]);
+                      CTMP   = V[q][p].conjugate();
+                      V[q][p] = V[p][q].conjugate();
                       V[p][q] = CTMP;
                    } // 1124
                 } // 1123
@@ -621,11 +624,11 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              // .. aply ZGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              zlacpy('U', NR, N, A, LDA, V, LDV );
-             if (NR > 1) zlaset( 'L', NR-1, NR-1, CZERO, CZERO, V[2][1], LDV );
+             if (NR > 1) zlaset( 'L', NR-1, NR-1, Complex.zero, Complex.zero, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U[1:NR][1:NR]
              if ( WNTVR || ( NR == N ) ) {
-                zgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                zgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V[1:N][1:NR]**H
              } else {
@@ -634,8 +637,8 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the LQ factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                 zlaset('G', N-NR, N, CZERO,CZERO, V[NR+1][1], LDV);
-                 zgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                 zlaset('G', N-NR, N, Complex.zero,Complex.zero, V(NR+1,1), LDV);
+                 zgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                  zlapmt( false , N, N, V, LDV, IWORK );
              }
              // .. now [V] contains the adjoint of the matrix of the right singular
@@ -655,47 +658,47 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              // vectors of R**H
             for (p = 1; p <= NR; p++) { // 1168
                for (q = p; q <= N; q++) { // 1169
-                  V[q][p] = conjg(A[p][q]);
+                  V[q][p] = A[p][q].conjugate();
                } // 1169
             } // 1168
-            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V[1][2], LDV );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, Complex.zero,Complex.zero, V(1,2), LDV );
 
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
             // transposed
-               zgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+               zgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
                // .. assemble V
                for (p = 1; p <= NR; p++) { // 1115
-                  V[p][p] = conjg(V[p][p]);
+                  V[p][p] = V[p][p].conjugate();
                   for (q = p + 1; q <= NR; q++) { // 1116
-                     CTMP   = conjg(V[q][p]);
-                     V[q][p] = conjg(V[p][q]);
+                     CTMP   = V[q][p].conjugate();
+                     V[q][p] = V[p][q].conjugate();
                      V[p][q] = CTMP;
                   } // 1116
                } // 1115
                if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       for (q = NR+1; q <= N; q++) { // 1102
-                         V[p][q] = conjg(V[q][p]);
+                         V[p][q] = V[q][p].conjugate();
                       } // 1102
                    } // 1101
                }
                zlapmt( false , NR, N, V, LDV, IWORK );
 
                 for (p = 1; p <= NR; p++) { // 1117
-                   U[p][p] = conjg(U[p][p]);
+                   U[p][p] = U[p][p].conjugate();
                    for (q = p + 1; q <= NR; q++) { // 1118
-                      CTMP   = conjg(U[q][p]);
-                      U[q][p] = conjg(U[p][q]);
+                      CTMP   = U[q][p].conjugate();
+                      U[q][p] = U[p][q].conjugate();
                       U[p][q] = CTMP;
                    } // 1118
                 } // 1117
 
                 if ( ( NR < M ) && !(WNTUF)) {
-                  zlaset('A', M-NR,NR, CZERO,CZERO, U[NR+1][1], LDU);
+                  zlaset('A', M-NR,NR, Complex.zero,Complex.zero, U(NR+1,1), LDU);
                   if ( NR < N1 ) {
-                     zlaset('A',NR,N1-NR,CZERO,CZERO,U[1][NR+1],LDU);
-                     zlaset('A',M-NR,N1-NR,CZERO,CONE, U[NR+1][NR+1], LDU );
+                     zlaset('A',NR,N1-NR,Complex.zero,Complex.zero,U(1,NR+1),LDU);
+                     zlaset('A',M-NR,N1-NR,Complex.zero,Complex.one, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -712,19 +715,19 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
-                         V[q][p] = conjg(A[p][q]);
+                         V[q][p] = A[p][q].conjugate();
                       } // 1199
                    } // 1198
-                   if (NR > 1) zlaset('U',NR-1,NR-1, CZERO,CZERO, V[1][2],LDV);
+                   if (NR > 1) zlaset('U',NR-1,NR-1, Complex.zero,Complex.zero, V(1,2),LDV);
 
-                   zlaset('A',N,N-NR,CZERO,CZERO,V[1][NR+1],LDV);
-                   zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                   zlaset('A',N,N-NR,Complex.zero,Complex.zero,V(1,NR+1),LDV);
+                   zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                    for (p = 1; p <= N; p++) { // 1113
-                      V[p][p] = conjg(V[p][p]);
+                      V[p][p] = V[p][p].conjugate();
                       for (q = p + 1; q <= N; q++) { // 1114
-                         CTMP   = conjg(V[q][p]);
-                         V[q][p] = conjg(V[p][q]);
+                         CTMP   = V[q][p].conjugate();
+                         V[q][p] = V[p][q].conjugate();
                          V[p][q] = CTMP;
                       } // 1114
                    } // 1113
@@ -733,19 +736,19 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                // (M x N1), i.e. (M x N) or (M x M).
 
                    for (p = 1; p <= N; p++) { // 1111
-                      U[p][p] = conjg(U[p][p]);
+                      U[p][p] = U[p][p].conjugate();
                       for (q = p + 1; q <= N; q++) { // 1112
-                         CTMP   = conjg(U[q][p]);
-                         U[q][p] = conjg(U[p][q]);
+                         CTMP   = U[q][p].conjugate();
+                         U[q][p] = U[p][q].conjugate();
                          U[p][q] = CTMP;
                       } // 1112
                    } // 1111
 
                    if ( ( N < M ) && !(WNTUF)) {
-                      zlaset('A',M-N,N,CZERO,CZERO,U[N+1][1],LDU);
+                      zlaset('A',M-N,N,Complex.zero,Complex.zero,U(N+1,1),LDU);
                       if ( N < N1 ) {
-                        zlaset('A',N,N1-N,CZERO,CZERO,U[1][N+1],LDU);
-                        zlaset('A',M-N,N1-N,CZERO,CONE, U[N+1][N+1], LDU );
+                        zlaset('A',N,N1-N,Complex.zero,Complex.zero,U(1,N+1),LDU);
+                        zlaset('A',M-N,N1-N,Complex.zero,Complex.one, U(N+1,N+1), LDU );
                       }
                    }
                 } else {
@@ -753,30 +756,30 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                    // singular vectors of R
                    for (p = 1; p <= NR; p++) { // 1196
                       for (q = p; q <= N; q++) { // 1197
-                         U[q][NR+p] = conjg(A[p][q]);
+                         U[q][NR+p] = A[p][q].conjugate();
                       } // 1197
                    } // 1196
-                   if (NR > 1) zlaset('U',NR-1,NR-1,CZERO,CZERO,U[1][NR+2],LDU);
-                   zgeqrf(N, NR, U[1][NR+1], LDU, CWORK[N+1], CWORK[N+NR+1], LCWORK-N-NR, IERR );
+                   if (NR > 1) zlaset('U',NR-1,NR-1,Complex.zero,Complex.zero,U(1,NR+2),LDU);
+                   zgeqrf(N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
-                           V[q][p] = conjg(U[p][NR+q]);
+                           V[q][p] = U[p][NR+q].conjugate();
                        } // 1144
                    } // 1143
-                  zlaset('U',NR-1,NR-1,CZERO,CZERO,V[1][2],LDV);
-                  zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, CWORK[N+NR+1],LCWORK-N-NR,RWORK, INFO.value );
-                  zlaset('A',N-NR,NR,CZERO,CZERO,V[NR+1][1],LDV);
-                  zlaset('A',NR,N-NR,CZERO,CZERO,V[1][NR+1],LDV);
-                  zlaset('A',N-NR,N-NR,CZERO,CONE,V[NR+1][NR+1],LDV);
-                  zunmqr('R','C', N, N, NR, U[1][NR+1], LDU, CWORK[N+1],V,LDV,CWORK[N+NR+1],LCWORK-N-NR,IERR);
+                  zlaset('U',NR-1,NR-1,Complex.zero,Complex.zero,V(1,2),LDV);
+                  zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, CWORK(N+NR+1),LCWORK-N-NR,RWORK, INFO );
+                  zlaset('A',N-NR,NR,Complex.zero,Complex.zero,V(NR+1,1),LDV);
+                  zlaset('A',NR,N-NR,Complex.zero,Complex.zero,V(1,NR+1),LDV);
+                  zlaset('A',N-NR,N-NR,Complex.zero,Complex.one,V(NR+1,NR+1),LDV);
+                  zunmqr('R','C', N, N, NR, U(1,NR+1), LDU, CWORK(N+1),V,LDV,CWORK(N+NR+1),LCWORK-N-NR,IERR);
                   zlapmt( false , N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
                   if ( ( NR < M ) && !(WNTUF)) {
-                     zlaset('A',M-NR,NR,CZERO,CZERO,U[NR+1][1],LDU);
+                     zlaset('A',M-NR,NR,Complex.zero,Complex.zero,U(NR+1,1),LDU);
                      if ( NR < N1 ) {
-                     zlaset('A',NR,N1-NR,CZERO,CZERO,U[1][NR+1],LDU);
-                     zlaset('A',M-NR,N1-NR,CZERO,CONE, U[NR+1][NR+1],LDU);
+                     zlaset('A',NR,N1-NR,Complex.zero,Complex.zero,U(1,NR+1),LDU);
+                     zlaset('A',M-NR,N1-NR,Complex.zero,Complex.one, U(NR+1,NR+1),LDU);
                      }
                   }
                 }
@@ -789,19 +792,19 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
              if ( WNTVR || ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  zlacpy('U', NR, N, A, LDA, V, LDV );
-                if (NR > 1) zlaset( 'L', NR-1,NR-1, CZERO,CZERO, V[2][1], LDV );
+                if (NR > 1) zlaset( 'L', NR-1,NR-1, Complex.zero,Complex.zero, V(2,1), LDV );
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
-                zgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                zgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 zlapmt( false , NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V[1:N][1:NR]**H
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                if ( ( NR < M ) && !(WNTUF)) {
-                  zlaset('A', M-NR,NR, CZERO,CZERO, U[NR+1][1], LDU);
+                  zlaset('A', M-NR,NR, Complex.zero,Complex.zero, U(NR+1,1), LDU);
                   if ( NR < N1 ) {
-                     zlaset('A',NR,N1-NR,CZERO,CZERO,U[1][NR+1],LDU);
-                     zlaset('A',M-NR,N1-NR,CZERO,CONE, U[NR+1][NR+1], LDU );
+                     zlaset('A',NR,N1-NR,Complex.zero,Complex.zero,U(1,NR+1),LDU);
+                     zlaset('A',M-NR,N1-NR,Complex.zero,Complex.one, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -817,11 +820,11 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {
                   zlacpy('U', NR, N, A, LDA, V, LDV );
-                  if (NR > 1) zlaset('L', NR-1,NR-1, CZERO,CZERO, V[2][1],LDV);
+                  if (NR > 1) zlaset('L', NR-1,NR-1, Complex.zero,Complex.zero, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
                //    singular vectors of R stored in [U](1:NR,1:NR)
-                  zlaset('A', N-NR,N, CZERO,CZERO, V[NR+1][1],LDV);
-                  zgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK[N+1], LCWORK-N, RWORK, INFO.value );
+                  zlaset('A', N-NR,N, Complex.zero,Complex.zero, V(NR+1,1),LDV);
+                  zgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                   zlapmt( false , N, N, V, LDV, IWORK );
                   // .. now [V] contains the adjoint of the matrix of the right
                   // singular vectors of A. The leading N left singular vectors
@@ -829,31 +832,31 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x N1), i.e. (M x N) or (M x M).
                   if ( ( N < M ) && !(WNTUF)) {
-                      zlaset('A',M-N,N,CZERO,CZERO,U[N+1][1],LDU);
+                      zlaset('A',M-N,N,Complex.zero,Complex.zero,U(N+1,1),LDU);
                       if ( N < N1 ) {
-                        zlaset('A',N,N1-N,CZERO,CZERO,U[1][N+1],LDU);
-                        zlaset('A',M-N,N1-N,CZERO,CONE, U[N+1][N+1], LDU );
+                        zlaset('A',N,N1-N,Complex.zero,Complex.zero,U(1,N+1),LDU);
+                        zlaset('A',M-N,N1-N,Complex.zero,Complex.one, U(N+1,N+1), LDU );
                       }
                   }
                } else {
-                  zlacpy('U', NR, N, A, LDA, U[NR+1][1], LDU );
-                  if (NR > 1) zlaset('L',NR-1,NR-1,CZERO,CZERO,U[NR+2][1],LDU);
-                  zgelqf(NR, N, U[NR+1][1], LDU, CWORK[N+1], CWORK[N+NR+1], LCWORK-N-NR, IERR );
-                  zlacpy('L',NR,NR,U[NR+1][1],LDU,V,LDV);
-                  if (NR > 1) zlaset('U',NR-1,NR-1,CZERO,CZERO,V[1][2],LDV);
-                  zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK[N+NR+1], LCWORK-N-NR, RWORK, INFO.value );
-                  zlaset('A',N-NR,NR,CZERO,CZERO,V[NR+1][1],LDV);
-                  zlaset('A',NR,N-NR,CZERO,CZERO,V[1][NR+1],LDV);
-                  zlaset('A',N-NR,N-NR,CZERO,CONE,V[NR+1][NR+1],LDV);
-                  zunmlq('R','N',N,N,NR,U[NR+1][1],LDU,CWORK[N+1], V, LDV, CWORK[N+NR+1],LCWORK-N-NR,IERR);
+                  zlacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
+                  if (NR > 1) zlaset('L',NR-1,NR-1,Complex.zero,Complex.zero,U(NR+2,1),LDU);
+                  zgelqf(NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
+                  zlacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
+                  if (NR > 1) zlaset('U',NR-1,NR-1,Complex.zero,Complex.zero,V(1,2),LDV);
+                  zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO );
+                  zlaset('A',N-NR,NR,Complex.zero,Complex.zero,V(NR+1,1),LDV);
+                  zlaset('A',NR,N-NR,Complex.zero,Complex.zero,V(1,NR+1),LDV);
+                  zlaset('A',N-NR,N-NR,Complex.zero,Complex.one,V(NR+1,NR+1),LDV);
+                  zunmlq('R','N',N,N,NR,U(NR+1,1),LDU,CWORK(N+1), V, LDV, CWORK(N+NR+1),LCWORK-N-NR,IERR);
                   zlapmt( false , N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                   if ( ( NR < M ) && !(WNTUF)) {
-                     zlaset('A',M-NR,NR,CZERO,CZERO,U[NR+1][1],LDU);
+                     zlaset('A',M-NR,NR,Complex.zero,Complex.zero,U(NR+1,1),LDU);
                      if ( NR < N1 ) {
-                     zlaset('A',NR,N1-NR,CZERO,CZERO,U[1][NR+1],LDU);
-                     zlaset('A',M-NR,N1-NR,CZERO,CONE, U[NR+1][NR+1], LDU );
+                     zlaset('A',NR,N1-NR,Complex.zero,Complex.zero,U(1,NR+1),LDU);
+                     zlaset('A',M-NR,N1-NR,Complex.zero,Complex.one, U(NR+1,NR+1), LDU );
                      }
                   }
                }
@@ -864,8 +867,8 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK[N+1], LCWORK-N, IERR );
-         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK[N+1], -1 );
+         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       // ... end of the "full SVD" branch
       }
@@ -874,19 +877,19 @@ void zgesvdq(final String JOBA, final String JOBP, final String JOBR, final Stri
       // due to underflow, and update the numerical rank.
       p = NR;
       for (q = p; q >= 1; q--) { // 4001
-          if ( S[q] > ZERO ) GO TO 4002;
+          if ( S[q] > ZERO ) break;
           NR = NR - 1;
       } // 4001
       // } // 4002x
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
-      if (NR < N) dlaset( 'G', N-NR,1, ZERO,ZERO, S[NR+1], N );
+      if (NR < N) dlaset( 'G', N-NR,1, ZERO,ZERO, S(NR+1).asMatrix(N), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(M.toDouble()), NR,1, S, N, IERR );
+      if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(M.toDouble()), NR,1, S.asMatrix(N), N, IERR );
       if (CONDA) RWORK[1] = SCONDA;
-      RWORK[2] = p - NR;
+      RWORK[2] = (p - NR).toDouble();
       // .. p-NR is the number of singular values that are computed as
       // exact zeros in ZGESVD() applied to the (possibly truncated)
       // full row rank triangular (trapezoidal) factor of A.

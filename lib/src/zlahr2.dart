@@ -1,100 +1,151 @@
-      void zlahr2(final int N, final int K, final int NB, final Matrix<double> A_, final int LDA, final int TAU, final Matrix<double> T_, final int LDT, final int Y, final int LDY,) {
-  final A = A_.dim();
-  final T = T_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/blas/ztrmm.dart';
+import 'package:lapack/src/blas/ztrmv.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void zlahr2(
+  final int N,
+  final int K,
+  final int NB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Matrix<Complex> Y_,
+  final int LDY,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                K, LDA, LDT, LDY, N, NB;
-      Complex        A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
-      // ..
+  final A = A_.dim(LDA);
+  final T = T_.dim(LDT);
+  final TAU = TAU_.dim();
+  final Y = Y_.dim(LDY);
+  int I;
+  Complex EI = Complex.zero;
 
-      Complex        ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      int                I;
-      Complex        EI;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZCOPY, ZGEMM, ZGEMV, ZLACPY, ZLARFG, ZSCAL, ZTRMM, ZTRMV, ZLACGV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 1) return;
 
-      if (N <= 1) return;
+  for (I = 1; I <= NB; I++) {
+    // 10
+    if (I > 1) {
+      // Update A(K+1:N,I)
 
-      for (I = 1; I <= NB; I++) { // 10
-         if ( I > 1 ) {
+      // Update I-th column of A - Y * V**H
 
-            // Update A(K+1:N,I)
+      zlacgv(I - 1, A(K + I - 1, 1).asArray(), LDA);
+      zgemv(
+          'NO TRANSPOSE',
+          N - K,
+          I - 1,
+          -Complex.one,
+          Y(K + 1, 1),
+          LDY,
+          A(K + I - 1, 1).asArray(),
+          LDA,
+          Complex.one,
+          A(K + 1, I).asArray(),
+          1);
+      zlacgv(I - 1, A(K + I - 1, 1).asArray(), LDA);
 
-            // Update I-th column of A - Y * V**H
+      // Apply I - V * T**H * V**H to this column (call it b) from the
+      // left, using the last column of T as workspace
 
-            zlacgv(I-1, A( K+I-1, 1 ), LDA );
-            zgemv('NO TRANSPOSE', N-K, I-1, -ONE, Y(K+1,1), LDY, A( K+I-1, 1 ), LDA, ONE, A( K+1, I ), 1 );
-            zlacgv(I-1, A( K+I-1, 1 ), LDA );
+      // Let  V = ( V1 )   and   b = ( b1 )   (first I-1 rows)
+      //          ( V2 )             ( b2 )
 
-            // Apply I - V * T**H * V**H to this column (call it b) from the
-            // left, using the last column of T as workspace
+      // where V1 is unit lower triangular
 
-            // Let  V = ( V1 )   and   b = ( b1 )   (first I-1 rows)
-            //          ( V2 )             ( b2 )
+      // w := V1**H * b1
 
-            // where V1 is unit lower triangular
+      zcopy(I - 1, A(K + 1, I).asArray(), 1, T(1, NB).asArray(), 1);
+      ztrmv('Lower', 'Conjugate transpose', 'UNIT', I - 1, A(K + 1, 1), LDA,
+          T(1, NB).asArray(), 1);
 
-            // w := V1**H * b1
+      // w := w + V2**H * b2
 
-            zcopy(I-1, A( K+1, I ), 1, T( 1, NB ), 1 );
-            ztrmv('Lower', 'Conjugate transpose', 'UNIT', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
+      zgemv(
+          'Conjugate transpose',
+          N - K - I + 1,
+          I - 1,
+          Complex.one,
+          A(K + I, 1),
+          LDA,
+          A(K + I, I).asArray(),
+          1,
+          Complex.one,
+          T(1, NB).asArray(),
+          1);
 
-            // w := w + V2**H * b2
+      // w := T**H * w
 
-            zgemv('Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ONE, T( 1, NB ), 1 );
+      ztrmv('Upper', 'Conjugate transpose', 'NON-UNIT', I - 1, T, LDT,
+          T(1, NB).asArray(), 1);
 
-            // w := T**H * w
+      // b2 := b2 - V2*w
 
-            ztrmv('Upper', 'Conjugate transpose', 'NON-UNIT', I-1, T, LDT, T( 1, NB ), 1 );
+      zgemv('NO TRANSPOSE', N - K - I + 1, I - 1, -Complex.one, A(K + I, 1),
+          LDA, T(1, NB).asArray(), 1, Complex.one, A(K + I, I).asArray(), 1);
 
-            // b2 := b2 - V2*w
+      // b1 := b1 - V1*w
 
-            zgemv('NO TRANSPOSE', N-K-I+1, I-1, -ONE, A( K+I, 1 ), LDA, T( 1, NB ), 1, ONE, A( K+I, I ), 1 );
+      ztrmv('Lower', 'NO TRANSPOSE', 'UNIT', I - 1, A(K + 1, 1), LDA,
+          T(1, NB).asArray(), 1);
+      zaxpy(
+          I - 1, -Complex.one, T(1, NB).asArray(), 1, A(K + 1, I).asArray(), 1);
 
-            // b1 := b1 - V1*w
+      A[K + I - 1][I - 1] = EI;
+    }
 
-            ztrmv('Lower', 'NO TRANSPOSE', 'UNIT', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
-            zaxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
+    // Generate the elementary reflector H(I) to annihilate
+    // A(K+I+1:N,I)
 
-            A[K+I-1][I-1] = EI;
-         }
+    zlarfg(N - K - I + 1, A(K + I, I), A(min(K + I + 1, N), I).asArray(), 1,
+        TAU(I));
+    EI = A[K + I][I];
+    A[K + I][I] = Complex.one;
 
-         // Generate the elementary reflector H(I) to annihilate
-         // A(K+I+1:N,I)
+    // Compute  Y(K+1:N,I)
 
-         zlarfg(N-K-I+1, A( K+I, I ), A( min( K+I+1, N ), I ), 1, TAU( I ) );
-         EI = A( K+I, I );
-         A[K+I][I] = ONE;
+    zgemv('NO TRANSPOSE', N - K, N - K - I + 1, Complex.one, A(K + 1, I + 1),
+        LDA, A(K + I, I).asArray(), 1, Complex.zero, Y(K + 1, I).asArray(), 1);
+    zgemv('Conjugate transpose', N - K - I + 1, I - 1, Complex.one, A(K + I, 1),
+        LDA, A(K + I, I).asArray(), 1, Complex.zero, T(1, I).asArray(), 1);
+    zgemv('NO TRANSPOSE', N - K, I - 1, -Complex.one, Y(K + 1, 1), LDY,
+        T(1, I).asArray(), 1, Complex.one, Y(K + 1, I).asArray(), 1);
+    zscal(N - K, TAU[I], Y(K + 1, I).asArray(), 1);
 
-         // Compute  Y(K+1:N,I)
+    // Compute T(1:I,I)
 
-         zgemv('NO TRANSPOSE', N-K, N-K-I+1, ONE, A( K+1, I+1 ), LDA, A( K+I, I ), 1, ZERO, Y( K+1, I ), 1 );
-         zgemv('Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ZERO, T( 1, I ), 1 );
-         zgemv('NO TRANSPOSE', N-K, I-1, -ONE, Y( K+1, 1 ), LDY, T( 1, I ), 1, ONE, Y( K+1, I ), 1 );
-         zscal(N-K, TAU( I ), Y( K+1, I ), 1 );
+    zscal(I - 1, -TAU[I], T(1, I).asArray(), 1);
+    ztrmv('Upper', 'No Transpose', 'NON-UNIT', I - 1, T, LDT, T(1, I).asArray(),
+        1);
+    T[I][I] = TAU[I];
+  } // 10
+  A[K + NB][NB] = EI;
 
-         // Compute T(1:I,I)
+  // Compute Y(1:K,1:NB)
 
-         zscal(I-1, -TAU( I ), T( 1, I ), 1 );
-         ztrmv('Upper', 'No Transpose', 'NON-UNIT', I-1, T, LDT, T( 1, I ), 1 );
-         T[I][I] = TAU( I );
-
-      } // 10
-      A[K+NB][NB] = EI;
-
-      // Compute Y(1:K,1:NB)
-
-      zlacpy('ALL', K, NB, A( 1, 2 ), LDA, Y, LDY );
-      ztrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A( K+1, 1 ), LDA, Y, LDY )       IF( N > K+NB ) CALL ZGEMM( 'NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N-K-NB, ONE, A( 1, 2+NB ), LDA, A( K+1+NB, 1 ), LDA, ONE, Y, LDY );
-      ztrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY );
-
-      }
+  zlacpy('ALL', K, NB, A(1, 2), LDA, Y, LDY);
+  ztrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, Complex.one,
+      A(K + 1, 1), LDA, Y, LDY);
+  if (N > K + NB) {
+    zgemm('NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N - K - NB, Complex.one,
+        A(1, 2 + NB), LDA, A(K + 1 + NB, 1), LDA, Complex.one, Y, LDY);
+  }
+  ztrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, Complex.one, T,
+      LDT, Y, LDY);
+}

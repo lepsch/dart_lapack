@@ -1,275 +1,325 @@
-      void zlaqr3(final int WANTT, final int WANTZ, final int N, final int KTOP, final int KBOT, final int NW, final Matrix<double> H_, final int LDH, final int ILOZ, final int IHIZ, final Matrix<double> Z_, final int LDZ, final int NS, final int ND, final int SH, final Matrix<double> V_, final int LDV, final int NH, final Matrix<double> T_, final int LDT, final int NV, final Matrix<double> WV_, final int LDWV, final Array<double> WORK_, final int LWORK,) {
-  final H = H_.dim();
-  final Z = Z_.dim();
-  final V = V_.dim();
-  final T = T_.dim();
-  final WV = WV_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zgehrd.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlahqr.dart';
+import 'package:lapack/src/zlaqr4.dart';
+import 'package:lapack/src/zlarf.dart';
+import 'package:lapack/src/zlarfg.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/ztrexc.dart';
+import 'package:lapack/src/zunmhr.dart';
+
+void zlaqr3(
+  final bool WANTT,
+  final bool WANTZ,
+  final int N,
+  final int KTOP,
+  final int KBOT,
+  final int NW,
+  final Matrix<Complex> H_,
+  final int LDH,
+  final int ILOZ,
+  final int IHIZ,
+  final Matrix<Complex> Z_,
+  final int LDZ,
+  final Box<int> NS,
+  final Box<int> ND,
+  final Array<Complex> SH_,
+  final Matrix<Complex> V_,
+  final int LDV,
+  final int NH,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final int NV,
+  final Matrix<Complex> WV_,
+  final int LDWV,
+  final Array<Complex> WORK_,
+  final int LWORK,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW;
-      bool               WANTT, WANTZ;
-      Complex         H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
-      // ..
-
-// ================================================================
-
-      // .. Parameters ..
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      double             RZERO, RONE;
-      const              RZERO = 0.0, RONE = 1.0 ;
-      Complex         BETA, CDUM, S, TAU;
-      double             FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
-      int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      //- int                ILAENV;
-      // EXTERNAL DLAMCH, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZCOPY, ZGEHRD, ZGEMM, ZLACPY, ZLAHQR, ZLAQR4, ZLARF, ZLARFG, ZLASET, ZTREXC, ZUNMHR
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, MAX, MIN
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
-
-      // ==== Estimate optimal workspace. ====
-
-      JW = min( NW, KBOT-KTOP+1 );
-      if ( JW <= 2 ) {
-         LWKOPT = 1;
-      } else {
-
-         // ==== Workspace query call to ZGEHRD ====
-
-         zgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
-         LWK1 = INT( WORK( 1 ) );
-
-         // ==== Workspace query call to ZUNMHR ====
-
-         zunmhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
-         LWK2 = INT( WORK( 1 ) );
-
-         // ==== Workspace query call to ZLAQR4 ====
-
-         zlaqr4( true , true , JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
-         LWK3 = INT( WORK( 1 ) );
-
-         // ==== Optimal workspace ====
-
-         LWKOPT = max( JW+max( LWK1, LWK2 ), LWK3 );
-      }
-
-      // ==== Quick return in case of workspace query. ====
-
-      if ( LWORK == -1 ) {
-         WORK[1] = DCMPLX( LWKOPT, 0 );
-         return;
-      }
-
-      // ==== Nothing to do ...
-      // ... for an empty active block ... ====
-      NS = 0;
-      ND = 0;
-      WORK[1] = ONE;
-      if (KTOP > KBOT) return;
-      // ... nor for an empty deflation window. ====
-      if (NW < 1) return;
-
-      // ==== Machine constants ====
-
-      SAFMIN = dlamch( 'SAFE MINIMUM' );
-      SAFMAX = RONE / SAFMIN;
-      ULP = dlamch( 'PRECISION' );
-      SMLNUM = SAFMIN*( N.toDouble() / ULP );
-
-      // ==== Setup deflation window ====
-
-      JW = min( NW, KBOT-KTOP+1 );
-      KWTOP = KBOT - JW + 1;
-      if ( KWTOP == KTOP ) {
-         S = ZERO;
-      } else {
-         S = H( KWTOP, KWTOP-1 );
-      }
-
-      if ( KBOT == KWTOP ) {
-
-         // ==== 1-by-1 deflation window: not much to do ====
-
-         SH[KWTOP] = H( KWTOP, KWTOP );
-         NS = 1;
-         ND = 0;
-         if ( CABS1( S ) <= max( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
-            NS = 0;
-            ND = 1;
-            if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
-         }
-         WORK[1] = ONE;
-         return;
-      }
-
-      // ==== Convert to spike-triangular form.  (In case of a
-      // .    rare QR failure, this routine continues to do
-      // .    aggressive early deflation using that part of
-      // .    the deflation window that converged using INFQR
-      // .    here and there to keep track.) ====
-
-      zlacpy('U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT );
-      zcopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
-
-      zlaset('A', JW, JW, ZERO, ONE, V, LDV );
-      NMIN = ilaenv( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK );
-      if ( JW > NMIN ) {
-         zlaqr4( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
-      } else {
-         zlahqr( true , true , JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
-      }
-
-      // ==== Deflation detection loop ====
-
-      NS = JW;
-      ILST = INFQR + 1;
-      for (KNT = INFQR + 1; KNT <= JW; KNT++) { // 10
-
-         // ==== Small spike tip deflation test ====
-
-         FOO = CABS1( T( NS, NS ) );
-         if ( FOO == RZERO ) FOO = CABS1( S );
-         IF( CABS1( S )*CABS1( V( 1, NS ) ) <= max( SMLNUM, ULP*FOO ) ) {
-
-            // ==== One more converged eigenvalue ====
-
-            NS = NS - 1;
-         } else {
-
-            // ==== One undeflatable eigenvalue.  Move it up out of the
-            // .    way.   (ZTREXC can not fail in this case.) ====
-
-            IFST = NS;
-            ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
-            ILST = ILST + 1;
-         }
-      } // 10
-
-         // ==== Return to Hessenberg form ====
-
-      if (NS == 0) S = ZERO;
-
-      if ( NS < JW ) {
-
-         // ==== sorting the diagonal of T improves accuracy for
-         // .    graded matrices.  ====
-
-         for (I = INFQR + 1; I <= NS; I++) { // 30
-            IFST = I;
-            for (J = I + 1; J <= NS; J++) { // 20
-               if( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J;
-            } // 20
-            ILST = I;
-            if (IFST != ILST) ztrexc( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
-         } // 30
-      }
-
-      // ==== Restore shift/eigenvalue array from T ====
-
-      for (I = INFQR + 1; I <= JW; I++) { // 40
-         SH[KWTOP+I-1] = T( I, I );
-      } // 40
-
-
-      if ( NS < JW || S == ZERO ) {
-         if ( NS > 1 && S != ZERO ) {
-
-            // ==== Reflect spike back into lower triangle ====
-
-            zcopy(NS, V, LDV, WORK, 1 );
-            for (I = 1; I <= NS; I++) { // 50
-               WORK[I] = DCONJG( WORK( I ) );
-            } // 50
-            BETA = WORK( 1 );
-            zlarfg(NS, BETA, WORK( 2 ), 1, TAU );
-            WORK[1] = ONE;
-
-            zlaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
-
-            zlarf('L', NS, JW, WORK, 1, DCONJG( TAU ), T, LDT, WORK( JW+1 ) );
-            zlarf('R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) );
-            zlarf('R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
-
-            zgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
-         }
-
-         // ==== Copy updated reduced window into place ====
-
-         if (KWTOP > 1) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) );
-         zlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
-         zcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
-
-         // ==== Accumulate orthogonal matrix in order update
-         // .    H and Z, if requested.  ====
-
-         if (NS > 1 && S != ZERO) zunmhr( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
-
-         // ==== Update vertical slab in H ====
-
-         if ( WANTT ) {
-            LTOP = 1;
-         } else {
-            LTOP = KTOP;
-         }
-         for (KROW = LTOP; NV < 0 ? KROW >= KWTOP - 1 : KROW <= KWTOP - 1; KROW += NV) { // 60
-            KLN = min( NV, KWTOP-KROW );
-            zgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
-            zlacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
-         } // 60
-
-         // ==== Update horizontal slab in H ====
-
-         if ( WANTT ) {
-            for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) { // 70
-               KLN = min( NH, N-KCOL+1 );
-               zgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
-               zlacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
-            } // 70
-         }
-
-         // ==== Update vertical slab in Z ====
-
-         if ( WANTZ ) {
-            for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) { // 80
-               KLN = min( NV, IHIZ-KROW+1 );
-               zgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
-               zlacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
-            } // 80
-         }
-      }
-
-      // ==== Return the number of deflations ... ====
-
-      ND = JW - NS;
-
-      // ==== ... and the number of shifts. (Subtracting
-      // .    INFQR from the spike length takes care
-      // .    of the case of a rare QR failure while
-      // .    calculating eigenvalues of the deflation
-      // .    window.)  ====
-
-      NS = NS - INFQR;
-
-       // ==== Return optimal workspace. ====
-
-      WORK[1] = DCMPLX( LWKOPT, 0 );
-
-      // ==== End of ZLAQR3 ====
-
-      }
+  final H = H_.dim(LDH);
+  final Z = Z_.dim(LDZ);
+  final V = V_.dim(LDV);
+  final T = T_.dim(LDT);
+  final WV = WV_.dim(LDWV);
+  final SH = SH_.dim();
+  final WORK = WORK_.dim();
+  const RZERO = 0.0;
+  Complex S;
+  double FOO,
+      // SAFMAX,
+      SAFMIN,
+      SMLNUM,
+      ULP;
+  int I,
+      IFST,
+      ILST,
+      J,
+      JW,
+      KCOL,
+      KLN,
+      KNT,
+      KROW,
+      KWTOP,
+      LTOP,
+      LWK1,
+      LWK2,
+      LWK3,
+      LWKOPT,
+      NMIN;
+  final INFO = Box(0), INFQR = Box(0);
+  final TAU = Box(Complex.zero), BETA = Box(Complex.zero);
+
+  double CABS1(Complex CDUM) => CDUM.toDouble().abs() + CDUM.imaginary.abs();
+
+  // ==== Estimate optimal workspace. ====
+
+  JW = min(NW, KBOT - KTOP + 1);
+  if (JW <= 2) {
+    LWKOPT = 1;
+  } else {
+    // ==== Workspace query call to ZGEHRD ====
+
+    zgehrd(JW, 1, JW - 1, T, LDT, WORK, WORK, -1, INFO);
+    LWK1 = WORK[1].toInt();
+
+    // ==== Workspace query call to ZUNMHR ====
+
+    zunmhr('R', 'N', JW, JW, 1, JW - 1, T, LDT, WORK, V, LDV, WORK, -1, INFO);
+    LWK2 = WORK[1].toInt();
+
+    // ==== Workspace query call to ZLAQR4 ====
+
+    zlaqr4(true, true, JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR);
+    LWK3 = WORK[1].toInt();
+
+    // ==== Optimal workspace ====
+
+    LWKOPT = max(JW + max(LWK1, LWK2), LWK3);
+  }
+
+  // ==== Quick return in case of workspace query. ====
+
+  if (LWORK == -1) {
+    WORK[1] = Complex(LWKOPT.toDouble(), 0);
+    return;
+  }
+
+  // ==== Nothing to do ...
+  // ... for an empty active block ... ====
+  NS.value = 0;
+  ND.value = 0;
+  WORK[1] = Complex.one;
+  if (KTOP > KBOT) return;
+  // ... nor for an empty deflation window. ====
+  if (NW < 1) return;
+
+  // ==== Machine constants ====
+
+  SAFMIN = dlamch('SAFE MINIMUM');
+  // SAFMAX = RONE / SAFMIN;
+  ULP = dlamch('PRECISION');
+  SMLNUM = SAFMIN * (N.toDouble() / ULP);
+
+  // ==== Setup deflation window ====
+
+  JW = min(NW, KBOT - KTOP + 1);
+  KWTOP = KBOT - JW + 1;
+  if (KWTOP == KTOP) {
+    S = Complex.zero;
+  } else {
+    S = H[KWTOP][KWTOP - 1];
+  }
+
+  if (KBOT == KWTOP) {
+    // ==== 1-by-1 deflation window: not much to do ====
+
+    SH[KWTOP] = H[KWTOP][KWTOP];
+    NS.value = 1;
+    ND.value = 0;
+    if (CABS1(S) <= max(SMLNUM, ULP * CABS1(H[KWTOP][KWTOP]))) {
+      NS.value = 0;
+      ND.value = 1;
+      if (KWTOP > KTOP) H[KWTOP][KWTOP - 1] = Complex.zero;
+    }
+    WORK[1] = Complex.one;
+    return;
+  }
+
+  // ==== Convert to spike-triangular form.  (In case of a
+  // .    rare QR failure, this routine continues to do
+  // .    aggressive early deflation using that part of
+  // .    the deflation window that converged using INFQR
+  // .    here and there to keep track.) ====
+
+  zlacpy('U', JW, JW, H(KWTOP, KWTOP), LDH, T, LDT);
+  zcopy(JW - 1, H(KWTOP + 1, KWTOP).asArray(), LDH + 1, T(2, 1).asArray(),
+      LDT + 1);
+
+  zlaset('A', JW, JW, Complex.zero, Complex.one, V, LDV);
+  NMIN = ilaenv(12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK);
+  if (JW > NMIN) {
+    zlaqr4(true, true, JW, 1, JW, T, LDT, SH(KWTOP), 1, JW, V, LDV, WORK, LWORK,
+        INFQR);
+  } else {
+    zlahqr(true, true, JW, 1, JW, T, LDT, SH(KWTOP), 1, JW, V, LDV, INFQR);
+  }
+
+  // ==== Deflation detection loop ====
+
+  NS.value = JW;
+  ILST = INFQR.value + 1;
+  for (KNT = INFQR.value + 1; KNT <= JW; KNT++) {
+    // 10
+
+    // ==== Small spike tip deflation test ====
+
+    FOO = CABS1(T[NS.value][NS.value]);
+    if (FOO == RZERO) FOO = CABS1(S);
+    if (CABS1(S) * CABS1(V[1][NS.value]) <= max(SMLNUM, ULP * FOO)) {
+      // ==== One more converged eigenvalue ====
+
+      NS.value = NS.value - 1;
+    } else {
+      // ==== One undeflatable eigenvalue.  Move it up out of the
+      // .    way.   (ZTREXC can not fail in this case.) ====
+
+      IFST = NS.value;
+      ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
+      ILST = ILST + 1;
+    }
+  } // 10
+
+  // ==== Return to Hessenberg form ====
+
+  if (NS.value == 0) S = Complex.zero;
+
+  if (NS.value < JW) {
+    // ==== sorting the diagonal of T improves accuracy for
+    // .    graded matrices.  ====
+
+    for (I = INFQR.value + 1; I <= NS.value; I++) {
+      // 30
+      IFST = I;
+      for (J = I + 1; J <= NS.value; J++) {
+        // 20
+        if (CABS1(T[J][J]) > CABS1(T[IFST][IFST])) IFST = J;
+      } // 20
+      ILST = I;
+      if (IFST != ILST) ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO);
+    } // 30
+  }
+
+  // ==== Restore shift/eigenvalue array from T ====
+
+  for (I = INFQR.value + 1; I <= JW; I++) {
+    // 40
+    SH[KWTOP + I - 1] = T[I][I];
+  } // 40
+
+  if (NS.value < JW || S == Complex.zero) {
+    if (NS.value > 1 && S != Complex.zero) {
+      // ==== Reflect spike back into lower triangle ====
+
+      zcopy(NS.value, V.asArray(), LDV, WORK, 1);
+      for (I = 1; I <= NS.value; I++) {
+        // 50
+        WORK[I] = WORK[I].conjugate();
+      } // 50
+      BETA.value = WORK[1];
+      zlarfg(NS.value, BETA, WORK(2), 1, TAU);
+      WORK[1] = Complex.one;
+
+      zlaset('L', JW - 2, JW - 2, Complex.zero, Complex.zero, T(3, 1), LDT);
+
+      zlarf('L', NS.value, JW, WORK, 1, TAU.value.conjugate(), T, LDT,
+          WORK(JW + 1));
+      zlarf('R', NS.value, NS.value, WORK, 1, TAU.value, T, LDT, WORK(JW + 1));
+      zlarf('R', JW, NS.value, WORK, 1, TAU.value, V, LDV, WORK(JW + 1));
+
+      zgehrd(JW, 1, NS.value, T, LDT, WORK, WORK(JW + 1), LWORK - JW, INFO);
+    }
+
+    // ==== Copy updated reduced window into place ====
+
+    if (KWTOP > 1) H[KWTOP][KWTOP - 1] = S * V[1][1].conjugate();
+    zlacpy('U', JW, JW, T, LDT, H(KWTOP, KWTOP), LDH);
+    zcopy(JW - 1, T(2, 1).asArray(), LDT + 1, H(KWTOP + 1, KWTOP).asArray(),
+        LDH + 1);
+
+    // ==== Accumulate orthogonal matrix in order update
+    // .    H and Z, if requested.  ====
+
+    if (NS.value > 1 && S != Complex.zero) {
+      zunmhr('R', 'N', JW, NS.value, 1, NS.value, T, LDT, WORK, V, LDV,
+          WORK(JW + 1), LWORK - JW, INFO);
+    }
+
+    // ==== Update vertical slab in H ====
+
+    if (WANTT) {
+      LTOP = 1;
+    } else {
+      LTOP = KTOP;
+    }
+    for (KROW = LTOP;
+        NV < 0 ? KROW >= KWTOP - 1 : KROW <= KWTOP - 1;
+        KROW += NV) {
+      // 60
+      KLN = min(NV, KWTOP - KROW);
+      zgemm('N', 'N', KLN, JW, JW, Complex.one, H(KROW, KWTOP), LDH, V, LDV,
+          Complex.zero, WV, LDWV);
+      zlacpy('A', KLN, JW, WV, LDWV, H(KROW, KWTOP), LDH);
+    } // 60
+
+    // ==== Update horizontal slab in H ====
+
+    if (WANTT) {
+      for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) {
+        // 70
+        KLN = min(NH, N - KCOL + 1);
+        zgemm('C', 'N', JW, KLN, JW, Complex.one, V, LDV, H(KWTOP, KCOL), LDH,
+            Complex.zero, T, LDT);
+        zlacpy('A', JW, KLN, T, LDT, H(KWTOP, KCOL), LDH);
+      } // 70
+    }
+
+    // ==== Update vertical slab in Z ====
+
+    if (WANTZ) {
+      for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) {
+        // 80
+        KLN = min(NV, IHIZ - KROW + 1);
+        zgemm('N', 'N', KLN, JW, JW, Complex.one, Z(KROW, KWTOP), LDZ, V, LDV,
+            Complex.zero, WV, LDWV);
+        zlacpy('A', KLN, JW, WV, LDWV, Z(KROW, KWTOP), LDZ);
+      } // 80
+    }
+  }
+
+  // ==== Return the number of deflations ... ====
+
+  ND.value = JW - NS.value;
+
+  // ==== ... and the number of shifts. (Subtracting
+  // .    INFQR from the spike length takes care
+  // .    of the case of a rare QR failure while
+  // .    calculating eigenvalues of the deflation
+  // .    window.)  ====
+
+  NS.value = NS.value - INFQR.value;
+
+  // ==== Return optimal workspace. ====
+
+  WORK[1] = Complex(LWKOPT.toDouble(), 0);
+}

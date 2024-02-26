@@ -1,51 +1,55 @@
-      void zlatrz(final int M, final int N, final int L, final Matrix<double> A_, final int LDA, final int TAU, final Array<double> WORK_,) {
-  final A = A_.dim();
-  final WORK = WORK_.dim();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlarfg.dart';
+import 'package:lapack/src/zlarz.dart';
 
+void zlatrz(
+  final int M,
+  final int N,
+  final int L,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                L, LDA, M, N;
-      Complex         A( LDA, * ), TAU( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
+  int I;
+  final ALPHA = Box(Complex.zero);
 
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
-      int                I;
-      Complex         ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLACGV, ZLARFG, ZLARZ
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG
+  // Quick return if possible
 
-      // Quick return if possible
+  if (M == 0) {
+    return;
+  } else if (M == N) {
+    for (I = 1; I <= N; I++) {
+      // 10
+      TAU[I] = Complex.zero;
+    } // 10
+    return;
+  }
 
-      if ( M == 0 ) {
-         return;
-      } else if ( M == N ) {
-         for (I = 1; I <= N; I++) { // 10
-            TAU[I] = ZERO;
-         } // 10
-         return;
-      }
+  for (I = M; I >= 1; I--) {
+    // 20
 
-      for (I = M; I >= 1; I--) { // 20
+    // Generate elementary reflector H(i) to annihilate
+    // [ A(i,i) A(i,n-l+1:n) ]
 
-         // Generate elementary reflector H(i) to annihilate
-         // [ A(i,i) A(i,n-l+1:n) ]
+    zlacgv(L, A(I, N - L + 1).asArray(), LDA);
+    ALPHA.value = A[I][I].conjugate();
+    zlarfg(L + 1, ALPHA, A(I, N - L + 1).asArray(), LDA, TAU(I));
+    TAU[I] = TAU[I].conjugate();
 
-         zlacgv(L, A( I, N-L+1 ), LDA );
-         ALPHA = DCONJG( A( I, I ) );
-         zlarfg(L+1, ALPHA, A( I, N-L+1 ), LDA, TAU( I ) );
-         TAU[I] = DCONJG( TAU( I ) );
+    // Apply H(i) to A(1:i-1,i:n) from the right
 
-         // Apply H(i) to A(1:i-1,i:n) from the right
-
-         zlarz('Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, DCONJG( TAU( I ) ), A( 1, I ), LDA, WORK );
-         A[I][I] = DCONJG( ALPHA );
-
-      } // 20
-
-      }
+    zlarz('Right', I - 1, N - I + 1, L, A(I, N - L + 1).asArray(), LDA,
+        TAU[I].conjugate(), A(1, I), LDA, WORK);
+    A[I][I] = ALPHA.value.conjugate();
+  } // 20
+}

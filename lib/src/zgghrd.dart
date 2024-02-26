@@ -1,130 +1,154 @@
-      void zgghrd(final int COMPQ, final int COMPZ, final int N, final int ILO, final int IHI, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> Q_, final int LDQ, final Matrix<double> Z_, final int LDZ, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final Q = Q_.dim();
-  final Z = Z_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlartg.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zrot.dart';
+
+void zgghrd(
+  final String COMPQ,
+  final String COMPZ,
+  final int N,
+  final int ILO,
+  final int IHI,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> Q_,
+  final int LDQ,
+  final Matrix<Complex> Z_,
+  final int LDZ,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             COMPQ, COMPZ;
-      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N;
-      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final Q = Q_.dim(LDQ);
+  final Z = Z_.dim(LDZ);
+  bool ILQ = false, ILZ = false;
+  int ICOMPQ, ICOMPZ, JCOL, JROW;
+  Complex CTEMP;
+  final S = Box(Complex.zero);
+  final C = Box(0.0);
 
-      Complex         CONE, CZERO;
-      const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
-      bool               ILQ, ILZ;
-      int                ICOMPQ, ICOMPZ, JCOL, JROW;
-      double             C;
-      Complex         CTEMP, S;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZLARTG, ZLASET, ZROT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG, MAX
+  // Decode COMPQ
 
-      // Decode COMPQ
+  if (lsame(COMPQ, 'N')) {
+    ILQ = false;
+    ICOMPQ = 1;
+  } else if (lsame(COMPQ, 'V')) {
+    ILQ = true;
+    ICOMPQ = 2;
+  } else if (lsame(COMPQ, 'I')) {
+    ILQ = true;
+    ICOMPQ = 3;
+  } else {
+    ICOMPQ = 0;
+  }
 
-      if ( lsame( COMPQ, 'N' ) ) {
-         ILQ = false;
-         ICOMPQ = 1;
-      } else if ( lsame( COMPQ, 'V' ) ) {
-         ILQ = true;
-         ICOMPQ = 2;
-      } else if ( lsame( COMPQ, 'I' ) ) {
-         ILQ = true;
-         ICOMPQ = 3;
-      } else {
-         ICOMPQ = 0;
+  // Decode COMPZ
+
+  if (lsame(COMPZ, 'N')) {
+    ILZ = false;
+    ICOMPZ = 1;
+  } else if (lsame(COMPZ, 'V')) {
+    ILZ = true;
+    ICOMPZ = 2;
+  } else if (lsame(COMPZ, 'I')) {
+    ILZ = true;
+    ICOMPZ = 3;
+  } else {
+    ICOMPZ = 0;
+  }
+
+  // Test the input parameters.
+
+  INFO.value = 0;
+  if (ICOMPQ <= 0) {
+    INFO.value = -1;
+  } else if (ICOMPZ <= 0) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (ILO < 1) {
+    INFO.value = -4;
+  } else if (IHI > N || IHI < ILO - 1) {
+    INFO.value = -5;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  } else if ((ILQ && LDQ < N) || LDQ < 1) {
+    INFO.value = -11;
+  } else if ((ILZ && LDZ < N) || LDZ < 1) {
+    INFO.value = -13;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGGHRD', -INFO.value);
+    return;
+  }
+
+  // Initialize Q and Z if desired.
+
+  if (ICOMPQ == 3) zlaset('Full', N, N, Complex.zero, Complex.one, Q, LDQ);
+  if (ICOMPZ == 3) zlaset('Full', N, N, Complex.zero, Complex.one, Z, LDZ);
+
+  // Quick return if possible
+
+  if (N <= 1) return;
+
+  // Zero out lower triangle of B
+
+  for (JCOL = 1; JCOL <= N - 1; JCOL++) {
+    // 20
+    for (JROW = JCOL + 1; JROW <= N; JROW++) {
+      // 10
+      B[JROW][JCOL] = Complex.zero;
+    } // 10
+  } // 20
+
+  // Reduce A and B
+
+  for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) {
+    // 40
+
+    for (JROW = IHI; JROW >= JCOL + 2; JROW--) {
+      // 30
+
+      // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
+
+      CTEMP = A[JROW - 1][JCOL];
+      zlartg(CTEMP, A[JROW][JCOL], C, S, A(JROW - 1, JCOL));
+      A[JROW][JCOL] = Complex.zero;
+      zrot(N - JCOL, A(JROW - 1, JCOL + 1).asArray(), LDA,
+          A(JROW, JCOL + 1).asArray(), LDA, C.value, S.value);
+      zrot(N + 2 - JROW, B(JROW - 1, JROW - 1).asArray(), LDB,
+          B(JROW, JROW - 1).asArray(), LDB, C.value, S.value);
+      if (ILQ) {
+        zrot(N, Q(1, JROW - 1).asArray(), 1, Q(1, JROW).asArray(), 1, C.value,
+            S.value.conjugate());
       }
 
-      // Decode COMPZ
+      // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 
-      if ( lsame( COMPZ, 'N' ) ) {
-         ILZ = false;
-         ICOMPZ = 1;
-      } else if ( lsame( COMPZ, 'V' ) ) {
-         ILZ = true;
-         ICOMPZ = 2;
-      } else if ( lsame( COMPZ, 'I' ) ) {
-         ILZ = true;
-         ICOMPZ = 3;
-      } else {
-         ICOMPZ = 0;
+      CTEMP = B[JROW][JROW];
+      zlartg(CTEMP, B[JROW][JROW - 1], C, S, B(JROW, JROW));
+      B[JROW][JROW - 1] = Complex.zero;
+      zrot(IHI, A(1, JROW).asArray(), 1, A(1, JROW - 1).asArray(), 1, C.value,
+          S.value);
+      zrot(JROW - 1, B(1, JROW).asArray(), 1, B(1, JROW - 1).asArray(), 1,
+          C.value, S.value);
+      if (ILZ) {
+        zrot(N, Z(1, JROW).asArray(), 1, Z(1, JROW - 1).asArray(), 1, C.value,
+            S.value);
       }
-
-      // Test the input parameters.
-
-      INFO = 0;
-      if ( ICOMPQ <= 0 ) {
-         INFO = -1;
-      } else if ( ICOMPZ <= 0 ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( ILO < 1 ) {
-         INFO = -4;
-      } else if ( IHI > N || IHI < ILO-1 ) {
-         INFO = -5;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      } else if ( ( ILQ && LDQ < N ) || LDQ < 1 ) {
-         INFO = -11;
-      } else if ( ( ILZ && LDZ < N ) || LDZ < 1 ) {
-         INFO = -13;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGGHRD', -INFO );
-         return;
-      }
-
-      // Initialize Q and Z if desired.
-
-      if (ICOMPQ == 3) zlaset( 'Full', N, N, CZERO, CONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) zlaset( 'Full', N, N, CZERO, CONE, Z, LDZ );
-
-      // Quick return if possible
-
-      if (N <= 1) return;
-
-      // Zero out lower triangle of B
-
-      for (JCOL = 1; JCOL <= N - 1; JCOL++) { // 20
-         for (JROW = JCOL + 1; JROW <= N; JROW++) { // 10
-            B[JROW][JCOL] = CZERO;
-         } // 10
-      } // 20
-
-      // Reduce A and B
-
-      for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) { // 40
-
-         for (JROW = IHI; JROW >= JCOL + 2; JROW--) { // 30
-
-            // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
-
-            CTEMP = A( JROW-1, JCOL );
-            zlartg(CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
-            A[JROW][JCOL] = CZERO;
-            zrot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
-            zrot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL ZROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, DCONJG( S ) );
-
-            // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
-
-            CTEMP = B( JROW, JROW );
-            zlartg(CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B[JROW][JROW-1] = CZERO;
-            zrot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
-            zrot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL ZROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
-         } // 30
-      } // 40
-
-      }
+    } // 30
+  } // 40
+}

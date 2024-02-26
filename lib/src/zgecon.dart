@@ -1,141 +1,140 @@
-      void zgecon(final int NORM, final int N, final Matrix<double> A_, final int LDA, final int ANORM, final int RCOND, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/disnan.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zdrscl.dart';
+import 'package:lapack/src/zlacn2.dart';
+import 'package:lapack/src/zlatrs.dart';
+
+void zgecon(
+  final String NORM,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final double ANORM,
+  final Box<double> RCOND,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             NORM;
-      int                INFO, LDA, N;
-      double             ANORM, RCOND;
-      double             RWORK( * );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  const ONE = 1.0, ZERO = 0.0;
+  bool ONENRM;
+  String NORMIN;
+  int IX, KASE1;
+  double SCALE, SMLNUM, HUGEVAL;
+  final ISAVE = Array<int>(3);
+  final AINVNM = Box(0.0), SL = Box(0.0), SU = Box(0.0);
+  final KASE = Box(0);
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               ONENRM;
-      String             NORMIN;
-      int                IX, KASE, KASE1;
-      double             AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
-      Complex         ZDUM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame, DISNAN;
-      //- int                IZAMAX;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, IZAMAX, DLAMCH, DISNAN
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDRSCL, ZLACN2, ZLATRS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
-      HUGEVAL = dlamch( 'Overflow' );
+  HUGEVAL = dlamch('Overflow');
 
-      // Test the input parameters.
+  // Test the input parameters.
 
-      INFO = 0;
-      ONENRM = NORM == '1' || lsame( NORM, 'O' );
-      if ( !ONENRM && !lsame( NORM, 'I' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( ANORM < ZERO ) {
-         INFO = -5;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGECON', -INFO );
-         return;
-      }
+  INFO.value = 0;
+  ONENRM = NORM == '1' || lsame(NORM, 'O');
+  if (!ONENRM && !lsame(NORM, 'I')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (ANORM < ZERO) {
+    INFO.value = -5;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGECON', -INFO.value);
+    return;
+  }
 
-      // Quick return if possible
+  // Quick return if possible
 
-      RCOND = ZERO;
-      if ( N == 0 ) {
-         RCOND = ONE;
-         return;
-      } else if ( ANORM == ZERO ) {
-         return;
-      } else if ( disnan( ANORM ) ) {
-         RCOND = ANORM;
-         INFO = -5;
-         return;
-      } else if ( ANORM > HUGEVAL ) {
-         INFO = -5;
-         return;
-      }
+  RCOND.value = ZERO;
+  if (N == 0) {
+    RCOND.value = ONE;
+    return;
+  } else if (ANORM == ZERO) {
+    return;
+  } else if (disnan(ANORM)) {
+    RCOND.value = ANORM;
+    INFO.value = -5;
+    return;
+  } else if (ANORM > HUGEVAL) {
+    INFO.value = -5;
+    return;
+  }
 
-      SMLNUM = dlamch( 'Safe minimum' );
+  SMLNUM = dlamch('Safe minimum');
 
-      // Estimate the norm of inv(A).
+  // Estimate the norm of inv(A).
 
-      AINVNM = ZERO;
-      NORMIN = 'N';
-      if ( ONENRM ) {
-         KASE1 = 1;
-      } else {
-         KASE1 = 2;
-      }
-      KASE = 0;
-      } // 10
-      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
-         if ( KASE == KASE1 ) {
+  AINVNM.value = ZERO;
+  NORMIN = 'N';
+  if (ONENRM) {
+    KASE1 = 1;
+  } else {
+    KASE1 = 2;
+  }
+  KASE.value = 0;
+  while (true) {
+    zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
+    if (KASE.value == KASE1) {
+      // Multiply by inv(L).
 
-            // Multiply by inv(L).
+      zlatrs('Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL,
+          RWORK, INFO);
 
-            zlatrs('Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO );
+      // Multiply by inv(U).
 
-            // Multiply by inv(U).
+      zlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU,
+          RWORK(N + 1), INFO);
+    } else {
+      // Multiply by inv(U**H).
 
-            zlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO );
-         } else {
+      zlatrs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA,
+          WORK, SU, RWORK(N + 1), INFO);
 
-            // Multiply by inv(U**H).
+      // Multiply by inv(L**H).
 
-            zlatrs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO );
+      zlatrs('Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK,
+          SL, RWORK, INFO);
+    }
 
-            // Multiply by inv(L**H).
+    // Divide X by 1/(SL*SU) if doing so will not cause overflow.
 
-            zlatrs('Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO );
-         }
+    SCALE = SL.value * SU.value;
+    NORMIN = 'Y';
+    if (SCALE != ONE) {
+      IX = izamax(N, WORK, 1);
+      if (SCALE < CABS1(WORK[IX]) * SMLNUM || SCALE == ZERO) return;
+      zdrscl(N, SCALE, WORK, 1);
+    }
+  }
 
-         // Divide X by 1/(SL*SU) if doing so will not cause overflow.
+  // Compute the estimate of the reciprocal condition number.
 
-         SCALE = SL*SU;
-         NORMIN = 'Y';
-         if ( SCALE != ONE ) {
-            IX = IZAMAX( N, WORK, 1 );
-            if( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
-            zdrscl(N, SCALE, WORK, 1 );
-         }
-         GO TO 10;
-      }
+  if (AINVNM.value != ZERO) {
+    RCOND.value = (ONE / AINVNM.value) / ANORM;
+  } else {
+    INFO.value = 1;
+    return;
+  }
 
-      // Compute the estimate of the reciprocal condition number.
+  // Check for NaNs and Infs
 
-      if ( AINVNM != ZERO ) {
-         RCOND = ( ONE / AINVNM ) / ANORM;
-      } else {
-         INFO = 1;
-         return;
-      }
-
-      // Check for NaNs and Infs
-
-      if( disnan( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
-
-      } // 20
-      }
+  if (disnan(RCOND.value) || RCOND.value > HUGEVAL) INFO.value = 1;
+}

@@ -1,4 +1,6 @@
-      void zlahef_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> W_, final int LDW, final Box<int> INFO,) {
+      import 'package:lapack/src/complex.dart';
+
+void zlahef_rook(final int UPLO, final int N, final int NB, final int KB, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> W_, final int LDW, final Box<int> INFO,) {
   final A = A_.dim();
   final IPIV = IPIV_.dim();
   final W = W_.dim();

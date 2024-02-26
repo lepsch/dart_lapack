@@ -37,7 +37,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
+      double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
 
       RESULT[1] = ZERO;
       RESULT[2] = ZERO;

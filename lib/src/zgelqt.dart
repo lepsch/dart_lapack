@@ -1,59 +1,83 @@
-      void zgelqt(final int M, final int N, final int MB, final Matrix<double> A_, final int LDA, final Matrix<double> T_, final int LDT, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final T = T_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgelqt3.dart';
+import 'package:lapack/src/zlarfb.dart';
+
+void zgelqt(
+  final int M,
+  final int N,
+  final int MB,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int     INFO, LDA, LDT, M, N, MB;
-      Complex A( LDA, * ), T( LDT, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final T = T_.dim(LDT);
+  final WORK = WORK_.dim();
+  int I, IB, K;
+  final IINFO = Box(0);
 
-// =====================================================================
+  // Test the input arguments
 
-      int        I, IB, IINFO, K;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGELQT3, ZLARFB, XERBLA
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (MB < 1 || (MB > min(M, N) && min(M, N) > 0)) {
+    INFO.value = -3;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -5;
+  } else if (LDT < MB) {
+    INFO.value = -7;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGELQT', -INFO.value);
+    return;
+  }
 
-      // Test the input arguments
+  // Quick return if possible
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( MB < 1 || (MB > min(M,N) && min(M,N) > 0 )) {
-         INFO = -3;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -5;
-      } else if ( LDT < MB ) {
-         INFO = -7;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGELQT', -INFO );
-         return;
-      }
+  K = min(M, N);
+  if (K == 0) return;
 
-      // Quick return if possible
+  // Blocked loop of length K
 
-      K = min( M, N );
-      if (K == 0) return;
+  for (I = 1; MB < 0 ? I >= K : I <= K; I += MB) {
+    IB = min(K - I + 1, MB);
 
-      // Blocked loop of length K
+    // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
 
-      for (I = 1; MB < 0 ? I >= K : I <= K; I += MB) {
-         IB = min( K-I+1, MB );
-
-      // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
-
-         zgelqt3(IB, N-I+1, A(I,I), LDA, T(1,I), LDT, IINFO );
-         if ( I+IB <= M ) {
-
+    zgelqt3(IB, N - I + 1, A(I, I), LDA, T(1, I), LDT, IINFO);
+    if (I + IB <= M) {
       // Update by applying H**T to A(I:M,I+IB:N) from the right
 
-         zlarfb('R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 );
-         }
-      }
-      }
+      zlarfb(
+          'R',
+          'N',
+          'F',
+          'R',
+          M - I - IB + 1,
+          N - I + 1,
+          IB,
+          A(I, I),
+          LDA,
+          T(1, I),
+          LDT,
+          A(I + IB, I),
+          LDA,
+          WORK.asMatrix(M - I - IB + 1),
+          M - I - IB + 1);
+    }
+  }
+}

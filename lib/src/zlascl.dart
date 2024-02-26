@@ -20,11 +20,10 @@ void zlascl(
   final int LDA,
   final Box<int> INFO,
 ) {
-  final A = A_.dim(LDA);
-
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  final A = A_.dim(LDA);
   const ZERO = 0.0, ONE = 1.0;
   bool DONE;
   int I, ITYPE, J, K1, K2, K3, K4;

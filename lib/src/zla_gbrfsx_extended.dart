@@ -39,7 +39,7 @@ void zla_gbrfsx_extended(
   final Array<double> AYB_,
   final Array<Complex> DY_,
   final Array<Complex> Y_TAIL_,
-  final int RCOND,
+  final double RCOND,
   final int ITHRESH,
   final double RTHRESH,
   final double DZ_UB,
