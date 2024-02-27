@@ -1,74 +1,72 @@
-      void zlaqhe(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int S, final int SCOND, final int AMAX, final int EQUED,) {
-  final A = A_.dim();
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zlaqhe(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> S_,
+  final double SCOND,
+  final double AMAX,
+  final Box<String> EQUED,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             EQUED, UPLO;
-      int                LDA, N;
-      double             AMAX, SCOND;
-      double             S( * );
-      Complex         A( LDA, * );
-      // ..
+  final A = A_.dim(LDA);
+  final S = S_.dim();
+  const ONE = 1.0, THRESH = 0.1;
+  int I, J;
+  double CJ, LARGE, SMALL;
 
-      double             ONE, THRESH;
-      const              ONE = 1.0, THRESH = 0.1 ;
-      int                I, J;
-      double             CJ, LARGE, SMALL;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 0) {
+    EQUED.value = 'N';
+    return;
+  }
 
-      if ( N <= 0 ) {
-         EQUED = 'N';
-         return;
-      }
+  // Initialize LARGE and SMALL.
 
-      // Initialize LARGE and SMALL.
+  SMALL = dlamch('Safe minimum') / dlamch('Precision');
+  LARGE = ONE / SMALL;
 
-      SMALL = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
-      LARGE = ONE / SMALL;
+  if (SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE) {
+    // No equilibration
 
-      if ( SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
+    EQUED.value = 'N';
+  } else {
+    // Replace A by diag(S) * A * diag(S).
 
-         // No equilibration
+    if (lsame(UPLO, 'U')) {
+      // Upper triangle of A is stored.
 
-         EQUED = 'N';
-      } else {
+      for (J = 1; J <= N; J++) {
+        // 20
+        CJ = S[J];
+        for (I = 1; I <= J - 1; I++) {
+          // 10
+          A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
+        } // 10
+        A[J][J] = (CJ * CJ * (A[J][J]).toDouble()).toComplex();
+      } // 20
+    } else {
+      // Lower triangle of A is stored.
 
-         // Replace A by diag(S) * A * diag(S).
-
-         if ( lsame( UPLO, 'U' ) ) {
-
-            // Upper triangle of A is stored.
-
-            for (J = 1; J <= N; J++) { // 20
-               CJ = S( J );
-               for (I = 1; I <= J - 1; I++) { // 10
-                  A[I][J] = CJ*S( I )*A( I, J );
-               } // 10
-               A[J][J] = CJ*CJ*(A( J, J )).toDouble();
-            } // 20
-         } else {
-
-            // Lower triangle of A is stored.
-
-            for (J = 1; J <= N; J++) { // 40
-               CJ = S( J );
-               A[J][J] = CJ*CJ*(A( J, J )).toDouble();
-               for (I = J + 1; I <= N; I++) { // 30
-                  A[I][J] = CJ*S( I )*A( I, J );
-               } // 30
-            } // 40
-         }
-         EQUED = 'Y';
-      }
-
-      }
+      for (J = 1; J <= N; J++) {
+        // 40
+        CJ = S[J];
+        A[J][J] = (CJ * CJ * (A[J][J]).toDouble()).toComplex();
+        for (I = J + 1; I <= N; I++) {
+          // 30
+          A[I][J] = (CJ * S[I]).toComplex() * A[I][J];
+        } // 30
+      } // 40
+    }
+    EQUED.value = 'Y';
+  }
+}

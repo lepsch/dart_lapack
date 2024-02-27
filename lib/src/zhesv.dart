@@ -1,65 +1,59 @@
-      void zhesv(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final WORK = WORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhetrf.dart';
+import 'package:lapack/src/zhetrs.dart';
+import 'package:lapack/src/zhetrs2.dart';
+
+void zhesv(final String UPLO, final int N, final int NRHS,
+      final Matrix<Complex> A_, final int LDA, final Array<int> IPIV_,
+      final Matrix<Complex> B_, final int LDB, final Array<Complex> WORK_,
+      final int LWORK, final Box<int> INFO,) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LDB, LWORK, N, NRHS;
-      int                IPIV( * );
-      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
       bool               LQUERY;
-      int                LWKOPT, NB;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZHETRF, ZHETRS, ZHETRS2
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+      int                LWKOPT=0, NB;
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       LQUERY = ( LWORK == -1 );
       if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -10;
+         INFO.value = -10;
       }
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
          if ( N == 0 ) {
             LWKOPT = 1;
          } else {
             NB = ilaenv( 1, 'ZHETRF', UPLO, N, -1, -1, -1 );
             LWKOPT = N*NB;
          }
-         WORK[1] = LWKOPT;
+         WORK[1] = LWKOPT.toComplex();
       }
 
-      if ( INFO != 0 ) {
-         xerbla('ZHESV ', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZHESV ', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -67,8 +61,8 @@
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-      zhetrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO == 0 ) {
+      zhetrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO);
+      if ( INFO.value == 0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
@@ -76,7 +70,7 @@
 
          // Solve with TRS ( Use Level BLAS 2)
 
-            zhetrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+            zhetrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO);
 
          } else {
 
@@ -88,6 +82,6 @@
 
       }
 
-      WORK[1] = LWKOPT;
+      WORK[1] = LWKOPT.toComplex();
 
       }

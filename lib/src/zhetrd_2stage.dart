@@ -1,97 +1,111 @@
-      void zhetrd_2stage(final int VECT, final int UPLO, final int N, final Matrix<double> A_, final int LDA, final int D, final int E, final int TAU, final int HOUS2, final int LHOUS2, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhetrd_hb2st.dart';
+import 'package:lapack/src/zhetrd_he2hb.dart';
+
+void zhetrd_2stage(
+  final String VECT,
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Array<Complex> TAU_,
+  final Array<Complex> HOUS2_,
+  final int LHOUS2,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             VECT, UPLO;
-      int                N, LDA, LWORK, LHOUS2, INFO;
-      double             D( * ), E( * );
-      Complex         A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final TAU = TAU_.dim();
+  final HOUS2 = HOUS2_.dim();
+  final WORK = WORK_.dim();
+  final D = D_.dim();
+  final E = E_.dim();
+  bool LQUERY, UPPER;
+  int KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 
-// =====================================================================
-      bool               LQUERY, UPPER, WANTQ;
-      int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZHETRD_HE2HB, ZHETRD_HB2ST
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV2STAGE;
-      // EXTERNAL lsame, ILAENV2STAGE
+  // Test the input parameters
 
-      // Test the input parameters
+  INFO.value = 0;
+  // WANTQ = lsame(VECT, 'V');
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1) || (LHOUS2 == -1);
 
-      INFO   = 0;
-      WANTQ  = lsame( VECT, 'V' );
-      UPPER  = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 ) || ( LHOUS2 == -1 );
+  // Determine the block size, the workspace size and the hous size.
 
-      // Determine the block size, the workspace size and the hous size.
+  KD = ilaenv2stage(1, 'ZHETRD_2STAGE', VECT, N, -1, -1, -1);
+  IB = ilaenv2stage(2, 'ZHETRD_2STAGE', VECT, N, KD, -1, -1);
+  if (N == 0) {
+    LHMIN = 1;
+    LWMIN = 1;
+  } else {
+    LHMIN = ilaenv2stage(3, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1);
+    LWMIN = ilaenv2stage(4, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1);
+  }
 
-      KD     = ILAENV2STAGE( 1, 'ZHETRD_2STAGE', VECT, N, -1, -1, -1 );
-      IB     = ILAENV2STAGE( 2, 'ZHETRD_2STAGE', VECT, N, KD, -1, -1 );
-      if ( N == 0 ) {
-         LHMIN = 1;
-         LWMIN = 1;
-      } else {
-         LHMIN = ILAENV2STAGE( 3, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1 );
-         LWMIN = ILAENV2STAGE( 4, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1 );
-      }
+  if (!lsame(VECT, 'N')) {
+    INFO.value = -1;
+  } else if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LHOUS2 < LHMIN && !LQUERY) {
+    INFO.value = -10;
+  } else if (LWORK < LWMIN && !LQUERY) {
+    INFO.value = -12;
+  }
 
-      if ( !lsame( VECT, 'N' ) ) {
-         INFO = -1;
-      } else if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LHOUS2 < LHMIN && !LQUERY ) {
-         INFO = -10;
-      } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -12;
-      }
+  if (INFO.value == 0) {
+    HOUS2[1] = LHMIN.toComplex();
+    WORK[1] = LWMIN.toComplex();
+  }
 
-      if ( INFO == 0 ) {
-         HOUS2[1] = LHMIN;
-         WORK[1] = LWMIN;
-      }
+  if (INFO.value != 0) {
+    xerbla('ZHETRD_2STAGE', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('ZHETRD_2STAGE', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) {
+    WORK[1] = Complex.one;
+    return;
+  }
 
-      if ( N == 0 ) {
-         WORK[1] = 1;
-         return;
-      }
+  // Determine pointer position
 
-      // Determine pointer position
+  LDAB = KD + 1;
+  LWRK = LWORK - LDAB * N;
+  ABPOS = 1;
+  WPOS = ABPOS + LDAB * N;
+  zhetrd_he2hb(UPLO, N, KD, A, LDA, WORK(ABPOS).asMatrix(LDAB), LDAB, TAU,
+      WORK(WPOS), LWRK, INFO);
+  if (INFO.value != 0) {
+    xerbla('ZHETRD_HE2HB', -INFO.value);
+    return;
+  }
+  zhetrd_hb2st('Y', VECT, UPLO, N, KD, WORK(ABPOS).asMatrix(LDAB), LDAB, D, E,
+      HOUS2, LHOUS2, WORK(WPOS), LWRK, INFO);
+  if (INFO.value != 0) {
+    xerbla('ZHETRD_HB2ST', -INFO.value);
+    return;
+  }
 
-      LDAB  = KD+1;
-      LWRK  = LWORK-LDAB*N;
-      ABPOS = 1;
-      WPOS  = ABPOS + LDAB*N;
-      zhetrd_he2hb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
-      if ( INFO != 0 ) {
-         xerbla('ZHETRD_HE2HB', -INFO );
-         return;
-      }
-      zhetrd_hb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
-      if ( INFO != 0 ) {
-         xerbla('ZHETRD_HB2ST', -INFO );
-         return;
-      }
-
-
-      WORK[1] = LWMIN;
-      }
+  WORK[1] = LWMIN.toComplex();
+}

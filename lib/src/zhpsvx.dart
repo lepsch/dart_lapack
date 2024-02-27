@@ -1,94 +1,110 @@
-      void zhpsvx(final int FACT, final int UPLO, final int N, final int NRHS, final int AP, final int AFP, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhpcon.dart';
+import 'package:lapack/src/zhprfs.dart';
+import 'package:lapack/src/zhptrf.dart';
+import 'package:lapack/src/zhptrs.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlanhp.dart';
+
+void zhpsvx(
+  final String FACT,
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Array<Complex> AP_,
+  final Array<Complex> AFP_,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Box<double> RCOND,
+  final Array<double> FERR_,
+  final Array<double> BERR_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             FACT, UPLO;
-      int                INFO, LDB, LDX, N, NRHS;
-      double             RCOND;
-      int                IPIV( * );
-      double             BERR( * ), FERR( * ), RWORK( * );
-      Complex         AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
-      // ..
+  final IPIV = IPIV_.dim();
+  final AP = AP_.dim();
+  final AFP = AFP_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final FERR = FERR_.dim();
+  final BERR = BERR_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  const ZERO = 0.0;
+  bool NOFACT;
+  double ANORM;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      bool               NOFACT;
-      double             ANORM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANHP;
-      // EXTERNAL lsame, DLAMCH, ZLANHP
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZCOPY, ZHPCON, ZHPRFS, ZHPTRF, ZHPTRS, ZLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  NOFACT = lsame(FACT, 'N');
+  if (!NOFACT && !lsame(FACT, 'F')) {
+    INFO.value = -1;
+  } else if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (NRHS < 0) {
+    INFO.value = -4;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  } else if (LDX < max(1, N)) {
+    INFO.value = -11;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZHPSVX', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      NOFACT = lsame( FACT, 'N' );
-      if ( !NOFACT && !lsame( FACT, 'F' ) ) {
-         INFO = -1;
-      } else if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( NRHS < 0 ) {
-         INFO = -4;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      } else if ( LDX < max( 1, N ) ) {
-         INFO = -11;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZHPSVX', -INFO );
-         return;
-      }
+  if (NOFACT) {
+    // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-      if ( NOFACT ) {
+    zcopy(N * (N + 1) ~/ 2, AP, 1, AFP, 1);
+    zhptrf(UPLO, N, AFP, IPIV, INFO);
 
-         // Compute the factorization A = U*D*U**H or A = L*D*L**H.
+    // Return if INFO is non-zero.
 
-         zcopy(N*( N+1 ) / 2, AP, 1, AFP, 1 );
-         zhptrf(UPLO, N, AFP, IPIV, INFO );
+    if (INFO.value > 0) {
+      RCOND.value = ZERO;
+      return;
+    }
+  }
 
-         // Return if INFO is non-zero.
+  // Compute the norm of the matrix A.
 
-         if ( INFO > 0 ) {
-            RCOND = ZERO;
-            return;
-         }
-      }
+  ANORM = zlanhp('I', UPLO, N, AP, RWORK);
 
-      // Compute the norm of the matrix A.
+  // Compute the reciprocal of the condition number of A.
 
-      ANORM = ZLANHP( 'I', UPLO, N, AP, RWORK );
+  zhpcon(UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, INFO);
 
-      // Compute the reciprocal of the condition number of A.
+  // Compute the solution vectors X.
 
-      zhpcon(UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, INFO );
+  zlacpy('Full', N, NRHS, B, LDB, X, LDX);
+  zhptrs(UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO);
 
-      // Compute the solution vectors X.
+  // Use iterative refinement to improve the computed solutions and
+  // compute error bounds and backward error estimates for them.
 
-      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
-      zhptrs(UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO );
+  zhprfs(UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK,
+      INFO);
 
-      // Use iterative refinement to improve the computed solutions and
-      // compute error bounds and backward error estimates for them.
+  // Set INFO.value = N+1 if the matrix is singular to working precision.
 
-      zhprfs(UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
-
-      // Set INFO = N+1 if the matrix is singular to working precision.
-
-      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
-
-      }
+  if (RCOND.value < dlamch('Epsilon')) INFO.value = N + 1;
+}

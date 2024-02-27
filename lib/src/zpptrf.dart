@@ -1,101 +1,99 @@
-      void zpptrf(final int UPLO, final int N, final int AP, final Box<int> INFO,) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/blas/zhpr.dart';
+import 'package:lapack/src/blas/ztpsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void zpptrf(
+  final String UPLO,
+  final int N,
+  final Array<Complex> AP_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, N;
-      Complex         AP( * );
-      // ..
+  final AP = AP_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  bool UPPER;
+  int J, JC, JJ;
+  double AJJ;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      bool               UPPER;
-      int                J, JC, JJ;
-      double             AJJ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- Complex         ZDOTC;
-      // EXTERNAL lsame, ZDOTC
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDSCAL, ZHPR, ZTPSV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZPPTRF', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
+  // Quick return if possible
+
+  if (N == 0) return;
+
+  if (UPPER) {
+    // Compute the Cholesky factorization A = U**H * U.
+
+    JJ = 0;
+    for (J = 1; J <= N; J++) {
+      // 10
+      JC = JJ + 1;
+      JJ = JJ + J;
+
+      // Compute elements 1:J-1 of column J.
+
+      if (J > 1) {
+        ztpsv('Upper', 'Conjugate transpose', 'Non-unit', J - 1, AP, AP(JC), 1);
       }
-      if ( INFO != 0 ) {
-         xerbla('ZPPTRF', -INFO );
-         return;
+
+      // Compute U(J,J) and test for non-positive-definiteness.
+
+      AJJ = AP[JJ].toDouble() - zdotc(J - 1, AP(JC), 1, AP(JC), 1).toDouble();
+      if (AJJ <= ZERO) {
+        AP[JJ] = AJJ.toComplex();
+        INFO.value = J;
+        return;
       }
+      AP[JJ] = sqrt(AJJ).toComplex();
+    } // 10
+  } else {
+    // Compute the Cholesky factorization A = L * L**H.
 
-      // Quick return if possible
+    JJ = 1;
+    for (J = 1; J <= N; J++) {
+      // 20
 
-      if (N == 0) return;
+      // Compute L(J,J) and test for non-positive-definiteness.
 
-      if ( UPPER ) {
-
-         // Compute the Cholesky factorization A = U**H * U.
-
-         JJ = 0;
-         for (J = 1; J <= N; J++) { // 10
-            JC = JJ + 1;
-            JJ = JJ + J;
-
-            // Compute elements 1:J-1 of column J.
-
-            if (J > 1) ztpsv( 'Upper', 'Conjugate transpose', 'Non-unit', J-1, AP, AP( JC ), 1 );
-
-            // Compute U(J,J) and test for non-positive-definiteness.
-
-            AJJ = (AP( JJ )).toDouble() - DBLE( ZDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
-            if ( AJJ <= ZERO ) {
-               AP[JJ] = AJJ;
-               GO TO 30;
-            }
-            AP[JJ] = sqrt( AJJ );
-         } // 10
-      } else {
-
-         // Compute the Cholesky factorization A = L * L**H.
-
-         JJ = 1;
-         for (J = 1; J <= N; J++) { // 20
-
-            // Compute L(J,J) and test for non-positive-definiteness.
-
-            AJJ = (AP( JJ )).toDouble();
-            if ( AJJ <= ZERO ) {
-               AP[JJ] = AJJ;
-               GO TO 30;
-            }
-            AJJ = sqrt( AJJ );
-            AP[JJ] = AJJ;
-
-            // Compute elements J+1:N of column J and update the trailing
-            // submatrix.
-
-            if ( J < N ) {
-               zdscal(N-J, ONE / AJJ, AP( JJ+1 ), 1 );
-               zhpr('Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) );
-               JJ = JJ + N - J + 1;
-            }
-         } // 20
+      AJJ = AP[JJ].toDouble();
+      if (AJJ <= ZERO) {
+        AP[JJ] = AJJ.toComplex();
+        INFO.value = J;
+        return;
       }
-      GO TO 40;
+      AJJ = sqrt(AJJ);
+      AP[JJ] = AJJ.toComplex();
 
-      } // 30
-      INFO = J;
+      // Compute elements J+1:N of column J and update the trailing
+      // submatrix.
 
-      } // 40
+      if (J < N) {
+        zdscal(N - J, ONE / AJJ, AP(JJ + 1), 1);
+        zhpr('Lower', N - J, -ONE, AP(JJ + 1), 1, AP(JJ + N - J + 1));
+        JJ = JJ + N - J + 1;
       }
+    } // 20
+  }
+}

@@ -1,139 +1,147 @@
-      void ztplqt2(final int M, final int N, final int L, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> T_, final int LDT, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final T = T_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zgerc.dart';
+import 'package:lapack/src/blas/ztrmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlarfg.dart';
+
+void ztplqt2(
+  final int M,
+  final int N,
+  final int L,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Box<int> INFO,
+) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final T = T_.dim(LDT);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int            INFO, LDA, LDB, LDT, N, M, L;
-      Complex     A( LDA, * ), B( LDB, * ), T( LDT, * );
-      // ..
+  int I, J, P, MP, NP;
+  Complex ALPHA;
 
-      Complex  ONE, ZERO;
-      const    ZERO = ( 0.0, 0.0 ),ONE  = ( 1.0, 0.0 ) ;
-      int       I, J, P, MP, NP;
-      Complex   ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (L < 0 || L > min(M, N)) {
+    INFO.value = -3;
+  } else if (LDA < max(1, M)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, M)) {
+    INFO.value = -7;
+  } else if (LDT < max(1, M)) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZTPLQT2', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( L < 0 || L > min(M,N) ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, M ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, M ) ) {
-         INFO = -7;
-      } else if ( LDT < max( 1, M ) ) {
-         INFO = -9;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZTPLQT2', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0 || M == 0) return;
 
-      if (N == 0 || M == 0) return;
+  for (I = 1; I <= M; I++) {
+    // Generate elementary reflector H(I) to annihilate B(I,:)
 
-      for (I = 1; I <= M; I++) {
-
-         // Generate elementary reflector H(I) to annihilate B(I,:)
-
-         P = N-L+min( L, I );
-         zlarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
-         T(1,I)=CONJG(T(1,I));
-         if ( I < M ) {
-            for (J = 1; J <= P; J++) {
-               B[I][J] = CONJG(B(I,J));
-            }
-
-            // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
-
-            for (J = 1; J <= M-I; J++) {
-               T[M][J] = (A( I+J, I ));
-            }
-            zgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
-
-            // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
-
-            ALPHA = -(T( 1, I ));
-            for (J = 1; J <= M-I; J++) {
-               A[I+J][I] = A( I+J, I ) + ALPHA*(T( M, J ));
-            }
-            zgerc(M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
-            for (J = 1; J <= P; J++) {
-               B[I][J] = CONJG(B(I,J));
-            }
-         }
+    P = N - L + min(L, I);
+    zlarfg(P + 1, A(I, I), B(I, 1).asArray(), LDB, T(1, I));
+    T[1][I] = T[1][I].conjugate();
+    if (I < M) {
+      for (J = 1; J <= P; J++) {
+        B[I][J] = B[I][J].conjugate();
       }
 
-      for (I = 2; I <= M; I++) {
+      // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 
-         // T(I,1:I-1) := C(I:I-1,1:N)**H * (alpha * C(I,I:N))
-
-         ALPHA = -(T( 1, I ));
-         for (J = 1; J <= I-1; J++) {
-            T[I][J] = ZERO;
-         }
-         P = min( I-1, L );
-         NP = min( N-L+1, N );
-         MP = min( P+1, M );
-         for (J = 1; J <= N-L+P; J++) {
-           B(I,J)=CONJG(B(I,J));
-         }
-
-         // Triangular part of B2
-
-         for (J = 1; J <= P; J++) {
-            T[I][J] = (ALPHA*B( I, N-L+J ));
-         }
-         ztrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
-
-         // Rectangular part of B2
-
-         zgemv('N', I-1-P, L,  ALPHA, B( MP, NP ), LDB, B( I, NP ), LDB, ZERO, T( I,MP ), LDT );
-
-         // B1
-
-
-         zgemv('N', I-1, N-L, ALPHA, B, LDB, B( I, 1 ), LDB, ONE, T( I, 1 ), LDT );
-
-
-
-         // T(1:I-1,I) := T(1:I-1,1:I-1) * T(I,1:I-1)
-
-         for (J = 1; J <= I-1; J++) {
-            T(I,J)=CONJG(T(I,J));
-         }
-         ztrmv('L', 'C', 'N', I-1, T, LDT, T( I, 1 ), LDT );
-         for (J = 1; J <= I-1; J++) {
-            T(I,J)=CONJG(T(I,J));
-         }
-         for (J = 1; J <= N-L+P; J++) {
-            B(I,J)=CONJG(B(I,J));
-         }
-
-         // T(I,I) = tau(I)
-
-         T[I][I] = T( 1, I );
-         T[1][I] = ZERO;
+      for (J = 1; J <= M - I; J++) {
+        T[M][J] = A[I + J][I];
       }
-      for (I = 1; I <= M; I++) {
-         for (J = I+1; J <= M; J++) {
-            T(I,J)=(T(J,I));
-            T(J,I)=ZERO;
-         }
-      }
+      zgemv('N', M - I, P, Complex.one, B(I + 1, 1), LDB, B(I, 1).asArray(),
+          LDB, Complex.one, T(M, 1).asArray(), LDT);
 
+      // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
+
+      ALPHA = -T[1][I];
+      for (J = 1; J <= M - I; J++) {
+        A[I + J][I] = A[I + J][I] + ALPHA * T[M][J];
       }
+      zgerc(M - I, P, (ALPHA), T(M, 1).asArray(), LDT, B(I, 1).asArray(), LDB,
+          B(I + 1, 1), LDB);
+      for (J = 1; J <= P; J++) {
+        B[I][J] = B[I][J].conjugate();
+      }
+    }
+  }
+
+  for (I = 2; I <= M; I++) {
+    // T(I,1:I-1) := C(I:I-1,1:N)**H * (alpha * C(I,I:N))
+
+    ALPHA = -(T[1][I]);
+    for (J = 1; J <= I - 1; J++) {
+      T[I][J] = Complex.zero;
+    }
+    P = min(I - 1, L);
+    NP = min(N - L + 1, N);
+    MP = min(P + 1, M);
+    for (J = 1; J <= N - L + P; J++) {
+      B[I][J] = B[I][J].conjugate();
+    }
+
+    // Triangular part of B2
+
+    for (J = 1; J <= P; J++) {
+      T[I][J] = (ALPHA * B[I][N - L + J]);
+    }
+    ztrmv('L', 'N', 'N', P, B(1, NP), LDB, T(I, 1).asArray(), LDT);
+
+    // Rectangular part of B2
+
+    zgemv('N', I - 1 - P, L, ALPHA, B(MP, NP), LDB, B(I, NP).asArray(), LDB,
+        Complex.zero, T(I, MP).asArray(), LDT);
+
+    // B1
+
+    zgemv('N', I - 1, N - L, ALPHA, B, LDB, B(I, 1).asArray(), LDB, Complex.one,
+        T(I, 1).asArray(), LDT);
+
+    // T(1:I-1,I) := T(1:I-1,1:I-1) * T(I,1:I-1)
+
+    for (J = 1; J <= I - 1; J++) {
+      T[I][J] = T[I][J].conjugate();
+    }
+    ztrmv('L', 'C', 'N', I - 1, T, LDT, T(I, 1).asArray(), LDT);
+    for (J = 1; J <= I - 1; J++) {
+      T[I][J] = T[I][J].conjugate();
+    }
+    for (J = 1; J <= N - L + P; J++) {
+      B[I][J] = B[I][J].conjugate();
+    }
+
+    // T(I,I) = tau(I)
+
+    T[I][I] = T[1][I];
+    T[1][I] = Complex.zero;
+  }
+  for (I = 1; I <= M; I++) {
+    for (J = I + 1; J <= M; J++) {
+      T[I][J] = T[J][I];
+      T[J][I] = Complex.zero;
+    }
+  }
+}

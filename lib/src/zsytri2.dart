@@ -1,34 +1,28 @@
-      void zsytri2(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zsytri.dart';
+import 'package:lapack/src/zsytri2x.dart';
+
+      void zsytri2(final String UPLO, final int N, final Matrix<Complex> A_, final int LDA, final Array<int> IPIV_,
+      final Array<Complex> WORK_, final int LWORK, final Box<int> INFO,) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
       bool               UPPER, LQUERY;
       int                MINSIZE, NBMAX;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZSYTRI, ZSYTRI2X, XERBLA
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       UPPER = lsame( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
       // Get blocksize
@@ -40,30 +34,30 @@
       }
 
       if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if (LWORK < MINSIZE && !LQUERY ) {
-         INFO = -7;
+         INFO.value = -7;
       }
 
       // Quick return if possible
 
 
-      if ( INFO != 0 ) {
-         xerbla('ZSYTRI2', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZSYTRI2', -INFO.value );
          return;
       } else if ( LQUERY ) {
-         WORK(1)=MINSIZE;
+         WORK[1]=MINSIZE.toComplex();
          return;
       }
       if (N == 0) return;
 
       if ( NBMAX >= N ) {
-         zsytri(UPLO, N, A, LDA, IPIV, WORK, INFO );
+         zsytri(UPLO, N, A, LDA, IPIV, WORK.asMatrix(), INFO );
       } else {
-         zsytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
+         zsytri2x(UPLO, N, A, LDA, IPIV, WORK.asMatrix(), NBMAX, INFO );
       }
       }

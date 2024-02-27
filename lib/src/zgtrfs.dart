@@ -1,237 +1,275 @@
-      void zgtrfs(final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DLF, final int DF, final int DUF, final int DU2, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgttrs.dart';
+import 'package:lapack/src/zlacn2.dart';
+import 'package:lapack/src/zlagtm.dart';
+
+void zgtrfs(
+  final String TRANS,
+  final int N,
+  final int NRHS,
+  final Array<Complex> DL_,
+  final Array<Complex> D_,
+  final Array<Complex> DU_,
+  final Array<Complex> DLF_,
+  final Array<Complex> DF_,
+  final Array<Complex> DUF_,
+  final Array<Complex> DU2_,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Array<double> FERR_,
+  final Array<double> BERR_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANS;
-      int                INFO, LDB, LDX, N, NRHS;
-      int                IPIV( * );
-      double             BERR( * ), FERR( * ), RWORK( * );
-      Complex         B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * );
-      // ..
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final DL = DL_.dim();
+  final D = D_.dim();
+  final DU = DU_.dim();
+  final DLF = DLF_.dim();
+  final DF = DF_.dim();
+  final DUF = DUF_.dim();
+  final DU2 = DU2_.dim();
+  final FERR = FERR_.dim();
+  final BERR = BERR_.dim();
+  const ITMAX = 5;
+  const ZERO = 0.0, ONE = 1.0;
+  const TWO = 2.0;
+  const THREE = 3.0;
+  bool NOTRAN;
+  String TRANSN, TRANST;
+  int COUNT = 0, I, J, NZ;
+  double EPS, LSTRES = 0, S, SAFE1, SAFE2, SAFMIN;
+  final ISAVE = Array<int>(3);
+  final KASE = Box(0);
 
-      int                ITMAX;
-      const              ITMAX = 5 ;
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             TWO;
-      const              TWO = 2.0 ;
-      double             THREE;
-      const              THREE = 3.0 ;
-      bool               NOTRAN;
-      String             TRANSN, TRANST;
-      int                COUNT, I, J, KASE, NZ;
-      double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
-      Complex         ZDUM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZAXPY, ZCOPY, ZGTTRS, ZLACN2, ZLAGTM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, MAX
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, DLAMCH
-      // ..
-      // .. Statement Functions ..
-      double             CABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
-      // Test the input parameters.
+  // Test the input parameters.
 
-      INFO = 0;
-      NOTRAN = lsame( TRANS, 'N' );
-      if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -13;
-      } else if ( LDX < max( 1, N ) ) {
-         INFO = -15;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZGTRFS', -INFO );
-         return;
-      }
+  INFO.value = 0;
+  NOTRAN = lsame(TRANS, 'N');
+  if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -13;
+  } else if (LDX < max(1, N)) {
+    INFO.value = -15;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZGTRFS', -INFO.value);
+    return;
+  }
 
-      // Quick return if possible
+  // Quick return if possible
 
-      if ( N == 0 || NRHS == 0 ) {
-         for (J = 1; J <= NRHS; J++) { // 10
-            FERR[J] = ZERO;
-            BERR[J] = ZERO;
-         } // 10
-         return;
-      }
+  if (N == 0 || NRHS == 0) {
+    for (J = 1; J <= NRHS; J++) {
+      // 10
+      FERR[J] = ZERO;
+      BERR[J] = ZERO;
+    } // 10
+    return;
+  }
 
-      if ( NOTRAN ) {
-         TRANSN = 'N';
-         TRANST = 'C';
+  if (NOTRAN) {
+    TRANSN = 'N';
+    TRANST = 'C';
+  } else {
+    TRANSN = 'C';
+    TRANST = 'N';
+  }
+
+  // NZ = maximum number of nonzero elements in each row of A, plus 1
+
+  NZ = 4;
+  EPS = dlamch('Epsilon');
+  SAFMIN = dlamch('Safe minimum');
+  SAFE1 = NZ * SAFMIN;
+  SAFE2 = SAFE1 / EPS;
+
+  // Do for each right hand side
+
+  for (J = 1; J <= NRHS; J++) {
+    // 110
+
+    COUNT = 1;
+    LSTRES = THREE;
+    while (true) {
+      // Loop until stopping criterion is satisfied.
+
+      // Compute residual R = B - op(A) * X,
+      // where op(A) = A, A**T, or A**H, depending on TRANS.
+
+      zcopy(N, B(1, J).asArray(), 1, WORK, 1);
+      zlagtm(
+          TRANS, N, 1, -ONE, DL, D, DU, X(1, J), LDX, ONE, WORK.asMatrix(N), N);
+
+      // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
+      // error bound.
+
+      if (NOTRAN) {
+        if (N == 1) {
+          RWORK[1] = CABS1(B[1][J]) + CABS1(D[1]) * CABS1(X[1][J]);
+        } else {
+          RWORK[1] = CABS1(B[1][J]) +
+              CABS1(D[1]) * CABS1(X[1][J]) +
+              CABS1(DU[1]) * CABS1(X[2][J]);
+          for (I = 2; I <= N - 1; I++) {
+            // 30
+            RWORK[I] = CABS1(B[I][J]) +
+                CABS1(DL[I - 1]) * CABS1(X[I - 1][J]) +
+                CABS1(D[I]) * CABS1(X[I][J]) +
+                CABS1(DU[I]) * CABS1(X[I + 1][J]);
+          } // 30
+          RWORK[N] = CABS1(B[N][J]) +
+              CABS1(DL[N - 1]) * CABS1(X[N - 1][J]) +
+              CABS1(D[N]) * CABS1(X[N][J]);
+        }
       } else {
-         TRANSN = 'C';
-         TRANST = 'N';
+        if (N == 1) {
+          RWORK[1] = CABS1(B[1][J]) + CABS1(D[1]) * CABS1(X[1][J]);
+        } else {
+          RWORK[1] = CABS1(B[1][J]) +
+              CABS1(D[1]) * CABS1(X[1][J]) +
+              CABS1(DL[1]) * CABS1(X[2][J]);
+          for (I = 2; I <= N - 1; I++) {
+            // 40
+            RWORK[I] = CABS1(B[I][J]) +
+                CABS1(DU[I - 1]) * CABS1(X[I - 1][J]) +
+                CABS1(D[I]) * CABS1(X[I][J]) +
+                CABS1(DL[I]) * CABS1(X[I + 1][J]);
+          } // 40
+          RWORK[N] = CABS1(B[N][J]) +
+              CABS1(DU[N - 1]) * CABS1(X[N - 1][J]) +
+              CABS1(D[N]) * CABS1(X[N][J]);
+        }
       }
 
-      // NZ = maximum number of nonzero elements in each row of A, plus 1
+      // Compute componentwise relative backward error from formula
 
-      NZ = 4;
-      EPS = dlamch( 'Epsilon' );
-      SAFMIN = dlamch( 'Safe minimum' );
-      SAFE1 = NZ*SAFMIN;
-      SAFE2 = SAFE1 / EPS;
+      // max(i) ( abs(R(i)) / ( abs(op(A))*abs(X) + abs(B) )(i) )
 
-      // Do for each right hand side
+      // where abs(Z) is the componentwise absolute value of the matrix
+      // or vector Z.  If the i-th component of the denominator is less
+      // than SAFE2, then SAFE1 is added to the i-th components of the
+      // numerator and denominator before dividing.
 
-      for (J = 1; J <= NRHS; J++) { // 110
+      S = ZERO;
+      for (I = 1; I <= N; I++) {
+        // 50
+        if (RWORK[I] > SAFE2) {
+          S = max(S, CABS1(WORK[I]) / RWORK[I]);
+        } else {
+          S = max(S, (CABS1(WORK[I]) + SAFE1) / (RWORK[I] + SAFE1));
+        }
+      } // 50
+      BERR[J] = S;
 
-         COUNT = 1;
-         LSTRES = THREE;
-         } // 20
+      // Test stopping criterion. Continue iterating if
+      //    1) The residual BERR(J) is larger than machine epsilon, and
+      //    2) BERR(J) decreased by at least a factor of 2 during the
+      //       last iteration, and
+      //    3) At most ITMAX iterations tried.
 
-         // Loop until stopping criterion is satisfied.
+      if (BERR[J] > EPS && TWO * BERR[J] <= LSTRES && COUNT <= ITMAX) {
+        // Update solution and try again.
 
-         // Compute residual R = B - op(A) * X,
-         // where op(A) = A, A**T, or A**H, depending on TRANS.
-
-         zcopy(N, B( 1, J ), 1, WORK, 1 );
-         zlagtm(TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK, N );
-
-         // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
-         // error bound.
-
-         if ( NOTRAN ) {
-            if ( N == 1 ) {
-               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
-            } else {
-               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) );
-               for (I = 2; I <= N - 1; I++) { // 30
-                  RWORK[I] = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) );
-               } // 30
-               RWORK[N] = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
-            }
-         } else {
-            if ( N == 1 ) {
-               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) );
-            } else {
-               RWORK[1] = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) );
-               for (I = 2; I <= N - 1; I++) { // 40
-                  RWORK[I] = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) );
-               } // 40
-               RWORK[N] = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) );
-            }
-         }
-
-         // Compute componentwise relative backward error from formula
-
-         // max(i) ( abs(R(i)) / ( abs(op(A))*abs(X) + abs(B) )(i) )
-
-         // where abs(Z) is the componentwise absolute value of the matrix
-         // or vector Z.  If the i-th component of the denominator is less
-         // than SAFE2, then SAFE1 is added to the i-th components of the
-         // numerator and denominator before dividing.
-
-         S = ZERO;
-         for (I = 1; I <= N; I++) { // 50
-            if ( RWORK( I ) > SAFE2 ) {
-               S = max( S, CABS1( WORK( I ) ) / RWORK( I ) );
-            } else {
-               S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
-            }
-         } // 50
-         BERR[J] = S;
-
-         // Test stopping criterion. Continue iterating if
-         //    1) The residual BERR(J) is larger than machine epsilon, and
-         //    2) BERR(J) decreased by at least a factor of 2 during the
-         //       last iteration, and
-         //    3) At most ITMAX iterations tried.
-
-         if ( BERR( J ) > EPS && TWO*BERR( J ) <= LSTRES && COUNT <= ITMAX ) {
-
-            // Update solution and try again.
-
-            zgttrs(TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
-            zaxpy(N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 );
-            LSTRES = BERR( J );
-            COUNT = COUNT + 1;
-            GO TO 20;
-         }
-
-         // Bound error from formula
-
-         // norm(X - XTRUE) / norm(X) <= FERR =
-         // norm( abs(inv(op(A)))*
-         //    ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
-
-         // where
-         //   norm(Z) is the magnitude of the largest component of Z
-         //   inv(op(A)) is the inverse of op(A)
-         //   abs(Z) is the componentwise absolute value of the matrix or
-         //      vector Z
-         //   NZ is the maximum number of nonzeros in any row of A, plus 1
-         //   EPS is machine epsilon
-
-         // The i-th component of abs(R)+NZ*EPS*(abs(op(A))*abs(X)+abs(B))
-         // is incremented by SAFE1 if the i-th component of
-         // abs(op(A))*abs(X) + abs(B) is less than SAFE2.
-
-         // Use ZLACN2 to estimate the infinity-norm of the matrix
-         //    inv(op(A)) * diag(W),
-         // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
-
-         for (I = 1; I <= N; I++) { // 60
-            if ( RWORK( I ) > SAFE2 ) {
-               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
-            } else {
-               RWORK[I] = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
-            }
-         } // 60
-
-         KASE = 0;
-         } // 70
-         zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
-         if ( KASE != 0 ) {
-            if ( KASE == 1 ) {
-
-               // Multiply by diag(W)*inv(op(A)**H).
-
-               zgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
-               for (I = 1; I <= N; I++) { // 80
-                  WORK[I] = RWORK( I )*WORK( I );
-               } // 80
-            } else {
-
-               // Multiply by inv(op(A))*diag(W).
-
-               for (I = 1; I <= N; I++) { // 90
-                  WORK[I] = RWORK( I )*WORK( I );
-               } // 90
-               zgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
-            }
-            GO TO 70;
-         }
-
-         // Normalize error.
-
-         LSTRES = ZERO;
-         for (I = 1; I <= N; I++) { // 100
-            LSTRES = max( LSTRES, CABS1( X( I, J ) ) );
-         } // 100
-         if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
-
-      } // 110
-
+        zgttrs(TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK.asMatrix(N), N, INFO);
+        zaxpy(N, Complex.one, WORK, 1, X(1, J).asArray(), 1);
+        LSTRES = BERR[J];
+        COUNT = COUNT + 1;
+        continue;
       }
+      break;
+    }
+
+    // Bound error from formula
+
+    // norm(X - XTRUE) / norm(X) <= FERR =
+    // norm( abs(inv(op(A)))*
+    //    ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
+
+    // where
+    //   norm(Z) is the magnitude of the largest component of Z
+    //   inv(op(A)) is the inverse of op(A)
+    //   abs(Z) is the componentwise absolute value of the matrix or
+    //      vector Z
+    //   NZ is the maximum number of nonzeros in any row of A, plus 1
+    //   EPS is machine epsilon
+
+    // The i-th component of abs(R)+NZ*EPS*(abs(op(A))*abs(X)+abs(B))
+    // is incremented by SAFE1 if the i-th component of
+    // abs(op(A))*abs(X) + abs(B) is less than SAFE2.
+
+    // Use ZLACN2 to estimate the infinity-norm of the matrix
+    //    inv(op(A)) * diag(W),
+    // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
+
+    for (I = 1; I <= N; I++) {
+      // 60
+      if (RWORK[I] > SAFE2) {
+        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I];
+      } else {
+        RWORK[I] = CABS1(WORK[I]) + NZ * EPS * RWORK[I] + SAFE1;
+      }
+    } // 60
+
+    KASE.value = 0;
+    while (true) {
+      zlacn2(N, WORK(N + 1), WORK, FERR(J), KASE, ISAVE);
+      if (KASE.value == 0) break;
+      if (KASE.value == 1) {
+        // Multiply by diag(W)*inv(op(A)**H).
+
+        zgttrs(
+            TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK.asMatrix(N), N, INFO);
+        for (I = 1; I <= N; I++) {
+          // 80
+          WORK[I] = RWORK[I].toComplex() * WORK[I];
+        } // 80
+      } else {
+        // Multiply by inv(op(A))*diag(W).
+
+        for (I = 1; I <= N; I++) {
+          // 90
+          WORK[I] = RWORK[I].toComplex() * WORK[I];
+        } // 90
+        zgttrs(
+            TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK.asMatrix(N), N, INFO);
+      }
+    }
+
+    // Normalize error.
+
+    LSTRES = ZERO;
+    for (I = 1; I <= N; I++) {
+      // 100
+      LSTRES = max(LSTRES, CABS1(X[I][J]));
+    } // 100
+    if (LSTRES != ZERO) FERR[J] = FERR[J] / LSTRES;
+  } // 110
+}

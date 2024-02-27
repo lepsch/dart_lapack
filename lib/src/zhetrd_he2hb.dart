@@ -1,216 +1,356 @@
-      void zhetrd_he2hb(final int UPLO, final int N, final int KD, final Matrix<double> A_, final int LDA, final Matrix<double> AB_, final int LDAB, final int TAU, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final AB = AB_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zhemm.dart';
+import 'package:lapack/src/blas/zher2k.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgelqf.dart';
+import 'package:lapack/src/zlarft.dart';
+import 'package:lapack/src/zlaset.dart';
+
+void zhetrd_he2hb(
+  final String UPLO,
+  final int N,
+  final int KD,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> AB_,
+  final int LDAB,
+  final Array<Complex> TAU_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
+  final A = A_.dim(LDA);
+  final AB = AB_.dim(LDAB);
+  final TAU = TAU_.dim();
   final WORK = WORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LDAB, LWORK, N, KD;
-      Complex         A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
-      // ..
+  const RONE = 1.0, HALF = Complex(0.5, 0.0);
+  bool LQUERY, UPPER;
+  int I,
+      J,
+      LWMIN,
+      PN,
+      PK,
+      LK,
+      LDT,
+      LDW,
+      LDS2,
+      LDS1,
+      LS2,
+      LS1,
+      LW,
+      LT,
+      TPOS,
+      WPOS,
+      S2POS,
+      S1POS;
+  final IINFO = Box(0);
 
-      double             RONE;
-      Complex         ZERO, ONE, HALF;
-      const              RONE = 1.0, ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      bool               LQUERY, UPPER;
-      int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZHER2K, ZHEMM, ZGEMM, ZCOPY, ZLARFT, ZGELQF, ZGEQRF, ZLASET
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN, MAX
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV2STAGE;
-      // EXTERNAL lsame, ILAENV2STAGE
+  // Determine the minimal workspace size required
+  // and test the input parameters
 
-      // Determine the minimal workspace size required
-      // and test the input parameters
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1);
+  if (N <= KD + 1) {
+    LWMIN = 1;
+  } else {
+    LWMIN = ilaenv2stage(4, 'ZHETRD_HE2HB', '', N, KD, -1, -1);
+  }
 
-      INFO   = 0;
-      UPPER  = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 );
-      if ( N <= KD+1 ) {
-         LWMIN = 1;
-      } else {
-         LWMIN = ILAENV2STAGE( 4, 'ZHETRD_HE2HB', '', N, KD, -1, -1 );
-      }
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KD < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDAB < max(1, KD + 1)) {
+    INFO.value = -7;
+  } else if (LWORK < LWMIN && !LQUERY) {
+    INFO.value = -10;
+  }
 
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KD < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDAB < max( 1, KD+1 ) ) {
-         INFO = -7;
-      } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -10;
-      }
+  if (INFO.value != 0) {
+    xerbla('ZHETRD_HE2HB', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    WORK[1] = LWMIN.toComplex();
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('ZHETRD_HE2HB', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         WORK[1] = LWMIN;
-         return;
-      }
+  // Quick return if possible
+  // Copy the upper/lower portion of A into AB
 
-      // Quick return if possible
-      // Copy the upper/lower portion of A into AB
+  if (N <= KD + 1) {
+    if (UPPER) {
+      for (I = 1; I <= N; I++) {
+        // 100
+        LK = min(KD + 1, I);
+        zcopy(LK, A(I - LK + 1, I).asArray(), 1,
+            AB(KD + 1 - LK + 1, I).asArray(), 1);
+      } // 100
+    } else {
+      for (I = 1; I <= N; I++) {
+        // 110
+        LK = min(KD + 1, N - I + 1);
+        zcopy(LK, A(I, I).asArray(), 1, AB(1, I).asArray(), 1);
+      } // 110
+    }
+    WORK[1] = Complex.one;
+    return;
+  }
 
-      if ( N <= KD+1 ) {
-          if ( UPPER ) {
-              for (I = 1; I <= N; I++) { // 100
-                  LK = min( KD+1, I );
-                  zcopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
-              } // 100
-          } else {
-              for (I = 1; I <= N; I++) { // 110
-                  LK = min( KD+1, N-I+1 );
-                  zcopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
-              } // 110
-          }
-          WORK[1] = 1;
-          return;
-      }
+  // Determine the pointer position for the workspace
 
-      // Determine the pointer position for the workspace
+  LDT = KD;
+  LDS1 = KD;
+  LT = LDT * KD;
+  LW = N * KD;
+  LS1 = LDS1 * KD;
+  LS2 = LWMIN - LT - LW - LS1;
+  // LS2 = N*max(KD,FACTOPTNB)
+  TPOS = 1;
+  WPOS = TPOS + LT;
+  S1POS = WPOS + LW;
+  S2POS = S1POS + LS1;
+  if (UPPER) {
+    LDW = KD;
+    LDS2 = KD;
+  } else {
+    LDW = N;
+    LDS2 = N;
+  }
 
-      LDT    = KD;
-      LDS1   = KD;
-      LT     = LDT*KD;
-      LW     = N*KD;
-      LS1    = LDS1*KD;
-      LS2    = LWMIN - LT - LW - LS1;
-       // LS2 = N*max(KD,FACTOPTNB)
-      TPOS   = 1;
-      WPOS   = TPOS  + LT;
-      S1POS  = WPOS  + LW;
-      S2POS  = S1POS + LS1;
-      if ( UPPER ) {
-          LDW    = KD;
-          LDS2   = KD;
-      } else {
-          LDW    = N;
-          LDS2   = N;
-      }
+  // Set the workspace of the triangular matrix T to zero once such a
+  // way every time T is generated the upper/lower portion will be always zero
 
+  zlaset(
+      'A', LDT, KD, Complex.zero, Complex.zero, WORK(TPOS).asMatrix(LDT), LDT);
 
-      // Set the workspace of the triangular matrix T to zero once such a
-      // way every time T is generated the upper/lower portion will be always zero
+  if (UPPER) {
+    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+      // 10
+      PN = N - I - KD + 1;
+      PK = min(N - I - KD + 1, KD);
 
-      zlaset("A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT );
+      // Compute the LQ factorization of the current block
 
-      if ( UPPER ) {
-          for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) { // 10
-             PN = N-I-KD+1;
-             PK = min( N-I-KD+1, KD );
+      zgelqf(KD, PN, A(I, I + KD), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
-             // Compute the LQ factorization of the current block
+      // Copy the upper portion of A into AB
 
-             zgelqf(KD, PN, A( I, I+KD ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO );
+      for (J = I; J <= I + PK - 1; J++) {
+        // 20
+        LK = min(KD, N - J) + 1;
+        zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
+      } // 20
 
-             // Copy the upper portion of A into AB
+      zlaset('Lower', PK, PK, Complex.zero, Complex.one, A(I, I + KD), LDA);
 
-             for (J = I; J <= I+PK-1; J++) { // 20
-                LK = min( KD, N-J ) + 1;
-                zcopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
-             } // 20
+      // Form the matrix T
 
-             zlaset('Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA );
+      zlarft('Forward', 'Rowwise', PN, PK, A(I, I + KD), LDA, TAU(I),
+          WORK(TPOS).asMatrix(LDT), LDT);
 
-             // Form the matrix T
+      // Compute W:
 
-             zlarft('Forward', 'Rowwise', PN, PK, A( I, I+KD ), LDA, TAU( I ), WORK( TPOS ), LDT );
+      zgemm(
+          'Conjugate',
+          'No transpose',
+          PK,
+          PN,
+          PK,
+          Complex.one,
+          WORK(TPOS).asMatrix(LDT),
+          LDT,
+          A(I, I + KD),
+          LDA,
+          Complex.zero,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2);
 
-             // Compute W:
+      zhemm(
+          'Right',
+          UPLO,
+          PK,
+          PN,
+          Complex.one,
+          A(I + KD, I + KD),
+          LDA,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2,
+          Complex.zero,
+          WORK(WPOS).asMatrix(LDW),
+          LDW);
 
-             zgemm('Conjugate', 'No transpose', PK, PN, PK, ONE,  WORK( TPOS ), LDT, A( I, I+KD ), LDA, ZERO, WORK( S2POS ), LDS2 );
+      zgemm(
+          'No transpose',
+          'Conjugate',
+          PK,
+          PK,
+          PN,
+          Complex.one,
+          WORK(WPOS).asMatrix(LDW),
+          LDW,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2,
+          Complex.zero,
+          WORK(S1POS).asMatrix(LDS1),
+          LDS1);
 
-             zhemm('Right', UPLO, PK, PN, ONE,  A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW );
+      zgemm(
+          'No transpose',
+          'No transpose',
+          PK,
+          PN,
+          PK,
+          -HALF,
+          WORK(S1POS).asMatrix(LDS1),
+          LDS1,
+          A(I, I + KD),
+          LDA,
+          Complex.one,
+          WORK(WPOS).asMatrix(LDW),
+          LDW);
 
-             zgemm('No transpose', 'Conjugate', PK, PK, PN, ONE,  WORK( WPOS ), LDW, WORK( S2POS ), LDS2, ZERO, WORK( S1POS ), LDS1 );
+      // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
+      // an update of the form:  A := A - V'*W - W'*V
 
-             zgemm('No transpose', 'No transpose', PK, PN, PK, -HALF, WORK( S1POS ), LDS1, A( I, I+KD ), LDA, ONE,   WORK( WPOS ), LDW );
+      zher2k(UPLO, 'Conjugate', PN, PK, -Complex.one, A(I, I + KD), LDA,
+          WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
+    } // 10
 
+    // Copy the upper band to AB which is the band storage matrix
 
-             // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
-             // an update of the form:  A := A - V'*W - W'*V
+    for (J = N - KD + 1; J <= N; J++) {
+      // 30
+      LK = min(KD, N - J) + 1;
+      zcopy(LK, A(J, J).asArray(), LDA, AB(KD + 1, J).asArray(), LDAB - 1);
+    } // 30
+  } else {
+    // Reduce the lower triangle of A to lower band matrix
 
-             zher2k(UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
-          } // 10
+    for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) {
+      // 40
+      PN = N - I - KD + 1;
+      PK = min(N - I - KD + 1, KD);
 
-         // Copy the upper band to AB which is the band storage matrix
+      // Compute the QR factorization of the current block
 
-         for (J = N-KD+1; J <= N; J++) { // 30
-            LK = min(KD, N-J) + 1;
-            zcopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
-         } // 30
+      zgeqrf(PN, KD, A(I + KD, I), LDA, TAU(I), WORK(S2POS), LS2, IINFO);
 
-      } else {
+      // Copy the upper portion of A into AB
 
-          // Reduce the lower triangle of A to lower band matrix
+      for (J = I; J <= I + PK - 1; J++) {
+        // 50
+        LK = min(KD, N - J) + 1;
+        zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
+      } // 50
 
-          for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) { // 40
-             PN = N-I-KD+1;
-             PK = min( N-I-KD+1, KD );
+      zlaset('Upper', PK, PK, Complex.zero, Complex.one, A(I + KD, I), LDA);
 
-             // Compute the QR factorization of the current block
+      // Form the matrix T
 
-             zgeqrf(PN, KD, A( I+KD, I ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO );
+      zlarft('Forward', 'Columnwise', PN, PK, A(I + KD, I), LDA, TAU(I),
+          WORK(TPOS).asMatrix(LDT), LDT);
 
-             // Copy the upper portion of A into AB
+      // Compute W:
 
-             for (J = I; J <= I+PK-1; J++) { // 50
-                LK = min( KD, N-J ) + 1;
-                zcopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
-             } // 50
+      zgemm(
+          'No transpose',
+          'No transpose',
+          PN,
+          PK,
+          PK,
+          Complex.one,
+          A(I + KD, I),
+          LDA,
+          WORK(TPOS).asMatrix(LDT),
+          LDT,
+          Complex.zero,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2);
 
-             zlaset('Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA );
+      zhemm(
+          'Left',
+          UPLO,
+          PN,
+          PK,
+          Complex.one,
+          A(I + KD, I + KD),
+          LDA,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2,
+          Complex.zero,
+          WORK(WPOS).asMatrix(LDW),
+          LDW);
 
-             // Form the matrix T
+      zgemm(
+          'Conjugate',
+          'No transpose',
+          PK,
+          PK,
+          PN,
+          Complex.one,
+          WORK(S2POS).asMatrix(LDS2),
+          LDS2,
+          WORK(WPOS).asMatrix(LDW),
+          LDW,
+          Complex.zero,
+          WORK(S1POS).asMatrix(LDS1),
+          LDS1);
 
-             zlarft('Forward', 'Columnwise', PN, PK, A( I+KD, I ), LDA, TAU( I ), WORK( TPOS ), LDT );
+      zgemm(
+          'No transpose',
+          'No transpose',
+          PN,
+          PK,
+          PK,
+          -HALF,
+          A(I + KD, I),
+          LDA,
+          WORK(S1POS).asMatrix(LDS1),
+          LDS1,
+          Complex.one,
+          WORK(WPOS).asMatrix(LDW),
+          LDW);
 
-             // Compute W:
+      // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
+      // an update of the form:  A := A - V*W' - W*V'
 
-             zgemm('No transpose', 'No transpose', PN, PK, PK, ONE, A( I+KD, I ), LDA, WORK( TPOS ), LDT, ZERO, WORK( S2POS ), LDS2 );
+      zher2k(UPLO, 'No transpose', PN, PK, -Complex.one, A(I + KD, I), LDA,
+          WORK(WPOS).asMatrix(LDW), LDW, RONE, A(I + KD, I + KD), LDA);
+      // ==================================================================
+      // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
+      //  DO 45 J = I, I+PK-1
+      //     LK = min( KD, N-J ) + 1
+      //     CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
+      // 45        CONTINUE
+      // ==================================================================
+    } // 40
 
-             zhemm('Left', UPLO, PN, PK, ONE, A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW );
+    // Copy the lower band to AB which is the band storage matrix
 
-             zgemm('Conjugate', 'No transpose', PK, PK, PN, ONE, WORK( S2POS ), LDS2, WORK( WPOS ), LDW, ZERO, WORK( S1POS ), LDS1 );
+    for (J = N - KD + 1; J <= N; J++) {
+      // 60
+      LK = min(KD, N - J) + 1;
+      zcopy(LK, A(J, J).asArray(), 1, AB(1, J).asArray(), 1);
+    } // 60
+  }
 
-             zgemm('No transpose', 'No transpose', PN, PK, PK, -HALF, A( I+KD, I ), LDA, WORK( S1POS ), LDS1, ONE, WORK( WPOS ), LDW );
-
-
-             // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
-             // an update of the form:  A := A - V*W' - W*V'
-
-             zher2k(UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
-             // ==================================================================
-             // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
-             //  DO 45 J = I, I+PK-1
-             //     LK = min( KD, N-J ) + 1
-             //     CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
-// 45        CONTINUE
-             // ==================================================================
-          } // 40
-
-         // Copy the lower band to AB which is the band storage matrix
-
-         for (J = N-KD+1; J <= N; J++) { // 60
-            LK = min(KD, N-J) + 1;
-            zcopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
-         } // 60
-
-      }
-
-      WORK[1] = LWMIN;
-      }
+  WORK[1] = LWMIN.toComplex();
+}

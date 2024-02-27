@@ -1,167 +1,148 @@
-      void zhetrf(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhetf2.dart';
+import 'package:lapack/src/zlahef.dart';
+
+void zhetrf(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
+  bool LQUERY, UPPER;
+  int IWS, J, K, LDWORK, LWKOPT = 0, NB = 0, NBMIN;
+  final IINFO = Box(0), KB = Box(0);
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               LQUERY, UPPER;
-      int                IINFO, IWS, J, K, KB, LDWORK, LWKOPT, NB, NBMIN;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZHETF2, ZLAHEF
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1);
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LWORK < 1 && !LQUERY) {
+    INFO.value = -7;
+  }
 
-      // Test the input parameters.
+  if (INFO.value == 0) {
+    // Determine the block size
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -7;
-      }
+    NB = ilaenv(1, 'ZHETRF', UPLO, N, -1, -1, -1);
+    LWKOPT = max(1, N * NB);
+    WORK[1] = LWKOPT.toComplex();
+  }
 
-      if ( INFO == 0 ) {
+  if (INFO.value != 0) {
+    xerbla('ZHETRF', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-         // Determine the block size
+  NBMIN = 2;
+  LDWORK = N;
+  if (NB > 1 && NB < N) {
+    IWS = LDWORK * NB;
+    if (LWORK < IWS) {
+      NB = max(LWORK ~/ LDWORK, 1);
+      NBMIN = max(2, ilaenv(2, 'ZHETRF', UPLO, N, -1, -1, -1));
+    }
+  } else {
+    IWS = 1;
+  }
+  if (NB < NBMIN) NB = N;
 
-         NB = ilaenv( 1, 'ZHETRF', UPLO, N, -1, -1, -1 );
-         LWKOPT = max( 1, N*NB );
-         WORK[1] = LWKOPT;
-      }
+  if (UPPER) {
+    // Factorize A as U*D*U**H using the upper triangle of A
 
-      if ( INFO != 0 ) {
-         xerbla('ZHETRF', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+    // K is the main loop index, decreasing from N to 1 in steps of
+    // KB.value, where KB.value is the number of columns factorized by ZLAHEF;
+    // KB.value is either NB or NB-1, or K for the last block
 
-      NBMIN = 2;
-      LDWORK = N;
-      if ( NB > 1 && NB < N ) {
-         IWS = LDWORK*NB;
-         if ( LWORK < IWS ) {
-            NB = max( LWORK / LDWORK, 1 );
-            NBMIN = max( 2, ilaenv( 2, 'ZHETRF', UPLO, N, -1, -1, -1 ) );
-         }
+    K = N;
+    while (K >= 1) {
+      if (K > NB) {
+        // Factorize columns k-kb+1:k of A and use blocked code to
+        // update columns 1:k-kb
+
+        zlahef(UPLO, K, NB, KB, A, LDA, IPIV, WORK.asMatrix(), N, IINFO);
       } else {
-         IWS = 1;
+        // Use unblocked code to factorize columns 1:k of A
+
+        zhetf2(UPLO, K, A, LDA, IPIV, IINFO);
+        KB.value = K;
       }
-      if (NB < NBMIN) NB = N;
 
-      if ( UPPER ) {
+      // Set INFO.value on the first occurrence of a zero pivot
 
-         // Factorize A as U*D*U**H using the upper triangle of A
+      if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value;
 
-         // K is the main loop index, decreasing from N to 1 in steps of
-         // KB, where KB is the number of columns factorized by ZLAHEF;
-         // KB is either NB or NB-1, or K for the last block
+      // Decrease K and return to the start of the main loop
 
-         K = N;
-         } // 10
+      K = K - KB.value;
+    }
+  } else {
+    // Factorize A as L*D*L**H using the lower triangle of A
 
-         // If K < 1, exit from loop
+    // K is the main loop index, increasing from 1 to N in steps of
+    // KB.value, where KB.value is the number of columns factorized by ZLAHEF;
+    // KB.value is either NB or NB-1, or N-K+1 for the last block
 
-         if (K < 1) GO TO 40;
+    K = 1;
+    while (K <= N) {
+      if (K <= N - NB) {
+        // Factorize columns k:k+kb-1 of A and use blocked code to
+        // update columns k+kb:n
 
-         if ( K > NB ) {
-
-            // Factorize columns k-kb+1:k of A and use blocked code to
-            // update columns 1:k-kb
-
-            zlahef(UPLO, K, NB, KB, A, LDA, IPIV, WORK, N, IINFO );
-         } else {
-
-            // Use unblocked code to factorize columns 1:k of A
-
-            zhetf2(UPLO, K, A, LDA, IPIV, IINFO );
-            KB = K;
-         }
-
-         // Set INFO on the first occurrence of a zero pivot
-
-         if (INFO == 0 && IINFO > 0) INFO = IINFO;
-
-         // Decrease K and return to the start of the main loop
-
-         K = K - KB;
-         GO TO 10;
-
+        zlahef(UPLO, N - K + 1, NB, KB, A(K, K), LDA, IPIV(K), WORK.asMatrix(),
+            N, IINFO);
       } else {
+        // Use unblocked code to factorize columns k:n of A
 
-         // Factorize A as L*D*L**H using the lower triangle of A
-
-         // K is the main loop index, increasing from 1 to N in steps of
-         // KB, where KB is the number of columns factorized by ZLAHEF;
-         // KB is either NB or NB-1, or N-K+1 for the last block
-
-         K = 1;
-         } // 20
-
-         // If K > N, exit from loop
-
-         if (K > N) GO TO 40;
-
-         if ( K <= N-NB ) {
-
-            // Factorize columns k:k+kb-1 of A and use blocked code to
-            // update columns k+kb:n
-
-            zlahef(UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, N, IINFO );
-         } else {
-
-            // Use unblocked code to factorize columns k:n of A
-
-            zhetf2(UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO );
-            KB = N - K + 1;
-         }
-
-         // Set INFO on the first occurrence of a zero pivot
-
-         if (INFO == 0 && IINFO > 0) INFO = IINFO + K - 1;
-
-         // Adjust IPIV
-
-         for (J = K; J <= K + KB - 1; J++) { // 30
-            if ( IPIV( J ) > 0 ) {
-               IPIV[J] = IPIV( J ) + K - 1;
-            } else {
-               IPIV[J] = IPIV( J ) - K + 1;
-            }
-         } // 30
-
-         // Increase K and return to the start of the main loop
-
-         K = K + KB;
-         GO TO 20;
-
+        zhetf2(UPLO, N - K + 1, A(K, K), LDA, IPIV(K), IINFO);
+        KB.value = N - K + 1;
       }
 
-      } // 40
+      // Set INFO.value on the first occurrence of a zero pivot
 
-      WORK[1] = LWKOPT;
-      }
+      if (INFO.value == 0 && IINFO.value > 0) INFO.value = IINFO.value + K - 1;
+
+      // Adjust IPIV
+
+      for (J = K; J <= K + KB.value - 1; J++) {
+        // 30
+        if (IPIV[J] > 0) {
+          IPIV[J] = IPIV[J] + K - 1;
+        } else {
+          IPIV[J] = IPIV[J] - K + 1;
+        }
+      } // 30
+
+      // Increase K and return to the start of the main loop
+
+      K = K + KB.value;
+    }
+  }
+
+  WORK[1] = LWKOPT.toComplex();
+}

@@ -1,74 +1,75 @@
-      void zhetri2(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhetri.dart';
+import 'package:lapack/src/zhetri2x.dart';
+
+void zhetri2(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LWORK, N;
-      int                IPIV( * );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final WORK = WORK_.dim();
+  bool UPPER, LQUERY;
+  int MINSIZE, NBMAX;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               UPPER, LQUERY;
-      int                MINSIZE, NBMAX;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZHETRI2X, ZHETRI, XERBLA
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  LQUERY = (LWORK == -1);
 
-      // Test the input parameters.
+  // Get blocksize
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      LQUERY = ( LWORK == -1 );
+  NBMAX = ilaenv(1, 'ZHETRF', UPLO, N, -1, -1, -1);
+  if (N == 0) {
+    MINSIZE = 1;
+  } else if (NBMAX >= N) {
+    MINSIZE = N;
+  } else {
+    MINSIZE = (N + NBMAX + 1) * (NBMAX + 3);
+  }
 
-      // Get blocksize
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LWORK < MINSIZE && !LQUERY) {
+    INFO.value = -7;
+  }
 
-      NBMAX = ilaenv( 1, 'ZHETRF', UPLO, N, -1, -1, -1 );
-      if ( N == 0 ) {
-         MINSIZE = 1;
-      } else if ( NBMAX >= N ) {
-         MINSIZE = N;
-      } else {
-         MINSIZE = (N+NBMAX+1)*(NBMAX+3);
-      }
+  if (INFO.value != 0) {
+    xerbla('ZHETRI2', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    WORK[1] = MINSIZE.toComplex();
+    return;
+  }
 
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LWORK < MINSIZE && !LQUERY ) {
-         INFO = -7;
-      }
+  // Quick return if possible
 
-      if ( INFO != 0 ) {
-         xerbla('ZHETRI2', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         WORK[1] = MINSIZE;
-         return;
-      }
+  if (N == 0) return;
 
-      // Quick return if possible
-
-      if (N == 0) return;
-
-      if ( NBMAX >= N ) {
-         zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO );
-      } else {
-         zhetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
-      }
-
-      }
+  if (NBMAX >= N) {
+    zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO);
+  } else {
+    zhetri2x(UPLO, N, A, LDA, IPIV, WORK.asMatrix(), NBMAX, INFO);
+  }
+}

@@ -1,85 +1,88 @@
-      void zpbtrs(final int UPLO, final int N, final int KD, final int NRHS, final Matrix<double> AB_, final int LDAB, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final AB = AB_.dim();
-  final B = B_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/ztbsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void zpbtrs(
+  final String UPLO,
+  final int N,
+  final int KD,
+  final int NRHS,
+  final Matrix<Complex> AB_,
+  final int LDAB,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, KD, LDAB, LDB, N, NRHS;
-      Complex         AB( LDAB, * ), B( LDB, * );
-      // ..
+  final AB = AB_.dim(LDAB);
+  final B = B_.dim(LDB);
+  bool UPPER;
+  int J;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               UPPER;
-      int                J;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZTBSV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KD < 0) {
+    INFO.value = -3;
+  } else if (NRHS < 0) {
+    INFO.value = -4;
+  } else if (LDAB < KD + 1) {
+    INFO.value = -6;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZPBTRS', -INFO.value);
+    return;
+  }
 
-      // Test the input parameters.
+  // Quick return if possible
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KD < 0 ) {
-         INFO = -3;
-      } else if ( NRHS < 0 ) {
-         INFO = -4;
-      } else if ( LDAB < KD+1 ) {
-         INFO = -6;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZPBTRS', -INFO );
-         return;
-      }
+  if (N == 0 || NRHS == 0) return;
 
-      // Quick return if possible
+  if (UPPER) {
+    // Solve A*X = B where A = U**H *U.
 
-      if (N == 0 || NRHS == 0) return;
+    for (J = 1; J <= NRHS; J++) {
+      // 10
 
-      if ( UPPER ) {
+      // Solve U**H *X = B, overwriting B with X.
 
-         // Solve A*X = B where A = U**H *U.
+      ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB,
+          B(1, J).asArray(), 1);
 
-         for (J = 1; J <= NRHS; J++) { // 10
+      // Solve U*X = B, overwriting B with X.
 
-            // Solve U**H *X = B, overwriting B with X.
+      ztbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB,
+          B(1, J).asArray(), 1);
+    } // 10
+  } else {
+    // Solve A*X = B where A = L*L**H.
 
-            ztbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
+    for (J = 1; J <= NRHS; J++) {
+      // 20
 
-            // Solve U*X = B, overwriting B with X.
+      // Solve L*X = B, overwriting B with X.
 
-            ztbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
-         } // 10
-      } else {
+      ztbsv('Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB,
+          B(1, J).asArray(), 1);
 
-         // Solve A*X = B where A = L*L**H.
+      // Solve L**H *X = B, overwriting B with X.
 
-         for (J = 1; J <= NRHS; J++) { // 20
-
-            // Solve L*X = B, overwriting B with X.
-
-            ztbsv('Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
-
-            // Solve L**H *X = B, overwriting B with X.
-
-            ztbsv('Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
-         } // 20
-      }
-
-      }
+      ztbsv('Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB,
+          B(1, J).asArray(), 1);
+    } // 20
+  }
+}

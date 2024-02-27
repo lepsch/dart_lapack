@@ -1,52 +1,57 @@
-      void zptsvx(final int FACT, final int N, final int NRHS, final int D, final int E, final int DF, final int EF, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dcopy.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlanht.dart';
+import 'package:lapack/src/zptcon.dart';
+import 'package:lapack/src/zptrfs.dart';
+import 'package:lapack/src/zpttrf.dart';
+import 'package:lapack/src/zpttrs.dart';
+
+      void zptsvx(final String FACT, final int N, final int NRHS, final Array<double> D_, final Array<Complex> E_,
+      final Array<double> DF_, final Array<Complex> EF_, final Matrix<Complex> B_, final int LDB, final Matrix<Complex> X_,
+      final int LDX, final Box<double> RCOND, final Array<double> FERR_, final Array<double> BERR_, final Array<Complex> WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+final E=E_.dim();
+final EF=EF_.dim();
+final D=D_.dim();
+final DF=DF_.dim();
+final FERR=FERR_.dim();
+final BERR=BERR_.dim();
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             FACT;
-      int                INFO, LDB, LDX, N, NRHS;
-      double             RCOND;
-      double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * );
-      Complex         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
-      // ..
-
-      double             ZERO;
       const              ZERO = 0.0 ;
       bool               NOFACT;
       double             ANORM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANHT;
-      // EXTERNAL lsame, DLAMCH, ZLANHT
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DCOPY, XERBLA, ZCOPY, ZLACPY, ZPTCON, ZPTRFS, ZPTTRF, ZPTTRS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
 
       // Test the input parameters.
 
-      INFO = 0;
+      INFO.value = 0;
       NOFACT = lsame( FACT, 'N' );
       if ( !NOFACT && !lsame( FACT, 'F' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( N < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
+         INFO.value = -9;
       } else if ( LDX < max( 1, N ) ) {
-         INFO = -11;
+         INFO.value = -11;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZPTSVX', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZPTSVX', -INFO.value );
          return;
       }
 
@@ -58,17 +63,17 @@
          if (N > 1) zcopy( N-1, E, 1, EF, 1 );
          zpttrf(N, DF, EF, INFO );
 
-         // Return if INFO is non-zero.
+         // Return if INFO.value is non-zero.
 
-         if ( INFO > 0 ) {
-            RCOND = ZERO;
+         if ( INFO.value > 0 ) {
+            RCOND.value = ZERO;
             return;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = ZLANHT( '1', N, D, E );
+      ANORM = zlanht( '1', N, D, E );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -84,8 +89,8 @@
 
       zptrfs('Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
-      // Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO.value = N+1 if the matrix is singular to working precision.
 
-      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
+      if( RCOND.value < dlamch( 'Epsilon' ) ) INFO.value = N + 1;
 
       }

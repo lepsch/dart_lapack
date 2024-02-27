@@ -1,53 +1,51 @@
-      void zlapll(final int N, final int X, final int INCX, final int Y, final int INCY, final int SSMIN,) {
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlas2.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlarfg.dart';
 
+void zlapll(
+  final int N,
+  final Array<Complex> X_,
+  final int INCX,
+  final Array<Complex> Y_,
+  final int INCY,
+  final Box<double> SSMIN,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INCX, INCY, N;
-      double             SSMIN;
-      Complex         X( * ), Y( * );
-      // ..
+  final X = X_.dim();
+  final Y = Y_.dim();
+  const ZERO = 0.0;
+  Complex A11, A12, A22, C;
+  final TAU = Box(Complex.zero);
+  final SSMAX = Box(0.0);
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      double             SSMAX;
-      Complex         A11, A12, A22, C, TAU;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DCONJG
-      // ..
-      // .. External Functions ..
-      //- Complex         ZDOTC;
-      // EXTERNAL ZDOTC
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLAS2, ZAXPY, ZLARFG
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N <= 1) {
+    SSMIN.value = ZERO;
+    return;
+  }
 
-      if ( N <= 1 ) {
-         SSMIN = ZERO;
-         return;
-      }
+  // Compute the QR factorization of the N-by-2 matrix ( X Y )
 
-      // Compute the QR factorization of the N-by-2 matrix ( X Y )
+  zlarfg(N, X(1), X(1 + INCX), INCX, TAU);
+  A11 = X[1];
+  X[1] = Complex.one;
 
-      zlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
-      A11 = X( 1 );
-      X[1] = CONE;
+  C = -TAU.value.conjugate() * zdotc(N, X, INCX, Y, INCY);
+  zaxpy(N, C, X, INCX, Y, INCY);
 
-      C = -DCONJG( TAU )*ZDOTC( N, X, INCX, Y, INCY );
-      zaxpy(N, C, X, INCX, Y, INCY );
+  zlarfg(N - 1, Y(1 + INCY), Y(1 + 2 * INCY), INCY, TAU);
 
-      zlarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );
+  A12 = Y[1];
+  A22 = Y[1 + INCY];
 
-      A12 = Y( 1 );
-      A22 = Y( 1+INCY );
+  // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-      // Compute the SVD of 2-by-2 Upper triangular matrix.
-
-      dlas2(( A11 ).abs(), ( A12 ).abs(), ( A22 ).abs(), SSMIN, SSMAX );
-
-      }
+  dlas2((A11).abs(), (A12).abs(), (A22).abs(), SSMIN, SSMAX);
+}

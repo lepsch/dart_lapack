@@ -1,92 +1,88 @@
-      void zsysv(final int UPLO, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final A = A_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zsytrf.dart';
+import 'package:lapack/src/zsytrs.dart';
+import 'package:lapack/src/zsytrs2.dart';
+
+void zsysv(
+  final String UPLO,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> IPIV_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, LDB, LWORK, N, NRHS;
-      int                IPIV( * );
-      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
+  bool LQUERY;
+  int LWKOPT=0;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Local Scalars ..
-      bool               LQUERY;
-      int                LWKOPT;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZSYTRF, ZSYTRS, ZSYTRS2
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  INFO.value = 0;
+  LQUERY = (LWORK == -1);
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (NRHS < 0) {
+    INFO.value = -3;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  } else if (LWORK < 1 && !LQUERY) {
+    INFO.value = -10;
+  }
 
-      // Test the input parameters.
+  if (INFO.value == 0) {
+    if (N == 0) {
+      LWKOPT = 1;
+    } else {
+      zsytrf(UPLO, N, A, LDA, IPIV, WORK, -1, INFO);
+      LWKOPT = WORK[1].real.toInt();
+    }
+    WORK[1] = LWKOPT.toComplex();
+  }
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 );
-      if ( !lsame( UPLO, 'U' ) && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( NRHS < 0 ) {
-         INFO = -3;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -10;
-      }
+  if (INFO.value != 0) {
+    xerbla('ZSYSV ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO == 0 ) {
-         if ( N == 0 ) {
-            LWKOPT = 1;
-         } else {
-            zsytrf(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
-            LWKOPT = INT( (WORK( 1 )).toDouble() );
-         }
-         WORK[1] = LWKOPT;
-      }
+  // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-      if ( INFO != 0 ) {
-         xerbla('ZSYSV ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  zsytrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO);
+  if (INFO.value == 0) {
+    // Solve the system A*X = B, overwriting B with X.
 
-      // Compute the factorization A = U*D*U**T or A = L*D*L**T.
+    if (LWORK < N) {
+      // Solve with TRS ( Use Level BLAS 2)
 
-      zsytrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
-      if ( INFO == 0 ) {
+      zsytrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO);
+    } else {
+      // Solve with TRS2 ( Use Level BLAS 3)
 
-         // Solve the system A*X = B, overwriting B with X.
+      zsytrs2(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO);
+    }
+  }
 
-         if ( LWORK < N ) {
-
-         // Solve with TRS ( Use Level BLAS 2)
-
-            zsytrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
-
-         } else {
-
-         // Solve with TRS2 ( Use Level BLAS 3)
-
-            zsytrs2(UPLO,N,NRHS,A,LDA,IPIV,B,LDB,WORK,INFO );
-
-         }
-
-      }
-
-      WORK[1] = LWKOPT;
-
-      }
+  WORK[1] = LWKOPT.toComplex();
+}

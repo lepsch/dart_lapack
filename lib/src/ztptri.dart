@@ -1,104 +1,103 @@
-      void ztptri(final int UPLO, final int DIAG, final int N, final int AP, final Box<int> INFO,) {
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/blas/ztpmv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
 
+void ztptri(
+  final String UPLO,
+  final String DIAG,
+  final int N,
+  final Array<Complex> AP_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, UPLO;
-      int                INFO, N;
-      Complex         AP( * );
-      // ..
+  final AP = AP_.dim();
+  bool NOUNIT, UPPER;
+  int J, JC, JCLAST = 0, JJ;
+  Complex AJJ;
 
-      Complex         ONE, ZERO;
-      const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
-      bool               NOUNIT, UPPER;
-      int                J, JC, JCLAST, JJ;
-      Complex         AJJ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZSCAL, ZTPMV
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  NOUNIT = lsame(DIAG, 'N');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (!NOUNIT && !lsame(DIAG, 'U')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZTPTRI', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      NOUNIT = lsame( DIAG, 'N' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZTPTRI', -INFO );
-         return;
-      }
+  // Check for singularity if non-unit.
 
-      // Check for singularity if non-unit.
+  if (NOUNIT) {
+    if (UPPER) {
+      JJ = 0;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 10
+        JJ = JJ + INFO.value;
+        if (AP[JJ] == Complex.zero) return;
+      } // 10
+    } else {
+      JJ = 1;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 20
+        if (AP[JJ] == Complex.zero) return;
+        JJ = JJ + N - INFO.value + 1;
+      } // 20
+    }
+    INFO.value = 0;
+  }
 
-      if ( NOUNIT ) {
-         if ( UPPER ) {
-            JJ = 0;
-            for (INFO = 1; INFO <= N; INFO++) { // 10
-               JJ = JJ + INFO;
-               if( AP( JJ ) == ZERO ) return;
-            } // 10
-         } else {
-            JJ = 1;
-            for (INFO = 1; INFO <= N; INFO++) { // 20
-               if( AP( JJ ) == ZERO ) return;
-               JJ = JJ + N - INFO + 1;
-            } // 20
-         }
-         INFO = 0;
-      }
+  if (UPPER) {
+    // Compute inverse of upper triangular matrix.
 
-      if ( UPPER ) {
-
-         // Compute inverse of upper triangular matrix.
-
-         JC = 1;
-         for (J = 1; J <= N; J++) { // 30
-            if ( NOUNIT ) {
-               AP[JC+J-1] = ONE / AP( JC+J-1 );
-               AJJ = -AP( JC+J-1 );
-            } else {
-               AJJ = -ONE;
-            }
-
-            // Compute elements 1:j-1 of j-th column.
-
-            ztpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
-            zscal(J-1, AJJ, AP( JC ), 1 );
-            JC = JC + J;
-         } // 30
-
+    JC = 1;
+    for (J = 1; J <= N; J++) {
+      // 30
+      if (NOUNIT) {
+        AP[JC + J - 1] = Complex.one / AP[JC + J - 1];
+        AJJ = -AP[JC + J - 1];
       } else {
-
-         // Compute inverse of lower triangular matrix.
-
-         JC = N*( N+1 ) / 2;
-         for (J = N; J >= 1; J--) { // 40
-            if ( NOUNIT ) {
-               AP[JC] = ONE / AP( JC );
-               AJJ = -AP( JC );
-            } else {
-               AJJ = -ONE;
-            }
-            if ( J < N ) {
-
-               // Compute elements j+1:n of j-th column.
-
-               ztpmv('Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 );
-               zscal(N-J, AJJ, AP( JC+1 ), 1 );
-            }
-            JCLAST = JC;
-            JC = JC - N + J - 2;
-         } // 40
+        AJJ = -Complex.one;
       }
 
+      // Compute elements 1:j-1 of j-th column.
+
+      ztpmv('Upper', 'No transpose', DIAG, J - 1, AP, AP(JC), 1);
+      zscal(J - 1, AJJ, AP(JC), 1);
+      JC = JC + J;
+    } // 30
+  } else {
+    // Compute inverse of lower triangular matrix.
+
+    JC = N * (N + 1) ~/ 2;
+    for (J = N; J >= 1; J--) {
+      // 40
+      if (NOUNIT) {
+        AP[JC] = Complex.one / AP[JC];
+        AJJ = -AP[JC];
+      } else {
+        AJJ = -Complex.one;
       }
+      if (J < N) {
+        // Compute elements j+1:n of j-th column.
+
+        ztpmv('Lower', 'No transpose', DIAG, N - J, AP(JCLAST), AP(JC + 1), 1);
+        zscal(N - J, AJJ, AP(JC + 1), 1);
+      }
+      JCLAST = JC;
+      JC = JC - N + J - 2;
+    } // 40
+  }
+}

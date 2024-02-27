@@ -1,207 +1,254 @@
-      void zgesvxx(final int FACT, final int TRANS, final int N, final int NRHS, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int EQUED, final int R, final int C, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int RPVGRW, final int BERR, final int N_ERR_BNDS, final int ERR_BNDS_NORM, final int ERR_BNDS_COMP, final int NPARAMS, final int PARAMS, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final AF = AF_.dim();
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/lu/cr/zgetrf.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgeequb.dart';
+import 'package:lapack/src/zgerfsx.dart';
+import 'package:lapack/src/zgetrs.dart';
+import 'package:lapack/src/zla_gerpvgrw.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlaqge.dart';
+import 'package:lapack/src/zlascl2.dart';
+
+void zgesvxx(
+  final String FACT,
+  final String TRANS,
+  final int N,
+  final int NRHS,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> AF_,
+  final int LDAF,
+  final Array<int> IPIV_,
+  final Box<String> EQUED,
+  final Array<double> R_,
+  final Array<double> C_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> X_,
+  final int LDX,
+  final Box<double> RCOND,
+  final Box<double> RPVGRW,
+  final Array<double> BERR_,
+  final int N_ERR_BNDS,
+  final Matrix<double> ERR_BNDS_NORM_,
+  final Matrix<double> ERR_BNDS_COMP_,
+  final int NPARAMS,
+  final Array<double> PARAMS_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             EQUED, FACT, TRANS;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      double             RCOND, RPVGRW;
-      int                IPIV( * );
-      Complex         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * );
-      double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDAF);
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final R = R_.dim();
+  final C = C_.dim();
+  final BERR = BERR_.dim();
+  final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
+  final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
+  final PARAMS = PARAMS_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
-// ==================================================================
+  const ZERO = 0.0, ONE = 1.0;
+  bool COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
+  int J;
+  double BIGNUM, RCMAX, RCMIN, SMLNUM;
+  final INFEQU = Box(0);
+  final AMAX = Box(0.0), COLCND = Box(0.0), ROWCND = Box(0.0);
 
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
-      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
-      int                CMP_ERR_I, PIV_GROWTH_I;
-      const              FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 ;
-      const              RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 ;
-      const              CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 ;
-      bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
-      int                INFEQU, J;
-      double             AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
-      // ..
-      // .. External Functions ..
-      // EXTERNAL lsame, DLAMCH, ZLA_GERPVGRW
-      bool               lsame;
-      double             DLAMCH, ZLA_GERPVGRW;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEEQUB, ZGETRF, ZGETRS, ZLACPY, ZLAQGE, XERBLA, ZLASCL2, ZGERFSX
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  INFO.value = 0;
+  NOFACT = lsame(FACT, 'N');
+  EQUIL = lsame(FACT, 'E');
+  NOTRAN = lsame(TRANS, 'N');
+  SMLNUM = dlamch('Safe minimum');
+  BIGNUM = ONE / SMLNUM;
+  if (NOFACT || EQUIL) {
+    EQUED.value = 'N';
+    ROWEQU = false;
+    COLEQU = false;
+  } else {
+    ROWEQU = lsame(EQUED.value, 'R') || lsame(EQUED.value, 'B');
+    COLEQU = lsame(EQUED.value, 'C') || lsame(EQUED.value, 'B');
+  }
 
-      INFO = 0;
-      NOFACT = lsame( FACT, 'N' );
-      EQUIL = lsame( FACT, 'E' );
-      NOTRAN = lsame( TRANS, 'N' );
-      SMLNUM = dlamch( 'Safe minimum' );
-      BIGNUM = ONE / SMLNUM;
-      if ( NOFACT || EQUIL ) {
-         EQUED = 'N';
-         ROWEQU = false;
-         COLEQU = false;
+  // Default is failure.  If an input parameter is wrong or
+  // factorization fails, make everything look horrible.  Only the
+  // pivot growth is set here, the rest is initialized in ZGERFSX.
+
+  RPVGRW.value = ZERO;
+
+  // Test the input parameters.  PARAMS is not tested until ZGERFSX.
+
+  if (!NOFACT && !EQUIL && !lsame(FACT, 'F')) {
+    INFO.value = -1;
+  } else if (!NOTRAN && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (NRHS < 0) {
+    INFO.value = -4;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -6;
+  } else if (LDAF < max(1, N)) {
+    INFO.value = -8;
+  } else if (lsame(FACT, 'F') &&
+      !(ROWEQU || COLEQU || lsame(EQUED.value, 'N'))) {
+    INFO.value = -10;
+  } else {
+    if (ROWEQU) {
+      RCMIN = BIGNUM;
+      RCMAX = ZERO;
+      for (J = 1; J <= N; J++) {
+        // 10
+        RCMIN = min(RCMIN, R[J]);
+        RCMAX = max(RCMAX, R[J]);
+      } // 10
+      if (RCMIN <= ZERO) {
+        INFO.value = -11;
+      } else if (N > 0) {
+        ROWCND.value = max(RCMIN, SMLNUM) / min(RCMAX, BIGNUM);
       } else {
-         ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
-         COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
+        ROWCND.value = ONE;
       }
-
-      // Default is failure.  If an input parameter is wrong or
-      // factorization fails, make everything look horrible.  Only the
-      // pivot growth is set here, the rest is initialized in ZGERFSX.
-
-      RPVGRW = ZERO;
-
-      // Test the input parameters.  PARAMS is not tested until ZGERFSX.
-
-      if ( !NOFACT && !EQUIL && !lsame( FACT, 'F' ) ) {
-         INFO = -1;
-      } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( NRHS < 0 ) {
-         INFO = -4;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -6;
-      } else if ( LDAF < max( 1, N ) ) {
-         INFO = -8;
-      } else if ( lsame( FACT, 'F' ) && !( ROWEQU || COLEQU || lsame( EQUED, 'N' ) ) ) {
-         INFO = -10;
+    }
+    if (COLEQU && INFO.value == 0) {
+      RCMIN = BIGNUM;
+      RCMAX = ZERO;
+      for (J = 1; J <= N; J++) {
+        // 20
+        RCMIN = min(RCMIN, C[J]);
+        RCMAX = max(RCMAX, C[J]);
+      } // 20
+      if (RCMIN <= ZERO) {
+        INFO.value = -12;
+      } else if (N > 0) {
+        COLCND.value = max(RCMIN, SMLNUM) / min(RCMAX, BIGNUM);
       } else {
-         if ( ROWEQU ) {
-            RCMIN = BIGNUM;
-            RCMAX = ZERO;
-            for (J = 1; J <= N; J++) { // 10
-               RCMIN = min( RCMIN, R( J ) );
-               RCMAX = max( RCMAX, R( J ) );
-            } // 10
-            if ( RCMIN <= ZERO ) {
-               INFO = -11;
-            } else if ( N > 0 ) {
-               ROWCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
-            } else {
-               ROWCND = ONE;
-            }
-         }
-         if ( COLEQU && INFO == 0 ) {
-            RCMIN = BIGNUM;
-            RCMAX = ZERO;
-            for (J = 1; J <= N; J++) { // 20
-               RCMIN = min( RCMIN, C( J ) );
-               RCMAX = max( RCMAX, C( J ) );
-            } // 20
-            if ( RCMIN <= ZERO ) {
-               INFO = -12;
-            } else if ( N > 0 ) {
-               COLCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
-            } else {
-               COLCND = ONE;
-            }
-         }
-         if ( INFO == 0 ) {
-            if ( LDB < max( 1, N ) ) {
-               INFO = -14;
-            } else if ( LDX < max( 1, N ) ) {
-               INFO = -16;
-            }
-         }
+        COLCND.value = ONE;
       }
-
-      if ( INFO != 0 ) {
-         xerbla('ZGESVXX', -INFO );
-         return;
+    }
+    if (INFO.value == 0) {
+      if (LDB < max(1, N)) {
+        INFO.value = -14;
+      } else if (LDX < max(1, N)) {
+        INFO.value = -16;
       }
+    }
+  }
 
-      if ( EQUIL ) {
+  if (INFO.value != 0) {
+    xerbla('ZGESVXX', -INFO.value);
+    return;
+  }
 
-      // Compute row and column scalings to equilibrate the matrix A.
+  if (EQUIL) {
+    // Compute row and column scalings to equilibrate the matrix A.
 
-         zgeequb(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU );
-         if ( INFEQU == 0 ) {
-
+    zgeequb(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU);
+    if (INFEQU.value == 0) {
       // Equilibrate the matrix.
 
-            zlaqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = lsame( EQUED, 'R' ) || lsame( EQUED, 'B' );
-            COLEQU = lsame( EQUED, 'C' ) || lsame( EQUED, 'B' );
-         }
+      zlaqge(N, N, A, LDA, R, C, ROWCND.value, COLCND.value, AMAX.value, EQUED);
+      ROWEQU = lsame(EQUED.value, 'R') || lsame(EQUED.value, 'B');
+      COLEQU = lsame(EQUED.value, 'C') || lsame(EQUED.value, 'B');
+    }
 
-      // If the scaling factors are not applied, set them to 1.0.
+    // If the scaling factors are not applied, set them to 1.0.
 
-         if ( !ROWEQU ) {
-            for (J = 1; J <= N; J++) {
-               R[J] = 1.0;
-            }
-         }
-         if ( !COLEQU ) {
-            for (J = 1; J <= N; J++) {
-               C[J] = 1.0;
-            }
-         }
+    if (!ROWEQU) {
+      for (J = 1; J <= N; J++) {
+        R[J] = 1.0;
       }
-
-      // Scale the right-hand side.
-
-      if ( NOTRAN ) {
-         if (ROWEQU) zlascl2( N, NRHS, R, B, LDB );
-      } else {
-         if (COLEQU) zlascl2( N, NRHS, C, B, LDB );
+    }
+    if (!COLEQU) {
+      for (J = 1; J <= N; J++) {
+        C[J] = 1.0;
       }
+    }
+  }
 
-      if ( NOFACT || EQUIL ) {
+  // Scale the right-hand side.
 
-         // Compute the LU factorization of A.
+  if (NOTRAN) {
+    if (ROWEQU) zlascl2(N, NRHS, R, B, LDB);
+  } else {
+    if (COLEQU) zlascl2(N, NRHS, C, B, LDB);
+  }
 
-         zlacpy('Full', N, N, A, LDA, AF, LDAF );
-         zgetrf(N, N, AF, LDAF, IPIV, INFO );
+  if (NOFACT || EQUIL) {
+    // Compute the LU factorization of A.
 
-         // Return if INFO is non-zero.
+    zlacpy('Full', N, N, A, LDA, AF, LDAF);
+    zgetrf(N, N, AF, LDAF, IPIV, INFO);
 
-         if ( INFO > 0 ) {
+    // Return if INFO is non-zero.
 
-            // Pivot in column INFO is exactly 0
-            // Compute the reciprocal pivot growth factor of the
-            // leading rank-deficient INFO columns of A.
+    if (INFO.value > 0) {
+      // Pivot in column INFO is exactly 0
+      // Compute the reciprocal pivot growth factor of the
+      // leading rank-deficient INFO columns of A.
 
-            RPVGRW = ZLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF );
-            return;
-         }
-      }
+      RPVGRW.value = zla_gerpvgrw(N, INFO.value, A, LDA, AF, LDAF);
+      return;
+    }
+  }
 
-      // Compute the reciprocal pivot growth factor RPVGRW.
+  // Compute the reciprocal pivot growth factor RPVGRW.
 
-      RPVGRW = ZLA_GERPVGRW( N, N, A, LDA, AF, LDAF );
+  RPVGRW.value = zla_gerpvgrw(N, N, A, LDA, AF, LDAF);
 
-      // Compute the solution matrix X.
+  // Compute the solution matrix X.
 
-      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
-      zgetrs(TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
+  zlacpy('Full', N, NRHS, B, LDB, X, LDX);
+  zgetrs(TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO);
 
-      // Use iterative refinement to improve the computed solution and
-      // compute error bounds and backward error estimates for it.
+  // Use iterative refinement to improve the computed solution and
+  // compute error bounds and backward error estimates for it.
 
-      zgerfsx(TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
+  zgerfsx(
+      TRANS,
+      EQUED.value,
+      N,
+      NRHS,
+      A,
+      LDA,
+      AF,
+      LDAF,
+      IPIV,
+      R,
+      C,
+      B,
+      LDB,
+      X,
+      LDX,
+      RCOND,
+      BERR,
+      N_ERR_BNDS,
+      ERR_BNDS_NORM,
+      ERR_BNDS_COMP,
+      NPARAMS,
+      PARAMS,
+      WORK,
+      RWORK,
+      INFO);
 
-      // Scale solutions.
+  // Scale solutions.
 
-      if ( COLEQU && NOTRAN ) {
-         zlascl2(N, NRHS, C, X, LDX );
-      } else if ( ROWEQU && !NOTRAN ) {
-         zlascl2(N, NRHS, R, X, LDX );
-      }
-
-      }
+  if (COLEQU && NOTRAN) {
+    zlascl2(N, NRHS, C, X, LDX);
+  } else if (ROWEQU && !NOTRAN) {
+    zlascl2(N, NRHS, R, X, LDX);
+  }
+}

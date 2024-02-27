@@ -1,92 +1,118 @@
-      void zlauum(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Box<int> INFO,) {
-  final A = A_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zherk.dart';
+import 'package:lapack/src/blas/ztrmm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlauu2.dart';
+
+void zlauum(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDA, N;
-      Complex         A( LDA, * );
-      // ..
+  final A = A_.dim(LDA);
+  const ONE = 1.0;
+  bool UPPER;
+  int I, IB, NB;
 
-      double             ONE;
-      const              ONE = 1.0 ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      bool               UPPER;
-      int                I, IB, NB;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      // EXTERNAL lsame, ILAENV
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEMM, ZHERK, ZLAUU2, ZTRMM
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZLAUUM', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZLAUUM', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  // Determine the block size for this environment.
 
-      // Determine the block size for this environment.
+  NB = ilaenv(1, 'ZLAUUM', UPLO, N, -1, -1, -1);
 
-      NB = ilaenv( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 );
+  if (NB <= 1 || NB >= N) {
+    // Use unblocked code
 
-      if ( NB <= 1 || NB >= N ) {
+    zlauu2(UPLO, N, A, LDA, INFO);
+  } else {
+    // Use blocked code
 
-         // Use unblocked code
+    if (UPPER) {
+      // Compute the product U * U**H.
 
-         zlauu2(UPLO, N, A, LDA, INFO );
-      } else {
+      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+        // 10
+        IB = min(NB, N - I + 1);
+        ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I - 1, IB,
+            Complex.one, A(I, I), LDA, A(1, I), LDA);
+        zlauu2('Upper', IB, A(I, I), LDA, INFO);
+        if (I + IB <= N) {
+          zgemm(
+              'No transpose',
+              'Conjugate transpose',
+              I - 1,
+              IB,
+              N - I - IB + 1,
+              Complex.one,
+              A(1, I + IB),
+              LDA,
+              A(I, I + IB),
+              LDA,
+              Complex.one,
+              A(1, I),
+              LDA);
+          zherk('Upper', 'No transpose', IB, N - I - IB + 1, ONE, A(I, I + IB),
+              LDA, ONE, A(I, I), LDA);
+        }
+      } // 10
+    } else {
+      // Compute the product L**H * L.
 
-         // Use blocked code
-
-         if ( UPPER ) {
-
-            // Compute the product U * U**H.
-
-            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 10
-               IB = min( NB, N-I+1 );
-               ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA );
-               zlauu2('Upper', IB, A( I, I ), LDA, INFO );
-               if ( I+IB <= N ) {
-                  zgemm('No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA );
-                  zherk('Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
-               }
-            } // 10
-         } else {
-
-            // Compute the product L**H * L.
-
-            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 20
-               IB = min( NB, N-I+1 );
-               ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA );
-               zlauu2('Lower', IB, A( I, I ), LDA, INFO );
-               if ( I+IB <= N ) {
-                  zgemm('Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA );
-                  zherk('Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
-               }
-            } // 20
-         }
-      }
-
-      }
+      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) {
+        // 20
+        IB = min(NB, N - I + 1);
+        ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I - 1,
+            Complex.one, A(I, I), LDA, A(I, 1), LDA);
+        zlauu2('Lower', IB, A(I, I), LDA, INFO);
+        if (I + IB <= N) {
+          zgemm(
+              'Conjugate transpose',
+              'No transpose',
+              IB,
+              I - 1,
+              N - I - IB + 1,
+              Complex.one,
+              A(I + IB, I),
+              LDA,
+              A(I + IB, 1),
+              LDA,
+              Complex.one,
+              A(I, 1),
+              LDA);
+          zherk('Lower', 'Conjugate transpose', IB, N - I - IB + 1, ONE,
+              A(I + IB, I), LDA, ONE, A(I, I), LDA);
+        }
+      } // 20
+    }
+  }
+}

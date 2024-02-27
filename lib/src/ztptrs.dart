@@ -1,79 +1,84 @@
-      void ztptrs(final int UPLO, final int TRANS, final int DIAG, final int N, final int NRHS, final int AP, final Matrix<double> B_, final int LDB, final Box<int> INFO,) {
-  final B = B_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/ztpsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void ztptrs(
+  final String UPLO,
+  final String TRANS,
+  final String DIAG,
+  final int N,
+  final int NRHS,
+  final Array<Complex> AP_,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> INFO,
+) {
+  final AP = AP_.dim();
+  final B = B_.dim(LDB);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             DIAG, TRANS, UPLO;
-      int                INFO, LDB, N, NRHS;
-      Complex         AP( * ), B( LDB, * );
-      // ..
+  bool NOUNIT, UPPER;
+  int J, JC;
 
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
-      bool               NOUNIT, UPPER;
-      int                J, JC;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZTPSV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  NOUNIT = lsame(DIAG, 'N');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO.value = -2;
+  } else if (!NOUNIT && !lsame(DIAG, 'U')) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (NRHS < 0) {
+    INFO.value = -5;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -8;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZTPTRS', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      NOUNIT = lsame( DIAG, 'N' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( !lsame( TRANS, 'N' ) && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -2;
-      } else if ( !NOUNIT && !lsame( DIAG, 'U' ) ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( NRHS < 0 ) {
-         INFO = -5;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZTPTRS', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  // Check for singularity.
 
-      // Check for singularity.
+  if (NOUNIT) {
+    if (UPPER) {
+      JC = 1;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 10
+        if (AP(JC + INFO.value - 1) == Complex.zero) return;
+        JC = JC + INFO.value;
+      } // 10
+    } else {
+      JC = 1;
+      for (INFO.value = 1; INFO.value <= N; INFO.value++) {
+        // 20
+        if (AP(JC) == Complex.zero) return;
+        JC = JC + N - INFO.value + 1;
+      } // 20
+    }
+  }
+  INFO.value = 0;
 
-      if ( NOUNIT ) {
-         if ( UPPER ) {
-            JC = 1;
-            for (INFO = 1; INFO <= N; INFO++) { // 10
-               if( AP( JC+INFO-1 ) == ZERO ) return;
-               JC = JC + INFO;
-            } // 10
-         } else {
-            JC = 1;
-            for (INFO = 1; INFO <= N; INFO++) { // 20
-               if( AP( JC ) == ZERO ) return;
-               JC = JC + N - INFO + 1;
-            } // 20
-         }
-      }
-      INFO = 0;
+  // Solve  A * x = b,  A**T * x = b,  or  A**H * x = b.
 
-      // Solve  A * x = b,  A**T * x = b,  or  A**H * x = b.
-
-      for (J = 1; J <= NRHS; J++) { // 30
-         ztpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
-      } // 30
-
-      }
+  for (J = 1; J <= NRHS; J++) {
+    // 30
+    ztpsv(UPLO, TRANS, DIAG, N, AP, B(1, J).asArray(), 1);
+  } // 30
+}

@@ -1,109 +1,109 @@
-      void zpbtf2(final int UPLO, final int N, final int KD, final Matrix<double> AB_, final int LDAB, final Box<int> INFO,) {
-  final AB = AB_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zdscal.dart';
+import 'package:lapack/src/blas/zher.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacgv.dart';
+
+void zpbtf2(
+  final String UPLO,
+  final int N,
+  final int KD,
+  final Matrix<Complex> AB_,
+  final int LDAB,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, KD, LDAB, N;
-      Complex         AB( LDAB, * );
-      // ..
+  final AB = AB_.dim(LDAB);
+  const ONE = 1.0, ZERO = 0.0;
+  bool UPPER;
+  int J, KLD, KN;
+  double AJJ;
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      bool               UPPER;
-      int                J, KLD, KN;
-      double             AJJ;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZDSCAL, ZHER, ZLACGV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (KD < 0) {
+    INFO.value = -3;
+  } else if (LDAB < KD + 1) {
+    INFO.value = -5;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZPBTF2', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( KD < 0 ) {
-         INFO = -3;
-      } else if ( LDAB < KD+1 ) {
-         INFO = -5;
+  // Quick return if possible
+
+  if (N == 0) return;
+
+  KLD = max(1, LDAB - 1);
+
+  if (UPPER) {
+    // Compute the Cholesky factorization A = U**H * U.
+
+    for (J = 1; J <= N; J++) {
+      // 10
+
+      // Compute U(J,J) and test for non-positive-definiteness.
+
+      AJJ = AB[KD + 1][J].toDouble();
+      if (AJJ <= ZERO) {
+        AB[KD + 1][J] = AJJ.toComplex();
+        INFO.value = J;
+        return;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZPBTF2', -INFO );
-         return;
+      AJJ = sqrt(AJJ);
+      AB[KD + 1][J] = AJJ.toComplex();
+
+      // Compute elements J+1:J+KN of row J and update the
+      // trailing submatrix within the band.
+
+      KN = min(KD, N - J);
+      if (KN > 0) {
+        zdscal(KN, ONE / AJJ, AB(KD, J + 1).asArray(), KLD);
+        zlacgv(KN, AB(KD, J + 1).asArray(), KLD);
+        zher('Upper', KN, -ONE, AB(KD, J + 1).asArray(), KLD, AB(KD + 1, J + 1),
+            KLD);
+        zlacgv(KN, AB(KD, J + 1).asArray(), KLD);
       }
+    } // 10
+  } else {
+    // Compute the Cholesky factorization A = L*L**H.
 
-      // Quick return if possible
+    for (J = 1; J <= N; J++) {
+      // 20
 
-      if (N == 0) return;
+      // Compute L(J,J) and test for non-positive-definiteness.
 
-      KLD = max( 1, LDAB-1 );
-
-      if ( UPPER ) {
-
-         // Compute the Cholesky factorization A = U**H * U.
-
-         for (J = 1; J <= N; J++) { // 10
-
-            // Compute U(J,J) and test for non-positive-definiteness.
-
-            AJJ = (AB( KD+1, J )).toDouble();
-            if ( AJJ <= ZERO ) {
-               AB[KD+1][J] = AJJ;
-               GO TO 30;
-            }
-            AJJ = sqrt( AJJ );
-            AB[KD+1][J] = AJJ;
-
-            // Compute elements J+1:J+KN of row J and update the
-            // trailing submatrix within the band.
-
-            KN = min( KD, N-J );
-            if ( KN > 0 ) {
-               zdscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
-               zlacgv(KN, AB( KD, J+1 ), KLD );
-               zher('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
-               zlacgv(KN, AB( KD, J+1 ), KLD );
-            }
-         } // 10
-      } else {
-
-         // Compute the Cholesky factorization A = L*L**H.
-
-         for (J = 1; J <= N; J++) { // 20
-
-            // Compute L(J,J) and test for non-positive-definiteness.
-
-            AJJ = (AB( 1, J )).toDouble();
-            if ( AJJ <= ZERO ) {
-               AB[1][J] = AJJ;
-               GO TO 30;
-            }
-            AJJ = sqrt( AJJ );
-            AB[1][J] = AJJ;
-
-            // Compute elements J+1:J+KN of column J and update the
-            // trailing submatrix within the band.
-
-            KN = min( KD, N-J );
-            if ( KN > 0 ) {
-               zdscal(KN, ONE / AJJ, AB( 2, J ), 1 );
-               zher('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
-            }
-         } // 20
+      AJJ = AB[1][J].toDouble();
+      if (AJJ <= ZERO) {
+        AB[1][J] = AJJ.toComplex();
+        INFO.value = J;
+        return;
       }
-      return;
+      AJJ = sqrt(AJJ);
+      AB[1][J] = AJJ.toComplex();
 
-      } // 30
-      INFO = J;
+      // Compute elements J+1:J+KN of column J and update the
+      // trailing submatrix within the band.
+
+      KN = min(KD, N - J);
+      if (KN > 0) {
+        zdscal(KN, ONE / AJJ, AB(2, J).asArray(), 1);
+        zher('Lower', KN, -ONE, AB(2, J).asArray(), 1, AB(1, J + 1), KLD);
       }
+    } // 20
+  }
+}

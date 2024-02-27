@@ -1,79 +1,85 @@
-      void zlaqge(final int M, final int N, final Matrix<double> A_, final int LDA, final int R, final int C, final int ROWCND, final int COLCND, final int AMAX, final int EQUED,) {
-  final A = A_.dim();
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zlaqge(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<double> R_,
+  final Array<double> C_,
+  final double ROWCND,
+  final double COLCND,
+  final double AMAX,
+  final Box<String> EQUED,
+) {
+  final A = A_.dim(LDA);
+  final R = R_.dim();
+  final C = C_.dim();
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             EQUED;
-      int                LDA, M, N;
-      double             AMAX, COLCND, ROWCND;
-      double             C( * ), R( * );
-      Complex         A( LDA, * );
-      // ..
+  const ONE = 1.0, THRESH = 0.1;
+  int I, J;
+  double CJ, LARGE, SMALL;
 
-      double             ONE, THRESH;
-      const              ONE = 1.0, THRESH = 0.1 ;
-      int                I, J;
-      double             CJ, LARGE, SMALL;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
+  // Quick return if possible
 
-      // Quick return if possible
+  if (M <= 0 || N <= 0) {
+    EQUED.value = 'N';
+    return;
+  }
 
-      if ( M <= 0 || N <= 0 ) {
-         EQUED = 'N';
-         return;
-      }
+  // Initialize LARGE and SMALL.
 
-      // Initialize LARGE and SMALL.
+  SMALL = dlamch('Safe minimum') / dlamch('Precision');
+  LARGE = ONE / SMALL;
 
-      SMALL = dlamch( 'Safe minimum' ) / dlamch( 'Precision' );
-      LARGE = ONE / SMALL;
+  if (ROWCND >= THRESH && AMAX >= SMALL && AMAX <= LARGE) {
+    // No row scaling
 
-      if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
+    if (COLCND >= THRESH) {
+      // No column scaling
 
-         // No row scaling
+      EQUED.value = 'N';
+    } else {
+      // Column scaling
 
-         if ( COLCND >= THRESH ) {
+      for (J = 1; J <= N; J++) {
+        // 20
+        CJ = C[J];
+        for (I = 1; I <= M; I++) {
+          // 10
+          A[I][J] = CJ.toComplex() * A[I][J];
+        } // 10
+      } // 20
+      EQUED.value = 'C';
+    }
+  } else if (COLCND >= THRESH) {
+    // Row scaling, no column scaling
 
-            // No column scaling
+    for (J = 1; J <= N; J++) {
+      // 40
+      for (I = 1; I <= M; I++) {
+        // 30
+        A[I][J] = R[I].toComplex() * A[I][J];
+      } // 30
+    } // 40
+    EQUED.value = 'R';
+  } else {
+    // Row and column scaling
 
-            EQUED = 'N';
-         } else {
-
-            // Column scaling
-
-            for (J = 1; J <= N; J++) { // 20
-               CJ = C( J );
-               for (I = 1; I <= M; I++) { // 10
-                  A[I][J] = CJ*A( I, J );
-               } // 10
-            } // 20
-            EQUED = 'C';
-         }
-      } else if ( COLCND >= THRESH ) {
-
-         // Row scaling, no column scaling
-
-         for (J = 1; J <= N; J++) { // 40
-            for (I = 1; I <= M; I++) { // 30
-               A[I][J] = R( I )*A( I, J );
-            } // 30
-         } // 40
-         EQUED = 'R';
-      } else {
-
-         // Row and column scaling
-
-         for (J = 1; J <= N; J++) { // 60
-            CJ = C( J );
-            for (I = 1; I <= M; I++) { // 50
-               A[I][J] = CJ*R( I )*A( I, J );
-            } // 50
-         } // 60
-         EQUED = 'B';
-      }
-
-      }
+    for (J = 1; J <= N; J++) {
+      // 60
+      CJ = C[J];
+      for (I = 1; I <= M; I++) {
+        // 50
+        A[I][J] = (CJ * R[I]).toComplex() * A[I][J];
+      } // 50
+    } // 60
+    EQUED.value = 'B';
+  }
+}

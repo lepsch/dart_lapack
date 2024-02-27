@@ -1,102 +1,109 @@
-      void zupgtr(final int UPLO, final int N, final int AP, final int TAU, final Matrix<double> Q_, final int LDQ, final Array<double> _WORK_, final Box<int> INFO,) {
-  final Q = Q_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zung2l.dart';
+import 'package:lapack/src/zung2r.dart';
+
+void zupgtr(
+  final String UPLO,
+  final int N,
+  final Array<Complex> AP_,
+  final Array<Complex> TAU_,
+  final Matrix<Complex> Q_,
+  final int LDQ,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INFO, LDQ, N;
-      Complex         AP( * ), Q( LDQ, * ), TAU( * ), WORK( * );
-      // ..
+  final Q = Q_.dim(LDQ);
+  final AP = AP_.dim();
+  final TAU = TAU_.dim();
+  final WORK = WORK_.dim();
 
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      bool               UPPER;
-      int                I, IINFO, IJ, J;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZUNG2L, ZUNG2R
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
+  bool UPPER;
+  int I, IJ, J;
+  final IINFO = Box(0);
 
-      // Test the input arguments
+  // Test the input arguments
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDQ < max( 1, N ) ) {
-         INFO = -6;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZUPGTR', -INFO );
-         return;
-      }
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDQ < max(1, N)) {
+    INFO.value = -6;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZUPGTR', -INFO.value);
+    return;
+  }
 
-      // Quick return if possible
+  // Quick return if possible
 
-      if (N == 0) return;
+  if (N == 0) return;
 
-      if ( UPPER ) {
+  if (UPPER) {
+    // Q was determined by a call to ZHPTRD with UPLO = 'U'
 
-         // Q was determined by a call to ZHPTRD with UPLO = 'U'
+    // Unpack the vectors which define the elementary reflectors and
+    // set the last row and column of Q equal to those of the unit
+    // matrix
 
-         // Unpack the vectors which define the elementary reflectors and
-         // set the last row and column of Q equal to those of the unit
-         // matrix
+    IJ = 2;
+    for (J = 1; J <= N - 1; J++) {
+      // 20
+      for (I = 1; I <= J - 1; I++) {
+        // 10
+        Q[I][J] = AP[IJ];
+        IJ = IJ + 1;
+      } // 10
+      IJ = IJ + 2;
+      Q[N][J] = Complex.zero;
+    } // 20
+    for (I = 1; I <= N - 1; I++) {
+      // 30
+      Q[I][N] = Complex.zero;
+    } // 30
+    Q[N][N] = Complex.one;
 
-         IJ = 2;
-         for (J = 1; J <= N - 1; J++) { // 20
-            for (I = 1; I <= J - 1; I++) { // 10
-               Q[I][J] = AP( IJ );
-               IJ = IJ + 1;
-            } // 10
-            IJ = IJ + 2;
-            Q[N][J] = CZERO;
-         } // 20
-         for (I = 1; I <= N - 1; I++) { // 30
-            Q[I][N] = CZERO;
-         } // 30
-         Q[N][N] = CONE;
+    // Generate Q(1:n-1,1:n-1)
 
-         // Generate Q(1:n-1,1:n-1)
+    zung2l(N - 1, N - 1, N - 1, Q, LDQ, TAU, WORK, IINFO);
+  } else {
+    // Q was determined by a call to ZHPTRD with UPLO = 'L'.
 
-         zung2l(N-1, N-1, N-1, Q, LDQ, TAU, WORK, IINFO );
+    // Unpack the vectors which define the elementary reflectors and
+    // set the first row and column of Q equal to those of the unit
+    // matrix
 
-      } else {
+    Q[1][1] = Complex.one;
+    for (I = 2; I <= N; I++) {
+      // 40
+      Q[I][1] = Complex.zero;
+    } // 40
+    IJ = 3;
+    for (J = 2; J <= N; J++) {
+      // 60
+      Q[1][J] = Complex.zero;
+      for (I = J + 1; I <= N; I++) {
+        // 50
+        Q[I][J] = AP[IJ];
+        IJ = IJ + 1;
+      } // 50
+      IJ = IJ + 2;
+    } // 60
+    if (N > 1) {
+      // Generate Q(2:n,2:n)
 
-         // Q was determined by a call to ZHPTRD with UPLO = 'L'.
-
-         // Unpack the vectors which define the elementary reflectors and
-         // set the first row and column of Q equal to those of the unit
-         // matrix
-
-         Q[1][1] = CONE;
-         for (I = 2; I <= N; I++) { // 40
-            Q[I][1] = CZERO;
-         } // 40
-         IJ = 3;
-         for (J = 2; J <= N; J++) { // 60
-            Q[1][J] = CZERO;
-            for (I = J + 1; I <= N; I++) { // 50
-               Q[I][J] = AP( IJ );
-               IJ = IJ + 1;
-            } // 50
-            IJ = IJ + 2;
-         } // 60
-         if ( N > 1 ) {
-
-            // Generate Q(2:n,2:n)
-
-            zung2r(N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO );
-         }
-      }
-      }
+      zung2r(N - 1, N - 1, N - 1, Q(2, 2), LDQ, TAU, WORK, IINFO);
+    }
+  }
+}

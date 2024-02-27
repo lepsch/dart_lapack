@@ -1,112 +1,144 @@
-      void zunbdb3(final int M, final int P, final int Q, final Matrix<double> X11_, final int LDX11, final Matrix<double> X21_, final int LDX21, final int THETA, final int PHI, final int TAUP1, final int TAUP2, final int TAUQ1, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final X11 = X11_.dim();
-  final X21 = X21_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dznrm2.dart';
+import 'package:lapack/src/blas/zdrot.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacgv.dart';
+import 'package:lapack/src/zlarf.dart';
+import 'package:lapack/src/zlarfgp.dart';
+import 'package:lapack/src/zunbdb5.dart';
+
+void zunbdb3(
+  final int M,
+  final int P,
+  final int Q,
+  final Matrix<Complex> X11_,
+  final int LDX11,
+  final Matrix<Complex> X21_,
+  final int LDX21,
+  final Array<double> THETA_,
+  final Array<double> PHI_,
+  final Array<Complex> TAUP1_,
+  final Array<Complex> TAUP2_,
+  final Array<Complex> TAUQ1_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-      double             PHI(*), THETA(*);
-      Complex         TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
-      // ..
+  final X11 = X11_.dim(LDX11);
+  final X21 = X21_.dim(LDX21);
+  final WORK = WORK_.dim();
+  final TAUP1 = TAUP1_.dim();
+  final TAUP2 = TAUP2_.dim();
+  final TAUQ1 = TAUQ1_.dim();
+  final THETA = THETA_.dim();
+  final PHI = PHI_.dim();
+  double C = 0, S = 0;
+  int I, ILARF = 0, IORBDB5 = 0, LLARF, LORBDB5 = 0, LWORKMIN, LWORKOPT;
+  bool LQUERY;
+  final CHILDINFO = Box(0);
 
-// ====================================================================
+  // Test input arguments
 
-      // .. Parameters ..
-      Complex         ONE;
-      const              ONE = (1.0,0.0) ;
-      double             C, S;
-      int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
-      bool               LQUERY;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLARF, ZLARFGP, ZUNBDB5, ZDROT, ZLACGV, XERBLA
-      // ..
-      // .. External Functions ..
-      //- double             DZNRM2;
-      // EXTERNAL DZNRM2
-      // ..
-      // .. Intrinsic Function ..
-      // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
+  INFO.value = 0;
+  LQUERY = LWORK == -1;
 
-      // Test input arguments
+  if (M < 0) {
+    INFO.value = -1;
+  } else if (2 * P < M || P > M) {
+    INFO.value = -2;
+  } else if (Q < M - P || M - Q < M - P) {
+    INFO.value = -3;
+  } else if (LDX11 < max(1, P)) {
+    INFO.value = -5;
+  } else if (LDX21 < max(1, M - P)) {
+    INFO.value = -7;
+  }
 
-      INFO = 0;
-      LQUERY = LWORK == -1;
+  // Compute workspace
 
-      if ( M < 0 ) {
-         INFO = -1;
-      } else if ( 2*P < M || P > M ) {
-         INFO = -2;
-      } else if ( Q < M-P || M-Q < M-P ) {
-         INFO = -3;
-      } else if ( LDX11 < max( 1, P ) ) {
-         INFO = -5;
-      } else if ( LDX21 < max( 1, M-P ) ) {
-         INFO = -7;
-      }
+  if (INFO.value == 0) {
+    ILARF = 2;
+    LLARF = max(P, max(M - P - 1, Q - 1));
+    IORBDB5 = 2;
+    LORBDB5 = Q - 1;
+    LWORKOPT = max(ILARF + LLARF - 1, IORBDB5 + LORBDB5 - 1);
+    LWORKMIN = LWORKOPT;
+    WORK[1] = LWORKOPT.toComplex();
+    if (LWORK < LWORKMIN && !LQUERY) {
+      INFO.value = -14;
+    }
+  }
+  if (INFO.value != 0) {
+    xerbla('ZUNBDB3', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      // Compute workspace
+  // Reduce rows 1, ..., M-P of X11 and X21
 
-      if ( INFO == 0 ) {
-         ILARF = 2;
-         LLARF = max( P, M-P-1, Q-1 );
-         IORBDB5 = 2;
-         LORBDB5 = Q-1;
-         LWORKOPT = max( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
-         LWORKMIN = LWORKOPT;
-         WORK[1] = LWORKOPT;
-         if ( LWORK < LWORKMIN && !LQUERY ) {
-           INFO = -14;
-         }
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZUNBDB3', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  for (I = 1; I <= M - P; I++) {
+    if (I > 1) {
+      zdrot(Q - I + 1, X11(I - 1, I).asArray(), LDX11, X21(I, I).asArray(),
+          LDX11, C, S);
+    }
 
-      // Reduce rows 1, ..., M-P of X11 and X21
+    zlacgv(Q - I + 1, X21(I, I).asArray(), LDX21);
+    zlarfgp(Q - I + 1, X21(I, I), X21(I, I + 1).asArray(), LDX21, TAUQ1(I));
+    S = X21[I][I].toDouble();
+    X21[I][I] = Complex.one;
+    zlarf('R', P - I + 1, Q - I + 1, X21(I, I).asArray(), LDX21, TAUQ1[I],
+        X11(I, I), LDX11, WORK(ILARF));
+    zlarf('R', M - P - I, Q - I + 1, X21(I, I).asArray(), LDX21, TAUQ1[I],
+        X21(I + 1, I), LDX21, WORK(ILARF));
+    zlacgv(Q - I + 1, X21(I, I).asArray(), LDX21);
+    C = sqrt(pow(dznrm2(P - I + 1, X11(I, I).asArray(), 1), 2) +
+        pow(dznrm2(M - P - I, X21(I + 1, I).asArray(), 1), 2));
+    THETA[I] = atan2(S, C);
 
-      for (I = 1; I <= M-P; I++) {
+    zunbdb5(
+        P - I + 1,
+        M - P - I,
+        Q - I,
+        X11(I, I).asArray(),
+        1,
+        X21(I + 1, I).asArray(),
+        1,
+        X11(I, I + 1),
+        LDX11,
+        X21(I + 1, I + 1),
+        LDX21,
+        WORK(IORBDB5),
+        LORBDB5,
+        CHILDINFO);
+    zlarfgp(P - I + 1, X11(I, I), X11(I + 1, I).asArray(), 1, TAUP1(I));
+    if (I < M - P) {
+      zlarfgp(M - P - I, X21(I + 1, I), X21(I + 2, I).asArray(), 1, TAUP2(I));
+      PHI[I] = atan2(X21[I + 1][I].toDouble(), X11[I][I].toDouble());
+      C = cos(PHI[I]);
+      S = sin(PHI[I]);
+      X21[I + 1][I] = Complex.one;
+      zlarf('L', M - P - I, Q - I, X21(I + 1, I).asArray(), 1,
+          TAUP2[I].conjugate(), X21(I + 1, I + 1), LDX21, WORK(ILARF));
+    }
+    X11[I][I] = Complex.one;
+    zlarf('L', P - I + 1, Q - I, X11(I, I).asArray(), 1, TAUP1[I].conjugate(),
+        X11(I, I + 1), LDX11, WORK(ILARF));
+  }
 
-         if ( I > 1 ) {
-            zdrot(Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S );
-         }
+  // Reduce the bottom-right portion of X11 to the identity matrix
 
-         zlacgv(Q-I+1, X21(I,I), LDX21 );
-         zlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
-         S = (X21(I,I)).toDouble();
-         X21[I][I] = ONE;
-         zlarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
-         zlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
-         zlacgv(Q-I+1, X21(I,I), LDX21 );
-         C = sqrt( DZNRM2( P-I+1, X11(I,I), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I), 1 )**2 );
-         THETA[I] = ATAN2( S, C );
-
-         zunbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
-         zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-         if ( I < M-P ) {
-            zlarfgp(M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) );
-            PHI[I] = ATAN2( (X21(I+1,I)).toDouble(), (X11(I,I)).toDouble() );
-            C = COS( PHI(I) );
-            S = SIN( PHI(I) );
-            X21[I+1][I] = ONE;
-            zlarf('L', M-P-I, Q-I, X21(I+1,I), 1, DCONJG(TAUP2(I)), X21(I+1,I+1), LDX21, WORK(ILARF) );
-         }
-         X11[I][I] = ONE;
-         zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
-
-      }
-
-      // Reduce the bottom-right portion of X11 to the identity matrix
-
-      for (I = M-P + 1; I <= Q; I++) {
-         zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-         X11[I][I] = ONE;
-         zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
-      }
-
-      }
+  for (I = M - P + 1; I <= Q; I++) {
+    zlarfgp(P - I + 1, X11(I, I), X11(I + 1, I).asArray(), 1, TAUP1(I));
+    X11[I][I] = Complex.one;
+    zlarf('L', P - I + 1, Q - I, X11(I, I).asArray(), 1, TAUP1[I].conjugate(),
+        X11(I, I + 1), LDX11, WORK(ILARF));
+  }
+}

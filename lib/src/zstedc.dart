@@ -1,168 +1,185 @@
-      void zstedc(final int COMPZ, final int N, final int D, final int E, final Matrix<double> Z_, final int LDZ, final Array<double> WORK_, final int LWORK, final Array<int> RWORK_, final int LRWORK, final Array<int> IWORK_, final int LIWORK, final Box<int> INFO,) {
-  final Z = Z_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final IWORK = IWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zswap.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/dlanst.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dstedc.dart';
+import 'package:lapack/src/dsteqr.dart';
+import 'package:lapack/src/dsterf.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlacrm.dart';
+import 'package:lapack/src/zlaed0.dart';
+import 'package:lapack/src/zsteqr.dart';
+
+void zstedc(
+  final String COMPZ,
+  final int N,
+  final Array<double> D_,
+  final Array<double> E_,
+  final Matrix<Complex> Z_,
+  final int LDZ,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final int LRWORK,
+  final Array<int> IWORK_,
+  final int LIWORK,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             COMPZ;
-      int                INFO, LDZ, LIWORK, LRWORK, LWORK, N;
-      int                IWORK( * );
-      double             D( * ), E( * ), RWORK( * );
-      Complex         WORK( * ), Z( LDZ, * );
-      // ..
+  final Z = Z_.dim(LDZ);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final IWORK = IWORK_.dim();
+  final D = D_.dim();
+  final E = E_.dim();
+  const ZERO = 0.0, ONE = 1.0, TWO = 2.0;
+  bool LQUERY;
+  int FINISH = 0,
+      I,
+      ICOMPZ,
+      II,
+      J,
+      K,
+      LGN,
+      LIWMIN = 0,
+      LL,
+      LRWMIN = 0,
+      LWMIN = 0,
+      M,
+      SMLSIZ = 0,
+      START = 0;
+  double EPS, ORGNRM, P, TINY;
 
-      double             ZERO, ONE, TWO;
-      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      bool               LQUERY;
-      int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START;
-      double             EPS, ORGNRM, P, TINY;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, DLANST;
-      // EXTERNAL lsame, ILAENV, DLAMCH, DLANST
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASCL, DLASET, DSTEDC, DSTEQR, DSTERF, XERBLA, ZLACPY, ZLACRM, ZLAED0, ZSTEQR, ZSWAP
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, INT, LOG, MAX, MOD, SQRT
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  LQUERY = (LWORK == -1 || LRWORK == -1 || LIWORK == -1);
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
+  if (lsame(COMPZ, 'N')) {
+    ICOMPZ = 0;
+  } else if (lsame(COMPZ, 'V')) {
+    ICOMPZ = 1;
+  } else if (lsame(COMPZ, 'I')) {
+    ICOMPZ = 2;
+  } else {
+    ICOMPZ = -1;
+  }
+  if (ICOMPZ < 0) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if ((LDZ < 1) || (ICOMPZ > 0 && LDZ < max(1, N))) {
+    INFO.value = -6;
+  }
 
-      if ( lsame( COMPZ, 'N' ) ) {
-         ICOMPZ = 0;
-      } else if ( lsame( COMPZ, 'V' ) ) {
-         ICOMPZ = 1;
-      } else if ( lsame( COMPZ, 'I' ) ) {
-         ICOMPZ = 2;
+  if (INFO.value == 0) {
+    // Compute the workspace requirements
+
+    SMLSIZ = ilaenv(9, 'ZSTEDC', ' ', 0, 0, 0, 0);
+    if (N <= 1 || ICOMPZ == 0) {
+      LWMIN = 1;
+      LIWMIN = 1;
+      LRWMIN = 1;
+    } else if (N <= SMLSIZ) {
+      LWMIN = 1;
+      LIWMIN = 1;
+      LRWMIN = 2 * (N - 1);
+    } else if (ICOMPZ == 1) {
+      LGN = log(N) ~/ log(TWO);
+      if (pow(2, LGN) < N) LGN = LGN + 1;
+      if (pow(2, LGN) < N) LGN = LGN + 1;
+      LWMIN = N * N;
+      LRWMIN = 1 + 3 * N + 2 * N * LGN + 4 * pow(N, 2).toInt();
+      LIWMIN = 6 + 6 * N + 5 * N * LGN;
+    } else if (ICOMPZ == 2) {
+      LWMIN = 1;
+      LRWMIN = 1 + 4 * N + 2 * pow(N, 2).toInt();
+      LIWMIN = 3 + 5 * N;
+    }
+    WORK[1] = LWMIN.toComplex();
+    RWORK[1] = LRWMIN.toDouble();
+    IWORK[1] = LIWMIN;
+
+    if (LWORK < LWMIN && !LQUERY) {
+      INFO.value = -8;
+    } else if (LRWORK < LRWMIN && !LQUERY) {
+      INFO.value = -10;
+    } else if (LIWORK < LIWMIN && !LQUERY) {
+      INFO.value = -12;
+    }
+  }
+
+  if (INFO.value != 0) {
+    xerbla('ZSTEDC', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
+
+  // Quick return if possible
+
+  if (N == 0) return;
+  if (N == 1) {
+    if (ICOMPZ != 0) Z[1][1] = Complex.one;
+    return;
+  }
+
+  // If the following conditional clause is removed, then the routine
+  // will use the Divide and Conquer routine to compute only the
+  // eigenvalues, which requires (3N + 3N**2) real workspace and
+  // (2 + 5N + 2N lg(N)) integer workspace.
+  // Since on many architectures DSTERF is much faster than any other
+  // algorithm for finding eigenvalues only, it is used here
+  // as the default. If the conditional clause is removed, then
+  // information on the size of workspace needs to be changed.
+
+  // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
+
+  if (ICOMPZ == 0) {
+    dsterf(N, D, E, INFO);
+  } else {
+    // If N is smaller than the minimum divide size (SMLSIZ+1), then
+    // solve the problem with another solver.
+
+    if (N <= SMLSIZ) {
+      zsteqr(COMPZ, N, D, E, Z, LDZ, RWORK, INFO);
+    } else {
+      // If COMPZ = 'I', we simply call DSTEDC instead.
+
+      if (ICOMPZ == 2) {
+        dlaset('Full', N, N, ZERO, ONE, RWORK.asMatrix(N), N);
+        LL = N * N + 1;
+        dstedc('I', N, D, E, RWORK.asMatrix(N), N, RWORK(LL), LRWORK - LL + 1,
+            IWORK, LIWORK, INFO);
+        for (J = 1; J <= N; J++) {
+          for (I = 1; I <= N; I++) {
+            Z[I][J] = RWORK[(J - 1) * N + I].toComplex();
+          }
+        }
       } else {
-         ICOMPZ = -1;
-      }
-      if ( ICOMPZ < 0 ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < max( 1, N ) ) ) {
-         INFO = -6;
-      }
+        // From now on, only option left to be handled is COMPZ = 'V',
+        // i.e. ICOMPZ = 1.
 
-      if ( INFO == 0 ) {
+        // Scale.
 
-         // Compute the workspace requirements
+        ORGNRM = dlanst('M', N, D, E);
+        if (ORGNRM != ZERO) {
+          EPS = dlamch('Epsilon');
 
-         SMLSIZ = ilaenv( 9, 'ZSTEDC', ' ', 0, 0, 0, 0 );
-         if ( N <= 1 || ICOMPZ == 0 ) {
-            LWMIN = 1;
-            LIWMIN = 1;
-            LRWMIN = 1;
-         } else if ( N <= SMLSIZ ) {
-            LWMIN = 1;
-            LIWMIN = 1;
-            LRWMIN = 2*( N - 1 );
-         } else if ( ICOMPZ == 1 ) {
-            LGN = INT( LOG( N.toDouble() ) / LOG( TWO ) );
-            if (2**LGN < N) LGN = LGN + 1;
-            IF( 2**LGN < N ) LGN = LGN + 1;
-            LWMIN = N*N;
-            LRWMIN = 1 + 3*N + 2*N*LGN + 4*N**2;
-            LIWMIN = 6 + 6*N + 5*N*LGN;
-         } else if ( ICOMPZ == 2 ) {
-            LWMIN = 1;
-            LRWMIN = 1 + 4*N + 2*N**2;
-            LIWMIN = 3 + 5*N;
-         }
-         WORK[1] = LWMIN;
-         RWORK[1] = LRWMIN;
-         IWORK[1] = LIWMIN;
+          START = 1;
 
-         if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -8;
-         } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -10;
-         } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -12;
-         }
-      }
-
-      if ( INFO != 0 ) {
-         xerbla('ZSTEDC', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
-
-      // Quick return if possible
-
-      if (N == 0) return;
-      if ( N == 1 ) {
-         if (ICOMPZ != 0) Z( 1, 1 ) = ONE;
-         return;
-      }
-
-      // If the following conditional clause is removed, then the routine
-      // will use the Divide and Conquer routine to compute only the
-      // eigenvalues, which requires (3N + 3N**2) real workspace and
-      // (2 + 5N + 2N lg(N)) integer workspace.
-      // Since on many architectures DSTERF is much faster than any other
-      // algorithm for finding eigenvalues only, it is used here
-      // as the default. If the conditional clause is removed, then
-      // information on the size of workspace needs to be changed.
-
-      // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
-
-      if ( ICOMPZ == 0 ) {
-         dsterf(N, D, E, INFO );
-         GO TO 70;
-      }
-
-      // If N is smaller than the minimum divide size (SMLSIZ+1), then
-      // solve the problem with another solver.
-
-      if ( N <= SMLSIZ ) {
-
-         zsteqr(COMPZ, N, D, E, Z, LDZ, RWORK, INFO );
-
-      } else {
-
-         // If COMPZ = 'I', we simply call DSTEDC instead.
-
-         if ( ICOMPZ == 2 ) {
-            dlaset('Full', N, N, ZERO, ONE, RWORK, N );
-            LL = N*N + 1;
-            dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
-            for (J = 1; J <= N; J++) { // 20
-               for (I = 1; I <= N; I++) { // 10
-                  Z[I][J] = RWORK( ( J-1 )*N+I );
-               } // 10
-            } // 20
-            GO TO 70;
-         }
-
-         // From now on, only option left to be handled is COMPZ = 'V',
-         // i.e. ICOMPZ = 1.
-
-         // Scale.
-
-         ORGNRM = dlanst( 'M', N, D, E );
-         if (ORGNRM == ZERO) GO TO 70;
-
-         EPS = dlamch( 'Epsilon' );
-
-         START = 1;
-
-         // while ( START <= N )
-
-         } // 30
-         if ( START <= N ) {
-
+          while (START <= N) {
             // Let FINISH be the position of the next subdiagonal entry
             // such that E( FINISH ) <= TINY or FINISH = N if no such
             // subdiagonal exists.  The matrix identified by the elements
@@ -170,76 +187,78 @@
             // sub-problem.
 
             FINISH = START;
-            } // 40
-            if ( FINISH < N ) {
-               TINY = EPS*sqrt( ( D( FINISH ) ).abs() )* sqrt( ( D( FINISH+1 ) ).abs() );
-               if ( ( E( FINISH ) ).abs() > TINY ) {
-                  FINISH = FINISH + 1;
-                  GO TO 40;
-               }
+            while (FINISH < N) {
+              TINY = EPS * sqrt(D[FINISH].abs()) * sqrt(D[FINISH + 1].abs());
+              if (E[FINISH].abs() <= TINY) break;
+              FINISH = FINISH + 1;
             }
 
             // (Sub) Problem determined.  Compute its size and solve it.
 
             M = FINISH - START + 1;
-            if ( M > SMLSIZ ) {
+            if (M > SMLSIZ) {
+              // Scale.
 
-               // Scale.
+              ORGNRM = dlanst('M', M, D(START), E(START));
+              dlascl(
+                  'G', 0, 0, ORGNRM, ONE, M, 1, D(START).asMatrix(M), M, INFO);
+              dlascl('G', 0, 0, ORGNRM, ONE, M - 1, 1, E(START).asMatrix(M - 1),
+                  M - 1, INFO);
 
-               ORGNRM = dlanst( 'M', M, D( START ), E( START ) );
-               dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
-               dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
+              zlaed0(N, M, D(START), E(START), Z(1, START), LDZ,
+                  WORK.asMatrix(N), N, RWORK, IWORK, INFO);
+              if (INFO.value > 0) {
+                INFO.value = (INFO.value ~/ (M + 1) + START - 1) * (N + 1) +
+                    (INFO.value % (M + 1)) +
+                    START -
+                    1;
+                break;
+              }
 
-               zlaed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
-               if ( INFO > 0 ) {
-                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + (INFO % ( M+1) ) + START - 1;
-                  GO TO 70;
-               }
+              // Scale back.
 
-               // Scale back.
-
-               dlascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
-
+              dlascl(
+                  'G', 0, 0, ONE, ORGNRM, M, 1, D(START).asMatrix(M), M, INFO);
             } else {
-               dsteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO );
-               zlacrm(N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
-               zlacpy('A', N, M, WORK, N, Z( 1, START ), LDZ );
-               if ( INFO > 0 ) {
-                  INFO = START*( N+1 ) + FINISH;
-                  GO TO 70;
-               }
+              dsteqr('I', M, D(START), E(START), RWORK.asMatrix(M), M,
+                  RWORK(M * M + 1), INFO);
+              zlacrm(N, M, Z(1, START), LDZ, RWORK.asMatrix(M), M,
+                  WORK.asMatrix(N), N, RWORK(M * M + 1));
+              zlacpy('A', N, M, WORK.asMatrix(N), N, Z(1, START), LDZ);
+              if (INFO.value > 0) {
+                INFO.value = START * (N + 1) + FINISH;
+                break;
+              }
             }
 
             START = FINISH + 1;
-            GO TO 30;
-         }
+          }
 
-         // endwhile
+          if (INFO.value == 0) {
+            // Use Selection Sort to minimize swaps of eigenvectors
 
-
-         // Use Selection Sort to minimize swaps of eigenvectors
-
-         for (II = 2; II <= N; II++) { // 60
-           I = II - 1;
-           K = I;
-           P = D( I );
-           for (J = II; J <= N; J++) { // 50
-              if ( D( J ) < P ) {
-                 K = J;
-                 P = D( J );
+            for (II = 2; II <= N; II++) {
+              I = II - 1;
+              K = I;
+              P = D[I];
+              for (J = II; J <= N; J++) {
+                if (D[J] < P) {
+                  K = J;
+                  P = D[J];
+                }
               }
-           } // 50
-           if ( K != I ) {
-              D[K] = D( I );
-              D[I] = P;
-              zswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
-           }
-         } // 60
+              if (K != I) {
+                D[K] = D[I];
+                D[I] = P;
+                zswap(N, Z(1, I).asArray(), 1, Z(1, K).asArray(), 1);
+              }
+            }
+          }
+        }
       }
-
-      } // 70
-      WORK[1] = LWMIN;
-      RWORK[1] = LRWMIN;
-      IWORK[1] = LIWMIN;
-
-      }
+    }
+  }
+  WORK[1] = LWMIN.toComplex();
+  RWORK[1] = LRWMIN.toDouble();
+  IWORK[1] = LIWMIN;
+}

@@ -1,141 +1,159 @@
-      void zunbdb6(final int M1, final int M2, final int N, final int X1, final int INCX1, final int X2, final int INCX2, final Matrix<double> Q1_, final int LDQ1, final Matrix<double> Q2_, final int LDQ2, final Array<double> WORK_, final int LWORK, final Box<int> INFO,) {
-  final Q1 = Q1_.dim();
-  final Q2 = Q2_.dim();
-  final WORK = WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlassq.dart';
+
+void zunbdb6(
+  final int M1,
+  final int M2,
+  final int N,
+  final Array<Complex> X1_,
+  final int INCX1,
+  final Array<Complex> X2_,
+  final int INCX2,
+  final Matrix<Complex> Q1_,
+  final int LDQ1,
+  final Matrix<Complex> Q2_,
+  final int LDQ2,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Box<int> INFO,
+) {
+  final Q1 = Q1_.dim(LDQ1);
+  final Q2 = Q2_.dim(LDQ2);
+  final WORK = WORK_.dim();
+  final X1 = X1_.dim();
+  final X2 = X2_.dim();
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
-      Complex         Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
-      // ..
+  const ALPHA = 0.83, REALZERO = 0.0;
+  int I, IX;
+  double EPS, NORM, NORM_NEW;
+  final SCL = Box(0.0), SSQ = Box(0.0);
 
-      double             ALPHA, REALONE, REALZERO;
-      const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
-      Complex         NEGONE, ONE, ZERO;
-      const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
-      int                I, IX;
-      double             EPS, NORM, NORM_NEW, SCL, SSQ;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMV, ZLASSQ, XERBLA
-      // ..
-      // .. Intrinsic Function ..
-      // INTRINSIC MAX
+  // Test input arguments
 
-      // Test input arguments
+  INFO.value = 0;
+  if (M1 < 0) {
+    INFO.value = -1;
+  } else if (M2 < 0) {
+    INFO.value = -2;
+  } else if (N < 0) {
+    INFO.value = -3;
+  } else if (INCX1 < 1) {
+    INFO.value = -5;
+  } else if (INCX2 < 1) {
+    INFO.value = -7;
+  } else if (LDQ1 < max(1, M1)) {
+    INFO.value = -9;
+  } else if (LDQ2 < max(1, M2)) {
+    INFO.value = -11;
+  } else if (LWORK < N) {
+    INFO.value = -13;
+  }
 
-      INFO = 0;
-      if ( M1 < 0 ) {
-         INFO = -1;
-      } else if ( M2 < 0 ) {
-         INFO = -2;
-      } else if ( N < 0 ) {
-         INFO = -3;
-      } else if ( INCX1 < 1 ) {
-         INFO = -5;
-      } else if ( INCX2 < 1 ) {
-         INFO = -7;
-      } else if ( LDQ1 < max( 1, M1 ) ) {
-         INFO = -9;
-      } else if ( LDQ2 < max( 1, M2 ) ) {
-         INFO = -11;
-      } else if ( LWORK < N ) {
-         INFO = -13;
-      }
+  if (INFO.value != 0) {
+    xerbla('ZUNBDB6', -INFO.value);
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('ZUNBDB6', -INFO );
-         return;
-      }
+  EPS = dlamch('Precision');
 
-      EPS = dlamch( 'Precision' );
+  // Compute the Euclidean norm of X
 
-      // Compute the Euclidean norm of X
+  SCL.value = REALZERO;
+  SSQ.value = REALZERO;
+  zlassq(M1, X1, INCX1, SCL, SSQ);
+  zlassq(M2, X2, INCX2, SCL, SSQ);
+  NORM = SCL.value * sqrt(SSQ.value);
 
-      SCL = REALZERO;
-      SSQ = REALZERO;
-      zlassq(M1, X1, INCX1, SCL, SSQ );
-      zlassq(M2, X2, INCX2, SCL, SSQ );
-      NORM = SCL * sqrt( SSQ );
+  // First, project X onto the orthogonal complement of Q's column
+  // space
 
-      // First, project X onto the orthogonal complement of Q's column
-      // space
+  if (M1 == 0) {
+    for (I = 1; I <= N; I++) {
+      WORK[I] = Complex.zero;
+    }
+  } else {
+    zgemv('C', M1, N, Complex.one, Q1, LDQ1, X1, INCX1, Complex.zero, WORK, 1);
+  }
 
-      if ( M1 == 0 ) {
-         for (I = 1; I <= N; I++) {
-            WORK[I] = ZERO;
-         }
-      } else {
-         zgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
-      }
+  zgemv('C', M2, N, Complex.one, Q2, LDQ2, X2, INCX2, Complex.one, WORK, 1);
+  zgemv('N', M1, N, -Complex.one, Q1, LDQ1, WORK, 1, Complex.one, X1, INCX1);
+  zgemv('N', M2, N, -Complex.one, Q2, LDQ2, WORK, 1, Complex.one, X2, INCX2);
 
-      zgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
+  SCL.value = REALZERO;
+  SSQ.value = REALZERO;
+  zlassq(M1, X1, INCX1, SCL, SSQ);
+  zlassq(M2, X2, INCX2, SCL, SSQ);
+  NORM_NEW = SCL.value * sqrt(SSQ.value);
 
-      zgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL ZGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
+  // If projection is sufficiently large in norm, then stop.
+  // If projection is zero, then stop.
+  // Otherwise, project again.
 
-      SCL = REALZERO;
-      SSQ = REALZERO;
-      zlassq(M1, X1, INCX1, SCL, SSQ );
-      zlassq(M2, X2, INCX2, SCL, SSQ );
-      NORM_NEW = SCL * sqrt(SSQ);
+  if (NORM_NEW >= ALPHA * NORM) {
+    return;
+  }
 
-      // If projection is sufficiently large in norm, then stop.
-      // If projection is zero, then stop.
-      // Otherwise, project again.
+  if (NORM_NEW <= N * EPS * NORM) {
+    for (IX = 1;
+        INCX1 < 0 ? IX >= 1 + (M1 - 1) * INCX1 : IX <= 1 + (M1 - 1) * INCX1;
+        IX += INCX1) {
+      X1[IX] = Complex.zero;
+    }
+    for (IX = 1;
+        INCX2 < 0 ? IX >= 1 + (M2 - 1) * INCX2 : IX <= 1 + (M2 - 1) * INCX2;
+        IX += INCX2) {
+      X2[IX] = Complex.zero;
+    }
+    return;
+  }
 
-      if ( NORM_NEW >= ALPHA * NORM ) {
-         return;
-      }
+  NORM = NORM_NEW;
 
-      if ( NORM_NEW <= N * EPS * NORM ) {
-         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
-           X1[IX] = ZERO;
-         }
-         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
-           X2[IX] = ZERO;
-         }
-         return;
-      }
+  for (I = 1; I <= N; I++) {
+    WORK[I] = Complex.zero;
+  }
 
-      NORM = NORM_NEW;
+  if (M1 == 0) {
+    for (I = 1; I <= N; I++) {
+      WORK[I] = Complex.zero;
+    }
+  } else {
+    zgemv('C', M1, N, Complex.one, Q1, LDQ1, X1, INCX1, Complex.zero, WORK, 1);
+  }
 
-      for (I = 1; I <= N; I++) {
-         WORK[I] = ZERO;
-      }
+  zgemv('C', M2, N, Complex.one, Q2, LDQ2, X2, INCX2, Complex.one, WORK, 1);
+  zgemv('N', M1, N, -Complex.one, Q1, LDQ1, WORK, 1, Complex.one, X1, INCX1);
+  zgemv('N', M2, N, -Complex.one, Q2, LDQ2, WORK, 1, Complex.one, X2, INCX2);
 
-      if ( M1 == 0 ) {
-         for (I = 1; I <= N; I++) {
-            WORK[I] = ZERO;
-         }
-      } else {
-         zgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
-      }
+  SCL.value = REALZERO;
+  SSQ.value = REALZERO;
+  zlassq(M1, X1, INCX1, SCL, SSQ);
+  zlassq(M2, X2, INCX2, SCL, SSQ);
+  NORM_NEW = SCL.value * sqrt(SSQ.value);
 
-      zgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
+  // If second projection is sufficiently large in norm, then do
+  // nothing more. Alternatively, if it shrunk significantly, then
+  // truncate it to zero.
 
-      zgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL ZGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
-
-      SCL = REALZERO;
-      SSQ = REALZERO;
-      zlassq(M1, X1, INCX1, SCL, SSQ );
-      zlassq(M2, X2, INCX2, SCL, SSQ );
-      NORM_NEW = SCL * sqrt(SSQ);
-
-      // If second projection is sufficiently large in norm, then do
-      // nothing more. Alternatively, if it shrunk significantly, then
-      // truncate it to zero.
-
-      if ( NORM_NEW < ALPHA * NORM ) {
-         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
-            X1[IX] = ZERO;
-         }
-         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
-            X2[IX] = ZERO;
-         }
-      }
-
-      }
+  if (NORM_NEW < ALPHA * NORM) {
+    for (IX = 1;
+        INCX1 < 0 ? IX >= 1 + (M1 - 1) * INCX1 : IX <= 1 + (M1 - 1) * INCX1;
+        IX += INCX1) {
+      X1[IX] = Complex.zero;
+    }
+    for (IX = 1;
+        INCX2 < 0 ? IX >= 1 + (M2 - 1) * INCX2 : IX <= 1 + (M2 - 1) * INCX2;
+        IX += INCX2) {
+      X2[IX] = Complex.zero;
+    }
+  }
+}

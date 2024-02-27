@@ -1,56 +1,66 @@
-      void zgtsvx(final int FACT, final int TRANS, final int N, final int NRHS, final int DL, final int D, final int DU, final int DLF, final int DF, final int DUF, final int DU2, final Array<int> IPIV_, final Matrix<double> B_, final int LDB, final Matrix<double> X_, final int LDX, final int RCOND, final int FERR, final int BERR, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final IPIV = IPIV_.dim();
-  final B = B_.dim();
-  final X = X_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgtcon.dart';
+import 'package:lapack/src/zgtrfs.dart';
+import 'package:lapack/src/zgttrf.dart';
+import 'package:lapack/src/zgttrs.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlangt.dart';
+
+void zgtsvx(final String FACT, final String TRANS, final int N, final int NRHS,
+      final Array<Complex> DL_, final Array<Complex> D_, final Array<Complex> DU_, final Array<Complex> DLF_, final Array<Complex> DF_,
+      final Array<Complex> DUF_, final Array<Complex> DU2_, final Array<int> IPIV_,
+      final Matrix<Complex> B_, final int LDB, final Matrix<Complex> X_,
+      final int LDX, final Box<double> RCOND, final Array<double> FERR_, final Array<double> BERR_,
+      final Array<Complex> WORK_, final Array<double> RWORK_,
+      final Box<int> INFO,) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             FACT, TRANS;
-      int                INFO, LDB, LDX, N, NRHS;
-      double             RCOND;
-      int                IPIV( * );
-      double             BERR( * ), FERR( * ), RWORK( * );
-      Complex         B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * );
-      // ..
-
-      double             ZERO;
+  final IPIV = IPIV_.dim();
+  final B = B_.dim(LDB);
+  final X = X_.dim(LDX);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+final DL=DL_.dim();
+final D=D_.dim();
+final DU=DU_.dim();
+final DLF=DLF_.dim();
+final DF=DF_.dim();
+final DUF=DUF_.dim();
+final DU2=DU2_.dim();
+final FERR=FERR_.dim();
+final BERR=BERR_.dim();
       const              ZERO = 0.0 ;
       bool               NOFACT, NOTRAN;
       String             NORM;
       double             ANORM;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANGT;
-      // EXTERNAL lsame, DLAMCH, ZLANGT
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZCOPY, ZGTCON, ZGTRFS, ZGTTRF, ZGTTRS, ZLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
 
-      INFO = 0;
+      INFO.value = 0;
       NOFACT = lsame( FACT, 'N' );
       NOTRAN = lsame( TRANS, 'N' );
       if ( !NOFACT && !lsame( FACT, 'F' ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !NOTRAN && !lsame( TRANS, 'T' ) && !lsame( TRANS, 'C' ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -14;
+         INFO.value = -14;
       } else if ( LDX < max( 1, N ) ) {
-         INFO = -16;
+         INFO.value = -16;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZGTSVX', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZGTSVX', -INFO.value );
          return;
       }
 
@@ -65,10 +75,10 @@
          }
          zgttrf(N, DLF, DF, DUF, DU2, IPIV, INFO );
 
-         // Return if INFO is non-zero.
+         // Return if INFO.value is non-zero.
 
-         if ( INFO > 0 ) {
-            RCOND = ZERO;
+         if ( INFO.value > 0 ) {
+            RCOND.value = ZERO;
             return;
          }
       }
@@ -80,7 +90,7 @@
       } else {
          NORM = 'I';
       }
-      ANORM = ZLANGT( NORM, N, DL, D, DU );
+      ANORM = zlangt( NORM, N, DL, D, DU );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -96,8 +106,8 @@
 
       zgtrfs(TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
-      // Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO.value = N+1 if the matrix is singular to working precision.
 
-      if( RCOND < dlamch( 'Epsilon' ) ) INFO = N + 1;
+      if( RCOND.value < dlamch( 'Epsilon' ) ) INFO.value = N + 1;
 
       }

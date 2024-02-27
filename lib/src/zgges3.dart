@@ -1,283 +1,387 @@
-      void zgges3(final int JOBVSL, final int JOBVSR, final int SORT, final int SELCTG, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final int SDIM, final int ALPHA, final int BETA, final Matrix<double> VSL_, final int LDVSL, final Matrix<double> VSR_, final int LDVSR, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final VSL = VSL_.dim();
-  final VSR = VSR_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final BWORK = BWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/variants/qr/ll/zgeqrf.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zggbak.dart';
+import 'package:lapack/src/zggbal.dart';
+import 'package:lapack/src/zgghd3.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlaqz0.dart';
+import 'package:lapack/src/zlascl.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/ztgsen.dart';
+import 'package:lapack/src/zungqr.dart';
+import 'package:lapack/src/zunmqr.dart';
+
+void zgges3(
+  final String JOBVSL,
+  final String JOBVSR,
+  final String SORT,
+  final bool Function(Complex, Complex) SELCTG,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Box<int> SDIM,
+  final Array<Complex> ALPHA_,
+  final Array<Complex> BETA_,
+  final Matrix<Complex> VSL_,
+  final int LDVSL,
+  final Matrix<Complex> VSR_,
+  final int LDVSR,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<bool> BWORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBVSL, JOBVSR, SORT;
-      int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM;
-      bool               BWORK( * );
-      double             RWORK( * );
-      Complex         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
-      // ..
-      // .. Function Arguments ..
-      bool               SELCTG;
-      // EXTERNAL SELCTG
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final VSL = VSL_.dim(LDVSL);
+  final VSR = VSR_.dim(LDVSR);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final BWORK = BWORK_.dim();
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  bool CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST;
+  int I,
+      ICOLS,
+      IJOBVL,
+      IJOBVR,
+      ILEFT,
+      IRIGHT,
+      IROWS,
+      IRWRK,
+      ITAU,
+      IWRK,
+      LWKOPT = 0,
+      LWKMIN;
+  double ANRM, ANRMTO = 0, BIGNUM, BNRM, BNRMTO = 0, EPS, SMLNUM;
+  final IDUM = Array<int>(1);
+  final DIF = Array<double>(2);
+  final IERR = Box(0), IHI = Box(0), ILO = Box(0);
+  final PVSL = Box(0.0), PVSR = Box(0.0);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST;
-      int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKOPT, LWKMIN;
-      double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SMLNUM;
-      int                IDUM( 1 );
-      double             DIF( 2 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, DLAMCH, ZLANGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, SQRT
+  // Decode the input arguments
 
-      // Decode the input arguments
+  if (lsame(JOBVSL, 'N')) {
+    IJOBVL = 1;
+    ILVSL = false;
+  } else if (lsame(JOBVSL, 'V')) {
+    IJOBVL = 2;
+    ILVSL = true;
+  } else {
+    IJOBVL = -1;
+    ILVSL = false;
+  }
 
-      if ( lsame( JOBVSL, 'N' ) ) {
-         IJOBVL = 1;
-         ILVSL = false;
-      } else if ( lsame( JOBVSL, 'V' ) ) {
-         IJOBVL = 2;
-         ILVSL = true;
-      } else {
-         IJOBVL = -1;
-         ILVSL = false;
-      }
+  if (lsame(JOBVSR, 'N')) {
+    IJOBVR = 1;
+    ILVSR = false;
+  } else if (lsame(JOBVSR, 'V')) {
+    IJOBVR = 2;
+    ILVSR = true;
+  } else {
+    IJOBVR = -1;
+    ILVSR = false;
+  }
 
-      if ( lsame( JOBVSR, 'N' ) ) {
-         IJOBVR = 1;
-         ILVSR = false;
-      } else if ( lsame( JOBVSR, 'V' ) ) {
-         IJOBVR = 2;
-         ILVSR = true;
-      } else {
-         IJOBVR = -1;
-         ILVSR = false;
-      }
+  WANTST = lsame(SORT, 'S');
 
-      WANTST = lsame( SORT, 'S' );
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  LQUERY = (LWORK == -1);
+  LWKMIN = max(1, 2 * N);
 
-      INFO = 0;
-      LQUERY = ( LWORK == -1 );
-      LWKMIN = max( 1, 2*N );
+  if (IJOBVL <= 0) {
+    INFO.value = -1;
+  } else if (IJOBVR <= 0) {
+    INFO.value = -2;
+  } else if ((!WANTST) && (!lsame(SORT, 'N'))) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -5;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -7;
+  } else if (LDB < max(1, N)) {
+    INFO.value = -9;
+  } else if (LDVSL < 1 || (ILVSL && LDVSL < N)) {
+    INFO.value = -14;
+  } else if (LDVSR < 1 || (ILVSR && LDVSR < N)) {
+    INFO.value = -16;
+  } else if (LWORK < LWKMIN && !LQUERY) {
+    INFO.value = -18;
+  }
 
-      if ( IJOBVL <= 0 ) {
-         INFO = -1;
-      } else if ( IJOBVR <= 0 ) {
-         INFO = -2;
-      } else if ( ( !WANTST ) && ( !lsame( SORT, 'N' ) ) ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -5;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -7;
-      } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
-      } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
-         INFO = -14;
-      } else if ( LDVSR < 1 || ( ILVSR && LDVSR < N ) ) {
-         INFO = -16;
-      } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -18;
-      }
+  // Compute workspace
 
-      // Compute workspace
+  if (INFO.value == 0) {
+    zgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR);
+    LWKOPT = max(LWKMIN, N + WORK[1].toInt());
+    zunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR);
+    LWKOPT = max(LWKOPT, N + WORK[1].toInt());
+    if (ILVSL) {
+      zungqr(N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR);
+      LWKOPT = max(LWKOPT, N + WORK[1].toInt());
+    }
+    zgghd3(JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR,
+        WORK, -1, IERR);
+    LWKOPT = max(LWKOPT, N + WORK[1].toInt());
+    zlaqz0('S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VSL,
+        LDVSL, VSR, LDVSR, WORK, -1, RWORK, 0, IERR);
+    LWKOPT = max(LWKOPT, WORK[1].toInt());
+    if (WANTST) {
+      ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL,
+          VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR);
+      LWKOPT = max(LWKOPT, WORK[1].toInt());
+    }
+    if (N == 0) {
+      WORK[1] = Complex.one;
+    } else {
+      WORK[1] = LWKOPT.toComplex();
+    }
+  }
 
-      if ( INFO == 0 ) {
-         zgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
-         LWKOPT = max( LWKMIN,  N + INT( WORK( 1 ) ) );
-         zunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
-         LWKOPT = max( LWKOPT, N + INT( WORK( 1 ) ) );
-         if ( ILVSL ) {
-            zungqr(N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR );
-            LWKOPT = max( LWKOPT, N + INT ( WORK( 1 ) ) );
-         }
-         zgghd3(JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR );
-         LWKOPT = max( LWKOPT, N + INT( WORK( 1 ) ) );
-         zlaqz0('S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, RWORK, 0, IERR );
-         LWKOPT = max( LWKOPT, INT( WORK( 1 ) ) );
-         if ( WANTST ) {
-            ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
-            LWKOPT = max( LWKOPT, INT( WORK( 1 ) ) );
-         }
-         if ( N == 0 ) {
-            WORK[1] = 1;
-         } else {
-            WORK[1] = DCMPLX( LWKOPT );
-         }
-      }
+  if (INFO.value != 0) {
+    xerbla('ZGGES3 ', -INFO.value);
+    return;
+  } else if (LQUERY) {
+    return;
+  }
 
-      if ( INFO != 0 ) {
-         xerbla('ZGGES3 ', -INFO );
-         return;
-      } else if ( LQUERY ) {
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) {
+    SDIM.value = 0;
+    return;
+  }
 
-      if ( N == 0 ) {
-         SDIM = 0;
-         return;
-      }
+  // Get machine constants
 
-      // Get machine constants
+  EPS = dlamch('P');
+  SMLNUM = dlamch('S');
+  BIGNUM = ONE / SMLNUM;
+  SMLNUM = sqrt(SMLNUM) / EPS;
+  BIGNUM = ONE / SMLNUM;
 
-      EPS = dlamch( 'P' );
-      SMLNUM = dlamch( 'S' );
-      BIGNUM = ONE / SMLNUM;
-      SMLNUM = sqrt( SMLNUM ) / EPS;
-      BIGNUM = ONE / SMLNUM;
+  // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      // Scale A if max element outside range [SMLNUM,BIGNUM]
+  ANRM = zlange('M', N, N, A, LDA, RWORK);
+  ILASCL = false;
+  if (ANRM > ZERO && ANRM < SMLNUM) {
+    ANRMTO = SMLNUM;
+    ILASCL = true;
+  } else if (ANRM > BIGNUM) {
+    ANRMTO = BIGNUM;
+    ILASCL = true;
+  }
 
-      ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK );
-      ILASCL = false;
-      if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ANRMTO = SMLNUM;
-         ILASCL = true;
-      } else if ( ANRM > BIGNUM ) {
-         ANRMTO = BIGNUM;
-         ILASCL = true;
-      }
+  if (ILASCL) zlascl('G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR);
 
-      if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+  // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      // Scale B if max element outside range [SMLNUM,BIGNUM]
+  BNRM = zlange('M', N, N, B, LDB, RWORK);
+  ILBSCL = false;
+  if (BNRM > ZERO && BNRM < SMLNUM) {
+    BNRMTO = SMLNUM;
+    ILBSCL = true;
+  } else if (BNRM > BIGNUM) {
+    BNRMTO = BIGNUM;
+    ILBSCL = true;
+  }
 
-      BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK );
-      ILBSCL = false;
-      if ( BNRM > ZERO && BNRM < SMLNUM ) {
-         BNRMTO = SMLNUM;
-         ILBSCL = true;
-      } else if ( BNRM > BIGNUM ) {
-         BNRMTO = BIGNUM;
-         ILBSCL = true;
-      }
+  if (ILBSCL) zlascl('G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR);
 
-      if (ILBSCL) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+  // Permute the matrix to make it more nearly triangular
 
-      // Permute the matrix to make it more nearly triangular
+  ILEFT = 1;
+  IRIGHT = N + 1;
+  IRWRK = IRIGHT + N;
+  zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK(ILEFT), RWORK(IRIGHT),
+      RWORK(IRWRK), IERR);
 
-      ILEFT = 1;
-      IRIGHT = N + 1;
-      IRWRK = IRIGHT + N;
-      zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
+  // Reduce B to triangular form (QR decomposition of B)
 
-      // Reduce B to triangular form (QR decomposition of B)
+  IROWS = IHI.value + 1 - ILO.value;
+  ICOLS = N + 1 - ILO.value;
+  ITAU = 1;
+  IWRK = ITAU + IROWS;
+  zgeqrf(IROWS, ICOLS, B(ILO.value, ILO.value), LDB, WORK(ITAU), WORK(IWRK),
+      LWORK + 1 - IWRK, IERR);
 
-      IROWS = IHI + 1 - ILO;
-      ICOLS = N + 1 - ILO;
-      ITAU = 1;
-      IWRK = ITAU + IROWS;
-      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
+  // Apply the orthogonal transformation to matrix A
 
-      // Apply the orthogonal transformation to matrix A
+  zunmqr(
+      'L',
+      'C',
+      IROWS,
+      ICOLS,
+      IROWS,
+      B(ILO.value, ILO.value),
+      LDB,
+      WORK(ITAU),
+      A(ILO.value, ILO.value),
+      LDA,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      IERR);
 
-      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
+  // Initialize VSL
 
-      // Initialize VSL
+  if (ILVSL) {
+    zlaset('Full', N, N, Complex.zero, Complex.one, VSL, LDVSL);
+    if (IROWS > 1) {
+      zlacpy('L', IROWS - 1, IROWS - 1, B(ILO.value + 1, ILO.value), LDB,
+          VSL(ILO.value + 1, ILO.value), LDVSL);
+    }
+    zungqr(IROWS, IROWS, IROWS, VSL(ILO.value, ILO.value), LDVSL, WORK(ITAU),
+        WORK(IWRK), LWORK + 1 - IWRK, IERR);
+  }
 
-      if ( ILVSL ) {
-         zlaset('Full', N, N, CZERO, CONE, VSL, LDVSL );
-         if ( IROWS > 1 ) {
-            zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
-         }
-         zungqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
-      }
+  // Initialize VSR
 
-      // Initialize VSR
+  if (ILVSR) zlaset('Full', N, N, Complex.zero, Complex.one, VSR, LDVSR);
 
-      if (ILVSR) zlaset( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
+  // Reduce to generalized Hessenberg form
 
-      // Reduce to generalized Hessenberg form
+  zgghd3(JOBVSL, JOBVSR, N, ILO.value, IHI.value, A, LDA, B, LDB, VSL, LDVSL,
+      VSR, LDVSR, WORK(IWRK), LWORK + 1 - IWRK, IERR);
 
-      zgghd3(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
+  SDIM.value = 0;
 
-      SDIM = 0;
+  // Perform QZ algorithm, computing Schur vectors if desired
 
-      // Perform QZ algorithm, computing Schur vectors if desired
+  IWRK = ITAU;
+  zlaqz0(
+      'S',
+      JOBVSL,
+      JOBVSR,
+      N,
+      ILO.value,
+      IHI.value,
+      A,
+      LDA,
+      B,
+      LDB,
+      ALPHA,
+      BETA,
+      VSL,
+      LDVSL,
+      VSR,
+      LDVSR,
+      WORK(IWRK),
+      LWORK + 1 - IWRK,
+      RWORK(IRWRK),
+      0,
+      IERR);
+  if (IERR.value != 0) {
+    if (IERR.value > 0 && IERR.value <= N) {
+      INFO.value = IERR.value;
+    } else if (IERR.value > N && IERR.value <= 2 * N) {
+      INFO.value = IERR.value - N;
+    } else {
+      INFO.value = N + 1;
+    }
+    WORK[1] = LWKOPT.toComplex();
+    return;
+  }
 
-      IWRK = ITAU;
-      zlaqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
-      if ( IERR != 0 ) {
-         if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR;
-         } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N;
-         } else {
-            INFO = N + 1;
-         }
-         GO TO 30;
-      }
+  // Sort eigenvalues ALPHA/BETA if desired
 
-      // Sort eigenvalues ALPHA/BETA if desired
+  if (WANTST) {
+    // Undo scaling on eigenvalues before selecting
 
-      if ( WANTST ) {
+    if (ILASCL) {
+      zlascl('G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA.asMatrix(N), N, IERR);
+    }
+    if (ILBSCL) {
+      zlascl('G', 0, 0, BNRM, BNRMTO, N, 1, BETA.asMatrix(N), N, IERR);
+    }
 
-         // Undo scaling on eigenvalues before selecting
+    // Select eigenvalues
 
-         if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
-         IF( ILBSCL ) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
+    for (I = 1; I <= N; I++) {
+      // 10
+      BWORK[I] = SELCTG(ALPHA[I], BETA[I]);
+    } // 10
 
-         // Select eigenvalues
+    ztgsen(
+        0,
+        ILVSL,
+        ILVSR,
+        BWORK,
+        N,
+        A,
+        LDA,
+        B,
+        LDB,
+        ALPHA,
+        BETA,
+        VSL,
+        LDVSL,
+        VSR,
+        LDVSR,
+        SDIM,
+        PVSL,
+        PVSR,
+        DIF,
+        WORK(IWRK),
+        LWORK - IWRK + 1,
+        IDUM,
+        1,
+        IERR);
+    if (IERR.value == 1) INFO.value = N + 3;
+  }
 
-         for (I = 1; I <= N; I++) { // 10
-            BWORK[I] = SELCTG( ALPHA( I ), BETA( I ) );
-         } // 10
+  // Apply back-permutation to VSL and VSR
 
-         ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         if (IERR == 1) INFO = N + 3;
+  if (ILVSL) {
+    zggbak('P', 'L', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT), N,
+        VSL, LDVSL, IERR);
+  }
+  if (ILVSR) {
+    zggbak('P', 'R', N, ILO.value, IHI.value, RWORK(ILEFT), RWORK(IRIGHT), N,
+        VSR, LDVSR, IERR);
+  }
 
-      }
+  // Undo scaling
 
-      // Apply back-permutation to VSL and VSR
+  if (ILASCL) {
+    zlascl('U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR);
+    zlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA.asMatrix(N), N, IERR);
+  }
 
-      if (ILVSL) zggbak( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
-      IF( ILVSR ) zggbak( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
+  if (ILBSCL) {
+    zlascl('U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR);
+    zlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA.asMatrix(N), N, IERR);
+  }
 
-      // Undo scaling
+  if (WANTST) {
+    // Check if reordering is correct
 
-      if ( ILASCL ) {
-         zlascl('U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR );
-         zlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
-      }
+    LASTSL = true;
+    SDIM.value = 0;
+    for (I = 1; I <= N; I++) {
+      // 20
+      CURSL = SELCTG(ALPHA[I], BETA[I]);
+      if (CURSL) SDIM.value = SDIM.value + 1;
+      if (CURSL && !LASTSL) INFO.value = N + 2;
+      LASTSL = CURSL;
+    } // 20
+  }
 
-      if ( ILBSCL ) {
-         zlascl('U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR );
-         zlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
-      }
-
-      if ( WANTST ) {
-
-         // Check if reordering is correct
-
-         LASTSL = true;
-         SDIM = 0;
-         for (I = 1; I <= N; I++) { // 20
-            CURSL = SELCTG( ALPHA( I ), BETA( I ) );
-            if (CURSL) SDIM = SDIM + 1;
-            IF( CURSL && !LASTSL ) INFO = N + 2;
-            LASTSL = CURSL;
-         } // 20
-
-      }
-
-      } // 30
-
-      WORK[1] = DCMPLX( LWKOPT );
-
-      }
+  WORK[1] = LWKOPT.toComplex();
+}

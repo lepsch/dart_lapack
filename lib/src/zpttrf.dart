@@ -1,118 +1,119 @@
-      void zpttrf(final int N, final int D, final int E, final Box<int> INFO,) {
+import 'dart:typed_data';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void zpttrf(
+  final int N,
+  final Array<double> D_,
+  final Array<Complex> E_,
+  final Box<int> INFO,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, N;
-      double             D( * );
-      Complex         E( * );
-      // ..
+  final D = D_.dim();
+  final E = E_.dim();
+  const ZERO = 0.0;
+  int I, I4;
+  double EII, EIR, F, G;
 
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      int                I, I4;
-      double             EII, EIR, F, G;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, DIMAG, MOD
+  // Test the input parameters.
 
-      // Test the input parameters.
+  INFO.value = 0;
+  if (N < 0) {
+    INFO.value = -1;
+    xerbla('ZPTTRF', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( N < 0 ) {
-         INFO = -1;
-         xerbla('ZPTTRF', -INFO );
-         return;
-      }
+  // Quick return if possible
 
-      // Quick return if possible
+  if (N == 0) return;
 
-      if (N == 0) return;
+  // Compute the L*D*L**H (or U**H *D*U) factorization of A.
 
-      // Compute the L*D*L**H (or U**H *D*U) factorization of A.
+  I4 = ((N - 1) % 4);
+  for (I = 1; I <= I4; I++) {
+    // 10
+    if (D[Int32x4.wwwy] <= ZERO) {
+      INFO.value = I;
+      return;
+    }
+    EIR = (E[Int32x4.wwwy]).toDouble();
+    EII = E[Int32x4.wwwy].imaginary;
+    F = EIR / D[Int32x4.wwwy];
+    G = EII / D[Int32x4.wwwy];
+    E[I] = Complex(F, G);
+    D[I + 1] = D[I + 1] - F * EIR - G * EII;
+  } // 10
 
-      I4 = ((N-1) % 4);
-      for (I = 1; I <= I4; I++) { // 10
-         if ( D( I ) <= ZERO ) {
-            INFO = I;
-            GO TO 30;
-         }
-         EIR = (E( I )).toDouble();
-         EII = DIMAG( E( I ) );
-         F = EIR / D( I );
-         G = EII / D( I );
-         E[I] = DCMPLX( F, G );
-         D[I+1] = D( I+1 ) - F*EIR - G*EII;
-      } // 10
+  for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) {
+    // 20
 
-      for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) { // 20
+    // Drop out of the loop if d(i) <= 0: the matrix is not positive
+    // definite.
 
-         // Drop out of the loop if d(i) <= 0: the matrix is not positive
-         // definite.
+    if (D[Int32x4.wwwy] <= ZERO) {
+      INFO.value = I;
+      return;
+    }
 
-         if ( D( I ) <= ZERO ) {
-            INFO = I;
-            GO TO 30;
-         }
+    // Solve for e(i) and d(i+1).
 
-         // Solve for e(i) and d(i+1).
+    EIR = (E[Int32x4.wwwy]).toDouble();
+    EII = E[Int32x4.wwwy].imaginary;
+    F = EIR / D[Int32x4.wwwy];
+    G = EII / D[Int32x4.wwwy];
+    E[I] = Complex(F, G);
+    D[I + 1] = D[I + 1] - F * EIR - G * EII;
 
-         EIR = (E( I )).toDouble();
-         EII = DIMAG( E( I ) );
-         F = EIR / D( I );
-         G = EII / D( I );
-         E[I] = DCMPLX( F, G );
-         D[I+1] = D( I+1 ) - F*EIR - G*EII;
+    if (D[I + 1] <= ZERO) {
+      INFO.value = I + 1;
+      return;
+    }
 
-         if ( D( I+1 ) <= ZERO ) {
-            INFO = I + 1;
-            GO TO 30;
-         }
+    // Solve for e(i+1) and d(i+2).
 
-         // Solve for e(i+1) and d(i+2).
+    EIR = (E[I + 1]).toDouble();
+    EII = E[I + 1].imaginary;
+    F = EIR / D[I + 1];
+    G = EII / D[I + 1];
+    E[I + 1] = Complex(F, G);
+    D[I + 2] = D[I + 2] - F * EIR - G * EII;
 
-         EIR = (E( I+1 )).toDouble();
-         EII = DIMAG( E( I+1 ) );
-         F = EIR / D( I+1 );
-         G = EII / D( I+1 );
-         E[I+1] = DCMPLX( F, G );
-         D[I+2] = D( I+2 ) - F*EIR - G*EII;
+    if (D[I + 2] <= ZERO) {
+      INFO.value = I + 2;
+      return;
+    }
 
-         if ( D( I+2 ) <= ZERO ) {
-            INFO = I + 2;
-            GO TO 30;
-         }
+    // Solve for e(i+2) and d(i+3).
 
-         // Solve for e(i+2) and d(i+3).
+    EIR = E[I + 2].toDouble();
+    EII = E[I + 2].imaginary;
+    F = EIR / D[I + 2];
+    G = EII / D[I + 2];
+    E[I + 2] = Complex(F, G);
+    D[I + 3] = D[I + 3] - F * EIR - G * EII;
 
-         EIR = (E( I+2 )).toDouble();
-         EII = DIMAG( E( I+2 ) );
-         F = EIR / D( I+2 );
-         G = EII / D( I+2 );
-         E[I+2] = DCMPLX( F, G );
-         D[I+3] = D( I+3 ) - F*EIR - G*EII;
+    if (D[I + 3] <= ZERO) {
+      INFO.value = I + 3;
+      return;
+    }
 
-         if ( D( I+3 ) <= ZERO ) {
-            INFO = I + 3;
-            GO TO 30;
-         }
+    // Solve for e(i+3) and d(i+4).
 
-         // Solve for e(i+3) and d(i+4).
+    EIR = (E[I + 3]).toDouble();
+    EII = E[I + 3].imaginary;
+    F = EIR / D[I + 3];
+    G = EII / D[I + 3];
+    E[I + 3] = Complex(F, G);
+    D[I + 4] = D[I + 4] - F * EIR - G * EII;
+  } // 20
 
-         EIR = (E( I+3 )).toDouble();
-         EII = DIMAG( E( I+3 ) );
-         F = EIR / D( I+3 );
-         G = EII / D( I+3 );
-         E[I+3] = DCMPLX( F, G );
-         D[I+4] = D( I+4 ) - F*EIR - G*EII;
-      } // 20
+  // Check d(n) for positive definiteness.
 
-      // Check d(n) for positive definiteness.
-
-      if( D( N ) <= ZERO ) INFO = N;
-
-      } // 30
-      }
+  if (D[N] <= ZERO) INFO.value = N;
+}

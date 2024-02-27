@@ -887,7 +887,8 @@ void zgesdd(
         // CWorkspace: need   2*N [tauq, taup] + N*N [U]
         // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-        zlarcm(N, N, RWORK(IRVT), N, VT, LDVT, WORK(IU), LDWRKU, RWORK(NRWORK));
+        zlarcm(N, N, RWORK(IRVT).asMatrix(N), N, VT, LDVT,
+            WORK(IU).asMatrix(LDWRKU), LDWRKU, RWORK(NRWORK));
         zlacpy('F', N, N, WORK(IU).asMatrix(LDWRKU), LDWRKU, VT, LDVT);
 
         // Multiply Q in A by real matrix RWORK(IRU), storing the
@@ -943,7 +944,8 @@ void zgesdd(
         // CWorkspace: need   0
         // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-        zlarcm(N, N, RWORK(IRVT), N, VT, LDVT, A, LDA, RWORK(NRWORK));
+        zlarcm(
+            N, N, RWORK(IRVT).asMatrix(N), N, VT, LDVT, A, LDA, RWORK(NRWORK));
         zlacpy('F', N, N, A, LDA, VT, LDVT);
 
         // Multiply Q in U by real matrix RWORK(IRU), storing the
@@ -991,7 +993,8 @@ void zgesdd(
         // CWorkspace: need   0
         // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-        zlarcm(N, N, RWORK(IRVT), N, VT, LDVT, A, LDA, RWORK(NRWORK));
+        zlarcm(
+            N, N, RWORK(IRVT).asMatrix(N), N, VT, LDVT, A, LDA, RWORK(NRWORK));
         zlacpy('F', N, N, A, LDA, VT, LDVT);
 
         // Multiply Q in U by real matrix RWORK(IRU), storing the
@@ -1644,8 +1647,8 @@ void zgesdd(
         for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
           // 50
           BLK = min(N - I + 1, CHUNK);
-          zlarcm(M, BLK, RWORK(IRVT), M, A(1, I), LDA, WORK(IVT), LDWKVT,
-              RWORK(NRWORK));
+          zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
+              WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));
           zlacpy('F', M, BLK, WORK(IVT).asMatrix(LDWKVT), LDWKVT, A(1, I), LDA);
         } // 50
       } else if (WNTQS) {
@@ -1694,7 +1697,8 @@ void zgesdd(
         // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
         NRWORK = IRU;
-        zlarcm(M, N, RWORK(IRVT), M, VT, LDVT, A, LDA, RWORK(NRWORK));
+        zlarcm(
+            M, N, RWORK(IRVT).asMatrix(M), M, VT, LDVT, A, LDA, RWORK(NRWORK));
         zlacpy('F', M, N, A, LDA, VT, LDVT);
       } else {
         // Path 5ta (N >> M, JOBZ='A')
@@ -1742,7 +1746,8 @@ void zgesdd(
         // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
         NRWORK = IRU;
-        zlarcm(M, N, RWORK(IRVT), M, VT, LDVT, A, LDA, RWORK(NRWORK));
+        zlarcm(
+            M, N, RWORK(IRVT).asMatrix(M), M, VT, LDVT, A, LDA, RWORK(NRWORK));
         zlacpy('F', M, N, A, LDA, VT, LDVT);
       }
     } else {
@@ -1860,8 +1865,8 @@ void zgesdd(
           for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) {
             // 60
             BLK = min(N - I + 1, CHUNK);
-            zlarcm(M, BLK, RWORK(IRVT), M, A(1, I), LDA, WORK(IVT), LDWKVT,
-                RWORK(NRWORK));
+            zlarcm(M, BLK, RWORK(IRVT).asMatrix(M), M, A(1, I), LDA,
+                WORK(IVT).asMatrix(LDWKVT), LDWKVT, RWORK(NRWORK));
             zlacpy(
                 'F', M, BLK, WORK(IVT).asMatrix(LDWKVT), LDWKVT, A(1, I), LDA);
           } // 60

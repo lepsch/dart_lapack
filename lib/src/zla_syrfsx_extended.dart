@@ -217,8 +217,9 @@ void zla_syrfsx_extended(
 
       // Check termination criteria.
 
-      if (YMIN * RCOND < INCR_THRESH * NORMY && Y_PREC_STATE < EXTRA_Y)
+      if (YMIN * RCOND < INCR_THRESH * NORMY && Y_PREC_STATE < EXTRA_Y) {
         INCR_PREC = true;
+      }
       if (X_STATE == NOPROG_STATE && DXRAT <= RTHRESH) X_STATE = WORKING_STATE;
       if (X_STATE == WORKING_STATE) {
         if (DX_X <= EPS) {

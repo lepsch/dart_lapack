@@ -27,7 +27,7 @@ abstract interface class Array<T> implements Box<T> {
 
   List<T> toRawList();
 
-  Matrix<T> asMatrix(int ld);
+  Matrix<T> asMatrix([int ld]);
 
   T maxval(int start, int end);
   int maxloc(int start, int end, {int dim = 1});
@@ -35,7 +35,7 @@ abstract interface class Array<T> implements Box<T> {
   Array<T> dim([int? ld]);
 }
 
-class Matrix<T> implements Box<T>  {
+class Matrix<T> implements Box<T> {
   final Array<T> _entries;
   final int _ld;
 
@@ -113,8 +113,8 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   }
 
   @override
-  Matrix<T> asMatrix(int ld) {
-    return _entries(1, offset: i - 1).asMatrix(ld);
+  Matrix<T> asMatrix([int? ld]) {
+    return _entries(1, offset: i - 1).asMatrix(ld ?? _m._ld);
   }
 
   @override
@@ -222,9 +222,9 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  Matrix<T> asMatrix(int ld) {
+  Matrix<T> asMatrix([int? ld]) {
     return Matrix.fromSlice(
-        _Array.fromSlice(_elements, offset: offset, ld: ld), ld);
+        _Array.fromSlice(_elements, offset: offset, ld: ld ?? _ld), ld ?? _ld);
   }
 
   @override

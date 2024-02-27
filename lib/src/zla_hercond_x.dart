@@ -1,155 +1,148 @@
-      double zla_hercond_x(final int UPLO, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> AF_, final int LDAF, final Array<int> IPIV_, final int X, final int INFO, final Array<double> _WORK_, final Array<double> RWORK_,) {
-  final A = A_.dim();
-  final AF = AF_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhetrs.dart';
+import 'package:lapack/src/zlacn2.dart';
+
+double zla_hercond_x(
+  final String UPLO,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> AF_,
+  final int LDAF,
+  final Array<int> IPIV_,
+  final Array<Complex> X_,
+  final Box<int> INFO,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+) {
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDAF);
+  final X = X_.dim();
   final IPIV = IPIV_.dim();
-  final _WORK = _WORK_.dim();
+  final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                N, LDA, LDAF, INFO;
-      int                IPIV( * );
-      Complex         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * );
-      double             RWORK( * );
-      // ..
+  int I, J;
+  double ANORM, TMP;
+  bool UP, UPPER;
+  final ISAVE = Array<int>(3);
+  final AINVNM = Box(0.0);
+  final KASE = Box(0);
 
-// =====================================================================
+  double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
 
-      // .. Local Scalars ..
-      int                KASE, I, J;
-      double             AINVNM, ANORM, TMP;
-      bool               UP, UPPER;
-      Complex         ZDUM;
-      int                ISAVE( 3 );
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLACN2, ZHETRS, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
-      // ..
-      // .. Statement Functions ..
-      double           CABS1;
-      // ..
-      // .. Statement Function Definitions ..
-      double CABS1(Complex ZDUM) => ZDUM.toDouble().abs() + ZDUM.imaginary.abs();
+  INFO.value = 0;
+  UPPER = lsame(UPLO, 'U');
+  if (!UPPER && !lsame(UPLO, 'L')) {
+    INFO.value = -1;
+  } else if (N < 0) {
+    INFO.value = -2;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -4;
+  } else if (LDAF < max(1, N)) {
+    INFO.value = -6;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZLA_HERCOND_X', -INFO.value);
+    return 0;
+  }
+  UP = false;
+  if (lsame(UPLO, 'U')) UP = true;
 
-      ZLA_HERCOND_X = 0.0;
+  // Compute norm of op(A)*op2(C).
 
-      INFO = 0;
-      UPPER = lsame( UPLO, 'U' );
-      if ( !UPPER && !lsame( UPLO, 'L' ) ) {
-         INFO = -1;
-      } else if ( N < 0 ) {
-         INFO = -2;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -4;
-      } else if ( LDAF < max( 1, N ) ) {
-         INFO = -6;
+  ANORM = 0.0;
+  if (UP) {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      for (J = 1; J <= I; J++) {
+        TMP = TMP + CABS1(A[J][I] * X[J]);
       }
-      if ( INFO != 0 ) {
-         xerbla('ZLA_HERCOND_X', -INFO );
-         return;
+      for (J = I + 1; J <= N; J++) {
+        TMP = TMP + CABS1(A[I][J] * X[J]);
       }
-      UP = false;
-      if ( lsame( UPLO, 'U' ) ) UP = true;
+      RWORK[I] = TMP;
+      ANORM = max(ANORM, TMP);
+    }
+  } else {
+    for (I = 1; I <= N; I++) {
+      TMP = 0.0;
+      for (J = 1; J <= I; J++) {
+        TMP = TMP + CABS1(A[I][J] * X[J]);
+      }
+      for (J = I + 1; J <= N; J++) {
+        TMP = TMP + CABS1(A[J][I] * X[J]);
+      }
+      RWORK[I] = TMP;
+      ANORM = max(ANORM, TMP);
+    }
+  }
 
-      // Compute norm of op(A)*op2(C).
+  // Quick return if possible.
 
-      ANORM = 0.0;
-      if ( UP ) {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-            for (J = 1; J <= I; J++) {
-               TMP = TMP + CABS1( A( J, I ) * X( J ) );
-            }
-            for (J = I+1; J <= N; J++) {
-               TMP = TMP + CABS1( A( I, J ) * X( J ) );
-            }
-            RWORK[I] = TMP;
-            ANORM = max( ANORM, TMP );
-         }
+  if (N == 0) {
+    return 1;
+  } else if (ANORM == 0.0) {
+    return 0;
+  }
+
+  // Estimate the norm of inv(op(A)).
+
+  AINVNM.value = 0.0;
+
+  KASE.value = 0;
+  while (true) {
+    zlacn2(N, WORK(N + 1), WORK, AINVNM, KASE, ISAVE);
+    if (KASE.value == 0) break;
+    if (KASE.value == 2) {
+      // Multiply by R.
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * RWORK[I].toComplex();
+      }
+
+      if (UP) {
+        zhetrs('U', N, 1, AF, LDAF, IPIV, WORK.asMatrix(), N, INFO);
       } else {
-         for (I = 1; I <= N; I++) {
-            TMP = 0.0;
-            for (J = 1; J <= I; J++) {
-               TMP = TMP + CABS1( A( I, J ) * X( J ) );
-            }
-            for (J = I+1; J <= N; J++) {
-               TMP = TMP + CABS1( A( J, I ) * X( J ) );
-            }
-            RWORK[I] = TMP;
-            ANORM = max( ANORM, TMP );
-         }
+        zhetrs('L', N, 1, AF, LDAF, IPIV, WORK.asMatrix(), N, INFO);
       }
 
-      // Quick return if possible.
+      // Multiply by inv(X).
 
-      if ( N == 0 ) {
-         ZLA_HERCOND_X = 1.0;
-         return;
-      } else if ( ANORM == 0.0 ) {
-         return;
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] / X[I];
+      }
+    } else {
+      // Multiply by inv(X**H).
+
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] / X[I];
       }
 
-      // Estimate the norm of inv(op(A)).
-
-      AINVNM = 0.0;
-
-      KASE = 0;
-      } // 10
-      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-      if ( KASE != 0 ) {
-         if ( KASE == 2 ) {
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * RWORK( I );
-            }
-
-            if ( UP ) {
-               zhetrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            } else {
-               zhetrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by inv(X).
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) / X( I );
-            }
-         } else {
-
-            // Multiply by inv(X**H).
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) / X( I );
-            }
-
-            if ( UP ) {
-               zhetrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            } else {
-               zhetrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            }
-
-            // Multiply by R.
-
-            for (I = 1; I <= N; I++) {
-               WORK[I] = WORK( I ) * RWORK( I );
-            }
-         }
-         GO TO 10;
+      if (UP) {
+        zhetrs('U', N, 1, AF, LDAF, IPIV, WORK.asMatrix(), N, INFO);
+      } else {
+        zhetrs('L', N, 1, AF, LDAF, IPIV, WORK.asMatrix(), N, INFO);
       }
 
-      // Compute the estimate of the reciprocal condition number.
+      // Multiply by R.
 
-      if (AINVNM != 0.0) ZLA_HERCOND_X = 1.0 / AINVNM;
-
+      for (I = 1; I <= N; I++) {
+        WORK[I] = WORK[I] * RWORK[I].toComplex();
       }
+    }
+  }
+
+  // Compute the estimate of the reciprocal condition number.
+
+  return AINVNM.value != 0.0 ? 1.0 / AINVNM.value : 0;
+}

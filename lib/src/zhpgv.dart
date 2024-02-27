@@ -1,50 +1,51 @@
-      void zhpgv(final int ITYPE, final int JOBZ, final int UPLO, final int N, final int AP, final int BP, final int W, final Matrix<double> Z_, final int LDZ, final Array<double> _WORK_, final Array<double> RWORK_, final Box<int> INFO,) {
-  final Z = Z_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+      import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/ztpmv.dart';
+import 'package:lapack/src/blas/ztpsv.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zhpev.dart';
+import 'package:lapack/src/zhpgst.dart';
+import 'package:lapack/src/zpptrf.dart';
 
+void zhpgv(final int ITYPE, final String JOBZ, final String UPLO, final int N,
+      final Array<Complex> AP_, final Array<Complex> BP_, final Array<double> W_, final Matrix<Complex> Z_,
+      final int LDZ, final Array<Complex> WORK_, final Array<double> RWORK_,
+      final Box<int> INFO,) {
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDZ, N;
-      double             RWORK( * ), W( * );
-      Complex         AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
-      // ..
+  final Z = Z_.dim(LDZ);
+final W=W_.dim();
+final AP=AP_.dim();
+final BP=BP_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
 
-// =====================================================================
-
-      // .. Local Scalars ..
       bool               UPPER, WANTZ;
       String             TRANS;
       int                J, NEIG;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZHPEV, ZHPGST, ZPPTRF, ZTPMV, ZTPSV
 
       // Test the input parameters.
 
       WANTZ = lsame( JOBZ, 'V' );
       UPPER = lsame( UPLO, 'U' );
 
-      INFO = 0;
+      INFO.value = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !( WANTZ || lsame( JOBZ, 'N' ) ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( !( UPPER || lsame( UPLO, 'L' ) ) ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9;
+         INFO.value = -9;
       }
-      if ( INFO != 0 ) {
-         xerbla('ZHPGV ', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('ZHPGV ', -INFO.value );
          return;
       }
 
@@ -55,8 +56,8 @@
       // Form a Cholesky factorization of B.
 
       zpptrf(UPLO, N, BP, INFO );
-      if ( INFO != 0 ) {
-         INFO = N + INFO;
+      if ( INFO.value != 0 ) {
+         INFO.value = N + INFO.value;
          return;
       }
 
@@ -70,7 +71,7 @@
          // Backtransform eigenvectors to the original problem.
 
          NEIG = N;
-         if (INFO > 0) NEIG = INFO - 1;
+         if (INFO.value > 0) NEIG = INFO.value - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
@@ -83,7 +84,7 @@
             }
 
             for (J = 1; J <= NEIG; J++) { // 10
-               ztpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
+               ztpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
             } // 10
 
          } else if ( ITYPE == 3 ) {
@@ -98,7 +99,7 @@
             }
 
             for (J = 1; J <= NEIG; J++) { // 20
-               ztpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
+               ztpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ).asArray(), 1 );
             } // 20
          }
       }
