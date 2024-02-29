@@ -1,155 +1,198 @@
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlaset.dart';
 
-import 'common.dart';
+import '../matgen/zlatme.dart';
+import '../matgen/zlatmr.dart';
+import '../matgen/zlatms.dart';
+import 'dlasum.dart';
+import 'zget24.dart';
 
-      void zdrvsx(final int NSIZES, final int NN, final int NTYPES, final Array<bool> DOTYPE_, final Array<int> ISEED_, final int THRESH, final int NIUNIT, final int NOUNIT, final Matrix<double> A_, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
-  final DOTYPE = DOTYPE_.dim();
-  final ISEED = ISEED_.dim();
-  final A = A_.dim();
-  final VS = VS_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
-  final BWORK = BWORK_.dim();
-
+Future<void> zdrvsx(
+  final int NSIZES,
+  final Array<int> NN_,
+  final int NTYPES,
+  final Array<bool> DOTYPE_,
+  final Array<int> ISEED_,
+  final double THRESH,
+  final Nin NIUNIT,
+  final Nout NOUNIT,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> H_,
+  final Matrix<Complex> HT_,
+  final Array<Complex> W_,
+  final Array<Complex> WT_,
+  final Array<Complex> WTMP_,
+  final Matrix<Complex> VS_,
+  final int LDVS,
+  final Matrix<Complex> VS1_,
+  final Array<double> RESULT_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<bool> BWORK_,
+  final Box<int> INFO,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, LDVS, LWORK, NIUNIT, NOUNIT, NSIZES, NTYPES;
-      double             THRESH;
-      bool               BWORK( * ), DOTYPE( * );
-      int                ISEED( 4 ), NN( * );
-      double             RESULT( 17 ), RWORK( * );
-      Complex         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
-      // ..
+  final NN = NN_.dim();
+  final DOTYPE = DOTYPE_.dim();
+  final ISEED = ISEED_.dim(4);
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final HT = HT_.dim(LDA);
+  final VS = VS_.dim(LDVS);
+  final VS1 = VS1_.dim(LDVS);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final BWORK = BWORK_.dim();
+  final W = W_.dim();
+  final WT = WT_.dim();
+  final WTMP = WTMP_.dim();
+  final RESULT = RESULT_.dim(17);
+  const ZERO = 0.0, ONE = 1.0;
+  const MAXTYP = 21;
+  bool BADNN;
+  String PATH;
+  int IMODE,
+      ISRT,
+      ITYPE,
+      IWK,
+      J,
+      JCOL,
+      JSIZE,
+      JTYPE,
+      MTYPES,
+      N,
+      NERRS = 0,
+      NFAIL,
+      NMAX,
+      NNWORK,
+      NSLCT = 0,
+      NTEST,
+      NTESTF,
+      NTESTT;
+  double ANORM = 0,
+      COND,
+      CONDS,
+      OVFL,
+      RCDEIN = 0,
+      RCDVIN = 0,
+      RTULP,
+      RTULPI,
+      ULP,
+      ULPINV,
+      UNFL;
+  final IDUMMA = Array<int>(1), IOLDSD = Array<int>(4), ISLCT = Array<int>(20);
+  final KTYPE = Array.fromList(
+      [1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9]);
+  final KMAGN = Array.fromList(
+      [1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3]);
+  final KMODE = Array.fromList(
+      [0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1]);
+  final KCONDS = Array.fromList(
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 0, 0, 0]);
+  final IINFO = Box(0);
 
-      Complex         CZERO;
-      const              CZERO = ( 0.0, 0.0 ) ;
-      Complex         CONE;
-      const              CONE = ( 1.0, 0.0 ) ;
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                MAXTYP;
-      const              MAXTYP = 21 ;
-      bool               BADNN;
-      String             PATH;
-      int                I, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NSLCT, NTEST, NTESTF, NTESTT;
-      double             ANORM, COND, CONDS, OVFL, RCDEIN, RCDVIN, RTULP, RTULPI, ULP, ULPINV, UNFL;
-      int                IDUMMA( 1 ), IOLDSD( 4 ), ISLCT( 20 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      // ..
-      // .. Arrays in Common ..
-      // bool               sslct.SELVAL( 20 );
-      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
-      // // ..
-      // // .. Scalars in Common ..
-      // int                sslct.SELDIM, sslct.SELOPT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH;
-      // EXTERNAL DLAMCH
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DLASUM, XERBLA, ZGET24, ZLASET, ZLATME, ZLATMR, ZLATMS
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN, SQRT
-      // ..
-      // .. Data statements ..
-      const KTYPE = [ 1, 2, 3, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 9, 9, 9,];
-      const KMAGN = [ 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 3 ];
-      const KMODE = [ 0, 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 ];
-      const KCONDS = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 0, 0, 0,];
+  PATH = '${'Zomplex precision'[0]}SX';
 
-      PATH[1: 1] = 'Zomplex precision';
-      PATH[2: 3] = 'SX';
+  // Check for errors
 
-      // Check for errors
+  NTESTT = 0;
+  NTESTF = 0;
+  INFO.value = 0;
 
-      NTESTT = 0;
-      NTESTF = 0;
-      INFO = 0;
+  // Important constants
 
-      // Important constants
+  BADNN = false;
 
-      BADNN = false;
+  // 8 is the largest dimension in the input file of precomputed
+  // problems
 
-      // 8 is the largest dimension in the input file of precomputed
-      // problems
+  NMAX = 8;
+  for (J = 1; J <= NSIZES; J++) {
+    // 10
+    NMAX = max(NMAX, NN[J]);
+    if (NN[J] < 0) BADNN = true;
+  } // 10
 
-      NMAX = 8;
-      for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = max( NMAX, NN( J ) );
-         if( NN( J ) < 0 ) BADNN = true;
-      } // 10
+  // Check for errors
 
-      // Check for errors
+  if (NSIZES < 0) {
+    INFO.value = -1;
+  } else if (BADNN) {
+    INFO.value = -2;
+  } else if (NTYPES < 0) {
+    INFO.value = -3;
+  } else if (THRESH < ZERO) {
+    INFO.value = -6;
+    // } else if ( NIUNIT <= 0 ) {
+    //    INFO.value = -7;
+    // } else if ( NOUNIT <= 0 ) {
+    //    INFO.value = -8;
+  } else if (LDA < 1 || LDA < NMAX) {
+    INFO.value = -10;
+  } else if (LDVS < 1 || LDVS < NMAX) {
+    INFO.value = -20;
+  } else if (max(3 * NMAX, 2 * pow(NMAX, 2)) > LWORK) {
+    INFO.value = -24;
+  }
 
-      if ( NSIZES < 0 ) {
-         INFO = -1;
-      } else if ( BADNN ) {
-         INFO = -2;
-      } else if ( NTYPES < 0 ) {
-         INFO = -3;
-      } else if ( THRESH < ZERO ) {
-         INFO = -6;
-      } else if ( NIUNIT <= 0 ) {
-         INFO = -7;
-      } else if ( NOUNIT <= 0 ) {
-         INFO = -8;
-      } else if ( LDA < 1 || LDA < NMAX ) {
-         INFO = -10;
-      } else if ( LDVS < 1 || LDVS < NMAX ) {
-         INFO = -20;
-      } else if ( max( 3*NMAX, 2*NMAX**2 ) > LWORK ) {
-         INFO = -24;
+  if (INFO.value != 0) {
+    xerbla('ZDRVSX', -INFO.value);
+    return;
+  }
+
+  // If nothing to do check on NIUNIT
+
+  if (NSIZES != 0 && NTYPES != 0) {
+    // More Important constants
+
+    UNFL = dlamch('Safe minimum');
+    OVFL = ONE / UNFL;
+    ULP = dlamch('Precision');
+    ULPINV = ONE / ULP;
+    RTULP = sqrt(ULP);
+    RTULPI = ONE / RTULP;
+
+    // Loop over sizes, types
+
+    NERRS = 0;
+
+    for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) {
+      // 140
+      N = NN[JSIZE];
+      if (NSIZES != 1) {
+        MTYPES = min(MAXTYP, NTYPES);
+      } else {
+        MTYPES = min(MAXTYP + 1, NTYPES);
       }
 
-      if ( INFO != 0 ) {
-         xerbla('ZDRVSX', -INFO );
-         return;
-      }
+      for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) {
+        // 130
+        if (!DOTYPE[JTYPE]) continue;
 
-      // If nothing to do check on NIUNIT
+        // Save ISEED in case of an error.
 
-      if (NSIZES == 0 || NTYPES == 0) GO TO 150;
+        for (J = 1; J <= 4; J++) {
+          // 20
+          IOLDSD[J] = ISEED[J];
+        } // 20
 
-      // More Important constants
+        // Compute "A"
 
-      UNFL = dlamch( 'Safe minimum' );
-      OVFL = ONE / UNFL;
-      ULP = dlamch( 'Precision' );
-      ULPINV = ONE / ULP;
-      RTULP = sqrt( ULP );
-      RTULPI = ONE / RTULP;
+        // Control parameters:
 
-      // Loop over sizes, types
-
-      NERRS = 0;
-
-      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 140
-         N = NN( JSIZE );
-         if ( NSIZES != 1 ) {
-            MTYPES = min( MAXTYP, NTYPES );
-         } else {
-            MTYPES = min( MAXTYP+1, NTYPES );
-         }
-
-         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 130
-            if( !DOTYPE( JTYPE ) ) GO TO 130;
-
-            // Save ISEED in case of an error.
-
-            for (J = 1; J <= 4; J++) { // 20
-               IOLDSD[J] = ISEED( J );
-            } // 20
-
-            // Compute "A"
-
-            // Control parameters:
-
-            // KMAGN  KCONDS  KMODE        KTYPE
+        //     KMAGN  KCONDS  KMODE        KTYPE
         // =1  O(1)   1       clustered 1  zero
         // =2  large  large   clustered 2  identity
         // =3  small          exponential  Jordan
@@ -161,234 +204,382 @@ import 'common.dart';
         // =9                              random general
         // =10                             random triangular
 
-            if (MTYPES > MAXTYP) GO TO 90;
+        if (MTYPES <= MAXTYP) {
+          ITYPE = KTYPE[JTYPE];
+          IMODE = KMODE[JTYPE];
 
-            ITYPE = KTYPE( JTYPE );
-            IMODE = KMODE( JTYPE );
+          // Compute norm
 
-            // Compute norm
+          // GO TO ( 30, 40, 50 );
+          switch (KMAGN[JTYPE]) {
+            case 1:
+              ANORM = ONE;
+              break;
 
-            GO TO ( 30, 40, 50 )KMAGN( JTYPE );
+            case 2:
+              ANORM = OVFL * ULP;
+              break;
 
-            } // 30
-            ANORM = ONE;
-            GO TO 60;
+            case 3:
+              ANORM = UNFL * ULPINV;
+              break;
+          } // 60
 
-            } // 40
-            ANORM = OVFL*ULP;
-            GO TO 60;
+          zlaset('Full', LDA, N, Complex.zero, Complex.zero, A, LDA);
+          IINFO.value = 0;
+          COND = ULPINV;
 
-            } // 50
-            ANORM = UNFL*ULPINV;
-            GO TO 60;
+          // Special Matrices -- Identity & Jordan block
 
-            } // 60
+          if (ITYPE == 1) {
+            // Zero
 
-            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
-            IINFO = 0;
-            COND = ULPINV;
+            IINFO.value = 0;
+          } else if (ITYPE == 2) {
+            // Identity
 
-            // Special Matrices -- Identity & Jordan block
+            for (JCOL = 1; JCOL <= N; JCOL++) {
+              // 70
+              A[JCOL][JCOL] = ANORM.toComplex();
+            } // 70
+          } else if (ITYPE == 3) {
+            // Jordan Block
 
-            if ( ITYPE == 1 ) {
+            for (JCOL = 1; JCOL <= N; JCOL++) {
+              // 80
+              A[JCOL][JCOL] = ANORM.toComplex();
+              if (JCOL > 1) A[JCOL][JCOL - 1] = Complex.one;
+            } // 80
+          } else if (ITYPE == 4) {
+            // Diagonal Matrix, [Eigen]values Specified
 
-               // Zero
+            zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N',
+                A, LDA, WORK(N + 1), IINFO);
+          } else if (ITYPE == 5) {
+            // Symmetric, eigenvalues specified
 
-               IINFO = 0;
+            zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N',
+                A, LDA, WORK(N + 1), IINFO);
+          } else if (ITYPE == 6) {
+            // General, eigenvalues specified
 
-            } else if ( ITYPE == 2 ) {
-
-               // Identity
-
-               for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A[JCOL][JCOL] = ANORM;
-               } // 70
-
-            } else if ( ITYPE == 3 ) {
-
-               // Jordan Block
-
-               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A[JCOL][JCOL] = ANORM;
-                  if (JCOL > 1) A( JCOL, JCOL-1 ) = CONE;
-               } // 80
-
-            } else if ( ITYPE == 4 ) {
-
-               // Diagonal Matrix, [Eigen]values Specified
-
-               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
-
-            } else if ( ITYPE == 5 ) {
-
-               // Symmetric, eigenvalues specified
-
-               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
-
-            } else if ( ITYPE == 6 ) {
-
-               // General, eigenvalues specified
-
-               if ( KCONDS( JTYPE ) == 1 ) {
-                  CONDS = ONE;
-               } else if ( KCONDS( JTYPE ) == 2 ) {
-                  CONDS = RTULPI;
-               } else {
-                  CONDS = ZERO;
-               }
-
-               zlatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
-
-            } else if ( ITYPE == 7 ) {
-
-               // Diagonal, random eigenvalues
-
-               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
-
-            } else if ( ITYPE == 8 ) {
-
-               // Symmetric, random eigenvalues
-
-               zlatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
-
-            } else if ( ITYPE == 9 ) {
-
-               // General, random eigenvalues
-
-               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
-               if ( N >= 4 ) {
-                  zlaset('Full', 2, N, CZERO, CZERO, A, LDA );
-                  zlaset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA );
-                  zlaset('Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA );
-                  zlaset('Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
-               }
-
-            } else if ( ITYPE == 10 ) {
-
-               // Triangular, random eigenvalues
-
-               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
-
+            if (KCONDS[JTYPE] == 1) {
+              CONDS = ONE;
+            } else if (KCONDS[JTYPE] == 2) {
+              CONDS = RTULPI;
             } else {
-
-               IINFO = 1;
+              CONDS = ZERO;
             }
 
-            if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ( IINFO ).abs();
-               return;
+            zlatme(N, 'D', ISEED, WORK, IMODE, COND, Complex.one, 'T', 'T', 'T',
+                RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK(2 * N + 1), IINFO);
+          } else if (ITYPE == 7) {
+            // Diagonal, random eigenvalues
+
+            zlatmr(
+                N,
+                N,
+                'D',
+                ISEED,
+                'N',
+                WORK,
+                6,
+                ONE,
+                Complex.one,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                0,
+                0,
+                ZERO,
+                ANORM,
+                'NO',
+                A,
+                LDA,
+                IDUMMA,
+                IINFO);
+          } else if (ITYPE == 8) {
+            // Symmetric, random eigenvalues
+
+            zlatmr(
+                N,
+                N,
+                'D',
+                ISEED,
+                'H',
+                WORK,
+                6,
+                ONE,
+                Complex.one,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                N,
+                N,
+                ZERO,
+                ANORM,
+                'NO',
+                A,
+                LDA,
+                IDUMMA,
+                IINFO);
+          } else if (ITYPE == 9) {
+            // General, random eigenvalues
+
+            zlatmr(
+                N,
+                N,
+                'D',
+                ISEED,
+                'N',
+                WORK,
+                6,
+                ONE,
+                Complex.one,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                N,
+                N,
+                ZERO,
+                ANORM,
+                'NO',
+                A,
+                LDA,
+                IDUMMA,
+                IINFO);
+            if (N >= 4) {
+              zlaset('Full', 2, N, Complex.zero, Complex.zero, A, LDA);
+              zlaset(
+                  'Full', N - 3, 1, Complex.zero, Complex.zero, A(3, 1), LDA);
+              zlaset('Full', N - 3, 2, Complex.zero, Complex.zero, A(3, N - 1),
+                  LDA);
+              zlaset('Full', 1, N, Complex.zero, Complex.zero, A(N, 1), LDA);
             }
+          } else if (ITYPE == 10) {
+            // Triangular, random eigenvalues
 
-            } // 90
+            zlatmr(
+                N,
+                N,
+                'D',
+                ISEED,
+                'N',
+                WORK,
+                6,
+                ONE,
+                Complex.one,
+                'T',
+                'N',
+                WORK(N + 1),
+                1,
+                ONE,
+                WORK(2 * N + 1),
+                1,
+                ONE,
+                'N',
+                IDUMMA,
+                N,
+                0,
+                ZERO,
+                ANORM,
+                'NO',
+                A,
+                LDA,
+                IDUMMA,
+                IINFO);
+          } else {
+            IINFO.value = 1;
+          }
 
-            // Test for minimal and generous workspace
+          if (IINFO.value != 0) {
+            NOUNIT.println(
+                ' ZDRVSX: Generator returned INFO.value=${IINFO.value.i6}.\n${' ' * 9}N=${N.i6}, JTYPE=${JTYPE.i6}, ISEED=(${IOLDSD.i5(4, ',')})');
+            INFO.value = (IINFO.value).abs();
+            return;
+          }
+        } // 90
 
-            for (IWK = 1; IWK <= 2; IWK++) { // 120
-               if ( IWK == 1 ) {
-                  NNWORK = 2*N;
-               } else {
-                  NNWORK = max( 2*N, N*( N+1 ) / 2 );
-               }
-               NNWORK = max( NNWORK, 1 );
+        // Test for minimal and generous workspace
 
-               zget24( false , JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO );
+        for (IWK = 1; IWK <= 2; IWK++) {
+          // 120
+          if (IWK == 1) {
+            NNWORK = 2 * N;
+          } else {
+            NNWORK = max(2 * N, N * (N + 1) ~/ 2);
+          }
+          NNWORK = max(NNWORK, 1);
 
-               // Check for RESULT(j) > THRESH
+          zget24(
+              false,
+              JTYPE,
+              THRESH,
+              IOLDSD,
+              NOUNIT,
+              N,
+              A,
+              LDA,
+              H,
+              HT,
+              W,
+              WT,
+              WTMP,
+              VS,
+              LDVS,
+              VS1,
+              RCDEIN,
+              RCDVIN,
+              NSLCT,
+              ISLCT,
+              0,
+              RESULT,
+              WORK,
+              NNWORK,
+              RWORK,
+              BWORK,
+              INFO);
 
-               NTEST = 0;
-               NFAIL = 0;
-               for (J = 1; J <= 15; J++) { // 100
-                  if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
-                  IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
-               } // 100
+          // Check for RESULT(j) > THRESH
 
-               if (NFAIL > 0) NTESTF = NTESTF + 1;
-               if ( NTESTF == 1 ) {
-                  WRITE( NOUNIT, FMT = 9999 )PATH;
-                  WRITE( NOUNIT, FMT = 9998 );
-                  WRITE( NOUNIT, FMT = 9997 );
-                  WRITE( NOUNIT, FMT = 9996 );
-                  WRITE( NOUNIT, FMT = 9995 )THRESH;
-                  WRITE( NOUNIT, FMT = 9994 );
-                  NTESTF = 2;
-               }
+          NTEST = 0;
+          NFAIL = 0;
+          for (J = 1; J <= 15; J++) {
+            // 100
+            if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
+            if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
+          } // 100
 
-               for (J = 1; J <= 15; J++) { // 110
-                  if ( RESULT( J ) >= THRESH ) {
-                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J );
-                  }
-               } // 110
+          if (NFAIL > 0) NTESTF = NTESTF + 1;
+          if (NTESTF == 1) {
+            _printFirst(NOUNIT, PATH, THRESH);
+            NTESTF = 2;
+          }
 
-               NERRS = NERRS + NFAIL;
-               NTESTT = NTESTT + NTEST;
+          for (J = 1; J <= 15; J++) {
+            // 110
+            if (RESULT[J] >= THRESH) {
+              NOUNIT.println(
+                  ' N=${N.i5}, IWK=${IWK.i2}, seed=${IOLDSD.i4(4, ',')} type ${JTYPE.i2}, test(${J.i2})=${RESULT[J].g10_3}');
+            }
+          } // 110
 
-            } // 120
-         } // 130
-      } // 140
+          NERRS = NERRS + NFAIL;
+          NTESTT = NTESTT + NTEST;
+        } // 120
+      } // 130
+    } // 140
+  } // 150
 
-      } // 150
+  // Read in data from file to check accuracy of condition estimation
+  // Read input data until N=0
 
-      // Read in data from file to check accuracy of condition estimation
-      // Read input data until N=0
+  JTYPE = 0;
+  try {
+    while (true) {
+      (N, NSLCT, ISRT) = await NIUNIT.readInt3();
+      if (N == 0) break;
 
-      JTYPE = 0;
-      } // 160
-      READ( NIUNIT, FMT = *, END = 200 )N, NSLCT, ISRT;
-      if (N == 0) GO TO 200;
       JTYPE = JTYPE + 1;
       ISEED[1] = JTYPE;
-      READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT );
-      for (I = 1; I <= N; I++) { // 170
-         READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N );
-      } // 170
-      READ( NIUNIT, FMT = * )RCDEIN, RCDVIN;
+      await NIUNIT.readArray(ISLCT, NSLCT);
+      await NIUNIT.readMatrix(A, N, N);
+      (RCDEIN, RCDVIN) = await NIUNIT.readDouble2();
 
-      zget24( true , 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO );
+      zget24(
+          true,
+          22,
+          THRESH,
+          ISEED,
+          NOUNIT,
+          N,
+          A,
+          LDA,
+          H,
+          HT,
+          W,
+          WT,
+          WTMP,
+          VS,
+          LDVS,
+          VS1,
+          RCDEIN,
+          RCDVIN,
+          NSLCT,
+          ISLCT,
+          ISRT,
+          RESULT,
+          WORK,
+          LWORK,
+          RWORK,
+          BWORK,
+          INFO);
 
       // Check for RESULT(j) > THRESH
 
       NTEST = 0;
       NFAIL = 0;
-      for (J = 1; J <= 17; J++) { // 180
-         if( RESULT( J ) >= ZERO ) NTEST = NTEST + 1;
-         IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
+      for (J = 1; J <= 17; J++) {
+        // 180
+        if (RESULT[J] >= ZERO) NTEST = NTEST + 1;
+        if (RESULT[J] >= THRESH) NFAIL = NFAIL + 1;
       } // 180
 
       if (NFAIL > 0) NTESTF = NTESTF + 1;
-      if ( NTESTF == 1 ) {
-         WRITE( NOUNIT, FMT = 9999 )PATH;
-         WRITE( NOUNIT, FMT = 9998 );
-         WRITE( NOUNIT, FMT = 9997 );
-         WRITE( NOUNIT, FMT = 9996 );
-         WRITE( NOUNIT, FMT = 9995 )THRESH;
-         WRITE( NOUNIT, FMT = 9994 );
-         NTESTF = 2;
+      if (NTESTF == 1) {
+        _printFirst(NOUNIT, PATH, THRESH);
+        NTESTF = 2;
       }
-      for (J = 1; J <= 17; J++) { // 190
-         if ( RESULT( J ) >= THRESH ) {
-            WRITE( NOUNIT, FMT = 9992 )N, JTYPE, J, RESULT( J );
-         }
+      for (J = 1; J <= 17; J++) {
+        // 190
+        if (RESULT[J] >= THRESH) {
+          NOUNIT.println(
+              ' N=${N.i5}, input example =${JTYPE.i3},  test(${J.i2})=${RESULT[J].g10_3}');
+        }
       } // 190
 
       NERRS = NERRS + NFAIL;
       NTESTT = NTESTT + NTEST;
-      GO TO 160;
-      } // 200
+    }
+  } catch (_) {}
 
-      // Summary
+  // Summary
 
-      dlasum(PATH, NOUNIT, NERRS, NTESTT );
+  dlasum(PATH, NOUNIT, NERRS, NTESTT);
+}
 
- 9999 FORMAT('\n ${.a3} -- Complex Schur Form Decomposition Expert Driver\n Matrix types (see ZDRVSX for details): ' );
-
- 9998 FORMAT('\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.' );
- 9997 FORMAT( ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex           17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ' );
- 9996 FORMAT( ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n');
- 9995 FORMAT( ' Tests performed with test threshold =${.f8_2}\n ( A denotes A on input and T denotes A on output)\n\n 1 = 0 if T in Schur form (no sort),   1/ulp otherwise\n 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)\n 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) \n 4 = 0 if W are eigenvalues of T (no sort),  1/ulp otherwise\n 5 = 0 if T same no matter if VS computed (no sort),  1/ulp otherwise\n 6 = 0 if W same no matter if VS computed (no sort),  1/ulp otherwise' );
- 9994 FORMAT( ' 7 = 0 if T in Schur form (sort),   1/ulp otherwise\n 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)\n 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) \n 10 = 0 if W are eigenvalues of T (sort),  1/ulp otherwise\n 11 = 0 if T same no matter what else computed (sort),  1/ulp otherwise\n 12 = 0 if W same no matter what else computed (sort), 1/ulp otherwise\n 13 = 0 if sorting successful, 1/ulp otherwise\n 14 = 0 if RCONDE same no matter what else computed, 1/ulp otherwise\n 15 = 0 if RCONDv same no matter what else computed, 1/ulp otherwise\n 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),\n 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),' );
- 9993 FORMAT( ' N=${.i5}, IWK=${.i2}, seed=${i4(4, ',')}', ' type ${.i2}, test(${.i2})=${.g10_3}');
- 9992 FORMAT( ' N=${.i5}, input example =${.i3},  test(${.i2})=${.g10_3}');
- 9991 FORMAT( ' ZDRVSX: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
-
-      }
+void _printFirst(Nout nout, String path, double threshold) {
+  nout.println(
+      '\n ${path.a3} -- Complex Schur Form Decomposition Expert Driver\n Matrix types (see ZDRVSX for details): ');
+  nout.println(
+      '\n Special Matrices:\n  1=Zero matrix.                          5=Diagonal: geometr. spaced entries.\n  2=Identity matrix.                      6=Diagonal: clustered entries.\n  3=Transposed Jordan block.              7=Diagonal: large, evenly spaced.\n  4=Diagonal: evenly spaced entries.      8=Diagonal: small, evenly spaced.');
+  nout.println(
+      ' Dense, Non-Symmetric Matrices:\n  9=Well-cond., evenly spaced eigenvals. 14=Ill-cond., geomet. spaced eigenals.\n 10=Well-cond., geom. spaced eigenvals.  15=Ill-conditioned, clustered e.vals.\n 11=Well-conditioned, clustered e.vals.  16=Ill-cond., random complex \n 12=Well-cond., random complex           17=Ill-cond., large rand. complx \n 13=Ill-conditioned, evenly spaced.      18=Ill-cond., small rand. complx ');
+  nout.println(
+      ' 19=Matrix with random O(1) entries.     21=Matrix with small random entries.\n 20=Matrix with large random entries.\n');
+  nout.println(
+      ' Tests performed with test threshold =${threshold.f8_2}\n ( A denotes A on input and T denotes A on output)\n\n 1 = 0 if T in Schur form (no sort),   1/ulp otherwise\n 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)\n 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) \n 4 = 0 if W are eigenvalues of T (no sort),  1/ulp otherwise\n 5 = 0 if T same no matter if VS computed (no sort),  1/ulp otherwise\n 6 = 0 if W same no matter if VS computed (no sort),  1/ulp otherwise');
+  nout.println(
+      ' 7 = 0 if T in Schur form (sort),   1/ulp otherwise\n 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)\n 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) \n 10 = 0 if W are eigenvalues of T (sort),  1/ulp otherwise\n 11 = 0 if T same no matter what else computed (sort),  1/ulp otherwise\n 12 = 0 if W same no matter what else computed (sort), 1/ulp otherwise\n 13 = 0 if sorting successful, 1/ulp otherwise\n 14 = 0 if RCONDE same no matter what else computed, 1/ulp otherwise\n 15 = 0 if RCONDv same no matter what else computed, 1/ulp otherwise\n 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),\n 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),');
+}

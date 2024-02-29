@@ -1,656 +1,764 @@
-import 'common.dart';
+import 'dart:io';
+import 'dart:math';
 
-      void main() {
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/ilaenv2stage.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/install/ilaver.dart';
+import 'package:lapack/src/lsamen.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import 'alareq.dart';
+import 'common.dart';
+import 'ilaenv.dart' as test;
+import 'xerbla.dart' as test;
+import 'xlaenv.dart';
+import 'zchkbb.dart';
+import 'zchkbd.dart';
+import 'zchkbk.dart';
+import 'zchkbl.dart';
+import 'zchkec.dart';
+import 'zchkgg.dart';
+import 'zchkgk.dart';
+import 'zchkgl.dart';
+import 'zchkhb2stg.dart';
+import 'zchkhs.dart';
+import 'zchkst.dart';
+import 'zchkst2stg.dart';
+import 'zckcsd.dart';
+import 'zckglm.dart';
+import 'zckgqr.dart';
+import 'zckgsv.dart';
+import 'zcklse.dart';
+import 'zdrges.dart';
+import 'zdrges3.dart';
+import 'zdrgev.dart';
+import 'zdrgev3.dart';
+import 'zdrgsx.dart';
+import 'zdrgvx.dart';
+import 'zdrvbd.dart';
+import 'zdrves.dart';
+import 'zdrvev.dart';
+import 'zdrvsg2stg.dart';
+import 'zdrvst.dart';
+import 'zdrvst2stg.dart';
+import 'zdrvsx.dart';
+import 'zdrvvx.dart';
+import 'zerrbd.dart';
+import 'zerred.dart';
+import 'zerrgg.dart';
+import 'zerrhs.dart';
+import 'zerrst.dart';
+
+void main() async {
 // #if defined(_OPENMP)
-      // use omp_lib;
+  // use omp_lib;
 // #endif
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  ilaenv = test.ilaenv;
+  ilaenv2stage = test.ilaenv2stage;
+  xerbla = test.xerbla;
 
-      int                NMAX;
-      const              NMAX = 132 ;
-      int                NCMAX;
-      const              NCMAX = 20 ;
-      int                NEED;
-      const              NEED = 14 ;
-      int                LWORK;
-      const              LWORK = NMAX*( 5*NMAX+20 ) ;
-      int                LIWORK;
-      const              LIWORK = NMAX*( NMAX+20 ) ;
-      int                MAXIN;
-      const              MAXIN = 20 ;
-      int                MAXT;
-      const              MAXT = 30 ;
-      int                NIN, NOUT;
-      const              NIN = 5, NOUT = 6 ;
-      bool               ZBK, ZBL, ZES, ZEV, ZGK, ZGL, ZGS, ZGV, ZGX, ZSX, ZVX, ZXV, CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR, ZBB, ZGG, ZHB;
-      String             C1;
-      String             C3, PATH;
-      String             VNAME;
-      String             INTSTR;
-      String             LINE;
-      int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      int          N_THREADS, ONE_THREAD;
-      double             EPS, S1, S2, THRESH, THRSHN;
-      bool               DOTYPE( MAXT ), LOGWRK( NMAX );
-      int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
-      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN );
-      double             ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 );
-      Complex         DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
-      // ..
-      // .. Allocatable Arrays ..
-      int     AllocateStatus;
-      double          , DIMENSION(:), ALLOCATABLE :: RWORK, S;
-      Complex, DIMENSION(:), ALLOCATABLE :: WORK;
-      Complex, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
-      // ..
-      // .. External Functions ..
-      //- bool               LSAMEN;
-      //- double             DLAMCH, DSECND;
-      // EXTERNAL LSAMEN, DLAMCH, DSECND
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ALAREQ, XLAENV, ZCHKBB, ZCHKBD, ZCHKBK, ZCHKBL, ZCHKEC, ZCHKGG, ZCHKGK, ZCHKGL, ZCHKHB, ZCHKHS, ZCHKST, ZCKCSD, ZCKGLM, ZCKGQR, ZCKGSV, ZCKLSE, ZDRGES, ZDRGEV, ZDRGSX, ZDRGVX, ZDRVBD, ZDRVES, ZDRVEV, ZDRVSG, ZDRVST, ZDRVSX, ZDRVVX, ZERRBD, ZERRED, ZERRGG, ZERRHS, ZERRST, ILAVER, ZDRGES3, ZDRGEV3, ZCHKST2STG, ZDRVST2STG, ZCHKHB2STG
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN, MIN
-      // ..
-      // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, cenvir.MAXB, cenvir.NPROC, cenvir.NSHIFT, infoc.NUNIT, sslct.SELDIM, sslct.SELOPT;
-      // // ..
-      // // .. Arrays in Common ..
-      // bool               sslct.SELVAL( 20 );
-      // int                claenv.IPARMS( 100 );
-      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
-      // ..
-      // .. Common blocks ..
-      // COMMON / cenvir / cenvir.NPROC, cenvir.NSHIFT, cenvir.MAXB
-      // COMMON / infoc / infoc.INFOT, infoc.NUNIT, infoc.OK, infoc.LERR
-      // COMMON / srnamc / srnamc.SRNAMT
-      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
-      // COMMON / claenv / claenv.IPARMS
-      // ..
-      // .. Data statements ..
-      const INTSTR = '0123456789';
-      const IOLDSD = [ 0, 0, 0, 1 ];
-      // ..
-      // .. Allocate memory dynamically ..
+  final input = File('/Users/lepsch/_/lapack/test/svd.in').openRead();
+  final NIN = Nin(input), NOUT = Nout(stdout);
 
-      ALLOCATE ( S(NMAX*NMAX), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( A(NMAX*NMAX,NEED), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( B(NMAX*NMAX,5), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( C(NCMAX*NCMAX,NCMAX*NCMAX), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( RWORK(LWORK), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( WORK(LWORK), STAT = AllocateStatus );
-      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
+  const NMAX = 132;
+  const NCMAX = 20;
+  const NEED = 14;
+  const LWORK = NMAX * (5 * NMAX + 20);
+  const LIWORK = NMAX * (NMAX + 20);
+  const MAXIN = 20;
+  const MAXT = 30;
+  // const              NIN = 5, NOUT = 6 ;
+  bool ZBK,
+      ZBL,
+      ZES,
+      ZEV,
+      ZGK,
+      ZGL,
+      ZGS,
+      ZGV,
+      ZGX,
+      ZSX,
+      ZVX,
+      ZXV,
+      CSD,
+      FATAL,
+      GLM,
+      GQR,
+      GSV,
+      LSE,
+      NEP,
+      SEP,
+      SVD,
+      TSTCHK = false,
+      TSTDIF = false,
+      TSTDRV = false,
+      TSTERR,
+      ZBB,
+      ZGG,
+      ZHB;
+  String C1;
+  String C3 = '', PATH;
+  String VNAME;
+  String LINE;
+  int I,
+      I1,
+      IC = 0,
+      ITMP,
+      K,
+      LENP,
+      MAXTYP,
+      NEWSD,
+      NK = 0,
+      NN = 0,
+      NPARMS = 0,
+      NRHS,
+      NTYPES = 0;
+  // int N_THREADS, ONE_THREAD;
+  double EPS, THRESH, THRSHN;
+  final DOTYPE = Array<bool>(MAXT), LOGWRK = Array<bool>(NMAX);
+  final ISEED = Array<int>(4),
+      IWORK = Array<int>(LIWORK),
+      KVAL = Array<int>(MAXIN),
+      MVAL = Array<int>(MAXIN),
+      MXBVAL = Array<int>(MAXIN),
+      NBCOL = Array<int>(MAXIN),
+      NBMIN = Array<int>(MAXIN),
+      NBVAL = Array<int>(MAXIN),
+      NSVAL = Array<int>(MAXIN),
+      NVAL = Array<int>(MAXIN),
+      NXVAL = Array<int>(MAXIN),
+      PVAL = Array<int>(MAXIN);
+  final INMIN = Array<int>(MAXIN),
+      INWIN = Array<int>(MAXIN),
+      INIBL = Array<int>(MAXIN),
+      ISHFTS = Array<int>(MAXIN),
+      IACC22 = Array<int>(MAXIN);
+  final ALPHA = Array<double>(NMAX),
+      BETA = Array<double>(NMAX),
+      DR = Matrix<double>(NMAX, 12),
+      RESULT = Array<double>(500);
+  final DC = Matrix<Complex>(NMAX, 6),
+      TAUA = Array<Complex>(NMAX),
+      TAUB = Array<Complex>(NMAX),
+      X = Array<Complex>(5 * NMAX);
+  const INTSTR = '0123456789';
+  final IOLDSD = Array.fromList([0, 0, 0, 1]);
+  final S = Array<double>(NMAX * NMAX);
+  final A = Matrix<Complex>(NMAX * NMAX, NEED);
+  final B = Matrix<Complex>(NMAX * NMAX, 5);
+  final C = Matrix<Complex>(NCMAX * NCMAX, NCMAX * NCMAX);
+  final RWORK = Array<double>(LWORK);
+  final WORK = Array<Complex>(LWORK);
+  final VERS_MAJOR = Box(0),
+      VERS_MINOR = Box(0),
+      VERS_PATCH = Box(0),
+      INFO = Box(0);
 
-      A = 0.0;
-      B = 0.0;
-      C = 0.0;
-      DC = 0.0;
-      S1 = DSECND( );
-      FATAL = false;
-      infoc.NUNIT = NOUT;
+  // A = 0.0;
+  // B = 0.0;
+  // C = 0.0;
+  // DC = 0.0;
+  final S1 = Stopwatch()..start();
+  FATAL = false;
+  infoc.NUNIT = NOUT;
 
-      // Return to here to read multiple sets of data
+  try {
+    // Return to here to read multiple sets of data
 
-      } // 10
-
+    nextPath:
+    while (true) {
       // Read the first line and set the 3-character test path
 
-      READ( NIN, FMT = '(A80)', END = 380 )LINE;
-      PATH = LINE( 1: 3 );
-      NEP = lsamen( 3, PATH, 'NEP' ) || lsamen( 3, PATH, 'ZHS' );
-      SEP = lsamen( 3, PATH, 'SEP' ) || lsamen( 3, PATH, 'ZST' ) || lsamen( 3, PATH, 'ZSG' ) || lsamen( 3, PATH, 'SE2' );
-      SVD = lsamen( 3, PATH, 'SVD' ) || lsamen( 3, PATH, 'ZBD' );
-      ZEV = lsamen( 3, PATH, 'ZEV' );
-      ZES = lsamen( 3, PATH, 'ZES' );
-      ZVX = lsamen( 3, PATH, 'ZVX' );
-      ZSX = lsamen( 3, PATH, 'ZSX' );
-      ZGG = lsamen( 3, PATH, 'ZGG' );
-      ZGS = lsamen( 3, PATH, 'ZGS' );
-      ZGX = lsamen( 3, PATH, 'ZGX' );
-      ZGV = lsamen( 3, PATH, 'ZGV' );
-      ZXV = lsamen( 3, PATH, 'ZXV' );
-      ZHB = lsamen( 3, PATH, 'ZHB' );
-      ZBB = lsamen( 3, PATH, 'ZBB' );
-      GLM = lsamen( 3, PATH, 'GLM' );
-      GQR = lsamen( 3, PATH, 'GQR' ) || lsamen( 3, PATH, 'GRQ' );
-      GSV = lsamen( 3, PATH, 'GSV' );
-      CSD = lsamen( 3, PATH, 'CSD' );
-      LSE = lsamen( 3, PATH, 'LSE' );
-      ZBL = lsamen( 3, PATH, 'ZBL' );
-      ZBK = lsamen( 3, PATH, 'ZBK' );
-      ZGL = lsamen( 3, PATH, 'ZGL' );
-      ZGK = lsamen( 3, PATH, 'ZGK' );
+      LINE = await NIN.readLine(); // READ( NIN, FMT = '(A80)', END = 380 );
+      PATH = LINE.substring(0, 3);
+      NEP = lsamen(3, PATH, 'NEP') || lsamen(3, PATH, 'ZHS');
+      SEP = lsamen(3, PATH, 'SEP') ||
+          lsamen(3, PATH, 'ZST') ||
+          lsamen(3, PATH, 'ZSG') ||
+          lsamen(3, PATH, 'SE2');
+      SVD = lsamen(3, PATH, 'SVD') || lsamen(3, PATH, 'ZBD');
+      ZEV = lsamen(3, PATH, 'ZEV');
+      ZES = lsamen(3, PATH, 'ZES');
+      ZVX = lsamen(3, PATH, 'ZVX');
+      ZSX = lsamen(3, PATH, 'ZSX');
+      ZGG = lsamen(3, PATH, 'ZGG');
+      ZGS = lsamen(3, PATH, 'ZGS');
+      ZGX = lsamen(3, PATH, 'ZGX');
+      ZGV = lsamen(3, PATH, 'ZGV');
+      ZXV = lsamen(3, PATH, 'ZXV');
+      ZHB = lsamen(3, PATH, 'ZHB');
+      ZBB = lsamen(3, PATH, 'ZBB');
+      GLM = lsamen(3, PATH, 'GLM');
+      GQR = lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GRQ');
+      GSV = lsamen(3, PATH, 'GSV');
+      CSD = lsamen(3, PATH, 'CSD');
+      LSE = lsamen(3, PATH, 'LSE');
+      ZBL = lsamen(3, PATH, 'ZBL');
+      ZBK = lsamen(3, PATH, 'ZBK');
+      ZGL = lsamen(3, PATH, 'ZGL');
+      ZGK = lsamen(3, PATH, 'ZGK');
 
       // Report values of parameters.
 
-      if ( PATH == '   ' ) {
-         GO TO 10;
-      } else if ( NEP ) {
-         WRITE( NOUT, FMT = 9987 );
-      } else if ( SEP ) {
-         WRITE( NOUT, FMT = 9986 );
-      } else if ( SVD ) {
-         WRITE( NOUT, FMT = 9985 );
-      } else if ( ZEV ) {
-         WRITE( NOUT, FMT = 9979 );
-      } else if ( ZES ) {
-         WRITE( NOUT, FMT = 9978 );
-      } else if ( ZVX ) {
-         WRITE( NOUT, FMT = 9977 );
-      } else if ( ZSX ) {
-         WRITE( NOUT, FMT = 9976 );
-      } else if ( ZGG ) {
-         WRITE( NOUT, FMT = 9975 );
-      } else if ( ZGS ) {
-         WRITE( NOUT, FMT = 9964 );
-      } else if ( ZGX ) {
-         WRITE( NOUT, FMT = 9965 );
-      } else if ( ZGV ) {
-         WRITE( NOUT, FMT = 9963 );
-      } else if ( ZXV ) {
-         WRITE( NOUT, FMT = 9962 );
-      } else if ( ZHB ) {
-         WRITE( NOUT, FMT = 9974 );
-      } else if ( ZBB ) {
-         WRITE( NOUT, FMT = 9967 );
-      } else if ( GLM ) {
-         WRITE( NOUT, FMT = 9971 );
-      } else if ( GQR ) {
-         WRITE( NOUT, FMT = 9970 );
-      } else if ( GSV ) {
-         WRITE( NOUT, FMT = 9969 );
-      } else if ( CSD ) {
-         WRITE( NOUT, FMT = 9960 );
-      } else if ( LSE ) {
-         WRITE( NOUT, FMT = 9968 );
-      } else if ( ZBL ) {
+      if (PATH == '   ') {
+        continue nextPath;
+      } else if (NEP) {
+        NOUT.println(' Tests of the Nonsymmetric Eigenvalue Problem routines');
+      } else if (SEP) {
+        NOUT.println(' Tests of the Hermitian Eigenvalue Problem routines');
+      } else if (SVD) {
+        NOUT.println(' Tests of the Singular Value Decomposition routines');
+      } else if (ZEV) {
+        NOUT.println(
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    ZGEEV (eigenvalues and eigevectors)');
+      } else if (ZES) {
+        NOUT.println(
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    ZGEES (Schur form)');
+      } else if (ZVX) {
+        NOUT.println(
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    ZGEEVX (eigenvalues, eigenvectors and condition numbers)');
+      } else if (ZSX) {
+        NOUT.println(
+            '\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    ZGEESX (Schur form and condition numbers)');
+      } else if (ZGG) {
+        NOUT.println(
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem routines');
+      } else if (ZGS) {
+        NOUT.println(
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver ZGGES');
+      } else if (ZGX) {
+        NOUT.println(
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver ZGGESX');
+      } else if (ZGV) {
+        NOUT.println(
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver ZGGEV');
+      } else if (ZXV) {
+        NOUT.println(
+            '\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver ZGGEVX');
+      } else if (ZHB) {
+        NOUT.println(
+            ' Tests of ZHBTRD\n (reduction of a Hermitian band matrix to real tridiagonal form)');
+      } else if (ZBB) {
+        NOUT.println(
+            ' Tests of ZGBBRD\n (reduction of a general band matrix to real bidiagonal form)');
+      } else if (GLM) {
+        NOUT.println(
+            '\n Tests of the Generalized Linear Regression Model routines');
+      } else if (GQR) {
+        NOUT.println('\n Tests of the Generalized QR and RQ routines');
+      } else if (GSV) {
+        NOUT.println(
+            '\n Tests of the Generalized Singular Value Decomposition routines');
+      } else if (CSD) {
+        NOUT.println('\n Tests of the CS Decomposition routines');
+      } else if (LSE) {
+        NOUT.println('\n Tests of the Linear Least Squares routines');
+      } else if (ZBL) {
+        // ZGEBAL:  Balancing
 
-         // ZGEBAL:  Balancing
+        await zchkbl(NIN, NOUT);
+        break nextPath;
+      } else if (ZBK) {
+        // ZGEBAK:  Back transformation
 
-         zchkbl(NIN, NOUT );
-         GO TO 380;
-      } else if ( ZBK ) {
+        await zchkbk(NIN, NOUT);
+        break nextPath;
+      } else if (ZGL) {
+        // ZGGBAL:  Balancing
 
-         // ZGEBAK:  Back transformation
+        await zchkgl(NIN, NOUT);
+        break nextPath;
+      } else if (ZGK) {
+        // ZGGBAK:  Back transformation
 
-         zchkbk(NIN, NOUT );
-         GO TO 380;
-      } else if ( ZGL ) {
+        await zchkgk(NIN, NOUT);
+        break nextPath;
+      } else if (lsamen(3, PATH, 'ZEC')) {
+        // ZEC:  Eigencondition estimation
 
-         // ZGGBAL:  Balancing
-
-         zchkgl(NIN, NOUT );
-         GO TO 380;
-      } else if ( ZGK ) {
-
-         // ZGGBAK:  Back transformation
-
-         zchkgk(NIN, NOUT );
-         GO TO 380;
-      } else if ( lsamen( 3, PATH, 'ZEC' ) ) {
-
-         // ZEC:  Eigencondition estimation
-
-         READ( NIN, FMT = * )THRESH;
-         xlaenv(1, 1 );
-         xlaenv(12, 1 );
-         TSTERR = true;
-         zchkec(THRESH, TSTERR, NIN, NOUT );
-         GO TO 380;
+        THRESH = await NIN.readDouble();
+        xlaenv(1, 1);
+        xlaenv(12, 1);
+        TSTERR = true;
+        await zchkec(THRESH, TSTERR, NIN, NOUT);
+        break nextPath;
       } else {
-         WRITE( NOUT, FMT = 9992 )PATH;
-         GO TO 380;
+        _print9992(NOUT, PATH);
+        break nextPath;
       }
-      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9972 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      WRITE( NOUT, FMT = 9984 );
+      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH);
+      NOUT.println(
+          '\n LAPACK VERSION ${VERS_MAJOR.value.i1}.${VERS_MINOR.value.i1}.${VERS_PATCH.value.i1}');
+      NOUT.println('\n The following parameter values will be used:');
 
       // Read the number of values of M, P, and N.
 
-      READ( NIN, FMT = * )NN;
-      if ( NN < 0 ) {
-         WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1;
-         NN = 0;
-         FATAL = true;
-      } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9988 )'   NN ', NN, MAXIN;
-         NN = 0;
-         FATAL = true;
+      NN = await NIN.readInt();
+      if (NN < 0) {
+        _print9989(NOUT, '   NN ', NN, 1);
+        NN = 0;
+        FATAL = true;
+      } else if (NN > MAXIN) {
+        _print9988(NOUT, '   NN ', NN, MAXIN);
+        NN = 0;
+        FATAL = true;
       }
 
       // Read the values of M
 
-      if ( !( ZGX || ZXV ) ) {
-         READ( NIN, FMT = * )( MVAL( I ), I = 1, NN );
-         if ( SVD ) {
-            VNAME = '    M ';
-         } else {
-            VNAME = '    N ';
-         }
-         for (I = 1; I <= NN; I++) { // 20
-            if ( MVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0;
-               FATAL = true;
-            } else if ( MVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX;
-               FATAL = true;
-            }
-         } // 20
-         WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN );
+      if (!(ZGX || ZXV)) {
+        await NIN.readArray(MVAL, NN);
+        if (SVD) {
+          VNAME = '    M ';
+        } else {
+          VNAME = '    N ';
+        }
+        for (I = 1; I <= NN; I++) {
+          // 20
+          if (MVAL[I] < 0) {
+            _print9989(NOUT, VNAME, MVAL[I], 0);
+            FATAL = true;
+          } else if (MVAL[I] > NMAX) {
+            _print9988(NOUT, VNAME, MVAL[I], NMAX);
+            FATAL = true;
+          }
+        } // 20
+        _print9983(NOUT, 'M:    ', MVAL, NN);
       }
 
       // Read the values of P
 
-      if ( GLM || GQR || GSV || CSD || LSE ) {
-         READ( NIN, FMT = * )( PVAL( I ), I = 1, NN );
-         for (I = 1; I <= NN; I++) { // 30
-            if ( PVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0;
-               FATAL = true;
-            } else if ( PVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX;
-               FATAL = true;
-            }
-         } // 30
-         WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN );
+      if (GLM || GQR || GSV || CSD || LSE) {
+        await NIN.readArray(PVAL, NN);
+        for (I = 1; I <= NN; I++) {
+          // 30
+          if (PVAL[I] < 0) {
+            _print9989(NOUT, ' P  ', PVAL[I], 0);
+            FATAL = true;
+          } else if (PVAL[I] > NMAX) {
+            _print9988(NOUT, ' P  ', PVAL[I], NMAX);
+            FATAL = true;
+          }
+        } // 30
+        _print9983(NOUT, 'P:    ', PVAL, NN);
       }
 
       // Read the values of N
 
-      if ( SVD || ZBB || GLM || GQR || GSV || CSD || LSE ) {
-         READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
-         for (I = 1; I <= NN; I++) { // 40
-            if ( NVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0;
-               FATAL = true;
-            } else if ( NVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX;
-               FATAL = true;
-            }
-         } // 40
+      if (SVD || ZBB || GLM || GQR || GSV || CSD || LSE) {
+        await NIN.readArray(NVAL, NN);
+        for (I = 1; I <= NN; I++) {
+          // 40
+          if (NVAL[I] < 0) {
+            _print9989(NOUT, '    N ', NVAL[I], 0);
+            FATAL = true;
+          } else if (NVAL[I] > NMAX) {
+            _print9988(NOUT, '    N ', NVAL[I], NMAX);
+            FATAL = true;
+          }
+        } // 40
       } else {
-         for (I = 1; I <= NN; I++) { // 50
-            NVAL[I] = MVAL( I );
-         } // 50
+        for (I = 1; I <= NN; I++) {
+          // 50
+          NVAL[I] = MVAL[I];
+        } // 50
       }
-      if ( !( ZGX || ZXV ) ) {
-         WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN );
+      if (!(ZGX || ZXV)) {
+        _print9983(NOUT, 'N:    ', NVAL, NN);
       } else {
-         WRITE( NOUT, FMT = 9983 )'N:    ', NN;
+        _print9983b(NOUT, 'N:    ', NN);
       }
 
       // Read the number of values of K, followed by the values of K
 
-      if ( ZHB || ZBB ) {
-         READ( NIN, FMT = * )NK;
-         READ( NIN, FMT = * )( KVAL( I ), I = 1, NK );
-         for (I = 1; I <= NK; I++) { // 60
-            if ( KVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0;
-               FATAL = true;
-            } else if ( KVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX;
-               FATAL = true;
-            }
-         } // 60
-         WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK );
+      if (ZHB || ZBB) {
+        NK = await NIN.readInt();
+        await NIN.readArray(KVAL, NK);
+        for (I = 1; I <= NK; I++) {
+          // 60
+          if (KVAL[I] < 0) {
+            _print9989(NOUT, '    K ', KVAL[I], 0);
+            FATAL = true;
+          } else if (KVAL[I] > NMAX) {
+            _print9988(NOUT, '    K ', KVAL[I], NMAX);
+            FATAL = true;
+          }
+        } // 60
+        _print9983(NOUT, 'K:    ', KVAL, NK);
       }
 
-      if ( ZEV || ZES || ZVX || ZSX ) {
+      if (ZEV || ZES || ZVX || ZSX) {
+        // For the nonsymmetric QR driver routines, only one set of
+        // parameters is allowed.
 
-         // For the nonsymmetric QR driver routines, only one set of
-         // parameters is allowed.
+        await NIN.readBoxes(NBVAL(1), NBMIN(1), NXVAL(1), INMIN(1), INWIN(1),
+            INIBL(1), ISHFTS(1), IACC22(1));
+        if (NBVAL[1] < 1) {
+          _print9989(NOUT, '   NB ', NBVAL[1], 1);
+          FATAL = true;
+        } else if (NBMIN[1] < 1) {
+          _print9989(NOUT, 'NBMIN ', NBMIN[1], 1);
+          FATAL = true;
+        } else if (NXVAL[1] < 1) {
+          _print9989(NOUT, '   NX ', NXVAL[1], 1);
+          FATAL = true;
+        } else if (INMIN[1] < 1) {
+          _print9989(NOUT, '   INMIN ', INMIN[1], 1);
+          FATAL = true;
+        } else if (INWIN[1] < 1) {
+          _print9989(NOUT, '   INWIN ', INWIN[1], 1);
+          FATAL = true;
+        } else if (INIBL[1] < 1) {
+          _print9989(NOUT, '   INIBL ', INIBL[1], 1);
+          FATAL = true;
+        } else if (ISHFTS[1] < 1) {
+          _print9989(NOUT, '   ISHFTS ', ISHFTS[1], 1);
+          FATAL = true;
+        } else if (IACC22[1] < 0) {
+          _print9989(NOUT, '   IACC22 ', IACC22[1], 0);
+          FATAL = true;
+        }
+        xlaenv(1, NBVAL[1]);
+        xlaenv(2, NBMIN[1]);
+        xlaenv(3, NXVAL[1]);
+        xlaenv(12, max(11, INMIN[1]));
+        xlaenv(13, INWIN[1]);
+        xlaenv(14, INIBL[1]);
+        xlaenv(15, ISHFTS[1]);
+        xlaenv(16, IACC22[1]);
+        _print9983b(NOUT, 'NB:   ', NBVAL[1]);
+        _print9983b(NOUT, 'NBMIN:', NBMIN[1]);
+        _print9983b(NOUT, 'NX:   ', NXVAL[1]);
+        _print9983b(NOUT, 'INMIN:   ', INMIN[1]);
+        _print9983b(NOUT, 'INWIN: ', INWIN[1]);
+        _print9983b(NOUT, 'INIBL: ', INIBL[1]);
+        _print9983b(NOUT, 'ISHFTS: ', ISHFTS[1]);
+        _print9983b(NOUT, 'IACC22: ', IACC22[1]);
+      } else if (ZGS || ZGX || ZGV || ZXV) {
+        // For the nonsymmetric generalized driver routines, only one set of
+        // parameters is allowed.
 
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1);
-         if ( NBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1;
-            FATAL = true;
-         } else if ( NBMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1;
-            FATAL = true;
-         } else if ( NXVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1;
-            FATAL = true;
-         } else if ( INMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INMIN ', INMIN( 1 ), 1;
-            FATAL = true;
-         } else if ( INWIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INWIN ', INWIN( 1 ), 1;
-            FATAL = true;
-         } else if ( INIBL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INIBL ', INIBL( 1 ), 1;
-            FATAL = true;
-         } else if ( ISHFTS( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   ISHFTS ', ISHFTS( 1 ), 1;
-            FATAL = true;
-         } else if ( IACC22( 1 ) < 0 ) {
-            WRITE( NOUT, FMT = 9989 )'   IACC22 ', IACC22( 1 ), 0;
-            FATAL = true;
-         }
-         xlaenv(1, NBVAL( 1 ) );
-         xlaenv(2, NBMIN( 1 ) );
-         xlaenv(3, NXVAL( 1 ) );
-         xlaenv(12, max( 11, INMIN( 1 ) ) );
-         xlaenv(13, INWIN( 1 ) );
-         xlaenv(14, INIBL( 1 ) );
-         xlaenv(15, ISHFTS( 1 ) );
-         xlaenv(16, IACC22( 1 ) );
-         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 );
-         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'INMIN:   ', INMIN( 1 );
-         WRITE( NOUT, FMT = 9983 )'INWIN: ', INWIN( 1 );
-         WRITE( NOUT, FMT = 9983 )'INIBL: ', INIBL( 1 );
-         WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ISHFTS( 1 );
-         WRITE( NOUT, FMT = 9983 )'IACC22: ', IACC22( 1 );
+        await NIN.readBoxes(NBVAL(1), NBMIN(1), NXVAL(1), NSVAL(1), MXBVAL(1));
+        if (NBVAL[1] < 1) {
+          _print9989(NOUT, '   NB ', NBVAL[1], 1);
+          FATAL = true;
+        } else if (NBMIN[1] < 1) {
+          _print9989(NOUT, 'NBMIN ', NBMIN[1], 1);
+          FATAL = true;
+        } else if (NXVAL[1] < 1) {
+          _print9989(NOUT, '   NX ', NXVAL[1], 1);
+          FATAL = true;
+        } else if (NSVAL[1] < 2) {
+          _print9989(NOUT, '   NS ', NSVAL[1], 2);
+          FATAL = true;
+        } else if (MXBVAL[1] < 1) {
+          _print9989(NOUT, ' cenvir.MAXB ', MXBVAL[1], 1);
+          FATAL = true;
+        }
+        xlaenv(1, NBVAL[1]);
+        xlaenv(2, NBMIN[1]);
+        xlaenv(3, NXVAL[1]);
+        xlaenv(4, NSVAL[1]);
+        xlaenv(8, MXBVAL[1]);
+        _print9983b(NOUT, 'NB:   ', NBVAL[1]);
+        _print9983b(NOUT, 'NBMIN:', NBMIN[1]);
+        _print9983b(NOUT, 'NX:   ', NXVAL[1]);
+        _print9983b(NOUT, 'NS:   ', NSVAL[1]);
+        _print9983b(NOUT, 'cenvir.MAXB: ', MXBVAL[1]);
+      } else if (!ZHB && !GLM && !GQR && !GSV && !CSD && !LSE) {
+        // For the other paths, the number of parameters can be varied
+        // from the input file.  Read the number of parameter values.
 
-      } else if ( ZGS || ZGX || ZGV || ZXV ) {
+        NPARMS = await NIN.readInt();
+        if (NPARMS < 1) {
+          _print9989(NOUT, 'NPARMS', NPARMS, 1);
+          NPARMS = 0;
+          FATAL = true;
+        } else if (NPARMS > MAXIN) {
+          _print9988(NOUT, 'NPARMS', NPARMS, MAXIN);
+          NPARMS = 0;
+          FATAL = true;
+        }
 
-         // For the nonsymmetric generalized driver routines, only one set of
-         // parameters is allowed.
+        // Read the values of NB
 
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 );
-         if ( NBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1;
-            FATAL = true;
-         } else if ( NBMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1;
-            FATAL = true;
-         } else if ( NXVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1;
-            FATAL = true;
-         } else if ( NSVAL( 1 ) < 2 ) {
-            WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2;
-            FATAL = true;
-         } else if ( MXBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )' cenvir.MAXB ', MXBVAL( 1 ), 1;
-            FATAL = true;
-         }
-         xlaenv(1, NBVAL( 1 ) );
-         xlaenv(2, NBMIN( 1 ) );
-         xlaenv(3, NXVAL( 1 ) );
-         xlaenv(4, NSVAL( 1 ) );
-         xlaenv(8, MXBVAL( 1 ) );
-         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 );
-         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 );
-         WRITE( NOUT, FMT = 9983 )'cenvir.MAXB: ', MXBVAL( 1 );
-      } else if ( !ZHB && !GLM && !GQR && !GSV && !CSD && !LSE ) {
+        if (!ZBB) {
+          await NIN.readArray(NBVAL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 70
+            if (NBVAL[I] < 0) {
+              _print9989(NOUT, '   NB ', NBVAL[I], 0);
+              FATAL = true;
+            } else if (NBVAL[I] > NMAX) {
+              _print9988(NOUT, '   NB ', NBVAL[I], NMAX);
+              FATAL = true;
+            }
+          } // 70
+          _print9983(NOUT, 'NB:   ', NBVAL, NPARMS);
+        }
 
-         // For the other paths, the number of parameters can be varied
-         // from the input file.  Read the number of parameter values.
+        // Read the values of NBMIN
 
-         READ( NIN, FMT = * )NPARMS;
-         if ( NPARMS < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1;
-            NPARMS = 0;
-            FATAL = true;
-         } else if ( NPARMS > MAXIN ) {
-            WRITE( NOUT, FMT = 9988 )'NPARMS', NPARMS, MAXIN;
-            NPARMS = 0;
-            FATAL = true;
-         }
+        if (NEP || SEP || SVD || ZGG) {
+          await NIN.readArray(NBMIN, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 80
+            if (NBMIN[I] < 0) {
+              _print9989(NOUT, 'NBMIN ', NBMIN[I], 0);
+              FATAL = true;
+            } else if (NBMIN[I] > NMAX) {
+              _print9988(NOUT, 'NBMIN ', NBMIN[I], NMAX);
+              FATAL = true;
+            }
+          } // 80
+          _print9983(NOUT, 'NBMIN:', NBMIN, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 90
+            NBMIN[I] = 1;
+          } // 90
+        }
 
-         // Read the values of NB
+        // Read the values of NX
 
-         if ( !ZBB ) {
-            READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 70
-               if ( NBVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0;
-                  FATAL = true;
-               } else if ( NBVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 70
-            WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS );
-         }
+        if (NEP || SEP || SVD) {
+          await NIN.readArray(NXVAL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 100
+            if (NXVAL[I] < 0) {
+              _print9989(NOUT, '   NX ', NXVAL[I], 0);
+              FATAL = true;
+            } else if (NXVAL[I] > NMAX) {
+              _print9988(NOUT, '   NX ', NXVAL[I], NMAX);
+              FATAL = true;
+            }
+          } // 100
+          _print9983(NOUT, 'NX:   ', NXVAL, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 110
+            NXVAL[I] = 1;
+          } // 110
+        }
 
-         // Read the values of NBMIN
+        // Read the values of cenvir.NSHIFT (if ZGG) or NRHS (if SVD
+        // or ZBB).
 
-         if ( NEP || SEP || SVD || ZGG ) {
-            READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 80
-               if ( NBMIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0;
-                  FATAL = true;
-               } else if ( NBMIN( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 80
-            WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 90
-               NBMIN[I] = 1;
-            } // 90
-         }
+        if (SVD || ZBB || ZGG) {
+          await NIN.readArray(NSVAL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 120
+            if (NSVAL[I] < 0) {
+              _print9989(NOUT, '   NS ', NSVAL[I], 0);
+              FATAL = true;
+            } else if (NSVAL[I] > NMAX) {
+              _print9988(NOUT, '   NS ', NSVAL[I], NMAX);
+              FATAL = true;
+            }
+          } // 120
+          _print9983(NOUT, 'NS:   ', NSVAL, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 130
+            NSVAL[I] = 1;
+          } // 130
+        }
 
-         // Read the values of NX
+        // Read the values for cenvir.MAXB.
 
-         if ( NEP || SEP || SVD ) {
-            READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 100
-               if ( NXVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0;
-                  FATAL = true;
-               } else if ( NXVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 100
-            WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 110
-               NXVAL[I] = 1;
-            } // 110
-         }
+        if (ZGG) {
+          await NIN.readArray(MXBVAL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 140
+            if (MXBVAL[I] < 0) {
+              _print9989(NOUT, ' cenvir.MAXB ', MXBVAL[I], 0);
+              FATAL = true;
+            } else if (MXBVAL[I] > NMAX) {
+              _print9988(NOUT, ' cenvir.MAXB ', MXBVAL[I], NMAX);
+              FATAL = true;
+            }
+          } // 140
+          _print9983(NOUT, 'cenvir.MAXB: ', MXBVAL, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 150
+            MXBVAL[I] = 1;
+          } // 150
+        }
 
-         // Read the values of cenvir.NSHIFT (if ZGG) or NRHS (if SVD
-         // or ZBB).
+        // Read the values for INMIN.
 
-         if ( SVD || ZBB || ZGG ) {
-            READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 120
-               if ( NSVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0;
-                  FATAL = true;
-               } else if ( NSVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 120
-            WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 130
-               NSVAL[I] = 1;
-            } // 130
-         }
+        if (NEP) {
+          await NIN.readArray(INMIN, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 540
+            if (INMIN[I] < 0) {
+              _print9989(NOUT, ' INMIN ', INMIN[I], 0);
+              FATAL = true;
+            }
+          } // 540
+          _print9983(NOUT, 'INMIN: ', INMIN, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 550
+            INMIN[I] = 1;
+          } // 550
+        }
 
-         // Read the values for cenvir.MAXB.
+        // Read the values for INWIN.
 
-         if ( ZGG ) {
-            READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 140
-               if ( MXBVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' cenvir.MAXB ', MXBVAL( I ), 0;
-                  FATAL = true;
-               } else if ( MXBVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )' cenvir.MAXB ', MXBVAL( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 140
-            WRITE( NOUT, FMT = 9983 )'cenvir.MAXB: ', ( MXBVAL( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 150
-               MXBVAL[I] = 1;
-            } // 150
-         }
+        if (NEP) {
+          await NIN.readArray(INWIN, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 560
+            if (INWIN[I] < 0) {
+              _print9989(NOUT, ' INWIN ', INWIN[I], 0);
+              FATAL = true;
+            }
+          } // 560
+          _print9983(NOUT, 'INWIN: ', INWIN, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 570
+            INWIN[I] = 1;
+          } // 570
+        }
 
-         // Read the values for INMIN.
+        // Read the values for INIBL.
 
-         if ( NEP ) {
-            READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 540
-               if ( INMIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0;
-                  FATAL = true;
-               }
-            } // 540
-            WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 550
-               INMIN[I] = 1;
-            } // 550
-         }
+        if (NEP) {
+          await NIN.readArray(INIBL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 580
+            if (INIBL[I] < 0) {
+              _print9989(NOUT, ' INIBL ', INIBL[I], 0);
+              FATAL = true;
+            }
+          } // 580
+          _print9983(NOUT, 'INIBL: ', INIBL, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 590
+            INIBL[I] = 1;
+          } // 590
+        }
 
-         // Read the values for INWIN.
+        // Read the values for ISHFTS.
 
-         if ( NEP ) {
-            READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 560
-               if ( INWIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0;
-                  FATAL = true;
-               }
-            } // 560
-            WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 570
-               INWIN[I] = 1;
-            } // 570
-         }
+        if (NEP) {
+          await NIN.readArray(ISHFTS, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 600
+            if (ISHFTS[I] < 0) {
+              _print9989(NOUT, ' ISHFTS ', ISHFTS[I], 0);
+              FATAL = true;
+            }
+          } // 600
+          _print9983(NOUT, 'ISHFTS: ', ISHFTS, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 610
+            ISHFTS[I] = 1;
+          } // 610
+        }
 
-         // Read the values for INIBL.
+        // Read the values for IACC22.
 
-         if ( NEP ) {
-            READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 580
-               if ( INIBL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0;
-                  FATAL = true;
-               }
-            } // 580
-            WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 590
-               INIBL[I] = 1;
-            } // 590
-         }
+        if (NEP || ZGG) {
+          await NIN.readArray(IACC22, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 620
+            if (IACC22[I] < 0) {
+              _print9989(NOUT, ' IACC22 ', IACC22[I], 0);
+              FATAL = true;
+            }
+          } // 620
+          _print9983(NOUT, 'IACC22: ', IACC22, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 630
+            IACC22[I] = 1;
+          } // 630
+        }
 
-         // Read the values for ISHFTS.
+        // Read the values for NBCOL.
 
-         if ( NEP ) {
-            READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 600
-               if ( ISHFTS( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0;
-                  FATAL = true;
-               }
-            } // 600
-            WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 610
-               ISHFTS[I] = 1;
-            } // 610
-         }
-
-         // Read the values for IACC22.
-
-         if ( NEP || ZGG ) {
-            READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 620
-               if ( IACC22( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0;
-                  FATAL = true;
-               }
-            } // 620
-            WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 630
-               IACC22[I] = 1;
-            } // 630
-         }
-
-         // Read the values for NBCOL.
-
-         if ( ZGG ) {
-            READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS );
-            for (I = 1; I <= NPARMS; I++) { // 160
-               if ( NBCOL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0;
-                  FATAL = true;
-               } else if ( NBCOL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX;
-                  FATAL = true;
-               }
-            } // 160
-            WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS );
-         } else {
-            for (I = 1; I <= NPARMS; I++) { // 170
-               NBCOL[I] = 1;
-            } // 170
-         }
+        if (ZGG) {
+          await NIN.readArray(NBCOL, NPARMS);
+          for (I = 1; I <= NPARMS; I++) {
+            // 160
+            if (NBCOL[I] < 0) {
+              _print9989(NOUT, 'NBCOL ', NBCOL[I], 0);
+              FATAL = true;
+            } else if (NBCOL[I] > NMAX) {
+              _print9988(NOUT, 'NBCOL ', NBCOL[I], NMAX);
+              FATAL = true;
+            }
+          } // 160
+          _print9983(NOUT, 'NBCOL:', NBCOL, NPARMS);
+        } else {
+          for (I = 1; I <= NPARMS; I++) {
+            // 170
+            NBCOL[I] = 1;
+          } // 170
+        }
       }
 
       // Calculate and print the machine dependent constants.
 
-      WRITE( NOUT, FMT = * );
-      EPS = dlamch( 'Underflow threshold' );
-      WRITE( NOUT, FMT = 9981 )'underflow', EPS;
-      EPS = dlamch( 'Overflow threshold' );
-      WRITE( NOUT, FMT = 9981 )'overflow ', EPS;
-      EPS = dlamch( 'Epsilon' );
-      WRITE( NOUT, FMT = 9981 )'precision', EPS;
+      NOUT.println();
+      EPS = dlamch('Underflow threshold');
+      _print9981(NOUT, 'underflow', EPS);
+      EPS = dlamch('Overflow threshold');
+      _print9981(NOUT, 'overflow ', EPS);
+      EPS = dlamch('Epsilon');
+      _print9981(NOUT, 'precision', EPS);
 
       // Read the threshold value for the test ratios.
 
-      READ( NIN, FMT = * )THRESH;
-      WRITE( NOUT, FMT = 9982 )THRESH;
-      if ( SEP || SVD || ZGG ) {
+      THRESH = await NIN.readDouble();
+      NOUT.println(
+          '\n Routines pass computational tests if test ratio is less than${THRESH.f8_2}\n');
+      if (SEP || SVD || ZGG) {
+        // Read the flag that indicates whether to test LAPACK routines.
 
-         // Read the flag that indicates whether to test LAPACK routines.
+        TSTCHK = await NIN.readBool();
 
-         READ( NIN, FMT = * )TSTCHK;
+        // Read the flag that indicates whether to test driver routines.
 
-         // Read the flag that indicates whether to test driver routines.
-
-         READ( NIN, FMT = * )TSTDRV;
+        TSTDRV = await NIN.readBool();
       }
 
       // Read the flag that indicates whether to test the error exits.
 
-      READ( NIN, FMT = * )TSTERR;
+      TSTERR = await NIN.readBool();
 
       // Read the code describing how to set the random number seed.
 
-      READ( NIN, FMT = * )NEWSD;
+      NEWSD = await NIN.readInt();
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
 
-      if (NEWSD == 2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
+      if (NEWSD == 2) await NIN.readArray(IOLDSD, 4);
 
-      for (I = 1; I <= 4; I++) { // 180
-         ISEED[I] = IOLDSD( I );
+      for (I = 1; I <= 4; I++) {
+        // 180
+        ISEED[I] = IOLDSD[I];
       } // 180
 
-      if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 );
-         STOP;
+      if (FATAL) {
+        NOUT.println('\n Execution not attempted due to input errors');
+        return;
       }
 
       // Read the input lines indicating the test path and its parameters.
@@ -658,614 +766,1298 @@ import 'common.dart';
       // of test matrix types must be the first nonblank item in columns
       // 4-80.
 
-      } // 190
+      do {
+        if (!(ZGX || ZXV)) {
+          //  } // 200
+          nextLine:
+          while (true) {
+            LINE = await NIN.readLine();
+            C3 = LINE.substring(0, 3);
+            LENP = LINE.length;
+            I = 3;
+            ITMP = 0;
+            I1 = 0;
+            //  } // 210
+            nextChar:
+            while (true) {
+              I = I + 1;
+              if (I > LENP) {
+                if (I1 > 0) {
+                  break nextChar;
+                } else {
+                  NTYPES = MAXT;
+                  break nextChar;
+                }
+              }
+              if (LINE.substring(I - 1, I) != ' ' &&
+                  LINE.substring(I - 1, I) != ',') {
+                I1 = I;
+                C1 = LINE.substring(I1 - 1, I1);
 
-      if ( !( ZGX || ZXV ) ) {
-
-         } // 200
-         READ( NIN, FMT = '(A80)', END = 380 )LINE;
-         C3 = LINE( 1: 3 );
-         LENP = LINE.length;
-         I = 3;
-         ITMP = 0;
-         I1 = 0;
-         } // 210
-         I = I + 1;
-         if ( I > LENP ) {
-            if ( I1 > 0 ) {
-               GO TO 240;
-            } else {
-               NTYPES = MAXT;
-               GO TO 240;
+                // Check that a valid integer was read
+                var isValidDigit = false;
+                for (K = 1; K <= 10; K++) {
+                  // 220
+                  if (C1 == INTSTR[K - 1]) {
+                    IC = K - 1;
+                    isValidDigit = true;
+                    break;
+                  }
+                } // 220
+                if (!isValidDigit) {
+                  NOUT.println(
+                      '\n\n *** Invalid integer value in column ${I.i2} of input line:\n${LINE.a79}');
+                  continue nextLine;
+                }
+                // } // 230
+                ITMP = 10 * ITMP + IC;
+                continue nextChar;
+              } else if (I1 > 0) {
+                break nextChar;
+              }
             }
-         }
-         if ( LINE( I: I ) != ' ' && LINE( I: I ) != ',' ) {
-            I1 = I;
-            C1 = LINE( I1: I1 );
+            //  } // 240
+            NTYPES = ITMP;
 
-         // Check that a valid integer was read
+            // Skip the tests if NTYPES is <= 0.
 
-            for (K = 1; K <= 10; K++) { // 220
-               if ( C1 == INTSTR( K: K ) ) {
-                  IC = K - 1;
-                  GO TO 230;
-               }
-            } // 220
-            WRITE( NOUT, FMT = 9991 )I, LINE;
-            GO TO 200;
-            } // 230
-            ITMP = 10*ITMP + IC;
-            GO TO 210;
-         } else if ( I1 > 0 ) {
-            GO TO 240;
-         } else {
-            GO TO 210;
-         }
-         } // 240
-         NTYPES = ITMP;
-
-      // Skip the tests if NTYPES is <= 0.
-
-         if ( !( ZEV || ZES || ZVX || ZSX || ZGV || ZGS ) && NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-            GO TO 200;
-         }
-
-      } else {
-         if (ZGX) C3 = 'ZGX';
-         IF( ZXV ) C3 = 'ZXV';
-      }
-
-      // Reset the random number seed.
-
-      if ( NEWSD == 0 ) {
-         for (K = 1; K <= 4; K++) { // 250
-            ISEED[K] = IOLDSD( K );
-         } // 250
-      }
-
-      if ( lsamen( 3, C3, 'ZHS' ) || lsamen( 3, C3, 'NEP' ) ) {
-
-         // -------------------------------------
-         // NEP:  Nonsymmetric Eigenvalue Problem
-         // -------------------------------------
-         // Vary the parameters
-         //    NB    = block size
-         //    NBMIN = minimum block size
-         //    NX    = crossover point
-         //    NS    = number of shifts
-         //    cenvir.MAXB  = minimum submatrix size
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         xlaenv(1, 1 );
-         if (TSTERR) zerrhs( 'ZHSEQR', NOUT );
-         for (I = 1; I <= NPARMS; I++) { // 270
-            xlaenv(1, NBVAL( I ) );
-            xlaenv(2, NBMIN( I ) );
-            xlaenv(3, NXVAL( I ) );
-            xlaenv(12, max( 11, INMIN( I ) ) );
-            xlaenv(13, INWIN( I ) );
-            xlaenv(14, INIBL( I ) );
-            xlaenv(15, ISHFTS( I ) );
-            xlaenv(16, IACC22( I ) );
-
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 260
-                  ISEED[K] = IOLDSD( K );
-               } // 260
+            if (!(ZEV || ZES || ZVX || ZSX || ZGV || ZGS) && NTYPES <= 0) {
+              _print9990(NOUT, C3);
+              continue nextLine;
             }
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), max( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
-            zchkhs(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKHS', INFO;
-         } // 270
+            break;
+          }
+        } else {
+          if (ZGX) C3 = 'ZGX';
+          if (ZXV) C3 = 'ZXV';
+        }
 
-      } else if ( lsamen( 3, C3, 'ZST' ) || lsamen( 3, C3, 'SEP' ) || lsamen( 3, C3, 'SE2' ) ) {
+        // Reset the random number seed.
 
-         // ----------------------------------
-         // SEP:  Symmetric Eigenvalue Problem
-         // ----------------------------------
-         // Vary the parameters
-         //    NB    = block size
-         //    NBMIN = minimum block size
-         //    NX    = crossover point
+        if (NEWSD == 0) {
+          for (K = 1; K <= 4; K++) {
+            // 250
+            ISEED[K] = IOLDSD[K];
+          } // 250
+        }
 
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         xlaenv(1, 1 );
-         xlaenv(9, 25 );
-         if ( TSTERR ) {
-// #if defined(_OPENMP)
-            N_THREADS = OMP_GET_MAX_THREADS();
-            ONE_THREAD = 1;
-            omp_set_num_threads(ONE_THREAD);
-// #endif
-            zerrst('ZST', NOUT );
-// #if defined(_OPENMP)
-            omp_set_num_threads(N_THREADS);
-// #endif
-         }
-         for (I = 1; I <= NPARMS; I++) { // 290
-            xlaenv(1, NBVAL( I ) );
-            xlaenv(2, NBMIN( I ) );
-            xlaenv(3, NXVAL( I ) );
+        if (lsamen(3, C3, 'ZHS') || lsamen(3, C3, 'NEP')) {
+          // -------------------------------------
+          // NEP:  Nonsymmetric Eigenvalue Problem
+          // -------------------------------------
+          // Vary the parameters
+          //    NB    = block size
+          //    NBMIN = minimum block size
+          //    NX    = crossover point
+          //    NS    = number of shifts
+          //    cenvir.MAXB  = minimum submatrix size
 
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 280
-                  ISEED[K] = IOLDSD( K );
-               } // 280
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          if (TSTERR) zerrhs('ZHSEQR', NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 270
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+            xlaenv(12, max(11, INMIN[I]));
+            xlaenv(13, INWIN[I]);
+            xlaenv(14, INIBL[I]);
+            xlaenv(15, ISHFTS[I]);
+            xlaenv(16, IACC22[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 260
+                ISEED[K] = IOLDSD[K];
+              } // 260
             }
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
-            if ( TSTCHK ) {
-               if ( lsamen( 3, C3, 'SE2' ) ) {
-               zchkst2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-               } else {
-               zchkst(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-               }
-               if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKST', INFO;
+            NOUT.println(
+                '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, INMIN=${max(11, INMIN[I]).i4}, INWIN =${INWIN[I].i4}, INIBL =${INIBL[I].i4}, ISHFTS =${ISHFTS[I].i4}, IACC22 =${IACC22[I].i4}');
+            zchkhs(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 5),
+                NMAX,
+                A(1, 6),
+                A(1, 7),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                A(1, 8),
+                A(1, 9),
+                A(1, 10),
+                A(1, 11),
+                A(1, 12),
+                DC(1, 3).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                IWORK,
+                LOGWRK,
+                RESULT,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZCHKHS', INFO.value);
+          } // 270
+        } else if (lsamen(3, C3, 'ZST') ||
+            lsamen(3, C3, 'SEP') ||
+            lsamen(3, C3, 'SE2')) {
+          // ----------------------------------
+          // SEP:  Symmetric Eigenvalue Problem
+          // ----------------------------------
+          // Vary the parameters
+          //    NB    = block size
+          //    NBMIN = minimum block size
+          //    NX    = crossover point
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          xlaenv(9, 25);
+          if (TSTERR) {
+            // #if defined(_OPENMP)
+            // N_THREADS = OMP_GET_MAX_THREADS();
+            // ONE_THREAD = 1;
+            // omp_set_num_threads(ONE_THREAD);
+            // #endif
+            zerrst('ZST', NOUT);
+            // #if defined(_OPENMP)
+            // omp_set_num_threads(N_THREADS);
+            // #endif
+          }
+          for (I = 1; I <= NPARMS; I++) {
+            // 290
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 280
+                ISEED[K] = IOLDSD[K];
+              } // 280
             }
-            if ( TSTDRV ) {
-               if ( lsamen( 3, C3, 'SE2' ) ) {
-               zdrvst2stg(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-           } else {
-               zdrvst(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-               }
-               if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRVST', INFO;
+            _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            if (TSTCHK) {
+              if (lsamen(3, C3, 'SE2')) {
+                zchkst2stg(
+                    NN,
+                    NVAL,
+                    MAXTYP,
+                    DOTYPE,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    A(1, 2).asArray(),
+                    DR(1, 1).asArray(),
+                    DR(1, 2).asArray(),
+                    DR(1, 3).asArray(),
+                    DR(1, 4).asArray(),
+                    DR(1, 5).asArray(),
+                    DR(1, 6).asArray(),
+                    DR(1, 7).asArray(),
+                    DR(1, 8).asArray(),
+                    DR(1, 9).asArray(),
+                    DR(1, 10).asArray(),
+                    DR(1, 11).asArray(),
+                    A(1, 3),
+                    NMAX,
+                    A(1, 4),
+                    A(1, 5).asArray(),
+                    DC(1, 1).asArray(),
+                    A(1, 6),
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    LWORK,
+                    IWORK,
+                    LIWORK,
+                    RESULT,
+                    INFO);
+              } else {
+                zchkst(
+                    NN,
+                    NVAL,
+                    MAXTYP,
+                    DOTYPE,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    A(1, 2).asArray(),
+                    DR(1, 1).asArray(),
+                    DR(1, 2).asArray(),
+                    DR(1, 3).asArray(),
+                    DR(1, 4).asArray(),
+                    DR(1, 5).asArray(),
+                    DR(1, 6).asArray(),
+                    DR(1, 7).asArray(),
+                    DR(1, 8).asArray(),
+                    DR(1, 9).asArray(),
+                    DR(1, 10).asArray(),
+                    DR(1, 11).asArray(),
+                    A(1, 3),
+                    NMAX,
+                    A(1, 4),
+                    A(1, 5).asArray(),
+                    DC(1, 1).asArray(),
+                    A(1, 6),
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    LWORK,
+                    IWORK,
+                    LIWORK,
+                    RESULT,
+                    INFO);
+              }
+              if (INFO.value != 0) _print9980(NOUT, 'ZCHKST', INFO.value);
             }
-         } // 290
-
-      } else if ( lsamen( 3, C3, 'ZSG' ) ) {
-
-         // ----------------------------------------------
-         // ZSG:  Hermitian Generalized Eigenvalue Problem
-         // ----------------------------------------------
-         // Vary the parameters
-         //    NB    = block size
-         //    NBMIN = minimum block size
-         //    NX    = crossover point
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         xlaenv(9, 25 );
-         for (I = 1; I <= NPARMS; I++) { // 310
-            xlaenv(1, NBVAL( I ) );
-            xlaenv(2, NBMIN( I ) );
-            xlaenv(3, NXVAL( I ) );
-
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 300
-                  ISEED[K] = IOLDSD( K );
-               } // 300
+            if (TSTDRV) {
+              if (lsamen(3, C3, 'SE2')) {
+                zdrvst2stg(
+                    NN,
+                    NVAL,
+                    18,
+                    DOTYPE,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    DR(1, 3).asArray(),
+                    DR(1, 4).asArray(),
+                    DR(1, 5).asArray(),
+                    DR(1, 8).asArray(),
+                    DR(1, 9).asArray(),
+                    DR(1, 10).asArray(),
+                    A(1, 2),
+                    NMAX,
+                    A(1, 3),
+                    DC(1, 1).asArray(),
+                    A(1, 4),
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    LWORK,
+                    IWORK,
+                    LIWORK,
+                    RESULT,
+                    INFO);
+              } else {
+                zdrvst(
+                    NN,
+                    NVAL,
+                    18,
+                    DOTYPE,
+                    ISEED,
+                    THRESH,
+                    NOUT,
+                    A(1, 1),
+                    NMAX,
+                    DR(1, 3).asArray(),
+                    DR(1, 4).asArray(),
+                    DR(1, 5).asArray(),
+                    DR(1, 8).asArray(),
+                    DR(1, 9).asArray(),
+                    DR(1, 10).asArray(),
+                    A(1, 2),
+                    NMAX,
+                    A(1, 3),
+                    DC(1, 1).asArray(),
+                    A(1, 4),
+                    WORK,
+                    LWORK,
+                    RWORK,
+                    LWORK,
+                    IWORK,
+                    LIWORK,
+                    RESULT,
+                    INFO);
+              }
+              if (INFO.value != 0) _print9980(NOUT, 'ZDRVST', INFO.value);
             }
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
-            if ( TSTCHK ) {
-                // CALL ZDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-      // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-      // $                      DR( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
-      // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
-      // $                      LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT,
-      // $                      INFO )
-               zdrvsg2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-               if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRVSG', INFO;
+          } // 290
+        } else if (lsamen(3, C3, 'ZSG')) {
+          // ----------------------------------------------
+          // ZSG:  Hermitian Generalized Eigenvalue Problem
+          // ----------------------------------------------
+          // Vary the parameters
+          //    NB    = block size
+          //    NBMIN = minimum block size
+          //    NX    = crossover point
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(9, 25);
+          for (I = 1; I <= NPARMS; I++) {
+            // 310
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 300
+                ISEED[K] = IOLDSD[K];
+              } // 300
             }
-         } // 310
-
-      } else if ( lsamen( 3, C3, 'ZBD' ) || lsamen( 3, C3, 'SVD' ) ) {
-
-         // ----------------------------------
-         // SVD:  Singular Value Decomposition
-         // ----------------------------------
-         // Vary the parameters
-         //    NB    = block size
-         //    NBMIN = minimum block size
-         //    NX    = crossover point
-         //    NRHS  = number of right hand sides
-
-         MAXTYP = 16;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         xlaenv(9, 25 );
-
-         // Test the error exits
-
-         xlaenv(1, 1 );
-         if (TSTERR && TSTCHK) zerrbd( 'ZBD', NOUT );
-         IF( TSTERR && TSTDRV ) zerred( 'ZBD', NOUT );
-
-         for (I = 1; I <= NPARMS; I++) { // 330
-            NRHS = NSVAL( I );
-            xlaenv(1, NBVAL( I ) );
-            xlaenv(2, NBMIN( I ) );
-            xlaenv(3, NXVAL( I ) );
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 320
-                  ISEED[K] = IOLDSD( K );
-               } // 320
+            _print9997(NOUT, C3, NBVAL[I], NBMIN[I], NXVAL[I]);
+            if (TSTCHK) {
+              // CALL ZDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+              // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
+              // $                      DR( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
+              // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
+              // $                      LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT,
+              // $                      INFO.value )
+              zdrvsg2stg(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  NMAX,
+                  DR(1, 3).asArray(),
+                  DR(1, 4).asArray(),
+                  A(1, 3),
+                  NMAX,
+                  A(1, 4),
+                  A(1, 5),
+                  A(1, 6).asArray(),
+                  A(1, 7).asArray(),
+                  WORK,
+                  LWORK,
+                  RWORK,
+                  LWORK,
+                  IWORK,
+                  LIWORK,
+                  RESULT,
+                  INFO);
+              if (INFO.value != 0) _print9980(NOUT, 'ZDRVSG', INFO.value);
             }
-            WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS;
-            if ( TSTCHK ) {
-               zchkbd(NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO );
-               if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKBD', INFO;
+          } // 310
+        } else if (lsamen(3, C3, 'ZBD') || lsamen(3, C3, 'SVD')) {
+          // ----------------------------------
+          // SVD:  Singular Value Decomposition
+          // ----------------------------------
+          // Vary the parameters
+          //    NB    = block size
+          //    NBMIN = minimum block size
+          //    NX    = crossover point
+          //    NRHS  = number of right hand sides
+
+          MAXTYP = 16;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(9, 25);
+
+          // Test the error exits
+
+          xlaenv(1, 1);
+          if (TSTERR && TSTCHK) zerrbd('ZBD', NOUT);
+          if (TSTERR && TSTDRV) zerred('ZBD', NOUT);
+
+          for (I = 1; I <= NPARMS; I++) {
+            // 330
+            NRHS = NSVAL[I];
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(3, NXVAL[I]);
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 320
+                ISEED[K] = IOLDSD[K];
+              } // 320
             }
-            if (TSTDRV) zdrvbd( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO );
-         } // 330
-
-      } else if ( lsamen( 3, C3, 'ZEV' ) ) {
-
-         // --------------------------------------------
-         // ZEV:  Nonsymmetric Eigenvalue Problem Driver
-         //       ZGEEV (eigenvalues and eigenvectors)
-         // --------------------------------------------
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerred( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrvev(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEV', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( lsamen( 3, C3, 'ZES' ) ) {
-
-         // --------------------------------------------
-         // ZES:  Nonsymmetric Eigenvalue Problem Driver
-         //       ZGEES (Schur form)
-         // --------------------------------------------
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerred( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrves(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEES', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( lsamen( 3, C3, 'ZVX' ) ) {
-
-         // --------------------------------------------------------------
-         // ZVX:  Nonsymmetric Eigenvalue Problem Expert Driver
-         //       ZGEEVX (eigenvalues, eigenvectors and condition numbers)
-         // --------------------------------------------------------------
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerred( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrvvx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK, RWORK, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEVX', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( lsamen( 3, C3, 'ZSX' ) ) {
-
-         // ---------------------------------------------------
-         // ZSX:  Nonsymmetric Eigenvalue Problem Expert Driver
-         //       ZGEESX (Schur form and condition numbers)
-         // ---------------------------------------------------
-
-         MAXTYP = 21;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerred( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrvsx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK, LOGWRK, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEESX', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( lsamen( 3, C3, 'ZGG' ) ) {
-
-         // -------------------------------------------------
-         // ZGG:  Generalized Nonsymmetric Eigenvalue Problem
-         // -------------------------------------------------
-         // Vary the parameters
-         //    NB    = block size
-         //    NBMIN = minimum block size
-         //    NS    = number of shifts
-         //    cenvir.MAXB  = minimum submatrix size
-         //    IACC22: structured matrix multiply
-         //    NBCOL = minimum column dimension for blocks
-
-         MAXTYP = 26;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         xlaenv(1,1);
-         if (TSTCHK && TSTERR) zerrgg( C3, NOUT );
-         for (I = 1; I <= NPARMS; I++) { // 350
-            xlaenv(1, NBVAL( I ) );
-            xlaenv(2, NBMIN( I ) );
-            xlaenv(4, NSVAL( I ) );
-            xlaenv(8, MXBVAL( I ) );
-            xlaenv(16, IACC22( I ) );
-            xlaenv(5, NBCOL( I ) );
-
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 340
-                  ISEED[K] = IOLDSD( K );
-               } // 340
+            NOUT.println(
+                '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NX =${NXVAL[I].i4}, NRHS =${NRHS.i4}');
+            if (TSTCHK) {
+              zchkbd(
+                  NN,
+                  MVAL,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  NRHS,
+                  ISEED,
+                  THRESH,
+                  A(1, 1),
+                  NMAX,
+                  DR(1, 1).asArray(),
+                  DR(1, 2).asArray(),
+                  DR(1, 3).asArray(),
+                  DR(1, 4).asArray(),
+                  A(1, 2),
+                  NMAX,
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 5),
+                  NMAX,
+                  A(1, 6),
+                  NMAX,
+                  A(1, 7),
+                  A(1, 8),
+                  WORK,
+                  LWORK,
+                  RWORK,
+                  NOUT,
+                  INFO);
+              if (INFO.value != 0) _print9980(NOUT, 'ZCHKBD', INFO.value);
             }
-            WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I );
+            if (TSTDRV) {
+              zdrvbd(
+                  NN,
+                  MVAL,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  NMAX,
+                  A(1, 3),
+                  NMAX,
+                  A(1, 4),
+                  A(1, 5),
+                  A(1, 6),
+                  DR(1, 1).asArray(),
+                  DR(1, 2).asArray(),
+                  DR(1, 3).asArray(),
+                  WORK,
+                  LWORK,
+                  RWORK,
+                  IWORK,
+                  NOUT,
+                  INFO);
+            }
+          } // 330
+        } else if (lsamen(3, C3, 'ZEV')) {
+          // --------------------------------------------
+          // ZEV:  Nonsymmetric Eigenvalue Problem Driver
+          //       ZGEEV (eigenvalues and eigenvectors)
+          // --------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerred(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            zdrvev(
+                NN,
+                NVAL,
+                NTYPES,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                A(1, 3),
+                NMAX,
+                A(1, 4),
+                NMAX,
+                A(1, 5),
+                NMAX,
+                RESULT,
+                WORK,
+                LWORK,
+                RWORK,
+                IWORK,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZGEEV', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZES')) {
+          // --------------------------------------------
+          // ZES:  Nonsymmetric Eigenvalue Problem Driver
+          //       ZGEES (Schur form)
+          // --------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerred(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            zdrves(
+                NN,
+                NVAL,
+                NTYPES,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                A(1, 4),
+                NMAX,
+                RESULT,
+                WORK,
+                LWORK,
+                RWORK,
+                IWORK,
+                LOGWRK,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZGEES', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZVX')) {
+          // --------------------------------------------------------------
+          // ZVX:  Nonsymmetric Eigenvalue Problem Expert Driver
+          //       ZGEEVX (eigenvalues, eigenvectors and condition numbers)
+          // --------------------------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES < 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerred(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await zdrvvx(
+                NN,
+                NVAL,
+                NTYPES,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                A(1, 3),
+                NMAX,
+                A(1, 4),
+                NMAX,
+                A(1, 5),
+                NMAX,
+                DR(1, 1).asArray(),
+                DR(1, 2).asArray(),
+                DR(1, 3).asArray(),
+                DR(1, 4).asArray(),
+                DR(1, 5).asArray(),
+                DR(1, 6).asArray(),
+                DR(1, 7).asArray(),
+                DR(1, 8).asArray(),
+                RESULT,
+                WORK,
+                LWORK,
+                RWORK,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZGEEVX', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZSX')) {
+          // ---------------------------------------------------
+          // ZSX:  Nonsymmetric Eigenvalue Problem Expert Driver
+          //       ZGEESX (Schur form and condition numbers)
+          // ---------------------------------------------------
+
+          MAXTYP = 21;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES < 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerred(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await zdrvsx(
+                NN,
+                NVAL,
+                NTYPES,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                DC(1, 3).asArray(),
+                A(1, 4),
+                NMAX,
+                A(1, 5),
+                RESULT,
+                WORK,
+                LWORK,
+                RWORK,
+                LOGWRK,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZGEESX', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZGG')) {
+          // -------------------------------------------------
+          // ZGG:  Generalized Nonsymmetric Eigenvalue Problem
+          // -------------------------------------------------
+          // Vary the parameters
+          //    NB    = block size
+          //    NBMIN = minimum block size
+          //    NS    = number of shifts
+          //    cenvir.MAXB  = minimum submatrix size
+          //    IACC22: structured matrix multiply
+          //    NBCOL = minimum column dimension for blocks
+
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          xlaenv(1, 1);
+          if (TSTCHK && TSTERR) zerrgg(C3, NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 350
+            xlaenv(1, NBVAL[I]);
+            xlaenv(2, NBMIN[I]);
+            xlaenv(4, NSVAL[I]);
+            xlaenv(8, MXBVAL[I]);
+            xlaenv(16, IACC22[I]);
+            xlaenv(5, NBCOL[I]);
+
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 340
+                ISEED[K] = IOLDSD[K];
+              } // 340
+            }
+            NOUT.println(
+                '\n\n ${C3.a3}:  NB =${NBVAL[I].i4}, NBMIN =${NBMIN[I].i4}, NS =${NSVAL[I].i4}, cenvir.MAXB =${MXBVAL[I].i4}, IACC22 =${IACC22[I].i4}, NBCOL =${NBCOL[I].i4}');
             TSTDIF = false;
             THRSHN = 10.0;
-            if ( TSTCHK ) {
-               zchkgg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ), NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), A( 1, 13 ), A( 1, 14 ), WORK, LWORK, RWORK, LOGWRK, RESULT, INFO );
-               if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKGG', INFO;
+            if (TSTCHK) {
+              zchkgg(
+                  NN,
+                  NVAL,
+                  MAXTYP,
+                  DOTYPE,
+                  ISEED,
+                  THRESH,
+                  TSTDIF,
+                  THRSHN,
+                  NOUT,
+                  A(1, 1),
+                  NMAX,
+                  A(1, 2),
+                  A(1, 3),
+                  A(1, 4),
+                  A(1, 5),
+                  A(1, 6),
+                  A(1, 7),
+                  A(1, 8),
+                  A(1, 9),
+                  NMAX,
+                  A(1, 10),
+                  A(1, 11),
+                  A(1, 12),
+                  DC(1, 1).asArray(),
+                  DC(1, 2).asArray(),
+                  DC(1, 3).asArray(),
+                  DC(1, 4).asArray(),
+                  A(1, 13),
+                  A(1, 14),
+                  WORK,
+                  LWORK,
+                  RWORK,
+                  LOGWRK,
+                  RESULT,
+                  INFO);
+              if (INFO.value != 0) _print9980(NOUT, 'ZCHKGG', INFO.value);
             }
-         } // 350
+          } // 350
+        } else if (lsamen(3, C3, 'ZGS')) {
+          // -------------------------------------------------
+          // ZGS:  Generalized Nonsymmetric Eigenvalue Problem
+          //       ZGGES (Schur form)
+          // -------------------------------------------------
 
-      } else if ( lsamen( 3, C3, 'ZGS' ) ) {
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerrgg(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            zdrges(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 7),
+                NMAX,
+                A(1, 8),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT,
+                LOGWRK,
+                INFO);
 
-         // -------------------------------------------------
-         // ZGS:  Generalized Nonsymmetric Eigenvalue Problem
-         //       ZGGES (Schur form)
-         // -------------------------------------------------
-
-         MAXTYP = 26;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerrgg( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrges(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO );
-
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGES', INFO;
-
-// Blocked version
-
-            zdrges3(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO );
-
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGES3', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( ZGX ) {
-
-         // -------------------------------------------------
-         // ZGX  Generalized Nonsymmetric Eigenvalue Problem
-         //       ZGGESX (Schur form and condition numbers)
-         // -------------------------------------------------
-
-         MAXTYP = 5;
-         NTYPES = MAXTYP;
-         if ( NN < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerrgg( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            xlaenv(5, 2 );
-            zdrgsx(NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C, NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK, LIWORK, LOGWRK, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGSX', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
-
-      } else if ( lsamen( 3, C3, 'ZGV' ) ) {
-
-         // -------------------------------------------------
-         // ZGV:  Generalized Nonsymmetric Eigenvalue Problem
-         //       ZGGEV (Eigenvalue/vector form)
-         // -------------------------------------------------
-
-         MAXTYP = 26;
-         NTYPES = min( MAXTYP, NTYPES );
-         if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerrgg( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrgev(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGEV', INFO;
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGES', INFO.value);
 
 // Blocked version
 
-            xlaenv(16,2);
-            zdrgev3(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGEV3', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
+            zdrges3(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 7),
+                NMAX,
+                A(1, 8),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT,
+                LOGWRK,
+                INFO);
 
-      } else if ( ZXV ) {
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGES3', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (ZGX) {
+          // -------------------------------------------------
+          // ZGX  Generalized Nonsymmetric Eigenvalue Problem
+          //       ZGGESX (Schur form and condition numbers)
+          // -------------------------------------------------
 
-         // -------------------------------------------------
-         // ZXV:  Generalized Nonsymmetric Eigenvalue Problem
-         //       ZGGEVX (eigenvalue/vector with condition numbers)
-         // -------------------------------------------------
+          MAXTYP = 5;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerrgg(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            xlaenv(5, 2);
+            await zdrgsx(
+                NN,
+                NCMAX,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 5),
+                A(1, 6),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                C,
+                NCMAX * NCMAX,
+                S,
+                WORK,
+                LWORK,
+                RWORK,
+                IWORK,
+                LIWORK,
+                LOGWRK,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGSX', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZGV')) {
+          // -------------------------------------------------
+          // ZGV:  Generalized Nonsymmetric Eigenvalue Problem
+          //       ZGGEV (Eigenvalue/vector form)
+          // -------------------------------------------------
 
-         MAXTYP = 2;
-         NTYPES = MAXTYP;
-         if ( NN < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3;
-         } else {
-            if (TSTERR) zerrgg( C3, NOUT );
-            alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-            zdrgvx(NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), WORK, LWORK, RWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO );
+          MAXTYP = 26;
+          NTYPES = min(MAXTYP, NTYPES);
+          if (NTYPES <= 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerrgg(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            zdrgev(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 7),
+                NMAX,
+                A(1, 8),
+                A(1, 9),
+                NMAX,
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                DC(1, 3).asArray(),
+                DC(1, 4).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGEV', INFO.value);
 
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGVX', INFO;
-         }
-         WRITE( NOUT, FMT = 9973 );
-         GO TO 10;
+// Blocked version
 
-      } else if ( lsamen( 3, C3, 'ZHB' ) ) {
+            xlaenv(16, 2);
+            zdrgev3(
+                NN,
+                NVAL,
+                MAXTYP,
+                DOTYPE,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                A(1, 7),
+                NMAX,
+                A(1, 8),
+                A(1, 9),
+                NMAX,
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                DC(1, 3).asArray(),
+                DC(1, 4).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGEV3', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (ZXV) {
+          // -------------------------------------------------
+          // ZXV:  Generalized Nonsymmetric Eigenvalue Problem
+          //       ZGGEVX (eigenvalue/vector with condition numbers)
+          // -------------------------------------------------
 
-         // ------------------------------
-         // ZHB:  Hermitian Band Reduction
-         // ------------------------------
+          MAXTYP = 2;
+          NTYPES = MAXTYP;
+          if (NN < 0) {
+            _print9990(NOUT, C3);
+          } else {
+            if (TSTERR) zerrgg(C3, NOUT);
+            await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+            await zdrgvx(
+                NN,
+                THRESH,
+                NIN,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                A(1, 3),
+                A(1, 4),
+                DC(1, 1).asArray(),
+                DC(1, 2).asArray(),
+                A(1, 5),
+                A(1, 6),
+                IWORK(1),
+                IWORK(2),
+                DR(1, 1).asArray(),
+                DR(1, 2).asArray(),
+                DR(1, 3).asArray(),
+                DR(1, 4).asArray(),
+                DR(1, 5).asArray(),
+                DR(1, 6).asArray(),
+                WORK,
+                LWORK,
+                RWORK,
+                IWORK(3),
+                LIWORK - 2,
+                RESULT,
+                LOGWRK,
+                INFO);
 
-         MAXTYP = 15;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         if ( TSTERR ) {
-// #if defined(_OPENMP)
-            N_THREADS = OMP_GET_MAX_THREADS();
-            ONE_THREAD = 1;
-            omp_set_num_threads(ONE_THREAD);
-// #endif
-            zerrst('ZHB', NOUT );
-// #if defined(_OPENMP)
-            omp_set_num_threads(N_THREADS);
-// #endif
-         }
+            if (INFO.value != 0) _print9980(NOUT, 'ZDRGVX', INFO.value);
+          }
+          _print9973(NOUT);
+          continue nextPath;
+        } else if (lsamen(3, C3, 'ZHB')) {
+          // ------------------------------
+          // ZHB:  Hermitian Band Reduction
+          // ------------------------------
+
+          MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          if (TSTERR) {
+            // #if defined(_OPENMP)
+            // N_THREADS = OMP_GET_MAX_THREADS();
+            // ONE_THREAD = 1;
+            // omp_set_num_threads(ONE_THREAD);
+            // #endif
+            zerrst('ZHB', NOUT);
+            // #if defined(_OPENMP)
+            // omp_set_num_threads(N_THREADS);
+            // #endif
+          }
           // CALL ZCHKHB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-      // $                NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ),
-      // $                A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT,
-      // $                INFO )
-         zchkhb2stg(NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKHB', INFO;
+          // $                NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ),
+          // $                A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT,
+          // $                INFO.value )
+          zchkhb2stg(
+              NN,
+              NVAL,
+              NK,
+              KVAL,
+              MAXTYP,
+              DOTYPE,
+              ISEED,
+              THRESH,
+              NOUT,
+              A(1, 1),
+              NMAX,
+              DR(1, 1).asArray(),
+              DR(1, 2).asArray(),
+              DR(1, 3).asArray(),
+              DR(1, 4).asArray(),
+              DR(1, 5).asArray(),
+              A(1, 2),
+              NMAX,
+              WORK,
+              LWORK,
+              RWORK,
+              RESULT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCHKHB', INFO.value);
+        } else if (lsamen(3, C3, 'ZBB')) {
+          // ------------------------------
+          // ZBB:  General Band Reduction
+          // ------------------------------
 
-      } else if ( lsamen( 3, C3, 'ZBB' ) ) {
+          MAXTYP = 15;
+          NTYPES = min(MAXTYP, NTYPES);
+          await alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT);
+          for (I = 1; I <= NPARMS; I++) {
+            // 370
+            NRHS = NSVAL[I];
 
-         // ------------------------------
-         // ZBB:  General Band Reduction
-         // ------------------------------
-
-         MAXTYP = 15;
-         NTYPES = min( MAXTYP, NTYPES );
-         alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         for (I = 1; I <= NPARMS; I++) { // 370
-            NRHS = NSVAL( I );
-
-            if ( NEWSD == 0 ) {
-               for (K = 1; K <= 4; K++) { // 360
-                  ISEED[K] = IOLDSD( K );
-               } // 360
+            if (NEWSD == 0) {
+              for (K = 1; K <= 4; K++) {
+                // 360
+                ISEED[K] = IOLDSD[K];
+              } // 360
             }
-            WRITE( NOUT, FMT = 9966 )C3, NRHS;
-            zchkbb(NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT, INFO );
-            if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKBB', INFO;
-         } // 370
+            NOUT.println('\n\n ${C3.a3}:  NRHS =${NRHS.i4}');
+            zchkbb(
+                NN,
+                MVAL,
+                NVAL,
+                NK,
+                KVAL,
+                MAXTYP,
+                DOTYPE,
+                NRHS,
+                ISEED,
+                THRESH,
+                NOUT,
+                A(1, 1),
+                NMAX,
+                A(1, 2),
+                2 * NMAX,
+                DR(1, 1).asArray(),
+                DR(1, 2).asArray(),
+                A(1, 4),
+                NMAX,
+                A(1, 5),
+                NMAX,
+                A(1, 6),
+                NMAX,
+                A(1, 7),
+                WORK,
+                LWORK,
+                RWORK,
+                RESULT,
+                INFO);
+            if (INFO.value != 0) _print9980(NOUT, 'ZCHKBB', INFO.value);
+          } // 370
+        } else if (lsamen(3, C3, 'GLM')) {
+          // -----------------------------------------
+          // GLM:  Generalized Linear Regression Model
+          // -----------------------------------------
 
-      } else if ( lsamen( 3, C3, 'GLM' ) ) {
+          xlaenv(1, 1);
+          if (TSTERR) zerrgg('GLM', NOUT);
+          await zckglm(
+              NN,
+              NVAL,
+              MVAL,
+              PVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              X,
+              WORK,
+              DR(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCKGLM', INFO.value);
+        } else if (lsamen(3, C3, 'GQR')) {
+          // ------------------------------------------
+          // GQR:  Generalized QR and RQ factorizations
+          // ------------------------------------------
 
-         // -----------------------------------------
-         // GLM:  Generalized Linear Regression Model
-         // -----------------------------------------
+          xlaenv(1, 1);
+          if (TSTERR) zerrgg('GQR', NOUT);
+          await zckgqr(
+              NN,
+              MVAL,
+              NN,
+              PVAL,
+              NN,
+              NVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              A(1, 4).asArray(),
+              TAUA,
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              B(1, 3).asArray(),
+              B(1, 4).asArray(),
+              B(1, 5).asArray(),
+              TAUB,
+              WORK,
+              DR(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCKGQR', INFO.value);
+        } else if (lsamen(3, C3, 'GSV')) {
+          // ----------------------------------------------
+          // GSV:  Generalized Singular Value Decomposition
+          // ----------------------------------------------
 
-         xlaenv(1, 1 );
-         if (TSTERR) zerrgg( 'GLM', NOUT );
-         zckglm(NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGLM', INFO;
+          xlaenv(1, 1);
+          if (TSTERR) zerrgg('GSV', NOUT);
+          await zckgsv(
+              NN,
+              MVAL,
+              PVAL,
+              NVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              A(1, 3).asArray(),
+              B(1, 3).asArray(),
+              A(1, 4).asArray(),
+              ALPHA,
+              BETA,
+              B(1, 4).asArray(),
+              IWORK,
+              WORK,
+              DR(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCKGSV', INFO.value);
+        } else if (lsamen(3, C3, 'CSD')) {
+          // ----------------------------------------------
+          // CSD:  CS Decomposition
+          // ----------------------------------------------
 
-      } else if ( lsamen( 3, C3, 'GQR' ) ) {
+          xlaenv(1, 1);
+          if (TSTERR) zerrgg('CSD', NOUT);
+          await zckcsd(
+              NN,
+              MVAL,
+              PVAL,
+              NVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              A(1, 3).asArray(),
+              A(1, 4).asArray(),
+              A(1, 5).asArray(),
+              A(1, 6).asArray(),
+              RWORK,
+              IWORK,
+              WORK,
+              DR(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCKCSD', INFO.value);
+        } else if (lsamen(3, C3, 'LSE')) {
+          // --------------------------------------
+          // LSE:  Constrained Linear Least Squares
+          // --------------------------------------
 
-         // ------------------------------------------
-         // GQR:  Generalized QR and RQ factorizations
-         // ------------------------------------------
+          xlaenv(1, 1);
+          if (TSTERR) zerrgg('LSE', NOUT);
+          await zcklse(
+              NN,
+              MVAL,
+              PVAL,
+              NVAL,
+              NTYPES,
+              ISEED,
+              THRESH,
+              NMAX,
+              A(1, 1).asArray(),
+              A(1, 2).asArray(),
+              B(1, 1).asArray(),
+              B(1, 2).asArray(),
+              X,
+              WORK,
+              DR(1, 1).asArray(),
+              NIN,
+              NOUT,
+              INFO);
+          if (INFO.value != 0) _print9980(NOUT, 'ZCKLSE', INFO.value);
+        } else {
+          NOUT.println();
+          NOUT.println();
+          _print9992(NOUT, C3);
+        }
+      } while (!(ZGX || ZXV));
+    }
+  } on EOF catch (_) {
+    // do nothing
+  }
+  NOUT.println('\n\n End of tests');
+  NOUT.println(
+      ' Total time used = ${(S1.elapsed.inMilliseconds / 1000).f12_2} seconds\n');
+}
 
-         xlaenv(1, 1 );
-         if (TSTERR) zerrgg( 'GQR', NOUT );
-         zckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGQR', INFO;
+void _print9997(Nout nout, String s, int nb, int nbmin, int nx) {
+  nout.println('\n\n ${s.a3}:  NB =${nb.i4}, NBMIN =${nbmin.i4}, NX =${nx.i4}');
+}
 
-      } else if ( lsamen( 3, C3, 'GSV' ) ) {
+void _print9992(Nout nout, String s) {
+  nout.println(' ${s.a3}:  Unrecognized path name');
+}
 
-         // ----------------------------------------------
-         // GSV:  Generalized Singular Value Decomposition
-         // ----------------------------------------------
+void _print9990(Nout nout, String s) {
+  nout.println('\n\n ${s.a3} routines were not tested');
+}
 
-         xlaenv(1,1);
-         if (TSTERR) zerrgg( 'GSV', NOUT );
-         zckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGSV', INFO;
+void _print9989(Nout nout, String s, int actual, int expected) {
+  nout.println(
+      ' Invalid input value: $s=${actual.i6}; must be >=${expected.i6}');
+}
 
-      } else if ( lsamen( 3, C3, 'CSD' ) ) {
+void _print9988(Nout nout, String s, int actual, int expected) {
+  nout.println(
+      ' Invalid input value: $s=${actual.i6}; must be <=${expected.i6}');
+}
 
-         // ----------------------------------------------
-         // CSD:  CS Decomposition
-         // ----------------------------------------------
+void _print9983(
+  final Nout nout,
+  final String s,
+  final Array<int> a,
+  int n,
+) {
+  var prefix = '${' ' * 4}$s';
+  var i = 1;
+  while (n > 0) {
+    nout.println('$prefix${a(i).i6(min(n, 10))}');
+    prefix = ' ' * 10;
+    n -= 10;
+    i += 10;
+  }
+}
 
-         xlaenv(1,1);
-         if (TSTERR) zerrgg( 'CSD', NOUT );
-         zckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKCSD', INFO;
+void _print9983b(final Nout nout, final String s, final int v) {
+  _print9983(nout, s, Array.fromList([v]), 1);
+}
 
-      } else if ( lsamen( 3, C3, 'LSE' ) ) {
+void _print9981(final Nout nout, final String s, final double d) {
+  nout.println(' Relative machine $d is taken to be${d.d16_6}');
+}
 
-         // --------------------------------------
-         // LSE:  Constrained Linear Least Squares
-         // --------------------------------------
+void _print9980(final Nout nout, final String fn, final int errorCode) {
+  nout.println(' *** Error code from $fn = ${errorCode.i4}');
+}
 
-         xlaenv(1, 1 );
-         if (TSTERR) zerrgg( 'LSE', NOUT );
-         zcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
-         if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKLSE', INFO;
-      } else {
-         WRITE( NOUT, FMT = * );
-         WRITE( NOUT, FMT = * );
-         WRITE( NOUT, FMT = 9992 )C3;
-      }
-      if( !( ZGX || ZXV ) ) GO TO 190;
-      } // 380
-      WRITE( NOUT, FMT = 9994 );
-      S2 = DSECND( );
-      WRITE( NOUT, FMT = 9993 )S2 - S1;
-
-      DEALLOCATE (S, STAT = AllocateStatus);
-      DEALLOCATE (A, STAT = AllocateStatus);
-      DEALLOCATE (B, STAT = AllocateStatus);
-      DEALLOCATE (C, STAT = AllocateStatus);
-      DEALLOCATE (RWORK, STAT = AllocateStatus);
-      DEALLOCATE (WORK,  STAT = AllocateStatus);
-
- 9999 FORMAT('\n Execution not attempted due to input errors' );
- 9997 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NX =${.i4}');
- 9996 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NS =${.i4}, cenvir.MAXB =${.i4}, IACC22 =${.i4}, NBCOL =${.i4}');
- 9995 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NX =${.i4}, NRHS =${.i4}');
- 9994 FORMAT( / / ' End of tests' );
- 9993 FORMAT( ' Total time used = ${.f12_2} seconds\n');
- 9992 FORMAT(' ${.a3}:  Unrecognized path name' );
- 9991 FORMAT( / / ' *** Invalid integer value in column ', I2,; ' of input line:', / A79 )
- 9990 FORMAT( / / 1X, '${.a3} routines were not tested' );
- 9989 FORMAT( ' Invalid input value: ${}=${.i6}; must be >=', I6 )
- 9988 FORMAT( ' Invalid input value: ${}=${.i6}; must be <=', I6 )
- 9987 FORMAT( ' Tests of the Nonsymmetric Eigenvalue Problem routines' );
- 9986 FORMAT( ' Tests of the Hermitian Eigenvalue Problem routines' );
- 9985 FORMAT( ' Tests of the Singular Value Decomposition routines' );
- 9984 FORMAT('\n The following parameter values will be used:' );
- 9983 FORMAT( 4X, A, 10I6, / 10X, 10I6 );
- 9982 FORMAT('\n Routines pass computational tests if test ratio is less than', F8.2, / );
- 9981 FORMAT( ' Relative machine ${} is taken to be', D16.6 );
- 9980 FORMAT( ' *** Error code from ${} = ${.i4}');
- 9979 FORMAT('\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    ZGEEV (eigenvalues and eigevectors)' );
- 9978 FORMAT('\n Tests of the Nonsymmetric Eigenvalue Problem Driver\n    ZGEES (Schur form)' );
- 9977 FORMAT('\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    ZGEEVX (eigenvalues, eigenvectors and condition numbers)' );
- 9976 FORMAT('\n Tests of the Nonsymmetric Eigenvalue Problem Expert Driver\n    ZGEESX (Schur form and condition numbers)' );
- 9975 FORMAT('\n Tests of the Generalized Nonsymmetric Eigenvalue Problem routines' );
- 9974 FORMAT( ' Tests of ZHBTRD\n (reduction of a Hermitian band matrix to real tridiagonal form)' );
- 9973 FORMAT( / 1X, 71( '-' ) );
- 9972 FORMAT('\n LAPACK VERSION ${.i1}.${.i1}.${.i1}');
- 9971 FORMAT('\n Tests of the Generalized Linear Regression Model routines' );
- 9970 FORMAT('\n Tests of the Generalized QR and RQ routines' );
- 9969 FORMAT('\n Tests of the Generalized Singular Value Decomposition routines' );
- 9968 FORMAT('\n Tests of the Linear Least Squares routines' );
- 9967 FORMAT( ' Tests of ZGBBRD\n (reduction of a general band matrix to real bidiagonal form)' );
- 9966 FORMAT( / / 1X, '${.a3}:  NRHS =${.i4}');
- 9965 FORMAT('\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver ZGGESX' );
- 9964 FORMAT('\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver ZGGES' );
- 9963 FORMAT('\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Driver ZGGEV' );
- 9962 FORMAT('\n Tests of the Generalized Nonsymmetric Eigenvalue Problem Expert Driver ZGGEVX' );
- 9961 FORMAT( / / 1X, '${.a3}:  NB =${.i4}, NBMIN =${.i4}, NX =${.i4}, INMIN=${.i4}, INWIN =${.i4}, INIBL =${.i4}, ISHFTS =${.i4}, IACC22 =', I4);
- 9960 FORMAT('\n Tests of the CS Decomposition routines' );
-      }
+void _print9973(final Nout nout) {
+  nout.println('\n ${'-' * 71}');
+}

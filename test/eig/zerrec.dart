@@ -21,7 +21,7 @@ void zerrec(
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   final NMAX = Box(4);
   final LW = NMAX.value * (NMAX.value + 2);
-  int I, IFST, ILST, J, M, NT;
+  int I, IFST, ILST, J, NT;
   final SCALE = Box(0.0);
   final INFO = Box(0);
   final SEL = Array<bool>(NMAX.value);
@@ -34,6 +34,7 @@ void zerrec(
       C = Matrix<Complex>(NMAX.value, NMAX.value),
       WORK = Array<Complex>(LW),
       X = Array<Complex>(NMAX.value);
+  final M = Box(0);
 
   infoc.NOUT = NUNIT;
   infoc.OK.value = true;
@@ -88,28 +89,36 @@ void zerrec(
 
   srnamc.SRNAMT = 'ZTRSYL3';
   infoc.INFOT = 1;
-  ztrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
-  ztrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 3;
-  ztrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
-  ztrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 5;
-  ztrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 7;
-  ztrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 9;
-  ztrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 11;
-  ztrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, SWORK.asMatrix(NMAX.value), NMAX, INFO);
+  ztrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE,
+      SWORK.asMatrix(NMAX.value), NMAX, INFO);
   chkxer('ZTRSYL3', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   NT = NT + 8;
 
@@ -155,31 +164,40 @@ void zerrec(
 
   srnamc.SRNAMT = 'ZTRSNA';
   infoc.INFOT = 1;
-  ztrsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO);
+  ztrsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 2;
-  ztrsna('B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO);
+  ztrsna('B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 4;
-  ztrsna('B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO);
+  ztrsna('B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 6;
-  ztrsna('V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO);
+  ztrsna('V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK.asMatrix(), 2,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 8;
-  ztrsna('B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, RW, INFO);
+  ztrsna('B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK.asMatrix(), 2,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 10;
-  ztrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO);
+  ztrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK.asMatrix(), 2,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 13;
-  ztrsna('B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, RW, INFO);
+  ztrsna('B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 13;
-  ztrsna('B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 1, RW, INFO);
+  ztrsna('B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   infoc.INFOT = 16;
-  ztrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, RW, INFO);
+  ztrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK.asMatrix(), 1,
+      RW, INFO);
   chkxer('ZTRSNA', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK);
   NT = NT + 9;
 

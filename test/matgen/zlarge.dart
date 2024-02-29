@@ -1,71 +1,74 @@
-      void zlarge(final int N, final Matrix<double> A_, final int LDA, final Array<int> ISEED_, final Array<double> _WORK_, final Box<int> INFO,) {
-  final A = A_.dim();
-  final ISEED = ISEED_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dznrm2.dart';
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/blas/zgerc.dart';
+import 'package:lapack/src/blas/zscal.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zlarnv.dart';
+
+void zlarge(
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Array<int> ISEED_,
+  final Array<Complex> WORK_,
+  final Box<int> INFO,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                INFO, LDA, N;
-      int                ISEED( 4 );
-      Complex         A( LDA, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final ISEED = ISEED_.dim(4);
+  final WORK = WORK_.dim();
+  const ZERO = 0.0;
+  int I;
+  double WN;
+  Complex TAU, WA, WB;
 
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      int                I;
-      double             WN;
-      Complex         TAU, WA, WB;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZGEMV, ZGERC, ZLARNV, ZSCAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, MAX
-      // ..
-      // .. External Functions ..
-      //- double             DZNRM2;
-      // EXTERNAL DZNRM2
+  // Test the input arguments
 
-      // Test the input arguments
+  INFO.value = 0;
+  if (N < 0) {
+    INFO.value = -1;
+  } else if (LDA < max(1, N)) {
+    INFO.value = -3;
+  }
+  if (INFO.value < 0) {
+    xerbla('ZLARGE', -INFO.value);
+    return;
+  }
 
-      INFO = 0;
-      if ( N < 0 ) {
-         INFO = -1;
-      } else if ( LDA < max( 1, N ) ) {
-         INFO = -3;
-      }
-      if ( INFO < 0 ) {
-         xerbla('ZLARGE', -INFO );
-         return;
-      }
+  // pre- and post-multiply A by random unitary matrix
 
-      // pre- and post-multiply A by random unitary matrix
+  for (I = N; I >= 1; I--) {
+    // generate random reflection
 
-      for (I = N; I >= 1; I--) { // 10
+    zlarnv(3, ISEED, N - I + 1, WORK);
+    WN = dznrm2(N - I + 1, WORK, 1);
+    WA = (WN / WORK[1].abs()).toComplex() * WORK[1];
+    if (WN == ZERO) {
+      TAU = Complex.zero;
+    } else {
+      WB = WORK[1] + WA;
+      zscal(N - I, Complex.one / WB, WORK(2), 1);
+      WORK[1] = Complex.one;
+      TAU = (WB / WA).real.toComplex();
+    }
 
-         // generate random reflection
+    // multiply A(i:n,1:n) by random reflection from the left
 
-         zlarnv(3, ISEED, N-I+1, WORK );
-         WN = DZNRM2( N-I+1, WORK, 1 );
-         WA = ( WN / ( WORK( 1 ) ).abs() )*WORK( 1 );
-         if ( WN == ZERO ) {
-            TAU = ZERO;
-         } else {
-            WB = WORK( 1 ) + WA;
-            zscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK[1] = ONE;
-            TAU = (WB / WA).toDouble();
-         }
+    zgemv('Conjugate transpose', N - I + 1, N, Complex.one, A(I, 1), LDA, WORK,
+        1, Complex.zero, WORK(N + 1), 1);
+    zgerc(N - I + 1, N, -TAU, WORK, 1, WORK(N + 1), 1, A(I, 1), LDA);
 
-         // multiply A(i:n,1:n) by random reflection from the left
+    // multiply A(1:n,i:n) by random reflection from the right
 
-         zgemv('Conjugate transpose', N-I+1, N, ONE, A( I, 1 ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
-         zgerc(N-I+1, N, -TAU, WORK, 1, WORK( N+1 ), 1, A( I, 1 ), LDA );
-
-         // multiply A(1:n,i:n) by random reflection from the right
-
-         zgemv('No transpose', N, N-I+1, ONE, A( 1, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
-         zgerc(N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA );
-      } // 10
-      }
+    zgemv('No transpose', N, N - I + 1, Complex.one, A(1, I), LDA, WORK, 1,
+        Complex.zero, WORK(N + 1), 1);
+    zgerc(N, N - I + 1, -TAU, WORK(N + 1), 1, WORK, 1, A(1, I), LDA);
+  } // 10
+}

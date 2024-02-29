@@ -2,41 +2,18 @@ import 'package:lapack/src/complex.dart';
 
 import 'common.dart';
 
-bool zlctsx(ALPHA, BETA) {
+bool zlctsx(final Complex ALPHA, final Complex BETA) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  // .. Scalar Arguments ..
-  Complex ALPHA, BETA;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  // double                         ZERO;
-  // PARAMETER          ( ZERO = 0.0 )
-  // Complex            CZERO
-  // PARAMETER          ( CZERO = ( 0.0, 0.0 ) )
-  // ..
-  // .. Scalars in Common ..
-  // bool mn.FS;
-  // int mn.I, mn.M, mn.MPLUSN, mn.N;
-  // ..
-  // .. Common blocks ..
-  // COMMON / MN / mn.M, mn.N, mn.MPLUSN, mn.I, mn.FS
-  // ..
-  // .. Save statement ..
-  // SAVE;
-  // ..
-  // .. Executable Statements ..
-
+  bool result;
   if (mn.FS) {
     mn.I = mn.I + 1;
     if (mn.I <= mn.M) {
-      ZLCTSX = false;
+      result = false;
     } else {
-      ZLCTSX = true;
+      result = true;
     }
     if (mn.I == mn.MPLUSN) {
       mn.FS = false;
@@ -45,9 +22,9 @@ bool zlctsx(ALPHA, BETA) {
   } else {
     mn.I = mn.I + 1;
     if (mn.I <= mn.N) {
-      ZLCTSX = true;
+      result = true;
     } else {
-      ZLCTSX = false;
+      result = false;
     }
     if (mn.I == mn.MPLUSN) {
       mn.FS = true;
@@ -60,4 +37,6 @@ bool zlctsx(ALPHA, BETA) {
   // ELSE
   // ZLCTSX = ( (ALPHA/BETA).toDouble() > ZERO )
   // END IF
+
+  return result;
 }

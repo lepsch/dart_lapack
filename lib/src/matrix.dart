@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:lapack/src/box.dart';
 
+// TODO: Make it iterable
+// TODO: List interface
 abstract interface class Array<T> implements Box<T> {
   factory Array(int length, {int offset = 0}) {
     return _Array<T>(length, offset: offset);
@@ -43,15 +45,12 @@ class Matrix<T> implements Box<T> {
       : _ld = m,
         _entries = _Array<T>(m * n, ld: m);
 
-  Matrix.fromList(List<List<T>> list)
-      : _entries = _Array<T>.fromList(
-          [
-            for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
-              for (var i = 0; i < list.length; i++) list[i][j],
-            ],
+  Matrix.fromList(List<List<T>> list, {int offset = 0})
+      : _entries = _Array<T>.fromList([
+          for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
+            for (var i = 0; i < list.length; i++) list[i][j],
           ],
-          ld: list.length,
-        ),
+        ], ld: list.length, offset: offset),
         _ld = list.length;
 
   Matrix.fromSlice(this._entries, this._ld);
@@ -193,6 +192,7 @@ class _Array<T> implements Array<T> {
         _ => throw UnimplementedError(),
       } as List<T>,
       ld: _ld,
+      offset: this.offset,
     );
   }
 

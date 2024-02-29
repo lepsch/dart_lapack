@@ -1,136 +1,140 @@
-      void zunt03(final int RC, final int MU, final int MV, final int N, final int K, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT, final Box<int> INFO,) {
-  final U = U_.dim();
-  final V = V_.dim();
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/izamax.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+import 'zunt01.dart';
+
+void zunt03(
+  final String RC,
+  final int MU,
+  final int MV,
+  final int N,
+  final int K,
+  final Matrix<Complex> U_,
+  final int LDU,
+  final Matrix<Complex> V_,
+  final int LDV,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Box<double> RESULT,
+  final Box<int> INFO,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      List<String>       RC;
-      int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-      double             RESULT;
-      double             RWORK( * );
-      Complex         U( LDU, * ), V( LDV, * ), WORK( * );
-      // ..
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  const ZERO = 0.0, ONE = 1.0;
+  int I, IRC, J, LMX;
+  double RES1, ULP;
+  Complex S, SU, SV;
+  final RES2 = Box(0.0);
 
-// =====================================================================
+  // Check inputs
 
+  INFO.value = 0;
+  if (lsame(RC, 'R')) {
+    IRC = 0;
+  } else if (lsame(RC, 'C')) {
+    IRC = 1;
+  } else {
+    IRC = -1;
+  }
+  if (IRC == -1) {
+    INFO.value = -1;
+  } else if (MU < 0) {
+    INFO.value = -2;
+  } else if (MV < 0) {
+    INFO.value = -3;
+  } else if (N < 0) {
+    INFO.value = -4;
+  } else if (K < 0 || K > max(MU, MV)) {
+    INFO.value = -5;
+  } else if ((IRC == 0 && LDU < max(1, MU)) || (IRC == 1 && LDU < max(1, N))) {
+    INFO.value = -7;
+  } else if ((IRC == 0 && LDV < max(1, MV)) || (IRC == 1 && LDV < max(1, N))) {
+    INFO.value = -9;
+  }
+  if (INFO.value != 0) {
+    xerbla('ZUNT03', -INFO.value);
+    return;
+  }
 
-      // .. Parameters ..
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      int                I, IRC, J, LMX;
-      double             RES1, RES2, ULP;
-      Complex         S, SU, SV;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                IZAMAX;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, IZAMAX, DLAMCH
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZUNT01
+  // Initialize result
 
-      // Check inputs
+  RESULT.value = ZERO;
+  if (MU == 0 || MV == 0 || N == 0) return;
 
-      INFO = 0;
-      if ( lsame( RC, 'R' ) ) {
-         IRC = 0;
-      } else if ( lsame( RC, 'C' ) ) {
-         IRC = 1;
+  // Machine constants
+
+  ULP = dlamch('Precision');
+
+  if (IRC == 0) {
+    // Compare rows
+
+    RES1 = ZERO;
+    for (I = 1; I <= K; I++) {
+      // 20
+      LMX = izamax(N, U(I, 1).asArray(), LDU);
+      if (V[I][LMX] == Complex.zero) {
+        SV = Complex.one;
       } else {
-         IRC = -1;
+        SV = (V[I][LMX]).abs().toComplex() / V[I][LMX];
       }
-      if ( IRC == -1 ) {
-         INFO = -1;
-      } else if ( MU < 0 ) {
-         INFO = -2;
-      } else if ( MV < 0 ) {
-         INFO = -3;
-      } else if ( N < 0 ) {
-         INFO = -4;
-      } else if ( K < 0 || K > max( MU, MV ) ) {
-         INFO = -5;
-      } else if ( ( IRC == 0 && LDU < max( 1, MU ) ) || ( IRC == 1 && LDU < max( 1, N ) ) ) {
-         INFO = -7;
-      } else if ( ( IRC == 0 && LDV < max( 1, MV ) ) || ( IRC == 1 && LDV < max( 1, N ) ) ) {
-         INFO = -9;
-      }
-      if ( INFO != 0 ) {
-         xerbla('ZUNT03', -INFO );
-         return;
-      }
-
-      // Initialize result
-
-      RESULT = ZERO;
-      if (MU == 0 || MV == 0 || N == 0) return;
-
-      // Machine constants
-
-      ULP = dlamch( 'Precision' );
-
-      if ( IRC == 0 ) {
-
-         // Compare rows
-
-         RES1 = ZERO;
-         for (I = 1; I <= K; I++) { // 20
-            LMX = IZAMAX( N, U( I, 1 ), LDU );
-            if ( V( I, LMX ) == DCMPLX( ZERO ) ) {
-               SV = ONE;
-            } else {
-               SV = ( V( I, LMX ) ).abs() / V( I, LMX );
-            }
-            if ( U( I, LMX ) == DCMPLX( ZERO ) ) {
-               SU = ONE;
-            } else {
-               SU = ( U( I, LMX ) ).abs() / U( I, LMX );
-            }
-            S = SV / SU;
-            for (J = 1; J <= N; J++) { // 10
-               RES1 = max( RES1, ABS( U( I, J )-S*V( I, J ) ) );
-            } // 10
-         } // 20
-         RES1 = RES1 / ( N.toDouble()*ULP );
-
-         // Compute orthogonality of rows of V.
-
-         zunt01('Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 );
-
+      if (U[I][LMX] == Complex.zero) {
+        SU = Complex.one;
       } else {
-
-         // Compare columns
-
-         RES1 = ZERO;
-         for (I = 1; I <= K; I++) { // 40
-            LMX = IZAMAX( N, U( 1, I ), 1 );
-            if ( V( LMX, I ) == DCMPLX( ZERO ) ) {
-               SV = ONE;
-            } else {
-               SV = ( V( LMX, I ) ).abs() / V( LMX, I );
-            }
-            if ( U( LMX, I ) == DCMPLX( ZERO ) ) {
-               SU = ONE;
-            } else {
-               SU = ( U( LMX, I ) ).abs() / U( LMX, I );
-            }
-            S = SV / SU;
-            for (J = 1; J <= N; J++) { // 30
-               RES1 = max( RES1, ABS( U( J, I )-S*V( J, I ) ) );
-            } // 30
-         } // 40
-         RES1 = RES1 / ( N.toDouble()*ULP );
-
-         // Compute orthogonality of columns of V.
-
-         zunt01('Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 );
+        SU = (U[I][LMX]).abs().toComplex() / U[I][LMX];
       }
+      S = SV / SU;
+      for (J = 1; J <= N; J++) {
+        // 10
+        RES1 = max(RES1, (U[I][J] - S * V[I][J]).abs());
+      } // 10
+    } // 20
+    RES1 = RES1 / (N.toDouble() * ULP);
 
-      RESULT = min( max( RES1, RES2 ), ONE / ULP );
+    // Compute orthogonality of rows of V.
+
+    zunt01('Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2);
+  } else {
+    // Compare columns
+
+    RES1 = ZERO;
+    for (I = 1; I <= K; I++) {
+      // 40
+      LMX = izamax(N, U(1, I).asArray(), 1);
+      if (V[LMX][I] == Complex.zero) {
+        SV = Complex.one;
+      } else {
+        SV = (V[LMX][I]).abs().toComplex() / V[LMX][I];
       }
+      if (U[LMX][I] == Complex.zero) {
+        SU = Complex.one;
+      } else {
+        SU = (U[LMX][I]).abs().toComplex() / U[LMX][I];
+      }
+      S = SV / SU;
+      for (J = 1; J <= N; J++) {
+        // 30
+        RES1 = max(RES1, (U[J][I] - S * V[J][I]).abs());
+      } // 30
+    } // 40
+    RES1 = RES1 / (N.toDouble() * ULP);
+
+    // Compute orthogonality of columns of V.
+
+    zunt01('Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2);
+  }
+
+  RESULT.value = min(max(RES1, RES2.value), ONE / ULP);
+}

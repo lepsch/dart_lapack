@@ -22,7 +22,7 @@ void main() { // DSECNDTST
       T1 = DSECND( );
       for (J = 1; J <= ITS; J++) { // 30
          for (I = 1; I <= NMAX; I++) { // 20
-            Y[I] = Y( I ) + ALPHA*X( I );
+            Y[I] = Y[I] + ALPHA*X[I];
          } // 20
          ALPHA = -ALPHA;
       } // 30
@@ -40,7 +40,7 @@ void main() { // DSECNDTST
       T1 = DSECND( );
       for (J = 1; J <= ITS; J++) { // 50
          for (I = 1; I <= NMAX; I++) { // 40
-            Y[I] = Y( I ) + ALPHA*X( I );
+            Y[I] = Y[I] + ALPHA*X[I];
          } // 40
          ALPHA = -ALPHA;
          T2 = DSECND( );

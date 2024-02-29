@@ -42,7 +42,7 @@ void dlarf(
       I = 1;
     }
     // Look for the last non-zero row in V.
-    while (LASTV > 0 && V(I) == ZERO) {
+    while (LASTV > 0 && V[I] == ZERO) {
       LASTV = LASTV - 1;
       I = I - INCV;
     }

@@ -1,60 +1,63 @@
-      void zget10(final int M, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/dzasum.dart';
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+
+void zget10(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Box<double> RESULT,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, M, N;
-      double             RESULT;
-      double             RWORK( * );
-      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  const ONE = 1.0, ZERO = 0.0;
+  int J;
+  double ANORM, EPS, UNFL, WNORM;
 
-      double             ONE, ZERO;
-      const              ONE = 1.0, ZERO = 0.0 ;
-      int                J;
-      double             ANORM, EPS, UNFL, WNORM;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, DZASUM, ZLANGE;
-      // EXTERNAL DLAMCH, DZASUM, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZCOPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, DCMPLX, MAX, MIN
+  // Quick return if possible
 
-      // Quick return if possible
+  if (M <= 0 || N <= 0) {
+    RESULT.value = ZERO;
+    return;
+  }
 
-      if ( M <= 0 || N <= 0 ) {
-         RESULT = ZERO;
-         return;
-      }
+  UNFL = dlamch('Safe minimum');
+  EPS = dlamch('Precision');
 
-      UNFL = dlamch( 'Safe minimum' );
-      EPS = dlamch( 'Precision' );
+  WNORM = ZERO;
+  for (J = 1; J <= N; J++) {
+    // 10
+    zcopy(M, A(1, J).asArray(), 1, WORK, 1);
+    zaxpy(M, -Complex.one, B(1, J).asArray(), 1, WORK, 1);
+    WNORM = max(WNORM, dzasum(N, WORK, 1));
+  } // 10
 
-      WNORM = ZERO;
-      for (J = 1; J <= N; J++) { // 10
-         zcopy(M, A( 1, J ), 1, WORK, 1 );
-         zaxpy(M, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
-         WNORM = max( WNORM, DZASUM( N, WORK, 1 ) );
-      } // 10
+  ANORM = max(zlange('1', M, N, A, LDA, RWORK), UNFL);
 
-      ANORM = max( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
-
-      if ( ANORM > WNORM ) {
-         RESULT = ( WNORM / ANORM ) / ( M*EPS );
-      } else {
-         if ( ANORM < ONE ) {
-            RESULT = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
-         } else {
-            RESULT = min( WNORM / ANORM, M.toDouble() ) / ( M*EPS );
-         }
-      }
-
-      }
+  if (ANORM > WNORM) {
+    RESULT.value = (WNORM / ANORM) / (M * EPS);
+  } else {
+    if (ANORM < ONE) {
+      RESULT.value = (min(WNORM, M * ANORM) / ANORM) / (M * EPS);
+    } else {
+      RESULT.value = min(WNORM / ANORM, M.toDouble()) / (M * EPS);
+    }
+  }
+}

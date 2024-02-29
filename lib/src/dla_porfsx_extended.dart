@@ -12,6 +12,8 @@ import 'package:lapack/src/dpotrs.dart';
 import 'package:lapack/src/ilauplo.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_dsymv2_x.dart';
+import 'package:lapack/src/xblas/blas_dsymv_x.dart';
 
 void dla_porfsx_extended(
   final int PREC_TYPE,
@@ -136,11 +138,11 @@ void dla_porfsx_extended(
       if (Y_PREC_STATE == BASE_RESIDUAL) {
         dsymv(UPLO, N, -1.0, A, LDA, Y(1, J).asArray(), 1, 1.0, RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_dsymv_x(
-            UPLO2, N, -1.0, A, LDA, Y(1, J), 1, 1.0, RES, 1, PREC_TYPE);
+        blas_dsymv_x(UPLO2, N, -1.0, A, LDA, Y(1, J).asArray(), 1, 1.0, RES, 1,
+            PREC_TYPE);
       } else {
-        blas_dsymv2_x(
-            UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE);
+        blas_dsymv2_x(UPLO2, N, -1.0, A, LDA, Y(1, J).asArray(), Y_TAIL, 1, 1.0,
+            RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.

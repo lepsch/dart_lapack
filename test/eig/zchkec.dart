@@ -1,3 +1,4 @@
+import 'package:lapack/src/box.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
@@ -10,28 +11,19 @@ import 'zget37.dart';
 import 'zget38.dart';
 import 'zsyl01.dart';
 
-void zchkec(
+Future<void> zchkec(
   final double THRESH,
   final bool TSTERR,
   final Nin NIN,
   final Nout NOUT,
-) {
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
   bool OK;
   String PATH;
-  int KTREXC = 0,
-      KTRSEN = 0,
-      KTRSNA = 0,
-      KTRSYL = 0,
-      KTRSYL3 = 0,
-      LTREXC = 0,
-      LTRSYL = 0,
-      NTESTS = 0,
-      NTREXC = 0,
-      NTRSYL = 0;
-  double EPS, RTREXC = 0, SFMIN;
+  int NTESTS = 0;
+  double EPS, SFMIN;
   final FTRSYL = Array<int>(3),
       ITRSYL = Array<int>(2),
       LTRSEN = Array<int>(3),
@@ -41,13 +33,16 @@ void zchkec(
   final RTRSEN = Array<double>(3),
       RTRSNA = Array<double>(3),
       RTRSYL = Array<double>(2);
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL ZERREC, ZGET35, ZGET36, ZGET37, ZGET38, ZSYL01
-  // ..
-  // .. External Functions ..
-  //- double             DLAMCH;
-  // EXTERNAL DLAMCH
+  final LTRSYL = Box(0),
+      NTRSYL = Box(0),
+      KTRSYL = Box(0),
+      KTRSYL3 = Box(0),
+      KTRSNA = Box(0),
+      KTRSEN = Box(0),
+      LTREXC = Box(0),
+      NTREXC = Box(0),
+      KTREXC = Box(0);
+  final RTREXC = Box(0.0);
 
   PATH = '${'Zomplex precision'[0]}EC';
   EPS = dlamch('P');
@@ -64,11 +59,11 @@ void zchkec(
   if (TSTERR) zerrec(PATH, NOUT);
 
   OK = true;
-  zget35(RTRSYL[1], LTRSYL, NTRSYL, KTRSYL, NIN);
+  await zget35(RTRSYL(1), LTRSYL, NTRSYL, KTRSYL, NIN);
   if (RTRSYL[1] > THRESH) {
     OK = false;
     NOUT.println(
-        ' Error in ZTRSYL: RMAX =${RTRSYL[1].d12_3}\n LMAX = ${LTRSYL.i8} NINFO=${NTRSYL.i8} KNT=${KTRSYL.i8}');
+        ' Error in ZTRSYL: RMAX =${RTRSYL[1].d12_3}\n LMAX = ${LTRSYL.value.i8} NINFO=${NTRSYL.value.i8} KNT=${KTRSYL.value.i8}');
   }
 
   zsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3);
@@ -88,14 +83,14 @@ void zchkec(
         'ZTRSYL and ZTRSYL3 compute an inconsistent scale factor in ${FTRSYL[3].i8} tests.');
   }
 
-  zget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN);
-  if (RTREXC > THRESH || NTREXC > 0) {
+  await zget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN);
+  if (RTREXC.value > THRESH || NTREXC.value > 0) {
     OK = false;
     NOUT.println(
-        ' Error in ZTREXC: RMAX =${RTREXC.d12_3}\n LMAX = ${LTREXC.i8} NINFO=${NTREXC.i8} KNT=${KTREXC.i8}');
+        ' Error in ZTREXC: RMAX =${RTREXC.value.d12_3}\n LMAX = ${LTREXC.value.i8} NINFO=${NTREXC.value.i8} KNT=${KTREXC.value.i8}');
   }
 
-  zget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN);
+  await zget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN);
   if (RTRSNA[1] > THRESH ||
       RTRSNA[2] > THRESH ||
       NTRSNA[1] != 0 ||
@@ -103,10 +98,10 @@ void zchkec(
       NTRSNA[3] != 0) {
     OK = false;
     NOUT.println(
-        ' Error in ZTRSNA: RMAX =${RTRSNA.d12_3(3)}\n LMAX = ${LTRSNA.i8(3)} NINFO=${NTRSNA.i8(3)} KNT=${KTRSNA.i8}');
+        ' Error in ZTRSNA: RMAX =${RTRSNA.d12_3(3)}\n LMAX = ${LTRSNA.i8(3)} NINFO=${NTRSNA.i8(3)} KNT=${KTRSNA.value.i8}');
   }
 
-  zget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN);
+  await zget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN);
   if (RTRSEN[1] > THRESH ||
       RTRSEN[2] > THRESH ||
       NTRSEN[1] != 0 ||
@@ -114,11 +109,13 @@ void zchkec(
       NTRSEN[3] != 0) {
     OK = false;
     NOUT.println(
-        ' Error in ZTRSEN: RMAX =${RTRSEN.d12_3(3)}\n LMAX = ${LTRSEN.i8(3)} NINFO=${NTRSEN.i8(3)} KNT=${KTRSEN.i8}');
+        ' Error in ZTRSEN: RMAX =${RTRSEN.d12_3(3)}\n LMAX = ${LTRSEN.i8(3)} NINFO=${NTRSEN.i8(3)} KNT=${KTRSEN.value.i8}');
   }
 
-  NTESTS = KTRSYL + KTRSYL3 + KTREXC + KTRSNA + KTRSEN;
-  if (OK)
+  NTESTS =
+      KTRSYL.value + KTRSYL3.value + KTREXC.value + KTRSNA.value + KTRSEN.value;
+  if (OK) {
     NOUT.println(
         '\n All tests for ${PATH.a3} routines passed the threshold ( ${NTESTS.i6} tests run)');
+  }
 }

@@ -1,67 +1,55 @@
+import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/lsamen.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zgees.dart';
+import 'package:lapack/src/zgeesx.dart';
+import 'package:lapack/src/zgeev.dart';
+import 'package:lapack/src/zgeevx.dart';
+import 'package:lapack/src/zgejsv.dart';
+import 'package:lapack/src/zgesdd.dart';
+import 'package:lapack/src/zgesvd.dart';
+import 'package:lapack/src/zgesvdq.dart';
+import 'package:lapack/src/zgesvdx.dart';
 
+import 'chkxer.dart';
 import 'common.dart';
+import 'zslect.dart';
 
-      void zerred(final int PATH, final int NUNIT,) {
+      void zerred(final String PATH, final Nout NUNIT,) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             PATH;
-      int                NUNIT;
-      // ..
-
-      int                NMAX, LW;
       const              NMAX = 4, LW = 5*NMAX ;
-      double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       String             C2;
-      int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
-      double             ABNRM;
-      bool               B( NMAX );
-      int                IW( 4*NMAX );
-      double             R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX );
-      Complex         A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL CHKXER, ZGEES, ZGEESX, ZGEEV, ZGEEVX, ZGESVJ, ZGESDD, ZGESVD, ZGESVDX, ZGESVDQ
-      // ..
-      // .. External Functions ..
-      //- bool               LSAMEN, ZSLECT;
-      // EXTERNAL LSAMEN, ZSLECT
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN_TRIM
-      // ..
-      // .. Arrays in Common ..
-      // bool               sslct.SELVAL( 20 );
-      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
-      // // ..
-      // // .. Scalars in Common ..
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // int                infoc.INFOT, infoc.NOUT, sslct.SELDIM, sslct.SELOPT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / infoc / infoc.INFOT, infoc.NOUT, infoc.OK, infoc.LERR
-      // COMMON / srnamc / srnamc.SRNAMT
-      // COMMON / sslct / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
+      int                I, J, NT;
+      final               B=Array<bool>( NMAX );
+      final                IW=Array<int>( 4*NMAX );
+      final             R1=Array<double>( NMAX ), R2=Array<double>( NMAX ), RW=Array<double>( LW ), S=Array<double>( NMAX );
+      final         A=Matrix<Complex>( NMAX, NMAX ), U=Matrix<Complex>( NMAX, NMAX ), VL=Matrix<Complex>( NMAX, NMAX ), VR=Matrix<Complex>( NMAX, NMAX ), VT=Matrix<Complex>( NMAX, NMAX );
+      final W=Array<Complex>( 10*NMAX ), X=Array<Complex>( NMAX );
+      final INFO=Box(0), SDIM=Box(0), IHI=Box(0), ILO=Box(0), NS=Box(0);
+      final ABNRM=Box(0.0);
 
       infoc.NOUT = NUNIT;
-      WRITE( infoc.NOUT, FMT = * );
-      C2 = PATH( 2: 3 );
+      infoc.NOUT.println();
+      C2 = PATH.substring( 1, 3 );
 
       // Initialize A
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I][J] = ZERO;
+            A[I][J] = Complex.zero;
          } // 10
       } // 20
       for (I = 1; I <= NMAX; I++) { // 30
-         A[I][I] = ONE;
+         A[I][I] = Complex.one;
       } // 30
-      infoc.OK = true;
+      infoc.OK.value = true;
       NT = 0;
 
       if ( lsamen( 2, C2, 'EV' ) ) {
@@ -98,22 +86,22 @@ import 'common.dart';
 
          srnamc.SRNAMT = 'ZGEES ';
          infoc.INFOT = 1;
-         zgees('X', 'N', ZSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         zgees('X', 'N', zslect, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 2;
-         zgees('N', 'X', ZSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         zgees('N', 'X', zslect, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 4;
-         zgees('N', 'S', ZSLECT, -1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         zgees('N', 'S', zslect, -1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 6;
-         zgees('N', 'S', ZSLECT, 2, A, 1, SDIM, X, VL, 1, W, 4, RW, B, INFO );
+         zgees('N', 'S', zslect, 2, A, 1, SDIM, X, VL, 1, W, 4, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 10;
-         zgees('V', 'S', ZSLECT, 2, A, 2, SDIM, X, VL, 1, W, 4, RW, B, INFO );
+         zgees('V', 'S', zslect, 2, A, 2, SDIM, X, VL, 1, W, 4, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 12;
-         zgees('N', 'S', ZSLECT, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         zgees('N', 'S', zslect, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
          chkxer('ZGEES ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 6;
 
@@ -160,25 +148,25 @@ import 'common.dart';
 
          srnamc.SRNAMT = 'ZGEESX';
          infoc.INFOT = 1;
-         zgeesx('X', 'N', ZSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         zgeesx('X', 'N', zslect, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 2;
-         zgeesx('N', 'X', ZSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         zgeesx('N', 'X', zslect, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 4;
-         zgeesx('N', 'N', ZSLECT, 'X', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         zgeesx('N', 'N', zslect, 'X', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 5;
-         zgeesx('N', 'N', ZSLECT, 'N', -1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         zgeesx('N', 'N', zslect, 'N', -1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 7;
-         zgeesx('N', 'N', ZSLECT, 'N', 2, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
+         zgeesx('N', 'N', zslect, 'N', 2, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 11;
-         zgeesx('V', 'N', ZSLECT, 'N', 2, A, 2, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
+         zgeesx('V', 'N', zslect, 'N', 2, A, 2, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          infoc.INFOT = 15;
-         zgeesx('N', 'N', ZSLECT, 'N', 1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         zgeesx('N', 'N', zslect, 'N', 1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
          chkxer('ZGEESX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 7;
 
@@ -212,10 +200,10 @@ import 'common.dart';
          zgesvd('N', 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, INFO );
          chkxer('ZGESVD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT + 8;
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
 
          // Test ZGESDD
@@ -240,10 +228,10 @@ import 'common.dart';
          zgesdd('A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, IW, INFO );
          chkxer('ZGESDD', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = NT - 2;
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
 
          // Test ZGEJSV
@@ -283,10 +271,10 @@ import 'common.dart';
          zgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 2, VT, 1, W, 1, RW, 1, IW, INFO);
          chkxer('ZGEJSV', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 11;
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
 
          // Test ZGESVDX
@@ -329,10 +317,10 @@ import 'common.dart';
          zgesvdx('N', 'V', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
          chkxer('ZGESVDX', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 12;
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
 
          // Test ZGESVDQ
@@ -372,23 +360,29 @@ import 'common.dart';
          zgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, 1, NS, IW, -5, W, 1, RW, 1, INFO );
          chkxer('ZGESVDQ', infoc.INFOT, infoc.NOUT, infoc.LERR, infoc.OK );
          NT = 11;
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
       }
 
       // Print a summary line.
 
       if ( !lsamen( 2, C2, 'BD' ) ) {
-         if ( infoc.OK ) {
-            WRITE( infoc.NOUT, FMT = 9999 )srnamc.SRNAMT( 1:LEN_TRIM( srnamc.SRNAMT ) ), NT;
+         if ( infoc.OK.value ) {
+            _print9999(infoc.NOUT, srnamc.SRNAMT, NT);
          } else {
-            WRITE( infoc.NOUT, FMT = 9998 );
+            _print9998(infoc.NOUT, srnamc.SRNAMT);
          }
       }
 
- 9999 FORMAT(' ${} passed the tests of the error exits (${.i3} tests done)' );
- 9998 FORMAT( ' *** ${} failed the tests of the error exits ***' );
       }
+
+ void _print9999(Nout nout, String s, int t) {
+  nout.println(' $s passed the tests of the error exits (${t.i3} tests done)' );
+ }
+
+ void _print9998(Nout nout, String s) {
+  nout.println(' *** $s failed the tests of the error exits ***' );
+ }

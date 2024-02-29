@@ -8,6 +8,8 @@ import 'package:lapack/src/matrix.dart';
 import 'package:lapack/src/nio.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zgbbrd.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlaset.dart';
 
 import '../matgen/zlatmr.dart';
 import '../matgen/zlatms.dart';
@@ -15,7 +17,6 @@ import 'dlahd2.dart';
 import 'dlasum.dart';
 import 'zbdt01.dart';
 import 'zbdt02.dart';
-import 'zget36.dart';
 import 'zunt01.dart';
 
 void zchkbb(

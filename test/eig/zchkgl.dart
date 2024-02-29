@@ -1,118 +1,112 @@
-      void zchkgl(final int NIN, final int NOUT,) {
+import 'dart:math';
 
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/zggbal.dart';
+import 'package:lapack/src/zlange.dart';
+
+Future<void> zchkgl(
+  final Nin NIN,
+  final Nout NOUT,
+) async {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                NIN, NOUT;
-      // ..
 
-      int                LDA, LDB, LWORK;
-      const              LDA = 20, LDB = 20, LWORK = 6*LDA ;
-      double             ZERO;
-      const              ZERO = 0.0 ;
-      int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
-      double             ANORM, BNORM, EPS, RMAX, VMAX;
-      int                LMAX( 3 );
-      double             LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
-      Complex         A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGGBAL
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX
+  const LDA = 20, LDB = 20, LWORK = 6 * LDA;
+  const ZERO = 0.0;
+  int I, IHIIN, ILOIN, J, KNT, N, NINFO;
+  double ANORM, BNORM, EPS, RMAX, VMAX;
+  final LMAX = Array<int>(3);
+  final LSCALE = Array<double>(LDA),
+      LSCLIN = Array<double>(LDA),
+      RSCALE = Array<double>(LDA),
+      RSCLIN = Array<double>(LDA),
+      WORK = Array<double>(LWORK);
+  final A = Matrix<Complex>(LDA, LDA),
+      AIN = Matrix<Complex>(LDA, LDA),
+      B = Matrix<Complex>(LDB, LDB),
+      BIN = Matrix<Complex>(LDB, LDB);
+  final INFO = Box(0), ILO = Box(0), IHI = Box(0);
 
-      LMAX[1] = 0;
-      LMAX[2] = 0;
-      LMAX[3] = 0;
-      NINFO = 0;
-      KNT = 0;
-      RMAX = ZERO;
+  LMAX[1] = 0;
+  LMAX[2] = 0;
+  LMAX[3] = 0;
+  NINFO = 0;
+  KNT = 0;
+  RMAX = ZERO;
 
-      EPS = dlamch( 'Precision' );
+  EPS = dlamch('Precision');
 
-      } // 10
+  // } // 10
+  try {
+    while (true) {
+      N = await NIN.readInt();
+      if (N == 0) break;
 
-      READ( NIN, FMT = * )N;
-      if (N == 0) GO TO 90;
-      for (I = 1; I <= N; I++) { // 20
-         READ( NIN, FMT = * )( A( I, J ), J = 1, N );
-      } // 20
+      await NIN.readMatrix(A, N, N);
+      await NIN.readMatrix(B, N, N);
+      (ILOIN, IHIIN) = await NIN.readInt2();
 
-      for (I = 1; I <= N; I++) { // 30
-         READ( NIN, FMT = * )( B( I, J ), J = 1, N );
-      } // 30
+      await NIN.readMatrix(AIN, N, N);
+      await NIN.readMatrix(BIN, N, N);
 
-      READ( NIN, FMT = * )ILOIN, IHIIN;
-      for (I = 1; I <= N; I++) { // 40
-         READ( NIN, FMT = * )( AIN( I, J ), J = 1, N );
-      } // 40
-      for (I = 1; I <= N; I++) { // 50
-         READ( NIN, FMT = * )( BIN( I, J ), J = 1, N );
-      } // 50
+      await NIN.readArray(LSCLIN, N);
+      await NIN.readArray(RSCLIN, N);
 
-      READ( NIN, FMT = * )( LSCLIN( I ), I = 1, N );
-      READ( NIN, FMT = * )( RSCLIN( I ), I = 1, N );
-
-      ANORM = ZLANGE( 'M', N, N, A, LDA, WORK );
-      BNORM = ZLANGE( 'M', N, N, B, LDB, WORK );
+      ANORM = zlange('M', N, N, A, LDA, WORK);
+      BNORM = zlange('M', N, N, B, LDB, WORK);
 
       KNT = KNT + 1;
 
-      zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
+      zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO);
 
-      if ( INFO != 0 ) {
-         NINFO = NINFO + 1;
-         LMAX[1] = KNT;
+      if (INFO.value != 0) {
+        NINFO = NINFO + 1;
+        LMAX[1] = KNT;
       }
 
-      if ( ILO != ILOIN || IHI != IHIIN ) {
-         NINFO = NINFO + 1;
-         LMAX[2] = KNT;
+      if (ILO.value != ILOIN || IHI.value != IHIIN) {
+        NINFO = NINFO + 1;
+        LMAX[2] = KNT;
       }
 
       VMAX = ZERO;
-      for (I = 1; I <= N; I++) { // 70
-         for (J = 1; J <= N; J++) { // 60
-            VMAX = max( VMAX, ABS( A( I, J )-AIN( I, J ) ) );
-            VMAX = max( VMAX, ABS( B( I, J )-BIN( I, J ) ) );
-         } // 60
+      for (I = 1; I <= N; I++) {
+        // 70
+        for (J = 1; J <= N; J++) {
+          // 60
+          VMAX = max(VMAX, (A[I][J] - AIN[I][J]).abs());
+          VMAX = max(VMAX, (B[I][J] - BIN[I][J]).abs());
+        } // 60
       } // 70
 
-      for (I = 1; I <= N; I++) { // 80
-         VMAX = max( VMAX, ABS( LSCALE( I )-LSCLIN( I ) ) );
-         VMAX = max( VMAX, ABS( RSCALE( I )-RSCLIN( I ) ) );
+      for (I = 1; I <= N; I++) {
+        // 80
+        VMAX = max(VMAX, (LSCALE[I] - LSCLIN[I]).abs());
+        VMAX = max(VMAX, (RSCALE[I] - RSCLIN[I]).abs());
       } // 80
 
-      VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
+      VMAX = VMAX / (EPS * max(ANORM, BNORM));
 
-      if ( VMAX > RMAX ) {
-         LMAX[3] = KNT;
-         RMAX = VMAX;
+      if (VMAX > RMAX) {
+        LMAX[3] = KNT;
+        RMAX = VMAX;
       }
+    } // 90
+  } catch (_) {}
 
-      GO TO 10;
+  NOUT.println(' .. test output of ZGGBAL .. ');
 
-      } // 90
-
-      WRITE( NOUT, FMT = 9999 );
- 9999 FORMAT( ' .. test output of ZGGBAL .. ' );
-
-      WRITE( NOUT, FMT = 9998 )RMAX;
- 9998 FORMAT( ' ratio of largest test error              = ', D12.3 );
-      WRITE( NOUT, FMT = 9997 )LMAX( 1 );
- 9997 FORMAT( ' example number where info is not zero    = ${.i4}');
-      WRITE( NOUT, FMT = 9996 )LMAX( 2 );
- 9996 FORMAT( ' example number where ILO or IHI is wrong = ${.i4}');
-      WRITE( NOUT, FMT = 9995 )LMAX( 3 );
- 9995 FORMAT( ' example number having largest error      = ${.i4}');
-      WRITE( NOUT, FMT = 9994 )NINFO;
- 9994 FORMAT( ' number of examples where info is not 0   = ${.i4}');
-      WRITE( NOUT, FMT = 9993 )KNT;
- 9993 FORMAT( ' total number of examples tested          = ${.i4}');
-
-      }
+  NOUT.println(' ratio of largest test error              = ${RMAX.d12_3}');
+  NOUT.println(' example number where info is not zero    = ${LMAX[1].i4}');
+  NOUT.println(
+      ' example number where ILO.value or IHI.value is wrong = ${LMAX[2].i4}');
+  NOUT.println(' example number having largest error      = ${LMAX[3].i4}');
+  NOUT.println(' number of examples where info is not 0   = ${NINFO.i4}');
+  NOUT.println(' total number of examples tested          = ${KNT.i4}');
+}

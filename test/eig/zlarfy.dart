@@ -1,38 +1,40 @@
-      void zlarfy(final int UPLO, final int N, final int V, final int INCV, final int TAU, final Matrix<double> C_, final int LDC, final Array<double> WORK_,) {
-  final C = C_.dim();
-  final WORK = WORK_.dim();
+import 'package:lapack/src/blas/zaxpy.dart';
+import 'package:lapack/src/blas/zdotc.dart';
+import 'package:lapack/src/blas/zhemv.dart';
+import 'package:lapack/src/blas/zher2.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zlarfy(
+  final String UPLO,
+  final int N,
+  final Array<Complex> V_,
+  final int INCV,
+  final Complex TAU,
+  final Matrix<Complex> C_,
+  final int LDC,
+  final Array<Complex> WORK_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             UPLO;
-      int                INCV, LDC, N;
-      Complex         TAU;
-      Complex         C( LDC, * ), V( * ), WORK( * );
-      // ..
+  final C = C_.dim(LDC);
+  final V = V_.dim();
+  final WORK = WORK_.dim();
 
-      Complex         ONE, ZERO, HALF;
-      const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      Complex         ALPHA;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZAXPY, ZHEMV, ZHER2
-      // ..
-      // .. External Functions ..
-      //- Complex         ZDOTC;
-      // EXTERNAL ZDOTC
+  const HALF = Complex(0.5, 0.0);
+  Complex ALPHA;
 
-      if (TAU == ZERO) return;
+  if (TAU == Complex.zero) return;
 
-      // Form  w:= C * v
+  // Form  w:= C * v
 
-      zhemv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
+  zhemv(UPLO, N, Complex.one, C, LDC, V, INCV, Complex.zero, WORK, 1);
 
-      ALPHA = -HALF*TAU*ZDOTC( N, WORK, 1, V, INCV );
-      zaxpy(N, ALPHA, V, INCV, WORK, 1 );
+  ALPHA = -HALF * TAU * zdotc(N, WORK, 1, V, INCV);
+  zaxpy(N, ALPHA, V, INCV, WORK, 1);
 
-      // C := C - v * w' - w * v'
+  // C := C - v * w' - w * v'
 
-      zher2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
-
-      }
+  zher2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC);
+}

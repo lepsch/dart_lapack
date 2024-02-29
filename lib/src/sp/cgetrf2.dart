@@ -113,7 +113,7 @@ void cgetrf2(
 
     // Factor A22
 
-    cgetrf2(M - N1, N2, A(N1 + 1,N1 + 1), LDA, IPIV(N1 + 1), IINFO);
+    cgetrf2(M - N1, N2, A(N1 + 1, N1 + 1), LDA, IPIV(N1 + 1), IINFO);
 
     // Adjust INFO.value and the pivot indices
 

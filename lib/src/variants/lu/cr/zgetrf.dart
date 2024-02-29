@@ -51,7 +51,7 @@ void zgetrf(
   if (NB <= 1 || NB >= min(M, N)) {
     // Use unblocked code.
 
-    zgetf2(M, N, A, LDA, IPIV, INFO.value);
+    zgetf2(M, N, A, LDA, IPIV, INFO);
   } else {
     // Use blocked code.
 

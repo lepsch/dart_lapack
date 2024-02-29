@@ -11,6 +11,8 @@ import 'package:lapack/src/dla_lin_berr.dart';
 import 'package:lapack/src/dla_wwaddw.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_dgbmv2_x.dart';
+import 'package:lapack/src/xblas/blas_dgbmv_x.dart';
 
 void dla_gbrfsx_extended(
   final int PREC_TYPE,
@@ -137,11 +139,11 @@ void dla_gbrfsx_extended(
         dgbmv(TRANS, M, N, KL, KU, -1.0, AB, LDAB, Y(1, J).asArray(), 1, 1.0,
             RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_dgbmv_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y(1, J), 1, 1.0,
-            RES, 1, PREC_TYPE);
+        blas_dgbmv_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB,
+            Y(1, J).asArray(), 1, 1.0, RES, 1, PREC_TYPE);
       } else {
-        blas_dgbmv2_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y(1, J), Y_TAIL,
-            1, 1.0, RES, 1, PREC_TYPE);
+        blas_dgbmv2_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB,
+            Y(1, J).asArray(), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.
@@ -294,7 +296,8 @@ void dla_gbrfsx_extended(
 
     // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
-    dla_gbamv(TRANS_TYPE, N, N, KL, KU, 1.0, AB, LDAB, Y(1, J).asArray(), 1, 1.0, AYB, 1);
+    dla_gbamv(TRANS_TYPE, N, N, KL, KU, 1.0, AB, LDAB, Y(1, J).asArray(), 1,
+        1.0, AYB, 1);
 
     dla_lin_berr(N, N, 1, RES.asMatrix(N), AYB.asMatrix(N), BERR_OUT(J));
 

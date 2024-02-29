@@ -1,11 +1,62 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/zcopy.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/format_extensions.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+import 'package:lapack/src/xerbla.dart';
+import 'package:lapack/src/zgeesx.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
 
 import 'common.dart';
+import 'zslect.dart';
+import 'zunt01.dart';
 
-      void zget24(final int COMP, final int JTYPE, final int THRESH, final Array<int> ISEED_, final int NOUNIT, final int N, final Matrix<double> A_, final int LDA, final int H, final int HT, final int W, final int WT, final int WTMP, final Matrix<double> VS_, final int LDVS, final int VS1, final int RCDEIN, final int RCDVIN, final int NSLCT, final int ISLCT, final int ISRT, final int RESULT, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final Array<bool> BWORK_, final Box<int> INFO,) {
-  final ISEED = ISEED_.dim();
-  final A = A_.dim();
-  final VS = VS_.dim();
+void zget24(
+  final bool COMP,
+  final int JTYPE,
+  final double THRESH,
+  final Array<int> ISEED_,
+  final Nout NOUNIT,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> H_,
+  final Matrix<Complex> HT_,
+  final Array<Complex> W_,
+  final Array<Complex> WT_,
+  final Array<Complex> WTMP_,
+  final Matrix<Complex> VS_,
+  final int LDVS,
+  final Matrix<Complex> VS1_,
+  final double RCDEIN,
+  final double RCDVIN,
+  final int NSLCT,
+  final Array<int> ISLCT_,
+  final int ISRT,
+  final Array<double> RESULT_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<bool> BWORK_,
+  final Box<int> INFO,
+) {
+  final ISEED = ISEED_.dim(4);
+  final A = A_.dim(LDA);
+  final H = H_.dim(LDA);
+  final HT = HT_.dim(LDA);
+  final VS = VS_.dim(LDVS);
+  final VS1 = VS1_.dim(LDVS);
+  final W = W_.dim();
+  final WT = WT_.dim();
+  final WTMP = WTMP_.dim();
+  final ISLCT = ISLCT_.dim();
+  final RESULT = RESULT_.dim(17);
   final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
   final BWORK = BWORK_.dim();
@@ -13,518 +64,528 @@ import 'common.dart';
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               COMP;
-      int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
-      double             RCDEIN, RCDVIN, THRESH;
-      bool               BWORK( * );
-      int                ISEED( 4 ), ISLCT( * );
-      double             RESULT( 17 ), RWORK( * );
-      Complex         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  const EPSIN = 5.9605e-8;
+  String SORT;
+  int I, ISORT, ITMP, J, KMIN, KNTEIG, RSUB;
+  double ANORM, EPS, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
+  Complex CTMP;
+  final IPNT = Array<int>(20);
+  final SDIM = Box(0), SDIM1 = Box(0), IINFO = Box(0);
+  final RCONDE = Box(0.0),
+      RCONDV = Box(0.0),
+      RCNDE1 = Box(0.0),
+      RCNDV1 = Box(0.0);
 
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      double             EPSIN;
-      const              EPSIN = 5.9605e-8 ;
-      String             SORT;
-      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1;
-      double             ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
-      Complex         CTMP;
-      int                IPNT( 20 );
-      // ..
-      // .. External Functions ..
-      //- bool               ZSLECT;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL ZSLECT, DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA, ZCOPY, ZGEESX, ZGEMM, ZLACPY, ZUNT01
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
-      // ..
-      // .. Arrays in Common ..
-      // bool               sslct.SELVAL( 20 );
-      // double             sslct.SELWI( 20 ), sslct.SELWR( 20 );
-      // // ..
-      // // .. Scalars in Common ..
-      // int                sslct.SELDIM, sslct.SELOPT;
-      // ..
-      // .. Common blocks ..
-      // COMMON / SSLCT / sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR, sslct.SELWI
+  // Check for errors
 
-      // Check for errors
+  INFO.value = 0;
+  if (THRESH < ZERO) {
+    INFO.value = -3;
+    // } else if (NOUNIT <= 0) {
+    //   INFO.value = -5;
+  } else if (N < 0) {
+    INFO.value = -6;
+  } else if (LDA < 1 || LDA < N) {
+    INFO.value = -8;
+  } else if (LDVS < 1 || LDVS < N) {
+    INFO.value = -15;
+  } else if (LWORK < 2 * N) {
+    INFO.value = -24;
+  }
 
-      INFO = 0;
-      if ( THRESH < ZERO ) {
-         INFO = -3;
-      } else if ( NOUNIT <= 0 ) {
-         INFO = -5;
-      } else if ( N < 0 ) {
-         INFO = -6;
-      } else if ( LDA < 1 || LDA < N ) {
-         INFO = -8;
-      } else if ( LDVS < 1 || LDVS < N ) {
-         INFO = -15;
-      } else if ( LWORK < 2*N ) {
-         INFO = -24;
+  if (INFO.value != 0) {
+    xerbla('ZGET24', -INFO.value);
+    return;
+  }
+
+  // Quick return if nothing to do
+
+  for (I = 1; I <= 17; I++) {
+    // 10
+    RESULT[I] = -ONE;
+  } // 10
+
+  if (N == 0) return;
+
+  // Important constants
+
+  SMLNUM = dlamch('Safe minimum');
+  ULP = dlamch('Precision');
+  ULPINV = ONE / ULP;
+  performTests:
+  while (true) {
+    // Perform tests (1)-(13)
+
+    sslct.SELOPT = 0;
+    for (ISORT = 0; ISORT <= 1; ISORT++) {
+      // 90
+      if (ISORT == 0) {
+        SORT = 'N';
+        RSUB = 0;
+      } else {
+        SORT = 'S';
+        RSUB = 6;
       }
 
-      if ( INFO != 0 ) {
-         xerbla('ZGET24', -INFO );
-         return;
+      // Compute Schur form and Schur vectors, and test them
+
+      zlacpy('F', N, N, A, LDA, H, LDA);
+      zgeesx('V', SORT, zslect, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE,
+          RCONDV, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[1 + RSUB] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX1', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX1', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        return;
+      }
+      if (ISORT == 0) {
+        zcopy(N, W, 1, WTMP, 1);
       }
 
-      // Quick return if nothing to do
+      // Do Test (1) or Test (7)
 
-      for (I = 1; I <= 17; I++) { // 10
-         RESULT[I] = -ONE;
-      } // 10
+      RESULT[1 + RSUB] = ZERO;
+      for (J = 1; J <= N - 1; J++) {
+        // 30
+        for (I = J + 1; I <= N; I++) {
+          // 20
+          if (H[I][J] != Complex.zero) RESULT[1 + RSUB] = ULPINV;
+        } // 20
+      } // 30
 
-      if (N == 0) return;
+      // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 
-      // Important constants
+      // Copy A to VS1, used as workspace
 
-      SMLNUM = dlamch( 'Safe minimum' );
-      ULP = dlamch( 'Precision' );
-      ULPINV = ONE / ULP;
+      zlacpy(' ', N, N, A, LDA, VS1, LDVS);
 
-      // Perform tests (1)-(13)
+      // Compute Q*H and store in HT.
 
-      sslct.SELOPT = 0;
-      for (ISORT = 0; ISORT <= 1; ISORT++) { // 90
-         if ( ISORT == 0 ) {
-            SORT = 'N';
-            RSUB = 0;
-         } else {
-            SORT = 'S';
-            RSUB = 6;
-         }
+      zgemm('No transpose', 'No transpose', N, N, N, Complex.one, VS, LDVS, H,
+          LDA, Complex.zero, HT, LDA);
 
-         // Compute Schur form and Schur vectors, and test them
+      // Compute A - Q*H*Q'
 
-         zlacpy('F', N, N, A, LDA, H, LDA );
-         zgeesx('V', SORT, ZSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[1+RSUB] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX1', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX1', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            return;
-         }
-         if ( ISORT == 0 ) {
-            zcopy(N, W, 1, WTMP, 1 );
-         }
+      zgemm('No transpose', 'Conjugate transpose', N, N, N, -Complex.one, HT,
+          LDA, VS, LDVS, Complex.one, VS1, LDVS);
 
-         // Do Test (1) or Test (7)
+      ANORM = max(zlange('1', N, N, A, LDA, RWORK), SMLNUM);
+      WNORM = zlange('1', N, N, VS1, LDVS, RWORK);
 
-         RESULT[1+RSUB] = ZERO;
-         for (J = 1; J <= N - 1; J++) { // 30
-            for (I = J + 1; I <= N; I++) { // 20
-               if( H( I, J ) != CZERO ) RESULT( 1+RSUB ) = ULPINV;
-            } // 20
-         } // 30
-
-         // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
-
-         // Copy A to VS1, used as workspace
-
-         zlacpy(' ', N, N, A, LDA, VS1, LDVS );
-
-         // Compute Q*H and store in HT.
-
-         zgemm('No transpose', 'No transpose', N, N, N, CONE, VS, LDVS, H, LDA, CZERO, HT, LDA );
-
-         // Compute A - Q*H*Q'
-
-         zgemm('No transpose', 'Conjugate transpose', N, N, N, -CONE, HT, LDA, VS, LDVS, CONE, VS1, LDVS );
-
-         ANORM = max( ZLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM );
-         WNORM = ZLANGE( '1', N, N, VS1, LDVS, RWORK );
-
-         if ( ANORM > WNORM ) {
-            RESULT[2+RSUB] = ( WNORM / ANORM ) / ( N*ULP );
-         } else {
-            if ( ANORM < ONE ) {
-               RESULT[2+RSUB] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
-            } else {
-               RESULT[2+RSUB] = min( WNORM / ANORM, N.toDouble() ) / ( N*ULP );
-            }
-         }
-
-         // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
-
-         zunt01('Columns', N, N, VS, LDVS, WORK, LWORK, RWORK, RESULT( 3+RSUB ) );
-
-         // Do Test (4) or Test (10)
-
-         RESULT[4+RSUB] = ZERO;
-         for (I = 1; I <= N; I++) { // 40
-            if( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV;
-         } // 40
-
-         // Do Test (5) or Test (11)
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('N', SORT, ZSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[5+RSUB] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX2', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX2', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         RESULT[5+RSUB] = ZERO;
-         for (J = 1; J <= N; J++) { // 60
-            for (I = 1; I <= N; I++) { // 50
-               if( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV;
-            } // 50
-         } // 60
-
-         // Do Test (6) or Test (12)
-
-         RESULT[6+RSUB] = ZERO;
-         for (I = 1; I <= N; I++) { // 70
-            if( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV;
-         } // 70
-
-         // Do Test (13)
-
-         if ( ISORT == 1 ) {
-            RESULT[13] = ZERO;
-            KNTEIG = 0;
-            for (I = 1; I <= N; I++) { // 80
-               if( ZSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1;
-               if ( I < N ) {
-                  if[ZSLECT( W( I+1 ) ) && ( !ZSLECT( W( I ) ) ) )RESULT( 13] = ULPINV;
-               }
-            } // 80
-            if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
-         }
-
-      } // 90
-
-      // If there is enough workspace, perform tests (14) and (15)
-      // as well as (10) through (13)
-
-      if ( LWORK >= ( N*( N+1 ) ) / 2 ) {
-
-         // Compute both RCONDE and RCONDV with VS
-
-         SORT = 'S';
-         RESULT[14] = ZERO;
-         RESULT[15] = ZERO;
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('V', SORT, ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[14] = ULPINV;
-            RESULT[15] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX3', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX3', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 110
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 100
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 100
-         } // 110
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
-         // Compute both RCONDE and RCONDV without VS, and compare
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('N', SORT, ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[14] = ULPINV;
-            RESULT[15] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX4', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX4', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform tests (14) and (15)
-
-         if (RCNDE1 != RCONDE) RESULT( 14 ) = ULPINV;
-         IF( RCNDV1 != RCONDV ) RESULT( 15 ) = ULPINV;
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 130
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 120
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 120
-         } // 130
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
-         // Compute RCONDE with VS, and compare
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('V', SORT, ZSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[14] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX5', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX5', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform test (14)
-
-         if (RCNDE1 != RCONDE) RESULT( 14 ) = ULPINV;
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 150
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 140
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 140
-         } // 150
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
-         // Compute RCONDE without VS, and compare
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('N', SORT, ZSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[14] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX6', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX6', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform test (14)
-
-         if (RCNDE1 != RCONDE) RESULT( 14 ) = ULPINV;
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 170
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 160
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 160
-         } // 170
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
-         // Compute RCONDV with VS, and compare
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('V', SORT, ZSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[15] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX7', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX7', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform test (15)
-
-         if (RCNDV1 != RCONDV) RESULT( 15 ) = ULPINV;
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 190
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 180
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 180
-         } // 190
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
-         // Compute RCONDV without VS, and compare
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('N', SORT, ZSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[15] = ULPINV;
-            if ( JTYPE != 22 ) {
-               WRITE( NOUNIT, FMT = 9998 )'ZGEESX8', IINFO, N, JTYPE, ISEED;
-            } else {
-               WRITE( NOUNIT, FMT = 9999 )'ZGEESX8', IINFO, N, ISEED( 1 );
-            }
-            INFO = ( IINFO ).abs();
-            GO TO 220;
-         }
-
-         // Perform test (15)
-
-         if (RCNDV1 != RCONDV) RESULT( 15 ) = ULPINV;
-
-         // Perform tests (10), (11), (12), and (13)
-
-         for (I = 1; I <= N; I++) { // 210
-            if( W( I ) != WT( I ) ) RESULT( 10 ) = ULPINV;
-            for (J = 1; J <= N; J++) { // 200
-               if( H( I, J ) != HT( I, J ) ) RESULT( 11 ) = ULPINV;
-               IF( VS( I, J ) != VS1( I, J ) ) RESULT( 12 ) = ULPINV;
-            } // 200
-         } // 210
-         if (SDIM != SDIM1) RESULT( 13 ) = ULPINV;
-
+      if (ANORM > WNORM) {
+        RESULT[2 + RSUB] = (WNORM / ANORM) / (N * ULP);
+      } else {
+        if (ANORM < ONE) {
+          RESULT[2 + RSUB] = (min(WNORM, N * ANORM) / ANORM) / (N * ULP);
+        } else {
+          RESULT[2 + RSUB] = min(WNORM / ANORM, N.toDouble()) / (N * ULP);
+        }
       }
 
-      } // 220
+      // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 
-      // If there are precomputed reciprocal condition numbers, compare
-      // computed values with them.
+      zunt01('Columns', N, N, VS, LDVS, WORK, LWORK, RWORK, RESULT(3 + RSUB));
 
-      if ( COMP ) {
+      // Do Test (4) or Test (10)
 
-         // First set up sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR and sslct.SELWI so that
-         // the logical function ZSLECT selects the eigenvalues specified
-         // by NSLCT, ISLCT and ISRT.
+      RESULT[4 + RSUB] = ZERO;
+      for (I = 1; I <= N; I++) {
+        // 40
+        if (H[I][I] != W[I]) RESULT[4 + RSUB] = ULPINV;
+      } // 40
 
-         sslct.SELDIM = N;
-         sslct.SELOPT = 1;
-         EPS = max( ULP, EPSIN );
-         for (I = 1; I <= N; I++) { // 230
-            IPNT[I] = I;
-            sslct.SELVAL[I] = false;
-            sslct.SELWR[I] = (WTMP( I )).toDouble();
-            sslct.SELWI[I] = DIMAG( WTMP( I ) );
-         } // 230
-         for (I = 1; I <= N - 1; I++) { // 250
-            KMIN = I;
-            if ( ISRT == 0 ) {
-               VRIMIN = (WTMP( I )).toDouble();
-            } else {
-               VRIMIN = DIMAG( WTMP( I ) );
-            }
-            for (J = I + 1; J <= N; J++) { // 240
-               if ( ISRT == 0 ) {
-                  VRICMP = (WTMP( J )).toDouble();
-               } else {
-                  VRICMP = DIMAG( WTMP( J ) );
-               }
-               if ( VRICMP < VRIMIN ) {
-                  KMIN = J;
-                  VRIMIN = VRICMP;
-               }
-            } // 240
-            CTMP = WTMP( KMIN );
-            WTMP[KMIN] = WTMP( I );
-            WTMP[I] = CTMP;
-            ITMP = IPNT( I );
-            IPNT[I] = IPNT( KMIN );
-            IPNT[KMIN] = ITMP;
-         } // 250
-         for (I = 1; I <= NSLCT; I++) { // 260
-            sslct.SELVAL[IPNT( ISLCT( I ) )] = true;
-         } // 260
+      // Do Test (5) or Test (11)
 
-         // Compute condition numbers
-
-         zlacpy('F', N, N, A, LDA, HT, LDA );
-         zgeesx('N', 'S', ZSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
-         if ( IINFO != 0 ) {
-            RESULT[16] = ULPINV;
-            RESULT[17] = ULPINV;
-            WRITE( NOUNIT, FMT = 9999 )'ZGEESX9', IINFO, N, ISEED( 1 );
-            INFO = ( IINFO ).abs();
-            GO TO 270;
-         }
-
-         // Compare condition number for average of selected eigenvalues
-         // taking its condition number into account
-
-         ANORM = ZLANGE( '1', N, N, A, LDA, RWORK );
-         V = max( N.toDouble()*EPS*ANORM, SMLNUM );
-         if (ANORM == ZERO) V = ONE;
-         if ( V > RCONDV ) {
-            TOL = ONE;
-         } else {
-            TOL = V / RCONDV;
-         }
-         if ( V > RCDVIN ) {
-            TOLIN = ONE;
-         } else {
-            TOLIN = V / RCDVIN;
-         }
-         TOL = max( TOL, SMLNUM / EPS );
-         TOLIN = max( TOLIN, SMLNUM / EPS );
-         if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
-            RESULT[16] = ULPINV;
-         } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
-            RESULT[16] = ( RCDEIN-TOLIN ) / ( RCONDE+TOL );
-         } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
-            RESULT[16] = ULPINV;
-         } else if ( RCDEIN+TOLIN < RCONDE-TOL ) {
-            RESULT[16] = ( RCONDE-TOL ) / ( RCDEIN+TOLIN );
-         } else {
-            RESULT[16] = ONE;
-         }
-
-         // Compare condition numbers for right invariant subspace
-         // taking its condition number into account
-
-         if ( V > RCONDV*RCONDE ) {
-            TOL = RCONDV;
-         } else {
-            TOL = V / RCONDE;
-         }
-         if ( V > RCDVIN*RCDEIN ) {
-            TOLIN = RCDVIN;
-         } else {
-            TOLIN = V / RCDEIN;
-         }
-         TOL = max( TOL, SMLNUM / EPS );
-         TOLIN = max( TOLIN, SMLNUM / EPS );
-         if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
-            RESULT[17] = ULPINV;
-         } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {
-            RESULT[17] = ( RCDVIN-TOLIN ) / ( RCONDV+TOL );
-         } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
-            RESULT[17] = ULPINV;
-         } else if ( RCDVIN+TOLIN < RCONDV-TOL ) {
-            RESULT[17] = ( RCONDV-TOL ) / ( RCDVIN+TOLIN );
-         } else {
-            RESULT[17] = ONE;
-         }
-
-         } // 270
-
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('N', SORT, zslect, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE,
+          RCONDV, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[5 + RSUB] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX2', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX2', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
       }
 
- 9999 FORMAT( ' ZGET24: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, INPUT EXAMPLE NUMBER = ${.i4}');
- 9998 FORMAT( ' ZGET24: ${} returned INFO=${.i6}.\n${' ' * 9}N=${.i6}, JTYPE=${.i6}, ISEED=(${.i5(4, ',')})' );
+      RESULT[5 + RSUB] = ZERO;
+      for (J = 1; J <= N; J++) {
+        // 60
+        for (I = 1; I <= N; I++) {
+          // 50
+          if (H[I][J] != HT[I][J]) RESULT[5 + RSUB] = ULPINV;
+        } // 50
+      } // 60
 
+      // Do Test (6) or Test (12)
+
+      RESULT[6 + RSUB] = ZERO;
+      for (I = 1; I <= N; I++) {
+        // 70
+        if (W[I] != WT[I]) RESULT[6 + RSUB] = ULPINV;
+      } // 70
+
+      // Do Test (13)
+
+      if (ISORT == 1) {
+        RESULT[13] = ZERO;
+        KNTEIG = 0;
+        for (I = 1; I <= N; I++) {
+          // 80
+          if (zslect(W[I])) KNTEIG = KNTEIG + 1;
+          if (I < N) {
+            if (zslect(W[I + 1]) && (!zslect(W[I]))) RESULT[13] = ULPINV;
+          }
+        } // 80
+        if (SDIM.value != KNTEIG) RESULT[13] = ULPINV;
       }
+    } // 90
+
+    // If there is enough workspace, perform tests (14) and (15)
+    // as well as (10) through (13)
+
+    if (LWORK >= (N * (N + 1)) / 2) {
+      // Compute both RCONDE.value and RCONDV.value with VS
+
+      SORT = 'S';
+      RESULT[14] = ZERO;
+      RESULT[15] = ZERO;
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('V', SORT, zslect, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE,
+          RCONDV, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[14] = ULPINV;
+        RESULT[15] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX3', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX3', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 110
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 100
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 100
+      } // 110
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+
+      // Compute both RCONDE.value and RCONDV.value without VS, and compare
+
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('N', SORT, zslect, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1,
+          RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[14] = ULPINV;
+        RESULT[15] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX4', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX4', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform tests (14) and (15)
+
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 130
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 120
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 120
+      } // 130
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+
+      // Compute RCONDE.value with VS, and compare
+
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('V', SORT, zslect, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1,
+          RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[14] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX5', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX5', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform test (14)
+
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 150
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 140
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 140
+      } // 150
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+
+      // Compute RCONDE.value without VS, and compare
+
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('N', SORT, zslect, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1,
+          RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[14] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX6', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX6', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform test (14)
+
+      if (RCNDE1.value != RCONDE.value) RESULT[14] = ULPINV;
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 170
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 160
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 160
+      } // 170
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+
+      // Compute RCONDV.value with VS, and compare
+
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('V', SORT, zslect, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1,
+          RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[15] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX7', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX7', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform test (15)
+
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 190
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 180
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 180
+      } // 190
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+
+      // Compute RCONDV.value without VS, and compare
+
+      zlacpy('F', N, N, A, LDA, HT, LDA);
+      zgeesx('N', SORT, zslect, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1,
+          RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO);
+      if (IINFO.value != 0) {
+        RESULT[15] = ULPINV;
+        if (JTYPE != 22) {
+          _print9998(NOUNIT, 'ZGEESX8', IINFO.value, N, JTYPE, ISEED);
+        } else {
+          _print9999(NOUNIT, 'ZGEESX8', IINFO.value, N, ISEED[1]);
+        }
+        INFO.value = (IINFO.value).abs();
+        break performTests;
+      }
+
+      // Perform test (15)
+
+      if (RCNDV1.value != RCONDV.value) RESULT[15] = ULPINV;
+
+      // Perform tests (10), (11), (12), and (13)
+
+      for (I = 1; I <= N; I++) {
+        // 210
+        if (W[I] != WT[I]) RESULT[10] = ULPINV;
+        for (J = 1; J <= N; J++) {
+          // 200
+          if (H[I][J] != HT[I][J]) RESULT[11] = ULPINV;
+          if (VS[I][J] != VS1[I][J]) RESULT[12] = ULPINV;
+        } // 200
+      } // 210
+      if (SDIM.value != SDIM1.value) RESULT[13] = ULPINV;
+    }
+    break;
+  }
+
+  // } // 220
+
+  // If there are precomputed reciprocal condition numbers, compare
+  // computed values with them.
+
+  if (COMP) {
+    // First set up sslct.SELOPT, sslct.SELDIM, sslct.SELVAL, sslct.SELWR and sslct.SELWI so that
+    // the logical function zslect selects the eigenvalues specified
+    // by NSLCT, ISLCT and ISRT.
+
+    sslct.SELDIM = N;
+    sslct.SELOPT = 1;
+    EPS = max(ULP, EPSIN);
+    for (I = 1; I <= N; I++) {
+      // 230
+      IPNT[I] = I;
+      sslct.SELVAL[I] = false;
+      sslct.SELWR[I] = (WTMP[I]).toDouble();
+      sslct.SELWI[I] = WTMP[I].imaginary;
+    } // 230
+    for (I = 1; I <= N - 1; I++) {
+      // 250
+      KMIN = I;
+      if (ISRT == 0) {
+        VRIMIN = (WTMP[I]).toDouble();
+      } else {
+        VRIMIN = WTMP[I].imaginary;
+      }
+      for (J = I + 1; J <= N; J++) {
+        // 240
+        if (ISRT == 0) {
+          VRICMP = (WTMP[J]).toDouble();
+        } else {
+          VRICMP = WTMP[J].imaginary;
+        }
+        if (VRICMP < VRIMIN) {
+          KMIN = J;
+          VRIMIN = VRICMP;
+        }
+      } // 240
+      CTMP = WTMP[KMIN];
+      WTMP[KMIN] = WTMP[I];
+      WTMP[I] = CTMP;
+      ITMP = IPNT[I];
+      IPNT[I] = IPNT[KMIN];
+      IPNT[KMIN] = ITMP;
+    } // 250
+    for (I = 1; I <= NSLCT; I++) {
+      // 260
+      sslct.SELVAL[IPNT[ISLCT[I]]] = true;
+    } // 260
+
+    // Compute condition numbers
+
+    zlacpy('F', N, N, A, LDA, HT, LDA);
+    zgeesx('N', 'S', zslect, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE,
+        RCONDV, WORK, LWORK, RWORK, BWORK, IINFO);
+    if (IINFO.value != 0) {
+      RESULT[16] = ULPINV;
+      RESULT[17] = ULPINV;
+      _print9999(NOUNIT, 'ZGEESX9', IINFO.value, N, ISEED[1]);
+      INFO.value = (IINFO.value).abs();
+      return;
+    }
+
+    // Compare condition number for average of selected eigenvalues
+    // taking its condition number into account
+
+    ANORM = zlange('1', N, N, A, LDA, RWORK);
+    V = max(N.toDouble() * EPS * ANORM, SMLNUM);
+    if (ANORM == ZERO) V = ONE;
+    if (V > RCONDV.value) {
+      TOL = ONE;
+    } else {
+      TOL = V / RCONDV.value;
+    }
+    if (V > RCDVIN) {
+      TOLIN = ONE;
+    } else {
+      TOLIN = V / RCDVIN;
+    }
+    TOL = max(TOL, SMLNUM / EPS);
+    TOLIN = max(TOLIN, SMLNUM / EPS);
+    if (EPS * (RCDEIN - TOLIN) > RCONDE.value + TOL) {
+      RESULT[16] = ULPINV;
+    } else if (RCDEIN - TOLIN > RCONDE.value + TOL) {
+      RESULT[16] = (RCDEIN - TOLIN) / (RCONDE.value + TOL);
+    } else if (RCDEIN + TOLIN < EPS * (RCONDE.value - TOL)) {
+      RESULT[16] = ULPINV;
+    } else if (RCDEIN + TOLIN < RCONDE.value - TOL) {
+      RESULT[16] = (RCONDE.value - TOL) / (RCDEIN + TOLIN);
+    } else {
+      RESULT[16] = ONE;
+    }
+
+    // Compare condition numbers for right invariant subspace
+    // taking its condition number into account
+
+    if (V > RCONDV.value * RCONDE.value) {
+      TOL = RCONDV.value;
+    } else {
+      TOL = V / RCONDE.value;
+    }
+    if (V > RCDVIN * RCDEIN) {
+      TOLIN = RCDVIN;
+    } else {
+      TOLIN = V / RCDEIN;
+    }
+    TOL = max(TOL, SMLNUM / EPS);
+    TOLIN = max(TOLIN, SMLNUM / EPS);
+    if (EPS * (RCDVIN - TOLIN) > RCONDV.value + TOL) {
+      RESULT[17] = ULPINV;
+    } else if (RCDVIN - TOLIN > RCONDV.value + TOL) {
+      RESULT[17] = (RCDVIN - TOLIN) / (RCONDV.value + TOL);
+    } else if (RCDVIN + TOLIN < EPS * (RCONDV.value - TOL)) {
+      RESULT[17] = ULPINV;
+    } else if (RCDVIN + TOLIN < RCONDV.value - TOL) {
+      RESULT[17] = (RCONDV.value - TOL) / (RCDVIN + TOLIN);
+    } else {
+      RESULT[17] = ONE;
+    }
+  }
+}
+
+void _print9999(Nout nout, String s, int info, int n, int i) {
+  nout.println(
+      ' ZGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, INPUT EXAMPLE NUMBER = ${i.i4}');
+}
+
+void _print9998(
+    Nout nout, String s, int info, int n, int jtype, Array<int> iseed) {
+  nout.println(
+      ' ZGET24: $s returned INFO=${info.i6}.\n${' ' * 9}N=${n.i6}, JTYPE=${jtype.i6}, ISEED=(${iseed.i5(4, ',')})');
+}

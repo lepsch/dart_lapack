@@ -79,30 +79,22 @@ void dstemr(
       OFFSET,
       WBEGIN,
       WEND = 0;
-  double BIGNUM,
-      EPS,
-      RMAX,
-      RMIN,
-      SAFMIN,
-      SCALE,
-      SMLNUM,
-      THRESH,
-      TMP,
-      TNRM;
+  double BIGNUM, EPS, RMAX, RMIN, SAFMIN, SCALE, SMLNUM, THRESH, TMP, TNRM;
   final WL = Box(0.0),
       WU = Box(0.0),
       PIVMIN = Box(0.0),
       RTOL1 = Box(0.0),
       RTOL2 = Box(0.0),
-            CS = Box(0.0),
+      CS = Box(0.0),
       SN = Box(0.0),
       R1 = Box(0.0),
       R2 = Box(0.0);
-;
-  final IINFO = Box(0), NSPLIT = Box(0),
-      ITMP = Box(0), ITMP2 = Box(0),
-      NZCMIN = Box(0)
-  ;
+
+  final IINFO = Box(0),
+      NSPLIT = Box(0),
+      ITMP = Box(0),
+      ITMP2 = Box(0),
+      NZCMIN = Box(0);
 
   // Test the input parameters.
 

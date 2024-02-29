@@ -44,7 +44,7 @@ void zcposv(
   final WORK = WORK_.dim(N);
   final SWORK = SWORK_.dim();
   final RWORK = RWORK_.dim();
-  const DOITREF = true;
+  const DOITREF = false;
   const ITERMAX = 30;
   const BWDMAX = 1.0e+00;
   const NEGONE = Complex(-1.0e+00, 0.0e+00);
@@ -80,11 +80,10 @@ void zcposv(
 
   if (N == 0) return;
 
-  // Skip single precision iterative refinement if a priori slower
-  // than double precision factorization.
   skipSinglePrecision:
   while (true) {
-    // ignore: dead_code
+    // Skip single precision iterative refinement if a priori slower
+    // than double precision factorization.
     if (!DOITREF) {
       ITER.value = -1;
       break skipSinglePrecision;
@@ -92,6 +91,7 @@ void zcposv(
 
     // Compute some constants.
 
+    // ignore: dead_code
     ANRM = zlanhe('I', UPLO, N, A, LDA, RWORK);
     EPS = dlamch('Epsilon');
     CTE = ANRM * EPS * sqrt(N.toDouble()) * BWDMAX;
@@ -232,7 +232,7 @@ void zcposv(
     ITER.value = -ITERMAX - 1;
 
     break;
-  } // 40
+  }
 
   // Single-precision iterative refinement failed to converge to a
   // satisfactory solution, so we resort to double precision.

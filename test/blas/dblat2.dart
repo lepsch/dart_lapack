@@ -5,15 +5,10 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      int                NIN;
       const              NIN = 5 ;
-      int                NSUBS;
       const              NSUBS = 16 ;
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      int                NMAX, INCMAX;
       const              NMAX = 65, INCMAX = 2 ;
-      int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
       const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;

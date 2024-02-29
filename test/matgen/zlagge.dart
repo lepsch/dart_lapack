@@ -95,8 +95,7 @@ void zlagge(
 
       zgemv('Conjugate transpose', M - I + 1, N - I + 1, Complex.one, A(I, I),
           LDA, WORK, 1, Complex.zero, WORK(M + 1), 1);
-      zgerc(M - I + 1, N - I + 1, -TAU.toDouble(), WORK, 1, WORK(M + 1), 1,
-          A(I, I), LDA);
+      zgerc(M - I + 1, N - I + 1, -TAU, WORK, 1, WORK(M + 1), 1, A(I, I), LDA);
     }
     if (I < N) {
       // generate random reflection
@@ -117,8 +116,7 @@ void zlagge(
 
       zgemv('No transpose', M - I + 1, N - I + 1, Complex.one, A(I, I), LDA,
           WORK, 1, Complex.zero, WORK(N + 1), 1);
-      zgerc(M - I + 1, N - I + 1, -TAU.toDouble(), WORK(N + 1), 1, WORK, 1,
-          A(I, I), LDA);
+      zgerc(M - I + 1, N - I + 1, -TAU, WORK(N + 1), 1, WORK, 1, A(I, I), LDA);
     }
   } // 40
 
@@ -146,9 +144,19 @@ void zlagge(
 
         // apply reflection to A(kl+i:m,i+1:n) from the left
 
-        zgemv('Conjugate transpose', M - KL - I + 1, N - I, Complex.one,
-            A(KL + I, I + 1), LDA, A(KL + I, I).asArray(), 1, Complex.zero, WORK, 1);
-        zgerc(M - KL - I + 1, N - I, -TAU.toDouble(), A(KL + I, I).asArray(), 1, WORK, 1,
+        zgemv(
+            'Conjugate transpose',
+            M - KL - I + 1,
+            N - I,
+            Complex.one,
+            A(KL + I, I + 1),
+            LDA,
+            A(KL + I, I).asArray(),
+            1,
+            Complex.zero,
+            WORK,
+            1);
+        zgerc(M - KL - I + 1, N - I, -TAU, A(KL + I, I).asArray(), 1, WORK, 1,
             A(KL + I, I + 1), LDA);
         A[KL + I][I] = -WA;
       }
@@ -170,9 +178,19 @@ void zlagge(
         // apply reflection to A(i+1:m,ku+i:n) from the right
 
         zlacgv(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        zgemv('No transpose', M - I, N - KU - I + 1, Complex.one,
-            A(I + 1, KU + I), LDA, A(I, KU + I).asArray(), LDA, Complex.zero, WORK, 1);
-        zgerc(M - I, N - KU - I + 1, -TAU.toDouble(), WORK, 1, A(I, KU + I).asArray(), LDA,
+        zgemv(
+            'No transpose',
+            M - I,
+            N - KU - I + 1,
+            Complex.one,
+            A(I + 1, KU + I),
+            LDA,
+            A(I, KU + I).asArray(),
+            LDA,
+            Complex.zero,
+            WORK,
+            1);
+        zgerc(M - I, N - KU - I + 1, -TAU, WORK, 1, A(I, KU + I).asArray(), LDA,
             A(I + 1, KU + I), LDA);
         A[I][KU + I] = -WA;
       }
@@ -197,9 +215,19 @@ void zlagge(
         // apply reflection to A(i+1:m,ku+i:n) from the right
 
         zlacgv(N - KU - I + 1, A(I, KU + I).asArray(), LDA);
-        zgemv('No transpose', M - I, N - KU - I + 1, Complex.one,
-            A(I + 1, KU + I), LDA, A(I, KU + I).asArray(), LDA, Complex.zero, WORK, 1);
-        zgerc(M - I, N - KU - I + 1, -TAU.toDouble(), WORK, 1, A(I, KU + I).asArray(), LDA,
+        zgemv(
+            'No transpose',
+            M - I,
+            N - KU - I + 1,
+            Complex.one,
+            A(I + 1, KU + I),
+            LDA,
+            A(I, KU + I).asArray(),
+            LDA,
+            Complex.zero,
+            WORK,
+            1);
+        zgerc(M - I, N - KU - I + 1, -TAU, WORK, 1, A(I, KU + I).asArray(), LDA,
             A(I + 1, KU + I), LDA);
         A[I][KU + I] = -WA;
       }
@@ -220,9 +248,19 @@ void zlagge(
 
         // apply reflection to A(kl+i:m,i+1:n) from the left
 
-        zgemv('Conjugate transpose', M - KL - I + 1, N - I, Complex.one,
-            A(KL + I, I + 1), LDA, A(KL + I, I).asArray(), 1, Complex.zero, WORK, 1);
-        zgerc(M - KL - I + 1, N - I, -TAU.toDouble(), A(KL + I, I).asArray(), 1, WORK, 1,
+        zgemv(
+            'Conjugate transpose',
+            M - KL - I + 1,
+            N - I,
+            Complex.one,
+            A(KL + I, I + 1),
+            LDA,
+            A(KL + I, I).asArray(),
+            1,
+            Complex.zero,
+            WORK,
+            1);
+        zgerc(M - KL - I + 1, N - I, -TAU, A(KL + I, I).asArray(), 1, WORK, 1,
             A(KL + I, I + 1), LDA);
         A[KL + I][I] = -WA;
       }

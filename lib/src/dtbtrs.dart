@@ -65,12 +65,12 @@ void dtbtrs(
     if (UPPER) {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 10
-        if (AB(KD + 1, INFO.value) == ZERO) return;
+        if (AB[KD + 1][INFO.value] == ZERO) return;
       } // 10
     } else {
       for (INFO.value = 1; INFO.value <= N; INFO.value++) {
         // 20
-        if (AB(1, INFO.value) == ZERO) return;
+        if (AB[1][INFO.value] == ZERO) return;
       } // 20
     }
   }

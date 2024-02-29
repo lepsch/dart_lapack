@@ -138,7 +138,7 @@ void zlagsy(
 
     zgemv('Conjugate transpose', N - K - I + 1, K - 1, Complex.one,
         A(K + I, I + 1), LDA, A(K + I, I).asArray(), 1, Complex.zero, WORK, 1);
-    zgerc(N - K - I + 1, K - 1, -TAU.toDouble(), A(K + I, I).asArray(), 1, WORK,
+    zgerc(N - K - I + 1, K - 1, -TAU, A(K + I, I).asArray(), 1, WORK,
         1, A(K + I, I + 1), LDA);
 
     // apply reflection to A(k+i:n,k+i:n) from the left and the right

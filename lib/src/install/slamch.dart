@@ -1,74 +1,60 @@
-REAL slamch(CMACH) {
+import 'package:lapack/src/install/lsame.dart';
+import 'package:lapack/src/intrinsics/digits.dart';
+import 'package:lapack/src/intrinsics/epsilon.dart';
+import 'package:lapack/src/intrinsics/huge.dart';
+import 'package:lapack/src/intrinsics/maxexponent.dart';
+import 'package:lapack/src/intrinsics/minexponent.dart';
+import 'package:lapack/src/intrinsics/radix.dart';
+import 'package:lapack/src/intrinsics/tiny.dart';
+
+double slamch(final String CMACH) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  // .. Scalar Arguments ..
-  String CMACH;
-  // ..
-
-// =====================================================================
-
-  // .. Parameters ..
-  REAL ONE, ZERO;
   const ONE = 1.0, ZERO = 0.0;
-  // ..
-  // .. Local Scalars ..
-  REAL RND, EPS, SFMIN, SMALL, RMACH;
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  // EXTERNAL lsame
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DIGITS, EPSILON, HUGE, MAXEXPONENT, MINEXPONENT, RADIX, TINY
-  // ..
-  // .. Executable Statements ..
+  double RND, EPS, SFMIN, SMALL;
 
   // Assume rounding, not chopping. Always.
 
   RND = ONE;
 
   if (ONE == RND) {
-    EPS = EPSILON(ZERO) * 0.5;
+    EPS = epsilon32(ZERO) * 0.5;
   } else {
-    EPS = EPSILON(ZERO);
+    EPS = epsilon32(ZERO);
   }
 
   if (lsame(CMACH, 'E')) {
-    RMACH = EPS;
+    return EPS;
   } else if (lsame(CMACH, 'S')) {
-    SFMIN = TINY(ZERO);
-    SMALL = ONE / HUGE(ZERO);
+    SFMIN = tiny32(ZERO);
+    SMALL = ONE / huge32(ZERO);
     if (SMALL >= SFMIN) {
       // Use SMALL plus a bit, to avoid the possibility of rounding
       // causing overflow when computing  1/sfmin.
-
       SFMIN = SMALL * (ONE + EPS);
     }
-    RMACH = SFMIN;
+    return SFMIN;
   } else if (lsame(CMACH, 'B')) {
-    RMACH = RADIX(ZERO);
+    return radix32(ZERO);
   } else if (lsame(CMACH, 'P')) {
-    RMACH = EPS * RADIX(ZERO);
+    return EPS * radix32(ZERO);
   } else if (lsame(CMACH, 'N')) {
-    RMACH = DIGITS(ZERO);
+    return digits32(ZERO).toDouble();
   } else if (lsame(CMACH, 'R')) {
-    RMACH = RND;
+    return RND;
   } else if (lsame(CMACH, 'M')) {
-    RMACH = MINEXPONENT(ZERO);
+    return minexponent32(ZERO).toDouble();
   } else if (lsame(CMACH, 'U')) {
-    RMACH = tiny(zero);
+    return tiny32(ZERO);
   } else if (lsame(CMACH, 'L')) {
-    RMACH = MAXEXPONENT(ZERO);
+    return maxexponent32(ZERO).toDouble();
   } else if (lsame(CMACH, 'O')) {
-    RMACH = HUGE(ZERO);
+    return huge32(ZERO);
   } else {
-    RMACH = ZERO;
+    return ZERO;
   }
-
-  SLAMCH = RMACH;
-  return;
 }
 
 // ***********************************************************************
@@ -93,21 +79,8 @@ REAL slamch(CMACH) {
 // >          The values A and B.
 // > \endverbatim
 // >
-
-REAL slamc3(A, B) {
+double slamc3(final double A, final double B) {
 // -- LAPACK auxiliary routine --
-  // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-
-  // .. Scalar Arguments ..
-  REAL A, B;
-  // ..
-// =====================================================================
-
-  // .. Executable Statements ..
-
-  SLAMC3 = A + B;
-
-  return;
+// Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+  return A + B;
 }
-
-// ***********************************************************************

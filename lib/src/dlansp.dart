@@ -104,7 +104,7 @@ double dlansp(
     SUM.value = 2 * SUM.value;
     K = 1;
     for (I = 1; I <= N; I++) {
-      if (AP(K) != ZERO) {
+      if (AP[K] != ZERO) {
         ABSA = AP[K].abs();
         if (SCALE.value < ABSA) {
           SUM.value = ONE + SUM.value * pow(SCALE.value / ABSA, 2);

@@ -1,154 +1,172 @@
-      void zget22(final int TRANSA, final int TRANSE, final int TRANSW, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> E_, final int LDE, final int W, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
-  final A = A_.dim();
-  final E = E_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlaset.dart';
+
+void zget22(
+  final String TRANSA,
+  final String TRANSE,
+  final String TRANSW,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> E_,
+  final int LDE,
+  final Array<Complex> W_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<double> RESULT_,
+) {
+  final A = A_.dim(LDA);
+  final E = E_.dim(LDE);
+  final W = W_.dim();
+  final WORK = WORK_.dim();
   final RWORK = RWORK_.dim();
+  final RESULT = RESULT_.dim(2);
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             TRANSA, TRANSE, TRANSW;
-      int                LDA, LDE, N;
-      double             RESULT( 2 ), RWORK( * );
-      Complex         A( LDA, * ), E( LDE, * ), W( * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  String NORMA, NORME;
+  int ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
+  double ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
+  Complex WTEMP;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      String             NORMA, NORME;
-      int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
-      double             ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
-      Complex         WTEMP;
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL lsame, DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM, ZLASET
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN
+  // Initialize RESULT (in case N=0)
 
-      // Initialize RESULT (in case N=0)
+  RESULT[1] = ZERO;
+  RESULT[2] = ZERO;
+  if (N <= 0) return;
 
-      RESULT[1] = ZERO;
-      RESULT[2] = ZERO;
-      if (N <= 0) return;
+  UNFL = dlamch('Safe minimum');
+  ULP = dlamch('Precision');
 
-      UNFL = dlamch( 'Safe minimum' );
-      ULP = dlamch( 'Precision' );
+  ITRNSE = 0;
+  ITRNSW = 0;
+  NORMA = 'O';
+  NORME = 'O';
 
-      ITRNSE = 0;
-      ITRNSW = 0;
-      NORMA = 'O';
-      NORME = 'O';
+  if (lsame(TRANSA, 'T') || lsame(TRANSA, 'C')) {
+    NORMA = 'I';
+  }
 
-      if ( lsame( TRANSA, 'T' ) || lsame( TRANSA, 'C' ) ) {
-         NORMA = 'I';
-      }
+  if (lsame(TRANSE, 'T')) {
+    ITRNSE = 1;
+    NORME = 'I';
+  } else if (lsame(TRANSE, 'C')) {
+    ITRNSE = 2;
+    NORME = 'I';
+  }
 
-      if ( lsame( TRANSE, 'T' ) ) {
-         ITRNSE = 1;
-         NORME = 'I';
-      } else if ( lsame( TRANSE, 'C' ) ) {
-         ITRNSE = 2;
-         NORME = 'I';
-      }
+  if (lsame(TRANSW, 'C')) {
+    ITRNSW = 1;
+  }
 
-      if ( lsame( TRANSW, 'C' ) ) {
-         ITRNSW = 1;
-      }
+  // Normalization of E:
 
-      // Normalization of E:
+  ENRMIN = ONE / ULP;
+  ENRMAX = ZERO;
+  if (ITRNSE == 0) {
+    for (JVEC = 1; JVEC <= N; JVEC++) {
+      // 20
+      TEMP1 = ZERO;
+      for (J = 1; J <= N; J++) {
+        // 10
+        TEMP1 = max(
+            TEMP1, E[J][JVEC].toDouble().abs() + E[J][JVEC].imaginary.abs());
+      } // 10
+      ENRMIN = min(ENRMIN, TEMP1);
+      ENRMAX = max(ENRMAX, TEMP1);
+    } // 20
+  } else {
+    for (JVEC = 1; JVEC <= N; JVEC++) {
+      // 30
+      RWORK[JVEC] = ZERO;
+    } // 30
 
-      ENRMIN = ONE / ULP;
-      ENRMAX = ZERO;
-      if ( ITRNSE == 0 ) {
-         for (JVEC = 1; JVEC <= N; JVEC++) { // 20
-            TEMP1 = ZERO;
-            for (J = 1; J <= N; J++) { // 10
-               TEMP1 = max( TEMP1, ABS( (E( J, JVEC )).toDouble() )+ ABS( DIMAG( E( J, JVEC ) ) ) );
-            } // 10
-            ENRMIN = min( ENRMIN, TEMP1 );
-            ENRMAX = max( ENRMAX, TEMP1 );
-         } // 20
-      } else {
-         for (JVEC = 1; JVEC <= N; JVEC++) { // 30
-            RWORK[JVEC] = ZERO;
-         } // 30
+    for (J = 1; J <= N; J++) {
+      // 50
+      for (JVEC = 1; JVEC <= N; JVEC++) {
+        // 40
+        RWORK[JVEC] = max(RWORK[JVEC],
+            E[JVEC][J].toDouble().abs() + E[JVEC][J].imaginary.abs());
+      } // 40
+    } // 50
 
-         for (J = 1; J <= N; J++) { // 50
-            for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-               RWORK[JVEC] = max( RWORK( JVEC ), ABS( (E( JVEC, J )).toDouble() )+ ABS( DIMAG( E( JVEC, J ) ) ) );
-            } // 40
-         } // 50
+    for (JVEC = 1; JVEC <= N; JVEC++) {
+      // 60
+      ENRMIN = min(ENRMIN, RWORK[JVEC]);
+      ENRMAX = max(ENRMAX, RWORK[JVEC]);
+    } // 60
+  }
 
-         for (JVEC = 1; JVEC <= N; JVEC++) { // 60
-            ENRMIN = min( ENRMIN, RWORK( JVEC ) );
-            ENRMAX = max( ENRMAX, RWORK( JVEC ) );
-         } // 60
-      }
+  // Norm of A:
 
-      // Norm of A:
+  ANORM = max(zlange(NORMA, N, N, A, LDA, RWORK), UNFL);
 
-      ANORM = max( ZLANGE( NORMA, N, N, A, LDA, RWORK ), UNFL );
+  // Norm of E:
 
-      // Norm of E:
+  ENORM = max(zlange(NORME, N, N, E, LDE, RWORK), ULP);
 
-      ENORM = max( ZLANGE( NORME, N, N, E, LDE, RWORK ), ULP );
+  // Norm of error:
 
-      // Norm of error:
+  // Error =  AE - EW
 
-      // Error =  AE - EW
+  zlaset('Full', N, N, Complex.zero, Complex.zero, WORK.asMatrix(), N);
 
-      zlaset('Full', N, N, CZERO, CZERO, WORK, N );
+  JOFF = 0;
+  for (JCOL = 1; JCOL <= N; JCOL++) {
+    // 100
+    if (ITRNSW == 0) {
+      WTEMP = W[JCOL];
+    } else {
+      WTEMP = W[JCOL].conjugate();
+    }
 
-      JOFF = 0;
-      for (JCOL = 1; JCOL <= N; JCOL++) { // 100
-         if ( ITRNSW == 0 ) {
-            WTEMP = W( JCOL );
-         } else {
-            WTEMP = DCONJG( W( JCOL ) );
-         }
+    if (ITRNSE == 0) {
+      for (JROW = 1; JROW <= N; JROW++) {
+        // 70
+        WORK[JOFF + JROW] = E[JROW][JCOL] * WTEMP;
+      } // 70
+    } else if (ITRNSE == 1) {
+      for (JROW = 1; JROW <= N; JROW++) {
+        // 80
+        WORK[JOFF + JROW] = E[JCOL][JROW] * WTEMP;
+      } // 80
+    } else {
+      for (JROW = 1; JROW <= N; JROW++) {
+        // 90
+        WORK[JOFF + JROW] = E[JCOL][JROW].conjugate() * WTEMP;
+      } // 90
+    }
+    JOFF = JOFF + N;
+  } // 100
 
-         if ( ITRNSE == 0 ) {
-            for (JROW = 1; JROW <= N; JROW++) { // 70
-               WORK[JOFF+JROW] = E( JROW, JCOL )*WTEMP;
-            } // 70
-         } else if ( ITRNSE == 1 ) {
-            for (JROW = 1; JROW <= N; JROW++) { // 80
-               WORK[JOFF+JROW] = E( JCOL, JROW )*WTEMP;
-            } // 80
-         } else {
-            for (JROW = 1; JROW <= N; JROW++) { // 90
-               WORK[JOFF+JROW] = DCONJG( E( JCOL, JROW ) )*WTEMP;
-            } // 90
-         }
-         JOFF = JOFF + N;
-      } // 100
+  zgemm(TRANSA, TRANSE, N, N, N, Complex.one, A, LDA, E, LDE, -Complex.one,
+      WORK.asMatrix(), N);
 
-      zgemm(TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE, WORK, N );
+  ERRNRM = zlange('One', N, N, WORK.asMatrix(), N, RWORK) / ENORM;
 
-      ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM;
+  // Compute RESULT(1) (avoiding under/overflow)
 
-      // Compute RESULT(1) (avoiding under/overflow)
+  if (ANORM > ERRNRM) {
+    RESULT[1] = (ERRNRM / ANORM) / ULP;
+  } else {
+    if (ANORM < ONE) {
+      RESULT[1] = ONE / ULP;
+    } else {
+      RESULT[1] = min(ERRNRM / ANORM, ONE) / ULP;
+    }
+  }
 
-      if ( ANORM > ERRNRM ) {
-         RESULT[1] = ( ERRNRM / ANORM ) / ULP;
-      } else {
-         if ( ANORM < ONE ) {
-            RESULT[1] = ONE / ULP;
-         } else {
-            RESULT[1] = min( ERRNRM / ANORM, ONE ) / ULP;
-         }
-      }
+  // Compute RESULT(2) : the normalization error in E.
 
-      // Compute RESULT(2) : the normalization error in E.
-
-      RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( N.toDouble()*ULP );
-
-      }
+  RESULT[2] =
+      max((ENRMAX - ONE).abs(), (ENRMIN - ONE).abs()) / (N.toDouble() * ULP);
+}

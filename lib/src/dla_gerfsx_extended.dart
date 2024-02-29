@@ -11,6 +11,8 @@ import 'package:lapack/src/dla_lin_berr.dart';
 import 'package:lapack/src/dla_wwaddw.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_dgemv2_x.dart';
+import 'package:lapack/src/xblas/blas_dgemv_x.dart';
 
 void dla_gerfsx_extended(
   final int PREC_TYPE,
@@ -133,11 +135,11 @@ void dla_gerfsx_extended(
       if (Y_PREC_STATE == BASE_RESIDUAL) {
         dgemv(TRANS, N, N, -1.0, A, LDA, Y(1, J).asArray(), 1, 1.0, RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_dgemv_x(
-            TRANS_TYPE, N, N, -1.0, A, LDA, Y(1, J), 1, 1.0, RES, 1, PREC_TYPE);
-      } else {
-        blas_dgemv2_x(TRANS_TYPE, N, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0,
+        blas_dgemv_x(TRANS_TYPE, N, N, -1.0, A, LDA, Y(1, J).asArray(), 1, 1.0,
             RES, 1, PREC_TYPE);
+      } else {
+        blas_dgemv2_x(TRANS_TYPE, N, N, -1.0, A, LDA, Y(1, J).asArray(), Y_TAIL,
+            1, 1.0, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.

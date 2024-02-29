@@ -72,6 +72,10 @@ class Complex {
   double abs() => _impl.abs();
 
   Complex exp() => Complex._fromImpl(_impl.exp());
+
+  Complex sin() => Complex._fromImpl(_impl.sin());
+  
+  Complex cos() => Complex._fromImpl(_impl.cos());
 }
 
 extension DoubleComplexExtension on double {

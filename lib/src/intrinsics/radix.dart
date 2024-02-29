@@ -4,3 +4,6 @@ N radix<N extends num>(final N n) {
     int() => 2,
   } as N;
 }
+
+const radix32 = radix;
+const radix64 = radix;

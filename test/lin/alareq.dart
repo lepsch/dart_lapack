@@ -1,28 +1,20 @@
-      void alareq(final int PATH, final int NMATS, final Array<bool> DOTYPE_, final int NTYPES, final int NIN, final int NOUT,) {
+      import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
+Future<void> alareq(final String PATH, final int NMATS, final Array<bool> DOTYPE_,
+      final int NTYPES, final Nin NIN, final Nout NOUT,)async {
   final DOTYPE = DOTYPE_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      String             PATH;
-      int                NIN, NMATS, NOUT, NTYPES;
-      bool               DOTYPE( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
       bool               FIRSTT;
       String             C1;
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, J, K, LENP, NT;
-      int                NREQ( 100 );
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN
-      // ..
-      // .. Data statements ..
+      final                NREQ=Array<int>( 100 );
+
       const INTSTR = '0123456789';
 
       if ( NMATS >= NTYPES ) {

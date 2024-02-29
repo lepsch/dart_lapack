@@ -1,110 +1,128 @@
-      void zget52(final int LEFT, final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> E_, final int LDE, final int ALPHA, final int BETA, final Array<double> _WORK_, final Array<double> RWORK_, final int RESULT,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final E = E_.dim();
-  final _WORK = _WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemv.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlange.dart';
+
+void zget52(
+  final bool LEFT,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> E_,
+  final int LDE,
+  final Array<Complex> ALPHA_,
+  final Array<Complex> BETA_,
+  final Array<Complex> WORK_,
+  final Array<double> RWORK_,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      bool               LEFT;
-      int                LDA, LDB, LDE, N;
-      double             RESULT( 2 ), RWORK( * );
-      Complex         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final E = E_.dim(LDE);
+  final ALPHA = ALPHA_.dim();
+  final BETA = BETA_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final RESULT = RESULT_.dim(2);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      String             NORMAB, TRANS;
-      int                J, JVEC;
-      double             ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
-      Complex         ACOEFF, ALPHAI, BCOEFF, BETAI, X;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMV
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX
-      // ..
-      // .. Statement Functions ..
-      double             ABS1;
-      // ..
-      // .. Statement Function definitions ..
-      double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
+  const ZERO = 0.0, ONE = 1.0;
+  String NORMAB, TRANS;
+  int J, JVEC;
+  double ABMAX,
+      ALFMAX,
+      ANORM,
+      BETMAX,
+      BNORM,
+      ENORM,
+      ENRMER,
+      ERRNRM,
+      SAFMAX,
+      SAFMIN,
+      SCALE,
+      TEMP1,
+      ULP;
+  Complex ACOEFF, ALPHAI, BCOEFF, BETAI;
 
-      RESULT[1] = ZERO;
-      RESULT[2] = ZERO;
-      if (N <= 0) return;
+  double ABS1(Complex X) => X.toDouble().abs() + X.imaginary.abs();
 
-      SAFMIN = dlamch( 'Safe minimum' );
-      SAFMAX = ONE / SAFMIN;
-      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
+  RESULT[1] = ZERO;
+  RESULT[2] = ZERO;
+  if (N <= 0) return;
 
-      if ( LEFT ) {
-         TRANS = 'C';
-         NORMAB = 'I';
-      } else {
-         TRANS = 'N';
-         NORMAB = 'O';
-      }
+  SAFMIN = dlamch('Safe minimum');
+  SAFMAX = ONE / SAFMIN;
+  ULP = dlamch('Epsilon') * dlamch('Base');
 
-      // Norm of A, B, and E:
+  if (LEFT) {
+    TRANS = 'C';
+    NORMAB = 'I';
+  } else {
+    TRANS = 'N';
+    NORMAB = 'O';
+  }
 
-      ANORM = max( ZLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN );
-      BNORM = max( ZLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN );
-      ENORM = max( ZLANGE( 'O', N, N, E, LDE, RWORK ), ULP );
-      ALFMAX = SAFMAX / max( ONE, BNORM );
-      BETMAX = SAFMAX / max( ONE, ANORM );
+  // Norm of A, B, and E:
 
-      // Compute error matrix.
-      // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+  ANORM = max(zlange(NORMAB, N, N, A, LDA, RWORK), SAFMIN);
+  BNORM = max(zlange(NORMAB, N, N, B, LDB, RWORK), SAFMIN);
+  ENORM = max(zlange('O', N, N, E, LDE, RWORK), ULP);
+  ALFMAX = SAFMAX / max(ONE, BNORM);
+  BETMAX = SAFMAX / max(ONE, ANORM);
 
-      for (JVEC = 1; JVEC <= N; JVEC++) { // 10
-         ALPHAI = ALPHA( JVEC );
-         BETAI = BETA( JVEC );
-         ABMAX = max( ABS1( ALPHAI ), ABS1( BETAI ) );
-         if ( ABS1( ALPHAI ) > ALFMAX || ABS1( BETAI ) > BETMAX || ABMAX < ONE ) {
-            SCALE = ONE / max( ABMAX, SAFMIN );
-            ALPHAI = SCALE*ALPHAI;
-            BETAI = SCALE*BETAI;
-         }
-         SCALE = ONE / max( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM, SAFMIN );
-         ACOEFF = SCALE*BETAI;
-         BCOEFF = SCALE*ALPHAI;
-         if ( LEFT ) {
-            ACOEFF = DCONJG( ACOEFF );
-            BCOEFF = DCONJG( BCOEFF );
-         }
-         zgemv(TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1, CZERO, WORK( N*( JVEC-1 )+1 ), 1 );
-         zgemv(TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1, CONE, WORK( N*( JVEC-1 )+1 ), 1 );
-      } // 10
+  // Compute error matrix.
+  // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 
-      ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM;
+  for (JVEC = 1; JVEC <= N; JVEC++) {
+    // 10
+    ALPHAI = ALPHA[JVEC];
+    BETAI = BETA[JVEC];
+    ABMAX = max(ABS1(ALPHAI), ABS1(BETAI));
+    if (ABS1(ALPHAI) > ALFMAX || ABS1(BETAI) > BETMAX || ABMAX < ONE) {
+      SCALE = ONE / max(ABMAX, SAFMIN);
+      ALPHAI = SCALE.toComplex() * ALPHAI;
+      BETAI = SCALE.toComplex() * BETAI;
+    }
+    SCALE = ONE / max(ABS1(ALPHAI) * BNORM, max(ABS1(BETAI) * ANORM, SAFMIN));
+    ACOEFF = SCALE.toComplex() * BETAI;
+    BCOEFF = SCALE.toComplex() * ALPHAI;
+    if (LEFT) {
+      ACOEFF = ACOEFF.conjugate();
+      BCOEFF = BCOEFF.conjugate();
+    }
+    zgemv(TRANS, N, N, ACOEFF, A, LDA, E(1, JVEC).asArray(), 1, Complex.zero,
+        WORK(N * (JVEC - 1) + 1), 1);
+    zgemv(TRANS, N, N, -BCOEFF, B, LDA, E(1, JVEC).asArray(), 1, Complex.one,
+        WORK(N * (JVEC - 1) + 1), 1);
+  } // 10
 
-      // Compute RESULT(1)
+  ERRNRM = zlange('One', N, N, WORK.asMatrix(), N, RWORK) / ENORM;
 
-      RESULT[1] = ERRNRM / ULP;
+  // Compute RESULT(1)
 
-      // Normalization of E:
+  RESULT[1] = ERRNRM / ULP;
 
-      ENRMER = ZERO;
-      for (JVEC = 1; JVEC <= N; JVEC++) { // 30
-         TEMP1 = ZERO;
-         for (J = 1; J <= N; J++) { // 20
-            TEMP1 = max( TEMP1, ABS1( E( J, JVEC ) ) );
-         } // 20
-         ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
-      } // 30
+  // Normalization of E:
 
-      // Compute RESULT(2) : the normalization error in E.
+  ENRMER = ZERO;
+  for (JVEC = 1; JVEC <= N; JVEC++) {
+    // 30
+    TEMP1 = ZERO;
+    for (J = 1; J <= N; J++) {
+      // 20
+      TEMP1 = max(TEMP1, ABS1(E[J][JVEC]));
+    } // 20
+    ENRMER = max(ENRMER, (TEMP1 - ONE).abs());
+  } // 30
 
-      RESULT[2] = ENRMER / ( N.toDouble()*ULP );
+  // Compute RESULT(2) : the normalization error in E.
 
-      }
+  RESULT[2] = ENRMER / (N.toDouble() * ULP);
+}

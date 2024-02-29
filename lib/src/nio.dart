@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:lapack/src/box.dart';
 import 'package:lapack/src/matrix.dart';
 
 class EOF extends Error {}
@@ -65,6 +66,37 @@ class Nin {
     final a = Array<int>(4);
     await readArray(a, 4);
     return (a[1], a[2], a[3], a[4]);
+  }
+
+  Future<void> readBoxes<T>(
+    Box<T> b1, [
+    Box<T>? b2,
+    Box<T>? b3,
+    Box<T>? b4,
+    Box<T>? b5,
+    Box<T>? b6,
+    Box<T>? b7,
+    Box<T>? b8,
+  ]) async {
+    final n = 1 + [b2, b3, b4, b5, b6, b7, b8].nonNulls.length;
+
+    final a = Array<T>(n);
+    await readArray(a, n);
+    b1.value = a[1];
+    if (n == 1) return;
+    b2!.value = a[2];
+    if (n == 2) return;
+    b3!.value = a[3];
+    if (n == 3) return;
+    b4!.value = a[4];
+    if (n == 4) return;
+    b5!.value = a[5];
+    if (n == 5) return;
+    b6!.value = a[6];
+    if (n == 6) return;
+    b7!.value = a[7];
+    if (n == 7) return;
+    b8!.value = a[8];
   }
 
   Future<double> readDouble() async {

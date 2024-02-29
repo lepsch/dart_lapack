@@ -22,6 +22,7 @@ void zher2k(
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  const ONE = 1.0;
   final A = A_.dim(LDA);
   final B = B_.dim(LDB);
   final C = C_.dim(LDC);
@@ -61,8 +62,9 @@ void zher2k(
 
   // Quick return if possible.
 
-  if ((N == 0) ||
-      (((ALPHA == Complex.zero) || (K == 0)) && (BETA == Complex.one))) return;
+  if ((N == 0) || (((ALPHA == Complex.zero) || (K == 0)) && (BETA == ONE))) {
+    return;
+  }
 
   // And when  alpha == zero.
 
@@ -139,7 +141,7 @@ void zher2k(
           for (I = J; I <= N; I++) {
             C[I][J] = Complex.zero;
           }
-        } else if (BETA != Complex.one) {
+        } else if (BETA != ONE) {
           for (I = J + 1; I <= N; I++) {
             C[I][J] = BETA.toComplex() * C[I][J];
           }
@@ -175,9 +177,8 @@ void zher2k(
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {
-              C[J][J] = (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2)
-                  .real
-                  .toComplex();
+              C[J][J] =
+                  (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
             } else {
               C[J][J] = (BETA * (C[J][J]).toDouble() +
                       (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())
@@ -205,9 +206,8 @@ void zher2k(
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {
-              C[J][J] = (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2)
-                  .real
-                  .toComplex();
+              C[J][J] =
+                  (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
             } else {
               C[J][J] = (BETA * C[J][J].toDouble() +
                       (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())

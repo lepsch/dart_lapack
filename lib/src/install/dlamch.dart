@@ -1,5 +1,4 @@
 import 'package:lapack/src/blas/lsame.dart';
-// import 'package:lapack/src/install/dlamchf77.dart' as _slamch;
 import 'package:lapack/src/intrinsics/digits.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
 import 'package:lapack/src/intrinsics/huge.dart';
@@ -13,10 +12,8 @@ double dlamch(final String CMACH) {
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-  // return _slamch.dlamch(CMACH);
-
   const ONE = 1.0, ZERO = 0.0;
-  double RND, EPS, SFMIN, SMALL, RMACH;
+  double RND, EPS, SFMIN, SMALL;
 
   // Assume rounding, not chopping. Always.
 

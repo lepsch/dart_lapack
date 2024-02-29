@@ -1,125 +1,162 @@
-      void zgqrts(final int N, final int M, final int P, final int A, final int AF, final int Q, final int R, final int LDA, final int TAUA, final int B, final int BF, final int Z, final int T, final int BWK, final int LDB, final int TAUB, final Array<double> WORK_, final int LWORK, final Array<double> RWORK_, final int RESULT,) {
-  final WORK = WORK_.dim();
-  final RWORK = RWORK_.dim();
+import 'dart:math';
 
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/blas/zherk.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zggqrf.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+import 'package:lapack/src/zlanhe.dart';
+import 'package:lapack/src/zlaset.dart';
+import 'package:lapack/src/zungqr.dart';
+import 'package:lapack/src/zungrq.dart';
+
+void zgqrts(
+  final int N,
+  final int M,
+  final int P,
+  final Matrix<Complex> A_,
+  final Matrix<Complex> AF_,
+  final Matrix<Complex> Q_,
+  final Matrix<Complex> R_,
+  final int LDA,
+  final Array<Complex> TAUA_,
+  final Matrix<Complex> B_,
+  final Matrix<Complex> BF_,
+  final Matrix<Complex> Z_,
+  final Matrix<Complex> T_,
+  final Matrix<Complex> BWK_,
+  final int LDB,
+  final Array<Complex> TAUB_,
+  final Array<Complex> WORK_,
+  final int LWORK,
+  final Array<double> RWORK_,
+  final Array<double> RESULT_,
+) {
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LWORK, M, N, P;
-      double             RESULT( 4 ), RWORK( * );
-      Complex         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * );
-      // ..
+  final A = A_.dim(LDA);
+  final AF = AF_.dim(LDA);
+  final Q = Q_.dim(LDA);
+  final R = R_.dim(LDA);
+  final TAUA = TAUA_.dim();
+  final B = B_.dim(LDB);
+  final BF = BF_.dim(LDB);
+  final Z = Z_.dim(LDB);
+  final T = T_.dim(LDB);
+  final BWK = BWK_.dim(LDB);
+  final TAUB = TAUB_.dim();
+  final WORK = WORK_.dim();
+  final RWORK = RWORK_.dim();
+  final RESULT = RESULT_.dim(4);
+  const ZERO = 0.0, ONE = 1.0;
+  const CROGUE = Complex(-1.0e+10, 0.0);
+  final INFO = Box(0);
+  double ANORM, BNORM, RESID, ULP, UNFL;
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      Complex         CROGUE;
-      const              CROGUE = ( -1.0e+10, 0.0 ) ;
-      int                INFO;
-      double             ANORM, BNORM, RESID, ULP, UNFL;
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE, ZLANHE;
-      // EXTERNAL DLAMCH, ZLANGE, ZLANHE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM, ZGGQRF, ZHERK, ZLACPY, ZLASET, ZUNGQR, ZUNGRQ
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
+  ULP = dlamch('Precision');
+  UNFL = dlamch('Safe minimum');
 
-      ULP = dlamch( 'Precision' );
-      UNFL = dlamch( 'Safe minimum' );
+  // Copy the matrix A to the array AF.
 
-      // Copy the matrix A to the array AF.
+  zlacpy('Full', N, M, A, LDA, AF, LDA);
+  zlacpy('Full', N, P, B, LDB, BF, LDB);
 
-      zlacpy('Full', N, M, A, LDA, AF, LDA );
-      zlacpy('Full', N, P, B, LDB, BF, LDB );
+  ANORM = max(zlange('1', N, M, A, LDA, RWORK), UNFL);
+  BNORM = max(zlange('1', N, P, B, LDB, RWORK), UNFL);
 
-      ANORM = max( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
-      BNORM = max( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
+  // Factorize the matrices A and B in the arrays AF and BF.
 
-      // Factorize the matrices A and B in the arrays AF and BF.
+  zggqrf(N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO);
 
-      zggqrf(N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO );
+  // Generate the N-by-N matrix Q
 
-      // Generate the N-by-N matrix Q
+  zlaset('Full', N, N, CROGUE, CROGUE, Q, LDA);
+  zlacpy('Lower', N - 1, M, AF(2, 1), LDA, Q(2, 1), LDA);
+  zungqr(N, N, min(N, M), Q, LDA, TAUA, WORK, LWORK, INFO);
 
-      zlaset('Full', N, N, CROGUE, CROGUE, Q, LDA );
-      zlacpy('Lower', N-1, M, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
-      zungqr(N, N, min( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO );
+  // Generate the P-by-P matrix Z
 
-      // Generate the P-by-P matrix Z
+  zlaset('Full', P, P, CROGUE, CROGUE, Z, LDB);
+  if (N <= P) {
+    if (N > 0 && N < P) zlacpy('Full', N, P - N, BF, LDB, Z(P - N + 1, 1), LDB);
+    if (N > 1) {
+      zlacpy('Lower', N - 1, N - 1, BF(2, P - N + 1), LDB,
+          Z(P - N + 2, P - N + 1), LDB);
+    }
+  } else {
+    if (P > 1) {
+      zlacpy('Lower', P - 1, P - 1, BF(N - P + 2, 1), LDB, Z(2, 1), LDB);
+    }
+  }
+  zungrq(P, P, min(N, P), Z, LDB, TAUB, WORK, LWORK, INFO);
 
-      zlaset('Full', P, P, CROGUE, CROGUE, Z, LDB );
-      if ( N <= P ) {
-         if (N > 0 && N < P) zlacpy( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB );
-         IF( N > 1 ) zlacpy( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
-      } else {
-         if (P > 1) zlacpy( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
-      }
-      zungrq(P, P, min( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
+  // Copy R
 
-      // Copy R
+  zlaset('Full', N, M, Complex.zero, Complex.zero, R, LDA);
+  zlacpy('Upper', N, M, AF, LDA, R, LDA);
 
-      zlaset('Full', N, M, CZERO, CZERO, R, LDA );
-      zlacpy('Upper', N, M, AF, LDA, R, LDA );
+  // Copy T
 
-      // Copy T
+  zlaset('Full', N, P, Complex.zero, Complex.zero, T, LDB);
+  if (N <= P) {
+    zlacpy('Upper', N, N, BF(1, P - N + 1), LDB, T(1, P - N + 1), LDB);
+  } else {
+    zlacpy('Full', N - P, P, BF, LDB, T, LDB);
+    zlacpy('Upper', P, P, BF(N - P + 1, 1), LDB, T(N - P + 1, 1), LDB);
+  }
 
-      zlaset('Full', N, P, CZERO, CZERO, T, LDB );
-      if ( N <= P ) {
-         zlacpy('Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB );
-      } else {
-         zlacpy('Full', N-P, P, BF, LDB, T, LDB );
-         zlacpy('Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB );
-      }
+  // Compute R - Q'*A
 
-      // Compute R - Q'*A
+  zgemm('Conjugate transpose', 'No transpose', N, M, N, -Complex.one, Q, LDA, A,
+      LDA, Complex.one, R, LDA);
 
-      zgemm('Conjugate transpose', 'No transpose', N, M, N, -CONE, Q, LDA, A, LDA, CONE, R, LDA );
+  // Compute norm( R - Q'*A ) / ( max(M,N)*norm(A)*ULP ) .
 
-      // Compute norm( R - Q'*A ) / ( max(M,N)*norm(A)*ULP ) .
+  RESID = zlange('1', N, M, R, LDA, RWORK);
+  if (ANORM > ZERO) {
+    RESULT[1] = ((RESID / (max(1, max(M, N))).toDouble()) / ANORM) / ULP;
+  } else {
+    RESULT[1] = ZERO;
+  }
 
-      RESID = ZLANGE( '1', N, M, R, LDA, RWORK );
-      if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / (max( 1, M, N )).toDouble() ) / ANORM ) / ULP;
-      } else {
-         RESULT[1] = ZERO;
-      }
+  // Compute T*Z - Q'*B
 
-      // Compute T*Z - Q'*B
+  zgemm('No Transpose', 'No transpose', N, P, P, Complex.one, T, LDB, Z, LDB,
+      Complex.zero, BWK, LDB);
+  zgemm('Conjugate transpose', 'No transpose', N, P, N, -Complex.one, Q, LDA, B,
+      LDB, Complex.one, BWK, LDB);
 
-      zgemm('No Transpose', 'No transpose', N, P, P, CONE, T, LDB, Z, LDB, CZERO, BWK, LDB )       CALL ZGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE, Q, LDA, B, LDB, CONE, BWK, LDB );
+  // Compute norm( T*Z - Q'*B ) / ( max(P,N)*norm(A)*ULP ) .
 
-      // Compute norm( T*Z - Q'*B ) / ( max(P,N)*norm(A)*ULP ) .
+  RESID = zlange('1', N, P, BWK, LDB, RWORK);
+  if (BNORM > ZERO) {
+    RESULT[2] = ((RESID / (max(1, max(P, N))).toDouble()) / BNORM) / ULP;
+  } else {
+    RESULT[2] = ZERO;
+  }
 
-      RESID = ZLANGE( '1', N, P, BWK, LDB, RWORK );
-      if ( BNORM > ZERO ) {
-         RESULT[2] = ( ( RESID / (max( 1, P, N )).toDouble() ) / BNORM ) / ULP;
-      } else {
-         RESULT[2] = ZERO;
-      }
+  // Compute I - Q'*Q
 
-      // Compute I - Q'*Q
+  zlaset('Full', N, N, Complex.zero, Complex.one, R, LDA);
+  zherk('Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA, ONE, R, LDA);
 
-      zlaset('Full', N, N, CZERO, CONE, R, LDA );
-      zherk('Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
+  // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      // Compute norm( I - Q'*Q ) / ( N * ULP ) .
+  RESID = zlanhe('1', 'Upper', N, R, LDA, RWORK);
+  RESULT[3] = (RESID / (max(1, N)).toDouble()) / ULP;
 
-      RESID = ZLANHE( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT[3] = ( RESID / (max( 1, N )).toDouble() ) / ULP;
+  // Compute I - Z'*Z
 
-      // Compute I - Z'*Z
+  zlaset('Full', P, P, Complex.zero, Complex.one, T, LDB);
+  zherk('Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB);
 
-      zlaset('Full', P, P, CZERO, CONE, T, LDB );
-      zherk('Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB );
+  // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      // Compute norm( I - Z'*Z ) / ( P*ULP ) .
-
-      RESID = ZLANHE( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
-
-      }
+  RESID = zlanhe('1', 'Upper', P, T, LDB, RWORK);
+  RESULT[4] = (RESID / (max(1, P)).toDouble()) / ULP;
+}

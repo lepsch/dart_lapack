@@ -1,73 +1,89 @@
-      void zlakf2(final int M, final int N, final Matrix<double> A_, final int LDA, final int B, final int D, final int E, final int Z, final int LDZ,) {
-  final A = A_.dim();
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlaset.dart';
 
+void zlakf2(
+  final int M,
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final Matrix<Complex> D_,
+  final Matrix<Complex> E_,
+  final Matrix<Complex> Z_,
+  final int LDZ,
+) {
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDZ, M, N;
-      Complex         A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * );
-      // ..
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDA);
+  final D = D_.dim(LDA);
+  final E = E_.dim(LDA);
+  final Z = Z_.dim(LDA);
+  int I, IK, J, JK, L, MN, MN2;
+  // ..
+  // .. External Subroutines ..
+  // EXTERNAL ZLASET
 
-// ====================================================================
+  // Initialize Z
 
-      // .. Parameters ..
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
-      int                I, IK, J, JK, L, MN, MN2;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZLASET
+  MN = M * N;
+  MN2 = 2 * MN;
+  zlaset('Full', MN2, MN2, Complex.zero, Complex.zero, Z, LDZ);
 
-      // Initialize Z
+  IK = 1;
+  for (L = 1; L <= N; L++) {
+    // 50
 
-      MN = M*N;
-      MN2 = 2*MN;
-      zlaset('Full', MN2, MN2, ZERO, ZERO, Z, LDZ );
+    // form kron(In, A)
 
-      IK = 1;
-      for (L = 1; L <= N; L++) { // 50
+    for (I = 1; I <= M; I++) {
+      // 20
+      for (J = 1; J <= M; J++) {
+        // 10
+        Z[IK + I - 1][IK + J - 1] = A[I][J];
+      } // 10
+    } // 20
 
-         // form kron(In, A)
+    // form kron(In, D)
 
-         for (I = 1; I <= M; I++) { // 20
-            for (J = 1; J <= M; J++) { // 10
-               Z[IK+I-1][IK+J-1] = A( I, J );
-            } // 10
-         } // 20
+    for (I = 1; I <= M; I++) {
+      // 40
+      for (J = 1; J <= M; J++) {
+        // 30
+        Z[IK + MN + I - 1][IK + J - 1] = D[I][J];
+      } // 30
+    } // 40
 
-         // form kron(In, D)
+    IK = IK + M;
+  } // 50
 
-         for (I = 1; I <= M; I++) { // 40
-            for (J = 1; J <= M; J++) { // 30
-               Z[IK+MN+I-1][IK+J-1] = D( I, J );
-            } // 30
-         } // 40
+  IK = 1;
+  for (L = 1; L <= N; L++) {
+    // 90
+    JK = MN + 1;
 
-         IK = IK + M;
-      } // 50
+    for (J = 1; J <= N; J++) {
+      // 80
 
-      IK = 1;
-      for (L = 1; L <= N; L++) { // 90
-         JK = MN + 1;
+      // form -kron(B', Im)
 
-         for (J = 1; J <= N; J++) { // 80
+      for (I = 1; I <= M; I++) {
+        // 60
+        Z[IK + I - 1][JK + I - 1] = -B[J][L];
+      } // 60
 
-            // form -kron(B', Im)
+      // form -kron(E', Im)
 
-            for (I = 1; I <= M; I++) { // 60
-               Z[IK+I-1][JK+I-1] = -B( J, L );
-            } // 60
+      for (I = 1; I <= M; I++) {
+        // 70
+        Z[IK + MN + I - 1][JK + I - 1] = -E[J][L];
+      } // 70
 
-            // form -kron(E', Im)
+      JK = JK + M;
+    } // 80
 
-            for (I = 1; I <= M; I++) { // 70
-               Z[IK+MN+I-1][JK+I-1] = -E( J, L );
-            } // 70
-
-            JK = JK + M;
-         } // 80
-
-         IK = IK + M;
-      } // 90
-
-      }
+    IK = IK + M;
+  } // 90
+}

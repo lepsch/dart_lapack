@@ -136,7 +136,7 @@ void zgetsqrhrt(
   // (3) Generate a M-by-N matrix Q with orthonormal columns from
   // the result stored below the diagonal in the array A in place.
 
-  zungtsqr_row(M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT + N * N + 1),
+  zungtsqr_row(M, N, MB1, NB1LOCAL, A, LDA, WORK.asMatrix(), LDWT, WORK(LWT + N * N + 1),
       LW2, IINFO);
 
   // (4) Perform the reconstruction of Householder vectors from

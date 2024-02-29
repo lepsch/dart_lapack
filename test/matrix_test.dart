@@ -145,6 +145,23 @@ void main() {
       expect(m[3][3], 9);
     });
 
+    test('offset (zero indexed)', () {
+      final m = Matrix.fromList([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ], offset: 1);
+      expect(m[0][0], 1);
+      expect(m[0][1], 2);
+      expect(m[0][2], 3);
+      expect(m[1][0], 4);
+      expect(m[1][1], 5);
+      expect(m[1][2], 6);
+      expect(m[2][0], 7);
+      expect(m[2][1], 8);
+      expect(m[2][2], 9);
+    });
+
     test('sliced assignment', () {
       final m = Matrix.fromList([
         [1, 2, 3],
@@ -203,6 +220,7 @@ void main() {
       expect(m[2][2], 11);
       expect(m[2][3], 12);
     });
+
 
     test('box', () {
       final m = Matrix.fromList([

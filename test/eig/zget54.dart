@@ -1,77 +1,88 @@
-      void zget54(final int N, final Matrix<double> A_, final int LDA, final Matrix<double> B_, final int LDB, final Matrix<double> S_, final int LDS, final Matrix<double> T_, final int LDT, final Matrix<double> U_, final int LDU, final Matrix<double> V_, final int LDV, final Array<double> _WORK_, final int RESULT,) {
-  final A = A_.dim();
-  final B = B_.dim();
-  final S = S_.dim();
-  final T = T_.dim();
-  final U = U_.dim();
-  final V = V_.dim();
-  final _WORK = _WORK_.dim();
+import 'dart:math';
+
+import 'package:lapack/src/blas/zgemm.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/zlacpy.dart';
+import 'package:lapack/src/zlange.dart';
+
+void zget54(
+  final int N,
+  final Matrix<Complex> A_,
+  final int LDA,
+  final Matrix<Complex> B_,
+  final int LDB,
+  final Matrix<Complex> S_,
+  final int LDS,
+  final Matrix<Complex> T_,
+  final int LDT,
+  final Matrix<Complex> U_,
+  final int LDU,
+  final Matrix<Complex> V_,
+  final int LDV,
+  final Array<Complex> WORK_,
+  final Box<double> RESULT,
+) {
+  final A = A_.dim(LDA);
+  final B = B_.dim(LDB);
+  final S = S_.dim(LDS);
+  final T = T_.dim(LDT);
+  final U = U_.dim(LDU);
+  final V = V_.dim(LDV);
+  final WORK = WORK_.dim();
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-      int                LDA, LDB, LDS, LDT, LDU, LDV, N;
-      double             RESULT;
-      Complex         A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
-      // ..
+  const ZERO = 0.0, ONE = 1.0;
+  double ABNORM, ULP, UNFL, WNORM;
+  final DUM = Array<double>(1);
 
-      double             ZERO, ONE;
-      const              ZERO = 0.0, ONE = 1.0 ;
-      Complex         CZERO, CONE;
-      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      double             ABNORM, ULP, UNFL, WNORM;
-      double             DUM( 1 );
-      // ..
-      // .. External Functions ..
-      //- double             DLAMCH, ZLANGE;
-      // EXTERNAL DLAMCH, ZLANGE
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL ZGEMM, ZLACPY
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE, MAX, MIN
+  RESULT.value = ZERO;
+  if (N <= 0) return;
 
-      RESULT = ZERO;
-      if (N <= 0) return;
+  // Constants
 
-      // Constants
+  UNFL = dlamch('Safe minimum');
+  ULP = dlamch('Epsilon') * dlamch('Base');
 
-      UNFL = dlamch( 'Safe minimum' );
-      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
+  // compute the norm of (A,B)
 
-      // compute the norm of (A,B)
+  zlacpy('Full', N, N, A, LDA, WORK.asMatrix(), N);
+  zlacpy('Full', N, N, B, LDB, WORK(N * N + 1).asMatrix(), N);
+  ABNORM = max(zlange('1', N, 2 * N, WORK.asMatrix(), N, DUM), UNFL);
 
-      zlacpy('Full', N, N, A, LDA, WORK, N );
-      zlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = max( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
+  // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
-      // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
+  zlacpy(' ', N, N, A, LDA, WORK.asMatrix(), N);
+  zgemm('N', 'N', N, N, N, Complex.one, U, LDU, S, LDS, Complex.zero,
+      WORK(N * N + 1).asMatrix(), N);
 
-      zlacpy(' ', N, N, A, LDA, WORK, N );
-      zgemm('N', 'N', N, N, N, CONE, U, LDU, S, LDS, CZERO, WORK( N*N+1 ), N );
+  zgemm('N', 'C', N, N, N, -Complex.one, WORK(N * N + 1).asMatrix(), N, V, LDV,
+      Complex.one, WORK.asMatrix(), N);
 
-      zgemm('N', 'C', N, N, N, -CONE, WORK( N*N+1 ), N, V, LDV, CONE, WORK, N );
+  // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 
-      // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
+  zlacpy(' ', N, N, B, LDB, WORK(N * N + 1).asMatrix(), N);
+  zgemm('N', 'N', N, N, N, Complex.one, U, LDU, T, LDT, Complex.zero,
+      WORK(2 * N * N + 1).asMatrix(), N);
 
-      zlacpy(' ', N, N, B, LDB, WORK( N*N+1 ), N );
-      zgemm('N', 'N', N, N, N, CONE, U, LDU, T, LDT, CZERO, WORK( 2*N*N+1 ), N );
+  zgemm('N', 'C', N, N, N, -Complex.one, WORK(2 * N * N + 1).asMatrix(), N, V,
+      LDV, Complex.one, WORK(N * N + 1).asMatrix(), N);
 
-      zgemm('N', 'C', N, N, N, -CONE, WORK( 2*N*N+1 ), N, V, LDV, CONE, WORK( N*N+1 ), N );
+  // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      // Compute norm(W)/ ( ulp*norm((A,B)) )
+  WNORM = zlange('1', N, 2 * N, WORK.asMatrix(), N, DUM);
 
-      WNORM = ZLANGE( '1', N, 2*N, WORK, N, DUM );
-
-      if ( ABNORM > WNORM ) {
-         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
-      } else {
-         if ( ABNORM < ONE ) {
-            RESULT = ( min( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
-         } else {
-            RESULT = min( WNORM / ABNORM, (2*N).toDouble() ) / ( 2*N*ULP );
-         }
-      }
-
-      }
+  if (ABNORM > WNORM) {
+    RESULT.value = (WNORM / ABNORM) / (2 * N * ULP);
+  } else {
+    if (ABNORM < ONE) {
+      RESULT.value = (min(WNORM, 2 * N * ABNORM) / ABNORM) / (2 * N * ULP);
+    } else {
+      RESULT.value = min(WNORM / ABNORM, (2 * N).toDouble()) / (2 * N * ULP);
+    }
+  }
+}
