@@ -110,11 +110,20 @@ class Matrix<T> implements Box<T> {
   })  : _entries = _Array.fromSlice(entries.toRawList(), offset: 0),
         _indexer = indexer;
 
-  Matrix<T> call(int i, int j, {int? ld}) {
-    var entries = _entries(_indexer(this._ld, i + offset.y, j + offset.x));
+  Matrix<T> call(
+    int i,
+    int j, {
+    int? ld,
+    ({int x, int y}) offset = oneIndexedMatrixOffset,
+  }) {
+    var entries = _entries(
+      _indexer(this._ld, i + this.offset.y, j + this.offset.x),
+      offset: 0,
+    );
     return Matrix.fromSlice(
       entries,
       ld ?? _ld,
+      offset: offset,
       indexer: _indexer,
     );
   }
@@ -135,7 +144,8 @@ class Matrix<T> implements Box<T> {
 
   set first(T value) => _entries.first = value;
 
-  Matrix<T> dim(int ld) => this(-offset.y, -offset.x, ld: ld);
+  Matrix<T> dim(int ld) =>
+      Matrix.fromSlice(_entries, ld, offset: offset, indexer: _indexer);
 
   @override
   T get value => first;
@@ -219,7 +229,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   }
 
   @override
-  Array<T> dim([int? ld]) => this;
+  Array<T> dim([int? ld]) => _entries.dim(ld);
 
   @override
   T get value => first;
@@ -265,10 +275,10 @@ class _Array<T> implements Array<T> {
   });
 
   @override
-  Array<T> slice(
-    int index, {
-    int offset = oneIndexedArrayOffset,
-  }) {
+  Array<T> slice(int index, {int offset = oneIndexedArrayOffset}) =>
+      _slice(index, offset: offset);
+
+  _Array<T> _slice(int index, {int offset = oneIndexedArrayOffset}) {
     return _Array.fromSlice(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
@@ -374,7 +384,8 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  Array<T> dim([int? ld]) => this;
+  Array<T> dim([int? ld]) => _slice(-offset, offset: offset)
+    .._elements.length = ld ?? _elements.length;
 
   @override
   T get value => first;
