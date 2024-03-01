@@ -72,7 +72,7 @@ void dsgesv(
 
   if (N == 0) return;
 
-  goto:
+  skipSinglePrecision:
   while (true) {
     // Skip single precision iterative refinement if a priori slower
     // than double precision factorization.
@@ -167,7 +167,7 @@ void dsgesv(
 
       if (INFO.value != 0) {
         ITER.value = -2;
-        break goto;
+        break skipSinglePrecision;
       }
 
       // Solve the system SA*SX = SR.

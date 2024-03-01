@@ -23,8 +23,8 @@ void ztfsm(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim()(1, offset: 1);
-  final B = B_.dim(LDB)(1, 1, offset: 1);
+  final A = A_.dim(offset: 1);
+  final B = B_.dim(LDB, offset: 1);
   bool LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
   int M1 = 0, M2 = 0, N1 = 0, N2 = 0, K = 0, INFO, I, J;
 

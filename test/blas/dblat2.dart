@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
 import 'common.dart';
 
       void main() {
@@ -5,39 +10,20 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      const              NIN = 5 ;
+      final NIN = Nin(stdin), NOUT = Nout(stdout);
       const              NSUBS = 16 ;
       const              ZERO = 0.0, ONE = 1.0 ;
       const              NMAX = 65, INCMAX = 2 ;
       const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
-      // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANS;
       String             SNAMET;
       String             SNAPS, SUMMRY;
-      // .. Local Arrays ..
-      double             A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
-      int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
-      bool               LTEST( NSUBS );
-      String             SNAMES( NSUBS );
-      // .. External Functions ..
-      //- double             DDIFF;
-      //- bool               LDE;
-      // EXTERNAL DDIFF, LDE
-      // .. External Subroutines ..
-      // EXTERNAL DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, DCHKE, DMVCH
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, MIN
-      // .. Scalars in Common ..
-      // int                infoc.INFOT, infoc.NOUTC;
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // .. Common blocks ..
-      // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
-      // COMMON /SRNAMC/srnamc.SRNAMT
-      // .. Data statements ..
+      final             A=Matrix<double>( NMAX, NMAX ), AA=Array<double>( NMAX*NMAX ), ALF=Array<double>( NALMAX ), AS=Array<double>( NMAX*NMAX ), BET=Array<double>( NBEMAX ), G=Array<double>( NMAX ), X=Array<double>( NMAX ), XS=Array<double>( NMAX*INCMAX ), XX=Array<double>( NMAX*INCMAX ), Y=Array<double>( NMAX ), YS=Array<double>( NMAX*INCMAX ), YT=Array<double>( NMAX ), YY=Array<double>( NMAX*INCMAX ), Z=Array<double>( 2*NMAX );
+      final                IDIM=Array<int>( NIDMAX ), INC=Array<int>( NINMAX ), KB=Array<int>( NKBMAX );
+      final               LTEST=Array<bool>( NSUBS );
       const SNAMES = ['DGEMV ', 'DGBMV ', 'DSYMV ', 'DSBMV ', 'DSPMV ', 'DTRMV ', 'DTBMV ', 'DTPMV ', 'DTRSV ', 'DTBSV ', 'DTPSV ', 'DGER  ', 'DSYR  ', 'DSPR  ', 'DSYR2 ', 'DSPR2 '];
       // .. Executable Statements ..
 

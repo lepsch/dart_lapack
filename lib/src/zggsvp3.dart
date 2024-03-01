@@ -161,9 +161,10 @@ void zggsvp3(
       B[I][J] = Complex.zero;
     } // 30
   } // 40
-  if (P > L.value)
+  if (P > L.value) {
     zlaset('Full', P - L.value, N, Complex.zero, Complex.zero,
         B(L.value + 1, 1), LDB);
+  }
 
   if (WANTQ) {
     // Set Q = I and Update Q := Q*P
@@ -251,9 +252,10 @@ void zggsvp3(
       A[I][J] = Complex.zero;
     } // 90
   } // 100
-  if (M > K.value)
+  if (M > K.value) {
     zlaset('Full', M - K.value, N - L.value, Complex.zero, Complex.zero,
         A(K.value + 1, 1), LDA);
+  }
 
   if (N - L.value > K.value) {
     // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1

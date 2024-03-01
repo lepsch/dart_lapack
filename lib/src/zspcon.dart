@@ -64,7 +64,7 @@ void zspcon(
     IP = N * (N + 1) ~/ 2;
     for (I = N; I >= 1; I--) {
       // 10
-      if (IPIV[I] > 0 && AP(IP) == ZERO) return;
+      if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
       IP = IP - I;
     } // 10
   } else {
@@ -73,7 +73,7 @@ void zspcon(
     IP = 1;
     for (I = 1; I <= N; I++) {
       // 20
-      if (IPIV[I] > 0 && AP(IP) == ZERO) return;
+      if (IPIV[I] > 0 && AP[IP] == Complex.zero) return;
       IP = IP + N - I + 1;
     } // 20
   }

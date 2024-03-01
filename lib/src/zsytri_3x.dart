@@ -65,15 +65,17 @@ void zsytri_3x(
     // Upper triangular storage: examine D from bottom to top
 
     for (INFO.value = N; INFO.value >= 1; INFO.value--) {
-      if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero)
+      if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
+      }
     }
   } else {
     // Lower triangular storage: examine D from top to bottom.
 
     for (INFO.value = 1; INFO.value <= N; INFO.value++) {
-      if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero)
+      if (IPIV[INFO.value] > 0 && A[INFO.value][INFO.value] == Complex.zero) {
         return;
+      }
     }
   }
 

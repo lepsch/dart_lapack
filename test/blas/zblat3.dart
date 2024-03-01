@@ -1,3 +1,9 @@
+import 'dart:io';
+
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/nio.dart';
+
 import 'common.dart';
 
       void main() {
@@ -5,49 +11,22 @@ import 'common.dart';
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      int                NIN;
-      const              NIN = 5 ;
-      int                NSUBS;
+      final NIN = Nin(stdin), NOUT = Nout(stdout);
       const              NSUBS = 9 ;
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      double             RZERO;
       const              RZERO = 0.0 ;
-      int                NMAX;
       const              NMAX = 65 ;
-      int                NIDMAX, NALMAX, NBEMAX;
       const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
-      // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS, SUMMRY;
-      // .. Local Arrays ..
-      Complex         AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
-      double             G( NMAX );
-      int                IDIM( NIDMAX );
-      bool               LTEST( NSUBS );
-      String             SNAMES( NSUBS );
-      // .. External Functions ..
-      //- double             DDIFF;
-      //- bool               LZE;
-      // EXTERNAL DDIFF, LZE
-      // .. External Subroutines ..
-      // EXTERNAL ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHKE, ZMMCH
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // .. Scalars in Common ..
-      // int                infoc.INFOT, infoc.NOUTC;
-      // bool               infoc.LERR, infoc.OK;
-      // String             srnamc.SRNAMT;
-      // .. Common blocks ..
-      // COMMON /infoc/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
-      // COMMON /srnamc/srnamc.SRNAMT
-      // .. Data statements ..
+      final         AA=Matrix<Complex>( NMAX*NMAX ), AB=Matrix<Complex>( NMAX, 2*NMAX ), ALF=Array<Complex>( NALMAX ), AS=Array<Complex>( NMAX*NMAX ), BB=Array<Complex>( NMAX*NMAX ), BET=Array<Complex>( NBEMAX ), BS=Array<Complex>( NMAX*NMAX ), C=Matrix<Complex>( NMAX, NMAX ), CC=Array<Complex>( NMAX*NMAX ), CS=Array<Complex>( NMAX*NMAX ), CT=Array<Complex>( NMAX ), W=Array<Complex>( 2*NMAX );
+      final             G=Array<double>( NMAX );
+      final                IDIM=Array<int>( NIDMAX );
+      final               LTEST=Array<bool>( NSUBS );
       const SNAMES = ['ZGEMM ', 'ZHEMM ', 'ZSYMM ', 'ZTRMM ', 'ZTRSM ', 'ZHERK ', 'ZSYRK ', 'ZHER2K', 'ZSYR2K'];
-      // .. Executable Statements ..
 
       // Read name and unit number for summary output file and open file.
 
@@ -150,7 +129,7 @@ import 'common.dart';
          } // 90
          AB[J][NMAX + 1] = J;
          AB[1][NMAX + J] = J;
-         C[J][1] = ZERO;
+         C[J][1] = Complex.zero;
       } // 100
       for (J = 1; J <= N; J++) { // 110
          CC[J] = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
@@ -159,14 +138,14 @@ import 'common.dart';
       // the result computed by ZMMCH.
       TRANSA = 'N';
       TRANSB = 'N';
-      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
+      zmmch(TRANSA, TRANSB, N, 1, N, Complex.one, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, Complex.zero, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( CC, CT, N );
       if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
          STOP;
       }
       TRANSB = 'C';
-      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
+      zmmch(TRANSA, TRANSB, N, 1, N, Complex.one, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, Complex.zero, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( CC, CT, N );
       if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
@@ -181,14 +160,14 @@ import 'common.dart';
       } // 130
       TRANSA = 'C';
       TRANSB = 'N';
-      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
+      zmmch(TRANSA, TRANSB, N, 1, N, Complex.one, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, Complex.zero, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( CC, CT, N );
       if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
          STOP;
       }
       TRANSB = 'C';
-      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
+      zmmch(TRANSA, TRANSB, N, 1, N, Complex.one, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, Complex.zero, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( CC, CT, N );
       if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
@@ -236,14 +215,14 @@ import 'common.dart';
       WRITE( NOUT, FMT = 9986 );
       GO TO 230;
 
-      } // 210
+      // } // 210
       WRITE( NOUT, FMT = 9985 );
       GO TO 230;
 
-      } // 220
+      // } // 220
       WRITE( NOUT, FMT = 9991 );
 
-      } // 230
+      // } // 230
       if (TRACE) CLOSE ( NTRA );
       CLOSE ( NOUT );
       STOP;
@@ -278,8 +257,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
+      Complex         Complex.zero;
+      const              Complex.zero = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
@@ -357,7 +336,7 @@ import 'common.dart';
 
                   // Generate the matrix A.
 
-                  zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
+                  zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, Complex.zero );
 
                   for (ICB = 1; ICB <= 3; ICB++) { // 70
                      TRANSB = ICH( ICB: ICB );
@@ -379,7 +358,7 @@ import 'common.dart';
 
                      // Generate the matrix B.
 
-                     zmake('GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO );
+                     zmake('GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, Complex.zero );
 
                      for (IA = 1; IA <= NALF; IA++) { // 60
                         ALPHA = ALF( IA );
@@ -389,7 +368,7 @@ import 'common.dart';
 
                            // Generate the matrix C.
 
-                           zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
+                           zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, Complex.zero );
 
                            NC = NC + 1;
 
@@ -524,8 +503,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
+      Complex         Complex.zero;
+      const              Complex.zero = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
@@ -589,7 +568,7 @@ import 'common.dart';
 
             // Generate the matrix B.
 
-            zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
+            zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, Complex.zero );
 
             for (ICS = 1; ICS <= 2; ICS++) { // 80
                SIDE = ICHS( ICS: ICS );
@@ -612,7 +591,7 @@ import 'common.dart';
 
                   // Generate the hermitian or symmetric matrix A.
 
-                  zmake(SNAME( 2: 3 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
+                  zmake(SNAME( 2: 3 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, Complex.zero );
 
                   for (IA = 1; IA <= NALF; IA++) { // 60
                      ALPHA = ALF( IA );
@@ -622,7 +601,7 @@ import 'common.dart';
 
                         // Generate the matrix C.
 
-                        zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
+                        zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, Complex.zero );
 
                         NC = NC + 1;
 
@@ -761,8 +740,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
+      Complex         Complex.zero, Complex.one;
+      const              Complex.zero = ( 0.0, 0.0 ), Complex.one = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
@@ -807,7 +786,7 @@ import 'common.dart';
       // Set up zero matrix for ZMMCH.
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            C[I][J] = ZERO;
+            C[I][J] = Complex.zero;
          } // 10
       } // 20
 
@@ -853,11 +832,11 @@ import 'common.dart';
 
                            // Generate the matrix A.
 
-                           zmake('TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
+                           zmake('TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, Complex.zero );
 
                            // Generate the matrix B.
 
-                           zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
+                           zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, Complex.zero );
 
                            NC = NC + 1;
 
@@ -937,9 +916,9 @@ import 'common.dart';
                                  // Check the result.
 
                                  if ( LEFT ) {
-                                    zmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
+                                    zmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, Complex.zero, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
                                  } else {
-                                    zmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
+                                    zmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, Complex.zero, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, true );
                                  }
                               } else if ( SNAME( 4: 5 ) == 'SM' ) {
 
@@ -953,9 +932,9 @@ import 'common.dart';
                                  } // 70
 
                                  if ( LEFT ) {
-                                    zmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
+                                    zmmch(TRANSA, 'N', M, N, M, Complex.one, A, NMAX, C, NMAX, Complex.zero, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  } else {
-                                    zmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
+                                    zmmch('N', TRANSA, M, N, N, Complex.one, C, NMAX, A, NMAX, Complex.zero, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  }
                               }
                               ERRMAX = max( ERRMAX, ERR );
@@ -1014,8 +993,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
+      Complex         Complex.zero;
+      const              Complex.zero = ( 0.0, 0.0 ) ;
       double             RONE, RZERO;
       const              RONE = 1.0, RZERO = 0.0 ;
       // .. Scalar Arguments ..
@@ -1090,7 +1069,7 @@ import 'common.dart';
 
                // Generate the matrix A.
 
-               zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
+               zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, Complex.zero );
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
                   UPLO = ICHU( ICU: ICU );
@@ -1114,7 +1093,7 @@ import 'common.dart';
 
                         // Generate the matrix C.
 
-                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
+                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, Complex.zero );
 
                         NC = NC + 1;
 
@@ -1293,8 +1272,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
+      Complex         Complex.zero, Complex.one;
+      const              Complex.zero = ( 0.0, 0.0 ), Complex.one = ( 1.0, 0.0 ) ;
       double             RONE, RZERO;
       const              RONE = 1.0, RZERO = 0.0 ;
       // .. Scalar Arguments ..
@@ -1370,9 +1349,9 @@ import 'common.dart';
                // Generate the matrix A.
 
                if ( TRAN ) {
-                  zmake('GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO );
+                  zmake('GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, Complex.zero );
                } else {
-                  zmake('GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO );
+                  zmake('GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, Complex.zero );
                }
 
                // Generate the matrix B.
@@ -1380,9 +1359,9 @@ import 'common.dart';
                LDB = LDA;
                LBB = LAA;
                if ( TRAN ) {
-                  zmake('GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO );
+                  zmake('GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, Complex.zero );
                } else {
-                  zmake('GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO );
+                  zmake('GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, Complex.zero );
                }
 
                for (ICU = 1; ICU <= 2; ICU++) { // 100
@@ -1399,11 +1378,11 @@ import 'common.dart';
                            BETA = DCMPLX( RBETA, RZERO );
                         }
                         NULL = N <= 0;
-                        if (CONJ) NULL = NULL || ( ( K <= 0 || ALPHA == ZERO ) && RBETA == RONE );
+                        if (CONJ) NULL = NULL || ( ( K <= 0 || ALPHA == Complex.zero ) && RBETA == RONE );
 
                         // Generate the matrix C.
 
-                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
+                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, Complex.zero );
 
                         NC = NC + 1;
 
@@ -1516,7 +1495,7 @@ import 'common.dart';
                                        W[K + I] = ALPHA* AB( ( J - 1 )*2* NMAX + I );
                                     }
                                  } // 50
-                                 zmmch(TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
+                                 zmmch(TRANST, 'N', LJ, 1, 2*K, Complex.one, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               } else {
                                  for (I = 1; I <= K; I++) { // 60
                                     if ( CONJ ) {
@@ -1525,7 +1504,7 @@ import 'common.dart';
                                        W[I] = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                        W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J );
                                     }
                                  } // 60
-                                 zmmch('N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
+                                 zmmch('N', 'N', LJ, 1, 2*K, Complex.one, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC;
@@ -1608,8 +1587,8 @@ import 'common.dart';
       int                infoc.INFOT, infoc.NOUTC;
       bool               infoc.LERR, infoc.OK;
       // .. Parameters ..
-      double               ONE, TWO;
-      const              ONE = 1.0, TWO = 2.0 ;
+      double               Complex.one, TWO;
+      const              Complex.one = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
       Complex         ALPHA, BETA;
       double             RALPHA, RBETA;
@@ -1631,9 +1610,9 @@ import 'common.dart';
 
       // Initialize ALPHA, BETA, RALPHA, and RBETA.
 
-      ALPHA = DCMPLX( ONE, -ONE );
+      ALPHA = DCMPLX( Complex.one, -Complex.one );
       BETA = DCMPLX( TWO, -TWO );
-      RALPHA = ONE;
+      RALPHA = Complex.one;
       RBETA = TWO;
 
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90 )ISNUM;
@@ -2537,8 +2516,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO, ONE;
-      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
+      Complex         Complex.zero, Complex.one;
+      const              Complex.zero = ( 0.0, 0.0 ), Complex.one = ( 1.0, 0.0 ) ;
       Complex         ROGUE;
       const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       double             RZERO;
@@ -2578,20 +2557,20 @@ import 'common.dart';
                A[I][J] = ZBEG( RESET ) + TRANSL;
                if ( I != J ) {
                   // Set some elements to zero
-                  if (N > 3 && J == N/2) A( I, J ) = ZERO;
+                  if (N > 3 && J == N/2) A( I, J ) = Complex.zero;
                   if ( HER ) {
                      A[J][I] = DCONJG( A( I, J ) );
                   } else if ( SYM ) {
                      A[J][I] = A( I, J );
                   } else if ( TRI ) {
-                     A[J][I] = ZERO;
+                     A[J][I] = Complex.zero;
                   }
                }
             }
          } // 10
          if (HER) A( J, J ) = DCMPLX( (A( J, J )).toDouble(), RZERO );
-         if[TRI ) A( J][J] = A( J, J ) + ONE;
-         IF[UNIT ) A( J][J] = ONE;
+         if[TRI ) A( J][J] = A( J, J ) + Complex.one;
+         IF[UNIT ) A( J][J] = Complex.one;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2656,8 +2635,8 @@ import 'common.dart';
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      Complex         ZERO;
-      const              ZERO = ( 0.0, 0.0 ) ;
+      Complex         Complex.zero;
+      const              Complex.zero = ( 0.0, 0.0 ) ;
       double             RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
@@ -2693,7 +2672,7 @@ import 'common.dart';
       for (J = 1; J <= N; J++) { // 220
 
          for (I = 1; I <= M; I++) { // 10
-            CT[I] = ZERO;
+            CT[I] = Complex.zero;
             G[I] = RZERO;
          } // 10
          if ( !TRANA && !TRANB ) {
@@ -2774,7 +2753,7 @@ import 'common.dart';
 
          // Compute the error ratio for this result.
 
-         ERR = ZERO;
+         ERR = Complex.zero;
          for (I = 1; I <= M; I++) { // 210
             ERRI = ABS1( CT( I ) - CC( I, J ) )/EPS;
             if( G( I ) != RZERO ) ERRI = ERRI/G( I );

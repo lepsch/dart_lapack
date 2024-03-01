@@ -63,30 +63,41 @@ abstract interface class Array<T> implements Box<T> {
   set first(T value);
 }
 
-typedef MatrixIndexer = int Function(int ld, int i, int j);
+typedef MatrixIndexer = int Function(List<int> dimentions, List<int> indexes);
 
-int columnIndexed(int ld, int i, int j) {
-  return j * ld + i;
+int columnIndexed(List<int> dimentions, List<int> indexes) {
+  dimentions = dimentions.sublist(0, indexes.length);
+  var index = 0;
+  var dim = 1;
+  final dimIter = dimentions.reversed.iterator;
+  for (final i in indexes) {
+    dimIter.moveNext();
+    dim *= dimIter.current;
+    index += i * dim;
+  }
+  return index;
 }
 
-int rowIndexed(int ld, int i, int j) {
-  return j + i * ld;
+int rowIndexed(List<int> dimentions, List<int> indexes) {
+  return columnIndexed(dimentions, indexes.reversed.toList());
 }
 
 const defaultMatrixIndexer = columnIndexed;
 
 class Matrix<T> implements Box<T> {
   final Array<T> _entries;
-  final int _ld;
+  final List<int> dimensions;
   final ({int x, int y}) offset;
   final MatrixIndexer _indexer;
+
+  int get ld => dimensions.first;
 
   Matrix(
     int m,
     int n, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _ld = m,
+  })  : dimensions = [m, 1],
         _indexer = indexer,
         _entries = _Array<T>(m * n, offset: 0);
 
@@ -100,11 +111,11 @@ class Matrix<T> implements Box<T> {
           ],
         ], offset: 0),
         _indexer = indexer,
-        _ld = list.length;
+        dimensions = [list.length, 1];
 
   Matrix.fromSlice(
     Array<T> entries,
-    this._ld, {
+    this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
   })  : _entries = _Array.fromSlice(entries.toRawList(), offset: 0),
@@ -117,12 +128,13 @@ class Matrix<T> implements Box<T> {
     ({int x, int y}) offset = oneIndexedMatrixOffset,
   }) {
     var entries = _entries(
-      _indexer(this._ld, i + this.offset.y, j + this.offset.x),
+      _indexer(this.dimensions, [i + this.offset.y, j + this.offset.x]),
       offset: 0,
     );
+
     return Matrix.fromSlice(
       entries,
-      ld ?? _ld,
+      [ld ?? this.ld, 1],
       offset: offset,
       indexer: _indexer,
     );
@@ -145,7 +157,7 @@ class Matrix<T> implements Box<T> {
   set first(T value) => _entries.first = value;
 
   Matrix<T> dim(int ld) =>
-      Matrix.fromSlice(_entries, ld, offset: offset, indexer: _indexer);
+      Matrix.fromSlice(_entries, [ld, 1], offset: offset, indexer: _indexer);
 
   @override
   T get value => first;
@@ -161,7 +173,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   _MatrixArrayAdapter(this._m, int i)
       : _entries = _Array.fromSlice(
           _m._entries
-              .slice(_m._indexer(_m._ld, i + _m.offset.y, 0))
+              .slice(_m._indexer(_m.dimensions, [i + _m.offset.y, 0]))
               .toRawList(),
           offset: 0,
         );
@@ -196,7 +208,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   Matrix<T> asMatrix([int? ld]) {
     return Matrix.fromSlice(
       _entries,
-      ld ?? _m._ld,
+      ld != null ? [ld, 1] : _m.dimensions,
       offset: _m.offset,
     );
   }
@@ -213,9 +225,9 @@ class _MatrixArrayAdapter<T> implements Array<T> {
 
   int _getIndex(int j) {
     j += _m.offset.x;
-    final i = j ~/ _m._ld;
-    j -= i * _m._ld;
-    return _m._indexer(_m._ld, i, j);
+    final i = j ~/ _m.ld;
+    j -= i * _m.ld;
+    return _m._indexer(_m.dimensions, [i, j]);
   }
 
   @override
@@ -332,7 +344,7 @@ class _Array<T> implements Array<T> {
   Matrix<T> asMatrix([int ld = 0]) {
     return Matrix.fromSlice(
       _Array.fromSlice(_elements, offset: 0),
-      ld,
+      [ld, 1],
       offset: (x: offset, y: offset),
     );
   }
@@ -416,7 +428,7 @@ class _ArrayElementBox<T> implements Box<T> {
 
 class Matrix3d<T> {
   final Array<T> _entries;
-  final (int, int) _ld;
+  final List<int> dimensions;
   final ({int x, int y, int z}) offset;
 
   Matrix3d(
@@ -424,7 +436,7 @@ class Matrix3d<T> {
     int n,
     int o, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : _ld = (m, n),
+  })  : dimensions = [m, n, 1],
         _entries = _Array<T>(m * n * o, offset: 0);
 
   Matrix3d.fromList(
@@ -432,19 +444,21 @@ class Matrix3d<T> {
     this.offset = oneIndexedMatrix3dOffset,
   })  : _entries = _Array<T>.fromList(
           [
-            for (var k = 0; k < (list.firstOrNull ?? []).length; k++) ...[
-              for (var i = 0; i < (list.firstOrNull ?? []).length; i++) ...[
-                for (var j = 0; j < list.length; j++) list[i][j][k],
+            for (var k = 0;
+                k < (list.firstOrNull?.firstOrNull ?? []).length;
+                k++) ...[
+              for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
+                for (var i = 0; i < list.length; i++) list[i][j][k],
               ],
             ],
           ],
           offset: 0,
         ),
-        _ld = (list.length, list[0].length);
+        dimensions = [list.length, list[0].length, 1];
 
   Matrix3d.fromSlice(
     Array<T> entries,
-    this._ld, {
+    this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
   }) : _entries = _Array.fromSlice(entries.toRawList(), offset: 0);
 
@@ -454,15 +468,22 @@ class Matrix3d<T> {
     int k, {
     ({int x, int y, int z}) offset = oneIndexedMatrix3dOffset,
   }) {
-    final entries = _entries((i + this.offset.x) * _ld.$1 + j + this.offset.y,
-        offset: 0)(k + this.offset.z);
-    return Matrix3d.fromSlice(entries, _ld, offset: offset);
+    final ld1 = dimensions[0];
+    final ld2 = dimensions[1];
+    final entries = _entries(
+        (i + this.offset.x) +
+            (j + this.offset.y) * ld1 +
+            (k + this.offset.z) * ld2 * ld1,
+        offset: 0);
+    return Matrix3d.fromSlice(entries, dimensions, offset: offset);
   }
 
   Matrix<T> operator [](int i) {
+    final ld1 = dimensions[0];
+    final ld2 = dimensions[1];
     return Matrix.fromSlice(
-      _entries((i + offset.x) * _ld.$1),
-      _ld.$1 * _ld.$2,
+      _entries(i + offset.x, offset: 0),
+      [ld2, ld1],
       offset: (x: offset.y, y: offset.z),
     );
   }

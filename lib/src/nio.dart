@@ -125,7 +125,7 @@ class Nin {
 }
 
 class Nout {
-  StreamSink<List<int>> _stream;
+  final StreamSink<List<int>> _stream;
   Nout(this._stream);
 
   void println([String? s]) {

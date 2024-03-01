@@ -38,7 +38,7 @@ void zlaqr1(
     }
   } else {
     S = CABS1(H[1][1] - S2) + CABS1(H[2][1]) + CABS1(H[3][1]);
-    if (S == Complex.zero) {
+    if (S == RZERO) {
       V[1] = Complex.zero;
       V[2] = Complex.zero;
       V[3] = Complex.zero;
