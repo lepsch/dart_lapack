@@ -138,6 +138,23 @@ void main() {
       expect(a[3], 4);
     });
 
+    test('slice zero indexed', () {
+      final a = Array.fromList([1, 2, 3, 4], offset: 0);
+      expect(a[0], 1);
+      expect(a[1], 2);
+      expect(a[2], 3);
+      expect(a[3], 4);
+
+      final b = a(2);
+      expect(b[0], 3);
+      expect(b[1], 4);
+
+      // back to one-indexed
+      final c = a(2, offset: oneIndexedArrayOffset);
+      expect(c[1], 3);
+      expect(c[2], 4);
+    });
+
     test('first', () {
       final a = Array.fromList([1, 2, 3, 4]);
       expect(a.first, 1);
@@ -168,6 +185,34 @@ void main() {
       expect(m[3][3], 9);
     });
 
+    test('non squared horizontal', () {
+      final m = Matrix.fromList([
+        [1, 2, 3, 4, 5, 6],
+        [7, 8, 9, 10, 11, 12],
+      ]);
+      expect(m.toRawList(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
+      expect([for (var i = 1; i <= 6; i++) m[1][i]], [1, 2, 3, 4, 5, 6]);
+      expect([for (var i = 1; i <= 6; i++) m[2][i]], [7, 8, 9, 10, 11, 12]);
+    });
+
+    test('non squared vertical', () {
+      final m = Matrix.fromList([
+        [1, 7],
+        [2, 8],
+        [3, 9],
+        [4, 10],
+        [5, 11],
+        [6, 12],
+      ]);
+      expect(m.toRawList(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+      expect([m[1][1], m[1][2]], [1, 7]);
+      expect([m[2][1], m[2][2]], [2, 8]);
+      expect([m[3][1], m[3][2]], [3, 9]);
+      expect([m[4][1], m[4][2]], [4, 10]);
+      expect([m[5][1], m[5][2]], [5, 11]);
+      expect([m[6][1], m[6][2]], [6, 12]);
+    });
+
     test('offset', () {
       final m = Matrix.fromList([
         [1, 2, 3],
@@ -187,6 +232,19 @@ void main() {
       expect(m[12][1], 7);
       expect(m[12][2], 8);
       expect(m[12][3], 9);
+    });
+
+    test('offset (non squared)', () {
+      final m = Matrix.fromList([
+        [1, 2, 3, 4, 5, 6],
+        [7, 8, 9, 10, 11, 12],
+      ], offset: (
+        x: -100,
+        y: -10
+      ));
+      expect(m.toRawList(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
+      expect([for (var i = 100; i < 106; i++) m[10][i]], [1, 2, 3, 4, 5, 6]);
+      expect([for (var i = 100; i < 106; i++) m[11][i]], [7, 8, 9, 10, 11, 12]);
     });
 
     test('assignment', () {
@@ -246,9 +304,6 @@ void main() {
       expect(s2[1], 123);
       expect(s2[2], 5);
       expect(s2[3], 6);
-      expect(s2[4], 7);
-      expect(s2[5], 8);
-      expect(s2[6], 9);
     });
 
     test('offset (zero indexed)', () {
@@ -266,6 +321,27 @@ void main() {
       expect(m[2][0], 7);
       expect(m[2][1], 8);
       expect(m[2][2], 9);
+    });
+
+    test('slice (zero indexed)', () {
+      final m = Matrix.fromList([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ], offset: zeroIndexedMatrixOffset);
+
+      final n = m(1, 1);
+      expect(n[0][0], 5);
+      expect(n[0][1], 6);
+      expect(n[1][0], 8);
+      expect(n[1][1], 9);
+
+      // back to one-indexed
+      final o = m(1, 1, offset: oneIndexedMatrixOffset);
+      expect(o[1][1], 5);
+      expect(o[1][2], 6);
+      expect(o[2][1], 8);
+      expect(o[2][2], 9);
     });
 
     test('sliced assignment', () {

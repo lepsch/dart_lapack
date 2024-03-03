@@ -34,15 +34,9 @@ abstract interface class Array<T> implements Box<T> {
     return _Array.fromSlice(elements, offset: offset);
   }
 
-  Array<T> slice(
-    int index, {
-    int offset = oneIndexedArrayOffset,
-  });
+  Array<T> slice(int index, {int? offset});
 
-  Array<T> call(
-    int index, {
-    int offset = oneIndexedArrayOffset,
-  });
+  Array<T> call(int index, {int? offset});
 
   T operator [](int index);
   void operator []=(int index, T value);
@@ -53,14 +47,57 @@ abstract interface class Array<T> implements Box<T> {
 
   Matrix<T> asMatrix([int ld]);
 
-  T maxval(int start, int end);
-  int maxloc(int start, int end, {int dim = 1});
-
   Array<T> dim([int? ld]);
 
   T get first;
 
   set first(T value);
+}
+
+extension ArrayExtension<T> on Array<T> {
+  T maxval(int start, int end) {
+    switch (T) {
+      case double:
+      case int:
+        var value = this[start] as num;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[i] as num)) value = this[i] as num;
+        }
+        return value as T;
+
+      case bool:
+        for (var i = start; i <= end; i++) {
+          if (this[start] as bool) return true as T;
+        }
+        return false as T;
+      default:
+        throw UnimplementedError();
+    }
+  }
+
+  int maxloc(int start, int end, {int dim = 1}) {
+    switch (T) {
+      case double:
+      case int:
+        int loc = start;
+        var value = this[start] as num;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[i] as num)) {
+            value = this[i] as num;
+            loc = i;
+          }
+        }
+        return loc;
+
+      case bool:
+        for (var i = start; i <= end; i++) {
+          if (this[start] as bool) return i;
+        }
+        return 0;
+      default:
+        throw UnimplementedError();
+    }
+  }
 }
 
 typedef MatrixIndexer = int Function(List<int> dimentions, List<int> indexes);
@@ -125,7 +162,7 @@ class Matrix<T> implements Box<T> {
     int i,
     int j, {
     int? ld,
-    ({int x, int y}) offset = oneIndexedMatrixOffset,
+    ({int x, int y})? offset,
   }) {
     var entries = _entries(
       _indexer(this.dimensions, [i + this.offset.y, j + this.offset.x]),
@@ -135,7 +172,7 @@ class Matrix<T> implements Box<T> {
     return Matrix.fromSlice(
       entries,
       [ld ?? this.ld, 1],
-      offset: offset,
+      offset: offset ?? this.offset,
       indexer: _indexer,
     );
   }
@@ -167,30 +204,20 @@ class Matrix<T> implements Box<T> {
 }
 
 class _MatrixArrayAdapter<T> implements Array<T> {
-  final Array<T> _entries;
+  final int i;
   final Matrix<T> _m;
 
-  _MatrixArrayAdapter(this._m, int i)
-      : _entries = _Array.fromSlice(
-          _m._entries
-              .slice(_m._indexer(_m.dimensions, [i + _m.offset.y, 0]))
-              .toRawList(),
-          offset: 0,
-        );
+  const _MatrixArrayAdapter(this._m, this.i);
 
   @override
-  Array<T> slice(
-    int j, {
-    int offset = oneIndexedArrayOffset,
-  }) {
-    return _entries(_getIndex(j), offset: offset);
+  Array<T> slice(int j, {int? offset}) {
+    final slice = _m(i, j);
+    return Array.fromSlice(slice._entries.toRawList(),
+        offset: offset ?? _m.offset.x);
   }
 
   @override
-  Array<T> call(
-    int j, {
-    int offset = oneIndexedArrayOffset,
-  }) {
+  Array<T> call(int j, {int? offset}) {
     return slice(j, offset: offset);
   }
 
@@ -199,49 +226,36 @@ class _MatrixArrayAdapter<T> implements Array<T> {
     return slice(j);
   }
 
+  Array<T> getEntries([int? j]) {
+    return _m(i, j ?? -_m.offset.x)._entries;
+  }
+
   @override
   List<T> toRawList() {
-    return _entries.toRawList();
+    return getEntries().toRawList();
   }
 
   @override
   Matrix<T> asMatrix([int? ld]) {
     return Matrix.fromSlice(
-      _entries,
+      getEntries(),
       ld != null ? [ld, 1] : _m.dimensions,
       offset: _m.offset,
     );
   }
 
   @override
-  T maxval(int start, int end) {
-    return _entries.maxval(start, end);
-  }
-
-  @override
-  int maxloc(int start, int end, {int dim = 1}) {
-    return _entries.maxloc(start, end, dim: dim);
-  }
-
-  int _getIndex(int j) {
-    j += _m.offset.x;
-    final i = j ~/ _m.ld;
-    j -= i * _m.ld;
-    return _m._indexer(_m.dimensions, [i, j]);
-  }
-
-  @override
   T operator [](int j) {
-    return _entries[_getIndex(j)];
+    return _m(i, j).first;
   }
 
   @override
   void operator []=(int j, T value) {
-    _entries[_getIndex(j)] = value;
+    _m(i, j).first = value;
   }
 
   @override
-  Array<T> dim([int? ld]) => _entries.dim(ld);
+  Array<T> dim([int? ld]) => getEntries().dim(ld);
 
   @override
   T get value => first;
@@ -250,10 +264,10 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   set value(T value) => first = value;
 
   @override
-  T get first => _entries.first;
+  T get first => getEntries().first;
 
   @override
-  set first(T value) => _entries.first = value;
+  set first(T value) => getEntries().first = value;
 }
 
 class _Array<T> implements Array<T> {
@@ -287,10 +301,10 @@ class _Array<T> implements Array<T> {
   });
 
   @override
-  Array<T> slice(int index, {int offset = oneIndexedArrayOffset}) =>
-      _slice(index, offset: offset);
+  Array<T> slice(int index, {int? offset}) =>
+      _slice(index, offset: offset ?? this.offset);
 
-  _Array<T> _slice(int index, {int offset = oneIndexedArrayOffset}) {
+  _Array<T> _slice(int index, {int? offset}) {
     return _Array.fromSlice(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
@@ -308,15 +322,12 @@ class _Array<T> implements Array<T> {
             : ListSlice(_elements, index + this.offset, _elements.length),
         _ => throw UnimplementedError(),
       } as List<T>,
-      offset: offset,
+      offset: offset ?? this.offset,
     );
   }
 
   @override
-  Array<T> call(
-    int index, {
-    int offset = oneIndexedArrayOffset,
-  }) {
+  Array<T> call(int index, {int? offset}) {
     return slice(index, offset: offset);
   }
 
@@ -350,54 +361,8 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  T maxval(int start, int end) {
-    switch (T) {
-      case double:
-      case int:
-        var value = this[start] as num;
-        for (var i = start + 1; i <= end; i++) {
-          if (value < (this[i] as num)) value = this[i] as num;
-        }
-        return value as T;
-
-      case bool:
-        for (var i = start; i <= end; i++) {
-          if (this[start] as bool) return true as T;
-        }
-        return false as T;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @override
-  int maxloc(int start, int end, {int dim = 1}) {
-    switch (T) {
-      case double:
-      case int:
-        int loc = start;
-        var value = this[start] as num;
-        for (var i = start + 1; i <= end; i++) {
-          if (value < (this[i] as num)) {
-            value = this[i] as num;
-            loc = i;
-          }
-        }
-        return loc;
-
-      case bool:
-        for (var i = start; i <= end; i++) {
-          if (this[start] as bool) return i;
-        }
-        return 0;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @override
-  Array<T> dim([int? ld]) => _slice(-offset, offset: offset)
-    .._elements.length = ld ?? _elements.length;
+  Array<T> dim([int? ld]) => _slice(-offset, offset: offset);
+  // .._elements.length = ld ?? _elements.length;
 
   @override
   T get value => first;
