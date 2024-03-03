@@ -112,7 +112,8 @@ void dchkgg(
   double ANORM = 0, BNORM = 0, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
   final IINFO = Box(0), IN = Box(0);
   final IOLDSD = Array<int>(4);
-  final DUMMA = Array<double>(4), RMAGN = Array<double>(4, offset: 1);
+  final DUMMA = Array<double>(4),
+      RMAGN = Array<double>(4, offset: zeroIndexedArrayOffset);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3, //

@@ -17,7 +17,7 @@ void zpftrs(
   final int LDB,
   final Box<int> INFO,
 ) {
-  final A = A_.dim()(1, offset: 1);
+  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
   final B = B_.dim(LDB);
 
 // -- LAPACK computational routine --

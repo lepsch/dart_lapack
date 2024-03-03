@@ -92,7 +92,7 @@ void ddrgev(
   double SAFMAX, SAFMIN, ULP, ULPINV;
   final IERR = Box(0);
   final IOLDSD = Array<int>(4);
-  final RMAGN = Array<double>(4, offset: 1);
+  final RMAGN = Array<double>(4, offset: zeroIndexedArrayOffset);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3, //

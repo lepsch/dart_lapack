@@ -96,7 +96,7 @@ void ddrges(
   final IOLDSD = Array<int>(4);
   final IINFO = Box(0), IERR = Box(0), SDIM = Box(0);
   final TEMP2 = Box(0.0);
-  final RMAGN = Array<double>(4, offset: 1);
+  final RMAGN = Array<double>(4, offset: zeroIndexedArrayOffset);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     3, //

@@ -30,7 +30,7 @@ void dget31(
       VSMIN = Array<double>(4),
       VWI = Array<double>(4),
       VWR = Array<double>(4);
-  final LTRANS = Array.fromList([false, true], offset: 1);
+  final LTRANS = Array.fromList([false, true], offset: zeroIndexedArrayOffset);
   final SCALE = Box(0.0), XNORM = Box(0.0);
   final INFO = Box(0);
 

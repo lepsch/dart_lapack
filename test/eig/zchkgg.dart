@@ -111,7 +111,8 @@ void zchkgg(
   double ANORM = 0, BNORM = 0, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
   Complex CTEMP;
   final IOLDSD = Array<int>(4);
-  final DUMMA = Array<double>(4), RMAGN = Array<double>(4, offset: 1);
+  final DUMMA = Array<double>(4),
+      RMAGN = Array<double>(4, offset: zeroIndexedArrayOffset);
   final CDUMMA = Array<Complex>(4);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //

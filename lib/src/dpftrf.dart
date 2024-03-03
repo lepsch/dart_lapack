@@ -16,7 +16,7 @@ void dpftrf(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim()(1, offset: 1);
+  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
   const ONE = 1.0;
   bool LOWER, NISODD, NORMALTRANSR;
   int N1, N2, K = 0;

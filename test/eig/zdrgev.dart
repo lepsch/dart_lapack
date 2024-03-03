@@ -93,7 +93,7 @@ void zdrgev(
   double SAFMAX, SAFMIN, ULP, ULPINV;
   Complex CTEMP;
   final IOLDSD = Array<int>(4);
-  final RMAGN = Array<double>(4)(1, offset: 1);
+  final RMAGN = Array<double>(4)(1, offset: zeroIndexedArrayOffset);
   final KCLASS = Array.fromList([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //
     1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,

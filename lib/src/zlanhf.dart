@@ -15,8 +15,8 @@ double zlanhf(
   final Array<Complex> A_,
   final Array<double> WORK_,
 ) {
-  final A = A_.dim()(1, offset: 1);
-  final WORK = WORK_.dim()(1, offset: 1);
+  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
+  final WORK = WORK_.dim()(1, offset: zeroIndexedArrayOffset);
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

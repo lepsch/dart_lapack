@@ -23,7 +23,7 @@ void dtfsm(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  final A = A_.dim()(1, offset: 1);
+  final A = A_.dim()(1, offset: zeroIndexedArrayOffset);
   final B = B_.dim(LDB)(1, 1, offset: zeroIndexedMatrixOffset);
   const ONE = 1.0, ZERO = 0.0;
   bool LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
