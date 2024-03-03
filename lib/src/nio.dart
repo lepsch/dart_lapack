@@ -14,6 +14,8 @@ class Nin {
       : _lineStream = StreamQueue(
             stream.transform(utf8.decoder).transform(const LineSplitter()));
 
+  Future<void> close() async {}
+
   Future<String> readLine() async {
     try {
       return await _lineStream.next;
@@ -22,19 +24,26 @@ class Nin {
     }
   }
 
+  Future<List<String>> readList() async {
+    return (await readLine()).trim().split(RegExp(r'\s+'));
+  }
+
+  Future<String> readString() async {
+    final line = (await readLine()).trim();
+    if (line.startsWith(RegExp('[\'"]'))) {
+      final quote = line[0];
+      return line
+          .substring(1, line.indexOf(RegExp('(?<!$quote)$quote(?!$quote)'), 1))
+          .replaceAll('$quote$quote', quote);
+    }
+    return (await readList()).first;
+  }
+
   Future<void> readArray<T>(Array<T> a, int n) async {
-    final parts = (await readLine()).trim().split(RegExp(r'\s+'));
+    final parts = await readList();
     if (parts.length < n) throw EOF();
     for (var i = 1; i <= n; i++) {
-      a[i] = switch (T) {
-        int => int.parse(parts[i - 1]),
-        double => double.parse(
-              parts[i - 1].replaceFirstMapped(RegExp('[Dd]([+-])?'), (match) {
-            return 'e${match[1] ?? ''}';
-          })),
-        bool => parts[i - 1].contains(RegExp('[Tt]')),
-        _ => throw UnimplementedError(),
-      } as T;
+      a[i] = _parse<T>(parts[i - 1]);
     }
   }
 
@@ -122,6 +131,28 @@ class Nin {
     await readArray(a, 1);
     return a[1];
   }
+
+  Future<(T1, T2)> read2<T1, T2>() async {
+    final parts = await readList();
+    if (parts.length < 2) throw EOF();
+    return (
+      _parse<T1>(parts[0]),
+      _parse<T2>(parts[1]),
+    );
+  }
+
+  T _parse<T>(String s) {
+    return switch (T) {
+      int => int.parse(s),
+      double =>
+        double.parse(s.replaceFirstMapped(RegExp('[Dd]([+-])?'), (match) {
+          return 'e${match[1] ?? ''}';
+        })),
+      bool => s.contains(RegExp('[Tt]')),
+      String => s,
+      _ => throw UnimplementedError(),
+    } as T;
+  }
 }
 
 class Nout {
@@ -132,4 +163,6 @@ class Nout {
     s ??= '';
     _stream.add(utf8.encode('$s\n'));
   }
+
+  Future<void> close() => _stream.close();
 }
