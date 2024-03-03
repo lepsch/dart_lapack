@@ -313,8 +313,8 @@ import 'common.dart';
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=''${.a1}'', DIAG=''${.a1}'', N=${.i5}, type ${.i2}, test(${.i2})= ${.g12_5};
- 9998 FORMAT( ' UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', N=${.i5}'', NRHS=${.i5}, type ${.i2}, test(${.i2})= ${.g12_5};
- 9997 FORMAT(' ${}( ''${.a1}''${.a1}''${.a1}'',${.i5}, ... ), type ${.i2}, test(${.i2})=${.g12_5};
- 9996 FORMAT(' ${}( ''${.a1}''${.a1}''${.a1}''${.a1}'',${.i5}, ... ), type ${.i2}, test(${.i2})=${.g12_5};
+ 9999 FORMAT( ' UPLO=\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}, type ${.i2}, test(${.i2})= ${.g12_5};
+ 9998 FORMAT( ' UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}\', NRHS=${.i5}, type ${.i2}, test(${.i2})= ${.g12_5};
+ 9997 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\',${.i5}, ... ), type ${.i2}, test(${.i2})=${.g12_5};
+ 9996 FORMAT(' ${}( \'${.a1}\'${.a1}\'${.a1}\'${.a1}\',${.i5}, ... ), type ${.i2}, test(${.i2})=${.g12_5};
       }

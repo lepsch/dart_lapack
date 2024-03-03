@@ -37,7 +37,6 @@ void slatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
   // .. Data statements ..
   const FIRST = true;
   // ..
-  // .. Executable Statements ..
 
   // Set some constants for use in the subroutine.
 

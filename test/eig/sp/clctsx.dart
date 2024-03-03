@@ -25,7 +25,6 @@ bool clctsx(ALPHA, BETA) {
   // .. Save statement ..
   SAVE;
   // ..
-  // .. Executable Statements ..
 
   if (FS) {
     I = I + 1;

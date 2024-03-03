@@ -383,6 +383,6 @@ import 'common.dart';
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT(' ${}, UPLO=''${.a1}'', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
- 9998 FORMAT(' ${}, FACT=''${.a1}'', UPLO=''${.a1}'', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9999 FORMAT(' ${}, UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
+ 9998 FORMAT(' ${}, FACT=\'${.a1}\', UPLO=\'${.a1}\', N =${.i5}, type ${.i2}, test ${.i2}, ratio =${.g12_5};
       }

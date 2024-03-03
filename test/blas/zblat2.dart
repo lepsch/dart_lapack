@@ -47,7 +47,7 @@ import 'common.dart';
       // COMMON /srnamc/srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['ZGEMV ', 'ZGBMV ', 'ZHEMV ', 'ZHBMV ', 'ZHPMV ', 'ZTRMV ', 'ZTBMV ', 'ZTPMV ', 'ZTRSV ', 'ZTBSV ', 'ZTPSV ', 'ZGERC ', 'ZGERU ', 'ZHER  ', 'ZHPR  ', 'ZHER2 ', 'ZHPR2 '];
-      // .. Executable Statements ..
+
 
       // Read name and unit number for summary output file and open file.
 
@@ -323,7 +323,7 @@ import 'common.dart';
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'NTC';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'E';
       BANDED = SNAME( 3: 3 ) == 'B';
       // Define the number of arguments.
@@ -582,8 +582,8 @@ import 'common.dart';
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(4, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2}) .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})         .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(4, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2}) .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(2, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void zchk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G,) {
@@ -633,7 +633,7 @@ import 'common.dart';
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'E';
       BANDED = SNAME( 3: 3 ) == 'B';
       PACKED = SNAME( 3: 3 ) == 'P';
@@ -875,9 +875,9 @@ import 'common.dart';
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},(${.f4_1},${.f4_1}), AP, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})                .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})         .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})             .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},(${.f4_1},${.f4_1}), AP, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})                .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(2, ',')}', '(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})         .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},(${.f4_1},${.f4_1}), A,${.i3}, X,${.i2},(${.f4_1},${.f4_1}), Y,${.i2})             .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void zchk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z,) {
@@ -928,7 +928,7 @@ import 'common.dart';
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'R';
       BANDED = SNAME( 3: 3 ) == 'B';
       PACKED = SNAME( 3: 3 ) == 'P';
@@ -1173,9 +1173,9 @@ import 'common.dart';
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', AP, X,${.i2})                                      .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                               .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', A,${.i3}, X,${.i2})                                   .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), I3, ', AP, X,${.i2})                                      .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                               .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), I3, ', A,${.i3}, X,${.i2})                                   .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void zchk4(final int SNAME, EPS, THRESH, NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z,) {
@@ -1222,7 +1222,7 @@ import 'common.dart';
       bool               infoc.LERR, infoc.OK;
       // .. Common blocks ..
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
-      // .. Executable Statements ..
+
       CONJ = SNAME( 5: 5 ) == 'C';
       // Define the number of arguments.
       NARGS = 9;
@@ -1463,7 +1463,7 @@ import 'common.dart';
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'E';
       PACKED = SNAME( 3: 3 ) == 'P';
       // Define the number of arguments.
@@ -1659,8 +1659,8 @@ import 'common.dart';
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, AP)                                         .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                                      .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, AP)                                         .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                                      .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void zchk6(final int SNAME, EPS, THRESH, NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z,) {
@@ -1711,7 +1711,7 @@ import 'common.dart';
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'E';
       PACKED = SNAME( 3: 3 ) == 'P';
       // Define the number of arguments.
@@ -1937,8 +1937,8 @@ import 'common.dart';
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},(${.f4_1},${.f4_1}), X,${.i2}, Y,${.i2}, AP)                            .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},(${.f4_1},${.f4_1}), X,${.i2}, Y,${.i2}, A,${.i3})                         .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},(${.f4_1},${.f4_1}), X,${.i2}, Y,${.i2}, AP)                            .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},(${.f4_1},${.f4_1}), X,${.i2}, Y,${.i2}, A,${.i3})                         .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void zchke(ISNUM, srnamc.SRNAMT, NOUT ) {
@@ -1966,7 +1966,7 @@ import 'common.dart';
       // EXTERNAL CHKXER, ZGBMV, ZGEMV, ZGERC, ZGERU, ZHBMV, ZHEMV, ZHER, ZHER2, ZHPMV, ZHPR, ZHPR2, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
       // .. Common blocks ..
       // COMMON /INFOC/infoc.INFOT, infoc.NOUTC, infoc.OK, infoc.LERR
-      // .. Executable Statements ..
+
       // infoc.OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
       infoc.OK = true;
@@ -2314,7 +2314,7 @@ import 'common.dart';
       // EXTERNAL ZBEG
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DCONJG, MAX, MIN
-      // .. Executable Statements ..
+
       GEN = TYPE( 1: 1 ) == 'G';
       SYM = TYPE( 1: 1 ) == 'H';
       TRI = TYPE( 1: 1 ) == 'T';
@@ -2490,7 +2490,7 @@ import 'common.dart';
       double             ABS1;
       // .. Statement Function definitions ..
       ABS1[C] = ( C.toDouble() ).abs() + ( DIMAG( C ) ).abs();
-      // .. Executable Statements ..
+
       TRAN = TRANS == 'T';
       CTRAN = TRANS == 'C';
       if ( TRAN || CTRAN ) {
@@ -2591,7 +2591,7 @@ import 'common.dart';
       Complex         RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
-      // .. Executable Statements ..
+
       for (I = 1; I <= LR; I++) { // 10
          if( RI( I ) != RJ( I ) ) GO TO 20;
       } // 10
@@ -2620,7 +2620,7 @@ import 'common.dart';
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
-      // .. Executable Statements ..
+
       UPPER = UPLO == 'U';
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
@@ -2669,7 +2669,7 @@ import 'common.dart';
       SAVE               I, IC, J, MI, MJ;
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX
-      // .. Executable Statements ..
+
       if ( RESET ) {
          // Initialize local variables.
          MI = 891;
@@ -2706,7 +2706,7 @@ import 'common.dart';
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       double             X, Y;
-      // .. Executable Statements ..
+
       DDIFF = X - Y;
       return;
       }
@@ -2722,7 +2722,7 @@ import 'common.dart';
       int                infoc.INFOT, NOUT;
       bool               infoc.LERR, infoc.OK;
       String             srnamc.SRNAMT;
-      // .. Executable Statements ..
+
       if ( !infoc.LERR ) {
          WRITE( NOUT, FMT = 9999 )infoc.INFOT, srnamc.SRNAMT;
          infoc.OK = false;
@@ -2745,7 +2745,7 @@ import 'common.dart';
       int                I;
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-      // .. Executable Statements ..
+
       TRANS = 'T';
       M = 0;
       N = 5;
@@ -2788,7 +2788,7 @@ import 'common.dart';
       // .. Common blocks ..
       // COMMON /INFOC/infoc.INFOT, NOUT, infoc.OK, infoc.LERR
       // COMMON /SRNAMC/srnamc.SRNAMT
-      // .. Executable Statements ..
+
       infoc.LERR = true;
       if ( INFO != infoc.INFOT ) {
          if ( infoc.INFOT != 0 ) {

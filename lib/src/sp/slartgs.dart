@@ -22,7 +22,6 @@ void slartgs(X, Y, SIGMA, CS, SN) {
   // .. External Functions ..
   //- REAL                    SLAMCH;
   // EXTERNAL SLAMCH
-  // .. Executable Statements ..
 
   THRESH = SLAMCH('E');
 

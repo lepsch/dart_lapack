@@ -11,8 +11,6 @@
       // ..
 
 
-// .. Executable Statements ..
-
       if ( IE > 0 ) {
          WRITE( IOUNIT, FMT = 9999 )TYPE, ': ', IE, ' out of ', NRUN, ' tests failed to pass the threshold';
       } else {

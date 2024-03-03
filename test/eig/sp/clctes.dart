@@ -22,7 +22,6 @@ bool clctes(Z, D) {
   // .. Intrinsic Functions ..
   // INTRINSIC ABS, AIMAG, MAX, REAL, SIGN
   // ..
-  // .. Executable Statements ..
 
   if (D == CZERO) {
     CLCTES = (REAL(Z) < ZERO);

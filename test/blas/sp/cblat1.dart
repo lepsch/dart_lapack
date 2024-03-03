@@ -17,7 +17,7 @@
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
       const SFAC = 9.765625e-4;
-      // .. Executable Statements ..
+
       WRITE (NOUT,99999);
       for (IC = 1; IC <= 10; IC++) { // 20
          ICASE = IC;
@@ -67,7 +67,7 @@
       DATA             L(8)/'CSCAL '/;
       DATA             L(9)/'CSSCAL'/;
       DATA             L(10)/'ICAMAX'/;
-      // .. Executable Statements ..
+
       WRITE (NOUT,99999) ICASE, L(ICASE);
       return;
 
@@ -114,7 +114,7 @@
       DATA              ((CTRUE6(I,J,2),I=1,8),J=1,5)/(0.1,0.1), (4.0,5.0), (4.0,5.0), (4.0,5.0), (4.0,5.0), (4.0,5.0), (4.0,5.0), (4.0,5.0), (0.09,-0.12), (6.0,7.0), (6.0,7.0), (6.0,7.0), (6.0,7.0), (6.0,7.0), (6.0,7.0), (6.0,7.0), (0.03,-0.09), (8.0,9.0), (0.15,-0.03), (2.0,5.0), (2.0,5.0), (2.0,5.0), (2.0,5.0), (2.0,5.0), (0.03,0.03), (3.0,6.0), (-0.18,0.03), (4.0,7.0), (0.03,-0.09), (7.0,2.0), (7.0,2.0), (7.0,2.0), (0.09,0.03), (5.0,8.0), (0.15,0.00), (6.0,9.0), (0.00,0.15), (8.0,3.0), (0.00,0.06), (9.0,4.0)/;
       const ITRUE3 = [0, 1, 2, 2, 2];
       const ITRUEC = [0, 1, 1, 1, 1];
-      // .. Executable Statements ..
+
       for (INCX = 1; INCX <= 2; INCX++) { // 60
          for (NP1 = 1; NP1 <= 5; NP1++) { // 40
             N = NP1 - 1;
@@ -149,7 +149,7 @@
                } // 160
                itest1(ICAMAX(N,CX,INCX),ITRUEC(NP1));
             } else {
-               WRITE (NOUT,*) ' Shouldn''t be here in CHECK1';
+               WRITE (NOUT,*) ' Shouldn\'t be here in CHECK1';
                STOP;
             }
 
@@ -254,7 +254,7 @@
       const CSIZE1 = [(0.0,0.0), (0.9,0.9), (1.63,1.73), (2.90,2.78)];
       const CSIZE3 = [(0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (1.17,1.17), (1.17,1.17), (1.17,1.17), (1.17,1.17), (1.17,1.17), (1.17,1.17), (1.17,1.17)];
       const CSIZE2 = [(0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54), (1.54,1.54)];
-      // .. Executable Statements ..
+
       for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI);
          INCY = INCYS(KI);
@@ -310,7 +310,7 @@
                ctest(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0);
                ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0);
             } else {
-               WRITE (NOUT,*) ' Shouldn''t be here in CHECK2';
+               WRITE (NOUT,*) ' Shouldn\'t be here in CHECK2';
                STOP;
             }
 
@@ -349,7 +349,7 @@
       // INTRINSIC ABS
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-      // .. Executable Statements ..
+
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
@@ -385,7 +385,7 @@
       double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
-      // .. Executable Statements ..
+
 
       SCOMP[1] = SCOMP1;
       STRUE[1] = STRUE1;
@@ -397,7 +397,7 @@
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                            SA, SB;
-      // .. Executable Statements ..
+
       SDIFF = SA - SB;
       return;
       }
@@ -417,7 +417,7 @@
       // EXTERNAL STEST
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
-      // .. Executable Statements ..
+
       for (I = 1; I <= LEN; I++) { // 20
          SCOMP[2*I-1] = double(CCOMP(I));
          SCOMP[2*I] = AIMAG(CCOMP(I));
@@ -449,7 +449,7 @@
       int               ID;
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-      // .. Executable Statements ..
+
       if (ICOMP == ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
@@ -508,7 +508,7 @@
       // .. Local Arrays ..
       Complex           X(NMAX), Z(NMAX);
       double              VALUES(NV), WORK(NMAX);
-      // .. Executable Statements ..
+
       VALUES[1] = ZERO;
       VALUES[2] = TWO*SAFMIN;
       VALUES[3] = SMLNUM;
@@ -669,7 +669,7 @@
       double              X, Y, YY, Z;
       // .. Intrinsic Functions ..
       // INTRINSIC HUGE
-      // .. Executable Statements ..
+
       Y = HUGE(XX);
       Z = YY;
       if (K == 1) {

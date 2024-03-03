@@ -336,6 +336,6 @@
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT('${' ' * 12}N =${.i5},${' ' * 10} type ${.i2}, test(${.i2}) = ${.g12_5};
- 9998 FORMAT( ' TRANS=''${.a1}'', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) = ${.g12_5};
- 9997 FORMAT( ' NORM =''${.a1}'', N =${.i5},${' ' * 10} type ${.i2}, test(${.i2}) = ${.g12_5};
+ 9998 FORMAT( ' TRANS=\'${.a1}\', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) = ${.g12_5};
+ 9997 FORMAT( ' NORM =\'${.a1}\', N =${.i5},${' ' * 10} type ${.i2}, test(${.i2}) = ${.g12_5};
       }

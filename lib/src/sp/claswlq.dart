@@ -27,7 +27,7 @@
       // .. INTRINSIC FUNCTIONS ..
       // INTRINSIC MAX, MIN, MOD
       // ..
-      // .. EXECUTABLE STATEMENTS ..
+
 
       // TEST THE INPUT ARGUMENTS
 

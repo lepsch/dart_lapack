@@ -42,7 +42,7 @@
       // COMMON /SRNAMC(srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['SGEMV ', 'SGBMV ', 'SSYMV ', 'SSBMV ', 'SSPMV ', 'STRMV ', 'STBMV ', 'STPMV ', 'STRSV ', 'STBSV ', 'STPSV ', 'SGER  ', 'SSYR  ', 'SSPR  ', 'SSYR2 ', 'SSPR2 '];
-      // .. Executable Statements ..
+
 
       // Read name and unit number for summary output file and open file.
 
@@ -314,7 +314,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICH = 'NTC';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'E';
       BANDED = SNAME( 3: 3 ) == 'B';
       // Define the number of arguments.
@@ -573,8 +573,8 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(4, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2}) .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(4, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2}) .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk2(final int SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NALF, final int ALF, final int NBET, final int BET, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G,) {
@@ -620,7 +620,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'Y';
       BANDED = SNAME( 3: 3 ) == 'B';
       PACKED = SNAME( 3: 3 ) == 'P';
@@ -862,9 +862,9 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, AP, X,${.i2},${.f4_1}, Y,${.i2})                .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})             .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, AP, X,${.i2},${.f4_1}, Y,${.i2})                .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${i3(2, ',')}${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})         .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, A,${.i3}, X,${.i2},${.f4_1}, Y,${.i2})             .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk3(final int SNAME, final int EPS, final int THRESH, final int NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NKB, final int KB, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int XT, final int G, final int Z,) {
@@ -911,7 +911,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'R';
       BANDED = SNAME( 3: 3 ) == 'B';
       PACKED = SNAME( 3: 3 ) == 'P';
@@ -1156,9 +1156,9 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', AP, X,${.i2})                        .' );
- 9994 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                 .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(', 3( '''${.a1}'',' ), I3, ', A,${.i3}, X,${.i2})                     .' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), I3, ', AP, X,${.i2})                        .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), 2( I3, ',' ), ' A,${.i3}, X,${.i2})                 .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(', 3( '\'${.a1}\',' ), I3, ', A,${.i3}, X,${.i2})                     .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk4(final int SNAME, EPS, THRESH, NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z,) {
@@ -1201,7 +1201,7 @@
       bool               LERR, OK;
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
-      // .. Executable Statements ..
+
       // Define the number of arguments.
       NARGS = 9;
 
@@ -1431,7 +1431,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'Y';
       PACKED = SNAME( 3: 3 ) == 'P';
       // Define the number of arguments.
@@ -1626,8 +1626,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, AP)                           .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                        .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, AP)                           .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, A,${.i3})                        .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schk6(final int SNAME, EPS, THRESH, NOUT, final int NTRA, final int TRACE, final int REWI, final int FATAL, final int NIDIM, final int IDIM, final int NALF, final int ALF, final int NINC, final int INC, final int NMAX, final int INCMAX, final int A, final int AA, final int AS, final int X, final int XX, final int XS, final int Y, final int YY, final int YS, final int YT, final int G, final int Z,) {
@@ -1674,7 +1674,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICH = 'UL';
-      // .. Executable Statements ..
+
       FULL = SNAME( 3: 3 ) == 'Y';
       PACKED = SNAME( 3: 3 ) == 'P';
       // Define the number of arguments.
@@ -1900,8 +1900,8 @@
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ${.i3}');
- 9994 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, AP)                     .' );
- 9993 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
+ 9994 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, AP)                     .' );
+ 9993 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',${.i3},${.f4_1}, X,${.i2}, Y,${.i2}, A,${.i3})                  .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
       void schke(ISNUM,srnamc.SRNAMT, NOUT ) {
@@ -1928,7 +1928,7 @@
       // EXTERNAL CHKXER, SGBMV, SGEMV, SGER, SSBMV, SSPMV, SSPR, SSPR2, SSYMV, SSYR, SSYR2, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
-      // .. Executable Statements ..
+
       // OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
       OK = true;
@@ -2256,7 +2256,7 @@
       // EXTERNAL SBEG
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-      // .. Executable Statements ..
+
       GEN = TYPE( 1: 1 ) == 'G';
       SYM = TYPE( 1: 1 ) == 'S';
       TRI = TYPE( 1: 1 ) == 'T';
@@ -2413,7 +2413,7 @@
       bool               TRAN;
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // .. Executable Statements ..
+
       TRAN = TRANS == 'T' || TRANS == 'C';
       if ( TRAN ) {
          ML = N;
@@ -2507,7 +2507,7 @@
       double               RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
-      // .. Executable Statements ..
+
       for (I = 1; I <= LR; I++) { // 10
          if( RI( I ) != RJ( I ) ) GO TO 20;
       } // 10
@@ -2536,7 +2536,7 @@
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
-      // .. Executable Statements ..
+
       UPPER = UPLO == 'U';
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
@@ -2584,7 +2584,7 @@
       SAVE               I, IC, MI;
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
-      // .. Executable Statements ..
+
       if ( RESET ) {
          // Initialize local variables.
          MI = 891;
@@ -2616,7 +2616,7 @@
 // -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       double               X, Y;
-      // .. Executable Statements ..
+
       SDIFF = X - Y;
       return;
       }
@@ -2632,7 +2632,7 @@
       int                INFOT, NOUT;
       bool               LERR, OK;
       String            srnamc.SRNAMT;
-      // .. Executable Statements ..
+
       if ( !LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT,srnamc.SRNAMT;
          OK = false;
@@ -2655,7 +2655,7 @@
       int                I;
       // .. Intrinsic Functions ..
       // INTRINSIC REAL
-      // .. Executable Statements ..
+
       TRANS = 'T';
       M = 0;
       N = 5;
@@ -2698,7 +2698,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUT, OK, LERR
       // COMMON /SRNAMC(srnamc.SRNAMT
-      // .. Executable Statements ..
+
       LERR = true;
       if ( INFO != INFOT ) {
          if ( INFOT != 0 ) {

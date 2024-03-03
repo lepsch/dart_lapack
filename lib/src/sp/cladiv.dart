@@ -18,7 +18,6 @@ Complex cladiv(X, Y) {
   // .. Intrinsic Functions ..
   // INTRINSIC AIMAG, CMPLX, REAL
   // ..
-  // .. Executable Statements ..
 
   sladiv(REAL(X), AIMAG(X), REAL(Y), AIMAG(Y), ZR, ZI);
   CLADIV = CMPLX(ZR, ZI);

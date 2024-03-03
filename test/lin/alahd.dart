@@ -37,9 +37,9 @@
          // GE: General dense
 
          WRITE( IOUNIT, FMT = 9999 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9979 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9962 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -48,16 +48,16 @@
          WRITE( IOUNIT, FMT = 9957 )6;
          WRITE( IOUNIT, FMT = 9956 )7;
          WRITE( IOUNIT, FMT = 9955 )8;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'GB' ) ) {
 
          // GB: General band
 
          WRITE( IOUNIT, FMT = 9998 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9978 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9962 )1;
          WRITE( IOUNIT, FMT = 9960 )2;
          WRITE( IOUNIT, FMT = 9959 )3;
@@ -65,7 +65,7 @@
          WRITE( IOUNIT, FMT = 9957 )5;
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'GT' ) ) {
 
@@ -73,7 +73,7 @@
 
          WRITE( IOUNIT, FMT = 9997 )PATH;
          WRITE( IOUNIT, FMT = 9977 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9962 )1;
          WRITE( IOUNIT, FMT = 9960 )2;
          WRITE( IOUNIT, FMT = 9959 )3;
@@ -81,7 +81,7 @@
          WRITE( IOUNIT, FMT = 9957 )5;
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'PO' ) || lsamen( 2, P2, 'PP' ) ) {
 
@@ -98,9 +98,9 @@
          } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM;
          }
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9975 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9954 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -109,7 +109,7 @@
          WRITE( IOUNIT, FMT = 9957 )6;
          WRITE( IOUNIT, FMT = 9956 )7;
          WRITE( IOUNIT, FMT = 9955 )8;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'PS' ) ) {
 
@@ -126,13 +126,13 @@
             EIGCNM = '1D12';
          }
          WRITE( IOUNIT, FMT = 9995 )PATH, SYM;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 8973 )EIGCNM, EIGCNM, EIGCNM;
-         WRITE( IOUNIT, FMT = '( '' Difference:'' )' );
+         WRITE( IOUNIT, FMT = ' Difference:' );
          WRITE( IOUNIT, FMT = 8972 )C1;
-         WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratio:' );
          WRITE( IOUNIT, FMT = 8950 );
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
       } else if ( lsamen( 2, P2, 'PB' ) ) {
 
          // PB: Positive definite band
@@ -142,9 +142,9 @@
          } else {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Hermitian';
          }
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9973 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9954 )1;
          WRITE( IOUNIT, FMT = 9960 )2;
          WRITE( IOUNIT, FMT = 9959 )3;
@@ -152,7 +152,7 @@
          WRITE( IOUNIT, FMT = 9957 )5;
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'PT' ) ) {
 
@@ -164,7 +164,7 @@
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Hermitian';
          }
          WRITE( IOUNIT, FMT = 9976 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9952 )1;
          WRITE( IOUNIT, FMT = 9960 )2;
          WRITE( IOUNIT, FMT = 9959 )3;
@@ -172,7 +172,7 @@
          WRITE( IOUNIT, FMT = 9957 )5;
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'SY' )  ) {
 
@@ -184,13 +184,13 @@
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric';
          }
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 );
          } else {
             WRITE( IOUNIT, FMT = 9971 );
          }
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -200,7 +200,7 @@
          WRITE( IOUNIT, FMT = 9956 )7;
          WRITE( IOUNIT, FMT = 9957 )8;
          WRITE( IOUNIT, FMT = 9955 )9;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK') ) {
 
@@ -215,14 +215,14 @@
 
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Symmetric';
 
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 );
          } else {
             WRITE( IOUNIT, FMT = 9971 );
          }
 
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9927 )3;
@@ -232,7 +232,7 @@
          WRITE( IOUNIT, FMT = 9960 )5;
          WRITE( IOUNIT, FMT = 9959 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'SP' ) ) {
 
@@ -244,13 +244,13 @@
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric';
          }
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          if ( SORD ) {
             WRITE( IOUNIT, FMT = 9972 );
          } else {
             WRITE( IOUNIT, FMT = 9971 );
          }
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -259,7 +259,7 @@
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9957 )7;
          WRITE( IOUNIT, FMT = 9955 )8;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'HA' )  ) {
 
@@ -268,10 +268,10 @@
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
 
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9972 );
 
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -281,7 +281,7 @@
          WRITE( IOUNIT, FMT = 9956 )7;
          WRITE( IOUNIT, FMT = 9957 )8;
          WRITE( IOUNIT, FMT = 9955 )9;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'HE' )  ) {
 
@@ -290,10 +290,10 @@
 
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian';
 
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9972 );
 
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -303,7 +303,7 @@
          WRITE( IOUNIT, FMT = 9956 )7;
          WRITE( IOUNIT, FMT = 9957 )8;
          WRITE( IOUNIT, FMT = 9955 )9;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HR' ) ) {
 
@@ -318,10 +318,10 @@
 
          WRITE( IOUNIT, FMT = 9892 )PATH, 'Hermitian';
 
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9972 );
 
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9927 )3;
@@ -331,7 +331,7 @@
          WRITE( IOUNIT, FMT = 9960 )5;
          WRITE( IOUNIT, FMT = 9959 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'HP' ) ) {
 
@@ -343,9 +343,9 @@
          } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian';
          }
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9972 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9953 )1;
          WRITE( IOUNIT, FMT = 9961 )2;
          WRITE( IOUNIT, FMT = 9960 )3;
@@ -354,7 +354,7 @@
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9957 )7;
          WRITE( IOUNIT, FMT = 9955 )8;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'TR' ) || lsamen( 2, P2, 'TP' ) ) {
 
@@ -370,7 +370,7 @@
          }
          WRITE( IOUNIT, FMT = 9966 )PATH;
          WRITE( IOUNIT, FMT = 9965 )SUBNAM(1:LEN_TRIM( SUBNAM ));
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9961 )1;
          WRITE( IOUNIT, FMT = 9960 )2;
          WRITE( IOUNIT, FMT = 9959 )3;
@@ -379,7 +379,7 @@
          WRITE( IOUNIT, FMT = 9956 )6;
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 8;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'TB' ) ) {
 
@@ -389,7 +389,7 @@
          SUBNAM = PATH( 1: 1 ) // 'LATBS';
          WRITE( IOUNIT, FMT = 9964 )PATH;
          WRITE( IOUNIT, FMT = 9963 )SUBNAM(1:LEN_TRIM( SUBNAM ));
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9960 )1;
          WRITE( IOUNIT, FMT = 9959 )2;
          WRITE( IOUNIT, FMT = 9958 )3;
@@ -397,16 +397,16 @@
          WRITE( IOUNIT, FMT = 9956 )5;
          WRITE( IOUNIT, FMT = 9955 )6;
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'QR' ) ) {
 
          // QR decomposition of rectangular matrices
 
          WRITE( IOUNIT, FMT = 9987 )PATH, 'QR';
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9970 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9950 )1;
          WRITE( IOUNIT, FMT = 6950 )8;
          WRITE( IOUNIT, FMT = 9946 )2;
@@ -416,16 +416,16 @@
          WRITE( IOUNIT, FMT = 9941 )6, 'M';
          WRITE( IOUNIT, FMT = 9960 )7;
          WRITE( IOUNIT, FMT = 6660 )9;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'LQ' ) ) {
 
          // LQ decomposition of rectangular matrices
 
          WRITE( IOUNIT, FMT = 9987 )PATH, 'LQ';
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9970 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9949 )1;
          WRITE( IOUNIT, FMT = 9945 )2;
          WRITE( IOUNIT, FMT = 9944 )3, 'N';
@@ -433,16 +433,16 @@
          WRITE( IOUNIT, FMT = 9942 )5, 'N';
          WRITE( IOUNIT, FMT = 9941 )6, 'N';
          WRITE( IOUNIT, FMT = 9960 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'QL' ) ) {
 
          // QL decomposition of rectangular matrices
 
          WRITE( IOUNIT, FMT = 9987 )PATH, 'QL';
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9970 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9948 )1;
          WRITE( IOUNIT, FMT = 9946 )2;
          WRITE( IOUNIT, FMT = 9944 )3, 'M';
@@ -450,16 +450,16 @@
          WRITE( IOUNIT, FMT = 9942 )5, 'M';
          WRITE( IOUNIT, FMT = 9941 )6, 'M';
          WRITE( IOUNIT, FMT = 9960 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'RQ' ) ) {
 
          // RQ decomposition of rectangular matrices
 
          WRITE( IOUNIT, FMT = 9987 )PATH, 'RQ';
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9970 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9947 )1;
          WRITE( IOUNIT, FMT = 9945 )2;
          WRITE( IOUNIT, FMT = 9944 )3, 'N';
@@ -467,7 +467,7 @@
          WRITE( IOUNIT, FMT = 9942 )5, 'N';
          WRITE( IOUNIT, FMT = 9941 )6, 'N';
          WRITE( IOUNIT, FMT = 9960 )7;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'QP' ) ) {
 
@@ -475,11 +475,11 @@
 
          WRITE( IOUNIT, FMT = 8006 )PATH;
          WRITE( IOUNIT, FMT = 9969 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9940 )1;
          WRITE( IOUNIT, FMT = 9939 )2;
          WRITE( IOUNIT, FMT = 9938 )3;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'QK' ) ) {
 
@@ -487,13 +487,13 @@
 
          WRITE( IOUNIT, FMT = 8006 )PATH;
          WRITE( IOUNIT, FMT = 9871 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8060 )1;
          WRITE( IOUNIT, FMT = 8061 )2;
          WRITE( IOUNIT, FMT = 8062 )3;
          WRITE( IOUNIT, FMT = 8063 )4;
          WRITE( IOUNIT, FMT = 8064 )5;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'TZ' ) ) {
 
@@ -502,11 +502,11 @@
          WRITE( IOUNIT, FMT = 9985 )PATH;
          WRITE( IOUNIT, FMT = 9968 );
          WRITE( IOUNIT, FMT = 9929 )C1;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 9940 )1;
          WRITE( IOUNIT, FMT = 9937 )2;
          WRITE( IOUNIT, FMT = 9938 )3;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'LS' ) ) {
 
@@ -524,45 +524,45 @@
          WRITE( IOUNIT, FMT = 9934 )9;
          WRITE( IOUNIT, FMT = 9932 )10;
          WRITE( IOUNIT, FMT = 9920 );
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'LU' ) ) {
 
          // LU factorization variants
 
          WRITE( IOUNIT, FMT = 9983 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9979 );
-         WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratio:' );
          WRITE( IOUNIT, FMT = 9962 )1;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'CH' ) ) {
 
          // Cholesky factorization variants
 
          WRITE( IOUNIT, FMT = 9982 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9974 );
-         WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratio:' );
          WRITE( IOUNIT, FMT = 9954 )1;
-         WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
+         WRITE( IOUNIT, FMT = ' Messages:' );
 
       } else if ( lsamen( 2, P2, 'QS' ) ) {
 
          // QR factorization variants
 
          WRITE( IOUNIT, FMT = 9981 )PATH;
-         WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' );
+         WRITE( IOUNIT, FMT = ' Matrix types:' );
          WRITE( IOUNIT, FMT = 9970 );
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
 
       } else if ( lsamen( 2, P2, 'QT' ) ) {
 
          // QRT (general matrices)
 
          WRITE( IOUNIT, FMT = 8000 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8011 ) 1;
          WRITE( IOUNIT, FMT = 8012 ) 2;
          WRITE( IOUNIT, FMT = 8013 ) 3;
@@ -575,7 +575,7 @@
          // QRT (triangular-pentagonal)
 
          WRITE( IOUNIT, FMT = 8001 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8017 ) 1;
          WRITE( IOUNIT, FMT = 8018 ) 2;
          WRITE( IOUNIT, FMT = 8019 ) 3;
@@ -588,7 +588,7 @@
          // QRT (triangular-pentagonal)
 
          WRITE( IOUNIT, FMT = 8002 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8023 ) 1;
          WRITE( IOUNIT, FMT = 8024 ) 2;
          WRITE( IOUNIT, FMT = 8025 ) 3;
@@ -601,7 +601,7 @@
          // QRT (triangular-pentagonal)
 
          WRITE( IOUNIT, FMT = 8003 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8029 ) 1;
          WRITE( IOUNIT, FMT = 8030 ) 2;
          WRITE( IOUNIT, FMT = 8031 ) 3;
@@ -614,7 +614,7 @@
          // TS:  QR routines for tall-skinny and short-wide matrices
 
          WRITE( IOUNIT, FMT = 8004 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8035 ) 1;
          WRITE( IOUNIT, FMT = 8036 ) 2;
          WRITE( IOUNIT, FMT = 8037 ) 3;
@@ -627,7 +627,7 @@
          // HH:  Householder reconstruction for tall-skinny matrices
 
          WRITE( IOUNIT, FMT = 8005 ) PATH;
-         WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
+         WRITE( IOUNIT, FMT = ' Test ratios:' );
          WRITE( IOUNIT, FMT = 8050 ) 1;
          WRITE( IOUNIT, FMT = 8051 ) 2;
          WRITE( IOUNIT, FMT = 8052 ) 3;
@@ -756,31 +756,31 @@
  9957 FORMAT('${' ' * 3}${.i2}: norm( X - XACT )   / ( norm(XACT) * (error bound) )' );
  9956 FORMAT('${' ' * 3}${.i2}: (backward error)   / EPS' );
  9955 FORMAT('${' ' * 3}${.i2}: RCOND * CNDNUM - 1.0' );
- 9954 FORMAT('${' ' * 3}${.i2}: norm( U'' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L'' - A ) / ( N * norm(A) * EPS )' );
- 8950 FORMAT('   norm( P * U'' * U * P'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 3}norm( P * L * L'' * P'' - A ) / ( N * norm(A) * EPS )' );
- 9953 FORMAT('${' ' * 3}${.i2}: norm( U*D*U'' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
- 9952 FORMAT('${' ' * 3}${.i2}: norm( U''*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L'' - A ) / ( N * norm(A) * EPS )' );
+ 9954 FORMAT('${' ' * 3}${.i2}: norm( U\' * U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L * L\' - A ) / ( N * norm(A) * EPS )' );
+ 8950 FORMAT('   norm( P * U\' * U * P\' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 3}norm( P * L * L\' * P\' - A ) / ( N * norm(A) * EPS )' );
+ 9953 FORMAT('${' ' * 3}${.i2}: norm( U*D*U\' - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )' );
+ 9952 FORMAT('${' ' * 3}${.i2}: norm( U\'*D*U - A ) / ( N * norm(A) * EPS ), or\n${' ' * 7}norm( L*D*L\' - A ) / ( N * norm(A) * EPS )' );
  9951 FORMAT( ' Test ratio for ${}:', / 3X, I2, ': norm( s*b - A*x )  / ( norm(A) * norm(x) * EPS )' );
- 9950 FORMAT('${' ' * 3}${.i2}: norm( R - Q'' * A ) / ( M * norm(A) * EPS )' );
- 6950 FORMAT('${' ' * 3}${.i2}: norm( R - Q'' * A ) / ( M * norm(A) * EPS ) [RFPG]' );
- 9949 FORMAT('${' ' * 3}${.i2}: norm( L - A * Q'' ) / ( N * norm(A) * EPS )' );
- 9948 FORMAT('${' ' * 3}${.i2}: norm( L - Q'' * A ) / ( M * norm(A) * EPS )' );
- 9947 FORMAT('${' ' * 3}${.i2}: norm( R - A * Q'' ) / ( N * norm(A) * EPS )' );
- 9946 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q )   / ( M * EPS )' );
- 9945 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q'' )   / ( N * EPS )' );
+ 9950 FORMAT('${' ' * 3}${.i2}: norm( R - Q\' * A ) / ( M * norm(A) * EPS )' );
+ 6950 FORMAT('${' ' * 3}${.i2}: norm( R - Q\' * A ) / ( M * norm(A) * EPS ) [RFPG]' );
+ 9949 FORMAT('${' ' * 3}${.i2}: norm( L - A * Q\' ) / ( N * norm(A) * EPS )' );
+ 9948 FORMAT('${' ' * 3}${.i2}: norm( L - Q\' * A ) / ( M * norm(A) * EPS )' );
+ 9947 FORMAT('${' ' * 3}${.i2}: norm( R - A * Q\' ) / ( N * norm(A) * EPS )' );
+ 9946 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q )   / ( M * EPS )' );
+ 9945 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q\' )   / ( N * EPS )' );
  9944 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C )  / ( ${.a1} * norm(C) * EPS )' );
  9943 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q )  / ( ${.a1} * norm(C) * EPS )' );
- 9942 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C )/ ( ${.a1} * norm(C) * EPS )' );
- 9941 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' )/ ( ${.a1} * norm(C) * EPS )' );
+ 9942 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C )/ ( ${.a1} * norm(C) * EPS )' );
+ 9941 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' )/ ( ${.a1} * norm(C) * EPS )' );
  9940 FORMAT('${' ' * 3}${.i2}: norm(svd(A) - svd(R)) / ( M * norm(svd(R)) * EPS )' );
  9939 FORMAT('${' ' * 3}${.i2}: norm( A*P - Q*R ) / ( M * norm(A) * EPS )');
- 9938 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q ) / ( M * EPS )' );
+ 9938 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q ) / ( M * EPS )' );
  9937 FORMAT('${' ' * 3}${.i2}: norm( A - R*Q )       / ( M * norm(A) * EPS )' );
  9935 FORMAT('${' ' * 3}${.i2}: norm( B - A * X )   / ( max(M,N) * norm(A) * norm(X) * EPS )' );
- 9934 FORMAT('${' ' * 3}${.i2}: norm( (A*X-B)'' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )' );
+ 9934 FORMAT('${' ' * 3}${.i2}: norm( (A*X-B)\' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )' );
  9933 FORMAT('${' ' * 3}${.i2}: norm(svd(A)-svd(R)) / ( min(M,N) * norm(svd(R)) * EPS )' );
- 9932 FORMAT('${' ' * 3}${.i2}: Check if X is in the row space of A or A''' );
- 9931 FORMAT('${' ' * 3}${.i2}: norm( (A*X-B)'' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )\n${' ' * 7}if TRANS=''N'' and M >= N or TRANS=''T'' and M < N, otherwise\n${' ' * 7}check if X is in the row space of A or A'' (overdetermined case)' );
+ 9932 FORMAT('${' ' * 3}${.i2}: Check if X is in the row space of A or A\'' );
+ 9931 FORMAT('${' ' * 3}${.i2}: norm( (A*X-B)\' *A ) / ( max(M,N,NRHS) * norm(A) * norm(B) * EPS )\n${' ' * 7}if TRANS=\'N\' and M >= N or TRANS=\'T\' and M < N, otherwise\n${' ' * 7}check if X is in the row space of A or A\' (overdetermined case)' );
  9929 FORMAT( ' Test ratios (1-3: ${.a1}TZRZF):' );
  9919 FORMAT('    3-4: same as 1-2${' ' * 3} 5-6: same as 1-2' );
  9920 FORMAT('    11-14: same as 7-10${' ' * 3} 15-18: same as 7-10' );
@@ -788,47 +788,47 @@
  9928 FORMAT('${' ' * 7}where ALPHA = ( 1 + sqrt( 17 ) ) / 8' );
  9927 FORMAT('${' ' * 3}${.i2}: ( Largest element in L ).abs()\n${' ' * 12} - ( 1 / ( 1 - ALPHA ) ) + THRESH' );
  9926 FORMAT('${' ' * 3}${.i2}: Largest 2-Norm of 2-by-2 pivots\n${' ' * 12} - ( ( 1 + ALPHA ) / ( 1 - ALPHA ) ) + THRESH' );
- 8011 FORMAT('${' ' * 3}${.i2}: norm( R - Q''*A ) / ( M * norm(A) * EPS )' );
- 8012 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q ) / ( M * EPS )' );
+ 8011 FORMAT('${' ' * 3}${.i2}: norm( R - Q\'*A ) / ( M * norm(A) * EPS )' );
+ 8012 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q ) / ( M * EPS )' );
  8013 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( M * norm(C) * EPS )' );
- 8014 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( M * norm(C) * EPS )');
+ 8014 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( M * norm(C) * EPS )');
  8015 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( M * norm(C) * EPS )' );
- 8016 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( M * norm(C) * EPS )');
- 8017 FORMAT('${' ' * 3}${.i2}: norm( R - Q''*A ) / ( (M+N) * norm(A) * EPS )' );
- 8018 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q ) / ( (M+N) * EPS )' );
+ 8016 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( M * norm(C) * EPS )');
+ 8017 FORMAT('${' ' * 3}${.i2}: norm( R - Q\'*A ) / ( (M+N) * norm(A) * EPS )' );
+ 8018 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q ) / ( (M+N) * EPS )' );
  8019 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( (M+N) * norm(C) * EPS )' );
- 8020 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( (M+N) * norm(C) * EPS )');
+ 8020 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( (M+N) * norm(C) * EPS )');
  8021 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( (M+N) * norm(C) * EPS )' );
- 8022 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( (M+N) * norm(C) * EPS )');
- 8023 FORMAT('${' ' * 3}${.i2}: norm( L - A*Q'' ) / ( (M+N) * norm(A) * EPS )' );
- 8024 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q'' ) / ( (M+N) * EPS )' );
+ 8022 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( (M+N) * norm(C) * EPS )');
+ 8023 FORMAT('${' ' * 3}${.i2}: norm( L - A*Q\' ) / ( (M+N) * norm(A) * EPS )' );
+ 8024 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q\' ) / ( (M+N) * EPS )' );
  8025 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( (M+N) * norm(C) * EPS )' );
- 8026 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( (M+N) * norm(C) * EPS )');
+ 8026 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( (M+N) * norm(C) * EPS )');
  8027 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( (M+N) * norm(C) * EPS )' );
- 8028 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( (M+N) * norm(C) * EPS )');
- 8029 FORMAT('${' ' * 3}${.i2}: norm( L - A*Q'' ) / ( (M+N) * norm(A) * EPS )' );
- 8030 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q'' ) / ( (M+N) * EPS )' );
+ 8028 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( (M+N) * norm(C) * EPS )');
+ 8029 FORMAT('${' ' * 3}${.i2}: norm( L - A*Q\' ) / ( (M+N) * norm(A) * EPS )' );
+ 8030 FORMAT('${' ' * 3}${.i2}: norm( I - Q*Q\' ) / ( (M+N) * EPS )' );
  8031 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( (M+N) * norm(C) * EPS )' );
- 8032 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( (M+N) * norm(C) * EPS )');
+ 8032 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( (M+N) * norm(C) * EPS )');
  8033 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( (M+N) * norm(C) * EPS )' );
- 8034 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( (M+N) * norm(C) * EPS )');
- 8035 FORMAT('${' ' * 3}${.i2}: norm( R - Q''*A ) / ( (M+N) * norm(A) * EPS )' );
- 8036 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q ) / ( (M+N) * EPS )' );
+ 8034 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( (M+N) * norm(C) * EPS )');
+ 8035 FORMAT('${' ' * 3}${.i2}: norm( R - Q\'*A ) / ( (M+N) * norm(A) * EPS )' );
+ 8036 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q ) / ( (M+N) * EPS )' );
  8037 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( (M+N) * norm(C) * EPS )' );
- 8038 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( (M+N) * norm(C) * EPS )');
+ 8038 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( (M+N) * norm(C) * EPS )');
  8039 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( (M+N) * norm(C) * EPS )' );
- 8040 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( (M+N) * norm(C) * EPS )');
+ 8040 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( (M+N) * norm(C) * EPS )');
 
- 8050 FORMAT('${' ' * 3}${.i2}: norm( R - Q''*A ) / ( M * norm(A) * EPS )' );
- 8051 FORMAT('${' ' * 3}${.i2}: norm( I - Q''*Q ) / ( M * EPS )' );
+ 8050 FORMAT('${' ' * 3}${.i2}: norm( R - Q\'*A ) / ( M * norm(A) * EPS )' );
+ 8051 FORMAT('${' ' * 3}${.i2}: norm( I - Q\'*Q ) / ( M * EPS )' );
  8052 FORMAT('${' ' * 3}${.i2}: norm( Q*C - Q*C ) / ( M * norm(C) * EPS )' );
- 8053 FORMAT('${' ' * 3}${.i2}: norm( Q''*C - Q''*C ) / ( M * norm(C) * EPS )');
+ 8053 FORMAT('${' ' * 3}${.i2}: norm( Q\'*C - Q\'*C ) / ( M * norm(C) * EPS )');
  8054 FORMAT('${' ' * 3}${.i2}: norm( C*Q - C*Q ) / ( M * norm(C) * EPS )' );
- 8055 FORMAT('${' ' * 3}${.i2}: norm( C*Q'' - C*Q'' ) / ( M * norm(C) * EPS )');
+ 8055 FORMAT('${' ' * 3}${.i2}: norm( C*Q\' - C*Q\' ) / ( M * norm(C) * EPS )');
 
  8060 FORMAT('${' ' * 3}${.i2}: 2-norm(svd(A) - svd(R)) / ( max(M,N) * 2-norm(svd(R)) * EPS )' );
  8061 FORMAT('${' ' * 3}${.i2}: 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A) * EPS )');
- 8062 FORMAT('${' ' * 3}${.i2}: 1-norm( I - Q''*Q ) / ( M * EPS )' );
+ 8062 FORMAT('${' ' * 3}${.i2}: 1-norm( I - Q\'*Q ) / ( M * EPS )' );
  8063 FORMAT('${' ' * 3}${.i2}: Returns 1.0e+100, if abs(R(K+1,K+1)) > abs(R(K,K)), where K=1:KFACT-1' );
  8064 FORMAT('${' ' * 3}${.i2}: 1-norm(Q**T * B - Q**T * B ) / ( M * EPS )');
 

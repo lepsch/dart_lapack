@@ -211,11 +211,11 @@ import 'common.dart';
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'DPO';
-                        WRITE( NOUT, FMT = '( '' Matrix types:'' )' );
+                        WRITE( NOUT, FMT = ' Matrix types:' );
                         WRITE( NOUT, FMT = 8979 );
-                        WRITE( NOUT, FMT = '( '' Test ratios:'' )' );
+                        WRITE( NOUT, FMT = ' Test ratios:' );
                         WRITE( NOUT, FMT = 8960 )1;
-                        WRITE( NOUT, FMT = '( '' Messages:'' )' );
+                        WRITE( NOUT, FMT = ' Messages:' );
                      }
 
                      WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 );
@@ -242,7 +242,7 @@ import 'common.dart';
          WRITE( NOUT, FMT = 9994 )NERRS;
       }
 
- 9998 FORMAT( ' UPLO=''${.a1}'', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
+ 9998 FORMAT( ' UPLO=\'${.a1}\', N =${.i5}, NRHS=${.i3}, type ${.i2}, test(${.i2}) =${.g12_5};
  9996 FORMAT(' ${.a6}: ${.i6} out of ${.i6} tests failed to pass the threshold' );
  9995 FORMAT('\n All tests for ${.a6} routines passed the threshold ( ${.i6} tests run)' );
  9994 FORMAT('${' ' * 6}${.i6} error messages recorded' );

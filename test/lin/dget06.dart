@@ -23,7 +23,6 @@ double dget06(RCOND, RCONDC) {
   // .. Intrinsic Functions ..
   // INTRINSIC MAX, MIN
   // ..
-  // .. Executable Statements ..
 
   EPS = dlamch('Epsilon');
   if (RCOND > ZERO) {

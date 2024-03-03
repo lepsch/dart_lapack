@@ -203,7 +203,7 @@ import 'common.dart';
       }
 
  9999 FORMAT('  *** Error(s) or Failure(s) while testing DSFRK ***');
- 9997 FORMAT('      Failure in ${.a5}, CFORM=''${.a1}'', UPLO=''${.a1}'',',' TRANS=''${.a1}'', N=',I3,', K =${.i3}, test=',G12.5);
+ 9997 FORMAT('      Failure in ${.a5}, CFORM=\'${.a1}\', UPLO=\'${.a1}\',',' TRANS=\'${.a1}\', N=',I3,', K =${.i3}, test=',G12.5);
  9996 FORMAT(' All tests for ${.a5} auxiliary routine passed the threshold ( ',I5,' tests run)');
  9995 FORMAT(' ${.a6} auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold');
 

@@ -281,7 +281,7 @@
 
                            // Tests performed
 
-                           WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 );
+                           WRITE( NOUT, FMT = 9993 )'unitary', '\'', 'transpose', ( '\'', I = 1, 4 );
 
                         }
                         NERRS = NERRS + 1;
@@ -438,7 +438,7 @@
 
                // Tests performed
 
-               WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 );
+               WRITE( NOUT, FMT = 9993 )'unitary', '\'', 'transpose', ( '\'', I = 1, 4 );
 
             }
             NERRS = NERRS + 1;

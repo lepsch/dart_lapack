@@ -16,7 +16,6 @@ bool slctes(ZR, ZI, D) {
   // .. Intrinsic Functions ..
   // INTRINSIC SIGN
   // ..
-  // .. Executable Statements ..
 
   if (D == ZERO) {
     SLCTES = (ZR < ZERO);

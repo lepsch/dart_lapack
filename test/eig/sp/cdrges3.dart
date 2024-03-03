@@ -397,7 +397,7 @@
 
                      // Tests performed
 
-                     WRITE( NOUNIT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', J = 1, 8 );
+                     WRITE( NOUNIT, FMT = 9993 )'unitary', '\'', 'transpose', ( '\'', J = 1, 8 );
 
                   }
                   NERRS = NERRS + 1;

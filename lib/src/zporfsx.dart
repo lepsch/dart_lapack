@@ -52,7 +52,7 @@ void zporfsx(
   final PARAMS = PARAMS_.dim();
   final ERR_BNDS_NORM = ERR_BNDS_NORM_.dim(NRHS);
   final ERR_BNDS_COMP = ERR_BNDS_COMP_.dim(NRHS);
-  const ZERO = 0.0, ONE = 1.0;
+  const ZERO = 0.0;
   const ITREF_DEFAULT = 1.0;
   const ITHRESH_DEFAULT = 10.0;
   const COMPONENTWISE_DEFAULT = 1.0;
@@ -195,13 +195,36 @@ void zporfsx(
   // Perform refinement on each right-hand side
 
   if (REF_TYPE != 0) {
-     PREC_TYPE = ilaprec( 'E' );
-      zla_porfsx_extended(PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF,
-      RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM,
-      ERR_BNDS_COMP, WORK, RWORK, WORK(N+1),
-      TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N),
-      RCOND.value, ITHRESH, RTHRESH, UNSTABLE_THRESH,
-      IGNORE_CWISE, INFO );
+    PREC_TYPE = ilaprec('E');
+    zla_porfsx_extended(
+        PREC_TYPE,
+        UPLO,
+        N,
+        NRHS,
+        A,
+        LDA,
+        AF,
+        LDAF,
+        RCEQU,
+        S,
+        B,
+        LDB,
+        X,
+        LDX,
+        BERR,
+        N_NORMS,
+        ERR_BNDS_NORM,
+        ERR_BNDS_COMP,
+        WORK,
+        RWORK,
+        WORK(N + 1),
+        TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N),
+        RCOND.value,
+        ITHRESH,
+        RTHRESH,
+        UNSTABLE_THRESH,
+        IGNORE_CWISE,
+        INFO);
   }
 
   ERR_LBND = max(10.0, sqrt(N.toDouble())) * dlamch('Epsilon');

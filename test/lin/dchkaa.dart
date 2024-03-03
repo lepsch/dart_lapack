@@ -74,7 +74,6 @@ import 'common.dart';
       ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
 
-      // .. Executable Statements ..
 
       S1 = DSECND( );
       LDA = NMAX;

@@ -53,6 +53,7 @@ analyzer:
     - lib/src/sp/**
     - test/eig/sp/**
     - test/lin/sp/**
+    - test/lin/**
     - test/matgen/sp/**
 
 # For more information about the core and recommended set of lints, see

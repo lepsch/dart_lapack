@@ -8,6 +8,8 @@ import 'package:lapack/src/chla_transtype.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_zgbmv2_x.dart';
+import 'package:lapack/src/xblas/blas_zgbmv_x.dart';
 import 'package:lapack/src/zgbtrs.dart';
 import 'package:lapack/src/zla_gbamv.dart';
 import 'package:lapack/src/zla_lin_berr.dart';
@@ -140,11 +142,11 @@ void zla_gbrfsx_extended(
         zgbmv(TRANS, M, N, KL, KU, -Complex.one, AB, LDAB, Y(1, J).asArray(), 1,
             Complex.one, RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_zgbmv_x(TRANS_TYPE, N, N, KL, KU, -Complex.one, AB, LDAB, Y(1, J),
-            1, Complex.one, RES, 1, PREC_TYPE);
+        blas_zgbmv_x(TRANS_TYPE, N, N, KL, KU, -Complex.one, AB, LDAB,
+            Y(1, J).asArray(), 1, Complex.one, RES, 1, PREC_TYPE);
       } else {
-        blas_zgbmv2_x(TRANS_TYPE, N, N, KL, KU, -Complex.one, AB, LDAB, Y(1, J),
-            Y_TAIL, 1, Complex.one, RES, 1, PREC_TYPE);
+        blas_zgbmv2_x(TRANS_TYPE, N, N, KL, KU, -Complex.one, AB, LDAB,
+            Y(1, J).asArray(), Y_TAIL, 1, Complex.one, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.

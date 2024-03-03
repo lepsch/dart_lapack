@@ -8,6 +8,8 @@ import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/ilauplo.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_zsymv2_x.dart';
+import 'package:lapack/src/xblas/blas_zsymv_x.dart';
 import 'package:lapack/src/xerbla.dart';
 import 'package:lapack/src/zla_lin_berr.dart';
 import 'package:lapack/src/zla_syamv.dart';
@@ -162,11 +164,11 @@ void zla_syrfsx_extended(
         zsymv(UPLO, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1, Complex.one,
             RES, 1);
       } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-        blas_zsymv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J), 1, Complex.one,
-            RES, 1, PREC_TYPE);
-      } else {
-        blas_zsymv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J), Y_TAIL, 1,
+        blas_zsymv_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), 1,
             Complex.one, RES, 1, PREC_TYPE);
+      } else {
+        blas_zsymv2_x(UPLO2, N, -Complex.one, A, LDA, Y(1, J).asArray(), Y_TAIL,
+            1, Complex.one, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.

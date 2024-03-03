@@ -17,7 +17,7 @@
       // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Data statements ..
       const SFAC = 9.765625e-4;
-      // .. Executable Statements ..
+
       WRITE (NOUT,99999);
       for (IC = 1; IC <= 13; IC++) { // 20
          ICASE = IC;
@@ -73,7 +73,7 @@
       DATA             L(11)/'SROTMG'/;
       DATA             L(12)/'SROTM '/;
       DATA             L(13)/'SDSDOT'/;
-      // .. Executable Statements ..
+
       WRITE (NOUT,99999) ICASE, L(ICASE);
       return;
 
@@ -131,7 +131,7 @@
       DTRUE[2][8] = 2e10 / (1.5 * D12 * D12);
       DTRUE[1][9] = 32.0 / 7.0;
       DTRUE[2][9] = -16.0 / 7.0;
-      // .. Executable Statements ..
+
 
       // Compute true values which cannot be prestored
       // in decimal notation
@@ -163,7 +163,7 @@
             srotmg(DTEMP(1),DTEMP(2),DTEMP(3),DTEMP(4),DTEMP(5));
             stest(9,DTEMP,DTRUE(1,K),DTRUE(1,K),SFAC);
          } else {
-            WRITE (NOUT,*) ' Shouldn''t be here in CHECK0';
+            WRITE (NOUT,*) ' Shouldn\'t be here in CHECK0';
             STOP;
          }
       } // 20
@@ -203,7 +203,7 @@
       const DTRUE5 = [0.10, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, -0.3, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 0.0, 0.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 0.20, -0.60, 0.30, 5.0, 5.0, 5.0, 5.0, 5.0, 0.03, -0.09, 0.15, -0.03, 6.0, 6.0, 6.0, 6.0, 0.10, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 0.09, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 0.09, 2.0, -0.12, 2.0, 2.0, 2.0, 2.0, 2.0, 0.06, 3.0, -0.18, 5.0, 0.09, 2.0, 2.0, 2.0, 0.03, 4.0, -0.09, 6.0, -0.15, 7.0, -0.03, 3.0];
       const ITRUE2 = [0, 1, 2, 2, 3];
       const ITRUEC = [0, 1, 1, 1, 1];
-      // .. Executable Statements ..
+
       for (INCX = 1; INCX <= 2; INCX++) { // 80
          for (NP1 = 1; NP1 <= 5; NP1++) { // 60
             N = NP1 - 1;
@@ -240,7 +240,7 @@
                } // 100
                itest1(ISAMAX(N,SX,INCX),ITRUEC(NP1));
             } else {
-               WRITE (NOUT,*) ' Shouldn''t be here in CHECK1';
+               WRITE (NOUT,*) ' Shouldn\'t be here in CHECK1';
                STOP;
             }
          } // 60
@@ -319,7 +319,6 @@
 
       const DT19YD = [.5,                  0.0,0.0,0.0,0.0,0.0,0.0, .5,                  0.0,0.0,0.0,0.0,0.0,0.0, .5,                  0.0,0.0,0.0,0.0,0.0,0.0, .5,                  0.0,0.0,0.0,0.0,0.0,0.0, .5,                  0.0,0.0,0.0,0.0,0.0,0.0, .7,                  0.0,0.0,0.0,0.0,0.0,0.0, 1.7,                  0.0,0.0,0.0,0.0,0.0,0.0, -2.6,                  0.0,0.0,0.0,0.0,0.0,0.0, .5,  -.9,   .3,             0.0,0.0,0.0,0.0, .7,  -.9,  1.2,             0.0,0.0,0.0,0.0, 1.7,  -.9,   .5,             0.0,0.0,0.0,0.0, -2.6,  -.9, -1.3,             0.0,0.0,0.0,0.0, .5,  -.9,   .3,   .7,  -.6,   .2,   .8, .7,  -.9,  1.2,   .7, -1.5,   .2,  1.6, 1.7,  -.9,   .5,   .7, -1.6,   .2,  2.4, -2.6,  -.9, -1.3,   .7,  2.9,   .2, -4.0 ];
 
-      // .. Executable Statements ..
 
       for (KI = 1; KI <= 4; KI++) { // 120
          INCX = INCXS(KI);
@@ -412,7 +411,7 @@
                // .. SDSROT ..
                stest1(SDSDOT(N,.1,SX,INCX,SY,INCY), ST7B(KN,KI),SSIZE3(KN),SFAC);
             } else {
-               WRITE (NOUT,*) ' Shouldn''t be here in CHECK2';
+               WRITE (NOUT,*) ' Shouldn\'t be here in CHECK2';
                STOP;
             }
          } // 100
@@ -451,7 +450,7 @@
       const DT9X = [0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, -0.46, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, -0.46, -0.22, 1.06, 0.0, 0.0, 0.0, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.66, 0.1, -0.1, 0.0, 0.0, 0.0, 0.0, 0.96, 0.1, -0.76, 0.8, 0.90, -0.3, -0.02, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.06, 0.1, -0.1, 0.0, 0.0, 0.0, 0.0, 0.90, 0.1, -0.22, 0.8, 0.18, -0.3, -0.02, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.26, 0.0, 0.0, 0.0, 0.0, 0.0, 0.78, 0.26, -0.76, 1.12, 0.0, 0.0, 0.0];
       const DT9Y = [0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, -0.78, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, -0.78, 0.54, 0.08, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, -0.9, -0.12, 0.0, 0.0, 0.0, 0.0, 0.64, -0.9, -0.30, 0.7, -0.18, 0.2, 0.28, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, -1.08, 0.0, 0.0, 0.0, 0.0, 0.0, 0.64, -1.26, 0.54, 0.20, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.04, -0.9, 0.18, 0.0, 0.0, 0.0, 0.0, 0.04, -0.9, 0.18, 0.7, -0.18, 0.2, 0.16];
       const SSIZE2 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17];
-      // .. Executable Statements ..
+
 
       for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI);
@@ -477,7 +476,7 @@
                stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else {
-               WRITE (NOUT,*) ' Shouldn''t be here in CHECK3';
+               WRITE (NOUT,*) ' Shouldn\'t be here in CHECK3';
                STOP;
             }
          } // 40
@@ -609,7 +608,7 @@
       // INTRINSIC ABS
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
-      // .. Executable Statements ..
+
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
@@ -645,7 +644,7 @@
       double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
-      // .. Executable Statements ..
+
 
       SCOMP[1] = SCOMP1;
       STRUE[1] = STRUE1;
@@ -657,7 +656,7 @@
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
       double                            SA, SB;
-      // .. Executable Statements ..
+
       SDIFF = SA - SB;
       return;
       }
@@ -680,7 +679,7 @@
       int               ID;
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, PASS
-      // .. Executable Statements ..
+
 
       if (ICOMP == ITRUE) GO TO 40;
 
@@ -740,7 +739,7 @@
       bool              FIRST;
       // .. Local Arrays ..
       double              VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
-      // .. Executable Statements ..
+
       VALUES[1] = ZERO;
       VALUES[2] = TWO*SAFMIN;
       VALUES[3] = SMLNUM;
@@ -888,7 +887,7 @@
       double              X, Y, YY, Z;
       // .. Intrinsic Functions ..
       // INTRINSIC HUGE
-      // .. Executable Statements ..
+
       Y = HUGE(XX);
       Z = YY;
       if (K == 1) {

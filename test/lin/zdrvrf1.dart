@@ -160,8 +160,8 @@
       }
 
  9999 FORMAT('  *** Error(s) or Failure(s) while testing ZLANHF ***');
- 9998 FORMAT('      Error in ${.a6} with UPLO=''${.a1}'', FORM=''${.a1}'', N=',I5);
- 9997 FORMAT('      Failure in ${.a6} N=',I5,' TYPE=',I5,' UPLO=''${.a1}'', FORM =''${.a1}'', NORM=''${.a1}'', test=',G12.5);
+ 9998 FORMAT('      Error in ${.a6} with UPLO=\'${.a1}\', FORM=\'${.a1}\', N=',I5);
+ 9997 FORMAT('      Failure in ${.a6} N=',I5,' TYPE=',I5,' UPLO=\'${.a1}\', FORM =\'${.a1}\', NORM=\'${.a1}\', test=',G12.5);
  9996 FORMAT(' All tests for ${.a6} auxiliary routine passed the threshold ( ',I5,' tests run)');
  9995 FORMAT(' ${.a6} auxiliary routine:',I5,' out of ',I5, ' tests failed to pass the threshold');
  9994 FORMAT('${' ' * 26}${.i5} error message recorded (${.a6})');

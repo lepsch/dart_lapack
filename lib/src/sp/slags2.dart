@@ -53,7 +53,6 @@ void slags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ) {
   // .. Intrinsic Functions ..
   // INTRINSIC ABS
   // ..
-  // .. Executable Statements ..
 
   if (UPPER) {
     // Input matrices A and B are upper triangular matrices

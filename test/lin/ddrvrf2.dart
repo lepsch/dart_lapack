@@ -151,7 +151,7 @@ import 'common.dart';
       }
 
  9999 FORMAT('  *** Error(s) while testing the RFP conversion routines ***');
- 9998 FORMAT('      Error in RFP,conversion routines N=',I5, ' UPLO=''${.a1}'', FORM =''${.a1}''');
+ 9998 FORMAT('      Error in RFP,conversion routines N=',I5, ' UPLO=\'${.a1}\', FORM =\'${.a1}\'');
  9997 FORMAT(' All tests for the RFP conversion routines passed ( ', I5,' tests run)');
  9996 FORMAT(' RFP conversion routines: ',I5,' out of ',I5, ' error message recorded');
 

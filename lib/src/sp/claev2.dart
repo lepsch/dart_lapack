@@ -26,7 +26,6 @@ void claev2(A, B, C, RT1, RT2, CS1, SN1) {
   // .. Intrinsic Functions ..
   // INTRINSIC ABS, CONJG, REAL
   // ..
-  // .. Executable Statements ..
 
   if ((B).abs() == ZERO) {
     W = ONE;

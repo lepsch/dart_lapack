@@ -1,6 +1,7 @@
 import 'package:lapack/src/blas/lsame.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/slamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void zlat2c(

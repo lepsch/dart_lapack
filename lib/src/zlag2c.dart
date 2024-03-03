@@ -1,5 +1,6 @@
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/install/slamch.dart';
 import 'package:lapack/src/matrix.dart';
 
 void zlag2c(
@@ -21,9 +22,7 @@ void zlag2c(
 
   RMAX = slamch('O');
   for (J = 1; J <= N; J++) {
-    // 20
     for (I = 1; I <= M; I++) {
-      // 10
       if ((A[I][J].toDouble() < -RMAX) ||
           (A[I][J].toDouble() > RMAX) ||
           (A[I][J].imaginary < -RMAX) ||
@@ -32,7 +31,7 @@ void zlag2c(
         return;
       }
       SA[I][J] = A[I][J];
-    } // 10
-  } // 20
+    }
+  }
   INFO.value = 0;
 }

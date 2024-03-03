@@ -23,7 +23,6 @@ double sget06(RCOND, RCONDC) {
   // .. Intrinsic Functions ..
   // INTRINSIC MAX, MIN
   // ..
-  // .. Executable Statements ..
 
   EPS = SLAMCH('Epsilon');
   if (RCOND > ZERO) {

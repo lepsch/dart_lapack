@@ -42,7 +42,7 @@
       // COMMON /SRNAMC(srnamc.SRNAMT
       // .. Data statements ..
       const SNAMES = ['SGEMM ', 'SSYMM ', 'STRMM ', 'STRSM ', 'SSYRK ', 'SSYR2K'];
-      // .. Executable Statements ..
+
 
       // Read name and unit number for summary output file and open file.
 
@@ -306,7 +306,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICH = 'NTC';
-      // .. Executable Statements ..
+
 
       NARGS = 13;
       NC = 0;
@@ -500,7 +500,7 @@
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ${.i2} WAS CHANGED INCORRECTLY *******' );
  9997 FORMAT( ' ${.a6} COMPLETED THE COMPUTATIONAL TESTS (${.i6} CALLS)\n ******* BUT WITH MAXIMUM TEST RATIO${.f8_2} - SUSPECT *******' );
  9996 FORMAT( ' ******* ${.a6} FAILED ON CALL NUMBER:' );
- 9995 FORMAT(' ${.i6}: ${.a6}(''${.a1}'',''${.a1}'',${i3(3, ',')}${.f4_1}, A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
+ 9995 FORMAT(' ${.i6}: ${.a6}(\'${.a1}\',\'${.a1}\',${i3(3, ',')}${.f4_1}, A,${.i3}, B,${.i3},${.f4_1}, C,${.i3}).' );
  9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *******' );
       }
 
@@ -549,7 +549,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICHS = 'LR', ICHU = 'UL';
-      // .. Executable Statements ..
+
 
       NARGS = 12;
       NC = 0;
@@ -781,7 +781,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN', ICHS = 'LR';
-      // .. Executable Statements ..
+
 
       NARGS = 11;
       NC = 0;
@@ -1030,7 +1030,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICHT = 'NTC', ICHU = 'UL';
-      // .. Executable Statements ..
+
 
       NARGS = 10;
       NC = 0;
@@ -1263,7 +1263,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
       const ICHT = 'NTC', ICHU = 'UL';
-      // .. Executable Statements ..
+
 
       NARGS = 12;
       NC = 0;
@@ -1510,7 +1510,7 @@
       // EXTERNAL CHKXER, SGEMM, SSYMM, SSYR2K, SSYRK, STRMM, STRSM
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
-      // .. Executable Statements ..
+
       // OK is set to false by the special version of XERBLA or by CHKXER
       // if anything is wrong.
       OK = true;
@@ -2062,7 +2062,7 @@
       // .. External Functions ..
       //- REAL               SBEG;
       // EXTERNAL SBEG
-      // .. Executable Statements ..
+
       GEN = TYPE == 'GE';
       SYM = TYPE == 'SY';
       TRI = TYPE == 'TR';
@@ -2164,7 +2164,7 @@
       bool               TRANA, TRANB;
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-      // .. Executable Statements ..
+
       TRANA = TRANSA == 'T' || TRANSA == 'C';
       TRANB = TRANSB == 'T' || TRANSB == 'C';
 
@@ -2263,7 +2263,7 @@
       double               RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
-      // .. Executable Statements ..
+
       for (I = 1; I <= LR; I++) { // 10
          if( RI( I ) != RJ( I ) ) GO TO 20;
       } // 10
@@ -2294,7 +2294,7 @@
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
-      // .. Executable Statements ..
+
       UPPER = UPLO == 'U';
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
@@ -2342,7 +2342,7 @@
       int                I, IC, MI;
       // .. Save statement ..
       SAVE               I, IC, MI;
-      // .. Executable Statements ..
+
     if ( RESET ) {
          // Initialize local variables.
          MI = 891;
@@ -2377,7 +2377,7 @@
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
       double               X, Y;
-      // .. Executable Statements ..
+
       SDIFF = X - Y;
       return;
       }
@@ -2395,7 +2395,7 @@
       int                INFOT, NOUT;
       bool               LERR, OK;
       String            srnamc.SRNAMT;
-      // .. Executable Statements ..
+
       if ( !LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT,srnamc.SRNAMT;
          OK = false;
@@ -2432,7 +2432,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUT, OK, LERR
       // COMMON /SRNAMC(srnamc.SRNAMT
-      // .. Executable Statements ..
+
       LERR = true;
       if ( INFO != INFOT ) {
          if ( INFOT != 0 ) {

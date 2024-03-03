@@ -300,7 +300,7 @@
 
                            // Tests performed
 
-                           WRITE( NOUT, FMT = 9992 )'orthogonal', '''', 'transpose', ( '''', I = 1, 4 );
+                           WRITE( NOUT, FMT = 9992 )'orthogonal', '\'', 'transpose', ( '\'', I = 1, 4 );
 
                         }
                         NERRS = NERRS + 1;
@@ -487,7 +487,7 @@
 
                // Tests performed
 
-               WRITE( NOUT, FMT = 9992 )'orthogonal', '''', 'transpose', ( '''', I = 1, 4 );
+               WRITE( NOUT, FMT = 9992 )'orthogonal', '\'', 'transpose', ( '\'', I = 1, 4 );
 
             }
             NERRS = NERRS + 1;

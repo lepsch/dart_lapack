@@ -25,10 +25,9 @@ void main() {
 // -- Reference BLAS test routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-  int IC;
   const SFAC = 9.765625e-4;
   print(' Real BLAS Test Program Results');
-  for (IC = 1; IC <= 13; IC++) {
+  for (var IC = 1; IC <= 13; IC++) {
     combla.ICASE = IC;
     _printHeader();
 
@@ -133,7 +132,6 @@ void check0(final double SFAC) {
   DTRUE[2][8] = 2e10 / (1.5 * D12 * D12);
   DTRUE[1][9] = 32.0 / 7.0;
   DTRUE[2][9] = -16.0 / 7.0;
-  // .. Executable Statements ..
 
   // Compute true values which cannot be prestored
   // in decimal notation
@@ -216,7 +214,7 @@ void check1(final double SFAC) {
   ]);
   final ITRUE2 = Array.fromList([0, 1, 2, 2, 3]);
   final ITRUEC = Array.fromList([0, 1, 1, 1, 1]);
-  // .. Executable Statements ..
+
   for (combla.INCX = 1; combla.INCX <= 2; combla.INCX++) {
     for (NP1 = 1; NP1 <= 5; NP1++) {
       combla.N = NP1 - 1;
@@ -543,7 +541,7 @@ void check2(final double SFAC) {
       [.7, -.9, 1.2, .7, -1.5, .2, 1.6],
       [1.7, -.9, .5, .7, -1.6, .2, 2.4],
       [-2.6, -.9, -1.3, .7, 2.9, .2, -4.0],
-    ] 
+    ]
   ]);
 
   // final DT19XA = DT19X(1, 1, 1),
@@ -554,8 +552,6 @@ void check2(final double SFAC) {
   //     DT19YB = DT19Y(1, 1, 5),
   //     DT19YC = DT19Y(1, 1, 9),
   //     DT19YD = DT19Y(1, 1, 13);
-
-  // .. Executable Statements ..
 
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
@@ -654,7 +650,6 @@ void check2(final double SFAC) {
       }
     }
   }
-  return;
 }
 
 void check3(final double SFAC) {
@@ -742,7 +737,6 @@ void check3(final double SFAC) {
     [1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17],
     [1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17],
   ]);
-  // .. Executable Statements ..
 
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
@@ -768,7 +762,7 @@ void check3(final double SFAC) {
         stest(LENX, SX, STX, SSIZE2(1, KSIZE).asArray(), SFAC);
         stest(LENY, SY, STY, SSIZE2(1, KSIZE).asArray(), SFAC);
       } else {
-        throw UnsupportedError(' Shouldn' 't be here in CHECK3');
+        throw UnsupportedError(' Shouldn\'t be here in CHECK3');
       }
     }
   }

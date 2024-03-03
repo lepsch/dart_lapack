@@ -13,7 +13,6 @@ double slarmm(ANORM, BNORM, CNORM) {
   //- REAL               SLAMCH;
   // EXTERNAL SLAMCH
   // ..
-  // .. Executable Statements ..
 
   // Determine machine dependent parameters to control overflow.
 

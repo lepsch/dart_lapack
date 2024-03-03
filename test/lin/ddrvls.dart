@@ -635,9 +635,9 @@ import 'common.dart';
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' TRANS=''${.a1}'', M=${.i5}, N=${.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
+ 9999 FORMAT( ' TRANS=\'${.a1}\', M=${.i5}, N=${.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
  9998 FORMAT( ' M=${.i5}, N=${.i5}, NRHS=${.i4}, NB=${.i4}, type${.i2}, test(${.i2})=${.g12_5};
- 9997 FORMAT( ' TRANS=''${.a1} M=${.i5}, N=${.i5}, NRHS=${.i4}, MB=', I4,', NB=', I4,', type${.i2}, test(${.i2})=${.g12_5};
+ 9997 FORMAT( ' TRANS=\'${.a1} M=${.i5}, N=${.i5}, NRHS=${.i4}, MB=', I4,', NB=', I4,', type${.i2}, test(${.i2})=${.g12_5};
 
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );

@@ -546,43 +546,43 @@
 
       // SUBNAM, INFO, FACT, N, NRHS, IMAT
 
- 9999 FORMAT( ' *** Error code from ${}=${.i5}, FACT=''${.a1}'', N=${.i5}, NRHS=${.i4}, type ${.i2}');
+ 9999 FORMAT( ' *** Error code from ${}=${.i5}, FACT=\'${.a1}\', N=${.i5}, NRHS=${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, FACT, TRANS, N, KL, KU, NRHS, IMAT
 
- 9998 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=''${.a1}'', TRANS=''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i4}, type ${.i1}');
+ 9998 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=\'${.a1}\', TRANS=\'${.a1}\', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i4}, type ${.i1}');
 
       // SUBNAM, INFO, FACT, TRANS, N, NRHS, IMAT
 
- 9997 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=''${.a1}'', TRANS=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9997 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=\'${.a1}\', TRANS=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, FACT, UPLO, N, KD, NRHS, IMAT
 
- 9996 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
+ 9996 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=\'${.a1}\', UPLO=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, FACT, UPLO, N, NRHS, IMAT
 
- 9995 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=''${.a1}'', UPLO=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9995 FORMAT( ' *** Error code from ${} =', I5, / ' ==> FACT=\'${.a1}\', UPLO=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, FACT, N, NRHS, IMAT
 
- 9994 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9994 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, FACT, TRANS, N, KL, KU, NRHS, IMAT
 
- 9993 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=''${.a1}'', TRANS=''${.a1}'', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i4}, type ${.i1}');
+ 9993 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=\'${.a1}\', TRANS=\'${.a1}\', N=${.i5}, KL=${.i5}, KU=${.i5}, NRHS=${.i4}, type ${.i1}');
 
       // SUBNAM, INFO, INFOE, FACT, TRANS, N, NRHS, IMAT
 
- 9992 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=''${.a1}'', TRANS=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9992 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=\'${.a1}\', TRANS=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, FACT, UPLO, N, KD, NRHS, IMAT
 
- 9991 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=''${.a1}'', UPLO=''${.a1}'', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
+ 9991 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=\'${.a1}\', UPLO=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, FACT, UPLO, N, NRHS, IMAT
 
- 9990 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=''${.a1}'', UPLO=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9990 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> FACT=\'${.a1}\', UPLO=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, M, N, KL, KU, NB, IMAT
 
@@ -610,23 +610,23 @@
 
       // SUBNAM, INFO, INFOE, UPLO, N, IMAT
 
- 9983 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = ''${.a1}'', N =${.i5}, type ${.i2}');
+ 9983 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = \'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, UPLO, N, KD, NB, IMAT
 
- 9982 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = ''${.a1}'', N =${.i5}, KD =${.i5}, NB =${.i4}, type ${.i2}');
+ 9982 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = \'${.a1}\', N =${.i5}, KD =${.i5}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, UPLO, N, KD, NRHS, IMAT
 
- 9981 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO=''${.a1}'', N =${.i5}, KD =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9981 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO=\'${.a1}\', N =${.i5}, KD =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, UPLO, N, NB, IMAT
 
- 9980 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = ''${.a1}'', N =${.i5}, NB =${.i4}, type ${.i2}');
+ 9980 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = \'${.a1}\', N =${.i5}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, INFOE, UPLO, N, NRHS, IMAT
 
- 9979 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = ''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9979 FORMAT( ' *** ${} returned with INFO =${.i5} instead of ', I2, / ' ==> UPLO = \'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, M, N, IMAT
 
@@ -666,79 +666,79 @@
 
       // SUBNAM, INFO, NORM, N, IMAT
 
- 9969 FORMAT( ' *** Error code from ${} =${.i5} for NORM = ''${.a1}'', N =${.i5}, type ${.i2}');
+ 9969 FORMAT( ' *** Error code from ${} =${.i5} for NORM = \'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, NORM, N, KL, KU, IMAT
 
- 9968 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM =''${.a1}'', N =${.i5}, KL =${.i5}, KU =${.i5}, type ${.i2}');
+ 9968 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM =\'${.a1}\', N =${.i5}, KL =${.i5}, KU =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, NORM, UPLO, DIAG, N, IMAT
 
- 9967 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM=''${.a1}'', UPLO =''${.a1}'', DIAG=''${.a1}'', N =${.i5}, type ${.i2}');
+ 9967 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM=\'${.a1}\', UPLO =\'${.a1}\', DIAG=\'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, NORM, UPLO, DIAG, N, KD, IMAT
 
- 9966 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM=''${.a1}'', UPLO =''${.a1}'', DIAG=''${.a1}'', N=${.i5}, KD=${.i5}, type ${.i2}');
+ 9966 FORMAT( ' *** Error code from ${} =', I5, / ' ==> NORM=\'${.a1}\', UPLO =\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}, KD=${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, TRANS, M, N, NRHS, NB, IMAT
 
- 9965 FORMAT( ' *** Error code from ${} =', I5, / ' ==> TRANS = ''${.a1}'', M =${.i5}, N =${.i5}, NRHS =${.i4}, NB =${.i4}, type ${.i2}');
+ 9965 FORMAT( ' *** Error code from ${} =', I5, / ' ==> TRANS = \'${.a1}\', M =${.i5}, N =${.i5}, NRHS =${.i4}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, TRANS, N, KL, KU, NRHS, IMAT
 
- 9964 FORMAT( ' *** Error code from ${}=', I5, / ' ==> TRANS=''${.a1}'', N =${.i5}, KL =${.i5}, KU =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9964 FORMAT( ' *** Error code from ${}=', I5, / ' ==> TRANS=\'${.a1}\', N =${.i5}, KL =${.i5}, KU =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, TRANS, N, NRHS, IMAT
 
- 9963 FORMAT( ' *** Error code from ${} =', I5, / ' ==> TRANS = ''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9963 FORMAT( ' *** Error code from ${} =', I5, / ' ==> TRANS = \'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, DIAG, N, IMAT
 
- 9962 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', DIAG =''${.a1}'', N =${.i5}, type ${.i2}');
+ 9962 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', DIAG =\'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, DIAG, N, NB, IMAT
 
- 9961 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', DIAG =''${.a1}'', N =${.i5}, NB =${.i4}, type ${.i2}');
+ 9961 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', DIAG =\'${.a1}\', N =${.i5}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, IMAT
 
- 9960 FORMAT( ' *** Error code from ${} =${.i5} for UPLO = ''${.a1}'', N =${.i5}, type ${.i2}');
+ 9960 FORMAT( ' *** Error code from ${} =${.i5} for UPLO = \'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, KD, IMAT
 
- 9959 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = ''${.a1}'', N =${.i5}, KD =${.i5}, type ${.i2}');
+ 9959 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = \'${.a1}\', N =${.i5}, KD =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, KD, NB, IMAT
 
- 9958 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = ''${.a1}'', N =${.i5}, KD =${.i5}, NB =${.i4}, type ${.i2}');
+ 9958 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = \'${.a1}\', N =${.i5}, KD =${.i5}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, KD, NRHS, IMAT
 
- 9957 FORMAT( ' *** Error code from ${}=', I5, / ' ==> UPLO = ''${.a1}'', N =${.i5}, KD =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9957 FORMAT( ' *** Error code from ${}=', I5, / ' ==> UPLO = \'${.a1}\', N =${.i5}, KD =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, NB, IMAT
 
- 9956 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = ''${.a1}'', N =${.i5}, NB =${.i4}, type ${.i2}');
+ 9956 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = \'${.a1}\', N =${.i5}, NB =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, N, NRHS, IMAT
 
- 9955 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = ''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9955 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO = \'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, N, KD, NRHS, IMAT
 
- 9954 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
+ 9954 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', N=${.i5}, KD=${.i5}, NRHS=${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, N, NRHS, IMAT
 
- 9953 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', N =${.i5}, NRHS =${.i4}, type ${.i2}');
+ 9953 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', N =${.i5}, NRHS =${.i4}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, IMAT
 
- 9952 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', NORMIN=''${.a1}'', N =${.i5}, type ${.i2}');
+ 9952 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', NORMIN=\'${.a1}\', N =${.i5}, type ${.i2}');
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, KD, IMAT
 
- 9951 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=''${.a1}'', TRANS=''${.a1}'', DIAG=''${.a1}'', NORMIN=''${.a1}'', N=${.i5}, KD=${.i5}, type ${.i2}');
+ 9951 FORMAT( ' *** Error code from ${} =', I5, / ' ==> UPLO=\'${.a1}\', TRANS=\'${.a1}\', DIAG=\'${.a1}\', NORMIN=\'${.a1}\', N=${.i5}, KD=${.i5}, type ${.i2}');
 
       // Unknown type
 

@@ -431,7 +431,7 @@
                         WRITE( NOUNIT, FMT = 9997 );
                         WRITE( NOUNIT, FMT = 9996 );
                         WRITE( NOUNIT, FMT = 9995 )'Symmetric';
-                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 6 );
+                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '\'', 'transpose', ( '\'', J = 1, 6 );
                      }
                      NERRS = NERRS + 1;
                      WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR );

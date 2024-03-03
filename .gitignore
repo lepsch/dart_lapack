@@ -10,6 +10,7 @@ make.inc
 # BLAS testing
 BLAS/TESTING/*.out
 BLAS/TESTING/x*
+test/blas/*.out
 
 # CBLAS
 CBLAS/include/cblas_mangling.h
@@ -30,6 +31,8 @@ TESTING/*.out
 TESTING/*.txt
 !TESTING/CMakeLists.txt
 TESTING/x*
+test/*.out
+test/*.txt
 
 # LAPACKE example
 LAPACKE/example/xexample*

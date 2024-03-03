@@ -527,7 +527,7 @@
 
                      // Tests performed
 
-                     WRITE( NOUNIT, FMT = 9993 )'orthogonal', '''', 'transpose', ( '''', J = 1, 10 );
+                     WRITE( NOUNIT, FMT = 9993 )'orthogonal', '\'', 'transpose', ( '\'', J = 1, 10 );
 
                   }
                   NERRS = NERRS + 1;

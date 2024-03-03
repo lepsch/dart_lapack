@@ -8,6 +8,8 @@ import 'package:lapack/src/chla_transtype.dart';
 import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/install/dlamch.dart';
 import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xblas/blas_zgemv2_x.dart';
+import 'package:lapack/src/xblas/blas_zgemv_x.dart';
 import 'package:lapack/src/zgetrs.dart';
 import 'package:lapack/src/zla_geamv.dart';
 import 'package:lapack/src/zla_lin_berr.dart';
@@ -139,8 +141,8 @@ void zla_gerfsx_extended(
         blas_zgemv_x(TRANS_TYPE, N, N, -Complex.one, A, LDA, Y(1, J).asArray(),
             1, Complex.one, RES, 1, PREC_TYPE);
       } else {
-        blas_zgemv2_x(TRANS_TYPE, N, N, -Complex.one, A, LDA, Y(1, J), Y_TAIL,
-            1, Complex.one, RES, 1, PREC_TYPE);
+        blas_zgemv2_x(TRANS_TYPE, N, N, -Complex.one, A, LDA, Y(1, J).asArray(),
+            Y_TAIL, 1, Complex.one, RES, 1, PREC_TYPE);
       }
 
       // XXX: RES is no longer needed.

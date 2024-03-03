@@ -30,7 +30,6 @@ void sladiv(A, B, C, D, P, Q) {
   // .. Intrinsic Functions ..
   // INTRINSIC ABS, MAX
   // ..
-  // .. Executable Statements ..
 
   AA = A;
   BB = B;
@@ -101,7 +100,6 @@ void sladiv1(A, B, C, D, P, Q) {
   //- REAL               SLADIV2;
   // EXTERNAL SLADIV2
   // ..
-  // .. Executable Statements ..
 
   R = D / C;
   T = ONE / (C + D * R);
@@ -132,7 +130,6 @@ double sladiv2(A, B, C, D, R, T) {
   // .. Local Scalars ..
   double BR;
   // ..
-  // .. Executable Statements ..
 
   if (R != ZERO) {
     BR = B * R;
