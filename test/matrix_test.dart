@@ -1,3 +1,4 @@
+import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 import 'package:test/test.dart';
 
@@ -163,6 +164,16 @@ void main() {
       expect(a[2], 2);
       expect(a[3], 3);
       expect(a[4], 4);
+    });
+
+    test('Complex array', () {
+      final a = Array.fromList(
+          [(1.0, 2.0), (2.0, 3.0), (3.0, 4.0), (4.0, 5.0)].toComplexList());
+      expect(a.first, Complex(1.0, 2.0));
+      expect(a[1], Complex(1, 2));
+      expect(a[2], Complex(2, 3));
+      expect(a[3], Complex(3, 4));
+      expect(a[4], Complex(4, 5));
     });
   });
 

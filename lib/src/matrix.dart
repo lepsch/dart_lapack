@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
 
 const oneIndexedArrayOffset = -1;
 const zeroIndexedArrayOffset = 0;
@@ -31,7 +32,7 @@ abstract interface class Array<T> implements Box<T> {
     List<T> elements, {
     int offset = oneIndexedArrayOffset,
   }) {
-    return _Array.fromSlice(elements, offset: offset);
+    return _Array._(elements, offset: offset);
   }
 
   Array<T> slice(int index, {int? offset});
@@ -65,6 +66,13 @@ extension ArrayExtension<T> on Array<T> {
         }
         return value as T;
 
+      case Complex:
+        var value = this[start] as Complex;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[i] as Complex)) value = this[i] as Complex;
+        }
+        return value as T;
+
       case bool:
         for (var i = start; i <= end; i++) {
           if (this[start] as bool) return true as T;
@@ -84,6 +92,17 @@ extension ArrayExtension<T> on Array<T> {
         for (var i = start + 1; i <= end; i++) {
           if (value < (this[i] as num)) {
             value = this[i] as num;
+            loc = i;
+          }
+        }
+        return loc;
+
+      case Complex:
+        int loc = start;
+        Complex value = this[start] as Complex;
+        for (var i = start + 1; i <= end; i++) {
+          if (value < (this[i] as Complex)) {
+            value = this[i] as Complex;
             loc = i;
           }
         }
@@ -155,7 +174,7 @@ class Matrix<T> implements Box<T> {
     this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _entries = _Array.fromSlice(entries.toRawList(), offset: 0),
+  })  : _entries = _Array._(entries.toRawList(), offset: 0),
         _indexer = indexer;
 
   Matrix<T> call(
@@ -274,38 +293,36 @@ class _Array<T> implements Array<T> {
   final int offset;
   final List<T> _elements;
 
-  @override
-  _Array(
-    int length, {
+  _Array._(
+    this._elements, {
     this.offset = oneIndexedArrayOffset,
-  }) : _elements = switch (T) {
+  });
+
+  @override
+  _Array(int length, {this.offset = oneIndexedArrayOffset})
+      : _elements = switch (T) {
           double => Float64List(length),
           int => Int64List(length),
+          Complex => Float64x2List(length),
           bool => List.filled(length, false),
           _ => throw UnimplementedError(),
         } as List<T>;
 
-  _Array.fromList(
-    List<T> list, {
-    this.offset = oneIndexedArrayOffset,
-  }) : _elements = switch (T) {
+  _Array.fromList(List<T> list, {this.offset = oneIndexedArrayOffset})
+      : _elements = switch (T) {
           double => Float64List.fromList(list as List<double>),
           int => Int64List.fromList(list as List<int>),
+          Complex => Complex64List.fromList(list as List<Complex>),
           bool => [...list],
           _ => throw UnimplementedError(),
         } as List<T>;
-
-  _Array.fromSlice(
-    this._elements, {
-    this.offset = oneIndexedArrayOffset,
-  });
 
   @override
   Array<T> slice(int index, {int? offset}) =>
       _slice(index, offset: offset ?? this.offset);
 
   _Array<T> _slice(int index, {int? offset}) {
-    return _Array.fromSlice(
+    return _Array._(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
               (_elements as Float64List).offsetInBytes +
@@ -317,6 +334,7 @@ class _Array<T> implements Array<T> {
                   (index + this.offset) *
                       (_elements as Int64List).elementSizeInBytes,
             ),
+        Complex => (_elements as Complex64List).slice(index + this.offset),
         bool => _elements is ListSlice
             ? _elements.slice(index + this.offset, _elements.length)
             : ListSlice(_elements, index + this.offset, _elements.length),
@@ -354,7 +372,7 @@ class _Array<T> implements Array<T> {
   @override
   Matrix<T> asMatrix([int ld = 0]) {
     return Matrix.fromSlice(
-      _Array.fromSlice(_elements, offset: 0),
+      _Array._(_elements, offset: 0),
       [ld, 1],
       offset: (x: offset, y: offset),
     );
@@ -425,7 +443,7 @@ class Matrix3d<T> {
     Array<T> entries,
     this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
-  }) : _entries = _Array.fromSlice(entries.toRawList(), offset: 0);
+  }) : _entries = _Array._(entries.toRawList(), offset: 0);
 
   Matrix3d<T> call(
     int i,
@@ -459,5 +477,5 @@ class Matrix3d<T> {
 
   Box<T> box(int i, int j, int k) => this[i][j].box(k);
 
-  Array<T> asArray() => _Array.fromSlice(_entries.toRawList());
+  Array<T> asArray() => _Array._(_entries.toRawList(), offset: offset.x);
 }
