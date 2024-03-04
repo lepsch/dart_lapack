@@ -35,11 +35,11 @@ string T                   Mixed types
 
       final intArray = Array<int>(6);
       await nin.readArray(intArray, 6);
-      expect(intArray.toRawList(), [0,1,2,3,5,9]);
+      expect(intArray.toData(), [0, 1, 2, 3, 5, 9]);
 
       final doubleArray = Array<double>(6);
       await nin.readArray(doubleArray, 6);
-      expect(doubleArray.toRawList(), [0.1, 1.2, 23.4, 0.01, 5, 9]);
+      expect(doubleArray.toData(), [0.1, 1.2, 23.4, 0.01, 5, 9]);
 
       expect(await nin.read2<String, bool>(), ('string', true));
     });

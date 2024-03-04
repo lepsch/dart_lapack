@@ -44,7 +44,7 @@ abstract interface class Array<T> implements Box<T> {
 
   Box<T> box(int index);
 
-  List<T> toRawList();
+  List<T> toData();
 
   Matrix<T> asMatrix([int ld]);
 
@@ -142,18 +142,18 @@ const defaultMatrixIndexer = columnIndexed;
 
 class Matrix<T> implements Box<T> {
   final Array<T> _entries;
-  final List<int> dimensions;
+  final (int, int) dimensions;
   final ({int x, int y}) offset;
   final MatrixIndexer _indexer;
 
-  int get ld => dimensions.first;
+  int get ld => dimensions.$1;
 
   Matrix(
     int m,
     int n, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : dimensions = [m, 1],
+  })  : dimensions = (m, 1),
         _indexer = indexer,
         _entries = _Array<T>(m * n, offset: 0);
 
@@ -167,14 +167,22 @@ class Matrix<T> implements Box<T> {
           ],
         ], offset: 0),
         _indexer = indexer,
-        dimensions = [list.length, 1];
+        dimensions = (list.length, 1);
+
+  Matrix.fromData(
+    List<T> data,
+    this.dimensions, {
+    this.offset = oneIndexedMatrixOffset,
+    MatrixIndexer indexer = defaultMatrixIndexer,
+  })  : _entries = _Array.fromList(data, offset: 0),
+        _indexer = indexer;
 
   Matrix.fromSlice(
     Array<T> entries,
     this.dimensions, {
     this.offset = oneIndexedMatrixOffset,
     MatrixIndexer indexer = defaultMatrixIndexer,
-  })  : _entries = _Array._(entries.toRawList(), offset: 0),
+  })  : _entries = _Array._(entries.toData(), offset: 0),
         _indexer = indexer;
 
   Matrix<T> call(
@@ -184,13 +192,14 @@ class Matrix<T> implements Box<T> {
     ({int x, int y})? offset,
   }) {
     var entries = _entries(
-      _indexer(this.dimensions, [i + this.offset.y, j + this.offset.x]),
+      _indexer([this.dimensions.$1, this.dimensions.$2],
+          [i + this.offset.y, j + this.offset.x]),
       offset: 0,
     );
 
     return Matrix.fromSlice(
       entries,
-      [ld ?? this.ld, 1],
+      (ld ?? this.ld, 1),
       offset: offset ?? this.offset,
       indexer: _indexer,
     );
@@ -200,20 +209,20 @@ class Matrix<T> implements Box<T> {
     return _MatrixArrayAdapter(this, i);
   }
 
-  List<T> toRawList() {
-    return _entries.toRawList();
+  List<T> toData() {
+    return _entries.toData();
   }
 
   Box<T> box(int i, int j) => this[i].box(j);
 
-  Array<T> asArray() => Array.fromSlice(_entries.toRawList());
+  Array<T> asArray() => Array.fromSlice(_entries.toData());
 
   T get first => _entries.first;
 
   set first(T value) => _entries.first = value;
 
   Matrix<T> dim(int ld) =>
-      Matrix.fromSlice(_entries, [ld, 1], offset: offset, indexer: _indexer);
+      Matrix.fromSlice(_entries, (ld, 1), offset: offset, indexer: _indexer);
 
   @override
   T get value => first;
@@ -231,7 +240,7 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   @override
   Array<T> slice(int j, {int? offset}) {
     final slice = _m(i, j);
-    return Array.fromSlice(slice._entries.toRawList(),
+    return Array.fromSlice(slice._entries.toData(),
         offset: offset ?? _m.offset.x);
   }
 
@@ -250,15 +259,15 @@ class _MatrixArrayAdapter<T> implements Array<T> {
   }
 
   @override
-  List<T> toRawList() {
-    return getEntries().toRawList();
+  List<T> toData() {
+    return getEntries().toData();
   }
 
   @override
   Matrix<T> asMatrix([int? ld]) {
     return Matrix.fromSlice(
       getEntries(),
-      ld != null ? [ld, 1] : _m.dimensions,
+      ld != null ? (ld, 1) : _m.dimensions,
       offset: _m.offset,
     );
   }
@@ -365,7 +374,7 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  List<T> toRawList() {
+  List<T> toData() {
     return _elements;
   }
 
@@ -373,14 +382,13 @@ class _Array<T> implements Array<T> {
   Matrix<T> asMatrix([int ld = 0]) {
     return Matrix.fromSlice(
       _Array._(_elements, offset: 0),
-      [ld, 1],
+      (ld, 1),
       offset: (x: offset, y: offset),
     );
   }
 
   @override
   Array<T> dim([int? ld]) => _slice(-offset, offset: offset);
-  // .._elements.length = ld ?? _elements.length;
 
   @override
   T get value => first;
@@ -411,7 +419,7 @@ class _ArrayElementBox<T> implements Box<T> {
 
 class Matrix3d<T> {
   final Array<T> _entries;
-  final List<int> dimensions;
+  final (int, int, int) dimensions;
   final ({int x, int y, int z}) offset;
 
   Matrix3d(
@@ -419,7 +427,7 @@ class Matrix3d<T> {
     int n,
     int o, {
     this.offset = oneIndexedMatrix3dOffset,
-  })  : dimensions = [m, n, 1],
+  })  : dimensions = (m, n, 1),
         _entries = _Array<T>(m * n * o, offset: 0);
 
   Matrix3d.fromList(
@@ -437,13 +445,19 @@ class Matrix3d<T> {
           ],
           offset: 0,
         ),
-        dimensions = [list.length, list[0].length, 1];
+        dimensions = (list.length, list[0].length, 1);
+
+  Matrix3d.fromData(
+    List<T> data,
+    this.dimensions, {
+    this.offset = oneIndexedMatrix3dOffset,
+  }) : _entries = _Array<T>.fromList(data, offset: 0);
 
   Matrix3d.fromSlice(
     Array<T> entries,
     this.dimensions, {
     this.offset = oneIndexedMatrix3dOffset,
-  }) : _entries = _Array._(entries.toRawList(), offset: 0);
+  }) : _entries = _Array._(entries.toData(), offset: 0);
 
   Matrix3d<T> call(
     int i,
@@ -451,8 +465,8 @@ class Matrix3d<T> {
     int k, {
     ({int x, int y, int z}) offset = oneIndexedMatrix3dOffset,
   }) {
-    final ld1 = dimensions[0];
-    final ld2 = dimensions[1];
+    final ld1 = dimensions.$1;
+    final ld2 = dimensions.$2;
     final entries = _entries(
         (i + this.offset.x) +
             (j + this.offset.y) * ld1 +
@@ -462,20 +476,20 @@ class Matrix3d<T> {
   }
 
   Matrix<T> operator [](int i) {
-    final ld1 = dimensions[0];
-    final ld2 = dimensions[1];
+    final ld1 = dimensions.$1;
+    final ld2 = dimensions.$2;
     return Matrix.fromSlice(
       _entries(i + offset.x, offset: 0),
-      [ld2, ld1],
+      (ld2, ld1),
       offset: (x: offset.y, y: offset.z),
     );
   }
 
-  List<T> toRawList() {
-    return _entries.toRawList();
+  List<T> toData() {
+    return _entries.toData();
   }
 
   Box<T> box(int i, int j, int k) => this[i][j].box(k);
 
-  Array<T> asArray() => _Array._(_entries.toRawList(), offset: offset.x);
+  Array<T> asArray() => _Array._(_entries.toData(), offset: offset.x);
 }

@@ -10,7 +10,7 @@ void main() {
       expect(a[2], 2);
       expect(a[3], 3);
       expect(a[4], 4);
-      expect(a.toRawList(), [1, 2, 3, 4]);
+      expect(a.toData(), [1, 2, 3, 4]);
     });
 
     test('offset', () {
@@ -19,7 +19,7 @@ void main() {
       expect(a[11], 2);
       expect(a[12], 3);
       expect(a[13], 4);
-      expect(a.toRawList(), [1, 2, 3, 4]);
+      expect(a.toData(), [1, 2, 3, 4]);
     });
 
     test('sliced offset', () {
@@ -27,7 +27,7 @@ void main() {
       final b = a.slice(12, offset: 0);
       expect(b[0], 3);
       expect(b[1], 4);
-      expect(b.toRawList(), [3, 4]);
+      expect(b.toData(), [3, 4]);
     });
 
     test('maxval', () {
@@ -59,12 +59,12 @@ void main() {
       expect(a[1], 2);
       expect(a[2], 3);
       expect(a[3], 4);
-      expect(a.toRawList(), [2, 3, 4]);
+      expect(a.toData(), [2, 3, 4]);
 
       final b = a(2);
       expect(b[1], 3);
       expect(b[2], 4);
-      expect(b.toRawList(), [3, 4]);
+      expect(b.toData(), [3, 4]);
     });
 
     test('sliced assignment', () {
@@ -184,7 +184,7 @@ void main() {
         [4, 5, 6],
         [7, 8, 9],
       ]);
-      expect(m.toRawList(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
+      expect(m.toData(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
       expect(m[1][1], 1);
       expect(m[1][2], 2);
       expect(m[1][3], 3);
@@ -201,7 +201,7 @@ void main() {
         [1, 2, 3, 4, 5, 6],
         [7, 8, 9, 10, 11, 12],
       ]);
-      expect(m.toRawList(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
+      expect(m.toData(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
       expect([for (var i = 1; i <= 6; i++) m[1][i]], [1, 2, 3, 4, 5, 6]);
       expect([for (var i = 1; i <= 6; i++) m[2][i]], [7, 8, 9, 10, 11, 12]);
     });
@@ -215,7 +215,7 @@ void main() {
         [5, 11],
         [6, 12],
       ]);
-      expect(m.toRawList(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+      expect(m.toData(), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
       expect([m[1][1], m[1][2]], [1, 7]);
       expect([m[2][1], m[2][2]], [2, 8]);
       expect([m[3][1], m[3][2]], [3, 9]);
@@ -233,7 +233,7 @@ void main() {
         x: -1,
         y: -10
       ));
-      expect(m.toRawList(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
+      expect(m.toData(), [1, 4, 7, 2, 5, 8, 3, 6, 9]);
       expect(m[10][1], 1);
       expect(m[10][2], 2);
       expect(m[10][3], 3);
@@ -253,7 +253,7 @@ void main() {
         x: -100,
         y: -10
       ));
-      expect(m.toRawList(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
+      expect(m.toData(), [1, 7, 2, 8, 3, 9, 4, 10, 5, 11, 6, 12]);
       expect([for (var i = 100; i < 106; i++) m[10][i]], [1, 2, 3, 4, 5, 6]);
       expect([for (var i = 100; i < 106; i++) m[11][i]], [7, 8, 9, 10, 11, 12]);
     });
@@ -610,7 +610,7 @@ void main() {
           [37, 38, 39],
         ],
       ]);
-      expect(m.toRawList(), [
+      expect(m.toData(), [
         11, 21, 31, 14, 24, 34, 17, 27, 37, 12, 22, 32, 15, //
         25, 35, 18, 28, 38, 13, 23, 33, 16, 26, 36, 19, 29, 39
       ]);
@@ -677,7 +677,7 @@ void main() {
         ],
       ]);
 
-      expect(m.toRawList(), [
+      expect(m.toData(), [
         11, 21, 31, 41, 13, 23, 33, 43, 15, 25, 35, 45, //
         12, 22, 32, 42, 14, 24, 34, 44, 16, 26, 36, 46
       ]);
