@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:lapack/src/box.dart';
+import 'package:lapack/src/complex.dart';
 import 'package:lapack/src/matrix.dart';
 
 class EOF extends Error {}
@@ -150,8 +151,16 @@ class Nin {
         })),
       bool => s.contains(RegExp('[Tt]')),
       String => s,
+      Complex => _parseComplex(s),
       _ => throw UnimplementedError(),
     } as T;
+  }
+
+  Complex _parseComplex(String s) {
+    // Remove parenthesis
+    s = s.substring(1, s.length - 1);
+    final [real, imaginary] = s.split(',');
+    return Complex(_parse<double>(real), _parse<double>(imaginary));
   }
 }
 

@@ -51,6 +51,7 @@ analyzer:
     - lib/src/variants/lu/rec/sp/**
     - lib/src/variants/qr/ll/sp/**
     - lib/src/sp/**
+    - test/blas/sp/**
     - test/eig/sp/**
     - test/lin/sp/**
     - test/lin/**

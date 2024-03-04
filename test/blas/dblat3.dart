@@ -176,7 +176,7 @@ void main() async {
       C[J][1] = ZERO;
     }
     for (J = 1; J <= N; J++) {
-      CC[J] = J * ((J + 1) * J) / 2 - ((J + 1) * J * (J - 1)) / 3;
+      CC[J] = (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
     }
     // CC holds the exact result. On exit from DMMCH CT holds
     // the result computed by DMMCH.
@@ -209,7 +209,7 @@ void main() async {
       AB[1][NMAX + J] = N - J + 1;
     }
     for (J = 1; J <= N; J++) {
-      CC[N - J + 1] = J * ((J + 1) * J) / 2 - ((J + 1) * J * (J - 1)) / 3;
+      CC[N - J + 1] = (J * ((J + 1) * J) ~/ 2 - ((J + 1) * J * (J - 1)) ~/ 3).toDouble();
     }
     TRANSA = 'T';
     TRANSB = 'N';
@@ -247,7 +247,6 @@ void main() async {
         infoc.INFOT = 0;
         infoc.OK.value = true;
         FATAL.value = false;
-        // GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM;
         switch (ISNUM) {
           case 1:
             // Test DGEMM, 01.
@@ -310,6 +309,7 @@ void main() async {
                 G);
             break;
           case 3:
+          case 4:
             // Test DTRMM, 03, DTRSM, 04.
             _dchk3(
                 SNAMES[ISNUM - 1],
@@ -335,7 +335,7 @@ void main() async {
                 G,
                 C);
             break;
-          case 4:
+          case 5:
             // Test DSYRK, 05.
             _dchk4(
                 SNAMES[ISNUM - 1],
@@ -365,7 +365,7 @@ void main() async {
                 CT,
                 G);
             break;
-          case 5:
+          case 6:
             // Test DSYR2K, 06.
             _dchk5(
                 SNAMES[ISNUM - 1],
@@ -401,7 +401,6 @@ void main() async {
     }
 
     if (FATAL.value && SFATAL) {
-      // }
       NOUT.print9985();
       return;
     }
@@ -1639,11 +1638,11 @@ void _dchk4(
   final Array<double> CT_,
   final Array<double> G_,
 ) {
-// Tests DSYRK.
+  // Tests DSYRK.
 
-// Auxiliary routine for test program for Level 3 Blas.
+  // Auxiliary routine for test program for Level 3 Blas.
 
-// -- Written on 8-February-1989.
+  // -- Written on 8-February-1989.
   // Jack Dongarra, Argonne National Laboratory.
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2349,20 +2348,20 @@ class _Dchk5Nout extends _DblatNoutBase {
 }
 
 void _dchke(final int ISNUM, final String SRNAMT, final Nout NOUT) {
-// Tests the error exits from the Level 3 Blas.
-// Requires a special version of the error-handling routine XERBLA.
-// A, B and C should not need to be defined.
+  // Tests the error exits from the Level 3 Blas.
+  // Requires a special version of the error-handling routine XERBLA.
+  // A, B and C should not need to be defined.
 
-// Auxiliary routine for test program for Level 3 Blas.
+  // Auxiliary routine for test program for Level 3 Blas.
 
-// -- Written on 8-February-1989.
+  // -- Written on 8-February-1989.
   // Jack Dongarra, Argonne National Laboratory.
   // Iain Duff, AERE Harwell.
   // Jeremy Du Croz, Numerical Algorithms Group Ltd.
   // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-// 3-19-92:  Initialize ALPHA and BETA  (eca)
-// 3-19-92:  Fix argument 12 in calls to SSYMM with infoc.INFOT = 9  (eca)
+  // 3-19-92:  Initialize ALPHA and BETA  (eca)
+  // 3-19-92:  Fix argument 12 in calls to SSYMM with infoc.INFOT = 9  (eca)
   const ONE = 1.0, TWO = 2.0;
   double ALPHA, BETA;
   final A = Matrix<double>(2, 1),
@@ -2938,7 +2937,7 @@ void _dmake(
         A[I][J] = _dbeg(RESET) + TRANSL;
         if (I != J) {
           // Set some elements to zero
-          if (N > 3 && J == N / 2) A[I][J] = ZERO;
+          if (N > 3 && J == N ~/ 2) A[I][J] = ZERO;
           if (SYM) {
             A[J][I] = A[I][J];
           } else if (TRI) {

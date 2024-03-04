@@ -10,6 +10,7 @@ make.inc
 # BLAS testing
 BLAS/TESTING/*.out
 BLAS/TESTING/x*
+test/blas/*.SNAP
 test/blas/*.out
 
 # CBLAS

@@ -485,7 +485,6 @@ void main() async {
     }
 
     NOUT.print9982();
-    return;
   } finally {
     if (TRACE) await NTRA.close();
     await NOUT.close();
@@ -3540,14 +3539,14 @@ double _dbeg(final Box<bool> RESET) {
   return (_dbegI - 500) / 1001.0;
 }
 
-double _ddiff(final double X, final double Y) {
-  // Auxiliary routine for test program for Level 2 Blas.
+// double _ddiff(final double X, final double Y) {
+//   // Auxiliary routine for test program for Level 2 Blas.
 
-  // -- Written on 10-August-1987.
-  // Richard Hanson, Sandia National Labs.
+//   // -- Written on 10-August-1987.
+//   // Richard Hanson, Sandia National Labs.
 
-  return X - Y;
-}
+//   return X - Y;
+// }
 
 void _chkxer(
   String SRNAMT,
