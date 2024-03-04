@@ -226,7 +226,7 @@ void check1(final double SFAC) {
         [-0.5, 7.0],
         [-0.1, 3.0],
       ].flattened.toList()),
-      [8, 5, 2]);
+      (8, 5, 2));
   final DVR = Array.fromList([8.0, -7.0, 9.0, 5.0, 9.0, 8.0, 7.0, 7.0]);
   final DTRUE1 = Array.fromList([0.0, 0.3, 0.5, 0.7, 0.6]);
   final DTRUE3 = Array.fromList([0.0, 0.3, 0.7, 1.1, 1.0]);
@@ -273,7 +273,7 @@ void check1(final double SFAC) {
         [-0.15, 7.0],
         [-0.03, 3.0],
       ].flattened.toList()),
-      [8, 5, 2]);
+      (8, 5, 2));
   final ITRUE2 = Array.fromList([0, 1, 2, 2, 3]);
   final ITRUEC = Array.fromList([0, 1, 1, 1, 1]);
 
@@ -393,7 +393,7 @@ void check2(final double SFAC) {
         [0.0, 0.68, -0.9, 0.33],
         [0.7, -0.75, 0.2, 1.04],
       ].flattened.toList()),
-      [7, 4, 4]);
+      (7, 4, 4));
   final DT10X = Matrix3d.fromSlice(
       Array.fromList([
         [0.6, 0.0, 0.0, 0.0],
@@ -425,7 +425,7 @@ void check2(final double SFAC) {
         [0.0, 0.5, 0.3, -0.6],
         [0.8, 0.0, 0.0, 0.0]
       ].flattened.toList()),
-      [7, 4, 4]);
+      (7, 4, 4));
   final DT10Y = Matrix3d.fromSlice(
       Array.fromList([
         [0.5, 0.0, 0.0, 0.0],
@@ -457,7 +457,7 @@ void check2(final double SFAC) {
         [0.0, 0.6, -0.9, 0.1],
         [0.7, -0.5, 0.2, 0.8],
       ].flattened.toList()),
-      [7, 4, 4]);
+      (7, 4, 4));
   final SSIZE1 = Array.fromList([0.0, 0.3, 1.6, 3.2]);
   final SSIZE2 = Array.fromList([
     [0.0, 0.0],
@@ -603,7 +603,7 @@ void check2(final double SFAC) {
           0.0, 3.5, .8, -3.1, 4.8, 0.0, 0.0, 0.0
         ],
       ].flattened.toList()),
-      [7, 4, 16]);
+      (7, 4, 16));
   // TRUE Y RESULTS FOR ROTATIONS DROTM
   final DT19Y = Matrix3d.fromSlice(
       Array.fromList([
@@ -720,7 +720,7 @@ void check2(final double SFAC) {
           2.4, -2.6, -.9, -1.3, .7, 2.9, .2, -4.0
         ],
       ].flattened.toList()),
-      [7, 4, 16]);
+      (7, 4, 16));
 
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
@@ -882,9 +882,9 @@ void check3(final double SFAC) {
         [0.0, 0.78, 0.26, -0.76],
         [1.12, 0.0, 0.0, 0.0],
       ].flattened.toList()),
-      [7, 4, 4]);
-  final DT9Y = Matrix3d.fromSlice(
-      Array.fromList([
+      (7, 4, 4));
+  final DT9Y = Matrix3d.fromData(
+      [
         [0.5, 0.0, 0.0, 0.0],
         [0.0, 0.0, 0.0, 0.04],
         [0.0, 0.0, 0.0, 0.0],
@@ -913,25 +913,16 @@ void check3(final double SFAC) {
         [0.18, 0.0, 0.0, 0.0],
         [0.0, 0.04, -0.9, 0.18],
         [0.7, -0.18, 0.2, 0.16]
-      ].flattened.toList()),
-      [7, 4, 4]);
-  final SSIZE2 = Array.fromList([
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [0.0, 0.0],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-    [1.17, 1.17],
-  ].flattened.toList())
-      .asMatrix(14);
+      ].flattened.toList(),
+      (7, 4, 4));
+  final SSIZE2 = Matrix.fromData([
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, //
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, //
+    1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, 1.17, //
+    1.17, 1.17, 1.17, 1.17, 1.17, 1.17, //
+  ], (
+    14, 1 //
+  ));
 
   for (KI = 1; KI <= 4; KI++) {
     combla.INCX = INCXS[KI];
