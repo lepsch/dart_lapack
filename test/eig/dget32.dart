@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/dlasy2.dart';
 import 'package:lapack/src/install/dlamch.dart';
@@ -19,7 +20,6 @@ void dget32(
   bool LTRANL, LTRANR;
   int IB, IB1, IB2, IB3, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2;
   double BIGNUM, DEN, EPS, RES, SGN, SMLNUM, TMP, TNRM, XNRM;
-  // int                ITVAL( 2, 2, 8 );
   final B = Matrix<double>(2, 2),
       TL = Matrix<double>(2, 2),
       TR = Matrix<double>(2, 2),
@@ -27,16 +27,14 @@ void dget32(
   final VAL = Array<double>(3);
   final INFO = Box(0);
   final XNORM = Box(0.0), SCALE = Box(0.0);
-  final ITVAL = Matrix3d.fromList([
-    [
-      [8, 4, 2, 1, 4, 8, 1, 2],
-      [2, 1, 8, 4, 1, 2, 4, 8]
-    ],
-    [
-      [9, 4, 2, 1, 4, 9, 1, 2],
-      [2, 1, 9, 4, 1, 2, 4, 9]
-    ],
-  ]);
+  final ITVAL = Matrix3d.fromSlice(
+      Array.fromList([
+        [8, 4, 2, 1, 4, 8, 1, 2],
+        [2, 1, 8, 4, 1, 2, 4, 8],
+        [9, 4, 2, 1, 4, 9, 1, 2],
+        [2, 1, 9, 4, 1, 2, 4, 9],
+      ].flattened.toList()),
+      [2, 2, 8]);
 
   // Get machine parameters
 
