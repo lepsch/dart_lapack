@@ -7,6 +7,7 @@ class _Combla {
   int N = 0;
   int INCX = 0;
   int INCY = 0;
+  int MODE = 0;
   bool PASS = false;
 }
 

@@ -16,6 +16,7 @@ import 'package:lapack/src/blas/dswap.dart';
 import 'package:lapack/src/blas/idamax.dart';
 import 'package:lapack/src/box.dart';
 import 'package:lapack/src/intrinsics/epsilon.dart';
+import 'package:lapack/src/intrinsics/huge.dart';
 import 'package:lapack/src/intrinsics/random_number.dart';
 import 'package:lapack/src/format_extensions.dart';
 import 'package:lapack/src/matrix.dart';
@@ -1336,18 +1337,14 @@ void db1nrm2(final int N, final int INCX, final double THRESH) {
 }
 
 double dxvals(final double XX, final int K) {
-  double X = 0,
-      // Y,
-      YY = 0,
-      Z;
-  // Y = huge(XX);
-  Z = YY;
+  final Y = huge(XX);
+  final Z = Y * Y;
   if (K == 1) {
-    X = -Z;
+    return -Z;
   } else if (K == 2) {
-    X = Z;
+    return Z;
   } else if (K == 3) {
-    X = Z / Z;
+    return Z / Z;
   }
-  return X;
+  throw UnimplementedError();
 }

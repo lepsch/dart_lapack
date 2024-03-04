@@ -28,6 +28,8 @@ abstract interface class Array<T> implements Box<T> {
     return _Array.fromList(list, offset: offset);
   }
 
+  factory Array.fromData(List<T> list, {int offset}) = Array.fromList;
+
   factory Array.fromSlice(
     List<T> elements, {
     int offset = oneIndexedArrayOffset,
@@ -312,7 +314,7 @@ class _Array<T> implements Array<T> {
       : _elements = switch (T) {
           double => Float64List(length),
           int => Int64List(length),
-          Complex => Float64x2List(length),
+          Complex => Complex64List(length),
           bool => List.filled(length, false),
           _ => throw UnimplementedError(),
         } as List<T>;

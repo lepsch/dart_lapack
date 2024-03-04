@@ -133,6 +133,18 @@ extension IntIterableFormatExtension on Iterable<int> {
       (len != null ? take(len) : this).map((n) => n.i(w)).join(separator);
 
   String i3([int? len, String separator = '']) => i(3, len, separator);
+  String i5([int? len, String separator = '']) => i(5, len, separator);
+  String i36([int? len, String separator = '']) => i(36, len, separator);
+}
+
+extension DoubleIterableFormatExtension on Iterable<double> {
+  String d(int w, [int d = 0,int? len, String separator = '']) =>
+      (len != null ? take(len) : this).map((n) => n.d(w)).join(separator);
+
+  String d3([int? len, String separator = '']) => d(3, 0, len, separator);
+  String d5([int? len, String separator = '']) => d(5, 0, len, separator);
+  String d12_4([int? len, String separator = '']) => d(12,4, len, separator);
+  String d36_8([int? len, String separator = '']) => d(36, 8, len, separator);
 }
 
 extension IntArrayFormatExtension on Array<int> {
